@@ -1,0 +1,34 @@
+###  Fortress Example Schema for training     #################
+###  IANA PRIVATE ENTERPRISE NUMBERS
+###  38088
+###  Joshua Tree Software, LLC
+###  Fortress Attributes: 1.3.6.1.4.1.38088.1.10*
+###  Fortress Object Classes: 1.3.6.1.4.1.38088.2.10*
+###  Fortress AUX Object Classes: 1.3.6.1.4.1.38088.3.10*
+###########################################################
+
+# Fortress Attributes Single Value String:
+
+# type STRING, SINGLE VALUE
+attributetype ( 1.3.6.1.4.1.1.38088.1.101 NAME 'oamExampleName'
+	EQUALITY caseIgnoreMatch
+	SUBSTR caseIgnoreSubstringsMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+
+
+## Fortress Object class definitions:
+
+
+objectclass	( 1.3.6.1.4.1.38088.2.101
+    NAME 'oamExamples'
+	DESC 'Fortress Role Object Class'
+    SUP organizationalrole
+    STRUCTURAL
+	MUST (
+		oamId $
+		oamExampleName
+		)
+    MAY (
+		description
+		)
+	)		

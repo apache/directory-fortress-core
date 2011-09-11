@@ -1,0 +1,559 @@
+<!--
+  Copyright © 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+  Licensed to Joshua Tree Software, LLC under New BSD license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  JTS licenses this file to You under the New BSD License
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.jtstools.com
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project name="Fortress Core" default="build" basedir=".">
+
+   <target name="init">
+      <tstamp/>
+
+       <!-- ########### BEGIN NON-USER DEFINED properties ########################### -->
+       <!-- read user defined properties from the build.properties -->
+       <property name="component-propfile" value="${basedir}/build.properties"/>
+       <property file="${component-propfile}"/>
+
+       <!-- read properties from the ${user.home}/propfile, if any -->
+       <property name="user-propfile" value="${user.home}/build.properties"/>
+       <property file="${user-propfile}"/>
+
+       <!-- ########### Project specific properties ########################### -->
+       <property name="project.name" value="Fortress Identity Access Management SDK"/>
+       <property name="name" value="fortress"/>
+       <property name="version" value="1.0.0-rc3"/>
+       <property name="title" value="Fortress Identity and Access Management LDAP SDK for Java ${version}"/>
+       <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
+       <property name="vendor" value="Joshua Tree Software"/>
+       <property name="package" value="com.jts.fortress.*"/>
+       <property name="package.samples" value="com.jts.fortress.samples"/>
+       <property name="images.dir" value="${basedir}/images"/>
+
+       <!-- ########### Env specific properties ########################### -->
+       <property name="src.dir" value="${basedir}/src"/>
+       <property name="lib.dir" value="${basedir}/lib"/>
+       <property name="src.java.dir" value="${src.dir}/java"/>
+       <property name="src.test.dir" value="${src.dir}/test"/>
+
+       <property name="build.dir" value="${basedir}/build"/>
+       <property name="build.classes.dir" value="${build.dir}/classes"/>
+       <property name="build.test-classes.dir" value="${build.dir}/test-classes"/>
+       <property name="dist.dir" value="${basedir}/dist"/>
+       <property name="dist.jar" value="${dist.dir}/${name}-${version}.jar"/>
+       <property name="dist.test.jar" value="${dist.dir}/${name}Tst-${version}.jar"/>
+       <property name="src.dist.zip" value="${dist.dir}/${name}Src-${version}.zip"/>
+       <property name="src.test.dist.zip" value="${dist.dir}/${name}TestSrc-${version}.zip"/>
+       <property name="src.samples.dist.zip" value="${dist.dir}/${name}SamplesSrc-${version}.zip"/>
+       <property name="samples.dist.zip" value="${dist.dir}/${name}Samples-${version}.zip"/>
+
+       <!-- ########### Fortress Dependencies ########################### -->
+       <property name="config.dir" value="${basedir}/config"/>
+       <property name="config.bootstrap.dir" value="${config.dir}/bootstrap"/>
+       <property name="commons-config.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
+       <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
+       <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
+       <property name="commons-pool.jar" value="${lib.dir}/commons-pool-1.5.2.jar"/>
+       <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
+       <property name="unboundsdk.jar" value="${lib.dir}/unboundid-ldapsdk-se.jar"/>
+       <property name="jgraph.jar" value="${lib.dir}/jgrapht-jdk1.6.jar"/>
+       <property name="log4j.jar" value="${lib.dir}/log4j-1.2.16.jar"/>
+       <property name="junit.jar" value="${lib.dir}/junit-4.9.jar"/>
+       <property name="jasypt.jar" value="${lib.dir}/jasypt-1.8.jar"/>
+
+       <!-- ########### Test properties ########################### -->
+       <property name="test.sample.entry" value="com.jts.fortress.samples.AllSamplesJUnitTest"/>
+       <property name="test.regression.entry"  value="com.jts.fortress.rbac.FortressJUnitTest"/>
+       <property name="test.failonerror" value="false" />
+       <property name="test.showoutput" value="yes" />
+
+       <property name="ldap.dir" value="${basedir}/ldap"/>
+       <property name="ldap.setup.dir" value="${ldap.dir}/setup"/>
+       <property name="ldap.schema.dir" value="${ldap.dir}/schema"/>
+       <property name="slapd.schema.dir" value="${slapd.dir}/schema"/>
+
+       <property name="src.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData-src.xml"/>
+       <property name="dst.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData.xml"/>
+       <property name="load.demo.script" value="${ldap.setup.dir}/FortressDemoUsers.xml"/>
+
+       <property name="stop.slapd.script" value="${ldap.setup.dir}/stopSlapd.sh"/>
+       <property name="start.slapd.script" value="${ldap.setup.dir}/startSlapd.sh"/>
+       <property name="uninstall.slapd.script" value="${ldap.setup.dir}/uninstall.sh"/>
+       <property name="install.slapd.script" value="${ldap.setup.dir}/install.sh"/>
+       <property name="source.slapd.conf" value="${ldap.dir}/slapd.conf.src"/>
+       <property name="target.slapd.conf" value="${ldap.dir}/slapd.conf"/>
+       <property name="dst.slapd.conf" value="${slapd.dir}/slapd.conf"/>
+       <property name="source.fortress.schema" value="${ldap.schema.dir}/fortress.schema"/>
+       <property name="target.fortress.schema" value="${slapd.schema.dir}/fortress.schema"/>
+       <property name="db.cfg" value="${ldap.dir}/DB_CONFIG"/>
+       <property name="src.remote.conf" value="${config.dir}/fortress.properties.src"/>
+       <property name="dst.remote.conf" value="${config.dir}/fortress.properties"/>
+       <property name="src.bootstrap.conf" value="${config.dir}/bootstrap/fortress.properties.src"/>
+       <property name="dst.bootstrap.conf" value="${config.dir}/bootstrap/fortress.properties"/>
+
+       <!-- ########### Javadoc properties ########################### -->
+       <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
+       <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
+       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2011 Joshua Tree Software, LLC. All Rights Reserved.  Generated ${TODAY}&lt;/small&gt;"/>
+       <property name="javadoc.overview" value="${src.java.dir}/com/jts/fortress/overview.html" />
+       <property name="javadoc.dist.zip" value="${dist.dir}/${name}Doc-${version}.zip"/>
+       <property name="javadoc.stylesheet" value="${src.java.dir}/com/jts/fortress/fortress-javadoc.css" />
+
+       <property name="javadoc.samples.dir" value="${dist.dir}/docs/samples"/>
+       <property name="javadoc.samples.images.dir" value="${javadoc.samples.dir}/images"/>
+       <property name="javadoc.samples.dist.zip" value="${dist.dir}/${name}SamplesDoc-${version}.zip"/>
+       <property name="javadoc.samples.overview" value="${src.test.dir}/com/jts/fortress/samples/overview.html" />
+
+       <property name="javac.optimize" value="false"/>
+       <property name="javac.debug" value="true"/>
+       <property name="javac.deprecation" value="true"/>
+
+       <!-- ########### Define classpaths ########################### -->
+       <path id="build.class.path">
+           <pathelement location="${build.classes.dir}"/>
+           <pathelement location="${jgraph.jar}"/>
+           <pathelement location="${unboundsdk.jar}"/>
+           <pathelement location="${junit.jar}"/>
+           <pathelement location="${log4j.jar}"/>
+           <pathelement location="${commons-config.jar}"/>
+           <pathelement location="${commons-lang.jar}"/>
+           <pathelement location="${commons-pool.jar}"/>
+           <pathelement location="${jasypt.jar}"/>
+       </path>
+
+       <!-- This is used for the JUnit Tests -->
+       <path id="test.class.path">
+           <path location="${config.dir}"/>
+           <pathelement location="${build.test-classes.dir}"/>
+           <pathelement location="${dist.jar}"/>
+           <pathelement location="${jgraph.jar}"/>
+           <pathelement location="${unboundsdk.jar}"/>
+           <pathelement location="${junit.jar}"/>
+           <pathelement location="${log4j.jar}"/>
+           <pathelement location="${commons-config.jar}"/>
+           <pathelement location="${commons-lang.jar}"/>
+           <pathelement location="${commons-pool.jar}"/>
+           <pathelement location="${commons-logging.jar}"/>
+           <pathelement location="${commons-collections.jar}"/>
+           <pathelement location="${jasypt.jar}"/>
+       </path>
+
+       <!-- This is used before the initial loads have stored properties on the ldap server. -->
+       <path id="bootstrap.class.path">
+           <path location="${config.bootstrap.dir}"/>
+           <pathelement location="${build.classes.dir}"/>
+           <pathelement location="${jgraph.jar}"/>
+           <pathelement location="${unboundsdk.jar}"/>
+           <pathelement location="${junit.jar}"/>
+           <pathelement location="${log4j.jar}"/>
+           <pathelement location="${commons-config.jar}"/>
+           <pathelement location="${commons-lang.jar}"/>
+           <pathelement location="${commons-pool.jar}"/>
+           <pathelement location="${commons-logging.jar}"/>
+           <pathelement location="${commons-collections.jar}"/>
+           <pathelement location="${jasypt.jar}"/>
+       </path>
+
+   </target>
+
+   <!-- ###########  Clean the distribution packages  ##################### -->
+
+   <target name="clean" depends="init" description="removes generated files">
+      <delete dir="${build.dir}" />
+      <delete dir="${dist.dir}" />
+   </target>
+
+   <!-- ###############  create javadoc ############################### -->
+   <target name="javadoc" depends="init" description="generates javadocs">
+      <mkdir dir="${javadoc.dir}"/>
+      <mkdir dir="${javadoc.images.dir}"/>
+
+      <javadoc packagenames="${package}"
+               sourcepath="${src.java.dir}"
+               destdir="${javadoc.dir}"
+               windowtitle="${title}"
+               doctitle="${title} "
+               bottom="${javadoc.bottom}"
+               overview="${javadoc.overview}"
+               stylesheetfile="${javadoc.stylesheet}"
+               public="true"
+               version="true"
+               author="true"
+               splitindex="false"
+               nodeprecated="true"
+               nodeprecatedlist="true"
+               notree="true"
+               noindex="false"
+               nohelp="true"
+               nonavbar="false"
+               serialwarn="false">
+      </javadoc>
+
+      <copy todir="${javadoc.images.dir}">
+              <fileset dir="${images.dir}"/>
+      </copy>
+   </target>
+
+    <target name="javadoc-samples" depends="init" description="generates samples javadocs">
+       <mkdir dir="${javadoc.samples.dir}"/>
+
+       <javadoc packagenames="${package.samples}"
+                sourcepath="${src.test.dir}"
+                destdir="${javadoc.samples.dir}"
+                windowtitle="${title.samples}"
+                doctitle="${title.samples} "
+                bottom="${javadoc.bottom}"
+                overview="${javadoc.samples.overview}"
+                stylesheetfile="${javadoc.stylesheet}"
+                public="true"
+                version="true"
+                author="true"
+                splitindex="false"
+                nodeprecated="true"
+                nodeprecatedlist="true"
+                notree="true"
+                noindex="false"
+                nohelp="true"
+                nonavbar="false"
+                serialwarn="false">
+       </javadoc>
+
+       <copy todir="${javadoc.samples.images.dir}">
+            <fileset dir="${images.dir}"/>
+       </copy>
+    </target>
+
+   <!-- ###############  compile packages ############################### -->
+   <target name="compile" depends="init" description="compiles source files">
+      <mkdir dir="${build.classes.dir}"/>
+      <javac srcdir="${src.java.dir}"
+             debug="${javac.debug}"
+             deprecation="${javac.deprecation}"
+             destdir="${build.classes.dir}">
+            <classpath refid="build.class.path"/>
+        </javac>
+   </target>
+
+    <target name="compile-test" depends="compile">
+       <mkdir dir="${build.test-classes.dir}"/>
+       <javac destdir="${build.test-classes.dir}"
+              srcdir="${src.test.dir}"
+              debug="${javac.debug}"
+              deprecation="${javac.deprecation}"
+              optimize="${javac.optimize}">
+              <classpath refid="build.class.path"/>
+       </javac>
+    </target>
+
+   <!-- ###############  run junit samples tests ############################### -->
+    <target name="test-samples" depends="compile-test" description="runs (junit) sample unit tests">
+        <echo message="Run the Fortress sample JUnit tests..."/>
+        <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
+            <classpath refid="test.class.path"/>
+            <formatter type="plain" usefile="false"/>
+            <test name="${test.sample.entry}"/>
+        </junit>
+    </target>
+
+   <!-- ###############  run full junit regression tests ############################### -->
+    <target name="test-full" depends="compile-test" description="run (junit) full regression tests">
+        <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
+         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
+            <sysproperty key="isFirstJUnitRun" value="false" />
+            <classpath refid="test.class.path"/>
+            <formatter type="plain" usefile="false"/>
+            <test name="${test.regression.entry}"/>
+        </junit>
+    </target>
+
+    <!-- ###############  run junit regression tests without teardown ############################### -->
+     <target name="test-full-init" depends="compile-test" description="run (junit) regression tests without teardown">
+         <echo message="Run the Fortress regression JUnit tests without teardown.  Be patient this can take a while to complete."/>
+          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
+             <sysproperty key="isFirstJUnitRun" value="true" />
+             <classpath refid="test.class.path"/>
+             <formatter type="plain" usefile="false"/>
+             <test name="${test.regression.entry}"/>
+         </junit>
+     </target>
+
+    <!-- ###############  run Fortress Console app ############################### -->
+     <target name="console" depends="compile-test" description="start Fortress Console app">
+         <echo message="Run the Fortress console app"/>
+         <java
+                 classname="com.jts.fortress.FortressConsole"
+                 fork="false"
+                 failonerror="true"
+                 timeout="4000000"
+                 >
+             <classpath refid="test.class.path"/>
+         </java>
+     </target>
+
+    <!-- ###############  Encrypt a value using Jasypt output to standard out ############################# -->
+     <target name="encrypt" depends="compile" description="Encrypts a text value">
+         <echo message="Encrypt a value"/>
+         <java
+                 classname="com.jts.fortress.util.crypto.EncryptUtil"
+                 fork="false"
+                 failonerror="true"
+                 timeout="4000000"
+                 >
+             <classpath refid="bootstrap.class.path"/>
+             <arg value="${param1}"/>
+         </java>
+     </target>
+
+    <!-- ###############  run ant demo load scripts ############################### -->
+     <target name="admin" depends="init" description="run Fortress admin script">
+         <echo message="###############  Run Fortress Ant script ${param1}  ###############"/>
+         <java
+                 classname="org.apache.tools.ant.launch.Launcher"
+                 fork="true"
+                 failonerror="true"
+                 dir="${ldap.setup.dir}"
+                 timeout="4000000"
+                 taskname="startAnt">
+             <classpath>
+                 <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
+             </classpath>
+             <arg value="-buildfile"/>
+             <arg file="${param1}"/>
+             <arg value="-Dbasedir=${ldap.setup.dir}"/>
+         </java>
+     </target>
+
+    <!-- ###############  initialize Configuration scripts and metadata ############################### -->
+     <target name="init-config" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files..">
+
+         <echo message="###############  Modify slapd configuration per user settings  ###############"/>
+         <delete file="${target.slapd.conf}"/>
+	     <copy file="${source.slapd.conf}" tofile="${target.slapd.conf}"/>
+         <replace file="${target.slapd.conf}" token="@SCHEMA_PATH@" value="${slapd.schema.dir}"/>
+         <replace file="${target.slapd.conf}" token="@SUFFIX@" value="${suffix}"/>
+         <replace file="${target.slapd.conf}" token="@PID_PATH@" value="${pid.dir}"/>
+         <replace file="${target.slapd.conf}" token="@HISTORY_DB_PATH@" value="${db.hist.dir}"/>
+         <replace file="${target.slapd.conf}" token="@DEFAULT_DB_PATH@" value="${db.dir}"/>
+         <replace file="${target.slapd.conf}" token="@SLAPD_MODULE_PATH@" value="${slapd.module.dir}"/>
+         <replace file="${target.slapd.conf}" token="@LOGOPS@" value="${log.ops}"/>
+         <replace file="${target.slapd.conf}" token="@ROOT_DN@" value="${root.dn}"/>
+         <replace file="${target.slapd.conf}" token="@ROOT_PW@" value="${root.pw}"/>
+         <replace file="${target.slapd.conf}" token="@LOG_ROOT_DN@" value="${log.root.dn}"/>
+         <replace file="${target.slapd.conf}" token="@LOG_ROOT_PW@" value="${log.root.pw}"/>
+         <replace file="${target.slapd.conf}" token="@LOG_SUFFIX@" value="${log.suffix}"/>
+
+         <echo message="###############  Modify fortress configuration per user settings  ###############"/>
+         <delete file="${dst.bootstrap.conf}"/>
+         <delete file="${dst.remote.conf}"/>
+
+	     <copy file="${src.bootstrap.conf}" tofile="${dst.bootstrap.conf}"/>
+         <replace file="${dst.bootstrap.conf}" token="@SUFFIX@" value="${suffix}"/>
+         <replace file="${dst.bootstrap.conf}" token="@LDAP_HOST@" value="${ldap.host}"/>
+         <replace file="${dst.bootstrap.conf}" token="@LDAP_PORT@" value="${ldap.port}"/>
+         <replace file="${dst.bootstrap.conf}" token="@ROOT_DN@" value="${root.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@CFG_ROOT_PW@" value="${cfg.root.pw}"/>
+         <replace file="${dst.bootstrap.conf}" token="@ADM_MIN_CONN@" value="${admin.min.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@ADM_MAX_CONN@" value="${admin.max.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@LOG_MIN_CONN@" value="${log.min.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@LOG_MAX_CONN@" value="${log.max.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@USR_MIN_CONN@" value="${user.min.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@USR_MAX_CONN@" value="${user.max.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
+
+	     <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
+         <replace file="${dst.remote.conf}" token="@SUFFIX@" value="${suffix}"/>
+         <replace file="${dst.remote.conf}" token="@LDAP_HOST@" value="${ldap.host}"/>
+         <replace file="${dst.remote.conf}" token="@LDAP_PORT@" value="${ldap.port}"/>
+         <replace file="${dst.remote.conf}" token="@ROOT_DN@" value="${root.dn}"/>
+         <replace file="${dst.remote.conf}" token="@CFG_ROOT_PW@" value="${cfg.root.pw}"/>
+         <replace file="${dst.remote.conf}" token="@ADM_MIN_CONN@" value="${admin.min.conn}"/>
+         <replace file="${dst.remote.conf}" token="@ADM_MAX_CONN@" value="${admin.max.conn}"/>
+         <replace file="${dst.remote.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
+
+         <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
+         <delete file="${dst.load.bootstrap.script}"/>
+	     <copy file="${src.load.bootstrap.script}" tofile="${dst.load.bootstrap.script}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_NAME@" value="${suffix.name}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC@" value="${suffix.dc}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@SUFFIX@" value="${suffix}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@LOG_ROOT_DN@" value="${log.root.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@CFG_LOG_ROOT_PW@" value="${cfg.log.root.pw}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@LOG_MIN_CONN@" value="${user.min.conn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@LOG_MAX_CONN@" value="${user.max.conn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@USR_MIN_CONN@" value="${log.min.conn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@USR_MAX_CONN@" value="${log.max.conn}"/>
+
+         <echo message="Target init-config complete."/>
+     </target>
+
+   <!-- ###############  initialize OpenLDAP/BDB ############################### -->
+    <target name="init-slapd" depends="build-jar" description="This task is destructive and must be run as elevated priv's for teardown/creation of slapd files and folders.">
+        <echo message="###############  Initialize OpenLDAP  ###############"/>
+
+        <echo message="###############  Stop slapd process  ###############"/>
+        <exec dir="." executable="/bin/sh">
+          <arg line="${stop.slapd.script}"/>
+          <arg value="${sudo.pw}"/>
+        </exec>
+
+        <echo message="###############  Uninstall slapd ###############"/>
+        <exec dir="." executable="/bin/sh">
+          <arg line="${uninstall.slapd.script}"/>
+          <arg value="${slapd.uninstall}"/>
+          <arg value="${sudo.pw}"/>
+        </exec>
+
+        <echo message="###############  Backup the slpad bdb folders  ###############"/>
+        <!-- Backup the OpenLDAP access log db folder -->
+        <move todir="${db.bak.hist.dir}/${TODAY}" failonerror="false">
+           <fileset dir="${db.hist.dir}"/>
+        </move>
+        <!-- Backup the OpenLDAP db folder -->
+        <move todir="${db.bak.dir}/${TODAY}" failonerror="false">
+           <fileset dir="${db.dir}"/>
+        </move>
+
+        <echo message="###############  Install slapd ###############"/>
+        <exec dir="${ldap.setup.dir}" executable="/bin/sh">
+          <arg line="${install.slapd.script}"/>
+          <arg value="${slapd.install}"/>
+          <arg value="${sudo.pw}"/>
+        </exec>
+
+        <echo message="###############  Create new slapd bdb folders  ###############"/>
+        <mkdir dir="${db.dir}"/>
+        <mkdir dir="${db.hist.dir}"/>
+        <copy todir="${db.dir}" file="${db.cfg}"/>
+        <copy todir="${db.hist.dir}" file="${db.cfg}"/>
+
+        <echo message="###############  Backup slapd configuration and Fortress LDAP schema  ###############"/>
+        <move file="${dst.slapd.conf}" tofile="${dst.slapd.conf}.bak.${TODAY}" failonerror="false" />
+        <move file="${target.fortress.schema}" tofile="${target.fortress.schema}.${TODAY}" failonerror="false" />
+
+        <echo message="###############  Setup scripts and meta config files  ###############"/>
+        <antcall target="init-config"></antcall>
+
+        <echo message="###############  Copy slapd configuration and Fortress LDAP schema files from source  ###############"/>
+        <copy todir="${slapd.schema.dir}" file="${source.fortress.schema}"/>
+        <copy todir="${slapd.dir}" file="${target.slapd.conf}"/>
+
+        <echo message="###############  Start the slapd process up  ###############"/>
+        <exec dir="." executable="/bin/sh">
+          <arg line="${start.slapd.script}"/>
+          <arg value="${slapd.start}"/>
+          <arg value="${sudo.pw}"/>
+        </exec>
+
+        <echo message="Load the Fortress boostrap config and demo users"/>
+        <antcall target="admin">
+            <param name="param1" value="${dst.load.bootstrap.script}"/>
+        </antcall>
+        <antcall target="admin">
+            <param name="param1" value="${load.demo.script}"/>
+        </antcall>
+
+        <echo message="Target init-slapd complete."/>
+    </target>
+
+    <!-- ###############  initialize OpenLDAP/BDB ############################### -->
+     <target name="bdb-delete" depends="init" description="delete BDB DB">
+         <echo message="Delete BDB DB"/>
+
+         <exec dir="." executable="/bin/sh">
+           <arg line="${stop.slapd.script}"/>
+         </exec>
+
+         <delete dir="${db.dir}"/>
+
+     </target>
+   <!-- ###############  create java archive packages ############################### -->
+   <target name="build-jar" depends="compile">
+      <mkdir dir="${dist.dir}"/>
+      <jar jarfile="${dist.jar}">
+         <fileset dir="${build.classes.dir}"/>
+         <metainf dir="${basedir}" includes="LICENSE.txt,NOTICE.txt"/>
+         <manifest>
+            <attribute name="Created-By" value="${vendor} - ${project.name} dev team"/>
+            <attribute name="Implementation-Vendor" value="${vendor}"/>
+            <attribute name="Implementation-Version" value="${version}"/>
+            <attribute name="Specification-Title" value="${title}"/>
+            <attribute name="Package" value="${package}"/>
+            <attribute name="Extension-Name" value="${name}"/>
+            <attribute name="Built-By" value="${user.name}"/>
+            <attribute name="Compile-JDK" value="${java.runtime.version}"/>
+            <attribute name="Test-VM" value="${java.vm.version}"/>
+         </manifest>
+      </jar>
+   </target>
+
+    <target name="build-jar-test" depends="compile-test">
+       <mkdir dir="${dist.dir}"/>
+       <jar jarfile="${dist.test.jar}">
+          <fileset dir="${build.test-classes.dir}"/>
+          <metainf dir="${basedir}" includes="LICENSE.txt,NOTICE.txt"/>
+          <manifest>
+             <attribute name="Created-By" value="${vendor} - ${project.name} dev team"/>
+             <attribute name="Implementation-Vendor" value="${vendor}"/>
+             <attribute name="Implementation-Version" value="${version}"/>
+             <attribute name="Specification-Title" value="${title}"/>
+             <attribute name="Package" value="${package}"/>
+             <attribute name="Extension-Name" value="${name}"/>
+             <attribute name="Built-By" value="${user.name}"/>
+             <attribute name="Compile-JDK" value="${java.runtime.version}"/>
+             <attribute name="Test-VM" value="${java.vm.version}"/>
+          </manifest>
+       </jar>
+    </target>
+
+   <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples">
+      <copy todir="${dist.dir}" file="${basedir}/LICENSE.txt"/>
+      <copy todir="${dist.dir}" file="${basedir}/NOTICE.txt"/>
+      <copy todir="${dist.dir}" file="${basedir}/README-OpenLDAP-Setup.txt"/>
+   </target>
+
+   <!-- ###############  create distribution packages ############################ -->
+   <target name="dist" depends="build" description="Create source and binary distribution">
+        <zip destfile='${src.dist.zip}'>
+          <zipfileset dir='${src.java.dir}'/>
+
+          <zipfileset dir='${dist.dir}' prefix='META-INF'>
+              <include name="LICENSE.txt"/>
+              <include name="NOTICE.txt"/>
+          </zipfileset>
+       </zip>
+
+       <zip destfile='${src.test.dist.zip}'>
+         <zipfileset dir='${src.test.dir}'/>
+
+         <zipfileset dir='${dist.dir}' prefix='META-INF'>
+             <include name="LICENSE.txt"/>
+             <include name="NOTICE.txt"/>
+         </zipfileset>
+       </zip>
+
+       <zip destfile="${javadoc.dist.zip}" basedir="${javadoc.dir}">
+           <zipfileset dir='${dist.dir}' prefix='META-INF'>
+               <include name="LICENSE.txt"/>
+               <include name="NOTICE.txt"/>
+           </zipfileset>
+       </zip>
+
+       <zip destfile="${samples.dist.zip}" basedir="${src.test.dir}" includes="**/samples/*.java,build.xml">
+           <zipfileset dir='${dist.dir}' prefix='META-INF'>
+               <include name="LICENSE.txt"/>
+               <include name="NOTICE.txt"/>
+           </zipfileset>
+           <zipfileset dir='${javadoc.samples.dir}'/>
+       </zip>
+    </target>
+
+</project>
