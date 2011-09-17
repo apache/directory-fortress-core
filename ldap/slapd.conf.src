@@ -1,0 +1,90 @@
+# Fortress slapd.conf default settings.
+# Note: Directives that begin with '@' are substitution parms for Fortress' build.xml 'init-slapd' target.
+include		@SCHEMA_PATH@/core.schema
+include		@SCHEMA_PATH@/ppolicy.schema
+include		@SCHEMA_PATH@/cosine.schema
+include		@SCHEMA_PATH@/inetorgperson.schema
+include		@SCHEMA_PATH@/nis.schema
+include		@SCHEMA_PATH@/openldap.schema
+include		@SCHEMA_PATH@/fortress.schema
+
+disallow bind_anon
+idletimeout 0
+sizelimit 5000
+timelimit 60
+threads 8
+loglevel 32768
+gentlehup on
+pidfile		@PID_PATH@/slapd.pid
+argsfile	@PID_PATH@/slapd.args
+modulepath	@SLAPD_MODULE_PATH@
+moduleload	back_bdb.la
+moduleload	ppolicy.la
+moduleload  accesslog.la
+
+### ACLs
+### Allow users to read permission records (needed for OAM authorization):
+access to dn.sub="ou=Permissions,ou=RBAC,@SUFFIX@" by users read
+access to dn.sub="ou=AdminPerms,ou=ARBAC,@SUFFIX@" by users read
+### This one allows user to modify their own password (needed for pw policies):
+access to attrs=userpassword
+	by self write
+	by * auth
+### Have to give access to dn.base to read supported features on this directory:
+access to dn.base="" by * read
+access to dn.base="cn=Subschema" by * read
+access to *
+	by self write
+	by anonymous auth
+### Disable null base search of rootDSE
+### This disables auto-discovery capabilities of clients.
+# Changed -> access to dn.base="" by * read <- to the following:
+access to dn.base=""
+     by * none
+password-hash {SSHA}
+
+#######################################################################
+# History DB Settings
+#######################################################################
+database	bdb
+suffix		"@LOG_SUFFIX@"
+rootdn      "@LOG_ROOT_DN@"
+rootpw      "@LOG_ROOT_PW@"
+cachesize 	100000
+index objectClass,reqDN,reqAuthzID,reqStart,reqAttr eq
+directory	@HISTORY_DB_PATH@
+access to *
+    by dn.base="@LOG_ROOT_DN@" write
+
+#######################################################################
+# Default DB Settings
+#######################################################################
+database	bdb
+suffix		"@SUFFIX@"
+rootdn      "@ROOT_DN@"
+rootpw      "@ROOT_PW@"
+index ou,uid,uidNumber,gidNumber,objectclass eq,pres
+index cn,sn eq,sub
+index ftId,ftPermName,ftObjNm,ftOpNm,ftRoles,ftUsers,ftRA,ftARA,ftRoleName eq
+directory	@DEFAULT_DB_PATH@
+idlcachesize	2500
+checkpoint	512	60
+cachesize     10000
+overlay accesslog
+logdb   "@LOG_SUFFIX@"
+
+#######################################################################
+# Audit Log Settings
+#######################################################################
+@LOGOPS@
+logoldattr ftModifier ftModCode ftModId ftRC ftRA ftARC ftARA ftCstr ftId ftPermName ftObjNm ftOpNm ftObjId ftGroups ftRoles ftUsers ftType
+logpurge 5+00:00 1+00:00
+
+#######################################################################
+# PW Policy Settings
+#######################################################################
+# Enable the Password Policy overlay to enforce password policies on this database.
+overlay     ppolicy
+ppolicy_default "cn=PasswordPolicy, ou=Policies, @SUFFIX@"
+ppolicy_use_lockout
+ppolicy_hash_cleartext

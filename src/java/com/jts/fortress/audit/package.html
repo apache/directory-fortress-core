@@ -1,0 +1,57 @@
+<!--
+  ~ Copyright © Joshua Tree Software, LLC, 2009-2011 All Rights Reserved.
+  -->
+
+<html>
+   <head>
+      <title>Package Documentation for com.jts.fortress.audit</title>
+   </head>
+   <body>
+      <p>
+         This package provides data entities and APIs to interrogate <a href="http://openldap.org/">OpenLDAP</a>'s slapd access log to obtain fortress audit trail and historical events.
+      </p>
+      <p>
+         The <b>com.jts.fortress.audit</b> package data entities may be manipulated by outside
+          programs but the apis contained within this package are for fortress use only.
+          The entities include {@link com.jts.fortress.audit.AuthZ AuthZ}, {@link com.jts.fortress.audit.Bind Bind}, {@link com.jts.fortress.audit.Mod Mod} and {@link com.jts.fortress.audit.UserAudit UserAudit} which is used to input search criteria.
+          See the corresponding javadoc contained with this package for more info.
+      </p>
+      <h4>Audit Interrogator</h4>
+      Provides an OpenLDAP access log retrieval mechanism that enables security event monitoring.
+      <ol>
+      <li>Authentication events:
+      <li>Session enablement events
+      <li>Authorization events
+      <li>Entity mods and deletes
+      </li>
+      </ol>
+      <img src="../../../../images/Audit.png">
+      <p/>
+      All events include Fortress context, see {@link FortEntity}.
+      <p/>
+      <h4>
+      The following APIs generate events subsequently stored in this access log:
+      </h4>
+      <ul>
+      <li> {@link com.jts.fortress.AccessMgr}
+      <li> {@link com.jts.fortress.AdminMgr}
+      <li> {@link com.jts.fortress.AdminMgr}
+      <li> {@link DelegatedAdminMgr}
+      <li> {@link com.jts.fortress.configuration.ConfigMgr}
+      <li> {@link PswdPolicyMgr}
+      </ul>
+      <h4>
+      The following reports are supported using search input: {@link com.jts.fortress.audit.UserAudit}
+      </h4>
+      <ul>
+      <li>User Authentications:     <code>List<{@link com.jts.fortress.audit.Bind}>  {@link AuditMgr#searchBinds(com.jts.fortress.audit.UserAudit)}</code>
+      <li>Invalid Users AuthN:      <code>List<{@link com.jts.fortress.audit.Bind}>  {@link AuditMgr#searchAuthNInvalid(com.jts.fortress.audit.UserAudit)} </code>
+      <li>User Authorizations 1:    <code>List<{@link com.jts.fortress.audit.AuthZ}> {@link AuditMgr#getAuthZs(com.jts.fortress.audit.UserAudit)} </code>
+      <li>User Authorizations 2:    <code>List<{@link com.jts.fortress.audit.AuthZ}> {@link AuditMgr#searchAuthZs(com.jts.fortress.audit.UserAudit)} </code>
+      <li>User Session Activations: <code>List<{@link com.jts.fortress.audit.Mod}>   {@link AuditMgr#searchMods(com.jts.fortress.audit.UserAudit)} </code>
+      <li>Entity Modifications:     <code>List<{@link com.jts.fortress.audit.Mod}>   {@link AuditMgr#searchAdminMods(com.jts.fortress.audit.UserAudit)} </code>
+      </ul>
+      <p/>
+
+   </body>
+</html>

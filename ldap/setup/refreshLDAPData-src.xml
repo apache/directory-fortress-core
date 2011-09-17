@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+  -->
+<project basedir="." default="all" name="Fortress Sample Data">
+    <property name="version" value="1.0.0-rc3"/>
+    <property name="home.dir" value = "../../" />
+    <property name="lib.dir" value = "${home.dir}/lib" />
+    <property name="dist.dir" value = "${home.dir}/dist" />
+    <property name="config" value="${home.dir}/config/bootstrap"/>
+    <property name="Fortress.jar" value="${dist.dir}/fortress-${version}.jar"/>
+    <property name="log4j.jar" value="${lib.dir}/log4j-1.2.16.jar"/>
+    <property name="ldapjdk.jar" value="${lib.dir}/unboundid-ldapsdk-se.jar"/>
+    <property name="jgrapht.jar" value="${lib.dir}/jgrapht-jdk1.6.jar"/>
+    <property name="jasypt.jar" value="${lib.dir}/jasypt-1.8.jar"/>
+    <property name="commons-configuration.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
+    <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
+    <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
+    <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
+    <taskdef classname="com.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${commons-beanutils.jar}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+
+            <addsuffix>
+                <suffix name="@SUFFIX_NAME@" dc="@SUFFIX_DC@" description="JoshuaTree Software"/>
+            </addsuffix>
+
+            <addcontainer>
+                <container name="Config" description="Fortress Configuration Realms"/>
+                <container name="People" description="Fortress People"/>
+                <container name="Policies" description="Fortress Policies"/>
+                <container name="RBAC" description="Fortress RBAC Policies"/>
+                <container name="Roles" parent="RBAC" description="Fortress Roles"/>
+                <container name="Permissions" parent="RBAC" description="Fortress Permissions"/>
+                <container name="Constraints" parent="RBAC" description="Fortress Separation of Duty Constraints"/>
+                <container name="ARBAC" description="Fortress Administrative RBAC Policies"/>
+                <container name="OS-U" parent="ARBAC" description="Fortress User Organizational Units"/>
+                <container name="OS-P" parent="ARBAC" description="Fortress Perm Organizational Units"/>
+                <container name="AdminRoles" parent="ARBAC" description="Fortress AdminRoles"/>
+                <container name="AdminPerms" parent="ARBAC" description="Fortress Admin Permissions"/>
+            </addcontainer>
+
+            <addconfig>
+                <config props="enableAudit:true"/>
+                <config props="configRealm:DEFAULT"/>
+                <config props="logAdmin:@LOG_ROOT_DN@"/>
+                <config props="logAdminPw:@CFG_LOG_ROOT_PW@"/>
+                <config props="minUserConn:@USR_MIN_CONN@"/>
+                <config props="maxUserConn:@USR_MAX_CONN@"/>
+                <config props="minLogConn:@LOG_MIN_CONN@"/>
+                <config props="maxLogConn:@LOG_MAX_CONN@"/>
+                <config props="userSessionProps:false"/>
+                <config props="authNType:default"/>
+                <config props="pwPolicy:openldap"/>
+                <config props="clientSideSorting:true"/>
+                <config props="suffix:@SUFFIX@"/>
+                <config props="userRoot:ou=People,@SUFFIX@"/>
+                <config props="pwPolicyRoot:ou=Policies,@SUFFIX@"/>
+                <config props="roleRoot:ou=Roles,ou=RBAC,@SUFFIX@"/>
+                <config props="permRoot:ou=Permissions,ou=RBAC,@SUFFIX@"/>
+                <config props="sdRoot:ou=Constraints,ou=RBAC,@SUFFIX@"/>
+                <config props="userOrgUnitRoot:ou=OS-U,ou=ARBAC,@SUFFIX@"/>
+                <config props="permOrgUnitRoot:ou=OS-P,ou=ARBAC,@SUFFIX@"/>
+                <config props="adminRoleRoot:ou=AdminRoles,ou=ARBAC,@SUFFIX@"/>
+                <config props="adminPermRoot:ou=AdminPerms,ou=ARBAC,@SUFFIX@"/>
+                <config props="exampleRoot:ou=Examples,@SUFFIX@"/>
+                <config props="auditRoot:cn=log"/>
+                <config props="superAdminRole:oamSuperAdmin"/>
+                <config props="temporalValidator0:com.jts.fortress.util.time.Date"/>
+                <config props="temporalValidator1:com.jts.fortress.util.time.LockDate"/>
+                <config props="temporalValidator2:com.jts.fortress.util.time.Timeout"/>
+                <config props="temporalValidator3:com.jts.fortress.util.time.ClockTime"/>
+                <config props="temporalValidator4:com.jts.fortress.util.time.Day"/>
+                <config props="temporalDSDValidator:com.jts.fortress.rbac.DSD"/>
+                <config props="sysUsr1:oamTU6User1"/>
+                <config props="sysUsr2:oamTU6User2"/>
+                <config props="sysUsr3:oamTU6User3"/>
+                <config props="sysUsr4:oamTU6User4"/>
+                <config props="sysUsr5:oamTU6User5"/>
+                <config props="accessImplementation:com.jts.fortress.rbac.AccessMgrImpl"/>
+                <config props="auditImplementation:com.jts.fortress.audit.AuditMgrImpl"/>
+                <config props="fieldLength:130"/>
+                <config props="ldapFilterSize:15"/>
+                <config props="ldapFilt1:!"/>
+                <config props="ldapSub1:21"/>
+                <config props="ldapFilt2:%"/>
+                <config props="ldapSub2:25"/>
+                <!--config props="ldapFilt3:&"/-->
+                <config props="ldapFilt3:&amp;"/>
+                <config props="ldapSub3:26"/>
+                <config props="ldapFilt4:("/>
+                <config props="ldapSub4:28"/>
+                <config props="ldapFilt5:)"/>
+                <config props="ldapSub5:29"/>
+                <config props="ldapFilt6:*"/>
+                <config props="ldapSub6:2a"/>
+                <config props="ldapFilt7:+"/>
+                <config props="ldapSub7:2b"/>
+                <config props="ldapFilt8:-"/>
+                <config props="ldapSub8:2d"/>
+                <config props="ldapFilt9:/"/>
+                <config props="ldapSub9:2f"/>
+                <!--config props="ldapFilt10:<"/-->
+                <!--forward slash-->
+                <!--config props="ldapFilt10:/\//<"/-->
+                <config props="ldapSub10:3c"/>
+                <config props="ldapFilt11:="/>
+                <config props="ldapSub11:3d"/>
+                <config props="ldapFilt12:>"/>
+                <config props="ldapSub12:3e"/>
+                <config props="ldapFilt13:\\"/>
+                <config props="ldapSub13:5c"/>
+                <config props="ldapFilt14:|"/>
+                <config props="ldapSub14:7c"/>
+                <config props="ldapFilt15:~"/>
+                <config props="ldapSub15:7e"/>
+                <config props="userObjectClass:inetOrgPerson"/>
+            </addconfig>
+
+            <addconfig>
+                <config props="configRealm:TOMCAT"/>
+                <config props="enableAudit:true"/>
+                <config props="authNType:realm"/>
+                <config props="pwPolicy:openldap"/>
+                <config props="clientSideSorting:true"/>
+                <config props="suffix:@SUFFIX@"/>
+                <config props="userRoot:ou=People,@SUFFIX@"/>
+                <config props="roleRoot:ou=Roles,ou=RBAC,@SUFFIX@"/>
+                <config props="permRoot:ou=Permissions,ou=RBAC,@SUFFIX@"/>
+                <config props="sdRoot:ou=Constraints,ou=RBAC,@SUFFIX@"/>
+                <config props="adminPermRoot:ou=AdminPerms,ou=ARBAC,@SUFFIX@"/>
+                <config props="auditRoot:cn=log"/>
+                <config props="superAdminRole:oamSuperAdmin"/>
+                <config props="temporalValidator0:com.jts.fortress.util.time.Date"/>
+                <config props="temporalValidator1:com.jts.fortress.util.time.LockDate"/>
+                <config props="temporalValidator2:com.jts.fortress.util.time.Timeout"/>
+                <config props="temporalValidator3:com.jts.fortress.util.time.ClockTime"/>
+                <config props="temporalValidator4:com.jts.fortress.util.time.Day"/>
+                <config props="temporalDSDValidator:com.jts.fortress.rbac.DSD"/>
+                <config props="accessImplementation:com.jts.fortress.rbac.AccessMgrImpl"/>
+                <config props="auditImplementation:com.jts.fortress.audit.AuditMgrImpl"/>
+                <config props="fieldLength:130"/>
+                <config props="ldapFilterSize:15"/>
+                <config props="ldapFilt1:!"/>
+                <config props="ldapSub1:21"/>
+                <config props="ldapFilt2:%"/>
+                <config props="ldapSub2:25"/>
+                <!--config props="ldapFilt3:&"/-->
+                <config props="ldapSub3:26"/>
+                <config props="ldapFilt4:("/>
+                <config props="ldapSub4:28"/>
+                <config props="ldapFilt5:)"/>
+                <config props="ldapSub5:29"/>
+                <config props="ldapFilt6:*"/>
+                <config props="ldapSub6:2a"/>
+                <config props="ldapFilt7:+"/>
+                <config props="ldapSub7:2b"/>
+                <config props="ldapFilt8:-"/>
+                <config props="ldapSub8:2d"/>
+                <config props="ldapFilt9:/"/>
+                <config props="ldapSub9:2f"/>
+                <!--config props="ldapFilt10:<"/-->
+                <config props="ldapSub10:3c"/>
+                <config props="ldapFilt11:="/>
+                <config props="ldapSub11:3d"/>
+                <config props="ldapFilt12:>"/>
+                <config props="ldapSub12:3e"/>
+                <config props="ldapFilt13:\\"/>
+                <config props="ldapSub13:5c"/>
+                <config props="ldapFilt14:|"/>
+                <config props="ldapSub14:7c"/>
+                <config props="ldapFilt15:~"/>
+                <config props="ldapSub15:7e"/>
+                <config props="userObjectClass:inetOrgPerson"/>
+            </addconfig>
+         </FortressAdmin>
+    </target>
+</project>
+
+

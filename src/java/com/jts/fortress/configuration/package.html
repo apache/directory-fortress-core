@@ -1,0 +1,22 @@
+<!--
+  ~ Copyright © Joshua Tree Software, LLC, 2009-2011 All Rights Reserved.
+  -->
+
+<html>
+   <head>
+      <title>Package Documentation for com.jts.fortress.config</title>
+   </head>
+   <body>
+      <p>
+         This package uses <a href="http://commons.apache.org/configuration/">Apache Commons Configuration</a> APIs to provide configuration data to fortress along with CRUD APIs for storing config data on the ldap server.
+      </p>
+      <p>
+         The <b>com.jts.fortress.config</b> can store its data both in a flat file or within the LDAP directory itself.
+          The <b>oamConfig.xml</b> contains the location of the bootstrap property file.  The bootstrap properties
+          can then point to a remote LDAP configuration node, called a 'realm', and referenced with this property:
+          <b>configRealm</b>.  An empty or null value for the configRealm property means the properties will all be stored locally in the file specified within oamConfig.xml.
+          The package also contains entities and apis that are used to perform CRUD on remote configuration parameters.
+          See the corresponding javadoc contained with this package for more info.
+      </p>
+   </body>
+</html>

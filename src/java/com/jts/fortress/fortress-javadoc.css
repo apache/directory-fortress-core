@@ -1,0 +1,33 @@
+BODY  { color: #000000;
+        background-color: #FFFFFF;
+        font-family: sans-serif }
+
+A:link  { color: #0101DF;
+          text-decoration: underline }
+
+A:visited  { color: #610B38;
+             text-decoration: underline }
+
+A:hover { color: #0B3B0B;
+          text-decoration: underline }
+
+PRE  { background-color: #99CC66;
+       margin: 15px 30px;
+       padding: 10px 10px;
+       border: 1px solid #000000 }
+
+# the following will add space between list items:
+#LI  { margin: 10px 0px }
+
+TH  { background-color: #FFFFFF;  color: #003300;
+      font-size: 125%;
+      font-weight: bold }
+
+
+# Classes defined specifically for Javadoc
+.TableHeadingColor  { background-color: #D8D8D8 }
+
+.NavBarCell1  { background-color: #99CC66 }
+
+.FrameItemFont  { font-size: 90% }
+

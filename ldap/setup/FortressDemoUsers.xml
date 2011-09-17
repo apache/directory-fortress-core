@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+  -->
+<project basedir="." default="all" name="Fortress Sample Data">
+    <property name="version" value="1.0.0-rc3"/>
+    <property name="home.dir" value = "../../" />
+    <property name="lib.dir" value = "${home.dir}/lib" />
+    <property name="dist.dir" value = "${home.dir}/dist" />
+    <property name="config" value="${home.dir}/config"/>
+    <property name="Fortress.jar" value="${dist.dir}/fortress-${version}.jar"/>
+    <property name="log4j.jar" value="${lib.dir}/log4j-1.2.16.jar"/>
+    <property name="ldapjdk.jar" value="${lib.dir}/unboundid-ldapsdk-se.jar"/>
+    <property name="jgrapht.jar" value="${lib.dir}/jgrapht-jdk1.6.jar"/>
+    <property name="jasypt.jar" value="${lib.dir}/jasypt-1.8.jar"/>
+    <property name="commons-configuration.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
+    <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
+    <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
+    <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
+    <taskdef classname="com.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${commons-beanutils.jar}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+
+            <!-- Begin RBAC Admin Data: -->
+        	<adduser>
+                <!-- Bad User end time -->
+        		<user userId="demoUser1"
+                      password="password"
+                      description="Demo Test User 1"
+                      ou="demousrs1"
+                      cn="JoeUser1"
+                      sn="User1"
+                      pwPolicy="Test1"
+                      beginTime="0000"
+                      endTime="0800"
+                      beginDate="20090101"
+                      endDate="20990101"
+                      beginLockDate="none"
+                      endLockDate="none"
+                      dayMask="1234567"
+                      timeout="60"/>
+
+        		<user userId="demoUser2" password="password" description="Demo Test User 2" ou="demousrs1" cn="JoeUser2" sn="User2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+
+                <!-- Bad User day mask -->
+        		<user userId="demoUser3" password="password" description="Demo Test User 3" ou="demousrs1" cn="JoeUser3" sn="User3"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="17" timeout="60"/>
+        		<user userId="demoUser4" password="password" description="Demo Test User 4" ou="demousrs1" cn="JoeUser4" sn="User4"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+
+                <!-- Bad Role end time -->
+        		<user userId="demoUser5" password="password" description="Demo Test User 5" ou="demousrs1" cn="JoeUser5" sn="User5"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+        		<user userId="demoUser6" password="password" description="Demo Test User 6" ou="demousrs1" cn="JoeUser6" sn="User6"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+
+                <!-- Bad Role  begin date -->
+        		<user userId="demoUser7" password="password" description="Demo Test User 7" ou="demousrs1" cn="JoeUser7" sn="User7"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+        		<user userId="demoUser8" password="password" description="Demo Test User 8" ou="demousrs1" cn="JoeUser8" sn="User8"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+
+                <!-- Bad Role end date -->
+        		<user userId="demoUser9" password="password" description="Demo Test User 9" ou="demousrs1" cn="JoeUser9" sn="User9"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+        		<user userId="demoUser10" password="password" description="Demo Test User 10" ou="demousrs1" cn="JoeUser10" sn="User10"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+
+        		<user userId="tcmanager" password="m@nager123" description="Tomcat Manager User" ou="demousrs1" cn="tcmanager" sn="manager"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+
+        		<user userId="wasadmin" password="@dmin123" description="Websphere Console Admin" ou="demousrs1" cn="wasadmin" sn="admin"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+        	</adduser>
+
+        	<!--deluser>
+        		<user userId="demoUser1"/>
+        		<user userId="demoUser2"/>
+        		<user userId="demoUser3"/>
+        		<user userId="demoUser4"/>
+        		<user userId="demoUser5"/>
+        		<user userId="demoUser6"/>
+        		<user userId="demoUser7"/>
+        		<user userId="demoUser8"/>
+        		<user userId="demoUser9"/>
+        		<user userId="demoUser10"/>
+        	</deluser-->
+
+            <adduserrole>
+                <userrole userId="demoUser1"
+                          name="role1"
+                          beginTime="0000"
+                          endTime="0000"
+                          beginDate="none"
+                          endDate="none"
+                          beginLockDate="none"
+                          endLockDate="none"
+                          dayMask="all"
+                          timeout="0"/>
+
+                <userrole userId="demoUser2" name="role1"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="demoUser3" name="role1"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="demoUser4" name="role1"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <!-- Bad - role end time -->
+                <userrole userId="demoUser5" name="role1"  beginTime="0700" endTime="0800" beginDate="20100101" endDate="21000101" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="demoUser6" name="role1"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <!-- Bad - role  begin date -->
+                <userrole userId="demoUser7" name="role1"  beginTime="0000" endTime="0000" beginDate="20110110" endDate="21000101" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="demoUser8" name="role1"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <!-- Bad - role  end date -->
+                <userrole userId="demoUser9" name="role1"  beginTime="0000" endTime="0000" beginDate="20100101" endDate="20100608" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="demoUser10" name="role1"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+
+                <userrole userId="tcmanager" name="manager-gui"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="tcmanager" name="manager"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+            </adduserrole>
+
+            <!--deluserrole>
+                <userrole userId="demoUser1" name="role1"/>
+                <userrole userId="demoUser2" name="role1"/>
+                <userrole userId="demoUser3" name="role1"/>
+                <userrole userId="demoUser4" name="role1"/>
+                <userrole userId="demoUser5" name="role1"/>
+                <userrole userId="demoUser6" name="role1"/>
+                <userrole userId="demoUser7" name="role1"/>
+                <userrole userId="demoUser8" name="role1"/>
+                <userrole userId="demoUser9" name="role1"/>
+                <userrole userId="demoUser10" name="role1"/>
+            </deluserrole-->
+
+            <addrole>
+                <role name="role1" description="Tomcat Role 1 for Calendar App"/>
+                <role name="role2" description="Tomcat Role 2 for Calendar App"/>
+                <role name="manager-gui" description="Tomcat 7 Manager Role"/>
+                <role name="manager" description="Tomcat Manager Role"/>
+                <!--role name="role1" description="Tomcat Role for Calendar App" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/-->
+            </addrole>
+
+            <!--delrole>
+                <role name="role1"/>
+                <role name="role2"/>
+            </delrole-->
+
+            <addsdset>
+                <sdset name="DemoSSD1"
+                       description="Demo static separation of duties"
+                       cardinality="2"
+                       settype="STATIC"
+                       setmembers="role1,role2"/>
+            </addsdset>
+
+            <!--delsdset>
+                <sdset name="DemoSSD1" settype="STATIC"/>
+            </delsdset-->
+
+            <!--delpwpolicy>
+                <policy name="Test1" />
+            </delpwpolicy-->
+
+            <addpwpolicy>
+                <!-- safe modify must be false iff user can chg pw after reset -->
+                <policy name="Test1"
+                    minAge="0"
+                    maxAge="2000000"
+                    inHistory="5"
+                    checkQuality="2"
+                    minLength="4"
+                    expireWarning="1000000"
+                    graceLoginLimit="3"
+                    lockout="true"
+                    lockoutDuration="0"
+                    maxFailure="3"
+                    failureCountInterval="0"
+                    mustChange="true"
+                    allowUserChange="true"
+                    safeModify="false" />
+            </addpwpolicy>
+
+            <addpermobj>
+                <permobj objectName="/cal/cal1.jsp"
+                         description="Fortress Web Demo App Object 1"
+                         ou="demoapps1"
+                         type="Ant"/>
+
+                <permobj objectName="/cal/cal2.jsp"
+                         description="Fortress Web Demo App Object 2"
+                         ou="demoapps1"
+                         type="Ant"/>
+
+                <!--permobj objectName="/jsp/cal/cal1.jsp"
+                         description="Fortress Web Demo App Object 1"
+                         ou="demoapps1"
+                         type="Ant"/>
+
+                <permobj objectName="/jsp/cal/cal2.jsp"
+                         description="Fortress Web Demo App Object 2"
+                         ou="demoapps1"
+                         type="Ant"/-->
+            </addpermobj>
+
+            <!--delpermobj>
+                <permobj objectName="/jsp/cal/cal1.jsp"/>
+                <permobj objectName="/jsp/cal/cal2.jsp"/>
+            </delpermobj-->
+
+            <addpermop>
+                <permop opName="main" objectName="/cal/cal1.jsp" type="Ant"/>
+                <permop opName="8am" objectName="/cal/cal2.jsp" type="Ant"/>
+                <permop opName="9am" objectName="/cal/cal2.jsp" type="Ant"/>
+                <permop opName="10am" objectName="/cal/cal2.jsp" type="Ant"/>
+                <permop opName="11am" objectName="/cal/cal2.jsp" type="Ant"/>
+                <permop opName="12pm" objectName="/cal/cal2.jsp" type="Ant"/>
+                <permop opName="1pm" objectName="/cal/cal2.jsp" type="Ant"/>
+                <permop opName="2pm" objectName="/cal/cal2.jsp" type="Ant"/>
+                <permop opName="3pm" objectName="/cal/cal2.jsp" type="Ant"/>
+                <permop opName="4pm" objectName="/cal/cal2.jsp" type="Ant"/>
+                <permop opName="5pm" objectName="/cal/cal2.jsp" type="Ant"/>
+                <permop opName="6pm" objectName="/cal/cal2.jsp" type="Ant"/>
+
+                <!--permop opName="main" objectName="/jsp/cal/cal1.jsp" type="Ant"/>
+                <permop opName="8am" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+                <permop opName="9am" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+                <permop opName="10am" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+                <permop opName="11am" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+                <permop opName="12pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+                <permop opName="1pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+                <permop opName="2pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+                <permop opName="3pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+                <permop opName="4pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+                <permop opName="5pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+                <permop opName="6pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/-->
+
+            </addpermop>
+
+            <!--delpermop>
+                <permop opName="main" objectName="/jsp/cal/cal1.jsp"/>
+                <permop opName="8am" objectName="/jsp/cal/cal2.jsp"/>
+                <permop opName="9am" objectName="/jsp/cal/cal2.jsp"/>
+                <permop opName="10am" objectName="/jsp/cal/cal2.jsp"/>
+                <permop opName="11am" objectName="/jsp/cal/cal2.jsp"/>
+                <permop opName="12pm" objectName="/jsp/cal/cal2.jsp"/>
+                <permop opName="1pm" objectName="/jsp/cal/cal2.jsp"/>
+                <permop opName="2pm" objectName="/jsp/cal/cal2.jsp"/>
+                <permop opName="3pm" objectName="/jsp/cal/cal2.jsp"/>
+                <permop opName="4pm" objectName="/jsp/cal/cal2.jsp"/>
+                <permop opName="5pm" objectName="/jsp/cal/cal2.jsp"/>
+                <permop opName="6pm" objectName="/jsp/cal/cal2.jsp"/>
+            </delpermop-->
+
+            <addpermgrant>
+                <permgrant objName="/cal/cal1.jsp" opName="main" roleNm="role1"/>
+                <permgrant objName="/cal/cal2.jsp" opName="8am" roleNm="role1"/>
+                <permgrant objName="/cal/cal2.jsp" opName="10am" roleNm="role1"/>
+                <permgrant objName="/cal/cal2.jsp" opName="12pm" roleNm="role1"/>
+                <permgrant objName="/cal/cal2.jsp" opName="2pm" roleNm="role1"/>
+                <permgrant objName="/cal/cal2.jsp" opName="4pm" roleNm="role1"/>
+                <permgrant objName="/cal/cal2.jsp" opName="6pm" roleNm="role1"/>
+
+                <!--permgrant objName="/jsp/cal/cal1.jsp" opName="main" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="8am" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="10am" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="12pm" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="2pm" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="4pm" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="6pm" roleNm="role1"/-->
+            </addpermgrant>
+
+            <!--delpermgrant>
+                <permgrant objName="/jsp/cal/cal1.jsp" opName="main" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="8am" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="10am" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="12pm" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="2pm" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="4pm" roleNm="role1"/>
+                <permgrant objName="/jsp/cal/cal2.jsp" opName="6pm" roleNm="role1"/>
+            </delpermgrant-->
+
+
+            <!-- Begin ARBAC Delegated Admin Data: -->
+            <addorgunit>
+                <orgunit name="demousrs1" typeName="USER" description="Test User Org 1 for User on Tomcat Calendar App"/>
+                <orgunit name="demousrs2" typename="USER" description="Test User Org 2 for User on Tomcat Calendar App"/>
+                <orgunit name="demoapps1" typeName="PERM" description="Test Perm Org 1 for Permission on Tomcat Calendar App"/>
+                <orgunit name="demoapps2" typename="PERM" description="Test Perm Org 2 for Permission on Tomcat Calendar App"/>
+            </addorgunit>
+
+            <!--delorgunit>
+                <orgunit name="demousrs1" typeName="USER"/>
+                <orgunit name="demousrs2" typename="USER"/>
+                <orgunit name="demoapps1" typeName="PERM"/>
+                <orgunit name="demoapps2" typename="PERM"/>
+            </delorgunit-->
+
+            <adduser>
+                <user userId="demoAdminUser1"
+                      password="password"
+                      description="Demo Test Admin User 1"
+                      ou="demousrs1"
+                      cn="adminUser1"
+                      sn="adminUser1"
+                      pwPolicy="Test1"
+                      beginTime="0000"
+                      endTime="0000"
+                      beginDate="20090101"
+                      endDate="20990101"
+                      beginLockDate="none"
+                      endLockDate="none"
+                      dayMask="1234567"
+                      timeout="60"/>
+            </adduser>
+
+            <!--deluser>
+                <user userId="demoAdminUser1"/>
+            </deluser-->
+
+            <addadminrole>
+                <role name="DemoAdminUsers"
+                      description="Test Admin Role for Demo"
+                      osps="demoapps1,demoapps2"
+                      osus="demousrs1,demousrs2"
+                      beginrange="role1"
+                      endrange="role1"
+                      begininclusive="true"
+                      endinclusive="true"/>
+            </addadminrole>
+
+            <!--deladminrole>
+                <role name="arole1"/>
+            </deladminrole-->
+
+            <adduseradminrole>
+                <userrole userId="demouser4"
+                          name="DemoAdminUsers"
+                          beginTime="0000"
+                          endTime="0000"
+                          beginDate="none"
+                          endDate="none"
+                          beginLockDate="none"
+                          endLockDate="none"
+                          dayMask="all"
+                          timeout="0"/>
+            </adduseradminrole>
+
+            <!--deluseradminrole>
+                <userrole userId="demoAdminUser1" name="arole1"/>
+            </deluseradminrole-->
+
+            <addpermobj>
+                <permobj admin="true"
+                         objectName="com.jts.fortress.audit.AuditMgrImpl"
+                         description="AuditMgr Object"
+                         ou="demoapps1" type="Ant"/>
+            </addpermobj>
+
+            <!--delpermobj>
+                <permobj admin="true" objectName="DelegatedAdminMgrTest"/>
+            </delpermobj-->
+
+            <addpermop>
+                <permop admin="true" opName="searchBinds" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchAuthZs" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="getUserAuthZs" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchUserSessions" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchAdminMods" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchInvalidUsers" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+            </addpermop>
+
+            <!--delpermop>
+                <permop admin="true" opName="addRole" objectName="DelegatedAdminMgrTest" abstractName="DelegatedAdminMgr.addRole" type="Ant"/>
+            </delpermop-->
+
+            <addpermgrant>
+                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="searchBinds" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="searchAuthZs" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="getUserAuthZs" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="searchUserSessions" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="searchAdminMods" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="searchInvalidUsers" roleNm="DemoAdminUsers"/>
+            </addpermgrant>
+
+            <!--delpermgrant>
+                <permgrant admin="true" objName="DelegatedAdminMgrTest" opName="addRole" roleNm="arole1"/>
+            </delpermgrant-->
+
+         </FortressAdmin>
+    </target>
+</project>
