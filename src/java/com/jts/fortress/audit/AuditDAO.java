@@ -586,6 +586,12 @@ public class AuditDAO
                 String szTime = AttrHelper.encodeGeneralizedTime(audit.getBeginDate());
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
+            if (audit.getEndDate() != null)
+            {
+                String szTime = AttrHelper.encodeGeneralizedTime(audit.getEndDate());
+                filter += "(" + REQEND + "<=" + szTime + ")";
+            }
+
             filter += ")";
             //log.warn("filter=" + filter);
             searchResults = DaoUtil.search(ld, auditRoot,

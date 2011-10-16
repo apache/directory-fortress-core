@@ -34,6 +34,7 @@ public class UserAudit implements java.io.Serializable
     private String userId;
     private String internalUserId;
     private Date beginDate;
+
     private Date endDate;
     private String dn;
 
@@ -186,6 +187,24 @@ public class UserAudit implements java.io.Serializable
     public void setBeginDate(Date beginDate)
     {
         this.beginDate = beginDate;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Date getEndDate()
+    {
+        return endDate;
+    }
+
+    /**
+     *
+     * @param endDate
+     */
+    public void setEndDate(Date endDate)
+    {
+        this.endDate = endDate;
     }
 
     /**

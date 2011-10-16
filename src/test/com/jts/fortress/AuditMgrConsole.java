@@ -14,7 +14,10 @@ import com.jts.fortress.audit.UserAudit;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.util.attr.AttrHelper;
 import com.jts.fortress.util.attr.VUtil;
+import com.jts.fortress.util.time.Time;
 import org.apache.log4j.Logger;
+import org.apache.tools.ant.util.DateUtils;
+import sun.util.calendar.LocalGregorianCalendar;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -721,6 +724,7 @@ public class AuditMgrConsole
                 System.out.println("size=" + val.length() + " val=" + val);
 
             }
+
             System.out.println("Check within the last n hours?  Enter number of hours or null for unlimited");
             val = ReaderUtil.readLn();
             if (val != null && val.length() > 0)
@@ -732,6 +736,27 @@ public class AuditMgrConsole
                 Date date2 = new Date(millis);
                 uAudit.setBeginDate(date2);
             }
+
+            /*
+            System.out.println("Enter begin time and date - format YYYYMMDDHHMM or null for unlimited");
+            val = ReaderUtil.readLn();
+            if (val != null && val.length() > 0)
+            {
+                //int hours = Integer.parseInt(val);
+                int year = new Integer(val.substring(0, 3));
+                int month = new Integer(val.substring(0, 3));
+                int day = new Integer(val.substring(0, 3));
+
+
+                Date date = new Date();
+                java.sql.Date date2 = new java.sql.Date(2011, 11, 25);
+                date2.getTime();
+                long millis = date.getTime();
+                millis = millis - (1000 * 60 * 60 * hours);
+                Date date2 = new Date(millis);
+                uAudit.setBeginDate(date2);
+            } */
+
             System.out.println("Enter admin object name to search Audit Mods with or NULL for skip:");
             val = ReaderUtil.readLn();
             if(VUtil.isNotNullOrEmpty(val))

@@ -13,6 +13,7 @@ import com.jts.fortress.pwpolicy.PswdPolicy;
 import org.apache.log4j.Logger;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 /**
@@ -288,8 +289,8 @@ public class PolicyP
         }
         catch (SecurityException se)
         {
-            String error = OCLS_NM + ".loadPolicySet static initializer caught SecurityException=" + se;
-            log.error(error);
+            String warning = OCLS_NM + ".loadPolicySet static initializer caught SecurityException=" + se;
+            log.info(warning);
         }
         return policySet;
     }

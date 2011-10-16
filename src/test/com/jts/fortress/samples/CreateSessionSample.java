@@ -66,7 +66,8 @@ public class CreateSessionSample extends TestCase
      */
     public void testCreateSessionWithRole()
     {
-        createSessionsWithRole(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE);
+        //createSessionsWithRole(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE);
+        createSessionsWithRole(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD, CreateRoleSample.TEST_ROLE_PREFIX + "1");
     }
 
     /**
@@ -75,7 +76,7 @@ public class CreateSessionSample extends TestCase
      */
     public void testCreateSessionWithRolesTrusted()
     {
-        createSessionsWithRolesTrusted(CreateUserSample.TEST_USERID, new String[]{CreateRoleSample.TEST_ROLE_PREFIX + "2", CreateRoleSample.TEST_ROLE_PREFIX + "3", CreateRoleSample.TEST_ROLE_PREFIX + "4"}, 3);
+        createSessionsWithRolesTrusted(CreateUserSample.TEST_USERID, new String[]{CreateRoleSample.TEST_ROLE_PREFIX + "1", CreateRoleSample.TEST_ROLE_PREFIX + "3", CreateRoleSample.TEST_ROLE_PREFIX + "4"}, 3);
     }
 
     /**

@@ -48,7 +48,11 @@ public class CreateUserSample extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest(new CreateUserSample("testDeleteUser"));
+
+        if(!AllSamplesJUnitTest.isFirstRun())
+        {
+            suite.addTest(new CreateUserSample("testDeleteUser"));
+        }
         suite.addTest(new CreateUserSample("testCreateUser"));
         return suite;
     }
@@ -61,6 +65,12 @@ public class CreateUserSample extends TestCase
     public static void testDeleteUser()
     {
         String szLocation = OCLS_NM + ".testDeleteUser";
+
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -111,7 +121,10 @@ public class CreateUserSample extends TestCase
              *   {@link User#setRole(String)}="sampleRole1"
              *   {@link User#ou}="sampleUserOU1"
              */
-            User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
+            //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
+            //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
+            User inUser = new User(TEST_USERID, TEST_PASSWORD);
+            inUser.setOu(CreateUserOrgSample.TEST_USER_OU_NM);
             // Now call the add API.  The API will return User entity with associated LDAP dn if creation was successful.
             User outUser = adminMgr.addUser(inUser);
             assertNotNull(outUser);

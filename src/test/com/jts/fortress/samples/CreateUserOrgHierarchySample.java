@@ -52,6 +52,19 @@ public class CreateUserOrgHierarchySample extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
+
+        if(!AllSamplesJUnitTest.isFirstRun())
+        {
+            suite.addTest(new CreateUserOrgHierarchySample("testDeleteHierUserOrgs"));
+            suite.addTest(new CreateUserOrgHierarchySample("testDeleteDescendantUserOrgs"));
+            suite.addTest(new CreateUserOrgHierarchySample("testDeleteAscendantUserOrgs"));
+        }
+
+        suite.addTest(new CreateUserOrgHierarchySample("testCreateHierUserOrgs"));
+        suite.addTest(new CreateUserOrgHierarchySample("testCreateDescendantUserOrgs"));
+        suite.addTest(new CreateUserOrgHierarchySample("testCreateAscendantUserOrgs"));
+
+            /*
         suite.addTest(new CreateUserOrgHierarchySample("testDeleteHierUserOrgs"));
         suite.addTest(new CreateUserOrgHierarchySample("testCreateHierUserOrgs"));
 
@@ -60,6 +73,7 @@ public class CreateUserOrgHierarchySample extends TestCase
 
         suite.addTest(new CreateUserOrgHierarchySample("testDeleteAscendantUserOrgs"));
         suite.addTest(new CreateUserOrgHierarchySample("testCreateAscendantUserOrgs"));
+        */
 
         return suite;
     }
@@ -74,6 +88,12 @@ public class CreateUserOrgHierarchySample extends TestCase
     public static void testDeleteHierUserOrgs()
     {
         String szLocation = OCLS_NM + ".testDeleteHierUserOrgs";
+
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         try
         {
             // Instantiate the DelegatedAdminMgr implementation which is used to provision ARBAC policies.
@@ -157,6 +177,12 @@ public class CreateUserOrgHierarchySample extends TestCase
     public static void testDeleteDescendantUserOrgs()
     {
         String szLocation = OCLS_NM + ".testDeleteDescendantUserOrgs";
+
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         try
         {
             // Instantiate the DelegatedAdminMgr implementation which is used to provision ARBAC policies.
@@ -236,6 +262,12 @@ public class CreateUserOrgHierarchySample extends TestCase
     public static void testDeleteAscendantUserOrgs()
     {
         String szLocation = OCLS_NM + ".testDeleteAscendantUserOrgs";
+
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         try
         {
             // Instantiate the DelegatedAdminMgr implementation which is used to provision ARBAC policies.

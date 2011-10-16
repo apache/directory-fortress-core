@@ -85,8 +85,8 @@ public final class OrgUnitP
         }
         catch (SecurityException se)
         {
-            String error = OCLS_NM + ".loadOrgSet static initializer caught SecurityException=" + se;
-            log.error(error, se);
+            String warning = OCLS_NM + ".loadOrgSet static initializer caught SecurityException=" + se;
+            log.info(warning, se);
         }
         return ouSet;
     }

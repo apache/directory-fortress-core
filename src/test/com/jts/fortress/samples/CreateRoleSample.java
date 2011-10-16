@@ -30,8 +30,8 @@ public class CreateRoleSample extends TestCase
 {
     private static final String OCLS_NM = CreateRoleSample.class.getName();
     private static final Logger log = Logger.getLogger(OCLS_NM);
-    public static final String TEST_SIMPLE_ROLE = "sampleRole1";
-    public static final String TEST_SIMPLE_ROLE2[] = {"Customer", "Admin", "Manager"};
+    public static final String TEST_SIMPLE_ROLE = "simpleRole";
+    public static final String TEST_SIMPLE_ROLE2[] = {"Customer", "Admin", "Supervisor"};
 
     // This constant will be added to index for creation of multiple nodes in directory.
     public static final String TEST_ROLE_PREFIX = "sampleRole";
@@ -48,17 +48,55 @@ public class CreateRoleSample extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest(new CreateRoleSample("testDeleteRoles"));
+
+        if(!AllSamplesJUnitTest.isFirstRun())
+        {
+            suite.addTest(new CreateRoleSample("testDeleteRoles"));
+            suite.addTest(new CreateRoleSample("testDeleteSimpleRole2"));
+        }
+
         suite.addTest(new CreateRoleSample("testCreateSimpleRole"));
         suite.addTest(new CreateRoleSample("testCreateComplexRole"));
         return suite;
     }
+
+    public static void testDeleteSimpleRole()
+    {
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
+        String szLocation = OCLS_NM + ".testDeleteSimpleRole";
+        try
+        {
+            // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
+            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+
+            // At its simplest a Role contains only a name.
+            Role inRole = new Role(TEST_SIMPLE_ROLE);
+
+            // Call the API to remove the Role from ldap.
+            adminMgr.deleteRole(inRole);
+        }
+        catch (SecurityException ex)
+        {
+            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            fail(ex.getMessage());
+        }
+    }
+
 
     /**
      *
      */
     public static void testDeleteSimpleRole2()
     {
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         String szLocation = OCLS_NM + ".testDeleteSimpleRole2";
         try
         {
@@ -89,6 +127,12 @@ public class CreateRoleSample extends TestCase
     public static void testDeleteRoles()
     {
         String szLocation = OCLS_NM + ".testDeleteRoles";
+
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -204,7 +248,7 @@ public class CreateRoleSample extends TestCase
             AdminMgr adminMgr = AdminMgrFactory.createInstance();
 
             // Create roles, sampleRole2 - sampleRole10
-            for(int i = 2; i < 11; i++)
+            for(int i = 1; i < 11; i++)
             {
                 // Instantiate the Role entity.
                 Role inRole = new Role(TEST_ROLE_PREFIX + i);

@@ -51,8 +51,13 @@ public class CreatePermSample extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest(new CreatePermSample("testRevokePermissionRole"));
-        suite.addTest(new CreatePermSample("testDelPermObjects"));
+
+        if(!AllSamplesJUnitTest.isFirstRun())
+        {
+            suite.addTest(new CreatePermSample("testRevokePermissionRole"));
+            suite.addTest(new CreatePermSample("testDelPermObjects"));
+        }
+
         suite.addTest(new CreatePermSample("testAddPermObjects"));
         suite.addTest(new CreatePermSample("testAddPermOperations"));
         suite.addTest(new CreatePermSample("testGrantPermissionRole"));
@@ -67,6 +72,12 @@ public class CreatePermSample extends TestCase
     public static void testRevokePermissionRole()
     {
         String szLocation = OCLS_NM + ".testRevokePermissionRole";
+
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -113,6 +124,12 @@ public class CreatePermSample extends TestCase
     public static void testDelPermObjects()
     {
         String szLocation = OCLS_NM + ".testDelPermObjects";
+
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -147,6 +164,12 @@ public class CreatePermSample extends TestCase
     public static void testDeleteShoppingCartObjects()
     {
         String szLocation = OCLS_NM + ".testDeleteShoppingCartObjects";
+
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         try
         {
             // Instantiate the AdminMgr first
@@ -376,6 +399,12 @@ public class CreatePermSample extends TestCase
     public static void testRevokePermissionUser()
     {
         String szLocation = OCLS_NM + ".testRevokePermissionUser";
+
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         User inUser = new User(CreateUserSample.TEST_USERID);
         try
         {

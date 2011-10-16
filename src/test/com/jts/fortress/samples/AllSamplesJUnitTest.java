@@ -18,6 +18,17 @@ import junit.framework.TestCase;
  */
 public class AllSamplesJUnitTest extends TestCase
 {
+
+    private static boolean isFirstRun = false;
+
+    public static boolean isFirstRun() {
+        return isFirstRun;
+    }
+
+    public static void setFirstRun(boolean firstRun) {
+        isFirstRun = firstRun;
+    }
+
     public AllSamplesJUnitTest(String name)
     {
         super(name);
@@ -29,6 +40,10 @@ public class AllSamplesJUnitTest extends TestCase
     public static Test suite() throws Exception
     {
         TestSuite suite = new TestSuite();
+
+        String szRunProp = "isFirstJUnitRun";
+        String szFirstRun = System.getProperty(szRunProp);
+        setFirstRun(szFirstRun != null && szFirstRun.equalsIgnoreCase("true"));
         suite.addTest(new TestSuite(CreateUserOrgSample.class));
         suite.addTest(new TestSuite(CreatePermOrgSample.class));
         suite.addTest(new TestSuite(CreateRoleSample.class));

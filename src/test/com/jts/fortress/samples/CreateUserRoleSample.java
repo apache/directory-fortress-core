@@ -46,8 +46,10 @@ public class CreateUserRoleSample extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest(new CreateUserRoleSample("testDeassignRoles"));
-        suite.addTest(new CreateUserRoleSample("testAssignSimpleRole"));
+        if(!AllSamplesJUnitTest.isFirstRun())
+        {
+            suite.addTest(new CreateUserRoleSample("testDeassignRoles"));
+        }
         suite.addTest(new CreateUserRoleSample("testAssignComplexRole"));
         return suite;
     }
@@ -59,6 +61,11 @@ public class CreateUserRoleSample extends TestCase
     {
         String szLocation = OCLS_NM + ".testDeassignRoles";
 
+        if(AllSamplesJUnitTest.isFirstRun())
+        {
+            return;
+        }
+
         // The key for User entity is the userId attribute.
         User inUser = new User(CreateUserSample.TEST_USERID);
         try
@@ -68,64 +75,21 @@ public class CreateUserRoleSample extends TestCase
 
             // This should return null because all Roles assigned to User were removed above:
             List<UserRole> assignedRoles = reviewMgr.assignedRoles(inUser);
-            if(assignedRoles == null || assignedRoles.size() == 0)
-            {
-                // roles already assigned
-                return;
-            }
 
-            // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
-            for(UserRole uRole : assignedRoles)
+            if(assignedRoles != null)
             {
-                // Call the API to deassign the Role from the User entity.  This will remove 'oamRA' and 'oamRC' attributes from the 'oamUserAttrs' object class.
-                adminMgr.deassignUser(uRole);
+                // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
+                AdminMgr adminMgr = AdminMgrFactory.createInstance();
+                for(UserRole uRole : assignedRoles)
+                {
+                    // Call the API to deassign the Role from the User entity.  This will remove 'oamRA' and 'oamRC' attributes from the 'oamUserAttrs' object class.
+                    adminMgr.deassignUser(uRole);
+                }
             }
 
             // This should return null because all Roles assigned to User were removed above:
             assignedRoles = reviewMgr.assignedRoles(inUser);
             assertTrue(szLocation + " failed deassign test", assignedRoles == null);
-        }
-        catch (SecurityException ex)
-        {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
-        }
-    }
-
-
-    /**
-     * At its simplest, the Fortress Role needs only a name before being added to the ldap directory.
-     *
-     */
-    public static void testAssignSimpleRole()
-    {
-        String szLocation = OCLS_NM + ".testAssignSimpleRole";
-
-        // The key for User entity is the userId attribute.
-        User inUser = new User(CreateUserSample.TEST_USERID);
-
-        // The key for User-Role addition is userId and role name.
-        UserRole inUserRole = new UserRole(inUser.getUserId(), CreateRoleSample.TEST_SIMPLE_ROLE);
-        try
-        {
-            // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
-
-            // Call the API to assign the Role to the User entity.  This will add 'oamRA' and 'oamRC' attributes to the 'oamUserAttrs' object class.
-            adminMgr.assignUser(inUserRole);
-
-            // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
-
-            // Return the list of Roles assigned to User.  The User - Role assignments are loaded into the UserRole entity:
-            List<UserRole> assignedRoles = reviewMgr.assignedRoles(inUser);
-
-            // Iterate over list of Roles assigned to User.
-            for(UserRole userRole : assignedRoles)
-            {
-                log.info(szLocation + " userId <" + userRole.getUserId() + " roleNm <" + userRole.getName() + ">");
-            }
         }
         catch (SecurityException ex)
         {
@@ -149,8 +113,8 @@ public class CreateUserRoleSample extends TestCase
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
             AdminMgr adminMgr = AdminMgrFactory.createInstance();
 
-            // Create roles, sampleRole2 - sampleRole10
-            for(int i = 2; i < 11; i++)
+            // Create roles, sampleRole1 - sampleRole10
+            for(int i = 1; i < 11; i++)
             {
                 // OpenAccessManagers UserRole entity may override Role's temporal constraints.
                 // The key for User-Role addition is userId and role name.
