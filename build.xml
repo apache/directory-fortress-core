@@ -14,7 +14,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<project name="Fortress Core" default="build" basedir=".">
+<project name="FortressCore" default="build" basedir=".">
 
    <target name="init">
       <tstamp/>
@@ -27,6 +27,7 @@
        <!-- read properties from the ${user.home}/propfile, if any -->
        <property name="user-propfile" value="${user.home}/build.properties"/>
        <property file="${user-propfile}"/>
+
 
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
@@ -258,11 +259,23 @@
     <target name="test-samples" depends="compile-test" description="runs (junit) sample unit tests">
         <echo message="Run the Fortress sample JUnit tests..."/>
         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
+            <sysproperty key="isFirstJUnitRun" value="false" />
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
             <test name="${test.sample.entry}"/>
         </junit>
     </target>
+
+    <!-- ###############  run junit samples tests ############################### -->
+     <target name="test-samples-init" depends="compile-test" description="runs (junit) sample unit tests without teardown">
+         <echo message="Run the Fortress sample JUnit tests..."/>
+         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
+             <sysproperty key="isFirstJUnitRun" value="true" />
+             <classpath refid="test.class.path"/>
+             <formatter type="plain" usefile="false"/>
+             <test name="${test.sample.entry}"/>
+         </junit>
+     </target>
 
    <!-- ###############  run full junit regression tests ############################### -->
     <target name="test-full" depends="compile-test" description="run (junit) full regression tests">
