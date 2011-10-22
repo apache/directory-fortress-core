@@ -78,7 +78,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
      * This function will determine if the user contains an AdminRole that is authorized revoke control over
      * User-Role Assignment (URA).  This adheres to the ARBAC02 functional specification for can-revoke URA.
      *
-     * @param session This object must be instantiated by calling "createSession" method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session This object must be instantiated by calling {@link com.jts.fortress.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @param user    Instantiated User entity requires only valid userId attribute set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
      * @return boolean value true indicates access allowed.
@@ -98,7 +98,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
      * This function will determine if the user contains an AdminRole that is authorized assignment control over
      * Permission-Role Assignment (PRA).  This adheres to the ARBAC02 functional specification for can-assign-p PRA.
      *
-     * @param session This object must be instantiated by calling "createSession" method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session This object must be instantiated by calling {@link com.jts.fortress.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @param perm    Instantiated Permission entity requires valid object name and operation name attributes set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
      * @return boolean value true indicates access allowed.
@@ -118,7 +118,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
      * This function will determine if the user contains an AdminRole that is authorized revoke control over
      * Permission-Role Assignment (PRA).  This adheres to the ARBAC02 functional specification for can-revoke-p PRA.
      *
-     * @param session This object must be instantiated by calling "createSession" method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session This object must be instantiated by calling {@link com.jts.fortress.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @param perm    Instantiated Permission entity requires valid object name and operation name attributes set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
      * @return boolean value true indicates access allowed.
@@ -145,7 +145,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
      *
      * @param perm object contains obj attribute which is a String and contains the name of the object user is trying to access;
      * perm object contains operation attribute which is also a String and contains the operation name for the object.
-     * @param session This object must be instantiated by calling "createSession" method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session This object must be instantiated by calling {@link com.jts.fortress.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @return True of user has access, false otherwise.
      * @throws SecurityException In the event of data validation error (i.e. invalid perm name) or system error.
      */

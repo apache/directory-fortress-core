@@ -34,7 +34,7 @@ import java.util.UUID;
  * <p/>
  * <h4>User entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setPassword(String)} must be set before calling {@link com.jts.fortress.rbac.AccessMgrImpl#authenticate} and {@link com.jts.fortress.rbac.AccessMgrImpl#createSession(User, boolean)} (unless trusted).
+ * <li>{@link #setPassword(char[])} must be set before calling {@link com.jts.fortress.rbac.AccessMgrImpl#authenticate} and {@link com.jts.fortress.rbac.AccessMgrImpl#createSession(User, boolean)} (unless trusted).
  * <li>{@link #setOu} is required before calling {@link com.jts.fortress.rbac.AdminMgrImpl#addUser(User)} to add a new user to ldap.
  * <li>{@link #setRoles} will be set for {@link com.jts.fortress.rbac.AccessMgrImpl#createSession(User, boolean)} when selective RBAC Role activation is required.
  * <li>{@link #setAdminRoles} will be set for {@link com.jts.fortress.rbac.AccessMgrImpl#createSession(User, boolean)} when selective Administrative Role activation is required.
@@ -133,7 +133,7 @@ import java.util.UUID;
 public class User extends FortEntity implements Constraint, Serializable
 {
     private String userId;
-    private String password;
+    private char[] password;
     private String internalId;
     private List<UserRole> roles;
     private List<com.jts.fortress.arbac.UserAdminRole> adminRoles;
@@ -180,7 +180,7 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param userId   String validated using simple length test and optional regular expression, i.e. safe text.
      * @param password validated using simple length test and OpenLDAP password policies.
      */
-    public User(String userId, String password)
+    public User(String userId, char[] password)
     {
         this.userId = userId;
         this.password = password;
@@ -193,7 +193,7 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param password validated using simple length test and OpenLDAP password policies.
      * @param roleName contains role that caller is requesting activation.
      */
-    public User(String userId, String password, String roleName)
+    public User(String userId, char[] password, String roleName)
     {
         this.userId = userId;
         this.password = password;
@@ -207,7 +207,7 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param password validated using simple length test and OpenLDAP password policies.
      * @param roleNames contains array of roleNames that caller is requesting activation.
      */
-    public User(String userId, String password, String[] roleNames)
+    public User(String userId, char[] password, String[] roleNames)
     {
         this.userId = userId;
         this.password = password;
@@ -228,7 +228,7 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param roleName contains role that caller is requesting activation (see {@link com.jts.fortress.AccessMgr#createSession(User, boolean)}) or assignment (see {@link com.jts.fortress.AdminMgr#addUser(User)}).
      * @param ou org unit name that caller is requesting assigned to newly created User (see {@link com.jts.fortress.AdminMgr#addUser(User)}).
      */
-    public User(String userId, String password, String roleName, String ou)
+    public User(String userId, char[] password, String roleName, String ou)
     {
         this.userId = userId;
         this.password = password;
@@ -475,7 +475,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return attribute containing User password.
      */
-    public String getPassword()
+    public char[] getPassword()
     {
         return this.password;
     }
@@ -487,7 +487,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param password maps to 'userPassword' attribute in 'inetOrgPerson' object class.
      */
-    public void setPassword(String password)
+    public void setPassword(char[] password)
     {
         this.password = password;
     }

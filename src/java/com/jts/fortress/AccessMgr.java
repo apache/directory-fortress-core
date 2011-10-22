@@ -54,7 +54,7 @@ public interface AccessMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation failure, security policy violation or DAO error.
      */
-    public Session authenticate(String userId, String password)
+    public Session authenticate(String userId, char[] password)
         throws com.jts.fortress.SecurityException;
 
 
@@ -118,7 +118,7 @@ public interface AccessMgr
 
 
     /**
-     * Perform user rbac authorization.  This function returns a Boolean value meaning whether the subject of a given session is
+     * Perform user RBAC authorization.  This function returns a Boolean value meaning whether the subject of a given session is
      * allowed or not to perform a given operation on a given object. The function is valid if and
      * only if the session is a valid Fortress session, the object is a member of the OBJS data set,
      * and the operation is a member of the OPS data set. The session's subject has the permission
@@ -127,7 +127,7 @@ public interface AccessMgr
      * to the subject's active roles are registered in the object's access control list.
      *
      * @param perm    must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, of permission User is trying to access.
-     * @param session This object must be instantiated by calling "createSession" method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session This object must be instantiated by calling {@link AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @return True if user has access, false otherwise.
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation failure, security policy violation or DAO error.
@@ -140,7 +140,7 @@ public interface AccessMgr
      * This function returns the permissions of the session, i.e., the permissions assigned
      * to its authorized roles. The function is valid if and only if the session is a valid Fortress session.
      *
-     * @param session This object must be instantiated by calling "createSession" method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session This object must be instantiated by calling {@link AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @return List<Permission> containing permissions (op, obj) active for user's session.
      * @throws SecurityException is thrown if runtime error occurs with system.
      */

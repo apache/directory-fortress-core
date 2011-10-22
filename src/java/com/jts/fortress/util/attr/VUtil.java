@@ -83,10 +83,10 @@ public class VUtil
      * @throws com.jts.fortress.ValidationException in the event of failure, {@link com.jts.fortress.constants.GlobalErrIds#USER_PW_INVLD_LEN}.
      *
      */
-    public static void password(String password)
+    public static void password(char[] password)
         throws com.jts.fortress.ValidationException
     {
-        int length = password.length();
+        int length = password.length;
         if (length > GlobalIds.PASSWORD_LEN)
         {
             String error = OCLS_NM + ".password invalid length <" + length + ">";
@@ -425,6 +425,23 @@ public class VUtil
     }
 
     /**
+     * Method will throw exception with supplied error id and object.method name if string reference is null or empty.
+     * @param value contains the reference to check.
+     * @param errorCode contains the error id to use if null.
+     * @param method contains the method name of caller.
+     * @throws com.jts.fortress.ValidationException in the event supplied string is null or empty.
+     */
+    public static void assertNotNullOrEmpty(char[] value, int errorCode, String method)
+        throws ValidationException
+    {
+        if (value == null || value.length == 0)
+        {
+            String error = OCLS_NM + ".assertNotNull detected null entity for method <" + method + ">, error code <" + errorCode + ">";
+            throw new com.jts.fortress.ValidationException(errorCode, error);
+        }
+    }
+
+    /**
      * Method will return true if string array reference is not null or empty.
      * @param value contains the reference to string array.
      * @return boolean if validation succeeds.
@@ -448,6 +465,21 @@ public class VUtil
      {
         boolean result = false;
         if (value != null && value.length() > 0)
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    /**
+     * Method will return true if string reference is not null or empty.
+     * @param value contains the reference to string.
+     * @return boolean if validation succeeds.
+     */
+    public static boolean isNotNullOrEmpty(char[] value)
+     {
+        boolean result = false;
+        if (value != null && value.length > 0)
         {
             result = true;
         }

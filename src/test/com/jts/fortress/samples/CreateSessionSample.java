@@ -57,7 +57,7 @@ public class CreateSessionSample extends TestCase
     public void testCreateSession()
     {
         //createSession("oamuser1", "passw0rd1", 10);
-        createSession(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD, 10);
+        createSession(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), 10);
     }
 
     /**
@@ -67,7 +67,7 @@ public class CreateSessionSample extends TestCase
     public void testCreateSessionWithRole()
     {
         //createSessionsWithRole(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE);
-        createSessionsWithRole(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD, CreateRoleSample.TEST_ROLE_PREFIX + "1");
+        createSessionsWithRole(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), CreateRoleSample.TEST_ROLE_PREFIX + "1");
     }
 
     /**
@@ -96,7 +96,7 @@ public class CreateSessionSample extends TestCase
      * @param password Password is case sensitive, clear text but is stored in directory as hashed value.
      * @param expectedRoles integer contains the expected number of Roles in the Session.
      */
-    public static void createSession(String userId, String password, int expectedRoles)
+    public static void createSession(String userId, char[] password, int expectedRoles)
     {
         String szLocation = OCLS_NM + ".createSession";
         try
@@ -127,7 +127,7 @@ public class CreateSessionSample extends TestCase
             try
             {
                 // this better fail
-                User userBad = new User(user.getUserId(), "badpw");
+                User userBad = new User(user.getUserId(), "badpw".toCharArray());
 
                 // The API will authenticate the User password, evaluate password policies and perform Role activations.
                 session = accessMgr.createSession(userBad, false);
@@ -160,7 +160,7 @@ public class CreateSessionSample extends TestCase
      * @param password Password is case sensitive, clear text but is stored in directory as hashed value.
      * @param role contains role name of Role targeted for Activation.
      */
-    public static void createSessionsWithRole(String userId, String password, String role)
+    public static void createSessionsWithRole(String userId, char[] password, String role)
     {
         String szLocation = OCLS_NM + ".createSessionsWithRole";
         try

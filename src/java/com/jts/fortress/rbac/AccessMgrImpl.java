@@ -62,7 +62,7 @@ public class AccessMgrImpl implements AccessMgr
      * @return Session object will be returned if authentication successful.  This will not contain user's roles.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    public Session authenticate(String userId, String password)
+    public Session authenticate(String userId, char[] password)
         throws SecurityException
     {
         String fullMethodName = OCLS_NM + ".authenticate";
@@ -146,7 +146,7 @@ public class AccessMgrImpl implements AccessMgr
      * to the subject's active roles are registered in the object's access control list.
      *
      * @param perm  must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, of permission User is trying to access.
-     * @param session This object must be instantiated by calling "createSession" method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session This object must be instantiated by calling {@link AccessMgrImpl#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @return True if user has access, false otherwise.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */

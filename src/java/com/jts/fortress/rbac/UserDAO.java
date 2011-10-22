@@ -148,7 +148,7 @@ public final class UserDAO
                 entity.setSn(entity.getUserId());
             }
             attrs.add(DaoUtil.createAttribute(SN, entity.getSn()));
-            attrs.add(DaoUtil.createAttribute(PW, entity.getPassword()));
+            attrs.add(DaoUtil.createAttribute(PW, new String(entity.getPassword())));
             attrs.add(DaoUtil.createAttribute(DISPLAY_NAME, entity.getCn()));
 
             // The following attributes are optional:
@@ -223,7 +223,7 @@ public final class UserDAO
             }
             if (VUtil.isNotNullOrEmpty(entity.getPassword()))
             {
-                LDAPAttribute pw = new LDAPAttribute(PW, entity.getPassword());
+                LDAPAttribute pw = new LDAPAttribute(PW, new String(entity.getPassword()));
                 mods.add(LDAPModification.REPLACE, pw);
             }
             if (VUtil.isNotNullOrEmpty(entity.getDescription()))
@@ -555,7 +555,7 @@ public final class UserDAO
      *
      * @throws com.jts.fortress.SecurityException
      */
-    Session checkPassword(String userId, String password) throws FinderException
+    Session checkPassword(String userId, char[] password) throws FinderException
     {
         Session session = null;
         LDAPConnection ld = null;
@@ -1016,7 +1016,7 @@ public final class UserDAO
      *
      * @throws SecurityException
      */
-    boolean changePassword(User entity, String newPassword)
+    boolean changePassword(User entity, char[] newPassword)
         throws SecurityException
     {
         boolean rc = true;
@@ -1031,7 +1031,7 @@ public final class UserDAO
             // TODO: fix this to allow user to update ftModifier attribute on record.  Currently getting LDAP 50 error - access control violation.
             // cannot do this - insufficient as user can't modify this attribute
             //DaoUtil.loadAdminData(entity, mods);
-            LDAPAttribute pw = new LDAPAttribute(PW, newPassword);
+            LDAPAttribute pw = new LDAPAttribute(PW, new String(newPassword));
             mods.add(LDAPModification.REPLACE, pw);
             DaoUtil.modify(ld, userDn, mods);
         }
@@ -1073,7 +1073,7 @@ public final class UserDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute pw = new LDAPAttribute(PW, user.getPassword());
+            LDAPAttribute pw = new LDAPAttribute(PW, new String(user.getPassword()));
             mods.add(LDAPModification.REPLACE, pw);
             LDAPAttribute pwdReset = new LDAPAttribute(OPENLDAP_PW_RESET, "TRUE");
             mods.add(LDAPModification.REPLACE, pwdReset);

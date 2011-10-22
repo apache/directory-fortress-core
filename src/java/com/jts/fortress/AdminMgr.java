@@ -107,7 +107,7 @@ public interface AdminMgr extends com.jts.fortress.Authorizable
      * @param newPassword contains new user password.
      * @throws SecurityException will be thrown in the event of password policy violation or system error.
      */
-    public void changePassword(User user, String newPassword)
+    public void changePassword(User user, char[] newPassword)
         throws SecurityException;
 
 
@@ -138,7 +138,7 @@ public interface AdminMgr extends com.jts.fortress.Authorizable
      * @param user entity contains {@link User#userId} of User to be reset.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
-    public void resetPassword(User user, String newPassword)
+    public void resetPassword(User user, char[] newPassword)
         throws SecurityException;
 
 

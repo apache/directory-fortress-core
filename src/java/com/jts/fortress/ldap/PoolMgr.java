@@ -162,7 +162,7 @@ public class PoolMgr
      * @return boolean value - true if bind successful, false otherwise.
      * @throws LDAPException in the event of LDAP error.
      */
-    public static boolean bind(LDAPConnection ld, String userId, String password)
+    public static boolean bind(LDAPConnection ld, String userId, char[] password)
         throws LDAPException
     {
         return bindUser(userId, password, ld);
@@ -458,7 +458,7 @@ public class PoolMgr
      * @return boolean value - true if bind successful, false otherwise.
      * @throws LDAPException in the event of LDAP error.
      */
-    private static boolean bindUser(String userId, String password, LDAPConnection ld)
+    private static boolean bindUser(String userId, char[] password, LDAPConnection ld)
         throws LDAPException
     {
         boolean result;
@@ -472,12 +472,12 @@ public class PoolMgr
         {
             LDAPConstraints lCon = new LDAPConstraints();
             lCon.setServerControls(pwPolicyControl);
-            ld.authenticate(ldapRevision, userId, password, lCon);
+            ld.authenticate(ldapRevision, userId, new String(password), lCon);
             result = true;
         }
         else
         {
-            ld.authenticate(ldapRevision, userId, password);
+            ld.authenticate(ldapRevision, userId, new String(password));
             result = true;
         }
         return result;

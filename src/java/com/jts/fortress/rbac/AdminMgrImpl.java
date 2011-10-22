@@ -178,7 +178,7 @@ public final class AdminMgrImpl implements AdminMgr
      * @param newPassword contains new user password.
      * @throws com.jts.fortress.SecurityException Will be thrown in the event of password policy violation or system error.
      */
-    public void changePassword(User user, String newPassword)
+    public void changePassword(User user, char[] newPassword)
         throws SecurityException
     {
         String methodName = "changePassword";
@@ -225,7 +225,7 @@ public final class AdminMgrImpl implements AdminMgr
      * @param user entity contains {@link User#userId} of User to be reset.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
-    public void resetPassword(User user, String newPassword)
+    public void resetPassword(User user, char[] newPassword)
         throws SecurityException
     {
         String methodName = "resetPassword";

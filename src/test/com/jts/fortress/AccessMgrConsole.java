@@ -125,7 +125,7 @@ public class AccessMgrConsole
             String userId = ReaderUtil.readLn();
             System.out.println("Enter password:");
             String password = ReaderUtil.readLn();
-            session = am.authenticate(userId, password);
+            session = am.authenticate(userId, password.toCharArray());
             System.out.println("Authentication successful for userId <" + userId + ">");
             System.out.println("session <" + session + ">");
             System.out.println("ENTER to continue");
@@ -147,7 +147,7 @@ public class AccessMgrConsole
             String userId = ReaderUtil.readLn();
             System.out.println("Enter password:");
             String password = ReaderUtil.readLn();
-            session = am.createSession(new User(userId, password), false);
+            session = am.createSession(new User(userId, password.toCharArray()), false);
             System.out.println("Session created successfully for userId <" + userId + ">");
             System.out.println("session <" + session + ">");
             System.out.println("ENTER to continue");
@@ -199,7 +199,7 @@ public class AccessMgrConsole
             else
             {
                 System.out.println("Enter password:");
-                user.setPassword(ReaderUtil.readLn());
+                user.setPassword(ReaderUtil.readLn().toCharArray());
             }
             System.out.println("Enter prop key (or NULL to skip):");
             String key = ReaderUtil.readLn();

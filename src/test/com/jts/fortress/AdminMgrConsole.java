@@ -280,7 +280,7 @@ public class AdminMgrConsole
             ue.setSn(sn);
             ue.setCn(cn);
             System.out.println("Enter pw");
-            ue.setPassword(ReaderUtil.readLn());
+            ue.setPassword(ReaderUtil.readLn().toCharArray());
             System.out.println("Enter User's description field");
             ue.setDescription(ReaderUtil.readLn());
             System.out.println("Enter organization unit, blank for default");
@@ -370,7 +370,7 @@ public class AdminMgrConsole
             System.out.println("Enter userId");
             ue.setUserId(ReaderUtil.readLn());
             System.out.println("Enter pw");
-            ue.setPassword(ReaderUtil.readLn());
+            ue.setPassword(ReaderUtil.readLn().toCharArray());
 
             System.out.println("Do you want to test Admin User update - Y or N");
             String choice = ReaderUtil.readLn();
@@ -381,7 +381,7 @@ public class AdminMgrConsole
                 System.out.println("Enter userId");
                 admin.setUserId(ReaderUtil.readLn());
                 System.out.println("Enter pw");
-                admin.setPassword(ReaderUtil.readLn());
+                admin.setPassword(ReaderUtil.readLn().toCharArray());
                 Session session = accessMgr.createSession(admin, false);
                 am.setAdmin(session);
             }
@@ -704,10 +704,10 @@ public class AdminMgrConsole
             String oldPw = ReaderUtil.readLn();
             User user = new User();
             user.setUserId(userId);
-            user.setPassword(oldPw);
+            user.setPassword(oldPw.toCharArray());
             System.out.println("Enter new password");
             String newPw = ReaderUtil.readLn();
-            am.changePassword(user, newPw);
+            am.changePassword(user, newPw.toCharArray());
             System.out.println("userId <" + userId + ">");
             System.out.println("password has been changed");
             System.out.println("ENTER to continue");
@@ -731,7 +731,7 @@ public class AdminMgrConsole
             user.setUserId(userId);
             System.out.println("Enter new password");
             String newPw = ReaderUtil.readLn();
-            am.resetPassword(user, newPw);
+            am.resetPassword(user, newPw.toCharArray());
             System.out.println("userId <" + userId + ">");
             System.out.println("password has been reset");
             System.out.println("ENTER to continue");

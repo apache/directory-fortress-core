@@ -53,7 +53,7 @@ public class PermP
      * one of the session's active roles. This implementation will verify the roles or userId correspond
      * to the subject's active roles are registered in the object's access control list.
      *
-     * @param session    This object must be instantiated by calling "createSession" method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session    This object must be instantiated by calling {@link AccessMgrImpl#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @param permission object contains obj attribute which is a String and contains the name of the object user is trying to access;
      *                   perm object contains operation attribute which is also a String and contains the operation name for the object.
      * @return True of user has access, false otherwise.
@@ -221,7 +221,7 @@ public class PermP
      * This function returns the permissions of the session, i.e., the permissions assigned
      * to its authorized roles. The function is valid if and only if the session is a valid Fortress session.
      *
-     * @param session This object must be instantiated by calling "createSession" method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session This object must be instantiated by calling {@link AccessMgrImpl#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @return List<Permission> containing permissions (op, obj) active for user's session.
      * @throws com.jts.fortress.SecurityException is thrown if runtime error occurs with system.
      */

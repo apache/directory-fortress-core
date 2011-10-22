@@ -158,7 +158,7 @@ public class AccessMgrImplTest extends TestCase
                 // now try negative test case:
                 try
                 {
-                    session = accessMgr.authenticate(user.getUserId(), "wrongpw");
+                    session = accessMgr.authenticate(user.getUserId(), "wrongpw".toCharArray());
                     fail(OCLS_NM + ".authenticateUsers failed negative test");
                 }
                 catch (SecurityException se)
@@ -310,7 +310,7 @@ public class AccessMgrImplTest extends TestCase
                 // now try negative test case:
                 try
                 {
-                    User userBad = new User(user.getUserId(), "badpw");
+                    User userBad = new User(user.getUserId(), "badpw".toCharArray());
                     session = accessMgr.createSession(userBad, false);
                     fail(OCLS_NM + ".createSessions failed negative test");
                 }

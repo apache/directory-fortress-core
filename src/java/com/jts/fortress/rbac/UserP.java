@@ -385,7 +385,7 @@ public final class UserP
      * @return Session object will be returned if authentication successful.  This will not contain user's roles.
      * @throws com.jts.fortress.SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    public final Session authenticate(String userId, String password)
+    public final Session authenticate(String userId, char[] password)
         throws com.jts.fortress.SecurityException
     {
         Session session;
@@ -435,7 +435,7 @@ public final class UserP
      * The User parm contains the following (* indicates required)
      * <ul>
      * <li> String userId*
-     * <li> String password
+     * <li> char[] password
      * <li> List<UserRole> userRoles contains a list of RBAC role names authorized for user and targeted for activation within this session.
      * <li> List<UserAdminRole> userAdminRoles contains a list of Admin role names authorized for user and targeted for activation.
      * <li> Properties logonProps collection of auditable name/value pairs to store.  For example hostname:myservername or ip:192.168.1.99
@@ -499,7 +499,7 @@ public final class UserP
      * @return Session object will contain authentication result code, RBAC and Admin role activations, OpenLDAP pw policy output and more.
      * @throws com.jts.fortress.SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    private final Session createSession(String userId, String password)
+    private final Session createSession(String userId, char[] password)
         throws SecurityException
     {
         // read user entity:
@@ -576,7 +576,7 @@ public final class UserP
      * @param newPassword contains the new password which must pass the password policy constraints.
      * @throws com.jts.fortress.SecurityException in the event of data validation failure, password policy violation or DAO error.
      */
-    public final void changePassword(User entity, String newPassword)
+    public final void changePassword(User entity, char[] newPassword)
         throws SecurityException
     {
         String userId = entity.getUserId();
