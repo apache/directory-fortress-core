@@ -52,7 +52,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     private static final String OCLS_NM = DelegatedAccessMgrImpl.class.getName();
     private static final UserP uP = new UserP();
     private static final PermP pP = new PermP();
-    private static final String SUPER_ADMIN = Config.getProperty("superAdminRole", "ftSuperAdmin");
+    private static final String SUPER_ADMIN = Config.getProperty("superadmin.role", "ftSuperAdmin");
 
     /**
      * This function will determine if the user contains an AdminRole that is authorized assignment control over

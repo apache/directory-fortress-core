@@ -867,7 +867,7 @@ public final class UserP
     private static final UserDAO uDao = new UserDAO();
     private static final Logger log = Logger.getLogger(OCLS_NM);
     private static final OrgUnitP op = new OrgUnitP();
-    private static final String SYSTEM_USER_PREFIX = "sysUsr";
+    private static final String SYSTEM_USER_PREFIX = "sys.user.";
     // This Set contains list of system users as specified in Fortress config.  These users will not be allowed to be deleted using API.
     private Set<String> sysUserSet = getSysUserSet();
 }

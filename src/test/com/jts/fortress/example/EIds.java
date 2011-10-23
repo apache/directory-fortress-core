@@ -11,7 +11,7 @@ public class EIds
     public final static String EXAMPLE_ADMIN_DEFAULT_CLASS = "ExampleAdminMgrImpl";
 
     // place any global variables related to example entity here
-    public final static String EXAMPLE_ROOT = "exampleRoot";
+    public final static String EXAMPLE_ROOT = "example.root";
 
     public final static int EXAMPLE_LEN = 40;
 

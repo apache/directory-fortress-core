@@ -395,9 +395,9 @@ public final class AdminMgrImpl implements AdminMgr
     /**
      * This method will add permission operation to an already existing permission object which must reside
      * in the perms container in directory.  The perm operation entity may also have user, role or group associations.
-     * The perm operation must not exist before making this call.   An Fortress permission is (object->operation).
+     * The perm operation must not exist before making this call.   A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
+     * @param perm must contain the object, {@link com.jts.fortress.rbac.Permission#objectName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -411,7 +411,25 @@ public final class AdminMgrImpl implements AdminMgr
     }
 
     /**
-     * This method will remove permission operation entity from permission object. An Fortress permission is (object->operation).
+     * This method will update permission operation already existing in directory in the perms container.
+     * The perm operation entity may also contain user, role or group associations to be updated.  The perm operation must exist before making this call.
+     * Only non-null attributes will be updated.
+     *
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
+     * @return copy of permOp entity.
+     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
+     */
+    public Permission updatePermission(Permission perm)
+        throws SecurityException
+    {
+        String methodName = "updatePermission";
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + "." + methodName);
+        setEntitySession(methodName, perm);
+        return permP.update(perm);
+    }
+
+    /**
+     * This method will remove permission operation entity from permission object. A Fortress permission is (object->operation).
      * The perm operation must exist before making this call.
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
@@ -427,27 +445,10 @@ public final class AdminMgrImpl implements AdminMgr
     }
 
     /**
-     * This method will update permission operation already existing in directory in the perms container.
-     * The perm operation entity may also contain user, role or group associations to be updated.
-     * Only non-null attributes will be updated.
+     * This method will add permission object to perms container in directory. The perm object must not exist before making this call.
+     * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
-     * @return copy of Permission entity.
-     * @throws SecurityException - thrown in the event of perm object data or system error.
-     */
-    public Permission updatePermission(Permission perm)
-        throws SecurityException
-    {
-        String methodName = "updatePermission";
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, perm);
-        return permP.update(perm);
-    }
-
-    /**
-     * This method will add permission object to perms container in directory.
-     *
-     * @param pObj must contain the {@link PermObj#objectName} and {@link PermObj#ou}. The other attributes are optional.
+     * @param pObj must contain the {@link PermObj#objectName} and {@link PermObj#ou}.  The other attributes are optional.
      * @return copy of permObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -461,11 +462,12 @@ public final class AdminMgrImpl implements AdminMgr
     }
 
     /**
-     * This method will update permission object in perms container in directory.
+     * This method will update permission object in perms container in directory.  The perm object must exist before making this call.
+     * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
      *
      * @param pObj must contain the {@link PermObj#objectName}. Only non-null attributes will be updated.
      * @return copy of newly updated permObj entity.
-     * @throws SecurityException - thrown in the event of perm object data or system error.
+     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
      */
     public PermObj updatePermObj(PermObj pObj)
         throws SecurityException

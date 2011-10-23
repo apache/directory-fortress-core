@@ -39,19 +39,19 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConstraints;
 public class PoolMgr
 {
     // Property names for ldap connection pools:
-    private final static String LDAP_ADMIN_POOL_UID = "admin";
-    private final static String LDAP_ADMIN_POOL_PW = "adminPw";
-    private final static String LDAP_LOG_POOL_UID = "logAdmin";
-    private final static String LDAP_LOG_POOL_PW = "logAdminPw";
-    private final static String LDAP_ADMIN_POOL_MIN = "minConn";
-    private final static String LDAP_ADMIN_POOL_MAX = "maxConn";
-    private final static String LDAP_USER_POOL_MIN = "minUserConn";
-    private final static String LDAP_USER_POOL_MAX = "maxUserConn";
-    private final static String LDAP_LOG_POOL_MIN = "minLogConn";
-    private final static String LDAP_LOG_POOL_MAX = "maxLogConn";
+    private final static String LDAP_ADMIN_POOL_UID = "admin.user";
+    private final static String LDAP_ADMIN_POOL_PW = "admin.pw";
+    private final static String LDAP_LOG_POOL_UID = "log.admin.user";
+    private final static String LDAP_LOG_POOL_PW = "log.admin.pw";
+    private final static String LDAP_ADMIN_POOL_MIN = "min.admin.conn";
+    private final static String LDAP_ADMIN_POOL_MAX = "max.admin.conn";
+    private final static String LDAP_USER_POOL_MIN = "min.user.conn";
+    private final static String LDAP_USER_POOL_MAX = "max.user.conn";
+    private final static String LDAP_LOG_POOL_MIN = "min.log.conn";
+    private final static String LDAP_LOG_POOL_MAX = "max.log.conn";
     private final static String LDAP_VERSION = "ldapVersion";
     private final static String LDAP_CONNECTION_TIMEOUT = "connTimeout";
-    private final static String LDAP_DEBUG_FLAG = "debugLdapPool";
+    private final static String LDAP_DEBUG_FLAG = "debug.ldap.pool";
     private final static String LDAP_HOST = "host";
     private final static String LDAP_PORT = "port";
 

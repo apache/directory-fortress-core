@@ -29,7 +29,7 @@ public class VUtil
     private static final String OCLS_NM = VUtil.class.getName();
     private final static Logger log = Logger.getLogger(OCLS_NM);
     private static int maximumFieldLen = 130;
-    private final static String VALIDATE_LENGTH = "fieldLength";
+    private final static String VALIDATE_LENGTH = "field.length";
 
     static
     {

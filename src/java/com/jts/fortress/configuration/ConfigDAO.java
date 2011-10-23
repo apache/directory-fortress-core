@@ -64,7 +64,7 @@ public final class ConfigDAO
     private static final String OCLS_NM = ConfigDAO.class.getName();
     final private static Logger log = Logger.getLogger(OCLS_NM);
 
-    private static final String CONFIG_ROOT_PARAM = "configRoot";
+    private static final String CONFIG_ROOT_PARAM = "config.root";
     private final static String CONFIG_ROOT_DN = Config.getProperty(CONFIG_ROOT_PARAM);
 
     private final static String DEVICE_OBJECT_CLASS_NM = "device";

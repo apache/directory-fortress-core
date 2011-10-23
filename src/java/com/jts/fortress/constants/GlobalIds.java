@@ -22,16 +22,16 @@ import com.jts.fortress.configuration.Config;
  */
 public class GlobalIds
 {
-    public static final String ENABLE_AUDIT = "enableAudit";
+    public static final String ENABLE_AUDIT = "enable.audit";
     public static final boolean IS_AUDIT = ((Config.getProperty(ENABLE_AUDIT) != null) && (Config.getProperty(ENABLE_AUDIT).equalsIgnoreCase("true")));
 
     /**
      * The following constants are used within the factory classes:
      */
     /**
-     * When this optional tag, {@code accessImplementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.AccessMgr} instance used.
+     * When this optional tag, {@code accessmgr.implementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.AccessMgr} instance used.
      */
-    public final static String ACCESS_IMPLEMENTATION = "accessImplementation";
+    public final static String ACCESS_IMPLEMENTATION = "accessmgr.implementation";
     /**
      * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.AccessMgrImpl}.
      */
@@ -68,9 +68,9 @@ public class GlobalIds
     public final static String PSWD_POLICY_DEFAULT_CLASS = "com.jts.fortress.pwpolicy.PswdPolicyMgrImpl";
 
     /**
-     * When this optional tag, {@code auditImplementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.AuditMgr} instance used.
+     * When this optional tag, {@code auditmgr.implementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.AuditMgr} instance used.
      */
-    public final static String AUDIT_IMPLEMENTATION = "auditImplementation";
+    public final static String AUDIT_IMPLEMENTATION = "auditmgr.implementation";
 
     /**
      * Default instance for the AccessMgr is {@link com.jts.fortress.audit.AuditMgrImpl}.
@@ -121,7 +121,7 @@ public class GlobalIds
     /**
      * This property is used to specify if authentication is being performed within a security realm.
      */
-    public final static String AUTHENTICATION_TYPE = "authNType";
+    public final static String AUTHENTICATION_TYPE = "authn.type";
 
     /**
      * Specifies realm authentication mode.
@@ -131,12 +131,12 @@ public class GlobalIds
     /**
      * Used to declare validation modules that are used to process constraint checks during session activation.
      */
-    public final static String VALIDATOR_PROPS = "temporalValidator";
+    public final static String VALIDATOR_PROPS = "temporal.validator.";
 
     /**
      * The DSD validator performs Dynamic Separation of Duty checks during role activation.
      */
-    public final static String DSD_VALIDATOR_PROP = "temporalDSDValidator";
+    public final static String DSD_VALIDATOR_PROP = "temporal.validator.dsd";
 
     /**
      * This constant is used during authentication to determine if runtime is security realm.  If IS_REALM == true,
@@ -162,55 +162,55 @@ public class GlobalIds
      * Specifies the dn of the container where the Fortress User data set is located within DIT.  This is typically in the format of
      * {@code ou=People, dc=example, dc=com}
      */
-    public final static String USER_ROOT = "userRoot";
+    public final static String USER_ROOT = "user.root";
 
     /**
      * Specifies the dn of the container where the Fortress Permissions are located.  This is typically in the format of
      * {@code ou=Permissions,ou=RBAC,dc=example,dc=com}
      */
-    public final static String PERM_ROOT = "permRoot";
+    public final static String PERM_ROOT = "perm.root";
 
     /**
      * Specifies the dn of the container where the Fortress RBAC Roles are located.  This is typically in the format of
      * {@code ou=Roles,ou=RBAC,dc=example,dc=com}
      */
-    public final static String ROLE_ROOT = "roleRoot";
+    public final static String ROLE_ROOT = "role.root";
 
     /**
      * Specifies the dn of the container where the Fortress Password Polices are located.  This is typically in the format of
      * {@code ou=Policies,dc=example,dc=com}
      */
-    public final static String PPOLICY_ROOT = "pwPolicyRoot";
+    public final static String PPOLICY_ROOT = "pwpolicy.root";
 
     /**
      * Specifies the dn of the container where the Fortress SSD and DSD constraints are located.  This is typically in the format of
      * {@code ou=Constraints,ou=RBAC,dc=example,dc=com}
      */
-    public final static String SD_ROOT = "sdRoot";
+    public final static String SD_ROOT = "sdconstraint.root";
 
     /**
      * Specifies the dn of the container where the Fortress User OU pools are located.  This is typically in the format of
      * {@code ou=OS-U,ou=ARBAC,dc=example,dc=com}
      */
-    public final static String OSU_ROOT = "userOrgUnitRoot";
+    public final static String OSU_ROOT = "userou.root";
 
     /**
      * Specifies the dn of the container where the Fortress Permission OU pools are located.  This is typically in the format of
      * {@code ou=OS-P,ou=ARBAC,dc=example,dc=com}
      */
-    public final static String PSU_ROOT = "permOrgUnitRoot";
+    public final static String PSU_ROOT = "permou.root";
 
     /**
      * Specifies the dn of the container where the Fortress Administrative Roles are located.  This is typically in the format of
      * {@code ou=AdminRoles,ou=ARBAC,dc=example,dc=com}
      */
-    public final static String ADMIN_ROLE_ROOT = "adminRoleRoot";
+    public final static String ADMIN_ROLE_ROOT = "adminrole.root";
 
     /**
      * Specifies the dn of the container where the Fortress Administrative Permissions are located.  This is typically in the format of
      * {@code ou=AdminPerms,ou=ARBAC,dc=example,dc=com}
      */
-    public final static String ADMIN_PERM_ROOT = "adminPermRoot";
+    public final static String ADMIN_PERM_ROOT = "adminperm.root";
 
     /*
       *  *************************************************************************
@@ -282,7 +282,7 @@ public class GlobalIds
     /**
      * OpenLDAP uses this object class to store policy definitions that are processed by the pw policy overlay.
      */
-    private final static String OPENLDAP_PW_POLICY_IMPL = "pwPolicy";
+    private final static String OPENLDAP_PW_POLICY_IMPL = "password.policy";
 
     /**
      * When openldap password policy is in effect the openldap pw policy response control is interrogated subsequent to bind operations.
@@ -473,17 +473,17 @@ public class GlobalIds
     /**
      * Used to define characters that must be encoded before being processed by ldap operations.
      */
-    public final static String LDAP_FILTER = "ldapFilt";
+    public final static String LDAP_FILTER = "ldap.filter.";
 
     /**
      * Used to define encoded replacements for characters to be filtered.
      */
-    public final static String LDAP_SUB = "ldapSub";
+    public final static String LDAP_SUB = "ldap.sub.";
 
     /**
      * Defines how many entries are to be stored in the encoding set.
      */
-    public final static String LDAP_FILTER_SIZE_PROP = "ldapFilterSize";
+    public final static String LDAP_FILTER_SIZE_PROP = "ldap.filter.size";
 
     /**
      * Used during ldap filter processing.
@@ -524,7 +524,7 @@ public class GlobalIds
      * This property contains the location for the remote Fortress properties stored in ldap.  This is typically in the format of
      * {@code cn=DEFAULT,ou=Config,dc=example,dc=com}
      */
-    public static final String CONFIG_REALM = "configRealm";
+    public static final String CONFIG_REALM = "config.realm";
 
     /**
      * Fortress stores name-value pairs within multi-occurring attributes in ldap.  Usually a separator of ':' is used

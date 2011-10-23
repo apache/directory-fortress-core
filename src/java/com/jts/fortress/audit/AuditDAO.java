@@ -157,7 +157,7 @@ public class AuditDAO
     private final static String ACCESS_AUTHZ_CLASS_NM = "auditSearch";
     private final static String ACCESS_MOD_CLASS_NM = "auditModify";
     private final static String ACCESS_ADD_CLASS_NM = "auditAdd";
-    private final static String AUDIT_ROOT = "auditRoot";
+    private final static String AUDIT_ROOT = "audit.root";
 
 
     /**

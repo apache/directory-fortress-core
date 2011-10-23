@@ -1,7 +1,7 @@
 Fortress Identity Access Management SDK
-Copyright (c) 2009-2011 Joshua Tree Software, LLC
+Copyright (c) 2009-2011 JoshuaTree Software, LLC
 
-This product distribution source code was developed by Joshua Tree Software (http://joshuatreesoftware.us/).
+This product distribution source code was developed by JoshuaTree Software (http://joshuatreesoftware.us/).
 
 The purpose of this NOTICE.txt file is to include notices that are required by the copyright owner and their license. Some of the accompanying products have an attribution requirement, so see below. Other accompanying products do not require attribution, so are not listed. 
 

@@ -8,6 +8,7 @@ package com.jts.fortress.ant;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
 
+import java.io.StringWriter;
 import java.util.StringTokenizer;
 
 /**
@@ -32,6 +33,17 @@ public class UserAnt extends User
     }
 
     /**
+     * Generally not good practice to handle passwords as Strings in Java but this method allows Ant's digester to consume field in String format from the xml input file.
+     * It subsequently converts to char[] as needed by the parent entity - {@link User}.
+     *
+     * @param password String format will be converted to char[].
+     */
+    public void setPassword(String password)
+    {
+        super.setPassword(password.toCharArray());
+    }
+
+    /**
      * Accept a comma delimited String containing a list of Roles to be granted to a user.  This function
      * will parse the String and call the setter on its parent.
      *
@@ -52,4 +64,5 @@ public class UserAnt extends User
             }
         }
     }
+
 }

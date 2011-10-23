@@ -7,133 +7,133 @@ host=@LDAP_HOST@
 port=@LDAP_PORT@
 
 # These credentials are used for read/write access to all nodes under suffix:
-admin=@ROOT_DN@
+admin.user=@ROOT_DN@
 # LDAP admin root pass is encrypted using 'encrypt' target in build.xml:
-adminPw=@CFG_ROOT_PW@
+admin.pw=@CFG_ROOT_PW@
 
 # This is min/max connection pool settings for User's who access their accounts in ou=People:
 # This is setting for ldap user's pool:
-minUserConn=@USR_MIN_CONN@
-maxUserConn=@USR_MAX_CONN@
+min.user.conn=@USR_MIN_CONN@
+max.user.conn=@USR_MAX_CONN@
 
 # This is min/max settings for LDAP administrator pool which has read/write access to all nodes under suffix:
-minConn=@ADM_MIN_CONN@
-maxConn=@ADM_MAX_CONN@
+min.admin.conn=@ADM_MIN_CONN@
+max.admin.conn=@ADM_MAX_CONN@
 
 # This min/max settings for read/write access to LDAP slapd access log entries:
-minLogConn=@LOG_MIN_CONN@
-maxLogConn=@LOG_MAX_CONN@
+min.log.conn=@LOG_MIN_CONN@
+max.log.conn=@LOG_MAX_CONN@
 
 # enable this to see trace statements when connection pool allocates new connections:
-debugLdapPool=true
+debug.ldap.pool=true
 
 # Default for pool reconnect flag is false:
-enablePoolReconnect=true
+enable.pool.reconnect=true
 
-authNType=default
+authn.type=default
 #authNType=realm
 
-pwPolicy=openldap
+password.policy=openldap
 
-clientSideSorting=true
+clientside.sorting=true
 
 # Define the high-level structure of LDAP DIT:
 suffix=@SUFFIX@
-configRoot=ou=Config,@SUFFIX@
-userRoot=ou=People,@SUFFIX@
-pwPolicyRoot=ou=Policies,@SUFFIX@
-roleRoot=ou=Roles,ou=RBAC,@SUFFIX@
-permRoot=ou=Permissions,ou=RBAC,@SUFFIX@
-sdRoot=ou=Constraints,ou=RBAC,@SUFFIX@
-userOrgUnitRoot=ou=OS-U,ou=ARBAC,@SUFFIX@
-permOrgUnitRoot=ou=OS-P,ou=ARBAC,@SUFFIX@
-adminRoleRoot=ou=AdminRoles,ou=ARBAC,@SUFFIX@
-adminPermRoot=ou=AdminPerms,ou=ARBAC,@SUFFIX@
-exampleRoot=ou=Examples,@SUFFIX@
-auditRoot=cn=log
+config.root=ou=Config,@SUFFIX@
+user.root=ou=People,@SUFFIX@
+pwpolicy.root=ou=Policies,@SUFFIX@
+role.root=ou=Roles,ou=RBAC,@SUFFIX@
+perm.root=ou=Permissions,ou=RBAC,@SUFFIX@
+sdconstraint.root=ou=Constraints,ou=RBAC,@SUFFIX@
+userou.root=ou=OS-U,ou=ARBAC,@SUFFIX@
+permou.root=ou=OS-P,ou=ARBAC,@SUFFIX@
+adminrole.root=ou=AdminRoles,ou=ARBAC,@SUFFIX@
+adminperm.root=ou=AdminPerms,ou=ARBAC,@SUFFIX@
+example.root=ou=Examples,@SUFFIX@
+audit.root=cn=log
 
-superAdminRole=oamSuperAdmin
+superadmin.role=oamSuperAdmin
 
 # these properties will enable temporal constraint checks on role activations:
-oamValidator0=com.jts.fortress.util.time.Date
-oamValidator1=com.jts.fortress.util.time.LockDate
-oamValidator2=com.jts.fortress.util.time.Timeout
-oamValidator3=com.jts.fortress.util.time.ClockTime
-oamValidator4=com.jts.fortress.util.time.Day
+temporal.validator.0=com.jts.fortress.util.time.Date
+temporal.validator.1=com.jts.fortress.util.time.LockDate
+temporal.validator.2=com.jts.fortress.util.time.Timeout
+temporal.validator.3=com.jts.fortress.util.time.ClockTime
+temporal.validator.4=com.jts.fortress.util.time.Day
 
 # enabling this property will enable Dynamic Separation of Duty constraint checks on role activations:
-oamDSDValidator=com.jts.fortress.rbac.DSD
+temporal.validator.dsd=com.jts.fortress.rbac.DSD
 
 # Users in the following list cannot be deleted using OAM admin functions (AdminMgr.deleteUser, AdminMgr.forceDeleteUser)
-sysUsr1=oamTU6User1
-sysUsr2=oamTU6User2
-sysUsr3=oamTU6User3
-sysUsr4=oamTU6User4
-sysUsr5=oamTU6User5
+sys.user.1=oamTU6User1
+sys.user.2=oamTU6User2
+sys.user.3=oamTU6User3
+sys.user.4=oamTU6User4
+sys.user.5=oamTU6User5
 
 # Fortress Class Definitions:  NOT NEEDED UNLESS OVERIDING DEFAULT IMPLEMENTATIONS
-accessImplementation=com.jts.fortress.rbac.AccessMgrImpl
-auditImplementation=com.jts.fortress.audit.AuditMgrImpl
+accessmgr.implementation=com.jts.fortress.rbac.AccessMgrImpl
+auditmgr.implementation=com.jts.fortress.audit.AuditMgrImpl
 
 ## Fortress Data Validation settings
-fieldLength=130
+field.length=130
 
 #########  This section is for filtering out LDAP meta characters from search field input:
 #########  Ensure the chars are placed in ASCII value ascending order.
 
 # This must match the total number of items that need to be filtered in our list:
-ldapFilterSize=15
+ldap.filter.size=15
 
 #! 33 0041 0x21
-ldapFilt1=!
-ldapSub1=21
+ldap.filter.1=!
+ldap.sub.1=21
 #% 37 0045 0x25
-ldapFilt2=%
-ldapSub2=25
+ldap.filter.2=%
+ldap.sub.2=25
 #& 38 0046 0x26
-ldapFilt3=&
-ldapSub3=26
+ldap.filter.3=&
+ldap.sub.3=26
 #( 40 0050 0x28
-ldapFilt4=(
-ldapSub4=28
+ldap.filter.4=(
+ldap.sub.4=28
 #) 41 0051 0x29
-ldapFilt5=)
-ldapSub5=29
+ldap.filter.5=)
+ldap.sub.5=29
 #* 42 0052 0x2a
-ldapFilt6=*
-ldapSub6=2a
+ldap.filter.6=*
+ldap.sub.6=2a
 #+ 43 0053 0x2b
-ldapFilt7=+
-ldapSub7=2b
+ldap.filter.7=+
+ldap.sub.7=2b
 #- 45 0055 0x2d
-ldapFilt8=-
-ldapSub8=2d
+ldap.filter.8=-
+ldap.sub.8=2d
 #/ 47 0057 0x2f 
-ldapFilt9=/
-ldapSub9=2f
+ldap.filter.9=/
+ldap.sub.9=2f
 #< 60 0074 0x3c
-ldapFilt10=<
-ldapSub10=3c
+ldap.filter.10=<
+ldap.sub.10=3c
 #= 61 0075 0x3d
-ldapFilt11==
-ldapSub11=3d
+ldap.filter.11==
+ldap.sub.11=3d
 #> 62 0076 0x3e
-ldapFilt12=>
-ldapSub12=3e
+ldap.filter.12=>
+ldap.sub.12=3e
 #\ 92 0134 0x5c
-ldapFilt13=\\
-ldapSub13=5c
+ldap.filter.13=\\
+ldap.sub.13=5c
 #| 124 0174 0x7c
-ldapFilt14=|
-ldapSub14=7c
+ldap.filter.14=|
+ldap.sub.14=7c
 #~ 126 0176 0x7e
-ldapFilt15=~
-ldapSub15=7e
+ldap.filter.15=~
+ldap.sub.15=7e
 
 #keep alphanumerics and dashes
 #regXSafetext=^A-Za-z0-9- .
 
-userObjectClass=inetOrgPerson
-cryptoProp=@CFG_CRYPTO_PROP@
+user.objectclass=inetOrgPerson
+crypto.prop=@CFG_CRYPTO_PROP@
 
-enableAudit=true
+enable.audit=true

@@ -7,22 +7,22 @@ host=@LDAP_HOST@
 port=@LDAP_PORT@
 
 # These credentials are used for read/write access to all nodes under suffix:
-admin=@ROOT_DN@
+admin.user=@ROOT_DN@
 # LDAP admin root pass is encrypted using 'encrypt' target in build.xml:
-adminPw=@CFG_ROOT_PW@
+admin.pw=@CFG_ROOT_PW@
 
 # This is min/max settings for LDAP administrator pool connections that have read/write access to all nodes under suffix:
-minConn=@ADM_MIN_CONN@
-maxConn=@ADM_MAX_CONN@
+min.admin.conn=@ADM_MIN_CONN@
+max.admin.conn=@ADM_MAX_CONN@
 
 # This node contains fortress properties stored on behalf of connecting LDAP clients:
-configRealm=DEFAULT
-configRoot=ou=Config,@SUFFIX@
+config.realm=DEFAULT
+config.root=ou=Config,@SUFFIX@
 
 # enable this to see trace statements when connection pool allocates new connections:
-debugLdapPool=true
+debug.ldap.pool=true
 
 # Default for pool reconnect flag is false:
-enablePoolReconnect=true
+enable.pool.reconnect=true
 
-cryptoProp=@CFG_CRYPTO_PROP@
+crypto.prop=@CFG_CRYPTO_PROP@

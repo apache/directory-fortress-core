@@ -1734,7 +1734,7 @@ public final class UserDAO
       *  ************************************************************************
       */
     private final static String USERS_AUX_OBJECT_CLASS_NAME = "ftUserAttrs";
-    private final static String USER_OBJECT_CLASS = "userObjectClass";
+    private final static String USER_OBJECT_CLASS = "user.objectclass";
     private final static String USER_OBJ_CLASS[] = {
         GlobalIds.TOP, Config.getProperty(USER_OBJECT_CLASS), USERS_AUX_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };

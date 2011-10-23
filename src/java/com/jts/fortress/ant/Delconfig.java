@@ -43,21 +43,21 @@ public class Delconfig
      * <pre>
      * {@code
      * <delconfig>
-     *     <config props="configRealm:DEFAULT"/>
-     *     <config props="enableAudit:true"/>
-     *     <config props="authNType:default"/>
-     *     <config props="pwPolicy:openldap"/>
-     *     <config props="clientSideSorting:true"/>
+     *     <config props="config.realm:DEFAULT"/>
+     *     <config props="enable.audit:true"/>
+     *     <config props="authn.type:default"/>
+     *     <config props="password.policy:openldap"/>
+     *     <config props="clientside.sorting:true"/>
      *     <config props="suffix:dc=jts\,dc=com"/>
-     *     <config props="userRoot:ou=People\,dc=jts\,dc=com"/>
-     *     <config props="pwPolicyRoot:ou=Policies\,dc=jts\,dc=com"/>
-     *     <config props="roleRoot:ou=Roles\,ou=RBAC\,dc=jts\,dc=com"/>
-     *     <config props="permRoot:ou=Permissions\,ou=RBAC\,dc=jts\,dc=com"/>
-     *     <config props="sdRoot:ou=Constraints\,ou=RBAC\,dc=jts\,dc=com"/>
-     *     <config props="userOrgUnitRoot:ou=OS-U\,ou=ARBAC\,dc=jts\,dc=com"/>
-     *     <config props="permOrgUnitRoot:ou=OS-P\,ou=ARBAC\,dc=jts\,dc=com"/>
-     *     <config props="adminRoleRoot:ou=AdminRoles\,ou=ARBAC\,dc=jts\,dc=com"/>
-     *     <config props="adminPermRoot:ou=AdminPerms\,ou=ARBAC\,dc=jts\,dc=com"/>
+     *     <config props="user.root:ou=People\,dc=jts\,dc=com"/>
+     *     <config props="pwpolicy.root:ou=Policies\,dc=jts\,dc=com"/>
+     *     <config props="role.root:ou=Roles\,ou=RBAC\,dc=jts\,dc=com"/>
+     *     <config props="perm.root:ou=Permissions\,ou=RBAC\,dc=jts\,dc=com"/>
+     *     <config props="sdconstraint.root:ou=Constraints\,ou=RBAC\,dc=jts\,dc=com"/>
+     *     <config props="userou.root:ou=OS-U\,ou=ARBAC\,dc=jts\,dc=com"/>
+     *     <config props="permou.root:ou=OS-P\,ou=ARBAC\,dc=jts\,dc=com"/>
+     *     <config props="adminrole.root:ou=AdminRoles\,ou=ARBAC\,dc=jts\,dc=com"/>
+     *     <config props="adminperm.root:ou=AdminPerms\,ou=ARBAC\,dc=jts\,dc=com"/>
      *     ...
      * </delconfig>
      * }

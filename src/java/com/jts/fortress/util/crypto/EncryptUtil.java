@@ -16,7 +16,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
 public class EncryptUtil
 {
     private static BasicTextEncryptor textEncryptor;
-    private static String CRYPTO_PROP = "cryptoProp";
+    private static String CRYPTO_PROP = "crypto.prop";
     static
     {
         textEncryptor = new BasicTextEncryptor();
@@ -39,7 +39,7 @@ public class EncryptUtil
 
 
     /**
-     * Returns 'true' if the property {@code cryptoProp} has a value set in fortress configuration.  If this value
+     * Returns 'true' if the property {@code crypto.prop} has a value set in fortress configuration.  If this value
      * is 'false', Fortress will assume LDAP password in configuration file are clear text.
      *
      * @return
