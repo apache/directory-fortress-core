@@ -862,7 +862,7 @@ public final class UserP
         return localSet;
     }
 
-    private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean("userSessionProps", false);
+    private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean("user.session.props.enabled", false);
     private static final String OCLS_NM = UserP.class.getName();
     private static final UserDAO uDao = new UserDAO();
     private static final Logger log = Logger.getLogger(OCLS_NM);

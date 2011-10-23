@@ -32,6 +32,7 @@ public class GlobalIds
      * When this optional tag, {@code accessmgr.implementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.AccessMgr} instance used.
      */
     public final static String ACCESS_IMPLEMENTATION = "accessmgr.implementation";
+
     /**
      * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.AccessMgrImpl}.
      */
@@ -40,7 +41,7 @@ public class GlobalIds
     /**
      * When this optional tag, {@code adminImplementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.AdminMgr} instance used.
      */
-    public final static String ADMIN_IMPLEMENTATION = "adminImplementation";
+    public final static String ADMIN_IMPLEMENTATION = "adminmgr.implementation";
 
     /**
      * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.AdminMgrImpl}.
@@ -50,7 +51,7 @@ public class GlobalIds
     /**
      * When this optional tag, {@code reviewImplementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.ReviewMgr} instance used.
      */
-    public final static String REVIEW_IMPLEMENTATION = "reviewImplementation";
+    public final static String REVIEW_IMPLEMENTATION = "reviewmgr.implementation";
 
     /**
      * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.ReviewMgrImpl}.
@@ -60,7 +61,7 @@ public class GlobalIds
     /**
      * When this optional tag, {@code policyImplementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.PswdPolicyMgr} instance used.
      */
-    public final static String PSWD_POLICY_IMPLEMENTATION = "policyImplementation";
+    public final static String PSWD_POLICY_IMPLEMENTATION = "policymgr.implementation";
 
     /**
      * Default instance for the AccessMgr is {@link com.jts.fortress.pwpolicy.PswdPolicyMgrImpl}.
@@ -80,7 +81,7 @@ public class GlobalIds
     /**
      * When this optional tag, {@code delegatedAdminImplementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.DelegatedAdminMgr} instance used.
      */
-    public final static String DELEGATED_ADMIN_IMPLEMENTATION = "delegatedAdminImplementation";
+    public final static String DELEGATED_ADMIN_IMPLEMENTATION = "delegated.adminmgr.implementation";
 
     /**
      * Default instance for the AccessMgr is {@link com.jts.fortress.arbac.DelegatedAccessMgrImpl}.
@@ -90,7 +91,7 @@ public class GlobalIds
     /**
      * When this optional tag, {@code delegatedReviewImplementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.DelegatedReviewMgr} instance used.
      */
-    public final static String DELEGATED_REVIEW_IMPLEMENTATION = "delegatedReviewImplementation";
+    public final static String DELEGATED_REVIEW_IMPLEMENTATION = "delegated.reviewmgr.implementation";
 
     /**
      * Default instance for the AccessMgr is {@link com.jts.fortress.arbac.DelegatedReviewMgrImpl}.
@@ -100,7 +101,7 @@ public class GlobalIds
     /**
      * When this optional tag, {@code delegatedAccessImplementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.DelegatedAccessMgr} instance used.
      */
-    public final static String DELEGATED_ACCESS_IMPLEMENTATION = "delegatedAccessImplementation";
+    public final static String DELEGATED_ACCESS_IMPLEMENTATION = "delegated.accessmgr.implementation";
 
     /**
      * Default instance for the AccessMgr is {@link com.jts.fortress.arbac.DelegatedAdminMgrImpl}.
@@ -115,7 +116,7 @@ public class GlobalIds
     /**
      * When this optional tag, {@code configImplementation}, is placed in Fortress properties, its class name will be the default {link ConfigMgr} instance used.
      */
-    public final static String CONFIG_IMPLEMENTATION = "configImplementation";
+    public final static String CONFIG_IMPLEMENTATION = "configmgr.implementation";
 
     //	AUTHENTICATION_TYPE
     /**

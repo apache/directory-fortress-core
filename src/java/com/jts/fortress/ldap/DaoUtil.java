@@ -56,8 +56,6 @@ public class DaoUtil
     private static final int MAX_DEPTH = 100;
     private static final String OCLS_NM = DaoUtil.class.getName();
     private static final Logger log = Logger.getLogger(OCLS_NM);
-    //private static final String ENABLE_AUDIT = "enableAudit";
-    //private static final boolean IS_AUDIT = ((Config.getProperty(ENABLE_AUDIT) != null) && (Config.getProperty(ENABLE_AUDIT).equalsIgnoreCase("true")));
 
     /**
      * Read the ldap record from specified location.
