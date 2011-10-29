@@ -393,9 +393,9 @@ public final class AdminMgrImpl implements AdminMgr
     }
 
     /**
-     * This method will add permission operation to an already existing permission object which must reside
-     * in the perms container in directory.  The perm operation entity may also have user, role or group associations.
-     * The perm operation must not exist before making this call.   A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     * This method will add permission operation to an existing permission object which resides under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
+     * The perm operation entity may have {@link com.jts.fortress.rbac.Role} or {@link com.jts.fortress.rbac.User} associations.  The target {@link Permission} must not exist prior to calling.
+     * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
      *
      * @param perm must contain the object, {@link com.jts.fortress.rbac.Permission#objectName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
      * @return copy of Permission entity.
@@ -411,9 +411,9 @@ public final class AdminMgrImpl implements AdminMgr
     }
 
     /**
-     * This method will update permission operation already existing in directory in the perms container.
-     * The perm operation entity may also contain user, role or group associations to be updated.  The perm operation must exist before making this call.
-     * Only non-null attributes will be updated.
+     * This method will update permission operation pre-existing in target directory under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
+     * The perm operation entity may also contain {@link com.jts.fortress.rbac.Role} or {@link com.jts.fortress.rbac.User} associations to add or remove using this function.
+     * The perm operation must exist before making this call.  Only non-null attributes will be updated.
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
      * @return copy of permOp entity.
