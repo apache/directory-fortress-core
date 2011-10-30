@@ -237,7 +237,6 @@ public class FortressJUnitTest extends TestCase
         suite.addTest(new AccessMgrImplTest("testCreateSessionWithRolesTrusted"));
 
         // PwPolicyMgr PW Policy checks:
-        /*
         suite.addTest(new PswdPolicyMgrImplTest("testMinAge"));
         suite.addTest(new PswdPolicyMgrImplTest("testMaxAge"));
         suite.addTest(new PswdPolicyMgrImplTest("testInHistory"));
@@ -251,7 +250,6 @@ public class FortressJUnitTest extends TestCase
         suite.addTest(new PswdPolicyMgrImplTest("testMustChange"));
         suite.addTest(new PswdPolicyMgrImplTest("testAllowUserChange"));
         suite.addTest(new PswdPolicyMgrImplTest("testSafeModify"));
-        */
 
         /***********************************************************/
         /* 5. Audit Checks                                         */

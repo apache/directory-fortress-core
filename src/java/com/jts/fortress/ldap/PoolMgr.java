@@ -293,7 +293,11 @@ public class PoolMgr
                     log.warn(warning);
                     // attempt to reconnect:
                     ld.connect(hostName, portId);
-                    ld.bind(ldapRevision, adminUserId, adminPw);
+                    // if admin connection type must bind here using stored creds:
+                    if(type.equals(ConnType.ADMIN))
+                    {
+                        ld.bind(ldapRevision, adminUserId, adminPw);
+                    }
                     // Did the reconnect succeed?
                     if (!ld.isConnected())
                     {
@@ -331,7 +335,11 @@ public class PoolMgr
                 log.warn(warning);
                 // attempt reconnect:
                 ld.connect(hostName, portId);
-                ld.bind(ldapRevision, adminUserId, adminPw);
+                // if admin connection type must bind here using stored creds:
+                if(type.equals(ConnType.ADMIN))
+                {
+                    ld.bind(ldapRevision, adminUserId, adminPw);
+                }
                 // Did it work?
                 if (!ld.isConnected())
                 {
