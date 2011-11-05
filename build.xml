@@ -166,9 +166,12 @@
 
     </target>
 
-    <target name="download-ivy" depends="init" unless="skip.download">
+    <!-- =================================
+          target: download-ivy - pulls down ivy.jar from maven 2 website
+         ================================= -->
+    <target name="download-ivy" depends="init">
 		<!-- download from web site so that it can be used even without any special installation -->
-		<echo message="installing ivy..."/>
+		<echo message="downloading ivy to Ant home: ${ant.home}"/>
     	<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
     		 dest="${ant.home}/lib" usetimestamp="true"/>
     </target>
@@ -185,16 +188,20 @@
          ================================= -->
 	<target name="clean-cache" description="--> clean the ivy cache">
 		<ivy:cleancache />
-	</target>
+    </target>
 
-   <!-- ###########  Clean the distribution packages  ##################### -->
-   <target name="clean" depends="init" description="removes generated files">
+    <!-- =================================
+          target: clean - Will remove old distribution packages from dist folder
+         ================================= -->
+    <target name="clean" depends="init" description="removes generated files">
       <delete dir="${build.dir}" />
       <delete dir="${dist.dir}" />
-   </target>
+    </target>
 
-   <!-- ###############  create javadoc ############################### -->
-   <target name="javadoc" depends="init" description="generates javadocs">
+    <!-- =================================
+          target: javadoc
+         ================================= -->
+    <target name="javadoc" depends="init" description="generates javadocs">
       <mkdir dir="${javadoc.dir}"/>
       <mkdir dir="${javadoc.images.dir}"/>
 
@@ -222,8 +229,11 @@
       <copy todir="${javadoc.images.dir}">
               <fileset dir="${images.dir}"/>
       </copy>
-   </target>
+    </target>
 
+    <!-- =================================
+          target: javadoc-samples
+         ================================= -->
     <target name="javadoc-samples" depends="init" description="generates samples javadocs">
        <mkdir dir="${javadoc.samples.dir}"/>
 
@@ -253,7 +263,9 @@
        </copy>
     </target>
 
-   <!-- ###############  compile packages ############################### -->
+    <!-- =================================
+          target: compile
+         ================================= -->
    <target name="compile" depends="resolve" description="compiles source files">
       <mkdir dir="${build.classes.dir}"/>
       <javac srcdir="${src.java.dir}"
@@ -264,6 +276,9 @@
         </javac>
    </target>
 
+    <!-- =================================
+          target: compile-test
+         ================================= -->
     <target name="compile-test" depends="compile">
        <mkdir dir="${build.test-classes.dir}"/>
        <javac destdir="${build.test-classes.dir}"
@@ -275,8 +290,10 @@
        </javac>
     </target>
 
-   <!-- ###############  run junit samples tests ############################### -->
-    <target name="test-samples" depends="compile-test" description="runs (junit) sample unit tests">
+    <!-- =================================
+          target: test-samples - runs junit samples tests
+         ================================= -->
+    <target name="test-samples" depends="compile-test,init-config" description="runs (junit) sample unit tests">
         <echo message="Run the Fortress sample JUnit tests..."/>
         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
@@ -286,8 +303,10 @@
         </junit>
     </target>
 
-    <!-- ###############  run junit samples tests ############################### -->
-     <target name="test-samples-init" depends="compile-test" description="runs (junit) sample unit tests without teardown">
+    <!-- =================================
+          target: test-samples-init - runs junit samples tests
+         ================================= -->
+     <target name="test-samples-init" depends="compile-test,init-config" description="runs (junit) sample unit tests without teardown">
          <echo message="Run the Fortress sample JUnit tests..."/>
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
@@ -297,8 +316,10 @@
          </junit>
      </target>
 
-   <!-- ###############  run full junit regression tests ############################### -->
-    <target name="test-full" depends="compile-test" description="run (junit) full regression tests">
+    <!-- =================================
+          target: test-full - runs full junit regression tests
+         ================================= -->
+    <target name="test-full" depends="compile-test,init-config" description="run (junit) full regression tests">
         <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
@@ -308,8 +329,10 @@
         </junit>
     </target>
 
-    <!-- ###############  run junit regression tests without teardown ############################### -->
-     <target name="test-full-init" depends="compile-test" description="run (junit) regression tests without teardown">
+    <!-- =================================
+          target: test-full-init - runs junit regression tests without teardown
+         ================================= -->
+     <target name="test-full-init" depends="compile-test,init-config" description="run (junit) regression tests without teardown">
          <echo message="Run the Fortress regression JUnit tests without teardown.  Be patient this can take a while to complete."/>
           <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
@@ -319,8 +342,10 @@
          </junit>
      </target>
 
-    <!-- ###############  run Fortress Console app ############################### -->
-     <target name="console" depends="compile-test" description="start Fortress Console app">
+    <!-- =================================
+          target: console - starts the Fortress Console app
+         ================================= -->
+     <target name="console" depends="compile-test,init-config" description="start Fortress Console app">
          <echo message="Run the Fortress console app"/>
          <java
                  classname="com.jts.fortress.FortressConsole"
@@ -332,7 +357,9 @@
          </java>
      </target>
 
-    <!-- ###############  Encrypt a value using Jasypt output to standard out ############################# -->
+    <!-- =================================
+          target: encrypt - allows users to encrypt values which are displayed to the standard output
+         ================================= -->
      <target name="encrypt" depends="compile" description="Encrypts a text value">
          <echo message="Encrypt a value"/>
          <java
@@ -346,7 +373,9 @@
          </java>
      </target>
 
-    <!-- ###############  run ant demo load scripts ############################### -->
+    <!-- =================================
+          target: admin - runs the Ant demo load scripts
+         ================================= -->
      <target name="admin" depends="init" description="run Fortress admin script">
          <echo message="###############  Run Fortress Ant script ${param1}  ###############"/>
          <java
@@ -365,7 +394,9 @@
          </java>
      </target>
 
-    <!-- ###############  initialize Configuration scripts and metadata ############################### -->
+    <!-- =================================
+          target: init-config - runs the base load scripts for ldap Directory Information Tree (DIT)
+         ================================= -->
      <target name="init-config" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files..">
 
          <echo message="###############  Modify slapd configuration per user settings  ###############"/>
@@ -428,7 +459,9 @@
          <echo message="Target init-config complete."/>
      </target>
 
-   <!-- ###############  initialize OpenLDAP/BDB ############################### -->
+    <!-- =================================
+          target: init-slapd - initializes the Berkeley DB
+         ================================= -->
     <target name="init-slapd" depends="build-jar" description="This task is destructive and must be run as elevated priv's for teardown/creation of slapd files and folders.">
         <echo message="###############  Initialize OpenLDAP  ###############"/>
 
@@ -497,7 +530,13 @@
         <echo message="Target init-slapd complete."/>
     </target>
 
-    <!-- ###############  initialize OpenLDAP/BDB ############################### -->
+    <!-- =================================
+          target: bdb-delete - Use Caution as it removes the file volume containing the BerkeleyDB User data!
+          This operation is destructive and non-reversible.  It is intended for clearing out existing systems data
+          before reinstalling with brand new data.
+
+          Never run this Ant target on a production system.
+         ================================= -->
      <target name="bdb-delete" depends="init" description="delete BDB DB">
          <echo message="Delete BDB DB"/>
 
@@ -508,7 +547,10 @@
          <delete dir="${db.dir}"/>
 
      </target>
-   <!-- ###############  create java archive packages ############################### -->
+
+    <!-- =================================
+          target: build-jar - create java archive (jar) files which contain the runtime Fortress Java classes.
+         ================================= -->
    <target name="build-jar" depends="compile">
       <mkdir dir="${dist.dir}"/>
       <jar jarfile="${dist.jar}">
@@ -528,6 +570,9 @@
       </jar>
    </target>
 
+    <!-- =================================
+          target: build-jar-test
+         ================================= -->
     <target name="build-jar-test" depends="compile-test">
        <mkdir dir="${dist.dir}"/>
        <jar jarfile="${dist.test.jar}">
@@ -547,12 +592,17 @@
        </jar>
     </target>
 
+    <!-- =================================
+          target: build
+         ================================= -->
    <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples">
       <copy todir="${dist.dir}" file="${basedir}/LICENSE.txt"/>
       <copy todir="${dist.dir}" file="${basedir}/NOTICE.txt"/>
    </target>
 
-   <!-- ###############  create distribution packages ############################ -->
+    <!-- =================================
+          target: dist - creates the distribution packages
+         ================================= -->
    <target name="dist" depends="build" description="Create source and binary distribution">
         <zip destfile='${src.dist.zip}'>
           <zipfileset dir='${src.java.dir}'/>

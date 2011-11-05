@@ -1,13 +1,13 @@
 <project name="FortressCore" default="download" basedir="." >
 
-    <target name="init">
+     <target name="init">
         <property name="ivy.install.version" value="2.2.0"/>
      </target>
 
-     <target name="download" depends="init" unless="skip.download">
-         <!-- download from maven into the ant.home/lib folder so it can be used even without any special installation of Ivy -->
-         <echo message="installing ivy..."/>
-         <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+     <target name="download" depends="init">
+        <!-- download from maven into the ant.home/lib folder so it can be used even without any special installation of Ivy -->
+        <echo message="downloading ivy to Ant home: ${ant.home}"/>
+        <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
               dest="${ant.home}/lib" usetimestamp="true"/>
      </target>
 
