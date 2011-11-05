@@ -14,7 +14,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<project name="FortressCore" default="build" basedir=".">
+<project name="FortressCore" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
    <target name="init">
       <tstamp/>
@@ -28,11 +28,11 @@
        <property name="user-propfile" value="${user.home}/build.properties"/>
        <property file="${user-propfile}"/>
 
-
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
        <property name="version" value="1.0.0-rc4"/>
+       <property name="ivy.install.version" value="2.2.0"/>
        <property name="title" value="Fortress Identity and Access Management LDAP SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
        <property name="vendor" value="Joshua Tree Software"/>
@@ -65,8 +65,8 @@
        <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
        <property name="commons-pool.jar" value="${lib.dir}/commons-pool-1.5.2.jar"/>
        <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
-       <property name="unboundsdk.jar" value="${lib.dir}/unboundid-ldapsdk-se.jar"/>
-       <property name="jgraph.jar" value="${lib.dir}/jgrapht-jdk1.6.jar"/>
+       <property name="unboundsdk.jar" value="${lib.dir}/unboundid-ldapsdk-2.1.0.jar"/>
+       <property name="jgraph.jar" value="${lib.dir}/jgrapht-jdk1.5-0.7.3.jar"/>
        <property name="log4j.jar" value="${lib.dir}/log4j-1.2.16.jar"/>
        <property name="junit.jar" value="${lib.dir}/junit-4.9.jar"/>
        <property name="jasypt.jar" value="${lib.dir}/jasypt-1.8.jar"/>
@@ -164,10 +164,30 @@
            <pathelement location="${jasypt.jar}"/>
        </path>
 
-   </target>
+    </target>
+
+    <target name="download-ivy" depends="init" unless="skip.download">
+		<!-- download from web site so that it can be used even without any special installation -->
+		<echo message="installing ivy..."/>
+    	<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+    		 dest="${ant.home}/lib" usetimestamp="true"/>
+    </target>
+
+    <!-- =================================
+          target: resolve
+         ================================= -->
+    <target name="resolve" depends="init,download-ivy" description="--> retreive dependencies with ivy">
+        <ivy:retrieve pattern="${lib.dir}/[artifact]-[revision].[ext]" />
+    </target>
+
+    <!-- =================================
+          target: clean-cache
+         ================================= -->
+	<target name="clean-cache" description="--> clean the ivy cache">
+		<ivy:cleancache />
+	</target>
 
    <!-- ###########  Clean the distribution packages  ##################### -->
-
    <target name="clean" depends="init" description="removes generated files">
       <delete dir="${build.dir}" />
       <delete dir="${dist.dir}" />
@@ -234,7 +254,7 @@
     </target>
 
    <!-- ###############  compile packages ############################### -->
-   <target name="compile" depends="init" description="compiles source files">
+   <target name="compile" depends="resolve" description="compiles source files">
       <mkdir dir="${build.classes.dir}"/>
       <javac srcdir="${src.java.dir}"
              debug="${javac.debug}"
