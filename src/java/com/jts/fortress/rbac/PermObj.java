@@ -39,7 +39,7 @@ import java.util.UUID;
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
  * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link com.jts.fortress.rbac.Permission}
  * <p/>
- * <img src="../../../../../../images/RbacCore.png">
+ * <img src="../../../../images/RbacCore.png">
  * <li>The unique key to locate an Fortress PermObj entity is {@code PermObj#objectName}.
  * <li>For sample code usages check out {@link com.jts.fortress.rbac.Permission} javadoc.
  * </ul>

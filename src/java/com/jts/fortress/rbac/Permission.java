@@ -39,7 +39,7 @@ import java.util.UUID;
  * <li>The unique key to locate a Permission entity (which is required for all authZ requests) is {@link Permission#objectName} and {@link Permission#opName}.<br />
  * <li>The Permission entity is used to target function points within computer programs needing authorization. This permission model allows a one-to-many relationship between the objects {@link PermObj} and operations {@link Permission}.
  * <p/>
- * <img src="../../../../../../images/RbacCore.png">
+ * <img src="../../../../images/RbacCore.png">
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
  * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link Permission}
  * <li>Permissions in Fortress may also be assigned directly to {@link #users}.

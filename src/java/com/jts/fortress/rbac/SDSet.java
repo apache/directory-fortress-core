@@ -33,7 +33,7 @@ import java.util.UUID;
  * <p/>
  * 2. The RBAC Separation of Duties includes:
 * <p/> Static Separation of Duties
- * <img src="../../../../../../images/RbacSSD.png">
+ * <img src="../../../../images/RbacSSD.png">
  * <ul>
  * <li>  ---Static Separation of Duties Set-------
  * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.4</code>
@@ -48,7 +48,7 @@ import java.util.UUID;
  * <p/>
  * OR
  * <p/> Dynamic Separation of Duties
- * <img src="../../../../../../images/RbacDSD.png">
+ * <img src="../../../../images/RbacDSD.png">
  * <ul>
  * <li>  ---Dynamic Separation of Duties Set-----
  * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.5</code>

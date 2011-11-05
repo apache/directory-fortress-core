@@ -41,7 +41,7 @@ import java.util.UUID;
  * There is a many-to-many relationship between User's, RBAC Roles and Permissions.
  * <h3>{@link User}*<->*{@link Role}*<->*{@link com.jts.fortress.rbac.Permission}</h3>
  * <p/>
- * <img src="../../../../../../images/RbacCore.png">
+ * <img src="../../../../images/RbacCore.png">
  * <p/>
  * Example to create new RBAC Role:
  * <pre>

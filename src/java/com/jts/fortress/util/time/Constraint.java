@@ -10,7 +10,7 @@ package com.jts.fortress.util.time;
  * {@link com.jts.fortress.rbac.User}, {@link com.jts.fortress.rbac.UserRole}, {@link com.jts.fortress.rbac.Role},
  * {@link com.jts.fortress.arbac.AdminRole}, {@link com.jts.fortress.arbac.UserAdminRole} entities.
  * <p/>
- * <img src="../../../../../../images/TemporalRbac.png">
+ * <img src="../../../../../images/TemporalRbac.png">
  * <p/>
  * <h3>Temporal Constraints on User and Role Assignments</h3>
  * In addition to the standard RBAC support, Fortress provides coverage for temporal constraints on role and user activation into session.
