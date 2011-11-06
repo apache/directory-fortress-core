@@ -1,4 +1,4 @@
-<project name="FortressCore" default="download" basedir="." >
+<project name="fortress-core" default="download" basedir="." >
 
      <target name="init">
         <property name="ivy.install.version" value="2.2.0"/>

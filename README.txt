@@ -15,6 +15,7 @@ to obtain and install OpenLDAP but is not document's main intent.
 2. GIT installed to target environment.
 2. Java SDK Version 6 or beyond installed to target environment
 3. Apache Ant 1.8 or beyond installed to target environment
+4. OpenLDAP server installed configured for Fortress on your network (more in step 4)
 
 In addition to the above, software bootstrapping requires the use of Apache Ivy but that component will be setup on step #2 automatically with the getIvy Ant script.
 

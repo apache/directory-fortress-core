@@ -14,7 +14,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<project name="FortressCore" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="fortress-core" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
    <target name="init">
       <tstamp/>
