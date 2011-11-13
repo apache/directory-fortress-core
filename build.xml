@@ -199,6 +199,77 @@
     </target>
 
     <!-- =================================
+          target: compile
+         ================================= -->
+   <target name="compile" depends="resolve" description="compiles source files">
+      <mkdir dir="${build.classes.dir}"/>
+      <javac srcdir="${src.java.dir}"
+             debug="${javac.debug}"
+             deprecation="${javac.deprecation}"
+             destdir="${build.classes.dir}">
+            <classpath refid="build.class.path"/>
+        </javac>
+   </target>
+
+    <!-- =================================
+          target: compile-test
+         ================================= -->
+    <target name="compile-test" depends="compile">
+       <mkdir dir="${build.test-classes.dir}"/>
+       <javac destdir="${build.test-classes.dir}"
+              srcdir="${src.test.dir}"
+              debug="${javac.debug}"
+              deprecation="${javac.deprecation}"
+              optimize="${javac.optimize}">
+              <classpath refid="build.class.path"/>
+       </javac>
+    </target>
+
+    <!-- =================================
+           target: build-jar - create java archive (jar) files which contain the runtime Fortress Java classes.
+          ================================= -->
+    <target name="build-jar" depends="compile">
+       <mkdir dir="${dist.dir}"/>
+       <jar jarfile="${dist.jar}">
+          <fileset dir="${build.classes.dir}"/>
+          <metainf dir="${basedir}" includes="LICENSE.txt,NOTICE.txt"/>
+          <manifest>
+             <attribute name="Created-By" value="${vendor} - ${project.name} dev team"/>
+             <attribute name="Implementation-Vendor" value="${vendor}"/>
+             <attribute name="Implementation-Version" value="${version}"/>
+             <attribute name="Specification-Title" value="${title}"/>
+             <attribute name="Package" value="${package}"/>
+             <attribute name="Extension-Name" value="${name}"/>
+             <attribute name="Built-By" value="${user.name}"/>
+             <attribute name="Compile-JDK" value="${java.runtime.version}"/>
+             <attribute name="Test-VM" value="${java.vm.version}"/>
+          </manifest>
+       </jar>
+    </target>
+
+     <!-- =================================
+           target: build-jar-test
+          ================================= -->
+     <target name="build-jar-test" depends="compile-test">
+        <mkdir dir="${dist.dir}"/>
+        <jar jarfile="${dist.test.jar}">
+           <fileset dir="${build.test-classes.dir}"/>
+           <metainf dir="${basedir}" includes="LICENSE.txt,NOTICE.txt"/>
+           <manifest>
+              <attribute name="Created-By" value="${vendor} - ${project.name} dev team"/>
+              <attribute name="Implementation-Vendor" value="${vendor}"/>
+              <attribute name="Implementation-Version" value="${version}"/>
+              <attribute name="Specification-Title" value="${title}"/>
+              <attribute name="Package" value="${package}"/>
+              <attribute name="Extension-Name" value="${name}"/>
+              <attribute name="Built-By" value="${user.name}"/>
+              <attribute name="Compile-JDK" value="${java.runtime.version}"/>
+              <attribute name="Test-VM" value="${java.vm.version}"/>
+           </manifest>
+        </jar>
+     </target>
+
+    <!-- =================================
           target: javadoc
          ================================= -->
     <target name="javadoc" depends="init" description="generates javadocs">
@@ -263,37 +334,57 @@
        </copy>
     </target>
 
-    <!-- =================================
-          target: compile
-         ================================= -->
-   <target name="compile" depends="resolve" description="compiles source files">
-      <mkdir dir="${build.classes.dir}"/>
-      <javac srcdir="${src.java.dir}"
-             debug="${javac.debug}"
-             deprecation="${javac.deprecation}"
-             destdir="${build.classes.dir}">
-            <classpath refid="build.class.path"/>
-        </javac>
-   </target>
-
-    <!-- =================================
-          target: compile-test
-         ================================= -->
-    <target name="compile-test" depends="compile">
-       <mkdir dir="${build.test-classes.dir}"/>
-       <javac destdir="${build.test-classes.dir}"
-              srcdir="${src.test.dir}"
-              debug="${javac.debug}"
-              deprecation="${javac.deprecation}"
-              optimize="${javac.optimize}">
-              <classpath refid="build.class.path"/>
-       </javac>
+     <!-- =================================
+           target: build
+          ================================= -->
+    <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples">
+       <copy todir="${dist.dir}" file="${basedir}/LICENSE.txt"/>
+       <copy todir="${dist.dir}" file="${basedir}/NOTICE.txt"/>
     </target>
+
+     <!-- =================================
+           target: dist - creates the distribution packages
+          ================================= -->
+    <target name="dist" depends="build" description="Create source and binary distribution">
+         <zip destfile='${src.dist.zip}'>
+           <zipfileset dir='${src.java.dir}'/>
+
+           <zipfileset dir='${dist.dir}' prefix='META-INF'>
+               <include name="LICENSE.txt"/>
+               <include name="NOTICE.txt"/>
+           </zipfileset>
+        </zip>
+
+        <zip destfile='${src.test.dist.zip}'>
+          <zipfileset dir='${src.test.dir}'/>
+
+          <zipfileset dir='${dist.dir}' prefix='META-INF'>
+              <include name="LICENSE.txt"/>
+              <include name="NOTICE.txt"/>
+          </zipfileset>
+        </zip>
+
+        <zip destfile="${javadoc.dist.zip}" basedir="${javadoc.dir}">
+            <zipfileset dir='${dist.dir}' prefix='META-INF'>
+                <include name="LICENSE.txt"/>
+                <include name="NOTICE.txt"/>
+            </zipfileset>
+        </zip>
+
+        <zip destfile="${samples.dist.zip}" basedir="${src.test.dir}" includes="**/samples/*.java,build.xml">
+            <zipfileset dir='${dist.dir}' prefix='META-INF'>
+                <include name="LICENSE.txt"/>
+                <include name="NOTICE.txt"/>
+            </zipfileset>
+            <zipfileset dir='${javadoc.samples.dir}'/>
+        </zip>
+     </target>
+
 
     <!-- =================================
           target: test-samples - runs junit samples tests
          ================================= -->
-    <target name="test-samples" depends="compile-test,init-config" description="runs (junit) sample unit tests">
+    <target name="test-samples" depends="compile-test,init-fortress-config" description="runs (junit) sample unit tests">
         <echo message="Run the Fortress sample JUnit tests..."/>
         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
@@ -306,7 +397,7 @@
     <!-- =================================
           target: test-samples-init - runs junit samples tests
          ================================= -->
-     <target name="test-samples-init" depends="compile-test,init-config" description="runs (junit) sample unit tests without teardown">
+     <target name="test-samples-init" depends="compile-test,init-fortress-config" description="runs (junit) sample unit tests without teardown">
          <echo message="Run the Fortress sample JUnit tests..."/>
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
@@ -319,7 +410,7 @@
     <!-- =================================
           target: test-full - runs full junit regression tests
          ================================= -->
-    <target name="test-full" depends="compile-test,init-config" description="run (junit) full regression tests">
+    <target name="test-full" depends="compile-test,init-fortress-config" description="run (junit) full regression tests">
         <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
@@ -332,7 +423,7 @@
     <!-- =================================
           target: test-full-init - runs junit regression tests without teardown
          ================================= -->
-     <target name="test-full-init" depends="compile-test,init-config" description="run (junit) regression tests without teardown">
+     <target name="test-full-init" depends="compile-test,init-fortress-config" description="run (junit) regression tests without teardown">
          <echo message="Run the Fortress regression JUnit tests without teardown.  Be patient this can take a while to complete."/>
           <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
@@ -345,7 +436,7 @@
     <!-- =================================
           target: console - starts the Fortress Console app
          ================================= -->
-     <target name="console" depends="compile-test,init-config" description="start Fortress Console app">
+     <target name="console" depends="compile-test,init-fortress-config" description="start Fortress Console app">
          <echo message="Run the Fortress console app"/>
          <java
                  classname="com.jts.fortress.FortressConsole"
@@ -376,7 +467,7 @@
     <!-- =================================
           target: admin - runs the Ant demo load scripts
          ================================= -->
-     <target name="admin" depends="init" description="run Fortress admin script">
+     <target name="admin" depends="init-fortress-config" description="run Fortress admin script">
          <echo message="###############  Run Fortress Ant script ${param1}  ###############"/>
          <java
                  classname="org.apache.tools.ant.launch.Launcher"
@@ -395,9 +486,9 @@
      </target>
 
     <!-- =================================
-          target: init-config - runs the base load scripts for ldap Directory Information Tree (DIT)
+          target: init-openldap-config - modifies openldap artifacts for runtime use of fortress-core
          ================================= -->
-     <target name="init-config" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files..">
+     <target name="init-openldap-config" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files..">
 
          <echo message="###############  Modify slapd configuration per user settings  ###############"/>
          <delete file="${target.slapd.conf}"/>
@@ -414,6 +505,17 @@
          <replace file="${target.slapd.conf}" token="@LOG_ROOT_DN@" value="${log.root.dn}"/>
          <replace file="${target.slapd.conf}" token="@LOG_ROOT_PW@" value="${log.root.pw}"/>
          <replace file="${target.slapd.conf}" token="@LOG_SUFFIX@" value="${log.suffix}"/>
+         <replace file="${target.slapd.conf}" token="@LOG_DBNOSYNCH@" value="${log.dbnosynch}"/>
+         <replace file="${target.slapd.conf}" token="@LOG_CHECKPOINT@" value="${log.checkpoint}"/>
+         <replace file="${target.slapd.conf}" token="@DFLT_DBNOSYNCH@" value="${dflt.dbnosynch}"/>
+         <replace file="${target.slapd.conf}" token="@DFLT_CHECKPOINT@" value="${dflt.checkpoint}"/>
+         <echo message="Target init-all-config complete."/>
+     </target>
+
+    <!-- =================================
+          target: init-fortress-config - modfies fortress-core configuration artifacts for use of openldap in target system environment.
+         ================================= -->
+     <target name="init-fortress-config" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files..">
 
          <echo message="###############  Modify fortress configuration per user settings  ###############"/>
          <delete file="${dst.bootstrap.conf}"/>
@@ -456,11 +558,53 @@
          <replace file="${dst.load.bootstrap.script}" token="@USR_MIN_CONN@" value="${log.min.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@USR_MAX_CONN@" value="${log.max.conn}"/>
 
-         <echo message="Target init-config complete."/>
+         <echo message="Target init-all-config complete."/>
      </target>
 
     <!-- =================================
-          target: init-slapd - initializes the Berkeley DB
+          target: init-all-config - configures openldap, fortress and the the base load scripts for ldap Directory Information Tree (DIT)
+         ================================= -->
+     <target name="init-all-config" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files..">
+
+         <antcall target="init-openldap-config"></antcall>
+         <antcall target="init-fortress-config"></antcall>
+         <echo message="Target init-all-config complete."/>
+     </target>
+
+    <!-- =================================
+          target: load-slapd - seeds openldap and base loads for test/use.
+         ================================= -->
+    <target name="load-slapd" depends="build-jar" description="This task is destructive and must be run as elevated priv's for teardown/creation of slapd files and folders.">
+        <echo message="###############  Initialize OpenLDAP  ###############"/>
+
+        <echo message="Load the Fortress boostrap config and demo users"/>
+        <antcall target="admin">
+            <param name="param1" value="${dst.load.bootstrap.script}"/>
+        </antcall>
+        <antcall target="admin">
+            <param name="param1" value="${load.demo.script}"/>
+        </antcall>
+
+        <echo message="Target load-slapd complete."/>
+    </target>
+
+    <!-- =================================
+          target: use-slapd - configures fortress to work with an existing OpenLDAP system.
+         ================================= -->
+    <target name="use-slapd" depends="build-jar" description="This task is destructive and must be run as elevated priv's for teardown/creation of slapd files and folders.">
+        <echo message="###############  Use OpenLDAP  ###############"/>
+        <antcall target="init-fortress-config"></antcall>
+        <antcall target="load-slapd"></antcall>
+        <echo message="Target use-slapd complete."/>
+    </target>
+
+    <!-- =================================
+          target: init-slapd - initializes the fortress, OpenLDAP and Berkeley DB
+          Use Caution as it removes the file volume containing the BerkeleyDB User data!
+          This operation is destructive and non-reversible.  It is intended for complete openldap
+          system tear down and reinstall.
+
+          Never run this Ant target on a production system.
          ================================= -->
     <target name="init-slapd" depends="build-jar" description="This task is destructive and must be run as elevated priv's for teardown/creation of slapd files and folders.">
         <echo message="###############  Initialize OpenLDAP  ###############"/>
@@ -505,12 +649,19 @@
         <move file="${dst.slapd.conf}" tofile="${dst.slapd.conf}.bak.${TODAY}" failonerror="false" />
         <move file="${target.fortress.schema}" tofile="${target.fortress.schema}.${TODAY}" failonerror="false" />
 
-        <echo message="###############  Setup scripts and meta config files  ###############"/>
-        <antcall target="init-config"></antcall>
+        <echo message="###############  Setup meta config and base load scripts for openldap and fortress  ###############"/>
+        <antcall target="init-all-config"></antcall>
 
         <echo message="###############  Copy slapd configuration and Fortress LDAP schema files from source  ###############"/>
         <copy todir="${slapd.schema.dir}" file="${source.fortress.schema}"/>
         <copy todir="${slapd.dir}" file="${target.slapd.conf}"/>
+
+        <echo message="###############  Copy access log libs to openldap lib folder  ###############"/>
+		<copy todir="${slapd.module.dir}" failonerror="false">
+			<fileset dir="${ldap.setup.dir}">
+				<include name="**/accesslog*"/>
+			</fileset>
+		</copy>
 
         <echo message="###############  Start the slapd process up  ###############"/>
         <exec dir="." executable="/bin/sh">
@@ -519,13 +670,7 @@
           <arg value="${sudo.pw}"/>
         </exec>
 
-        <echo message="Load the Fortress boostrap config and demo users"/>
-        <antcall target="admin">
-            <param name="param1" value="${dst.load.bootstrap.script}"/>
-        </antcall>
-        <antcall target="admin">
-            <param name="param1" value="${load.demo.script}"/>
-        </antcall>
+        <antcall target="load-slapd"></antcall>
 
         <echo message="Target init-slapd complete."/>
     </target>
@@ -547,95 +692,5 @@
          <delete dir="${db.dir}"/>
 
      </target>
-
-    <!-- =================================
-          target: build-jar - create java archive (jar) files which contain the runtime Fortress Java classes.
-         ================================= -->
-   <target name="build-jar" depends="compile">
-      <mkdir dir="${dist.dir}"/>
-      <jar jarfile="${dist.jar}">
-         <fileset dir="${build.classes.dir}"/>
-         <metainf dir="${basedir}" includes="LICENSE.txt,NOTICE.txt"/>
-         <manifest>
-            <attribute name="Created-By" value="${vendor} - ${project.name} dev team"/>
-            <attribute name="Implementation-Vendor" value="${vendor}"/>
-            <attribute name="Implementation-Version" value="${version}"/>
-            <attribute name="Specification-Title" value="${title}"/>
-            <attribute name="Package" value="${package}"/>
-            <attribute name="Extension-Name" value="${name}"/>
-            <attribute name="Built-By" value="${user.name}"/>
-            <attribute name="Compile-JDK" value="${java.runtime.version}"/>
-            <attribute name="Test-VM" value="${java.vm.version}"/>
-         </manifest>
-      </jar>
-   </target>
-
-    <!-- =================================
-          target: build-jar-test
-         ================================= -->
-    <target name="build-jar-test" depends="compile-test">
-       <mkdir dir="${dist.dir}"/>
-       <jar jarfile="${dist.test.jar}">
-          <fileset dir="${build.test-classes.dir}"/>
-          <metainf dir="${basedir}" includes="LICENSE.txt,NOTICE.txt"/>
-          <manifest>
-             <attribute name="Created-By" value="${vendor} - ${project.name} dev team"/>
-             <attribute name="Implementation-Vendor" value="${vendor}"/>
-             <attribute name="Implementation-Version" value="${version}"/>
-             <attribute name="Specification-Title" value="${title}"/>
-             <attribute name="Package" value="${package}"/>
-             <attribute name="Extension-Name" value="${name}"/>
-             <attribute name="Built-By" value="${user.name}"/>
-             <attribute name="Compile-JDK" value="${java.runtime.version}"/>
-             <attribute name="Test-VM" value="${java.vm.version}"/>
-          </manifest>
-       </jar>
-    </target>
-
-    <!-- =================================
-          target: build
-         ================================= -->
-   <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples">
-      <copy todir="${dist.dir}" file="${basedir}/LICENSE.txt"/>
-      <copy todir="${dist.dir}" file="${basedir}/NOTICE.txt"/>
-   </target>
-
-    <!-- =================================
-          target: dist - creates the distribution packages
-         ================================= -->
-   <target name="dist" depends="build" description="Create source and binary distribution">
-        <zip destfile='${src.dist.zip}'>
-          <zipfileset dir='${src.java.dir}'/>
-
-          <zipfileset dir='${dist.dir}' prefix='META-INF'>
-              <include name="LICENSE.txt"/>
-              <include name="NOTICE.txt"/>
-          </zipfileset>
-       </zip>
-
-       <zip destfile='${src.test.dist.zip}'>
-         <zipfileset dir='${src.test.dir}'/>
-
-         <zipfileset dir='${dist.dir}' prefix='META-INF'>
-             <include name="LICENSE.txt"/>
-             <include name="NOTICE.txt"/>
-         </zipfileset>
-       </zip>
-
-       <zip destfile="${javadoc.dist.zip}" basedir="${javadoc.dir}">
-           <zipfileset dir='${dist.dir}' prefix='META-INF'>
-               <include name="LICENSE.txt"/>
-               <include name="NOTICE.txt"/>
-           </zipfileset>
-       </zip>
-
-       <zip destfile="${samples.dist.zip}" basedir="${src.test.dir}" includes="**/samples/*.java,build.xml">
-           <zipfileset dir='${dist.dir}' prefix='META-INF'>
-               <include name="LICENSE.txt"/>
-               <include name="NOTICE.txt"/>
-           </zipfileset>
-           <zipfileset dir='${javadoc.samples.dir}'/>
-       </zip>
-    </target>
 
 </project>

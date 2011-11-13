@@ -1,51 +1,93 @@
 --------------------------------------------------------------
-JoshuaTree Fortress README
+README to install, configure and use openldap-fortress-core applications
 created: November 5, 2011
+last updated: November 5, 2011
 --------------------------------------------------------------
-This document contains instructions to download, compile, test and run Fortress in your development environment.  It is intended for developers but also contains instructions (hints)
-to obtain and install OpenLDAP but is not document's main intent.
+This document contains instructions to download, compile, test and use Fortress Core SDK in your target development environment.
+These instructions are intended for developers who opt to use lear, use or change the APIs but also contains instructions (hints) to obtain and install OpenLDAP but is not document's main intent.
 --------------------------------------------------------------
 
 *** Note this is a work in progress. ***
 
-###################################################################################
-# O. Software Usage Prerequisites
-###################################################################################
-1. Internet access to fetch Fortress source code from OpenLDAP GIT and binary dependencies from Maven.
+###############################################################################
+# SECTION 0:  Prerequisites
+###############################################################################
+1. Internet access to retrieve Fortress source code from OpenLDAP GIT and binary dependencies from Maven.
 2. GIT installed to target environment.
 2. Java SDK Version 6 or beyond installed to target environment
 3. Apache Ant 1.8 or beyond installed to target environment
-4. OpenLDAP server installed configured for Fortress on your network (more in step 4)
+4. OpenLDAP server installed configured for Fortress on your network (more on this in step 4)
 
 In addition to the above, software bootstrapping requires the use of Apache Ivy but that component will be setup on step #2 automatically with the getIvy Ant script.
 
+###############################################################################
+# SECTION 1:  Installation Options
+###############################################################################
+
+There are install options for the openldap-fortress-core application:
+
+-------------------------------------------------------------------------------
+Install Option 1:  Utilize pre-existing OpenLDAP installation
+-------------------------------------------------------------------------------
+Get, install and OpenLDAP via source from openldap.org or using Linux package management.
+
+Required Sections:
+2, 3, 4, 5, 7
+
+Optional Sections:
+8. 9, 10
+
+-------------------------------------------------------------------------------
+Install Option 2:  Use Fortress Builder
+-------------------------------------------------------------------------------
+Go to https://joshuatreesoftware.us/jtspages/download.php, register and pull down one of the Fortress Builder packages that match your target platform.
+Follow these instructions: https://joshuatreesoftware.us/jtspages/install.html
+
+Required Sections:
+2, 3, 4
+
+Optional Sections:
+8. 9, 10
+
+-------------------------------------------------------------------------------
+Install Option 3:  Use Symas OpenLDAP binaries (Gold or Silver)
+-------------------------------------------------------------------------------
+Go to http://www.symas.com/index.php/downloads/, register, pull down and install Silver or Gold Symas OpenLDAP releases of binaries for your target platform.
+
+Required Sections:
+2, 3, 4, 5, 6
+
+Optional Sections:
+8. 9, 10
+
 ###################################################################################
-# 1. Instructions to create a local GIT clone of openldap-fortress-core repo
+# SECTION 2. Instructions to check out source by creating a local GIT clone of the openldap-fortress-core repository.
 ###################################################################################
 
 a. Open a terminal session inside an empty folder on your target system and enter the following command:
 
 git clone ssh://git-master.openldap.org/~git/git/openldap-fortress-core.git
 
-Assuming you have network access after the above command has run all of the fortress source code will be downloaded from GIT and installed under the selected folder.
+Assuming you have network access after the above command has run all of the fortress source code will be downloaded from GIT
+and installed under the selected folder, heretofore called FORTRESS_HOME;
 
 ###################################################################################
-# 2. Instructions to download IVY jar for dependency management
+# SECTION 3. Instructions to download IVY jar for dependency management
 ###################################################################################
 
-Ivy is used to pull down the 10 or so other jar files that are fortress is dependent on.
+Ivy is used to pull down the 10 or so libraries that the fortress-core project dependent on.
 
-a. Go to shell prompt in the root of the openldap-fortress-core local repository and enter the following commands:
+a. Go to shell prompt in the root of your project and enter the following commands:
 
 export JAVA_HOME=/path to the root folder of your java SDK
 export ANT_HOME=/path to the root folder of your Apache Ant installation
 $ANT_HOME/bin/ant -buildfile getIvy.xml
 
-After the above command is run, a single Apache Ivy jar file will be downloaded into the specified ANT_HOME/lib folder.  Ivy is used the first time you compile fortress
+After the above command is run, the Apache Ivy jar file will be downloaded into the specified ANT_HOME/lib folder.  Ivy is used the first time you compile fortress
 (step 3 below) to automatically fetch all of fortress' binary dependencies from maven repo website on Internet.
 
 ###################################################################################
-# 3. Instructions to compile and build the Fortress binaries and javadoc
+# SECTION 4. Instructions to compile and build the Fortress binaries and javadoc
 ###################################################################################
 
 a. from the same shell prompt as 2a enter the following:
@@ -53,47 +95,41 @@ a. from the same shell prompt as 2a enter the following:
 $ANT_HOME/bin/ant dist
 
 After the above step runs, all of the fortress source modules are compiled and the classes are loaded into jars.  Java documentation will also be generated.
-These artifacts will be created under openldap-fortress-core/dist folder.
+These artifacts will be created under FORTRESS_HOME/openldap-fortress-core/dist folder.
+
 
 ###################################################################################
-# 4. Instructions to install OpenLDAP
+# SECTION 5. Instructions to configure Fortress and OpenLDAP applications on target system
 ###################################################################################
 
-You have 3 options:
+Notes:
 
-a. Go to https://joshuatreesoftware.us/jtspages/download.php, register and pull down the Fortress Builder package.
-Follow these instructions:
-https://joshuatreesoftware.us/jtspages/install.html
+- The 'init-config' ant target on this project will substitute parameters found in 'build.properties' into their proper location.
 
-b. Go to http://www.symas.com/index.php/downloads/, register, pull down and install Silver or Gold Symas OpenLDAP releases of binaries for your target platform.
+- For newcomers just trying to learn the ropes the defaults usually work, especially if you are using the fortress-builder package to install OpenLDAP.
 
-c. Get, install and OpenLDAP per your favored means.
+- unless you know what you are doing, never change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
 
-###################################################################################
-# 5. Instructions to configure Fortress and OpenLDAP on target system
-###################################################################################
+a. Edit the FORTRESS_HOME/openldap-fortress-core/build.properties file.
 
-Note: the 'init-config' ant target on this project will substitute parameters found in 'build.properties' into their proper location.
-
-a. Edit the FORTRESS_BUILDER_HOME build.properties file located in $FORTRESS_BUILDER_HOME root folder.
-
-b. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.
-host=myhostname (host or ip)
+b. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running the build.xml script from same platform as your
+are running OpenLDAP, localhost will do:
+host=localhost
 port=389
 
-c. Set the suffix name and domain component.  For example suffix.name=jts + suffix.dc=com will = 'dc=jts,dc=com'.
-suffix.name=jts
+c. Set the suffix name and domain component.  For example suffix.name=example + suffix.dc=com will = 'dc=example,dc=com'.
+suffix.name=example
 suffix.dc=com
 
 d. Set the administrative LDAP connection pool parameters:
 
-# Set the encryption key value used for encryption/decryption of admin passwords stored in Fortress property files used during client access LDAP server.
+# Set the encryption key value used as key for encryption/decryption commands for fortress-core ldap service account passwords.
 crypto.prop=abcd12345
 
 OR leave the value blank if passwords are entered in the clear into property files:
 crypto.prop=
 
-Note: This value must be the same as used when password was encrypted (See Section VII)
+Note: This value must be the same as used when password was encrypted (See Section 10)
 
 # This value contains dn of user that has read/write access to LDAP DIT:
 root.dn=cn=Manager,${suffix}
@@ -149,28 +185,50 @@ i. (option if using Symas OpenLDAP binaries) Point slapdInstall.sh to use correc
 for example for Redhat i386:
 slapd.install=rpm -Uvv symas-openldap-gold.i386-2.4.25.110424.rpm
 
-j. (optional) if using sudo, set the sudo.pw that has read/write access to the file system where directory will be installed.
-Edit the FORTRESS_BUILDER_HOME platform.properties file located in $FORTRESS_BUILDER_HOME root folder.
-Change the sudo password to that of your target system:
-sudo.pw=mysudopw
+###################################################################################
+# SECTION 6. Instructions for using Symas binaries to create new OpenLDAP server.
+###################################################################################
+
+a. download Symas OpenLDAP installation binaries from Symas.
+
+b. copy to the FORTRESS_HOME/openldap-fortress-core/ldap/setup
+
+c. enable the correct installation particulars into FORTRESS_HOME/openldap-fortress-core/build.properties.
+
+
+If using sudo you are required to enter your sudo pw:
 
 note: If not using sudo it is important to leave the value empty.  Otherwise the installation will fail.
 sudo.pw=
 
-###################################################################################
-# 6. Instructions to Install OpenLDAP, configure and load with seed data
-###################################################################################
-note: if you downloaded and successfully ran the Fortress Builder installation wizard (step 4a above) you can skip this step.
+Make sure you use the correct package name that matches the download from Symas.
 
-a. Now install Symas OpenLDAP
+# Option 1 - Debian i386 Silver:
+#platform=Debian-Silver-i386
+#slapd.install=dpkg -i symas-openldap-silver.32_2.4.26-1_i386.deb
+#slapd.uninstall=dpkg -r symas-openldap-silver.32
 
-Warning: This target is destructive as it reinstalls and reloads the OpenLDAP server program, configuration and data.
-Do not point this at OpenLDAP server that is in use.  It will disrupt user access and clear out all old entries including Users, passwords, policies, etc.
+# Option 2 - Debian i386 Gold:
+#platform=Debian-Gold-i386
+#slapd.install=dpkg -i symas-openldap-gold.32_2.4.25-110507_i386.deb
+#slapd.uninstall=dpkg -r symas-openldap-gold.32
 
-From openldap-fortress-core root folder, enter the following command from a system prompt:
+# Option 3 - Redhat i386 Silver:
+#platform=Redhat-Silver-i386
+#slapd.install=rpm -Uvv symas-openldap-silver.i386-2.4.26.1.rpm
+#slapd.uninstall=rpm -e symas-openldap-silver
 
-if sudo:
-sudo $ANT_HOME/bin/ant init-slapd
+#sudo.pw=# Option 4 - Redhat i386 Gold:
+#platform=Redhat-Gold-i386
+#slapd.install=rpm -Uvv symas-openldap-gold.i386-2.4.25.110424.rpm
+#slapd.uninstall=rpm -e symas-openldap-gold
+
+d. Run the install target:
+
+From FORTRESS_HOME/openldap-fortress-core folder, enter the following command from a system prompt:
+
+if Debian sudo:
+>sudo $ANT_HOME/bin/ant init-slapd
 
 if not sudo you must run as user that has priv to modify folders in /var and /opt folders:
 >su
@@ -178,8 +236,44 @@ if not sudo you must run as user that has priv to modify folders in /var and /op
 
 
 ###################################################################################
-# 7. Instructions to run the Regression tests
+# SECTION 7. Instructions for using OpenLDAP server that was already installed.
 ###################################################################################
+
+a. install OpenLDAP using your systems package management system.
+
+b. enable the correct installation particulars into FORTRESS_HOME/openldap-fortress-core/build.properties.
+
+These parameters will need to vary according to how your OpenLDAP system was installed. For Debian OpenLDAP builds,
+use the following:
+
+## If using Debian/Ubuntu OpenLDAP, uncomment this section:
+db.dir=/var/lib/ldap
+db.hist.dir=${db.dir}/hist
+db.bak.dir=/var/lib/ldap-backup/db
+db.bak.hist.dir=/var/lib/ldap-backup/hist
+slapd.dir=/etc/ldap
+pid.dir=/var/run/slapd
+slapd.module.dir=/usr/lib/ldap
+slapd.start=slapd -f /etc/ldap/slapd.conf
+ unless you know what you're doing, take the default:
+log.dbnosynch=dbnosync
+dflt.dbnosynch=dbnosync
+log.checkpoint=checkpoint	4056 60
+dflt.checkpoint=checkpoint	1024 60
+
+c. Run the install target:
+
+if Debian sudo:
+>sudo $ANT_HOME/bin/ant init-slapd
+
+if not sudo you must run as user that has priv to modify folders in /var and /opt folders:
+>su
+>$ANT_HOME/bin/ant init-slapd
+
+
+###############################################################################
+# SECTION 8. Instructions to run the Regression tests
+###############################################################################
 
 a. from the same shell prompt as 2a enter the following:
 
@@ -192,9 +286,9 @@ b. Or for subsequent runs:
 $ANT_HOME/bin/ant test-full
 
 
-###################################################################################
-# 8. Instructions to run the Sample applications
-###################################################################################
+###############################################################################
+# SECTION 9. Learn how to use Fortress APIs using the Sample applications
+###############################################################################
 
 a. from the same shell prompt as 2a enter the following:
 
@@ -206,10 +300,49 @@ b. Or if subsequent runs:
 
 $ANT_HOME/bin/ant test-samples
 
+c. view and change the samples here:
+
+[FORTRESS_HOME]/openldap-fortress-core/src/test/com/jts/fortress/samples
+
+d. compile and re-run samples to test your changes using:
+
+ $ANT_HOME/bin/ant test-samples
+
+e. view the samples java doc here:
+
+[FORTRESS_HOME]/openldap-fortress-core/dist/docs/samples/index.html
+
+f. view the fortress-core SDK java doc here:
+
+[FORTRESS_HOME]/openldap-fortress-core/dist/docs/api/index.html
+
+
 ###################################################################################
-# 9. Instructions to run the Console
+# SECTION 10. Instructions to run the simple command console
 ###################################################################################
 
 a. from the same shell prompt as 2a enter the following:
 
 $ANT_HOME/bin/ant console
+
+
+###################################################################################
+# SECTION 11. Instructions to encrypt LDAP passwords used in Fortress configuation files.
+###################################################################################
+
+If you need the passwords for LDAP service accounts to be encrypted before loading into Fortress properties files you can
+use the 'encrypt' ant target.
+
+a. From FORTRESS_BUILDER_HOME root folder, enter the following command from a system prompt:
+
+>./build.sh encrypt -Dparam1=secret
+encrypt:
+     [echo] Encrypt a value
+     [java] Encrypted value=wApnJUnuYZRBTF1zQNxX/Q==
+BUILD SUCCESSFUL
+Total time: 1 second
+
+b. Copy the Encrypted value and paste it into the corresponding build.properties setting, e.g.:
+
+# This OpenLDAP admin root pass is bound for fortress.properties and was encrypted using 'encrypt' target in build.xml:
+cfg.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
