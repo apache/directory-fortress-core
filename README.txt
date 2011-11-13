@@ -214,7 +214,7 @@ a. Install OpenLDAP using your existing package management system.
 
         + etc.
 
-- No need to configure or load the OpenLDAP server.  That is handled in sections 5 & 6 later on.
+- No need to configure or load the OpenLDAP server.  That is handled on step c below.
 
 
 b. enable the correct installation particulars into FORTRESS_HOME/openldap-fortress-core/build.properties.
