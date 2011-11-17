@@ -14,6 +14,7 @@ import com.jts.fortress.PswdPolicyMgr;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.configuration.ConfigMgr;
 import com.jts.fortress.configuration.ConfigMgrFactory;
+import com.jts.fortress.hier.Relationship;
 import com.jts.fortress.ldap.container.OrganizationalUnit;
 import com.jts.fortress.ldap.container.OrganizationalUnitP;
 import com.jts.fortress.ldap.suffix.Suffix;
@@ -37,6 +38,7 @@ import org.apache.tools.ant.Task;
 import org.apache.tools.ant.input.InputHandler;
 import org.apache.tools.ant.input.InputRequest;
 import org.apache.log4j.Logger;
+
 
 /**
  * This class implements Apache Ant custom task and is used to drive the Fortress Administrative APIs using XML files.  The
@@ -133,18 +135,20 @@ public class FortressAntTask extends Task implements InputHandler
     final private List<Deluser> delusers = new ArrayList<Deluser>();
     final private List<Adduserrole> adduserroles = new ArrayList<Adduserrole>();
     final private List<Deluserrole> deluserroles = new ArrayList<Deluserrole>();
-    final private List<com.jts.fortress.ant.Addrole> addroles = new ArrayList<com.jts.fortress.ant.Addrole>();
+    final private List<Addrole> addroles = new ArrayList<com.jts.fortress.ant.Addrole>();
     final private List<Delrole> delroles = new ArrayList<Delrole>();
     final private List<Addsdset> addsdsets = new ArrayList<Addsdset>();
+    final private List<Addroleinheritance> addroleinheritances = new ArrayList<Addroleinheritance>();
+    final private List<Delroleinheritance> delroleinheritances = new ArrayList<Delroleinheritance>();
     final private List<Delsdset> delsdsets = new ArrayList<Delsdset>();
     final private List<AddpermOp> addpermOps = new ArrayList<AddpermOp>();
     final private List<DelpermOp> delpermOps = new ArrayList<DelpermOp>();
     final private List<AddpermObj> addpermObjs = new ArrayList<AddpermObj>();
-    final private List<com.jts.fortress.ant.DelpermObj> delpermObjs = new ArrayList<com.jts.fortress.ant.DelpermObj>();
+    final private List<DelpermObj> delpermObjs = new ArrayList<DelpermObj>();
     final private List<AddpermGrant> addpermGrants = new ArrayList<AddpermGrant>();
     final private List<DelpermGrant> delpermGrants = new ArrayList<DelpermGrant>();
-    final private List<com.jts.fortress.ant.Addpwpolicy> addpolicies = new ArrayList<com.jts.fortress.ant.Addpwpolicy>();
-    final private List<com.jts.fortress.ant.Delpwpolicy> delpolicies = new ArrayList<com.jts.fortress.ant.Delpwpolicy>();
+    final private List<Addpwpolicy> addpolicies = new ArrayList<Addpwpolicy>();
+    final private List<Delpwpolicy> delpolicies = new ArrayList<Delpwpolicy>();
     final private List<Addcontainer> addcontainers = new ArrayList<Addcontainer>();
     final private List<Delcontainer> delcontainers = new ArrayList<Delcontainer>();
     final private List<Addsuffix> addsuffixes = new ArrayList<Addsuffix>();
@@ -153,8 +157,8 @@ public class FortressAntTask extends Task implements InputHandler
     final private List<Delorgunit> delorgunits = new ArrayList<Delorgunit>();
     final private List<com.jts.fortress.ant.Addadminrole> addadminroles = new ArrayList<com.jts.fortress.ant.Addadminrole>();
     final private List<Deladminrole> deladminroles = new ArrayList<Deladminrole>();
-    final private List<com.jts.fortress.ant.Adduseradminrole> adduseradminroles = new ArrayList<com.jts.fortress.ant.Adduseradminrole>();
-    final private List<com.jts.fortress.ant.Deluseradminrole> deluseradminroles = new ArrayList<com.jts.fortress.ant.Deluseradminrole>();
+    final private List<Adduseradminrole> adduseradminroles = new ArrayList<Adduseradminrole>();
+    final private List<Deluseradminrole> deluseradminroles = new ArrayList<Deluseradminrole>();
     private ConfigMgr cfgMgr = null;
     private AdminMgr adminMgr = null;
     private DelegatedAdminMgr dAdminMgr = null;
@@ -272,6 +276,26 @@ public class FortressAntTask extends Task implements InputHandler
     public void addDelrole(Delrole delrole)
     {
         this.delroles.add(delrole);
+    }
+
+    /**
+     * Load the entity with data.
+     *
+     * @param addroleinheritance contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addAddroleinheritance(Addroleinheritance addroleinheritance)
+    {
+        this.addroleinheritances.add(addroleinheritance);
+    }
+
+    /**
+     * Load the entity with data.
+     *
+     * @param delroleinheritance contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addDelroleinheritance(Delroleinheritance delroleinheritance)
+    {
+        this.delroleinheritances.add(delroleinheritance);
     }
 
     /**
@@ -521,6 +545,10 @@ public class FortressAntTask extends Task implements InputHandler
         {
             deleteSdsets();
         }
+        if (isListNotNull(delroleinheritances))
+        {
+            deleteRoleInheritances();
+        }
         if (isListNotNull(delroles))
         {
             deleteRoles();
@@ -568,6 +596,10 @@ public class FortressAntTask extends Task implements InputHandler
         if (isListNotNull(addroles))
         {
             addRoles();
+        }
+        if (isListNotNull(addroleinheritances))
+        {
+            addRoleInheritances();
         }
         if (isListNotNull(addsdsets))
         {
@@ -798,6 +830,60 @@ public class FortressAntTask extends Task implements InputHandler
             }
         }
     }
+
+    /**
+     * @throws BuildException
+     */
+    private void addRoleInheritances()
+        throws BuildException
+    {
+        // Loop through the entityclass elements
+        for (Addroleinheritance addroleinheritance : addroleinheritances)
+        {
+            List<Relationship> roles = addroleinheritance.getRoleInheritances();
+            for (Relationship relationship : roles)
+            {
+                log.info(OCLS_NM + ".addRoleInheritances parent=" + relationship.getParent()
+                    + " child=" + relationship.getChild());
+                try
+                {
+                    adminMgr.addInheritance(new Role(relationship.getParent()), new Role(relationship.getChild()));
+                }
+                catch (SecurityException se)
+                {
+                    log.warn(OCLS_NM + ".addRoleInheritances parent <" + relationship.getParent() + "> child <" + relationship.getChild() + "> caught SecurityException=" + se);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * @throws BuildException
+     */
+    private void deleteRoleInheritances()
+        throws BuildException
+    {
+        // Loop through the entityclass elements
+        for (Delroleinheritance delroleinheritance : delroleinheritances)
+        {
+            List<Relationship> roles = delroleinheritance.getRoleInheritances();
+            for (Relationship relationship : roles)
+            {
+                log.info(OCLS_NM + ".deleteRoleInheritances parent=" + relationship.getParent()
+                    + " child=" + relationship.getChild());
+                try
+                {
+                    adminMgr.deleteInheritance(new Role(relationship.getParent()), new Role(relationship.getChild()));
+                }
+                catch (SecurityException se)
+                {
+                    log.warn(OCLS_NM + ".deleteRoleInheritances parent <" + relationship.getParent() + "> child <" + relationship.getChild() + "> caught SecurityException=" + se);
+                }
+            }
+        }
+    }
+
 
     /**
      * @throws BuildException

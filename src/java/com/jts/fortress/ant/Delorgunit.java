@@ -17,11 +17,11 @@ import com.jts.fortress.arbac.OrgUnitAnt;
  * <pre>
  * {@code
  * <target name="all">
- *     <OamAdmin>
+ *     <FortressAdmin>
  *         <delorgunit>
  *           ...
  *         </delorgunit>
- *     </OamAdmin>
+ *     </FortressAdmin>
  * </target>
  * }
  * </pre>

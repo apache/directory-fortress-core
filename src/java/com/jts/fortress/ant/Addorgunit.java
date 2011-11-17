@@ -16,11 +16,11 @@ import java.util.List;
  * <pre>
  * {@code
  * <target name="all">
- *     <OamAdmin>
+ *     <FortressAdmin>
  *         <addorgunit>
  *           ...
  *         </addorgunit>
- *     </OamAdmin>
+ *     </FortressAdmin>
  * </target>
  * }
  * </pre>

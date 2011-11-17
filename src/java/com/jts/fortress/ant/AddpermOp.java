@@ -14,11 +14,11 @@ import java.util.List;
  * <pre>
  * {@code
  * <target name="all">
- *     <OamAdmin>
+ *     <FortressAdmin>
  *         <addpermop>
  *           ...
  *         </addpermop>
- *     </OamAdmin>
+ *     </FortressAdmin>
  * </target>
  * }
  * </pre>

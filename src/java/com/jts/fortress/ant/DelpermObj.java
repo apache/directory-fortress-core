@@ -17,11 +17,11 @@ import com.jts.fortress.rbac.PermObj;
  * <pre>
  * {@code
  * <target name="all">
- *     <OamAdmin>
+ *     <FortressAdmin>
  *         <delpermobj>
  *           ...
  *         </delpermobj>
- *     </OamAdmin>
+ *     </FortressAdmin>
  * </target>
  * }
  * </pre>

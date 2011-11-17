@@ -45,11 +45,11 @@ public class Delsuffix
      * <pre>
      * {@code
      * <target name="all">
-     *     <OamAdmin>
+     *     <FortressAdmin>
      *         <delsuffix>
      *           ...
      *         </delsuffix>
-     *     </OamAdmin>
+     *     </FortressAdmin>
      * </target>
      * }
      * </pre>

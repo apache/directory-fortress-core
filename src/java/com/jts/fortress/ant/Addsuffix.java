@@ -16,11 +16,11 @@ import com.jts.fortress.ldap.suffix.Suffix;
  * <pre>
  * {@code
  * <target name="all">
- *     <OamAdmin>
+ *     <FortressAdmin>
  *         <addsuffix>
  *           ...
  *         </addsuffix>
- *     </OamAdmin>
+ *     </FortressAdmin>
  * </target>
  * }
  * </pre>

@@ -21,6 +21,13 @@ public class Relationship
     private String parent;
 
     /**
+     * No argument constructor is necessary for Ant admin utility
+     *
+     */
+    public Relationship()
+    {
+    }
+    /**
      * Construct a new relationship given a child and parent name.
      *
      * @param child  contains the name of child.
