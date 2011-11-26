@@ -45,7 +45,6 @@ import java.util.TreeSet;
  */
 public class AdminRoleUtil
 {
-    private static final String OCLS_NM = AdminRoleUtil.class.getName();
     // Is synchronized on update:
     private static SimpleDirectedGraph<String, Relationship> m_graph = null;
 
@@ -60,7 +59,7 @@ public class AdminRoleUtil
 
     /**
      * Used to determine if one {@link com.jts.fortress.arbac.AdminRole} is the parent of another.  This method
-     * will call recursive routine {@link #getParents(String)} to walk the {@code org.jgrapht.graph.SimpleDirectedGraph} data structure
+     * will call recursive routine {@link #getAscendants(String)} to walk the {@code org.jgrapht.graph.SimpleDirectedGraph} data structure
      * returning flag indicating if parent-child relationship is valid.
      *
      * @param child maps to logical {@link com.jts.fortress.arbac.AdminRole#name} and physical 'ftRels' attribute on 'ftHier' object class.
@@ -70,7 +69,7 @@ public class AdminRoleUtil
     public static boolean isParent(String child, String parent)
     {
         boolean result = false;
-        Set<String> parents = getParents(child);
+        Set<String> parents = getAscendants(child);
         if(parents != null && parents.size() > 0)
         {
             result = parents.contains(parent.toUpperCase());
@@ -79,19 +78,29 @@ public class AdminRoleUtil
     }
 
     /**
-     * Recursively traverse the {@link com.jts.fortress.arbac.AdminRole} graph and return all of the children of a given parent {@link com.jts.fortress.arbac.AdminRole#name}.
+     * Recursively traverse the {@link com.jts.fortress.arbac.AdminRole} graph and return all of the descendants of a given parent {@link com.jts.fortress.arbac.AdminRole#name}.
      * @param roleName {@link com.jts.fortress.arbac.AdminRole#name} maps to 'ftRels' attribute on 'ftHier' object class.
      * @return Set of AdminRole names are children {@link com.jts.fortress.arbac.AdminRole}s of given parent.
      */
-    public static Set<String> getChildren(String roleName)
+    public static Set<String> getDescendants(String roleName)
     {
-        return HierUtil.getChildren(roleName, m_graph);
+        return HierUtil.getDescendants(roleName, m_graph);
     }
 
     /**
      * Recursively traverse the hierarchical role graph and return all of the parents of a given child role.
      * @param roleName maps to logical {@link com.jts.fortress.arbac.AdminRole#name} and physical 'ftRels' attribute on 'ftHier' object class.
-     * @return Set of AdminRole names that are parents of given child.
+     * @return Set of AdminRole names that are descendants of given node.
+     */
+    public static Set<String> getAscendants(String roleName)
+    {
+        return HierUtil.getAscendants(roleName, m_graph);
+    }
+
+    /**
+     * Traverse one level of the {@link com.jts.fortress.arbac.AdminRole} graph and return all of the parents (direct ascendants) of a given parent {@link com.jts.fortress.arbac.AdminRole#name}.
+     * @param roleName {@link com.jts.fortress.arbac.AdminRole#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @return Set of AdminRole names are parents {@link com.jts.fortress.arbac.AdminRole}s of given child.
      */
     public static Set<String> getParents(String roleName)
     {
@@ -99,7 +108,17 @@ public class AdminRoleUtil
     }
 
     /**
-     * Recursively traverse the hierarchical role graph and return number of children a given parent role has.
+     * Traverse one level of the hierarchical role graph and return all of the children (direct descendants) of a given parent role.
+     * @param roleName maps to logical {@link com.jts.fortress.arbac.AdminRole#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @return Set of AdminRole names that are children of given parent.
+     */
+    public static Set<String> getChildren(String roleName)
+    {
+        return HierUtil.getChildren(roleName, m_graph);
+    }
+
+    /**
+     * Return number of children (direct descendants) a given parent role has.
      * @param roleName maps to logical {@link com.jts.fortress.arbac.AdminRole#name} and physical 'ftRels' attribute on 'ftHier' object class.
      * @return int value contains the number of children of a given parent AdminRole.
      */
@@ -124,7 +143,7 @@ public class AdminRoleUtil
             {
                 String rleName = uRole.getName();
                 iRoles.add(rleName);
-                Set<String> parents = HierUtil.getParents(rleName, m_graph);
+                Set<String> parents = HierUtil.getAscendants(rleName, m_graph);
                 if (VUtil.isNotNullOrEmpty(parents))
                     iRoles.addAll(parents);
             }

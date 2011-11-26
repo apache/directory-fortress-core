@@ -986,11 +986,11 @@ public final class PermDAO
             Set<String> roles;
             if (role.getClass().equals(AdminRole.class))
             {
-                roles = AdminRoleUtil.getParents(role.getName());
+                roles = AdminRoleUtil.getAscendants(role.getName());
             }
             else
             {
-                roles = RoleUtil.getParents(role.getName());
+                roles = RoleUtil.getAscendants(role.getName());
             }
 
             if (VUtil.isNotNullOrEmpty(roles))

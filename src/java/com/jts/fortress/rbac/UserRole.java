@@ -8,6 +8,7 @@ import com.jts.fortress.FortEntity;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.time.Constraint;
 
+import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
@@ -47,6 +48,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
     private String beginLockDate;
     private String endLockDate;
     private String dayMask;
+    private Set<String> parents;
 
     /**
      * Default constructor is used by internal Fortress classes.
@@ -113,6 +115,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
                     {
                         case 0:
                             this.setName(tkn.nextToken());
+                            this.setParents(RoleUtil.getParents(this.name.toUpperCase()));
                             break;
                         case 1:
                             this.setTimeout(Integer.parseInt(tkn.nextToken()));
@@ -131,7 +134,11 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
                             break;
                         case 6:
                             this.setBeginLockDate(tkn.nextToken());
-                            break;
+                            break;                                                                               /**
+     * Return the Set of child role names (direct descendants) of this role.
+     * @return Set of child role names.
+     */
+
                         case 7:
                             this.setEndLockDate(tkn.nextToken());
                             break;
@@ -433,6 +440,23 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
         return this.dayMask;
     }
 
+    /**
+     * Get the names of roles that are parents (direct ascendants) of this role.
+     * @return Set of parent role names assigned to this role.
+     */
+    public Set<String> getParents()
+    {
+        return parents;
+    }
+
+    /**
+     * Set the names of roles names that are parents (direct ascendants) of this role.
+     * @param parents contains the Set of parent role names assigned to this role.
+     */
+    public void setParents(Set<String> parents)
+    {
+        this.parents = parents;
+    }
 
     /**
      * Matches the userId and role name from two UserRole entities.

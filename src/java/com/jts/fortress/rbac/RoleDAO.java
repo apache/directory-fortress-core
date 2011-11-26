@@ -464,6 +464,8 @@ public final class RoleDAO
         entity.setName(DaoUtil.getAttribute(le, ROLE_NM));
         entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
         entity.setOccupants(DaoUtil.getAttributes(le, ROLE_OCCUPANT));
+        entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase()));
+        entity.setChildren(RoleUtil.getChildren(entity.getName().toUpperCase()));
         DaoUtil.unloadTemporal(le, entity);
         return entity;
     }

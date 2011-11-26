@@ -140,7 +140,7 @@ public class SDUtil
                 else // Check the parents of activated role for DSD match:
                 {
                     // Now pull the activated role's list of parents.
-                    Set<String> parentSet = RoleUtil.getParents(actRole.getName());
+                    Set<String> parentSet = RoleUtil.getAscendants(actRole.getName());
 
                     // Iterate over the list of parent roles:
                     for (String parentRole : parentSet)

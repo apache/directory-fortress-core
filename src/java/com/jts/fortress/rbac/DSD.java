@@ -93,7 +93,7 @@ public class DSD
                         }
                         else
                         {
-                            Set<String> parentSet = RoleUtil.getParents(activatedRole.getName());
+                            Set<String> parentSet = RoleUtil.getAscendants(activatedRole.getName());
                             // now check for every role inherited from this activated role:
                             for (String parentRole : parentSet)
                             {

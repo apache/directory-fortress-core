@@ -46,7 +46,6 @@ import java.util.TreeSet;
  */
 public class UsoUtil
 {
-    private static final String OCLS_NM = UsoUtil.class.getName();
     // Is synchronized on update:
     private static SimpleDirectedGraph<String, Relationship> m_graph = null;
 
@@ -60,7 +59,29 @@ public class UsoUtil
     }
 
     /**
-     * Recursively traverse the {@link com.jts.fortress.arbac.OrgUnit} graph and return all of the children of a given parent {@link com.jts.fortress.arbac.OrgUnit#name}.
+     * Recursively traverse the {@link com.jts.fortress.arbac.OrgUnit} graph and return all of the descendants of a given parent {@link com.jts.fortress.arbac.OrgUnit#name}.
+     *
+     * @param name {@link com.jts.fortress.arbac.OrgUnit#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @return Set of names of descendants {@link com.jts.fortress.arbac.OrgUnit}s of given parent.
+     */
+    public static Set<String> getDescendants(String name)
+    {
+        return HierUtil.getDescendants(name, m_graph);
+    }
+
+    /**
+     * Recursively traverse the {@link com.jts.fortress.arbac.OrgUnit.Type#USER} graph and return all of the ascendants of a given child ou.
+     *
+     * @param name maps to logical {@link com.jts.fortress.arbac.OrgUnit#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @return Set of ou names that are ascendants of given child.
+     */
+    public static Set<String> getAscendants(String name)
+    {
+        return HierUtil.getAscendants(name, m_graph);
+    }
+
+    /**
+     * Traverse one level of the {@link com.jts.fortress.arbac.OrgUnit} graph and return all of the children (direct descendants) of a given parent {@link com.jts.fortress.arbac.OrgUnit#name}.
      *
      * @param name {@link com.jts.fortress.arbac.OrgUnit#name} maps to 'ftRels' attribute on 'ftHier' object class.
      * @return Set of names of children {@link com.jts.fortress.arbac.OrgUnit}s of given parent.
@@ -71,7 +92,7 @@ public class UsoUtil
     }
 
     /**
-     * Recursively traverse the {@link com.jts.fortress.arbac.OrgUnit.Type#USER} graph and return all of the parents of a given child ou.
+     * Traverse one level of the {@link com.jts.fortress.arbac.OrgUnit.Type#USER} graph and return all of the parents (direct ascendants) of a given child ou.
      *
      * @param name maps to logical {@link com.jts.fortress.arbac.OrgUnit#name} and physical 'ftRels' attribute on 'ftHier' object class.
      * @return Set of ou names that are parents of given child.
@@ -80,7 +101,6 @@ public class UsoUtil
     {
         return HierUtil.getParents(name, m_graph);
     }
-
 
     /**
      * Recursively traverse the {@link com.jts.fortress.arbac.OrgUnit.Type#USER} graph and return number of children a given parent ou has.
@@ -109,7 +129,7 @@ public class UsoUtil
             {
                 String name = ou.getName();
                 iOUs.add(name);
-                Set<String> parents = HierUtil.getParents(name, m_graph);
+                Set<String> parents = HierUtil.getAscendants(name, m_graph);
                 if (VUtil.isNotNullOrEmpty(parents))
                     iOUs.addAll(parents);
             }

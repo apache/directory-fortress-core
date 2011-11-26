@@ -44,6 +44,7 @@ public class UserAdminRole extends UserRole implements com.jts.fortress.arbac.Ad
     private String endRange;
     private boolean beginInclusive;
     private boolean endInclusive;
+    private Set<String> parents;
 
     /**
      * Default constructor is used by internal Fortress classes.
@@ -98,6 +99,7 @@ public class UserAdminRole extends UserRole implements com.jts.fortress.arbac.Ad
                     {
                         case 0:
                             this.setName(tkn.nextToken());
+                            this.setParents(AdminRoleUtil.getParents(this.name.toUpperCase()));
                             break;
                         case 1:
                             this.setTimeout(Integer.parseInt(tkn.nextToken()));
@@ -432,6 +434,24 @@ public class UserAdminRole extends UserRole implements com.jts.fortress.arbac.Ad
     public void setEndInclusive(boolean endInclusive)
     {
         this.endInclusive = endInclusive;
+    }
+
+    /**
+     * Get the names of admin roles that are parents (direct ascendants) of this admin role.
+     * @return Set of parent admin role names assigned to this admin role.
+     */
+    public Set<String> getParents()
+    {
+        return parents;
+    }
+
+    /**
+     * Set the names of parent admin roles.
+     * @param parents Set of admin role names.
+     */
+    public void setParents(Set<String> parents)
+    {
+        this.parents = parents;
     }
 
     /**

@@ -455,9 +455,17 @@ public class OrgUnitDAO
         entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
         String dn = le.getDN();
         if (dn.indexOf(getRootDn(OrgUnit.Type.PERM)) != -1)
+        {
             entity.setType(OrgUnit.Type.PERM);
+            entity.setParents(PsoUtil.getParents(entity.getName().toUpperCase()));
+            entity.setChildren(PsoUtil.getChildren(entity.getName().toUpperCase()));
+        }
         else
+        {
             entity.setType(OrgUnit.Type.USER);
+            entity.setParents(UsoUtil.getParents(entity.getName().toUpperCase()));
+            entity.setChildren(UsoUtil.getChildren(entity.getName().toUpperCase()));
+        }
         return entity;
     }
 }

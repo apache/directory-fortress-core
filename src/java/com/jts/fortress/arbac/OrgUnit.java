@@ -5,6 +5,7 @@ package com.jts.fortress.arbac;
 
 import com.jts.fortress.FortEntity;
 
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -119,16 +120,17 @@ import java.util.UUID;
 public class OrgUnit extends FortEntity
     implements java.io.Serializable
 {
-    private String name;
-    private String id;
-
     /**
      * Maps to the location for a particular OrgUnit entity to either the User, {@code ou=OS-U}, or Permission, {@code ou=OS-P}, tree in ldap.
      *
      */
     public Type type;
 
+    private String name;
+    private String id;
     private String description;
+    private Set<String> parents;
+    private Set<String> children;
 
     /**
      * Default constructor is used by internal Fortress classes.
@@ -266,6 +268,42 @@ public class OrgUnit extends FortEntity
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    /**
+     * Get the names of orgUnits that are parents (direct ascendants) of this orgUnit.
+     * @return Set of parent orgUnit names assigned to this orgUnit.
+     */
+    public Set<String> getParents()
+    {
+        return parents;
+    }
+
+    /**
+     * Set the names of orgUnit names that are parents (direct ascendants) of this orgUnit.
+     * @param parents contains the Set of parent orgUnit names assigned to this orgUnit.
+     */
+    public void setParents(Set<String> parents)
+    {
+        this.parents = parents;
+    }
+
+    /**
+     * Return the Set of child orgUnit names (direct descendants) of this orgUnit.
+     * @return Set of child orgUnit names assigned to this orgUnit.
+     */
+    public Set<String> getChildren()
+    {
+        return children;
+    }
+
+    /**
+     * Set the Set of child orgUnit names (direct descendants) of this orgUnit
+     * @param children contains the Set of child orgUnit names assigned to this orgUnit.
+     */
+    public void setChildren(Set<String> children)
+    {
+        this.children = children;
     }
 
     /**

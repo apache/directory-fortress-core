@@ -722,7 +722,7 @@ public final class UserDAO
             String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")(";
-            Set<String> roles = RoleUtil.getChildren(role.getName());
+            Set<String> roles = RoleUtil.getDescendants(role.getName());
             if (VUtil.isNotNullOrEmpty(roles))
             {
                 filter += "|(" + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + ")";

@@ -289,7 +289,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
                     {
                         // Add osU children to the set:
                         osUsFinal.add(osU);
-                        Set<String> children = UsoUtil.getChildren(osU);
+                        Set<String> children = UsoUtil.getDescendants(osU);
                         osUsFinal.addAll(children);
                     }
                     // does the admin role have authority over the user object?
@@ -299,7 +299,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
                         Set<String> range;
                         if(!uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
                         {
-                            range = RoleUtil.getParents(uaRole.getBeginRange(), uaRole.getEndRange(), uaRole.isEndInclusive());
+                            range = RoleUtil.getAscendants(uaRole.getBeginRange(), uaRole.getEndRange(), uaRole.isEndInclusive());
                             if(uaRole.isBeginInclusive())
                             {
                                 range.add(uaRole.getBeginRange());
@@ -360,7 +360,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
                     {
                         // Add osU children to the set:
                         osPsFinal.add(osP);
-                        Set<String> children = PsoUtil.getChildren(osP);
+                        Set<String> children = PsoUtil.getDescendants(osP);
                         osPsFinal.addAll(children);
                     }
                     // does the admin role have authority over the perm object?
@@ -370,7 +370,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
                         Set<String> range;
                         if(!uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
                         {
-                            range = RoleUtil.getParents(uaRole.getBeginRange(), uaRole.getEndRange(), uaRole.isEndInclusive());
+                            range = RoleUtil.getAscendants(uaRole.getBeginRange(), uaRole.getEndRange(), uaRole.isEndInclusive());
                             if(uaRole.isBeginInclusive())
                             {
                                 range.add(uaRole.getBeginRange());

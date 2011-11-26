@@ -8,6 +8,7 @@ import com.jts.fortress.ValidationException;
 import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.util.AlphabeticalOrder;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.log4j.Logger;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
@@ -141,7 +142,7 @@ public class HierUtil
     }
 
     /**
-     * Recursively traverse the graph and return number of children a given parent has.
+     * Return number of children (direct descendants) a given parent node has.
      *
      * @param name  contains the vertex of graph to gather descendants from.
      * @param graph contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
@@ -167,7 +168,7 @@ public class HierUtil
     }
 
     /**
-     * Determine how many direct descendants a given parent node has.
+     * Determine how many children a given parent node has.
      *
      * @param vertex of parent.
      * @param graph  contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
@@ -182,7 +183,7 @@ public class HierUtil
             v = (String) vertex.get(VERTEX);
             if (v == null)
             {
-                log.debug(OCLS_NM + ".getChildren vertex is null");
+                log.debug(OCLS_NM + ".getDescendants vertex is null");
                 return 0;
             }
             if (log.isDebugEnabled())
@@ -192,54 +193,54 @@ public class HierUtil
         }
         catch (java.lang.IllegalArgumentException e)
         {
-            log.debug(OCLS_NM + ".getChildren vertex not found");
+            log.debug(OCLS_NM + ".getDescendants vertex not found");
         }
         return numChildren;
     }
 
     /**
-     * Recursively traverse the hierarchical graph and return all of the parents of a given child node.
+     * Recursively traverse the hierarchical graph and return all of the ascendants of a given node.
      *
      * @param childName maps to vertex to determine parentage.
      * @param graph     contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @return Set of names that are parents of given child.
      */
-    public static Set<String> getParents(String childName, SimpleDirectedGraph<String, Relationship> graph)
+    public static Set<String> getAscendants(String childName, SimpleDirectedGraph<String, Relationship> graph)
     {
         Map vx = new HashMap();
         // TreeSet will return in sorted order:
         // create Set with case insensitive comparator:
         Set<String> parents = new TreeSet<String>(new AlphabeticalOrder());
         vx.put(VERTEX, childName.toUpperCase());
-        getParents(vx, graph, parents);
+        getAscendants(vx, graph, parents);
         return parents;
     }
 
     /**
-     * Utility function recursively traverses a given digraph to build a set of all parent names.
+     * Utility function recursively traverses a given digraph to build a set of all ascendant names.
      *
      * @param vertex  contains the position of the cursor for traversal of graph.
      * @param graph   contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
-     * @param parents contains the result set of parent names.
+     * @param ascendants contains the result set of ascendant names.
      * @return value contains the vertex of current position.
      */
-    private static String getParents(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> parents)
+    private static String getAscendants(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> ascendants)
     {
         String v;
         v = (String) vertex.get(VERTEX);
         if (v == null)
         {
-            log.debug(OCLS_NM + ".getParents vertex is null");
+            log.debug(OCLS_NM + ".getAscendants vertex is null");
             return null;
         }
         else if (graph == null)
         {
-            log.debug(OCLS_NM + ".getParents graph is null");
+            log.debug(OCLS_NM + ".getAscendants graph is null");
             return null;
         }
         if (log.isDebugEnabled())
         {
-            log.debug(OCLS_NM + ".getParents <" + v + ">");
+            log.debug(OCLS_NM + ".getAscendants <" + v + ">");
         }
         Set<Relationship> edges;
         try
@@ -250,27 +251,27 @@ public class HierUtil
         {
             if (log.isDebugEnabled())
             {
-                log.debug(OCLS_NM + ".getParents no parent found");
+                log.debug(OCLS_NM + ".getAscendants no parent found");
             }
             return null;
         }
         for (Relationship edge : edges)
         {
             vertex.put(VERTEX, edge.getParent());
-            parents.add(edge.getParent());
-            v = getParents(vertex, graph, parents);
+            ascendants.add(edge.getParent());
+            v = getAscendants(vertex, graph, ascendants);
         }
         return v;
     }
 
     /**
-     * Recursively traverse the hierarchical graph and return all of the children for a given parent node.
+     * Recursively traverse the hierarchical graph and return all of the descendants for a given node.
      *
      * @param parentName maps to vertex to determine parentage.
      * @param graph      contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @return Set of names that are children of given parent.
      */
-    public static Set<String> getChildren(String parentName, SimpleDirectedGraph<String, Relationship> graph)
+    public static Set<String> getDescendants(String parentName, SimpleDirectedGraph<String, Relationship> graph)
     {
         Map vx = new HashMap();
         // TreeSet will return in sorted order:
@@ -278,35 +279,35 @@ public class HierUtil
         Set<String> children = new TreeSet<String>(new AlphabeticalOrder());
 
         vx.put(VERTEX, parentName.toUpperCase());
-        getChildren(vx, graph, children);
+        getDescendants(vx, graph, children);
         return children;
     }
 
 
     /**
-     * Utility function recursively traverses a given digraph to build a set of all children names.
+     * Utility function recursively traverses a given digraph to build a set of all descendants names.
      *
      * @param vertex   contains the position of the cursor for traversal of graph.
      * @param graph    contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
-     * @param children contains the result set of child names.
+     * @param descendants contains the result set of names of all descendants of node.
      * @return value contains the vertex of current position.
      */
-    private static String getChildren(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> children)
+    private static String getDescendants(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> descendants)
     {
         String v;
         v = (String) vertex.get(VERTEX);
         if (v == null)
         {
-            log.debug(OCLS_NM + ".getChildren vertex is null");
+            log.debug(OCLS_NM + ".getDescendants vertex is null");
             return null;
         }
         else if (graph == null)
         {
-            log.debug(OCLS_NM + ".getChildren graph is null");
+            log.debug(OCLS_NM + ".getDescendants graph is null");
             return null;
         }
         if (log.isDebugEnabled())
-            log.debug(OCLS_NM + ".getChildren <" + v + ">");
+            log.debug(OCLS_NM + ".getDescendants <" + v + ">");
 
         Set<Relationship> edges;
         try
@@ -315,20 +316,55 @@ public class HierUtil
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            log.debug(OCLS_NM + ".getChildren no parent found");
+            log.debug(OCLS_NM + ".getDescendants no parent found");
             return null;
         }
         for (Relationship edge : edges)
         {
             vertex.put(VERTEX, edge.getChild());
-            children.add(edge.getChild());
-            v = getChildren(vertex, graph, children);
+            descendants.add(edge.getChild());
+            v = getDescendants(vertex, graph, descendants);
         }
         return v;
     }
 
     /**
-     * Recursively traverse the hierarchical graph and return all of the parents of a given child node.
+     * Utility function returns a set of all children (direct descendant) names.
+     *
+     * @param vertex   contains the position of the cursor for traversal of graph.
+     * @param graph    contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @return value contains the vertex of current position.
+     */
+    public static Set<String> getChildren(String vertex, SimpleDirectedGraph<String, Relationship> graph)
+    {
+        Set<String> descendants = new TreeSet<String>();
+        if (graph == null)
+        {
+            log.debug(OCLS_NM + ".getChildren graph is null");
+            return null;
+        }
+        if (log.isDebugEnabled())
+            log.debug(OCLS_NM + ".getChildren <" + vertex + ">");
+
+        Set<Relationship> edges;
+        try
+        {
+            edges = graph.incomingEdgesOf(vertex);
+        }
+        catch (java.lang.IllegalArgumentException iae)
+        {
+            log.debug(OCLS_NM + ".getChildren no parent found");
+            return null;
+        }
+        for (Relationship edge : edges)
+        {
+            descendants.add(edge.getChild());
+        }
+        return descendants;
+    }
+
+    /**
+     * Recursively traverse the hierarchical graph and return all of the ascendants of a given node.
      *
      * @param childName   maps to vertex to determine parentage.
      * @param parentName  points to top most ascendant where traversal must stop.
@@ -336,7 +372,7 @@ public class HierUtil
      * @param graph       contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @return Set of names that are parents of given child.
      */
-    public static Set<String> getParents(String childName, String parentName, boolean isInclusive, SimpleDirectedGraph<String, Relationship> graph)
+    public static Set<String> getAscendants(String childName, String parentName, boolean isInclusive, SimpleDirectedGraph<String, Relationship> graph)
     {
         Map vx = new HashMap();
         // TreeSet will return in sorted order:
@@ -344,37 +380,37 @@ public class HierUtil
         Set<String> parents = new TreeSet<String>(new AlphabeticalOrder());
 
         vx.put(VERTEX, childName.toUpperCase());
-        getParents(vx, graph, parents, parentName, isInclusive);
+        getAscendants(vx, graph, parents, parentName, isInclusive);
         return parents;
     }
 
     /**
-     * Private utility to recursively traverse the hierarchical graph and return all of the parents of a given child node.
+     * Private utility to recursively traverse the hierarchical graph and return all of the ascendants of a given child node.
      *
      * @param vertex      contains node name and acts as cursor for current location.
      * @param graph       contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @param parents     contains the result set of parent nodes.
      * @param stopName    contains the name of node where traversal ends.
-     * @param isInclusive if set to true will include the parentName in the result set.  False will not return specified parentName.
+     * @param isInclusive if set to true will include the parentName in the result set.  /home/smckinn/GIT/fortressDev/openldap-fortress-core/ldap/setup/HierarchicalRoleExample.xmlFalse will not return specified parentName.
      * @return Set of names that are parents of given child.
      */
-    private static String getParents(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> parents, String stopName, boolean isInclusive)
+    private static String getAscendants(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> parents, String stopName, boolean isInclusive)
     {
         String v;
         v = (String) vertex.get(VERTEX);
         if (v == null)
         {
-            log.debug(OCLS_NM + ".getParents vertex is null");
+            log.debug(OCLS_NM + ".getAscendants vertex is null");
             return null;
         }
         else if (graph == null)
         {
-            log.debug(OCLS_NM + ".getParents graph is null");
+            log.debug(OCLS_NM + ".getAscendants graph is null");
             return null;
         }
         if (log.isDebugEnabled())
         {
-            log.debug(OCLS_NM + ".getParents <" + v + ">");
+            log.debug(OCLS_NM + ".getAscendants <" + v + ">");
         }
         Set<Relationship> edges;
         try
@@ -383,7 +419,7 @@ public class HierUtil
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            log.debug(OCLS_NM + ".getParents no parent found");
+            log.debug(OCLS_NM + ".getAscendants no parent found");
             return null;
         }
         for (Relationship edge : edges)
@@ -400,10 +436,46 @@ public class HierUtil
             {
                 vertex.put(VERTEX, edge.getParent());
                 parents.add(edge.getParent());
-                v = getParents(vertex, graph, parents, stopName, isInclusive);
+                v = getAscendants(vertex, graph, parents, stopName, isInclusive);
             }
         }
         return v;
+    }
+
+    /**
+     * Private utility to return the parents (direct ascendants) of a given child node.
+     *
+     * @param vertex      contains node name and acts as cursor for current location.
+     * @param graph       contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @return Set of names that are parents of given child.
+     */
+    public static Set<String> getParents(String vertex, SimpleDirectedGraph<String, Relationship> graph)
+    {
+        Set<String> parents = new TreeSet<String>();
+        if (graph == null)
+        {
+            log.debug(OCLS_NM + ".getParents graph is null");
+            return null;
+        }
+        if (log.isDebugEnabled())
+        {
+            log.debug(OCLS_NM + ".getParents <" + vertex + ">");
+        }
+        Set<Relationship> edges;
+        try
+        {
+            edges = graph.outgoingEdgesOf(vertex);
+        }
+        catch (java.lang.IllegalArgumentException iae)
+        {
+            log.debug(OCLS_NM + ".getParents no parent found");
+            return null;
+        }
+        for (Relationship edge : edges)
+        {
+            parents.add(edge.getParent());
+        }
+        return parents;
     }
 
     /**

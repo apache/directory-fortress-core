@@ -46,7 +46,6 @@ import java.util.TreeSet;
  */
 public class RoleUtil
 {
-    private static final String OCLS_NM = RoleUtil.class.getName();
     // Is synchronized on update:
     private static SimpleDirectedGraph<String, Relationship> m_graph = null;
 
@@ -61,7 +60,7 @@ public class RoleUtil
 
     /**
      * Used to determine if one {@link Role} is the parent of another.  This method
-     * will call recursive routine {@link #getParents(String)} to walk the {@code org.jgrapht.graph.SimpleDirectedGraph} data structure
+     * will call recursive routine {@link #getAscendants(String)} to walk the {@code org.jgrapht.graph.SimpleDirectedGraph} data structure
      * returning flag indicating if parent-child relationship is valid.
      *
      * @param child  maps to logical {@link Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
@@ -71,7 +70,7 @@ public class RoleUtil
     public static boolean isParent(String child, String parent)
     {
         boolean result = false;
-        Set<String> parents = getParents(child);
+        Set<String> parents = getAscendants(child);
         if (parents != null && parents.size() > 0)
         {
             result = parents.contains(parent.toUpperCase());
@@ -80,7 +79,18 @@ public class RoleUtil
     }
 
     /**
-     * Recursively traverse the {@link Role} graph and return all of the children of a given parent {@link Role#name}.
+     * Recursively traverse the {@link Role} graph and return all of the descendants of a given node {@link Role#name}.
+     *
+     * @param roleName {@link Role#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @return Set of Role names are descendants {@link Role}s of given parent.
+     */
+    public static Set<String> getDescendants(String roleName)
+    {
+        return HierUtil.getDescendants(roleName, m_graph);
+    }
+
+    /**
+     * Traverse the {@link Role} graph and return all children (direct descendants) of a given parent node {@link Role#name}.
      *
      * @param roleName {@link Role#name} maps to 'ftRels' attribute on 'ftHier' object class.
      * @return Set of Role names are children {@link Role}s of given parent.
@@ -91,7 +101,18 @@ public class RoleUtil
     }
 
     /**
-     * Recursively traverse the hierarchical role graph and return all of the parents of a given child role.
+     * Recursively traverse the hierarchical role graph and return all of the ascendants of a given role.
+     *
+     * @param roleName maps to logical {@link Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @return Set of Role names that are ascendants of given child.
+     */
+    public static Set<String> getAscendants(String roleName)
+    {
+        return HierUtil.getAscendants(roleName, m_graph);
+    }
+
+    /**
+     * Traverse the hierarchical role graph and return all of the parents (direct ascendants) of a given role.
      *
      * @param roleName maps to logical {@link Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
      * @return Set of Role names that are parents of given child.
@@ -102,7 +123,7 @@ public class RoleUtil
     }
 
     /**
-     * Recursively traverse the hierarchical role graph and return number of children a given parent role has.
+     * Determine the number of children (direct descendants) a given parent role has.
      *
      * @param roleName maps to logical {@link Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
      * @return int value contains the number of children of a given parent nRole.
@@ -129,7 +150,7 @@ public class RoleUtil
             {
                 String rleName = uRole.getName();
                 iRoles.add(rleName);
-                Set<String> parents = HierUtil.getParents(rleName, m_graph);
+                Set<String> parents = HierUtil.getAscendants(rleName, m_graph);
                 if (VUtil.isNotNullOrEmpty(parents))
                     iRoles.addAll(parents);
             }
@@ -151,7 +172,7 @@ public class RoleUtil
             for (String role : roles)
             {
                 iRoles.add(role);
-                Set<String> parents = HierUtil.getParents(role, m_graph);
+                Set<String> parents = HierUtil.getAscendants(role, m_graph);
                 if (VUtil.isNotNullOrEmpty(parents))
                     iRoles.addAll(parents);
             }
@@ -173,7 +194,7 @@ public class RoleUtil
             for (String role : roles)
             {
                 iRoles.add(role);
-                Set<String> children = HierUtil.getChildren(role, m_graph);
+                Set<String> children = HierUtil.getDescendants(role, m_graph);
                 if (VUtil.isNotNullOrEmpty(children))
                     iRoles.addAll(children);
             }
@@ -182,16 +203,16 @@ public class RoleUtil
     }
 
     /**
-     * Recursively traverse the hierarchical graph and return all of the parents of a given child node.
+     * Recursively traverse the hierarchical graph and return all of the ascendants of a given child node.
      *
      * @param childName   maps to vertex to determine parentage.
      * @param parentName  points to top most ascendant where traversal must stop.
      * @param isInclusive if set to true will include the parentName in the result set.  False will not return specified parentName.
      * @return Set of names that are parents of given child.
      */
-    public static Set<String> getParents(String childName, String parentName, boolean isInclusive)
+    public static Set<String> getAscendants(String childName, String parentName, boolean isInclusive)
     {
-        return HierUtil.getParents(childName, parentName, isInclusive, m_graph);
+        return HierUtil.getAscendants(childName, parentName, isInclusive, m_graph);
     }
 
 

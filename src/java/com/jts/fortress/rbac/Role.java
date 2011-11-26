@@ -10,6 +10,7 @@ import com.jts.fortress.util.time.Constraint;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -132,6 +133,8 @@ public class Role extends FortEntity
     private String description; // this is description
     private String dn;          // this attribute is automatically saved to each ldap record.
     private List<String> occupants;
+    private Set<String> parents;
+    private Set<String> children;
     private String beginTime;     // this attribute is ftCstr
     private String endTime;        // this attribute is ftCstr
     private String beginDate;    // this attribute is ftCstr
@@ -480,6 +483,42 @@ public class Role extends FortEntity
     public void setTimeout(Integer timeout)
     {
         this.timeout = timeout;
+    }
+
+    /**
+     * Get the names of roles that are parents (direct ascendants) of this role.
+     * @return Set of parent role names assigned to this role.
+     */
+    public Set<String> getParents()
+    {
+        return parents;
+    }
+
+    /**
+     * Set the names of roles names that are parents (direct ascendants) of this role.
+     * @param parents contains the Set of parent role names assigned to this role.
+     */
+    public void setParents(Set<String> parents)
+    {
+        this.parents = parents;
+    }
+
+    /**
+     * Return the Set of child role names (direct descendants) of this role.
+     * @return Set of child role names assigned to this role.
+     */
+    public Set<String> getChildren()
+    {
+        return children;
+    }
+
+    /**
+     * Set the Set of child role names (direct descendants) of this role
+     * @param children contains the Set of child role names assigned to this role.
+     */
+    public void setChildren(Set<String> children)
+    {
+        this.children = children;
     }
 
     /**

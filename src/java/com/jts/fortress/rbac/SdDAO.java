@@ -345,7 +345,7 @@ public final class SdDAO
             //String filter = "(&(objectclass=" + SSD_OBJECT_CLASS_NM + ")(" + ROLES + "=" + roleVal + "))";
             String filter = "(&(objectclass=" + objectClass + ")(";
             // Include any parents target role may have:
-            Set<String> roles = RoleUtil.getParents(role.getName());
+            Set<String> roles = RoleUtil.getAscendants(role.getName());
             if (VUtil.isNotNullOrEmpty(roles))
             {
                 filter += "|(" + ROLES + "=" + roleVal + ")";

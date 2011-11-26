@@ -467,6 +467,8 @@ public final class AdminRoleDAO
         entity.setOsU(DaoUtil.getAttributeSet(le, ROLE_OSU));
         DaoUtil.unloadTemporal(le, entity);
         entity.setRoleRangeRaw(DaoUtil.getAttribute(le, ROLE_RANGE));
+        entity.setParents(AdminRoleUtil.getParents(entity.getName().toUpperCase()));
+        entity.setChildren(AdminRoleUtil.getChildren(entity.getName().toUpperCase()));
         return entity;
     }
 

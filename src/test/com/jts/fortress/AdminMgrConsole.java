@@ -1005,15 +1005,15 @@ public class AdminMgrConsole
         v = (String) vertex.get("Vertex");
         if (g == null)
         {
-            System.out.println("getParents simple directed graph is null");
+            System.out.println("getAscendants simple directed graph is null");
             return null;
         }
         if (v == null)
         {
-            System.out.println("getParents simple directed graph is null");
+            System.out.println("getAscendants simple directed graph is null");
             return null;
         }
-        System.out.println("getParents V <" + v + ">");
+        System.out.println("getAscendants V <" + v + ">");
 
         Set<Relationship> edges = g.outgoingEdgesOf(v);
         for (Relationship edge : edges)
@@ -1026,7 +1026,7 @@ public class AdminMgrConsole
                 //parents.add(edge.toString());
                 v = edge.toString();
                 //Max : Super
-                //getParents V <Super)>
+                //getAscendants V <Super)>
                 int indx = v.indexOf(':');
                 int indx2 = v.indexOf(')');
                 if (indx >= 0)

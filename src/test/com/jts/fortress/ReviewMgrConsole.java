@@ -54,7 +54,7 @@ public class ReviewMgrConsole
         ReaderUtil.clearScreen();
         System.out.println("Enter role value to get parent Roles with:");
         String val = ReaderUtil.readLn();
-        Set<String> pRoles = RoleUtil.getParents(val);
+        Set<String> pRoles = RoleUtil.getAscendants(val);
         if (pRoles != null && pRoles.size() > 0)
         {
             System.out.println(pRoles);
