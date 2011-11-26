@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+  -->
+<project basedir="." default="all" name="Fortress Sample Data">
+    <property name="version" value="1.0.0-rc4"/>
+    <property name="home.dir" value = "../../" />
+    <property name="lib.dir" value = "${home.dir}/lib" />
+    <property name="dist.dir" value = "${home.dir}/dist" />
+    <property name="config" value="${home.dir}/config"/>
+    <property name="Fortress.jar" value="${dist.dir}/fortress-${version}.jar"/>
+    <property name="log4j.jar" value="${lib.dir}/log4j-1.2.16.jar"/>
+    <property name="ldapjdk.jar" value="${lib.dir}/unboundid-ldapsdk-2.1.0.jar"/>
+    <property name="jgrapht.jar" value="${lib.dir}/jgrapht-jdk1.5-0.7.3.jar"/>
+    <property name="jasypt.jar" value="${lib.dir}/jasypt-1.8.jar"/>
+    <property name="commons-configuration.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
+    <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
+    <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
+    <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
+    <taskdef classname="com.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+
+            <addorgunit>
+                <orgunit name="uou1" typeName="USER" description="Test User Org 1"/>
+                <orgunit name="uou2" typename="USER" description="Test User Org 2"/>
+                <orgunit name="uou3" typename="USER" description="Test User Org 3"/>
+                <orgunit name="uou4" typename="USER" description="Test User Org 4"/>
+                <orgunit name="pou1" typeName="PERM" description="Test Perm Org 1"/>
+                <orgunit name="pou2" typename="PERM" description="Test Perm Org 2"/>
+                <orgunit name="pou3" typename="PERM" description="Test Perm Org 3"/>
+                <orgunit name="pou4" typename="PERM" description="Test Perm Org 4"/>
+            </addorgunit>
+
+            <delorgunit>
+                <orgunit name="uou1" typeName="USER"/>
+                <orgunit name="uou2" typename="USER"/>
+                <orgunit name="uou3" typename="USER"/>
+                <orgunit name="uou4" typename="USER"/>
+                <orgunit name="pou1" typeName="PERM"/>
+                <orgunit name="pou2" typename="PERM"/>
+                <orgunit name="pou3" typename="PERM"/>
+                <orgunit name="pou4" typename="PERM"/>
+            </delorgunit>
+
+            <adduserorgunitinheritance>
+                <relationship child="uou2" parent="uou1"/>
+                <relationship child="uou3" parent="uou1"/>
+                <relationship child="uou4" parent="uou1"/>
+            </adduserorgunitinheritance>
+
+            <addpermorgunitinheritance>
+                <relationship child="pou2" parent="pou1"/>
+                <relationship child="pou3" parent="pou1"/>
+                <relationship child="pou4" parent="pou1"/>
+            </addpermorgunitinheritance>
+
+            <deluserorgunitinheritance>
+                <relationship child="uou2" parent="uou1"/>
+                <relationship child="uou3" parent="uou1"/>
+                <relationship child="uou4" parent="uou1"/>
+            </deluserorgunitinheritance>
+
+            <delpermorgunitinheritance>
+                <relationship child="pou2" parent="pou1"/>
+                <relationship child="pou3" parent="pou1"/>
+                <relationship child="pou4" parent="pou1"/>
+            </delpermorgunitinheritance>
+
+         </FortressAdmin>
+    </target>
+</project>
+
