@@ -285,7 +285,7 @@ public final class SdDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPEntry findEntry = DaoUtil.read(ld, dn, SD_SET_ATRS);
-            entity = unloadLdapEntry(findEntry);
+            entity = unloadLdapEntry(findEntry, 0);
             if (entity == null)
             {
                 String warning = OCLS_NM + ".getSD no entry found dn <" + dn + ">";
@@ -363,9 +363,10 @@ public final class SdDAO
             searchResults = DaoUtil.search(ld, ssdRoot,
                 LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
 
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                sdList.add(unloadLdapEntry(searchResults.next()));
+                sdList.add(unloadLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -421,9 +422,10 @@ public final class SdDAO
                 filter += "))";
                 searchResults = DaoUtil.search(ld, ssdRoot,
                     LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
+                long sequence = 0;
                 while (searchResults.hasMoreElements())
                 {
-                    sdList.add(unloadLdapEntry(searchResults.next()));
+                    sdList.add(unloadLdapEntry(searchResults.next(), sequence++));
                 }
             }
         }
@@ -453,10 +455,11 @@ public final class SdDAO
      * @return
      * @throws LDAPException
      */
-    private SDSet unloadLdapEntry(LDAPEntry le)
+    private SDSet unloadLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
         SDSet entity = new SDSet();
+        entity.setSequenceId(sequence);
         entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setName(DaoUtil.getAttribute(le, SD_SET_NM));
         entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));

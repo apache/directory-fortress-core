@@ -341,7 +341,7 @@ public final class AdminRoleDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPEntry findEntry = DaoUtil.read(ld, dn, ROLE_ATRS);
-            entity = unloadLdapEntry(findEntry);
+            entity = unloadLdapEntry(findEntry, 0);
             if (entity == null)
             {
                 String warning = OCLS_NM + ".getRole name <" + name + "> no entry found dn <" + dn + ">";
@@ -388,9 +388,10 @@ public final class AdminRoleDAO
                 + ROLE_NM + "=" + searchVal + "*))";
             searchResults = DaoUtil.search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, ROLE_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                roleList.add(unloadLdapEntry(searchResults.next()));
+                roleList.add(unloadLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -453,10 +454,11 @@ public final class AdminRoleDAO
      * @return
      * @throws LDAPException
      */
-    private AdminRole unloadLdapEntry(LDAPEntry le)
+    private AdminRole unloadLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
         AdminRole entity = new AdminRole();
+        entity.setSequenceId(sequence);
         entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setName(DaoUtil.getAttribute(le, ROLE_NM));
         entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));

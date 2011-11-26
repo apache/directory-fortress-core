@@ -73,6 +73,7 @@ public class AuthZ implements Serializable
     private String reqType;
     private String structuralObjectClass;
     private String subschemaSubentry;
+    private long sequenceId;
 
     /**
      * Get the attribute that maps to 'reqStart' which provides the start time of the operation which is also the rDn for the node.
@@ -691,6 +692,24 @@ public class AuthZ implements Serializable
     public void setReqDerefAliases(String reqDerefAliases)
     {
         this.reqDerefAliases = reqDerefAliases;
+    }
+
+    /**
+     * Sequence id is used internal to Fortress.
+     * @return long value contains sequence id.
+     */
+    public long getSequenceId()
+    {
+        return sequenceId;
+    }
+
+    /**
+     * Sequence id is used internal to Fortress
+     * @param sequenceId contains sequence to use.
+     */
+    public void setSequenceId(long sequenceId)
+    {
+        this.sequenceId = sequenceId;
     }
 }
 

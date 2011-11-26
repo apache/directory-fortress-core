@@ -51,6 +51,7 @@ public class Mod implements Serializable
     private String reqEnd;
     private String reqType;
     private List<String> reqMod;
+    private long sequenceId;
 
     /**
      * The reqMod attribute carries all of the attributes of the original entry being added.
@@ -270,5 +271,23 @@ public class Mod implements Serializable
     public void setReqType(String reqType)
     {
         this.reqType = reqType;
+    }
+
+    /**
+     * Sequence id is used internal to Fortress.
+     * @return long value contains sequence id.
+     */
+    public long getSequenceId()
+    {
+        return sequenceId;
+    }
+
+    /**
+     * Sequence id is used internal to Fortress
+     * @param sequenceId contains sequence to use.
+     */
+    public void setSequenceId(long sequenceId)
+    {
+        this.sequenceId = sequenceId;
     }
 }

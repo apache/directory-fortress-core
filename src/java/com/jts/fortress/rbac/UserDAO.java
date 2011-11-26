@@ -444,7 +444,7 @@ public final class UserDAO
 
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPEntry findEntry = DaoUtil.read(ld, userDn, uATTRS);
-            entity = unloadLdapEntry(findEntry);
+            entity = unloadLdapEntry(findEntry, 0);
             if (entity == null)
             {
                 String warning = OCLS_NM + ".getUser userId <" + userId + "> not found, Fortress errCode=" + GlobalErrIds.USER_NOT_FOUND;
@@ -644,9 +644,10 @@ public final class UserDAO
             }
             searchResults = DaoUtil.search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                userList.add(unloadLdapEntry(searchResults.next()));
+                userList.add(unloadLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -738,9 +739,10 @@ public final class UserDAO
             filter += ")";
             searchResults = DaoUtil.search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                userList.add(unloadLdapEntry(searchResults.next()));
+                userList.add(unloadLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -776,9 +778,10 @@ public final class UserDAO
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
             searchResults = DaoUtil.search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                userList.add(unloadLdapEntry(searchResults.next()));
+                userList.add(unloadLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -864,9 +867,10 @@ public final class UserDAO
                 + GlobalIds.USER_ADMINROLE_ASSIGN + "=" + roleVal + "))";
             searchResults = DaoUtil.search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                userList.add(unloadLdapEntry(searchResults.next()));
+                userList.add(unloadLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -943,9 +947,10 @@ public final class UserDAO
                 + GlobalIds.UID + "=" + searchVal + "*))";
             searchResults = DaoUtil.search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                userList.add((unloadLdapEntry(searchResults.next())).getUserId());
+                userList.add((unloadLdapEntry(searchResults.next(), sequence++)).getUserId());
             }
         }
         catch (LDAPException e)
@@ -990,9 +995,10 @@ public final class UserDAO
             }
             searchResults = DaoUtil.search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                userList.add(unloadLdapEntry(searchResults.next()));
+                userList.add(unloadLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -1338,11 +1344,12 @@ public final class UserDAO
      * @return
      * @throws LDAPException
      */
-    private User unloadLdapEntry(LDAPEntry le)
+    private User unloadLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
         User entity = new User();
         //entity.setInternalId(DaoUtil.getAttribute(le, userNodePrefix));
+        entity.setSequenceId(sequence);
         entity.setInternalId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
         entity.setUserId(DaoUtil.getAttribute(le, GlobalIds.UID));
@@ -1673,11 +1680,13 @@ public final class UserDAO
         List<String> roles = DaoUtil.getAttributes(le, GlobalIds.USER_ADMINROLE_DATA);
         if (roles != null)
         {
+            long sequence = 0;
             uRoles = new ArrayList<UserAdminRole>();
             for (String raw : roles)
             {
                 UserAdminRole ure = new UserAdminRole();
                 ure.load(raw);
+                ure.setSequenceId(sequence++);
                 ure.setUserId(userId);
                 uRoles.add(ure);
             }
@@ -1701,12 +1710,14 @@ public final class UserDAO
         List<String> roles = DaoUtil.getAttributes(le, GlobalIds.USER_ROLE_DATA);
         if (roles != null)
         {
+            long sequence = 0;
             uRoles = new ArrayList<UserRole>();
             for (String raw : roles)
             {
                 UserRole ure = new UserRole();
                 ure.load(raw);
                 ure.setUserId(userId);
+                ure.setSequenceId(sequence++);
                 uRoles.add(ure);
             }
         }

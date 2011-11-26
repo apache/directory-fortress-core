@@ -119,7 +119,6 @@ import java.util.Set;
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
-
  *
  * @author smckinn
  * @created September 29, 2009
@@ -592,6 +591,7 @@ public final class PermDAO
      * @param pOp
      * @param user
      * @throws com.jts.fortress.UpdateException
+     *
      * @throws com.jts.fortress.FinderException
      *
      */
@@ -644,7 +644,7 @@ public final class PermDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPEntry findEntry = DaoUtil.read(ld, dn, PERMISSION_OP_ATRS);
-            entity = unloadPopLdapEntry(findEntry);
+            entity = unloadPopLdapEntry(findEntry, 0);
             if (entity == null)
             {
                 String warning = OCLS_NM + ".getPerm no entry found dn <" + dn + ">";
@@ -686,7 +686,7 @@ public final class PermDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPEntry findEntry = DaoUtil.read(ld, dn, PERMISION_OBJ_ATRS);
-            entity = unloadPobjLdapEntry(findEntry);
+            entity = unloadPobjLdapEntry(findEntry, 0);
             if (entity == null)
             {
                 String warning = OCLS_NM + ".getPerm Obj no entry found dn <" + dn + ">";
@@ -757,7 +757,7 @@ public final class PermDAO
             filter += "))";
             // The search method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection: 
             LDAPEntry entry = DaoUtil.searchNode(ld, dn, LDAPConnection.SCOPE_ONE, filter, GlobalIds.NO_ATRS, true, session.getUser().getDn());
-            Permission entity = unloadPopLdapEntry(entry);
+            Permission entity = unloadPopLdapEntry(entry, 0);
             if (entity != null)
             {
                 result = true;
@@ -789,10 +789,11 @@ public final class PermDAO
      * @return
      * @throws LDAPException
      */
-    private Permission unloadPopLdapEntry(LDAPEntry le)
+    private Permission unloadPopLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
         Permission entity = new Permission();
+        entity.setSequenceId(sequence);
         entity.setAbstractName(DaoUtil.getAttribute(le, PERM_NAME));
         entity.setObjectName(DaoUtil.getAttribute(le, GlobalIds.POBJ_NAME));
         entity.setObjectId(DaoUtil.getAttribute(le, POBJ_ID));
@@ -810,10 +811,11 @@ public final class PermDAO
      * @return
      * @throws LDAPException
      */
-    private PermObj unloadPobjLdapEntry(LDAPEntry le)
+    private PermObj unloadPobjLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
         PermObj entity = new PermObj();
+        entity.setSequenceId(sequence);
         entity.setObjectName(DaoUtil.getAttribute(le, GlobalIds.POBJ_NAME));
         entity.setOu(DaoUtil.getAttribute(le, GlobalIds.OU));
         entity.setDn(le.getDN());
@@ -848,9 +850,10 @@ public final class PermDAO
 
             searchResults = DaoUtil.search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                permList.add(unloadPopLdapEntry(searchResults.next()));
+                permList.add(unloadPopLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -887,9 +890,10 @@ public final class PermDAO
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*))";
             searchResults = DaoUtil.search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                permList.add(unloadPobjLdapEntry(searchResults.next()));
+                permList.add(unloadPobjLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -934,9 +938,10 @@ public final class PermDAO
             }
             searchResults = DaoUtil.search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                permList.add(unloadPobjLdapEntry(searchResults.next()));
+                permList.add(unloadPobjLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -1004,9 +1009,10 @@ public final class PermDAO
             filter += ")";
             searchResults = DaoUtil.search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                permList.add(unloadPopLdapEntry(searchResults.next()));
+                permList.add(unloadPopLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -1049,9 +1055,10 @@ public final class PermDAO
             filter += "(" + USERS + "=" + user.getUserId() + ")))";
             searchResults = DaoUtil.search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                permList.add(unloadPopLdapEntry(searchResults.next()));
+                permList.add(unloadPopLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -1071,6 +1078,7 @@ public final class PermDAO
      * @param user
      * @return
      * @throws com.jts.fortress.FinderException
+     *
      */
     List<Permission> findUserPermissions(User user)
         throws FinderException
@@ -1086,9 +1094,10 @@ public final class PermDAO
             filter += "(" + USERS + "=" + user.getUserId() + "))";
             searchResults = DaoUtil.search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                permList.add(unloadPopLdapEntry(searchResults.next()));
+                permList.add(unloadPopLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -1134,9 +1143,10 @@ public final class PermDAO
             filter += "))";
             searchResults = DaoUtil.search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                permList.add(unloadPopLdapEntry(searchResults.next()));
+                permList.add(unloadPopLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)

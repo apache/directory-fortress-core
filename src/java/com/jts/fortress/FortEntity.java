@@ -49,6 +49,7 @@ public abstract class FortEntity
     private String modCode;
     private String modId;
     private Session adminSession;
+    private long sequenceId;
 
     /**
      * Default constructor will call the setter to load a new internal ID into entity.
@@ -131,6 +132,24 @@ public abstract class FortEntity
     public String getModId()
     {
         return modId;
+    }
+
+    /**
+     * Sequence id is used internal to Fortress.
+     * @return long value contains sequence id.
+     */
+    public long getSequenceId()
+    {
+        return sequenceId;
+    }
+
+    /**
+     * Sequence id is used internal to Fortress
+     * @param sequenceId contains sequence to use.
+     */
+    public void setSequenceId(long sequenceId)
+    {
+        this.sequenceId = sequenceId;
     }
 }
 

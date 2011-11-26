@@ -386,7 +386,7 @@ public final class PolicyDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPEntry findEntry = DaoUtil.read(ld, dn, PASSWORD_POLICY_ATRS);
-            entity = unloadLdapEntry(findEntry);
+            entity = unloadLdapEntry(findEntry, 0);
         }
         catch (LDAPException e)
         {
@@ -417,10 +417,11 @@ public final class PolicyDAO
      * @return
      * @throws LDAPException
      */
-    private PswdPolicy unloadLdapEntry(LDAPEntry le)
+    private PswdPolicy unloadLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
         PswdPolicy entity = new PswdPolicy();
+        entity.setSequenceId(sequence);
         entity.setName(DaoUtil.getRdn(le.getDN()));
         //entity.setAttribute(DaoUtil.getAttribute(le, OLPW_ATTRIBUTE));
         String val = DaoUtil.getAttribute(le, OLPW_MIN_AGE);
@@ -531,9 +532,10 @@ public final class PolicyDAO
                 + GlobalIds.POLICY_NODE_TYPE + "=" + searchVal + "*))";
             searchResults = DaoUtil.search(ld, policyRoot,
                 LDAPConnection.SCOPE_ONE, filter, PASSWORD_POLICY_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                policyArrayList.add(unloadLdapEntry(searchResults.next()));
+                policyArrayList.add(unloadLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)

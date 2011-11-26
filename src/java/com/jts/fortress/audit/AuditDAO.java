@@ -256,9 +256,10 @@ public class AuditDAO
             ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
             searchResults = DaoUtil.search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                AuthZ authZ = getAuthzEntityFromLdapEntry(searchResults.next());
+                AuthZ authZ = getAuthzEntityFromLdapEntry(searchResults.next(), sequence++);
                 // todo: fix this workaround. This search will return failed role assign searches as well.  
                 // Work around is to remove the ou=People failed searches from user failed searches on authN.
                 if (!AttrHelper.getAuthZId(authZ.getReqDN()).equalsIgnoreCase("People"))
@@ -315,9 +316,10 @@ public class AuditDAO
             //log.warn("filter=" + filter);
             searchResults = DaoUtil.search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                auditList.add(getAuthzEntityFromLdapEntry(searchResults.next()));
+                auditList.add(getAuthzEntityFromLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -379,9 +381,10 @@ public class AuditDAO
             //log.warn("filter=" + filter);
             searchResults = DaoUtil.search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                auditList.add(getAuthzEntityFromLdapEntry(searchResults.next()));
+                auditList.add(getAuthzEntityFromLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -447,9 +450,10 @@ public class AuditDAO
             //log.warn("filter=" + filter);
             searchResults = DaoUtil.search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_BIND_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                auditList.add(getBindEntityFromLdapEntry(searchResults.next()));
+                auditList.add(getBindEntityFromLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -493,9 +497,10 @@ public class AuditDAO
             //log.warn("filter=" + filter);
             searchResults = DaoUtil.search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_MOD_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                modList.add(getModEntityFromLdapEntry(searchResults.next()));
+                modList.add(getModEntityFromLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -596,9 +601,10 @@ public class AuditDAO
             //log.warn("filter=" + filter);
             searchResults = DaoUtil.search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_MOD_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                modList.add(getModEntityFromLdapEntry(searchResults.next()));
+                modList.add(getModEntityFromLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -619,7 +625,7 @@ public class AuditDAO
      * @return
      * @throws LDAPException
      */
-    private Bind getBindEntityFromLdapEntry(LDAPEntry le)
+    private Bind getBindEntityFromLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
 
@@ -648,6 +654,7 @@ public class AuditDAO
             */
 
         Bind auditBind = new Bind();
+        auditBind.setSequenceId(sequence);
         auditBind.setCreateTimestamp(DaoUtil.getAttribute(le, CREATETIMESTAMP));
         auditBind.setCreatorsName(DaoUtil.getAttribute(le, CREATORSNAME));
         auditBind.setEntryCSN(DaoUtil.getAttribute(le, ENTRYCSN));
@@ -677,7 +684,7 @@ public class AuditDAO
      * @return
      * @throws LDAPException
      */
-    private AuthZ getAuthzEntityFromLdapEntry(LDAPEntry le)
+    private AuthZ getAuthzEntityFromLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
 
@@ -714,6 +721,7 @@ public class AuditDAO
         }*/
         // these attrs also on audit bind OC:
         AuthZ authZ = new AuthZ();
+        authZ.setSequenceId(sequence);
         authZ.setCreateTimestamp(DaoUtil.getAttribute(le, CREATETIMESTAMP));
         authZ.setCreatorsName(DaoUtil.getAttribute(le, CREATORSNAME));
         authZ.setEntryCSN(DaoUtil.getAttribute(le, ENTRYCSN));
@@ -746,7 +754,7 @@ public class AuditDAO
     }
 
 
-    private Mod getModEntityFromLdapEntry(LDAPEntry le)
+    private Mod getModEntityFromLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
         /*
@@ -765,6 +773,7 @@ public class AuditDAO
         */
 
         Mod mod = new Mod();
+        mod.setSequenceId(sequence);
         mod.setObjectClass(DaoUtil.getAttribute(le, OBJECTCLASS));
         mod.setReqAuthzID(DaoUtil.getAttribute(le, REQUAUTHZID));
         mod.setReqDN(DaoUtil.getAttribute(le, REQDN));

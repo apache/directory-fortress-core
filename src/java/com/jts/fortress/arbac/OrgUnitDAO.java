@@ -259,7 +259,7 @@ public class OrgUnitDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPEntry findEntry = DaoUtil.read(ld, dn, ORGUNIT_ATRS);
-            oe = getEntityFromLdapEntry(findEntry);
+            oe = getEntityFromLdapEntry(findEntry, 0);
             if (entity == null)
             {
                 String warning = OCLS_NM + ".findByKey orgUnit name <" + entity.getName() + "> type <" + entity.getType() + "> COULD NOT FIND ENTRY for dn <" + dn + ">";
@@ -338,9 +338,10 @@ public class OrgUnitDAO
                 + GlobalIds.OU + "=" + searchVal + "*))";
             searchResults = DaoUtil.search(ld, orgUnitRoot,
                 LDAPConnection.SCOPE_ONE, filter, ORGUNIT_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                orgUnitList.add(getEntityFromLdapEntry(searchResults.next()));
+                orgUnitList.add(getEntityFromLdapEntry(searchResults.next(), sequence++));
             }
         }
         catch (LDAPException e)
@@ -444,10 +445,11 @@ public class OrgUnitDAO
      * @return
      * @throws LDAPException
      */
-    private OrgUnit getEntityFromLdapEntry(LDAPEntry le)
+    private OrgUnit getEntityFromLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
         OrgUnit entity = new OrgUnit();
+        entity.setSequenceId(sequence);
         entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setName(DaoUtil.getAttribute(le, GlobalIds.OU));
         entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));

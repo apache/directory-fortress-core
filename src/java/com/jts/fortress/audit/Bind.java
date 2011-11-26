@@ -55,6 +55,7 @@ public class Bind implements Serializable
     private String reqType;
     private String reqVersion;
     private String structuralObjectClass;
+    private long sequenceId;
 
     /**
      * Get the attribute that maps to 'reqStart' which provides the start time of the operation which is also the rDn for the node.
@@ -514,6 +515,24 @@ public class Bind implements Serializable
     public void setStructuralObjectClass(String structuralObjectClass)
     {
         this.structuralObjectClass = structuralObjectClass;
+    }
+
+    /**
+     * Sequence id is used internal to Fortress.
+     * @return long value contains sequence id.
+     */
+    public long getSequenceId()
+    {
+        return sequenceId;
+    }
+
+    /**
+     * Sequence id is used internal to Fortress
+     * @param sequenceId contains sequence to use.
+     */
+    public void setSequenceId(long sequenceId)
+    {
+        this.sequenceId = sequenceId;
     }
 }
 
