@@ -41,29 +41,29 @@ public class Delroleinheritance
     }
 
     /**
-     * <p>This method name, 'addRoleInheritance', is used for derived xml tag 'relationship' in the load script.</p>
+     * <p>This method name, 'addRelationship', is used for derived xml tag 'relationship' in the load script.</p>
      * <pre>
      * {@code
      * <delroleinheritance>
-     *     <roleinheritance child="r2" parent="r1"/>
-     *     <roleinheritance child="r3" parent="r1"/>
+     *     <relationship child="r2" parent="r1"/>
+     *     <relationship child="r3" parent="r1"/>
      * </delroleinheritance>
      * }
      * </pre>
      *
      * @param relationship contains reference to data element targeted for removal.
      */
-    public void addRoleInheritance(Relationship relationship)
+    public void addRelationship(Relationship relationship)
     {
         this.relationships.add(relationship);
     }
 
     /**
-     * Used by {@link FortressAntTask#deleteRoles()} to retrieve list of Relationships as defined in input xml file.
+     * Used by {@link com.jts.fortress.ant.FortressAntTask#deleteRoleInheritances()} to retrieve list of Role relationships as defined in input xml file.
      *
      * @return collection containing {@link Relationship}s targeted for removal.
      */
-    public List<Relationship> getRoleInheritances()
+    public List<Relationship> getRelationships()
     {
         return this.relationships;
     }
