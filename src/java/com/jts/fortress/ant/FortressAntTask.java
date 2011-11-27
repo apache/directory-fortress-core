@@ -82,10 +82,16 @@ import org.apache.log4j.Logger;
  *          <delpermgrant> RBAC or ARBAC permission revokes </delpermgrant>
  *          <addorgunit> User OUs or Perm OUs </addorgunit>
  *          <delorgunit> User OUs or Perm OUs </delorgunit>
+ *          <adduserorgunitinheritance> ...</adduserorgunitinheritance>
+ *          <deluserorgunitinheritance> ...</deluserorgunitinheritance>
+ *          <addpermorgunitinheritance> ...</addpermorgunitinheritance>
+ *          <delpermorgunitinheritance> ...</delpermorgunitinheritance>
  *          <adduser> ... </adduser>
  *          <deluser> ...</deluser>
  *          <addadminrole>  ... </addadminrole>
  *          <deladminrole>  ... </deladminrole>
+ *          <addadminroleinheritance>...</addadminroleinheritance>
+ *          <deladminroleinheritance>...</deladminroleinheritance>
  *          <adduseradminrole> ... </adduseradminrole>
  *          <deluseradminrole>  ... </deluseradminrole>
  *      </FortressAdmin>
@@ -106,7 +112,9 @@ import org.apache.log4j.Logger;
  * <li>Delete SSD and DSD Sets {@link com.jts.fortress.AdminMgr#deleteDsdSet(com.jts.fortress.rbac.SDSet)} and {@link com.jts.fortress.AdminMgr#deleteSsdSet(com.jts.fortress.rbac.SDSet)}</li>
  * <li>Delete RBAC Roles Inheritances {@link com.jts.fortress.AdminMgr#deleteInheritance(com.jts.fortress.rbac.Role, com.jts.fortress.rbac.Role)}</li>
  * <li>Delete RBAC Roles {@link com.jts.fortress.AdminMgr#deleteRole(com.jts.fortress.rbac.Role)}</li>
+ * <li>Delete ARBAC Role Inheritances {@link com.jts.fortress.DelegatedAdminMgr#deleteInheritance(com.jts.fortress.arbac.AdminRole, com.jts.fortress.arbac.AdminRole)}</li>
  * <li>Delete ARBAC Roles {@link com.jts.fortress.DelegatedAdminMgr#deleteRole(com.jts.fortress.arbac.AdminRole)}</li>
+ * <li>Delete User and Perm OU Inheritances {@link DelegatedAdminMgr#deleteInheritance(com.jts.fortress.arbac.OrgUnit, com.jts.fortress.arbac.OrgUnit)} USER and PERM</li>
  * <li>Delete User and Perm OUs {@link com.jts.fortress.DelegatedAdminMgr#delete(com.jts.fortress.arbac.OrgUnit)} USER and PERM</li>
  * <li>Delete Configuration Entries {@link com.jts.fortress.configuration.ConfigMgr#delete(String, java.util.Properties)}</li>
  * <li>Delete Containers {@link com.jts.fortress.ldap.container.OrganizationalUnitP#delete(com.jts.fortress.ldap.container.OrganizationalUnit)}</li>
@@ -115,7 +123,9 @@ import org.apache.log4j.Logger;
  * <li>Add Containers {@link com.jts.fortress.ldap.container.OrganizationalUnitP#add(com.jts.fortress.ldap.container.OrganizationalUnit)}</li>
  * <li>Add Configuration Parameters {@link ConfigMgr#add(String, java.util.Properties)}</li>
  * <li>Add User and Perm OUs {@link DelegatedAdminMgr#add(com.jts.fortress.arbac.OrgUnit)} USER and PERM</li>
+ * <li>Add User and Perm OU Inheritances {@link DelegatedAdminMgr#addInheritance(com.jts.fortress.arbac.OrgUnit, com.jts.fortress.arbac.OrgUnit)} USER and PERM</li>
  * <li>Add ARBAC Roles {@link com.jts.fortress.DelegatedAdminMgr#addRole(com.jts.fortress.arbac.AdminRole)}</li>
+ * <li>Add ARBAC Role Inheritances {@link com.jts.fortress.DelegatedAdminMgr#addInheritance(com.jts.fortress.arbac.AdminRole, com.jts.fortress.arbac.AdminRole)}</li>
  * <li>Add RBAC Roles {@link com.jts.fortress.AdminMgr#addRole(com.jts.fortress.rbac.Role)}</li>
  * <li>Add RBAC Role Inheritances {@link com.jts.fortress.AdminMgr#addInheritance(com.jts.fortress.rbac.Role, com.jts.fortress.rbac.Role)}</li>
  * <li>Add DSD and SSD Sets {@link com.jts.fortress.AdminMgr#createDsdSet(com.jts.fortress.rbac.SDSet)} and {@link com.jts.fortress.AdminMgr#createSsdSet(com.jts.fortress.rbac.SDSet)}</li>

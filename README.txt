@@ -5,13 +5,20 @@ Version 1.0.0.rc4
 last updated: November 11, 2011
 
 This document contains instructions to download, compile, test and use the
-Fortress Identity Access and Management system.
+Fortress Identity and Access Management system.
 Fortress is released under BSD open source license as specified within this package.
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 0:  Prerequisites
 ###################################################################################
 1. Internet access to retrieve source code from OpenLDAP GIT and binary dependencies from online Maven repo.
+
+NOTE: The Fortress build.xml may run without connection to Internet iff:
+- The Fortress source modules have been downloaded
+- The binary dependencies are already present in FORTRESS_HOME/lib folder
+- Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties:
+local.mode=true
+
 2. GIT installed to target environment.
 2. Java SDK Version 6 or beyond installed to target environment
 3. Apache Ant 1.8 or beyond installed to target environment
@@ -74,6 +81,11 @@ ________________________________________________________________________________
 ###################################################################################
 # SECTION 4. Instructions to build openldap-fortress-core software distribution packages
 ###################################################################################
+
+NOTE: The Fortress build.xml may run without connection to Internet iff:
+- The binary dependencies are already present in FORTRESS_HOME/lib folder
+- Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties:
+local.mode=true
 
 a. from the FORTRESS_HOME root folder, enter the following:
 

@@ -174,7 +174,7 @@
     <!-- =================================
           target: download-ivy - pulls down ivy.jar from maven 2 website
          ================================= -->
-    <target name="download-ivy" depends="init">
+    <target name="download-ivy" depends="init" unless="local.mode">
 		<!-- download from web site so that it can be used even without any special installation -->
 		<echo message="downloading ivy to Ant home: ${ant.home}"/>
     	<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
@@ -184,7 +184,7 @@
     <!-- =================================
           target: resolve
          ================================= -->
-    <target name="resolve" depends="init,download-ivy" description="--> retreive dependencies with ivy">
+    <target name="resolve" depends="download-ivy" description="--> retreive dependencies with ivy" unless="local.mode">
         <ivy:retrieve pattern="${lib.dir}/[artifact]-[revision].[ext]" />
     </target>
 
@@ -206,7 +206,8 @@
     <!-- =================================
           target: compile
          ================================= -->
-   <target name="compile" depends="resolve" description="compiles source files">
+   <!--target name="compile" depends="resolve" description="compiles source files"-->
+   <target name="compile" depends="init,resolve" description="compiles source files">
       <mkdir dir="${build.classes.dir}"/>
       <javac srcdir="${src.java.dir}"
              debug="${javac.debug}"
