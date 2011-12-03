@@ -6,6 +6,7 @@ package com.jts.fortress;
 
 import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.OrgUnit;
+import com.jts.fortress.arbac.UserAdminRole;
 
 /**
  * This class prescribes the ARBAC02 DelegatedAdminMgr interface for performing policy administration of Fortress ARBAC entities
@@ -57,7 +58,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @param role Contains role name and new description.
      * @throws com.jts.fortress.SecurityException Thrown in the event of data validation or system error.
      */
-    public com.jts.fortress.arbac.AdminRole updateRole(com.jts.fortress.arbac.AdminRole role)
+    public AdminRole updateRole(AdminRole role)
         throws com.jts.fortress.SecurityException;
 
 
@@ -85,7 +86,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @return AdminRole contains copy of input entity and additional data processed by request.
      * @throws com.jts.fortress.SecurityException in the event data error in user or role objects or system error.
      */
-    public void assignUser(com.jts.fortress.arbac.UserAdminRole uAdminRole)
+    public void assignUser(UserAdminRole uAdminRole)
         throws com.jts.fortress.SecurityException;
 
 
@@ -100,7 +101,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @param uAdminRole entity contains {@link com.jts.fortress.rbac.User#userId} and {@link com.jts.fortress.arbac.AdminRole#name}.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
-    public void deassignUser(com.jts.fortress.arbac.UserAdminRole uAdminRole)
+    public void deassignUser(UserAdminRole uAdminRole)
         throws SecurityException;
 
     /**
@@ -120,7 +121,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @return
      * @throws com.jts.fortress.SecurityException in the event of data validation or system error.
      */
-    public com.jts.fortress.arbac.OrgUnit update(com.jts.fortress.arbac.OrgUnit entity)
+    public OrgUnit update(OrgUnit entity)
         throws com.jts.fortress.SecurityException;
 
     /**
@@ -130,7 +131,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @return
      * @throws com.jts.fortress.SecurityException in the event of data validation or system error.
      */
-    public com.jts.fortress.arbac.OrgUnit delete(com.jts.fortress.arbac.OrgUnit entity)
+    public OrgUnit delete(OrgUnit entity)
         throws com.jts.fortress.SecurityException;
 
 
@@ -155,7 +156,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void addDescendant(com.jts.fortress.arbac.OrgUnit parent, com.jts.fortress.arbac.OrgUnit child)
+    public void addDescendant(OrgUnit parent, OrgUnit child)
         throws com.jts.fortress.SecurityException;
 
 
@@ -180,7 +181,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void addAscendant(com.jts.fortress.arbac.OrgUnit child, OrgUnit parent)
+    public void addAscendant(OrgUnit child, OrgUnit parent)
         throws com.jts.fortress.SecurityException;
 
 
@@ -199,7 +200,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void addInheritance(com.jts.fortress.arbac.OrgUnit parent, OrgUnit child)
+    public void addInheritance(OrgUnit parent, OrgUnit child)
         throws com.jts.fortress.SecurityException;
 
 
@@ -220,7 +221,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void deleteInheritance(com.jts.fortress.arbac.OrgUnit parent, com.jts.fortress.arbac.OrgUnit child)
+    public void deleteInheritance(OrgUnit parent, OrgUnit child)
         throws com.jts.fortress.SecurityException;
 
 
@@ -236,7 +237,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void addDescendant(AdminRole parentRole, com.jts.fortress.arbac.AdminRole childRole)
+    public void addDescendant(AdminRole parentRole, AdminRole childRole)
         throws com.jts.fortress.SecurityException;
 
     /**
@@ -263,7 +264,7 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      * @param childRole  completion of op deassigns parent relationship with parentRole.
      * @throws com.jts.fortress.SecurityException thrown in the event of data validation or system error.
      */
-    public void addInheritance(com.jts.fortress.arbac.AdminRole parentRole, AdminRole childRole)
+    public void addInheritance(AdminRole parentRole, AdminRole childRole)
         throws com.jts.fortress.SecurityException;
 
     /**

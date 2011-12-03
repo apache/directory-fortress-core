@@ -455,6 +455,21 @@
      </target>
 
     <!-- =================================
+          target: cli - starts the Fortress Command Line Interpreter
+         ================================= -->
+     <target name="cli" depends="compile,init-fortress-config" description="start Fortress Command Line Interpreter">
+         <echo message="Run the Fortress Command Line Interpreter"/>
+         <java
+                 classname="com.jts.fortress.cli.CommandLineInterpreter"
+                 fork="false"
+                 failonerror="true"
+                 timeout="4000000"
+                 >
+             <classpath refid="test.class.path"/>
+         </java>
+     </target>
+
+    <!-- =================================
           target: encrypt - allows users to encrypt values which are displayed to the standard output
          ================================= -->
      <target name="encrypt" depends="compile" description="Encrypts a text value">

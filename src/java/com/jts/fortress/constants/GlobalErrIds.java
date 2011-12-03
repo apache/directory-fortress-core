@@ -1365,5 +1365,10 @@ public class GlobalErrIds
      * The Constraint description is optional but cannot exceed length of {@link GlobalIds#DESC_LEN} if supplied.
      */
     public final static int CONST_DESC_LEN_INVLD = 10014;
+
+    /**
+     * The Constraint contains a null value.
+     */
+    public final static int CONST_NULL_TEXT = 10015;
 }
 

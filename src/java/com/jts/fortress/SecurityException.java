@@ -351,6 +351,7 @@ package com.jts.fortress;
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#CONST_DAYMASK_INVLD} = 10012;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#CONST_DAYMASK_NULL} = 10013;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#CONST_DESC_LEN_INVLD} = 10014;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#CONST_NULL_TEXT} = 10015;</code>
  * </ul>
  * <p/>
 

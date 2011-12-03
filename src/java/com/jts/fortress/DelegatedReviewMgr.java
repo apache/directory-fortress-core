@@ -4,7 +4,9 @@
 
 package com.jts.fortress;
 
+import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.OrgUnit;
+import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.rbac.User;
 
 import java.util.List;
@@ -33,7 +35,7 @@ public interface DelegatedReviewMgr extends com.jts.fortress.Authorizable
      * @return AdminRole entity that corresponds with role name.
      * @throws com.jts.fortress.SecurityException will be thrown if role not found or system error occurs.
      */
-    public com.jts.fortress.arbac.AdminRole readRole(com.jts.fortress.arbac.AdminRole role)
+    public AdminRole readRole(AdminRole role)
         throws com.jts.fortress.SecurityException;
 
 
@@ -43,7 +45,7 @@ public interface DelegatedReviewMgr extends com.jts.fortress.Authorizable
      * @return List of type AdminRole containing role entities that match the search criteria.
      * @throws com.jts.fortress.SecurityException in the event of system error.
      */
-    public List<com.jts.fortress.arbac.AdminRole> findRoles(String searchVal)
+    public List<AdminRole> findRoles(String searchVal)
         throws SecurityException;
 
 
@@ -54,7 +56,7 @@ public interface DelegatedReviewMgr extends com.jts.fortress.Authorizable
      * @return List of type UserAdminRole containing the user admin role data.
      * @throws com.jts.fortress.SecurityException If user not found or system error occurs.
      */
-    public List<com.jts.fortress.arbac.UserAdminRole> assignedRoles(User user)
+    public List<UserAdminRole> assignedRoles(User user)
         throws com.jts.fortress.SecurityException;
 
     /**
@@ -64,7 +66,7 @@ public interface DelegatedReviewMgr extends com.jts.fortress.Authorizable
      * @return  List of type User containing the users assigned data.
      * @throws com.jts.fortress.SecurityException If system error occurs.
      */
-    public List<User> assignedUsers(com.jts.fortress.arbac.AdminRole role)
+    public List<User> assignedUsers(AdminRole role)
         throws com.jts.fortress.SecurityException;
 
 
@@ -75,7 +77,7 @@ public interface DelegatedReviewMgr extends com.jts.fortress.Authorizable
      * @return
      * @throws SecurityException in the event of data validation or system error.
      */
-    public OrgUnit read(com.jts.fortress.arbac.OrgUnit entity)
+    public OrgUnit read(OrgUnit entity)
         throws SecurityException;
 
     /**

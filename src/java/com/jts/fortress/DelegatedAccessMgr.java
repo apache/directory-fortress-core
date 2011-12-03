@@ -4,6 +4,7 @@
 
 package com.jts.fortress;
 
+import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.Session;
@@ -120,7 +121,7 @@ public interface DelegatedAccessMgr
      * @throws com.jts.fortress.SecurityException
      *          is thrown if user is not allowed to activate or runtime error occurs with system.
      */
-    public void addActiveRole(Session session, com.jts.fortress.arbac.UserAdminRole role)
+    public void addActiveRole(Session session, UserAdminRole role)
         throws com.jts.fortress.SecurityException;
 
 
@@ -134,7 +135,7 @@ public interface DelegatedAccessMgr
      * @param role    object contains the adminRole name to be deactivated.
      * @throws SecurityException is thrown if user is not allowed to deactivate or runtime error occurs with system.
      */
-    public void dropActiveRole(Session session, com.jts.fortress.arbac.UserAdminRole role)
+    public void dropActiveRole(Session session, UserAdminRole role)
         throws SecurityException;
 
 

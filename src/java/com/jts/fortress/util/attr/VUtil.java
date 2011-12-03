@@ -122,6 +122,11 @@ public class VUtil
     public static void safeText(String value, int validLen)
         throws com.jts.fortress.ValidationException
     {
+        if (!isNotNullOrEmpty(value))
+        {
+            String error = OCLS_NM + ".safeText null value";
+            throw new ValidationException(GlobalErrIds.CONST_NULL_TEXT, error);
+        }
         int length = value.length();
         if (length > validLen)
         {

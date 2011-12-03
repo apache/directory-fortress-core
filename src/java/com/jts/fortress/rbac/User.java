@@ -5,6 +5,8 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.FortEntity;
+import com.jts.fortress.arbac.AdminRole;
+import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.util.time.Constraint;
 
 import java.io.Serializable;
@@ -136,7 +138,7 @@ public class User extends FortEntity implements Constraint, Serializable
     private char[] password;
     private String internalId;
     private List<UserRole> roles;
-    private List<com.jts.fortress.arbac.UserAdminRole> adminRoles;
+    private List<UserAdminRole> adminRoles;
     private String pwPolicy;
     private String cn;
     private String sn;
@@ -366,7 +368,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return List containing User's Admin roles.  This list may be empty if User not assigned Administrative role.
      */
-    public List<com.jts.fortress.arbac.UserAdminRole> getAdminRoles()
+    public List<UserAdminRole> getAdminRoles()
     {
         return adminRoles;
     }
@@ -376,7 +378,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param roles UserAdminRole contains at least userId and admin role name (activation) and additional constraints (assignment)
      */
-    public void setAdminRoles(List<com.jts.fortress.arbac.UserAdminRole> roles)
+    public void setAdminRoles(List<UserAdminRole> roles)
     {
         this.adminRoles = roles;
     }
@@ -386,13 +388,27 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param role UserAdminRole contains at least userId and adminRole name (activation) and additional constraints (assignment)
      */
-    public void setAdminRole(com.jts.fortress.arbac.UserAdminRole role)
+    public void setAdminRole(UserAdminRole role)
     {
         if (adminRoles == null)
         {
             adminRoles = new ArrayList<com.jts.fortress.arbac.UserAdminRole>();
         }
         adminRoles.add(role);
+    }
+
+    /**
+     * Add a single user-adminRole object to the list of UserAdminRoles for User.
+     *
+     * @param roleName contrains adminRole name.
+     */
+    public void setAdminRole(String roleName)
+    {
+        if (adminRoles == null)
+        {
+            adminRoles = new ArrayList<com.jts.fortress.arbac.UserAdminRole>();
+        }
+        adminRoles.add(new UserAdminRole(this.userId, roleName));
     }
 
     /**

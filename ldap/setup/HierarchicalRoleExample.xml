@@ -18,7 +18,7 @@
     <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
     <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
     <taskdef classname="com.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
-    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${commons-beanutils.jar}"/>
+    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}"/>
     </taskdef>
 
     <target name="all">
@@ -32,9 +32,9 @@
             </addrole>
 
             <addroleinheritance>
-                <roleinheritance child="r2" parent="r1"/>
-                <roleinheritance child="r3" parent="r1"/>
-                <roleinheritance child="r4" parent="r1"/>
+                <relationship child="r2" parent="r1"/>
+                <relationship child="r3" parent="r1"/>
+                <relationship child="r4" parent="r1"/>
             </addroleinheritance>
 
            <delrole>
@@ -45,9 +45,9 @@
            </delrole>
 
             <delroleinheritance>
-                <roleinheritance child="r2" parent="r1"/>
-                <roleinheritance child="r3" parent="r1"/>
-                <roleinheritance child="r4" parent="r1"/>
+                <relationship child="r2" parent="r1"/>
+                <relationship child="r3" parent="r1"/>
+                <relationship child="r4" parent="r1"/>
             </delroleinheritance>
 
          </FortressAdmin>

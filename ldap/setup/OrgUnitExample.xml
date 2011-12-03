@@ -26,24 +26,24 @@
 
             <addorgunit>
                 <orgunit name="uou1" typeName="USER" description="Test User Org 1"/>
-                <orgunit name="uou2" typename="USER" description="Test User Org 2"/>
-                <orgunit name="uou3" typename="USER" description="Test User Org 3"/>
-                <orgunit name="uou4" typename="USER" description="Test User Org 4"/>
+                <orgunit name="uou2" typeName="USER" description="Test User Org 2"/>
+                <orgunit name="uou3" typeName="USER" description="Test User Org 3"/>
+                <orgunit name="uou4" typeName="USER" description="Test User Org 4"/>
                 <orgunit name="pou1" typeName="PERM" description="Test Perm Org 1"/>
-                <orgunit name="pou2" typename="PERM" description="Test Perm Org 2"/>
-                <orgunit name="pou3" typename="PERM" description="Test Perm Org 3"/>
-                <orgunit name="pou4" typename="PERM" description="Test Perm Org 4"/>
+                <orgunit name="pou2" typeName="PERM" description="Test Perm Org 2"/>
+                <orgunit name="pou3" typeName="PERM" description="Test Perm Org 3"/>
+                <orgunit name="pou4" typeName="PERM" description="Test Perm Org 4"/>
             </addorgunit>
 
             <delorgunit>
                 <orgunit name="uou1" typeName="USER"/>
-                <orgunit name="uou2" typename="USER"/>
-                <orgunit name="uou3" typename="USER"/>
-                <orgunit name="uou4" typename="USER"/>
+                <orgunit name="uou2" typeName="USER"/>
+                <orgunit name="uou3" typeName="USER"/>
+                <orgunit name="uou4" typeName="USER"/>
                 <orgunit name="pou1" typeName="PERM"/>
-                <orgunit name="pou2" typename="PERM"/>
-                <orgunit name="pou3" typename="PERM"/>
-                <orgunit name="pou4" typename="PERM"/>
+                <orgunit name="pou2" typeName="PERM"/>
+                <orgunit name="pou3" typeName="PERM"/>
+                <orgunit name="pou4" typeName="PERM"/>
             </delorgunit>
 
             <adduserorgunitinheritance>
