@@ -259,49 +259,42 @@ public class CommandLineInterpreter
                 command = ADD_POBJ;
                 log.info(command);
                 PermObj permObj = options.getPermObj();
-                permObj.setAdmin(true);
-                adminMgr.addPermObj(permObj);
+                delegatedAdminMgr.addPermObj(permObj);
             }
             else if (commands.contains(UPDATE_POBJ))
             {
                 command = UPDATE_POBJ;
                 log.info(command);
                 PermObj permObj = options.getPermObj();
-                permObj.setAdmin(true);
-                adminMgr.updatePermObj(permObj);
+                delegatedAdminMgr.updatePermObj(permObj);
             }
             else if (commands.contains(DELETE_POBJ))
             {
                 command = DELETE_POBJ;
                 log.info(command);
                 PermObj permObj = options.getPermObj();
-                permObj.setAdmin(true);
-                adminMgr.deletePermObj(permObj);
+                delegatedAdminMgr.deletePermObj(permObj);
             }
             else if (commands.contains(ADD_PERM))
             {
                 command = ADD_PERM;
                 log.info(command);
                 Permission perm = options.getPermission();
-                perm.setAdmin(true);
-                perm.setRoles(null);
-                adminMgr.addPermission(perm);
+                delegatedAdminMgr.addPermission(perm);
             }
             else if (commands.contains(UPDATE_PERM))
             {
                 command = UPDATE_PERM;
                 log.info(command);
                 Permission perm = options.getPermission();
-                perm.setAdmin(true);
-                adminMgr.updatePermission(perm);
+                delegatedAdminMgr.updatePermission(perm);
             }
             else if (commands.contains(DELETE_PERM))
             {
                 command = DELETE_PERM;
                 log.info(command);
                 Permission permObj = options.getPermission();
-                permObj.setAdmin(true);
-                adminMgr.deletePermission(permObj);
+                delegatedAdminMgr.deletePermission(permObj);
             }
             else if (commands.contains(GRANT))
             {
@@ -310,8 +303,7 @@ public class CommandLineInterpreter
                 Permission perm = options.getPermission();
                 AdminRole role = options.getAdminRole();
                 role.setName(options.getRoleNm());
-                perm.setAdmin(true);
-                adminMgr.grantPermission(perm, role);
+                delegatedAdminMgr.grantPermission(perm, role);
             }
             else if (commands.contains(REVOKE))
             {
@@ -320,8 +312,7 @@ public class CommandLineInterpreter
                 Permission perm = options.getPermission();
                 AdminRole role = options.getAdminRole();
                 role.setName(options.getRoleNm());
-                perm.setAdmin(true);
-                adminMgr.revokePermission(perm, role);
+                delegatedAdminMgr.revokePermission(perm, role);
             }
             else if (commands.contains(ADD_USERORG))
             {

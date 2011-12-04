@@ -7,6 +7,9 @@ package com.jts.fortress;
 import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.OrgUnit;
 import com.jts.fortress.arbac.UserAdminRole;
+import com.jts.fortress.rbac.PermObj;
+import com.jts.fortress.rbac.Permission;
+import com.jts.fortress.rbac.User;
 
 /**
  * This class prescribes the ARBAC02 DelegatedAdminMgr interface for performing policy administration of Fortress ARBAC entities
@@ -278,4 +281,130 @@ public interface DelegatedAdminMgr extends com.jts.fortress.Authorizable
      */
     public void deleteInheritance(AdminRole parentRole, AdminRole childRole)
         throws com.jts.fortress.SecurityException;
+
+
+    /**
+     * This method will add an administrative permission operation to an existing permission object which resides under {@code ou=AdminPerms,ou=ARBAC,dc=yourHostName,dc=com} container in directory information tree.
+     * The perm operation entity may have {@link com.jts.fortress.arbac.AdminRole} or {@link com.jts.fortress.rbac.User} associations.  The target {@link Permission} must not exist prior to calling.
+     * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     *
+     * @param perm must contain the object, {@link com.jts.fortress.rbac.Permission#objectName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
+     * @return copy of Permission entity.
+     * @throws SecurityException - thrown in the event of perm object data or system error.
+     */
+    public Permission addPermission(Permission perm)
+        throws com.jts.fortress.SecurityException;
+
+
+    /**
+     * This method will update administrative permission operation pre-existing in target directory under {@code ou=AdminPerms,ou=ARBAC,dc=yourHostName,dc=com} container in directory information tree.
+     * The perm operation entity may also contain {@link com.jts.fortress.arbac.AdminRole} or {@link com.jts.fortress.rbac.User} associations to add or remove using this function.
+     * The perm operation must exist before making this call.  Only non-null attributes will be updated.
+     *
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
+     * @return copy of permOp entity.
+     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
+     */
+    public Permission updatePermission(Permission perm)
+        throws com.jts.fortress.SecurityException;
+
+
+    /**
+     * This method will remove administrative permission operation entity from permission object. A Fortress permission is (object->operation).
+     * The perm operation must exist before making this call.
+     *
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
+     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
+     */
+    public void deletePermission(Permission perm)
+        throws SecurityException;
+
+
+    /**
+     * This method will add administrative permission object to admin perms container in directory. The perm object must not exist before making this call.
+     * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     *
+     * @param pObj must contain the {@link PermObj#objectName} and {@link PermObj#ou}.  The other attributes are optional.
+     * @return copy of permObj entity.
+     * @throws SecurityException - thrown in the event of perm object data or system error.
+     */
+    public PermObj addPermObj(PermObj pObj)
+        throws SecurityException;
+
+
+    /**
+     * This method will update administrative permission object in perms container in directory.  The perm object must exist before making this call.
+     * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     *
+     * @param pObj must contain the {@link PermObj#objectName}. Only non-null attributes will be updated.
+     * @return copy of newly updated permObj entity.
+     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
+     */
+    public PermObj updatePermObj(PermObj pObj)
+        throws com.jts.fortress.SecurityException;
+
+
+    /**
+     * This method will remove administrative permission object from perms container in directory.  This method will also remove
+     * in associated permission objects that are attached to this object.
+     *
+     * @param pObj must contain the {@link PermObj#objectName} of object targeted for removal.
+     * @return copy of permObj entity.
+     * @throws SecurityException - thrown in the event of perm object data or system error.
+     */
+    public void deletePermObj(PermObj pObj)
+        throws SecurityException;
+
+
+    /**
+     * This command grants an AdminRole the administrative permission to perform an operation on an object to a role.
+     * The command is implemented by granting administrative permission by setting the access control list of
+     * the object involved.
+     * The command is valid if and only if the pair (operation, object) represents a permission,
+     * and the adminRole is a member of the ADMIN_ROLES data set.
+     *
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param role must contains {@link AdminRole#name}.
+     * @throws com.jts.fortress.SecurityException Thrown in the event of data validation or system error.
+     */
+    public void grantPermission(Permission perm, AdminRole role)
+        throws com.jts.fortress.SecurityException;
+
+
+    /**
+     * This command revokes the administrative permission to perform an operation on an object from the set
+     * of permissions assigned to an AdminRole. The command is implemented by setting the access control
+     * list of the object involved.
+     * The command is valid if and only if the pair (operation, object) represents a permission,
+     * the role is a member of the ADMIN_ROLES data set, and the permission is assigned to that AdminRole.
+     *
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param role must contains {@link AdminRole#name}.
+     * @throws SecurityException Thrown in the event of data validation or system error.
+     */
+    public void revokePermission(Permission perm, AdminRole role)
+        throws com.jts.fortress.SecurityException;
+
+
+    /**
+     * Method grants an administrative permission directly to a User entity.
+     *
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param user must contain {@link User#userId} of target User entity.
+     * @throws com.jts.fortress.SecurityException Thrown in the event of data validation or system error.
+     */
+    public void grantPermission(Permission perm, User user)
+        throws SecurityException;
+
+
+    /**
+     * Method revokes an administrative permission directly from a User entity.
+     *
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param user must contain {@link User#userId} of target User entity.
+     * @throws SecurityException Thrown in the event of data validation or system error.
+     */
+    public void revokePermission(Permission perm, User user)
+        throws com.jts.fortress.SecurityException;
+
 }
