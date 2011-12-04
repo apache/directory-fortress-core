@@ -1,31 +1,30 @@
 <!--
-  ~ Copyright © Joshua Tree Software, LLC, 2009-2011 All Rights Reserved. -->
+  ~ Copyright © Joshua Tree Software, LLC, 2009-2012 All Rights Reserved. -->
 
 <html>
    <head>
       <title>Fortress Command Line Interpreter Reference Manual</title>
    <body>
    </head>
-       <h2>Instructions to start and use the Fortress CLI program</h2>       
+       <h2>Instructions to start and use the Fortress CLI program</h2>
+       <br>Note: Information to set up environment of Fortress runtime, check out file named <b>README.txt</b> found in root folder of Fortress SDK package.
        <ol>
-         <li>Note: For instructions on how to setup Fortress runtime, check out the <b>README.txt</b> document located in the root folder of the Fortress SDK package.</li>
-         <li>Open a shell prompt within the FORTRESS_HOME root folder and enter the following</li>
+         <li>Open shell prompt within FORTRESS_HOME folder and enter the following</li>
          <li>export JAVA_HOME=/path to the root folder of your java SDK, version 1.6 and beyond required</li>
          <li>export ANT_HOME=/path to the root folder of your Apache Ant installation, version 1.8 and beyond required</li>
          <li>$ANT_HOME/bin/ant cli</li>
-         <li>This will start Fortress CLI in interactive mode.  The interpreter expects the format of the operations follows the format described below</li>                           
+         <li>This will fire Fortress ant target which then starts the CLI.  The CLI syntax will be described in detail below.</li>                           
        </ol>
-       <h2>How does the CLI program work?</h2>       
-       The Fortress CLI runs in interactive mode.  Once started as described above it runs continously waiting for user to either enter a valid command or terminate
-       the interpreter by enter a 'q' (or just kill it will ctrl-Z).  Every CLI command is structured in the following format:<br>
+       <h2>Command Line Interpreter Reference Manual</h2>       
+       Once started, the Fortress CLI runs in interactive mode which means it runs continously waiting for user to enter a valid commands or terminate.  Every CLI command is structured in the following format:<br>
        <p>
        <b>group function options</b><br><br>
        For example:
-       <pre>admin auser -u jdoe -p mYNewP@$$0rd -o dev1</pre>
+       <pre>admin auser -u hounddog42 -p myNewP@$$w0rd -o development</pre>
        In this example the group is 'admin', the function is 'auser' or add user, and the options are -u for userid, -p for password and -o that points to a valid USERS OrgUnit node.
+       Despite being called an 'option', so named parameters may or may not be required for a given function.  Options are always preceded by a dash ('-') when entered.
        <br>
-       Below is a complete command reference manual
-       that shows the group, function and options needed to successfully drive this interface.
+       <br>Below is reference manual for Fortress' CLI commands
        </p>
        
        <h2>Groups</h2>
@@ -36,29 +35,25 @@
          <li>review - used to interrogate RBAC policies</li>
          <li>system - used to test RBAC policies</li>         
          <li>dadmin - used to setup ARBAC (administrative role based access control) policies</li>         
-         <li>dreview - coming soon - used to interrogate ARBAC policies</li>
-         <li>dsystem - coming soon - used to test delegated ARBAC run policies</li>
-         <li>ppolicy - coming soon - used to setup and interrogate OpenLDAP password polices</li>         
-       </ul>
-       
-       <h2>Sample run to read User object from LDAP</h2>       
+       </ul>       
+       <h2>Sample run to add new User to LDAP</h2>       
    <pre>      
-smckinn@smckinnlt-lr02:~/GIT/fortressDev/openldap-fortress-core$ export JAVA_HOME=/opt/jdk1.6.0_27/
-smckinn@smckinnlt-lr02:~/GIT/fortressDev/openldap-fortress-core$ export ANT_HOME=/home/smckinn/JavaTools/apache-ant-1.8.2/
-smckinn@smckinnlt-lr02:~/GIT/fortressDev/openldap-fortress-core$ $ANT_HOME/bin/ant cli
-Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
+iamuser@joshuatreesoftware:~/home/iamuser/openldap-fortress-core$ export JAVA_HOME=/opt/jdk1.6.0_27/
+iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core$ export ANT_HOME=/home/iamuser/apache-ant-1.8.2/
+iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core$ $ANT_HOME/bin/ant cli
+iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core/build.xml
 ...
 [echo] Run the Fortress Command Line Interpreter
 [java] 2011-12-03 21:10:02,431 (INFO ) CLI Options include admin, review, system, dadmin
 [java] 2011-12-03 21:10:02,431 (INFO ) Enter one from above or 'q' to quit
-<b>admin auser -u jdoe -p mYNewP@$$0rd -o dev1</b>
+<b>admin auser -u hounddog42 -p myNewP@$$w0rd -o development</b>
      [java] 2011-12-03 21:41:37,614 (INFO ) arg:admin
      [java] 2011-12-03 21:41:37,614 (INFO ) arg:auser
      [java] 2011-12-03 21:41:37,615 (INFO ) arg:-u
-     [java] 2011-12-03 21:41:37,615 (INFO ) arg:jdoe
+     [java] 2011-12-03 21:41:37,615 (INFO ) arg:hounddog42
      [java] 2011-12-03 21:41:37,615 (INFO ) arg:-p
      [java] 2011-12-03 21:41:37,616 (INFO ) arg:-o
-     [java] 2011-12-03 21:41:37,616 (INFO ) arg:dev1
+     [java] 2011-12-03 21:41:37,616 (INFO ) arg:development
      [java] 2011-12-03 21:41:37,617 (INFO ) auser
      [java] 2011-12-03 21:41:37,750 (INFO ) command:auser was successful
      [java] 2011-12-03 21:41:37,750 (INFO ) CLI Options include admin, review, system, dadmin
@@ -66,13 +61,14 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
    </pre>
          
       <p>
-         This document is both a usage and command line reference document to show users how the Fortress Command Line Interface works.         
+         This remainder of document is a command reference document to show how the Fortress CLI works.         
 <ol type="I">
     <li>
        <h2>Adminstrative Commands</h2>
+       This section contains a guide for the <b>functions</b> and <b>options</b> that fall in the <b>admin</b> group.
         <ol type="A">
            <li>
-            <h3>auser : Add a new User</h3>
+            <h3>auser : function to add a new User</h3>
 
                <p>
                   This command creates a new RBAC user. The command is valid only if the new user is
@@ -112,7 +108,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
            </li><br>
 
            <li>
-            <h3>uuser : Update an existing User</h3>
+            <h3>uuser : function to update an existing user in LDAP</h3>
                <p>
                   This method performs an update on User entity in directory.  Prior to making this call the entity must exist in directory.                  
                </p>
@@ -149,7 +145,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
            </li><br>
 
            <li>
-            <h3>duser : Delete a User</h3>            
+            <h3>duser : function to delete a user from LDAP</h3>            
                <p>
                   This command deletes an existing user from the RBAC database. The command is valid
                   if and only if the user to be deleted is a member of the USERS data set. The USERS and 
@@ -169,9 +165,9 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
            </li><br>
            
            <li>
-            <h3>change : CHANGE_PASSWORD</h3>
+            <h3>change : function to change a user's password</h3>
                <p>
-                  Used to change a user's password. If OpenLDAP password policies are in effect for this User they will be enforced on this function.                  
+                  OpenLDAP password policies will be enforced if in effect at the time of this function call.                  
                </p>
                
                <h4>required parameters</h4>
@@ -187,7 +183,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
            </li><br>           
 
            <li>
-            <h3>reset : RESET_PASSWORD</h3>
+            <h3>reset : function to perform an administrative reset on user password</h3>
                <p>
                   Used by administrator to change a user's password when they have forgotten old password or if the password is expired.  When OpenLDAP policies are in effect this will force User to change their password the next time authenticate.                  
                </p>            
@@ -286,7 +282,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                <h4>example</h4>
                   <ul>
                      <li>admin urole -n trole1 -d newdesc</li>
-                     <li>admin urole -n trole2 b 0800 -B 20111231 -m 23456</li>
+                     <li>admin urole -n trole2 -b 0800 -B 20111231 -m 23456</li>
                   </ul>
            </li><br>
            
@@ -484,7 +480,6 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                <h4>example</h4>
                   <ul>
                      <li>admin dsset -n mytestssd</li>
-                     <li></li>
                   </ul>
            </li><br>
 
@@ -553,7 +548,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                   <ul>
                      <li>d : description - any safe text</li>
                      <li>T : type - contains any safe text</li>
-                     <li>v : properties * - multi occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+                     <li>v : properties * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
                   </ul>
                <h4>example</h4>
                   <ul>
@@ -578,7 +573,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                      <li>o : orgUnit - contains the name of an existing PERMS OrgUnit this object is associated with</li>
                      <li>d : description - any safe text</li>
                      <li>T : type - contains any safe text</li>
-                     <li>v : properties * - multi occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+                     <li>v : properties * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
                   </ul>
                <h4>example</h4>
                   <ul>
@@ -619,7 +614,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                <h4>optional parameters</h4>
                   <ul>
                      <li>r : roles * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
-                     <li>v : properties * - property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+                     <li>v : properties * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
                      <li>T : type - any safe text</li>                     
                   </ul>
                <h4>example</h4>
@@ -644,9 +639,9 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                   </ul>
                <h4>optional parameters</h4>
                   <ul>
-                     <li>r : roles * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
-                     <li>v : properties * - property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
-                     <li>T : type</li>                     
+                     <li>r : roles * - multi-occurring attribute contains RBAC Roles that permission operation is being granted to</li>
+                     <li>v : properties * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+                     <li>T : type - any safe text</li>                     
                   </ul>
                <h4>example</h4>
                   <ul>
@@ -688,7 +683,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                   </ul>
                <h4>example</h4>
                   <ul>
-                     <li>admin grant -n mytestobject -O myoperation -r trole1</li>
+                     <li>admin grant -n mytestobject -O myoperation -R trole1</li>
                   </ul>
            </li><br>
 
@@ -710,7 +705,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                   </ul>
                <h4>example</h4>
                   <ul>
-                     <li>admin revoke -n mytestobject -O myoperation -r trole1</li>
+                     <li>admin revoke -n mytestobject -O myoperation -R trole1</li>
                   </ul>
            </li><br>
            
@@ -754,7 +749,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                <h4>example</h4>
                   <ul>
                      <li>dadmin arole -n arole1</li>
-                     <li>dadmin arole -n arole2 -P app1 -P app2 -U dev1 -U dev2 -y r3 -z r1 -y true -z true -d adminroledescription -b 0900 -e 1800 -B 20120101 -E 20990101 -m 1234567</li>
+                     <li>dadmin arole -n arole2 -P app1 -P app2 -U dev1 -U dev2 -x role3 -w role1 -y true -z true -d adminroledescription -b 0900 -e 1800 -B 20120101 -E 20990101 -m 1234567</li>
                   </ul>
            </li><br>
 
@@ -788,7 +783,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                <h4>example</h4>
                   <ul>
                      <li>dadmin urole -n arole1 -d updatedescription</li>
-                     <li>dadmin urole -n arole2 -y r4 -z r1 -y true -z false</li>                     
+                     <li>dadmin urole -n arole2 -x role4 -w role1 -y true -z false</li>                     
                   </ul>
            </li><br>
            
@@ -1155,7 +1150,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                   <ul>
                      <li>d : description - contains safe text</li>
                      <li>T : type - any safe text</li>                     
-                     <li>v : properties * - property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+                     <li>v : properties * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
                   </ul>
                <h4>example</h4>
                   <ul>
@@ -1180,7 +1175,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                      <li>o : orgUnit - contains the name of existing PERMS OrgUnit to associate administrative object with</li>                     
                      <li>d : description - contains any safe text</li>
                      <li>T : type - any safe text</li>                     
-                     <li>v : properties * - property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+                     <li>v : properties * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
                   </ul>
                <h4>example</h4>
                   <ul>
@@ -1220,7 +1215,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                   </ul>
                <h4>optional parameters</h4>
                   <ul>
-                     <li>v : properties * - property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+                     <li>v : properties * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
                      <li>T : type - any safe text</li>                     
                   </ul>
                <h4>example</h4>
@@ -1244,7 +1239,7 @@ Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml
                   </ul>
                <h4>optional parameters</h4>
                   <ul>
-                     <li>v : properties * - property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+                     <li>v : properties * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
                      <li>T : type - any safe text</li>                     
                   </ul>
                <h4>example</h4>
