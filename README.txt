@@ -19,10 +19,10 @@ NOTE: The Fortress build.xml may run without connection to Internet iff:
 - Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties:
 local.mode=true
 
-2. GIT installed to target environment.
-2. Java SDK Version 6 or beyond installed to target environment
-3. Apache Ant 1.8 or beyond installed to target environment
-4. OpenLDAP installed to target system.  (options follow in section 1)
+1. Java SDK Version 6 or beyond installed to target environment
+2. Apache Ant 1.8 or beyond installed to target environment
+3. OpenLDAP installed to target system.  (options follow in section 1)
+4. GIT installed to target environment. (for Fortress developers only)
 
 ___________________________________________________________________________________
 ###################################################################################
@@ -54,7 +54,17 @@ ________________________________________________________________________________
 # SECTION 2. Instructions to pull Fortress source code from OpenLDAP GIT
 ###################################################################################
 
-a. Open a terminal session within preferred folder name/location and enter the following command:
+# If Fortress User
+
+Pull down latest snapshot from here:
+http://www.openldap.org/devel/gitweb.cgi?p=openldap-fortress-core.git;a=summary
+
+Note: When Fortress 1.0 is released (very soon) there will be a website to pull source packages down by version.  Until that
+announcement has been made, pull the latest GIT snapshot.
+
+# If Fortress Developer and have access to GIT repo:
+
+Open a terminal session within preferred folder name/location and enter the following command:
 
 >git clone ssh://git-master.openldap.org/~git/git/openldap-fortress-core.git
 
