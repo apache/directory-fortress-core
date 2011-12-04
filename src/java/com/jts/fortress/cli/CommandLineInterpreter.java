@@ -5,7 +5,10 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 import com.jts.fortress.*;
+import com.jts.fortress.arbac.AdminRole;
+import com.jts.fortress.arbac.OrgUnit;
 import com.jts.fortress.arbac.UserAdminRole;
+import com.jts.fortress.hier.Relationship;
 import com.jts.fortress.rbac.*;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.time.Constraint;
@@ -25,41 +28,75 @@ public class CommandLineInterpreter
     private AdminMgr adminMgr;
     private ReviewMgr reviewMgr;
     private AccessMgr accessMgr;
+    private DelegatedAdminMgr delegatedAdminMgr;
+    private DelegatedReviewMgr delegatedReviewMgr;
+    private DelegatedAccessMgr delegatedAccessMgr;
+    private PswdPolicyMgr pswdPolicyMgr;
 
     /* THESE ARE THE HIGH LEVEL COMMANDS: */
     private static final String ADMIN = "admin";
     private static final String REVIEW = "review";
     private static final String SYSTEM = "system";
+    private static final String DELEGATED_ADMIN = "dadmin";
+    private static final String DELEGATED_REVIEW = "dreview";
+    private static final String DELEGATED_SYSTEM = "dsystem";
 
     /* THESE ARE THE 2ND LEVEL COMMANDS: */
-    private static final String ADD_USER = "addUser";
-    private static final String UPDATE_USER = "updateUser";
-    private static final String DELETE_USER = "deleteUser";
-    private static final String READ_USER = "readUser";
-    private static final String FIND_USERS = "findUsers";
-    private static final String ASSIGNED_USERS = "assignedUsers";
-    private static final String CREATE_SESSION = "createSession";
+    private static final String ADD_USER = "auser";
+    private static final String UPDATE_USER = "uuser";
+    private static final String DELETE_USER = "duser";
+    private static final String READ_USER = "ruser";
+    private static final String FIND_USERS = "fuser";
+    private static final String ASSIGNED_USERS = "asgnuser";
+
+    private static final String CHANGE_PASSWORD = "change";
+    private static final String LOCK_USER_ACCOUNT = "lock";
+    private static final String UNLOCK_USER_ACCOUNT = "unlock";
+    private static final String RESET_PASSWORD = "reset";
+
+    private static final String ADD_ROLE = "arole";
+    private static final String UPDATE_ROLE = "urole";
+    private static final String DELETE_ROLE = "drole";
+    private static final String READ_ROLE = "rrole";
+    private static final String FIND_ROLES = "frole";
+    private static final String ASSIGN_ROLE = "asgnrole";
+    private static final String DEASSIGN_ROLE = "dsgnrole";
+    private static final String ADD_ROLE_INHERITANCE = "arel";
+    private static final String DELETE_ROLE_INHERITANCE = "drel";
+    private static final String CREATE_SSD_SET = "asset";
+    private static final String DELETE_SSD_SET = "dsset";
+    private static final String CREATE_DSD_SET = "adset";
+    private static final String DELETE_DSD_SET = "ddset";
+
+    private static final String ADD_POBJ = "aobj";
+    private static final String UPDATE_POBJ = "uobj";
+    private static final String DELETE_POBJ = "dobj";
+    private static final String READ_POBJ = "robj";
+    private static final String FIND_POBJS = "fobj";
+
+    private static final String ADD_PERM = "aperm";
+    private static final String UPDATE_PERM = "uperm";
+    private static final String DELETE_PERM = "dperm";
+    private static final String READ_PERM = "rperm";
+    private static final String FIND_PERMS = "fperm";
+    private static final String GRANT = "grant";
+    private static final String REVOKE = "revoke";
+
+    private static final String ADD_USERORG = "auou";
+    private static final String UPDATE_USERORG = "uuou";
+    private static final String DELETE_USERORG = "duou";
+    private static final String ADD_USERORG_INHERITANCE = "aurel";
+    private static final String DELETE_USERORG_INHERITANCE = "durel";
+    private static final String ADD_PERMORG = "apou";
+    private static final String UPDATE_PERMORG = "upou";
+    private static final String DELETE_PERMORG = "dpou";
+    private static final String ADD_PERMORG_INHERITANCE = "aprel";
+    private static final String DELETE_PERMORG_INHERITANCE = "dprel";
+
+    private static final String CREATE_SESSION = "createsession";
     private static final String AUTHENTICATE = "authenticate";
-    private static final String ASSIGNED_ROLES = "assignedRoles";
-
-    private static final String ADD_ROLE = "addRole";
-    private static final String UPDATE_ROLE = "updateRole";
-    private static final String DELETE_ROLE = "deleteRole";
-    private static final String READ_ROLE = "readRole";
-    private static final String FIND_ROLES = "findRoles";
-    private static final String ASSIGN_ROLE = "assignRole";
-
-    private static final String ADD_POBJ = "addObject";
-    private static final String UPDATE_POBJ = "updateObject";
-    private static final String DELETE_POBJ = "deleteObject";
-    private static final String READ_POBJ = "readObject";
-    private static final String FIND_POBJS = "findObjects";
-
-    private static final String ADD_PERM = "addPerm";
-    private static final String UPDATE_PERM = "updatePerm";
-    private static final String DELETE_PERM = "deletePerm";
-    private static final String READ_PERM = "readPerm";
-    private static final String FIND_PERMS = "findPerms";
+    private static final String ASSIGNED_ROLES = "assignedroles";
+    private static final String CHECK_ACCESS = "checkaccess";
 
     /**
      * @param args
@@ -90,7 +127,7 @@ public class CommandLineInterpreter
         {
             while (!done)
             {
-                log.info("CLI Options include " + ADMIN + ", " + REVIEW + ", or " + SYSTEM);
+                log.info("CLI Options include " + ADMIN + ", " + REVIEW + ", " + SYSTEM + ", " + DELEGATED_ADMIN);
                 log.info("Enter one from above or 'q' to quit");
                 input = br.readLine();
                 if (VUtil.isNotNullOrEmpty(input))
@@ -143,9 +180,236 @@ public class CommandLineInterpreter
         {
             processSystemCommand(commands, options);
         }
+        else if (commands.contains(DELEGATED_ADMIN))
+        {
+            processDelegatedAdminCommand(commands, options);
+        }
+        else if (commands.contains(DELEGATED_REVIEW))
+        {
+            //processDelegatedReviewCommand(commands, options);
+        }
+        else if (commands.contains(DELEGATED_SYSTEM))
+        {
+            //processDelegatedSystemCommand(commands, options);
+        }
         else
         {
             log.warn("unknown admin operation detected");
+        }
+    }
+
+    private void processDelegatedAdminCommand(Set<String> commands, Options options)
+    {
+        String command;
+        try
+        {
+            if (commands.contains(ADD_ROLE))
+            {
+                command = ADD_ROLE;
+                log.info(command);
+                AdminRole role = options.getAdminRole();
+                delegatedAdminMgr.addRole(role);
+            }
+            else if (commands.contains(UPDATE_ROLE))
+            {
+                command = UPDATE_ROLE;
+                log.info(command);
+                AdminRole role = options.getAdminRole();
+                delegatedAdminMgr.updateRole(role);
+            }
+            else if (commands.contains(DELETE_ROLE))
+            {
+                command = DELETE_ROLE;
+                log.info(command);
+                AdminRole role = options.getAdminRole();
+                delegatedAdminMgr.deleteRole(role);
+            }
+            else if (commands.contains(ASSIGN_ROLE))
+            {
+                command = ASSIGN_ROLE;
+                log.info(command);
+                Role role = options.getRole();
+                String userId = options.getUserId();
+                delegatedAdminMgr.assignUser(new UserAdminRole(userId, role));
+            }
+            else if (commands.contains(DEASSIGN_ROLE))
+            {
+                command = DEASSIGN_ROLE;
+                log.info(command);
+                Role role = options.getRole();
+                String userId = options.getUserId();
+                delegatedAdminMgr.deassignUser(new UserAdminRole(userId, role));
+            }
+            else if (commands.contains(ADD_ROLE_INHERITANCE))
+            {
+                command = ADD_ROLE_INHERITANCE;
+                log.info(command);
+                Relationship relationship = options.getRelationship();
+                delegatedAdminMgr.addInheritance(new AdminRole(relationship.getParent()), new AdminRole(relationship.getChild()));
+            }
+            else if (commands.contains(DELETE_ROLE_INHERITANCE))
+            {
+                command = DELETE_ROLE_INHERITANCE;
+                log.info(command);
+                Relationship relationship = options.getRelationship();
+                delegatedAdminMgr.deleteInheritance(new AdminRole(relationship.getParent()), new AdminRole(relationship.getChild()));
+            }
+            else if (commands.contains(ADD_POBJ))
+            {
+                command = ADD_POBJ;
+                log.info(command);
+                PermObj permObj = options.getPermObj();
+                permObj.setAdmin(true);
+                adminMgr.addPermObj(permObj);
+            }
+            else if (commands.contains(UPDATE_POBJ))
+            {
+                command = UPDATE_POBJ;
+                log.info(command);
+                PermObj permObj = options.getPermObj();
+                permObj.setAdmin(true);
+                adminMgr.updatePermObj(permObj);
+            }
+            else if (commands.contains(DELETE_POBJ))
+            {
+                command = DELETE_POBJ;
+                log.info(command);
+                PermObj permObj = options.getPermObj();
+                permObj.setAdmin(true);
+                adminMgr.deletePermObj(permObj);
+            }
+            else if (commands.contains(ADD_PERM))
+            {
+                command = ADD_PERM;
+                log.info(command);
+                Permission perm = options.getPermission();
+                perm.setAdmin(true);
+                perm.setRoles(null);
+                adminMgr.addPermission(perm);
+            }
+            else if (commands.contains(UPDATE_PERM))
+            {
+                command = UPDATE_PERM;
+                log.info(command);
+                Permission perm = options.getPermission();
+                perm.setAdmin(true);
+                adminMgr.updatePermission(perm);
+            }
+            else if (commands.contains(DELETE_PERM))
+            {
+                command = DELETE_PERM;
+                log.info(command);
+                Permission permObj = options.getPermission();
+                permObj.setAdmin(true);
+                adminMgr.deletePermission(permObj);
+            }
+            else if (commands.contains(GRANT))
+            {
+                command = GRANT;
+                log.info(command);
+                Permission perm = options.getPermission();
+                AdminRole role = options.getAdminRole();
+                role.setName(options.getRoleNm());
+                perm.setAdmin(true);
+                adminMgr.grantPermission(perm, role);
+            }
+            else if (commands.contains(REVOKE))
+            {
+                command = REVOKE;
+                log.info(command);
+                Permission perm = options.getPermission();
+                AdminRole role = options.getAdminRole();
+                role.setName(options.getRoleNm());
+                perm.setAdmin(true);
+                adminMgr.revokePermission(perm, role);
+            }
+            else if (commands.contains(ADD_USERORG))
+            {
+                command = ADD_USERORG;
+                log.info(command);
+                OrgUnit orgUnit = options.getOrgUnit();
+                orgUnit.setType(OrgUnit.Type.USER);
+                delegatedAdminMgr.add(orgUnit);
+            }
+            else if (commands.contains(UPDATE_USERORG))
+            {
+                command = UPDATE_USERORG;
+                log.info(command);
+                OrgUnit orgUnit = options.getOrgUnit();
+                orgUnit.setType(OrgUnit.Type.USER);
+                delegatedAdminMgr.update(orgUnit);
+            }
+            else if (commands.contains(DELETE_USERORG))
+            {
+                command = DELETE_USERORG;
+                log.info(command);
+                OrgUnit orgUnit = options.getOrgUnit();
+                orgUnit.setType(OrgUnit.Type.USER);
+                delegatedAdminMgr.delete(orgUnit);
+            }
+            else if (commands.contains(ADD_USERORG_INHERITANCE))
+            {
+                command = ADD_USERORG_INHERITANCE;
+                log.info(command);
+                Relationship relationship = options.getRelationship();
+                delegatedAdminMgr.addInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.USER), new OrgUnit(relationship.getChild(), OrgUnit.Type.USER));
+            }
+            else if (commands.contains(DELETE_USERORG_INHERITANCE))
+            {
+                command = DELETE_USERORG_INHERITANCE;
+                log.info(command);
+                Relationship relationship = options.getRelationship();
+                delegatedAdminMgr.deleteInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.USER), new OrgUnit(relationship.getChild(), OrgUnit.Type.USER));
+            }
+            else if (commands.contains(ADD_PERMORG))
+            {
+                command = ADD_PERMORG;
+                log.info(command);
+                OrgUnit orgUnit = options.getOrgUnit();
+                orgUnit.setType(OrgUnit.Type.PERM);
+                delegatedAdminMgr.add(orgUnit);
+            }
+            else if (commands.contains(UPDATE_PERMORG))
+            {
+                command = UPDATE_PERMORG;
+                log.info(command);
+                OrgUnit orgUnit = options.getOrgUnit();
+                orgUnit.setType(OrgUnit.Type.PERM);
+                delegatedAdminMgr.update(orgUnit);
+            }
+            else if (commands.contains(DELETE_PERMORG))
+            {
+                command = DELETE_PERMORG;
+                log.info(command);
+                OrgUnit orgUnit = options.getOrgUnit();
+                orgUnit.setType(OrgUnit.Type.PERM);
+                delegatedAdminMgr.delete(orgUnit);
+            }
+            else if (commands.contains(ADD_PERMORG_INHERITANCE))
+            {
+                command = ADD_PERMORG_INHERITANCE;
+                log.info(command);
+                Relationship relationship = options.getRelationship();
+                delegatedAdminMgr.addInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.PERM), new OrgUnit(relationship.getChild(), OrgUnit.Type.PERM));
+            }
+            else if (commands.contains(DELETE_PERMORG_INHERITANCE))
+            {
+                command = DELETE_PERMORG_INHERITANCE;
+                log.info(command);
+                Relationship relationship = options.getRelationship();
+                delegatedAdminMgr.deleteInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.PERM), new OrgUnit(relationship.getChild(), OrgUnit.Type.PERM));
+            }
+            else
+            {
+                log.warn("unknown delegated admin operation detected");
+                return;
+            }
+            log.info("command:" + command + " was successful");
+        }
+        catch (com.jts.fortress.SecurityException se)
+        {
+            String error = CLS_NM + ".processDelegatedAdminCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
+            log.error(error);
         }
     }
 
@@ -208,6 +472,28 @@ public class CommandLineInterpreter
                 String userId = options.getUserId();
                 adminMgr.assignUser(new UserRole(userId, role));
             }
+            else if (commands.contains(DEASSIGN_ROLE))
+            {
+                command = DEASSIGN_ROLE;
+                log.info(command);
+                Role role = options.getRole();
+                String userId = options.getUserId();
+                adminMgr.deassignUser(new UserRole(userId, role));
+            }
+            else if (commands.contains(ADD_ROLE_INHERITANCE))
+            {
+                command = ADD_ROLE_INHERITANCE;
+                log.info(command);
+                Relationship relationship = options.getRelationship();
+                adminMgr.addInheritance(new Role(relationship.getParent()), new Role(relationship.getChild()));
+            }
+            else if (commands.contains(DELETE_ROLE_INHERITANCE))
+            {
+                command = DELETE_ROLE_INHERITANCE;
+                log.info(command);
+                Relationship relationship = options.getRelationship();
+                adminMgr.deleteInheritance(new Role(relationship.getParent()), new Role(relationship.getChild()));
+            }
             else if (commands.contains(ADD_POBJ))
             {
                 command = ADD_POBJ;
@@ -249,6 +535,86 @@ public class CommandLineInterpreter
                 log.info(command);
                 Permission permObj = options.getPermission();
                 adminMgr.deletePermission(permObj);
+            }
+            else if (commands.contains(GRANT))
+            {
+                command = GRANT;
+                log.info(command);
+                Permission perm = options.getPermission();
+                Role role = options.getRole();
+                role.setName(options.getRoleNm());
+                adminMgr.grantPermission(perm, role);
+            }
+            else if (commands.contains(REVOKE))
+            {
+                command = REVOKE;
+                log.info(command);
+                Permission perm = options.getPermission();
+                Role role = options.getRole();
+                role.setName(options.getRoleNm());
+                adminMgr.revokePermission(perm, role);
+            }
+            else if (commands.contains(CREATE_SSD_SET))
+            {
+                command = CREATE_SSD_SET;
+                log.info(command);
+                SDSet ssd = options.getSdSet();
+                ssd.setType(SDSet.SDType.STATIC);
+                adminMgr.createSsdSet(ssd);
+            }
+            else if (commands.contains(DELETE_SSD_SET))
+            {
+                command = DELETE_SSD_SET;
+                log.info(command);
+                SDSet ssd = options.getSdSet();
+                ssd.setType(SDSet.SDType.STATIC);
+                adminMgr.deleteSsdSet(ssd);
+            }
+            else if (commands.contains(CREATE_DSD_SET))
+            {
+                command = CREATE_DSD_SET;
+                log.info(command);
+                SDSet ssd = options.getSdSet();
+                ssd.setType(SDSet.SDType.DYNAMIC);
+                adminMgr.createDsdSet(ssd);
+            }
+            else if (commands.contains(DELETE_DSD_SET))
+            {
+                command = DELETE_DSD_SET;
+                log.info(command);
+                SDSet ssd = options.getSdSet();
+                ssd.setType(SDSet.SDType.DYNAMIC);
+                adminMgr.deleteDsdSet(ssd);
+            }
+            else if (commands.contains(CHANGE_PASSWORD))
+            {
+                command = CHANGE_PASSWORD;
+                log.info(command);
+                User user = options.getUser();
+                char[] newPassword = options.getNewPassword();
+                adminMgr.changePassword(user, newPassword);
+            }
+            else if (commands.contains(RESET_PASSWORD))
+            {
+                command = RESET_PASSWORD;
+                log.info(command);
+                User user = options.getUser();
+                char[] newPassword = options.getNewPassword();
+                adminMgr.resetPassword(user, newPassword);
+            }
+            else if (commands.contains(LOCK_USER_ACCOUNT))
+            {
+                command = LOCK_USER_ACCOUNT;
+                log.info(command);
+                User user = options.getUser();
+                adminMgr.lockUserAccount(user);
+            }
+            else if (commands.contains(UNLOCK_USER_ACCOUNT))
+            {
+                command = UNLOCK_USER_ACCOUNT;
+                log.info(command);
+                User user = options.getUser();
+                adminMgr.unlockUserAccount(user);
             }
             else
             {
@@ -453,6 +819,16 @@ public class CommandLineInterpreter
                         printSeparator();
                     }
                 }
+            }
+            else if (commands.contains(CHECK_ACCESS))
+            {
+                command = CHECK_ACCESS;
+                log.info(command);
+                Permission inPerm = options.getPermission();
+                User inUser = options.getUser();
+                Session session = accessMgr.createSession(inUser, true);
+                boolean result = accessMgr.checkAccess(session, inPerm);
+                printRow("CA", "PERM", "" + result);
             }
             else
             {
@@ -677,7 +1053,6 @@ public class CommandLineInterpreter
         {
             printRow(type, "UID ", user.getUserId());
             printRow(type, "IID ", user.getInternalId());
-            log.info(type + "   IID  [" + user.getInternalId() + "]");
             printRow(type, "CN  ", user.getCn());
             printRow(type, "DESC", user.getDescription());
             printRow(type, "OU  ", user.getOu());
@@ -800,6 +1175,10 @@ public class CommandLineInterpreter
             adminMgr = AdminMgrFactory.createInstance();
             reviewMgr = ReviewMgrFactory.createInstance();
             accessMgr = AccessMgrFactory.createInstance();
+            delegatedAdminMgr = DelegatedAdminMgrFactory.createInstance();
+            delegatedReviewMgr = DelegatedReviewMgrFactory.createInstance();
+            delegatedAccessMgr = DelegatedAccessMgrFactory.createInstance();
+            PswdPolicyMgr pswdPolicyMgr = PswdPolicyMgrFactory.createInstance();
             success = true;
         }
         catch (com.jts.fortress.SecurityException se)

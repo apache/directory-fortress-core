@@ -125,7 +125,6 @@ public class OrgUnit extends FortEntity
      *
      */
     public Type type;
-
     private String name;
     private String id;
     private String description;
