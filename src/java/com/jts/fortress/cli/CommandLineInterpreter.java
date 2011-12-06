@@ -123,11 +123,11 @@ public class CommandLineInterpreter
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         boolean done = false;
         String input;
-        try
+        while (!done)
         {
-            while (!done)
+            try
             {
-                log.info("CLI Options include " + ADMIN + ", " + REVIEW + ", " + SYSTEM + ", " + DELEGATED_ADMIN);
+                log.info("CLI function groups include " + ADMIN + ", " + REVIEW + ", " + SYSTEM + ", " + DELEGATED_ADMIN);
                 log.info("Enter one from above or 'q' to quit");
                 input = br.readLine();
                 if (VUtil.isNotNullOrEmpty(input))
@@ -143,23 +143,19 @@ public class CommandLineInterpreter
                 }
                 input = "";
             }
-        }
-        catch (Exception e)
-        {
-            String error = CLS_NM + "runInteractiveMode caught Exception=" + e.toString();
-            e.printStackTrace();
-            log.error(error);
+            catch (Exception e)
+            {
+                String error = CLS_NM + ".runInteractiveMode caught Exception=" + e.toString();
+                log.error(error);
+            }
         }
     }
 
-    /**
-     *
-     */
     private static void printUsage()
     {
-        log.error(
-            "Usage: userAdd  -u userId -p password -o orgUnit \n" +
-                "                  [{-s,--size} a_number] [{-f,--fraction} a_float] [a_nother]");
+        log.error("Usage: group function options");
+        log.error("where group is: admin, review, system or dadmin");
+        log.error("Check out the Command Line Reference manual for what the valid function and option combinations are.");
     }
 
     /**
@@ -646,8 +642,10 @@ public class CommandLineInterpreter
                 List<User> outUsers = reviewMgr.findUsers(user);
                 if (VUtil.isNotNullOrEmpty(outUsers))
                 {
+                    int ctr = 0;
                     for (User outUser : outUsers)
                     {
+                        printRow("U", "CTR ", "" + ctr++);
                         printUser(outUser);
                     }
                 }
@@ -894,10 +892,10 @@ public class CommandLineInterpreter
         }
         catch (CmdLineParser.OptionException e)
         {
-            String error = CLS_NM + "processUserInput caught OptionException=" + e.toString();
+            String error = CLS_NM + ".processUserInput caught OptionException=" + e.toString();
             log.error(error);
             printUsage();
-            System.exit(2);
+            //System.exit(2);
         }
         if (commands != null && commands.size() > 0)
         {
