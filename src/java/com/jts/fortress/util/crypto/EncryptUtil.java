@@ -47,7 +47,7 @@ public class EncryptUtil
     public static boolean isEnabled()
     {
         boolean result = false;
-        if(Config.getProperty(CRYPTO_PROP)!= null)
+        if(Config.getProperty(CRYPTO_PROP)!= null && !Config.getProperty(CRYPTO_PROP).equals("${crypto.prop}"))
         {
             result = true;
         }

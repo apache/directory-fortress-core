@@ -206,7 +206,6 @@
     <!-- =================================
           target: compile
          ================================= -->
-   <!--target name="compile" depends="resolve" description="compiles source files"-->
    <target name="compile" depends="init,resolve" description="compiles source files">
       <mkdir dir="${build.classes.dir}"/>
       <javac srcdir="${src.java.dir}"

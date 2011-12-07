@@ -7,8 +7,6 @@ package com.jts.fortress.hier;
 import com.jts.fortress.ValidationException;
 import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.util.AlphabeticalOrder;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.log4j.Logger;
 import org.jgrapht.graph.SimpleDirectedGraph;
 

@@ -395,3 +395,33 @@ b. Copy the Encrypted value and paste it into the corresponding build.properties
 
 # This OpenLDAP admin root pass is bound for fortress.properties and was encrypted using 'encrypt' target in build.xml:
 cfg.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
+
+
+___________________________________________________________________________________
+###################################################################################
+# SECTION 13. Troubleshooting
+###################################################################################
+
+a. Problem with javac under sudo
+
+If you see this error:
+
+BUILD FAILED
+/home/smckinn/tmp/fortress/13/openldap-fortress-core-302f201/build.xml:233: Unable to find a javac compiler;
+com.sun.tools.javac.Main is not on the classpath.
+Perhaps JAVA_HOME does not point to the JDK.
+It is currently set to "/usr/lib/jvm/java-6-openjdk/jre"
+
+If running sudo:
+
+- Option 1:
+sudo apt-get install openjdk-6-jdk
+
+- Option 2:
+
+add this to build.xml javac task:
+
+  	     executable="/opt/jdk1.6.0_27/bin/javac"
+         compiler="javac1.6"
+         fork = "true"
+
