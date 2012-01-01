@@ -179,6 +179,34 @@ public class PoolMgr
         switch (type)
         {
             case ADMIN:
+                if (ld != null)
+                {
+                    connPool[ADMIN].close(ld);
+                }
+                break;
+
+            case USER:
+                if (ld != null)
+                {
+                    connPool[USER].close(ld);
+                }
+                break;
+
+            case LOG:
+                if (ld != null)
+                {
+                    connPool[LOG].close(ld);
+                }
+                break;
+        }
+    }
+
+    @Deprecated
+    private static void closeConnectionx(LDAPConnection ld, ConnType type)
+    {
+        switch (type)
+        {
+            case ADMIN:
                 if (ld != null && ld.isConnected())
                 {
                     connPool[ADMIN].close(ld);
