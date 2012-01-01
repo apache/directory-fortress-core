@@ -64,9 +64,12 @@ announcement has been made, pull the latest GIT snapshot.
 
 # If Fortress Developer and have access to GIT repo:
 
-Open a terminal session within preferred folder name/location and enter the following command:
+committers: Open a terminal session within preferred folder name/location and enter the following command:
 
 >git clone ssh://git-master.openldap.org/~git/git/openldap-fortress-core.git
+
+read-only:
+>git clone git://git.openldap.org/openldap-fortress-core.git
 
 Assuming network is good this will pull down source code from GIT and load into
 the directory from which it ran, hereafter called 'FORTRESS_HOME'.
