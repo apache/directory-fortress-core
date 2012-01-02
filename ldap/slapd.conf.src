@@ -55,6 +55,8 @@ index objectClass,reqDN,reqAuthzID,reqStart,reqAttr eq
 directory	@HISTORY_DB_PATH@
 access to *
     by dn.base="@LOG_ROOT_DN@" write
+@LOG_DBNOSYNCH@
+@LOG_CHECKPOINT@
 
 #######################################################################
 # Default DB Settings
@@ -72,6 +74,8 @@ checkpoint	512	60
 cachesize     10000
 overlay accesslog
 logdb   "@LOG_SUFFIX@"
+@DFLT_DBNOSYNCH@
+@DFLT_CHECKPOINT@
 
 #######################################################################
 # Audit Log Settings
