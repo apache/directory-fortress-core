@@ -28,5 +28,8 @@
         <dependency org="log4j" name="log4j" rev="1.2.16" conf="default->master"/>
         <dependency org="org.jasypt" name="jasypt" rev="1.8" conf="default->master"/>
         <dependency org="jgrapht" name="jgrapht" rev="0.7.3" conf="default->master"/>
+        <dependency org="com.sun.xml.bind" name="jaxb-xjc" rev="2.2.4-1" conf="default->master"/>
+        <dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.2.4-1" conf="default->master"/>
+        <dependency org="javax.xml.bind" name="jaxb-api" rev="2.2.6" conf="default->master"/>
     </dependencies>
 </ivy-module>

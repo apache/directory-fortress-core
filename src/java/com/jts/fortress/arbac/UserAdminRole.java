@@ -7,6 +7,10 @@ package com.jts.fortress.arbac;
 import com.jts.fortress.rbac.UserRole;
 import com.jts.fortress.util.AlphabeticalOrder;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -36,14 +40,43 @@ import java.util.TreeSet;
  * @author smckinn
  * @created November 13, 2010
  */
+/*
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "userAdminRole", propOrder = {
+    "beginInclusive",
+    "beginRange",
+    "endInclusive",
+    "endRange",
+    "osP",
+    "osU",
+    "roleRangeRaw"
+})
+*/
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "userAdminRole", propOrder = {
+    "osPs",
+    "osUs",
+    "beginInclusive",
+    "beginRange",
+    "endInclusive",
+    "endRange",
+    //"sequenceId",
+    //"modCode",
+    //"modId",
+    //"adminSession",
+    "parents"
+})
 public class UserAdminRole extends UserRole implements com.jts.fortress.arbac.Administrator
 {
+    @XmlElement(nillable = true)
     private Set<String> osPs;
+    @XmlElement(nillable = true)
     private Set<String> osUs;
     private String beginRange;
     private String endRange;
     private boolean beginInclusive;
     private boolean endInclusive;
+    @XmlElement(nillable = true)
     private Set<String> parents;
 
     /**

@@ -5,15 +5,13 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.FortEntity;
-import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.util.time.Constraint;
 
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.UUID;
+import java.util.*;
 
 
 /**
@@ -21,7 +19,7 @@ import java.util.UUID;
  * {@link com.jts.fortress.pwpolicy.PswdPolicy} {@link com.jts.fortress.rbac.SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
- *
+ * <p/>
  * <h4>Fortress Processing Layers</h4>
  * <ol>
  * <li>Manager layer:  {@link com.jts.fortress.rbac.AdminMgrImpl}, {@link com.jts.fortress.rbac.AccessMgrImpl}, {@link com.jts.fortress.rbac.ReviewMgrImpl},...</li>
@@ -60,11 +58,11 @@ import java.util.UUID;
  * }</pre>
  * The above code will persist to LDAP a User object that has a userId of "myUserId", a password of "myPassword", a role assignment to "myRoleName", and assigned to organzational unit named "myOU".
  * This User can be used as a target for subsequent User-Role assignments, User-Permission grants, authentication, authorization and more.
- * <p/>
+ *
  * This entity aggregates one standard LDAP structural object class, {@code inetOrgPerson} see <a href="http://www.ietf.org/rfc/rfc2798.txt">RFC 2798</a>,
- *  along with three auxiliary object extensions supplied by Fortress:  {@code ftUserAttrs}, {@code ftProperties}, {@code ftMods}.
+ * along with three auxiliary object extensions supplied by Fortress:  {@code ftUserAttrs}, {@code ftProperties}, {@code ftMods}.
  * The combination of the standard and custom object classes form a single entry within the directory and is represented in this entity class.
- * <p/>
+ *
  * <h4>Fortress User Schema</h4>
  * 1. InetOrgPerson Structural Object Class. <br />
  * <code># The inetOrgPerson represents people who are associated with an</code><br />
@@ -86,7 +84,7 @@ import java.util.UUID;
  * <li> <code>userSMIMECertificate $ userPKCS12 ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ *
  * 2. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br />
  * <code># This aux object class can be used to store custom attributes.</code><br />
  * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
@@ -99,8 +97,8 @@ import java.util.UUID;
  * <li> <code>MAY ( ftProps ) ) </code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
- * <p/>
+ *
+ *
  * 3. ftUserAttrs is used to store user RBAC and Admin role assignment and other security attributes on User entity.
  * <ul>
  * <li>  ------------------------------------------
@@ -112,7 +110,7 @@ import java.util.UUID;
  * <li> <code>MAY ( ftRC $ ftRA $ ftARC $ ftARA $ ftCstr</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ *
  * 4. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
  * <ul>
  * <li>  ------------------------------------------
@@ -126,22 +124,56 @@ import java.util.UUID;
  * <li> <code>ftModId ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
-
  *
  * @author smckinn
  * @created August 23, 2009
  */
+
+@XmlRootElement(name = "fortUser")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "user", propOrder = {
+    "userId",
+    "description",
+    "name",
+    "internalId",
+    "ou",
+    "password",
+    "pwPolicy",
+    "sn",
+    "cn",
+    "props",
+    "locked",
+    "reset",
+    "beginTime",
+    "endTime",
+    "beginDate",
+    "endDate",
+    "beginLockDate",
+    "endLockDate",
+    "dayMask",
+    "timeout",
+    "roles",
+    "adminRoles"
+    //"sequenceId",
+    //"modCode",
+    //"modId",
+    //"adminSession",
+})
 public class User extends FortEntity implements Constraint, Serializable
 {
     private String userId;
+    @XmlJavaTypeAdapter(CharArrayAdapter.class)
+    @XmlElement(nillable = true)
     private char[] password;
     private String internalId;
+    @XmlElement(nillable = true)
     private List<UserRole> roles;
+    @XmlElement(nillable = true)
     private List<UserAdminRole> adminRoles;
     private String pwPolicy;
     private String cn;
     private String sn;
+    @XmlTransient
     private String dn;
     private String ou;
     private String description;
@@ -156,7 +188,8 @@ public class User extends FortEntity implements Constraint, Serializable
     private int timeout;
     private boolean reset;
     private boolean locked;
-    private Properties props;
+    @XmlElement(nillable = true)
+    private Props props = new Props();
 
     /**
      * Default constructor not intended for external use and is typically used by internal Fortress classes.
@@ -213,9 +246,9 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         this.userId = userId;
         this.password = password;
-        if(roleNames != null)
+        if (roleNames != null)
         {
-            for(String name : roleNames)
+            for (String name : roleNames)
             {
                 setRole(new UserRole(name));
             }
@@ -827,6 +860,32 @@ public class User extends FortEntity implements Constraint, Serializable
     }
 
     /**
+     * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     *
+     * @return
+     *     possible object is
+     *     {@link Props }
+     *
+     */
+    public Props getProps()
+    {
+        return props;
+    }
+
+    /**
+     * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link Props }
+     *
+     */
+    public void setProps(Props value)
+    {
+        this.props = value;
+    }
+
+    /**
      * Add name/value pair to list of properties associated with User.  These values are not constrained by Fortress.
      * Properties are optional.
      *
@@ -835,34 +894,10 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public void addProperty(String key, String value)
     {
-        if (props == null)
-        {
-            props = new Properties();
-        }
-
-        this.props.setProperty(key, value);
-    }
-
-    /**
-     * Add new collection of name/value pairs to attributes associated with User.  These values are not constrained by Fortress.
-     * Properties are optional.
-     *
-     * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     */
-    public void addProperties(Properties props)
-    {
-        this.props = props;
-    }
-
-    /**
-     * Return the collection of name/value pairs to attributes associated with User.  These values are not constrained by Fortress.
-     * Properties are optional.
-     *
-     * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     */
-    public Properties getProperties()
-    {
-        return this.props;
+        Props.Entry entry = new Props.Entry();
+        entry.setKey(key);
+        entry.setValue(value);
+        this.props.getEntry().add(entry);
     }
 
     /**
@@ -874,7 +909,54 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public String getProperty(String key)
     {
-        return this.props.getProperty(key);
+        List<Props.Entry> props = this.props.getEntry();
+        Props.Entry keyObj = new Props.Entry();
+        keyObj.setKey(key);
+
+        Props.Entry entry = props.get(props.indexOf(keyObj));
+        return (String) entry.getValue();
+    }
+
+    /**
+     * Add new collection of name/value pairs to attributes associated with User.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     */
+    public void addProperties(Properties props)
+    {
+        for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+        {
+            // This LDAP attr is stored as a name-value pair separated by a ':'.
+            String key = (String) e.nextElement();
+            String val = props.getProperty(key);
+            addProperty(key, val);
+        }
+    }
+
+    /**
+     * Return the collection of name/value pairs to attributes associated with User.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     */
+    public Properties getProperties()
+    {
+        Properties properties = null;
+        List<Props.Entry> props = this.props.getEntry();
+        if (props.size() > 0)
+        {
+            properties = new Properties();
+            int size = props.size();
+            for (int i = 0; i < size; i++)
+            {
+                Props.Entry entry = props.get(i);
+                String key = (String) entry.getKey();
+                String val = (String) entry.getValue();
+                properties.setProperty(key, val);
+            }
+        }
+        return properties;
     }
 
     /**
@@ -903,4 +985,3 @@ public class User extends FortEntity implements Constraint, Serializable
         return thatUser.getUserId().equalsIgnoreCase(this.getUserId());
     }
 }
-

@@ -5,9 +5,16 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.FortEntity;
+import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.time.Constraint;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -125,13 +132,40 @@ import java.util.UUID;
  * @author smckinn
  * @created October 3, 2009
  */
+@XmlRootElement(name = "fortRole")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "role", propOrder = {
+    "name",
+    "id",
+    "description",
+    "parents",
+    "children",
+    "beginDate",
+    "beginLockDate",
+    "beginTime",
+    "dayMask",
+    "endDate",
+    "endLockDate",
+    "endTime",
+    "timeout",
+    "rawData"
+    //"sequenceId",
+    //"modCode",
+    //"modId",
+    //"adminSession",
+})
+@XmlSeeAlso({
+    AdminRole.class
+})
 public class Role extends FortEntity
     implements Constraint, java.io.Serializable
 {
     private String id;          // this maps to ftId
     private String name;          // this is ftRoleName
     private String description; // this is description
+    @XmlTransient
     private String dn;          // this attribute is automatically saved to each ldap record.
+    @XmlTransient
     private List<String> occupants;
     private Set<String> parents;
     private Set<String> children;

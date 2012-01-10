@@ -10,6 +10,10 @@ import com.jts.fortress.util.time.Constraint;
 import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.attr.VUtil;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -121,6 +125,18 @@ import java.util.TreeSet;
  * @author smckinn
  * @created November 13, 2010
  */
+@XmlRootElement(name = "fortAdminRole")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "adminRole", propOrder = {
+    "parents",
+    "children",
+    "osPs",
+    "osUs",
+    "beginRange",
+    "endRange",
+    "beginInclusive",
+    "endInclusive"
+})
 public class AdminRole extends Role implements com.jts.fortress.arbac.Administrator
 {
     private Set<String> osPs;

@@ -7,6 +7,9 @@ package com.jts.fortress.rbac;
 import com.jts.fortress.arbac.AdminRoleUtil;
 import com.jts.fortress.arbac.UserAdminRole;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -130,6 +133,19 @@ import java.util.UUID;
  * @author smckinn
  * @created October 13, 2009
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "session", propOrder = {
+    "authenticated",
+    "errorId",
+    "expirationSeconds",
+    "graceLogins",
+    "internalUserId",
+    "msg",
+    "roles",
+    "user",
+    "userId",
+    "warningId"
+})
 public class Session implements com.jts.fortress.pwpolicy.PwMessage, java.io.Serializable
 {
     //private ArrayList roles;

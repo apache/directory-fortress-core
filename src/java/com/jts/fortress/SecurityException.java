@@ -332,6 +332,8 @@ package com.jts.fortress;
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ARLE_DEASSIGN_NOT_EXIST} = 9023;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ARLE_ASSIGN_FAILED} = 9024;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ARLE_DEASSIGN_FAILED} = 9025;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ARLE_OCCUPANT_SEARCH_FAILED} = 9026;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ARLE_REMOVE_OCCUPANT_FAILED} = 9027;</code>
  * </ul>
  * <h3>
  * <p/>10000's - Temporal Constraint Validation Error Ids

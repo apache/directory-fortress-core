@@ -148,7 +148,8 @@ public final class RoleP
      * Add the User dn occupant attribute to the OrganizationalRole entity in ldap.  This method is called by AdminMgrImpl
      * when the User is being added.
      *
-     * @param userDn contains the userId targeted for attribute removal.
+     * @param uRoles contains a collection of UserRole being targeted for assignment.
+     * @param userDn contains the userId targeted for addition.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
     public final void addOccupant(List<UserRole> uRoles, String userDn)

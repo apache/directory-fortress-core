@@ -5,6 +5,7 @@
 package com.jts.fortress.arbac;
 
 import com.jts.fortress.CreateException;
+import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.configuration.Config;
 import com.jts.fortress.FinderException;
 import com.jts.fortress.RemoveException;
@@ -450,6 +451,43 @@ public final class AdminRoleDAO
 
 
     /**
+     * @param userDn
+     * @return
+     * @throws FinderException
+     */
+    List<String> findAssignedRoles(String userDn)
+        throws FinderException
+    {
+        List<String> roleNameList = new ArrayList<String>();
+        LDAPConnection ld = null;
+        LDAPSearchResults searchResults;
+        String roleRoot = Config.getProperty(GlobalIds.ADMIN_ROLE_ROOT);
+        try
+        {
+            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            String filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")";
+            filter += "(" + ROLE_OCCUPANT + "=" + userDn + "))";
+            searchResults = DaoUtil.search(ld, roleRoot,
+                LDAPConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE);
+            while (searchResults.hasMoreElements())
+            {
+                roleNameList.add(DaoUtil.getAttribute(searchResults.next(), ROLE_NM));
+            }
+        }
+        catch (LDAPException e)
+        {
+            String error = OCLS_NM + ".findAssignedRoles userDn <" + userDn + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            throw new FinderException(GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e);
+        }
+        finally
+        {
+            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+        }
+        return roleNameList;
+    }
+
+
+    /**
      * @param le
      * @return
      * @throws LDAPException
@@ -457,7 +495,7 @@ public final class AdminRoleDAO
     private AdminRole unloadLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
-        AdminRole entity = new AdminRole();
+        AdminRole entity = new ObjectFactory().createAdminRole();
         entity.setSequenceId(sequence);
         entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setName(DaoUtil.getAttribute(le, ROLE_NM));

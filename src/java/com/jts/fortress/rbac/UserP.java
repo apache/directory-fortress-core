@@ -316,6 +316,7 @@ public final class UserP
         // only call the dao if properties exists:
         if(VUtil.isNotNullOrEmpty(entity.getProperties()))
             entity = uDao.updateProps(entity, replace);
+
         return entity;
     }
 

@@ -31,7 +31,7 @@
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
-       <property name="version" value="1.0.0-rc4"/>
+       <property name="version" value="1.0.0-rc5"/>
        <property name="ivy.install.version" value="2.2.0"/>
        <property name="title" value="Fortress Identity and Access Management LDAP SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
@@ -70,6 +70,10 @@
        <property name="log4j.jar" value="${lib.dir}/log4j-1.2.16.jar"/>
        <property name="junit.jar" value="${lib.dir}/junit-4.9.jar"/>
        <property name="jasypt.jar" value="${lib.dir}/jasypt-1.8.jar"/>
+       <property name="jaxb-api.jar" value="${lib.dir}/jaxb-api-2.2.6.jar"/>
+       <property name="jaxb-impl.jar" value="${lib.dir}/jaxb-impl-2.2.4-1.jar"/>
+       <property name="jaxb-xjc.jar" value="${lib.dir}/jaxb-xjc-2.2.4-1.jar"/>
+
 
        <!-- ########### Test properties ########################### -->
        <property name="test.sample.entry" value="com.jts.fortress.samples.AllSamplesJUnitTest"/>
@@ -134,6 +138,9 @@
            <pathelement location="${commons-lang.jar}"/>
            <pathelement location="${commons-pool.jar}"/>
            <pathelement location="${jasypt.jar}"/>
+           <pathelement location="${jaxb-api.jar}"/>
+           <pathelement location="${jaxb-impl.jar}"/>
+           <pathelement location="${jaxb-xjc.jar}"/>
        </path>
 
        <!-- This is used for the JUnit Tests -->
@@ -169,6 +176,44 @@
            <pathelement location="${jasypt.jar}"/>
        </path>
 
+       <!-- Defines XJC and SchemaGen tasks -->
+       <property name="generated.dir" value="${basedir}/generated"/>
+       <property name="generated.classes.dir" value="${generated.dir}/classes"/>
+       <property name="generated.schema.dir" value="${generated.dir}/schema"/>
+       <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask" >
+               <classpath refid="build.class.path"/>
+       </taskdef>
+
+       <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+           <classpath refid="build.class.path"/>
+       </taskdef>
+       <taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
+               <classpath refid="build.class.path"/>
+       </taskdef>
+
+    </target>
+
+    <target name="generate-schema" depends="compile">
+        <echo message="Generating schemas..."/>
+        <mkdir dir="${generated.schema.dir}"/>
+
+        <schemagen srcdir="${src.java.dir}" destdir="${generated.schema.dir}">
+            <classpath refid="build.class.path"/>
+             <include name="com/jts/fortress/rbac/User.java"/>
+             <include name="com/jts/fortress/rbac/Role.java"/>
+             <include name="com/jts/fortress/rbac/UserRole.java"/>
+             <include name="com/jts/fortress/FortEntity.java"/>
+             <include name="com/jts/fortress/util/time/Constraint.java"/>
+             <include name="com/jts/fortress/arbac/OrgUnit.java"/>
+             <include name="com/jts/fortress/arbac/UserAdminRole.java"/>
+             <include name="com/jts/fortress/T1Model.java"/>
+        </schemagen>
+    </target>
+
+    <target name="compile-schema" depends="generate-schema">
+        <echo message="Compiling the schema..."/>
+        <mkdir dir="${generated.classes.dir}"/>
+        <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="com.jts.fortress.model2" removeOldOutput="yes"/>
     </target>
 
     <!-- =================================

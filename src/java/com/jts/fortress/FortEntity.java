@@ -4,9 +4,13 @@
 
 package com.jts.fortress;
 
-
+import com.jts.fortress.arbac.OrgUnit;
+import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.Session;
+import com.jts.fortress.rbac.User;
+import com.jts.fortress.rbac.UserRole;
 
+import javax.xml.bind.annotation.*;
 import java.util.UUID;
 
 /**
@@ -39,17 +43,32 @@ import java.util.UUID;
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
-
  *
  * @author smckinn
  * @created January 14, 2011
  */
+@XmlRootElement(name = "fortEntity")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "fortEntity", propOrder =
+{
+    "modId",
+    "modCode",
+    "sequenceId"
+})
+@XmlSeeAlso(
+{
+    Role.class,
+    OrgUnit.class,
+    UserRole.class,
+    User.class
+})
 public abstract class FortEntity
 {
-    private String modCode;
-    private String modId;
-    private Session adminSession;
-    private long sequenceId;
+    protected String modCode;
+    protected String modId;
+    @XmlTransient
+    protected Session adminSession;
+    protected long sequenceId;
 
     /**
      * Default constructor will call the setter to load a new internal ID into entity.
@@ -136,6 +155,7 @@ public abstract class FortEntity
 
     /**
      * Sequence id is used internal to Fortress.
+     *
      * @return long value contains sequence id.
      */
     public long getSequenceId()
@@ -145,6 +165,7 @@ public abstract class FortEntity
 
     /**
      * Sequence id is used internal to Fortress
+     *
      * @param sequenceId contains sequence to use.
      */
     public void setSequenceId(long sequenceId)

@@ -4,14 +4,10 @@
 
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.*;
+import com.jts.fortress.SecurityException;
 import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.configuration.Config;
-import com.jts.fortress.SecurityException;
-import com.jts.fortress.CreateException;
-import com.jts.fortress.FinderException;
-import com.jts.fortress.PasswordException;
-import com.jts.fortress.RemoveException;
-import com.jts.fortress.UpdateException;
 import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.arbac.OrgUnit;
@@ -1347,8 +1343,9 @@ public final class UserDAO
     private User unloadLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
-        User entity = new User();
-        //entity.setInternalId(DaoUtil.getAttribute(le, userNodePrefix));
+        //User entity = new User();
+        //User entity = new ObjectFactory().createFortEntity();
+        User entity = new ObjectFactory().createUser();
         entity.setSequenceId(sequence);
         entity.setInternalId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
@@ -1684,7 +1681,8 @@ public final class UserDAO
             uRoles = new ArrayList<UserAdminRole>();
             for (String raw : roles)
             {
-                UserAdminRole ure = new UserAdminRole();
+                //UserAdminRole ure = new UserAdminRole();
+                UserAdminRole ure = new ObjectFactory().createUserAdminRole();
                 ure.load(raw);
                 ure.setSequenceId(sequence++);
                 ure.setUserId(userId);
@@ -1714,7 +1712,8 @@ public final class UserDAO
             uRoles = new ArrayList<UserRole>();
             for (String raw : roles)
             {
-                UserRole ure = new UserRole();
+                //UserRole ure = new UserRole();
+                UserRole ure = new ObjectFactory().createUserRole();
                 ure.load(raw);
                 ure.setUserId(userId);
                 ure.setSequenceId(sequence++);

@@ -5,6 +5,7 @@ package com.jts.fortress.arbac;
 
 import com.jts.fortress.FortEntity;
 
+import javax.xml.bind.annotation.*;
 import java.util.Set;
 import java.util.UUID;
 
@@ -117,6 +118,20 @@ import java.util.UUID;
  * @author smckinn
  * @created September 18, 2010
  */
+@XmlRootElement(name = "fortOrgUnit")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "orgUnit", propOrder = {
+    "children",
+    "description",
+    "id",
+    "name",
+    "parents",
+    "type"
+//    "sequenceId",
+//    "modCode",
+//    "modId",
+//    "adminSession",
+})
 public class OrgUnit extends FortEntity
     implements java.io.Serializable
 {
@@ -124,11 +139,14 @@ public class OrgUnit extends FortEntity
      * Maps to the location for a particular OrgUnit entity to either the User, {@code ou=OS-U}, or Permission, {@code ou=OS-P}, tree in ldap.
      *
      */
+    //@XmlTransient
     public Type type;
     private String name;
     private String id;
     private String description;
+    @XmlElement(nillable = true)
     private Set<String> parents;
+    @XmlElement(nillable = true)
     private Set<String> children;
 
     /**
@@ -217,6 +235,8 @@ public class OrgUnit extends FortEntity
     /**
      * The OrgUnit 'Type' attribute is required and used to specify which OrgUnit tree a particular entity is in reference to.
      */
+    @XmlType(name = "type")
+    @XmlEnum
     public enum Type
     {
         /**

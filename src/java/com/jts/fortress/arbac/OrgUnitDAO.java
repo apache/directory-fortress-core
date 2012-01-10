@@ -4,11 +4,8 @@
 
 package com.jts.fortress.arbac;
 
-import com.jts.fortress.RemoveException;
-import com.jts.fortress.UpdateException;
+import com.jts.fortress.*;
 import com.jts.fortress.util.AlphabeticalOrder;
-import com.jts.fortress.CreateException;
-import com.jts.fortress.FinderException;
 
 import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
@@ -448,7 +445,8 @@ public class OrgUnitDAO
     private OrgUnit getEntityFromLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
-        OrgUnit entity = new OrgUnit();
+        //OrgUnit entity = new OrgUnit();
+        OrgUnit entity = new ObjectFactory().createOrgUnit();
         entity.setSequenceId(sequence);
         entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setName(DaoUtil.getAttribute(le, GlobalIds.OU));

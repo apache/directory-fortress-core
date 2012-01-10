@@ -4,10 +4,7 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.CreateException;
-import com.jts.fortress.FinderException;
-import com.jts.fortress.RemoveException;
-import com.jts.fortress.UpdateException;
+import com.jts.fortress.*;
 import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.util.time.CUtil;
@@ -439,7 +436,7 @@ public final class RoleDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".findAssignedRoles userDn <" + userDn + "> caught LDAPException in PermDAO.findPermissions=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".findAssignedRoles userDn <" + userDn + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.ROLE_OCCUPANT_SEARCH_FAILED, error, e);
         }
         finally
@@ -458,7 +455,7 @@ public final class RoleDAO
     private Role unloadLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
-        Role entity = new Role();
+        Role entity = new ObjectFactory().createRole();
         entity.setSequenceId(sequence);
         entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setName(DaoUtil.getAttribute(le, ROLE_NM));

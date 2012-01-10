@@ -4,6 +4,7 @@
 
 package com.jts.fortress.arbac;
 
+import com.jts.fortress.FinderException;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.constants.GlobalErrIds;
@@ -145,6 +146,54 @@ public class AdminRoleP
         throws SecurityException
     {
         return rDao.assign(entity, userDn);
+    }
+
+
+    /**
+     * Add the User dn occupant attribute to the OrganizationalRole entity in ldap.  This method is called by AdminMgrImpl
+     * when the User is being added.
+     *
+     * @param uRoles contains a collection of UserAdminRole being targeted for assignment.
+     * @param userDn contains the userId targeted for attribute addition.
+     * @throws com.jts.fortress.SecurityException in the event of DAO search error.
+     */
+    public final void addOccupant(List<UserAdminRole> uRoles, String userDn)
+        throws SecurityException
+    {
+        if (VUtil.isNotNullOrEmpty(uRoles))
+        {
+            for (UserAdminRole uRole : uRoles)
+            {
+                assign(new AdminRole(uRole.getName()), userDn);
+            }
+        }
+    }
+
+
+    /**
+     * Remove the User dn occupant attribute from the OrganizationalRole entity in ldap.  This method is called by AdminMgrImpl
+     * when the User is being deleted.
+     *
+     * @param userDn contains the userId targeted for attribute removal.
+     * @throws com.jts.fortress.SecurityException in the event of DAO search error.
+     */
+    public final void removeOccupant(String userDn)
+        throws SecurityException
+    {
+        List<String> list;
+        try
+        {
+            list = rDao.findAssignedRoles(userDn);
+            for (String roleNm : list)
+            {
+                deassign(new AdminRole(roleNm), userDn);
+            }
+        }
+        catch (FinderException fe)
+        {
+            String error = OCLS_NM + ".removeOccupant userDn <" + userDn + "> caught FinderException=" + fe;
+            throw new SecurityException(GlobalErrIds.ARLE_REMOVE_OCCUPANT_FAILED, error, fe);
+        }
     }
 
 

@@ -1293,6 +1293,16 @@ public class GlobalErrIds
     public final static int ARLE_DEASSIGN_FAILED = 9025;
 
     /**
+     * AdminRole occupant search failed.
+     */
+    public final static int ARLE_OCCUPANT_SEARCH_FAILED = 9026;
+
+    /**
+     * The operation to remove User as occupant to AdminRoles failed..
+     */
+    public final static int ARLE_REMOVE_OCCUPANT_FAILED = 9027;
+
+    /**
      * 10000's - Temporal Constraint Validation Error Ids
      */
 

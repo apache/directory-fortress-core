@@ -14,7 +14,6 @@ import com.jts.fortress.arbac.AdminUtil;
 import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.hier.Hier;
 import com.jts.fortress.constants.GlobalErrIds;
-
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
@@ -60,6 +59,7 @@ public final class AdminMgrImpl implements AdminMgr
     private static final ReviewMgr rMgr = new ReviewMgrImpl();
     private static final UserP userP = new UserP();
     private static final RoleP roleP = new RoleP();
+    private static final AdminRoleP adminRoleP = new AdminRoleP();
     private static final AdminRoleP adminP = new AdminRoleP();
     private static final PermP permP = new PermP();
     private static final SdP sdP = new SdP();
@@ -67,6 +67,8 @@ public final class AdminMgrImpl implements AdminMgr
 
     // thread unsafe variable:
     private Session adminSess;
+
+
 
     /**
      * Setting Session into this object will enforce ARBAC controls and render this class
@@ -94,10 +96,12 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "addUser";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
         setEntitySession(methodName, user);
+
         // Add the User record to ldap.
         User newUser = userP.add(user);
         // This method will add the user dn as occupant attribute if assigned it has role assignments.
         roleP.addOccupant(newUser.getRoles(), newUser.getDn());
+        adminRoleP.addOccupant(newUser.getAdminRoles(), newUser.getDn());
         return newUser;
     }
 
@@ -128,6 +132,8 @@ public final class AdminMgrImpl implements AdminMgr
         permP.remove(user);
         // remove the user dn occupant attribute from assigned ldap role entities.
         roleP.removeOccupant(userDn);
+        // remove the user dn occupant attribute from assigned ldap adminRole entities.
+        adminRoleP.removeOccupant(userDn);
     }
 
     /**
@@ -152,6 +158,8 @@ public final class AdminMgrImpl implements AdminMgr
         String userDn = userP.delete(user);
         // remove the user dn occupant attribute from assigned ldap role entities.
         roleP.removeOccupant(userDn);
+        // remove the user dn occupant attribute from assigned ldap adminRole entities.
+        adminRoleP.removeOccupant(userDn);
     }
 
     /**

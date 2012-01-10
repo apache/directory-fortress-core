@@ -5,9 +5,11 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.FortEntity;
+import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.time.Constraint;
 
+import javax.xml.bind.annotation.*;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -24,20 +26,40 @@ import java.util.StringTokenizer;
  * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.1</code>
  * <li> <code>NAME 'ftUserAttrs'</code>
  * <li> <code>DESC 'Fortress User Attribute AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
+ * <li> <code>AUXILIARY</cuserroleode>
  * <li> <code>MUST ( ftId )</code>
  * <li> <code>MAY ( ftRC $ ftRA $ ftARC $ ftARA $ ftCstr</code>
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
-
  *
  * @author smckinn
  * @created August 23, 2009
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "userRole", propOrder = {
+    "name",
+    "parents",
+    "beginDate",
+    "beginLockDate",
+    "beginTime",
+    "dayMask",
+    "endDate",
+    "endLockDate",
+    "endTime",
+    "timeout"
+
+    //"sequenceId",
+    //"modCode",
+    //"modId",
+    //"adminSession",
+})
+@XmlSeeAlso({
+    UserAdminRole.class
+})
 public class UserRole extends FortEntity implements java.io.Serializable, Constraint
 {
-
+    @XmlTransient
     protected String userId;
     protected String name;
     private Integer timeout;
@@ -48,6 +70,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
     private String beginLockDate;
     private String endLockDate;
     private String dayMask;
+    @XmlElement(nillable = true)
     private Set<String> parents;
 
     /**
@@ -134,11 +157,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
                             break;
                         case 6:
                             this.setBeginLockDate(tkn.nextToken());
-                            break;                                                                               /**
-     * Return the Set of child role names (direct descendants) of this role.
-     * @return Set of child role names.
-     */
-
+                            break;
                         case 7:
                             this.setEndLockDate(tkn.nextToken());
                             break;
