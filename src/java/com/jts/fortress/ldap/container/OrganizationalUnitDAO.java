@@ -81,7 +81,7 @@ public final class OrganizationalUnitDAO
         nodeDn += Config.getProperty(GlobalIds.SUFFIX);
         try
         {
-            log.info(OCLS_NM + ".create container dn <" + nodeDn + ">");
+            log.info(OCLS_NM + ".create container dn [" + nodeDn + "]");
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS,
@@ -93,7 +93,7 @@ public final class OrganizationalUnitDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".create container node dn <" + nodeDn + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".create container node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new com.jts.fortress.CreateException(GlobalErrIds.CNTR_CREATE_FAILED, error, e);
         }
         finally
@@ -116,7 +116,7 @@ public final class OrganizationalUnitDAO
             nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
         nodeDn += Config.getProperty(GlobalIds.SUFFIX);
 
-        log.info(OCLS_NM + ".remove container dn <" + nodeDn + ">");
+        log.info(OCLS_NM + ".remove container dn [" + nodeDn + "]");
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -124,7 +124,7 @@ public final class OrganizationalUnitDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".remove container node dn <" + nodeDn + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".remove container node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new com.jts.fortress.RemoveException(GlobalErrIds.CNTR_DELETE_FAILED, error, e);
         }
         finally

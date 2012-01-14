@@ -79,9 +79,9 @@ public class DelegatedAdminMgrConsole
             }
 
             AdminRole re2 = dAmgr.updateRole(re);
-            System.out.println("name <" + re2.getName() + ">");
-            System.out.println("internalId <" + re2.getId() + ">");
-            System.out.println("name description <" + re2.getDescription() + ">");
+            System.out.println("name [" + re2.getName() + "]");
+            System.out.println("internalId [" + re2.getId() + "]");
+            System.out.println("name description [" + re2.getDescription() + "]");
             System.out.println("has been updated");
             System.out.println("ENTER to continue");
         }
@@ -117,7 +117,7 @@ public class DelegatedAdminMgrConsole
             System.out.println("Enter role name");
             uAdminRole.setName(ReaderUtil.readLn());
             dAmgr.assignUser(uAdminRole);
-            System.out.println("userId <" + uAdminRole.getUserId() + "> name <" + uAdminRole.getName() + ">");
+            System.out.println("userId [" + uAdminRole.getUserId() + "] name [" + uAdminRole.getName() + "]");
             System.out.println("has been assigned");
             System.out.println("ENTER to continue");
         }
@@ -142,7 +142,7 @@ public class DelegatedAdminMgrConsole
             String roleNm = ReaderUtil.readLn();
             uAdminRole.setName(roleNm);
             dAmgr.deassignUser(uAdminRole);
-            System.out.println("userId <" + userId + "> name <" + roleNm + ">");
+            System.out.println("userId [" + userId + "] name [" + roleNm + "]");
             System.out.println("has been deassigned");
             System.out.println("ENTER to continue");
         }
@@ -167,9 +167,9 @@ public class DelegatedAdminMgrConsole
             ou.setDescription(ReaderUtil.readLn());
             ou.setType(type);
             OrgUnit ou2 = dAmgr.add(ou);
-            System.out.println("name <" + ou2.getName() + ">");
-            System.out.println("internalId <" + ou2.getId() + ">");
-            System.out.println("name description <" + ou2.getDescription() + ">");
+            System.out.println("name [" + ou2.getName() + "]");
+            System.out.println("internalId [" + ou2.getId() + "]");
+            System.out.println("name description [" + ou2.getDescription() + "]");
             System.out.println("has been added");
             System.out.println("ENTER to continue");
         }
@@ -206,9 +206,9 @@ public class DelegatedAdminMgrConsole
             ou.setDescription(ReaderUtil.readLn());
             ou.setType(type);
             OrgUnit ou2 = dAmgr.update(ou);
-            System.out.println("name <" + ou2.getName() + ">");
-            System.out.println("internalId <" + ou2.getId() + ">");
-            System.out.println("name description <" + ou2.getDescription() + ">");
+            System.out.println("name [" + ou2.getName() + "]");
+            System.out.println("internalId [" + ou2.getId() + "]");
+            System.out.println("name description [" + ou2.getDescription() + "]");
             System.out.println("has been updated");
             System.out.println("ENTER to continue");
         }
@@ -243,7 +243,7 @@ public class DelegatedAdminMgrConsole
             ou.setName(ReaderUtil.readLn());
             ou.setType(type);
             dAmgr.delete(ou);
-            System.out.println("name <" + ou.getName() + ">");
+            System.out.println("name [" + ou.getName() + "]");
             System.out.println("has been deleted");
             System.out.println("ENTER to continue");
         }
@@ -282,8 +282,8 @@ public class DelegatedAdminMgrConsole
             System.out.println("Enter parent orgunit name:");
             pou.setName(ReaderUtil.readLn());
             dAmgr.addInheritance(pou, cou);
-            System.out.println("child orgunit <" + cou.getName() + ">");
-            System.out.println("parent orgunit <" + pou.getName() + ">");
+            System.out.println("child orgunit [" + cou.getName() + "]");
+            System.out.println("parent orgunit [" + pou.getName() + "]");
             System.out.println("inheritance relationship has been added");
             System.out.println("ENTER to continue");
         }
@@ -322,8 +322,8 @@ public class DelegatedAdminMgrConsole
             System.out.println("Enter parent orgunit name:");
             pou.setName(ReaderUtil.readLn());
             dAmgr.deleteInheritance(pou, cou);
-            System.out.println("child orgunit <" + cou.getName() + ">");
-            System.out.println("parent orgunit <" + pou.getName() + ">");
+            System.out.println("child orgunit [" + cou.getName() + "]");
+            System.out.println("parent orgunit [" + pou.getName() + "]");
             System.out.println("inheritance relationship has been removed");
             System.out.println("ENTER to continue");
         }
@@ -365,8 +365,8 @@ public class DelegatedAdminMgrConsole
             pou.setDescription(ReaderUtil.readLn());
 
             dAmgr.addAscendant(cou, pou);
-            System.out.println("child orgunit <" + cou.getName() + ">");
-            System.out.println("parent orgunit <" + pou.getName() + ">");
+            System.out.println("child orgunit [" + cou.getName() + "]");
+            System.out.println("parent orgunit [" + pou.getName() + "]");
             System.out.println("parent orgunit and inheritance relationship has been added");
             System.out.println("ENTER to continue");
         }
@@ -407,8 +407,8 @@ public class DelegatedAdminMgrConsole
             System.out.println("Enter parent orgunit name:");
             pou.setName(ReaderUtil.readLn());
             dAmgr.addDescendant(pou, cou);
-            System.out.println("child orgunit <" + cou.getName() + ">");
-            System.out.println("parent orgunit <" + pou.getName() + ">");
+            System.out.println("child orgunit [" + cou.getName() + "]");
+            System.out.println("parent orgunit [" + pou.getName() + "]");
             System.out.println("child orgunit and inheritance relationship has been added");
             System.out.println("ENTER to continue");
         }
@@ -449,7 +449,7 @@ public class DelegatedAdminMgrConsole
                 aMgr.grantPermission(pOp, new User(name));
             }
 
-            System.out.println("perm object <" + object + "> operation <" + operation + "> has been granted to <" + name + ">");
+            System.out.println("perm object [" + object + "] operation [" + operation + "] has been granted to [" + name + "]");
             System.out.println("has been granted");
             System.out.println("ENTER to continue");
         }
@@ -488,7 +488,7 @@ public class DelegatedAdminMgrConsole
                 aMgr.revokePermission(pOp, new User(name));
             }
 
-            System.out.println("perm object <" + object + "> operation <" + operation + "> has been granted to <" + name + ">");
+            System.out.println("perm object [" + object + "] operation [" + operation + "] has been granted to [" + name + "]");
             System.out.println("has been revoked.");
             System.out.println("ENTER to continue");
         }

@@ -191,7 +191,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
         // If session already has admin role activated log an error and throw an exception:
         if (sRoles != null && sRoles.contains(role))
         {
-            String info = methodName + " User <" + session.getUserId() + "> Role <" + role.getName() + "> role already activated.";
+            String info = methodName + " User [" + session.getUserId() + "] Role [" + role.getName() + "] role already activated.";
             throw new SecurityException(GlobalErrIds.ARLE_ALREADY_ACTIVE, info);
         }
 
@@ -201,7 +201,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
         // Is the admin role activation target valid for this user?
         if (!VUtil.isNotNullOrEmpty(uRoles) || ((indx = uRoles.indexOf(role)) == -1))
         {
-            String info = methodName + " Admin Role <" + role.getName() + "> User <" + session.getUserId() + "> adminRole not authorized for user.";
+            String info = methodName + " Admin Role [" + role.getName() + "] User [" + session.getUserId() + "] adminRole not authorized for user.";
             throw new SecurityException(GlobalErrIds.ARLE_ACTIVATE_FAILED, info);
         }
         // TODO:  add validate Dynamic Separation of Duty Relations here:
@@ -237,7 +237,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
         }
         else
         {
-            String info = methodName + " Admin Role <" + role.getName() + "> User <" + session.getUserId() + ">, not previously activated";
+            String info = methodName + " Admin Role [" + role.getName() + "] User [" + session.getUserId() + "], not previously activated";
             throw new SecurityException(GlobalErrIds.ARLE_NOT_ACTIVE, info);
         }
     }

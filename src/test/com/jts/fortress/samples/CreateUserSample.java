@@ -85,14 +85,14 @@ public class CreateUserSample extends TestCase
             {
                 // this should fail because User was deleted above:
                 User outUser = reviewMgr.readUser(inUser);
-                fail(szLocation + " user <" + inUser.getUserId() + "> delete failed");
+                fail(szLocation + " user [" + inUser.getUserId() + "] delete failed");
             }
             catch (SecurityException se)
             {
                 assertTrue(szLocation + " excep id check", se.getErrorId() == GlobalErrIds.USER_NOT_FOUND);
                 // pass
             }
-            log.info(szLocation + " user <" + inUser.getUserId() + "> success");
+            log.info(szLocation + " user [" + inUser.getUserId() + "] success");
         }
         catch (SecurityException ex)
         {
@@ -135,7 +135,7 @@ public class CreateUserSample extends TestCase
             // now read the newly created User entity back:
             User outUser2 = reviewMgr.readUser(inUser);
             assertTrue(szLocation + " failed read", inUser.equals(outUser2));
-            log.info(szLocation + " user <" + outUser2.getUserId() + "> success");
+            log.info(szLocation + " user [" + outUser2.getUserId() + "] success");
         }
         catch (SecurityException ex)
         {

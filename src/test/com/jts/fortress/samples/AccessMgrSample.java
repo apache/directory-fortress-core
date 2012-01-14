@@ -85,7 +85,7 @@ public class AccessMgrSample extends TestCase
                 // method will return a 'true' if authorized or 'false' if not.
                 boolean result = accessMgr.checkAccess(session, inPerm);
                 assertTrue(szLocation, result);
-                log.info(szLocation + " user <" + session.getUserId() + "> permission object <" + inPerm.getObjectName() + "> operation name <" + inPerm.getOpName() + "> success");
+                log.info(szLocation + " user [" + session.getUserId() + "] permission object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
             }
         }
         catch (SecurityException ex)
@@ -124,7 +124,7 @@ public class AccessMgrSample extends TestCase
                 Permission checkPerm = new Permission(CreatePermSample.TEST_PERM_OBJECT, CreatePermSample.TEST_PERM_OPERATION_PREFIX + i);
                 boolean result = accessMgr.checkAccess(session, checkPerm);
                 assertTrue(szLocation, result);
-                log.info(szLocation + " user <" + session.getUserId() + "> permission object <" + checkPerm.getObjectName() + "> operation name <" + checkPerm.getOpName() + "> success");
+                log.info(szLocation + " user [" + session.getUserId() + "] permission object [" + checkPerm.getObjectName() + "] operation name [" + checkPerm.getOpName() + "] success");
             }
         }
         catch (SecurityException ex)
@@ -164,8 +164,8 @@ public class AccessMgrSample extends TestCase
             for (int i = 1; i < 11; i++)
             {
                 UserRole inUserRole = new UserRole(inUser.getUserId(), CreateRoleSample.TEST_ROLE_PREFIX + i);
-                assertTrue(szLocation + " contains check userId <" + inUserRole.getUserId() + "> role <" + inUserRole.getName() + ">", uRoles.contains(inUserRole));
-                log.info(szLocation + " userId <" + inUserRole.getUserId() + "> activated role <" + inUserRole.getName() + "> found in session");
+                assertTrue(szLocation + " contains check userId [" + inUserRole.getUserId() + "] role [" + inUserRole.getName() + "]", uRoles.contains(inUserRole));
+                log.info(szLocation + " userId [" + inUserRole.getUserId() + "] activated role [" + inUserRole.getName() + "] found in session");
             }
         }
         catch (SecurityException ex)
@@ -195,7 +195,7 @@ public class AccessMgrSample extends TestCase
             {
                 UserRole addUserRole = new UserRole(CreateUserSample.TEST_USERID, CreateRoleSample.TEST_ROLE_PREFIX + i);
                 accessMgr.addActiveRole(session, addUserRole);
-                log.info(szLocation + " userId <" + addUserRole.getUserId() + "> activated role <" + addUserRole.getName() + "> added to session");
+                log.info(szLocation + " userId [" + addUserRole.getUserId() + "] activated role [" + addUserRole.getName() + "] added to session");
             }
         }
         catch (SecurityException ex)
@@ -227,7 +227,7 @@ public class AccessMgrSample extends TestCase
             {
                 UserRole dropUserRole = new UserRole(inUser.getUserId(), CreateRoleSample.TEST_ROLE_PREFIX + i);
                 accessMgr.dropActiveRole(session, dropUserRole);
-                log.info(szLocation + " userId <" + dropUserRole.getUserId() + "> deactivated role <" + dropUserRole.getName() + "> removed from session");
+                log.info(szLocation + " userId [" + dropUserRole.getUserId() + "] deactivated role [" + dropUserRole.getName() + "] removed from session");
             }
         }
         catch (SecurityException ex)
@@ -297,15 +297,15 @@ public class AccessMgrSample extends TestCase
                 {
                     UserRole ur = roles.get(i);
                     log.info("    USER ROLE[" + i + "]:");
-                    log.info("        role name <" + ur.getName() + ">");
-                    log.info("        begin time <" + ur.getBeginTime() + ">");
-                    log.info("        end time <" + ur.getEndTime() + ">");
-                    log.info("        begin date <" + ur.getBeginDate() + ">");
-                    log.info("        end date <" + ur.getEndDate() + ">");
-                    log.info("        begin lock <" + ur.getBeginLockDate() + ">");
-                    log.info("        end lock <" + ur.getEndLockDate() + ">");
-                    log.info("        day mask <" + ur.getDayMask() + ">");
-                    log.info("        time out <" + ur.getTimeout() + ">");
+                    log.info("        role name [" + ur.getName() + "]");
+                    log.info("        begin time [" + ur.getBeginTime() + "]");
+                    log.info("        end time [" + ur.getEndTime() + "]");
+                    log.info("        begin date [" + ur.getBeginDate() + "]");
+                    log.info("        end date [" + ur.getEndDate() + "]");
+                    log.info("        begin lock [" + ur.getBeginLockDate() + "]");
+                    log.info("        end lock [" + ur.getEndLockDate() + "]");
+                    log.info("        day mask [" + ur.getDayMask() + "]");
+                    log.info("        time out [" + ur.getTimeout() + "]");
                 }
             }
 
@@ -316,19 +316,19 @@ public class AccessMgrSample extends TestCase
                 {
                     UserAdminRole ur = aRoles.get(i);
                     log.info("    USER ADMIN ROLE[" + i + "]:");
-                    log.info("        admin role name <" + ur.getName() + ">");
-                    log.info("        OsU <" + ur.getOsU() + ">");
-                    log.info("        OsP <" + ur.getOsP() + ">");
-                    log.info("        begin range <" + ur.getBeginRange() + ">");
-                    log.info("        end range <" + ur.getEndRange() + ">");
-                    log.info("        begin time <" + ur.getBeginTime() + ">");
-                    log.info("        end time <" + ur.getEndTime() + ">");
-                    log.info("        begin date <" + ur.getBeginDate() + ">");
-                    log.info("        end date <" + ur.getEndDate() + ">");
-                    log.info("        begin lock <" + ur.getBeginLockDate() + ">");
-                    log.info("        end lock <" + ur.getEndLockDate() + ">");
-                    log.info("        day mask <" + ur.getDayMask() + ">");
-                    log.info("        time out <" + ur.getTimeout() + ">");
+                    log.info("        admin role name [" + ur.getName() + "]");
+                    log.info("        OsU [" + ur.getOsU() + "]");
+                    log.info("        OsP [" + ur.getOsP() + "]");
+                    log.info("        begin range [" + ur.getBeginRange() + "]");
+                    log.info("        end range [" + ur.getEndRange() + "]");
+                    log.info("        begin time [" + ur.getBeginTime() + "]");
+                    log.info("        end time [" + ur.getEndTime() + "]");
+                    log.info("        begin date [" + ur.getBeginDate() + "]");
+                    log.info("        end date [" + ur.getEndDate() + "]");
+                    log.info("        begin lock [" + ur.getBeginLockDate() + "]");
+                    log.info("        end lock [" + ur.getEndLockDate() + "]");
+                    log.info("        day mask [" + ur.getDayMask() + "]");
+                    log.info("        time out [" + ur.getTimeout() + "]");
                 }
             }
 

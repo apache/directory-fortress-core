@@ -53,16 +53,16 @@ public class DelegatedReviewMgrConsole
             if (re != null)
             {
                 System.out.println("ADMIN ROLE OBJECT:");
-                System.out.println("    name      <" + re.getName() + ">");
-                System.out.println("    internalId  <" + re.getId() + ">");
-                System.out.println("    description <" + re.getDescription() + ">");
-                System.out.println("    osU <" + re.getOsU() + ">");
-                System.out.println("    osP <" + re.getOsP() + ">");
+                System.out.println("    name      [" + re.getName() + "]");
+                System.out.println("    internalId  [" + re.getId() + "]");
+                System.out.println("    description [" + re.getDescription() + "]");
+                System.out.println("    osU [" + re.getOsU() + "]");
+                System.out.println("    osP [" + re.getOsP() + "]");
                 ReviewMgrConsole.printTemporal(re, "ADMINROLE");
             }
             else
             {
-                System.out.println("	name <" + role.getName() + "> was not found");
+                System.out.println("	name [" + role.getName() + "] was not found");
             }
             System.out.println("ENTER to continue");
         }
@@ -87,18 +87,18 @@ public class DelegatedReviewMgrConsole
                 for (int i = 0; i < list.size(); i++)
                 {
                     AdminRole re = list.get(i);
-                    System.out.println("ADMIN ROLE OBJECT <" + i + ">:");
-                    System.out.println("    name      <" + re.getName() + ">");
-                    System.out.println("    internalId  <" + re.getId() + ">");
-                    System.out.println("    description <" + re.getDescription() + ">");
-                    System.out.println("    osU <" + re.getOsU() + ">");
-                    System.out.println("    osP <" + re.getOsP() + ">");                                    
+                    System.out.println("ADMIN ROLE OBJECT [" + i + "]:");
+                    System.out.println("    name      [" + re.getName() + "]");
+                    System.out.println("    internalId  [" + re.getId() + "]");
+                    System.out.println("    description [" + re.getDescription() + "]");
+                    System.out.println("    osU [" + re.getOsU() + "]");
+                    System.out.println("    osP [" + re.getOsP() + "]");
                     ReviewMgrConsole.printTemporal(re, "ADMINROLE");
                 }
             }
             else
             {
-                System.out.println("name <" + val + "> was not found");
+                System.out.println("name [" + val + "] was not found");
             }
             System.out.println("ENTER to continue");
         }
@@ -124,12 +124,12 @@ public class DelegatedReviewMgrConsole
             for (User ue : list)
             {
                 System.out.println("USER[" + ++i + "]");
-                System.out.println("    userId      <" + ue.getUserId() + ">");
-                System.out.println("    internalId  <" + ue.getInternalId() + ">");
-                System.out.println("    description <" + ue.getDescription() + ">");
-                System.out.println("    common name <" + ue.getCn() + ">");
-                System.out.println("    surname     <" + ue.getSn() + ">");
-                System.out.println("    orgUnitId   <" + ue.getOu() + ">");
+                System.out.println("    userId      [" + ue.getUserId() + "]");
+                System.out.println("    internalId  [" + ue.getInternalId() + "]");
+                System.out.println("    description [" + ue.getDescription() + "]");
+                System.out.println("    common name [" + ue.getCn() + "]");
+                System.out.println("    surname     [" + ue.getSn() + "]");
+                System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 ReviewMgrConsole.printTemporal(ue, "USER");
                 System.out.println();
             }
@@ -160,9 +160,9 @@ public class DelegatedReviewMgrConsole
             for(UserAdminRole re : roles)
             {
                 System.out.println("USER OBJECT:");
-                System.out.println("    admin role  <" + re.getName() + ">");
-                System.out.println("    OsU         <" + re.getOsU() + ">");
-                System.out.println("    OsP         <" + re.getOsP() + ">");
+                System.out.println("    admin role  [" + re.getName() + "]");
+                System.out.println("    OsU         [" + re.getOsU() + "]");
+                System.out.println("    OsP         [" + re.getOsP() + "]");
                 ReviewMgrConsole.printTemporal(re, "ADMINROLE");
             }
             System.out.println("ENTER to continue");

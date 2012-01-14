@@ -146,7 +146,7 @@ public class CreateUserRoleSample extends TestCase
             // Iterate over list of Roles assigned to User.
             for(UserRole userRole : assignedRoles)
             {
-                log.info(szLocation + " userId <" + userRole.getUserId() + " roleNm <" + userRole.getName() + ">");
+                log.info(szLocation + " userId [" + userRole.getUserId() + " roleNm [" + userRole.getName() + "]");
             }
         }
         catch (SecurityException ex)

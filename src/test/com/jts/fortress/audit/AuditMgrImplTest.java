@@ -79,7 +79,7 @@ public class AuditMgrImplTest extends TestCase
     {
         disabled = new HashMap();
         disabled.put("AdminMgrImpl.changePassword", null);
-        log.info(OCLS_NM + ".loadAuditMap isFirstRun <" + FortressJUnitTest.isFirstRun() + ">");
+        log.info(OCLS_NM + ".loadAuditMap isFirstRun [" + FortressJUnitTest.isFirstRun() + "]");
         if(FortressJUnitTest.isFirstRun())
         {
             disabled.put("AdminMgrImpl.deleteRole", null);
@@ -139,9 +139,9 @@ public class AuditMgrImplTest extends TestCase
                         List<Mod> mods = auditMgr.searchAdminMods(uAudit);
                         assertNotNull(mods);
 
-                        assertTrue(OCLS_NM + "searchAdminMods failed search for successful authentication user <" + user.getUserId() + "> object <" + objectName + "> operation <" + PermTestData.getName(op) + ">", mods.size() > 0 || !isAudit(objectName, PermTestData.getName(op)));
+                        assertTrue(OCLS_NM + "searchAdminMods failed search for successful authentication user [" + user.getUserId() + "] object [" + objectName + "] operation [" + PermTestData.getName(op) + "]", mods.size() > 0 || !isAudit(objectName, PermTestData.getName(op)));
                         boolean result = mods.size() > 0 || !isAudit(objectName, PermTestData.getName(op));
-                        //System.out.println(OCLS_NM + "searchAdminMods search user <" + user.getUserId() + "> object <" + objectName + "> operation <" + PermTestData.getName(op) + "> result: " + result);
+                        //System.out.println(OCLS_NM + "searchAdminMods search user [" + user.getUserId() + "] object [" + objectName + "] operation [" + PermTestData.getName(op) + "] result: " + result);
                     }
                 }
             }
@@ -186,7 +186,7 @@ public class AuditMgrImplTest extends TestCase
                 uAudit.setFailedOnly(false);
                 List<Mod> mods = auditMgr.searchUserSessions(uAudit);
                 assertNotNull(mods);
-                assertTrue(OCLS_NM + "searchUserSessions failed search for successful authentication user <" + user.getUserId() + ">", mods.size() > 0);
+                assertTrue(OCLS_NM + "searchUserSessions failed search for successful authentication user [" + user.getUserId() + "]", mods.size() > 0);
             }
             log.debug(OCLS_NM + ".searchUserSessions successful");
         }
@@ -238,7 +238,7 @@ public class AuditMgrImplTest extends TestCase
                         uAudit.setFailedOnly(failedOnly);
                         List<AuthZ> authZs = auditMgr.searchAuthZs(uAudit);
                         assertNotNull(authZs);
-                        assertTrue(OCLS_NM + "searchAuthZs failed search for successful authorization user <" + user.getUserId() + ">", authZs.size() > 0);
+                        assertTrue(OCLS_NM + "searchAuthZs failed search for successful authorization user [" + user.getUserId() + "]", authZs.size() > 0);
                     }
                 }
             }
@@ -283,13 +283,13 @@ public class AuditMgrImplTest extends TestCase
                 uAudit.setFailedOnly(false);
                 List<AuthZ> authZs = auditMgr.getUserAuthZs(uAudit);
                 assertNotNull(authZs);
-                assertTrue(OCLS_NM + "getUserAuthZs failed search for successful authorization user <" + user.getUserId() + ">", authZs.size() > 0);
+                assertTrue(OCLS_NM + "getUserAuthZs failed search for successful authorization user [" + user.getUserId() + "]", authZs.size() > 0);
 
                 // now search for failed authentications:
                 uAudit.setFailedOnly(true);
                 authZs = auditMgr.getUserAuthZs(uAudit);
                 assertNotNull(authZs);
-                assertTrue(OCLS_NM + "getUserAuthZs failed search for failed authorization user <" + user.getUserId() + ">", authZs.size() > 0);
+                assertTrue(OCLS_NM + "getUserAuthZs failed search for failed authorization user [" + user.getUserId() + "]", authZs.size() > 0);
             }
             log.debug(OCLS_NM + ".getUserAuthZs successful");
         }
@@ -364,13 +364,13 @@ public class AuditMgrImplTest extends TestCase
                 uAudit.setFailedOnly(false);
                 List<Bind> binds = auditMgr.searchBinds(uAudit);
                 assertNotNull(binds);
-                assertTrue(OCLS_NM + "searchBinds failed search for successful authentication user <" + user.getUserId() + ">", binds.size() > 0);
+                assertTrue(OCLS_NM + "searchBinds failed search for successful authentication user [" + user.getUserId() + "]", binds.size() > 0);
 
                 // now search for failed authentications:
                 uAudit.setFailedOnly(true);
                 binds = auditMgr.searchBinds(uAudit);
                 assertNotNull(binds);
-                assertTrue(OCLS_NM + "searchBinds failed search for failed authentication user <" + user.getUserId() + ">", binds.size() > 0);
+                assertTrue(OCLS_NM + "searchBinds failed search for failed authentication user [" + user.getUserId() + "]", binds.size() > 0);
             }
             log.debug(OCLS_NM + ".searchBinds successful");
         }

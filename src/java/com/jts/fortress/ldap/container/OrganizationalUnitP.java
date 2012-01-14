@@ -96,7 +96,7 @@ public class OrganizationalUnitP
         if (entity.getName().length() > GlobalIds.OU_LEN)
         {
             String name = entity.getName();
-            String error = OCLS_NM + ".validate name <" + name + "> invalid length <" + entity.getName().length() + ">";
+            String error = OCLS_NM + ".validate name [" + name + "] invalid length [" + entity.getName().length() + "]";
             log.warn(error);
             throw new ValidationException(GlobalErrIds.CNTR_NAME_INVLD, error);
         }
@@ -109,7 +109,7 @@ public class OrganizationalUnitP
         if (entity.getParent().length() > GlobalIds.OU_LEN)
         {
             String name = entity.getName();
-            String error = OCLS_NM + ".validate parent <" + name + "> invalid length <" + entity.getName().length() + ">";
+            String error = OCLS_NM + ".validate parent [" + name + "] invalid length [" + entity.getName().length() + "]";
             log.warn(error);
             throw new ValidationException(GlobalErrIds.CNTR_PARENT_INVLD, error);
         }

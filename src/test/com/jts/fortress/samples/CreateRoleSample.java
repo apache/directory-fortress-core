@@ -151,14 +151,14 @@ public class CreateRoleSample extends TestCase
                 {
                     // this should fail because the Role was deleted above:
                     Role outRole = reviewMgr.readRole(inRole);
-                    fail(szLocation + " role <" + inRole.getName() + "> delete failed");
+                    fail(szLocation + " role [" + inRole.getName() + "] delete failed");
                 }
                 catch (FinderException se)
                 {
                     assertTrue(szLocation + " excep id check", se.getErrorId() == GlobalErrIds.ROLE_NOT_FOUND);
                     // pass
                 }
-                log.info(szLocation + " role <" + inRole.getName() + "> success");
+                log.info(szLocation + " role [" + inRole.getName() + "] success");
             }
         }
         catch (SecurityException ex)
@@ -192,7 +192,7 @@ public class CreateRoleSample extends TestCase
             // now read the newly created Role entity back:
             Role outRole = reviewMgr.readRole(inRole);
             assertTrue(szLocation + " failed read", inRole.equals(outRole));
-            log.info(szLocation + " <" + outRole.getName() + "> success");
+            log.info(szLocation + " [" + outRole.getName() + "] success");
         }
         catch (SecurityException ex)
         {
@@ -223,7 +223,7 @@ public class CreateRoleSample extends TestCase
                 // now read the newly created Role entity back:
                 Role outRole = reviewMgr.readRole(inRole);
                 assertTrue(szLocation + " failed read", inRole.equals(outRole));
-                log.info(szLocation + " <" + outRole.getName() + "> success");
+                log.info(szLocation + " [" + outRole.getName() + "] success");
             }
         }
         catch (SecurityException ex)
@@ -276,7 +276,7 @@ public class CreateRoleSample extends TestCase
                 // now read the newly created Role entity back:
                 Role outRole = reviewMgr.readRole(inRole);
                 assertTrue(szLocation + " failed read", inRole.equals(outRole));
-                log.info(szLocation + " role <" + outRole.getName() + "> success");
+                log.info(szLocation + " role [" + outRole.getName() + "] success");
             }
 
         }

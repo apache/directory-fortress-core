@@ -779,7 +779,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addUsers userId <" + user.getUserId() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addUsers userId [" + user.getUserId() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -805,7 +805,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deleteUsers userId <" + user.getUserId() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deleteUsers userId [" + user.getUserId() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -849,7 +849,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    String warning = OCLS_NM + ".addUserRoles userId <" + userRole.getUserId() + "> role name <" + userRole.getName() + "> caught SecurityException=" + se;
+                    String warning = OCLS_NM + ".addUserRoles userId [" + userRole.getUserId() + "] role name [" + userRole.getName() + "] caught SecurityException=" + se;
                     log.warn(warning);
                 }
             }
@@ -877,7 +877,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (com.jts.fortress.SecurityException se)
                 {
-                    String warning = OCLS_NM + ".delUserRoles userId <" + userRole.getUserId() + "> role name <" + userRole.getName() + "> caught SecurityException=" + se;
+                    String warning = OCLS_NM + ".delUserRoles userId [" + userRole.getUserId() + "] role name [" + userRole.getName() + "] caught SecurityException=" + se;
                     log.warn(warning);
                 }
             }
@@ -905,7 +905,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addRoles name <" + role.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addRoles name [" + role.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -931,7 +931,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (com.jts.fortress.SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deleteRoles name <" + role.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deleteRoles name [" + role.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -957,7 +957,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addRoleInheritances parent <" + relationship.getParent() + "> child <" + relationship.getChild() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addRoleInheritances parent [" + relationship.getParent() + "] child [" + relationship.getChild() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -984,7 +984,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deleteRoleInheritances parent <" + relationship.getParent() + "> child <" + relationship.getChild() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deleteRoleInheritances parent [" + relationship.getParent() + "] child [" + relationship.getChild() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1011,7 +1011,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addSdsets name <" + sd.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addSdsets name [" + sd.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1045,7 +1045,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deleteSdsets name <" + sd.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deleteSdsets name [" + sd.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1089,7 +1089,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (com.jts.fortress.SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addPermObjs objectName <" + permObj.getObjectName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addPermObjs objectName [" + permObj.getObjectName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1116,7 +1116,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (com.jts.fortress.SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deletePermObjs name <" + permObj.getObjectName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deletePermObjs name [" + permObj.getObjectName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1159,7 +1159,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addPermOps name <" + permission.getOpName() + "> objectName <" + permission.getObjectName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addPermOps name [" + permission.getOpName() + "] objectName [" + permission.getObjectName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1185,7 +1185,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (com.jts.fortress.SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deletePermOps name <" + permission.getOpName() + "> objectName<" + permission.getObjectName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deletePermOps name [" + permission.getOpName() + "] objectName[" + permission.getObjectName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1304,7 +1304,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addPolicies name <" + policy.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addPolicies name [" + policy.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1330,7 +1330,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deletePolicies name <" + policy.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deletePolicies name [" + policy.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1357,7 +1357,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addContainers name <" + ou.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addContainers name [" + ou.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1384,7 +1384,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deleteContainers name <" + ou.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deleteContainers name [" + ou.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1412,7 +1412,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (com.jts.fortress.SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addSuffixes name <" + suffix.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addSuffixes name [" + suffix.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1439,7 +1439,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deleteSuffixes name <" + suffix.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deleteSuffixes name [" + suffix.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1467,7 +1467,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (com.jts.fortress.SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addOrgunits name <" + ou.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addOrgunits name [" + ou.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1494,7 +1494,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (com.jts.fortress.SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deleteOrgunits name <" + ou.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deleteOrgunits name [" + ou.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1521,7 +1521,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addUserOrgunitInheritances parent <" + relationship.getParent() + "> child <" + relationship.getChild() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addUserOrgunitInheritances parent [" + relationship.getParent() + "] child [" + relationship.getChild() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1548,7 +1548,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deleteUserOrgunitInheritances parent <" + relationship.getParent() + "> child <" + relationship.getChild() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deleteUserOrgunitInheritances parent [" + relationship.getParent() + "] child [" + relationship.getChild() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1575,7 +1575,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addPermOrgunitInheritances parent <" + relationship.getParent() + "> child <" + relationship.getChild() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addPermOrgunitInheritances parent [" + relationship.getParent() + "] child [" + relationship.getChild() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1602,7 +1602,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deletePermOrgunitInheritances parent <" + relationship.getParent() + "> child <" + relationship.getChild() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deletePermOrgunitInheritances parent [" + relationship.getParent() + "] child [" + relationship.getChild() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1629,7 +1629,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addAdminRoles name <" + role.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addAdminRoles name [" + role.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1655,7 +1655,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (com.jts.fortress.SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deleteAdminRoles name <" + role.getName() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deleteAdminRoles name [" + role.getName() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1681,7 +1681,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".addAdminRoleInheritances parent <" + relationship.getParent() + "> child <" + relationship.getChild() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".addAdminRoleInheritances parent [" + relationship.getParent() + "] child [" + relationship.getChild() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1708,7 +1708,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    log.warn(OCLS_NM + ".deleteAdminRoleInheritances parent <" + relationship.getParent() + "> child <" + relationship.getChild() + "> caught SecurityException=" + se);
+                    log.warn(OCLS_NM + ".deleteAdminRoleInheritances parent [" + relationship.getParent() + "] child [" + relationship.getChild() + "] caught SecurityException=" + se);
                 }
             }
         }
@@ -1736,7 +1736,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    String warning = OCLS_NM + ".addUserAdminRoles userId <" + userRole.getUserId() + "> role name <" + userRole.getName() + "> caught SecurityException=" + se;
+                    String warning = OCLS_NM + ".addUserAdminRoles userId [" + userRole.getUserId() + "] role name [" + userRole.getName() + "] caught SecurityException=" + se;
                     log.warn(warning);
                 }
             }
@@ -1764,7 +1764,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch (SecurityException se)
                 {
-                    String warning = OCLS_NM + ".delUserAdminRoles userId <" + userRole.getUserId() + "> role name <" + userRole.getName() + "> caught SecurityException=" + se;
+                    String warning = OCLS_NM + ".delUserAdminRoles userId [" + userRole.getUserId() + "] role name [" + userRole.getName() + "] caught SecurityException=" + se;
                     log.warn(warning);
                 }
             }
@@ -1798,12 +1798,12 @@ public class FortressAntTask extends Task implements InputHandler
                     }
                 }
                 configNodeName = props.getProperty(GlobalIds.CONFIG_REALM);
-                log.info(OCLS_NM + ".addConfig realm name <" + configNodeName + ">");
+                log.info(OCLS_NM + ".addConfig realm name [" + configNodeName + "]");
                 cfgMgr.add(configNodeName, props);
             }
             catch (SecurityException se)
             {
-                String msgHdr = OCLS_NM + ".addConfig realm name <" + configNodeName + ">";
+                String msgHdr = OCLS_NM + ".addConfig realm name [" + configNodeName + "]";
                 if (se.getErrorId() == GlobalErrIds.FT_CONFIG_ALREADY_EXISTS)
                 {
                     try
@@ -1811,7 +1811,7 @@ public class FortressAntTask extends Task implements InputHandler
                         String warning = msgHdr + " entry already exists, attempt to update";
                         log.info(warning);
                         cfgMgr.update(configNodeName, props);
-                        log.info(msgHdr + " update <" + configNodeName + "> successful");
+                        log.info(msgHdr + " update [" + configNodeName + "] successful");
                     }
                     catch (com.jts.fortress.SecurityException se2)
                     {
@@ -1855,13 +1855,13 @@ public class FortressAntTask extends Task implements InputHandler
                     }
                 }
                 configNodeName = props.getProperty(GlobalIds.CONFIG_REALM);
-                log.info(OCLS_NM + ".delConfig realm name <" + configNodeName + ">");
+                log.info(OCLS_NM + ".delConfig realm name [" + configNodeName + "]");
                 props.remove(GlobalIds.CONFIG_REALM);
                 cfgMgr.delete(configNodeName, props);
             }
             catch (com.jts.fortress.SecurityException se)
             {
-                String warning = OCLS_NM + ".deleteConfig <" + configNodeName + "> caught SecurityException=" + se;
+                String warning = OCLS_NM + ".deleteConfig [" + configNodeName + "] caught SecurityException=" + se;
                 log.warn(warning);
             }
         }

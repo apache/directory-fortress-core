@@ -159,7 +159,7 @@ public final class SdDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".create SD set name <" + entity.getName() + "> type <" + entity.getType() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".create SD set name [" + entity.getName() + "] type [" + entity.getType() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             int errCode;
             if (entity.getType() == SDSet.SDType.DYNAMIC)
             {
@@ -212,7 +212,7 @@ public final class SdDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".update name <" + entity.getName() + "> type <" + entity.getType() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".update name [" + entity.getName() + "] type [" + entity.getType() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             int errCode;
             if (entity.getType() == SDSet.SDType.DYNAMIC)
             {
@@ -249,7 +249,7 @@ public final class SdDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".remove SD name=" + entity.getName() + " type <" + entity.getType() + "> LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".remove SD name=" + entity.getName() + " type [" + entity.getType() + "] LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             int errCode;
             if (entity.getType() == SDSet.SDType.DYNAMIC)
             {
@@ -288,7 +288,7 @@ public final class SdDAO
             entity = unloadLdapEntry(findEntry, 0);
             if (entity == null)
             {
-                String warning = OCLS_NM + ".getSD no entry found dn <" + dn + ">";
+                String warning = OCLS_NM + ".getSD no entry found dn [" + dn + "]";
                 throw new FinderException(GlobalErrIds.SSD_NOT_FOUND, warning);
             }
         }
@@ -296,10 +296,10 @@ public final class SdDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".getSD Obj COULD NOT FIND ENTRY for dn <" + dn + ">";
+                String warning = OCLS_NM + ".getSD Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
                 throw new FinderException(GlobalErrIds.SSD_NOT_FOUND, warning);
             }
-            String error = OCLS_NM + ".getSSD dn <" + dn + "> LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
+            String error = OCLS_NM + ".getSSD dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
             int errCode;
             if (entity.getType() == SDSet.SDType.DYNAMIC)
             {
@@ -371,7 +371,7 @@ public final class SdDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".search role <" + role.getName() + "> type <" + type + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".search role [" + role.getName() + "] type [" + type + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             int errCode;
             if (type == SDSet.SDType.DYNAMIC)
             {
@@ -431,7 +431,7 @@ public final class SdDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".search type <" + type + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".search type [" + type + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             int errCode;
             if (type == SDSet.SDType.DYNAMIC)
             {

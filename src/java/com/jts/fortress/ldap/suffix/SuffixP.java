@@ -98,7 +98,7 @@ public class SuffixP
         if (entity.getName().length() > GlobalIds.OU_LEN)
         {
             String name = entity.getName();
-            String error = OCLS_NM + ".validate name <" + name + "> invalid length <" + entity.getName().length() + ">";
+            String error = OCLS_NM + ".validate name [" + name + "] invalid length [" + entity.getName().length() + "]";
             log.warn(error);
             throw new com.jts.fortress.ValidationException(GlobalErrIds.SUFX_NAME_INVLD, error);
         }
@@ -111,7 +111,7 @@ public class SuffixP
         if (entity.getDc().length() > GlobalIds.OU_LEN)
         {
             String name = entity.getName();
-            String error = OCLS_NM + ".validate dc <" + name + "> invalid length <" + entity.getName().length() + ">";
+            String error = OCLS_NM + ".validate dc [" + name + "] invalid length [" + entity.getName().length() + "]";
             log.warn(error);
             throw new com.jts.fortress.ValidationException(GlobalErrIds.SUFX_DCTOP_INVLD, error);
         }

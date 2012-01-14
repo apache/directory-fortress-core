@@ -980,6 +980,6 @@ class AdminRoleTestData extends TestCase
     public static void assertEquals(AdminRole role, String[] rle)
     {
         RoleTestData.assertEquals(role, rle);
-        log.debug(OCLS_NM + ".assertEquals <" + role.getName() + "> successful");
+        log.debug(OCLS_NM + ".assertEquals [" + role.getName() + "] successful");
     }
 }

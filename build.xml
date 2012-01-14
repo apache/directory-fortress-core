@@ -206,14 +206,13 @@
              <include name="com/jts/fortress/util/time/Constraint.java"/>
              <include name="com/jts/fortress/arbac/OrgUnit.java"/>
              <include name="com/jts/fortress/arbac/UserAdminRole.java"/>
-             <include name="com/jts/fortress/T1Model.java"/>
         </schemagen>
     </target>
 
     <target name="compile-schema" depends="generate-schema">
         <echo message="Compiling the schema..."/>
         <mkdir dir="${generated.classes.dir}"/>
-        <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="com.jts.fortress.model2" removeOldOutput="yes"/>
+        <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="com.jts.fortress.model" removeOldOutput="yes"/>
     </target>
 
     <!-- =================================

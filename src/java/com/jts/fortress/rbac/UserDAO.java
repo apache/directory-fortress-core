@@ -177,7 +177,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".create userId <" + entity.getUserId() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".create userId [" + entity.getUserId() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException(GlobalErrIds.USER_ADD_FAILED, error, e);
         }
         finally
@@ -266,7 +266,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".update userId <" + entity.getUserId() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".update userId [" + entity.getUserId() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.USER_UPDATE_FAILED, error, e);
         }
         finally
@@ -305,7 +305,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".updateProps userId <" + entity.getUserId() + "> isReplace <" + replace + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".updateProps userId [" + entity.getUserId() + "] isReplace [" + replace + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.USER_UPDATE_FAILED, error, e);
         }
         finally
@@ -332,7 +332,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".remove userId <" + user.getUserId() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".remove userId [" + user.getUserId() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException(GlobalErrIds.USER_DELETE_FAILED, error, e);
         }
         finally
@@ -363,7 +363,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".lock user <" + user.getUserId() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".lock user [" + user.getUserId() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.USER_PW_LOCK_FAILED, error, e);
         }
         finally
@@ -395,11 +395,11 @@ public final class UserDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_ATTRIBUTE)
             {
-                log.info(OCLS_NM + ".unlock user <" + user.getUserId() + "> no such attribute:" + OPENLDAP_ACCOUNT_LOCKED_TIME);
+                log.info(OCLS_NM + ".unlock user [" + user.getUserId() + "] no such attribute:" + OPENLDAP_ACCOUNT_LOCKED_TIME);
             }
             else
             {
-                String error = OCLS_NM + ".unlock user <" + user.getUserId() + "> caught LDAPException= " + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String error = OCLS_NM + ".unlock user [" + user.getUserId() + "] caught LDAPException= " + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException(GlobalErrIds.USER_PW_UNLOCK_FAILED, error, e);
             }
         }
@@ -443,7 +443,7 @@ public final class UserDAO
             entity = unloadLdapEntry(findEntry, 0);
             if (entity == null)
             {
-                String warning = OCLS_NM + ".getUser userId <" + userId + "> not found, Fortress errCode=" + GlobalErrIds.USER_NOT_FOUND;
+                String warning = OCLS_NM + ".getUser userId [" + userId + "] not found, Fortress errCode=" + GlobalErrIds.USER_NOT_FOUND;
                 throw new FinderException(GlobalErrIds.USER_NOT_FOUND, warning);
             }
         }
@@ -451,11 +451,11 @@ public final class UserDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".getUser COULD NOT FIND ENTRY for user <" + userId + ">";
+                String warning = OCLS_NM + ".getUser COULD NOT FIND ENTRY for user [" + userId + "]";
                 throw new FinderException(GlobalErrIds.USER_NOT_FOUND, warning);
             }
 
-            String error = OCLS_NM + ".getUser <" + userDn + ">= caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".getUser [" + userDn + "]= caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.USER_READ_FAILED, error, e);
         }
         finally
@@ -487,11 +487,11 @@ public final class UserDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".getUserAdminRoles COULD NOT FIND ENTRY for user <" + userId + ">";
+                String warning = OCLS_NM + ".getUserAdminRoles COULD NOT FIND ENTRY for user [" + userId + "]";
                 throw new FinderException(GlobalErrIds.USER_NOT_FOUND, warning);
             }
 
-            String error = OCLS_NM + ".getUserAdminRoles <" + userDn + ">= caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".getUserAdminRoles [" + userDn + "]= caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.USER_READ_FAILED, error, e);
         }
         finally
@@ -520,7 +520,7 @@ public final class UserDAO
             LDAPEntry findEntry = DaoUtil.read(ld, userDn, ROLES);
             if (findEntry == null)
             {
-                String warning = OCLS_NM + ".getRoles userId <" + userId + "> not found, Fortress errCode=" + GlobalErrIds.USER_NOT_FOUND;
+                String warning = OCLS_NM + ".getRoles userId [" + userId + "] not found, Fortress errCode=" + GlobalErrIds.USER_NOT_FOUND;
                 throw new FinderException(GlobalErrIds.USER_NOT_FOUND, warning);
             }
             roles = DaoUtil.getAttributes(findEntry, GlobalIds.USER_ROLE_ASSIGN);
@@ -529,10 +529,10 @@ public final class UserDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".getRoles COULD NOT FIND ENTRY for user <" + userId + ">";
+                String warning = OCLS_NM + ".getRoles COULD NOT FIND ENTRY for user [" + userId + "]";
                 throw new FinderException(GlobalErrIds.USER_NOT_FOUND, warning);
             }
-            String error = OCLS_NM + ".getRoles <" + userDn + ">= caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".getRoles [" + userDn + "]= caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.URLE_SEARCH_FAILED, error, e);
         }
         finally
@@ -581,7 +581,7 @@ public final class UserDAO
                 // if check pw control did not find problem the user entered invalid pw:
                 if (session.getErrorId() == 0)
                 {
-                    String info = "checkPassword INVALID PASSWORD for userId <" + userId + ">";
+                    String info = "checkPassword INVALID PASSWORD for userId [" + userId + "]";
                     session.setMsg(info);
                     session.setErrorId(GlobalErrIds.USER_PW_INVLD);
                     session.setAuthenticated(false);
@@ -589,7 +589,7 @@ public final class UserDAO
             }
             else
             {
-                String error = OCLS_NM + ".checkPassword userId <" + userId + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String error = OCLS_NM + ".checkPassword userId [" + userId + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new FinderException(GlobalErrIds.USER_READ_FAILED, error, e);
             }
         }
@@ -743,7 +743,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String warning = OCLS_NM + ".getAuthorizedUsers role name <" + role.getName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String warning = OCLS_NM + ".getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.URLE_SEARCH_FAILED, warning, e);
         }
         finally
@@ -782,7 +782,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String warning = OCLS_NM + ".getAssignedUsers role name <" + role.getName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String warning = OCLS_NM + ".getAssignedUsers role name [" + role.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.URLE_SEARCH_FAILED, warning, e);
         }
         finally
@@ -871,7 +871,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String warning = OCLS_NM + ".getAssignedUsers admin role name <" + role.getName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String warning = OCLS_NM + ".getAssignedUsers admin role name [" + role.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.ARLE_USER_SEARCH_FAILED, warning, e);
         }
         finally
@@ -912,7 +912,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String warning = OCLS_NM + ".getAuthorizedUsers role name <" + role.getName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String warning = OCLS_NM + ".getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.URLE_SEARCH_FAILED, warning, e);
         }
         finally
@@ -1039,7 +1039,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String warning = User.class.getName() + ".changePassword user <" + entity.getUserId() + "> ";
+            String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
             if (e.getLDAPResultCode() == LDAPException.CONSTRAINT_VIOLATION)
             {
                 warning += " constraint violation, ldap errCode=" + e.getLDAPResultCode() + " ldap msg=" + e.getMessage() + " Fortress errCode=" + GlobalErrIds.PSWD_CONST_VIOLATION;
@@ -1083,7 +1083,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String warning = OCLS_NM + ".resetUserPassword userId <" + user.getUserId() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String warning = OCLS_NM + ".resetUserPassword userId [" + user.getUserId() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.USER_PW_RESET_FAILED, warning, e);
         }
         finally
@@ -1121,12 +1121,12 @@ public final class UserDAO
         {
             if (e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS)
             {
-                String warning = OCLS_NM + ".assign userId <" + uRole.getUserId() + "> name <" + uRole.getName() + "> assignment already exists.";
+                String warning = OCLS_NM + ".assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] assignment already exists.";
                 throw new FinderException(GlobalErrIds.URLE_ASSIGN_EXIST, warning);
             }
             else
             {
-                String warning = OCLS_NM + ".assign userId <" + uRole.getUserId() + "> name <" + uRole.getName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String warning = OCLS_NM + ".assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException(GlobalErrIds.URLE_ASSIGN_FAILED, warning, e);
             }
         }
@@ -1180,13 +1180,13 @@ public final class UserDAO
             if (indx == -1)
             {
                 // The user does not have the target name assigned,
-                String warning = OCLS_NM + ".deassign userId <" + uRole.getUserId() + "> name <" + uRole.getName() + "> assignment does not exist.";
+                String warning = OCLS_NM + ".deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] assignment does not exist.";
                 throw new FinderException(GlobalErrIds.URLE_ASSIGN_NOT_EXIST, warning);
             }
         }
         catch (LDAPException e)
         {
-            String warning = OCLS_NM + ".deassign userId <" + uRole.getUserId() + "> name <" + uRole.getName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String warning = OCLS_NM + ".deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.URLE_DEASSIGN_FAILED, warning, e);
         }
         finally
@@ -1225,12 +1225,12 @@ public final class UserDAO
         {
             if (e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS)
             {
-                String warning = OCLS_NM + ".assign userId <" + uRole.getUserId() + "> name <" + uRole.getName() + "> assignment already exists.";
+                String warning = OCLS_NM + ".assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] assignment already exists.";
                 throw new FinderException(GlobalErrIds.ARLE_ASSIGN_EXIST, warning);
             }
             else
             {
-                String warning = OCLS_NM + ".assign userId <" + uRole.getUserId() + "> name <" + uRole.getName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String warning = OCLS_NM + ".assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException(GlobalErrIds.ARLE_ASSIGN_FAILED, warning, e);
             }
         }
@@ -1286,13 +1286,13 @@ public final class UserDAO
             if (indx == -1)
             {
                 // The user does not have the target name assigned,
-                String warning = OCLS_NM + ".deassign userId <" + uRole.getUserId() + "> name <" + uRole.getName() + "> assignment does not exist.";
+                String warning = OCLS_NM + ".deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] assignment does not exist.";
                 throw new FinderException(GlobalErrIds.ARLE_DEASSIGN_NOT_EXIST, warning);
             }
         }
         catch (LDAPException e)
         {
-            String warning = OCLS_NM + ".deassign userId <" + uRole.getUserId() + "> name <" + uRole.getName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String warning = OCLS_NM + ".deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.ARLE_DEASSIGN_FAILED, warning, e);
         }
         finally
@@ -1324,7 +1324,7 @@ public final class UserDAO
         }
         catch (LDAPException e)
         {
-            String warning = OCLS_NM + ".deletePwPolicy userId <" + user.getUserId() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String warning = OCLS_NM + ".deletePwPolicy userId [" + user.getUserId() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.USER_PW_PLCY_DEL_FAILED, warning, e);
         }
         finally
@@ -1394,11 +1394,11 @@ public final class UserDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".getUserRoles COULD NOT FIND ENTRY for user <" + userId + ">";
+                String warning = OCLS_NM + ".getUserRoles COULD NOT FIND ENTRY for user [" + userId + "]";
                 throw new FinderException(GlobalErrIds.USER_NOT_FOUND, warning);
             }
 
-            String error = OCLS_NM + ".getUserRoles <" + userDn + ">= caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".getUserRoles [" + userDn + "]= caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.USER_READ_FAILED, error, e);
         }
         finally
@@ -1425,7 +1425,7 @@ public final class UserDAO
     {
         int rc = 0;
         boolean success = false;
-        String msgHdr = "checkPwPolicies for userId <" + pwMsg.getUserId() + "> ";
+        String msgHdr = "checkPwPolicies for userId [" + pwMsg.getUserId() + "] ";
         if (ld != null)
         {
             if (!GlobalIds.OPENLDAP_IS_PW_POLICY_ENABLED)

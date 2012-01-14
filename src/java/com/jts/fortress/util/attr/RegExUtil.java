@@ -43,7 +43,7 @@ public class RegExUtil
 			Matcher safeTextMatcher = safeTextPattern.matcher(value);
 			if (!safeTextMatcher.find())
 			{
-				String error = OCLS_NM + ".safeText has detected invalid value <" + value + ">";
+				String error = OCLS_NM + ".safeText has detected invalid value [" + value + "]";
 				throw new com.jts.fortress.ValidationException(GlobalErrIds.CONST_INVLD_TEXT, error);
 			}
 		}

@@ -80,9 +80,9 @@ public class AdminMgrConsole
             re.setDescription(ReaderUtil.readLn());
 
             Role re2 = am.addRole(re);
-            System.out.println("name <" + re2.getName() + ">");
-            System.out.println("internalId <" + re2.getId() + ">");
-            System.out.println("name description <" + re2.getDescription() + ">");
+            System.out.println("name [" + re2.getName() + "]");
+            System.out.println("internalId [" + re2.getId() + "]");
+            System.out.println("name description [" + re2.getDescription() + "]");
             System.out.println("has been added");
             System.out.println("ENTER to continue");
         }
@@ -107,9 +107,9 @@ public class AdminMgrConsole
             re.setDescription(ReaderUtil.readLn());
 
             Role re2 = am.updateRole(re);
-            System.out.println("name <" + re2.getName() + ">");
-            System.out.println("internalId <" + re2.getId() + ">");
-            System.out.println("name description <" + re2.getDescription() + ">");
+            System.out.println("name [" + re2.getName() + "]");
+            System.out.println("internalId [" + re2.getId() + "]");
+            System.out.println("name description [" + re2.getDescription() + "]");
             System.out.println("has been updated");
             System.out.println("ENTER to continue");
         }
@@ -131,7 +131,7 @@ public class AdminMgrConsole
             System.out.println("Enter role name:");
             re.setName(ReaderUtil.readLn());
             am.deleteRole(re);
-            System.out.println("name <" + re.getName() + ">");
+            System.out.println("name [" + re.getName() + "]");
             System.out.println("has been deleted");
             System.out.println("ENTER to continue");
         }
@@ -159,8 +159,8 @@ public class AdminMgrConsole
             pre.setName(ReaderUtil.readLn());
 
             am.addInheritance(pre, cre);
-            System.out.println("child role <" + cre.getName() + ">");
-            System.out.println("parent role <" + pre.getName() + ">");
+            System.out.println("child role [" + cre.getName() + "]");
+            System.out.println("parent role [" + pre.getName() + "]");
             System.out.println("inheritance relationship has been added");
             System.out.println("ENTER to continue");
         }
@@ -187,8 +187,8 @@ public class AdminMgrConsole
             System.out.println("Enter parent role name:");
             pre.setName(ReaderUtil.readLn());
             am.deleteInheritance(pre, cre);
-            System.out.println("child role <" + cre.getName() + ">");
-            System.out.println("parent role <" + pre.getName() + ">");
+            System.out.println("child role [" + cre.getName() + "]");
+            System.out.println("parent role [" + pre.getName() + "]");
             System.out.println("inheritance relationship has been removed");
             System.out.println("ENTER to continue");
         }
@@ -218,8 +218,8 @@ public class AdminMgrConsole
             pre.setDescription(ReaderUtil.readLn());
 
             am.addAscendant(cre, pre);
-            System.out.println("child role <" + cre.getName() + ">");
-            System.out.println("parent role <" + pre.getName() + ">");
+            System.out.println("child role [" + cre.getName() + "]");
+            System.out.println("parent role [" + pre.getName() + "]");
             System.out.println("parent role and inheritance relationship has been added");
             System.out.println("ENTER to continue");
         }
@@ -248,8 +248,8 @@ public class AdminMgrConsole
             System.out.println("Enter parent role name:");
             pre.setName(ReaderUtil.readLn());
             am.addDescendant(pre, cre);
-            System.out.println("child role <" + cre.getName() + ">");
-            System.out.println("parent role <" + pre.getName() + ">");
+            System.out.println("child role [" + cre.getName() + "]");
+            System.out.println("parent role [" + pre.getName() + "]");
             System.out.println("child role and inheritance relationship has been added");
             System.out.println("ENTER to continue");
         }
@@ -340,12 +340,12 @@ public class AdminMgrConsole
             }
 
             User ue2 = am.addUser(ue);
-            System.out.println("userId <" + ue2.getUserId() + ">");
-            System.out.println("internalId <" + ue2.getInternalId() + ">");
-            System.out.println("user description <" + ue2.getDescription() + ">");
-            System.out.println("user common name <" + ue2.getCn() + ">");
-            System.out.println("user surname <" + ue2.getSn() + ">");
-            System.out.println("organizational unit <" + ue2.getOu() + ">");
+            System.out.println("userId [" + ue2.getUserId() + "]");
+            System.out.println("internalId [" + ue2.getInternalId() + "]");
+            System.out.println("user description [" + ue2.getDescription() + "]");
+            System.out.println("user common name [" + ue2.getCn() + "]");
+            System.out.println("user surname [" + ue2.getSn() + "]");
+            System.out.println("organizational unit [" + ue2.getOu() + "]");
             System.out.println("has been added");
             System.out.println("ENTER to continue");
         }
@@ -430,12 +430,12 @@ public class AdminMgrConsole
                 ue.setPwPolicy(plcyNm);
 
             User ue2 = am.updateUser(ue);
-            System.out.println("userId <" + ue.getUserId() + ">");
-            System.out.println("internalId <" + ue.getInternalId() + ">");
-            System.out.println("user description <" + ue.getDescription() + ">");
-            //System.out.println("user common name <" + ue.cn + ">");
-            //System.out.println("user surname <" + ue.sn + ">");
-            System.out.println("organizational unit <" + ue.getOu() + ">");
+            System.out.println("userId [" + ue.getUserId() + "]");
+            System.out.println("internalId [" + ue.getInternalId() + "]");
+            System.out.println("user description [" + ue.getDescription() + "]");
+            //System.out.println("user common name [" + ue.cn + "]");
+            //System.out.println("user surname [" + ue.sn + "]");
+            System.out.println("organizational unit [" + ue.getOu() + "]");
             System.out.println("has been updated");
             System.out.println("ENTER to continue");
         }
@@ -464,13 +464,13 @@ public class AdminMgrConsole
             if (flag.equalsIgnoreCase("Y"))
             {
                 am.deleteUser(user);
-                System.out.println("userId <" + userId + ">");
+                System.out.println("userId [" + userId + "]");
                 System.out.println("has been deleted");
             }
             else
             {
                 am.disableUser(user);
-                System.out.println("userId <" + userId + ">");
+                System.out.println("userId [" + userId + "]");
                 System.out.println("has been disabled but not deleted");
             }
             System.out.println("ENTER to continue");
@@ -496,7 +496,7 @@ public class AdminMgrConsole
             User user = new User();
             user.setUserId(userId);
             am.deleteUser(user);
-            System.out.println("userId <" + userId + ">");
+            System.out.println("userId [" + userId + "]");
             System.out.println("has been force deleted");
             System.out.println("ENTER to continue");
         }
@@ -518,7 +518,7 @@ public class AdminMgrConsole
         String name = ReaderUtil.readLn();
         String value = Config.getProperty(name);
         //ra.addUser(ue);
-        System.out.println("AdminMgrConsole.testConfig name <" + name + "> value <" + value + ">");
+        System.out.println("AdminMgrConsole.testConfig name [" + name + "] value [" + value + "]");
         ReaderUtil.readChar();
     }
 
@@ -533,7 +533,7 @@ public class AdminMgrConsole
             User user = new User();
             user.setUserId(userId);
             am.unlockUserAccount(user);
-            System.out.println("userId <" + userId + ">");
+            System.out.println("userId [" + userId + "]");
             System.out.println("has been unlocked");
             System.out.println("ENTER to continue");
         }
@@ -555,7 +555,7 @@ public class AdminMgrConsole
             User user = new User();
             user.setUserId(userId);
             am.lockUserAccount(user);
-            System.out.println("userId <" + userId + ">");
+            System.out.println("userId [" + userId + "]");
             System.out.println("has been locked");
             System.out.println("ENTER to continue");
         }
@@ -580,7 +580,7 @@ public class AdminMgrConsole
             String roleNm = ReaderUtil.readLn();
             uRole.setName(roleNm);
             am.assignUser(uRole);
-            System.out.println("userId <" + userId + "> name <" + roleNm + ">");
+            System.out.println("userId [" + userId + "] name [" + roleNm + "]");
             System.out.println("has been assigned");
             System.out.println("ENTER to continue");
         }
@@ -605,7 +605,7 @@ public class AdminMgrConsole
             String roleNm = ReaderUtil.readLn();
             uRole.setName(roleNm);
             am.deassignUser(uRole);
-            System.out.println("userId <" + userId + "> name <" + roleNm + ">");
+            System.out.println("userId [" + userId + "] name [" + roleNm + "]");
             System.out.println("has been deassigned");
             System.out.println("ENTER to continue");
         }
@@ -643,7 +643,7 @@ public class AdminMgrConsole
                 am.grantPermission(pOp, new User(name));
             }
 
-            System.out.println("perm object <" + object + "> operation <" + operation + "> has been granted to <" + name + ">");
+            System.out.println("perm object [" + object + "] operation [" + operation + "] has been granted to [" + name + "]");
             System.out.println("has been granted");
             System.out.println("ENTER to continue");
         }
@@ -681,7 +681,7 @@ public class AdminMgrConsole
                 am.revokePermission(pOp, new User(name));
             }
 
-            System.out.println("perm object <" + object + "> operation <" + operation + "> has been granted to <" + name + ">");
+            System.out.println("perm object [" + object + "] operation [" + operation + "] has been granted to [" + name + "]");
             System.out.println("has been revoked.");
             System.out.println("ENTER to continue");
         }
@@ -708,7 +708,7 @@ public class AdminMgrConsole
             System.out.println("Enter new password");
             String newPw = ReaderUtil.readLn();
             am.changePassword(user, newPw.toCharArray());
-            System.out.println("userId <" + userId + ">");
+            System.out.println("userId [" + userId + "]");
             System.out.println("password has been changed");
             System.out.println("ENTER to continue");
         }
@@ -732,7 +732,7 @@ public class AdminMgrConsole
             System.out.println("Enter new password");
             String newPw = ReaderUtil.readLn();
             am.resetPassword(user, newPw.toCharArray());
-            System.out.println("userId <" + userId + ">");
+            System.out.println("userId [" + userId + "]");
             System.out.println("password has been reset");
             System.out.println("ENTER to continue");
         }
@@ -759,7 +759,7 @@ public class AdminMgrConsole
             PermObj pObj = new PermObj();
             pObj.setObjectName(name);
             am.deletePermObj(pObj);
-            System.out.println("perm object deleted: <" + name + ">");
+            System.out.println("perm object deleted: [" + name + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)
@@ -795,10 +795,10 @@ public class AdminMgrConsole
             }
 
             pe = am.addPermObj(pe);
-            System.out.println("perm object name <" + pe.getObjectName() + ">");
-            System.out.println("internalId <" + pe.getInternalId() + ">");
-            System.out.println("description <" + pe.getDescription() + ">");
-            System.out.println("organizational unit <" + pe.getOu() + ">");
+            System.out.println("perm object name [" + pe.getObjectName() + "]");
+            System.out.println("internalId [" + pe.getInternalId() + "]");
+            System.out.println("description [" + pe.getDescription() + "]");
+            System.out.println("organizational unit [" + pe.getOu() + "]");
 
 
             System.out.println("has been added");
@@ -857,10 +857,10 @@ public class AdminMgrConsole
             }
 
             pe = am.addPermission(pe);
-            System.out.println("perm object name <" + pe.getObjectName() + ">");
-            System.out.println("perm operation name <" + pe.getOpName() + ">");
-            System.out.println("perm abstract name <" + pe.getAbstractName() + ">");
-            System.out.println("internalId <" + pe.getInternalId() + ">");
+            System.out.println("perm object name [" + pe.getObjectName() + "]");
+            System.out.println("perm operation name [" + pe.getOpName() + "]");
+            System.out.println("perm abstract name [" + pe.getAbstractName() + "]");
+            System.out.println("internalId [" + pe.getInternalId() + "]");
             if (pe.getUsers() != null && pe.getUsers().size() > 0)
             {
                 for (int j = 0; j < pe.getUsers().size(); j++)
@@ -932,9 +932,9 @@ public class AdminMgrConsole
             int cardinality = ReaderUtil.readInt();
             se.setCardinality(cardinality);
             SDSet se2 = am.createSsdSet(se);
-            System.out.println("name <" + se2.getName() + ">");
-            System.out.println("internalId <" + se2.getId() + ">");
-            System.out.println("name description <" + se2.getDescription() + ">");
+            System.out.println("name [" + se2.getName() + "]");
+            System.out.println("internalId [" + se2.getId() + "]");
+            System.out.println("name description [" + se2.getDescription() + "]");
             System.out.println("has been added");
             System.out.println("ENTER to continue");
         }
@@ -979,9 +979,9 @@ public class AdminMgrConsole
             int cardinality = ReaderUtil.readInt();
             se.setCardinality(cardinality);
             SDSet se2 = am.createDsdSet(se);
-            System.out.println("name <" + se2.getName() + ">");
-            System.out.println("internalId <" + se2.getId() + ">");
-            System.out.println("name description <" + se2.getDescription() + ">");
+            System.out.println("name [" + se2.getName() + "]");
+            System.out.println("internalId [" + se2.getId() + "]");
+            System.out.println("name description [" + se2.getDescription() + "]");
             System.out.println("has been added");
             System.out.println("ENTER to continue");
         }
@@ -1013,7 +1013,7 @@ public class AdminMgrConsole
             System.out.println("getAscendants simple directed graph is null");
             return null;
         }
-        System.out.println("getAscendants V <" + v + ">");
+        System.out.println("getAscendants V [" + v + "]");
 
         Set<Relationship> edges = g.outgoingEdgesOf(v);
         for (Relationship edge : edges)
@@ -1484,9 +1484,9 @@ public class AdminMgrConsole
             System.out.println("Enter Example's description field");
             ee.setDescription(ReaderUtil.readLn());
             Example ee2 = eAm.addExample(ee);
-            System.out.println("name <" + ee2.getName() + ">");
-            System.out.println("internalId <" + ee2.getId() + ">");
-            System.out.println("example description <" + ee2.getDescription() + ">");
+            System.out.println("name [" + ee2.getName() + "]");
+            System.out.println("internalId [" + ee2.getId() + "]");
+            System.out.println("example description [" + ee2.getDescription() + "]");
             System.out.println("has been added");
             System.out.println("ENTER to continue");
         }

@@ -83,7 +83,7 @@ public class AccessMgrImplTest extends TestCase
                 Session session = accessMgr.authenticate(user.getUserId(), user.getPassword());
                 assertNotNull(session);
                 String userId = accessMgr.getUserId(session);
-                assertTrue(OCLS_NM + ".getUserIds failed compare found userId <" + userId + "> valid userId <" + UserTestData.getUserId(usr) + ">", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
+                assertTrue(OCLS_NM + ".getUserIds failed compare found userId [" + userId + "] valid userId [" + UserTestData.getUserId(usr) + "]", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
             }
             log.debug(OCLS_NM + ".getUserIds successful");
         }
@@ -297,14 +297,14 @@ public class AccessMgrImplTest extends TestCase
                 Session session = accessMgr.createSession(user, false);
                 assertNotNull(session);
                 String userId = accessMgr.getUserId(session);
-                assertTrue(OCLS_NM + ".createSessions failed compare found userId <" + userId + "> valid userId <" + UserTestData.getUserId(usr) + ">", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
+                assertTrue(OCLS_NM + ".createSessions failed compare found userId [" + userId + "] valid userId [" + UserTestData.getUserId(usr) + "]", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
                 UserTestData.assertEquals(user, usr);
                 List<UserRole> uRoles = session.getRoles();
                 assertNotNull(uRoles);
-                assertEquals(OCLS_NM + ".createSessions user role check failed list size user <" + user.getUserId() + ">", rArray.length, uRoles.size());
+                assertEquals(OCLS_NM + ".createSessions user role check failed list size user [" + user.getUserId() + "]", rArray.length, uRoles.size());
                 for (String[] rle : rArray)
                 {
-                    assertTrue(OCLS_NM + ".createSessions failed role search USER <" + user.getUserId() + "> ROLE1 <" + RoleTestData.getName(rle) + "> should be present", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
+                    assertTrue(OCLS_NM + ".createSessions failed role search USER [" + user.getUserId() + "] ROLE1 [" + RoleTestData.getName(rle) + "] should be present", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
                 }
 
                 // now try negative test case:
@@ -361,9 +361,9 @@ public class AccessMgrImplTest extends TestCase
                     rlsRequested.add(RoleTestData.getUserRole(user.getUserId(), rle));
                     user.setRoles(rlsRequested);
                     Session session = accessMgr.createSession(user, false);
-                    assertTrue(OCLS_NM + ".createSessionsWithRoles failed role search USER <" + user.getUserId() + "> CNT <" + ++cnt + "> size <" + session.getRoles().size() + ">", cnt == session.getRoles().size());
+                    assertTrue(OCLS_NM + ".createSessionsWithRoles failed role search USER [" + user.getUserId() + "] CNT [" + ++cnt + "] size [" + session.getRoles().size() + "]", cnt == session.getRoles().size());
                     String userId = accessMgr.getUserId(session);
-                    assertTrue(OCLS_NM + ".createSessionsWithRoles failed compare found userId <" + userId + "> valid userId <" + UserTestData.getUserId(usr) + ">", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
+                    assertTrue(OCLS_NM + ".createSessionsWithRoles failed compare found userId [" + userId + "] valid userId [" + UserTestData.getUserId(usr) + "]", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
                     UserTestData.assertEquals(user, usr);
                 }
             }
@@ -408,9 +408,9 @@ public class AccessMgrImplTest extends TestCase
                     rlsRequested.add(RoleTestData.getUserRole(user.getUserId(), rle));
                     user.setRoles(rlsRequested);
                     Session session = accessMgr.createSession(user, true);
-                    assertTrue(OCLS_NM + ".createSessionsWithRolesTrusted failed role search USER <" + user.getUserId() + "> CNT <" + ++cnt + "> size <" + session.getRoles().size() + ">", cnt == session.getRoles().size());
+                    assertTrue(OCLS_NM + ".createSessionsWithRolesTrusted failed role search USER [" + user.getUserId() + "] CNT [" + ++cnt + "] size [" + session.getRoles().size() + "]", cnt == session.getRoles().size());
                     String userId = accessMgr.getUserId(session);
-                    assertTrue(OCLS_NM + ".createSessionsWithRolesTrusted failed compare found userId <" + userId + "> valid userId <" + UserTestData.getUserId(usr) + ">", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
+                    assertTrue(OCLS_NM + ".createSessionsWithRolesTrusted failed compare found userId [" + userId + "] valid userId [" + UserTestData.getUserId(usr) + "]", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
                     UserTestData.assertEquals(user, usr);
                 }
             }
@@ -451,14 +451,14 @@ public class AccessMgrImplTest extends TestCase
                 Session session = accessMgr.createSession(user, true);
                 assertNotNull(session);
                 String userId = accessMgr.getUserId(session);
-                assertTrue(OCLS_NM + ".createSessionsTrusted failed compare found userId <" + userId + "> valid userId <" + UserTestData.getUserId(usr) + ">", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
+                assertTrue(OCLS_NM + ".createSessionsTrusted failed compare found userId [" + userId + "] valid userId [" + UserTestData.getUserId(usr) + "]", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
                 UserTestData.assertEquals(user, usr);
                 List<UserRole> uRoles = session.getRoles();
                 assertNotNull(uRoles);
-                assertEquals(OCLS_NM + ".createSessionsTrusted user role check failed list size user <" + user.getUserId() + ">", rArray.length, uRoles.size());
+                assertEquals(OCLS_NM + ".createSessionsTrusted user role check failed list size user [" + user.getUserId() + "]", rArray.length, uRoles.size());
                 for (String[] rle : rArray)
                 {
-                    assertTrue(OCLS_NM + ".createSessionsTrusted failed role search USER <" + user.getUserId() + "> ROLE1 <" + RoleTestData.getName(rle) + "> should be present", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
+                    assertTrue(OCLS_NM + ".createSessionsTrusted failed role search USER [" + user.getUserId() + "] ROLE1 [" + RoleTestData.getName(rle) + "] should be present", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
                 }
 
                 // now try negative test case:
@@ -511,18 +511,18 @@ public class AccessMgrImplTest extends TestCase
                 Session session = accessMgr.createSession(user, false);
                 assertNotNull(session);
                 String userId = accessMgr.getUserId(session);
-                assertTrue(OCLS_NM + ".createSessionsDSD failed compare found userId <" + userId + "> valid userId <" + UserTestData.getUserId(usr) + ">", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
+                assertTrue(OCLS_NM + ".createSessionsDSD failed compare found userId [" + userId + "] valid userId [" + UserTestData.getUserId(usr) + "]", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
                 UserTestData.assertEquals(user, usr);
                 List<UserRole> uRoles = session.getRoles();
                 assertNotNull(uRoles);
                 // was the number of members in test DSD greater than the cardinality?
                 if(dsd.getMembers().size() < dsd.getCardinality())
                 {
-                    assertEquals(OCLS_NM + ".createSessionsDSD role list size check failed user-role user <" + user.getUserId() + ">", dsd.getMembers().size(), uRoles.size());
+                    assertEquals(OCLS_NM + ".createSessionsDSD role list size check failed user-role user [" + user.getUserId() + "]", dsd.getMembers().size(), uRoles.size());
                 }
                 else
                 {
-                    assertEquals(OCLS_NM + ".createSessionsDSD role cardinality check failed user-role list size user <" + user.getUserId() + "> dsd set <" + dsd.getName() + "> card <" + dsd.getCardinality() + "> listsize <" + uRoles.size() + ">", dsd.getCardinality().intValue()-1, uRoles.size());
+                    assertEquals(OCLS_NM + ".createSessionsDSD role cardinality check failed user-role list size user [" + user.getUserId() + "] dsd set [" + dsd.getName() + "] card [" + dsd.getCardinality() + "] listsize [" + uRoles.size() + "]", dsd.getCardinality().intValue()-1, uRoles.size());
                 }
             }
             log.debug(OCLS_NM + ".createSessionsDSD successful");
@@ -561,7 +561,7 @@ public class AccessMgrImplTest extends TestCase
                 Session session = accessMgr.createSession(user, false);
                 assertNotNull(session);
                 String userId = accessMgr.getUserId(session);
-                assertTrue(OCLS_NM + ".createSessionsHier failed compare found userId <" + userId + "> valid userId <" + UserTestData.getUserId(usr) + ">", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
+                assertTrue(OCLS_NM + ".createSessionsHier failed compare found userId [" + userId + "] valid userId [" + UserTestData.getUserId(usr) + "]", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
                 UserTestData.assertEquals(user, usr);
 
                 // Get the authorized roles for this user:
@@ -578,10 +578,10 @@ public class AccessMgrImplTest extends TestCase
 
                 Set<String> actualRoles = session.getAuthorizedRoles();
                 assertNotNull(actualRoles);
-                assertEquals(OCLS_NM + ".createSessionsHier authorized roles list size test case failed for <" + user.getUserId() + ">", authZRoles.size(), actualRoles.size());
+                assertEquals(OCLS_NM + ".createSessionsHier authorized roles list size test case failed for [" + user.getUserId() + "]", authZRoles.size(), actualRoles.size());
                 for (String name : authZRoles)
                 {
-                    assertTrue(OCLS_NM + ".createSessionsHier authorized roles compare test case failed for USER <" + user.getUserId() + "> expect role <" + name + "> nout found", actualRoles.contains(name));
+                    assertTrue(OCLS_NM + ".createSessionsHier authorized roles compare test case failed for USER [" + user.getUserId() + "] expect role [" + name + "] nout found", actualRoles.contains(name));
                 }
             }
             log.debug(OCLS_NM + ".createSessionsHier successful");
@@ -630,11 +630,11 @@ public class AccessMgrImplTest extends TestCase
                     for (String[] op : opArray)
                     {
                         // Call checkAccess method
-                        assertTrue(OCLS_NM + ".checkAccess failed userId <" + user.getUserId() + "> Perm objectName <" + PermTestData.getName(obj) + "> operationName <" + PermTestData.getName(op) + ">",
+                        assertTrue(OCLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objectName [" + PermTestData.getName(obj) + "] operationName [" + PermTestData.getName(op) + "]",
                             accessMgr.checkAccess(session, new Permission(PermTestData.getName(obj), PermTestData.getName(op))));
 
                         // Call checkAccess method (this should fail):
-                        assertTrue(OCLS_NM + ".checkAccess failed userId <" + user.getUserId() + "> Perm objectName <" + PermTestData.getName(oArrayBad[i]) + "> operationName <" + PermTestData.getName(opArrayBad[j]) + ">",
+                        assertTrue(OCLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objectName [" + PermTestData.getName(oArrayBad[i]) + "] operationName [" + PermTestData.getName(opArrayBad[j]) + "]",
                             !accessMgr.checkAccess(session, new Permission(PermTestData.getName(oArrayBad[i]),PermTestData.getName(opArrayBad[j]))));
 
                         j++;
@@ -683,7 +683,7 @@ public class AccessMgrImplTest extends TestCase
                 assertNotNull(pOps);
                 // There should be objs * ops number of perms in the list returned from sessionPermissions method:
                 assertEquals(OCLS_NM +
-                    ".sessionPermissions failed list size user<" + user.getUserId() + ">",
+                    ".sessionPermissions failed list size user[" + user.getUserId() + "]",
                     oArray.length * opArray.length, pOps.size());
 
                 // Iterate over objs x ops, see if every expected valid permission is contained within the returned list:
@@ -693,9 +693,9 @@ public class AccessMgrImplTest extends TestCase
                     {
                         Permission validPOp = PermTestData.getOp(PermTestData.getName(obj), op);
                         assertTrue(OCLS_NM +
-                            ".sessionPermissions failed perm list compare USER <" + user.getUserId() +
-                            "> PERM Obj <" + PermTestData.getName(obj) + "> " +
-                            "OPER <" + PermTestData.getName(op) + ">",
+                            ".sessionPermissions failed perm list compare USER [" + user.getUserId() +
+                            "] PERM Obj [" + PermTestData.getName(obj) + "] " +
+                            "OPER [" + PermTestData.getName(op) + "]",
                             pOps.contains(validPOp));
                     }
                 }
@@ -730,10 +730,10 @@ public class AccessMgrImplTest extends TestCase
                 assertNotNull(session);
                 List<Permission> pOps = accessMgr.sessionPermissions(session);
                 assertNotNull(pOps);
-                //log.warn(OCLS_NM + ".sessionPermissionsH list size user <" + user.getUserId() + "> expected len=" +
+                //log.warn(OCLS_NM + ".sessionPermissionsH list size user [" + user.getUserId() + "] expected len=" +
                 //    (11 - i) * opArray.length + " actual len=" + pOps.size());
                 assertEquals(OCLS_NM +
-                    ".sessionPermissionsH failed list size user<" + user.getUserId() + ">",
+                    ".sessionPermissionsH failed list size user[" + user.getUserId() + "]",
                     (11 - i) * opArray.length, pOps.size());
 
                 // Iterate over objs x ops, see if every expected valid permission is contained within the returned list:
@@ -752,16 +752,16 @@ public class AccessMgrImplTest extends TestCase
                             k++;
                             Permission validPOp = PermTestData.getOp(PermTestData.getName(obj), op);
                             assertTrue(OCLS_NM +
-                                ".sessionPermissionsH failed perm list compare USER <" + user.getUserId() +
-                                "> PERM Obj <" + PermTestData.getName(obj) + "> " +
-                                "OPER <" + PermTestData.getName(op) + ">",
+                                ".sessionPermissionsH failed perm list compare USER [" + user.getUserId() +
+                                "] PERM Obj [" + PermTestData.getName(obj) + "] " +
+                                "OPER [" + PermTestData.getName(op) + "]",
                                 pOps.contains(validPOp));
 
                             boolean result = accessMgr.checkAccess(session, new Permission(PermTestData.getName(obj), PermTestData.getName(op)));
                             assertTrue(OCLS_NM +
-                                ".sessionPermissionsH failed checkAccess USER <" + user.getUserId() +
-                                "> PERM Obj <" + PermTestData.getName(obj) + "> " +
-                                "OPER <" + PermTestData.getName(op) + ">",
+                                ".sessionPermissionsH failed checkAccess USER [" + user.getUserId() +
+                                "] PERM Obj [" + PermTestData.getName(obj) + "] " +
+                                "OPER [" + PermTestData.getName(op) + "]",
                                 result);
                         }
                     }
@@ -774,16 +774,16 @@ public class AccessMgrImplTest extends TestCase
                             k++;
                             Permission validPOp = PermTestData.getOp(PermTestData.getName(obj), op);
                             assertTrue(OCLS_NM +
-                                ".sessionPermissionsH failed negative perm list compare USER <" + user.getUserId() +
-                                "> PERM Obj <" + PermTestData.getName(obj) + "> " +
-                                "OPER <" + PermTestData.getName(op) + ">",
+                                ".sessionPermissionsH failed negative perm list compare USER [" + user.getUserId() +
+                                "] PERM Obj [" + PermTestData.getName(obj) + "] " +
+                                "OPER [" + PermTestData.getName(op) + "]",
                                 !pOps.contains(validPOp));
 
                             boolean result = accessMgr.checkAccess(session, new Permission(PermTestData.getName(obj), PermTestData.getName(op)));
                             assertTrue(OCLS_NM +
-                                ".sessionPermissionsH failed negative checkAccess USER <" + user.getUserId() +
-                                "> PERM Obj <" + PermTestData.getName(obj) + "> " +
-                                "OPER <" + PermTestData.getName(op) + ">",
+                                ".sessionPermissionsH failed negative checkAccess USER [" + user.getUserId() +
+                                "] PERM Obj [" + PermTestData.getName(obj) + "] " +
+                                "OPER [" + PermTestData.getName(op) + "]",
                                 !result);
                         }
                     }
@@ -825,14 +825,14 @@ public class AccessMgrImplTest extends TestCase
                 Session session = accessMgr.createSession(user, false);
                 assertNotNull(session);
                 String userId = accessMgr.getUserId(session);
-                assertTrue(OCLS_NM + ".sessionRoles failed compare found userId <" + userId + "> valid userId <" + UserTestData.getUserId(usr) + ">", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
+                assertTrue(OCLS_NM + ".sessionRoles failed compare found userId [" + userId + "] valid userId [" + UserTestData.getUserId(usr) + "]", userId.equalsIgnoreCase(UserTestData.getUserId(usr)));
                 UserTestData.assertEquals(user, usr);
                 List<UserRole> uRoles = accessMgr.sessionRoles(session);
                 assertNotNull(uRoles);
-                assertEquals(OCLS_NM + ".sessionRoles user role check failed list size user <" + user.getUserId() + ">", rArray.length, uRoles.size());
+                assertEquals(OCLS_NM + ".sessionRoles user role check failed list size user [" + user.getUserId() + "]", rArray.length, uRoles.size());
                 for (String[] rle : rArray)
                 {
-                    assertTrue(OCLS_NM + ".sessionRoles failed role search USER <" + user.getUserId() + "> ROLE1 <" + RoleTestData.getName(rle) + "> should be present", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
+                    assertTrue(OCLS_NM + ".sessionRoles failed role search USER [" + user.getUserId() + "] ROLE1 [" + RoleTestData.getName(rle) + "] should be present", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
                 }
             }
             log.debug(OCLS_NM + ".sessionRoles successful");
@@ -878,10 +878,10 @@ public class AccessMgrImplTest extends TestCase
                 assertNotNull(session);
                 List<UserRole> uRoles = session.getRoles();
                 assertNotNull(uRoles);
-                assertEquals(OCLS_NM + ".addActiveRoles failed list size user<" + user.getUserId() + ">", rPosArray.length, uRoles.size());
+                assertEquals(OCLS_NM + ".addActiveRoles failed list size user[" + user.getUserId() + "]", rPosArray.length, uRoles.size());
                 for (String[] rle : rPosArray)
                 {
-                    assertTrue(OCLS_NM + ".addActiveRoles failed role search USER <" + user.getUserId() + "> ROLE <" + RoleTestData.getName(rle) + "> should be present", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
+                    assertTrue(OCLS_NM + ".addActiveRoles failed role search USER [" + user.getUserId() + "] ROLE [" + RoleTestData.getName(rle) + "] should be present", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
                 }
                 // Attempt to activate roles that aren't assigned to user:
                 for (String[] badRle : rNegArray)
@@ -890,7 +890,7 @@ public class AccessMgrImplTest extends TestCase
                     {
                         // Add Role (this better fail):
                         accessMgr.addActiveRole(session, new UserRole(RoleTestData.getName(badRle)));
-                        String error = OCLS_NM + ".addActiveRoles failed negative test 1 User <" + user.getUserId() + "> Role <" + RoleTestData.getName(badRle) + ">";
+                        String error = OCLS_NM + ".addActiveRoles failed negative test 1 User [" + user.getUserId() + "] Role [" + RoleTestData.getName(badRle) + "]";
                         log.info(error);
                         fail(error);
                     }
@@ -906,14 +906,14 @@ public class AccessMgrImplTest extends TestCase
                 {
                     // Drop Role:
                     accessMgr.dropActiveRole(session, new UserRole(RoleTestData.getName(rle)));
-                    assertEquals(OCLS_NM + ".addActiveRoles failed list size user<" + user.getUserId() + ">", (--ctr), uRoles.size());
-                    assertTrue(OCLS_NM + ".addActiveRoles failed role search USER <" + user.getUserId() + "> ROLE <" + RoleTestData.getName(rle) + "> should not contain role", !uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
+                    assertEquals(OCLS_NM + ".addActiveRoles failed list size user[" + user.getUserId() + "]", (--ctr), uRoles.size());
+                    assertTrue(OCLS_NM + ".addActiveRoles failed role search USER [" + user.getUserId() + "] ROLE [" + RoleTestData.getName(rle) + "] should not contain role", !uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
                     // Drop Role again: (This better fail because role  has already been deactivated from user's session)
                     try
                     {
                         // Drop Role3 (this better fail):
                         accessMgr.dropActiveRole(session, new UserRole(RoleTestData.getName(rle)));
-                        String error = OCLS_NM + ".addActiveRoles failed negative test 2 User <" + user.getUserId() + "> Role <" + RoleTestData.getName(rle) + ">";
+                        String error = OCLS_NM + ".addActiveRoles failed negative test 2 User [" + user.getUserId() + "] Role [" + RoleTestData.getName(rle) + "]";
                         log.info(error);
                         fail(error);
                     }
@@ -929,13 +929,13 @@ public class AccessMgrImplTest extends TestCase
                     // Activate Role(s):
                     accessMgr.addActiveRole(session, new UserRole(RoleTestData.getName(rle)));
                     uRoles = session.getRoles();
-                    assertEquals(OCLS_NM + ".addActiveRoles failed list size user <" + user.getUserId() + ">", ++ctr, uRoles.size());
-                    assertTrue(OCLS_NM + ".addActiveRoles failed role search USER <" + user.getUserId() + "> ROLE <" + RoleTestData.getName(rle) + "> should contain role", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
+                    assertEquals(OCLS_NM + ".addActiveRoles failed list size user [" + user.getUserId() + "]", ++ctr, uRoles.size());
+                    assertTrue(OCLS_NM + ".addActiveRoles failed role search USER [" + user.getUserId() + "] ROLE [" + RoleTestData.getName(rle) + "] should contain role", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
                     try
                     {
                         // Activate Role again (this should throw SecurityException):
                         accessMgr.addActiveRole(session, new UserRole(RoleTestData.getName(rle)));
-                        String error = OCLS_NM + ".addActiveRoles failed test 3 User <" + user.getUserId() + "> Role <" + RoleTestData.getName(rle) + ">";
+                        String error = OCLS_NM + ".addActiveRoles failed test 3 User [" + user.getUserId() + "] Role [" + RoleTestData.getName(rle) + "]";
                         log.info(error);
                         fail(error);
                     }
@@ -983,10 +983,10 @@ public class AccessMgrImplTest extends TestCase
                 assertNotNull(session);
                 List<UserRole> uRoles = session.getRoles();
                 assertNotNull(uRoles);
-                assertEquals(OCLS_NM + ".dropActiveRoles failed list size user<" + user.getUserId() + ">", rArray.length, uRoles.size());
+                assertEquals(OCLS_NM + ".dropActiveRoles failed list size user[" + user.getUserId() + "]", rArray.length, uRoles.size());
                 for (String[] rle : rArray)
                 {
-                    assertTrue(OCLS_NM + ".dropActiveRoles failed role search USER <" + user.getUserId() + "> ROLE <" + RoleTestData.getName(rle) + "> should be present", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
+                    assertTrue(OCLS_NM + ".dropActiveRoles failed role search USER [" + user.getUserId() + "] ROLE [" + RoleTestData.getName(rle) + "] should be present", uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
                 }
                 // remove all roles from the user's session:
                 int ctr = rArray.length;
@@ -994,14 +994,14 @@ public class AccessMgrImplTest extends TestCase
                 {
                     // Drop Role:
                     accessMgr.dropActiveRole(session, new UserRole(RoleTestData.getName(rle)));
-                    assertEquals(OCLS_NM + ".dropActiveRoles failed list size user<" + user.getUserId() + ">", (--ctr), uRoles.size());
-                    assertTrue(OCLS_NM + ".dropActiveRoles failed role search USER <" + user.getUserId() + "> ROLE <" + RoleTestData.getName(rle) + "> should not contain role", !uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
+                    assertEquals(OCLS_NM + ".dropActiveRoles failed list size user[" + user.getUserId() + "]", (--ctr), uRoles.size());
+                    assertTrue(OCLS_NM + ".dropActiveRoles failed role search USER [" + user.getUserId() + "] ROLE [" + RoleTestData.getName(rle) + "] should not contain role", !uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
                     // Drop Role again: (This better fail because role  has already been deactivated from user's session)
                     try
                     {
                         // Drop Role3 (this better fail):
                         accessMgr.dropActiveRole(session, new UserRole(RoleTestData.getName(rle)));
-                        String error = OCLS_NM + ".dropActiveRoles failed negative test 2 User <" + user.getUserId() + "> Role <" + RoleTestData.getName(rle) + ">";
+                        String error = OCLS_NM + ".dropActiveRoles failed negative test 2 User [" + user.getUserId() + "] Role [" + RoleTestData.getName(rle) + "]";
                         log.info(error);
                         fail(error);
                     }
@@ -1044,13 +1044,13 @@ public class AccessMgrImplTest extends TestCase
                         accessMgr.addActiveRole(session, new UserRole(role));
                         if(j >= dsd.getCardinality())
                         {
-                            fail(OCLS_NM + ".addActiveRolesDSD user <" + user.getUserId() + "> role <" + role + "> ssd <" + dsd.getName() + "> cardinality <" + dsd.getCardinality() + "> count <" + j + "> failed");
+                            fail(OCLS_NM + ".addActiveRolesDSD user [" + user.getUserId() + "] role [" + role + "] ssd [" + dsd.getName() + "] cardinality [" + dsd.getCardinality() + "] count [" + j + "] failed");
                         }
                     }
                     catch (SecurityException ex)
                     {
-                        assertTrue(OCLS_NM + ".addActiveRolesDSD cardinality test failed user <" + user.getUserId() + "> role <" + role + "> ssd <" + dsd.getName() + "> cardinality <" + dsd.getCardinality() + "> count <" + j + ">", j >= (dsd.getCardinality()));
-                        assertTrue(OCLS_NM + ".addActiveRolesDSD cardinality test failed <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.DSD_VALIDATION_FAILED);
+                        assertTrue(OCLS_NM + ".addActiveRolesDSD cardinality test failed user [" + user.getUserId() + "] role [" + role + "] ssd [" + dsd.getName() + "] cardinality [" + dsd.getCardinality() + "] count [" + j + "]", j >= (dsd.getCardinality()));
+                        assertTrue(OCLS_NM + ".addActiveRolesDSD cardinality test failed [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.DSD_VALIDATION_FAILED);
                         // still good, break from loop, we're done here
                         break;
                     }

@@ -109,7 +109,7 @@ public class ConfigMgrConsole
             {
                 String key = (String) e.nextElement();
                 String val = props.getProperty(key);
-                System.out.println("PROP[" + ++ctr + "]= key <" + key + "> value <" + val + ">");
+                System.out.println("PROP[" + ++ctr + "]= key [" + key + "] value [" + val + "]");
             }
 
             System.out.println("Properties successfully read");

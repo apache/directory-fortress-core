@@ -172,11 +172,11 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 newUser.setPassword("changed".toCharArray());
                 adminMgr.changePassword(UserTestData.getUser(newusr), newUser.getPassword());
-                fail(OCLS_NM + ".minAge name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(oldusr) + "> failed min age test");
+                fail(OCLS_NM + ".minAge name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(oldusr) + "] failed min age test");
             }
             catch (SecurityException ex)
             {
-                assertTrue(OCLS_NM + ".minAge invalid error message userId <" + UserTestData.getUserId(oldusr) + ">", ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION);
+                assertTrue(OCLS_NM + ".minAge invalid error message userId [" + UserTestData.getUserId(oldusr) + "]", ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION);
                 // still good
                 TestUtils.sleep(PolicyTestData.getMinAge(plcy));
                 adminMgr.changePassword(UserTestData.getUser(newusr), newUser.getPassword());
@@ -233,11 +233,11 @@ public class PswdPolicyMgrImplTest extends TestCase
                 try
                 {
                     s1 = accessMgr.createSession(oldUser, false);
-                    fail(OCLS_NM + ".maxAge name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(oldusr) + "> failed age test");
+                    fail(OCLS_NM + ".maxAge name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(oldusr) + "] failed age test");
                 }
                 catch (SecurityException ex)
                 {
-                    assertTrue(OCLS_NM + ".maxAge invalid error message userId <" + UserTestData.getUserId(oldusr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
+                    assertTrue(OCLS_NM + ".maxAge invalid error message userId [" + UserTestData.getUserId(oldusr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
                     // still good
                 }
                 newPassword = "changedabc".toCharArray();
@@ -301,7 +301,7 @@ public class PswdPolicyMgrImplTest extends TestCase
                 }
                 catch (SecurityException ex)
                 {
-                    assertTrue(OCLS_NM + ".inHistory invalid error message userId <" + user.getUserId() + ">", ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION);
+                    assertTrue(OCLS_NM + ".inHistory invalid error message userId [" + user.getUserId() + "]", ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION);
                     // still good
                 }
             }
@@ -363,11 +363,11 @@ public class PswdPolicyMgrImplTest extends TestCase
                 log.debug("testMinLength min=" + min + " len pw=" + user.getPassword().length);
                 String newPassword = new String(user.getPassword()).substring(0, min-1);
                 adminMgr.changePassword(user, newPassword.toCharArray());
-                fail(OCLS_NM + ".minLength name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed length test");
+                fail(OCLS_NM + ".minLength name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed length test");
             }
             catch (SecurityException ex)
             {
-                assertTrue(OCLS_NM + ".minLength invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION);
+                assertTrue(OCLS_NM + ".minLength invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION);
                 // still good
             }
         }
@@ -422,21 +422,21 @@ public class PswdPolicyMgrImplTest extends TestCase
             adminMgr.changePassword(user, newPassword.toCharArray());
             user.setPassword(newPassword.toCharArray());
             Session s1 = accessMgr.createSession(user, false);
-            assertTrue(OCLS_NM + ".expireWarning invalid error message userId <" + UserTestData.getUserId(usr) + ">", s1.getExpirationSeconds() == 0);
+            assertTrue(OCLS_NM + ".expireWarning invalid error message userId [" + UserTestData.getUserId(usr) + "]", s1.getExpirationSeconds() == 0);
             TestUtils.sleep(elapsedWait);
             // add one second for good measure:
             TestUtils.sleep(1);
             s1 = accessMgr.createSession(user, false);
-            assertTrue(OCLS_NM + ".expireWarning invalid error message 2 userId <" + UserTestData.getUserId(usr) + ">", (0 < s1.getExpirationSeconds()) && (s1.getExpirationSeconds() < maxSecs));
+            assertTrue(OCLS_NM + ".expireWarning invalid error message 2 userId [" + UserTestData.getUserId(usr) + "]", (0 < s1.getExpirationSeconds()) && (s1.getExpirationSeconds() < maxSecs));
             TestUtils.sleep(elapsedWait);
             try
             {
                 s1 = accessMgr.createSession(user, false);
-                fail(OCLS_NM + ".expireWarning name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed expired pw test");
+                fail(OCLS_NM + ".expireWarning name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed expired pw test");
             }
             catch (SecurityException ex)
             {
-                assertTrue(OCLS_NM + ".expireWarning invalid error message 3 userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
+                assertTrue(OCLS_NM + ".expireWarning invalid error message 3 userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
                 // still good
             }
         }
@@ -491,19 +491,19 @@ public class PswdPolicyMgrImplTest extends TestCase
                 }
                 catch (SecurityException ex)
                 {
-                    fail(OCLS_NM + ".graceLoginLimit name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed grace allowed=" + numGrace + " iteration=" + i);
-                    assertTrue(OCLS_NM + ".graceLoginLimit invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
+                    fail(OCLS_NM + ".graceLoginLimit name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed grace allowed=" + numGrace + " iteration=" + i);
+                    assertTrue(OCLS_NM + ".graceLoginLimit invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
                     // still good
                 }
             }
             try
             {               
                 s1 = accessMgr.createSession(user, false);
-                fail(OCLS_NM + ".graceLoginLimit name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed grace test 2");
+                fail(OCLS_NM + ".graceLoginLimit name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed grace test 2");
             }
             catch (SecurityException ex)
             {
-                assertTrue(OCLS_NM + ".graceLoginLimit invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
+                assertTrue(OCLS_NM + ".graceLoginLimit invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
                 // still good
             }
         }
@@ -552,11 +552,11 @@ public class PswdPolicyMgrImplTest extends TestCase
                 {
                     User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
                     s1 = accessMgr.createSession(badUser, false);
-                    fail(OCLS_NM + ".maxFailure name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed max failure test=" + maxFailures + " iteration=" + i);
+                    fail(OCLS_NM + ".maxFailure name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed max failure test=" + maxFailures + " iteration=" + i);
                 }
                 catch (SecurityException ex)
                 {
-                    assertTrue(OCLS_NM + ".maxFailure invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
+                    assertTrue(OCLS_NM + ".maxFailure invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
                     // still good
                     TestUtils.sleep(1);
                 }
@@ -565,11 +565,11 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 // now try with valid password - better be locked out...
                 s1 = accessMgr.createSession(user, false);
-                fail(OCLS_NM + ".maxFailure name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed max failure test 2");
+                fail(OCLS_NM + ".maxFailure name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed max failure test 2");
             }
             catch (SecurityException ex)
             {
-                assertTrue(OCLS_NM + ".maxFailure invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED);
+                assertTrue(OCLS_NM + ".maxFailure invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED);
                 // still good
             }
             adminMgr.unlockUserAccount(user);
@@ -623,11 +623,11 @@ public class PswdPolicyMgrImplTest extends TestCase
                 {
                     User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
                     s1 = accessMgr.createSession(badUser, false);
-                    fail(OCLS_NM + ".lockoutDuration name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed lockout duration test=" + maxFailures + " iteration=" + i);
+                    fail(OCLS_NM + ".lockoutDuration name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed lockout duration test=" + maxFailures + " iteration=" + i);
                 }
                 catch (SecurityException ex)
                 {
-                    assertTrue(OCLS_NM + ".lockoutDuration invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
+                    assertTrue(OCLS_NM + ".lockoutDuration invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
                     // still good
                     TestUtils.sleep(1);
                 }
@@ -636,11 +636,11 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 // now try with valid password - better be locked out...
                 s1 = accessMgr.createSession(user, false);
-                fail(OCLS_NM + ".lockoutDuration name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed lockout duration test 2");
+                fail(OCLS_NM + ".lockoutDuration name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed lockout duration test 2");
             }
             catch (SecurityException ex)
             {
-                assertTrue(OCLS_NM + ".lockoutDuration invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED);
+                assertTrue(OCLS_NM + ".lockoutDuration invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED);
                 // still good
             }
 
@@ -702,11 +702,11 @@ public class PswdPolicyMgrImplTest extends TestCase
                 {
                     // because account is locked, this better fail:
                     s1 = accessMgr.createSession(user, false);
-                    fail(OCLS_NM + ".lockout name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed lockout test iteration=" + i);
+                    fail(OCLS_NM + ".lockout name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed lockout test iteration=" + i);
                 }
                 catch (SecurityException ex)
                 {
-                    assertTrue(OCLS_NM + ".lockout invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED);
+                    assertTrue(OCLS_NM + ".lockout invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED);
                     // still good
                     TestUtils.sleep(1);
                 }
@@ -763,11 +763,11 @@ public class PswdPolicyMgrImplTest extends TestCase
                 {
                     User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
                     s1 = accessMgr.createSession(badUser, false);
-                    fail(OCLS_NM + ".failureCountInterval name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed failure count interval test, maxfailures=" + maxFailures + " iteration=" + i);
+                    fail(OCLS_NM + ".failureCountInterval name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed failure count interval test, maxfailures=" + maxFailures + " iteration=" + i);
                 }
                 catch (SecurityException ex)
                 {
-                    assertTrue(OCLS_NM + ".failureCountInterval invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
+                    assertTrue(OCLS_NM + ".failureCountInterval invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
                     // still good
                     TestUtils.sleep(1);
                 }
@@ -783,11 +783,11 @@ public class PswdPolicyMgrImplTest extends TestCase
                 {
                     User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
                     s1 = accessMgr.createSession(badUser, false);
-                    fail(OCLS_NM + ".failureCountInterval name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed failure count interval test 2, maxfailures=" + maxFailures + " iteration=" + i);
+                    fail(OCLS_NM + ".failureCountInterval name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed failure count interval test 2, maxfailures=" + maxFailures + " iteration=" + i);
                 }
                 catch (SecurityException ex)
                 {
-                    assertTrue(OCLS_NM + ".failureCountInterval invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
+                    assertTrue(OCLS_NM + ".failureCountInterval invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
                     // still good
                     TestUtils.sleep(1);
                 }
@@ -848,11 +848,11 @@ public class PswdPolicyMgrImplTest extends TestCase
                     // because mustchange flag is set, this better fail:
                     User badUser = new User(user.getUserId(), "newpassword".toCharArray());
                     s1 = accessMgr.createSession(badUser, false);
-                    fail(OCLS_NM + ".mustChange name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed must change test flag=" + mustChange);
+                    fail(OCLS_NM + ".mustChange name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed must change test flag=" + mustChange);
                 }
                 catch (SecurityException ex)
                 {
-                    assertTrue(OCLS_NM + ".mustChange invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_RESET);
+                    assertTrue(OCLS_NM + ".mustChange invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_RESET);
                     // still good
                     TestUtils.sleep(1);
                 }
@@ -866,7 +866,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".mustChange policy <" + PolicyTestData.getName(plcy) + "> caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(OCLS_NM + ".mustChange policy [" + PolicyTestData.getName(plcy) + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -907,11 +907,11 @@ public class PswdPolicyMgrImplTest extends TestCase
                 {
                     // because allowchange flag is false, this better fail:
                     adminMgr.changePassword(user, "newPassword".toCharArray());
-                    fail(OCLS_NM + ".allowUserChange name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed allow change test flag=" + allowChange);
+                    fail(OCLS_NM + ".allowUserChange name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed allow change test flag=" + allowChange);
                 }
                 catch (SecurityException ex)
                 {
-                    assertTrue(OCLS_NM + ".allowUserChange invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_MOD_NOT_ALLOWED);
+                    assertTrue(OCLS_NM + ".allowUserChange invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_MOD_NOT_ALLOWED);
                     // still good
                     TestUtils.sleep(1);
                 }
@@ -924,7 +924,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".allowUserChange policy <" + PolicyTestData.getName(plcy) + "> caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(OCLS_NM + ".allowUserChange policy [" + PolicyTestData.getName(plcy) + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -964,11 +964,11 @@ public class PswdPolicyMgrImplTest extends TestCase
                 {
                     // because safe modify flag is true, this better fail:
                     adminMgr.changePassword(user, "newPassword".toCharArray());
-                    fail(OCLS_NM + ".safeModify name <" + PolicyTestData.getName(plcy) + "> user <" + UserTestData.getUserId(usr) + "> failed safe modify test flag=" + safeModify);
+                    fail(OCLS_NM + ".safeModify name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed safe modify test flag=" + safeModify);
                 }
                 catch (SecurityException ex)
                 {
-                    assertTrue(OCLS_NM + ".safeModify invalid error message userId <" + UserTestData.getUserId(usr) + ">", ex.getErrorId() == GlobalErrIds.USER_PW_MOD_NOT_ALLOWED);
+                    assertTrue(OCLS_NM + ".safeModify invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_MOD_NOT_ALLOWED);
                     // still good
                     TestUtils.sleep(1);
                 }
@@ -981,7 +981,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".safeModify policy <" + PolicyTestData.getName(plcy) + "> caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(OCLS_NM + ".safeModify policy [" + PolicyTestData.getName(plcy) + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1013,7 +1013,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 PswdPolicy policy = PolicyTestData.getPolicy(plcy);
                 policyMgr.add(policy);
-                log.debug(OCLS_NM + ".checkQuality name <" + policy.getName() + "> successful");
+                log.debug(OCLS_NM + ".checkQuality name [" + policy.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
@@ -1046,7 +1046,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 PswdPolicy policy = PolicyTestData.getPolicy(plcy);
                 policyMgr.add(policy);
-                log.debug(OCLS_NM + ".add name <" + policy.getName() + "> successful");
+                log.debug(OCLS_NM + ".add name [" + policy.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
@@ -1077,7 +1077,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 PswdPolicy policy = PolicyTestData.getPolicy(plcy);
                 policyMgr.update(policy);
-                log.debug(OCLS_NM + ".update name <" + policy.getName() + "> successful");
+                log.debug(OCLS_NM + ".update name [" + policy.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
@@ -1109,7 +1109,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 PswdPolicy policy = PolicyTestData.getPolicy(plcy);
                 policyMgr.delete(policy);
-                log.debug(OCLS_NM + ".deleteRecursive name <" + PolicyTestData.getName(plcy) + "> successful");
+                log.debug(OCLS_NM + ".deleteRecursive name [" + PolicyTestData.getName(plcy) + "] successful");
             }
         }
         catch (SecurityException ex)
@@ -1180,7 +1180,7 @@ public class PswdPolicyMgrImplTest extends TestCase
                 }
                 else
                 {
-                    msg = OCLS_NM + ".search srchValue <" + srchValue + "> failed list search";
+                    msg = OCLS_NM + ".search srchValue [" + srchValue + "] failed list search";
                     LogUtil.logIt(msg);
                     fail(msg);
                 }
@@ -1188,7 +1188,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".search srchValue <" + srchValue + "> caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(OCLS_NM + ".search srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

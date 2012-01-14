@@ -115,14 +115,14 @@ public class CreateSessionSample extends TestCase
 
             // Pull the userId from the Session.
             String sessUserId = accessMgr.getUserId(session);
-            assertTrue(szLocation + " failed compare found userId in session <" + sessUserId + "> valid userId <" + userId + ">", userId.equalsIgnoreCase(sessUserId));
+            assertTrue(szLocation + " failed compare found userId in session [" + sessUserId + "] valid userId [" + userId + "]", userId.equalsIgnoreCase(sessUserId));
 
             // Get the User's activated Roles.
             List<UserRole> uRoles = session.getRoles();
 
             // do some validations
             assertNotNull(uRoles);
-            assertEquals(szLocation + " user role check failed list size user <" + user.getUserId() + ">", expectedRoles, uRoles.size());
+            assertEquals(szLocation + " user role check failed list size user [" + user.getUserId() + "]", expectedRoles, uRoles.size());
             // now try negative test case:
             try
             {
@@ -131,23 +131,23 @@ public class CreateSessionSample extends TestCase
 
                 // The API will authenticate the User password, evaluate password policies and perform Role activations.
                 session = accessMgr.createSession(userBad, false);
-                fail(szLocation + " userId <" + userId + ">  failed negative test");
+                fail(szLocation + " userId [" + userId + "]  failed negative test");
             }
             catch (PasswordException pe)
             {
-                assertTrue(szLocation + " userId <" + userId + ">  excep id check", pe.getErrorId() == GlobalErrIds.USER_PW_INVLD);
+                assertTrue(szLocation + " userId [" + userId + "]  excep id check", pe.getErrorId() == GlobalErrIds.USER_PW_INVLD);
                 // pass
             }
             catch (SecurityException se)
             {
-                fail(szLocation + " userId <" + userId + ">  failed with unexpected errorId" + se.getErrorId() + " msg=" + se.getMessage());
+                fail(szLocation + " userId [" + userId + "]  failed with unexpected errorId" + se.getErrorId() + " msg=" + se.getMessage());
                 // pass
             }
-            log.info(szLocation + " userId <" + userId + "> successful");
+            log.info(szLocation + " userId [" + userId + "] successful");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " userId <" + userId + ">  caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " userId [" + userId + "]  caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -180,12 +180,12 @@ public class CreateSessionSample extends TestCase
             // do some validations
             // Get the User's activated Roles.
             List<UserRole> sessRoles = session.getRoles();
-            assertTrue(szLocation + " userId <" + userId + ">  with roles failed role check", sessRoles.contains(new UserRole(role)));
-            log.info(szLocation + "  userId <" + userId + "> successful");
+            assertTrue(szLocation + " userId [" + userId + "]  with roles failed role check", sessRoles.contains(new UserRole(role)));
+            log.info(szLocation + "  userId [" + userId + "] successful");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " userId <" + userId + ">  caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " userId [" + userId + "]  caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -225,17 +225,17 @@ public class CreateSessionSample extends TestCase
             List<UserRole> sessRoles = session.getRoles();
 
             // do some validations
-            assertEquals(szLocation + " user role check failed list size user <" + user.getUserId() + ">", expectedRoles, sessRoles.size());
+            assertEquals(szLocation + " user role check failed list size user [" + user.getUserId() + "]", expectedRoles, sessRoles.size());
             for (String roleName : roles)
             {
-                assertTrue(szLocation + " userId <" + userId + ">  with roles trusted failed role check", sessRoles.contains(new UserRole(roleName)));
+                assertTrue(szLocation + " userId [" + userId + "]  with roles trusted failed role check", sessRoles.contains(new UserRole(roleName)));
             }
 
-            log.info(szLocation + "  userId <" + userId + "> successful");
+            log.info(szLocation + "  userId [" + userId + "] successful");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught userId <" + userId + ">  SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught userId [" + userId + "]  SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -261,11 +261,11 @@ public class CreateSessionSample extends TestCase
 
             // createSession will throw SecurityException if fails thus the Session should never be null.
             assertNotNull(session);
-            log.info(szLocation + "  userId <" + userId + "> successful");
+            log.info(szLocation + "  userId [" + userId + "] successful");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " userId <" + userId + "> caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " userId [" + userId + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

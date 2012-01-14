@@ -228,7 +228,7 @@ public class AccessMgrImpl implements AccessMgr
         // If session already has role activated log an error and throw an exception:
         if (sRoles != null && sRoles.contains(role))
         {
-            String info = fullMethodName + " User <" + session.getUserId() + "> Role <" + role.getName() + "> role already activated.";
+            String info = fullMethodName + " User [" + session.getUserId() + "] Role [" + role.getName() + "] role already activated.";
             throw new SecurityException(GlobalErrIds.URLE_ALREADY_ACTIVE, info);
         }
 
@@ -238,7 +238,7 @@ public class AccessMgrImpl implements AccessMgr
         // Is the role activation target valid for this user?
         if (!VUtil.isNotNullOrEmpty(uRoles) || ((indx = uRoles.indexOf(role)) == -1))
         {
-            String info = fullMethodName + " Role <" + role.getName() + "> User <" + session.getUserId() + "> role not authorized for user.";
+            String info = fullMethodName + " Role [" + role.getName() + "] User [" + session.getUserId() + "] role not authorized for user.";
             throw new SecurityException(GlobalErrIds.URLE_ACTIVATE_FAILED, info);
         }
         // validate Dynamic Separation of Duty Relations:
@@ -273,7 +273,7 @@ public class AccessMgrImpl implements AccessMgr
         }
         else
         {
-            String info = OCLS_NM + fullMethodName + " Role <" + role.getName() + "> User <" + session.getUserId() + ">, not previously activated";
+            String info = OCLS_NM + fullMethodName + " Role [" + role.getName() + "] User [" + session.getUserId() + "], not previously activated";
             throw new SecurityException(GlobalErrIds.URLE_NOT_ACTIVE, info);
         }
     }

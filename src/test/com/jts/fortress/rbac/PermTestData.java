@@ -2713,7 +2713,7 @@ public class PermTestData extends TestCase
         assertEquals(PermTestData.class.getName() + ".assertEquals failed compare perm type", getType(op), pOp.getType());
         assertEquals(PermTestData.class.getName() + ".assertEquals failed compare perm abstract name", (objName + "." + getName(op)), (pOp.getObjectName() + "." + pOp.getOpName()));
         assertEquals(PermTestData.class.getName() + ".assertEquals failed compare perm isAdmin", isOpAdmin(op), pOp.isAdmin());
-        log.debug(PermTestData.class.getName() + ".assertEquals perm objectName <" + objName + "> operation name <" + pOp.getOpName() + "> successful");
+        log.debug(PermTestData.class.getName() + ".assertEquals perm objectName [" + objName + "] operation name [" + pOp.getOpName() + "] successful");
     }
 
     /**
@@ -2742,7 +2742,7 @@ public class PermTestData extends TestCase
         assertEquals(PermTestData.class.getName() + ".assertEquals failed compare perm type", getType(obj), pObj.getType());
         assertEquals(PermTestData.class.getName() + ".assertEquals failed compare perm ou", getOu(obj), pObj.getOu());
         assertEquals(PermTestData.class.getName() + ".assertEquals failed compare perm isAdmin", isAdmin(obj), pObj.isAdmin());
-        log.debug(PermTestData.class.getName() + ".assertEquals perm objectName <" + pObj.getObjectName() + "> successful");
+        log.debug(PermTestData.class.getName() + ".assertEquals perm objectName [" + pObj.getObjectName() + "] successful");
     }
 
     /**

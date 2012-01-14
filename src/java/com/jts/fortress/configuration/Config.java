@@ -66,7 +66,7 @@ public class Config
             String realmName = config.getString(com.jts.fortress.constants.GlobalIds.CONFIG_REALM);
             if (realmName != null && realmName.length() > 0)
             {
-                log.info(OCLS_NM + " static init: load config realm <" + realmName + ">");
+                log.info(OCLS_NM + " static init: load config realm [" + realmName + "]");
                 Properties props = getRemoteConfig(realmName);
                 if (props != null)
                 {
@@ -141,7 +141,7 @@ public class Config
     // Load the Fortress config bootstrap xml file.  This file points to Fortress property file:
     //	ConfigurationFactory factory = new ConfigurationFactory(propFile);
     //	config = factory.getConfiguration();
-    //	log.info("Fortress Config - load file <" + propFile + ">");
+    //	log.info("Fortress Config - load file [" + propFile + ">");
 
     // to load property file w/out commons xml utils:
     //config = new PropertiesConfiguration("Fortress.properties");
@@ -170,11 +170,11 @@ public class Config
         {
             value = (String) config.getProperty(name);
             if (log.isDebugEnabled())
-                log.debug(OCLS_NM + ".getProperty name <" + name + "> value <" + value + ">");
+                log.debug(OCLS_NM + ".getProperty name [" + name + "] value [" + value + "]");
         }
         else
         {
-            String error = OCLS_NM + ".getProperty invalid config, can't read prop <" + name + ">";
+            String error = OCLS_NM + ".getProperty invalid config, can't read prop [" + name + "]";
             log.fatal(error);
         }
         return value;
@@ -197,7 +197,7 @@ public class Config
         }
         else
         {
-            String warn = OCLS_NM + ".getProperty invalid config, can't read prop <" + name + ">";
+            String warn = OCLS_NM + ".getProperty invalid config, can't read prop [" + name + "]";
             log.warn(warn);
         }
         if (value == null || value.length() == 0)
@@ -223,7 +223,7 @@ public class Config
         }
         else
         {
-            String warn = OCLS_NM + ".getInt invalid config, can't read prop <" + key + ">";
+            String warn = OCLS_NM + ".getInt invalid config, can't read prop [" + key + "]";
             log.warn(warn);
         }
         return value;
@@ -246,7 +246,7 @@ public class Config
         }
         else
         {
-            String warn = OCLS_NM + ".getInt invalid config, can't read prop <" + key + ">";
+            String warn = OCLS_NM + ".getInt invalid config, can't read prop [" + key + "]";
             log.warn(warn);
         }
         return value;
@@ -268,7 +268,7 @@ public class Config
         }
         else
         {
-            String warn = OCLS_NM + ".getBoolean - invalid config, can't read prop <" + key + ">";
+            String warn = OCLS_NM + ".getBoolean - invalid config, can't read prop [" + key + "]";
             log.warn(warn);
         }
         return value;
@@ -291,7 +291,7 @@ public class Config
         }
         else
         {
-            String warn = OCLS_NM + ".getBoolean - invalid config, can't read prop <" + key + ">";
+            String warn = OCLS_NM + ".getBoolean - invalid config, can't read prop [" + key + "]";
             log.warn(warn);
         }
         return value;

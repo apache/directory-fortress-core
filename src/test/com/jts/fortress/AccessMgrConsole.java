@@ -66,11 +66,11 @@ public class AccessMgrConsole
                 {
                     //pe = (Permission) list.get(i);
                     System.out.println("**perm:" + (i++) + "***");
-                    System.out.println("object name <" + pe.getObjectName() + ">");
-                    System.out.println("object id <" + pe.getObjectId() + ">");
-                    System.out.println("operation name <" + pe.getOpName() + ">");
-                    System.out.println("abstract perm name <" + pe.getAbstractName() + ">");
-                    System.out.println("internalId <" + pe.getInternalId() + ">");
+                    System.out.println("object name [" + pe.getObjectName() + "]");
+                    System.out.println("object id [" + pe.getObjectId() + "]");
+                    System.out.println("operation name [" + pe.getOpName() + "]");
+                    System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
+                    System.out.println("internalId [" + pe.getInternalId() + "]");
                     if (pe.getUsers() != null && pe.getUsers().size() > 0)
                     {
                         for (int j = 0; j < pe.getUsers().size(); j++)
@@ -126,8 +126,8 @@ public class AccessMgrConsole
             System.out.println("Enter password:");
             String password = ReaderUtil.readLn();
             session = am.authenticate(userId, password.toCharArray());
-            System.out.println("Authentication successful for userId <" + userId + ">");
-            System.out.println("session <" + session + ">");
+            System.out.println("Authentication successful for userId [" + userId + "]");
+            System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)
@@ -148,8 +148,8 @@ public class AccessMgrConsole
             System.out.println("Enter password:");
             String password = ReaderUtil.readLn();
             session = am.createSession(new User(userId, password.toCharArray()), false);
-            System.out.println("Session created successfully for userId <" + userId + ">");
-            System.out.println("session <" + session + ">");
+            System.out.println("Session created successfully for userId [" + userId + "]");
+            System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)
@@ -167,8 +167,8 @@ public class AccessMgrConsole
             System.out.println("Enter userId:");
             String userId = ReaderUtil.readLn();
             session = am.createSession(new User(userId), true);
-            System.out.println("Trusted Session created successfully for userId <" + userId + ">");
-            System.out.println("session <" + session + ">");
+            System.out.println("Trusted Session created successfully for userId [" + userId + "]");
+            System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)
@@ -213,8 +213,8 @@ public class AccessMgrConsole
             }
 
             session = am.createSession(user, isTrusted);
-            System.out.println("Session created successfully for userId <" + user.getUserId() + ">");
-            System.out.println("session id <" + session.getSessionId() + ">");
+            System.out.println("Session created successfully for userId [" + user.getUserId() + "]");
+            System.out.println("session id [" + session.getSessionId() + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)
@@ -239,7 +239,7 @@ public class AccessMgrConsole
             System.out.println("Enter operation name:");
             String opName = ReaderUtil.readLn();
             boolean result = am.checkAccess(session, new Permission(objName, opName));
-            System.out.println("CheckAccess return <" + result + "> for user <" + session.getUserId() + "> objectName <" + objName + "> operationName <" + opName + ">");
+            System.out.println("CheckAccess return [" + result + "] for user [" + session.getUserId() + "] objectName [" + objName + "] operationName [" + opName + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)
@@ -263,15 +263,15 @@ public class AccessMgrConsole
                 {
                     UserRole ur = roles.get(i);
                     System.out.println("    USER ROLE[" + i + "]:");
-                    System.out.println("        role name <" + ur.getName() + ">");
-                    System.out.println("        begin time <" + ur.getBeginTime() + ">");
-                    System.out.println("        end time <" + ur.getEndTime() + ">");
-                    System.out.println("        begin date <" + ur.getBeginDate() + ">");
-                    System.out.println("        end date <" + ur.getEndDate() + ">");
-                    System.out.println("        begin lock <" + ur.getBeginLockDate() + ">");
-                    System.out.println("        end lock <" + ur.getEndLockDate() + ">");
-                    System.out.println("        day mask <" + ur.getDayMask() + ">");
-                    System.out.println("        time out <" + ur.getTimeout() + ">");
+                    System.out.println("        role name [" + ur.getName() + "]");
+                    System.out.println("        begin time [" + ur.getBeginTime() + "]");
+                    System.out.println("        end time [" + ur.getEndTime() + "]");
+                    System.out.println("        begin date [" + ur.getBeginDate() + "]");
+                    System.out.println("        end date [" + ur.getEndDate() + "]");
+                    System.out.println("        begin lock [" + ur.getBeginLockDate() + "]");
+                    System.out.println("        end lock [" + ur.getEndLockDate() + "]");
+                    System.out.println("        day mask [" + ur.getDayMask() + "]");
+                    System.out.println("        time out [" + ur.getTimeout() + "]");
                 }
             }
             List<UserAdminRole> aRoles = session.getAdminRoles();
@@ -281,19 +281,19 @@ public class AccessMgrConsole
                 {
                     UserAdminRole ur = aRoles.get(i);
                     System.out.println("    USER ADMIN ROLE[" + i + "]:");
-                    System.out.println("        admin role name <" + ur.getName() + ">");
-                    System.out.println("        OsU <" + ur.getOsU() + ">");
-                    System.out.println("        OsP <" + ur.getOsP() + ">");
-                    System.out.println("        begin range <" + ur.getBeginRange() + ">");
-                    System.out.println("        end range <" + ur.getEndRange() + ">");
-                    System.out.println("        begin time <" + ur.getBeginTime() + ">");
-                    System.out.println("        end time <" + ur.getEndTime() + ">");
-                    System.out.println("        begin date <" + ur.getBeginDate() + ">");
-                    System.out.println("        end date <" + ur.getEndDate() + ">");
-                    System.out.println("        begin lock <" + ur.getBeginLockDate() + ">");
-                    System.out.println("        end lock <" + ur.getEndLockDate() + ">");
-                    System.out.println("        day mask <" + ur.getDayMask() + ">");
-                    System.out.println("        time out <" + ur.getTimeout() + ">");
+                    System.out.println("        admin role name [" + ur.getName() + "]");
+                    System.out.println("        OsU [" + ur.getOsU() + "]");
+                    System.out.println("        OsP [" + ur.getOsP() + "]");
+                    System.out.println("        begin range [" + ur.getBeginRange() + "]");
+                    System.out.println("        end range [" + ur.getEndRange() + "]");
+                    System.out.println("        begin time [" + ur.getBeginTime() + "]");
+                    System.out.println("        end time [" + ur.getEndTime() + "]");
+                    System.out.println("        begin date [" + ur.getBeginDate() + "]");
+                    System.out.println("        end date [" + ur.getEndDate() + "]");
+                    System.out.println("        begin lock [" + ur.getBeginLockDate() + "]");
+                    System.out.println("        end lock [" + ur.getEndLockDate() + "]");
+                    System.out.println("        day mask [" + ur.getDayMask() + "]");
+                    System.out.println("        time out [" + ur.getTimeout() + "]");
                 }
             }
 
@@ -450,15 +450,15 @@ public class AccessMgrConsole
                 {
                     UserRole ur = roles.get(i);
                     System.out.println("    USER ROLE[" + i + "]:");
-                    System.out.println("        role name <" + ur.getName() + ">");
-                    System.out.println("        begin time <" + ur.getBeginTime() + ">");
-                    System.out.println("        end time <" + ur.getEndTime() + ">");
-                    System.out.println("        begin date <" + ur.getBeginDate() + ">");
-                    System.out.println("        end date <" + ur.getEndDate() + ">");
-                    System.out.println("        begin lock <" + ur.getBeginLockDate() + ">");
-                    System.out.println("        end lock <" + ur.getEndLockDate() + ">");
-                    System.out.println("        day mask <" + ur.getDayMask() + ">");
-                    System.out.println("        time out <" + ur.getTimeout() + ">");
+                    System.out.println("        role name [" + ur.getName() + "]");
+                    System.out.println("        begin time [" + ur.getBeginTime() + "]");
+                    System.out.println("        end time [" + ur.getEndTime() + "]");
+                    System.out.println("        begin date [" + ur.getBeginDate() + "]");
+                    System.out.println("        end date [" + ur.getEndDate() + "]");
+                    System.out.println("        begin lock [" + ur.getBeginLockDate() + "]");
+                    System.out.println("        end lock [" + ur.getEndLockDate() + "]");
+                    System.out.println("        day mask [" + ur.getDayMask() + "]");
+                    System.out.println("        time out [" + ur.getTimeout() + "]");
                 }
             }
 
@@ -469,19 +469,19 @@ public class AccessMgrConsole
                 {
                     UserAdminRole ur = aRoles.get(i);
                     System.out.println("    USER ADMIN ROLE[" + i + "]:");
-                    System.out.println("        admin role name <" + ur.getName() + ">");
-                    System.out.println("        OsU <" + ur.getOsU() + ">");
-                    System.out.println("        OsP <" + ur.getOsP() + ">");
-                    System.out.println("        begin range <" + ur.getBeginRange() + ">");
-                    System.out.println("        end range <" + ur.getEndRange() + ">");
-                    System.out.println("        begin time <" + ur.getBeginTime() + ">");
-                    System.out.println("        end time <" + ur.getEndTime() + ">");
-                    System.out.println("        begin date <" + ur.getBeginDate() + ">");
-                    System.out.println("        end date <" + ur.getEndDate() + ">");
-                    System.out.println("        begin lock <" + ur.getBeginLockDate() + ">");
-                    System.out.println("        end lock <" + ur.getEndLockDate() + ">");
-                    System.out.println("        day mask <" + ur.getDayMask() + ">");
-                    System.out.println("        time out <" + ur.getTimeout() + ">");
+                    System.out.println("        admin role name [" + ur.getName() + "]");
+                    System.out.println("        OsU [" + ur.getOsU() + "]");
+                    System.out.println("        OsP [" + ur.getOsP() + "]");
+                    System.out.println("        begin range [" + ur.getBeginRange() + "]");
+                    System.out.println("        end range [" + ur.getEndRange() + "]");
+                    System.out.println("        begin time [" + ur.getBeginTime() + "]");
+                    System.out.println("        end time [" + ur.getEndTime() + "]");
+                    System.out.println("        begin date [" + ur.getBeginDate() + "]");
+                    System.out.println("        end date [" + ur.getEndDate() + "]");
+                    System.out.println("        begin lock [" + ur.getBeginLockDate() + "]");
+                    System.out.println("        end lock [" + ur.getEndLockDate() + "]");
+                    System.out.println("        day mask [" + ur.getDayMask() + "]");
+                    System.out.println("        time out [" + ur.getTimeout() + "]");
                 }
             }
             System.out.println("ENTER to continue");

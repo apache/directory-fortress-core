@@ -280,7 +280,7 @@ public final class AdminMgrImpl implements AdminMgr
         int numChildren = RoleUtil.numChildren(role.getName());
         if (numChildren > 0)
         {
-            String error = OCLS_NM + "." + methodName + " role <" + role.getName() + "> must remove <" + numChildren + "> descendants before deletion";
+            String error = OCLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren + "] descendants before deletion";
             log.error(error);
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }

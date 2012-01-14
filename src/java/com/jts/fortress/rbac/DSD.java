@@ -86,7 +86,7 @@ public class DSD
                             if (matchCount >= dsd.getCardinality())
                             {
                                 activatedRoles.remove();
-                                String warning = OCLS_NM + ".validate userId <" + session.getUserId() + "> failed activation of assignedRole <" + activatedRole.getName() + "> validates DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality() + ", Count:" + matchCount;
+                                String warning = OCLS_NM + ".validate userId [" + session.getUserId() + "] failed activation of assignedRole [" + activatedRole.getName() + "] validates DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality() + ", Count:" + matchCount;
                                 log.warn(warning);
                                 rc = GlobalErrIds.ACTV_FAILED_DSD;
                             }
@@ -104,7 +104,7 @@ public class DSD
                                     {
                                         // remove the assigned role from session (not the authorized role):
                                         activatedRoles.remove();
-                                        String warning = OCLS_NM + ".validate userId <" + session.getUserId() + "> assignedRole <" + activatedRole.getName() + "> parentRole <" + parentRole + "> validates DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality() + ", Count:" + matchCount;
+                                        String warning = OCLS_NM + ".validate userId [" + session.getUserId() + "] assignedRole [" + activatedRole.getName() + "] parentRole [" + parentRole + "] validates DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality() + ", Count:" + matchCount;
                                         log.warn(warning);
                                         rc = GlobalErrIds.ACTV_FAILED_DSD;
                                     }

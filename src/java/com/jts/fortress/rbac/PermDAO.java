@@ -216,7 +216,7 @@ public final class PermDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".createObject perm obj <" + entity.getObjectName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".createObject perm obj [" + entity.getObjectName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException(GlobalErrIds.PERM_ADD_FAILED, error, e);
         }
         finally
@@ -270,7 +270,7 @@ public final class PermDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".updateObj objectName <" + entity.getObjectName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".updateObj objectName [" + entity.getObjectName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.PERM_UPDATE_FAILED, error, e);
         }
         finally
@@ -298,7 +298,7 @@ public final class PermDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".deleteObj objectName <" + entity.getObjectName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".deleteObj objectName [" + entity.getObjectName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException(GlobalErrIds.PERM_DELETE_FAILED, error, e);
         }
         finally
@@ -365,7 +365,7 @@ public final class PermDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".createOperation objectName <" + entity.getObjectName() + "> opName <" + entity.getOpName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".createOperation objectName [" + entity.getObjectName() + "] opName [" + entity.getOpName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException(GlobalErrIds.PERM_ADD_FAILED, error, e);
         }
         finally
@@ -416,7 +416,7 @@ public final class PermDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".updateOperation objectName <" + entity.getObjectName() + "> opName <" + entity.getOpName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".updateOperation objectName [" + entity.getObjectName() + "] opName [" + entity.getOpName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.PERM_UPDATE_FAILED, error, e);
         }
         finally
@@ -444,7 +444,7 @@ public final class PermDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".deleteOperation objectName <" + entity.getObjectName() + "> opName <" + entity.getOpName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".deleteOperation objectName [" + entity.getObjectName() + "] opName [" + entity.getOpName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException(GlobalErrIds.PERM_DELETE_FAILED, error, e);
         }
         finally
@@ -479,17 +479,17 @@ public final class PermDAO
         {
             if (e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS)
             {
-                String warning = OCLS_NM + ".grant perm object <" + pOp.getObjectName() + "> operation <" + pOp.getOpName() + "> role <" + role.getName() + "> assignment already exists, Fortress errCode=" + GlobalErrIds.PERM_ROLE_EXIST;
+                String warning = OCLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] role [" + role.getName() + "] assignment already exists, Fortress errCode=" + GlobalErrIds.PERM_ROLE_EXIST;
                 throw new UpdateException(GlobalErrIds.PERM_ROLE_EXIST, warning);
             }
             else if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".grant perm object <" + pOp.getObjectName() + "> operation <" + pOp.getOpName() + "> role <" + role.getName() + "> perm not found, Fortress errCode=" + GlobalErrIds.PERM_OP_NOT_FOUND;
+                String warning = OCLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] role [" + role.getName() + "] perm not found, Fortress errCode=" + GlobalErrIds.PERM_OP_NOT_FOUND;
                 throw new UpdateException(GlobalErrIds.PERM_OP_NOT_FOUND, warning);
             }
             else
             {
-                String error = OCLS_NM + ".grant perm object <" + pOp.getObjectName() + "> operation <" + pOp.getOpName() + "> name <" + role.getName() + ">  caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String error = OCLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] name [" + role.getName() + "]  caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException(GlobalErrIds.PERM_GRANT_FAILED, error, e);
             }
         }
@@ -525,12 +525,12 @@ public final class PermDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_ATTRIBUTE)
             {
-                String warning = OCLS_NM + ".revoke perm object <" + pOp.getObjectName() + "> operation <" + pOp.getOpName() + "> name <" + role.getName() + "> assignment does not exist.";
+                String warning = OCLS_NM + ".revoke perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] name [" + role.getName() + "] assignment does not exist.";
                 throw new FinderException(GlobalErrIds.PERM_ROLE_NOT_EXIST, warning);
             }
             else
             {
-                String error = OCLS_NM + ".revoke perm object <" + pOp.getObjectName() + "> operation <" + pOp.getOpName() + "> name <" + role.getName() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String error = OCLS_NM + ".revoke perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] name [" + role.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException(GlobalErrIds.PERM_REVOKE_FAILED, error, e);
             }
         }
@@ -566,17 +566,17 @@ public final class PermDAO
         {
             if (e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS)
             {
-                String warning = OCLS_NM + ".grant perm object <" + pOp.getObjectName() + "> operation <" + pOp.getOpName() + "> userId <" + user.getUserId() + "> assignment already exists, Fortress errCode=" + GlobalErrIds.PERM_USER_EXIST;
+                String warning = OCLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] userId [" + user.getUserId() + "] assignment already exists, Fortress errCode=" + GlobalErrIds.PERM_USER_EXIST;
                 throw new UpdateException(GlobalErrIds.PERM_USER_EXIST, warning);
             }
             else if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".grant perm object <" + pOp.getObjectName() + "> operation <" + pOp.getOpName() + "> userId <" + user.getUserId() + "> perm not found, Fortress errCode=" + GlobalErrIds.PERM_OP_NOT_FOUND;
+                String warning = OCLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] userId [" + user.getUserId() + "] perm not found, Fortress errCode=" + GlobalErrIds.PERM_OP_NOT_FOUND;
                 throw new UpdateException(GlobalErrIds.PERM_OP_NOT_FOUND, warning);
             }
             else
             {
-                String error = OCLS_NM + ".grant perm object <" + pOp.getObjectName() + "> operation <" + pOp.getOpName() + "> userId <" + user.getUserId() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String error = OCLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] userId [" + user.getUserId() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException(GlobalErrIds.PERM_GRANT_USER_FAILED, error, e);
             }
         }
@@ -612,12 +612,12 @@ public final class PermDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_ATTRIBUTE)
             {
-                String warning = OCLS_NM + ".revoke perm object <" + pOp.getObjectName() + "> operation <" + pOp.getOpName() + "> userId <" + user.getUserId() + "> assignment does not exist.";
+                String warning = OCLS_NM + ".revoke perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] userId [" + user.getUserId() + "] assignment does not exist.";
                 throw new FinderException(GlobalErrIds.PERM_USER_NOT_EXIST, warning);
             }
             else
             {
-                String error = OCLS_NM + ".revoke perm object <" + pOp.getObjectName() + "> operation <" + pOp.getOpName() + "> userId <" + user.getUserId() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String error = OCLS_NM + ".revoke perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] userId [" + user.getUserId() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException(GlobalErrIds.PERM_REVOKE_FAILED, error, e);
             }
         }
@@ -647,7 +647,7 @@ public final class PermDAO
             entity = unloadPopLdapEntry(findEntry, 0);
             if (entity == null)
             {
-                String warning = OCLS_NM + ".getPerm no entry found dn <" + dn + ">";
+                String warning = OCLS_NM + ".getPerm no entry found dn [" + dn + "]";
                 throw new FinderException(GlobalErrIds.PERM_OP_NOT_FOUND, warning);
             }
         }
@@ -655,11 +655,11 @@ public final class PermDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".getPerm Op COULD NOT FIND ENTRY for dn <" + dn + ">";
+                String warning = OCLS_NM + ".getPerm Op COULD NOT FIND ENTRY for dn [" + dn + "]";
                 throw new FinderException(GlobalErrIds.PERM_OP_NOT_FOUND, warning);
             }
 
-            String error = OCLS_NM + ".getUser <" + dn + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".getUser [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, e);
         }
         finally
@@ -689,7 +689,7 @@ public final class PermDAO
             entity = unloadPobjLdapEntry(findEntry, 0);
             if (entity == null)
             {
-                String warning = OCLS_NM + ".getPerm Obj no entry found dn <" + dn + ">";
+                String warning = OCLS_NM + ".getPerm Obj no entry found dn [" + dn + "]";
                 throw new FinderException(GlobalErrIds.PERM_OBJ_NOT_FOUND, warning);
             }
         }
@@ -697,10 +697,10 @@ public final class PermDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".getPerm Obj COULD NOT FIND ENTRY for dn <" + dn + ">";
+                String warning = OCLS_NM + ".getPerm Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
                 throw new FinderException(GlobalErrIds.PERM_OBJ_NOT_FOUND, warning);
             }
-            String error = OCLS_NM + ".getPerm Obj dn <" + dn + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".getPerm Obj dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.PERM_READ_OBJ_FAILED, error, e);
         }
         finally
@@ -1063,7 +1063,7 @@ public final class PermDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".findPermissions user <" + user.getUserId() + "> caught LDAPException in PermDAO.findPermissions=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".findPermissions user [" + user.getUserId() + "] caught LDAPException in PermDAO.findPermissions=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.PERM_USER_SEARCH_FAILED, error, e);
         }
         finally
@@ -1102,7 +1102,7 @@ public final class PermDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".findUserPermissions user <" + user.getUserId() + "> caught LDAPException in PermDAO.findPermissions=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".findUserPermissions user [" + user.getUserId() + "] caught LDAPException in PermDAO.findPermissions=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.PERM_USER_SEARCH_FAILED, error, e);
         }
         finally
@@ -1151,7 +1151,7 @@ public final class PermDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".findPermissions user <" + session.getUserId() + "> caught LDAPException in PermDAO.findPermissions=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".findPermissions user [" + session.getUserId() + "] caught LDAPException in PermDAO.findPermissions=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.PERM_SESS_SEARCH_FAILED, error, e);
         }
         finally

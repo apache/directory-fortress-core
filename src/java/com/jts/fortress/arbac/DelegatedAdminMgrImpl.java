@@ -103,7 +103,7 @@ public final class DelegatedAdminMgrImpl
         int numChildren = AdminRoleUtil.numChildren(role.getName());
         if (numChildren > 0)
         {
-            String error = OCLS_NM + "." + methodName + " role <" + role.getName() + "> must remove <" + numChildren + "> descendants before deletion";
+            String error = OCLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren + "] descendants before deletion";
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
         // search for all users assigned this role and deassign:
@@ -298,7 +298,7 @@ public final class DelegatedAdminMgrImpl
         }
         if (numChildren > 0)
         {
-            String error = OCLS_NM + "." + methodName + " orgunit <" + entity.getName() + "> must remove <" + numChildren + "> descendants before deletion";
+            String error = OCLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must remove [" + numChildren + "] descendants before deletion";
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
         if(entity.getType() == OrgUnit.Type.USER)
@@ -307,7 +307,7 @@ public final class DelegatedAdminMgrImpl
             List<User> assignedUsers = userP.search(entity, true);
             if(VUtil.isNotNullOrEmpty(assignedUsers))
             {
-                String error = OCLS_NM + "." + methodName + " orgunit <" + entity.getName() + "> must unassign <" + assignedUsers.size() + "> users before deletion";
+                String error = OCLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedUsers.size() + "] users before deletion";
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_USER, error, null);
             }
         }
@@ -317,7 +317,7 @@ public final class DelegatedAdminMgrImpl
             List<PermObj> assignedPerms = permP.search(entity, true);
             if(VUtil.isNotNullOrEmpty(assignedPerms))
             {
-                String error = OCLS_NM + "." + methodName + " orgunit <" + entity.getName() + "> must unassign <" + assignedPerms.size() + "> perm objs before deletion";
+                String error = OCLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedPerms.size() + "] perm objs before deletion";
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_PERM, error, null);
             }
         }

@@ -136,7 +136,7 @@ public class PolicyMgrConsole
 			policy.setExpireWarning(new Long(ReaderUtil.readLn()));
 
 			pm.add(policy);
-			System.out.print("policy name <" + policy.getName() + ">");
+			System.out.print("policy name [" + policy.getName() + "]");
 			System.out.println(" has been added");
 			System.out.println("ENTER to continue");
 		}

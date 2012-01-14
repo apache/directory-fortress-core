@@ -170,13 +170,13 @@ public class ConfigP
         }
         if (name.length() > GlobalIds.OU_LEN)
         {
-            String error = OCLS_NM + ".validate name <" + name + "> invalid length <" + name.length() + ">";
+            String error = OCLS_NM + ".validate name [" + name + "] invalid length [" + name.length() + "]";
             log.warn(error);
             throw new ValidationException(GlobalErrIds.FT_CONFIG_NAME_INVLD, error);
         }
         if (entity == null || entity.size() == 0)
         {
-            String error = OCLS_NM + ".validate name <" + name + "> config props null";
+            String error = OCLS_NM + ".validate name [" + name + "] config props null";
             log.warn(error);
             throw new ValidationException(GlobalErrIds.FT_CONFIG_PROPS_NULL, error);
         }

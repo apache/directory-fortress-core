@@ -107,7 +107,7 @@ public class CreatePermSample extends TestCase
                 // now retrieve the list of Roles that are still assigned to perm.  This should be a null list because of revocation performed above:
                 List<String> assignedRoles = reviewMgr.permissionRoles(inPerm);
                 assertNull(assignedRoles);
-                log.info(szLocation + " permission roles revocation check for object <" + inPerm.getObjectName() + "> operation name <" + inPerm.getOpName() + "> revocation success");
+                log.info(szLocation + " permission roles revocation check for object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] revocation success");
             }
         }
         catch (SecurityException ex)
@@ -150,7 +150,7 @@ public class CreatePermSample extends TestCase
                 assertTrue(szLocation + " excep id check", se.getErrorId() == GlobalErrIds.PERM_OBJ_NOT_FOUND);
                 // pass
             }
-            log.info(szLocation + " permission object <" + TEST_PERM_OBJECT + "> success");
+            log.info(szLocation + " permission object [" + TEST_PERM_OBJECT + "] success");
 
         }
         catch (SecurityException ex)
@@ -212,7 +212,7 @@ public class CreatePermSample extends TestCase
             assertNotNull(outObj);
             assertTrue(szLocation + " failed obj name check", TEST_PERM_OBJECT.equals(outObj.getObjectName()));
             assertTrue(szLocation + " failed obj ou check", CreatePermOrgSample.TEST_PERM_OU_NM.equals(outObj.getOu()));
-            log.info(szLocation + " permission object <" + outObj.getObjectName() + "> success");
+            log.info(szLocation + " permission object [" + outObj.getObjectName() + "] success");
         }
         catch (SecurityException ex)
         {
@@ -293,7 +293,7 @@ public class CreatePermSample extends TestCase
                 // Do some validations.
                 assertNotNull(outPerm);
                 assertTrue(szLocation + " failed permission check", outPerm.equals(inPerm));
-                log.info(szLocation + " permission object <" + outPerm.getObjectName() + "> operation name <" + outPerm.getOpName() + "> success");
+                log.info(szLocation + " permission object [" + outPerm.getObjectName() + "] operation name [" + outPerm.getOpName() + "] success");
 
             }
         }
@@ -327,7 +327,7 @@ public class CreatePermSample extends TestCase
 
                     // This API add a 'oamRoles' attribute associated with Role to the 'oamOperation' ldap object class:
                     adminMgr.grantPermission(inPerm, inRole);
-                    log.info(szLocation + " permission role <" + inRole.getName() + "> object <" + inPerm.getObjectName() + "> operation name <" + inPerm.getOpName() + "> success");
+                    log.info(szLocation + " permission role [" + inRole.getName() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
                 }
             }
 
@@ -373,7 +373,7 @@ public class CreatePermSample extends TestCase
 
                 // This API add a 'oamUsers' attribute associated with User to the 'oamOperation' ldap object class:
                 adminMgr.grantPermission(inPerm, inUser);
-                log.info(szLocation + " permission user <" + inUser.getUserId() + "> object <" + inPerm.getObjectName() + "> operation name <" + inPerm.getOpName() + "> success");
+                log.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
             }
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
             ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
@@ -424,7 +424,7 @@ public class CreatePermSample extends TestCase
                 // now read the list of Users that are still granted.  This should be a null list because of revocation performed above:
                 List<String> assignedUsers = reviewMgr.permissionUsers(inPerm);
                 assertNull(assignedUsers);
-                log.info(szLocation + " permission user <" + inUser.getUserId() + "> object <" + inPerm.getObjectName() + "> operation name <" + inPerm.getOpName() + "> success");
+                log.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
             }
         }
         catch (SecurityException ex)

@@ -87,7 +87,7 @@ public class CreateUserOrgSample extends TestCase
             // Now read the OrgUnit back to make sure it got added OK.
             OrgUnit outOU = dReviewMgr.read(inOU);
             assertTrue(szLocation + " failed read", inOU.equals(outOU));
-            log.info(szLocation + " <" + outOU.getName() + "> success");
+            log.info(szLocation + " [" + outOU.getName() + "] success");
         }
         catch (SecurityException ex)
         {

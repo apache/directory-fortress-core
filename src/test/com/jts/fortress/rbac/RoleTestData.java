@@ -3024,7 +3024,7 @@ public class RoleTestData extends TestCase
         assertEquals(RoleTestData.class.getName() + ".assertEquals failed compare role name", getName(rle), role.getName());
         assertEquals(RoleTestData.class.getName() + ".assertEquals failed compare role desc", getDescription(rle), role.getDescription());
         TestUtils.assertTemporal(RoleTestData.class.getName() + ".assertEquals", validConstraint, role);
-        log.debug(RoleTestData.class.getName() + ".assertEquals <" + role.getName() + "> successful");
+        log.debug(RoleTestData.class.getName() + ".assertEquals [" + role.getName() + "] successful");
     }
 
     /**
@@ -3039,7 +3039,7 @@ public class RoleTestData extends TestCase
         assertEquals(RoleTestData.class.getName() + ".assertEquals failed compare userrole userId", userId, uRole.getUserId());
         assertEquals(RoleTestData.class.getName() + ".assertEquals failed compare userrole name", getName(urle), uRole.getName());
         TestUtils.assertTemporal(RoleTestData.class.getName() + ".assertEquals", validConstraint, uRole);
-        log.debug(RoleTestData.class.getName() + ".assertEquals userId <" + userId + "> role name <" + uRole.getName() + "> successful");
+        log.debug(RoleTestData.class.getName() + ".assertEquals userId [" + userId + "] role name [" + uRole.getName() + "] successful");
     }
 
     /**

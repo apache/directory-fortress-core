@@ -206,27 +206,27 @@ public class AuditMgrConsole
                 private String structuralObjectClass;
                 */
 
-                System.out.println("AUDIT BIND OBJECT <" + ctr++ + ">:");
-                System.out.println("    createTimestamp          <" + aBind.getCreateTimestamp() + ">");
-                System.out.println("    creatorsName             <" + aBind.getCreatorsName() + ">");
-                System.out.println("    entryCSN                 <" + aBind.getEntryCSN() + ">");
-                System.out.println("    entryDN                  <" + aBind.getEntryDN() + ">");
-                System.out.println("    entryUUID                <" + aBind.getEntryUUID() + ">");
-                System.out.println("    hasSubordinates          <" + aBind.getHasSubordinates() + ">");
-                System.out.println("    modifiersName            <" + aBind.getModifiersName() + ">");
-                System.out.println("    modifyTimestamp          <" + aBind.getModifyTimestamp() + ">");
-                System.out.println("    objectClass              <" + aBind.getObjectClass() + ">");
-                System.out.println("    reqAuthzID               <" + aBind.getReqAuthzID() + ">");
-                System.out.println("    reqControls              <" + aBind.getReqControls() + ">");
-                System.out.println("    reqDN                    <" + aBind.getReqDN() + ">");
-                System.out.println("    reqEnd                   <" + aBind.getReqEnd() + ">");
-                System.out.println("    reqMethod                <" + aBind.getReqMethod() + ">");
-                System.out.println("    reqResult                <" + aBind.getReqResult() + ">");
-                System.out.println("    reqSession               <" + aBind.getReqSession() + ">");
-                System.out.println("    reqStart                 <" + aBind.getReqStart() + ">");
-                System.out.println("    reqType                  <" + aBind.getReqType() + ">");
-                System.out.println("    reqVersion               <" + aBind.getReqVersion() + ">");
-                System.out.println("    structuralObjectClass    <" + aBind.getStructuralObjectClass() + ">");
+                System.out.println("AUDIT BIND OBJECT [" + ctr++ + "]:");
+                System.out.println("    createTimestamp          [" + aBind.getCreateTimestamp() + "]");
+                System.out.println("    creatorsName             [" + aBind.getCreatorsName() + "]");
+                System.out.println("    entryCSN                 [" + aBind.getEntryCSN() + "]");
+                System.out.println("    entryDN                  [" + aBind.getEntryDN() + "]");
+                System.out.println("    entryUUID                [" + aBind.getEntryUUID() + "]");
+                System.out.println("    hasSubordinates          [" + aBind.getHasSubordinates() + "]");
+                System.out.println("    modifiersName            [" + aBind.getModifiersName() + "]");
+                System.out.println("    modifyTimestamp          [" + aBind.getModifyTimestamp() + "]");
+                System.out.println("    objectClass              [" + aBind.getObjectClass() + "]");
+                System.out.println("    reqAuthzID               [" + aBind.getReqAuthzID() + "]");
+                System.out.println("    reqControls              [" + aBind.getReqControls() + "]");
+                System.out.println("    reqDN                    [" + aBind.getReqDN() + "]");
+                System.out.println("    reqEnd                   [" + aBind.getReqEnd() + "]");
+                System.out.println("    reqMethod                [" + aBind.getReqMethod() + "]");
+                System.out.println("    reqResult                [" + aBind.getReqResult() + "]");
+                System.out.println("    reqSession               [" + aBind.getReqSession() + "]");
+                System.out.println("    reqStart                 [" + aBind.getReqStart() + "]");
+                System.out.println("    reqType                  [" + aBind.getReqType() + "]");
+                System.out.println("    reqVersion               [" + aBind.getReqVersion() + "]");
+                System.out.println("    structuralObjectClass    [" + aBind.getStructuralObjectClass() + "]");
             }
         }
         else
@@ -446,8 +446,8 @@ public class AuditMgrConsole
                         System.out.println("    Role[" + rCtr++ + "]         " + role);
                     }
                 }
-                //System.out.println("    reqStart        <" + authZ.getReqStart() + ">");
-                //System.out.println("    reqEnd          <" + authZ.getReqEnd() + ">");
+                //System.out.println("    reqStart        [" + authZ.getReqStart() + "]");
+                //System.out.println("    reqEnd          [" + authZ.getReqEnd() + "]");
                 System.out.println();
                 System.out.println();
                 //System.out.println("**********************************");
@@ -572,34 +572,34 @@ public class AuditMgrConsole
                 private String subschemaSubentry;
                 */
 
-                System.out.println("AUDIT AUTHZ OBJECT <" + ctr++ + ">:");
-                System.out.println("    reqAuthzID               <" + authZ.getReqAuthzID() + ">");
-                System.out.println("    reqDN                    <" + authZ.getReqDN() + ">");
-                System.out.println("    reqFilter                <" + authZ.getReqFilter() + ">");
-                System.out.println("    reqEntries               <" + authZ.getReqEntries() + ">");
-                System.out.println("    reqStart                 <" + authZ.getReqStart() + ">");
-                System.out.println("    reqEnd                   <" + authZ.getReqEnd() + ">");
+                System.out.println("AUDIT AUTHZ OBJECT [" + ctr++ + "]:");
+                System.out.println("    reqAuthzID               [" + authZ.getReqAuthzID() + "]");
+                System.out.println("    reqDN                    [" + authZ.getReqDN() + "]");
+                System.out.println("    reqFilter                [" + authZ.getReqFilter() + "]");
+                System.out.println("    reqEntries               [" + authZ.getReqEntries() + "]");
+                System.out.println("    reqStart                 [" + authZ.getReqStart() + "]");
+                System.out.println("    reqEnd                   [" + authZ.getReqEnd() + "]");
 
-                System.out.println("    createTimestamp          <" + authZ.getCreateTimestamp() + ">");
-                System.out.println("    creatorsName             <" + authZ.getCreatorsName() + ">");
-                System.out.println("    entryCSN                 <" + authZ.getEntryCSN() + ">");
-                System.out.println("    entryDN                  <" + authZ.getEntryDN() + ">");
-                System.out.println("    entryUUID                <" + authZ.getEntryUUID() + ">");
-                System.out.println("    hasSubordinates          <" + authZ.getHasSubordinates() + ">");
-                System.out.println("    modifiersName            <" + authZ.getModifiersName() + ">");
-                System.out.println("    modifyTimestamp          <" + authZ.getModifyTimestamp() + ">");
-                System.out.println("    objectClass              <" + authZ.getObjectClass() + ">");
-                System.out.println("    reqControls              <" + authZ.getReqControls() + ">");
-                System.out.println("    reqResult                <" + authZ.getReqResult() + ">");
-                System.out.println("    reqSession               <" + authZ.getReqSession() + ">");
-                System.out.println("    reqType                  <" + authZ.getReqType() + ">");
-                System.out.println("    structuralObjectClass    <" + authZ.getStructuralObjectClass() + ">");
-                System.out.println("    reqAttr                  <" + authZ.getReqAttr() + ">");
-                System.out.println("    reqAttrsOnly             <" + authZ.getReqAttrsOnly() + ">");
-                System.out.println("    reqDerefAliases          <" + authZ.getReqDerefAliases() + ">");
-                System.out.println("    reqScope                 <" + authZ.getReqScope() + ">");
-                System.out.println("    reqSizeLimit             <" + authZ.getReqSizeLimit() + ">");
-                System.out.println("    reqTimeLimit             <" + authZ.getReqTimeLimit() + ">");
+                System.out.println("    createTimestamp          [" + authZ.getCreateTimestamp() + "]");
+                System.out.println("    creatorsName             [" + authZ.getCreatorsName() + "]");
+                System.out.println("    entryCSN                 [" + authZ.getEntryCSN() + "]");
+                System.out.println("    entryDN                  [" + authZ.getEntryDN() + "]");
+                System.out.println("    entryUUID                [" + authZ.getEntryUUID() + "]");
+                System.out.println("    hasSubordinates          [" + authZ.getHasSubordinates() + "]");
+                System.out.println("    modifiersName            [" + authZ.getModifiersName() + "]");
+                System.out.println("    modifyTimestamp          [" + authZ.getModifyTimestamp() + "]");
+                System.out.println("    objectClass              [" + authZ.getObjectClass() + "]");
+                System.out.println("    reqControls              [" + authZ.getReqControls() + "]");
+                System.out.println("    reqResult                [" + authZ.getReqResult() + "]");
+                System.out.println("    reqSession               [" + authZ.getReqSession() + "]");
+                System.out.println("    reqType                  [" + authZ.getReqType() + "]");
+                System.out.println("    structuralObjectClass    [" + authZ.getStructuralObjectClass() + "]");
+                System.out.println("    reqAttr                  [" + authZ.getReqAttr() + "]");
+                System.out.println("    reqAttrsOnly             [" + authZ.getReqAttrsOnly() + "]");
+                System.out.println("    reqDerefAliases          [" + authZ.getReqDerefAliases() + "]");
+                System.out.println("    reqScope                 [" + authZ.getReqScope() + "]");
+                System.out.println("    reqSizeLimit             [" + authZ.getReqSizeLimit() + "]");
+                System.out.println("    reqTimeLimit             [" + authZ.getReqTimeLimit() + "]");
             }
         }
         else
@@ -680,21 +680,21 @@ public class AuditMgrConsole
                     private String reqType;
                     private List<String> reqMod;
                 */
-                System.out.println("AUDIT MOD OBJECT <" + ctr++ + ">:");
-                System.out.println("    reqAuthzID               <" + mod.getReqAuthzID() + ">");
-                System.out.println("    reqDN                    <" + mod.getReqDN() + ">");
-                System.out.println("    reqStart                 <" + mod.getReqStart() + ">");
-                System.out.println("    reqEnd                   <" + mod.getReqEnd() + ">");
-                System.out.println("    objectClass              <" + mod.getObjectClass() + ">");
-                System.out.println("    reqResult                <" + mod.getReqResult() + ">");
-                System.out.println("    reqSession               <" + mod.getReqSession() + ">");
-                System.out.println("    reqType                  <" + mod.getReqType() + ">");
+                System.out.println("AUDIT MOD OBJECT [" + ctr++ + "]:");
+                System.out.println("    reqAuthzID               [" + mod.getReqAuthzID() + "]");
+                System.out.println("    reqDN                    [" + mod.getReqDN() + "]");
+                System.out.println("    reqStart                 [" + mod.getReqStart() + "]");
+                System.out.println("    reqEnd                   [" + mod.getReqEnd() + "]");
+                System.out.println("    objectClass              [" + mod.getObjectClass() + "]");
+                System.out.println("    reqResult                [" + mod.getReqResult() + "]");
+                System.out.println("    reqSession               [" + mod.getReqSession() + "]");
+                System.out.println("    reqType                  [" + mod.getReqType() + "]");
                 if(mod.getReqMod() != null)
                 {
                     int mCtr = 0;
                     for (String mVal : mod.getReqMod())
                     {
-                        System.out.println("    reqMod[" + mCtr++ + "]                <" + mVal + ">");
+                        System.out.println("    reqMod[" + mCtr++ + "]                [" + mVal + "]");
                     }
                 }
             }

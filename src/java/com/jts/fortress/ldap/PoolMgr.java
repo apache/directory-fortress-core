@@ -412,7 +412,7 @@ public class PoolMgr
         int port = Config.getInt(LDAP_PORT, 389);
         int min = Config.getInt(LDAP_ADMIN_POOL_MIN, 1);
         int max = Config.getInt(LDAP_ADMIN_POOL_MAX, 10);
-        log.info(OCLS_NM + ".createAdminPool min <" + min + "> max <" + max + "> host <" + host + "> port <" + port + ">");
+        log.info(OCLS_NM + ".createAdminPool min [" + min + "] max [" + max + "] host [" + host + "] port [" + port + "]");
         testAdminConn = new LDAPConnection();
         connPool[ADMIN] = new ConnectionPool(min, max, host, port, adminUserId, adminPw);
         if (isDebugEnabled)
@@ -445,7 +445,7 @@ public class PoolMgr
             adminPw = Config.getProperty(LDAP_ADMIN_POOL_PW);
         }
 
-        log.info(OCLS_NM + ".createUserPool min <" + min + "> max <" + max + "> host <" + host + "> port <" + port + ">");
+        log.info(OCLS_NM + ".createUserPool min [" + min + "] max [" + max + "] host [" + host + "] port [" + port + "]");
         connPool[USER] = new ConnectionPool(min, max, host, port, adminUserId, adminPw);
         if (isDebugEnabled)
         {
@@ -476,7 +476,7 @@ public class PoolMgr
         int port = Config.getInt(LDAP_PORT, 389);
         int min = Config.getInt(LDAP_LOG_POOL_MIN, 1);
         int max = Config.getInt(LDAP_LOG_POOL_MAX, 5);
-        log.info(OCLS_NM + ".createLogPool min <" + min + "> max <" + max + "> host <" + host + "> port <" + port + ">");
+        log.info(OCLS_NM + ".createLogPool min [" + min + "] max [" + max + "] host [" + host + "] port [" + port + "]");
         connPool[LOG] = new ConnectionPool(min, max, host, port, logUserId, logUserPw);
         if (isDebugEnabled)
         {

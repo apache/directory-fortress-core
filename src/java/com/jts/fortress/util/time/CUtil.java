@@ -360,7 +360,7 @@ public class CUtil
         {
             if(log.isDebugEnabled())
             {
-                log.debug(location + " userId <" + session.getUserId() + ">  no constraints enabled");
+                log.debug(location + " userId [" + session.getUserId() + "]  no constraints enabled");
             }
             return;
         }
@@ -369,7 +369,7 @@ public class CUtil
         {
             if(log.isDebugEnabled())
             {
-                log.debug(location + " userId <" + session.getUserId() + "> has no roles assigned");
+                log.debug(location + " userId [" + session.getUserId() + "] has no roles assigned");
             }
             return;
         }
@@ -382,7 +382,7 @@ public class CUtil
                 rc = val.validate(session, session.getUser(), currTime);
                 if (rc > 0)
                 {
-                    String info = location + " user <" + session.getUserId() + "> was deactivated reason code <" + rc + ">";
+                    String info = location + " user [" + session.getUserId() + "] was deactivated reason code [" + rc + "]";
                     throw new ValidationException(rc, info);
                 }
             }
@@ -399,8 +399,8 @@ public class CUtil
                         rc = val.validate(session, constraint, currTime);
                         if (rc > 0)
                         {
-                            log.info(location + " role <" + constraint.getName() + "> for user <"
-                                + session.getUserId() + "> was deactivated reason code <" + rc + ">");
+                            log.info(location + " role [" + constraint.getName() + "] for user ["
+                                + session.getUserId() + "] was deactivated reason code [" + rc + "]");
                             roleItems.remove();
                         }
                     }
@@ -415,8 +415,8 @@ public class CUtil
                         rc = val.validate(session, constraint, currTime);
                         if (rc > 0)
                         {
-                            log.info(location + " admin role <" + constraint.getName() + "> for user <"
-                                + session.getUserId() + "> was deactivated reason code <" + rc + ">");
+                            log.info(location + " admin role [" + constraint.getName() + "] for user ["
+                                + session.getUserId() + "] was deactivated reason code [" + rc + "]");
                             roleItems.remove();
                         }
                     }

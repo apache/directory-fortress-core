@@ -103,7 +103,7 @@ public class CreateRoleHierarchySample extends TestCase
 
                 // Remove the Role from directory along with associated assignments:
                 adminMgr.deleteRole(parentRole);
-                log.info(szLocation + " role <" + parentRole.getName() + "> success");
+                log.info(szLocation + " role [" + parentRole.getName() + "] success");
             }
             // Remove the Role from directory along with associated assignments:
             adminMgr.deleteRole(new Role(TEST_HIER_ROLE_PREFIX + TEST_NUMBER));
@@ -190,7 +190,7 @@ public class CreateRoleHierarchySample extends TestCase
 
                 // Remove the child Role from directory along with associated assignments:
                 adminMgr.deleteRole(childRole);
-                log.info(szLocation + " role <" + childRole.getName() + "> success");
+                log.info(szLocation + " role [" + childRole.getName() + "] success");
             }
             // Remove the parent Role from directory along with associated assignments:
             adminMgr.deleteRole(parentRole);
@@ -268,7 +268,7 @@ public class CreateRoleHierarchySample extends TestCase
 
                 // Remove the Role from directory along with associated assignments:
                 adminMgr.deleteRole(parentRole);
-                log.info(szLocation + " role <" + childRole.getName() + "> success");
+                log.info(szLocation + " role [" + childRole.getName() + "] success");
             }
             // Remove the Role from directory along with associated assignments:
             adminMgr.deleteRole(childRole);

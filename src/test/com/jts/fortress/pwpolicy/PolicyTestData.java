@@ -560,7 +560,7 @@ public class PolicyTestData extends TestCase
         assertEquals(PolicyTestData.class.getName() + ".assertEquals failed compare policy mustChange", getMustChange(plcy), policy.getMustChange());
         assertEquals(PolicyTestData.class.getName() + ".assertEquals failed compare policy allowUserChange", getAllowUserChange(plcy), policy.getAllowUserChange());
         assertEquals(PolicyTestData.class.getName() + ".assertEquals failed compare policy safeModify", getSafeModify(plcy), policy.getSafeModify());
-        log.debug(PolicyTestData.class.getName() + ".assertEquals <" + policy.getName() + "> successful");
+        log.debug(PolicyTestData.class.getName() + ".assertEquals [" + policy.getName() + "] successful");
     }
 
 

@@ -226,7 +226,7 @@ public class DaoUtil
         if (recursiveCount++ > MAX_DEPTH)
         {
             // too deep inside of a recursive sequence;
-            String error = OCLS_NM + "." + method + " dn <" + dn + "> depth error in recursive";
+            String error = OCLS_NM + "." + method + " dn [" + dn + "] depth error in recursive";
             throw new LDAPException(error, LDAPException.OPERATION_ERROR);
         }
 
@@ -249,13 +249,13 @@ public class DaoUtil
             catch (LDAPReferralException lre)
             {
                 // cannot continue;
-                String error = OCLS_NM + "." + method + " dn <" + dn + "> caught LDAPReferralException=" + lre.errorCodeToString() + "=" + lre.getLDAPErrorMessage();
+                String error = OCLS_NM + "." + method + " dn [" + dn + "] caught LDAPReferralException=" + lre.errorCodeToString() + "=" + lre.getLDAPErrorMessage();
                 throw new LDAPException(error, lre.getLDAPResultCode());
             }
             catch (LDAPException ldape)
             {
                 // cannot continue;
-                String error = OCLS_NM + "." + method + " dn <" + dn + "> caught LDAPException=" + ldape.errorCodeToString() + "=" + ldape.getLDAPErrorMessage();
+                String error = OCLS_NM + "." + method + " dn [" + dn + "] caught LDAPException=" + ldape.errorCodeToString() + "=" + ldape.getLDAPErrorMessage();
                 throw new LDAPException(error, ldape.getLDAPResultCode());
             }
         }
@@ -407,7 +407,7 @@ public class DaoUtil
             filter, atrs, attrsOnly);
         if (result.getCount() > 1)
         {
-            throw new LDAPException(LDAPException.OPERATION_ERROR + "Fortress Search criteria failed to return unique record for LDAP search of base DN <" + baseDn + "> filter <" + filter + ">");
+            throw new LDAPException(LDAPException.OPERATION_ERROR + "Fortress Search criteria failed to return unique record for LDAP search of base DN [" + baseDn + "] filter [" + filter + "]");
         }
         return result.next();
     }
@@ -440,7 +440,7 @@ public class DaoUtil
         LDAPSearchResults result = ld.search(baseDn, scope, filter, atrs, attrsOnly, opt);
         if (result.getCount() > 1)
         {
-            throw new LDAPException(LDAPException.OPERATION_ERROR + "Fortress Search criteria failed to return unique record for LDAP search of base DN <" + baseDn + "> filter <" + filter + ">");
+            throw new LDAPException(LDAPException.OPERATION_ERROR + "Fortress Search criteria failed to return unique record for LDAP search of base DN [" + baseDn + "] filter [" + filter + "]");
         }
         return result.next();
     }

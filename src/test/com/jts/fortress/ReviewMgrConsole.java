@@ -62,7 +62,7 @@ public class ReviewMgrConsole
         }
         else
         {
-            System.out.println("name <" + val + "> was not found");
+            System.out.println("name [" + val + "] was not found");
         }
         System.out.println("ENTER to continue");
         ReaderUtil.readChar();
@@ -83,14 +83,14 @@ public class ReviewMgrConsole
             if (re != null)
             {
                 System.out.println("ROLE OBJECT:");
-                System.out.println("    name      <" + re.getName() + ">");
-                System.out.println("    internalId  <" + re.getId() + ">");
-                System.out.println("    description <" + re.getDescription() + ">");
+                System.out.println("    name      [" + re.getName() + "]");
+                System.out.println("    internalId  [" + re.getId() + "]");
+                System.out.println("    description [" + re.getDescription() + "]");
                 printTemporal(re, "RBACROLE");
             }
             else
             {
-                System.out.println("	name <" + role.getName() + "> was not found");
+                System.out.println("	name [" + role.getName() + "] was not found");
             }
             System.out.println("ENTER to continue");
         }
@@ -115,16 +115,16 @@ public class ReviewMgrConsole
                 for (int i = 0; i < list.size(); i++)
                 {
                     Role re = list.get(i);
-                    System.out.println("ROLE OBJECT <" + i + ">:");
-                    System.out.println("    name      <" + re.getName() + ">");
-                    System.out.println("    internalId  <" + re.getId() + ">");
-                    System.out.println("    description <" + re.getDescription() + ">");
+                    System.out.println("ROLE OBJECT [" + i + "]:");
+                    System.out.println("    name      [" + re.getName() + "]");
+                    System.out.println("    internalId  [" + re.getId() + "]");
+                    System.out.println("    description [" + re.getDescription() + "]");
                     printTemporal(re, "RBACROLE");
                 }
             }
             else
             {
-                System.out.println("name <" + val + "> was not found");
+                System.out.println("name [" + val + "] was not found");
             }
             System.out.println("ENTER to continue");
         }
@@ -159,12 +159,12 @@ public class ReviewMgrConsole
             {
                 ue = (User) list.get(i);
                 System.out.println("USER[" + i + "]");
-                System.out.println("    userId      <" + ue.getUserId() + ">");
-                System.out.println("    internalId  <" + ue.getInternalId() + ">");
-                System.out.println("    description <" + ue.getDescription() + ">");
-                System.out.println("    common name <" + ue.getCn() + ">");
-                System.out.println("    surname     <" + ue.getSn() + ">");
-                System.out.println("    orgUnitId   <" + ue.getOu() + ">");
+                System.out.println("    userId      [" + ue.getUserId() + "]");
+                System.out.println("    internalId  [" + ue.getInternalId() + "]");
+                System.out.println("    description [" + ue.getDescription() + "]");
+                System.out.println("    common name [" + ue.getCn() + "]");
+                System.out.println("    surname     [" + ue.getSn() + "]");
+                System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 printTemporal(ue, "USER");
                 if (ue.getRoles() != null)
                 {
@@ -214,12 +214,12 @@ public class ReviewMgrConsole
             {
                 ue = (User) list.get(i);
                 System.out.println("USER[" + i + "]");
-                System.out.println("    userId      <" + ue.getUserId() + ">");
-                System.out.println("    internalId  <" + ue.getInternalId() + ">");
-                System.out.println("    description <" + ue.getDescription() + ">");
-                System.out.println("    common name <" + ue.getCn() + ">");
-                System.out.println("    surname     <" + ue.getSn() + ">");
-                System.out.println("    orgUnitId   <" + ue.getOu() + ">");
+                System.out.println("    userId      [" + ue.getUserId() + "]");
+                System.out.println("    internalId  [" + ue.getInternalId() + "]");
+                System.out.println("    description [" + ue.getDescription() + "]");
+                System.out.println("    common name [" + ue.getCn() + "]");
+                System.out.println("    surname     [" + ue.getSn() + "]");
+                System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 printTemporal(ue, "USER");
 
                 if (ue.getRoles() != null)
@@ -279,12 +279,12 @@ public class ReviewMgrConsole
             {
                 ue = (User) list.get(i);
                 System.out.println("USER[" + i + "]");
-                System.out.println("    userId      <" + ue.getUserId() + ">");
-                System.out.println("    internalId  <" + ue.getInternalId() + ">");
-                System.out.println("    description <" + ue.getDescription() + ">");
-                System.out.println("    common name <" + ue.getCn() + ">");
-                System.out.println("    surname     <" + ue.getSn() + ">");
-                System.out.println("    orgUnitId   <" + ue.getOu() + ">");
+                System.out.println("    userId      [" + ue.getUserId() + "]");
+                System.out.println("    internalId  [" + ue.getInternalId() + "]");
+                System.out.println("    description [" + ue.getDescription() + "]");
+                System.out.println("    common name [" + ue.getCn() + "]");
+                System.out.println("    surname     [" + ue.getSn() + "]");
+                System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 printTemporal(ue, "USER");
 
                 if (ue.getRoles() != null)
@@ -347,12 +347,12 @@ public class ReviewMgrConsole
             for (User ue : list)
             {
                 System.out.println("USER[" + ++ctr + "]");
-                System.out.println("    userId      <" + ue.getUserId() + ">");
-                System.out.println("    internalId  <" + ue.getInternalId() + ">");
-                System.out.println("    description <" + ue.getDescription() + ">");
-                System.out.println("    common name <" + ue.getCn() + ">");
-                System.out.println("    surname     <" + ue.getSn() + ">");
-                System.out.println("    orgUnitId   <" + ue.getOu() + ">");
+                System.out.println("    userId      [" + ue.getUserId() + "]");
+                System.out.println("    internalId  [" + ue.getInternalId() + "]");
+                System.out.println("    description [" + ue.getDescription() + "]");
+                System.out.println("    common name [" + ue.getCn() + "]");
+                System.out.println("    surname     [" + ue.getSn() + "]");
+                System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 printTemporal(ue, "USER");
 
                 if (ue.getRoles() != null)
@@ -399,14 +399,14 @@ public class ReviewMgrConsole
         if (constraint != null)
         {
             System.out.println("    " + label + "[" + constraint.getName() + "]:");
-            System.out.println("        begin time <" + constraint.getBeginTime() + ">");
-            System.out.println("        end time <" + constraint.getEndTime() + ">");
-            System.out.println("        begin date <" + constraint.getBeginDate() + ">");
-            System.out.println("        end date <" + constraint.getEndDate() + ">");
-            System.out.println("        begin lock <" + constraint.getBeginLockDate() + ">");
-            System.out.println("        end lock <" + constraint.getEndLockDate() + ">");
-            System.out.println("        day mask <" + constraint.getDayMask() + ">");
-            System.out.println("        time out <" + constraint.getTimeout() + ">");
+            System.out.println("        begin time [" + constraint.getBeginTime() + "]");
+            System.out.println("        end time [" + constraint.getEndTime() + "]");
+            System.out.println("        begin date [" + constraint.getBeginDate() + "]");
+            System.out.println("        end date [" + constraint.getEndDate() + "]");
+            System.out.println("        begin lock [" + constraint.getBeginLockDate() + "]");
+            System.out.println("        end lock [" + constraint.getEndLockDate() + "]");
+            System.out.println("        day mask [" + constraint.getDayMask() + "]");
+            System.out.println("        time out [" + constraint.getTimeout() + "]");
         }
     }
 
@@ -415,10 +415,10 @@ public class ReviewMgrConsole
         if (ur != null)
         {
             System.out.println("    ADMINATTR UID[" + ur.getUserId() + "]:");
-            System.out.println("        begin range <" + ur.getBeginRange() + ">");
-            System.out.println("        end range <" + ur.getEndRange() + ">");
-            System.out.println("        OsP <" + ur.getOsP() + ">");
-            System.out.println("        OsU <" + ur.getOsU() + ">");
+            System.out.println("        begin range [" + ur.getBeginRange() + "]");
+            System.out.println("        end range [" + ur.getEndRange() + "]");
+            System.out.println("        OsP [" + ur.getOsP() + "]");
+            System.out.println("        OsU [" + ur.getOsU() + "]");
         }
     }
 
@@ -440,12 +440,12 @@ public class ReviewMgrConsole
             if (ue != null)
             {
                 System.out.println("USER OBJECT:");
-                System.out.println("    userId      <" + ue.getUserId() + ">");
-                System.out.println("    internalId  <" + ue.getInternalId() + ">");
-                System.out.println("    description <" + ue.getDescription() + ">");
-                System.out.println("    common name <" + ue.getCn() + ">");
-                System.out.println("    surname     <" + ue.getSn() + ">");
-                System.out.println("    orgUnitId   <" + ue.getOu() + ">");
+                System.out.println("    userId      [" + ue.getUserId() + "]");
+                System.out.println("    internalId  [" + ue.getInternalId() + "]");
+                System.out.println("    description [" + ue.getDescription() + "]");
+                System.out.println("    common name [" + ue.getCn() + "]");
+                System.out.println("    surname     [" + ue.getSn() + "]");
+                System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 printTemporal(ue, "USER");
                 if (ue.getRoles() != null)
                 {
@@ -476,7 +476,7 @@ public class ReviewMgrConsole
             }
             else
             {
-                System.out.println("	user <" + userId + "> was not found");
+                System.out.println("	user [" + userId + "] was not found");
             }
             System.out.println("ENTER to continue");
         }
@@ -558,12 +558,12 @@ public class ReviewMgrConsole
                 {
                     pe = (Permission) list.get(i);
                     System.out.println("**perm:" + (i + 1) + "***");
-                    //System.out.println("perm operation <" + pe.operation + ">");
-                    System.out.println("object name <" + pe.getObjectName() + ">");
-                    System.out.println("object id <" + pe.getObjectId() + ">");
-                    System.out.println("operation name <" + pe.getOpName() + ">");
-                    System.out.println("abstract perm name <" + pe.getAbstractName() + ">");
-                    System.out.println("internalId <" + pe.getInternalId() + ">");
+                    //System.out.println("perm operation [" + pe.operation + "]");
+                    System.out.println("object name [" + pe.getObjectName() + "]");
+                    System.out.println("object id [" + pe.getObjectId() + "]");
+                    System.out.println("operation name [" + pe.getOpName() + "]");
+                    System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
+                    System.out.println("internalId [" + pe.getInternalId() + "]");
                     if (pe.getUsers() != null && pe.getUsers().size() > 0)
                     {
                         for (int j = 0; j < pe.getUsers().size(); j++)
@@ -678,12 +678,12 @@ public class ReviewMgrConsole
             pe = rm.readPermission(permission);
             if (pe != null)
             {
-                //System.out.println("perm operation <" + pe.operation + ">");
-                System.out.println("object name <" + pe.getObjectName() + ">");
-                System.out.println("object id <" + pe.getObjectId() + ">");
-                System.out.println("operation name <" + pe.getOpName() + ">");
-                System.out.println("abstract perm name <" + pe.getAbstractName() + ">");
-                System.out.println("internalId <" + pe.getInternalId() + ">");
+                //System.out.println("perm operation [" + pe.operation + "]");
+                System.out.println("object name [" + pe.getObjectName() + "]");
+                System.out.println("object id [" + pe.getObjectId() + "]");
+                System.out.println("operation name [" + pe.getOpName() + "]");
+                System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
+                System.out.println("internalId [" + pe.getInternalId() + "]");
                 if (pe.getUsers() != null && pe.getUsers().size() > 0)
                 {
                     for (int j = 0; j < pe.getUsers().size(); j++)
@@ -747,12 +747,12 @@ public class ReviewMgrConsole
             pe = rm.readPermission(permission);
             if (pe != null)
             {
-                //System.out.println("perm operation <" + pe.operation + ">");
-                System.out.println("object name <" + pe.getObjectName() + ">");
-                System.out.println("object id <" + pe.getObjectId() + ">");
-                System.out.println("operation name <" + pe.getOpName() + ">");
-                System.out.println("abstract perm name <" + pe.getAbstractName() + ">");
-                System.out.println("internalId <" + pe.getInternalId() + ">");
+                //System.out.println("perm operation [" + pe.operation + "]");
+                System.out.println("object name [" + pe.getObjectName() + "]");
+                System.out.println("object id [" + pe.getObjectId() + "]");
+                System.out.println("operation name [" + pe.getOpName() + "]");
+                System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
+                System.out.println("internalId [" + pe.getInternalId() + "]");
                 if (pe.getRoles() != null && pe.getRoles().size() > 0)
                 {
                     for (int j = 0; j < pe.getRoles().size(); j++)
@@ -794,12 +794,12 @@ public class ReviewMgrConsole
             pe = rm.readPermission(permission);
             if (pe != null)
             {
-                //System.out.println("perm operation <" + pe.operation + ">");
-                System.out.println("object name <" + pe.getObjectName() + ">");
-                System.out.println("object id <" + pe.getObjectId() + ">");
-                System.out.println("operation name <" + pe.getOpName() + ">");
-                System.out.println("abstract perm name <" + pe.getAbstractName() + ">");
-                System.out.println("internalId <" + pe.getInternalId() + ">");
+                //System.out.println("perm operation [" + pe.operation + "]");
+                System.out.println("object name [" + pe.getObjectName() + "]");
+                System.out.println("object id [" + pe.getObjectId() + "]");
+                System.out.println("operation name [" + pe.getOpName() + "]");
+                System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
+                System.out.println("internalId [" + pe.getInternalId() + "]");
                 if (pe.getUsers() != null && pe.getUsers().size() > 0)
                 {
                     for (int j = 0; j < pe.getUsers().size(); j++)
@@ -838,12 +838,12 @@ public class ReviewMgrConsole
             {
                 ue = (User) list.get(i);
                 System.out.println("USER[" + i + "]");
-                System.out.println("    userId      <" + ue.getUserId() + ">");
-                System.out.println("    internalId  <" + ue.getInternalId() + ">");
-                System.out.println("    description <" + ue.getDescription() + ">");
-                System.out.println("    common name <" + ue.getCn() + ">");
-                System.out.println("    surname     <" + ue.getSn() + ">");
-                System.out.println("    orgUnitId   <" + ue.getOu() + ">");
+                System.out.println("    userId      [" + ue.getUserId() + "]");
+                System.out.println("    internalId  [" + ue.getInternalId() + "]");
+                System.out.println("    description [" + ue.getDescription() + "]");
+                System.out.println("    common name [" + ue.getCn() + "]");
+                System.out.println("    surname     [" + ue.getSn() + "]");
+                System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 printTemporal(ue, "USER");
                 System.out.println();
             }
@@ -873,12 +873,12 @@ public class ReviewMgrConsole
                 for (Permission pe : list)
                 {
                     System.out.println("**perm:" + (++ctr) + "***");
-                    //System.out.println("perm operation <" + pe.operation + ">");
-                    System.out.println("object name <" + pe.getObjectName() + ">");
-                    System.out.println("object id <" + pe.getObjectId() + ">");
-                    System.out.println("operation name <" + pe.getOpName() + ">");
-                    System.out.println("abstract perm name <" + pe.getAbstractName() + ">");
-                    System.out.println("internalId <" + pe.getInternalId() + ">");
+                    //System.out.println("perm operation [" + pe.operation + "]");
+                    System.out.println("object name [" + pe.getObjectName() + "]");
+                    System.out.println("object id [" + pe.getObjectId() + "]");
+                    System.out.println("operation name [" + pe.getOpName() + "]");
+                    System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
+                    System.out.println("internalId [" + pe.getInternalId() + "]");
                     if (pe.getUsers() != null && pe.getUsers().size() > 0)
                     {
                         for (int j = 0; j < pe.getUsers().size(); j++)

@@ -122,7 +122,7 @@ public final class HierDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".create dn <" + dn + "> type <" + entity.getType() + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".create dn [" + dn + "] type [" + entity.getType() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException(GlobalErrIds.HIER_ADD_FAILED, error, e);
         }
         finally
@@ -155,7 +155,7 @@ public final class HierDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".update dn <" + dn + "> type " + entity.getType() + " op <" + op + "> caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".update dn [" + dn + "] type " + entity.getType() + " op [" + op + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.HIER_UPDATE_FAILED, error, e);
         }
         finally
@@ -181,7 +181,7 @@ public final class HierDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".remove dn <" + dn + "> type <" + hier.getType() + "> name=" + NODE_NAME + " LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = OCLS_NM + ".remove dn [" + dn + "] type [" + hier.getType() + "] name=" + NODE_NAME + " LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException(GlobalErrIds.HIER_DELETE_FAILED, error, e);
         }
         finally
@@ -238,7 +238,7 @@ public final class HierDAO
             entity = unloadLdapEntry(findEntry);
             if (entity == null)
             {
-                String warning = OCLS_NM + ".getHier no entry found dn <" + dn + "> Fortress errorCode=" + GlobalErrIds.ROLE_NOT_FOUND;
+                String warning = OCLS_NM + ".getHier no entry found dn [" + dn + "] Fortress errorCode=" + GlobalErrIds.ROLE_NOT_FOUND;
                 throw new FinderException(GlobalErrIds.ROLE_NOT_FOUND, warning);
             }
         }
@@ -246,10 +246,10 @@ public final class HierDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".getHier Obj COULD NOT FIND ENTRY for dn <" + dn + "> Fortress errorCode=" + GlobalErrIds.ROLE_NOT_FOUND;
+                String warning = OCLS_NM + ".getHier Obj COULD NOT FIND ENTRY for dn [" + dn + "] Fortress errorCode=" + GlobalErrIds.ROLE_NOT_FOUND;
                 throw new FinderException(GlobalErrIds.HIER_NOT_FOUND, warning);
             }
-            String error = OCLS_NM + ".getHier dn <" + dn + "> LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
+            String error = OCLS_NM + ".getHier dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
             throw new FinderException(GlobalErrIds.HIER_READ_FAILED, error, e);
         }
         finally

@@ -53,17 +53,17 @@ public class ClassUtil
         }
         catch (java.lang.ClassNotFoundException e)
         {
-            String error = OCLS_NM + ".createInstance() className <" + className + "> caught java.lang.ClassNotFoundException=" + e;
+            String error = OCLS_NM + ".createInstance() className [" + className + "] caught java.lang.ClassNotFoundException=" + e;
             throw new com.jts.fortress.ConfigurationException(GlobalErrIds.FT_MGR_CLASS_NOT_FOUND, error, e);
         }
         catch (java.lang.InstantiationException e)
         {
-            String error = OCLS_NM + ".createInstance()  <" + className + "> caught java.lang.InstantiationException=" + e;
+            String error = OCLS_NM + ".createInstance()  [" + className + "] caught java.lang.InstantiationException=" + e;
             throw new ConfigurationException(GlobalErrIds.FT_MGR_INST_EXCEPTION, error, e);
         }
         catch (java.lang.IllegalAccessException e)
         {
-            String error = OCLS_NM + ".createInstance()  <" + className + "> caught java.lang.IllegalAccessException=" + e;
+            String error = OCLS_NM + ".createInstance()  [" + className + "] caught java.lang.IllegalAccessException=" + e;
             throw new com.jts.fortress.ConfigurationException(com.jts.fortress.constants.GlobalErrIds.FT_MGR_ILLEGAL_ACCESS, error, e);
         }
         return target;

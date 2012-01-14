@@ -75,18 +75,18 @@ public class HierUtil
     {
         if (child.equalsIgnoreCase(parent))
         {
-            String error = OCLS_NM + ".validateRelationship child <" + child + "> same as parent <" + parent + ">";
+            String error = OCLS_NM + ".validateRelationship child [" + child + "] same as parent [" + parent + "]";
             throw new ValidationException(GlobalErrIds.HIER_REL_INVLD, error);
         }
         Relationship rel = new Relationship(child.toUpperCase(), parent.toUpperCase());
         if (mustExist && !isRelationship(graph, rel))
         {
-            String error = OCLS_NM + ".validateRelationship child <" + child + "> does not have parent <" + parent + ">";
+            String error = OCLS_NM + ".validateRelationship child [" + child + "] does not have parent [" + parent + "]";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.HIER_REL_NOT_EXIST, error);
         }
         else if (!mustExist && isRelationship(graph, rel))
         {
-            String error = OCLS_NM + ".validateRelationship child <" + child + "> already has parent <" + parent + ">";
+            String error = OCLS_NM + ".validateRelationship child [" + child + "] already has parent [" + parent + "]";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.HIER_REL_EXIST, error);
         }
     }
@@ -185,7 +185,7 @@ public class HierUtil
                 return 0;
             }
             if (log.isDebugEnabled())
-                log.debug(OCLS_NM + ".hasChildren <" + v + ">");
+                log.debug(OCLS_NM + ".hasChildren [" + v + "]");
 
             numChildren = graph.inDegreeOf(v);
         }
@@ -238,7 +238,7 @@ public class HierUtil
         }
         if (log.isDebugEnabled())
         {
-            log.debug(OCLS_NM + ".getAscendants <" + v + ">");
+            log.debug(OCLS_NM + ".getAscendants [" + v + "]");
         }
         Set<Relationship> edges;
         try
@@ -305,7 +305,7 @@ public class HierUtil
             return null;
         }
         if (log.isDebugEnabled())
-            log.debug(OCLS_NM + ".getDescendants <" + v + ">");
+            log.debug(OCLS_NM + ".getDescendants [" + v + "]");
 
         Set<Relationship> edges;
         try
@@ -342,7 +342,7 @@ public class HierUtil
             return null;
         }
         if (log.isDebugEnabled())
-            log.debug(OCLS_NM + ".getChildren <" + vertex + ">");
+            log.debug(OCLS_NM + ".getChildren [" + vertex + "]");
 
         Set<Relationship> edges;
         try
@@ -408,7 +408,7 @@ public class HierUtil
         }
         if (log.isDebugEnabled())
         {
-            log.debug(OCLS_NM + ".getAscendants <" + v + ">");
+            log.debug(OCLS_NM + ".getAscendants [" + v + "]");
         }
         Set<Relationship> edges;
         try
@@ -457,7 +457,7 @@ public class HierUtil
         }
         if (log.isDebugEnabled())
         {
-            log.debug(OCLS_NM + ".getParents <" + vertex + ">");
+            log.debug(OCLS_NM + ".getParents [" + vertex + "]");
         }
         Set<Relationship> edges;
         try
@@ -503,7 +503,7 @@ public class HierUtil
         {
             if (se.getErrorId() == GlobalErrIds.HIER_NOT_FOUND)
             {
-                log.info(OCLS_NM + ".readHier type <" + type + "> building default config...");
+                log.info(OCLS_NM + ".readHier type [" + type + "] building default config...");
                 SimpleDirectedGraph<String, Relationship> g =
                     new SimpleDirectedGraph<String, com.jts.fortress.hier.Relationship>(Relationship.class);
 
@@ -522,23 +522,23 @@ public class HierUtil
                 }
                 catch (com.jts.fortress.SecurityException sec)
                 {
-                    String error = OCLS_NM + ".readHier type <" + type + "> failed default config load, SecurityException=" + sec;
+                    String error = OCLS_NM + ".readHier type [" + type + "] failed default config load, SecurityException=" + sec;
                     log.error(error);
                 }
             }
             else
             {
-                String error = OCLS_NM + ".readHier type <" + type + "> SecurityException=" + se;
+                String error = OCLS_NM + ".readHier type [" + type + "] SecurityException=" + se;
                 log.error(error);
             }
         }
         if (hier != null)
         {
-            log.debug(OCLS_NM + ".readHier type <" + type + "> success");
+            log.debug(OCLS_NM + ".readHier type [" + type + "] success");
         }
         else
         {
-            String warning = OCLS_NM + ".readHier type <" + type + "> failed.";
+            String warning = OCLS_NM + ".readHier type [" + type + "] failed.";
             log.warn(warning);
         }
         return hier;
