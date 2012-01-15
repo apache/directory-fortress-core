@@ -445,7 +445,6 @@ public class OrgUnitDAO
     private OrgUnit getEntityFromLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
-        //OrgUnit entity = new OrgUnit();
         OrgUnit entity = new ObjectFactory().createOrgUnit();
         entity.setSequenceId(sequence);
         entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));

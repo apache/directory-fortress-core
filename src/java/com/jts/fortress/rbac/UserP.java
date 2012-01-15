@@ -4,6 +4,7 @@
 
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.PasswordException;
 import com.jts.fortress.configuration.Config;
 import com.jts.fortress.SecurityException;
@@ -535,7 +536,7 @@ public final class UserP
             log.warn(warning);
             throw new SecurityException(GlobalErrIds.USER_LOCKED_BY_CONST, warning);
         }
-        Session session = new Session();
+        Session session = new ObjectFactory().createSession();
         session.setUserId(userId);
         // Set this flag to false because user's password was not authenticated.
         session.setAuthenticated(false);

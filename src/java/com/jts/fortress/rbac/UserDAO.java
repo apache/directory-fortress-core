@@ -558,7 +558,7 @@ public final class UserDAO
         String userDn = getDn(userId);
         try
         {
-            session = new Session();
+            session = new ObjectFactory().createSession();
             session.setUserId(userId);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.USER);
             boolean result = PoolMgr.bind(ld, userDn, password);
@@ -1343,8 +1343,6 @@ public final class UserDAO
     private User unloadLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
-        //User entity = new User();
-        //User entity = new ObjectFactory().createFortEntity();
         User entity = new ObjectFactory().createUser();
         entity.setSequenceId(sequence);
         entity.setInternalId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
@@ -1681,7 +1679,6 @@ public final class UserDAO
             uRoles = new ArrayList<UserAdminRole>();
             for (String raw : roles)
             {
-                //UserAdminRole ure = new UserAdminRole();
                 UserAdminRole ure = new ObjectFactory().createUserAdminRole();
                 ure.load(raw);
                 ure.setSequenceId(sequence++);
@@ -1712,7 +1709,6 @@ public final class UserDAO
             uRoles = new ArrayList<UserRole>();
             for (String raw : roles)
             {
-                //UserRole ure = new UserRole();
                 UserRole ure = new ObjectFactory().createUserRole();
                 ure.load(raw);
                 ure.setUserId(userId);

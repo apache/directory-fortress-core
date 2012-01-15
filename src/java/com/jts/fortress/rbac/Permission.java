@@ -6,6 +6,12 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.FortEntity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -150,6 +156,20 @@ import java.util.UUID;
  * @author smckinn
  * @created November 23, 2009
  */
+@XmlRootElement(name = "fortPermission")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "permission", propOrder = {
+    "objectName",
+    "opName",
+    "objectId",
+    "abstractName",
+    "internalId",
+    "type",
+    "users",
+    "roles",
+    "props",
+    "admin"
+})
 public class Permission extends FortEntity
     implements java.io.Serializable
 {
@@ -160,8 +180,12 @@ public class Permission extends FortEntity
     private String objectId;
     private String abstractName;
     private String type;
-    private Properties props;
+    @XmlElement(nillable = true)
+    private Props props = new Props();
+    //private Properties props;
+    @XmlElement(nillable = true)
     private List<String> roles;
+    @XmlElement(nillable = true)
     private List<String> users;
 
     /**
@@ -368,15 +392,15 @@ public class Permission extends FortEntity
      * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
      */
-    public void addProperty(String key, String value)
-    {
-        if (props == null)
-        {
-            props = new Properties();
-        }
+    //public void addProperty(String key, String value)
+    //{
+    //    if (props == null)
+    //    {
+    //        props = new Properties();
+    //    }
 
-        this.props.setProperty(key, value);
-    }
+    //    this.props.setProperty(key, value);
+    //}
 
     /**
      * Add new collection of name/value pairs to attributes associated with Permission.  These values are not constrained by Fortress.
@@ -384,10 +408,10 @@ public class Permission extends FortEntity
      *
      * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      */
-    public void addProperties(Properties props)
-    {
-        this.props = props;
-    }
+    //public void addProperties(Properties props)
+    //{
+    //    this.props = props;
+    //}
 
     /**
      * Return the collection of name/value pairs to attributes associated with Permission.  These values are not constrained by Fortress.
@@ -395,10 +419,10 @@ public class Permission extends FortEntity
      *
      * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      */
-    public Properties getProperties()
-    {
-        return this.props;
-    }
+    //public Properties getProperties()
+    //{
+    //    return this.props;
+    //}
 
     /**
      * Get a name/value pair attribute from list of properties associated with Permission.  These values are not constrained by Fortress.
@@ -407,10 +431,10 @@ public class Permission extends FortEntity
      * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
      */
-    public String getProperty(String key)
-    {
-        return this.props.getProperty(key);
-    }
+    //public String getProperty(String key)
+    //{
+    //    return this.props.getProperty(key);
+    //}
 
     /**
      * Get optional objectId attribute which can be used to tag a Permission object with an identity, i.e. objectName='Customer', objectId='12345'.
@@ -520,6 +544,109 @@ public class Permission extends FortEntity
     {
         this.users = users;
     }
+
+    /**
+      * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+      *
+      * @return
+      *     possible object is
+      *     {@link Props }
+      *
+      */
+     public Props getProps()
+     {
+         return props;
+     }
+
+     /**
+      * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+      *
+      * @param value
+      *     allowed object is
+      *     {@link Props }
+      *
+      */
+     public void setProps(Props value)
+     {
+         this.props = value;
+     }
+
+     /**
+      * Add name/value pair to list of properties associated with Permission.  These values are not constrained by Fortress.
+      * Properties are optional.
+      *
+      * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+      * @param value
+      */
+     public void addProperty(String key, String value)
+     {
+         Props.Entry entry = new Props.Entry();
+         entry.setKey(key);
+         entry.setValue(value);
+         this.props.getEntry().add(entry);
+     }
+
+     /**
+      * Get a name/value pair attribute from list of properties associated with Permission.  These values are not constrained by Fortress.
+      * Properties are optional.
+      *
+      * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+      * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
+      */
+     public String getProperty(String key)
+     {
+         List<Props.Entry> props = this.props.getEntry();
+         Props.Entry keyObj = new Props.Entry();
+         keyObj.setKey(key);
+
+         Props.Entry entry = props.get(props.indexOf(keyObj));
+         return (String) entry.getValue();
+     }
+
+     /**
+      * Add new collection of name/value pairs to attributes associated with Permission.  These values are not constrained by Fortress.
+      * Properties are optional.
+      *
+      * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+      */
+     public void addProperties(Properties props)
+     {
+         if(props != null)
+         {
+             for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+             {
+                 // This LDAP attr is stored as a name-value pair separated by a ':'.
+                 String key = (String) e.nextElement();
+                 String val = props.getProperty(key);
+                 addProperty(key, val);
+             }
+         }
+     }
+
+     /**
+      * Return the collection of name/value pairs to attributes associated with Permission.  These values are not constrained by Fortress.
+      * Properties are optional.
+      *
+      * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+      */
+     public Properties getProperties()
+     {
+         Properties properties = null;
+         List<Props.Entry> props = this.props.getEntry();
+         if (props.size() > 0)
+         {
+             properties = new Properties();
+             int size = props.size();
+             for (int i = 0; i < size; i++)
+             {
+                 Props.Entry entry = props.get(i);
+                 String key = (String) entry.getKey();
+                 String val = (String) entry.getValue();
+                 properties.setProperty(key, val);
+             }
+         }
+         return properties;
+     }
 
     /**
      * Matches the objName and opName from two Permission entities.

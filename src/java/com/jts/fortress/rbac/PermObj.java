@@ -6,6 +6,14 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.FortEntity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -93,6 +101,17 @@ import java.util.UUID;
  * @author smckinn
  * @created November 23, 2009
  */
+@XmlRootElement(name = "fortObject")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "permObj", propOrder = {
+    "objectName",
+    "description",
+    "internalId",
+    "ou",
+    "type",
+    "props",
+    "admin"
+})
 public class PermObj extends FortEntity
     implements java.io.Serializable
 {
@@ -100,9 +119,12 @@ public class PermObj extends FortEntity
     private String internalId;
     private String objectName;
     private String description;
-    private Properties props;
+    @XmlElement(nillable = true)
+    private Props props = new Props();
+    //private Properties props;
     private String ou;
     private String type;
+    @XmlTransient
     private String dn;
 
 
@@ -245,21 +267,124 @@ public class PermObj extends FortEntity
 
 
     /**
+      * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+      *
+      * @return
+      *     possible object is
+      *     {@link Props }
+      *
+      */
+     public Props getProps()
+     {
+         return props;
+     }
+
+     /**
+      * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+      *
+      * @param value
+      *     allowed object is
+      *     {@link Props }
+      *
+      */
+     public void setProps(Props value)
+     {
+         this.props = value;
+     }
+
+     /**
+      * Add name/value pair to list of properties associated with PermObj.  These values are not constrained by Fortress.
+      * Properties are optional.
+      *
+      * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+      * @param value
+      */
+     public void addProperty(String key, String value)
+     {
+         Props.Entry entry = new Props.Entry();
+         entry.setKey(key);
+         entry.setValue(value);
+         this.props.getEntry().add(entry);
+     }
+
+     /**
+      * Get a name/value pair attribute from list of properties associated with PermObj.  These values are not constrained by Fortress.
+      * Properties are optional.
+      *
+      * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+      * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
+      */
+     public String getProperty(String key)
+     {
+         List<Props.Entry> props = this.props.getEntry();
+         Props.Entry keyObj = new Props.Entry();
+         keyObj.setKey(key);
+
+         Props.Entry entry = props.get(props.indexOf(keyObj));
+         return (String) entry.getValue();
+     }
+
+     /**
+      * Add new collection of name/value pairs to attributes associated with PermObj.  These values are not constrained by Fortress.
+      * Properties are optional.
+      *
+      * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+      */
+     public void addProperties(Properties props)
+     {
+         if(props != null)
+         {
+             for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+             {
+                 // This LDAP attr is stored as a name-value pair separated by a ':'.
+                 String key = (String) e.nextElement();
+                 String val = props.getProperty(key);
+                 addProperty(key, val);
+             }
+         }
+     }
+
+     /**
+      * Return the collection of name/value pairs to attributes associated with PermObj.  These values are not constrained by Fortress.
+      * Properties are optional.
+      *
+      * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+      */
+     public Properties getProperties()
+     {
+         Properties properties = null;
+         List<Props.Entry> props = this.props.getEntry();
+         if (props.size() > 0)
+         {
+             properties = new Properties();
+             int size = props.size();
+             for (int i = 0; i < size; i++)
+             {
+                 Props.Entry entry = props.get(i);
+                 String key = (String) entry.getKey();
+                 String val = (String) entry.getValue();
+                 properties.setProperty(key, val);
+             }
+         }
+         return properties;
+     }
+
+     /**
      * Add name/value pair to list of properties associated with PermObj.  These values are not constrained by Fortress.
      * Properties are optional.
      *
      * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      * @param value
      */
-    public void addProperty(String key, String value)
-    {
-        if (props == null)
-        {
-            props = new Properties();
-        }
+    //public void addProperty(String key, String value)
+    //{
+    //    if (props == null)
+    //    {
+    //        props = new Properties();
+    //    }
 
-        this.props.setProperty(key, value);
-    }
+    //    this.props.setProperty(key, value);
+    //}
 
 
     /**
@@ -268,10 +393,10 @@ public class PermObj extends FortEntity
      *
      * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      */
-    public void addProperties(Properties props)
-    {
-        this.props = props;
-    }
+    //public void addProperties(Properties props)
+    //{
+    //    this.props = props;
+    //}
 
 
     /**
@@ -280,10 +405,10 @@ public class PermObj extends FortEntity
      *
      * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      */
-    public Properties getProperties()
-    {
-        return this.props;
-    }
+    //public Properties getProperties()
+    //{
+    //    return this.props;
+    //}
 
 
     /**
@@ -293,10 +418,10 @@ public class PermObj extends FortEntity
      * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
      */
-    public String getProperty(String key)
-    {
-        return this.props.getProperty(key);
-    }
+    //public String getProperty(String key)
+    //{
+    //    return this.props.getProperty(key);
+    //}
 
 
     /**

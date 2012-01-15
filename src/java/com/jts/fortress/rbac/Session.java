@@ -9,6 +9,7 @@ import com.jts.fortress.arbac.UserAdminRole;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 import java.util.Set;
@@ -129,26 +130,25 @@ import java.util.UUID;
  * Adm  day mask        [23456]<br />
  * Adm  time out        [30]<br />
  * <p/>
-
  * @author smckinn
  * @created October 13, 2009
  */
+@XmlRootElement(name = "fortSession")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "session", propOrder = {
-    "authenticated",
+    "user",
+    "isAuthenticated",
+    "sessionId",
+    "lastAccess",
+    "timeout",
     "errorId",
     "expirationSeconds",
     "graceLogins",
-    "internalUserId",
-    "msg",
-    "roles",
-    "user",
-    "userId",
+    "message",
     "warningId"
 })
 public class Session implements com.jts.fortress.pwpolicy.PwMessage, java.io.Serializable
 {
-    //private ArrayList roles;
     private User user;
     private String sessionId;
     private long lastAccess;

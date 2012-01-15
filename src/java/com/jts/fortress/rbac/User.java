@@ -925,12 +925,15 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public void addProperties(Properties props)
     {
-        for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+        if(props != null)
         {
-            // This LDAP attr is stored as a name-value pair separated by a ':'.
-            String key = (String) e.nextElement();
-            String val = props.getProperty(key);
-            addProperty(key, val);
+            for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            {
+                // This LDAP attr is stored as a name-value pair separated by a ':'.
+                String key = (String) e.nextElement();
+                String val = props.getProperty(key);
+                addProperty(key, val);
+            }
         }
     }
 

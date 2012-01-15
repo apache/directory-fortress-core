@@ -5,6 +5,7 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.CreateException;
+import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.arbac.AdminRoleUtil;
 import com.jts.fortress.arbac.OrgUnit;
@@ -792,7 +793,7 @@ public final class PermDAO
     private Permission unloadPopLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
-        Permission entity = new Permission();
+        Permission entity = new ObjectFactory().createPermission();
         entity.setSequenceId(sequence);
         entity.setAbstractName(DaoUtil.getAttribute(le, PERM_NAME));
         entity.setObjectName(DaoUtil.getAttribute(le, GlobalIds.POBJ_NAME));
@@ -814,7 +815,7 @@ public final class PermDAO
     private PermObj unloadPobjLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
-        PermObj entity = new PermObj();
+        PermObj entity = new ObjectFactory().createPermObj();
         entity.setSequenceId(sequence);
         entity.setObjectName(DaoUtil.getAttribute(le, GlobalIds.POBJ_NAME));
         entity.setOu(DaoUtil.getAttribute(le, GlobalIds.OU));
