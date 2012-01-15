@@ -154,10 +154,6 @@ import java.util.*;
     "timeout",
     "roles",
     "adminRoles"
-    //"sequenceId",
-    //"modCode",
-    //"modId",
-    //"adminSession",
 })
 public class User extends FortEntity implements Constraint, Serializable
 {

@@ -47,6 +47,7 @@ public class ObjectFactory
     private final static QName _FortOrgUnit_QNAME = new QName("", "fortOrgUnit");
     private final static QName _FortEntity_QNAME = new QName("", "fortEntity");
     private final static QName _FortAdminRole_QNAME = new QName("", "fortAdminRole");
+    private final static QName _FortUserRole_QNAME = new QName("", "fortUserRole");
     private final static QName _FortObject_QNAME = new QName("", "fortObject");
     private final static QName _FortPermission_QNAME = new QName("", "fortPermission");
 
@@ -72,6 +73,15 @@ public class ObjectFactory
     public JAXBElement<User> createFortUser(User value)
     {
         return new JAXBElement<User>(_FortUser_QNAME, User.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.UserRole }{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortUserRole")
+    public JAXBElement<UserRole> createFortUserRole(UserRole value)
+    {
+        return new JAXBElement<UserRole>(_FortUserRole_QNAME, UserRole.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortOrgUnit")

@@ -127,10 +127,6 @@ import java.util.UUID;
     "name",
     "parents",
     "type"
-//    "sequenceId",
-//    "modCode",
-//    "modId",
-//    "adminSession",
 })
 public class OrgUnit extends FortEntity
     implements java.io.Serializable

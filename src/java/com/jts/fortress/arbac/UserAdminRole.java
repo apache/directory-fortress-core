@@ -60,10 +60,6 @@ import java.util.TreeSet;
     "beginRange",
     "endInclusive",
     "endRange",
-    //"sequenceId",
-    //"modCode",
-    //"modId",
-    //"adminSession",
     "parents"
 })
 public class UserAdminRole extends UserRole implements com.jts.fortress.arbac.Administrator

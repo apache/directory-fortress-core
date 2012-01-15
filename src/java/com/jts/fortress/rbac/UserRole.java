@@ -36,9 +36,11 @@ import java.util.StringTokenizer;
  * @author smckinn
  * @created August 23, 2009
  */
+@XmlRootElement(name = "fortUserRole")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "userRole", propOrder = {
     "name",
+    "userId",
     "parents",
     "beginDate",
     "beginLockDate",
@@ -48,18 +50,12 @@ import java.util.StringTokenizer;
     "endLockDate",
     "endTime",
     "timeout"
-
-    //"sequenceId",
-    //"modCode",
-    //"modId",
-    //"adminSession",
 })
 @XmlSeeAlso({
     UserAdminRole.class
 })
 public class UserRole extends FortEntity implements java.io.Serializable, Constraint
 {
-    @XmlTransient
     protected String userId;
     protected String name;
     private Integer timeout;
