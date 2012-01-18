@@ -4,16 +4,32 @@
 
 package com.jts.fortress.ant;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * This entity is used by {@link FortressAntTask} to add {@link com.jts.fortress.rbac.Permission} grants to
  * RBAC {@link com.jts.fortress.rbac.Role}, or ARBAC {@link com.jts.fortress.arbac.AdminRole}.
  * Can also be used to grant Permissions directly to {@link com.jts.fortress.rbac.User}s.
- * This entity is used for Ant processing only.
+ * This entity is used for Ant and En Masse processing only.
  * <p/>
 
  * @author smckinn
  * @created July 22, 2010
  */
+@XmlRootElement(name = "fortGrant")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "permGrant", propOrder = {
+    "objName",
+    "opName",
+    "objId",
+    "userId",
+    "roleNm",
+    "admin"
+})
 public class PermGrant
     implements java.io.Serializable
 {

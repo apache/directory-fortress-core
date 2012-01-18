@@ -7,6 +7,7 @@
 
 package com.jts.fortress;
 
+import com.jts.fortress.ant.PermGrant;
 import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.OrgUnit;
 import com.jts.fortress.arbac.UserAdminRole;
@@ -44,6 +45,7 @@ public class ObjectFactory
     private final static QName _FortUser_QNAME = new QName("", "fortUser");
     private final static QName _FortSession_QNAME = new QName("", "fortSession");
     private final static QName _FortRole_QNAME = new QName("", "fortRole");
+    private final static QName _FortGrant_QNAME = new QName("", "fortGrant");
     private final static QName _FortOrgUnit_QNAME = new QName("", "fortOrgUnit");
     private final static QName _FortEntity_QNAME = new QName("", "fortEntity");
     private final static QName _FortAdminRole_QNAME = new QName("", "fortAdminRole");
@@ -102,6 +104,15 @@ public class ObjectFactory
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.Role }{@code >}}
      */
+    @XmlElementDecl(namespace = "", name = "fortGrant")
+    public JAXBElement<PermGrant> createFortGrant(PermGrant value)
+    {
+        return new JAXBElement<PermGrant>(_FortGrant_QNAME, PermGrant.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.Role }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortAdminRole")
     public JAXBElement<AdminRole> createFortAdminRole(AdminRole value)
     {
@@ -155,6 +166,14 @@ public class ObjectFactory
     public Role createRole()
     {
         return new Role();
+    }
+
+    /**
+     * Create an instance of {@link PermGrant }
+     */
+    public PermGrant createPerm()
+    {
+        return new PermGrant();
     }
 
     /**
