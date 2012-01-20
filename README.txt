@@ -1,8 +1,8 @@
 ___________________________________________________________________________________
 ###################################################################################
 README for Fortress and OpenLDAP Identity and Access Management SDK
-Version 1.0.0.rc4
-last updated: November 11, 2011
+Version 1.0.0.rc5
+last updated: January 20, 2012
 
 This document contains instructions to download, compile, test and use the
 Fortress Identity and Access Management system.
@@ -22,7 +22,7 @@ local.mode=true
 1. Java SDK Version 6 or beyond installed to target environment
 2. Apache Ant 1.8 or beyond installed to target environment
 3. OpenLDAP installed to target system.  (options follow in section 1)
-4. GIT installed to target environment. (for Fortress developers only)
+4. GIT installed to target environment. (Fortress developers only)
 
 ___________________________________________________________________________________
 ###################################################################################
@@ -167,7 +167,7 @@ crypto.prop=abcd12345
 OR leave the value blank if passwords are entered in the clear into property files:
 crypto.prop=
 
-Note: This value must be the same as used when password was encrypted (See Section 10)
+Note: This value must be the same as used when password was encrypted (See Section 13)
 
 # This value contains dn of user that has read/write access to LDAP DIT:
 root.dn=cn=Manager,${suffix}
@@ -175,7 +175,7 @@ root.dn=cn=Manager,${suffix}
 # This password is for above admin dn, will be stored in OpenLDAP 'slapd.conf'.  It may be hashed using OpenLDAP 'slappasswd' command before placing here:
 root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 
-# This is password is for same user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section VII):
+# This is password is for same user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section 13):
 cfg.root.pw=W7T0G9hylKZQ4K+DF8gfgA==
 
 # These properties specify the min/max settings for connection pool containing read/write connections to LDAP DIT:
@@ -192,7 +192,7 @@ log.root.dn=cn=Manager,${log.suffix}
 # This password is for above log user dn, will be stored in OpenLDAP 'slapd.conf'.  It may be hashed using OpenLDAP 'slappasswd' command before placing here:
 log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 
-# This password is for same log user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section VII):
+# This password is for same log user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section 13):
 cfg.log.root.pw=W7T0G9hylKZQ4K+DF8gfgA==
 
 log.min.conn=1
@@ -223,7 +223,6 @@ i. (option if using Symas OpenLDAP binaries) Point slapdInstall.sh to use correc
 for example for Redhat i386:
 slapd.install=rpm -Uvv symas-openldap-gold.i386-2.4.25.110424.rpm
 
-_______________________________________________________________________________
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 7. Instructions for using pre-existing or native OpenLDAP installation.
@@ -339,7 +338,20 @@ b. Or for subsequent runs:
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 10. Learn how to use openldap-fortress-core APIs with samples
+# SECTION 10. Instructions to run the openldap-fortress-core command line interface (CLI)
+###################################################################################
+
+a. from the same shell prompt as 2a enter the following:
+
+>$ANT_HOME/bin/ant cli
+
+b. follow instructions in the command line interface reference manual contained within the javadoc:
+
+[FORTRESS_HOME]/openldap-fortress-core/dist/docs/api/com/jts/fortress/cli/package-summary.html
+
+___________________________________________________________________________________
+###################################################################################
+# SECTION 11. Learn how to use openldap-fortress-core APIs with samples
 ###################################################################################
 
 a. from the same shell prompt as 2a enter the following:
@@ -370,7 +382,7 @@ f. view the fortress-core SDK java doc here:
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 11. Instructions to run the openldap-fortress-core command console
+# SECTION 12. Instructions to run the openldap-fortress-core command console
 ###################################################################################
 
 a. from the same shell prompt as 2a enter the following:
@@ -379,7 +391,7 @@ a. from the same shell prompt as 2a enter the following:
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 12. Instructions to encrypt LDAP passwords used in openldap-fortress-core config files.
+# SECTION 13. Instructions to encrypt LDAP passwords used in openldap-fortress-core config files.
 ###################################################################################
 
 If you need the passwords for LDAP service accounts to be encrypted before loading into Fortress properties files you can
@@ -399,10 +411,9 @@ b. Copy the Encrypted value and paste it into the corresponding build.properties
 # This OpenLDAP admin root pass is bound for fortress.properties and was encrypted using 'encrypt' target in build.xml:
 cfg.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
 
-
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 13. Troubleshooting
+# SECTION 14. Troubleshooting
 ###################################################################################
 
 a. Problem with javac under sudo
@@ -427,4 +438,3 @@ add this to build.xml javac task:
   	     executable="/opt/jdk1.6.0_27/bin/javac"
          compiler="javac1.6"
          fork = "true"
-
