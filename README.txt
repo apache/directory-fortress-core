@@ -338,14 +338,14 @@ b. Or for subsequent runs:
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 10. Instructions to run the openldap-fortress-core command line interface (CLI)
+# SECTION 10. Instructions to run the openldap-fortress-core command line interpreter (CLI) utility
 ###################################################################################
 
 a. from the same shell prompt as 2a enter the following:
 
 >$ANT_HOME/bin/ant cli
 
-b. follow instructions in the command line interface reference manual contained within the javadoc:
+b. follow instructions in the command line interpreter reference manual contained within the javadoc:
 
 [FORTRESS_HOME]/openldap-fortress-core/dist/docs/api/com/jts/fortress/cli/package-summary.html
 

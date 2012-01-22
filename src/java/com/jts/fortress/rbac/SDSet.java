@@ -85,7 +85,6 @@ import java.util.UUID;
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
-
  *
  * @author smckinn
  * @created September 11, 2010
@@ -276,6 +275,7 @@ public class SDSet extends FortEntity
      *
      * @return attribute maps to 'ftRoles' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.
      */
+    //@XmlJavaTypeAdapter(SetAdapter.class)
     public Set<String> getMembers()
     {
         return members;

@@ -5,6 +5,7 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.CreateException;
+import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.configuration.Config;
 import com.jts.fortress.FinderException;
@@ -460,7 +461,7 @@ public final class SdDAO
     private SDSet unloadLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
-        SDSet entity = new SDSet();
+        SDSet entity = new ObjectFactory().createSDset();
         entity.setSequenceId(sequence);
         entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setName(DaoUtil.getAttribute(le, SD_SET_NM));

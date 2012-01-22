@@ -7,6 +7,12 @@ package com.jts.fortress.pwpolicy;
 
 import com.jts.fortress.FortEntity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * This class contains the Password Policy entity which is used to pass directives into and out of ldap.
  * <br />The unique key to locate a Policy entity (which is subsequently assigned to Users) is {@link #name}.<br />
@@ -82,6 +88,26 @@ import com.jts.fortress.FortEntity;
  * @author smckinn
  * @created October 17, 2009
  */
+@XmlRootElement(name = "fortPolicy")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "pswdpolicy", propOrder = {
+    "name",
+    "attribute",
+    "minAge",
+    "maxAge",
+    "inHistory",
+    "checkQuality",
+    "minLength",
+    "expireWarning",
+    "graceLoginLimit",
+    "lockout",
+    "lockoutDuration",
+    "maxFailure",
+    "failureCountInterval",
+    "mustChange",
+    "allowUserChange",
+    "safeModify"
+})
 public class PswdPolicy extends FortEntity
     implements java.io.Serializable
 {
@@ -106,6 +132,7 @@ public class PswdPolicy extends FortEntity
      * modifications to the password.  If this attribute is not present, 0
      * seconds is assumed.
      */
+    @XmlElement(nillable = true)
     private Integer minAge;
     //private String minAge;
 
@@ -119,6 +146,7 @@ public class PswdPolicy extends FortEntity
      * does not expire.  If not 0, the value must be greater than or equal
      * to the value of the pwdMinAge.
      */
+    @XmlElement(nillable = true)
     private Long maxAge;
 
     /**
@@ -131,6 +159,7 @@ public class PswdPolicy extends FortEntity
      * passwords are not stored in the pwdHistory attribute and thus may be
      * reused.
      */
+    @XmlElement(nillable = true)
     private Short inHistory;
 
     /**
@@ -145,6 +174,7 @@ public class PswdPolicy extends FortEntity
      * server will check the quality, and if the server is unable to verify
      * it, it will return an error refusing the password.
      */
+    @XmlElement(nillable = true)
     private Short checkQuality;
 
     /**
@@ -158,6 +188,7 @@ public class PswdPolicy extends FortEntity
      * value of the pwdCheckQuality attribute, either accept the password
      * without checking it ('0' or '1') or refuse it ('2').
      */
+    @XmlElement(nillable = true)
     private Short minLength;
 
     /**
@@ -171,6 +202,7 @@ public class PswdPolicy extends FortEntity
      * will be returned.  If not 0, the value must be smaller than the value
      * of the pwdMaxAge attribute.
      */
+    @XmlElement(nillable = true)
     private Long expireWarning;
 
     /**
@@ -180,6 +212,7 @@ public class PswdPolicy extends FortEntity
      * be used to authenticate.  If this attribute is not present or if the
      * value is 0, authentication will fail.
      */
+    @XmlElement(nillable = true)
     private Short graceLoginLimit;
 
     /**
@@ -194,6 +227,7 @@ public class PswdPolicy extends FortEntity
      * password may be used to authenticate when the number of failed bind
      * attempts has been reached.
      */
+    @XmlElement(nillable = true)
     private Boolean lockout;
 
     /**
@@ -205,6 +239,7 @@ public class PswdPolicy extends FortEntity
      * cannot be used to authenticate until reset by a password
      * administrator.
      */
+    @XmlElement(nillable = true)
     private Integer lockoutDuration;
 
     /**
@@ -215,6 +250,7 @@ public class PswdPolicy extends FortEntity
      * If this attribute is not present, or if the value is 0, this policy
      * is not checked, and the value of pwdLockout will be ignored.
      */
+    @XmlElement(nillable = true)
     private Short maxFailure;
 
     /**
@@ -227,6 +263,7 @@ public class PswdPolicy extends FortEntity
      * If this attribute is not present, or if its value is 0, the failure
      * counter is only reset by a successful authentication.
      */
+    @XmlElement(nillable = true)
     private Short failureCountInterval;
 
     /**
@@ -241,6 +278,7 @@ public class PswdPolicy extends FortEntity
      * due to any actions specified by this document, it is typically set by
      * a password administrator after resetting a user's password.
      */
+    @XmlElement(nillable = true)
     private Boolean mustChange;
 
     /**
@@ -252,6 +290,7 @@ public class PswdPolicy extends FortEntity
      * assumed.  This attribute is intended to be used in the absense of an
      * access control mechanism.
      */
+    @XmlElement(nillable = true)
     private Boolean allowUserChange;
 
     /**
@@ -261,6 +300,7 @@ public class PswdPolicy extends FortEntity
      * sent along with the new password when being changed.  If this
      * attribute is not present, a "FALSE" value is assumed.
      */
+    @XmlElement(nillable = true)
     private Boolean safeModify;
 
     /**

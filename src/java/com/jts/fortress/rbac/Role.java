@@ -148,10 +148,6 @@ import java.util.UUID;
     "endTime",
     "timeout",
     "rawData"
-    //"sequenceId",
-    //"modCode",
-    //"modId",
-    //"adminSession",
 })
 @XmlSeeAlso({
     AdminRole.class

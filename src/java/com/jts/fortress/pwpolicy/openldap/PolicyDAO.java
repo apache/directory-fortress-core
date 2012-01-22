@@ -6,6 +6,7 @@ package com.jts.fortress.pwpolicy.openldap;
 
 import com.jts.fortress.CreateException;
 import com.jts.fortress.FinderException;
+import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.UpdateException;
 import com.jts.fortress.constants.GlobalIds;
@@ -420,7 +421,8 @@ public final class PolicyDAO
     private PswdPolicy unloadLdapEntry(LDAPEntry le, long sequence)
         throws LDAPException
     {
-        PswdPolicy entity = new PswdPolicy();
+        //PswdPolicy entity = new PswdPolicy();
+        PswdPolicy entity = new ObjectFactory().createPswdPolicy();
         entity.setSequenceId(sequence);
         entity.setName(DaoUtil.getRdn(le.getDN()));
         //entity.setAttribute(DaoUtil.getAttribute(le, OLPW_ATTRIBUTE));

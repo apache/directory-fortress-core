@@ -7,6 +7,7 @@
 
 package com.jts.fortress;
 
+import com.jts.fortress.pwpolicy.PswdPolicy;
 import com.jts.fortress.rbac.PermGrant;
 import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.OrgUnit;
@@ -56,6 +57,7 @@ public class ObjectFactory
     private final static QName _FortPermission_QNAME = new QName("", "fortPermission");
     private final static QName _FortRoleRelationship_QNAME = new QName("", "fortRoleRelationship");
     private final static QName _FortSet_QNAME = new QName("", "fortSet");
+    private final static QName _FortPolicy_QNAME = new QName("", "fortPolicy");
 
 
 
@@ -72,6 +74,15 @@ public class ObjectFactory
     public JAXBElement<SDSet> createFortSet(SDSet value)
     {
         return new JAXBElement<SDSet>(_FortSet_QNAME, SDSet.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PswdPolicy }{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortPolicy")
+    public JAXBElement<PswdPolicy> createFortPolicy(PswdPolicy value)
+    {
+        return new JAXBElement<PswdPolicy>(_FortPolicy_QNAME, PswdPolicy.class, null, value);
     }
 
     /**
@@ -174,6 +185,14 @@ public class ObjectFactory
     public User createUser()
     {
         return new User();
+    }
+
+    /**
+     * Create an instance of {@link PswdPolicy }
+     */
+    public PswdPolicy createPswdPolicy()
+    {
+        return new PswdPolicy();
     }
 
     /**
