@@ -7,13 +7,15 @@
 
 package com.jts.fortress;
 
-import com.jts.fortress.ant.PermGrant;
+import com.jts.fortress.rbac.PermGrant;
 import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.OrgUnit;
 import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
+import com.jts.fortress.rbac.RoleRelationship;
+import com.jts.fortress.rbac.SDSet;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
@@ -52,11 +54,24 @@ public class ObjectFactory
     private final static QName _FortUserRole_QNAME = new QName("", "fortUserRole");
     private final static QName _FortObject_QNAME = new QName("", "fortObject");
     private final static QName _FortPermission_QNAME = new QName("", "fortPermission");
+    private final static QName _FortRoleRelationship_QNAME = new QName("", "fortRoleRelationship");
+    private final static QName _FortSet_QNAME = new QName("", "fortSet");
+
+
 
     @XmlElementDecl(namespace = "", name = "fortEntity")
     public JAXBElement<FortEntity> createFortEntity(FortEntity value)
     {
         return new JAXBElement<FortEntity>(_FortEntity_QNAME, FortEntity.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.SDSet }{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortSet")
+    public JAXBElement<SDSet> createFortSet(SDSet value)
+    {
+        return new JAXBElement<SDSet>(_FortSet_QNAME, SDSet.class, null, value);
     }
 
     /**
@@ -111,6 +126,15 @@ public class ObjectFactory
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.RoleRelationship}{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortRoleRelationship")
+    public JAXBElement<RoleRelationship> createFortRoleRelationship(RoleRelationship value)
+    {
+        return new JAXBElement<RoleRelationship>(_FortRoleRelationship_QNAME, RoleRelationship.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.Role }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortAdminRole")
@@ -161,6 +185,14 @@ public class ObjectFactory
     }
 
     /**
+     * Create an instance of {@link SDSet }
+     */
+    public SDSet createSDset()
+    {
+        return new SDSet();
+    }
+
+    /**
      * Create an instance of {@link Role }
      */
     public Role createRole()
@@ -171,9 +203,17 @@ public class ObjectFactory
     /**
      * Create an instance of {@link PermGrant }
      */
-    public PermGrant createPerm()
+    public PermGrant createPermGrant()
     {
         return new PermGrant();
+    }
+
+    /**
+     * Create an instance of {@link RoleRelationship }
+     */
+    public RoleRelationship createRoleRelationship()
+    {
+        return new RoleRelationship();
     }
 
     /**

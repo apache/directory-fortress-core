@@ -74,13 +74,14 @@ public class DSD
                 for (SDSet dsd : dsdSets)
                 {
                     matchCount = 0;
-                    Map<String, String> map = dsd.getMembers();
+                    Set<String> map = dsd.getMembers();
 
                     // now check the DSD on every role activation candidate contained within session object:
                     while (activatedRoles.hasNext())
                     {
                         UserRole activatedRole = (UserRole) activatedRoles.next();
-                        if (map.containsKey(activatedRole.getName()))
+                        //if (map.containsKey(activatedRole.getName()))
+                        if (map.contains(activatedRole.getName()))
                         {
                             matchCount++;
                             if (matchCount >= dsd.getCardinality())
@@ -97,7 +98,8 @@ public class DSD
                             // now check for every role inherited from this activated role:
                             for (String parentRole : parentSet)
                             {
-                                if (map.containsKey(parentRole))
+                                //if (map.containsKey(parentRole))
+                                if (map.contains(parentRole))
                                 {
                                     matchCount++;
                                     if (matchCount >= dsd.getCardinality())

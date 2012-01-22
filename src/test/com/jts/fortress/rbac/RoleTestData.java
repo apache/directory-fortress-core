@@ -3326,11 +3326,30 @@ public class RoleTestData extends TestCase
     }
 
 
+    public static Set<String> getMembers(String[] rle)
+    {
+        Set<String> mems = new TreeSet<String>();
+        if(com.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[MEMBERS]))
+        {
+            StringTokenizer charSetTkn = new StringTokenizer(rle[MEMBERS], ",");
+            if (charSetTkn.countTokens() > 0)
+            {
+                while (charSetTkn.hasMoreTokens())
+                {
+                    String pRole = charSetTkn.nextToken();
+                    mems.add(pRole);
+                }
+            }
+        }
+        return mems;
+    }
+
     /**
      *
      * @param rle
      * @return
      */
+    /*
     public static Map<String, String> getMembers(String[] rle)
     {
         Map<String, String> mems = new HashMap<String, String>();
@@ -3348,6 +3367,7 @@ public class RoleTestData extends TestCase
         }
         return mems;
     }
+    */
 
     /**
      *

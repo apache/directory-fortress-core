@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Java class for complex type.
  *
  * <p>The following schema fragment specifies the expected content contained within this class.
  *

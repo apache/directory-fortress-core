@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
@@ -564,40 +565,6 @@ public class DaoUtil
             }
         }
         return attrValues;
-    }
-
-
-    /**
-     * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and return a {@code Map<String, String>}.
-     *
-     * @param entry         contains the target ldap entry.
-     * @param attributeName name of ldap attribute to retrieve.
-     * @return Map of type String, String containing attribute values as keys to map.
-     * @throws LDAPException in the event of ldap client error.
-     */
-    public static Map<String, String> getAttributeMap(LDAPEntry entry, String attributeName)
-        throws LDAPException
-    {
-        Map<String, String> attrMap = SDSet.createMembers();
-        LDAPAttribute attr;
-        Enumeration values;
-        attr = entry.getAttribute(attributeName);
-        if (attr != null)
-        {
-            values = attr.getStringValues();
-        }
-        else
-        {
-            return null;
-        }
-        if (values != null)
-        {
-            while (values.hasMoreElements())
-            {
-                attrMap.put((String) values.nextElement(), null);
-            }
-        }
-        return attrMap;
     }
 
 

@@ -152,7 +152,8 @@ public final class SdDAO
             }
             // CN attribute is required for this object class:
             attrs.add(DaoUtil.createAttribute(GlobalIds.CN, entity.getName()));
-            DaoUtil.loadAttrs(entity.getMembers().keySet(), attrs, ROLES);
+            //DaoUtil.loadAttrs(entity.getMembers().keySet(), attrs, ROLES);
+            DaoUtil.loadAttrs(entity.getMembers(), attrs, ROLES);
             attrs.add(DaoUtil.createAttribute(SD_SET_CARDINALITY, "" + entity.getCardinality()));
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
             DaoUtil.add(ld, myEntry, entity);
@@ -204,7 +205,8 @@ public final class SdDAO
                 LDAPAttribute cardinality = new LDAPAttribute(SD_SET_CARDINALITY, "" + entity.getCardinality());
                 mods.add(LDAPModification.REPLACE, cardinality);
             }
-            DaoUtil.loadAttrs(entity.getMembers().keySet(), mods, ROLES);
+            //DaoUtil.loadAttrs(entity.getMembers().keySet(), mods, ROLES);
+            DaoUtil.loadAttrs(entity.getMembers(), mods, ROLES);
             if (mods.size() > 0)
             {
                 DaoUtil.modify(ld, dn, mods, entity);
@@ -463,7 +465,8 @@ public final class SdDAO
         entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setName(DaoUtil.getAttribute(le, SD_SET_NM));
         entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
-        entity.setMembers(DaoUtil.getAttributeMap(le, ROLES));
+        //entity.setMembers(DaoUtil.getAttributeMap(le, ROLES));
+        entity.setMembers(DaoUtil.getAttributeSet(le, ROLES));
         String szCard = DaoUtil.getAttribute(le, SD_SET_CARDINALITY);
         entity.setCardinality(new Integer(szCard));
         //todo: fix me:

@@ -1041,7 +1041,8 @@ public class AdminMgrImplTest extends TestCase
                     assertTrue(OCLS_NM + "addSsdRoleMember list size check", ssdSets.size() == 1);
                     SDSet ssd2 = ssdSets.get(0);
                     assertTrue(OCLS_NM + "addSsdRoleMember SSD name check", ssd.getName().equals(ssd2.getName()));
-                    assertTrue(OCLS_NM + "addSsdRoleMember SSD role check", ssd2.getMembers().containsKey(role.getName()));                    
+                    assertTrue(OCLS_NM + "addSsdRoleMember SSD role check", ssd2.getMembers().contains(role.getName()));
+                    //assertTrue(OCLS_NM + "addSsdRoleMember SSD role check", ssd2.getMembers().containsKey(role.getName()));
                 }
             }
         }
@@ -1086,7 +1087,8 @@ public class AdminMgrImplTest extends TestCase
                     assertTrue(OCLS_NM + "addDsdRoleMember list size check", dsdSets.size() == 1);
                     SDSet dsd2 = dsdSets.get(0);
                     assertTrue(OCLS_NM + "addDsdRoleMember DSD name check", dsd.getName().equals(dsd2.getName()));
-                    assertTrue(OCLS_NM + "addDsdRoleMember DSD role check", dsd2.getMembers().containsKey(role.getName()));
+                    assertTrue(OCLS_NM + "addDsdRoleMember DSD role check", dsd2.getMembers().contains(role.getName()));
+                    //assertTrue(OCLS_NM + "addDsdRoleMember DSD role check", dsd2.getMembers().containsKey(role.getName()));
                 }
             }
         }
@@ -1403,7 +1405,8 @@ public class AdminMgrImplTest extends TestCase
             for (String[] usr : uArray)
             {
                 SDSet ssd = RoleTestData.getSDSet(sArray[i++]);
-                Set<String> roles = ssd.getMembers().keySet();                
+                //Set<String> roles = ssd.getMembers().keySet();
+                Set<String> roles = ssd.getMembers();
                 User user = UserTestData.getUser(usr);
                 int j = 0;
                 for(String role : roles)
@@ -1452,7 +1455,8 @@ public class AdminMgrImplTest extends TestCase
             for (String[] usr : uArray)
             {
                 SDSet dsd = RoleTestData.getSDSet(sArray[i++]);
-                Set<String> roles = dsd.getMembers().keySet();
+                //Set<String> roles = dsd.getMembers().keySet();
+                Set<String> roles = dsd.getMembers();
                 User user = UserTestData.getUser(usr);
                 int j = 0;
                 for(String role : roles)

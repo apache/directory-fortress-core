@@ -68,12 +68,13 @@ public class SDUtil
         for (SDSet ssd : ssdSets)
         {
             matchCount = 0;
-            Map<String, String> map = ssd.getMembers();
+            Set<String> map = ssd.getMembers();
             // iterate over every authorized role for user:
             for (String authRole : rls)
             {
                 // is there a match found between authorized role and SSD set's members?
-                if (map.containsKey(authRole))
+                //if (map.containsKey(authRole))
+                if (map.contains(authRole))
                 {
                     matchCount++;
                     // does the match count exceed the cardinality allowed for this particular SSD set?
@@ -118,13 +119,14 @@ public class SDUtil
             int matchCount = 0;
 
             // Contains the list of roles assigned to a particular DSD set.
-            Map<String, String> map = dsd.getMembers();
+            Set<String> map = dsd.getMembers();
 
             // iterate over every role active in session for match wth DSD members:
             for (UserRole actRole : rls)
             {
                 // is there a match found between active role in session and DSD set members?
-                if (map.containsKey(actRole.getName()))
+                //if (map.containsKey(actRole.getName()))
+                if (map.contains(actRole.getName()))
                 {
                     // Yes, we found a match, increment the count.
                     matchCount++;
@@ -145,7 +147,8 @@ public class SDUtil
                     // Iterate over the list of parent roles:
                     for (String parentRole : parentSet)
                     {
-                        if (map.containsKey(parentRole)) // is there match between parent and DSD member?
+                        //if (map.containsKey(parentRole)) // is there match between parent and DSD member?
+                        if (map.contains(parentRole)) // is there match between parent and DSD member?
                         {
                             matchCount++;
                             if (matchCount >= dsd.getCardinality() - 1) // Does the counter exceed max per cardinality on this DSD set?

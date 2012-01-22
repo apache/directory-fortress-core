@@ -591,7 +591,7 @@ public class ReviewMgrImpl
      * @return Map containing all Roles that are members of SSD data set.
      * @throws SecurityException in the event of data or system error.
      */
-    public Map<String, String> ssdRoleSetRoles(SDSet ssd)
+    public Set<String> ssdRoleSetRoles(SDSet ssd)
         throws SecurityException
     {
         String methodName = "ssdRoleSetRoles";
@@ -662,7 +662,7 @@ public class ReviewMgrImpl
      * @return List containing all Roles that are members of DSD data set.
      * @throws SecurityException in the event of data or system error.
      */
-    public Map<String, String> dsdRoleSetRoles(SDSet dsd)
+    public Set<String> dsdRoleSetRoles(SDSet dsd)
         throws SecurityException
     {
         String methodName = "dsdRoleSetRoles";

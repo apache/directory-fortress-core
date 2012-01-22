@@ -4,6 +4,8 @@
 
 package com.jts.fortress.ant;
 
+import com.jts.fortress.rbac.PermGrant;
+
 import java.util.ArrayList;
 import java.util.List;
 

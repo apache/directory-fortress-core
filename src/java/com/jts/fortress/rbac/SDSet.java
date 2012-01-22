@@ -7,8 +7,18 @@ package com.jts.fortress.rbac;
 import com.jts.fortress.FortEntity;
 import com.jts.fortress.util.AlphabeticalOrder;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.UUID;
 
 /**
@@ -80,6 +90,16 @@ import java.util.UUID;
  * @author smckinn
  * @created September 11, 2010
  */
+@XmlRootElement(name = "fortSet")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "sdset", propOrder = {
+    "name",
+    "id",
+    "description",
+    "cardinality",
+    "members",
+    "type"
+})
 public class SDSet extends FortEntity
     implements java.io.Serializable
 {
@@ -87,7 +107,8 @@ public class SDSet extends FortEntity
     private String name;
     private String description;
     private Integer cardinality;
-    private Map<String, String> members;
+    @XmlElement(nillable = true)
+    private Set<String> members;
     private SDType type;
 
 
@@ -96,6 +117,8 @@ public class SDSet extends FortEntity
      * object classes.
      * SDType determines if 'ftSSDSet' or 'ftDSDSet' object class is used.
      */
+    @XmlType(name = "sdtype")
+    @XmlEnum
     public enum SDType
     {
         /**
@@ -131,13 +154,13 @@ public class SDSet extends FortEntity
 
     /**
      * Create a new, empty map that is used to load Role members.  This method is called by any class
-     * that needs to create an SDSet map.
+     * that needs to create an SDSet set.
      *
-     * @return Map that sorts members by alphabetical order.
+     * @return Set that sorts members by alphabetical order.
      */
-    public static Map<String, String> createMembers()
+    public static Set<String> createMembers()
     {
-        return new TreeMap<String, String>(new AlphabeticalOrder());
+        return new TreeSet<String>(new AlphabeticalOrder());
     }
 
 
@@ -206,10 +229,6 @@ public class SDSet extends FortEntity
         // generate a unique id that will be used as the rDn for this entry:
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
-
-        //UID iid = new UID();
-        // assign the unique id to the internal id of the entity:
-        //this.id = iid.toString();
     }
 
 
@@ -253,27 +272,28 @@ public class SDSet extends FortEntity
     }
 
     /**
-     * Return the alphabetically sorted Map containing Role membership to SDSet.
+     * Return the alphabetically sorted Set containing Role membership to SDSet.
      *
      * @return attribute maps to 'ftRoles' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.
      */
-    public Map<String, String> getMembers()
+    public Set<String> getMembers()
     {
         return members;
     }
 
     /**
-     * Set an alphabetically sorted Map containing Role membership to SDSet.
+     * Set an alphabetically sorted Set containing Role membership to SDSet.
      *
      * @param members attribute maps to 'ftRoles' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.
      */
-    public void setMembers(Map<String, String> members)
+    public void setMembers(Set<String> members)
     {
         this.members = members;
     }
 
+
     /**
-     * Add a member to an alphabetically sorted Map containing Role membership to SDSet.
+     * Add a member to an alphabetically sorted Set containing Role membership to SDSet.
      *
      * @param role attribute maps to 'ftRoles' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.
      */
@@ -283,11 +303,11 @@ public class SDSet extends FortEntity
         {
             this.members = createMembers();
         }
-        this.members.put(role, null);
+        this.members.add(role);
     }
 
     /**
-     * Remove a member from the alphabetically sorted Map containing Role membership to SDSet.
+     * Remove a member from the alphabetically sorted Set containing Role membership to SDSet.
      *
      * @param role attribute maps to 'ftRoles' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.
      */

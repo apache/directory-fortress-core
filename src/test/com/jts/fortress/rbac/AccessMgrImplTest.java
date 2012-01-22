@@ -1029,7 +1029,8 @@ public class AccessMgrImplTest extends TestCase
             for (String[] usr : uArray)
             {
                 SDSet dsd = RoleTestData.getSDSet(sArray[i++]);
-                Set<String> roles = dsd.getMembers().keySet();
+                //Set<String> roles = dsd.getMembers().keySet();
+                Set<String> roles = dsd.getMembers();
                 User user = UserTestData.getUser(usr);
                 Session session = accessMgr.authenticate(user.getUserId(), user.getPassword());
                 int j = 0;

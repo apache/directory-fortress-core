@@ -137,7 +137,6 @@ import java.util.*;
     "name",
     "internalId",
     "ou",
-    "password",
     "pwPolicy",
     "sn",
     "cn",
@@ -153,11 +152,16 @@ import java.util.*;
     "dayMask",
     "timeout",
     "roles",
-    "adminRoles"
+    "adminRoles",
+    "password",
+    "newPassword"
 })
 public class User extends FortEntity implements Constraint, Serializable
 {
     private String userId;
+    @XmlJavaTypeAdapter(CharArrayAdapter.class)
+    @XmlElement(nillable = true)
+    private char[] newPassword;
     @XmlJavaTypeAdapter(CharArrayAdapter.class)
     @XmlElement(nillable = true)
     private char[] password;
@@ -535,6 +539,16 @@ public class User extends FortEntity implements Constraint, Serializable
     public void setPassword(char[] password)
     {
         this.password = password;
+    }
+
+    public char[] getNewPassword()
+    {
+        return newPassword;
+    }
+
+    public void setNewPassword(char[] newPassword)
+    {
+        this.newPassword = newPassword;
     }
 
     /**

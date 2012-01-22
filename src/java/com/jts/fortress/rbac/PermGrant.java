@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
  */
 
-package com.jts.fortress.ant;
+package com.jts.fortress.rbac;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * This entity is used by {@link FortressAntTask} to add {@link com.jts.fortress.rbac.Permission} grants to
+ * This entity is used by {@link com.jts.fortress.ant.FortressAntTask} to add {@link com.jts.fortress.rbac.Permission} grants to
  * RBAC {@link com.jts.fortress.rbac.Role}, or ARBAC {@link com.jts.fortress.arbac.AdminRole}.
  * Can also be used to grant Permissions directly to {@link com.jts.fortress.rbac.User}s.
  * This entity is used for Ant and En Masse processing only.

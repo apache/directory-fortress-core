@@ -165,19 +165,17 @@ public class SdP
         {
             VUtil.description(entity.getDescription());
         }
-        Map<String, String> roles = entity.getMembers();
+        Set<String> roles = entity.getMembers();
         if (roles != null)
         {
             RoleP rp = new RoleP();
-            for (Iterator it = roles.keySet().iterator(); it.hasNext();)
+            for (String key : roles)
             {
-                Object key = it.next();
                 // when removing last role member a placeholder must be left in data set:
-                //if (key.toString() != GlobalIds.NONE)
-                if (!key.toString().equalsIgnoreCase(GlobalIds.NONE))
+                if (!key.equalsIgnoreCase(GlobalIds.NONE))
                 {
                     // Ensure the name exists:
-                    rp.read(key.toString());
+                    rp.read(key);
                 }
             }
         }

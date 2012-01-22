@@ -135,7 +135,6 @@ public class OrgUnit extends FortEntity
      * Maps to the location for a particular OrgUnit entity to either the User, {@code ou=OS-U}, or Permission, {@code ou=OS-P}, tree in ldap.
      *
      */
-    //@XmlTransient
     public Type type;
     private String name;
     private String id;

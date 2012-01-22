@@ -334,10 +334,10 @@ public interface ReviewMgr extends com.jts.fortress.Authorizable
      * role set exists.
      *
      * @param ssd contains the name for the SSD set targeted, {@link SDSet#name}.
-     * @return List containing all Roles that are members of SSD data set.
+     * @return Set containing all Roles that are members of SSD data set.
      * @throws SecurityException in the event of data or system error.
      */
-    public Map<String, String> ssdRoleSetRoles(SDSet ssd)
+    public Set<String> ssdRoleSetRoles(SDSet ssd)
         throws SecurityException;
 
     /**
@@ -379,10 +379,10 @@ public interface ReviewMgr extends com.jts.fortress.Authorizable
      * role set exists.
      *
      * @param dsd contains the name for the DSD set targeted, {@link SDSet#name}.
-     * @return List containing all Roles that are members of DSD data set.
+     * @return Set containing all Roles that are members of DSD data set.
      * @throws com.jts.fortress.SecurityException in the event of data or system error.
      */
-    public Map<String, String> dsdRoleSetRoles(SDSet dsd)
+    public Set<String> dsdRoleSetRoles(SDSet dsd)
         throws SecurityException;
 
     /**
