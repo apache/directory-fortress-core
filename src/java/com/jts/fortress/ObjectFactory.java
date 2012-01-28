@@ -7,6 +7,8 @@
 
 package com.jts.fortress;
 
+import com.jts.fortress.arbac.AdminRoleRelationship;
+import com.jts.fortress.arbac.OrgUnitRelationship;
 import com.jts.fortress.pwpolicy.PswdPolicy;
 import com.jts.fortress.rbac.PermGrant;
 import com.jts.fortress.arbac.AdminRole;
@@ -58,6 +60,9 @@ public class ObjectFactory
     private final static QName _FortRoleRelationship_QNAME = new QName("", "fortRoleRelationship");
     private final static QName _FortSet_QNAME = new QName("", "fortSet");
     private final static QName _FortPolicy_QNAME = new QName("", "fortPolicy");
+    private final static QName _FortUserAdminRole_QNAME = new QName("", "fortUserAdminRole");
+    private final static QName _FortAdminRoleRelationship_QNAME = new QName("", "fortAdminRoleRelationship");
+    private final static QName _FortOrgUnitRelationship_QNAME = new QName("", "fortOrgUnitRelationship");
 
 
 
@@ -137,6 +142,24 @@ public class ObjectFactory
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.arbac.OrgUnitRelationship}{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortAdminRoleRelationship")
+    public JAXBElement<AdminRoleRelationship> createFortAdminRoleRelationship(AdminRoleRelationship value)
+    {
+        return new JAXBElement<AdminRoleRelationship>(_FortAdminRoleRelationship_QNAME, AdminRoleRelationship.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.arbac.OrgUnitRelationship}{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortOrgUnitRelationship")
+    public JAXBElement<OrgUnitRelationship> createFortOrgUnitRelationship(OrgUnitRelationship value)
+    {
+        return new JAXBElement<OrgUnitRelationship>(_FortOrgUnitRelationship_QNAME, OrgUnitRelationship.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.RoleRelationship}{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortRoleRelationship")
@@ -152,6 +175,15 @@ public class ObjectFactory
     public JAXBElement<AdminRole> createFortAdminRole(AdminRole value)
     {
         return new JAXBElement<AdminRole>(_FortAdminRole_QNAME, AdminRole.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.arbac.UserAdminRole }{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortUserAdminRole")
+    public JAXBElement<UserAdminRole> createFortUserRole(UserAdminRole value)
+    {
+        return new JAXBElement<UserAdminRole>(_FortUserAdminRole_QNAME, UserAdminRole.class, null, value);
     }
 
     /**
@@ -233,6 +265,22 @@ public class ObjectFactory
     public RoleRelationship createRoleRelationship()
     {
         return new RoleRelationship();
+    }
+
+    /**
+     * Create an instance of {@link AdminRoleRelationship }
+     */
+    public AdminRoleRelationship createAdminRoleRelationship()
+    {
+        return new AdminRoleRelationship();
+    }
+
+    /**
+     * Create an instance of {@link OrgUnitRelationship }
+     */
+    public OrgUnitRelationship createOrgUnitRelationship()
+    {
+        return new OrgUnitRelationship();
     }
 
     /**

@@ -10,6 +10,7 @@ import com.jts.fortress.util.AlphabeticalOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -52,6 +53,7 @@ import java.util.TreeSet;
     "roleRangeRaw"
 })
 */
+@XmlRootElement(name = "fortUserAdminRole")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "userAdminRole", propOrder = {
     "osPs",

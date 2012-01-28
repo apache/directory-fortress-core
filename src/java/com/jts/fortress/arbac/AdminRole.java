@@ -314,7 +314,7 @@ public class AdminRole extends Role implements com.jts.fortress.arbac.Administra
     }
 
     /**
-     * Return the begin Role range attribute for AdminRole entity.
+     * Return the begin Role range attribute for AdminRole entity which corresponds to lowest descendant.
      *
      * @return String that maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
@@ -324,7 +324,7 @@ public class AdminRole extends Role implements com.jts.fortress.arbac.Administra
     }
 
     /**
-     * Set the begin Role range attribute for AdminRole entity.
+     * Set the begin Role range attribute for AdminRole entity which corresponds to lowest descendant.
      *
      * @param beginRange maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
@@ -334,7 +334,7 @@ public class AdminRole extends Role implements com.jts.fortress.arbac.Administra
     }
 
     /**
-     * Return the end Role range attribute for AdminRole entity.
+     * Return the end Role range attribute for AdminRole entity which corresponds to highest ascendant.
      *
      * @return String that maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
@@ -344,7 +344,7 @@ public class AdminRole extends Role implements com.jts.fortress.arbac.Administra
     }
 
     /**
-     * Set the end Role range attribute for AdminRole entity.
+     * Set the end Role range attribute for AdminRole entity which corresponds to highest ascendant.
      *
      * @param endRange maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
