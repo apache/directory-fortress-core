@@ -320,8 +320,15 @@ public class PermObj extends FortEntity
          Props.Entry keyObj = new Props.Entry();
          keyObj.setKey(key);
 
-         Props.Entry entry = props.get(props.indexOf(keyObj));
-         return (String) entry.getValue();
+         String value = null;
+         int indx = props.indexOf(keyObj);
+         if(indx != -1)
+         {
+             Props.Entry entry = props.get(props.indexOf(keyObj));
+             value = (String) entry.getValue();
+         }
+
+         return value;
      }
 
      /**
@@ -408,19 +415,6 @@ public class PermObj extends FortEntity
     //public Properties getProperties()
     //{
     //    return this.props;
-    //}
-
-
-    /**
-     * Get a name/value pair attribute from list of properties associated with PermObj.  These values are not constrained by Fortress.
-     * Properties are optional.
-     *
-     * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     */
-    //public String getProperty(String key)
-    //{
-    //    return this.props.getProperty(key);
     //}
 
 

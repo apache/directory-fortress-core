@@ -386,57 +386,6 @@ public class Permission extends FortEntity
     }
 
     /**
-     * Get a name/value pair attribute from list of properties associated with Permission.  These values are not constrained by Fortress.
-     * Properties are optional.
-     *
-     * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     */
-    //public void addProperty(String key, String value)
-    //{
-    //    if (props == null)
-    //    {
-    //        props = new Properties();
-    //    }
-
-    //    this.props.setProperty(key, value);
-    //}
-
-    /**
-     * Add new collection of name/value pairs to attributes associated with Permission.  These values are not constrained by Fortress.
-     * Properties are optional.
-     *
-     * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     */
-    //public void addProperties(Properties props)
-    //{
-    //    this.props = props;
-    //}
-
-    /**
-     * Return the collection of name/value pairs to attributes associated with Permission.  These values are not constrained by Fortress.
-     * Properties are optional.
-     *
-     * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     */
-    //public Properties getProperties()
-    //{
-    //    return this.props;
-    //}
-
-    /**
-     * Get a name/value pair attribute from list of properties associated with Permission.  These values are not constrained by Fortress.
-     * Properties are optional.
-     *
-     * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     */
-    //public String getProperty(String key)
-    //{
-    //    return this.props.getProperty(key);
-    //}
-
-    /**
      * Get optional objectId attribute which can be used to tag a Permission object with an identity, i.e. objectName='Customer', objectId='12345'.
      * This value is not constrained by any other object.
      *
@@ -599,8 +548,15 @@ public class Permission extends FortEntity
          Props.Entry keyObj = new Props.Entry();
          keyObj.setKey(key);
 
-         Props.Entry entry = props.get(props.indexOf(keyObj));
-         return (String) entry.getValue();
+         String value = null;
+         int indx = props.indexOf(keyObj);
+         if(indx != -1)
+         {
+             Props.Entry entry = props.get(props.indexOf(keyObj));
+             value = (String) entry.getValue();
+         }
+
+         return value;
      }
 
      /**

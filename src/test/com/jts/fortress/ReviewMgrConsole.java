@@ -220,6 +220,7 @@ public class ReviewMgrConsole
                 System.out.println("    common name [" + ue.getCn() + "]");
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
+                System.out.println("    seqId       [" + ue.getSequenceId() + "]");
                 printTemporal(ue, "USER");
 
                 if (ue.getRoles() != null)
@@ -236,8 +237,6 @@ public class ReviewMgrConsole
                         printAdminRole(ur);
                         printTemporal(ur, "ADMINROLE");
                     }
-
-
                 }
                 if (ue.getProperties() != null && ue.getProperties().size() > 0)
                 {

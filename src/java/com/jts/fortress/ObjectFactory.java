@@ -78,7 +78,6 @@ public class ObjectFactory
     private final static QName _FortMod_QNAME = new QName("", "fortMod");
     private final static QName _FortSessionPerm_QNAME = new QName("", "fortSessionPerm");
     private final static QName _FortSessionRole_QNAME = new QName("", "fortSessionRole");
-
     private final static QName _FortSessionAdminRole_QNAME = new QName("", "fortSessionAdminRole");
     private final static QName _FortSessionUserRole_QNAME = new QName("", "fortSessionUserRole");
     private final static QName _FortSessionRolePerm_QNAME = new QName("", "fortSessionRolePerm");

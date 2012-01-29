@@ -14,14 +14,14 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "fortSessionPerm")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "sessionPerm", propOrder = {
-    "permission",
+    "perm",
     "session"
 })
 public class SessionPerm
     implements java.io.Serializable
 {
     private Session session;
-    private Permission permission;
+    private Permission perm;
 
     public Session getSession()
     {
@@ -33,14 +33,14 @@ public class SessionPerm
         this.session = session;
     }
 
-    public Permission getPermission()
+    public Permission getPerm()
     {
-        return permission;
+        return perm;
     }
 
-    public void setPermission(Permission permission)
+    public void setPerm(Permission perm)
     {
-        this.permission = permission;
+        this.perm = perm;
     }
 }
 

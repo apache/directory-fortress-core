@@ -923,8 +923,15 @@ public class User extends FortEntity implements Constraint, Serializable
         Props.Entry keyObj = new Props.Entry();
         keyObj.setKey(key);
 
-        Props.Entry entry = props.get(props.indexOf(keyObj));
-        return (String) entry.getValue();
+        String value = null;
+        int indx = props.indexOf(keyObj);
+        if(indx != -1)
+        {
+            Props.Entry entry = props.get(props.indexOf(keyObj));
+            value = (String) entry.getValue();
+        }
+
+        return value;
     }
 
     /**

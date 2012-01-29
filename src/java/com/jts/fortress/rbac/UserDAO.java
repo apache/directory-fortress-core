@@ -643,6 +643,10 @@ public final class UserDAO
             long sequence = 0;
             while (searchResults.hasMoreElements())
             {
+                if(userList.size() == 99)
+                {
+                    System.out.println("break");
+                }
                 userList.add(unloadLdapEntry(searchResults.next(), sequence++));
             }
         }
