@@ -140,6 +140,7 @@ import java.util.*;
     "pwPolicy",
     "sn",
     "cn",
+    "dn",
     "props",
     "locked",
     "reset",
@@ -173,7 +174,6 @@ public class User extends FortEntity implements Constraint, Serializable
     private String pwPolicy;
     private String cn;
     private String sn;
-    @XmlTransient
     private String dn;
     private String ou;
     private String description;

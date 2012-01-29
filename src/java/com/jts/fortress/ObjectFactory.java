@@ -9,6 +9,13 @@ package com.jts.fortress;
 
 import com.jts.fortress.arbac.AdminRoleRelationship;
 import com.jts.fortress.arbac.OrgUnitRelationship;
+import com.jts.fortress.arbac.SessionAdminRole;
+import com.jts.fortress.arbac.SessionRolePerm;
+import com.jts.fortress.arbac.SessionUserRole;
+import com.jts.fortress.audit.AuthZ;
+import com.jts.fortress.audit.Bind;
+import com.jts.fortress.audit.Mod;
+import com.jts.fortress.audit.UserAudit;
 import com.jts.fortress.pwpolicy.PswdPolicy;
 import com.jts.fortress.rbac.PermGrant;
 import com.jts.fortress.arbac.AdminRole;
@@ -20,6 +27,8 @@ import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.RoleRelationship;
 import com.jts.fortress.rbac.SDSet;
 import com.jts.fortress.rbac.Session;
+import com.jts.fortress.rbac.SessionPerm;
+import com.jts.fortress.rbac.SessionRole;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
 
@@ -63,8 +72,16 @@ public class ObjectFactory
     private final static QName _FortUserAdminRole_QNAME = new QName("", "fortUserAdminRole");
     private final static QName _FortAdminRoleRelationship_QNAME = new QName("", "fortAdminRoleRelationship");
     private final static QName _FortOrgUnitRelationship_QNAME = new QName("", "fortOrgUnitRelationship");
+    private final static QName _FortBind_QNAME = new QName("", "fortBind");
+    private final static QName _FortUserAudit_QNAME = new QName("", "fortUserAudit");
+    private final static QName _FortAuthZ_QNAME = new QName("", "fortAuthZ");
+    private final static QName _FortMod_QNAME = new QName("", "fortMod");
+    private final static QName _FortSessionPerm_QNAME = new QName("", "fortSessionPerm");
+    private final static QName _FortSessionRole_QNAME = new QName("", "fortSessionRole");
 
-
+    private final static QName _FortSessionAdminRole_QNAME = new QName("", "fortSessionAdminRole");
+    private final static QName _FortSessionUserRole_QNAME = new QName("", "fortSessionUserRole");
+    private final static QName _FortSessionRolePerm_QNAME = new QName("", "fortSessionRolePerm");
 
     @XmlElementDecl(namespace = "", name = "fortEntity")
     public JAXBElement<FortEntity> createFortEntity(FortEntity value)
@@ -204,6 +221,61 @@ public class ObjectFactory
         return new JAXBElement<Permission>(_FortObject_QNAME, Permission.class, null, value);
     }
 
+    @XmlElementDecl(namespace = "", name = "fortBind")
+    public JAXBElement<Bind> createFortEntity(Bind value)
+    {
+        return new JAXBElement<Bind>(_FortBind_QNAME, Bind.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "", name = "fortUserAudit")
+    public JAXBElement<UserAudit> createFortUserAudit(UserAudit value)
+    {
+        return new JAXBElement<UserAudit>(_FortUserAudit_QNAME, UserAudit.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "", name = "fortAuthZ")
+    public JAXBElement<AuthZ> createFortAuthZ(AuthZ value)
+    {
+        return new JAXBElement<AuthZ>(_FortAuthZ_QNAME, AuthZ.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "", name = "fortMod")
+    public JAXBElement<Mod> createFortMod(Mod value)
+    {
+        return new JAXBElement<Mod>(_FortMod_QNAME, Mod.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "", name = "fortSessionPerm")
+    public JAXBElement<SessionPerm> createFortSessionPerm(SessionPerm value)
+    {
+        return new JAXBElement<SessionPerm>(_FortSessionPerm_QNAME, SessionPerm.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "", name = "fortSessionRole")
+    public JAXBElement<SessionRole> createFortSessionPerm(SessionRole value)
+    {
+        return new JAXBElement<SessionRole>(_FortSessionRole_QNAME, SessionRole.class, null, value);
+    }
+
+
+    @XmlElementDecl(namespace = "", name = "fortSessionAdminRole")
+    public JAXBElement<SessionAdminRole> createFortSessionAdminRole(SessionAdminRole value)
+    {
+        return new JAXBElement<SessionAdminRole>(_FortSessionAdminRole_QNAME, SessionAdminRole.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "", name = "fortSessionUserRole")
+    public JAXBElement<SessionUserRole> createFortSessionUserRole(SessionUserRole value)
+    {
+        return new JAXBElement<SessionUserRole>(_FortSessionUserRole_QNAME, SessionUserRole.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "", name = "fortSessionRolePerm")
+    public JAXBElement<SessionRolePerm> createFortSessionRolePerm(SessionRolePerm value)
+    {
+        return new JAXBElement<SessionRolePerm>(_FortSessionRolePerm_QNAME, SessionRolePerm.class, null, value);
+    }
+
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.jts.fortress.model2
      */
@@ -329,5 +401,50 @@ public class ObjectFactory
     public UserAdminRole createUserAdminRole()
     {
         return new UserAdminRole();
+    }
+
+    public UserAudit createUserAudit()
+    {
+        return new UserAudit();
+    }
+
+    public Bind createBind()
+    {
+        return new Bind();
+    }
+
+    public AuthZ createAuthZ()
+    {
+        return new AuthZ();
+    }
+
+    public Mod createMod()
+    {
+        return new Mod();
+    }
+
+    public SessionPerm createSessionPerm()
+    {
+        return new SessionPerm();
+    }
+
+    public SessionRole createSessionRole()
+    {
+        return new SessionRole();
+    }
+
+    public SessionAdminRole createSessionAdminRole()
+    {
+        return new SessionAdminRole();
+    }
+
+    public SessionUserRole createSessionUserRole()
+    {
+        return new SessionUserRole();
+    }
+
+    public SessionRolePerm createSessionRolePerm()
+    {
+        return new SessionRolePerm();
     }
 }

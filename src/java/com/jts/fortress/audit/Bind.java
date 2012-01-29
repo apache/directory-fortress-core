@@ -5,6 +5,10 @@
 package com.jts.fortress.audit;
 
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
@@ -33,6 +37,31 @@ import java.io.Serializable;
  * @author smckinn
  * @created April 1, 2010
  */
+@XmlRootElement(name = "fortBind")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "bind", propOrder = {
+    "createTimestamp",
+    "creatorsName",
+    "entryCSN",
+    "entryDN",
+    "entryUUID",
+    "hasSubordinates",
+    "modifiersName",
+    "modifyTimestamp",
+    "objectClass",
+    "reqAuthzID",
+    "reqControls",
+    "reqDN",
+    "reqEnd",
+    "reqMethod",
+    "reqResult",
+    "reqSession",
+    "reqStart",
+    "reqType",
+    "reqVersion",
+    "structuralObjectClass",
+    "sequenceId"
+})
 public class Bind implements Serializable
 {
     private String createTimestamp;

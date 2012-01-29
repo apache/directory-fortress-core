@@ -4,6 +4,7 @@
 
 package com.jts.fortress.audit;
 
+import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.configuration.Config;
 import com.jts.fortress.FinderException;
 import com.jts.fortress.ldap.DaoUtil;
@@ -653,7 +654,7 @@ public class AuditDAO
             private String structuralObjectClass;
             */
 
-        Bind auditBind = new Bind();
+        Bind auditBind = new ObjectFactory().createBind();
         auditBind.setSequenceId(sequence);
         auditBind.setCreateTimestamp(DaoUtil.getAttribute(le, CREATETIMESTAMP));
         auditBind.setCreatorsName(DaoUtil.getAttribute(le, CREATORSNAME));
@@ -720,7 +721,7 @@ public class AuditDAO
             private String subschemaSubentry;
         }*/
         // these attrs also on audit bind OC:
-        AuthZ authZ = new AuthZ();
+        AuthZ authZ = new ObjectFactory().createAuthZ();
         authZ.setSequenceId(sequence);
         authZ.setCreateTimestamp(DaoUtil.getAttribute(le, CREATETIMESTAMP));
         authZ.setCreatorsName(DaoUtil.getAttribute(le, CREATORSNAME));
@@ -772,7 +773,7 @@ public class AuditDAO
         }
         */
 
-        Mod mod = new Mod();
+        Mod mod = new ObjectFactory().createMod();
         mod.setSequenceId(sequence);
         mod.setObjectClass(DaoUtil.getAttribute(le, OBJECTCLASS));
         mod.setReqAuthzID(DaoUtil.getAttribute(le, REQUAUTHZID));

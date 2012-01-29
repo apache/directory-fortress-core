@@ -4,6 +4,11 @@
 
 package com.jts.fortress.audit;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
 /**
@@ -19,11 +24,24 @@ import java.util.Date;
  * </ul>
  * <p/>
  * <p/>
-
  *
  * @author smckinn
  * @created April 1, 2010
  */
+@XmlRootElement(name = "fortUserAudit")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "userAudit", propOrder = {
+    "name",
+    "description",
+    "failedOnly",
+    "objName",
+    "opName",
+    "userId",
+    "internalUserId",
+    "beginDate",
+    "endDate",
+    "dn"
+})
 public class UserAudit implements java.io.Serializable
 {
     private String name;
@@ -33,8 +51,9 @@ public class UserAudit implements java.io.Serializable
     private String opName;
     private String userId;
     private String internalUserId;
+    @XmlElement(nillable = true)
     private Date beginDate;
-
+    @XmlElement(nillable = true)
     private Date endDate;
     private String dn;
 

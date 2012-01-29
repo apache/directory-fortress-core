@@ -4,6 +4,11 @@
 
 package com.jts.fortress.audit;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.List;
 
@@ -40,6 +45,19 @@ import java.util.List;
  * @author smckinn
  * @created April 1, 2010
  */
+@XmlRootElement(name = "fortMod")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "mod", propOrder = {
+    "reqSession",
+    "objectClass",
+    "reqAuthzID",
+    "reqDN",
+    "reqResult",
+    "reqStart",
+    "reqEnd",
+    "reqMod",
+    "sequenceId"
+})
 public class Mod implements Serializable
 {
     private String reqSession;
@@ -50,6 +68,7 @@ public class Mod implements Serializable
     private String reqStart;
     private String reqEnd;
     private String reqType;
+    @XmlElement(nillable = true)
     private List<String> reqMod;
     private long sequenceId;
 

@@ -5,6 +5,10 @@
 package com.jts.fortress.audit;
 
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
@@ -44,6 +48,38 @@ import java.io.Serializable;
  * @author smckinn
  * @created April 1, 2010
  */
+@XmlRootElement(name = "fortAuthZ")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "authZ", propOrder = {
+    "createTimestamp",
+    "creatorsName",
+    "entryCSN",
+    "entryDN",
+    "entryUUID",
+    "hasSubordinates",
+    "modifiersName",
+    "modifyTimestamp",
+    "objectClass",
+    "reqAttr",
+    "reqAttrsOnly",
+    "reqAuthzID",
+    "reqControls",
+    "reqDN",
+    "reqDerefAliases",
+    "reqEnd",
+    "reqEntries",
+    "reqFilter",
+    "reqResult",
+    "reqScope",
+    "reqSession",
+    "reqSizeLimit",
+    "reqStart",
+    "reqTimeLimit",
+    "reqType",
+    "structuralObjectClass",
+    "subschemaSubentry",
+    "sequenceId"
+})
 public class AuthZ implements Serializable
 {
     private String createTimestamp;
