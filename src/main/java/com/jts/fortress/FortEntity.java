@@ -4,8 +4,13 @@
 
 package com.jts.fortress;
 
+import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.OrgUnit;
+import com.jts.fortress.pwpolicy.PswdPolicy;
+import com.jts.fortress.rbac.PermObj;
+import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
+import com.jts.fortress.rbac.SDSet;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
@@ -58,9 +63,14 @@ import java.util.UUID;
 @XmlSeeAlso(
 {
     Role.class,
+    SDSet.class,
     OrgUnit.class,
     UserRole.class,
-    User.class
+    User.class,
+    Permission.class,
+    PermObj.class,
+    PswdPolicy.class,
+    OrgUnit.class
 })
 public abstract class FortEntity
 {
@@ -173,4 +183,3 @@ public abstract class FortEntity
         this.sequenceId = sequenceId;
     }
 }
-

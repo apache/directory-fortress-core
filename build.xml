@@ -76,6 +76,15 @@
        <property name="jaxb-impl.jar" value="${lib.dir}/jaxb-impl-2.2.4-1.jar"/>
        <property name="jaxb-xjc.jar" value="${lib.dir}/jaxb-xjc-2.2.4-1.jar"/>
 
+       <property name="jackson-jaxrs.jar" value="${lib.dir}/jackson-jaxrs-1.9.0.jar"/>
+       <property name="commons-httpclient.jar" value="${lib.dir}/commons-httpclient-3.1.jar"/>
+       <property name="jsr311-api.jar" value="${lib.dir}/jsr311-api-1.1.1.jar"/>
+       <property name="cxf-common-utilities.jar" value="${lib.dir}/cxf-common-utilities-2.5.0.jar"/>
+       <property name="commons-codec.jar" value="${lib.dir}/commons-codec-1.2.jar"/>
+
+       <!--property name="jackson-core-asl.jar" value="${lib.dir}/jackson-core-asl-1.9.0.jar"/-->
+
+
 
        <!-- ########### Test properties ########################### -->
        <property name="test.sample.entry" value="com.jts.fortress.samples.AllSamplesJUnitTest"/>
@@ -143,6 +152,10 @@
            <pathelement location="${jaxb-api.jar}"/>
            <pathelement location="${jaxb-impl.jar}"/>
            <pathelement location="${jaxb-xjc.jar}"/>
+           <pathelement location="${jackson-jaxrs.jar}"/>
+           <pathelement location="${commons-httpclient.jar}"/>
+           <pathelement location="${jsr311-api.jar}"/>
+           <pathelement location="${cxf-common-utilities.jar}"/>
        </path>
 
        <!-- This is used for the JUnit Tests -->
@@ -160,6 +173,11 @@
            <pathelement location="${commons-logging.jar}"/>
            <pathelement location="${commons-collections.jar}"/>
            <pathelement location="${jasypt.jar}"/>
+           <pathelement location="${jackson-jaxrs.jar}"/>
+           <pathelement location="${commons-httpclient.jar}"/>
+           <pathelement location="${jsr311-api.jar}"/>
+           <pathelement location="${cxf-common-utilities.jar}"/>
+           <pathelement location="${commons-codec.jar}"/>
        </path>
 
        <!-- This is used before the initial loads have stored properties on the ldap server. -->

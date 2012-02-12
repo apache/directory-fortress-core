@@ -497,6 +497,7 @@ public class ProcessMenuCommand
         System.out.println("A. Authorized Users");
         System.out.println("B. Role Permissions");
         System.out.println("C. Get Parent Roles");
+        System.out.println("D. Get Assigned Roles");
         System.out.println("Enter q or Q to return to previous menu");
     }
 
@@ -550,7 +551,7 @@ public class ProcessMenuCommand
                         break;
                     case 'a':
                     case 'A':
-                        reviewConsole.authorizedUsers();;
+                        reviewConsole.authorizedUsers();
                         break;
                     case 'b':
                     case 'B':
@@ -558,7 +559,11 @@ public class ProcessMenuCommand
                         break;
                     case 'c':
                     case 'C':
-                        reviewConsole.getParents();;
+                        reviewConsole.getParents();
+                        break;
+                    case 'd':
+                    case 'D':
+                        reviewConsole.assignedRoles();
                         break;
 					case 'q':
 					case 'Q':

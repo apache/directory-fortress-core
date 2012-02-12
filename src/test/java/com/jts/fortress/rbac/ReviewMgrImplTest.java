@@ -38,6 +38,44 @@ public class ReviewMgrImplTest extends TestCase
         super(name);
     }
 
+    public static Test suite()
+    {
+        TestSuite suite = new TestSuite();
+
+
+        /*
+        suite.addTest(new ReviewMgrImplTest("testReadPermissionOp"));
+        suite.addTest(new ReviewMgrImplTest("testFindPermissionOps"));
+        suite.addTest(new ReviewMgrImplTest("testReadPermissionObj"));
+        suite.addTest(new ReviewMgrImplTest("testFindPermissionObjs"));
+        suite.addTest(new ReviewMgrImplTest("testReadRole"));
+        suite.addTest(new ReviewMgrImplTest("testFindRoles"));
+        suite.addTest(new ReviewMgrImplTest("testReadUser"));
+        suite.addTest(new ReviewMgrImplTest("testFindUsers"));
+        suite.addTest(new ReviewMgrImplTest("testAssignedRoles"));
+        suite.addTest(new ReviewMgrImplTest("testAuthorizedUsers"));
+        suite.addTest(new ReviewMgrImplTest("testAuthorizedRoles"));
+        suite.addTest(new ReviewMgrImplTest("testRolePermissions"));
+        suite.addTest(new ReviewMgrImplTest("testUserPermissions"));
+        suite.addTest(new ReviewMgrImplTest("testPermissionRoles"));
+        suite.addTest(new ReviewMgrImplTest("testAuthorizedPermissionRoles"));
+        suite.addTest(new ReviewMgrImplTest("testPermissionUsers"));
+        suite.addTest(new ReviewMgrImplTest("testAuthorizedPermissionUsers"));
+
+
+        suite.addTest(new ReviewMgrImplTest(""));
+        suite.addTest(new ReviewMgrImplTest(""));
+        suite.addTest(new ReviewMgrImplTest(""));
+        suite.addTest(new ReviewMgrImplTest(""));
+        suite.addTest(new ReviewMgrImplTest(""));
+        suite.addTest(new ReviewMgrImplTest(""));
+        suite.addTest(new ReviewMgrImplTest(""));
+        suite.addTest(new ReviewMgrImplTest(""));
+        */
+        return suite;
+    }
+
+
     public void setUp() throws Exception
     {
         super.setUp();
@@ -48,7 +86,7 @@ public class ReviewMgrImplTest extends TestCase
         super.tearDown();
     }
 
-    public static Test suite()
+    public static Test suitex()
     {
         return new TestSuite(ReviewMgrImplTest.class);
     }

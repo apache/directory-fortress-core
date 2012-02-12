@@ -393,7 +393,43 @@ public class ReviewMgrConsole
     }
 
 
-    static void printTemporal(Constraint constraint, String label)
+    /**
+      *
+      */
+     protected void assignedRoles()
+     {
+         ReaderUtil.clearScreen();
+         try
+         {
+             System.out.println("Enter UserId:");
+             User user = new User();
+             user.setUserId(ReaderUtil.readLn());
+             List<UserRole> userRoles = rm.assignedRoles(user);
+             if (userRoles != null)
+             {
+                 for(UserRole userRole : userRoles)
+                 {
+                     System.out.println("ROLE OBJECT:");
+                     System.out.println("    name      [" + userRole.getName() + "]");
+                     printTemporal(userRole, "RBACROLE");
+                 }
+
+             }
+             else
+             {
+                 System.out.println("	userId [" + user.getUserId() + "] has no roles");
+             }
+             System.out.println("ENTER to continue");
+         }
+         catch (SecurityException e)
+         {
+             log.error(OCLS_NM + ".assignedRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+         }
+         ReaderUtil.readChar();
+     }
+
+
+     static void printTemporal(Constraint constraint, String label)
     {
         if (constraint != null)
         {
@@ -548,8 +584,11 @@ public class ReviewMgrConsole
 
             System.out.println("Enter object name:");
             String name = ReaderUtil.readLn();
+            System.out.println("Enter op name:");
+            String opname = ReaderUtil.readLn();
             pe = new Permission();
             pe.setObjectName(name);
+            pe.setOpName(opname);
             List list = rm.findPermissions(pe);
             if (list != null)
             {

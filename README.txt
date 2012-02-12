@@ -1,8 +1,8 @@
 ___________________________________________________________________________________
 ###################################################################################
-README for Fortress and OpenLDAP Identity and Access Management SDK
-Version 1.0.0.rc5
-last updated: January 20, 2012
+README for Fortress Identity and Access Management SDK
+Version 1.0.0.rc6
+last updated: February 4, 2012
 
 This document contains instructions to download, compile, test and use the
 Fortress Identity and Access Management system.
@@ -19,35 +19,35 @@ NOTE: The Fortress build.xml may run without connection to Internet iff:
 - Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties:
 local.mode=true
 
-1. Java SDK Version 6 or beyond installed to target environment
-2. Apache Ant 1.8 or beyond installed to target environment
-3. OpenLDAP installed to target system.  (options follow in section 1)
-4. GIT installed to target environment. (Fortress developers only)
+2. Java SDK Version 6 or beyond installed to target environment
+3. Apache Ant 1.8 or beyond installed to target environment
+4. OpenLDAP installed to target system.  (options follow in section 1)
+5. GIT installed to target environment. (Fortress developers only)
 
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 1:  Options for installing OpenLDAP to target server environment
 ###################################################################################
 
-This document includes three installation options for OpenLDAP:
+This document includes three options for installing OpenLDAP server:
 
 -------------------------------------------------------------------------------
-- INSTALL OPTION 1 - JOSHUATREE SOFTWARE Fortress Builder installation packages
+- INSTALL OPTION 1 - JOSHUATREE SOFTWARE Fortress Builder installation packages for OpenLDAP server
 -------------------------------------------------------------------------------
 - Required Sections to follow:
-    2, 3, 4, 5
+    2, 3, 4
 
 -------------------------------------------------------------------------------
-- INSTALL OPTION 2 - TARGET SERVER package management system
+- INSTALL OPTION 2 - TARGET system package management system for OpenLDAP server
 -------------------------------------------------------------------------------
 - Required Sections to follow:
-    2, 3, 4, 6, 7
+    2, 3, 5, 6
 
 -------------------------------------------------------------------------------
-- INSTALL OPTION 3 - SYMAS Gold and Silver installation packages
+- INSTALL OPTION 3 - SYMAS Gold and Silver installation packages for OpenLDAP server
 -------------------------------------------------------------------------------
 - Required Sections to follow:
-    2, 3, 4, 6, 8
+    2, 3, 5, 7
 
 ___________________________________________________________________________________
 ###################################################################################
@@ -56,7 +56,7 @@ ________________________________________________________________________________
 
 # If Fortress User
 
-Pull down latest snapshot from here:
+Pull down latest snapshot from OpenLDAP GIT Software Repo:
 http://www.openldap.org/devel/gitweb.cgi?p=openldap-fortress-core.git;a=summary
 
 Note: When Fortress 1.0 is released (very soon) there will be a website to pull source packages down by version.  Until that
@@ -76,27 +76,11 @@ the directory from which it ran, hereafter called 'FORTRESS_HOME'.
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 3. Instructions to enable Apache Ivy dependency management
-###################################################################################
-
-- Apache Ivy is used to retrieve the Java libraries that openldap-fortress-core depends on.
-
-a. Open a shell prompt within the FORTRESS_HOME root folder and enter the following:
-
->export JAVA_HOME=/path to the root folder of your java SDK
->export ANT_HOME=/path to the root folder of your Apache Ant installation
->$ANT_HOME/bin/ant -buildfile getIvy.xml
-
-- After the above commands are run (also assuming network is good), Apache Ivy library
- will downloaded into ANT_HOME/lib folder.  Ivy is needed on next step.
-
-___________________________________________________________________________________
-###################################################################################
-# SECTION 4. Instructions to build openldap-fortress-core software distribution packages
+# SECTION 3. Instructions to build openldap-fortress-core software distribution packages
 ###################################################################################
 
 NOTE: The Fortress build.xml may run without connection to Internet iff:
-- The binary dependencies are already present in FORTRESS_HOME/lib folder
+- The binary dependencies are already present in $FORTRESS_HOME/openldap-fortress-core/lib folder
 - Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties:
 local.mode=true
 
@@ -104,17 +88,18 @@ a. from the FORTRESS_HOME root folder, enter the following:
 
 >$ANT_HOME/bin/ant dist
 
+- During the above step, Apache Ivy jar will download automatically to the configured $ANT_HOME/lib folder.
+
 - During the above step, fortress dependencies will be downloaded from maven global
-  Internet repository using Apache Ivy.
+  Internet repository using Apache Ivy into $FORTRESS_HOME/openldap-fortress-core/lib.
 
 - Fortress source modules will be compiled along with production of java archive (jar)
   files, javadoc and sample distributions.
 
-- These artifacts are loaded to FORTRESS_HOME/openldap-fortress-core/dist location.
-
+- All project artifacts are loaded into $FORTRESS_HOME/openldap-fortress-core/dist location.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 5. Instructions for JOSHUATREE BUILDER installation of OpenLDAP
+# SECTION 4. Instructions for JOSHUATREE BUILDER installation of OpenLDAP
 ###################################################################################
 
 a. Go to https://joshuatreesoftware.us/jtspages/download.php
@@ -127,9 +112,9 @@ d. Execute the 'init-slapd' and 'init-config' targets in Fortress Builder.
 
 e. Add a property to build.properties in this package that points back to where Fortress Builder package resides.
 
-Edit FORTRESS_HOME/openldap-fortress-core/build.properties and add the following directive:
+Edit $FORTRESS_HOME/openldap-fortress-core/build.properties and add the following directive:
 
-builder.home=/path to FORTRESS_BUILDER_HOME/fortressBuilder-[platform]-[version]
+builder.home=/path to $FORTRESS_BUILDER_HOME/fortressBuilder-[platform]-[version]
 
 e.g.:
 
@@ -137,7 +122,7 @@ builder.home=/home/user/dev/fortressBuilder-Debian-Silver-i386-1.0.0
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 6. Instructions to configure openldap-fortress-core SDK for target system
+# SECTION 5. Instructions to configure openldap-fortress-core SDK for target system
 ###################################################################################
 
 - This must be done when OpenLDAP is not installed with Fortress Builder.
@@ -148,7 +133,7 @@ ________________________________________________________________________________
 
 - unless you know what you are doing, never change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
 
-a. Edit the FORTRESS_HOME/openldap-fortress-core/build.properties file.
+a. Edit the $FORTRESS_HOME/openldap-fortress-core/build.properties file.
 
 b. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running the build.xml script from same platform as your
 are running OpenLDAP, localhost will do:
@@ -167,7 +152,7 @@ crypto.prop=abcd12345
 OR leave the value blank if passwords are entered in the clear into property files:
 crypto.prop=
 
-Note: This value must be the same as used when password was encrypted (See Section 13)
+Note: This value must be the same as used when password was encrypted (See Section 12)
 
 # This value contains dn of user that has read/write access to LDAP DIT:
 root.dn=cn=Manager,${suffix}
@@ -175,7 +160,7 @@ root.dn=cn=Manager,${suffix}
 # This password is for above admin dn, will be stored in OpenLDAP 'slapd.conf'.  It may be hashed using OpenLDAP 'slappasswd' command before placing here:
 root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 
-# This is password is for same user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section 13):
+# This is password is for same user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section 12):
 cfg.root.pw=W7T0G9hylKZQ4K+DF8gfgA==
 
 # These properties specify the min/max settings for connection pool containing read/write connections to LDAP DIT:
@@ -192,7 +177,7 @@ log.root.dn=cn=Manager,${log.suffix}
 # This password is for above log user dn, will be stored in OpenLDAP 'slapd.conf'.  It may be hashed using OpenLDAP 'slappasswd' command before placing here:
 log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 
-# This password is for same log user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section 13):
+# This password is for same log user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section 12):
 cfg.log.root.pw=W7T0G9hylKZQ4K+DF8gfgA==
 
 log.min.conn=1
@@ -225,7 +210,7 @@ slapd.install=rpm -Uvv symas-openldap-gold.i386-2.4.25.110424.rpm
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 7. Instructions for using pre-existing or native OpenLDAP installation.
+# SECTION 6. Instructions for using pre-existing or native OpenLDAP installation.
 ###################################################################################
 
 a. Install OpenLDAP using your existing package management system.
@@ -272,7 +257,7 @@ if not sudo you must run as user that has priv to modify folders in /var and /op
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 8. Instructions for Symas installation of OpenLDAP
+# SECTION 7. Instructions for Symas installation of OpenLDAP
 ###################################################################################
 
 a. Go to http://www.symas.com/index.php/downloads/
@@ -312,7 +297,7 @@ slapd.uninstall=rpm -e symas-openldap-gold
 
 e. Run the install target:
 
-From FORTRESS_HOME/openldap-fortress-core folder, enter the following command from a system prompt:
+From $FORTRESS_HOME/openldap-fortress-core folder, enter the following command from a system prompt:
 
 if Debian sudo:
 >sudo $ANT_HOME/bin/ant init-slapd
@@ -323,7 +308,7 @@ if not sudo you must run as user that has priv to modify folders in /var and /op
 
 _______________________________________________________________________________
 ###############################################################################
-# SECTION 9. Instructions to test openldap-fortress-core using regression tests
+# SECTION 8. Instructions to test openldap-fortress-core using regression tests
 ###############################################################################
 
 a. from the same shell prompt as 2a enter the following:
@@ -338,7 +323,7 @@ b. Or for subsequent runs:
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 10. Instructions to run the openldap-fortress-core command line interpreter (CLI) utility
+# SECTION 9. Instructions to run the openldap-fortress-core command line interpreter (CLI) utility
 ###################################################################################
 
 a. from the same shell prompt as 2a enter the following:
@@ -347,11 +332,11 @@ a. from the same shell prompt as 2a enter the following:
 
 b. follow instructions in the command line interpreter reference manual contained within the javadoc:
 
-[FORTRESS_HOME]/openldap-fortress-core/dist/docs/api/com/jts/fortress/cli/package-summary.html
+$FORTRESS_HOME/openldap-fortress-core/dist/docs/api/com/jts/fortress/cli/package-summary.html
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 11. Learn how to use openldap-fortress-core APIs with samples
+# SECTION 10. Learn how to use openldap-fortress-core APIs with samples
 ###################################################################################
 
 a. from the same shell prompt as 2a enter the following:
@@ -366,7 +351,7 @@ b. Or if subsequent runs:
 
 c. view and change the samples here:
 
-[FORTRESS_HOME]/openldap-fortress-core/src/test/com/jts/fortress/samples
+$FORTRESS_HOME/openldap-fortress-core/src/test/com/jts/fortress/samples
 
 d. compile and re-run samples to test your changes using:
 
@@ -374,15 +359,15 @@ d. compile and re-run samples to test your changes using:
 
 e. view the samples java doc here:
 
-[FORTRESS_HOME]/openldap-fortress-core/dist/docs/samples/index.html
+$FORTRESS_HOME/openldap-fortress-core/dist/docs/samples/index.html
 
 f. view the fortress-core SDK java doc here:
 
-[FORTRESS_HOME]/openldap-fortress-core/dist/docs/api/index.html
+$FORTRESS_HOME/openldap-fortress-core/dist/docs/api/index.html
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 12. Instructions to run the openldap-fortress-core command console
+# SECTION 11. Instructions to run the openldap-fortress-core command console
 ###################################################################################
 
 a. from the same shell prompt as 2a enter the following:
@@ -391,7 +376,7 @@ a. from the same shell prompt as 2a enter the following:
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 13. Instructions to encrypt LDAP passwords used in openldap-fortress-core config files.
+# SECTION 12. Instructions to encrypt LDAP passwords used in openldap-fortress-core config files.
 ###################################################################################
 
 If you need the passwords for LDAP service accounts to be encrypted before loading into Fortress properties files you can
@@ -413,7 +398,7 @@ cfg.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 14. Troubleshooting
+# SECTION 13. Troubleshooting
 ###################################################################################
 
 a. Problem with javac under sudo
@@ -438,3 +423,21 @@ add this to build.xml javac task:
   	     executable="/opt/jdk1.6.0_27/bin/javac"
          compiler="javac1.6"
          fork = "true"
+
+___________________________________________________________________________________
+###################################################################################
+# SECTION 14. Instructions to enable Apache Ivy dependency management
+###################################################################################
+
+Note:  This is included for informational purposes in case it fails to automatically run during Section #3.
+
+- Apache Ivy is used to retrieve the Java libraries that openldap-fortress-core depends on.
+
+a. Open a shell prompt within the FORTRESS_HOME root folder and enter the following:
+
+>export JAVA_HOME=/path to the root folder of your java SDK
+>export ANT_HOME=/path to the root folder of your Apache Ant installation
+>$ANT_HOME/bin/ant -buildfile getIvy.xml
+
+- After the above commands are run (also assuming network is good), Apache Ivy library
+ will downloaded into ANT_HOME/lib folder.  Ivy is needed to build Fortress.

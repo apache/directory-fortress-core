@@ -31,5 +31,10 @@
         <dependency org="com.sun.xml.bind" name="jaxb-xjc" rev="2.2.4-1" conf="default->master"/>
         <dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.2.4-1" conf="default->master"/>
         <dependency org="javax.xml.bind" name="jaxb-api" rev="2.2.6" conf="default->master"/>
+        <dependency org="commons-httpclient" name="commons-httpclient" rev="3.1" conf="default->master"/>
+        <dependency org="org.codehaus.jackson" name="jackson-jaxrs" rev="1.9.0" conf="default->master"/>
+        <dependency org="javax.ws.rs" name="jsr311-api" rev="1.1.1" conf="default->master" />
+        <dependency org="org.apache.cxf" name="cxf-common-utilities" rev="2.5.0" conf="default->master"/>
+        <dependency org="commons-codec" name="commons-codec" rev="1.2" conf="default->master"/>
     </dependencies>
 </ivy-module>

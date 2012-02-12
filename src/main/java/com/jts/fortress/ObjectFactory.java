@@ -31,6 +31,8 @@ import com.jts.fortress.rbac.SessionPerm;
 import com.jts.fortress.rbac.SessionRole;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
+import com.jts.fortress.rest.FortRequest;
+import com.jts.fortress.rest.FortResponse;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
@@ -81,11 +83,26 @@ public class ObjectFactory
     private final static QName _FortSessionAdminRole_QNAME = new QName("", "fortSessionAdminRole");
     private final static QName _FortSessionUserRole_QNAME = new QName("", "fortSessionUserRole");
     private final static QName _FortSessionRolePerm_QNAME = new QName("", "fortSessionRolePerm");
+    private final static QName _FortResponse_QNAME = new QName("", "fortResponse");
+    private final static QName FortRequest_QNAME = new QName("", "fortRequest");
+
 
     @XmlElementDecl(namespace = "", name = "fortEntity")
     public JAXBElement<FortEntity> createFortEntity(FortEntity value)
     {
         return new JAXBElement<FortEntity>(_FortEntity_QNAME, FortEntity.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "", name = "fortResponse")
+    public JAXBElement<FortResponse> createFortResponse(FortResponse value)
+    {
+        return new JAXBElement<FortResponse>(_FortResponse_QNAME, FortResponse.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "", name = "fortRequest")
+    public JAXBElement<FortRequest> createFortRequest(FortRequest value)
+    {
+        return new JAXBElement<FortRequest>(FortRequest_QNAME, FortRequest.class, null, value);
     }
 
     /**
@@ -217,7 +234,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortPermission")
     public JAXBElement<Permission> createFortPermission(Permission value)
     {
-        return new JAXBElement<Permission>(_FortObject_QNAME, Permission.class, null, value);
+        return new JAXBElement<Permission>(_FortPermission_QNAME, Permission.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortBind")
@@ -255,7 +272,6 @@ public class ObjectFactory
     {
         return new JAXBElement<SessionRole>(_FortSessionRole_QNAME, SessionRole.class, null, value);
     }
-
 
     @XmlElementDecl(namespace = "", name = "fortSessionAdminRole")
     public JAXBElement<SessionAdminRole> createFortSessionAdminRole(SessionAdminRole value)
@@ -445,5 +461,15 @@ public class ObjectFactory
     public SessionRolePerm createSessionRolePerm()
     {
         return new SessionRolePerm();
+    }
+
+    public FortResponse createFortResponse()
+    {
+        return new FortResponse();
+    }
+
+    public FortRequest createFortRequest()
+    {
+        return new FortRequest();
     }
 }
