@@ -42,8 +42,6 @@ public class ReviewMgrImplTest extends TestCase
     {
         TestSuite suite = new TestSuite();
 
-
-        /*
         suite.addTest(new ReviewMgrImplTest("testReadPermissionOp"));
         suite.addTest(new ReviewMgrImplTest("testFindPermissionOps"));
         suite.addTest(new ReviewMgrImplTest("testReadPermissionObj"));
@@ -62,6 +60,7 @@ public class ReviewMgrImplTest extends TestCase
         suite.addTest(new ReviewMgrImplTest("testPermissionUsers"));
         suite.addTest(new ReviewMgrImplTest("testAuthorizedPermissionUsers"));
 
+        /*
 
         suite.addTest(new ReviewMgrImplTest(""));
         suite.addTest(new ReviewMgrImplTest(""));

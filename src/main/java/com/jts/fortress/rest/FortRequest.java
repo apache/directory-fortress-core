@@ -14,16 +14,18 @@ import javax.xml.bind.annotation.*;
 {
     "entity",
     "value",
+    "limit",
     "session"
 })
 public class FortRequest
 {
     @XmlElement(nillable = true)
     private FortEntity entity;
-
     @XmlElement(nillable = true)
     private Session session;
     private String value;
+    @XmlElement(nillable = true)
+    private Integer limit;
 
     public FortEntity getEntity()
     {
@@ -54,4 +56,15 @@ public class FortRequest
     {
         this.session = session;
     }
+
+    public Integer getLimit()
+    {
+        return limit;
+    }
+
+    public void setLimit(Integer limit)
+    {
+        this.limit = limit;
+    }
 }
+

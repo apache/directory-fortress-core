@@ -34,7 +34,7 @@ public class RestUtils
     private static final String OCLS_NM = RestUtils.class.getName();
     private static final Logger log = Logger.getLogger(OCLS_NM);
     private static final String HOST = "localhost";
-    private static final String PORT = "80";
+    private static final String PORT = "8080";
     private static final String SERVICE = "enmasse";
     private static final String URI = "http://" + HOST + ":" + PORT + "/" + SERVICE + "/";
 

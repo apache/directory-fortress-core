@@ -18,6 +18,7 @@ import com.jts.fortress.rbac.UserRole;
 import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.attr.VUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -215,7 +216,28 @@ public class ReviewMgrRestImpl
     public List<PermObj> findPermObjs(OrgUnit ou)
         throws SecurityException
     {
-        throw new java.lang.UnsupportedOperationException();
+        VUtil.assertNotNull(ou, GlobalErrIds.ORG_NULL_PERM, OCLS_NM + ".findPermObjs");
+        List<PermObj> retObjs;
+        FortRequest request = new FortRequest();
+        PermObj inObj = new PermObj();
+        inObj.setOu(ou.getName());
+        request.setEntity(inObj);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.objSearch.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retObjs = response.getEntities();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retObjs;
     }
 
     /**
@@ -296,8 +318,27 @@ public class ReviewMgrRestImpl
     public List<String> findRoles(String searchVal, int limit)
         throws SecurityException
     {
-        // TODO: Implement
-        throw new java.lang.UnsupportedOperationException();
+        VUtil.assertNotNull(searchVal, GlobalErrIds.ROLE_NM_NULL, OCLS_NM + ".findRoles");
+        List<String> retRoles;
+        FortRequest request = new FortRequest();
+        request.setValue(searchVal);
+        request.setLimit(limit);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleSearch.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retRoles = response.getValues();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retRoles;
     }
 
     /**
@@ -377,8 +418,28 @@ public class ReviewMgrRestImpl
     public List<User> findUsers(OrgUnit ou)
         throws SecurityException
     {
-        // TODO: Implement
-        throw new java.lang.UnsupportedOperationException();
+        VUtil.assertNotNull(ou, GlobalErrIds.ORG_NULL_USER, OCLS_NM + ".findUsers");
+        List<User> retUsers;
+        FortRequest request = new FortRequest();
+        User inUser = new User();
+        inUser.setOu(ou.getName());
+        request.setEntity(inUser);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userSearch.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retUsers = response.getEntities();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retUsers;
     }
 
     /**
@@ -393,8 +454,27 @@ public class ReviewMgrRestImpl
     public final List<String> findUsers(User user, int limit)
         throws SecurityException
     {
-        // TODO: Implement
-        throw new java.lang.UnsupportedOperationException();
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".findUsers");
+        List<String> retUsers;
+        FortRequest request = new FortRequest();
+        request.setLimit(limit);
+        request.setEntity(user);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userSearch.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retUsers = response.getValues();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retUsers;
     }
 
     /**
@@ -412,8 +492,34 @@ public class ReviewMgrRestImpl
     public List<String> assignedUsers(Role role, int limit)
         throws SecurityException
     {
-        // TODO: Implement
-        throw new java.lang.UnsupportedOperationException();
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".assignedUsers");
+        List<String> retUsers;
+        FortRequest request = new FortRequest();
+        request.setLimit(limit);
+        request.setEntity(role);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userAsigned.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retUsers = response.getValues();
+            if(retUsers == null)
+            {
+                if(retUsers == null)
+                {
+                    retUsers = new ArrayList<String>();
+                }
+            }
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retUsers;
     }
 
     /**
@@ -493,8 +599,26 @@ public class ReviewMgrRestImpl
     public List<String> assignedRoles(String userId)
         throws SecurityException
     {
-        // TODO: Implement
-        throw new java.lang.UnsupportedOperationException();
+        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, OCLS_NM + ".assignedRoles");
+        List<String> retUserRoles;
+        FortRequest request = new FortRequest();
+        request.setValue(userId);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleAsigned.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retUserRoles = response.getValues();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retUserRoles;
     }
 
     /**
@@ -522,6 +646,10 @@ public class ReviewMgrRestImpl
         if (response.getErrorCode() == 0)
         {
             retUsers = response.getEntities();
+            if(retUsers == null)
+            {
+                retUsers = new ArrayList<User>();
+            }
         }
         else
         {
@@ -794,6 +922,10 @@ public class ReviewMgrRestImpl
         if (response.getErrorCode() == 0)
         {
             retSsdRoleSets = response.getEntities();
+            if(retSsdRoleSets == null)
+            {
+                retSsdRoleSets = new ArrayList<SDSet>();
+            }
         }
         else
         {
@@ -922,6 +1054,10 @@ public class ReviewMgrRestImpl
         if (response.getErrorCode() == 0)
         {
             retDsdRoleSets = response.getEntities();
+            if(retDsdRoleSets == null)
+            {
+                retDsdRoleSets = new ArrayList<SDSet>();
+            }
         }
         else
         {

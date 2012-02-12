@@ -1042,7 +1042,6 @@ public class AdminMgrImplTest extends TestCase
                     SDSet ssd2 = ssdSets.get(0);
                     assertTrue(OCLS_NM + "addSsdRoleMember SSD name check", ssd.getName().equals(ssd2.getName()));
                     assertTrue(OCLS_NM + "addSsdRoleMember SSD role check", ssd2.getMembers().contains(role.getName()));
-                    //assertTrue(OCLS_NM + "addSsdRoleMember SSD role check", ssd2.getMembers().containsKey(role.getName()));
                 }
             }
         }
@@ -1131,7 +1130,6 @@ public class AdminMgrImplTest extends TestCase
                 // now iterate over roles and remove from SSD set one at a time.
                 for (String[] rle : rArray)
                 {
-
                     Role role = RoleTestData.getRole(rle);
                     SDSet entity = adminMgr.deleteSsdRoleMember(ssd, role);
                     List<SDSet> ssdSets = reviewMgr.ssdRoleSets(role);
