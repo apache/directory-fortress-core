@@ -739,14 +739,11 @@ public final class PermDAO
             Set<String> roles;
             if (permission.isAdmin())
             {
-                //roles = AdminRoleUtil.getInheritedRoles(session.getAdminRoles());
-                roles = session.getAuthorizedAdminRoles();
+                roles = AdminRoleUtil.getInheritedRoles(session.getAdminRoles());
             }
             else
             {
-                //roles = RoleUtil.getInheritedRoles(session.getRoles());
-                roles = session.getAuthorizedRoles();
-
+                roles = RoleUtil.getInheritedRoles(session.getRoles());
             }
             if (VUtil.isNotNullOrEmpty(roles))
             {
@@ -1132,8 +1129,8 @@ public final class PermDAO
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             filter += "(" + USERS + "=" + session.getUserId() + ")";
-            Set<String> roles = session.getAuthorizedRoles();
-            //Set<String> roles = RoleUtil.getInheritedRoles(session.getRoles());
+            //Set<String> roles = session.getAuthorizedRoles();
+            Set<String> roles = RoleUtil.getInheritedRoles(session.getRoles());
             if (VUtil.isNotNullOrEmpty(roles))
             {
                 for (String uRole : roles)

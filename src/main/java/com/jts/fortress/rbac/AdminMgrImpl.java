@@ -747,6 +747,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "addSsdRoleMember";
         VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
         setEntitySession(methodName, ssdSet);
         SDSet entity = rMgr.ssdRoleSet(ssdSet);
         entity.addMember(role.getName());
@@ -772,6 +773,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "deleteSsdRoleMember";
         VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
         setEntitySession(methodName, ssdSet);
         SDSet entity = rMgr.ssdRoleSet(ssdSet);
         entity.delMember(role.getName());
@@ -870,6 +872,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "addDsdRoleMember";
         VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
         setEntitySession(methodName, dsdSet);
         SDSet entity = rMgr.dsdRoleSet(dsdSet);
         entity.addMember(role.getName());
@@ -896,6 +899,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "deleteDsdRoleMember";
         VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
         setEntitySession(methodName, dsdSet);
         SDSet entity = rMgr.dsdRoleSet(dsdSet);
         entity.delMember(role.getName());

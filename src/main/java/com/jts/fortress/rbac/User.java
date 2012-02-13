@@ -160,10 +160,10 @@ import java.util.*;
 public class User extends FortEntity implements Constraint, Serializable
 {
     private String userId;
-    @XmlJavaTypeAdapter(CharArrayAdapter.class)
+    //@XmlJavaTypeAdapter(CharArrayAdapter.class)
     @XmlElement(nillable = true)
     private char[] newPassword;
-    @XmlJavaTypeAdapter(CharArrayAdapter.class)
+    //@XmlJavaTypeAdapter(CharArrayAdapter.class)
     @XmlElement(nillable = true)
     private char[] password;
     private String internalId;

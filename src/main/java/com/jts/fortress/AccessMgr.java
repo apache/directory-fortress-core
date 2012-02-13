@@ -5,6 +5,7 @@
 package com.jts.fortress;
 
 import java.util.List;
+import java.util.Set;
 
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.User;
@@ -157,6 +158,18 @@ public interface AccessMgr
      * @throws SecurityException is thrown if session invalid or system. error.
      */
     public List<UserRole> sessionRoles(Session session)
+        throws SecurityException;
+
+
+    /**
+     * This function returns the authorized roles associated with a session based on hierarchical relationships. The function is valid if
+     * and only if the session is a valid Fortress session.
+     *
+     * @param session object contains the user's returned RBAC session from the createSession method.
+     * @return Set<String> containing all roles active in user's session.  This will contain inherited roles.
+     * @throws SecurityException is thrown if session invalid or system. error.
+     */
+    public Set<String> authorizedRoles(Session session)
         throws SecurityException;
 
 

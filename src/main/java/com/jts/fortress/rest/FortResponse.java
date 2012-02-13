@@ -17,11 +17,14 @@ import java.util.Set;
     "entity",
     "entities",
     "values",
-    "valueSet"
+    "valueSet",
+    "isAuthorized"
 })
 public class FortResponse
 {
     private int errorCode;
+    @XmlElement(nillable = true)
+    private Boolean isAuthorized;
     private String errorMessage;
     @XmlElement(nillable = true)
     private FortEntity entity;
@@ -55,6 +58,16 @@ public class FortResponse
     public int getErrorCode()
     {
         return errorCode;
+    }
+
+    public Boolean getAuthorized()
+    {
+        return isAuthorized;
+    }
+
+    public void setAuthorized(Boolean authorized)
+    {
+        isAuthorized = authorized;
     }
 
     public void setErrorCode(int errorCode)

@@ -257,6 +257,22 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     }
 
     /**
+     * This function returns the authorized admin roles associated with a session based on hierarchical relationships. The function is valid if
+     * and only if the session is a valid Fortress session.
+     *
+     * @param session object contains the user's returned ARBAC session from the createSession method.
+     * @return Set<String> containing all adminRoles authorized in user's session.  This will contain inherited roles.
+     * @throws SecurityException is thrown if session invalid or system. error.
+     */
+    public Set<String> authorizedAdminRoles(Session session)
+        throws SecurityException
+    {
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".authorizedAdminRoles");
+        VUtil.assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, OCLS_NM + ".authorizedAdminRoles");
+        return AdminRoleUtil.getInheritedRoles(session.getAdminRoles());
+    }
+
+    /**
      * This helper function processes ARBAC URA "can assign".
      * @param session
      * @param user

@@ -11,6 +11,7 @@ import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.User;
 
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -143,12 +144,24 @@ public interface DelegatedAccessMgr
      * This function returns the active admin roles associated with a session. The function is valid if
      * and only if the session is a valid Fortress session.
      *
-     * @param session object contains the user's returned RBAC session from the createSession method.
+     * @param session object contains the user's returned ARBAC session from the createSession method.
      * @return List<UserAdminRole> containing all adminRoles active in user's session.  This will NOT contain inherited roles.
      * @throws com.jts.fortress.SecurityException
      *          is thrown if session invalid or system. error.
      */
     public List<com.jts.fortress.arbac.UserAdminRole> sessionAdminRoles(Session session)
+        throws SecurityException;
+
+
+    /**
+     * This function returns the authorized admin roles associated with a session based on hierarchical relationships. The function is valid if
+     * and only if the session is a valid Fortress session.
+     *
+     * @param session object contains the user's returned ARBAC session from the createSession method.
+     * @return Set<String> containing all adminRoles authorized in user's session.  This will contain inherited roles.
+     * @throws SecurityException is thrown if session invalid or system. error.
+     */
+    public Set<String> authorizedAdminRoles(Session session)
         throws SecurityException;
 }
 

@@ -1,17 +1,25 @@
 /*
- * Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  */
-
-package com.jts.fortress.rbac;
+package com.jts.fortress.rest;
 
 import com.jts.fortress.AccessMgr;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.rbac.AccessMgrImpl;
+import com.jts.fortress.rbac.Permission;
+import com.jts.fortress.rbac.Role;
+import com.jts.fortress.rbac.Session;
+import com.jts.fortress.rbac.SessionPerm;
+import com.jts.fortress.rbac.SessionRole;
+import com.jts.fortress.rbac.User;
+import com.jts.fortress.rbac.UserRole;
+import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.attr.VUtil;
-import com.jts.fortress.util.time.CUtil;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Implementation class that performs runtime access control operations on data objects of type Fortress entities
@@ -46,13 +54,14 @@ import java.util.Set;
  *
  *
  * @author smckinn
- * @created October 13, 2009
+ * @created February 12, 2012
  */
-public class AccessMgrImpl implements AccessMgr
+public class AccessMgrRestImpl implements AccessMgr
 {
     private static final String OCLS_NM = AccessMgrImpl.class.getName();
-    private static final UserP userP = new UserP();
-    private static final PermP permP = new PermP();
+    private static final String USERID = "demouser4";
+    private static final String PW = "password";
+
 
     /**
      * Perform user authentication only.  It does not activate RBAC roles in session but will evaluate
@@ -66,14 +75,23 @@ public class AccessMgrImpl implements AccessMgr
     public Session authenticate(String userId, char[] password)
         throws SecurityException
     {
-        String fullMethodName = OCLS_NM + ".authenticate";
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_ID_NULL, fullMethodName);
-        VUtil.assertNotNullOrEmpty(password, GlobalErrIds.USER_PW_NULL, fullMethodName);
-        // false tells the User Read not to fetch roles.
-        User user = userP.read(userId, false);
-        Session oamSess = userP.authenticate(userId, password);
-        oamSess.setUser(user);
-        return oamSess;
+        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_ID_NULL, OCLS_NM + ".authenticate");
+        VUtil.assertNotNullOrEmpty(password, GlobalErrIds.USER_PW_NULL, ".authenticate");
+        Session retSession;
+        FortRequest request = new FortRequest();
+        request.setEntity(new User(userId, password));
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAuthN.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retSession = (Session) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retSession;
     }
 
     /**
@@ -89,7 +107,7 @@ public class AccessMgrImpl implements AccessMgr
      * <li> fail for any user who is locked by OpenLDAP's policies {@link User#isLocked()}, regardless of trusted flag being set as parm on API.
      * <li> evaluate temporal {@link com.jts.fortress.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link com.jts.fortress.arbac.UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.
-     * <li> check Dynamic Separation of Duties {@link DSD#validate(Session, com.jts.fortress.util.time.Constraint, com.jts.fortress.util.time.Time)} on {@link User#roles}.
+     * <li> check Dynamic Separation of Duties {@link com.jts.fortress.rbac.DSD#validate(Session, com.jts.fortress.util.time.Constraint, com.jts.fortress.util.time.Time)} on {@link User#roles}.
      * <li> process selective administrative role activations {@link User#adminRoles}.
      * <li> return a {@link Session} containing {@link Session#getUser()}, {@link Session#getRoles()} and (if admin user) {@link Session#getAdminRoles()} if everything checks out good.
      * <li> throw a checked exception that will be {@link com.jts.fortress.SecurityException} or its derivation.
@@ -134,7 +152,21 @@ public class AccessMgrImpl implements AccessMgr
         throws SecurityException
     {
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".createSession");
-        return userP.createSession(user, isTrusted);
+        Session retSession;
+        FortRequest request = new FortRequest();
+        request.setEntity(user);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacCreate.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retSession = (Session) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retSession;
     }
 
     /**
@@ -154,14 +186,26 @@ public class AccessMgrImpl implements AccessMgr
     public boolean checkAccess(Session session, Permission perm)
         throws SecurityException
     {
-        String fullMethodName = OCLS_NM + ".checkAccess";
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, fullMethodName);
-        VUtil.assertNotNullOrEmpty(perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL, fullMethodName);
-        VUtil.assertNotNullOrEmpty(perm.getObjectName(), GlobalErrIds.PERM_OBJECT_NULL, fullMethodName);
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, fullMethodName);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
-        return permP.checkPermission(session, perm);
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, OCLS_NM + ".checkAccess");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".checkAccess");
+        boolean result = false;
+        FortRequest request = new FortRequest();
+        SessionPerm context = new SessionPerm();
+        context.setSession(session);
+        context.setPerm(perm);
+        request.setEntity(context);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAuthZ.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            result = response.getAuthorized();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return result;
     }
 
     /**
@@ -176,9 +220,21 @@ public class AccessMgrImpl implements AccessMgr
         throws SecurityException
     {
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionPermissions");
-        CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
-        return permP.search(session);
+        List<Permission> retPerms;
+        FortRequest request = new FortRequest();
+        request.setEntity(session);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacPerms.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retPerms = response.getEntities();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retPerms;
     }
 
     /**
@@ -194,13 +250,25 @@ public class AccessMgrImpl implements AccessMgr
         throws SecurityException
     {
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionRoles");
-        CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
-        return session.getRoles();
+        List<UserRole> retRoles;
+        FortRequest request = new FortRequest();
+        request.setEntity(session);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacRoles.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retRoles = response.getEntities();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retRoles;
     }
 
     /**
-     * This function returns the authorized roles associated with a session based on hierarchical relationships. The function is valid if
+     * This function returns the authorized roles associated with a session. The function is valid if
      * and only if the session is a valid Fortress session.
      *
      * @param session object contains the user's returned RBAC session from the createSession method.
@@ -210,13 +278,25 @@ public class AccessMgrImpl implements AccessMgr
     public Set<String> authorizedRoles(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".authorizedRoles");
-        VUtil.assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, OCLS_NM + ".authorizedRoles");
-        CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
-        return RoleUtil.getInheritedRoles(session.getRoles());
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionRoles");
+        Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
+        FortRequest request = new FortRequest();
+        request.setEntity(session);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAuthzRoles.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            Set<String> tempNames = response.getValueSet();
+            // TODO: This is done to use a case insensitive TreeSet for returned names.  Find a better way to do this:
+            retRoleNames.addAll(tempNames);
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retRoleNames;
     }
-
 
     /**
      * This function adds a role as an active role of a session whose owner is a given user.
@@ -242,29 +322,17 @@ public class AccessMgrImpl implements AccessMgr
         String fullMethodName = OCLS_NM + ".addActiveRole";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, fullMethodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, fullMethodName);
-        role.setUserId(session.getUserId());
-        List<UserRole> uRoles;
-        List<UserRole> sRoles = session.getRoles();
-        // If session already has role activated log an error and throw an exception:
-        if (sRoles != null && sRoles.contains(role))
+        FortRequest request = new FortRequest();
+        SessionRole context = new SessionRole();
+        context.setRole(new Role(role.getName()));
+        context.setSession(session);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAdd.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
         {
-            String info = fullMethodName + " User [" + session.getUserId() + "] Role [" + role.getName() + "] role already activated.";
-            throw new SecurityException(GlobalErrIds.URLE_ALREADY_ACTIVE, info);
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
-
-        User ue = userP.read(session.getUserId(), true);
-        uRoles = ue.getRoles();
-        int indx;
-        // Is the role activation target valid for this user?
-        if (!VUtil.isNotNullOrEmpty(uRoles) || ((indx = uRoles.indexOf(role)) == -1))
-        {
-            String info = fullMethodName + " Role [" + role.getName() + "] User [" + session.getUserId() + "] role not authorized for user.";
-            throw new SecurityException(GlobalErrIds.URLE_ACTIVATE_FAILED, info);
-        }
-        // validate Dynamic Separation of Duty Relations:
-        SDUtil.validateDSD(session, role);
-        // now activate the role to the session:
-        session.setRole(uRoles.get(indx));
     }
 
     /**
@@ -283,18 +351,16 @@ public class AccessMgrImpl implements AccessMgr
         String fullMethodName = ".dropActiveRole";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + fullMethodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + fullMethodName);
-        role.setUserId(session.getUserId());
-        List<UserRole> roles = session.getRoles();
-        VUtil.assertNotNull(roles, GlobalErrIds.URLE_DEACTIVE_FAILED, OCLS_NM + fullMethodName);
-        int indx = roles.indexOf(role);
-        if (indx != -1)
+        FortRequest request = new FortRequest();
+        SessionRole context = new SessionRole();
+        context.setRole(new Role(role.getName()));
+        context.setSession(session);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacDrop.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
         {
-            roles.remove(role);
-        }
-        else
-        {
-            String info = OCLS_NM + fullMethodName + " Role [" + role.getName() + "] User [" + session.getUserId() + "], not previously activated";
-            throw new SecurityException(GlobalErrIds.URLE_NOT_ACTIVE, info);
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
     }
 
@@ -310,7 +376,22 @@ public class AccessMgrImpl implements AccessMgr
         throws SecurityException
     {
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".getUserId");
-        return session.getUserId();
+        String userId;
+        FortRequest request = new FortRequest();
+        request.setEntity(session);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacUserId.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            User outUser = (User) response.getEntity();
+            userId = outUser.getUserId();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return userId;
     }
 
     /**
@@ -365,6 +446,20 @@ public class AccessMgrImpl implements AccessMgr
         throws SecurityException
     {
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".getUser");
-        return session.getUser();
+        User retUser;
+        FortRequest request = new FortRequest();
+        request.setEntity(session);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacUser.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retUser = (User) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retUser;
     }
 }

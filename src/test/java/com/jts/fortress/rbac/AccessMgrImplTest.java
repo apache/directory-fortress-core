@@ -576,7 +576,7 @@ public class AccessMgrImplTest extends TestCase
                     authZRoles.add(asgnRole);
                 }
 
-                Set<String> actualRoles = session.getAuthorizedRoles();
+                Set<String> actualRoles = accessMgr.authorizedRoles(session);
                 assertNotNull(actualRoles);
                 assertEquals(OCLS_NM + ".createSessionsHier authorized roles list size test case failed for [" + user.getUserId() + "]", authZRoles.size(), actualRoles.size());
                 for (String name : authZRoles)

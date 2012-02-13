@@ -4,7 +4,7 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.arbac.AdminRoleUtil;
+import com.jts.fortress.FortEntity;
 import com.jts.fortress.arbac.UserAdminRole;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -147,7 +147,7 @@ import java.util.UUID;
     "message",
     "warningId"
 })
-public class Session implements com.jts.fortress.pwpolicy.PwMessage, java.io.Serializable
+public class Session  extends FortEntity implements com.jts.fortress.pwpolicy.PwMessage, java.io.Serializable
 {
     private User user;
     private String sessionId;
@@ -286,38 +286,8 @@ public class Session implements com.jts.fortress.pwpolicy.PwMessage, java.io.Ser
     }
 
     /**
-     * Return the Set of User's RBAC Role names that are authorized from User's session based on hierarchical relationships.
-     *
-     * @return Set containing User's authorized RBAC role names.  This Set may be empty if User not assigned RBAC roles.
-     */
-    public Set<String> getAuthorizedRoles()
-    {
-        Set<String> authorizedSet = null;
-        if (user != null)
-        {
-            authorizedSet = RoleUtil.getInheritedRoles(getRoles());
-        }
-        return authorizedSet;
-    }
-
-    /**
-     * Return the Set of User's ARBAC Role names that are authorized from User's session based on hierarchical relationships.
-     *
-     * @return Set containing User's authorized ARBAC role names.  This Set may be empty if User not assigned ARBAC roles.
-     */
-    public Set<String> getAuthorizedAdminRoles()
-    {
-        Set<String> authorizedSet = null;
-        if (user != null)
-        {
-            authorizedSet = AdminRoleUtil.getInheritedRoles(getAdminRoles());
-        }
-        return authorizedSet;
-    }
-
-    /**
      * Return the list of User's RBAC Roles that have been activated into User's session.  This list will not include
-     * ascendant RBAC roles which may be retrieved using {@link #getAuthorizedRoles()}.
+     * ascendant RBAC roles which may be retrieved using {@link AccessMgrImpl#authorizedRoles(Session)}.
      *
      * @return List containing User's RBAC roles.  This list may be empty if User not assigned RBAC.
      */
@@ -333,7 +303,7 @@ public class Session implements com.jts.fortress.pwpolicy.PwMessage, java.io.Ser
 
     /**
      * Return a list of User's Admin Roles  that have been activated into User's session.  This list will not include
-     * ascendant ARBAC roles which may be retrieved using {@link #getAuthorizedAdminRoles()}.
+     * ascendant ARBAC roles which may be retrieved using {@link com.jts.fortress.DelegatedAccessMgr#authorizedAdminRoles(Session)}.
      *
      * @return List containing User's Admin roles.  This list may be empty if User not assigned Administrative role.
      */
