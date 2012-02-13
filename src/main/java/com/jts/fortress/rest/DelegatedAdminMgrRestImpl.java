@@ -1,24 +1,24 @@
 /*
- * Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  */
 
-package com.jts.fortress.arbac;
+package com.jts.fortress.rest;
 
 import com.jts.fortress.*;
 import com.jts.fortress.SecurityException;
+import com.jts.fortress.arbac.AdminRole;
+import com.jts.fortress.arbac.AdminRoleRelationship;
+import com.jts.fortress.arbac.OrgUnit;
+import com.jts.fortress.arbac.OrgUnitRelationship;
+import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.hier.Hier;
-import com.jts.fortress.rbac.PermP;
+import com.jts.fortress.rbac.PermGrant;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.User;
-import com.jts.fortress.rbac.UserP;
 import com.jts.fortress.rbac.Session;
-import com.jts.fortress.util.time.CUtil;
-import com.jts.fortress.util.attr.AttrHelper;
 import com.jts.fortress.util.attr.VUtil;
 
-import java.util.List;
 
 /**
  * This object implements the ARBAC02 DelegatedAdminMgr interface for performing policy administration of Fortress ARBAC entities
@@ -37,14 +37,12 @@ import java.util.List;
  * @author smckinn
  * @created September 18, 2010
  */
-public final class DelegatedAdminMgrImpl
+public final class DelegatedAdminMgrRestImpl
     implements DelegatedAdminMgr
 {
-    private static final String OCLS_NM = DelegatedAdminMgrImpl.class.getName();
-    final private static OrgUnitP ouP = new OrgUnitP();
-    final private static AdminRoleP admRP = new AdminRoleP();
-    final private static UserP userP = new UserP();
-    final private static PermP permP = new PermP();
+    private static final String OCLS_NM = DelegatedAdminMgrRestImpl.class.getName();
+    private static final String USERID = "demouser4";
+    private static final String PW = "password";
 
     // thread unsafe variable:
     private Session adminSess;
@@ -56,14 +54,6 @@ public final class DelegatedAdminMgrImpl
     public void setAdmin(Session session)
     {
         this.adminSess = session;
-    }
-
-    private void setEntitySession(String opName, FortEntity entity) throws SecurityException
-    {
-        if (this.adminSess != null)
-        {
-            AdminUtil.setEntitySession(adminSess, new Permission(OCLS_NM, opName), entity);
-        }
     }
 
     /**
@@ -78,11 +68,26 @@ public final class DelegatedAdminMgrImpl
     public AdminRole addRole(AdminRole role)
         throws SecurityException
     {
-        String methodName = "addRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, role);
-        AdminRole newRole = admRP.add(role);
-        return newRole;
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + ".addRole");
+        AdminRole retRole;
+        FortRequest request = new FortRequest();
+        request.setEntity(role);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.arleAdd.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retRole = (AdminRole) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retRole;
     }
 
     /**
@@ -97,30 +102,20 @@ public final class DelegatedAdminMgrImpl
     public void deleteRole(AdminRole role)
         throws SecurityException
     {
-        String methodName = "deleteRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, role);
-        int numChildren = AdminRoleUtil.numChildren(role.getName());
-        if (numChildren > 0)
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + ".deleteRole");
+        FortRequest request = new FortRequest();
+        request.setEntity(role);
+        if (this.adminSess != null)
         {
-            String error = OCLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren + "] descendants before deletion";
-            throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
+            request.setSession(adminSess);
         }
-        // search for all users assigned this role and deassign:
-        // todo: change the max value to param set in config:
-        List<User> users = userP.getAssignedUsers(role);
-        if (users != null)
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.arleDelete.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
         {
-            for(User ue : users)
-            {
-                User user = new User(ue.getUserId());
-                UserAdminRole uAdminRole = new UserAdminRole(ue.getUserId(), role.getName());
-                AdminUtil.setAdminData(role.getAdminSession(), new Permission(OCLS_NM, methodName), user);
-                deassignUser(uAdminRole);
-            }
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
-        permP.remove(role);
-        admRP.delete(role);
     }
 
     /**
@@ -134,29 +129,26 @@ public final class DelegatedAdminMgrImpl
     public AdminRole updateRole(AdminRole role)
         throws SecurityException
     {
-        String methodName = "updateRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, role);
-        AdminRole re = admRP.update(role);
-        List<User> users = userP.getAssignedUsers(re);
-        for(User ue : users)
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + ".updateRole");
+        AdminRole retRole;
+        FortRequest request = new FortRequest();
+        request.setEntity(role);
+        if (this.adminSess != null)
         {
-            User upUe = new User(ue.getUserId());
-            AdminUtil.setAdminData(role.getAdminSession(), new Permission(OCLS_NM, methodName), upUe);
-            List<UserAdminRole> uaRoles = ue.getAdminRoles();
-            UserAdminRole chgRole = new UserAdminRole();
-            chgRole.setName(role.getName());
-            chgRole.setUserId(ue.getUserId());
-            chgRole.setOsP(role.getOsP());
-            chgRole.setOsU(role.getOsU());
-            uaRoles.remove(chgRole);
-            CUtil.copy(re, chgRole);
-            uaRoles.add(chgRole);
-            upUe.setUserId(ue.getUserId());
-            upUe.setAdminRole(chgRole);
-            userP.update(upUe);
+            request.setSession(adminSess);
         }
-        return re;
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.arleUpdate.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retRole = (AdminRole) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retRole;
     }
 
 
@@ -187,24 +179,20 @@ public final class DelegatedAdminMgrImpl
     public void assignUser(UserAdminRole uAdminRole)
         throws SecurityException
     {
-        String methodName = "assignUser";
-        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, uAdminRole);
-
-        // retrieve the admin role info:
-        AdminRole validRole = admRP.read(uAdminRole.getName());
-        // todo:  use: CUtil.validateOrCopy(validRole, uRole);
-        // if the UserAdminRole entity doesn't have temporal constraints set already, copy from the AdminRole declaration:
-        // if the input role entity attribute doesn't have temporal constraints set, copy from the role declaration:
-        CUtil.validateOrCopy(validRole, uAdminRole);
-
-        // copy the ARBAC AdminRole attributes to UserAdminRole:
-        AttrHelper.copyAdminAttrs(validRole, uAdminRole);
-        String dn = userP.assign(uAdminRole);
-        // copy the admin session info to AdminRole:
-        AdminUtil.setAdminData(uAdminRole.getAdminSession(), new Permission(OCLS_NM, methodName), validRole);
-        // Assign user dn attribute to the adminRole, this will add a single, standard attribute value, called "roleOccupant", directly onto the adminRole node:
-        admRP.assign(validRole, dn);
+        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, OCLS_NM + ".assignUser");
+        FortRequest request = new FortRequest();
+        request.setEntity(uAdminRole);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.arleAsgn.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
 
@@ -223,16 +211,20 @@ public final class DelegatedAdminMgrImpl
     public void deassignUser(UserAdminRole uAdminRole)
         throws SecurityException
     {
-        String methodName = "deassignUser";
-        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, uAdminRole);
-        String dn = userP.deassign(uAdminRole);
-        AdminRole adminRole = new AdminRole(uAdminRole.getName());
-        // copy the ARBAC attributes to AdminRole:
-        AdminUtil.setAdminData(uAdminRole.getAdminSession(), new Permission(OCLS_NM, methodName), adminRole);
-        // Deassign user dn attribute to the adminRole, this will remove a single, standard attribute value, called "roleOccupant", directly onto the adminRole node:
-        admRP.deassign(adminRole, dn);
-
+        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, OCLS_NM + ".deassignUser");
+        FortRequest request = new FortRequest();
+        request.setEntity(uAdminRole);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.arleDeasgn.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
 
@@ -246,12 +238,26 @@ public final class DelegatedAdminMgrImpl
     public OrgUnit add(OrgUnit entity)
         throws SecurityException
     {
-        String methodName = "addOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, entity);
-        VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
-        return ouP.add(entity);
-
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + ".addOU");
+        OrgUnit retOrg;
+        FortRequest request = new FortRequest();
+        request.setEntity(entity);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.orgAdd.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retOrg = (OrgUnit) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retOrg;
     }
 
     /**
@@ -264,12 +270,26 @@ public final class DelegatedAdminMgrImpl
     public OrgUnit update(OrgUnit entity)
         throws SecurityException
     {
-        String methodName = "updateOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, entity);
-        VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
-        return ouP.update(entity);
-
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + ".updateOU");
+        OrgUnit retOrg;
+        FortRequest request = new FortRequest();
+        request.setEntity(entity);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.orgUpdate.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retOrg = (OrgUnit) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retOrg;
     }
 
     /**
@@ -282,46 +302,26 @@ public final class DelegatedAdminMgrImpl
     public OrgUnit delete(OrgUnit entity)
         throws SecurityException
     {
-        String methodName = "deleteOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, entity);
-        VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
-        int numChildren;
-        if(entity.getType() == OrgUnit.Type.USER)
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + ".deleteOU");
+        OrgUnit retOrg;
+        FortRequest request = new FortRequest();
+        request.setEntity(entity);
+        if (this.adminSess != null)
         {
-            numChildren = UsoUtil.numChildren(entity.getName());
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.orgDelete.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retOrg = (OrgUnit) response.getEntity();
         }
         else
         {
-            numChildren = PsoUtil.numChildren(entity.getName());
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
-        if (numChildren > 0)
-        {
-            String error = OCLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must remove [" + numChildren + "] descendants before deletion";
-            throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
-        }
-        if(entity.getType() == OrgUnit.Type.USER)
-        {
-            // Ensure the org unit is not assigned to any users, but set the sizeLimit to "true" to limit result set size.
-            List<User> assignedUsers = userP.search(entity, true);
-            if(VUtil.isNotNullOrEmpty(assignedUsers))
-            {
-                String error = OCLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedUsers.size() + "] users before deletion";
-                throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_USER, error, null);
-            }
-        }
-        else
-        {
-            // Ensure the org unit is not assigned to any permission objects but set the sizeLimit to "true" to limit result set size..
-            List<PermObj> assignedPerms = permP.search(entity, true);
-            if(VUtil.isNotNullOrEmpty(assignedPerms))
-            {
-                String error = OCLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedPerms.size() + "] perm objs before deletion";
-                throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_PERM, error, null);
-            }
-        }
-        // everything checked out good - remove the org unit from the OrgUnit data set:
-        return ouP.delete(entity);
+        return retOrg;
     }
 
 
@@ -353,29 +353,21 @@ public final class DelegatedAdminMgrImpl
         VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
         VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, child);
-        // ensure the parent OrgUnit exists:
-        ouP.read(parent);
-        if(parent.getType() == OrgUnit.Type.USER)
+        FortRequest request = new FortRequest();
+        OrgUnitRelationship relationship = new OrgUnitRelationship();
+        relationship.setParent(parent);
+        relationship.setChild(child);
+        request.setEntity(relationship);
+        if (this.adminSess != null)
         {
-            UsoUtil.validateRelationship(child, parent, false);
+            request.setSession(adminSess);
         }
-        else
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.orgDescendant.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
         {
-            PsoUtil.validateRelationship(child, parent, false);
-        }
-        ouP.add(child);
-        Hier hier = new Hier(child.getName(), parent.getName());
-        AdminUtil.setAdminData(child.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
-        if(parent.getType() == OrgUnit.Type.USER)
-        {
-            hier.setType(Hier.Type.USER);
-            UsoUtil.updateHier(hier, Hier.Op.ADD);
-        }
-        else
-        {
-            hier.setType(Hier.Type.PERM);
-            PsoUtil.updateHier(hier, Hier.Op.ADD);
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
     }
 
@@ -407,30 +399,21 @@ public final class DelegatedAdminMgrImpl
         String methodName = "addAscendantOU";
         VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, parent);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
-        // ensure the child OrgUnit exists:
-        ouP.read(child);
-        if(parent.getType() == OrgUnit.Type.USER)
+        FortRequest request = new FortRequest();
+        OrgUnitRelationship relationship = new OrgUnitRelationship();
+        relationship.setParent(parent);
+        relationship.setChild(child);
+        request.setEntity(relationship);
+        if (this.adminSess != null)
         {
-            UsoUtil.validateRelationship(child, parent, false);
+            request.setSession(adminSess);
         }
-        else
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.orgAscendent.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
         {
-            PsoUtil.validateRelationship(child, parent, false);
-        }
-        ouP.add(parent);
-        Hier hier = new Hier(child.getName(), parent.getName());
-        AdminUtil.setAdminData(parent.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
-        if(parent.getType() == OrgUnit.Type.USER)
-        {
-            hier.setType(Hier.Type.USER);
-            UsoUtil.updateHier(hier, Hier.Op.ADD);
-        }
-        else
-        {
-            hier.setType(Hier.Type.PERM);
-            PsoUtil.updateHier(hier, Hier.Op.ADD);
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
     }
 
@@ -456,31 +439,21 @@ public final class DelegatedAdminMgrImpl
         VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
         VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, parent);
-        if(parent.getType() == OrgUnit.Type.USER)
+        FortRequest request = new FortRequest();
+        OrgUnitRelationship relationship = new OrgUnitRelationship();
+        relationship.setParent(parent);
+        relationship.setChild(child);
+        request.setEntity(relationship);
+        if (this.adminSess != null)
         {
-            UsoUtil.validateRelationship(child, parent, false);
+            request.setSession(adminSess);
         }
-        else
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.orgAddinherit.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
         {
-            PsoUtil.validateRelationship(child, parent, false);
-        }
-        // validate that both orgs are present:
-        ouP.read(child);
-        ouP.read(parent);
-
-        // we're still good, now set the hierarchical relationship:
-        Hier hier = new Hier(child.getName(), parent.getName());
-        AdminUtil.setAdminData(parent.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
-        if(parent.getType() == OrgUnit.Type.USER)
-        {
-            hier.setType(Hier.Type.USER);
-            UsoUtil.updateHier(hier, Hier.Op.ADD);
-        }
-        else
-        {
-            hier.setType(Hier.Type.PERM);
-            PsoUtil.updateHier(hier, Hier.Op.ADD);
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
     }
 
@@ -508,26 +481,21 @@ public final class DelegatedAdminMgrImpl
         VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
         VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, parent);
-        if(parent.getType() == OrgUnit.Type.USER)
+        FortRequest request = new FortRequest();
+        OrgUnitRelationship relationship = new OrgUnitRelationship();
+        relationship.setParent(parent);
+        relationship.setChild(child);
+        request.setEntity(relationship);
+        if (this.adminSess != null)
         {
-            UsoUtil.validateRelationship(child, parent, true);
+            request.setSession(adminSess);
         }
-        else
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.orgDelinherit.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
         {
-            PsoUtil.validateRelationship(child, parent, true);
-        }
-        Hier hier = new Hier(child.getName(), parent.getName());
-        AdminUtil.setAdminData(parent.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
-        if(parent.getType() == OrgUnit.Type.USER)
-        {
-            hier.setType(Hier.Type.USER);
-            UsoUtil.updateHier(hier, Hier.Op.REM);
-        }
-        else
-        {
-            hier.setType(Hier.Type.PERM);
-            PsoUtil.updateHier(hier, Hier.Op.REM);
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
     }
 
@@ -550,14 +518,22 @@ public final class DelegatedAdminMgrImpl
         String methodName = "addDescendantRole";
         VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
         VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, childRole);
-        // ensure the parent AdminRole exists:
-        admRP.read(parentRole.getName());
-        AdminRoleUtil.validateRelationship(childRole, parentRole, false);
-        admRP.add(childRole);
-        Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(childRole.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
-        AdminRoleUtil.updateHier(hier, Hier.Op.ADD);
+        FortRequest request = new FortRequest();
+        AdminRoleRelationship relationship = new AdminRoleRelationship();
+        relationship.setParent(parentRole);
+        relationship.setChild(childRole);
+        request.setEntity(relationship);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.arleDescendant.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
     /**
@@ -577,15 +553,23 @@ public final class DelegatedAdminMgrImpl
     {
         String methodName = "addAscendantRole";
         VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
-        setEntitySession(methodName, parentRole);
         VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
-        // ensure the child AdminRole exists:
-        admRP.read(childRole.getName());
-        AdminRoleUtil.validateRelationship(childRole, parentRole, false);
-        admRP.add(parentRole);
-        Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
-        AdminRoleUtil.updateHier(hier, Hier.Op.ADD);
+        FortRequest request = new FortRequest();
+        AdminRoleRelationship relationship = new AdminRoleRelationship();
+        relationship.setParent(parentRole);
+        relationship.setChild(childRole);
+        request.setEntity(relationship);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.arleAscendent.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
     /**
@@ -603,12 +587,22 @@ public final class DelegatedAdminMgrImpl
         String methodName = "addInheritanceRole";
         VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
         VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
-        // todo: set the hier entity not the parentRole:
-        setEntitySession(methodName, parentRole);
-        AdminRoleUtil.validateRelationship(childRole, parentRole, false);
-        Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
-        AdminRoleUtil.updateHier(hier, Hier.Op.ADD);
+        FortRequest request = new FortRequest();
+        AdminRoleRelationship relationship = new AdminRoleRelationship();
+        relationship.setParent(parentRole);
+        relationship.setChild(childRole);
+        request.setEntity(relationship);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.arleAddinherit.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
     /**
@@ -626,12 +620,22 @@ public final class DelegatedAdminMgrImpl
         String methodName = "deleteInheritanceRole";
         VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
         VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
-        // todo: set the hier entity not the parentRole:
-        setEntitySession(methodName, parentRole);
-        AdminRoleUtil.validateRelationship(childRole, parentRole, true);
-        Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
-        AdminRoleUtil.updateHier(hier, Hier.Op.REM);
+        FortRequest request = new FortRequest();
+        AdminRoleRelationship relationship = new AdminRoleRelationship();
+        relationship.setParent(parentRole);
+        relationship.setChild(childRole);
+        request.setEntity(relationship);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.arleDelinherit.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
     /**
@@ -646,9 +650,27 @@ public final class DelegatedAdminMgrImpl
     public Permission addPermission(Permission perm)
         throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".addPermission");
+        Permission retPerm;
+        FortRequest request = new FortRequest();
         perm.setAdmin(true);
-        return adminMgr.addPermission(perm);
+        request.setEntity(perm);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permAdd.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retPerm = (Permission) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retPerm;
     }
 
     /**
@@ -663,9 +685,27 @@ public final class DelegatedAdminMgrImpl
     public Permission updatePermission(Permission perm)
         throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".updatePermission");
+        Permission retPerm = null;
+        FortRequest request = new FortRequest();
         perm.setAdmin(true);
-        return adminMgr.updatePermission(perm);
+        request.setEntity(perm);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permUpdate.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retPerm = (Permission) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retPerm;
     }
 
     /**
@@ -678,9 +718,21 @@ public final class DelegatedAdminMgrImpl
     public void deletePermission(Permission perm)
         throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".deletePermission");
+        FortRequest request = new FortRequest();
         perm.setAdmin(true);
-        adminMgr.deletePermission(perm);
+        request.setEntity(perm);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permDelete.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
     /**
@@ -694,9 +746,27 @@ public final class DelegatedAdminMgrImpl
     public PermObj addPermObj(PermObj pObj)
         throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
+        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".addPermObj");
+        PermObj retObj = null;
+        FortRequest request = new FortRequest();
         pObj.setAdmin(true);
-        return adminMgr.addPermObj(pObj);
+        request.setEntity(pObj);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.objAdd.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retObj = (PermObj) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retObj;
     }
 
     /**
@@ -710,9 +780,27 @@ public final class DelegatedAdminMgrImpl
     public PermObj updatePermObj(PermObj pObj)
         throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
+        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".updatePermObj");
+        PermObj retObj;
+        FortRequest request = new FortRequest();
         pObj.setAdmin(true);
-        return adminMgr.updatePermObj(pObj);
+        request.setEntity(pObj);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.objUpdate.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retObj = (PermObj) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retObj;
     }
 
     /**
@@ -726,9 +814,21 @@ public final class DelegatedAdminMgrImpl
     public void deletePermObj(PermObj pObj)
         throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
+        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".deletePermObj");
+        FortRequest request = new FortRequest();
         pObj.setAdmin(true);
-        adminMgr.deletePermObj(pObj);
+        request.setEntity(pObj);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.objDelete.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
     /**
@@ -745,9 +845,27 @@ public final class DelegatedAdminMgrImpl
     public void grantPermission(Permission perm, AdminRole role)
         throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
-        perm.setAdmin(true);
-        adminMgr.grantPermission(perm, role);
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".grantPermission");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".grantPermission");
+        FortRequest request = new FortRequest();
+        PermGrant permGrant = new PermGrant();
+        permGrant.setAdmin(true);
+        permGrant.setObjName(perm.getObjectName());
+        permGrant.setObjId(perm.getObjectId());
+        permGrant.setOpName(perm.getOpName());
+        permGrant.setRoleNm(role.getName());
+        request.setEntity(permGrant);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleGrant.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
     /**
@@ -764,9 +882,27 @@ public final class DelegatedAdminMgrImpl
     public void revokePermission(Permission perm, AdminRole role)
         throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
-        perm.setAdmin(true);
-        adminMgr.revokePermission(perm, role);
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".revokePermission");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".revokePermission");
+        FortRequest request = new FortRequest();
+        PermGrant permGrant = new PermGrant();
+        permGrant.setAdmin(true);
+        permGrant.setObjName(perm.getObjectName());
+        permGrant.setObjId(perm.getObjectId());
+        permGrant.setOpName(perm.getOpName());
+        permGrant.setRoleNm(role.getName());
+        request.setEntity(permGrant);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleRevoke.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
     /**
@@ -779,9 +915,27 @@ public final class DelegatedAdminMgrImpl
     public void grantPermission(Permission perm, User user)
         throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
-        perm.setAdmin(true);
-        adminMgr.grantPermission(perm, user);
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".grantPermissionUser");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".grantPermissionUser");
+        FortRequest request = new FortRequest();
+        PermGrant permGrant = new PermGrant();
+        permGrant.setAdmin(true);
+        permGrant.setObjName(perm.getObjectName());
+        permGrant.setObjId(perm.getObjectId());
+        permGrant.setOpName(perm.getOpName());
+        permGrant.setUserId(user.getUserId());
+        request.setEntity(permGrant);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userGrant.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
 
     /**
@@ -794,10 +948,26 @@ public final class DelegatedAdminMgrImpl
     public void revokePermission(Permission perm, User user)
         throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
-        perm.setAdmin(true);
-        adminMgr.revokePermission(perm, user);
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".revokePermission");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".revokePermission");
+        FortRequest request = new FortRequest();
+        PermGrant permGrant = new PermGrant();
+        permGrant.setAdmin(true);
+        permGrant.setObjName(perm.getObjectName());
+        permGrant.setObjId(perm.getObjectId());
+        permGrant.setOpName(perm.getOpName());
+        permGrant.setUserId(user.getUserId());
+        request.setEntity(permGrant);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userRevoke.toString());
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() != 0)
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
     }
-
 }
-

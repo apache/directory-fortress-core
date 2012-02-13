@@ -5,6 +5,8 @@
 package com.jts.fortress.audit;
 
 
+import com.jts.fortress.FortEntity;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -62,7 +64,7 @@ import java.io.Serializable;
     "structuralObjectClass",
     "sequenceId"
 })
-public class Bind implements Serializable
+public class Bind extends FortEntity implements Serializable
 {
     private String createTimestamp;
     private String creatorsName;

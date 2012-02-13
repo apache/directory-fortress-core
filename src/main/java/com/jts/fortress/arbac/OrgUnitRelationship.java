@@ -3,6 +3,8 @@
  */
 package com.jts.fortress.arbac;
 
+import com.jts.fortress.FortEntity;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,11 +19,11 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement(name = "fortOrgUnitRelationship")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "relationship", propOrder = {
+@XmlType(name = "orgrelationship", propOrder = {
     "child",
     "parent"
 })
-public class OrgUnitRelationship
+public class OrgUnitRelationship extends FortEntity
     implements java.io.Serializable
 {
     private OrgUnit parent;

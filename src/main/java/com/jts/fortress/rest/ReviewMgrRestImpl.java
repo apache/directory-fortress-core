@@ -507,6 +507,7 @@ public class ReviewMgrRestImpl
         if (response.getErrorCode() == 0)
         {
             retUsers = response.getValues();
+            // do not return a null list to the caller:
             if(retUsers == null)
             {
                 if(retUsers == null)

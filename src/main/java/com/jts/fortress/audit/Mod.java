@@ -4,6 +4,8 @@
 
 package com.jts.fortress.audit;
 
+import com.jts.fortress.FortEntity;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -56,9 +58,10 @@ import java.util.List;
     "reqStart",
     "reqEnd",
     "reqMod",
+    "reqType",
     "sequenceId"
 })
-public class Mod implements Serializable
+public class Mod extends FortEntity implements Serializable
 {
     private String reqSession;
     private String objectClass;

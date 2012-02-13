@@ -1,5 +1,6 @@
 package com.jts.fortress.arbac;
 
+import com.jts.fortress.FortEntity;
 import com.jts.fortress.rbac.Session;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -19,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
     "adminRole",
     "session"
 })
-public class SessionAdminRole
+public class SessionAdminRole extends FortEntity
     implements java.io.Serializable
 {
     private Session session;

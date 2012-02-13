@@ -1,5 +1,6 @@
 package com.jts.fortress.arbac;
 
+import com.jts.fortress.FortEntity;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.Session;
@@ -15,29 +16,17 @@ import javax.xml.bind.annotation.XmlType;
  * @author smckinn
  * @created January 29, 2012
  */
-@XmlRootElement(name = "fortSessionRolePerm")
+@XmlRootElement(name = "fortRolePerm")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "sessionRolePerm", propOrder = {
+@XmlType(name = "rolePerm", propOrder = {
     "role",
-    "perm",
-    "session"
+    "perm"
 })
-public class SessionRolePerm
+public class RolePerm extends FortEntity
     implements java.io.Serializable
 {
-    private Session session;
     private Role role;
     private Permission perm;
-
-    public Session getSession()
-    {
-        return session;
-    }
-
-    public void setSession(Session session)
-    {
-        this.session = session;
-    }
 
     public Role getRole()
     {

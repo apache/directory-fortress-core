@@ -63,14 +63,10 @@ public final class OrgUnitP
         boolean result = false;
         if (userPool != null && entity.getType() == OrgUnit.Type.USER)
         {
-            // TODO: Remove me!!
-            userPool = loadOrgSet(OrgUnit.Type.USER);
             result = userPool.contains(entity.getName());
         }
         else if (permPool != null)
         {
-            // TODO: Remove me!!
-            permPool = loadOrgSet(OrgUnit.Type.PERM);
             result = permPool.contains(entity.getName());
         }
         return result;

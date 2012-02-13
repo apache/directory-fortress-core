@@ -86,7 +86,7 @@ public final class AdminMgrRestImpl implements AdminMgr
         throws com.jts.fortress.SecurityException
     {
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".addUser");
-        User retUser = null;
+        User retUser;
         FortRequest request = new FortRequest();
         request.setEntity(user);
         if (this.adminSess != null)
@@ -180,7 +180,7 @@ public final class AdminMgrRestImpl implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".updateUser");
-        User retUser = null;
+        User retUser;
         FortRequest request = new FortRequest();
         request.setEntity(user);
         if (this.adminSess != null)
@@ -319,7 +319,7 @@ public final class AdminMgrRestImpl implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".addRole");
-        Role retRole = null;
+        Role retRole;
         FortRequest request = new FortRequest();
         request.setEntity(role);
         if (this.adminSess != null)
@@ -378,7 +378,7 @@ public final class AdminMgrRestImpl implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".updateRole");
-        Role retRole = null;
+        Role retRole;
         FortRequest request = new FortRequest();
         request.setEntity(role);
         if (this.adminSess != null)
@@ -496,7 +496,7 @@ public final class AdminMgrRestImpl implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".addPermission");
-        Permission retPerm = null;
+        Permission retPerm;
         FortRequest request = new FortRequest();
         request.setEntity(perm);
         if (this.adminSess != null)
@@ -530,7 +530,7 @@ public final class AdminMgrRestImpl implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".updatePermission");
-        Permission retPerm = null;
+        Permission retPerm;
         FortRequest request = new FortRequest();
         request.setEntity(perm);
         if (this.adminSess != null)
@@ -589,7 +589,7 @@ public final class AdminMgrRestImpl implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".addPermObj");
-        PermObj retObj = null;
+        PermObj retObj;
         FortRequest request = new FortRequest();
         request.setEntity(pObj);
         if (this.adminSess != null)
@@ -622,7 +622,7 @@ public final class AdminMgrRestImpl implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".updatePermObj");
-        PermObj retObj = null;
+        PermObj retObj;
         FortRequest request = new FortRequest();
         request.setEntity(pObj);
         if (this.adminSess != null)

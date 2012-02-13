@@ -4,8 +4,16 @@
 
 package com.jts.fortress;
 
-import com.jts.fortress.arbac.AdminRole;
+import com.jts.fortress.arbac.AdminRoleRelationship;
 import com.jts.fortress.arbac.OrgUnit;
+import com.jts.fortress.arbac.OrgUnitRelationship;
+import com.jts.fortress.arbac.SessionAdminRole;
+import com.jts.fortress.arbac.RolePerm;
+import com.jts.fortress.arbac.SessionUserRole;
+import com.jts.fortress.audit.AuthZ;
+import com.jts.fortress.audit.Bind;
+import com.jts.fortress.audit.Mod;
+import com.jts.fortress.audit.UserAudit;
 import com.jts.fortress.pwpolicy.PswdPolicy;
 import com.jts.fortress.rbac.PermGrant;
 import com.jts.fortress.rbac.PermObj;
@@ -78,8 +86,13 @@ import java.util.UUID;
     RoleRelationship.class,
     PermGrant.class,
     Session.class,
-    SessionPerm.class,
-    SessionRole.class
+    AdminRoleRelationship.class,
+    OrgUnitRelationship.class,
+    RolePerm.class,
+    UserAudit.class,
+    AuthZ.class,
+    Bind.class,
+    Mod.class
 })
 public abstract class FortEntity
 {

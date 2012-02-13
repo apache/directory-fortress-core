@@ -178,6 +178,26 @@ public class Session  extends FortEntity implements com.jts.fortress.pwpolicy.Pw
     }
 
     /**
+     * Copy values from incoming Session object.
+     *
+     * @param inSession contains Session values.
+     */
+    public void copy(Session inSession)
+    {
+        this.user = inSession.getUser();
+        // don't copy session id:
+        //this.sessionId = inSession.getSessionId();
+        this.lastAccess = inSession.getLastAccess();
+        this.timeout = inSession.getTimeout();
+        this.warningId = inSession.getWarningId();
+        this.errorId = inSession.getErrorId();
+        this.graceLogins = inSession.getGraceLogins();
+        this.expirationSeconds = inSession.expirationSeconds;
+        this.isAuthenticated = inSession.isAuthenticated();
+        this.message = inSession.getMsg();
+    }
+
+    /**
      * Default constructor for Fortress Session.
      */
     public Session()
@@ -382,6 +402,28 @@ public class Session  extends FortEntity implements com.jts.fortress.pwpolicy.Pw
     public int getExpirationSeconds()
     {
         return this.expirationSeconds;
+    }
+
+    /**
+     * Get the integer timeout that contains max time (in seconds) that User's session may remain inactive.
+     * This attribute is optional but if set will be validated for reasonableness.
+     *
+     * @return int maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
+     */
+    private int getTimeout()
+    {
+        return this.timeout;
+    }
+
+    /**
+     * Get the value that will be set to 'true' if user has successfully authenticated with Fortress for this Session.  This value is set by
+     * the Fortress DAO object.
+     *
+     * @return value indicates result of authentication.
+     */
+    public boolean setAuthenticated()
+    {
+        return this.isAuthenticated;
     }
 
     /**

@@ -33,6 +33,12 @@ public class AccessMgrImplTest extends TestCase
     private static final String OCLS_NM = AccessMgrImplTest.class.getName();
     final protected static Logger log = Logger.getLogger(OCLS_NM);
 
+    public static Test suite()
+    {
+        TestSuite suite = new TestSuite();
+        suite.addTest(new AccessMgrImplTest("testDropActiveRole"));
+        return suite;
+    }
 
     public AccessMgrImplTest(String name)
     {
@@ -906,8 +912,8 @@ public class AccessMgrImplTest extends TestCase
                 {
                     // Drop Role:
                     accessMgr.dropActiveRole(session, new UserRole(RoleTestData.getName(rle)));
-                    assertEquals(OCLS_NM + ".addActiveRoles failed list size user[" + user.getUserId() + "]", (--ctr), uRoles.size());
-                    assertTrue(OCLS_NM + ".addActiveRoles failed role search USER [" + user.getUserId() + "] ROLE [" + RoleTestData.getName(rle) + "] should not contain role", !uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
+                    assertEquals(OCLS_NM + ".addActiveRoles failed list size user[" + user.getUserId() + "]", (--ctr), session.getRoles().size());
+                    assertTrue(OCLS_NM + ".addActiveRoles failed role search USER [" + user.getUserId() + "] ROLE [" + RoleTestData.getName(rle) + "] should not contain role", !session.getRoles().contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
                     // Drop Role again: (This better fail because role  has already been deactivated from user's session)
                     try
                     {
@@ -994,8 +1000,8 @@ public class AccessMgrImplTest extends TestCase
                 {
                     // Drop Role:
                     accessMgr.dropActiveRole(session, new UserRole(RoleTestData.getName(rle)));
-                    assertEquals(OCLS_NM + ".dropActiveRoles failed list size user[" + user.getUserId() + "]", (--ctr), uRoles.size());
-                    assertTrue(OCLS_NM + ".dropActiveRoles failed role search USER [" + user.getUserId() + "] ROLE [" + RoleTestData.getName(rle) + "] should not contain role", !uRoles.contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
+                    assertEquals(OCLS_NM + ".dropActiveRoles failed list size user[" + user.getUserId() + "]", (--ctr), session.getRoles().size());
+                    assertTrue(OCLS_NM + ".dropActiveRoles failed role search USER [" + user.getUserId() + "] ROLE [" + RoleTestData.getName(rle) + "] should not contain role", !session.getRoles().contains(RoleTestData.getUserRole(UserTestData.getUserId(usr), rle)));
                     // Drop Role again: (This better fail because role  has already been deactivated from user's session)
                     try
                     {
@@ -1063,16 +1069,5 @@ public class AccessMgrImplTest extends TestCase
             log.error(OCLS_NM + ".addActiveRolesDSD caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
-    }
-
-
-    public static Test suite()
-    {
-        //return new TestSuite(AccessMgrImplTest.class);
-        TestSuite suite = new TestSuite();
-
-        suite.addTest(new AccessMgrImplTest("createSessionsDSD"));
-       //return new TestSuite(AccessMgrImplTest.class);
-        return suite;        
     }
 }

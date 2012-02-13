@@ -4,6 +4,8 @@
 
 package com.jts.fortress.audit;
 
+import com.jts.fortress.FortEntity;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -42,7 +44,7 @@ import java.util.Date;
     "endDate",
     "dn"
 })
-public class UserAudit implements java.io.Serializable
+public class UserAudit extends FortEntity implements java.io.Serializable
 {
     private String name;
     private String description;

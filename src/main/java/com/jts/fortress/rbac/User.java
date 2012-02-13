@@ -341,6 +341,11 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public List<UserRole> getRoles()
     {
+        // do not return a null List to caller:
+        if (roles == null)
+        {
+            roles = new ArrayList<UserRole>();
+        }
         return roles;
     }
 
@@ -403,6 +408,11 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public List<UserAdminRole> getAdminRoles()
     {
+        // do not return a null List to caller:
+        if (adminRoles == null)
+        {
+            adminRoles = new ArrayList<com.jts.fortress.arbac.UserAdminRole>();
+        }
         return adminRoles;
     }
 

@@ -10,7 +10,7 @@ package com.jts.fortress;
 import com.jts.fortress.arbac.AdminRoleRelationship;
 import com.jts.fortress.arbac.OrgUnitRelationship;
 import com.jts.fortress.arbac.SessionAdminRole;
-import com.jts.fortress.arbac.SessionRolePerm;
+import com.jts.fortress.arbac.RolePerm;
 import com.jts.fortress.arbac.SessionUserRole;
 import com.jts.fortress.audit.AuthZ;
 import com.jts.fortress.audit.Bind;
@@ -82,7 +82,7 @@ public class ObjectFactory
     private final static QName _FortSessionRole_QNAME = new QName("", "fortSessionRole");
     private final static QName _FortSessionAdminRole_QNAME = new QName("", "fortSessionAdminRole");
     private final static QName _FortSessionUserRole_QNAME = new QName("", "fortSessionUserRole");
-    private final static QName _FortSessionRolePerm_QNAME = new QName("", "fortSessionRolePerm");
+    private final static QName _FortRolePerm_QNAME = new QName("", "fortRolePerm");
     private final static QName _FortResponse_QNAME = new QName("", "fortResponse");
     private final static QName FortRequest_QNAME = new QName("", "fortRequest");
 
@@ -285,10 +285,10 @@ public class ObjectFactory
         return new JAXBElement<SessionUserRole>(_FortSessionUserRole_QNAME, SessionUserRole.class, null, value);
     }
 
-    @XmlElementDecl(namespace = "", name = "fortSessionRolePerm")
-    public JAXBElement<SessionRolePerm> createFortSessionRolePerm(SessionRolePerm value)
+    @XmlElementDecl(namespace = "", name = "fortRolePerm")
+    public JAXBElement<RolePerm> createFortRolePerm(RolePerm value)
     {
-        return new JAXBElement<SessionRolePerm>(_FortSessionRolePerm_QNAME, SessionRolePerm.class, null, value);
+        return new JAXBElement<RolePerm>(_FortRolePerm_QNAME, RolePerm.class, null, value);
     }
 
     /**
@@ -458,9 +458,9 @@ public class ObjectFactory
         return new SessionUserRole();
     }
 
-    public SessionRolePerm createSessionRolePerm()
+    public RolePerm createRolePerm()
     {
-        return new SessionRolePerm();
+        return new RolePerm();
     }
 
     public FortResponse createFortResponse()

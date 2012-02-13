@@ -1,5 +1,6 @@
 package com.jts.fortress.arbac;
 
+import com.jts.fortress.FortEntity;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.UserRole;
 
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
     "userRole",
     "session"
 })
-public class SessionUserRole
+public class SessionUserRole extends FortEntity
     implements java.io.Serializable
 {
     private Session session;

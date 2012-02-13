@@ -15,6 +15,7 @@ public class Ids
     {
         rbacAuthN,
         rbacCreate,
+        rbacCreateT,
         rbacAuthZ,
         rbacPerms,
         rbacRoles,

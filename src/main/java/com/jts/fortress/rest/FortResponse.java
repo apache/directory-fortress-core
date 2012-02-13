@@ -4,6 +4,8 @@
 package com.jts.fortress.rest;
 
 import com.jts.fortress.FortEntity;
+import com.jts.fortress.rbac.Session;
+
 import javax.xml.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +20,8 @@ import java.util.Set;
     "entities",
     "values",
     "valueSet",
-    "isAuthorized"
+    "isAuthorized",
+    "session"
 })
 public class FortResponse
 {
@@ -34,6 +37,8 @@ public class FortResponse
     private List<String> values;
     @XmlElement(nillable = true)
     private Set<String> valueSet;
+    @XmlElement(nillable = true)
+    private Session session;
 
     public FortEntity getEntity()
     {
@@ -103,6 +108,16 @@ public class FortResponse
     public void setValueSet(Set<String> valueSet)
     {
         this.valueSet = valueSet;
+    }
+
+    public Session getSession()
+    {
+        return session;
+    }
+
+    public void setSession(Session session)
+    {
+        this.session = session;
     }
 }
 

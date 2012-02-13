@@ -3,6 +3,8 @@
  */
 package com.jts.fortress.arbac;
 
+import com.jts.fortress.FortEntity;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,11 +18,11 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement(name = "fortAdminRoleRelationship")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "relationship", propOrder = {
+@XmlType(name = "adminrelationship", propOrder = {
     "child",
     "parent"
 })
-public class AdminRoleRelationship
+public class AdminRoleRelationship extends FortEntity
     implements java.io.Serializable
 {
     private AdminRole parent;

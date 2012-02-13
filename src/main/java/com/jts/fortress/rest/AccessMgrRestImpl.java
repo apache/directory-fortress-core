@@ -8,10 +8,7 @@ import com.jts.fortress.SecurityException;
 import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.rbac.AccessMgrImpl;
 import com.jts.fortress.rbac.Permission;
-import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.Session;
-import com.jts.fortress.rbac.SessionPerm;
-import com.jts.fortress.rbac.SessionRole;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
 import com.jts.fortress.util.AlphabeticalOrder;
@@ -85,7 +82,7 @@ public class AccessMgrRestImpl implements AccessMgr
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
-            retSession = (Session) response.getEntity();
+            retSession = (Session) response.getSession();
         }
         else
         {
@@ -156,11 +153,19 @@ public class AccessMgrRestImpl implements AccessMgr
         FortRequest request = new FortRequest();
         request.setEntity(user);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacCreate.toString());
+        String szResponse = null;
+        if(isTrusted)
+        {
+            szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacCreateT.toString());
+        }
+        else
+        {
+            szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacCreate.toString());
+        }
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
-            retSession = (Session) response.getEntity();
+            retSession = (Session) response.getSession();
         }
         else
         {
@@ -188,18 +193,18 @@ public class AccessMgrRestImpl implements AccessMgr
     {
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, OCLS_NM + ".checkAccess");
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".checkAccess");
-        boolean result = false;
+        boolean result;
         FortRequest request = new FortRequest();
-        SessionPerm context = new SessionPerm();
-        context.setSession(session);
-        context.setPerm(perm);
-        request.setEntity(context);
+        request.setSession(session);
+        request.setEntity(perm);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAuthZ.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
             result = response.getAuthorized();
+            Session outSession = (Session)response.getSession();
+            session.copy(outSession);
         }
         else
         {
@@ -222,13 +227,15 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionPermissions");
         List<Permission> retPerms;
         FortRequest request = new FortRequest();
-        request.setEntity(session);
+        request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacPerms.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
             retPerms = response.getEntities();
+            Session outSession = (Session)response.getSession();
+            session.copy(outSession);
         }
         else
         {
@@ -252,13 +259,15 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionRoles");
         List<UserRole> retRoles;
         FortRequest request = new FortRequest();
-        request.setEntity(session);
+        request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacRoles.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
             retRoles = response.getEntities();
+            Session outSession = (Session)response.getSession();
+            session.copy(outSession);
         }
         else
         {
@@ -281,7 +290,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionRoles");
         Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
         FortRequest request = new FortRequest();
-        request.setEntity(session);
+        request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAuthzRoles.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -290,6 +299,8 @@ public class AccessMgrRestImpl implements AccessMgr
             Set<String> tempNames = response.getValueSet();
             // TODO: This is done to use a case insensitive TreeSet for returned names.  Find a better way to do this:
             retRoleNames.addAll(tempNames);
+            Session outSession = (Session)response.getSession();
+            session.copy(outSession);
         }
         else
         {
@@ -323,13 +334,17 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, fullMethodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, fullMethodName);
         FortRequest request = new FortRequest();
-        SessionRole context = new SessionRole();
-        context.setRole(new Role(role.getName()));
-        context.setSession(session);
+        request.setSession(session);
+        request.setEntity(role);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAdd.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        if (response.getErrorCode() == 0)
+        {
+            Session outSession = (Session)response.getSession();
+            session.copy(outSession);
+        }
+        else
         {
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
@@ -352,13 +367,17 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + fullMethodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + fullMethodName);
         FortRequest request = new FortRequest();
-        SessionRole context = new SessionRole();
-        context.setRole(new Role(role.getName()));
-        context.setSession(session);
+        request.setSession(session);
+        request.setEntity(role);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacDrop.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        if (response.getErrorCode() == 0)
+        {
+            Session outSession = (Session)response.getSession();
+            session.copy(outSession);
+        }
+        else
         {
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
@@ -378,7 +397,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".getUserId");
         String userId;
         FortRequest request = new FortRequest();
-        request.setEntity(session);
+        request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacUserId.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -386,6 +405,8 @@ public class AccessMgrRestImpl implements AccessMgr
         {
             User outUser = (User) response.getEntity();
             userId = outUser.getUserId();
+            Session outSession = response.getSession();
+            session.copy(outSession);
         }
         else
         {
@@ -448,13 +469,15 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".getUser");
         User retUser;
         FortRequest request = new FortRequest();
-        request.setEntity(session);
+        request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacUser.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
             retUser = (User) response.getEntity();
+            Session outSession = response.getSession();
+            session.copy(outSession);
         }
         else
         {
