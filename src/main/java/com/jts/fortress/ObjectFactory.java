@@ -9,9 +9,7 @@ package com.jts.fortress;
 
 import com.jts.fortress.arbac.AdminRoleRelationship;
 import com.jts.fortress.arbac.OrgUnitRelationship;
-import com.jts.fortress.arbac.SessionAdminRole;
 import com.jts.fortress.arbac.RolePerm;
-import com.jts.fortress.arbac.SessionUserRole;
 import com.jts.fortress.audit.AuthZ;
 import com.jts.fortress.audit.Bind;
 import com.jts.fortress.audit.Mod;
@@ -27,8 +25,6 @@ import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.RoleRelationship;
 import com.jts.fortress.rbac.SDSet;
 import com.jts.fortress.rbac.Session;
-import com.jts.fortress.rbac.SessionPerm;
-import com.jts.fortress.rbac.SessionRole;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
 import com.jts.fortress.rest.FortRequest;
@@ -41,9 +37,9 @@ import javax.xml.namespace.QName;
 
 
 /**
- * This object contains factory methods for each
- * Java content interface and Java element interface
- * generated in the com.jts.fortress.model2 package.
+ *
+ * This object contains factory methods for each Java content interface and Java element interface
+ * generated in the com.jts.fortress packages.
  * <p>An ObjectFactory allows you to programatically
  * construct new instances of the Java representation
  * for XML content. The Java representation of XML
@@ -52,12 +48,13 @@ import javax.xml.namespace.QName;
  * type definitions, element declarations and model
  * groups.  Factory methods for each of these are
  * provided in this class.
+ * @author smckinn
+ * @created December 17, 2912
+ *
  */
 @XmlRegistry
 public class ObjectFactory
 {
-
-    //private final static QName _FortEntity_QNAME = new QName("", "fortEntity");
     private final static QName _FortUser_QNAME = new QName("", "fortUser");
     private final static QName _FortSession_QNAME = new QName("", "fortSession");
     private final static QName _FortRole_QNAME = new QName("", "fortRole");
@@ -78,10 +75,6 @@ public class ObjectFactory
     private final static QName _FortUserAudit_QNAME = new QName("", "fortUserAudit");
     private final static QName _FortAuthZ_QNAME = new QName("", "fortAuthZ");
     private final static QName _FortMod_QNAME = new QName("", "fortMod");
-    private final static QName _FortSessionPerm_QNAME = new QName("", "fortSessionPerm");
-    private final static QName _FortSessionRole_QNAME = new QName("", "fortSessionRole");
-    private final static QName _FortSessionAdminRole_QNAME = new QName("", "fortSessionAdminRole");
-    private final static QName _FortSessionUserRole_QNAME = new QName("", "fortSessionUserRole");
     private final static QName _FortRolePerm_QNAME = new QName("", "fortRolePerm");
     private final static QName _FortResponse_QNAME = new QName("", "fortResponse");
     private final static QName FortRequest_QNAME = new QName("", "fortRequest");
@@ -261,30 +254,6 @@ public class ObjectFactory
         return new JAXBElement<Mod>(_FortMod_QNAME, Mod.class, null, value);
     }
 
-    @XmlElementDecl(namespace = "", name = "fortSessionPerm")
-    public JAXBElement<SessionPerm> createFortSessionPerm(SessionPerm value)
-    {
-        return new JAXBElement<SessionPerm>(_FortSessionPerm_QNAME, SessionPerm.class, null, value);
-    }
-
-    @XmlElementDecl(namespace = "", name = "fortSessionRole")
-    public JAXBElement<SessionRole> createFortSessionPerm(SessionRole value)
-    {
-        return new JAXBElement<SessionRole>(_FortSessionRole_QNAME, SessionRole.class, null, value);
-    }
-
-    @XmlElementDecl(namespace = "", name = "fortSessionAdminRole")
-    public JAXBElement<SessionAdminRole> createFortSessionAdminRole(SessionAdminRole value)
-    {
-        return new JAXBElement<SessionAdminRole>(_FortSessionAdminRole_QNAME, SessionAdminRole.class, null, value);
-    }
-
-    @XmlElementDecl(namespace = "", name = "fortSessionUserRole")
-    public JAXBElement<SessionUserRole> createFortSessionUserRole(SessionUserRole value)
-    {
-        return new JAXBElement<SessionUserRole>(_FortSessionUserRole_QNAME, SessionUserRole.class, null, value);
-    }
-
     @XmlElementDecl(namespace = "", name = "fortRolePerm")
     public JAXBElement<RolePerm> createFortRolePerm(RolePerm value)
     {
@@ -436,26 +405,6 @@ public class ObjectFactory
     public Mod createMod()
     {
         return new Mod();
-    }
-
-    public SessionPerm createSessionPerm()
-    {
-        return new SessionPerm();
-    }
-
-    public SessionRole createSessionRole()
-    {
-        return new SessionRole();
-    }
-
-    public SessionAdminRole createSessionAdminRole()
-    {
-        return new SessionAdminRole();
-    }
-
-    public SessionUserRole createSessionUserRole()
-    {
-        return new SessionUserRole();
     }
 
     public RolePerm createRolePerm()
