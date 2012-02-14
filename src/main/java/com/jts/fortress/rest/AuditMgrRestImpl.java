@@ -14,6 +14,7 @@ import com.jts.fortress.rbac.Session;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.constants.GlobalErrIds;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,6 +97,11 @@ public class AuditMgrRestImpl implements AuditMgr
         if (response.getErrorCode() == 0)
         {
             outRecords = response.getEntities();
+            // do not return a null list to the caller:
+            if(outRecords == null)
+            {
+                outRecords = new ArrayList<AuthZ>();
+            }
         }
         else
         {
@@ -131,6 +137,11 @@ public class AuditMgrRestImpl implements AuditMgr
         if (response.getErrorCode() == 0)
         {
             outRecords = response.getEntities();
+            // do not return a null list to the caller:
+            if(outRecords == null)
+            {
+                outRecords = new ArrayList<AuthZ>();
+            }
         }
         else
         {
@@ -165,6 +176,11 @@ public class AuditMgrRestImpl implements AuditMgr
         if (response.getErrorCode() == 0)
         {
             outRecords = response.getEntities();
+            // do not return a null list to the caller:
+            if(outRecords == null)
+            {
+                outRecords = new ArrayList<Bind>();
+            }
         }
         else
         {
@@ -198,6 +214,11 @@ public class AuditMgrRestImpl implements AuditMgr
         if (response.getErrorCode() == 0)
         {
             outRecords = response.getEntities();
+            // do not return a null list to the caller:
+            if(outRecords == null)
+            {
+                outRecords = new ArrayList<Mod>();
+            }
         }
         else
         {
@@ -232,6 +253,11 @@ public class AuditMgrRestImpl implements AuditMgr
         if (response.getErrorCode() == 0)
         {
             outRecords = response.getEntities();
+            // do not return a null list to the caller:
+            if(outRecords == null)
+            {
+                outRecords = new ArrayList<Mod>();
+            }
         }
         else
         {
@@ -270,6 +296,11 @@ public class AuditMgrRestImpl implements AuditMgr
         if (response.getErrorCode() == 0)
         {
             outRecords = response.getEntities();
+            // do not return a null list to the caller:
+            if(outRecords == null)
+            {
+                outRecords = new ArrayList<AuthZ>();
+            }
         }
         else
         {

@@ -510,10 +510,7 @@ public class ReviewMgrRestImpl
             // do not return a null list to the caller:
             if(retUsers == null)
             {
-                if(retUsers == null)
-                {
-                    retUsers = new ArrayList<String>();
-                }
+                retUsers = new ArrayList<String>();
             }
         }
         else
