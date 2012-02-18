@@ -27,6 +27,13 @@ enable.pool.reconnect=true
 
 crypto.prop=@CFG_CRYPTO_PROP@
 
+# These credentials are used for accessing En Masse:
+#http.user=demouser4
+#http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
+#http.host=localhost
+#http.port=8080
+
+# These will override default LDAP for REST implementations:
 #reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrRestImpl
 #adminmgr.implementation=com.jts.fortress.rest.AdminMgrRestImpl
 #accessmgr.implementation=com.jts.fortress.rest.AccessMgrRestImpl

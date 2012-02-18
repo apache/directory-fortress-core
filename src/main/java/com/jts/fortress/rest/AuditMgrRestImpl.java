@@ -65,8 +65,6 @@ import java.util.List;
 public class AuditMgrRestImpl implements AuditMgr
 {
     private static final String OCLS_NM = AuditMgrRestImpl.class.getName();
-    private static final String USERID = "demouser4";
-    private static final String PW = "password";
     // thread unsafe variable:
     private Session adminSess;
 
@@ -92,7 +90,7 @@ public class AuditMgrRestImpl implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.auditUserAuthzs.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.auditUserAuthzs.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -132,7 +130,7 @@ public class AuditMgrRestImpl implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.auditAuthzs.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.auditAuthzs.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -171,7 +169,7 @@ public class AuditMgrRestImpl implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.auditBinds.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.auditBinds.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -209,7 +207,7 @@ public class AuditMgrRestImpl implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.auditSessions.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.auditSessions.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -248,7 +246,7 @@ public class AuditMgrRestImpl implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.auditMods.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.auditMods.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -291,7 +289,7 @@ public class AuditMgrRestImpl implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.auditInvld.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.auditInvld.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {

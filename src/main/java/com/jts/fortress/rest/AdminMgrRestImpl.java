@@ -59,8 +59,6 @@ public final class AdminMgrRestImpl implements AdminMgr
 
     // thread unsafe variable:
     private Session adminSess;
-    private static final String USERID = "demouser4";
-    private static final String PW = "password";
 
     /**
      * Setting Session into this object will enforce ARBAC controls and render this class
@@ -94,7 +92,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userAdd.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userAdd.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -131,7 +129,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userDisable.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userDisable.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -160,7 +158,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userDelete.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userDelete.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -188,7 +186,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userUpdate.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userUpdate.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -221,7 +219,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userChange.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userChange.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -246,7 +244,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userLock.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userLock.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -271,7 +269,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userUnlock.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userUnlock.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -299,7 +297,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userReset.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userReset.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -327,7 +325,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleAdd.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleAdd.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -360,7 +358,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleDelete.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleDelete.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -386,7 +384,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleUpdate.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleUpdate.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -443,7 +441,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleAsgn.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleAsgn.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -475,7 +473,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleDeasgn.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleDeasgn.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -504,7 +502,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permAdd.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.permAdd.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -538,7 +536,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permUpdate.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.permUpdate.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -569,7 +567,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permDelete.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.permDelete.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -597,7 +595,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.objAdd.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.objAdd.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -630,7 +628,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.objUpdate.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.objUpdate.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -662,7 +660,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.objDelete.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.objDelete.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -699,7 +697,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleGrant.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleGrant.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -736,7 +734,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleRevoke.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleRevoke.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -769,7 +767,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userGrant.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userGrant.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -802,7 +800,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userRevoke.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userRevoke.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -837,7 +835,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleDescendant.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleDescendant.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -872,7 +870,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleAscendent.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleAscendent.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -905,7 +903,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleAddinherit.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleAddinherit.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -938,7 +936,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleDelinherit.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleDelinherit.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -970,7 +968,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.ssdAdd.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.ssdAdd.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1009,7 +1007,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.ssdAddMember.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.ssdAddMember.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1049,7 +1047,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.ssdDelMember.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.ssdDelMember.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1081,7 +1079,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.ssdDelete.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.ssdDelete.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1118,7 +1116,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.ssdCardUpdate.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.ssdCardUpdate.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1156,7 +1154,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.dsdAdd.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.dsdAdd.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1196,7 +1194,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.dsdAddMember.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.dsdAddMember.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1237,7 +1235,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.dsdDelMember.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.dsdDelMember.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1270,7 +1268,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.dsdDelete.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.dsdDelete.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1308,7 +1306,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.dsdCardUpdate.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.dsdCardUpdate.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {

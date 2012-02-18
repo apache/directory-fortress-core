@@ -3,13 +3,16 @@
  */
 package com.jts.fortress.rest;
 
+import com.jts.fortress.configuration.Config;
+import com.jts.fortress.util.crypto.EncryptUtil;
+
 /**
- * Contains global Ids used for calling En Masse REST server.
+ * Contains global HttpIds used for calling En Masse REST server.
  *
  * @author smckinn
  * @created February 10, 2012
  */
-public class Ids
+public class HttpIds
 {
     static enum Services
     {

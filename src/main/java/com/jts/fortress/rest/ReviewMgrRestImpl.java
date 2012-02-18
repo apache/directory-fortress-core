@@ -60,8 +60,6 @@ public class ReviewMgrRestImpl
     private static final String OCLS_NM = ReviewMgrRestImpl.class.getName();
     // thread unsafe variable:
     private Session adminSess;
-    private static final String USERID = "demouser4";
-    private static final String PW = "password";
 
 
     /**
@@ -94,7 +92,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permRead.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.permRead.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -126,7 +124,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.objRead.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.objRead.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -159,7 +157,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.permSearch.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -192,7 +190,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.objSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.objSearch.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -227,7 +225,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.objSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.objSearch.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -259,7 +257,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleRead.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleRead.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -292,7 +290,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleSearch.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -328,7 +326,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleSearch.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -362,7 +360,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userRead.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userRead.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -395,7 +393,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userSearch.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -429,7 +427,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userSearch.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -464,7 +462,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userSearch.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -502,7 +500,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userAsigned.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userAsigned.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -540,7 +538,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userAsigned.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userAsigned.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -573,7 +571,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleAsigned.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleAsigned.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -606,7 +604,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleAsigned.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleAsigned.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -639,7 +637,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.roleAuthzed.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.roleAuthzed.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -676,7 +674,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userAuthzed.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userAuthzed.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -712,7 +710,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rolePerms.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.rolePerms.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -746,7 +744,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.userPerms.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userPerms.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -778,7 +776,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permRoles.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.permRoles.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -811,7 +809,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permRolesAuthzed.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.permRolesAuthzed.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -846,7 +844,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permUsers.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.permUsers.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -879,7 +877,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.permUsersAuthzed.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.permUsersAuthzed.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -915,7 +913,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.ssdSets.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.ssdSets.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -952,7 +950,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.ssdRead.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.ssdRead.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -985,7 +983,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.ssdRoles.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.ssdRoles.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1012,7 +1010,7 @@ public class ReviewMgrRestImpl
         throws SecurityException
     {
         VUtil.assertNotNull(ssd, GlobalErrIds.SSD_NULL, OCLS_NM + ".ssdRoleSetCardinality");
-        String szResponse = RestUtils.get(USERID, PW, ssd.getName(), null, null, Ids.Services.ssdCard.toString());
+        String szResponse = RestUtils.get(ssd.getName(), null, null, HttpIds.Services.ssdCard.toString());
         int cardinality;
         if(VUtil.isNotNullOrEmpty(szResponse))
         {
@@ -1047,7 +1045,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.dsdSets.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.dsdSets.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1084,7 +1082,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.dsdRead.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.dsdRead.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1117,7 +1115,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.dsdRoles.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.dsdRoles.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1144,7 +1142,7 @@ public class ReviewMgrRestImpl
         throws SecurityException
     {
         VUtil.assertNotNull(dsd, GlobalErrIds.DSD_NULL, OCLS_NM + ".dsdRoleSetCardinality");
-        String szResponse = RestUtils.get(USERID, PW, dsd.getName(), null, null, Ids.Services.dsdCard.toString());
+        String szResponse = RestUtils.get(dsd.getName(), null, null, HttpIds.Services.dsdCard.toString());
         int cardinality;
         if(VUtil.isNotNullOrEmpty(szResponse))
         {

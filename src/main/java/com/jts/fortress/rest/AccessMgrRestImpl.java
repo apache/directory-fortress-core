@@ -56,8 +56,6 @@ import java.util.TreeSet;
 public class AccessMgrRestImpl implements AccessMgr
 {
     private static final String OCLS_NM = AccessMgrImpl.class.getName();
-    private static final String USERID = "demouser4";
-    private static final String PW = "password";
 
 
     /**
@@ -78,7 +76,7 @@ public class AccessMgrRestImpl implements AccessMgr
         FortRequest request = new FortRequest();
         request.setEntity(new User(userId, password));
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAuthN.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacAuthN.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -156,11 +154,11 @@ public class AccessMgrRestImpl implements AccessMgr
         String szResponse = null;
         if(isTrusted)
         {
-            szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacCreateT.toString());
+            szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacCreateT.toString());
         }
         else
         {
-            szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacCreate.toString());
+            szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacCreate.toString());
         }
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
@@ -198,7 +196,7 @@ public class AccessMgrRestImpl implements AccessMgr
         request.setSession(session);
         request.setEntity(perm);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAuthZ.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacAuthZ.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -229,7 +227,7 @@ public class AccessMgrRestImpl implements AccessMgr
         FortRequest request = new FortRequest();
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacPerms.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacPerms.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -261,7 +259,7 @@ public class AccessMgrRestImpl implements AccessMgr
         FortRequest request = new FortRequest();
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacRoles.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacRoles.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -292,7 +290,7 @@ public class AccessMgrRestImpl implements AccessMgr
         FortRequest request = new FortRequest();
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAuthzRoles.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacAuthzRoles.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -337,7 +335,7 @@ public class AccessMgrRestImpl implements AccessMgr
         request.setSession(session);
         request.setEntity(role);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacAdd.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacAdd.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -370,7 +368,7 @@ public class AccessMgrRestImpl implements AccessMgr
         request.setSession(session);
         request.setEntity(role);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacDrop.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacDrop.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -399,7 +397,7 @@ public class AccessMgrRestImpl implements AccessMgr
         FortRequest request = new FortRequest();
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacUserId.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacUserId.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -471,7 +469,7 @@ public class AccessMgrRestImpl implements AccessMgr
         FortRequest request = new FortRequest();
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(USERID, PW, szRequest, Ids.Services.rbacUser.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.Services.rbacUser.toString());
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {

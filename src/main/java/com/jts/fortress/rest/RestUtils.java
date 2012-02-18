@@ -1,7 +1,9 @@
 package com.jts.fortress.rest;
 
 import com.jts.fortress.RestException;
+import com.jts.fortress.configuration.Config;
 import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.util.crypto.EncryptUtil;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -33,10 +35,13 @@ public class RestUtils
 {
     private static final String OCLS_NM = RestUtils.class.getName();
     private static final Logger log = Logger.getLogger(OCLS_NM);
-    private static final String HOST = "localhost";
-    private static final String PORT = "8080";
+    private final static String HTTP_UID = Config.getProperty("http.user");
+    private final static String HTTP_PW_PARAM = "http.pw";
+    private final static String HTTP_PW = ((EncryptUtil.isEnabled()) ? EncryptUtil.decrypt(Config.getProperty(HTTP_PW_PARAM)) : Config.getProperty(HTTP_PW_PARAM));
+    private final static String HTTP_HOST = Config.getProperty("http.host");
+    private final static String HTTP_PORT = Config.getProperty("http.port");
     private static final String SERVICE = "enmasse";
-    private static final String URI = "http://" + HOST + ":" + PORT + "/" + SERVICE + "/";
+    private static final String URI = "http://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
 
     /**
      * Marshall the request into an XML String.
@@ -128,6 +133,34 @@ public class RestUtils
 
 
     /**
+     * Perform HTTP Get REST request.
+     *
+     * @param id
+     * @param id2
+     * @param id3
+     * @param function
+     * @return
+     * @throws RestException
+     */
+    public static String get(String id, String id2, String id3, String function) throws RestException
+    {
+        String url = URI + function + "/" + id;
+        if (id2 != null)
+        {
+            url += "/" + id2;
+        }
+        if (id3 != null)
+        {
+            url += "/" + id3;
+        }
+        log.debug(OCLS_NM + ".get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: " + url);
+        GetMethod get = new GetMethod(url);
+        setMethodHeaders(get, HTTP_UID, HTTP_PW);
+        return handleHttpMethod(get);
+    }
+
+
+    /**
      * Perform an HTTP Post REST operation.
      *
      * @param userId
@@ -144,6 +177,50 @@ public class RestUtils
         PostMethod post = new PostMethod(URI + function);
         post.addRequestHeader("Accept", "text/xml");
         setMethodHeaders(post, userId, password);
+        try
+        {
+            RequestEntity entity = new StringRequestEntity(szInput, "text/xml; charset=ISO-8859-1", null);
+            post.setRequestEntity(entity);
+            HttpClient httpclient = new HttpClient();
+            int result = httpclient.executeMethod(post);
+            szResponse = post.getResponseBodyAsString();
+            log.debug(OCLS_NM + ".post [" + function + "]  response=" + szResponse);
+        }
+        catch (IOException ioe)
+        {
+            String error = OCLS_NM + ".post [" + function + "] caught IOException=" + ioe;
+            log.error(error);
+            throw new RestException(GlobalErrIds.REST_IO_ERR, error, ioe);
+        }
+        catch (WebApplicationException we)
+        {
+            String error = OCLS_NM + ".post [" + function + "] caught WebApplicationException=" + we;
+            log.error(error);
+            throw new RestException(GlobalErrIds.REST_WEB_ERR, error, we);
+        }
+        finally
+        {
+            // Release current connection to the connection pool.
+            post.releaseConnection();
+        }
+        return szResponse;
+    }
+
+    /**
+     * Perform an HTTP Post REST operation.
+     *
+     * @param szInput
+     * @param function
+     * @return
+     * @throws RestException
+     */
+    public static String post(String szInput, String function) throws RestException
+    {
+        log.debug(OCLS_NM + ".post [" + function + "]  request=" + szInput);
+        String szResponse = null;
+        PostMethod post = new PostMethod(URI + function);
+        post.addRequestHeader("Accept", "text/xml");
+        setMethodHeaders(post, HTTP_UID, HTTP_PW);
         try
         {
             RequestEntity entity = new StringRequestEntity(szInput, "text/xml; charset=ISO-8859-1", null);
