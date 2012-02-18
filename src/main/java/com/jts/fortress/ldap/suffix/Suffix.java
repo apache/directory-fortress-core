@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+* Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
 */
 
 package com.jts.fortress.ldap.suffix;
@@ -30,7 +30,7 @@ package com.jts.fortress.ldap.suffix;
  * </blockquote>
  * </font>
  * <p/>
- * Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  *
  * @author smckinn
  * @created January 21, 2010

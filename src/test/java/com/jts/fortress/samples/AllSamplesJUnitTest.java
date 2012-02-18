@@ -1,5 +1,5 @@
 /*
- * Copyright © McKinney Identity Management Solutions, LLC, 2009-2011 All Rights Reserved. No part of this program may be reproduced without written consent from MIMS.
+ * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  */
 
 package com.jts.fortress.samples;
