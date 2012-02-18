@@ -8,6 +8,14 @@ import com.jts.fortress.rbac.Session;
 
 import javax.xml.bind.annotation.*;
 
+/**
+ * This class is used to pass request data to En Masse server.
+ * </p>
+ * This class is thread safe.
+ *
+ * @author smckinn
+ * @created Feb 10, 2012
+ */
 @XmlRootElement(name = "FortRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "fortRequest", propOrder =

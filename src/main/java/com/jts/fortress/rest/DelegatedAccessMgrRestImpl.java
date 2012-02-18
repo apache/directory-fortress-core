@@ -22,7 +22,7 @@ import java.util.Set;
 
 /**
  * This object implements the ARBAC02 DelegatedAccessMgr interface for performing runtime delegated access control operations on objects that are provisioned Fortress ARBAC entities
- * that reside in LDAP directory.  These APIs map directly to similar named APIs specified by ARBAC02 functions.  The ARBAC Functional specification describes delegated administrative
+ * using HTTP access to En Masse REST server.  These APIs map directly to similar named APIs specified by ARBAC02 functions.  The ARBAC Functional specification describes delegated administrative
  * operations for the creation and maintenance of ARBAC element sets and relations.  Delegated administrative review functions for performing administrative queries
  * and system functions for creating and managing ARBAC attributes on user sessions and making delegated administrative access control decisions.
  *

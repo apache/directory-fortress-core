@@ -18,8 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This object performs searches across <a href="http://www.openldap.org/">OpenLDAP</a>'s slapd access log.  The access log events are
- * persisted in <a href="http://www.oracle.com/technetwork/database/berkeleydb/overview/index.html">BDB</a> and available for inquiry via common LDAP protocols.
+ * This object performs searches across <a href="http://www.openldap.org/">OpenLDAP</a>'s slapd access log using HTTP access to En Masse REST server.
+ * The access log events are
+ * persisted in <a href="http://www.oracle.com/technetwork/database/berkeleydb/overview/index.html">BDB</a>.
  * Audit entries stored on behalf of Fortress operations correspond to runtime authentication {@link com.jts.fortress.audit.Bind}, authorization {@link com.jts.fortress.audit.AuthZ} and modification {@link Mod}
  * events as they occur automatically on the server when audit is enabled.
  * <h4>Audit Interrogator</h4>

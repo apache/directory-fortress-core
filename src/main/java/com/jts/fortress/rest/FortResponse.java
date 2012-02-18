@@ -10,6 +10,14 @@ import javax.xml.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class is used to return response data from En Masse server.
+ * </p>
+ * This class is thread safe.
+ *
+ * @author smckinn
+ * @created Feb 10, 2012
+ */
 @XmlRootElement(name = "FortResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "fortResponse", propOrder =
