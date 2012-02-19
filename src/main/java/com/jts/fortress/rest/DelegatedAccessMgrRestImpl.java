@@ -45,7 +45,7 @@ import java.util.Set;
  */
 public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements DelegatedAccessMgr
 {
-    private static final String OCLS_NM = DelegatedAccessMgrRestImpl.class.getName();
+    private static final String CLS_NM = DelegatedAccessMgrRestImpl.class.getName();
 
     /**
      * This function will determine if the user contains an AdminRole that is authorized assignment control over
@@ -60,7 +60,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
     public boolean canAssign(Session session, User user, Role role)
         throws SecurityException
     {
-        String methodName = OCLS_NM + ".canAssign";
+        String methodName = CLS_NM + ".canAssign";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
@@ -98,7 +98,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
     public boolean canDeassign(Session session, User user, Role role)
         throws SecurityException
     {
-        String methodName = OCLS_NM + ".canDeassign";
+        String methodName = CLS_NM + ".canDeassign";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
@@ -136,7 +136,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
     public boolean canGrant(Session session, Role role, Permission perm)
         throws SecurityException
     {
-        String methodName = OCLS_NM + "canGrant";
+        String methodName = CLS_NM + "canGrant";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OBJECT_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
@@ -176,7 +176,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
     public boolean canRevoke(Session session, Role role, Permission perm)
         throws SecurityException
     {
-        String methodName = OCLS_NM + "canRevoke";
+        String methodName = CLS_NM + "canRevoke";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OBJECT_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
@@ -222,7 +222,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
     public boolean checkAccess(Session session, Permission perm)
         throws SecurityException
     {
-        String methodName = OCLS_NM + ".checkAccess";
+        String methodName = CLS_NM + ".checkAccess";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, methodName);
         VUtil.assertNotNullOrEmpty(perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL, methodName);
         VUtil.assertNotNullOrEmpty(perm.getObjectName(), GlobalErrIds.PERM_OBJECT_NULL, methodName);
@@ -267,7 +267,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
     public void addActiveRole(Session session, UserAdminRole role)
         throws SecurityException
     {
-        String methodName = OCLS_NM + ".addActiveRole";
+        String methodName = CLS_NM + ".addActiveRole";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, methodName);
         FortRequest request = new FortRequest();
@@ -300,7 +300,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
     public void dropActiveRole(Session session, UserAdminRole role)
         throws SecurityException
     {
-        String methodName = OCLS_NM + ".dropActiveRole";
+        String methodName = CLS_NM + ".dropActiveRole";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, methodName);
         FortRequest request = new FortRequest();
@@ -330,7 +330,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
     public List<UserAdminRole> sessionAdminRoles(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionAdminRoles");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionAdminRoles");
         List<UserAdminRole> roles;
         FortRequest request = new FortRequest();
         request.setSession(session);

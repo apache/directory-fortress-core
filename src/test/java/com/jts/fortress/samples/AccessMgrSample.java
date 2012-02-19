@@ -34,8 +34,8 @@ import java.util.List;
  */
 public class AccessMgrSample extends TestCase
 {
-    private static final String OCLS_NM = AccessMgrSample.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = AccessMgrSample.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     public AccessMgrSample(String name)
     {
@@ -67,7 +67,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testCheckAccess()
     {
-        String szLocation = OCLS_NM + ".testCheckAccess";
+        String szLocation = CLS_NM + ".testCheckAccess";
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -103,7 +103,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testSessionPermissions()
     {
-        String szLocation = OCLS_NM + ".testSessionPermissions";
+        String szLocation = CLS_NM + ".testSessionPermissions";
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -141,7 +141,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testSessionRoles()
     {
-        String szLocation = OCLS_NM + ".testSessionRoles";
+        String szLocation = CLS_NM + ".testSessionRoles";
         User inUser = new User(CreateUserSample.TEST_USERID);
         try
         {
@@ -182,7 +182,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testAddActiveRoles()
     {
-        String szLocation = OCLS_NM + ".testAddActiveRoles";
+        String szLocation = CLS_NM + ".testAddActiveRoles";
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -213,7 +213,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testDropActiveRoles()
     {
-        String szLocation = OCLS_NM + ".testDropActiveRoles";
+        String szLocation = CLS_NM + ".testDropActiveRoles";
         User inUser = new User(CreateUserSample.TEST_USERID);
         try
         {
@@ -243,7 +243,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testDisplayUserSession()
     {
-        String szLocation = OCLS_NM + ".testDisplayUserSession";
+        String szLocation = CLS_NM + ".testDisplayUserSession";
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -358,7 +358,7 @@ public class AccessMgrSample extends TestCase
      */
     private static Session createSession(String userId, char[] password, AccessMgr accessMgr)
     {
-        String szLocation = OCLS_NM + ".createSession";
+        String szLocation = CLS_NM + ".createSession";
         Session session = null;
         try
         {
@@ -391,7 +391,7 @@ public class AccessMgrSample extends TestCase
      */
     private static Session createSession(String userId, char[] password, String[] activationRoles, AccessMgr accessMgr)
     {
-        String szLocation = OCLS_NM + ".createSession";
+        String szLocation = CLS_NM + ".createSession";
         Session session = null;
         try
         {
@@ -424,7 +424,7 @@ public class AccessMgrSample extends TestCase
      */
     private static Session authenticate(String userId, char[] password, AccessMgr accessMgr)
     {
-        String szLocation = OCLS_NM + ".authenticate";
+        String szLocation = CLS_NM + ".authenticate";
         Session session = null;
         try
         {

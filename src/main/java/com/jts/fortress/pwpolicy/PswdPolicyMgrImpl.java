@@ -52,7 +52,7 @@ import java.util.List;
  */
 public class PswdPolicyMgrImpl implements PswdPolicyMgr
 {
-    private static final String OCLS_NM = PswdPolicyMgrImpl.class.getName();
+    private static final String CLS_NM = PswdPolicyMgrImpl.class.getName();
     private static final PolicyP policyP = new PolicyP();
 
     // thread unsafe variable:
@@ -74,7 +74,7 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
         if (this.adminSess != null)
         {
             // TODO: TURN IT BACK ON:
-            AdminUtil.setEntitySession(adminSess, new Permission(OCLS_NM, opName), entity);
+            AdminUtil.setEntitySession(adminSess, new Permission(CLS_NM, opName), entity);
         }
     }
 
@@ -89,7 +89,7 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
         throws SecurityException
     {
         String methodName = "add";
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, policy);
         policyP.add(policy);
     }
@@ -106,7 +106,7 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
         throws SecurityException
     {
         String methodName = "update";
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, policy);
         policyP.update(policy);
     }
@@ -124,7 +124,7 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
         throws SecurityException
     {
         String methodName = "delete";
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_NAME_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + "." + methodName);
         policy.setAdminSession(adminSess);
         setEntitySession(methodName, policy);
         policyP.delete(policy);
@@ -143,7 +143,7 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
         throws SecurityException
     {
         String methodName = "read";
-        VUtil.assertNotNullOrEmpty(name, GlobalErrIds.PSWD_NAME_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(name, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + "." + methodName);
         return policyP.read(name);
     }
 
@@ -160,7 +160,7 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
         throws SecurityException
     {
         String methodName = "search";
-        VUtil.assertNotNull(searchVal, GlobalErrIds.PSWD_NAME_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(searchVal, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + "." + methodName);
         return policyP.search(searchVal);
     }
 
@@ -178,8 +178,8 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
         throws SecurityException
     {
         String methodName = "updateUserPolicy";
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNullOrEmpty(policyName, GlobalErrIds.PSWD_NAME_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(policyName, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + "." + methodName);
         UserP up = new UserP();
         User user = new User(userId);
         user.setPwPolicy(policyName);
@@ -202,7 +202,7 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
         throws SecurityException
     {
         String methodName = "deletePasswordPolicy";
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         UserP up = new UserP();
         User user = new User(userId);
         user.setAdminSession(adminSess);

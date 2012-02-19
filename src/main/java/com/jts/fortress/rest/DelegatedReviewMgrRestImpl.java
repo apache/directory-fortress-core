@@ -39,7 +39,7 @@ public class DelegatedReviewMgrRestImpl
     implements DelegatedReviewMgr
 {
     static Session adminSess = null;
-    private static final String OCLS_NM = DelegatedReviewMgrRestImpl.class.getName();
+    private static final String CLS_NM = DelegatedReviewMgrRestImpl.class.getName();
 
     /**
      * Method reads Admin Role entity from the admin role container in directory.
@@ -52,7 +52,7 @@ public class DelegatedReviewMgrRestImpl
     public AdminRole readRole(AdminRole role)
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + ".readRole");
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + ".readRole");
         AdminRole retRole;
         FortRequest request = new FortRequest();
         request.setEntity(role);
@@ -86,7 +86,7 @@ public class DelegatedReviewMgrRestImpl
     public List<AdminRole> findRoles(String searchVal)
         throws SecurityException
     {
-        VUtil.assertNotNull(searchVal, GlobalErrIds.ARLE_NM_NULL, OCLS_NM + ".findRoles");
+        VUtil.assertNotNull(searchVal, GlobalErrIds.ARLE_NM_NULL, CLS_NM + ".findRoles");
         List<AdminRole> retRoles;
         FortRequest request = new FortRequest();
         request.setValue(searchVal);
@@ -119,7 +119,7 @@ public class DelegatedReviewMgrRestImpl
     public List<UserAdminRole> assignedRoles(User user)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".assignedRoles");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".assignedRoles");
         List<UserAdminRole> retUserRoles = null;
         FortRequest request = new FortRequest();
         request.setEntity(user);
@@ -153,7 +153,7 @@ public class DelegatedReviewMgrRestImpl
     public List<User> assignedUsers(AdminRole role)
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + ".assignedUsers");
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + ".assignedUsers");
         List<User> retUsers;
         FortRequest request = new FortRequest();
         request.setEntity(role);
@@ -191,7 +191,7 @@ public class DelegatedReviewMgrRestImpl
     public OrgUnit read(OrgUnit entity)
         throws SecurityException
     {
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + ".readOrgUnit");
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + ".readOrgUnit");
         OrgUnit retOrg;
         FortRequest request = new FortRequest();
         request.setEntity(entity);
@@ -225,8 +225,8 @@ public class DelegatedReviewMgrRestImpl
     public List<OrgUnit> search(OrgUnit.Type type, String searchVal)
         throws SecurityException
     {
-        VUtil.assertNotNullOrEmpty(searchVal, GlobalErrIds.ORG_NULL, OCLS_NM + ".search");
-        VUtil.assertNotNull(type, GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + ".search");
+        VUtil.assertNotNullOrEmpty(searchVal, GlobalErrIds.ORG_NULL, CLS_NM + ".search");
+        VUtil.assertNotNull(type, GlobalErrIds.ORG_TYPE_NULL, CLS_NM + ".search");
         List<OrgUnit> retOrgs;
         FortRequest request = new FortRequest();
         OrgUnit inOrg = new OrgUnit(searchVal, type);

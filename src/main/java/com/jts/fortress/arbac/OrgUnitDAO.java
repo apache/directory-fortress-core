@@ -81,8 +81,8 @@ import java.util.TreeSet;
 public class OrgUnitDAO
 
 {
-    private static final String OCLS_NM = OrgUnitDAO.class.getName();
-    final private static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = OrgUnitDAO.class.getName();
+    final private static Logger log = Logger.getLogger(CLS_NM);
 
     private final static String ORGUNIT_OBJECT_CLASS_NM = "ftOrgUnit";
 
@@ -130,7 +130,7 @@ public class OrgUnitDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".create orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] root [" + dn + "] caught LDAPException=" + e;
+            String error = CLS_NM + ".create orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] root [" + dn + "] caught LDAPException=" + e;
             int errCode;
             if(entity.getType() == OrgUnit.Type.PERM)
             {
@@ -178,7 +178,7 @@ public class OrgUnitDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".update orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] root [" + dn + "] caught LDAPException=" + e;
+            String error = CLS_NM + ".update orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] root [" + dn + "] caught LDAPException=" + e;
             int errCode;
             if(entity.getType() == OrgUnit.Type.PERM)
             {
@@ -218,7 +218,7 @@ public class OrgUnitDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".remove orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] root [" + dn + "] caught LDAPException=" + e;
+            String error = CLS_NM + ".remove orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] root [" + dn + "] caught LDAPException=" + e;
             int errCode;
             if(entity.getType() == OrgUnit.Type.PERM)
             {
@@ -259,7 +259,7 @@ public class OrgUnitDAO
             oe = getEntityFromLdapEntry(findEntry, 0);
             if (entity == null)
             {
-                String warning = OCLS_NM + ".findByKey orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
+                String warning = CLS_NM + ".findByKey orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
                 int errCode;
                 if(entity.getType() == OrgUnit.Type.PERM)
                 {
@@ -277,7 +277,7 @@ public class OrgUnitDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".findByKey orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
+                String warning = CLS_NM + ".findByKey orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
                 int errCode;
                 if(entity.getType() == OrgUnit.Type.PERM)
                 {
@@ -292,7 +292,7 @@ public class OrgUnitDAO
             }
             else
             {
-                String error = OCLS_NM + ".findByKey orgUnitName [" + entity.getName() + "] type [" + entity.getType() + "] dn [" + dn + "] caught LDAPException=" + e;
+                String error = CLS_NM + ".findByKey orgUnitName [" + entity.getName() + "] type [" + entity.getType() + "] dn [" + dn + "] caught LDAPException=" + e;
                 int errCode;
                 if(entity.getType() == OrgUnit.Type.PERM)
                 {
@@ -343,7 +343,7 @@ public class OrgUnitDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".findOrgs search val [" + searchVal + "] type [" + type + "] root [" + orgUnitRoot + "] caught LDAPException=" + e;
+            String error = CLS_NM + ".findOrgs search val [" + searchVal + "] type [" + type + "] root [" + orgUnitRoot + "] caught LDAPException=" + e;
             int errCode;
             if(type == OrgUnit.Type.PERM)
             {
@@ -389,7 +389,7 @@ public class OrgUnitDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".getOrgs type [" + type + "] root [" + orgUnitRoot + "] caught LDAPException=" + e;
+            String error = CLS_NM + ".getOrgs type [" + type + "] root [" + orgUnitRoot + "] caught LDAPException=" + e;
             int errCode;
             if(type == OrgUnit.Type.PERM)
             {
@@ -430,7 +430,7 @@ public class OrgUnitDAO
                 dn = Config.getProperty(GlobalIds.PSU_ROOT);
                 break;
             default:
-                String warning = OCLS_NM + ".getRootDn invalid type";
+                String warning = CLS_NM + ".getRootDn invalid type";
                 log.warn(warning);
                 break;
         }

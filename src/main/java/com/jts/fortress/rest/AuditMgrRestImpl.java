@@ -65,7 +65,7 @@ import java.util.List;
  */
 public class AuditMgrRestImpl implements AuditMgr
 {
-    private static final String OCLS_NM = AuditMgrRestImpl.class.getName();
+    private static final String CLS_NM = AuditMgrRestImpl.class.getName();
     // thread unsafe variable:
     private Session adminSess;
 
@@ -82,7 +82,7 @@ public class AuditMgrRestImpl implements AuditMgr
     public List<AuthZ> getUserAuthZs(UserAudit uAudit)
         throws SecurityException
     {
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + ".getUserAuthZs");
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".getUserAuthZs");
         List<AuthZ> outRecords;
         FortRequest request = new FortRequest();
         request.setEntity(uAudit);
@@ -122,7 +122,7 @@ public class AuditMgrRestImpl implements AuditMgr
     public List<AuthZ> searchAuthZs(UserAudit uAudit)
         throws SecurityException
     {
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + ".searchAuthZs");
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".searchAuthZs");
         List<AuthZ> outRecords;
         FortRequest request = new FortRequest();
         request.setEntity(uAudit);
@@ -161,7 +161,7 @@ public class AuditMgrRestImpl implements AuditMgr
     public List<Bind> searchBinds(UserAudit uAudit)
         throws SecurityException
     {
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + ".searchBinds");
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".searchBinds");
         List<Bind> outRecords;
         FortRequest request = new FortRequest();
         request.setEntity(uAudit);
@@ -199,7 +199,7 @@ public class AuditMgrRestImpl implements AuditMgr
     public List<Mod> searchUserSessions(UserAudit uAudit)
         throws SecurityException
     {
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + ".searchUserSessions");
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".searchUserSessions");
         List<Mod> outRecords;
         FortRequest request = new FortRequest();
         request.setEntity(uAudit);
@@ -238,7 +238,7 @@ public class AuditMgrRestImpl implements AuditMgr
     public List<Mod> searchAdminMods(UserAudit uAudit)
         throws SecurityException
     {
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + ".searchAdminMods");
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".searchAdminMods");
         List<Mod> outRecords;
         FortRequest request = new FortRequest();
         request.setEntity(uAudit);
@@ -281,7 +281,7 @@ public class AuditMgrRestImpl implements AuditMgr
     public List<AuthZ> searchInvalidUsers(UserAudit uAudit)
         throws SecurityException
     {
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + ".searchInvalidUsers");
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".searchInvalidUsers");
         List<AuthZ> outRecords;
         FortRequest request = new FortRequest();
         request.setEntity(uAudit);

@@ -48,8 +48,8 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
  */
 public final class SuffixDAO
 {
-    private static final String OCLS_NM = SuffixDAO.class.getName();
-    final private static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = SuffixDAO.class.getName();
+    final private static Logger log = Logger.getLogger(CLS_NM);
     private final static String DC = "dc";
     private final static String O = "o";
     private final static String[] SUFFIX_OBJ_CLASS = {
@@ -75,7 +75,7 @@ public final class SuffixDAO
         String nodeDn = getDn(se);
         try
         {
-            log.info(OCLS_NM + ".create suffix dn [" + nodeDn + "]");
+            log.info(CLS_NM + ".create suffix dn [" + nodeDn + "]");
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS));
@@ -86,7 +86,7 @@ public final class SuffixDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".create container node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".create container node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new com.jts.fortress.CreateException(GlobalErrIds.SUFX_CREATE_FAILED, error, e);
         }
         finally
@@ -113,7 +113,7 @@ public final class SuffixDAO
     {
         LDAPConnection ld = null;
         String nodeDn = getDn(se);
-        log.info(OCLS_NM + ".remove suffix dn [" + nodeDn + "]");
+        log.info(CLS_NM + ".remove suffix dn [" + nodeDn + "]");
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -121,7 +121,7 @@ public final class SuffixDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".remove suffix node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".remove suffix node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException(GlobalErrIds.SUFX_DELETE_FAILED, error, e);
         }
         finally

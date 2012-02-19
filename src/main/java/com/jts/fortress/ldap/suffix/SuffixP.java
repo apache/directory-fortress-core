@@ -43,8 +43,8 @@ import org.apache.log4j.Logger;
  */
 public class SuffixP
 {
-    private static final String OCLS_NM = SuffixP.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = SuffixP.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     /**
      * Add a new suffix to the Directory Information Tree (DIT).  After added the
@@ -98,26 +98,26 @@ public class SuffixP
         if (entity.getName().length() > GlobalIds.OU_LEN)
         {
             String name = entity.getName();
-            String error = OCLS_NM + ".validate name [" + name + "] invalid length [" + entity.getName().length() + "]";
+            String error = CLS_NM + ".validate name [" + name + "] invalid length [" + entity.getName().length() + "]";
             log.warn(error);
             throw new com.jts.fortress.ValidationException(GlobalErrIds.SUFX_NAME_INVLD, error);
         }
         if (!VUtil.isNotNullOrEmpty(entity.getName()))
         {
-            String error = OCLS_NM + ".validate name validation failed, null or empty value";
+            String error = CLS_NM + ".validate name validation failed, null or empty value";
             log.warn(error);
             throw new com.jts.fortress.ValidationException(GlobalErrIds.SUFX_NAME_NULL, error);
         }
         if (entity.getDc().length() > GlobalIds.OU_LEN)
         {
             String name = entity.getName();
-            String error = OCLS_NM + ".validate dc [" + name + "] invalid length [" + entity.getName().length() + "]";
+            String error = CLS_NM + ".validate dc [" + name + "] invalid length [" + entity.getName().length() + "]";
             log.warn(error);
             throw new com.jts.fortress.ValidationException(GlobalErrIds.SUFX_DCTOP_INVLD, error);
         }
         if (!VUtil.isNotNullOrEmpty(entity.getDc()))
         {
-            String error = OCLS_NM + ".validate dc validation failed, null or empty value";
+            String error = CLS_NM + ".validate dc validation failed, null or empty value";
             log.warn(error);
             throw new com.jts.fortress.ValidationException(GlobalErrIds.SUFX_DCTOP_NULL, error);
         }

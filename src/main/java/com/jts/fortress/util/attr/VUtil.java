@@ -26,8 +26,8 @@ import java.util.Set;
  */
 public class VUtil
 {
-    private static final String OCLS_NM = VUtil.class.getName();
-    private final static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = VUtil.class.getName();
+    private final static Logger log = Logger.getLogger(CLS_NM);
     private static int maximumFieldLen = 130;
     private final static String VALIDATE_LENGTH = "field.length";
 
@@ -72,7 +72,7 @@ public class VUtil
         int length = orgUnitId.length();
         if (length > maxFieldLength)
         {
-            String error = OCLS_NM + ".orgUnit value [" + orgUnitId + "] invalid length [" + length + "]";
+            String error = CLS_NM + ".orgUnit value [" + orgUnitId + "] invalid length [" + length + "]";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.ORG_LEN_INVLD, error);
         }
     }
@@ -89,7 +89,7 @@ public class VUtil
         int length = password.length;
         if (length > GlobalIds.PASSWORD_LEN)
         {
-            String error = OCLS_NM + ".password invalid length [" + length + "]";
+            String error = CLS_NM + ".password invalid length [" + length + "]";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.USER_PW_INVLD_LEN, error);
         }
     }
@@ -106,7 +106,7 @@ public class VUtil
         int length = description.length();
         if (length > GlobalIds.DESC_LEN)
         {
-            String error = OCLS_NM + ".description value [" + description + "] invalid length [" + length + "]";
+            String error = CLS_NM + ".description value [" + description + "] invalid length [" + length + "]";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.CONST_DESC_LEN_INVLD, error);
         }
         RegExUtil.safeText(description);
@@ -124,13 +124,13 @@ public class VUtil
     {
         if (!isNotNullOrEmpty(value))
         {
-            String error = OCLS_NM + ".safeText null value";
+            String error = CLS_NM + ".safeText null value";
             throw new ValidationException(GlobalErrIds.CONST_NULL_TEXT, error);
         }
         int length = value.length();
         if (length > validLen)
         {
-            String error = OCLS_NM + ".safeText value [" + value + "] invalid length [" + length + "]";
+            String error = CLS_NM + ".safeText value [" + value + "] invalid length [" + length + "]";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.CONST_INVLD_FIELD_LEN, error);
         }
         RegExUtil.safeText(value);
@@ -147,13 +147,13 @@ public class VUtil
     {
         if (!isNotNullOrEmpty(userId))
         {
-            String error = OCLS_NM + ".userId validation failed, null or empty value";
+            String error = CLS_NM + ".userId validation failed, null or empty value";
             throw new ValidationException(GlobalErrIds.USER_ID_NULL, error);
         }
         int length = userId.length();
         if (length > GlobalIds.USERID_LEN)
         {
-            String error = OCLS_NM + ".safeText value [" + userId + "] invalid length [" + length + "]";
+            String error = CLS_NM + ".safeText value [" + userId + "] invalid length [" + length + "]";
             throw new ValidationException(GlobalErrIds.CONST_INVLD_FIELD_LEN, error);
         }
     }
@@ -191,7 +191,7 @@ public class VUtil
     {
         if (timeout < 0 || timeout >= Integer.MAX_VALUE)
         {
-            String error = OCLS_NM + ".timeout - invalid timeout value [" + timeout + "]";
+            String error = CLS_NM + ".timeout - invalid timeout value [" + timeout + "]";
             throw new ValidationException(GlobalErrIds.CONST_TIMEOUT_INVLD, error);
         }
     }
@@ -209,13 +209,13 @@ public class VUtil
         {
             if (checkTime(beginTime))
             {
-                String error = OCLS_NM + ".beginTime - invalid beginTime value [" + beginTime + "]";
+                String error = CLS_NM + ".beginTime - invalid beginTime value [" + beginTime + "]";
                 throw new ValidationException(GlobalErrIds.CONST_BEGINTIME_INVLD, error);
             }
         }
         else
         {
-            String error = OCLS_NM + ".beginTime - null or invalid length (must be 4) for beginTime value";
+            String error = CLS_NM + ".beginTime - null or invalid length (must be 4) for beginTime value";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.CONST_BEGINTIME_LEN_ERR, error);
         }
     }
@@ -233,13 +233,13 @@ public class VUtil
         {
             if (checkTime(endTime))
             {
-                String error = OCLS_NM + ".endTime - invalid endTime value [" + endTime + "]";
+                String error = CLS_NM + ".endTime - invalid endTime value [" + endTime + "]";
                 throw new com.jts.fortress.ValidationException(GlobalErrIds.CONST_ENDTIME_INVLD, error);
             }
         }
         else
         {
-            String error = OCLS_NM + ".endTime - null or invalid length (must be 4) for endTime value";
+            String error = CLS_NM + ".endTime - null or invalid length (must be 4) for endTime value";
             throw new com.jts.fortress.ValidationException(com.jts.fortress.constants.GlobalErrIds.CONST_ENDTIME_LEN_ERR, error);
         }
     }
@@ -259,14 +259,14 @@ public class VUtil
             {
                 if (beginDate.length() != DATE_LEN || checkDate(beginDate))
                 {
-                    String error = OCLS_NM + ".beginDate - invalid beginDate value [" + beginDate + "]";
+                    String error = CLS_NM + ".beginDate - invalid beginDate value [" + beginDate + "]";
                     throw new com.jts.fortress.ValidationException(GlobalErrIds.CONST_BEGINDATE_INVLD, error);
                 }
             }
         }
         else
         {
-            String error = OCLS_NM + ".beginDate - null or empty beginDate value";
+            String error = CLS_NM + ".beginDate - null or empty beginDate value";
             throw new ValidationException(GlobalErrIds.CONST_BEGINDATE_NULL, error);
         }
     }
@@ -286,14 +286,14 @@ public class VUtil
             {
                 if (endDate.length() != DATE_LEN || checkDate(endDate))
                 {
-                    String error = OCLS_NM + ".endDate - invalid endDate value [" + endDate + "]";
+                    String error = CLS_NM + ".endDate - invalid endDate value [" + endDate + "]";
                     throw new ValidationException(GlobalErrIds.CONST_ENDDATE_INVLD, error);
                 }
             }
         }
         else
         {
-            String error = OCLS_NM + ".endDate - null or empty endDate value";
+            String error = CLS_NM + ".endDate - null or empty endDate value";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.CONST_ENDDATE_NULL, error);
         }
     }
@@ -313,14 +313,14 @@ public class VUtil
             {
                 if (dayMask.length() > DAYMASK_LEN || checkMask(dayMask))
                 {
-                    String error = OCLS_NM + ".dayMask - invalid dayMask value [" + dayMask + "]";
+                    String error = CLS_NM + ".dayMask - invalid dayMask value [" + dayMask + "]";
                     throw new ValidationException(GlobalErrIds.CONST_DAYMASK_INVLD, error);
                 }
             }
         }
         else
         {
-            String error = OCLS_NM + ".dayMask - null or empty dayMask value";
+            String error = CLS_NM + ".dayMask - null or empty dayMask value";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.CONST_DAYMASK_NULL, error);
         }
     }
@@ -342,7 +342,7 @@ public class VUtil
         catch (ParseException pe)
         {
             fail = true;
-            String error = OCLS_NM + ".checkTime - time [" + time + "] failed validation with ParseException=" + pe;
+            String error = CLS_NM + ".checkTime - time [" + time + "] failed validation with ParseException=" + pe;
             log.warn(error);
         }
 
@@ -367,7 +367,7 @@ public class VUtil
         catch (ParseException pe)
         {
             fail = true;
-            String error = OCLS_NM + ".checkDate - date [" + date + "] failed validation with ParseException=" + pe;
+            String error = CLS_NM + ".checkDate - date [" + date + "] failed validation with ParseException=" + pe;
             log.warn(error);
         }
 
@@ -387,7 +387,7 @@ public class VUtil
             if (ch < SUNDAY || ch > SATURDAY)
             {
                 fail = true;
-                String error = OCLS_NM + ".checkMask - mask [" + mask + "] failed validation";
+                String error = CLS_NM + ".checkMask - mask [" + mask + "] failed validation";
                 log.warn(error);
             }
         }
@@ -407,7 +407,7 @@ public class VUtil
     {
         if (obj == null)
         {
-            String error = OCLS_NM + ".assertNotNull detected null entity for method [" + method + "], error code [" + errorCode + "]";
+            String error = CLS_NM + ".assertNotNull detected null entity for method [" + method + "], error code [" + errorCode + "]";
             throw new ValidationException(errorCode, error);
         }
     }
@@ -424,7 +424,7 @@ public class VUtil
     {
         if (value == null || value.length() == 0)
         {
-            String error = OCLS_NM + ".assertNotNull detected null entity for method [" + method + "], error code [" + errorCode + "]";
+            String error = CLS_NM + ".assertNotNull detected null entity for method [" + method + "], error code [" + errorCode + "]";
             throw new com.jts.fortress.ValidationException(errorCode, error);
         }
     }
@@ -441,7 +441,7 @@ public class VUtil
     {
         if (value == null || value.length == 0)
         {
-            String error = OCLS_NM + ".assertNotNull detected null entity for method [" + method + "], error code [" + errorCode + "]";
+            String error = CLS_NM + ".assertNotNull detected null entity for method [" + method + "], error code [" + errorCode + "]";
             throw new com.jts.fortress.ValidationException(errorCode, error);
         }
     }
@@ -566,7 +566,7 @@ public class VUtil
             int length = value.length();
             if (length > validLen)
             {
-                String error = OCLS_NM + ".encodeSafeText value [" + value + "] invalid length [" + length + "]";
+                String error = CLS_NM + ".encodeSafeText value [" + value + "] invalid length [" + length + "]";
                 throw new LDAPException(error, LDAPException.PARAM_ERROR);
             }
             if (GlobalIds.LDAP_FILTER_SIZE_FOUND)

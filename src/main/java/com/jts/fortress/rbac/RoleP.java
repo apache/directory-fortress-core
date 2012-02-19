@@ -35,7 +35,7 @@ import com.jts.fortress.util.attr.VUtil;
  */
 public final class RoleP
 {
-    private static final String OCLS_NM = RoleP.class.getName();
+    private static final String CLS_NM = RoleP.class.getName();
     private static final RoleDAO rDao = new RoleDAO();
 
     /**
@@ -186,7 +186,7 @@ public final class RoleP
         }
         catch (FinderException fe)
         {
-            String error = OCLS_NM + ".removeOccupant userDn [" + userDn + "] caught FinderException=" + fe;
+            String error = CLS_NM + ".removeOccupant userDn [" + userDn + "] caught FinderException=" + fe;
             throw new SecurityException(GlobalErrIds.ROLE_REMOVE_OCCUPANT_FAILED, error, fe);
         }
     }

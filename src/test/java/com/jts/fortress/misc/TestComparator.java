@@ -15,8 +15,8 @@ import java.util.TreeMap;
 public class TestComparator
 {
 
-    private static final String OCLS_NM = TestComparator.class.getName();
-    final protected static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = TestComparator.class.getName();
+    final protected static Logger log = Logger.getLogger(CLS_NM);
     private Map<String, String> members;
 
     /**
@@ -26,13 +26,13 @@ public class TestComparator
      */
     public static void main(String[] args)
     {
-        log.info(OCLS_NM + ".main Test #args=" + args.length);
+        log.info(CLS_NM + ".main Test #args=" + args.length);
         int i = 0;
         TestComparator tc = new TestComparator();
 
         for (String arg : args)
         {
-            log.info(OCLS_NM + ".main add[" + i++ + "]=" + arg);
+            log.info(CLS_NM + ".main add[" + i++ + "]=" + arg);
             //tc.addMember(arg);
             tc.addMember(arg.toUpperCase());
         }
@@ -44,18 +44,18 @@ public class TestComparator
         i = 0;
         for (String arg : args)
         {
-            log.info(OCLS_NM + ".main remove[" + i++ + "]=" + arg);
+            log.info(CLS_NM + ".main remove[" + i++ + "]=" + arg);
             String mem = tc.getMember(arg);
             boolean result = tc.isContained(arg);
 
-            log.info(OCLS_NM + ".main mem[" + i + "]=" + mem);
-            log.info(OCLS_NM + ".main result[" + i + "]=" + result);
+            log.info(CLS_NM + ".main mem[" + i + "]=" + mem);
+            log.info(CLS_NM + ".main result[" + i + "]=" + result);
 
             mem = tc.getMember(arg.toUpperCase());
             result = tc.isContained(arg.toUpperCase());
 
-            log.info(OCLS_NM + ".main mem2[" + i + "]=" + mem);
-            log.info(OCLS_NM + ".main result2[" + i + "]=" + result);
+            log.info(CLS_NM + ".main mem2[" + i + "]=" + mem);
+            log.info(CLS_NM + ".main result2[" + i + "]=" + result);
         }
 
 

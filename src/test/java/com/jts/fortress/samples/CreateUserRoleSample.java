@@ -26,8 +26,8 @@ import java.util.List;
  */
 public class CreateUserRoleSample extends TestCase
 {
-    private static final String OCLS_NM = CreateUserRoleSample.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = CreateUserRoleSample.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     /**
      *
@@ -59,7 +59,7 @@ public class CreateUserRoleSample extends TestCase
      */
     public static void testDeassignRoles()
     {
-        String szLocation = OCLS_NM + ".testDeassignRoles";
+        String szLocation = CLS_NM + ".testDeassignRoles";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -104,7 +104,7 @@ public class CreateUserRoleSample extends TestCase
      */
     public static void testAssignComplexRole()
     {
-        String szLocation = OCLS_NM + ".testAssignComplexRole";
+        String szLocation = CLS_NM + ".testAssignComplexRole";
 
         // The key for User entity is the userId attribute.
         User inUser = new User(CreateUserSample.TEST_USERID);

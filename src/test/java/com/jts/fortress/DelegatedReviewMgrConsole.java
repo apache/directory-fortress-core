@@ -20,8 +20,8 @@ import java.util.List;
 public class DelegatedReviewMgrConsole
 {
     private DelegatedReviewMgr rm;
-    private static final String OCLS_NM = DelegatedReviewMgrConsole.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = DelegatedReviewMgrConsole.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     /**
      * Constructor for the ReviewMgrConsole object
@@ -34,7 +34,7 @@ public class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -68,7 +68,7 @@ public class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".readRole caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".readRole caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -104,7 +104,7 @@ public class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".findRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".findRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -137,7 +137,7 @@ public class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".assignedUsers caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".assignedUsers caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -169,7 +169,7 @@ public class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".assignedRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".assignedRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

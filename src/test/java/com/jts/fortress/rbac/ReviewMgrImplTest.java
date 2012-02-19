@@ -29,8 +29,8 @@ import java.util.Set;
  */
 public class ReviewMgrImplTest extends TestCase
 {
-    private static final String OCLS_NM = ReviewMgrImplTest.class.getName();
-    final protected static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = ReviewMgrImplTest.class.getName();
+    final protected static Logger log = Logger.getLogger(CLS_NM);
     static Session adminSess = null;
 
     public ReviewMgrImplTest(String name)
@@ -121,13 +121,13 @@ public class ReviewMgrImplTest extends TestCase
                     Permission entity = reviewMgr.readPermission(pOp);
                     assertNotNull(entity);
                     PermTestData.assertEquals(PermTestData.getName(objs), entity, ops);
-                    log.debug(OCLS_NM + ".readPermissionOps object name [" + pOp.getObjectName() + "] operation name [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] successful");
+                    log.debug(CLS_NM + ".readPermissionOps object name [" + pOp.getObjectName() + "] operation name [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] successful");
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".readPermissionOps object name [" + pOp.getObjectName() + "] operation name [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage() + ex);
+            log.error(CLS_NM + ".readPermissionOps object name [" + pOp.getObjectName() + "] operation name [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage() + ex);
             fail(ex.getMessage());
         }
     }
@@ -161,7 +161,7 @@ public class ReviewMgrImplTest extends TestCase
                     pOp.setOpName(srchValue);
                     List<Permission> ops = reviewMgr.findPermissions(pOp);
                     assertNotNull(ops);
-                    assertTrue(OCLS_NM + "searchPermissionOps srchValue [" + srchValue + "] list size check", pOpArray.length == ops.size());
+                    assertTrue(CLS_NM + "searchPermissionOps srchValue [" + srchValue + "] list size check", pOpArray.length == ops.size());
 
                     int indx = ops.indexOf(new Permission(PermTestData.getName(obj), PermTestData.getName(op)));
                     if (indx != -1)
@@ -169,11 +169,11 @@ public class ReviewMgrImplTest extends TestCase
                         Permission entity = ops.get(indx);
                         assertNotNull(entity);
                         PermTestData.assertEquals(PermTestData.getName(obj), entity, op);
-                        log.debug(OCLS_NM + ".searchPermissionOps objectName [" + entity.getObjectName() + "] operation name [" + entity.getOpName() + "] successful");
+                        log.debug(CLS_NM + ".searchPermissionOps objectName [" + entity.getObjectName() + "] operation name [" + entity.getOpName() + "] successful");
                     }
                     else
                     {
-                        msg = OCLS_NM + ".searchPermissionOps srchValue [" + srchValue + "] failed list search";
+                        msg = CLS_NM + ".searchPermissionOps srchValue [" + srchValue + "] failed list search";
                         LogUtil.logIt(msg);
                         fail(msg);
                     }
@@ -182,7 +182,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".searchPermissionOps srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchPermissionOps srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -214,12 +214,12 @@ public class ReviewMgrImplTest extends TestCase
                 PermObj entity = reviewMgr.readPermObj(pObj);
                 assertNotNull(entity);
                 PermTestData.assertEquals(entity, objs);
-                log.debug(OCLS_NM + ".readPermissionObjs object name [" + pObj.getObjectName() + "] successful");
+                log.debug(CLS_NM + ".readPermissionObjs object name [" + pObj.getObjectName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".readPermissionOps object name [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage() + ex);
+            log.error(CLS_NM + ".readPermissionOps object name [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage() + ex);
             fail(ex.getMessage());
         }
     }
@@ -246,7 +246,7 @@ public class ReviewMgrImplTest extends TestCase
             ReviewMgr reviewMgr = getManagedReviewMgr();
             List<PermObj> objs = reviewMgr.findPermObjs(new PermObj(srchValue));
             assertNotNull(objs);
-            assertTrue(OCLS_NM + "searchPermissionObjs srchValue [" + srchValue + "] list size check", pArray.length == objs.size());
+            assertTrue(CLS_NM + "searchPermissionObjs srchValue [" + srchValue + "] list size check", pArray.length == objs.size());
             for (String[] obj : pArray)
             {
                 int indx = objs.indexOf(new PermObj(PermTestData.getName(obj)));
@@ -255,11 +255,11 @@ public class ReviewMgrImplTest extends TestCase
                     PermObj entity = objs.get(indx);
                     assertNotNull(entity);
                     PermTestData.assertEquals(entity, obj);
-                    log.debug(OCLS_NM + ".searchPermissionObjs [" + entity.getObjectName() + "] successful");
+                    log.debug(CLS_NM + ".searchPermissionObjs [" + entity.getObjectName() + "] successful");
                 }
                 else
                 {
-                    msg = OCLS_NM + ".searchPermissionObjs srchValue [" + srchValue + "] failed list search";
+                    msg = CLS_NM + ".searchPermissionObjs srchValue [" + srchValue + "] failed list search";
                     LogUtil.logIt(msg);
                     fail(msg);
                 }
@@ -267,7 +267,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".searchPermissionObjs srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchPermissionObjs srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -296,12 +296,12 @@ public class ReviewMgrImplTest extends TestCase
             {
                 Role entity = reviewMgr.readRole(new Role(RoleTestData.getName(rle)));
                 RoleTestData.assertEquals(entity, rle);
-                log.debug(OCLS_NM + ".readRoles [" + entity.getName() + "] successful");
+                log.debug(CLS_NM + ".readRoles [" + entity.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".readRoles caught SecurityException=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".readRoles caught SecurityException=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -334,7 +334,7 @@ public class ReviewMgrImplTest extends TestCase
             ReviewMgr reviewMgr = getManagedReviewMgr();
             List<Role> roles = reviewMgr.findRoles(srchValue);
             assertNotNull(roles);
-            assertTrue(OCLS_NM + "searchRoles list size check", rArray.length == roles.size());
+            assertTrue(CLS_NM + "searchRoles list size check", rArray.length == roles.size());
             for (String[] rle : rArray)
             {
                 int indx = roles.indexOf(new Role(RoleTestData.getName(rle)));
@@ -343,11 +343,11 @@ public class ReviewMgrImplTest extends TestCase
                     Role entity = roles.get(indx);
                     assertNotNull(entity);
                     RoleTestData.assertEquals(entity, rle);
-                    log.debug(OCLS_NM + ".searchRoles [" + entity.getName() + "] successful");
+                    log.debug(CLS_NM + ".searchRoles [" + entity.getName() + "] successful");
                 }
                 else
                 {
-                    msg = OCLS_NM + ".searchRoles srchValue [" + srchValue + "] failed list search";
+                    msg = CLS_NM + ".searchRoles srchValue [" + srchValue + "] failed list search";
                     LogUtil.logIt(msg);
                     fail(msg);
                 }
@@ -355,7 +355,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".searchRoles srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchRoles srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -393,12 +393,12 @@ public class ReviewMgrImplTest extends TestCase
                 User entity = reviewMgr.readUser(new User(UserTestData.getUserId(usr)));
                 assertNotNull(entity);
                 UserTestData.assertEquals(entity, usr);
-                log.debug(OCLS_NM + ".readUsers userId [" + entity.getUserId() + "] successful");
+                log.debug(CLS_NM + ".readUsers userId [" + entity.getUserId() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".readUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".readUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -434,7 +434,7 @@ public class ReviewMgrImplTest extends TestCase
             ReviewMgr reviewMgr = getManagedReviewMgr();
             List<User> users = reviewMgr.findUsers(new User(srchValue));
             assertNotNull(users);
-            assertTrue(OCLS_NM + "searchUsers list size check", uArray.length == users.size());
+            assertTrue(CLS_NM + "searchUsers list size check", uArray.length == users.size());
             for (String[] usr : uArray)
             {
                 int indx = users.indexOf(new User(UserTestData.getUserId(usr)));
@@ -443,11 +443,11 @@ public class ReviewMgrImplTest extends TestCase
                     User entity = users.get(indx);
                     assertNotNull(entity);
                     UserTestData.assertEquals(entity, usr);
-                    log.debug(OCLS_NM + ".searchUsers userId [" + entity.getUserId() + "] successful");
+                    log.debug(CLS_NM + ".searchUsers userId [" + entity.getUserId() + "] successful");
                 }
                 else
                 {
-                    msg = OCLS_NM + ".searchUsers srchValue [" + srchValue + "] failed list search";
+                    msg = CLS_NM + ".searchUsers srchValue [" + srchValue + "] failed list search";
                     LogUtil.logIt(msg);
                     fail(msg);
                 }
@@ -455,7 +455,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".searchUsers srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchUsers srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -486,7 +486,7 @@ public class ReviewMgrImplTest extends TestCase
                 User user = reviewMgr.readUser(new User(UserTestData.getUserId(usr)));
                 assertNotNull(user);
                 List<UserRole> uRoles = reviewMgr.assignedRoles(user);
-                assertTrue(OCLS_NM + "assignedRoles list size check", rArray.length == uRoles.size());
+                assertTrue(CLS_NM + "assignedRoles list size check", rArray.length == uRoles.size());
                 for (String[] url : rArray)
                 {
                     int indx = uRoles.indexOf(RoleTestData.getUserRole(UserTestData.getUserId(usr), url));
@@ -495,11 +495,11 @@ public class ReviewMgrImplTest extends TestCase
                         UserRole uRole = uRoles.get(indx);
                         assertNotNull(uRole);
                         RoleTestData.assertEquals(UserTestData.getUserId(usr), uRole, url);
-                        log.debug(OCLS_NM + ".assignedRoles userId [" + uRole.getUserId() + "] role [" + uRole.getName() + "] successful");
+                        log.debug(CLS_NM + ".assignedRoles userId [" + uRole.getUserId() + "] role [" + uRole.getName() + "] successful");
                     }
                     else
                     {
-                        msg = OCLS_NM + ".assignedRoles userId [" + user.getUserId() + "] role [" + RoleTestData.getName(url) + "] failed list search";
+                        msg = CLS_NM + ".assignedRoles userId [" + user.getUserId() + "] role [" + RoleTestData.getName(url) + "] failed list search";
                         LogUtil.logIt(msg);
                         fail(msg);
                     }
@@ -508,7 +508,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".assignedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -558,18 +558,18 @@ public class ReviewMgrImplTest extends TestCase
                 assertTrue(actualRoles.size() > 0);
 
                 // The two list sizes better match or fail the test case.
-                assertTrue(OCLS_NM + "authorizedRoles list size test case", authZRoles.size() == actualRoles.size());
+                assertTrue(CLS_NM + "authorizedRoles list size test case", authZRoles.size() == actualRoles.size());
 
                 // For each authorized role found in User test data, check to see if it was found in LDAP for User.  If not fail the test case.
                 for (String roleName : authZRoles)
                 {
-                    assertTrue(OCLS_NM + ".authorizedRoles userId [" + user.getUserId() + "] role [" + roleName + "] not found", actualRoles.contains(roleName));
+                    assertTrue(CLS_NM + ".authorizedRoles userId [" + user.getUserId() + "] role [" + roleName + "] not found", actualRoles.contains(roleName));
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".assignedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -597,8 +597,8 @@ public class ReviewMgrImplTest extends TestCase
             {
                 List<User> users = reviewMgr.authorizedUsers(new Role(RoleTestData.getName(rle)));
                 assertNotNull(users);
-                //log.debug(OCLS_NM + "authorizedUsers list source size=" + uArray.length + " ldap size="  + users.size());
-                assertTrue(OCLS_NM + "authorizedUsers list size check", uArray.length == users.size());
+                //log.debug(CLS_NM + "authorizedUsers list source size=" + uArray.length + " ldap size="  + users.size());
+                assertTrue(CLS_NM + "authorizedUsers list size check", uArray.length == users.size());
                 for (String[] usr : uArray)
                 {
                     int indx = users.indexOf(UserTestData.getUser(usr));
@@ -607,11 +607,11 @@ public class ReviewMgrImplTest extends TestCase
                         User user = users.get(indx);
                         assertNotNull(user);
                         UserTestData.assertEquals(user, usr);
-                        log.debug(OCLS_NM + ".authorizedUsers role name [" + RoleTestData.getName(rle) + "] userId [" + user.getUserId() + "] successful");
+                        log.debug(CLS_NM + ".authorizedUsers role name [" + RoleTestData.getName(rle) + "] userId [" + user.getUserId() + "] successful");
                     }
                     else
                     {
-                        msg = OCLS_NM + ".authorizedUsers role [" + RoleTestData.getName(rle) + "] user [" + UserTestData.getUserId(usr) + "] failed list search";
+                        msg = CLS_NM + ".authorizedUsers role [" + RoleTestData.getName(rle) + "] user [" + UserTestData.getUserId(usr) + "] failed list search";
                         LogUtil.logIt(msg);
                         fail(msg);
                     }
@@ -620,7 +620,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".authorizedUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authorizedUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -661,19 +661,19 @@ public class ReviewMgrImplTest extends TestCase
                 assertTrue(actualUsers.size() > 0);
 
                 // Ensure the two list sizes match or fail the test case.
-                assertTrue(OCLS_NM + "authorizedUsersHier failed list size test case", userSet.size() == actualUsers.size());
+                assertTrue(CLS_NM + "authorizedUsersHier failed list size test case", userSet.size() == actualUsers.size());
 
                 // for each valid user expected, ensure it actually pulled from API:
                 for (String userId : userSet)
                 {
                     User validUser = new User(userId);
-                    assertTrue(OCLS_NM + ".authorizedUsersHier failed authorizedUsers test, role [" + roleName + "] does not have user [" + validUser.getUserId() + "] as authorized", actualUsers.contains(validUser));
+                    assertTrue(CLS_NM + ".authorizedUsersHier failed authorizedUsers test, role [" + roleName + "] does not have user [" + validUser.getUserId() + "] as authorized", actualUsers.contains(validUser));
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".authorizedUsersHier caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authorizedUsersHier caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -701,7 +701,7 @@ public class ReviewMgrImplTest extends TestCase
                 Role role = RoleTestData.getRole(rle);
                 List<Permission> perms = reviewMgr.rolePermissions(role);
                 assertNotNull(perms);
-                assertTrue(OCLS_NM + "rolePermissions list size check", pOpArray.length * pObjArray.length == perms.size());
+                assertTrue(CLS_NM + "rolePermissions list size check", pOpArray.length * pObjArray.length == perms.size());
                 for (String[] obj : pObjArray)
                 {
                     for (String[] op : pOpArray)
@@ -712,11 +712,11 @@ public class ReviewMgrImplTest extends TestCase
                             Permission pOp = perms.get(indx);
                             assertNotNull(pOp);
                             PermTestData.assertEquals(PermTestData.getName(obj), pOp, op);
-                            log.debug(OCLS_NM + ".rolePermissions role name [" + role.getName() + "] perm objectName [" + PermTestData.getName(obj) + "] operationName [" + PermTestData.getName(op) + "] successful");
+                            log.debug(CLS_NM + ".rolePermissions role name [" + role.getName() + "] perm objectName [" + PermTestData.getName(obj) + "] operationName [" + PermTestData.getName(op) + "] successful");
                         }
                         else
                         {
-                            msg = OCLS_NM + ".rolePermissions role name [" + role.getName() + "] perm objectName [" + PermTestData.getName(obj) + "] operationName [" + PermTestData.getName(op) + "] failed list search";
+                            msg = CLS_NM + ".rolePermissions role name [" + role.getName() + "] perm objectName [" + PermTestData.getName(obj) + "] operationName [" + PermTestData.getName(op) + "] failed list search";
                             LogUtil.logIt(msg);
                             fail(msg);
                         }
@@ -726,7 +726,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".rolePermissions caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".rolePermissions caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -760,19 +760,19 @@ public class ReviewMgrImplTest extends TestCase
                     pOp.setObjectId(PermTestData.getObjectId(op));
                     List<String> roles = reviewMgr.permissionRoles(pOp);
                     assertNotNull(roles);
-                    assertTrue(OCLS_NM + "permissionRoles permission object [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", rArray.length == roles.size());
+                    assertTrue(CLS_NM + "permissionRoles permission object [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", rArray.length == roles.size());
                     for (String[] rle : rArray)
                     {
                         int indx = roles.indexOf(RoleTestData.getName(rle));
                         if (indx != -1)
                         {
                             String roleNm = roles.get(indx);
-                            assertEquals(OCLS_NM + ".permissionRoles failed compare role name", RoleTestData.getName(rle), roleNm);
-                            log.debug(OCLS_NM + ".permissionRoles permission objectName [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] roleNm [" + roleNm + "] successful");
+                            assertEquals(CLS_NM + ".permissionRoles failed compare role name", RoleTestData.getName(rle), roleNm);
+                            log.debug(CLS_NM + ".permissionRoles permission objectName [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] roleNm [" + roleNm + "] successful");
                         }
                         else
                         {
-                            msg = OCLS_NM + ".permissionRoles permission objectName [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] role [" + RoleTestData.getName(rle) + "] failed list search";
+                            msg = CLS_NM + ".permissionRoles permission objectName [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] role [" + RoleTestData.getName(rle) + "] failed list search";
                             LogUtil.logIt(msg);
                             fail(msg);
                         }
@@ -782,7 +782,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".permissionRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".permissionRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -822,18 +822,18 @@ public class ReviewMgrImplTest extends TestCase
                     Set<String> roles = reviewMgr.authorizedPermissionRoles(pOp);
                     assertNotNull(roles);
                     int expectedAuthZedRoles = i + 1;
-                    assertTrue(OCLS_NM + "authorizedPermissionRoles permission object [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", expectedAuthZedRoles == roles.size());
+                    assertTrue(CLS_NM + "authorizedPermissionRoles permission object [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", expectedAuthZedRoles == roles.size());
                     int j = 1;
                     for (String[] rle : rArray)
                     {
                         String roleName = RoleTestData.getName(rle);
                         if(j++ <= expectedAuthZedRoles)
                         {
-                            assertTrue(OCLS_NM + "authorizedPermissionRoles roleName [" + roleName + "] should be authorized for operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", roles.contains(roleName));
+                            assertTrue(CLS_NM + "authorizedPermissionRoles roleName [" + roleName + "] should be authorized for operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", roles.contains(roleName));
                         }
                         else
                         {
-                            assertTrue(OCLS_NM + "authorizedPermissionRoles roleName [" + roleName + "] should not be authorized for operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", !roles.contains(roleName));
+                            assertTrue(CLS_NM + "authorizedPermissionRoles roleName [" + roleName + "] should not be authorized for operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", !roles.contains(roleName));
                         }
                     }
                     i++;
@@ -842,7 +842,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".authorizedPermissionRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authorizedPermissionRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -876,19 +876,19 @@ public class ReviewMgrImplTest extends TestCase
                     pOp.setObjectId(PermTestData.getObjectId(op));
                     List<String> users = reviewMgr.permissionUsers(pOp);
                     assertNotNull(users);
-                    assertTrue(OCLS_NM + "permissionUsers permission object [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", uArray.length == users.size());
+                    assertTrue(CLS_NM + "permissionUsers permission object [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", uArray.length == users.size());
                     for (String[] usr : uArray)
                     {
                         int indx = users.indexOf(RoleTestData.getName(usr));
                         if (indx != -1)
                         {
                             String userId = users.get(indx);
-                            assertEquals(OCLS_NM + ".permissionUsers failed compare userId", UserTestData.getUserId(usr), userId);
-                            log.debug(OCLS_NM + ".permissionUsers permission objectName [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] userId [" + userId + "] successful");
+                            assertEquals(CLS_NM + ".permissionUsers failed compare userId", UserTestData.getUserId(usr), userId);
+                            log.debug(CLS_NM + ".permissionUsers permission objectName [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] userId [" + userId + "] successful");
                         }
                         else
                         {
-                            msg = OCLS_NM + ".permissionUsers permission objectName [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] userId [" + UserTestData.getUserId(usr) + "] failed list search";
+                            msg = CLS_NM + ".permissionUsers permission objectName [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] userId [" + UserTestData.getUserId(usr) + "] failed list search";
                             LogUtil.logIt(msg);
                             fail(msg);
                         }
@@ -898,7 +898,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".permissionUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".permissionUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -938,18 +938,18 @@ public class ReviewMgrImplTest extends TestCase
                     Set<String> users = reviewMgr.authorizedPermissionUsers(pOp);
                     assertNotNull(users);
                     int expectedAuthZedUsers = i + 1;
-                    assertTrue(OCLS_NM + "authorizedPermissionUsers permission object [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", expectedAuthZedUsers == users.size());
+                    assertTrue(CLS_NM + "authorizedPermissionUsers permission object [" + pOp.getObjectName() + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", expectedAuthZedUsers == users.size());
                     int j = 1;
                     for (String[] usr : uArray)
                     {
                         String userId = UserTestData.getUserId(usr);
                         if(j++ <= expectedAuthZedUsers)
                         {
-                            assertTrue(OCLS_NM + "authorizedPermissionUsers userId [" + userId + "] should be authorized for operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", users.contains(userId));
+                            assertTrue(CLS_NM + "authorizedPermissionUsers userId [" + userId + "] should be authorized for operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", users.contains(userId));
                         }
                         else
                         {
-                            assertTrue(OCLS_NM + "authorizedPermissionUsers userId [" + userId + "] should not be authorized for operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", !users.contains(userId));
+                            assertTrue(CLS_NM + "authorizedPermissionUsers userId [" + userId + "] should not be authorized for operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]", !users.contains(userId));
                         }
                     }
                     i++;
@@ -958,7 +958,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".authorizedPermissionUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authorizedPermissionUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -988,7 +988,7 @@ public class ReviewMgrImplTest extends TestCase
                 User user = UserTestData.getUser(usr);
                 List<Permission> perms = reviewMgr.userPermissions(user);
                 assertNotNull(perms);
-                assertTrue(OCLS_NM + "userPermissions list size check", pOpArray.length * pObjArray.length == perms.size());
+                assertTrue(CLS_NM + "userPermissions list size check", pOpArray.length * pObjArray.length == perms.size());
                 for (String[] obj : pObjArray)
                 {
                     for (String[] op : pOpArray)
@@ -999,11 +999,11 @@ public class ReviewMgrImplTest extends TestCase
                             Permission pOp = perms.get(indx);
                             assertNotNull(pOp);
                             PermTestData.assertEquals(PermTestData.getName(obj), pOp, op);
-                            log.debug(OCLS_NM + ".userPermissions userId [" + user.getUserId() + "] perm objectName [" + PermTestData.getName(obj) + "] operationName [" + PermTestData.getName(op) + "] successful");
+                            log.debug(CLS_NM + ".userPermissions userId [" + user.getUserId() + "] perm objectName [" + PermTestData.getName(obj) + "] operationName [" + PermTestData.getName(op) + "] successful");
                         }
                         else
                         {
-                            msg = OCLS_NM + ".userPermissions userId [" + user.getUserId() + "] perm objectName [" + PermTestData.getName(obj) + "] operationName [" + PermTestData.getName(op) + "] failed list search";
+                            msg = CLS_NM + ".userPermissions userId [" + user.getUserId() + "] perm objectName [" + PermTestData.getName(obj) + "] operationName [" + PermTestData.getName(op) + "] failed list search";
                             LogUtil.logIt(msg);
                             fail(msg);
                         }
@@ -1013,7 +1013,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".userPermissions caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".userPermissions caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1041,7 +1041,7 @@ public class ReviewMgrImplTest extends TestCase
             ReviewMgr reviewMgr = getManagedReviewMgr();
             List<String> roles = reviewMgr.findRoles(srchValue, rArray.length);
             assertNotNull(roles);
-            assertTrue(OCLS_NM + "searchRolesNms list size check", rArray.length == roles.size());
+            assertTrue(CLS_NM + "searchRolesNms list size check", rArray.length == roles.size());
             for (String[] rle : rArray)
             {
                 int indx = roles.indexOf(RoleTestData.getName(rle));
@@ -1049,11 +1049,11 @@ public class ReviewMgrImplTest extends TestCase
                 {
                     String roleNm = roles.get(indx);
                     assertNotNull(roleNm);
-                    assertEquals(OCLS_NM + ".searchRolesNms failed compare role name", RoleTestData.getName(rle), roleNm);
+                    assertEquals(CLS_NM + ".searchRolesNms failed compare role name", RoleTestData.getName(rle), roleNm);
                 }
                 else
                 {
-                    msg = OCLS_NM + ".searchRolesNms srchValue [" + srchValue + "] failed list search";
+                    msg = CLS_NM + ".searchRolesNms srchValue [" + srchValue + "] failed list search";
                     LogUtil.logIt(msg);
                     fail(msg);
                 }
@@ -1061,7 +1061,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".searchRolesNms srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchRolesNms srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1088,7 +1088,7 @@ public class ReviewMgrImplTest extends TestCase
             ReviewMgr reviewMgr = getManagedReviewMgr();
             List<String> users = reviewMgr.findUsers(new User(srchValue), uArray.length);
             assertNotNull(users);
-            assertTrue(OCLS_NM + "searchUserIds list size check", uArray.length == users.size());
+            assertTrue(CLS_NM + "searchUserIds list size check", uArray.length == users.size());
             for (String[] usr : uArray)
             {
                 int indx = users.indexOf(UserTestData.getUserId(usr));
@@ -1096,11 +1096,11 @@ public class ReviewMgrImplTest extends TestCase
                 {
                     String userId = users.get(indx);
                     assertNotNull(userId);
-                    assertEquals(OCLS_NM + ".searchUserIds failed compare user userId", UserTestData.getUserId(usr).toUpperCase(), userId.toUpperCase());
+                    assertEquals(CLS_NM + ".searchUserIds failed compare user userId", UserTestData.getUserId(usr).toUpperCase(), userId.toUpperCase());
                 }
                 else
                 {
-                    msg = OCLS_NM + ".searchUserIds srchValue [" + srchValue + "] failed list search";
+                    msg = CLS_NM + ".searchUserIds srchValue [" + srchValue + "] failed list search";
                     LogUtil.logIt(msg);
                     fail(msg);
                 }
@@ -1108,7 +1108,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".searchUserIds srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchUserIds srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1136,7 +1136,7 @@ public class ReviewMgrImplTest extends TestCase
             {
                 List<String> users = reviewMgr.assignedUsers(new Role(RoleTestData.getName(rle)), uArray.length);
                 assertNotNull(users);
-                assertTrue(OCLS_NM + ".assignedUserIds list size check", uArray.length == users.size());
+                assertTrue(CLS_NM + ".assignedUserIds list size check", uArray.length == users.size());
                 for (String[] usr : uArray)
                 {
                     int indx = users.indexOf(UserTestData.getUserId(usr));
@@ -1146,7 +1146,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".assignedUserIds caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignedUserIds caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1176,7 +1176,7 @@ public class ReviewMgrImplTest extends TestCase
             {
                 List<String> uRoles = reviewMgr.assignedRoles(UserTestData.getUserId(usr));
                 assertNotNull(uRoles);
-                assertTrue(OCLS_NM + "assignedRoleNms list size check", rArray.length == uRoles.size());
+                assertTrue(CLS_NM + "assignedRoleNms list size check", rArray.length == uRoles.size());
                 for (String[] url : rArray)
                 {
                     int indx = uRoles.indexOf(RoleTestData.getName(url));
@@ -1184,11 +1184,11 @@ public class ReviewMgrImplTest extends TestCase
                     {
                         String uRole = uRoles.get(indx);
                         assertNotNull(uRole);
-                        assertEquals(OCLS_NM + ".assignedRoleNms failed compare role name", RoleTestData.getName(url), uRole);
+                        assertEquals(CLS_NM + ".assignedRoleNms failed compare role name", RoleTestData.getName(url), uRole);
                     }
                     else
                     {
-                        msg = OCLS_NM + ".assignedRoleNms userId [" + UserTestData.getUserId(usr) + "] role [" + RoleTestData.getName(url) + "] failed list search";
+                        msg = CLS_NM + ".assignedRoleNms userId [" + UserTestData.getUserId(usr) + "] role [" + RoleTestData.getName(url) + "] failed list search";
                         LogUtil.logIt(msg);
                         fail(msg);
                     }
@@ -1197,7 +1197,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".assignedRoleNms caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignedRoleNms caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

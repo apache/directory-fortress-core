@@ -38,8 +38,8 @@ import java.util.Set;
 public class DSD
     implements Validator
 {
-    private static final String OCLS_NM = DSD.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = DSD.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     private static final SdP sp = new SdP();
 
     /**
@@ -86,7 +86,7 @@ public class DSD
                             if (matchCount >= dsd.getCardinality())
                             {
                                 activatedRoles.remove();
-                                String warning = OCLS_NM + ".validate userId [" + session.getUserId() + "] failed activation of assignedRole [" + activatedRole.getName() + "] validates DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality() + ", Count:" + matchCount;
+                                String warning = CLS_NM + ".validate userId [" + session.getUserId() + "] failed activation of assignedRole [" + activatedRole.getName() + "] validates DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality() + ", Count:" + matchCount;
                                 log.warn(warning);
                                 rc = GlobalErrIds.ACTV_FAILED_DSD;
                             }
@@ -105,7 +105,7 @@ public class DSD
                                     {
                                         // remove the assigned role from session (not the authorized role):
                                         activatedRoles.remove();
-                                        String warning = OCLS_NM + ".validate userId [" + session.getUserId() + "] assignedRole [" + activatedRole.getName() + "] parentRole [" + parentRole + "] validates DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality() + ", Count:" + matchCount;
+                                        String warning = CLS_NM + ".validate userId [" + session.getUserId() + "] assignedRole [" + activatedRole.getName() + "] parentRole [" + parentRole + "] validates DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality() + ", Count:" + matchCount;
                                         log.warn(warning);
                                         rc = GlobalErrIds.ACTV_FAILED_DSD;
                                     }

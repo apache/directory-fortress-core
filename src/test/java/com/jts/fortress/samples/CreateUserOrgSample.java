@@ -26,8 +26,8 @@ import org.apache.log4j.Logger;
  */
 public class CreateUserOrgSample extends TestCase
 {
-    private static final String OCLS_NM = CreateUserOrgSample.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = CreateUserOrgSample.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     public static final String TEST_USER_OU_NM = "sampleUsers-OU.1";
 
     public CreateUserOrgSample(String name)
@@ -55,7 +55,7 @@ public class CreateUserOrgSample extends TestCase
      */
     public static void testCreateUserOrg()
     {
-        String szLocation = OCLS_NM + ".testCreateUserOrg";
+        String szLocation = CLS_NM + ".testCreateUserOrg";
         try
         {
             DelegatedReviewMgr dRevAdminMgr = DelegatedReviewMgrFactory.createInstance();

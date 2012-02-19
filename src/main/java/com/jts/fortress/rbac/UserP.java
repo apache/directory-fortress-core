@@ -336,7 +336,7 @@ public final class UserP
         // Is there a match between this userId and a Fortress system user?
         if (sysUserSet.contains(user.getUserId()))
         {
-            String warning = OCLS_NM + ".softDelete userId [" + user.getUserId() + "] can't be removed due to policy violation, OAMCD=" + GlobalErrIds.USER_PW_PLCY_VIOLATION;
+            String warning = CLS_NM + ".softDelete userId [" + user.getUserId() + "] can't be removed due to policy violation, OAMCD=" + GlobalErrIds.USER_PW_PLCY_VIOLATION;
             throw new SecurityException(GlobalErrIds.USER_PW_PLCY_VIOLATION, warning);
         }
         user.setDescription("DELETED");
@@ -358,7 +358,7 @@ public final class UserP
         // Is there a match between this userId and a Fortress system user?
         if (sysUserSet.contains(user.getUserId()))
         {
-            String warning = OCLS_NM + ".delete userId [" + user.getUserId() + "] can't be removed due to policy violation, OAMCD=" + GlobalErrIds.USER_PW_PLCY_VIOLATION;
+            String warning = CLS_NM + ".delete userId [" + user.getUserId() + "] can't be removed due to policy violation, OAMCD=" + GlobalErrIds.USER_PW_PLCY_VIOLATION;
             throw new SecurityException(GlobalErrIds.USER_PW_PLCY_VIOLATION, warning);
         }
         return uDao.remove(user);
@@ -466,7 +466,7 @@ public final class UserP
         }
         else
         {
-            VUtil.assertNotNullOrEmpty(user.getPassword(), GlobalErrIds.USER_PW_NULL, OCLS_NM + ".createSession");
+            VUtil.assertNotNullOrEmpty(user.getPassword(), GlobalErrIds.USER_PW_NULL, CLS_NM + ".createSession");
             session = createSession(user.getUserId(), user.getPassword());
         }
 
@@ -532,7 +532,7 @@ public final class UserP
         User user = read(userId, true);
         if (user.isLocked())
         {
-            String warning = OCLS_NM + ".createSession failed for userId [" + userId + "] reason user is locked";
+            String warning = CLS_NM + ".createSession failed for userId [" + userId + "] reason user is locked";
             log.warn(warning);
             throw new SecurityException(GlobalErrIds.USER_LOCKED_BY_CONST, warning);
         }
@@ -585,7 +585,7 @@ public final class UserP
         boolean result = uDao.changePassword(entity, newPassword);
         if (!result)
         {
-            log.warn(OCLS_NM + ".changePassword failed for user [" + userId + "]");
+            log.warn(CLS_NM + ".changePassword failed for user [" + userId + "]");
         }
     }
 
@@ -758,7 +758,7 @@ public final class UserP
             OrgUnit ou = new OrgUnit(entity.getOu(), OrgUnit.Type.USER);
             if (!op.isValid(ou))
             {
-                String error = OCLS_NM + ".validate detected invalid orgUnit name [" + entity.getOu() + "] for userId [" + entity.getUserId() + "]";
+                String error = CLS_NM + ".validate detected invalid orgUnit name [" + entity.getOu() + "] for userId [" + entity.getUserId() + "]";
                 throw new ValidationException(GlobalErrIds.USER_OU_INVALID, error);
             }
 
@@ -790,7 +790,7 @@ public final class UserP
                 OrgUnit ou = new OrgUnit(entity.getOu(), OrgUnit.Type.USER);
                 if (!op.isValid(ou))
                 {
-                    String error = OCLS_NM + ".validate detected invalid orgUnit name [" + entity.getOu() + "] for userId [" + entity.getUserId() + "]";
+                    String error = CLS_NM + ".validate detected invalid orgUnit name [" + entity.getOu() + "] for userId [" + entity.getUserId() + "]";
                     //log.warn(error);
                     throw new ValidationException(GlobalErrIds.USER_OU_INVALID, error);
                 }
@@ -807,7 +807,7 @@ public final class UserP
             PolicyP pP = new PolicyP();
             if (!pP.isValid(entity.getPwPolicy()))
             {
-                String error = OCLS_NM + ".validate detected invalid OpenLDAP policy name [" + entity.getPwPolicy() + "] for userId [" + entity.getUserId() + "]. Assignment is optional for User but must be valid if specified.";
+                String error = CLS_NM + ".validate detected invalid OpenLDAP policy name [" + entity.getPwPolicy() + "] for userId [" + entity.getUserId() + "]. Assignment is optional for User but must be valid if specified.";
                 throw new ValidationException(GlobalErrIds.USER_PW_PLCY_INVALID, error);
             }
         }
@@ -865,9 +865,9 @@ public final class UserP
     }
 
     private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean("user.session.props.enabled", false);
-    private static final String OCLS_NM = UserP.class.getName();
+    private static final String CLS_NM = UserP.class.getName();
     private static final UserDAO uDao = new UserDAO();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final Logger log = Logger.getLogger(CLS_NM);
     private static final OrgUnitP op = new OrgUnitP();
     private static final String SYSTEM_USER_PREFIX = "sys.user.";
     // This Set contains list of system users as specified in Fortress config.  These users will not be allowed to be deleted using API.

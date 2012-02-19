@@ -29,7 +29,7 @@ import com.jts.fortress.constants.GlobalErrIds;
  */
 public class ClassUtil
 {
-    private static final String OCLS_NM = ClassUtil.class.getName();
+    private static final String CLS_NM = ClassUtil.class.getName();
 
     /**
      * Given a valid class name call the default constructor through reflexion and return the reference to the caller.
@@ -46,24 +46,24 @@ public class ClassUtil
         {
             if (className == null || className.length() == 0)
             {
-                String error = OCLS_NM + ".createInstance() null or empty classname";
+                String error = CLS_NM + ".createInstance() null or empty classname";
                 throw new com.jts.fortress.ConfigurationException(GlobalErrIds.FT_MGR_CLASS_NAME_NULL, error);
             }
             target = Class.forName(className).newInstance();
         }
         catch (java.lang.ClassNotFoundException e)
         {
-            String error = OCLS_NM + ".createInstance() className [" + className + "] caught java.lang.ClassNotFoundException=" + e;
+            String error = CLS_NM + ".createInstance() className [" + className + "] caught java.lang.ClassNotFoundException=" + e;
             throw new com.jts.fortress.ConfigurationException(GlobalErrIds.FT_MGR_CLASS_NOT_FOUND, error, e);
         }
         catch (java.lang.InstantiationException e)
         {
-            String error = OCLS_NM + ".createInstance()  [" + className + "] caught java.lang.InstantiationException=" + e;
+            String error = CLS_NM + ".createInstance()  [" + className + "] caught java.lang.InstantiationException=" + e;
             throw new ConfigurationException(GlobalErrIds.FT_MGR_INST_EXCEPTION, error, e);
         }
         catch (java.lang.IllegalAccessException e)
         {
-            String error = OCLS_NM + ".createInstance()  [" + className + "] caught java.lang.IllegalAccessException=" + e;
+            String error = CLS_NM + ".createInstance()  [" + className + "] caught java.lang.IllegalAccessException=" + e;
             throw new com.jts.fortress.ConfigurationException(com.jts.fortress.constants.GlobalErrIds.FT_MGR_ILLEGAL_ACCESS, error, e);
         }
         return target;

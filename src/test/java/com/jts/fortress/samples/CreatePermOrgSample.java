@@ -30,8 +30,8 @@ import org.apache.log4j.Logger;
  */
 public class CreatePermOrgSample extends TestCase
 {
-    private static final String OCLS_NM = CreatePermOrgSample.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = CreatePermOrgSample.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     public static final String TEST_PERM_OU_NM = "samplePerms-OU.1";
     public static final String TEST_PERM_OU_NM2 = "KillerBikes.com";
 
@@ -58,7 +58,7 @@ public class CreatePermOrgSample extends TestCase
      */
     public static void testCreatePermOrg()
     {
-        String szLocation = OCLS_NM + ".testCreatePermOrg";
+        String szLocation = CLS_NM + ".testCreatePermOrg";
         try
         {
             DelegatedReviewMgr dRevAdminMgr = DelegatedReviewMgrFactory.createInstance();
@@ -105,7 +105,7 @@ public class CreatePermOrgSample extends TestCase
      */
     public static void testCreatePermOrg2()
     {
-        String szLocation = OCLS_NM + ".testCreatePermOrg2";
+        String szLocation = CLS_NM + ".testCreatePermOrg2";
         try
         {
             DelegatedReviewMgr dRevAdminMgr = DelegatedReviewMgrFactory.createInstance();

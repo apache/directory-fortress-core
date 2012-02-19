@@ -22,8 +22,8 @@ import java.util.TreeSet;
  */
 public class OrgUnitTestData extends TestCase
 {
-    private static final String OCLS_NM = OrgUnitTestData.class.getName();
-    final protected static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = OrgUnitTestData.class.getName();
+    final protected static Logger log = Logger.getLogger(CLS_NM);
 
     public final static String[][] ORGS_USR_DEV0 = {
          {
@@ -758,10 +758,10 @@ public class OrgUnitTestData extends TestCase
      */
     public static void assertEquals(com.jts.fortress.arbac.OrgUnit ou, String[] ole)
     {
-        assertEquals(OCLS_NM + ".assertEquals failed compare ou name", getName(ole), ou.getName());
-        assertEquals(OCLS_NM + ".assertEquals failed compare ou desc", getDescription(ole), ou.getDescription());
-        assertEquals(OCLS_NM + ".assertEquals failed compare ou type", getType(ole), ou.getType());
-        log.debug(OCLS_NM + ".assertEquals [" + ou.getName() + "] successful");
+        assertEquals(CLS_NM + ".assertEquals failed compare ou name", getName(ole), ou.getName());
+        assertEquals(CLS_NM + ".assertEquals failed compare ou desc", getDescription(ole), ou.getDescription());
+        assertEquals(CLS_NM + ".assertEquals failed compare ou type", getType(ole), ou.getType());
+        log.debug(CLS_NM + ".assertEquals [" + ou.getName() + "] successful");
     }
 
 

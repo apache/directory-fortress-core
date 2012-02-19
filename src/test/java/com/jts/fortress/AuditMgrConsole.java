@@ -23,8 +23,8 @@ import java.util.List;
 public class AuditMgrConsole
 {
     private AuditMgr am = null;
-    private static final String OCLS_NM = AuditMgrConsole.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = AuditMgrConsole.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     
     public AuditMgrConsole()
     {
@@ -34,7 +34,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -56,7 +56,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".findBinds caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".findBinds caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -97,7 +97,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".getBindReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getBindReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -276,7 +276,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".findAuthZs caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".findAuthZs caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -314,7 +314,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".getUserAuthZs caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getUserAuthZs caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -366,7 +366,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".getAuthReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getAuthReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -649,7 +649,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".getModReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getModReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -773,7 +773,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".getAdminModReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getAdminModReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -823,7 +823,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".getAuthNInvalidReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getAuthNInvalidReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

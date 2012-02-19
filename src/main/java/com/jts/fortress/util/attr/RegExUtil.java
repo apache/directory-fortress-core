@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
  */
 public class RegExUtil
 {
-    private static final String OCLS_NM = RegExUtil.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = RegExUtil.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 	private static final String safeTextPatternStr = com.jts.fortress.configuration.Config.getProperty(com.jts.fortress.constants.GlobalIds.REG_EX_SAFE_TEXT);
 
 	/**
@@ -34,7 +34,7 @@ public class RegExUtil
 	{
 		if (safeTextPatternStr == null || safeTextPatternStr.compareTo("") == 0)
 		{
-			String warning = OCLS_NM + ".safeText can't find safeText regular expression pattern.  Check your Fortress configuration";
+			String warning = CLS_NM + ".safeText can't find safeText regular expression pattern.  Check your Fortress configuration";
 			log.debug(warning);
 		}
 		else
@@ -43,7 +43,7 @@ public class RegExUtil
 			Matcher safeTextMatcher = safeTextPattern.matcher(value);
 			if (!safeTextMatcher.find())
 			{
-				String error = OCLS_NM + ".safeText has detected invalid value [" + value + "]";
+				String error = CLS_NM + ".safeText has detected invalid value [" + value + "]";
 				throw new com.jts.fortress.ValidationException(GlobalErrIds.CONST_INVLD_TEXT, error);
 			}
 		}

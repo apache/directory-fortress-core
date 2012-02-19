@@ -24,8 +24,8 @@ import org.apache.log4j.Logger;
  */
 public class CreateRoleHierarchySample extends TestCase
 {
-    private static final String OCLS_NM = CreateRoleHierarchySample.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = CreateRoleHierarchySample.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     // This constant will be added to index for creation of multiple nodes in directory.
     public static final String TEST_HIER_ROLE_PREFIX = "sampleHierRole";
@@ -82,7 +82,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testDeleteHierRoles()
     {
-        String szLocation = OCLS_NM + ".testDeleteHierRoles";
+        String szLocation = CLS_NM + ".testDeleteHierRoles";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -124,7 +124,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testCreateHierRoles()
     {
-        String szLocation = OCLS_NM + ".testCreateHierRoles";
+        String szLocation = CLS_NM + ".testCreateHierRoles";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -167,7 +167,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testDeleteDescendantRoles()
     {
-        String szLocation = OCLS_NM + ".testDeleteDescendantRoles";
+        String szLocation = CLS_NM + ".testDeleteDescendantRoles";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -210,7 +210,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testCreateDescendantRoles()
     {
-        String szLocation = OCLS_NM + ".testCreateDescendantRoles";
+        String szLocation = CLS_NM + ".testCreateDescendantRoles";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -246,7 +246,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testDeleteAscendantRoles()
     {
-        String szLocation = OCLS_NM + ".testDeleteAscendantRoles";
+        String szLocation = CLS_NM + ".testDeleteAscendantRoles";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -288,7 +288,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testCreateAscendantRoles()
     {
-        String szLocation = OCLS_NM + ".testCreateAscendantRoles";
+        String szLocation = CLS_NM + ".testCreateAscendantRoles";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.

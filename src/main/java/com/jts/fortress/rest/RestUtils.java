@@ -33,8 +33,8 @@ import java.io.StringWriter;
  */
 public class RestUtils
 {
-    private static final String OCLS_NM = RestUtils.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = RestUtils.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     private final static String HTTP_UID = Config.getProperty("http.user");
     private final static String HTTP_PW_PARAM = "http.pw";
     private final static String HTTP_PW = ((EncryptUtil.isEnabled()) ? EncryptUtil.decrypt(Config.getProperty(HTTP_PW_PARAM)) : Config.getProperty(HTTP_PW_PARAM));
@@ -70,7 +70,7 @@ public class RestUtils
         }
         catch (JAXBException je)
         {
-            String error = OCLS_NM + ".marshal caught JAXBException=" + je;
+            String error = CLS_NM + ".marshal caught JAXBException=" + je;
             throw new RestException(GlobalErrIds.REST_MARSHALL_ERR, error, je);
         }
         return szRetValue;
@@ -96,7 +96,7 @@ public class RestUtils
         }
         catch (JAXBException je)
         {
-            String error = OCLS_NM + ".unmarshall caught JAXBException=" + je;
+            String error = CLS_NM + ".unmarshall caught JAXBException=" + je;
             throw new RestException(GlobalErrIds.REST_UNMARSHALL_ERR, error, je);
         }
         return response;
@@ -125,7 +125,7 @@ public class RestUtils
         {
             url += "/" + id3;
         }
-        log.debug(OCLS_NM + ".get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: " + url);
+        log.debug(CLS_NM + ".get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: " + url);
         GetMethod get = new GetMethod(url);
         setMethodHeaders(get, userId, password);
         return handleHttpMethod(get);
@@ -153,7 +153,7 @@ public class RestUtils
         {
             url += "/" + id3;
         }
-        log.debug(OCLS_NM + ".get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: " + url);
+        log.debug(CLS_NM + ".get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: " + url);
         GetMethod get = new GetMethod(url);
         setMethodHeaders(get, HTTP_UID, HTTP_PW);
         return handleHttpMethod(get);
@@ -172,7 +172,7 @@ public class RestUtils
      */
     public static String post(String userId, String password, String szInput, String function) throws RestException
     {
-        log.debug(OCLS_NM + ".post [" + function + "]  request=" + szInput);
+        log.debug(CLS_NM + ".post [" + function + "]  request=" + szInput);
         String szResponse = null;
         PostMethod post = new PostMethod(URI + function);
         post.addRequestHeader("Accept", "text/xml");
@@ -184,17 +184,17 @@ public class RestUtils
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod(post);
             szResponse = post.getResponseBodyAsString();
-            log.debug(OCLS_NM + ".post [" + function + "]  response=" + szResponse);
+            log.debug(CLS_NM + ".post [" + function + "]  response=" + szResponse);
         }
         catch (IOException ioe)
         {
-            String error = OCLS_NM + ".post [" + function + "] caught IOException=" + ioe;
+            String error = CLS_NM + ".post [" + function + "] caught IOException=" + ioe;
             log.error(error);
             throw new RestException(GlobalErrIds.REST_IO_ERR, error, ioe);
         }
         catch (WebApplicationException we)
         {
-            String error = OCLS_NM + ".post [" + function + "] caught WebApplicationException=" + we;
+            String error = CLS_NM + ".post [" + function + "] caught WebApplicationException=" + we;
             log.error(error);
             throw new RestException(GlobalErrIds.REST_WEB_ERR, error, we);
         }
@@ -216,7 +216,7 @@ public class RestUtils
      */
     public static String post(String szInput, String function) throws RestException
     {
-        log.debug(OCLS_NM + ".post [" + function + "]  request=" + szInput);
+        log.debug(CLS_NM + ".post [" + function + "]  request=" + szInput);
         String szResponse = null;
         PostMethod post = new PostMethod(URI + function);
         post.addRequestHeader("Accept", "text/xml");
@@ -228,17 +228,17 @@ public class RestUtils
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod(post);
             szResponse = post.getResponseBodyAsString();
-            log.debug(OCLS_NM + ".post [" + function + "]  response=" + szResponse);
+            log.debug(CLS_NM + ".post [" + function + "]  response=" + szResponse);
         }
         catch (IOException ioe)
         {
-            String error = OCLS_NM + ".post [" + function + "] caught IOException=" + ioe;
+            String error = CLS_NM + ".post [" + function + "] caught IOException=" + ioe;
             log.error(error);
             throw new RestException(GlobalErrIds.REST_IO_ERR, error, ioe);
         }
         catch (WebApplicationException we)
         {
-            String error = OCLS_NM + ".post [" + function + "] caught WebApplicationException=" + we;
+            String error = CLS_NM + ".post [" + function + "] caught WebApplicationException=" + we;
             log.error(error);
             throw new RestException(GlobalErrIds.REST_WEB_ERR, error, we);
         }
@@ -295,31 +295,31 @@ public class RestUtils
         try
         {
             int statusCode = client.executeMethod(httpMethod);
-            log.debug(OCLS_NM + ".handleHttpMethod Response status : " + statusCode);
+            log.debug(CLS_NM + ".handleHttpMethod Response status : " + statusCode);
 
             Response.Status status = Response.Status.fromStatusCode(statusCode);
 
             if (status == Response.Status.OK)
             {
                 szResponse = httpMethod.getResponseBodyAsString();
-                log.debug(OCLS_NM + szResponse);
+                log.debug(CLS_NM + szResponse);
             }
             else if (status == Response.Status.FORBIDDEN)
             {
-                log.debug(OCLS_NM + ".handleHttpMethod Authorization failure");
+                log.debug(CLS_NM + ".handleHttpMethod Authorization failure");
             }
             else if (status == Response.Status.UNAUTHORIZED)
             {
-                log.debug(OCLS_NM + ".handleHttpMethod Authentication failure");
+                log.debug(CLS_NM + ".handleHttpMethod Authentication failure");
             }
             else
             {
-                log.debug(OCLS_NM + ".handleHttpMethod Unknown error");
+                log.debug(CLS_NM + ".handleHttpMethod Unknown error");
             }
         }
         catch (IOException ioe)
         {
-            String error = OCLS_NM + ".handleHttpMethod caught IOException=" + ioe;
+            String error = CLS_NM + ".handleHttpMethod caught IOException=" + ioe;
             log.error(error);
             throw new RestException(GlobalErrIds.REST_IO_ERR, error, ioe);
         }

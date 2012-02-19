@@ -12,8 +12,8 @@ import org.apache.log4j.Logger;
 
 public class EncryptMgrConsole
 {
-    private static final String OCLS_NM = EncryptMgrConsole.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = EncryptMgrConsole.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
 
     protected void encrypt()

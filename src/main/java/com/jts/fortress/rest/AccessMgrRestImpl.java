@@ -55,7 +55,7 @@ import java.util.TreeSet;
  */
 public class AccessMgrRestImpl implements AccessMgr
 {
-    private static final String OCLS_NM = AccessMgrImpl.class.getName();
+    private static final String CLS_NM = AccessMgrImpl.class.getName();
 
 
     /**
@@ -70,7 +70,7 @@ public class AccessMgrRestImpl implements AccessMgr
     public Session authenticate(String userId, char[] password)
         throws SecurityException
     {
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_ID_NULL, OCLS_NM + ".authenticate");
+        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_ID_NULL, CLS_NM + ".authenticate");
         VUtil.assertNotNullOrEmpty(password, GlobalErrIds.USER_PW_NULL, ".authenticate");
         Session retSession;
         FortRequest request = new FortRequest();
@@ -146,7 +146,7 @@ public class AccessMgrRestImpl implements AccessMgr
     public Session createSession(User user, boolean isTrusted)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".createSession");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".createSession");
         Session retSession;
         FortRequest request = new FortRequest();
         request.setEntity(user);
@@ -189,8 +189,8 @@ public class AccessMgrRestImpl implements AccessMgr
     public boolean checkAccess(Session session, Permission perm)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, OCLS_NM + ".checkAccess");
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".checkAccess");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, CLS_NM + ".checkAccess");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".checkAccess");
         boolean result;
         FortRequest request = new FortRequest();
         request.setSession(session);
@@ -222,7 +222,7 @@ public class AccessMgrRestImpl implements AccessMgr
     public List<Permission> sessionPermissions(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionPermissions");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionPermissions");
         List<Permission> retPerms;
         FortRequest request = new FortRequest();
         request.setSession(session);
@@ -254,7 +254,7 @@ public class AccessMgrRestImpl implements AccessMgr
     public List<UserRole> sessionRoles(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionRoles");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionRoles");
         List<UserRole> retRoles;
         FortRequest request = new FortRequest();
         request.setSession(session);
@@ -285,7 +285,7 @@ public class AccessMgrRestImpl implements AccessMgr
     public Set<String> authorizedRoles(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionRoles");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionRoles");
         Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
         FortRequest request = new FortRequest();
         request.setSession(session);
@@ -328,7 +328,7 @@ public class AccessMgrRestImpl implements AccessMgr
     public void addActiveRole(Session session, UserRole role)
         throws SecurityException
     {
-        String fullMethodName = OCLS_NM + ".addActiveRole";
+        String fullMethodName = CLS_NM + ".addActiveRole";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, fullMethodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, fullMethodName);
         FortRequest request = new FortRequest();
@@ -362,8 +362,8 @@ public class AccessMgrRestImpl implements AccessMgr
         throws SecurityException
     {
         String fullMethodName = ".dropActiveRole";
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + fullMethodName);
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + fullMethodName);
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + fullMethodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + fullMethodName);
         FortRequest request = new FortRequest();
         request.setSession(session);
         request.setEntity(role);
@@ -392,7 +392,7 @@ public class AccessMgrRestImpl implements AccessMgr
     public String getUserId(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".getUserId");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".getUserId");
         String userId;
         FortRequest request = new FortRequest();
         request.setSession(session);
@@ -464,7 +464,7 @@ public class AccessMgrRestImpl implements AccessMgr
     public User getUser(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".getUser");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".getUser");
         User retUser;
         FortRequest request = new FortRequest();
         request.setSession(session);

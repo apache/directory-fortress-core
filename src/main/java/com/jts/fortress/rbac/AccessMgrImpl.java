@@ -50,7 +50,7 @@ import java.util.Set;
  */
 public class AccessMgrImpl implements AccessMgr
 {
-    private static final String OCLS_NM = AccessMgrImpl.class.getName();
+    private static final String CLS_NM = AccessMgrImpl.class.getName();
     private static final UserP userP = new UserP();
     private static final PermP permP = new PermP();
 
@@ -66,7 +66,7 @@ public class AccessMgrImpl implements AccessMgr
     public Session authenticate(String userId, char[] password)
         throws SecurityException
     {
-        String fullMethodName = OCLS_NM + ".authenticate";
+        String fullMethodName = CLS_NM + ".authenticate";
         VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_ID_NULL, fullMethodName);
         VUtil.assertNotNullOrEmpty(password, GlobalErrIds.USER_PW_NULL, fullMethodName);
         // false tells the User Read not to fetch roles.
@@ -133,7 +133,7 @@ public class AccessMgrImpl implements AccessMgr
     public Session createSession(User user, boolean isTrusted)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".createSession");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".createSession");
         return userP.createSession(user, isTrusted);
     }
 
@@ -154,7 +154,7 @@ public class AccessMgrImpl implements AccessMgr
     public boolean checkAccess(Session session, Permission perm)
         throws SecurityException
     {
-        String fullMethodName = OCLS_NM + ".checkAccess";
+        String fullMethodName = CLS_NM + ".checkAccess";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, fullMethodName);
         VUtil.assertNotNullOrEmpty(perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL, fullMethodName);
         VUtil.assertNotNullOrEmpty(perm.getObjectName(), GlobalErrIds.PERM_OBJECT_NULL, fullMethodName);
@@ -175,7 +175,7 @@ public class AccessMgrImpl implements AccessMgr
     public List<Permission> sessionPermissions(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionPermissions");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionPermissions");
         CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
         CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
         return permP.search(session);
@@ -193,7 +193,7 @@ public class AccessMgrImpl implements AccessMgr
     public List<UserRole> sessionRoles(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionRoles");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionRoles");
         CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
         CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
         return session.getRoles();
@@ -210,8 +210,8 @@ public class AccessMgrImpl implements AccessMgr
     public Set<String> authorizedRoles(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".authorizedRoles");
-        VUtil.assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, OCLS_NM + ".authorizedRoles");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".authorizedRoles");
+        VUtil.assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles");
         CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
         CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
         return RoleUtil.getInheritedRoles(session.getRoles());
@@ -239,7 +239,7 @@ public class AccessMgrImpl implements AccessMgr
     public void addActiveRole(Session session, UserRole role)
         throws SecurityException
     {
-        String fullMethodName = OCLS_NM + ".addActiveRole";
+        String fullMethodName = CLS_NM + ".addActiveRole";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, fullMethodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, fullMethodName);
         role.setUserId(session.getUserId());
@@ -281,11 +281,11 @@ public class AccessMgrImpl implements AccessMgr
         throws SecurityException
     {
         String fullMethodName = ".dropActiveRole";
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + fullMethodName);
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + fullMethodName);
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + fullMethodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + fullMethodName);
         role.setUserId(session.getUserId());
         List<UserRole> roles = session.getRoles();
-        VUtil.assertNotNull(roles, GlobalErrIds.URLE_DEACTIVE_FAILED, OCLS_NM + fullMethodName);
+        VUtil.assertNotNull(roles, GlobalErrIds.URLE_DEACTIVE_FAILED, CLS_NM + fullMethodName);
         int indx = roles.indexOf(role);
         if (indx != -1)
         {
@@ -293,7 +293,7 @@ public class AccessMgrImpl implements AccessMgr
         }
         else
         {
-            String info = OCLS_NM + fullMethodName + " Role [" + role.getName() + "] User [" + session.getUserId() + "], not previously activated";
+            String info = CLS_NM + fullMethodName + " Role [" + role.getName() + "] User [" + session.getUserId() + "], not previously activated";
             throw new SecurityException(GlobalErrIds.URLE_NOT_ACTIVE, info);
         }
     }
@@ -309,7 +309,7 @@ public class AccessMgrImpl implements AccessMgr
     public String getUserId(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".getUserId");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".getUserId");
         return session.getUserId();
     }
 
@@ -364,7 +364,7 @@ public class AccessMgrImpl implements AccessMgr
     public User getUser(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".getUser");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".getUser");
         return session.getUser();
     }
 }

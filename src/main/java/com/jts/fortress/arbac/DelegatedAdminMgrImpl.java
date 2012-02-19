@@ -40,7 +40,7 @@ import java.util.List;
 public final class DelegatedAdminMgrImpl
     implements DelegatedAdminMgr
 {
-    private static final String OCLS_NM = DelegatedAdminMgrImpl.class.getName();
+    private static final String CLS_NM = DelegatedAdminMgrImpl.class.getName();
     final private static OrgUnitP ouP = new OrgUnitP();
     final private static AdminRoleP admRP = new AdminRoleP();
     final private static UserP userP = new UserP();
@@ -62,7 +62,7 @@ public final class DelegatedAdminMgrImpl
     {
         if (this.adminSess != null)
         {
-            AdminUtil.setEntitySession(adminSess, new Permission(OCLS_NM, opName), entity);
+            AdminUtil.setEntitySession(adminSess, new Permission(CLS_NM, opName), entity);
         }
     }
 
@@ -79,7 +79,7 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "addRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, role);
         AdminRole newRole = admRP.add(role);
         return newRole;
@@ -98,12 +98,12 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "deleteRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, role);
         int numChildren = AdminRoleUtil.numChildren(role.getName());
         if (numChildren > 0)
         {
-            String error = OCLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren + "] descendants before deletion";
+            String error = CLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren + "] descendants before deletion";
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
         // search for all users assigned this role and deassign:
@@ -115,7 +115,7 @@ public final class DelegatedAdminMgrImpl
             {
                 User user = new User(ue.getUserId());
                 UserAdminRole uAdminRole = new UserAdminRole(ue.getUserId(), role.getName());
-                AdminUtil.setAdminData(role.getAdminSession(), new Permission(OCLS_NM, methodName), user);
+                AdminUtil.setAdminData(role.getAdminSession(), new Permission(CLS_NM, methodName), user);
                 deassignUser(uAdminRole);
             }
         }
@@ -135,14 +135,14 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "updateRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, role);
         AdminRole re = admRP.update(role);
         List<User> users = userP.getAssignedUsers(re);
         for(User ue : users)
         {
             User upUe = new User(ue.getUserId());
-            AdminUtil.setAdminData(role.getAdminSession(), new Permission(OCLS_NM, methodName), upUe);
+            AdminUtil.setAdminData(role.getAdminSession(), new Permission(CLS_NM, methodName), upUe);
             List<UserAdminRole> uaRoles = ue.getAdminRoles();
             UserAdminRole chgRole = new UserAdminRole();
             chgRole.setName(role.getName());
@@ -188,7 +188,7 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "assignUser";
-        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, uAdminRole);
 
         // retrieve the admin role info:
@@ -202,7 +202,7 @@ public final class DelegatedAdminMgrImpl
         AttrHelper.copyAdminAttrs(validRole, uAdminRole);
         String dn = userP.assign(uAdminRole);
         // copy the admin session info to AdminRole:
-        AdminUtil.setAdminData(uAdminRole.getAdminSession(), new Permission(OCLS_NM, methodName), validRole);
+        AdminUtil.setAdminData(uAdminRole.getAdminSession(), new Permission(CLS_NM, methodName), validRole);
         // Assign user dn attribute to the adminRole, this will add a single, standard attribute value, called "roleOccupant", directly onto the adminRole node:
         admRP.assign(validRole, dn);
     }
@@ -224,12 +224,12 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "deassignUser";
-        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, uAdminRole);
         String dn = userP.deassign(uAdminRole);
         AdminRole adminRole = new AdminRole(uAdminRole.getName());
         // copy the ARBAC attributes to AdminRole:
-        AdminUtil.setAdminData(uAdminRole.getAdminSession(), new Permission(OCLS_NM, methodName), adminRole);
+        AdminUtil.setAdminData(uAdminRole.getAdminSession(), new Permission(CLS_NM, methodName), adminRole);
         // Deassign user dn attribute to the adminRole, this will remove a single, standard attribute value, called "roleOccupant", directly onto the adminRole node:
         admRP.deassign(adminRole, dn);
 
@@ -247,9 +247,9 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "addOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, entity);
-        VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         return ouP.add(entity);
 
     }
@@ -265,9 +265,9 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "updateOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, entity);
-        VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         return ouP.update(entity);
 
     }
@@ -283,9 +283,9 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "deleteOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, entity);
-        VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         int numChildren;
         if(entity.getType() == OrgUnit.Type.USER)
         {
@@ -297,7 +297,7 @@ public final class DelegatedAdminMgrImpl
         }
         if (numChildren > 0)
         {
-            String error = OCLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must remove [" + numChildren + "] descendants before deletion";
+            String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must remove [" + numChildren + "] descendants before deletion";
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
         if(entity.getType() == OrgUnit.Type.USER)
@@ -306,7 +306,7 @@ public final class DelegatedAdminMgrImpl
             List<User> assignedUsers = userP.search(entity, true);
             if(VUtil.isNotNullOrEmpty(assignedUsers))
             {
-                String error = OCLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedUsers.size() + "] users before deletion";
+                String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedUsers.size() + "] users before deletion";
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_USER, error, null);
             }
         }
@@ -316,7 +316,7 @@ public final class DelegatedAdminMgrImpl
             List<PermObj> assignedPerms = permP.search(entity, true);
             if(VUtil.isNotNullOrEmpty(assignedPerms))
             {
-                String error = OCLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedPerms.size() + "] perm objs before deletion";
+                String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedPerms.size() + "] perm objs before deletion";
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_PERM, error, null);
             }
         }
@@ -350,9 +350,9 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "addDescendantOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, child);
         // ensure the parent OrgUnit exists:
         ouP.read(parent);
@@ -366,7 +366,7 @@ public final class DelegatedAdminMgrImpl
         }
         ouP.add(child);
         Hier hier = new Hier(child.getName(), parent.getName());
-        AdminUtil.setAdminData(child.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
+        AdminUtil.setAdminData(child.getAdminSession(), new Permission(CLS_NM, methodName), hier);
         if(parent.getType() == OrgUnit.Type.USER)
         {
             hier.setType(Hier.Type.USER);
@@ -405,10 +405,10 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "addAscendantOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, parent);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
         // ensure the child OrgUnit exists:
         ouP.read(child);
         if(parent.getType() == OrgUnit.Type.USER)
@@ -421,7 +421,7 @@ public final class DelegatedAdminMgrImpl
         }
         ouP.add(parent);
         Hier hier = new Hier(child.getName(), parent.getName());
-        AdminUtil.setAdminData(parent.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
+        AdminUtil.setAdminData(parent.getAdminSession(), new Permission(CLS_NM, methodName), hier);
         if(parent.getType() == OrgUnit.Type.USER)
         {
             hier.setType(Hier.Type.USER);
@@ -453,9 +453,9 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "addInheritanceOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, parent);
         if(parent.getType() == OrgUnit.Type.USER)
         {
@@ -471,7 +471,7 @@ public final class DelegatedAdminMgrImpl
 
         // we're still good, now set the hierarchical relationship:
         Hier hier = new Hier(child.getName(), parent.getName());
-        AdminUtil.setAdminData(parent.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
+        AdminUtil.setAdminData(parent.getAdminSession(), new Permission(CLS_NM, methodName), hier);
         if(parent.getType() == OrgUnit.Type.USER)
         {
             hier.setType(Hier.Type.USER);
@@ -505,9 +505,9 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "deleteInheritanceOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, parent);
         if(parent.getType() == OrgUnit.Type.USER)
         {
@@ -518,7 +518,7 @@ public final class DelegatedAdminMgrImpl
             PsoUtil.validateRelationship(child, parent, true);
         }
         Hier hier = new Hier(child.getName(), parent.getName());
-        AdminUtil.setAdminData(parent.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
+        AdminUtil.setAdminData(parent.getAdminSession(), new Permission(CLS_NM, methodName), hier);
         if(parent.getType() == OrgUnit.Type.USER)
         {
             hier.setType(Hier.Type.USER);
@@ -548,15 +548,15 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "addDescendantRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, childRole);
         // ensure the parent AdminRole exists:
         admRP.read(parentRole.getName());
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
         admRP.add(childRole);
         Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(childRole.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
+        AdminUtil.setAdminData(childRole.getAdminSession(), new Permission(CLS_NM, methodName), hier);
         AdminRoleUtil.updateHier(hier, Hier.Op.ADD);
     }
 
@@ -576,15 +576,15 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "addAscendantRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, parentRole);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
         // ensure the child AdminRole exists:
         admRP.read(childRole.getName());
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
         admRP.add(parentRole);
         Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
+        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(CLS_NM, methodName), hier);
         AdminRoleUtil.updateHier(hier, Hier.Op.ADD);
     }
 
@@ -601,13 +601,13 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "addInheritanceRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
         // todo: set the hier entity not the parentRole:
         setEntitySession(methodName, parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
         Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
+        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(CLS_NM, methodName), hier);
         AdminRoleUtil.updateHier(hier, Hier.Op.ADD);
     }
 
@@ -624,13 +624,13 @@ public final class DelegatedAdminMgrImpl
         throws SecurityException
     {
         String methodName = "deleteInheritanceRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
         // todo: set the hier entity not the parentRole:
         setEntitySession(methodName, parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, true);
         Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(OCLS_NM, methodName), hier);
+        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(CLS_NM, methodName), hier);
         AdminRoleUtil.updateHier(hier, Hier.Op.REM);
     }
 

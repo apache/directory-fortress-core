@@ -37,8 +37,8 @@ import java.util.Set;
  */
 public class PolicyP
 {
-    private static final String OCLS_NM = PolicyP.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = PolicyP.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     // This is 5 years duration in seconds:
     private static final int MAX_AGE = 157680000;
 
@@ -167,7 +167,7 @@ public class PolicyP
         int length = policy.getName().length();
         if (length < 1 || length > GlobalIds.PWPOLICY_NAME_LEN)
         {
-            String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] INVALID LENGTH [" + length + "]";
+            String error = CLS_NM + ".validate policy name [" + policy.getName() + "] INVALID LENGTH [" + length + "]";
             log.error(error);
             throw new ValidationException(GlobalErrIds.PSWD_NAME_INVLD_LEN, error);
         }
@@ -177,14 +177,14 @@ public class PolicyP
             {
                 if (policy.getCheckQuality() < 0 || policy.getCheckQuality() > 2)
                 {
-                    String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value checkQuality [" + policy.getCheckQuality() + "] INVALID INT VALUE";
+                    String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value checkQuality [" + policy.getCheckQuality() + "] INVALID INT VALUE";
                     log.error(error);
                     throw new ValidationException(GlobalErrIds.PSWD_QLTY_INVLD, error);
                 }
             }
             catch (java.lang.NumberFormatException nfe)
             {
-                String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value checkQuality [" + policy.getCheckQuality() + "] INVALID INT VALUE";
+                String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value checkQuality [" + policy.getCheckQuality() + "] INVALID INT VALUE";
                 log.error(error);
                 throw new ValidationException(GlobalErrIds.PSWD_QLTY_INVLD, error);
             }
@@ -193,7 +193,7 @@ public class PolicyP
         {
             if (policy.getMaxAge() > MAX_AGE)
             {
-                String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value maxAge [" + policy.getMaxAge() + "] INVALID INT VALUE";
+                String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value maxAge [" + policy.getMaxAge() + "] INVALID INT VALUE";
                 log.error(error);
                 throw new ValidationException(GlobalErrIds.PSWD_MAXAGE_INVLD, error);
             }
@@ -203,7 +203,7 @@ public class PolicyP
             // policy.minAge
             if (policy.getMinAge() > MAX_AGE)
             {
-                String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value minAge [" + policy.getMinAge() + "] INVALID INT VALUE";
+                String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value minAge [" + policy.getMinAge() + "] INVALID INT VALUE";
                 log.error(error);
                 throw new ValidationException(GlobalErrIds.PSWD_MINAGE_INVLD, error);
             }
@@ -212,7 +212,7 @@ public class PolicyP
         {
             if (policy.getMinLength() > MIN_PW_LEN)
             {
-                String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value minLength [" + policy.getMinLength() + "] INVALID INT VALUE";
+                String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value minLength [" + policy.getMinLength() + "] INVALID INT VALUE";
                 log.error(error);
                 throw new ValidationException(GlobalErrIds.PSWD_MINLEN_INVLD, error);
             }
@@ -221,7 +221,7 @@ public class PolicyP
         {
             if (policy.getFailureCountInterval() > MAX_AGE)
             {
-                String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value failureCountInterval [" + policy.getFailureCountInterval() + "] INVALID INT VALUE";
+                String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value failureCountInterval [" + policy.getFailureCountInterval() + "] INVALID INT VALUE";
                 log.error(error);
                 throw new ValidationException(GlobalErrIds.PSWD_INTERVAL_INVLD, error);
             }
@@ -230,7 +230,7 @@ public class PolicyP
         {
             if (policy.getMaxFailure() > MAX_FAILURE)
             {
-                String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value maxFailure [" + policy.getMaxFailure() + "] INVALID INT VALUE";
+                String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value maxFailure [" + policy.getMaxFailure() + "] INVALID INT VALUE";
                 log.error(error);
                 throw new ValidationException(GlobalErrIds.PSWD_MAXFAIL_INVLD, error);
             }
@@ -239,7 +239,7 @@ public class PolicyP
         {
             if (policy.getInHistory() > MAX_HISTORY)
             {
-                String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value inHistory [" + policy.getInHistory() + "] INVALID VALUE";
+                String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value inHistory [" + policy.getInHistory() + "] INVALID VALUE";
                 log.error(error);
                 throw new ValidationException(GlobalErrIds.PSWD_HISTORY_INVLD, error);
             }
@@ -248,7 +248,7 @@ public class PolicyP
         {
             if (policy.getGraceLoginLimit() > MAX_GRACE_COUNT)
             {
-                String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value graceLoginLimit [" + policy.getGraceLoginLimit() + "] INVALID VALUE";
+                String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value graceLoginLimit [" + policy.getGraceLoginLimit() + "] INVALID VALUE";
                 log.error(error);
                 throw new ValidationException(GlobalErrIds.PSWD_GRACE_INVLD, error);
             }
@@ -257,7 +257,7 @@ public class PolicyP
         {
             if (policy.getLockoutDuration() > MAX_AGE)
             {
-                String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value lockoutDuration [" + policy.getLockoutDuration() + "] INVALID VALUE";
+                String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value lockoutDuration [" + policy.getLockoutDuration() + "] INVALID VALUE";
                 log.error(error);
                 throw new ValidationException(GlobalErrIds.PSWD_LOCKOUTDUR_INVLD, error);
             }
@@ -266,7 +266,7 @@ public class PolicyP
         {
             if (policy.getExpireWarning() > MAX_AGE)
             {
-                String error = OCLS_NM + ".validate policy name [" + policy.getName() + "] value expireWarning [" + policy.getExpireWarning() + "] INVALID VALUE";
+                String error = CLS_NM + ".validate policy name [" + policy.getName() + "] value expireWarning [" + policy.getExpireWarning() + "] INVALID VALUE";
                 log.error(error);
                 throw new ValidationException(GlobalErrIds.PSWD_EXPWARN_INVLD, error);
             }
@@ -288,7 +288,7 @@ public class PolicyP
         }
         catch (SecurityException se)
         {
-            String warning = OCLS_NM + ".loadPolicySet static initializer caught SecurityException=" + se;
+            String warning = CLS_NM + ".loadPolicySet static initializer caught SecurityException=" + se;
             log.info(warning);
         }
         return policySet;

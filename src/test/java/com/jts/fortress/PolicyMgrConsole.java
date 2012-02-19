@@ -29,8 +29,8 @@ public class PolicyMgrConsole
 	final private static String PWDALLOWUSERCHANGE = "This attribute specifies whether users are allowed to change their own passwords or not.  If pwdAllowUserChange is set to TRUE, or if the attribute is  not  present, users will be allowed to change their own passwords.  If its value is FALSE, users will not be allowed to change their own passwords.";
 	final private static String PWDSAFEMODIFY = "This attribute denotes whether the user's existing password must be sent along with their new password when changing a password. If pwd-SafeModify is set to TRUE, the existing password must be sent along with the new password.  If the attribute is not present, or its value is  FALSE,  the existing password need not be sent along with the new password.";
 
-    private static final String OCLS_NM = PolicyMgrConsole.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = PolicyMgrConsole.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
 	/**
 	 * put your documentation comment here
@@ -43,7 +43,7 @@ public class PolicyMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            log.error(OCLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 	}
 
@@ -142,7 +142,7 @@ public class PolicyMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            log.error(OCLS_NM + ".add caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".add caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 		ReaderUtil.readChar();
 	}

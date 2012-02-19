@@ -35,8 +35,8 @@ public class Config
     final private static String propFile = "fortress.properties";
     final private static String userPropFile = "fortress.user.properties";
     private static PropertiesConfiguration config;
-    private static final String OCLS_NM = Config.class.getName();
-    final protected static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = Config.class.getName();
+    final protected static Logger log = Logger.getLogger(CLS_NM);
 
     static
     {
@@ -46,27 +46,27 @@ public class Config
             URL fUrl = Config.class.getClassLoader().getResource(propFile);
             if (fUrl == null)
             {
-                String error = OCLS_NM + " static init: Error, null configuration file: " + propFile;
+                String error = CLS_NM + " static init: Error, null configuration file: " + propFile;
                 log.fatal(error);
                 throw new java.lang.RuntimeException(error);
             }
-            log.info(OCLS_NM + " static init: found from: " + propFile + " path:" + fUrl.getPath());
+            log.info(CLS_NM + " static init: found from: " + propFile + " path:" + fUrl.getPath());
             config = new PropertiesConfiguration();
             config.setDelimiterParsingDisabled(true);
             config.load(fUrl);
-            log.info(OCLS_NM + " static init: loading from: " + propFile);
+            log.info(CLS_NM + " static init: loading from: " + propFile);
 
             URL fUserUrl = Config.class.getClassLoader().getResource(userPropFile);
             if (fUserUrl != null)
             {
-                log.info(OCLS_NM + " static init: found user properties from: " + userPropFile + " path:" + fUserUrl.getPath());
+                log.info(CLS_NM + " static init: found user properties from: " + userPropFile + " path:" + fUserUrl.getPath());
                 config.load(fUserUrl);
             }
 
             String realmName = config.getString(com.jts.fortress.constants.GlobalIds.CONFIG_REALM);
             if (realmName != null && realmName.length() > 0)
             {
-                log.info(OCLS_NM + " static init: load config realm [" + realmName + "]");
+                log.info(CLS_NM + " static init: load config realm [" + realmName + "]");
                 Properties props = getRemoteConfig(realmName);
                 if (props != null)
                 {
@@ -80,24 +80,24 @@ public class Config
             }
             else
             {
-                log.info(OCLS_NM + " static init: config realm not setup");
+                log.info(CLS_NM + " static init: config realm not setup");
             }
         }
         catch (org.apache.commons.configuration.ConfigurationException ex)
         {
-            String error = OCLS_NM + " static init: Error loading from configuration file: [" + propFile + "] ConfigurationException=" + ex;
+            String error = CLS_NM + " static init: Error loading from configuration file: [" + propFile + "] ConfigurationException=" + ex;
             log.fatal(error);
             throw new ConfigurationRuntimeException(GlobalErrIds.FT_CONFIG_BOOTSTRAP_FAILED, error, ex);
         }
         catch (SecurityException se)
         {
-            String error = OCLS_NM + " static init: Error loading from configuration file: [" + propFile + "] SecurityException=" + se;
+            String error = CLS_NM + " static init: Error loading from configuration file: [" + propFile + "] SecurityException=" + se;
             log.fatal(error);
             throw new ConfigurationRuntimeException(GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, se);
         }
         //catch (Exception e)
         //{
-        //    String error = OCLS_NM + " static init: Error loading from configuration file: [" + propFile + "] Exception=" + e;
+        //    String error = CLS_NM + " static init: Error loading from configuration file: [" + propFile + "] Exception=" + e;
         //    log.fatal(error);
         //    e.printStackTrace();
         //    throw new ConfigurationRuntimeException(GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, e);
@@ -123,7 +123,7 @@ public class Config
         {
             if (ce.getErrorId() == com.jts.fortress.constants.GlobalErrIds.FT_CONFIG_NOT_FOUND)
             {
-                String warning = OCLS_NM + ".getRemoteConfig could not find configuration entry";
+                String warning = CLS_NM + ".getRemoteConfig could not find configuration entry";
                 log.warn(warning);
             }
             else
@@ -170,11 +170,11 @@ public class Config
         {
             value = (String) config.getProperty(name);
             if (log.isDebugEnabled())
-                log.debug(OCLS_NM + ".getProperty name [" + name + "] value [" + value + "]");
+                log.debug(CLS_NM + ".getProperty name [" + name + "] value [" + value + "]");
         }
         else
         {
-            String error = OCLS_NM + ".getProperty invalid config, can't read prop [" + name + "]";
+            String error = CLS_NM + ".getProperty invalid config, can't read prop [" + name + "]";
             log.fatal(error);
         }
         return value;
@@ -197,7 +197,7 @@ public class Config
         }
         else
         {
-            String warn = OCLS_NM + ".getProperty invalid config, can't read prop [" + name + "]";
+            String warn = CLS_NM + ".getProperty invalid config, can't read prop [" + name + "]";
             log.warn(warn);
         }
         if (value == null || value.length() == 0)
@@ -223,7 +223,7 @@ public class Config
         }
         else
         {
-            String warn = OCLS_NM + ".getInt invalid config, can't read prop [" + key + "]";
+            String warn = CLS_NM + ".getInt invalid config, can't read prop [" + key + "]";
             log.warn(warn);
         }
         return value;
@@ -246,7 +246,7 @@ public class Config
         }
         else
         {
-            String warn = OCLS_NM + ".getInt invalid config, can't read prop [" + key + "]";
+            String warn = CLS_NM + ".getInt invalid config, can't read prop [" + key + "]";
             log.warn(warn);
         }
         return value;
@@ -268,7 +268,7 @@ public class Config
         }
         else
         {
-            String warn = OCLS_NM + ".getBoolean - invalid config, can't read prop [" + key + "]";
+            String warn = CLS_NM + ".getBoolean - invalid config, can't read prop [" + key + "]";
             log.warn(warn);
         }
         return value;
@@ -291,7 +291,7 @@ public class Config
         }
         else
         {
-            String warn = OCLS_NM + ".getBoolean - invalid config, can't read prop [" + key + "]";
+            String warn = CLS_NM + ".getBoolean - invalid config, can't read prop [" + key + "]";
             log.warn(warn);
         }
         return value;

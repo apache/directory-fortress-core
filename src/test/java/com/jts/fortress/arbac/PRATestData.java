@@ -20,8 +20,8 @@ import java.util.Map;
  */
 class PRATestData extends TestCase
 {
-    private static final String OCLS_NM = PRATestData.class.getName();
-    final protected static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = PRATestData.class.getName();
+    final protected static Logger log = Logger.getLogger(CLS_NM);
 
     final static String[][] PRA_T1 = {
          {

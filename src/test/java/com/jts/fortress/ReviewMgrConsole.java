@@ -28,8 +28,8 @@ import java.util.Set;
 public class ReviewMgrConsole
 {
     private ReviewMgr rm;
-    private static final String OCLS_NM = ReviewMgrConsole.class.getName();
-    final protected static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = ReviewMgrConsole.class.getName();
+    final protected static Logger log = Logger.getLogger(CLS_NM);
 
     /**
      * Constructor for the ReviewMgrConsole object
@@ -42,7 +42,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + " constructor caught SecurityException  errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + " constructor caught SecurityException  errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -96,7 +96,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".readRole caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".readRole caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -130,7 +130,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".findRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".findRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -187,7 +187,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".displayUsers caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".displayUsers caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -256,7 +256,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".findUsers caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".findUsers caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -319,7 +319,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".getUser caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getUser caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -387,7 +387,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".findUsersByOrg caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".findUsersByOrg caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -423,7 +423,7 @@ public class ReviewMgrConsole
          }
          catch (SecurityException e)
          {
-             log.error(OCLS_NM + ".assignedRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+             log.error(CLS_NM + ".assignedRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
          }
          ReaderUtil.readChar();
      }
@@ -517,7 +517,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".readUser caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".readUser caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -639,7 +639,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".searchPermissions caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".searchPermissions caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -756,7 +756,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".readPermission caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".readPermission caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -806,7 +806,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".permissionRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".permissionRoles caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -853,7 +853,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".permissionUsers caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".permissionUsers caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -889,7 +889,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".authorizedUsers caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".authorizedUsers caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -954,7 +954,7 @@ public class ReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".rolePermissions caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".rolePermissions caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

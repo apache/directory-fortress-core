@@ -79,7 +79,7 @@ public final class RoleDAO
       *  **  OpenAccessMgr ROLE STATICS
       *  ************************************************************************
       */
-    private static final String OCLS_NM = RoleDAO.class.getName();
+    private static final String CLS_NM = RoleDAO.class.getName();
     private final static String ROLE_OCCUPANT = "roleOccupant";
     private final static String ROLE_NM = "ftRoleName";
     private final static String[] ROLE_NM_ATR = {
@@ -128,7 +128,7 @@ public final class RoleDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".create role [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".create role [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException(GlobalErrIds.ROLE_ADD_FAILED, error, e);
         }
         finally
@@ -183,7 +183,7 @@ public final class RoleDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".update name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".update name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.ROLE_UPDATE_FAILED, error, e);
         }
         finally
@@ -216,7 +216,7 @@ public final class RoleDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".assign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".assign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.ROLE_USER_ASSIGN_FAILED, error, e);
         }
         finally
@@ -249,7 +249,7 @@ public final class RoleDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".deassign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".deassign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.ROLE_USER_DEASSIGN_FAILED, error, e);
         }
         finally
@@ -276,7 +276,7 @@ public final class RoleDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".remove role name=" + role.getName() + " LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".remove role name=" + role.getName() + " LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException(GlobalErrIds.ROLE_DELETE_FAILED, error, e);
         }
         finally
@@ -305,7 +305,7 @@ public final class RoleDAO
             entity = unloadLdapEntry(findEntry, 0);
             if (entity == null)
             {
-                String warning = OCLS_NM + ".getRole no entry found dn [" + dn + "]";
+                String warning = CLS_NM + ".getRole no entry found dn [" + dn + "]";
                 throw new FinderException(GlobalErrIds.ROLE_NOT_FOUND, warning);
             }
         }
@@ -313,10 +313,10 @@ public final class RoleDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".getRole Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
+                String warning = CLS_NM + ".getRole Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
                 throw new FinderException(GlobalErrIds.ROLE_NOT_FOUND, warning);
             }
-            String error = OCLS_NM + ".getRole dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
+            String error = CLS_NM + ".getRole dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
             throw new FinderException(GlobalErrIds.ROLE_READ_FAILED, error, e);
         }
         finally
@@ -357,7 +357,7 @@ public final class RoleDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".findRoles filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".findRoles filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.ROLE_SEARCH_FAILED, error, e);
         }
         finally
@@ -399,7 +399,7 @@ public final class RoleDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".findRoles filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".findRoles filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.ROLE_SEARCH_FAILED, error, e);
         }
         finally
@@ -436,7 +436,7 @@ public final class RoleDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".findAssignedRoles userDn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".findAssignedRoles userDn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.ROLE_OCCUPANT_SEARCH_FAILED, error, e);
         }
         finally

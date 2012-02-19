@@ -15,9 +15,9 @@ import org.apache.log4j.Logger;
  */
 public class ExampleAdminMgrImpl implements ExampleAdminMgr
 {
-    private static final String OCLS_NM = ExampleAdminMgrImpl.class.getName();
+    private static final String CLS_NM = ExampleAdminMgrImpl.class.getName();
     private static final ExampleP examP = new ExampleP();
-    protected static final Logger log = Logger.getLogger(OCLS_NM);
+    protected static final Logger log = Logger.getLogger(CLS_NM);
     
     /**
      * @param example
@@ -27,7 +27,7 @@ public class ExampleAdminMgrImpl implements ExampleAdminMgr
     public Example addExample(Example example)
         throws SecurityException
     {
-        com.jts.fortress.util.attr.VUtil.assertNotNull(example, EErrIds.EXAMPLE_ID_NULL, OCLS_NM + ".addExample");
+        com.jts.fortress.util.attr.VUtil.assertNotNull(example, EErrIds.EXAMPLE_ID_NULL, CLS_NM + ".addExample");
         return examP.add(example);
     }
 
@@ -38,7 +38,7 @@ public class ExampleAdminMgrImpl implements ExampleAdminMgr
     public void delExample(Example example)
         throws com.jts.fortress.SecurityException
     {
-        com.jts.fortress.util.attr.VUtil.assertNotNull(example, EErrIds.EXAMPLE_ID_NULL, OCLS_NM + ".addExample");
+        com.jts.fortress.util.attr.VUtil.assertNotNull(example, EErrIds.EXAMPLE_ID_NULL, CLS_NM + ".addExample");
         examP.delete(example.getName());
     }
 }

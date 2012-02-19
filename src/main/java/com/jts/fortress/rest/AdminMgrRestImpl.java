@@ -55,7 +55,7 @@ import com.jts.fortress.util.attr.VUtil;
  */
 public final class AdminMgrRestImpl implements AdminMgr
 {
-    private static final String OCLS_NM = AdminMgrRestImpl.class.getName();
+    private static final String CLS_NM = AdminMgrRestImpl.class.getName();
 
     // thread unsafe variable:
     private Session adminSess;
@@ -83,7 +83,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public User addUser(User user)
         throws com.jts.fortress.SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".addUser");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".addUser");
         User retUser;
         FortRequest request = new FortRequest();
         request.setEntity(user);
@@ -121,7 +121,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void disableUser(User user)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".disableUser");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".disableUser");
         FortRequest request = new FortRequest();
         request.setEntity(user);
         if (this.adminSess != null)
@@ -150,7 +150,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void deleteUser(User user)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".deleteUser");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".deleteUser");
         FortRequest request = new FortRequest();
         request.setEntity(user);
         if (this.adminSess != null)
@@ -177,7 +177,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public User updateUser(User user)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".updateUser");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".updateUser");
         User retUser;
         FortRequest request = new FortRequest();
         request.setEntity(user);
@@ -209,8 +209,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void changePassword(User user, char[] newPassword)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".changePassword");
-        VUtil.assertNotNullOrEmpty(newPassword, GlobalErrIds.USER_PW_NULL, OCLS_NM + ".changePassword");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".changePassword");
+        VUtil.assertNotNullOrEmpty(newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".changePassword");
         FortRequest request = new FortRequest();
         user.setNewPassword(newPassword);
         request.setEntity(user);
@@ -236,7 +236,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void lockUserAccount(User user)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".lockUserAccount");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".lockUserAccount");
         FortRequest request = new FortRequest();
         request.setEntity(user);
         if (this.adminSess != null)
@@ -261,7 +261,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void unlockUserAccount(User user)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".unlockUserAccount");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".unlockUserAccount");
         FortRequest request = new FortRequest();
         request.setEntity(user);
         if (this.adminSess != null)
@@ -287,8 +287,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void resetPassword(User user, char[] newPassword)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".resetPassword");
-        VUtil.assertNotNullOrEmpty(newPassword, GlobalErrIds.USER_PW_NULL, OCLS_NM + ".resetPassword");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".resetPassword");
+        VUtil.assertNotNullOrEmpty(newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".resetPassword");
         FortRequest request = new FortRequest();
         user.setNewPassword(newPassword);
         request.setEntity(user);
@@ -316,7 +316,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public Role addRole(Role role)
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".addRole");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addRole");
         Role retRole;
         FortRequest request = new FortRequest();
         request.setEntity(role);
@@ -350,7 +350,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void deleteRole(Role role)
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".deleteRole");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteRole");
         FortRequest request = new FortRequest();
         request.setEntity(role);
         if (this.adminSess != null)
@@ -375,7 +375,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public Role updateRole(Role role)
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".updateRole");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".updateRole");
         Role retRole;
         FortRequest request = new FortRequest();
         request.setEntity(role);
@@ -433,7 +433,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void assignUser(UserRole uRole)
         throws SecurityException
     {
-        VUtil.assertNotNull(uRole, GlobalErrIds.URLE_NULL, OCLS_NM + ".assignUser");
+        VUtil.assertNotNull(uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".assignUser");
         FortRequest request = new FortRequest();
         request.setEntity(uRole);
         if (this.adminSess != null)
@@ -465,7 +465,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void deassignUser(UserRole uRole)
         throws SecurityException
     {
-        VUtil.assertNotNull(uRole, GlobalErrIds.URLE_NULL, OCLS_NM + ".deassignUser");
+        VUtil.assertNotNull(uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".deassignUser");
         FortRequest request = new FortRequest();
         request.setEntity(uRole);
         if (this.adminSess != null)
@@ -493,7 +493,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public Permission addPermission(Permission perm)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".addPermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".addPermission");
         Permission retPerm;
         FortRequest request = new FortRequest();
         request.setEntity(perm);
@@ -527,7 +527,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public Permission updatePermission(Permission perm)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".updatePermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".updatePermission");
         Permission retPerm;
         FortRequest request = new FortRequest();
         request.setEntity(perm);
@@ -559,7 +559,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void deletePermission(Permission perm)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".deletePermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".deletePermission");
         FortRequest request = new FortRequest();
         request.setEntity(perm);
         if (this.adminSess != null)
@@ -586,7 +586,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public PermObj addPermObj(PermObj pObj)
         throws SecurityException
     {
-        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".addPermObj");
+        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".addPermObj");
         PermObj retObj;
         FortRequest request = new FortRequest();
         request.setEntity(pObj);
@@ -619,7 +619,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public PermObj updatePermObj(PermObj pObj)
         throws SecurityException
     {
-        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".updatePermObj");
+        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".updatePermObj");
         PermObj retObj;
         FortRequest request = new FortRequest();
         request.setEntity(pObj);
@@ -652,7 +652,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void deletePermObj(PermObj pObj)
         throws SecurityException
     {
-        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".deletePermObj");
+        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".deletePermObj");
         FortRequest request = new FortRequest();
         request.setEntity(pObj);
         if (this.adminSess != null)
@@ -682,8 +682,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void grantPermission(Permission perm, Role role)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".grantPermission");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".grantPermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".grantPermission");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".grantPermission");
         FortRequest request = new FortRequest();
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin(perm.isAdmin());
@@ -719,8 +719,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void revokePermission(Permission perm, Role role)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".revokePermission");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".revokePermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".revokePermission");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".revokePermission");
         FortRequest request = new FortRequest();
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin(perm.isAdmin());
@@ -752,8 +752,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void grantPermission(Permission perm, User user)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".grantPermissionUser");
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".grantPermissionUser");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".grantPermissionUser");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".grantPermissionUser");
         FortRequest request = new FortRequest();
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin(perm.isAdmin());
@@ -785,8 +785,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void revokePermission(Permission perm, User user)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".revokePermission");
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".revokePermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".revokePermission");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".revokePermission");
         FortRequest request = new FortRequest();
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin(perm.isAdmin());
@@ -823,8 +823,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void addDescendant(Role parentRole, Role childRole)
         throws SecurityException
     {
-        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, OCLS_NM + ".addDescendant");
-        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, OCLS_NM + ".addDescendant");
+        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addDescendant");
+        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addDescendant");
         FortRequest request = new FortRequest();
         RoleRelationship relationship = new RoleRelationship();
         relationship.setParent(parentRole);
@@ -858,8 +858,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void addAscendant(Role childRole, Role parentRole)
         throws SecurityException
     {
-        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, OCLS_NM + ".addAscendant");
-        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, OCLS_NM + ".addAscendant");
+        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addAscendant");
+        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addAscendant");
         FortRequest request = new FortRequest();
         RoleRelationship relationship = new RoleRelationship();
         relationship.setParent(parentRole);
@@ -891,8 +891,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void addInheritance(Role parentRole, Role childRole)
         throws SecurityException
     {
-        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, OCLS_NM + ".addInheritance");
-        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, OCLS_NM + ".addInheritance");
+        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addInheritance");
+        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addInheritance");
         FortRequest request = new FortRequest();
         RoleRelationship relationship = new RoleRelationship();
         relationship.setParent(parentRole);
@@ -924,8 +924,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public void deleteInheritance(Role parentRole, Role childRole)
         throws SecurityException
     {
-        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, OCLS_NM + ".deleteInheritance");
-        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, OCLS_NM + ".deleteInheritance");
+        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".deleteInheritance");
+        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".deleteInheritance");
         FortRequest request = new FortRequest();
         RoleRelationship relationship = new RoleRelationship();
         relationship.setParent(parentRole);
@@ -959,7 +959,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public SDSet createSsdSet(SDSet ssdSet)
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, OCLS_NM + ".createSsdSet");
+        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".createSsdSet");
         SDSet retSet = null;
         FortRequest request = new FortRequest();
         request.setEntity(ssdSet);
@@ -996,8 +996,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public SDSet addSsdRoleMember(SDSet ssdSet, Role role)
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, OCLS_NM + ".addSsdRoleMember");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".addSsdRoleMember");
+        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".addSsdRoleMember");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addSsdRoleMember");
         SDSet retSet = null;
         FortRequest request = new FortRequest();
         request.setEntity(ssdSet);
@@ -1036,8 +1036,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public SDSet deleteSsdRoleMember(SDSet ssdSet, Role role)
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, OCLS_NM + ".deleteSsdRoleMember");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".deleteSsdRoleMember");
+        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteSsdRoleMember");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteSsdRoleMember");
         SDSet retSet = null;
         FortRequest request = new FortRequest();
         request.setEntity(ssdSet);
@@ -1070,7 +1070,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public SDSet deleteSsdSet(SDSet ssdSet)
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, OCLS_NM + ".deleteSsdSet");
+        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteSsdSet");
         SDSet retSet = null;
         FortRequest request = new FortRequest();
         request.setEntity(ssdSet);
@@ -1106,7 +1106,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public SDSet setSsdSetCardinality(SDSet ssdSet, int cardinality)
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, OCLS_NM + ".setSsdSetCardinality");
+        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".setSsdSetCardinality");
         SDSet retSet = null;
         FortRequest request = new FortRequest();
         ssdSet.setCardinality(cardinality);
@@ -1145,7 +1145,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public SDSet createDsdSet(SDSet dsdSet)
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, OCLS_NM + ".createDsdSet");
+        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".createDsdSet");
         SDSet retSet = null;
         FortRequest request = new FortRequest();
         request.setEntity(dsdSet);
@@ -1183,8 +1183,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public SDSet addDsdRoleMember(SDSet dsdSet, Role role)
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, OCLS_NM + ".addDsdRoleMember");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".addDsdRoleMember");
+        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".addDsdRoleMember");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addDsdRoleMember");
         SDSet retSet = null;
         FortRequest request = new FortRequest();
         request.setEntity(dsdSet);
@@ -1224,8 +1224,8 @@ public final class AdminMgrRestImpl implements AdminMgr
     public SDSet deleteDsdRoleMember(SDSet dsdSet, Role role)
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, OCLS_NM + ".deleteDsdRoleMember");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".deleteSsdRoleMember");
+        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteDsdRoleMember");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteSsdRoleMember");
         SDSet retSet = null;
         FortRequest request = new FortRequest();
         request.setEntity(dsdSet);
@@ -1259,7 +1259,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public SDSet deleteDsdSet(SDSet dsdSet)
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, OCLS_NM + ".deleteDsdSet");
+        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteDsdSet");
         SDSet retSet = null;
         FortRequest request = new FortRequest();
         request.setEntity(dsdSet);
@@ -1296,7 +1296,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     public SDSet setDsdSetCardinality(SDSet dsdSet, int cardinality)
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, OCLS_NM + ".setSsdSetCardinality");
+        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".setSsdSetCardinality");
         SDSet retSet = null;
         FortRequest request = new FortRequest();
         dsdSet.setCardinality(cardinality);
@@ -1328,7 +1328,7 @@ public final class AdminMgrRestImpl implements AdminMgr
     {
         if (this.adminSess != null)
         {
-            AdminUtil.setEntitySession(adminSess, new Permission(OCLS_NM, opName), entity);
+            AdminUtil.setEntitySession(adminSess, new Permission(CLS_NM, opName), entity);
         }
     }
 }

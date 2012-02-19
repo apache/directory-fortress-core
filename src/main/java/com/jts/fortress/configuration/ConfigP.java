@@ -40,8 +40,8 @@ import java.util.Properties;
  */
 public class ConfigP
 {
-    private static final String OCLS_NM = ConfigP.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = ConfigP.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     /**
      * Create a new configuration node with given name and properties.  The name is required.  If node already exists,
@@ -99,7 +99,7 @@ public class ConfigP
     {
         if (!VUtil.isNotNullOrEmpty(name))
         {
-            String error = OCLS_NM + ".delete detected null config realm name";
+            String error = CLS_NM + ".delete detected null config realm name";
             log.warn(error);
             throw new ValidationException(GlobalErrIds.FT_CONFIG_NAME_NULL, error);
         }
@@ -144,7 +144,7 @@ public class ConfigP
         //}
         //else
         //{
-        //    String warning = OCLS_NM + ".read detected null config realm name";
+        //    String warning = CLS_NM + ".read detected null config realm name";
         //    log.warn(warning);
         //}
         return outProps;
@@ -164,19 +164,19 @@ public class ConfigP
     {
         if(!VUtil.isNotNullOrEmpty(name))
         {
-            String error = OCLS_NM + ".validate detected null config realm name";
+            String error = CLS_NM + ".validate detected null config realm name";
             log.warn(error);
             throw new ValidationException(GlobalErrIds.FT_CONFIG_NAME_NULL, error);
         }
         if (name.length() > GlobalIds.OU_LEN)
         {
-            String error = OCLS_NM + ".validate name [" + name + "] invalid length [" + name.length() + "]";
+            String error = CLS_NM + ".validate name [" + name + "] invalid length [" + name.length() + "]";
             log.warn(error);
             throw new ValidationException(GlobalErrIds.FT_CONFIG_NAME_INVLD, error);
         }
         if (entity == null || entity.size() == 0)
         {
-            String error = OCLS_NM + ".validate name [" + name + "] config props null";
+            String error = CLS_NM + ".validate name [" + name + "] config props null";
             log.warn(error);
             throw new ValidationException(GlobalErrIds.FT_CONFIG_PROPS_NULL, error);
         }

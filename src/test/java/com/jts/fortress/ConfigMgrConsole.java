@@ -26,8 +26,8 @@ public class ConfigMgrConsole
 {
     private ConfigMgr cm = null;
     private Session session = null;
-    private static final String OCLS_NM = ConfigMgrConsole.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = ConfigMgrConsole.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     /**
      * put your documentation comment here
@@ -40,7 +40,7 @@ public class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -67,7 +67,7 @@ public class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".addProp caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".addProp caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -91,7 +91,7 @@ public class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".updateProp caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".updateProp caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -117,7 +117,7 @@ public class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".readProps caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".readProps caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -139,7 +139,7 @@ public class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(OCLS_NM + ".deleteProps caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".deleteProps caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

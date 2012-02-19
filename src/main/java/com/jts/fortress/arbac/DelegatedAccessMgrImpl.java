@@ -49,7 +49,7 @@ import java.util.TreeSet;
  */
 public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAccessMgr
 {
-    private static final String OCLS_NM = DelegatedAccessMgrImpl.class.getName();
+    private static final String CLS_NM = DelegatedAccessMgrImpl.class.getName();
     private static final UserP uP = new UserP();
     private static final PermP pP = new PermP();
     private static final String SUPER_ADMIN = Config.getProperty("superadmin.role", "ftSuperAdmin");
@@ -67,7 +67,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     public boolean canAssign(Session session, User user, Role role)
         throws SecurityException
     {
-        String methodName = OCLS_NM + ".canAssign";
+        String methodName = CLS_NM + ".canAssign";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
@@ -87,7 +87,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     public boolean canDeassign(Session session, User user, Role role)
         throws SecurityException
     {
-        String methodName = OCLS_NM + ".canDeassign";
+        String methodName = CLS_NM + ".canDeassign";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
@@ -107,7 +107,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     public boolean canGrant(Session session, Role role, Permission perm)
         throws SecurityException
     {
-        String methodName = OCLS_NM + "canGrant";
+        String methodName = CLS_NM + "canGrant";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OBJECT_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
@@ -127,7 +127,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     public boolean canRevoke(Session session, Role role, Permission perm)
         throws SecurityException
     {
-        String methodName = OCLS_NM + "canRevoke";
+        String methodName = CLS_NM + "canRevoke";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OBJECT_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
@@ -153,7 +153,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     public boolean checkAccess(Session session, Permission perm)
         throws SecurityException
     {
-        String methodName = OCLS_NM + ".checkAccess";
+        String methodName = CLS_NM + ".checkAccess";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, methodName);
         VUtil.assertNotNullOrEmpty(perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL, methodName);
         VUtil.assertNotNullOrEmpty(perm.getObjectName(), GlobalErrIds.PERM_OBJECT_NULL, methodName);
@@ -183,7 +183,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     public void addActiveRole(Session session, UserAdminRole role)
         throws SecurityException
     {
-        String methodName = OCLS_NM + ".addActiveRole";
+        String methodName = CLS_NM + ".addActiveRole";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, methodName);
         role.setUserId(session.getUserId());
@@ -224,7 +224,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     public void dropActiveRole(Session session, UserAdminRole role)
         throws SecurityException
     {
-        String methodName = OCLS_NM + ".dropActiveRole";
+        String methodName = CLS_NM + ".dropActiveRole";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, methodName);
         role.setUserId(session.getUserId());
@@ -252,7 +252,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     public List<UserAdminRole> sessionAdminRoles(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".sessionAdminRoles");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionAdminRoles");
         return session.getAdminRoles();
     }
 
@@ -267,8 +267,8 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
     public Set<String> authorizedAdminRoles(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, OCLS_NM + ".authorizedAdminRoles");
-        VUtil.assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, OCLS_NM + ".authorizedAdminRoles");
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".authorizedAdminRoles");
+        VUtil.assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedAdminRoles");
         return AdminRoleUtil.getInheritedRoles(session.getAdminRoles());
     }
 

@@ -31,8 +31,8 @@ import java.util.Set;
  */
 public class AdminMgrImplTest extends TestCase
 {
-    private static final String OCLS_NM = AdminMgrImplTest.class.getName();
-    final protected static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = AdminMgrImplTest.class.getName();
+    final protected static Logger log = Logger.getLogger(CLS_NM);
     static Session adminSess = null;
 
     public AdminMgrImplTest(String name)
@@ -111,7 +111,7 @@ public class AdminMgrImplTest extends TestCase
             {
                 User user = UserTestData.getUser(usr);
                 adminMgr.addUser(user);
-                log.debug(OCLS_NM + ".addUsers user [" + user.getUserId() + "] successful");
+                log.debug(CLS_NM + ".addUsers user [" + user.getUserId() + "] successful");
                 // Does User have Role assignments?
                 Set<String> asgnRoles = UserTestData.getAssignedRoles(usr);
                 if(asgnRoles != null)
@@ -125,7 +125,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".addUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -177,12 +177,12 @@ public class AdminMgrImplTest extends TestCase
                     if (force)
                     {
                         adminMgr.deleteUser(user);
-                        log.debug(OCLS_NM + ".deleteUsers force user [" + user.getUserId() + "] successful");
+                        log.debug(CLS_NM + ".deleteUsers force user [" + user.getUserId() + "] successful");
                     }
                     else
                     {
                         adminMgr.disableUser(user);
-                        log.debug(OCLS_NM + ".deleteUsers user [" + user.getUserId() + "] successful");
+                        log.debug(CLS_NM + ".deleteUsers user [" + user.getUserId() + "] successful");
                     }
                 }
                 catch (SecurityException ex)
@@ -190,7 +190,7 @@ public class AdminMgrImplTest extends TestCase
                     // don't fail test if user was a system user:
                     if (ex.getErrorId() != com.jts.fortress.constants.GlobalErrIds.USER_PW_PLCY_VIOLATION)
                     {
-                        log.error(OCLS_NM + ".deleteUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                        log.error(CLS_NM + ".deleteUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                         fail(ex.getMessage());
                     }
                 }
@@ -198,7 +198,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".deleteUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -249,12 +249,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 User user = UserTestData.getUser(usr);
                 adminMgr.updateUser(user);
-                log.debug(OCLS_NM + ".updateUsers user [" + user.getUserId() + "] successful");
+                log.debug(CLS_NM + ".updateUsers user [" + user.getUserId() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".updateUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".updateUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -282,12 +282,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 User user = UserTestData.getUser(usr);
                 adminMgr.changePassword(user, UserTestData.getPassword(uNewArray[i++]));
-                log.debug(OCLS_NM + ".changePasswords user [" + user.getUserId() + "] successful");
+                log.debug(CLS_NM + ".changePasswords user [" + user.getUserId() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".changePasswords: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".changePasswords: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -315,12 +315,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 User user = UserTestData.getUser(usr);
                 adminMgr.lockUserAccount(user);
-                log.debug(OCLS_NM + ".lockUsers user [" + user.getUserId() + "] successful");
+                log.debug(CLS_NM + ".lockUsers user [" + user.getUserId() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".lockUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".lockUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -348,12 +348,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 User user = UserTestData.getUser(usr);
                 adminMgr.unlockUserAccount(user);
-                log.debug(OCLS_NM + ".unlockUsers user [" + user.getUserId() + "] successful");
+                log.debug(CLS_NM + ".unlockUsers user [" + user.getUserId() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".unlockUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".unlockUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -378,12 +378,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 User user = UserTestData.getUser(usr);
                 adminMgr.resetPassword(user, UserTestData.getPassword(usr));
-                log.debug(OCLS_NM + ".resetPasswords user [" + user.getUserId() + "] successful");
+                log.debug(CLS_NM + ".resetPasswords user [" + user.getUserId() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".resetPasswords: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".resetPasswords: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -421,12 +421,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 Role role = RoleTestData.getRole(rle);
                 Role entity = adminMgr.addRole(role);
-                log.debug(OCLS_NM + ".addRoles role [" + entity.getName() + "] successful");
+                log.debug(CLS_NM + ".addRoles role [" + entity.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".addRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -464,12 +464,12 @@ public class AdminMgrImplTest extends TestCase
                 Role role = new Role();
                 role.setName(RoleTestData.getName(rle));
                 adminMgr.deleteRole(role);
-                log.debug(OCLS_NM + ".deleteRoles role [" + role.getName() + "] successful");
+                log.debug(CLS_NM + ".deleteRoles role [" + role.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".deleteRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -496,12 +496,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 Role role = RoleTestData.getRole(rle);
                 Role entity = adminMgr.updateRole(role);
-                log.debug(OCLS_NM + ".updateRoles role [" + entity.getName() + "] successful");
+                log.debug(CLS_NM + ".updateRoles role [" + entity.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".updateRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".updateRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -539,7 +539,7 @@ public class AdminMgrImplTest extends TestCase
                 if(ctr++ == 0 || RoleTestData.isTree(rle))
                 {
                     adminMgr.addRole(role);
-                    log.debug(OCLS_NM + ".addDescendant add role [" + role.getName() + "] successful");
+                    log.debug(CLS_NM + ".addDescendant add role [" + role.getName() + "] successful");
                 }
 
                 // use list because order is important for test structure:
@@ -553,7 +553,7 @@ public class AdminMgrImplTest extends TestCase
                         {
                             Role child = new Role(desc);
                             adminMgr.addDescendant(parent, new Role(desc));
-                            log.debug(OCLS_NM + ".addDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
+                            log.debug(CLS_NM + ".addDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
                             parent = child;
                         }
                     }
@@ -562,7 +562,7 @@ public class AdminMgrImplTest extends TestCase
                         for (String desc : descs)
                         {
                             adminMgr.addDescendant(role, new Role(desc));
-                            log.debug(OCLS_NM + ".addDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
+                            log.debug(CLS_NM + ".addDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
                         }
                     }
                 }
@@ -573,14 +573,14 @@ public class AdminMgrImplTest extends TestCase
                     for (String desc : inheritances)
                     {
                         adminMgr.addInheritance(role, new Role(desc));
-                        log.debug(OCLS_NM + ".addDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
+                        log.debug(CLS_NM + ".addDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
                     }
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".addDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -627,7 +627,7 @@ public class AdminMgrImplTest extends TestCase
                         {
                             Role child = new Role(desc);
                             adminMgr.deleteInheritance(parent, new Role(desc));
-                            log.debug(OCLS_NM + ".delRoleDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
+                            log.debug(CLS_NM + ".delRoleDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
                             parent = child;
                         }
                     }
@@ -636,7 +636,7 @@ public class AdminMgrImplTest extends TestCase
                         for (String desc : descs)
                         {
                             adminMgr.deleteInheritance(role, new Role(desc));                            
-                            log.debug(OCLS_NM + ".delRoleDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
+                            log.debug(CLS_NM + ".delRoleDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
                         }
                     }
                 }
@@ -647,11 +647,11 @@ public class AdminMgrImplTest extends TestCase
                     for (String desc : inheritances)
                     {
                         adminMgr.deleteInheritance(role, new Role(desc));
-                        log.debug(OCLS_NM + ".delRoleDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
+                        log.debug(CLS_NM + ".delRoleDescendant asc role [" + role.getName() + "] desc role [" + desc + "] successful");
                     }
                 }
                 adminMgr.deleteRole(role);
-                log.debug(OCLS_NM + ".delRoleDescendant remove asc role [" + role.getName() + "] successful");
+                log.debug(CLS_NM + ".delRoleDescendant remove asc role [" + role.getName() + "] successful");
             }
 
             // cleanup the last row of descendants from roles data set.
@@ -661,12 +661,12 @@ public class AdminMgrImplTest extends TestCase
             for(Role re : cleanup)
             {
                 adminMgr.deleteRole(re);
-                log.debug(OCLS_NM + ".delRoleDescendant cleanup role [" + re.getName() + "] successful");
+                log.debug(CLS_NM + ".delRoleDescendant cleanup role [" + re.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".delRoleDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delRoleDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -696,7 +696,7 @@ public class AdminMgrImplTest extends TestCase
                 if(RoleTestData.isCreate(rle))
                 {
                     adminMgr.addRole(role);
-                    log.debug(OCLS_NM + ".addAscendant add role [" + role.getName() + "] successful");
+                    log.debug(CLS_NM + ".addAscendant add role [" + role.getName() + "] successful");
                 }
 
                 Set<String> ascs = RoleTestData.getRelationships(rle);
@@ -705,7 +705,7 @@ public class AdminMgrImplTest extends TestCase
                     for (String asc : ascs)
                     {
                         adminMgr.addAscendant(role, new Role(asc));
-                        log.debug(OCLS_NM + ".addAscendant desc role [" + role.getName() + "] asc role [" + asc + "] successful");
+                        log.debug(CLS_NM + ".addAscendant desc role [" + role.getName() + "] asc role [" + asc + "] successful");
                     }
                 }
 
@@ -715,14 +715,14 @@ public class AdminMgrImplTest extends TestCase
                     for (String asc : inheritances)
                     {
                         adminMgr.addInheritance(new Role(asc), role);
-                        log.debug(OCLS_NM + ".addAscendant desc role [" + role.getName() + "] asc role [" + asc + "] successful");
+                        log.debug(CLS_NM + ".addAscendant desc role [" + role.getName() + "] asc role [" + asc + "] successful");
                     }
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".addDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -756,7 +756,7 @@ public class AdminMgrImplTest extends TestCase
                     for (String asc : ascs)
                     {
                         adminMgr.deleteInheritance(new Role(asc), role);
-                        log.debug(OCLS_NM + ".delRoleAscendant desc role [" + role.getName() + "] asc role [" + asc + "] successful");
+                        log.debug(CLS_NM + ".delRoleAscendant desc role [" + role.getName() + "] asc role [" + asc + "] successful");
                     }
                 }
 
@@ -766,11 +766,11 @@ public class AdminMgrImplTest extends TestCase
                     for (String asc : inheritances)
                     {
                         adminMgr.deleteInheritance(new Role(asc), role);
-                        log.debug(OCLS_NM + ".delRoleAscendant desc role [" + role.getName() + "] asc role [" + asc + "] successful");
+                        log.debug(CLS_NM + ".delRoleAscendant desc role [" + role.getName() + "] asc role [" + asc + "] successful");
                     }
                 }
                 adminMgr.deleteRole(role);
-                log.debug(OCLS_NM + ".delRoleAscendant remove desc role [" + role.getName() + "] successful");
+                log.debug(CLS_NM + ".delRoleAscendant remove desc role [" + role.getName() + "] successful");
             }
 
             // cleanup the top ascendant from roles data set.
@@ -781,12 +781,12 @@ public class AdminMgrImplTest extends TestCase
             for(Role re : cleanup)
             {
                 adminMgr.deleteRole(re);
-                log.debug(OCLS_NM + ".delRoleAscendant cleanup role [" + re.getName() + "] successful");
+                log.debug(CLS_NM + ".delRoleAscendant cleanup role [" + re.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".delRoleAscendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delRoleAscendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -819,7 +819,7 @@ public class AdminMgrImplTest extends TestCase
                     for (String pRole : parents)
                     {
                         adminMgr.addInheritance(new Role(pRole), role);
-                        log.debug(OCLS_NM + ".addInheritedRoles child role [" + role.getName() + "] parent role [" + pRole + "] successful");
+                        log.debug(CLS_NM + ".addInheritedRoles child role [" + role.getName() + "] parent role [" + pRole + "] successful");
                     }
                 }
 
@@ -827,7 +827,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".addInheritedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addInheritedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -860,14 +860,14 @@ public class AdminMgrImplTest extends TestCase
                     for (String pRole : parents)
                     {
                         adminMgr.deleteInheritance(new Role(pRole), role);
-                        log.debug(OCLS_NM + ".deleteInheritedRoles child role [" + role.getName() + "] parent role [" + pRole + "] successful");
+                        log.debug(CLS_NM + ".deleteInheritedRoles child role [" + role.getName() + "] parent role [" + pRole + "] successful");
                     }
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".deleteInheritedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteInheritedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -895,12 +895,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 SDSet ssd = RoleTestData.getSDSet(ssdle);
                 SDSet entity = adminMgr.createSsdSet(ssd);
-                log.debug(OCLS_NM + ".createSsdSet SSD [" + entity.getName() + "] successful");
+                log.debug(CLS_NM + ".createSsdSet SSD [" + entity.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".createSsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".createSsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -929,12 +929,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 SDSet dsd = RoleTestData.getSDSet(dsdle);
                 SDSet entity = adminMgr.createDsdSet(dsd);
-                log.debug(OCLS_NM + ".createDsdSet DSD [" + entity.getName() + "] successful");
+                log.debug(CLS_NM + ".createDsdSet DSD [" + entity.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".createDsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".createDsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -963,12 +963,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 SDSet ssd = RoleTestData.getSDSet(ssdle);
                 SDSet entity = adminMgr.deleteSsdSet(ssd);
-                log.debug(OCLS_NM + ".deleteSsdSet role [" + ssd.getName() + "] successful");
+                log.debug(CLS_NM + ".deleteSsdSet role [" + ssd.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".deleteSsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteSsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -997,12 +997,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 SDSet dsd = RoleTestData.getSDSet(dsdle);
                 SDSet entity = adminMgr.deleteDsdSet(dsd);
-                log.debug(OCLS_NM + ".deleteDsdSet role [" + dsd.getName() + "] successful");
+                log.debug(CLS_NM + ".deleteDsdSet role [" + dsd.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".deleteDsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteDsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1031,23 +1031,23 @@ public class AdminMgrImplTest extends TestCase
             {
                 SDSet ssd = RoleTestData.getSDSet(ssdle);
                 SDSet entity = adminMgr.createSsdSet(ssd);
-                log.debug(OCLS_NM + ".addSsdRoleMember SSD [" + entity.getName() + "] successful");
+                log.debug(CLS_NM + ".addSsdRoleMember SSD [" + entity.getName() + "] successful");
                 for (String[] rle : rArray)
                 {
                     Role role = RoleTestData.getRole(rle);
                     entity = adminMgr.addSsdRoleMember(ssd, role);
                     List<SDSet> ssdSets = reviewMgr.ssdRoleSets(role);
                     assertNotNull(ssdSets);
-                    assertTrue(OCLS_NM + "addSsdRoleMember list size check", ssdSets.size() == 1);
+                    assertTrue(CLS_NM + "addSsdRoleMember list size check", ssdSets.size() == 1);
                     SDSet ssd2 = ssdSets.get(0);
-                    assertTrue(OCLS_NM + "addSsdRoleMember SSD name check", ssd.getName().equals(ssd2.getName()));
-                    assertTrue(OCLS_NM + "addSsdRoleMember SSD role check", ssd2.getMembers().contains(role.getName()));
+                    assertTrue(CLS_NM + "addSsdRoleMember SSD name check", ssd.getName().equals(ssd2.getName()));
+                    assertTrue(CLS_NM + "addSsdRoleMember SSD role check", ssd2.getMembers().contains(role.getName()));
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".addSsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addSsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1076,24 +1076,24 @@ public class AdminMgrImplTest extends TestCase
             {
                 SDSet dsd = RoleTestData.getSDSet(dsdle);
                 SDSet entity = adminMgr.createDsdSet(dsd);
-                log.debug(OCLS_NM + ".addDsdRoleMember DSD [" + entity.getName() + "] successful");
+                log.debug(CLS_NM + ".addDsdRoleMember DSD [" + entity.getName() + "] successful");
                 for (String[] rle : rArray)
                 {
                     Role role = RoleTestData.getRole(rle);
                     entity = adminMgr.addDsdRoleMember(dsd, role);
                     List<SDSet> dsdSets = reviewMgr.dsdRoleSets(role);
                     assertNotNull(dsdSets);
-                    assertTrue(OCLS_NM + "addDsdRoleMember list size check", dsdSets.size() == 1);
+                    assertTrue(CLS_NM + "addDsdRoleMember list size check", dsdSets.size() == 1);
                     SDSet dsd2 = dsdSets.get(0);
-                    assertTrue(OCLS_NM + "addDsdRoleMember DSD name check", dsd.getName().equals(dsd2.getName()));
-                    assertTrue(OCLS_NM + "addDsdRoleMember DSD role check", dsd2.getMembers().contains(role.getName()));
-                    //assertTrue(OCLS_NM + "addDsdRoleMember DSD role check", dsd2.getMembers().containsKey(role.getName()));
+                    assertTrue(CLS_NM + "addDsdRoleMember DSD name check", dsd.getName().equals(dsd2.getName()));
+                    assertTrue(CLS_NM + "addDsdRoleMember DSD role check", dsd2.getMembers().contains(role.getName()));
+                    //assertTrue(CLS_NM + "addDsdRoleMember DSD role check", dsd2.getMembers().containsKey(role.getName()));
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".addDsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addDsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1133,15 +1133,15 @@ public class AdminMgrImplTest extends TestCase
                     Role role = RoleTestData.getRole(rle);
                     SDSet entity = adminMgr.deleteSsdRoleMember(ssd, role);
                     List<SDSet> ssdSets = reviewMgr.ssdRoleSets(role);
-                    assertTrue(OCLS_NM + "deleteSsdRoleMember list size check ssdSets size [" + ssdSets.size() + "]", ssdSets.size() == 0);
+                    assertTrue(CLS_NM + "deleteSsdRoleMember list size check ssdSets size [" + ssdSets.size() + "]", ssdSets.size() == 0);
                 }
                 SDSet entity = adminMgr.deleteSsdSet(ssd);
-                log.debug(OCLS_NM + ".deleteSsdRoleMember SSD [" + ssd.getName() + "] successful");
+                log.debug(CLS_NM + ".deleteSsdRoleMember SSD [" + ssd.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".deleteSsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteSsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1181,15 +1181,15 @@ public class AdminMgrImplTest extends TestCase
                     Role role = RoleTestData.getRole(rle);
                     SDSet entity = adminMgr.deleteDsdRoleMember(dsd, role);
                     List<SDSet> dsdSets = reviewMgr.dsdRoleSets(role);
-                    assertTrue(OCLS_NM + "deleteDsdRoleMember list size check", dsdSets.size() == 0);
+                    assertTrue(CLS_NM + "deleteDsdRoleMember list size check", dsdSets.size() == 0);
                 }
                 SDSet entity = adminMgr.deleteDsdSet(dsd);
-                log.debug(OCLS_NM + ".deletedsdRoleMember DSD [" + dsd.getName() + "] successful");
+                log.debug(CLS_NM + ".deletedsdRoleMember DSD [" + dsd.getName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".deleteDsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteDsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1218,7 +1218,7 @@ public class AdminMgrImplTest extends TestCase
             {
                 SDSet ssd = RoleTestData.getSDSet(ssdle);
                 SDSet entity = adminMgr.createSsdSet(ssd);
-                log.debug(OCLS_NM + ".setSsdCardinality SSD [" + entity.getName() + "] successful");
+                log.debug(CLS_NM + ".setSsdCardinality SSD [" + entity.getName() + "] successful");
                 int cardinality = 1;
                 for (String[] rle : rArray)
                 {
@@ -1226,13 +1226,13 @@ public class AdminMgrImplTest extends TestCase
                     entity = adminMgr.addSsdRoleMember(ssd, role);
                     entity = adminMgr.setSsdSetCardinality(ssd, cardinality);
                     int currentCardinality = reviewMgr.ssdRoleSetCardinality(ssd);
-                    assertTrue(OCLS_NM + "setSsdCardinality cardinality check", currentCardinality == cardinality++);
+                    assertTrue(CLS_NM + "setSsdCardinality cardinality check", currentCardinality == cardinality++);
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".setSsdCardinality caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".setSsdCardinality caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1261,7 +1261,7 @@ public class AdminMgrImplTest extends TestCase
             {
                 SDSet dsd = RoleTestData.getSDSet(dsdle);
                 SDSet entity = adminMgr.createDsdSet(dsd);
-                log.debug(OCLS_NM + ".setDsdCardinality DSD [" + entity.getName() + "] successful");
+                log.debug(CLS_NM + ".setDsdCardinality DSD [" + entity.getName() + "] successful");
                 int cardinality = 1;
                 for (String[] rle : rArray)
                 {
@@ -1269,13 +1269,13 @@ public class AdminMgrImplTest extends TestCase
                     entity = adminMgr.addDsdRoleMember(dsd, role);
                     entity = adminMgr.setDsdSetCardinality(dsd, cardinality);
                     int currentCardinality = reviewMgr.dsdRoleSetCardinality(dsd);
-                    assertTrue(OCLS_NM + "setDsdCardinality cardinality check", currentCardinality == cardinality++);
+                    assertTrue(CLS_NM + "setDsdCardinality cardinality check", currentCardinality == cardinality++);
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".setDsdCardinality caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".setDsdCardinality caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1334,7 +1334,7 @@ public class AdminMgrImplTest extends TestCase
                     }
                     uRole.setUserId(user.getUserId());
                     adminMgr.assignUser(uRole);
-                    log.debug(OCLS_NM + ".assignUsers user [" + user.getUserId() + "] role [" + uRole.getName() + "] successful");
+                    log.debug(CLS_NM + ".assignUsers user [" + user.getUserId() + "] role [" + uRole.getName() + "] successful");
                     // Let's double check the number of users not associated with role:
                     // This one retrieves the collection of all "roleOccupant" attributes associated with the role node:
                     List<String> users = reviewMgr.assignedUsers(RoleTestData.getRole(rle), rArray.length);
@@ -1342,14 +1342,14 @@ public class AdminMgrImplTest extends TestCase
                     List<User> users2 = reviewMgr.authorizedUsers(RoleTestData.getRole(rle));
                     assertNotNull(users);
                     assertNotNull(users2);
-                    assertTrue(OCLS_NM + ".assignUsers list size check", i == users.size());
-                    assertTrue(OCLS_NM + ".assignUsers list2 size check", i == users2.size());
+                    assertTrue(CLS_NM + ".assignUsers list size check", i == users.size());
+                    assertTrue(CLS_NM + ".assignUsers list2 size check", i == users2.size());
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".assignUsers user caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignUsers user caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1381,7 +1381,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".assignUsersH user caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignUsersH user caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1416,13 +1416,13 @@ public class AdminMgrImplTest extends TestCase
                         adminMgr.assignUser(uRole);
                         if(j >= ssd.getCardinality())
                         {
-                            fail(OCLS_NM + ".assignUsersSSD user [" + user.getUserId() + "] role [" + role + "] ssd [" + ssd.getName() + "] cardinality [" + ssd.getCardinality() + "] count [" + j + "] failed");
+                            fail(CLS_NM + ".assignUsersSSD user [" + user.getUserId() + "] role [" + role + "] ssd [" + ssd.getName() + "] cardinality [" + ssd.getCardinality() + "] count [" + j + "] failed");
                         }
                     }
                     catch (SecurityException ex)
                     {
-                        assertTrue(OCLS_NM + ".assignUsersSSD cardinality test failed user [" + user.getUserId() + "] role [" + role + "] ssd [" + ssd.getName() + "] cardinality [" + ssd.getCardinality() + "] count [" + j + "]", j >= (ssd.getCardinality()));
-                        assertTrue(OCLS_NM + ".assignUsersSSD cardinality test failed [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.SSD_VALIDATION_FAILED);
+                        assertTrue(CLS_NM + ".assignUsersSSD cardinality test failed user [" + user.getUserId() + "] role [" + role + "] ssd [" + ssd.getName() + "] cardinality [" + ssd.getCardinality() + "] count [" + j + "]", j >= (ssd.getCardinality()));
+                        assertTrue(CLS_NM + ".assignUsersSSD cardinality test failed [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.SSD_VALIDATION_FAILED);
                         // still good, break from loop, we're done here
                         break;
                     }
@@ -1431,7 +1431,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".assignUsersSSD caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignUsersSSD caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1468,14 +1468,14 @@ public class AdminMgrImplTest extends TestCase
                     }
                     catch (SecurityException ex)
                     {
-                        fail(OCLS_NM + ".assignUsersDSD user [" + user.getUserId() + "] role [" + role + "] ssd [" + dsd.getName() + "] failed");
+                        fail(CLS_NM + ".assignUsersDSD user [" + user.getUserId() + "] role [" + role + "] ssd [" + dsd.getName() + "] failed");
                     }
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".assignUsersDSD caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignUsersDSD caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1512,7 +1512,7 @@ public class AdminMgrImplTest extends TestCase
                 {
                     UserRole uRole = new UserRole(UserTestData.getUserId(usr), RoleTestData.getName(rle));
                     adminMgr.deassignUser(uRole);
-                    log.debug(OCLS_NM + ".deassignUsers user [" + uRole.getUserId() + "] role [" + uRole.getName() + "] successful");
+                    log.debug(CLS_NM + ".deassignUsers user [" + uRole.getUserId() + "] role [" + uRole.getName() + "] successful");
                     // Double check the number of users associated with role:
                     // This one retrieves the collection of all "roleOccupant" attributes associated with the role node:                    
                     List<String> users = reviewMgr.assignedUsers(RoleTestData.getRole(rle), rArray.length);
@@ -1529,15 +1529,15 @@ public class AdminMgrImplTest extends TestCase
                     }
                     else
                     {
-                        assertTrue(OCLS_NM + "deassignUsers list size check", (rArray.length - i) == users.size());
-                        assertTrue(OCLS_NM + "deassignUsers list2 size check", (rArray.length - i) == users2.size());
+                        assertTrue(CLS_NM + "deassignUsers list size check", (rArray.length - i) == users.size());
+                        assertTrue(CLS_NM + "deassignUsers list2 size check", (rArray.length - i) == users2.size());
                     }
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".deassignUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deassignUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1566,7 +1566,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".deassignUsersH user [" + user.getUserId() + "] role [" + role.getName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deassignUsersH user [" + user.getUserId() + "] role [" + role.getName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1606,7 +1606,7 @@ public class AdminMgrImplTest extends TestCase
                 {
                     pOp = PermTestData.getOp(PermTestData.getName(obj), op);
                     adminMgr.addPermission(pOp);
-                    log.debug(OCLS_NM + ".addPermOp objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] successful");
+                    log.debug(CLS_NM + ".addPermOp objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] successful");
                 }
             }
         }
@@ -1614,7 +1614,7 @@ public class AdminMgrImplTest extends TestCase
         {
             if(!canFail)
             {
-                log.error(OCLS_NM + ".addPermOp objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                log.error(CLS_NM + ".addPermOp objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                 fail(ex.getMessage());
             }
         }
@@ -1654,14 +1654,14 @@ public class AdminMgrImplTest extends TestCase
                 pObj = PermTestData.getObj(obj);
                 // Todo - add props
                 adminMgr.addPermObj(pObj);
-                log.debug(OCLS_NM + ".addPermObjs objectName [" + pObj.getObjectName() + "] successful");
+                log.debug(CLS_NM + ".addPermObjs objectName [" + pObj.getObjectName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
             if(!canFail)
             {
-                log.error(OCLS_NM + ".addPermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                log.error(CLS_NM + ".addPermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                 fail(ex.getMessage());
             }
         }
@@ -1708,7 +1708,7 @@ public class AdminMgrImplTest extends TestCase
                 {
                     pOp = PermTestData.getOp(PermTestData.getName(obj), op);
                     adminMgr.deletePermission(pOp);
-                    log.debug(OCLS_NM + ".delPermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] successful");
+                    log.debug(CLS_NM + ".delPermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] successful");
                 }
             }
         }
@@ -1716,7 +1716,7 @@ public class AdminMgrImplTest extends TestCase
         {
             if(!canFail)
             {
-                log.error(OCLS_NM + ".delPermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                log.error(CLS_NM + ".delPermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                 fail(ex.getMessage());
             }
         }
@@ -1755,12 +1755,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 pObj = PermTestData.getObj(obj);
                 adminMgr.deletePermObj(pObj);
-                log.debug(OCLS_NM + ".delPermObjs objectName [" + pObj.getObjectName() + "] successful");
+                log.debug(CLS_NM + ".delPermObjs objectName [" + pObj.getObjectName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".delPermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delPermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1794,12 +1794,12 @@ public class AdminMgrImplTest extends TestCase
                 pObj = PermTestData.getObj(obj);
                 // Todo - add props
                 adminMgr.updatePermObj(pObj);
-                log.debug(OCLS_NM + ".updatePermObjs objectName [" + pObj.getObjectName() + "] successful");
+                log.debug(CLS_NM + ".updatePermObjs objectName [" + pObj.getObjectName() + "] successful");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".updatePermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".updatePermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1835,13 +1835,13 @@ public class AdminMgrImplTest extends TestCase
                 {
                     pOp = PermTestData.getOp(PermTestData.getName(obj), op);
                     adminMgr.updatePermission(pOp);
-                    log.debug(OCLS_NM + ".updatePermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] successful");
+                    log.debug(CLS_NM + ".updatePermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] successful");
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".updatePermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".updatePermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1893,7 +1893,7 @@ public class AdminMgrImplTest extends TestCase
                         role = new Role(RoleTestData.getName(rle));
                         pOp = PermTestData.getOp(PermTestData.getName(obj), op);
                         adminMgr.grantPermission(pOp, role);
-                        log.debug(OCLS_NM + ".addRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
+                        log.debug(CLS_NM + ".addRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
                     }
                 }
             }
@@ -1902,7 +1902,7 @@ public class AdminMgrImplTest extends TestCase
         {
             if(!canFail)
             {
-                log.error(OCLS_NM + ".addRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                log.error(CLS_NM + ".addRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                 fail(ex.getMessage());
             }
         }
@@ -1932,13 +1932,13 @@ public class AdminMgrImplTest extends TestCase
                 {
                     pOp = PermTestData.getOp(PermTestData.getName(obj), op);
                     adminMgr.grantPermission(pOp, role);
-                    log.debug(OCLS_NM + ".addRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
+                    log.debug(CLS_NM + ".addRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".addRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1980,13 +1980,13 @@ public class AdminMgrImplTest extends TestCase
                     adminMgr.grantPermission(pOp, user);
                     i++;
 
-                    log.debug(OCLS_NM + ".addRoleGrantsHB userId [" + user.getUserId() + "] role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
+                    log.debug(CLS_NM + ".addRoleGrantsHB userId [" + user.getUserId() + "] role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".addRoleGrantsHB caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addRoleGrantsHB caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2038,14 +2038,14 @@ public class AdminMgrImplTest extends TestCase
                         role = new Role(RoleTestData.getName(rle));
                         pOp = PermTestData.getOp(PermTestData.getName(obj), op);
                         adminMgr.revokePermission(pOp, role);
-                        log.debug(OCLS_NM + ".delRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
+                        log.debug(CLS_NM + ".delRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
                     }
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".delRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2073,13 +2073,13 @@ public class AdminMgrImplTest extends TestCase
                 {
                     pOp = PermTestData.getOp(PermTestData.getName(obj), op);
                     adminMgr.revokePermission(pOp, role);
-                    log.debug(OCLS_NM + ".delRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
+                    log.debug(CLS_NM + ".delRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".delRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2120,13 +2120,13 @@ public class AdminMgrImplTest extends TestCase
                     adminMgr.revokePermission(pOp, user);
                     i++;
 
-                    log.debug(OCLS_NM + ".delRoleGrantsHB userId [" + user.getUserId() + "] role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
+                    log.debug(CLS_NM + ".delRoleGrantsHB userId [" + user.getUserId() + "] role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".delRoleGrantsHB caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delRoleGrantsHB caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2161,14 +2161,14 @@ public class AdminMgrImplTest extends TestCase
                         user = new User(UserTestData.getUserId(usr));
                         pOp = PermTestData.getOp(PermTestData.getName(obj), op);
                         adminMgr.grantPermission(pOp, user);
-                        log.debug(OCLS_NM + ".addUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
+                        log.debug(CLS_NM + ".addUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
                     }
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".addUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2203,14 +2203,14 @@ public class AdminMgrImplTest extends TestCase
                         user = new User(UserTestData.getUserId(usr));
                         pOp = PermTestData.getOp(PermTestData.getName(obj), op);
                         adminMgr.revokePermission(pOp, user);
-                        log.debug(OCLS_NM + ".delUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
+                        log.debug(CLS_NM + ".delUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] successful");
                     }
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(OCLS_NM + ".delUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

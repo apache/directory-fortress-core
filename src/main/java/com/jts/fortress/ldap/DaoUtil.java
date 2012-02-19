@@ -51,8 +51,8 @@ public class DaoUtil
 {
     private static final String OPENLDAP_PROXY_CONTROL = "2.16.840.1.113730.3.4.18";
     private static final int MAX_DEPTH = 100;
-    private static final String OCLS_NM = DaoUtil.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = DaoUtil.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     /**
      * Read the ldap record from specified location.
@@ -223,7 +223,7 @@ public class DaoUtil
         if (recursiveCount++ > MAX_DEPTH)
         {
             // too deep inside of a recursive sequence;
-            String error = OCLS_NM + "." + method + " dn [" + dn + "] depth error in recursive";
+            String error = CLS_NM + "." + method + " dn [" + dn + "] depth error in recursive";
             throw new LDAPException(error, LDAPException.OPERATION_ERROR);
         }
 
@@ -246,13 +246,13 @@ public class DaoUtil
             catch (LDAPReferralException lre)
             {
                 // cannot continue;
-                String error = OCLS_NM + "." + method + " dn [" + dn + "] caught LDAPReferralException=" + lre.errorCodeToString() + "=" + lre.getLDAPErrorMessage();
+                String error = CLS_NM + "." + method + " dn [" + dn + "] caught LDAPReferralException=" + lre.errorCodeToString() + "=" + lre.getLDAPErrorMessage();
                 throw new LDAPException(error, lre.getLDAPResultCode());
             }
             catch (LDAPException ldape)
             {
                 // cannot continue;
-                String error = OCLS_NM + "." + method + " dn [" + dn + "] caught LDAPException=" + ldape.errorCodeToString() + "=" + ldape.getLDAPErrorMessage();
+                String error = CLS_NM + "." + method + " dn [" + dn + "] caught LDAPException=" + ldape.errorCodeToString() + "=" + ldape.getLDAPErrorMessage();
                 throw new LDAPException(error, ldape.getLDAPResultCode());
             }
         }
@@ -555,7 +555,7 @@ public class DaoUtil
                 }
                 else
                 {
-                    String warning = OCLS_NM + ".getRelAttributes detected incorrect data in role relationship field: " + edge;
+                    String warning = CLS_NM + ".getRelAttributes detected incorrect data in role relationship field: " + edge;
                     log.warn(warning);
                 }
             }

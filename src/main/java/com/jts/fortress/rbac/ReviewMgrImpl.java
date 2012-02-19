@@ -50,7 +50,7 @@ import java.util.TreeSet;
 public class ReviewMgrImpl
     implements ReviewMgr
 {
-    private static final String OCLS_NM = ReviewMgrImpl.class.getName();
+    private static final String CLS_NM = ReviewMgrImpl.class.getName();
     private static final UserP userP = new UserP();
     private static final RoleP roleP = new RoleP();
     private static final PermP permP = new PermP();
@@ -78,7 +78,7 @@ public class ReviewMgrImpl
     {
         if (this.adminSess != null)
         {
-            AdminUtil.checkAccess(adminSess, new Permission(OCLS_NM, opName));
+            AdminUtil.checkAccess(adminSess, new Permission(CLS_NM, opName));
         }
     }
 
@@ -92,9 +92,9 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "readPermission";
-        VUtil.assertNotNull(permission, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNullOrEmpty(permission.getObjectName(), GlobalErrIds.PERM_OBJECT_NM_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNullOrEmpty(permission.getOpName(), GlobalErrIds.PERM_OPERATION_NM_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(permission, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(permission.getObjectName(), GlobalErrIds.PERM_OBJECT_NM_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(permission.getOpName(), GlobalErrIds.PERM_OPERATION_NM_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return permP.read(permission);
     }
@@ -109,8 +109,8 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "readPermObj";
-        VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(permObj.getObjectName(), GlobalErrIds.PERM_OBJECT_NM_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(permObj.getObjectName(), GlobalErrIds.PERM_OBJECT_NM_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return permP.read(permObj);
     }
@@ -127,7 +127,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "findPermissions";
-        VUtil.assertNotNull(permission, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(permission, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return permP.search(permission);
     }
@@ -142,7 +142,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "findPermObjs";
-        VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return permP.search(permObj);
     }
@@ -157,7 +157,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "findPermObjs";
-        VUtil.assertNotNull(ou, GlobalErrIds.ORG_NULL_PERM, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(ou, GlobalErrIds.ORG_NULL_PERM, CLS_NM + "." + methodName);
         checkAccess(methodName);
         // pass a "false" which places no restrictions on how many records server returns.
         return permP.search(ou, false);
@@ -173,8 +173,8 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "readRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNullOrEmpty(role.getName(), GlobalErrIds.ROLE_NM_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return roleP.read(role.getName());
     }
@@ -189,7 +189,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "findRoles";
-        VUtil.assertNotNull(searchVal, GlobalErrIds.ROLE_NM_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(searchVal, GlobalErrIds.ROLE_NM_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return roleP.search(searchVal);
     }
@@ -207,7 +207,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "findRoles";
-        VUtil.assertNotNull(searchVal, GlobalErrIds.ROLE_NM_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(searchVal, GlobalErrIds.ROLE_NM_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return roleP.search(searchVal, limit);
     }
@@ -223,8 +223,8 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "readUser";
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNullOrEmpty(user.getUserId(), GlobalErrIds.USER_ID_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(user.getUserId(), GlobalErrIds.USER_ID_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return userP.read(user.getUserId(), true);
     }
@@ -239,7 +239,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "findUsers";
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return userP.search(user);
     }
@@ -254,7 +254,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "findUsers";
-        VUtil.assertNotNull(ou, GlobalErrIds.ORG_NULL_USER, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(ou, GlobalErrIds.ORG_NULL_USER, CLS_NM + "." + methodName);
         checkAccess(methodName);
         // pass a "false" which places no restrictions on how many records server returns.
         return userP.search(ou, false);
@@ -272,7 +272,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "findUsers";
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return userP.search(user.getUserId(), limit);
     }
@@ -291,7 +291,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "assignedUsers";
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
 
         // todo: place limit in this method:
@@ -324,7 +324,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "assignedUsers";
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return userP.getAssignedUsers(role);
     }
@@ -340,7 +340,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "assignedRoles";
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         User ue = userP.read(user.getUserId(), true);
         return ue.getRoles();
@@ -357,7 +357,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "assignedRoles";
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return userP.getAssignedRoles(userId);
     }
@@ -373,7 +373,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "authorizedUsers";
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return userP.getAuthorizedUsers(role);
     }
@@ -389,7 +389,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "authorizedRoles";
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         User ue = userP.read(user.getUserId(), true);
         List<UserRole> roles = ue.getRoles();
@@ -413,7 +413,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "rolePermissions";
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return permP.search(role);
     }
@@ -429,7 +429,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "userPermissions";
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         user = readUser(user);
         return permP.search(user);
@@ -445,7 +445,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "permissionRoles";
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         Permission pe = permP.read(perm);
         return pe.getRoles();
@@ -462,7 +462,7 @@ public class ReviewMgrImpl
     {
         Set<String> authorizedRoles = null;
         String methodName = "authorizedPermissionRoles";
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         // Pull the permission from ldap:
         Permission pe = permP.read(perm);
@@ -482,7 +482,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "permissionUsers";
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         Permission pe = permP.read(perm);
         return pe.getUsers();
@@ -499,7 +499,7 @@ public class ReviewMgrImpl
     {
         Set<String> authorizedUsers = null;
         String methodName = "authorizedPermissionUsers";
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         // Pull the permission from ldap:
         Permission pe = permP.read(perm);
@@ -560,7 +560,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "ssdRoleSets";
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return ssdP.search(role, SDSet.SDType.STATIC);
     }
@@ -576,7 +576,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "ssdRoleSet";
-        VUtil.assertNotNull(set, GlobalErrIds.SSD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(set, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         set.setType(SDSet.SDType.STATIC);
         return ssdP.read(set);
@@ -594,7 +594,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "ssdRoleSetRoles";
-        VUtil.assertNotNull(ssd, GlobalErrIds.SSD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(ssd, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         ssd.setType(SDSet.SDType.STATIC);
         SDSet se = ssdP.read(ssd);
@@ -613,7 +613,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "ssdRoleSetCardinality";
-        VUtil.assertNotNull(ssd, GlobalErrIds.SSD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(ssd, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         SDSet se = ssdP.read(ssd);
         return se.getCardinality();
@@ -631,7 +631,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "dsdRoleSets";
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return ssdP.search(role, SDSet.SDType.DYNAMIC);
     }
@@ -647,7 +647,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "dsdRoleSet";
-        VUtil.assertNotNull(set, GlobalErrIds.DSD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(set, GlobalErrIds.DSD_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         set.setType(SDSet.SDType.DYNAMIC);
         return ssdP.read(set);
@@ -665,7 +665,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "dsdRoleSetRoles";
-        VUtil.assertNotNull(dsd, GlobalErrIds.SSD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(dsd, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         dsd.setType(SDSet.SDType.DYNAMIC);
         SDSet se = ssdP.read(dsd);
@@ -684,7 +684,7 @@ public class ReviewMgrImpl
         throws SecurityException
     {
         String methodName = "dsdRoleSetCardinality";
-        VUtil.assertNotNull(dsd, GlobalErrIds.DSD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(dsd, GlobalErrIds.DSD_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         SDSet se = ssdP.read(dsd);
         return se.getCardinality();

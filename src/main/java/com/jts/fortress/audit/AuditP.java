@@ -33,8 +33,8 @@ import org.apache.log4j.Logger;
  */
 public class AuditP
 {
-    private static final String OCLS_NM = AuditP.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = AuditP.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     private static final AuditDAO aDao = new AuditDAO();
 
 

@@ -40,8 +40,8 @@ import java.util.StringTokenizer;
  */
 public class CUtil
 {
-    private static final String OCLS_NM = CUtil.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = CUtil.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     private static List<Validator> validators;
     private static final String DSDVALIDATOR = Config.getProperty(GlobalIds.DSD_VALIDATOR_PROP);
 
@@ -293,7 +293,7 @@ public class CUtil
         }
         catch (com.jts.fortress.SecurityException ex)
         {
-            log.fatal(OCLS_NM + ".static initialzier caught SecurityException=" + ex.getMessage(), ex);
+            log.fatal(CLS_NM + ".static initialzier caught SecurityException=" + ex.getMessage(), ex);
         }
     }
 
@@ -354,7 +354,7 @@ public class CUtil
     public static void validateConstraints(Session session, ConstraintType type, boolean checkDsd)
         throws SecurityException
     {
-        String location = OCLS_NM + ".validateConstraints";
+        String location = CLS_NM + ".validateConstraints";
         int rc;
         if (validators == null)
         {

@@ -24,8 +24,8 @@ import org.apache.log4j.Logger;
  */
 public class CreatePermOrgHierarchySample extends TestCase
 {
-    private static final String OCLS_NM = CreatePermOrgHierarchySample.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = CreatePermOrgHierarchySample.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     // This constant will be added to index for creation of multiple nodes in directory.
     public static final String TEST_HIER_PERMORG_PREFIX = "sampleHierPermOrg";
@@ -87,7 +87,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testDeleteHierPermOrgs()
     {
-        String szLocation = OCLS_NM + ".testDeleteHierPermOrgs";
+        String szLocation = CLS_NM + ".testDeleteHierPermOrgs";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -130,7 +130,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testCreateHierPermOrgs()
     {
-        String szLocation = OCLS_NM + ".testCreateHierPermOrgs";
+        String szLocation = CLS_NM + ".testCreateHierPermOrgs";
         try
         {
             // Instantiate the DelegatedAdminMgr implementation which is used to provision ARBAC policies.
@@ -176,7 +176,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testDeleteDescendantPermOrgs()
     {
-        String szLocation = OCLS_NM + ".testDeleteDescendantPermOrgs";
+        String szLocation = CLS_NM + ".testDeleteDescendantPermOrgs";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -222,7 +222,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testCreateDescendantPermOrgs()
     {
-        String szLocation = OCLS_NM + ".testCreateDescendantPermOrgs";
+        String szLocation = CLS_NM + ".testCreateDescendantPermOrgs";
         try
         {
             // Instantiate the DelegatedAdminMgr implementation which is used to provision ARBAC policies.
@@ -261,7 +261,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testDeleteAscendantPermOrgs()
     {
-        String szLocation = OCLS_NM + ".testDeleteAscendantPermOrgs";
+        String szLocation = CLS_NM + ".testDeleteAscendantPermOrgs";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -306,7 +306,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testCreateAscendantPermOrgs()
     {
-        String szLocation = OCLS_NM + ".testCreateAscendantPermOrgs";
+        String szLocation = CLS_NM + ".testCreateAscendantPermOrgs";
         try
         {
             // Instantiate the DelegatedAdminMgr implementation which is used to provision ARBAC policies.

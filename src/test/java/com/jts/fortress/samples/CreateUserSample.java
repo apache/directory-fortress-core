@@ -27,8 +27,8 @@ import org.apache.log4j.Logger;
  */
 public class CreateUserSample extends TestCase
 {
-    private static final String OCLS_NM = CreateUserSample.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = CreateUserSample.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     public static final String TEST_USERID = "sampleUser1";
     public static final String TEST_PASSWORD = "password1";
 
@@ -64,7 +64,7 @@ public class CreateUserSample extends TestCase
      */
     public static void testDeleteUser()
     {
-        String szLocation = OCLS_NM + ".testDeleteUser";
+        String szLocation = CLS_NM + ".testDeleteUser";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -107,7 +107,7 @@ public class CreateUserSample extends TestCase
      */
     public static void testCreateUser()
     {
-        String szLocation = OCLS_NM + ".testCreateUser";
+        String szLocation = CLS_NM + ".testCreateUser";
         try
         {
             // Instantiate the AdminMgr implementation.  All AdminMgr APIs can throw a SecurityException in the event

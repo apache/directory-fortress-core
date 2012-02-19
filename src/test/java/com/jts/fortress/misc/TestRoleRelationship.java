@@ -23,8 +23,8 @@ import java.util.List;
 public class TestRoleRelationship
 {
 
-    private static final String OCLS_NM = TestRoleRelationship.class.getName();
-    final protected static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = TestRoleRelationship.class.getName();
+    final protected static Logger log = Logger.getLogger(CLS_NM);
     private List<Relationship> rels;
 
     /**
@@ -34,13 +34,13 @@ public class TestRoleRelationship
      */
     public static void main(String[] args)
     {
-        log.info(OCLS_NM + ".main Test #args=" + args.length);
+        log.info(CLS_NM + ".main Test #args=" + args.length);
         int i = 0;
         TestRoleRelationship tc = new TestRoleRelationship();
 
         for (String arg : args)
         {
-            log.info(OCLS_NM + ".main add[" + i++ + "]=" + arg);
+            log.info(CLS_NM + ".main add[" + i++ + "]=" + arg);
             //tc.addMember(arg);
             int indx = arg.indexOf(':');
             if (indx >= 1)
@@ -60,7 +60,7 @@ public class TestRoleRelationship
         i = 0;
         for (String arg : args)
         {
-            log.info(OCLS_NM + ".main remove[" + i++ + "]=" + arg);
+            log.info(CLS_NM + ".main remove[" + i++ + "]=" + arg);
             int indx = arg.indexOf(':');
             if (indx >= 1)
             {
@@ -71,8 +71,8 @@ public class TestRoleRelationship
                 Relationship mem = tc.getRelationship(rel);
                 boolean result = tc.isContained(rel);
 
-                log.info(OCLS_NM + ".main mem[" + i + "]=" + mem);
-                log.info(OCLS_NM + ".main result[" + i + "]=" + result);
+                log.info(CLS_NM + ".main mem[" + i + "]=" + mem);
+                log.info(CLS_NM + ".main result[" + i + "]=" + result);
 
 
                 child = child.toUpperCase();
@@ -81,8 +81,8 @@ public class TestRoleRelationship
                 mem = tc.getRelationship(rel);
                 result = tc.isContained(rel);
 
-                log.info(OCLS_NM + ".main mem2[" + i + "]=" + mem);
-                log.info(OCLS_NM + ".main result2[" + i + "]=" + result);
+                log.info(CLS_NM + ".main mem2[" + i + "]=" + mem);
+                log.info(CLS_NM + ".main result2[" + i + "]=" + result);
                 tc.addMember(rel);
             }
         }

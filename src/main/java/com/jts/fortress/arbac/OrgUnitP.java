@@ -40,8 +40,8 @@ import org.apache.log4j.Logger;
 public final class OrgUnitP
 {
     // init the logger:
-    private static final String OCLS_NM = OrgUnitP.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = OrgUnitP.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     // these fields are used to synchronize access to the above static pools:
     private static final Object userPoolSynchLock = new Object();
@@ -85,7 +85,7 @@ public final class OrgUnitP
         }
         catch (SecurityException se)
         {
-            String warning = OCLS_NM + ".loadOrgSet static initializer caught SecurityException=" + se;
+            String warning = CLS_NM + ".loadOrgSet static initializer caught SecurityException=" + se;
             log.info(warning, se);
         }
         return ouSet;
@@ -226,7 +226,7 @@ public final class OrgUnitP
         }
         if (entity.getType() == null)
         {
-            String error = OCLS_NM + ".validate null or empty org unit type";
+            String error = CLS_NM + ".validate null or empty org unit type";
             //log.warn(error);
             int errCode;
             if(entity.getType() == OrgUnit.Type.PERM)

@@ -51,7 +51,7 @@ import java.util.List;
  */
 public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
 {
-    private static final String OCLS_NM = PswdPolicyMgrRestImpl.class.getName();
+    private static final String CLS_NM = PswdPolicyMgrRestImpl.class.getName();
 
     // thread unsafe variable:
     private Session adminSess;
@@ -72,7 +72,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
         if (this.adminSess != null)
         {
             // TODO: TURN IT BACK ON:
-            AdminUtil.setEntitySession(adminSess, new Permission(OCLS_NM, opName), entity);
+            AdminUtil.setEntitySession(adminSess, new Permission(CLS_NM, opName), entity);
         }
     }
 
@@ -86,7 +86,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
     public void add(PswdPolicy policy)
         throws SecurityException
     {
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, OCLS_NM + ".add");
+        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + ".add");
         FortRequest request = new FortRequest();
         request.setEntity(policy);
         if (this.adminSess != null)
@@ -113,7 +113,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
     public void update(PswdPolicy policy)
         throws SecurityException
     {
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, OCLS_NM + ".update");
+        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + ".update");
         FortRequest request = new FortRequest();
         request.setEntity(policy);
         if (this.adminSess != null)
@@ -141,7 +141,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
     public void delete(PswdPolicy policy)
         throws SecurityException
     {
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_NAME_NULL, OCLS_NM + ".delete");
+        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".delete");
         FortRequest request = new FortRequest();
         request.setEntity(policy);
         if (this.adminSess != null)
@@ -169,7 +169,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
     public PswdPolicy read(String name)
         throws SecurityException
     {
-        VUtil.assertNotNullOrEmpty(name, GlobalErrIds.PSWD_NAME_NULL, OCLS_NM + ".read");
+        VUtil.assertNotNullOrEmpty(name, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".read");
         PswdPolicy retPolicy;
         FortRequest request = new FortRequest();
         request.setEntity(new PswdPolicy(name));
@@ -203,7 +203,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
     public List<PswdPolicy> search(String searchVal)
         throws SecurityException
     {
-        VUtil.assertNotNull(searchVal, GlobalErrIds.PSWD_NAME_NULL, OCLS_NM + ".search");
+        VUtil.assertNotNull(searchVal, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".search");
         List<PswdPolicy> retPolicies;
         FortRequest request = new FortRequest();
         request.setEntity(new PswdPolicy(searchVal));
@@ -239,8 +239,8 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
         throws SecurityException
     {
         String methodName = "updateUserPolicy";
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNullOrEmpty(name, GlobalErrIds.PSWD_NAME_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(name, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + "." + methodName);
         FortRequest request = new FortRequest();
         request.setEntity(new PswdPolicy(name));
         request.setValue(userId);
@@ -270,7 +270,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
     public void deletePasswordPolicy(String userId)
         throws SecurityException
     {
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, OCLS_NM + ".deletePasswordPolicy");
+        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + ".deletePasswordPolicy");
         FortRequest request = new FortRequest();
         request.setValue(userId);
         if (this.adminSess != null)

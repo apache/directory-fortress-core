@@ -28,8 +28,8 @@ import java.util.List;
  */
 public class CreateSessionSample extends TestCase
 {
-    private static final String OCLS_NM = CreateSessionSample.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = CreateSessionSample.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     public CreateSessionSample(String name)
     {
@@ -98,7 +98,7 @@ public class CreateSessionSample extends TestCase
      */
     public static void createSession(String userId, char[] password, int expectedRoles)
     {
-        String szLocation = OCLS_NM + ".createSession";
+        String szLocation = CLS_NM + ".createSession";
         try
         {
             // Instantiate the AccessMgr implementation which perform runtime RBAC operations.
@@ -162,7 +162,7 @@ public class CreateSessionSample extends TestCase
      */
     public static void createSessionsWithRole(String userId, char[] password, String role)
     {
-        String szLocation = OCLS_NM + ".createSessionsWithRole";
+        String szLocation = CLS_NM + ".createSessionsWithRole";
         try
         {
             // Instantiate the AccessMgr implementation which perform runtime RBAC operations.
@@ -200,7 +200,7 @@ public class CreateSessionSample extends TestCase
      */
     public static void createSessionsWithRolesTrusted(String userId, String[] roles, int expectedRoles)
     {
-        String szLocation = OCLS_NM + ".createSessionsWithRolesTrusted";
+        String szLocation = CLS_NM + ".createSessionsWithRolesTrusted";
         try
         {
             AccessMgr accessMgr = AccessMgrFactory.createInstance();
@@ -247,7 +247,7 @@ public class CreateSessionSample extends TestCase
      */
     public static void createSessionTrusted(String userId)
     {
-        String szLocation = OCLS_NM + ".createSessionTrusted";
+        String szLocation = CLS_NM + ".createSessionTrusted";
         try
         {
             // Instantiate the AccessMgr implementation which perform runtime RBAC operations.

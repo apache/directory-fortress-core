@@ -21,8 +21,8 @@ import java.util.TreeSet;
  */
 class AdminRoleTestData extends TestCase
 {
-    private static final String OCLS_NM = AdminRoleTestData.class.getName();
-    final protected static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = AdminRoleTestData.class.getName();
+    final protected static Logger log = Logger.getLogger(CLS_NM);
 
     final static String[][] AROLES_SUPER = {
         {
@@ -980,6 +980,6 @@ class AdminRoleTestData extends TestCase
     public static void assertEquals(AdminRole role, String[] rle)
     {
         RoleTestData.assertEquals(role, rle);
-        log.debug(OCLS_NM + ".assertEquals [" + role.getName() + "] successful");
+        log.debug(CLS_NM + ".assertEquals [" + role.getName() + "] successful");
     }
 }

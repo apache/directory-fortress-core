@@ -20,8 +20,8 @@ import java.util.Map;
  */
 class URATestData extends TestCase
 {
-    private static final String OCLS_NM = URATestData.class.getName();
-    final protected static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = URATestData.class.getName();
+    final protected static Logger log = Logger.getLogger(CLS_NM);
 
     final static String[][] URA_T1 = {
          {

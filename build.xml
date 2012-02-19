@@ -82,10 +82,6 @@
        <property name="cxf-common-utilities.jar" value="${lib.dir}/cxf-common-utilities-2.5.0.jar"/>
        <property name="commons-codec.jar" value="${lib.dir}/commons-codec-1.2.jar"/>
 
-       <!--property name="jackson-core-asl.jar" value="${lib.dir}/jackson-core-asl-1.9.0.jar"/-->
-
-
-
        <!-- ########### Test properties ########################### -->
        <property name="test.sample.entry" value="com.jts.fortress.samples.AllSamplesJUnitTest"/>
        <property name="test.regression.entry"  value="com.jts.fortress.rbac.FortressJUnitTest"/>
@@ -119,7 +115,6 @@
        <property name="builder.bootstrap.conf" value="${builder.home}/config/bootstrap/fortress.properties"/>
        <property name="builder.remote.conf" value="${builder.home}/config/fortress.properties"/>
        <property name="builder.load.bootstrap.script" value="${builder.home}/ldap/refreshLDAPData-src.xml"/>
-
 
        <!-- ########### Javadoc properties ########################### -->
        <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
@@ -196,62 +191,6 @@
            <pathelement location="${jasypt.jar}"/>
        </path>
 
-       <!-- Defines XJC and SchemaGen tasks -->
-       <property name="generated.dir" value="${basedir}/generated"/>
-       <property name="generated.classes.dir" value="${generated.dir}/classes"/>
-       <property name="generated.schema.dir" value="${generated.dir}/schema"/>
-       <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask" >
-               <classpath refid="build.class.path"/>
-       </taskdef>
-
-       <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-           <classpath refid="build.class.path"/>
-       </taskdef>
-       <taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
-               <classpath refid="build.class.path"/>
-       </taskdef>
-
-    </target>
-
-    <target name="generate-schema" depends="compile">
-        <echo message="Generating schemas..."/>
-        <mkdir dir="${generated.schema.dir}"/>
-
-        <schemagen srcdir="${src.java.dir}" destdir="${generated.schema.dir}">
-            <classpath refid="build.class.path"/>
-             <include name="com/jts/fortress/FortEntity.java"/>
-             <include name="com/jts/fortress/rest/FortRequest.java"/>
-             <include name="com/jts/fortress/rest/FortResponse.java"/>
-             <include name="com/jts/fortress/rbac/User.java"/>
-             <include name="com/jts/fortress/rbac/Role.java"/>
-             <include name="com/jts/fortress/rbac/UserRole.java"/>
-             <include name="com/jts/fortress/util/time/Constraint.java"/>
-             <include name="com/jts/fortress/rbac/SDSet.java"/>
-             <include name="com/jts/fortress/rbac/Permission.java"/>
-             <include name="com/jts/fortress/rbac/PermObj.java"/>
-             <include name="com/jts/fortress/rbac/RoleRelationship.java"/>
-             <include name="com/jts/fortress/rbac/PermGrant.java"/>
-             <include name="com/jts/fortress/rbac/Session.java"/>
-             <include name="com/jts/fortress/rbac/RolePerm.java"/>
-             <include name="com/jts/fortress/rbac/.java"/>
-             <include name="com/jts/fortress/arbac/OrgUnit.java"/>
-             <include name="com/jts/fortress/arbac/UserAdminRole.java"/>
-             <include name="com/jts/fortress/arbac/AdminRoleRelationship.java"/>
-             <include name="com/jts/fortress/arbac/OrgUnitRelationship.java"/>
-             <include name="com/jts/fortress/arbac/.java"/>
-             <include name="com/jts/fortress/arbac/.java"/>
-             <include name="com/jts/fortress/audit/UserAudit.java"/>
-             <include name="com/jts/fortress/audit/AuthZ.java"/>
-             <include name="com/jts/fortress/audit/Bind.java"/>
-             <include name="com/jts/fortress/audit/Mod.java"/>
-             <include name="com/jts/fortress/pwpolicy/PswdPolicy.java"/>
-        </schemagen>
-    </target>
-
-    <target name="compile-schema" depends="generate-schema">
-        <echo message="Compiling the schema..."/>
-        <mkdir dir="${generated.classes.dir}"/>
-        <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="com.jts.fortress.model" removeOldOutput="yes"/>
     </target>
 
     <!-- =================================
@@ -813,5 +752,72 @@
          <delete dir="${db.dir}"/>
 
      </target>
+
+    <!-- =================================
+          target: init-jaxb - initializes properties and taskdefs used for schema generation and compilation.
+         ================================= -->
+    <target name="init-jaxb" depends="resolve" >
+
+        <property name="generated.dir" value="${basedir}/generated"/>
+        <property name="generated.classes.dir" value="${generated.dir}/classes"/>
+        <property name="generated.schema.dir" value="${generated.dir}/schema"/>
+
+       <!-- Defines XJC and SchemaGen tasks -->
+        <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+            <classpath refid="build.class.path"/>
+        </taskdef>
+
+        <taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
+                <classpath refid="build.class.path"/>
+        </taskdef>
+
+    </target>
+
+    <!-- =================================
+          target: generate-schema - generates JAXB schmea based on Java classes.
+         ================================= -->
+    <target name="generate-schema" depends="init-jaxb,compile">
+        <echo message="Generating schemas..."/>
+        <mkdir dir="${generated.schema.dir}"/>
+
+        <schemagen srcdir="${src.java.dir}" destdir="${generated.schema.dir}">
+            <classpath refid="build.class.path"/>
+             <include name="com/jts/fortress/FortEntity.java"/>
+             <include name="com/jts/fortress/rest/FortRequest.java"/>
+             <include name="com/jts/fortress/rest/FortResponse.java"/>
+             <include name="com/jts/fortress/rbac/User.java"/>
+             <include name="com/jts/fortress/rbac/Role.java"/>
+             <include name="com/jts/fortress/rbac/UserRole.java"/>
+             <include name="com/jts/fortress/util/time/Constraint.java"/>
+             <include name="com/jts/fortress/rbac/SDSet.java"/>
+             <include name="com/jts/fortress/rbac/Permission.java"/>
+             <include name="com/jts/fortress/rbac/PermObj.java"/>
+             <include name="com/jts/fortress/rbac/RoleRelationship.java"/>
+             <include name="com/jts/fortress/rbac/PermGrant.java"/>
+             <include name="com/jts/fortress/rbac/Session.java"/>
+             <include name="com/jts/fortress/rbac/RolePerm.java"/>
+             <include name="com/jts/fortress/rbac/.java"/>
+             <include name="com/jts/fortress/arbac/OrgUnit.java"/>
+             <include name="com/jts/fortress/arbac/UserAdminRole.java"/>
+             <include name="com/jts/fortress/arbac/AdminRoleRelationship.java"/>
+             <include name="com/jts/fortress/arbac/OrgUnitRelationship.java"/>
+             <include name="com/jts/fortress/arbac/.java"/>
+             <include name="com/jts/fortress/arbac/.java"/>
+             <include name="com/jts/fortress/audit/UserAudit.java"/>
+             <include name="com/jts/fortress/audit/AuthZ.java"/>
+             <include name="com/jts/fortress/audit/Bind.java"/>
+             <include name="com/jts/fortress/audit/Mod.java"/>
+             <include name="com/jts/fortress/pwpolicy/PswdPolicy.java"/>
+        </schemagen>
+    </target>
+
+    <!-- =================================
+          target: compile-schema - generates Java classes based on schema.
+         ================================= -->
+    <target name="compile-schema" depends="init-jaxb,generate-schema">
+        <echo message="Compiling the schema..."/>
+        <mkdir dir="${generated.classes.dir}"/>
+        <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="com.jts.fortress.model" removeOldOutput="yes"/>
+    </target>
 
 </project>

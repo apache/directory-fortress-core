@@ -64,7 +64,7 @@ import java.util.List;
  */
 public class AuditMgrImpl implements AuditMgr
 {
-    private static final String OCLS_NM = AuditMgrImpl.class.getName();
+    private static final String CLS_NM = AuditMgrImpl.class.getName();
     private static final AuditP auditP = new AuditP();
     // thread unsafe variable:
     private Session adminSess;
@@ -83,7 +83,7 @@ public class AuditMgrImpl implements AuditMgr
         throws SecurityException
     {
         String methodName = "getUserAuthZs";
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return auditP.getAuthZs(uAudit);
     }
@@ -102,7 +102,7 @@ public class AuditMgrImpl implements AuditMgr
         throws SecurityException
     {
         String methodName = "searchAuthZs";
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return auditP.searchAuthZs(uAudit);
     }
@@ -120,7 +120,7 @@ public class AuditMgrImpl implements AuditMgr
         throws SecurityException
     {
         String methodName = "searchBinds";
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return auditP.searchBinds(uAudit);
     }
@@ -137,7 +137,7 @@ public class AuditMgrImpl implements AuditMgr
         throws SecurityException
     {
         String methodName = "searchUserSessions";
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return auditP.searchUserMods(uAudit);
     }
@@ -155,7 +155,7 @@ public class AuditMgrImpl implements AuditMgr
         throws SecurityException
     {
         String methodName = "searchAdminMods";
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         if(VUtil.isNotNullOrEmpty(uAudit.getUserId()))
         {
@@ -183,7 +183,7 @@ public class AuditMgrImpl implements AuditMgr
         throws SecurityException
     {
         String methodName = "searchInvalidUsers";
-        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return auditP.searchInvalidAuthNs(uAudit);
     }
@@ -210,7 +210,7 @@ public class AuditMgrImpl implements AuditMgr
     {
         if (this.adminSess != null)
         {
-            AdminUtil.checkAccess(adminSess, new Permission(OCLS_NM, opName));
+            AdminUtil.checkAccess(adminSess, new Permission(CLS_NM, opName));
         }
     }
 }

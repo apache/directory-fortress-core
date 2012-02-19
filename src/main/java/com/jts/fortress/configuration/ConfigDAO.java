@@ -61,8 +61,8 @@ import java.util.Properties;
 public final class ConfigDAO
 
 {
-    private static final String OCLS_NM = ConfigDAO.class.getName();
-    final private static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = ConfigDAO.class.getName();
+    final private static Logger log = Logger.getLogger(CLS_NM);
 
     private static final String CONFIG_ROOT_PARAM = "config.root";
     private final static String CONFIG_ROOT_DN = Config.getProperty(CONFIG_ROOT_PARAM);
@@ -94,7 +94,7 @@ public final class ConfigDAO
     {
         LDAPConnection ld = null;
         String dn = getDn(name);
-        log.info(OCLS_NM + ".create dn [" + dn + "]");
+        log.info(CLS_NM + ".create dn [" + dn + "]");
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -111,12 +111,12 @@ public final class ConfigDAO
             String error;
             if (e.getLDAPResultCode() == LDAPException.ENTRY_ALREADY_EXISTS)
             {
-                String warning = OCLS_NM + ".create config dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String warning = CLS_NM + ".create config dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new com.jts.fortress.CreateException(GlobalErrIds.FT_CONFIG_ALREADY_EXISTS, warning);
             }
             else
             {
-                error = OCLS_NM + ".create config dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                error = CLS_NM + ".create config dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             }
             log.error(error, e);
             throw new com.jts.fortress.CreateException(GlobalErrIds.FT_CONFIG_CREATE_FAILED, error);
@@ -140,7 +140,7 @@ public final class ConfigDAO
     {
         LDAPConnection ld = null;
         String dn = getDn(name);
-        log.info(OCLS_NM + "update dn [" + dn + "]");
+        log.info(CLS_NM + "update dn [" + dn + "]");
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -156,7 +156,7 @@ public final class ConfigDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".update dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".update dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new com.jts.fortress.UpdateException(GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error);
         }
         finally
@@ -176,7 +176,7 @@ public final class ConfigDAO
     {
         LDAPConnection ld = null;
         String dn = getDn(name);
-        log.info(OCLS_NM + ".remove dn [" + dn + "]");
+        log.info(CLS_NM + ".remove dn [" + dn + "]");
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -184,7 +184,7 @@ public final class ConfigDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".remove dn [" + dn + "] LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".remove dn [" + dn + "] LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new com.jts.fortress.RemoveException(GlobalErrIds.FT_CONFIG_DELETE_FAILED, error);
         }
         finally
@@ -205,7 +205,7 @@ public final class ConfigDAO
     {
         LDAPConnection ld = null;
         String dn = getDn(name);
-        log.info(OCLS_NM + "remove props dn [" + dn + "]");
+        log.info(CLS_NM + "remove props dn [" + dn + "]");
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -221,7 +221,7 @@ public final class ConfigDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".remove props dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".remove props dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new com.jts.fortress.UpdateException(GlobalErrIds.FT_CONFIG_DELETE_PROPS_FAILED, error);
         }
         finally
@@ -243,7 +243,7 @@ public final class ConfigDAO
         Properties props = null;
         LDAPConnection ld = null;
         String dn = getDn(name);
-        log.info(OCLS_NM + "getConfig dn [" + dn + "]");
+        log.info(CLS_NM + "getConfig dn [" + dn + "]");
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -254,10 +254,10 @@ public final class ConfigDAO
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = OCLS_NM + ".getConfig COULD NOT FIND ENTRY for dn [" + dn + "]";
+                String warning = CLS_NM + ".getConfig COULD NOT FIND ENTRY for dn [" + dn + "]";
                 throw new com.jts.fortress.FinderException(GlobalErrIds.FT_CONFIG_NOT_FOUND, warning);
             }
-            String error = OCLS_NM + ".getConfig dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
+            String error = CLS_NM + ".getConfig dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
             throw new FinderException(GlobalErrIds.FT_CONFIG_READ_FAILED, error);
         }
         finally

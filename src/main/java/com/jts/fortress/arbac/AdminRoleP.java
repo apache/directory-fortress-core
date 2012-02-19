@@ -37,8 +37,8 @@ import org.apache.log4j.Logger;
  */
 public class AdminRoleP
 {
-    private static final String OCLS_NM = AdminRoleP.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = AdminRoleP.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     private static final AdminRoleDAO rDao = new AdminRoleDAO();
     private static final OrgUnitP op = new OrgUnitP();
 
@@ -191,7 +191,7 @@ public class AdminRoleP
         }
         catch (FinderException fe)
         {
-            String error = OCLS_NM + ".removeOccupant userDn [" + userDn + "] caught FinderException=" + fe;
+            String error = CLS_NM + ".removeOccupant userDn [" + userDn + "] caught FinderException=" + fe;
             throw new SecurityException(GlobalErrIds.ARLE_REMOVE_OCCUPANT_FAILED, error, fe);
         }
     }
@@ -232,7 +232,7 @@ public class AdminRoleP
         }
         catch (RemoveException re)
         {
-            String error = OCLS_NM + ".delete name [" + entity.getName() + "] caught RemoveException=" + re;
+            String error = CLS_NM + ".delete name [" + entity.getName() + "] caught RemoveException=" + re;
             log.error(error);
             throw new SecurityException(GlobalErrIds.ARLE_DELETE_FAILED, error, re);
         }
@@ -257,27 +257,27 @@ public class AdminRoleP
             VUtil.safeText(entity.getEndRange(), GlobalIds.ROLE_LEN);
             if (entity.getBeginRange().equalsIgnoreCase(entity.getEndRange()) && (!entity.isBeginInclusive() || !entity.isEndInclusive()))
             {
-                String error = OCLS_NM + ".validate invalid range detected for role name [" + entity.getName() + "] non inclusive endpoint for identical range [" + entity.getBeginRange() + "] begin inclusive [" + entity.isBeginInclusive() + "] end inclusive [" + entity.isEndInclusive() + "]";
+                String error = CLS_NM + ".validate invalid range detected for role name [" + entity.getName() + "] non inclusive endpoint for identical range [" + entity.getBeginRange() + "] begin inclusive [" + entity.isBeginInclusive() + "] end inclusive [" + entity.isEndInclusive() + "]";
                 log.warn(error);
                 throw new SecurityException(GlobalErrIds.ARLE_INVLD_RANGE_INCLUSIVE, error);
             }
             else if (!RoleUtil.isParent(entity.getBeginRange(), entity.getEndRange()) && !entity.getBeginRange().equalsIgnoreCase(entity.getEndRange()))
             //public static boolean isParent(String child, String parent)
             {
-                String error = OCLS_NM + ".validate invalid range detected for role name [" + entity.getName() + "] begin range [" + entity.getBeginRange() + "] end range [" + entity.getEndRange() + "]";
+                String error = CLS_NM + ".validate invalid range detected for role name [" + entity.getName() + "] begin range [" + entity.getBeginRange() + "] end range [" + entity.getEndRange() + "]";
                 log.warn(error);
                 throw new SecurityException(GlobalErrIds.ARLE_INVLD_RANGE, error);
             }
         }
         else if (!VUtil.isNotNullOrEmpty(entity.getBeginRange()) && VUtil.isNotNullOrEmpty(entity.getEndRange()))
         {
-            String error = OCLS_NM + ".validate role name [" + entity.getName() + "] begin range value null or empty.";
+            String error = CLS_NM + ".validate role name [" + entity.getName() + "] begin range value null or empty.";
             log.warn(error);
             throw new SecurityException(GlobalErrIds.ARLE_BEGIN_RANGE_NULL, error);
         }
         else if (VUtil.isNotNullOrEmpty(entity.getBeginRange()) && !VUtil.isNotNullOrEmpty(entity.getEndRange()))
         {
-            String error = OCLS_NM + ".validate role name [" + entity.getName() + "] end range value null or empty.";
+            String error = CLS_NM + ".validate role name [" + entity.getName() + "] end range value null or empty.";
             log.warn(error);
             throw new SecurityException(GlobalErrIds.ARLE_END_RANGE_NULL, error);
         }

@@ -37,7 +37,7 @@ public class DelegatedReviewMgrImpl
     implements DelegatedReviewMgr
 {
     static Session adminSess = null;
-    private static final String OCLS_NM = DelegatedReviewMgrImpl.class.getName();
+    private static final String CLS_NM = DelegatedReviewMgrImpl.class.getName();
     private static final OrgUnitP ouP = new OrgUnitP();
     private static final AdminRoleP admRP = new AdminRoleP();
     private static final UserP userP = new UserP();
@@ -54,7 +54,7 @@ public class DelegatedReviewMgrImpl
         throws SecurityException
     {
         String methodName = "readRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return admRP.read(role.getName());
     }
@@ -72,7 +72,7 @@ public class DelegatedReviewMgrImpl
         throws SecurityException
     {
         String methodName = "findRoles";
-        VUtil.assertNotNull(searchVal, GlobalErrIds.ARLE_NM_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(searchVal, GlobalErrIds.ARLE_NM_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return admRP.search(searchVal);
     }
@@ -89,7 +89,7 @@ public class DelegatedReviewMgrImpl
         throws SecurityException
     {
         String methodName = "assignedRoles";
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         User ue = userP.read(user.getUserId(), true);
         return ue.getAdminRoles();
@@ -108,7 +108,7 @@ public class DelegatedReviewMgrImpl
         throws SecurityException
     {
         String methodName = "assignedUsers";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return userP.getAssignedUsers(role);
     }
@@ -125,7 +125,7 @@ public class DelegatedReviewMgrImpl
         throws SecurityException
     {
         String methodName = "readOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return ouP.read(entity);
     }
@@ -143,8 +143,8 @@ public class DelegatedReviewMgrImpl
         throws SecurityException
     {
         String methodName = "searchOU";
-        VUtil.assertNotNullOrEmpty(searchVal, GlobalErrIds.ORG_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(type, GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty(searchVal, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(type, GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
         return ouP.search(type, searchVal);
     }
@@ -171,7 +171,7 @@ public class DelegatedReviewMgrImpl
     {
         if (this.adminSess != null)
         {
-            AdminUtil.checkAccess(adminSess, new Permission(OCLS_NM, opName));
+            AdminUtil.checkAccess(adminSess, new Permission(CLS_NM, opName));
         }
     }
 }

@@ -40,7 +40,7 @@ import com.jts.fortress.util.attr.VUtil;
 public final class DelegatedAdminMgrRestImpl
     implements DelegatedAdminMgr
 {
-    private static final String OCLS_NM = DelegatedAdminMgrRestImpl.class.getName();
+    private static final String CLS_NM = DelegatedAdminMgrRestImpl.class.getName();
 
     // thread unsafe variable:
     private Session adminSess;
@@ -66,7 +66,7 @@ public final class DelegatedAdminMgrRestImpl
     public AdminRole addRole(AdminRole role)
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + ".addRole");
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + ".addRole");
         AdminRole retRole;
         FortRequest request = new FortRequest();
         request.setEntity(role);
@@ -100,7 +100,7 @@ public final class DelegatedAdminMgrRestImpl
     public void deleteRole(AdminRole role)
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + ".deleteRole");
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + ".deleteRole");
         FortRequest request = new FortRequest();
         request.setEntity(role);
         if (this.adminSess != null)
@@ -127,7 +127,7 @@ public final class DelegatedAdminMgrRestImpl
     public AdminRole updateRole(AdminRole role)
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, OCLS_NM + ".updateRole");
+        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + ".updateRole");
         AdminRole retRole;
         FortRequest request = new FortRequest();
         request.setEntity(role);
@@ -177,7 +177,7 @@ public final class DelegatedAdminMgrRestImpl
     public void assignUser(UserAdminRole uAdminRole)
         throws SecurityException
     {
-        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, OCLS_NM + ".assignUser");
+        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, CLS_NM + ".assignUser");
         FortRequest request = new FortRequest();
         request.setEntity(uAdminRole);
         if (this.adminSess != null)
@@ -209,7 +209,7 @@ public final class DelegatedAdminMgrRestImpl
     public void deassignUser(UserAdminRole uAdminRole)
         throws SecurityException
     {
-        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, OCLS_NM + ".deassignUser");
+        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, CLS_NM + ".deassignUser");
         FortRequest request = new FortRequest();
         request.setEntity(uAdminRole);
         if (this.adminSess != null)
@@ -236,7 +236,7 @@ public final class DelegatedAdminMgrRestImpl
     public OrgUnit add(OrgUnit entity)
         throws SecurityException
     {
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + ".addOU");
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + ".addOU");
         OrgUnit retOrg;
         FortRequest request = new FortRequest();
         request.setEntity(entity);
@@ -268,7 +268,7 @@ public final class DelegatedAdminMgrRestImpl
     public OrgUnit update(OrgUnit entity)
         throws SecurityException
     {
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + ".updateOU");
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + ".updateOU");
         OrgUnit retOrg;
         FortRequest request = new FortRequest();
         request.setEntity(entity);
@@ -300,7 +300,7 @@ public final class DelegatedAdminMgrRestImpl
     public OrgUnit delete(OrgUnit entity)
         throws SecurityException
     {
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, OCLS_NM + ".deleteOU");
+        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + ".deleteOU");
         OrgUnit retOrg;
         FortRequest request = new FortRequest();
         request.setEntity(entity);
@@ -348,9 +348,9 @@ public final class DelegatedAdminMgrRestImpl
         throws SecurityException
     {
         String methodName = "addDescendantOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
         FortRequest request = new FortRequest();
         OrgUnitRelationship relationship = new OrgUnitRelationship();
         relationship.setParent(parent);
@@ -395,8 +395,8 @@ public final class DelegatedAdminMgrRestImpl
         throws SecurityException
     {
         String methodName = "addAscendantOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         FortRequest request = new FortRequest();
         OrgUnitRelationship relationship = new OrgUnitRelationship();
         relationship.setParent(parent);
@@ -434,9 +434,9 @@ public final class DelegatedAdminMgrRestImpl
         throws SecurityException
     {
         String methodName = "addInheritanceOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
         FortRequest request = new FortRequest();
         OrgUnitRelationship relationship = new OrgUnitRelationship();
         relationship.setParent(parent);
@@ -476,9 +476,9 @@ public final class DelegatedAdminMgrRestImpl
         throws SecurityException
     {
         String methodName = "deleteInheritanceOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
         FortRequest request = new FortRequest();
         OrgUnitRelationship relationship = new OrgUnitRelationship();
         relationship.setParent(parent);
@@ -514,8 +514,8 @@ public final class DelegatedAdminMgrRestImpl
         throws SecurityException
     {
         String methodName = "addDescendantRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
         FortRequest request = new FortRequest();
         AdminRoleRelationship relationship = new AdminRoleRelationship();
         relationship.setParent(parentRole);
@@ -550,8 +550,8 @@ public final class DelegatedAdminMgrRestImpl
         throws SecurityException
     {
         String methodName = "addAscendantRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
         FortRequest request = new FortRequest();
         AdminRoleRelationship relationship = new AdminRoleRelationship();
         relationship.setParent(parentRole);
@@ -583,8 +583,8 @@ public final class DelegatedAdminMgrRestImpl
         throws SecurityException
     {
         String methodName = "addInheritanceRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
         FortRequest request = new FortRequest();
         AdminRoleRelationship relationship = new AdminRoleRelationship();
         relationship.setParent(parentRole);
@@ -616,8 +616,8 @@ public final class DelegatedAdminMgrRestImpl
         throws SecurityException
     {
         String methodName = "deleteInheritanceRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, OCLS_NM + "." + methodName);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, OCLS_NM + "." + methodName);
+        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
         FortRequest request = new FortRequest();
         AdminRoleRelationship relationship = new AdminRoleRelationship();
         relationship.setParent(parentRole);
@@ -648,7 +648,7 @@ public final class DelegatedAdminMgrRestImpl
     public Permission addPermission(Permission perm)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".addPermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".addPermission");
         Permission retPerm;
         FortRequest request = new FortRequest();
         perm.setAdmin(true);
@@ -683,7 +683,7 @@ public final class DelegatedAdminMgrRestImpl
     public Permission updatePermission(Permission perm)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".updatePermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".updatePermission");
         Permission retPerm = null;
         FortRequest request = new FortRequest();
         perm.setAdmin(true);
@@ -716,7 +716,7 @@ public final class DelegatedAdminMgrRestImpl
     public void deletePermission(Permission perm)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".deletePermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".deletePermission");
         FortRequest request = new FortRequest();
         perm.setAdmin(true);
         request.setEntity(perm);
@@ -744,7 +744,7 @@ public final class DelegatedAdminMgrRestImpl
     public PermObj addPermObj(PermObj pObj)
         throws SecurityException
     {
-        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".addPermObj");
+        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".addPermObj");
         PermObj retObj = null;
         FortRequest request = new FortRequest();
         pObj.setAdmin(true);
@@ -778,7 +778,7 @@ public final class DelegatedAdminMgrRestImpl
     public PermObj updatePermObj(PermObj pObj)
         throws SecurityException
     {
-        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".updatePermObj");
+        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".updatePermObj");
         PermObj retObj;
         FortRequest request = new FortRequest();
         pObj.setAdmin(true);
@@ -812,7 +812,7 @@ public final class DelegatedAdminMgrRestImpl
     public void deletePermObj(PermObj pObj)
         throws SecurityException
     {
-        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, OCLS_NM + ".deletePermObj");
+        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".deletePermObj");
         FortRequest request = new FortRequest();
         pObj.setAdmin(true);
         request.setEntity(pObj);
@@ -843,8 +843,8 @@ public final class DelegatedAdminMgrRestImpl
     public void grantPermission(Permission perm, AdminRole role)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".grantPermission");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".grantPermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".grantPermission");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".grantPermission");
         FortRequest request = new FortRequest();
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin(true);
@@ -880,8 +880,8 @@ public final class DelegatedAdminMgrRestImpl
     public void revokePermission(Permission perm, AdminRole role)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".revokePermission");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, OCLS_NM + ".revokePermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".revokePermission");
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".revokePermission");
         FortRequest request = new FortRequest();
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin(true);
@@ -913,8 +913,8 @@ public final class DelegatedAdminMgrRestImpl
     public void grantPermission(Permission perm, User user)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".grantPermissionUser");
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".grantPermissionUser");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".grantPermissionUser");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".grantPermissionUser");
         FortRequest request = new FortRequest();
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin(true);
@@ -946,8 +946,8 @@ public final class DelegatedAdminMgrRestImpl
     public void revokePermission(Permission perm, User user)
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, OCLS_NM + ".revokePermission");
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, OCLS_NM + ".revokePermission");
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".revokePermission");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".revokePermission");
         FortRequest request = new FortRequest();
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin(true);

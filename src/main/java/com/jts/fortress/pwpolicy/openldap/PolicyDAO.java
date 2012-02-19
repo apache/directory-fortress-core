@@ -85,7 +85,7 @@ public final class PolicyDAO
       *  **  OPENLDAP PW POLICY ATTRIBUTES AND CONSTANTS
       *  ************************************************************************
       */
-    private static final String OCLS_NM = PolicyDAO.class.getName();
+    private static final String CLS_NM = PolicyDAO.class.getName();
 
     private final static String OLPW_POLICY_EXTENSION = "2.5.4.35";
     private final static String OLPW_POLICY_CLASS = "pwdPolicy";
@@ -221,7 +221,7 @@ public final class PolicyDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".create name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".create name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException(GlobalErrIds.PSWD_CREATE_FAILED, error, e);
         }
         finally
@@ -335,7 +335,7 @@ public final class PolicyDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".update name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".update name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.PSWD_UPDATE_FAILED, error, e);
         }
         finally
@@ -361,7 +361,7 @@ public final class PolicyDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".remove name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".remove name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException(GlobalErrIds.PSWD_DELETE_FAILED, error, e);
         }
         finally
@@ -395,13 +395,13 @@ public final class PolicyDAO
             {
                 if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
                 {
-                    String warning = OCLS_NM + ".getPolicy Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
+                    String warning = CLS_NM + ".getPolicy Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
                     throw new FinderException(GlobalErrIds.PSWD_NOT_FOUND, warning);
                 }
             }
             else
             {
-                String error = OCLS_NM + ".getPolicy name [" + name + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String error = CLS_NM + ".getPolicy name [" + name + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new FinderException(GlobalErrIds.PSWD_READ_FAILED, error, e);
             }
         }
@@ -542,7 +542,7 @@ public final class PolicyDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".findPolicy name [" + searchVal + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".findPolicy name [" + searchVal + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.PSWD_SEARCH_FAILED, error, e);
         }
         finally
@@ -576,7 +576,7 @@ public final class PolicyDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".getPolicies caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".getPolicies caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.PSWD_SEARCH_FAILED, error, e);
         }
         finally

@@ -28,8 +28,8 @@ import org.apache.log4j.Logger;
  */
 public class CreateRoleSample extends TestCase
 {
-    private static final String OCLS_NM = CreateRoleSample.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = CreateRoleSample.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     public static final String TEST_SIMPLE_ROLE = "simpleRole";
     public static final String TEST_SIMPLE_ROLE2[] = {"Customer", "Admin", "Supervisor"};
 
@@ -67,7 +67,7 @@ public class CreateRoleSample extends TestCase
             return;
         }
 
-        String szLocation = OCLS_NM + ".testDeleteSimpleRole";
+        String szLocation = CLS_NM + ".testDeleteSimpleRole";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -97,7 +97,7 @@ public class CreateRoleSample extends TestCase
             return;
         }
 
-        String szLocation = OCLS_NM + ".testDeleteSimpleRole2";
+        String szLocation = CLS_NM + ".testDeleteSimpleRole2";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -126,7 +126,7 @@ public class CreateRoleSample extends TestCase
      */
     public static void testDeleteRoles()
     {
-        String szLocation = OCLS_NM + ".testDeleteRoles";
+        String szLocation = CLS_NM + ".testDeleteRoles";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -174,7 +174,7 @@ public class CreateRoleSample extends TestCase
      */
     public static void testCreateSimpleRole()
     {
-        String szLocation = OCLS_NM + ".testCreateSimpleRole";
+        String szLocation = CLS_NM + ".testCreateSimpleRole";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -203,7 +203,7 @@ public class CreateRoleSample extends TestCase
 
     public static void testCreateSimpleRole2()
     {
-        String szLocation = OCLS_NM + ".testCreateSimpleRole2";
+        String szLocation = CLS_NM + ".testCreateSimpleRole2";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -241,7 +241,7 @@ public class CreateRoleSample extends TestCase
      */
     public static void testCreateComplexRole()
     {
-        String szLocation = OCLS_NM + ".testCreateComplexRole";
+        String szLocation = CLS_NM + ".testCreateComplexRole";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.

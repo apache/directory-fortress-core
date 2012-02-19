@@ -30,8 +30,8 @@ import java.util.List;
  */
 public class CreatePermSample extends TestCase
 {
-    private static final String OCLS_NM = CreatePermSample.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = CreatePermSample.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     public static final String TEST_PERM_OBJECT = "sampleObject1";
     public static final String TEST_PERM_OPERATION_PREFIX = "OPER";
 
@@ -71,7 +71,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testRevokePermissionRole()
     {
-        String szLocation = OCLS_NM + ".testRevokePermissionRole";
+        String szLocation = CLS_NM + ".testRevokePermissionRole";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -123,7 +123,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testDelPermObjects()
     {
-        String szLocation = OCLS_NM + ".testDelPermObjects";
+        String szLocation = CLS_NM + ".testDelPermObjects";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -163,7 +163,7 @@ public class CreatePermSample extends TestCase
 
     public static void testDeleteShoppingCartObjects()
     {
-        String szLocation = OCLS_NM + ".testDeleteShoppingCartObjects";
+        String szLocation = CLS_NM + ".testDeleteShoppingCartObjects";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -194,7 +194,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testAddPermObjects()
     {
-        String szLocation = OCLS_NM + ".testAddPermObjects";
+        String szLocation = CLS_NM + ".testAddPermObjects";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -226,7 +226,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testAddShoppingCartObjects()
     {
-        String szLocation = OCLS_NM + ".testAddShoppingCartObjects";
+        String szLocation = CLS_NM + ".testAddShoppingCartObjects";
         try
         {
             // Instantiate the AdminMgr first
@@ -272,7 +272,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testAddPermOperations()
     {
-        String szLocation = OCLS_NM + ".testAddPermOperations";
+        String szLocation = CLS_NM + ".testAddPermOperations";
         try
         {
             AdminMgr adminMgr = AdminMgrFactory.createInstance();
@@ -310,7 +310,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testGrantPermissionRole()
     {
-        String szLocation = OCLS_NM + ".testGrantPermissionRole";
+        String szLocation = CLS_NM + ".testGrantPermissionRole";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -359,7 +359,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testGrantPermissionUser()
     {
-        String szLocation = OCLS_NM + ".testGrantPermissionUser";
+        String szLocation = CLS_NM + ".testGrantPermissionUser";
         User inUser = new User(CreateUserSample.TEST_USERID);
         try
         {
@@ -398,7 +398,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testRevokePermissionUser()
     {
-        String szLocation = OCLS_NM + ".testRevokePermissionUser";
+        String szLocation = CLS_NM + ".testRevokePermissionUser";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {

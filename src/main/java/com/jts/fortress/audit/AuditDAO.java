@@ -101,8 +101,8 @@ import java.util.List;
 public class AuditDAO
 
 {
-    private static final String OCLS_NM = AuditDAO.class.getName();
-    final private static Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = AuditDAO.class.getName();
+    final private static Logger log = Logger.getLogger(CLS_NM);
 
     private final static String CREATETIMESTAMP = "createTimestamp";
     private final static String CREATORSNAME = "creatorsName";
@@ -506,7 +506,7 @@ public class AuditDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".searchUserMods caught LDAPException id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".searchUserMods caught LDAPException id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.AUDT_MOD_SEARCH_FAILED, error, e);
         }
         finally
@@ -610,7 +610,7 @@ public class AuditDAO
         }
         catch (LDAPException e)
         {
-            String error = OCLS_NM + ".searchAdminMods caught LDAPException id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".searchAdminMods caught LDAPException id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.AUDT_MOD_ADMIN_SEARCH_FAILED, error, e);
         }
         finally

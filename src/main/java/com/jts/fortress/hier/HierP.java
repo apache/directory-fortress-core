@@ -40,8 +40,8 @@ public class HierP
     /**
      * Description of the Field
      */
-    private static final String OCLS_NM = HierP.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = HierP.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     private static final HierDAO hDao = new HierDAO();
 
     /**
@@ -55,7 +55,7 @@ public class HierP
     public Hier read(Hier.Type type)
         throws FinderException, ValidationException
     {
-        VUtil.assertNotNull(type, GlobalErrIds.HIER_TYPE_NULL, OCLS_NM + ".read type=" + type);
+        VUtil.assertNotNull(type, GlobalErrIds.HIER_TYPE_NULL, CLS_NM + ".read type=" + type);
         return hDao.getHier(type);
     }
 
@@ -105,7 +105,7 @@ public class HierP
     public void delete(Hier hier)
         throws SecurityException
     {
-        VUtil.assertNotNull(hier.getType(), GlobalErrIds.HIER_TYPE_NULL, OCLS_NM + ".delete type");
+        VUtil.assertNotNull(hier.getType(), GlobalErrIds.HIER_TYPE_NULL, CLS_NM + ".delete type");
         hDao.remove(hier);
     }
 
@@ -122,8 +122,8 @@ public class HierP
         throws SecurityException
     {
         // todo put some more valiation logic here
-        VUtil.assertNotNull(entity, GlobalErrIds.HIER_NULL, OCLS_NM + ".validate function: " + function);
-        VUtil.assertNotNull(entity.getType(), GlobalErrIds.HIER_TYPE_NULL, OCLS_NM + ".validate type function: " + function);
+        VUtil.assertNotNull(entity, GlobalErrIds.HIER_NULL, CLS_NM + ".validate function: " + function);
+        VUtil.assertNotNull(entity.getType(), GlobalErrIds.HIER_TYPE_NULL, CLS_NM + ".validate type function: " + function);
     }
 }
 

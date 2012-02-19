@@ -47,8 +47,8 @@ public class HierUtil
     /**
      * Constants used within this class:
      */
-    private static final String OCLS_NM = HierUtil.class.getName();
-    private static final Logger log = Logger.getLogger(OCLS_NM);
+    private static final String CLS_NM = HierUtil.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     private static final String VERTEX = "Vertex";
     private static final String DEFAULT_VERTEX_1 = "df1";
     private static final String DEFAULT_VERTEX_2 = "df2";
@@ -75,18 +75,18 @@ public class HierUtil
     {
         if (child.equalsIgnoreCase(parent))
         {
-            String error = OCLS_NM + ".validateRelationship child [" + child + "] same as parent [" + parent + "]";
+            String error = CLS_NM + ".validateRelationship child [" + child + "] same as parent [" + parent + "]";
             throw new ValidationException(GlobalErrIds.HIER_REL_INVLD, error);
         }
         Relationship rel = new Relationship(child.toUpperCase(), parent.toUpperCase());
         if (mustExist && !isRelationship(graph, rel))
         {
-            String error = OCLS_NM + ".validateRelationship child [" + child + "] does not have parent [" + parent + "]";
+            String error = CLS_NM + ".validateRelationship child [" + child + "] does not have parent [" + parent + "]";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.HIER_REL_NOT_EXIST, error);
         }
         else if (!mustExist && isRelationship(graph, rel))
         {
-            String error = OCLS_NM + ".validateRelationship child [" + child + "] already has parent [" + parent + "]";
+            String error = CLS_NM + ".validateRelationship child [" + child + "] already has parent [" + parent + "]";
             throw new com.jts.fortress.ValidationException(GlobalErrIds.HIER_REL_EXIST, error);
         }
     }
@@ -119,7 +119,7 @@ public class HierUtil
     public static SimpleDirectedGraph<String, Relationship> toGraph(Hier hier)
         throws com.jts.fortress.SecurityException
     {
-        log.debug(OCLS_NM + ".toGraph");
+        log.debug(CLS_NM + ".toGraph");
         SimpleDirectedGraph<String, Relationship> graph =
             new SimpleDirectedGraph<String, com.jts.fortress.hier.Relationship>(Relationship.class);
         List<Relationship> edges = hier.getRelationships();
@@ -133,7 +133,7 @@ public class HierUtil
                 graph.addVertex(parent);
                 graph.addEdge(child, parent, edge);
                 if (log.isDebugEnabled())
-                    log.debug(OCLS_NM + ".toGraph child=" + child + " parent=" + parent);
+                    log.debug(CLS_NM + ".toGraph child=" + child + " parent=" + parent);
             }
         }
         return graph;
@@ -181,17 +181,17 @@ public class HierUtil
             v = (String) vertex.get(VERTEX);
             if (v == null)
             {
-                log.debug(OCLS_NM + ".getDescendants vertex is null");
+                log.debug(CLS_NM + ".getDescendants vertex is null");
                 return 0;
             }
             if (log.isDebugEnabled())
-                log.debug(OCLS_NM + ".hasChildren [" + v + "]");
+                log.debug(CLS_NM + ".hasChildren [" + v + "]");
 
             numChildren = graph.inDegreeOf(v);
         }
         catch (java.lang.IllegalArgumentException e)
         {
-            log.debug(OCLS_NM + ".getDescendants vertex not found");
+            log.debug(CLS_NM + ".getDescendants vertex not found");
         }
         return numChildren;
     }
@@ -228,17 +228,17 @@ public class HierUtil
         v = (String) vertex.get(VERTEX);
         if (v == null)
         {
-            log.debug(OCLS_NM + ".getAscendants vertex is null");
+            log.debug(CLS_NM + ".getAscendants vertex is null");
             return null;
         }
         else if (graph == null)
         {
-            log.debug(OCLS_NM + ".getAscendants graph is null");
+            log.debug(CLS_NM + ".getAscendants graph is null");
             return null;
         }
         if (log.isDebugEnabled())
         {
-            log.debug(OCLS_NM + ".getAscendants [" + v + "]");
+            log.debug(CLS_NM + ".getAscendants [" + v + "]");
         }
         Set<Relationship> edges;
         try
@@ -249,7 +249,7 @@ public class HierUtil
         {
             if (log.isDebugEnabled())
             {
-                log.debug(OCLS_NM + ".getAscendants no parent found");
+                log.debug(CLS_NM + ".getAscendants no parent found");
             }
             return null;
         }
@@ -296,16 +296,16 @@ public class HierUtil
         v = (String) vertex.get(VERTEX);
         if (v == null)
         {
-            log.debug(OCLS_NM + ".getDescendants vertex is null");
+            log.debug(CLS_NM + ".getDescendants vertex is null");
             return null;
         }
         else if (graph == null)
         {
-            log.debug(OCLS_NM + ".getDescendants graph is null");
+            log.debug(CLS_NM + ".getDescendants graph is null");
             return null;
         }
         if (log.isDebugEnabled())
-            log.debug(OCLS_NM + ".getDescendants [" + v + "]");
+            log.debug(CLS_NM + ".getDescendants [" + v + "]");
 
         Set<Relationship> edges;
         try
@@ -314,7 +314,7 @@ public class HierUtil
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            log.debug(OCLS_NM + ".getDescendants no parent found");
+            log.debug(CLS_NM + ".getDescendants no parent found");
             return null;
         }
         for (Relationship edge : edges)
@@ -338,11 +338,11 @@ public class HierUtil
         Set<String> descendants = new TreeSet<String>();
         if (graph == null)
         {
-            log.debug(OCLS_NM + ".getChildren graph is null");
+            log.debug(CLS_NM + ".getChildren graph is null");
             return null;
         }
         if (log.isDebugEnabled())
-            log.debug(OCLS_NM + ".getChildren [" + vertex + "]");
+            log.debug(CLS_NM + ".getChildren [" + vertex + "]");
 
         Set<Relationship> edges;
         try
@@ -351,7 +351,7 @@ public class HierUtil
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            log.debug(OCLS_NM + ".getChildren no parent found");
+            log.debug(CLS_NM + ".getChildren no parent found");
             return null;
         }
         for (Relationship edge : edges)
@@ -398,17 +398,17 @@ public class HierUtil
         v = (String) vertex.get(VERTEX);
         if (v == null)
         {
-            log.debug(OCLS_NM + ".getAscendants vertex is null");
+            log.debug(CLS_NM + ".getAscendants vertex is null");
             return null;
         }
         else if (graph == null)
         {
-            log.debug(OCLS_NM + ".getAscendants graph is null");
+            log.debug(CLS_NM + ".getAscendants graph is null");
             return null;
         }
         if (log.isDebugEnabled())
         {
-            log.debug(OCLS_NM + ".getAscendants [" + v + "]");
+            log.debug(CLS_NM + ".getAscendants [" + v + "]");
         }
         Set<Relationship> edges;
         try
@@ -417,7 +417,7 @@ public class HierUtil
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            log.debug(OCLS_NM + ".getAscendants no parent found");
+            log.debug(CLS_NM + ".getAscendants no parent found");
             return null;
         }
         for (Relationship edge : edges)
@@ -452,12 +452,12 @@ public class HierUtil
         Set<String> parents = new TreeSet<String>();
         if (graph == null)
         {
-            log.debug(OCLS_NM + ".getParents graph is null");
+            log.debug(CLS_NM + ".getParents graph is null");
             return null;
         }
         if (log.isDebugEnabled())
         {
-            log.debug(OCLS_NM + ".getParents [" + vertex + "]");
+            log.debug(CLS_NM + ".getParents [" + vertex + "]");
         }
         Set<Relationship> edges;
         try
@@ -466,7 +466,7 @@ public class HierUtil
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            log.debug(OCLS_NM + ".getParents no parent found");
+            log.debug(CLS_NM + ".getParents no parent found");
             return null;
         }
         for (Relationship edge : edges)
@@ -494,7 +494,7 @@ public class HierUtil
     {
         HierP hp = new HierP();
         Hier hier = null;
-        log.debug(OCLS_NM + ".readHier is initializing...");
+        log.debug(CLS_NM + ".readHier is initializing...");
         try
         {
             hier = hp.read(type);
@@ -503,7 +503,7 @@ public class HierUtil
         {
             if (se.getErrorId() == GlobalErrIds.HIER_NOT_FOUND)
             {
-                log.info(OCLS_NM + ".readHier type [" + type + "] building default config...");
+                log.info(CLS_NM + ".readHier type [" + type + "] building default config...");
                 SimpleDirectedGraph<String, Relationship> g =
                     new SimpleDirectedGraph<String, com.jts.fortress.hier.Relationship>(Relationship.class);
 
@@ -522,23 +522,23 @@ public class HierUtil
                 }
                 catch (com.jts.fortress.SecurityException sec)
                 {
-                    String error = OCLS_NM + ".readHier type [" + type + "] failed default config load, SecurityException=" + sec;
+                    String error = CLS_NM + ".readHier type [" + type + "] failed default config load, SecurityException=" + sec;
                     log.error(error);
                 }
             }
             else
             {
-                String error = OCLS_NM + ".readHier type [" + type + "] SecurityException=" + se;
+                String error = CLS_NM + ".readHier type [" + type + "] SecurityException=" + se;
                 log.error(error);
             }
         }
         if (hier != null)
         {
-            log.debug(OCLS_NM + ".readHier type [" + type + "] success");
+            log.debug(CLS_NM + ".readHier type [" + type + "] success");
         }
         else
         {
-            String warning = OCLS_NM + ".readHier type [" + type + "] failed.";
+            String warning = CLS_NM + ".readHier type [" + type + "] failed.";
             log.warn(warning);
         }
         return hier;
@@ -554,24 +554,24 @@ public class HierUtil
     public static SimpleDirectedGraph<String, Relationship> buildGraph(Hier hier)
     {
         SimpleDirectedGraph<String, Relationship> graph = null;
-        log.debug(OCLS_NM + ".buildGraph is initializing");
+        log.debug(CLS_NM + ".buildGraph is initializing");
         if (hier == null)
         {
-            String error = OCLS_NM + ".buildGraph detected null hier=";
+            String error = CLS_NM + ".buildGraph detected null hier=";
             log.error(error);
             return null;
         }
         try
         {
             graph = toGraph(hier);
-            log.debug(OCLS_NM + ".buildGraph success to toGraph");
+            log.debug(CLS_NM + ".buildGraph success to toGraph");
         }
         catch (com.jts.fortress.SecurityException se)
         {
-            String error = OCLS_NM + ".buildGraph caught SecurityException=" + se;
+            String error = CLS_NM + ".buildGraph caught SecurityException=" + se;
             log.error(error);
         }
-        log.debug(OCLS_NM + ".buildGraph is success");
+        log.debug(CLS_NM + ".buildGraph is success");
         return graph;
     }
 }
