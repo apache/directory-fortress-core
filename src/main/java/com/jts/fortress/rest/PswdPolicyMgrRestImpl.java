@@ -67,15 +67,6 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
         this.adminSess = session;
     }
 
-    private void setEntitySession(String opName, FortEntity entity) throws SecurityException
-    {
-        if (this.adminSess != null)
-        {
-            // TODO: TURN IT BACK ON:
-            AdminUtil.setEntitySession(adminSess, new Permission(CLS_NM, opName), entity);
-        }
-    }
-
     /**
      * This method will add a new policy entry to the POLICIES data set.  This command is valid
      * if and only if the policy entry is not already present in the POLICIES data set.
@@ -94,7 +85,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.pswdAdd.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -121,7 +112,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.pswdUpdate.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -149,7 +140,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.pswdDelete.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -178,7 +169,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.pswdRead.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -212,7 +203,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.pswdSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -249,7 +240,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.pswdUserAdd.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_USER_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -278,7 +269,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.pswdUserDelete.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_USER_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {

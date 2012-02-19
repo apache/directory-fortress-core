@@ -70,7 +70,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
         request.setSession(session);
         request.setEntity(uRole);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.adminAssign.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_ASSIGN);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -108,7 +108,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
         request.setSession(session);
         request.setEntity(uRole);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.adminDeassign.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_DEASSIGN);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -148,7 +148,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
         request.setSession(session);
         request.setEntity(context);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.adminGrant.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_GRANT);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -188,7 +188,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
         request.setSession(session);
         request.setEntity(context);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.adminRevoke.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_REVOKE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -232,7 +232,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
         request.setSession(session);
         request.setEntity(perm);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.adminAuthZ.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_AUTHZ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -274,7 +274,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
         request.setSession(session);
         request.setEntity(role);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.adminAdd.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -307,7 +307,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
         request.setSession(session);
         request.setEntity(role);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.adminDrop.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_DROP);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -335,7 +335,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
         FortRequest request = new FortRequest();
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.adminRoles.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_ROLES);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -350,6 +350,7 @@ public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements Delegat
         return roles;
     }
 
+    // TODO: Implement:
     /**
      * This function returns the authorized admin roles associated with a session based on hierarchical relationships. The function is valid if
      * and only if the session is a valid Fortress session.

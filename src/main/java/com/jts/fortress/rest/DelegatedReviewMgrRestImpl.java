@@ -61,7 +61,7 @@ public class DelegatedReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.arleRead.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -95,7 +95,7 @@ public class DelegatedReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.arleSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -128,7 +128,7 @@ public class DelegatedReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.arleAsigned.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -162,7 +162,7 @@ public class DelegatedReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.userAsignedAdmin.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.USER_ASGNED_ADMIN);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -200,7 +200,7 @@ public class DelegatedReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.orgRead.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -236,7 +236,7 @@ public class DelegatedReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.Services.orgSearch.toString());
+        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
