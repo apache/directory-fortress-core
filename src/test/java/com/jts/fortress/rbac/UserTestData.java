@@ -10,6 +10,8 @@ import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.time.Constraint;
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -42,7 +44,12 @@ public class UserTestData extends TestCase
             "20500115",                   /* ELOCKDATE_COL */
             "1234567",                    /* DAYMASK_COL */
             "DEV0",                       /* ORG_COL */
-            "10"                          /* TIMEOUT_COL */
+            "10",                        /* TIMEOUT_COL */
+            "",                         /* ASSGND_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
     };
 
@@ -67,7 +74,12 @@ public class UserTestData extends TestCase
             "20500115",             /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "10"                    /* TIMEOUT_COL */
+            "10",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser2",             /* USERID_COL */
@@ -86,7 +98,12 @@ public class UserTestData extends TestCase
             "20500115",             /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "10"                    /* TIMEOUT_COL */
+            "10",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser3",            /* USERID_COL */
@@ -105,7 +122,12 @@ public class UserTestData extends TestCase
             "20500115",            /* ELOCKDATE_COL */
             "1234567",             /* DAYMASK_COL */
             "DEV1",                /* ORG_COL */
-            "10"                   /* TIMEOUT_COL */
+            "10",                  /* TIMEOUT_COL */
+            "",                    /* ASSGND_ROLES_COL */
+            "",                    /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser4",           /* USERID_COL */
@@ -124,7 +146,12 @@ public class UserTestData extends TestCase
             "20500115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "10"                  /* TIMEOUT_COL */
+            "10",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser5",           /* USERID_COL */
@@ -143,7 +170,12 @@ public class UserTestData extends TestCase
             "20500115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "10"                  /* TIMEOUT_COL */
+            "10",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser6",           /* USERID_COL */
@@ -162,7 +194,12 @@ public class UserTestData extends TestCase
             "20500115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV2",               /* ORG_COL */
-            "10"                  /* TIMEOUT_COL */
+            "10",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser7",           /* USERID_COL */
@@ -181,7 +218,12 @@ public class UserTestData extends TestCase
             "20500115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV2",               /* ORG_COL */
-            "10"                  /* TIMEOUT_COL */
+            "10",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser8",           /* USERID_COL */
@@ -200,7 +242,12 @@ public class UserTestData extends TestCase
             "20500115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV2",               /* ORG_COL */
-            "10"                  /* TIMEOUT_COL */
+            "10",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser9",           /* USERID_COL */
@@ -219,7 +266,12 @@ public class UserTestData extends TestCase
             "20500115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV2",               /* ORG_COL */
-            "10"                  /* TIMEOUT_COL */
+            "10",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser10",          /* USERID_COL */
@@ -238,7 +290,12 @@ public class UserTestData extends TestCase
             "20500115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV2",               /* ORG_COL */
-            "10"                  /* TIMEOUT_COL */
+            "10",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
     };
 
@@ -263,7 +320,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser2",           /* USERID_COL */
@@ -282,7 +344,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser3",           /* USERID_COL */
@@ -301,7 +368,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser4",           /* USERID_COL */
@@ -320,7 +392,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser5",           /* USERID_COL */
@@ -339,7 +416,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser6",           /* USERID_COL */
@@ -358,7 +440,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV2",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser7",           /* USERID_COL */
@@ -377,7 +464,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV2",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser8",           /* USERID_COL */
@@ -396,7 +488,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV2",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser9",           /* USERID_COL */
@@ -415,7 +512,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV2",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamUser10",           /* USERID_COL */
@@ -434,7 +536,12 @@ public class UserTestData extends TestCase
             "20300115",            /* ELOCKDATE_COL */
             "1234567",             /* DAYMASK_COL */
             "DEV2",                /* ORG_COL */
-            "15"                   /* TIMEOUT_COL */
+            "15",                 /* TIMEOUT_COL */
+            "",                   /* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -459,7 +566,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User2",          /* USERID_COL */
@@ -478,7 +590,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV2",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User3",          /* USERID_COL */
@@ -497,7 +614,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV3",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User4",          /* USERID_COL */
@@ -516,7 +638,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV4",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User5",          /* USERID_COL */
@@ -535,7 +662,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV5",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User6",          /* USERID_COL */
@@ -554,7 +686,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV6",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User7",          /* USERID_COL */
@@ -573,7 +710,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV7",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User8",          /* USERID_COL */
@@ -592,7 +734,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV8",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User9",          /* USERID_COL */
@@ -611,7 +758,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV9",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User10",         /* USERID_COL */
@@ -630,7 +782,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
     };
 
@@ -656,7 +813,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User2",          /* USERID_COL */
@@ -675,7 +837,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV2",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User3",          /* USERID_COL */
@@ -694,7 +861,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV3",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User4",          /* USERID_COL */
@@ -713,7 +885,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV4",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User5",          /* USERID_COL */
@@ -732,7 +909,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV5",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User6",          /* USERID_COL */
@@ -751,7 +933,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV6",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User7",          /* USERID_COL */
@@ -770,7 +957,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV7",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User8",          /* USERID_COL */
@@ -789,7 +981,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV8",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User9",          /* USERID_COL */
@@ -808,7 +1005,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV9",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User10",         /* USERID_COL */
@@ -827,7 +1029,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
     };
 
@@ -850,7 +1057,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User2",          /* USERID_COL */
@@ -869,7 +1081,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV2",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User3",          /* USERID_COL */
@@ -888,7 +1105,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV3",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User4",          /* USERID_COL */
@@ -907,7 +1129,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV4",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User5",          /* USERID_COL */
@@ -926,7 +1153,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV5",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User6",          /* USERID_COL */
@@ -945,7 +1177,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV6",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User7",          /* USERID_COL */
@@ -964,7 +1201,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV7",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User8",          /* USERID_COL */
@@ -983,7 +1225,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV8",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User9",          /* USERID_COL */
@@ -1002,7 +1249,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV9",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU2User10",          /* USERID_COL */
@@ -1021,7 +1273,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
     };
 
@@ -1045,7 +1302,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU3User2",          /* USERID_COL */
@@ -1064,7 +1326,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV2",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU3User3",          /* USERID_COL */
@@ -1083,7 +1350,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV3",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU3User4",          /* USERID_COL */
@@ -1102,7 +1374,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV4",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU3User5",          /* USERID_COL */
@@ -1121,7 +1398,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV5",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU3User6",          /* USERID_COL */
@@ -1140,7 +1422,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV6",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU3User7",          /* USERID_COL */
@@ -1159,7 +1446,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV7",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU3User8",          /* USERID_COL */
@@ -1178,7 +1470,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV8",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU3User9",          /* USERID_COL */
@@ -1197,7 +1494,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV9",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU3User10",         /* USERID_COL */
@@ -1216,7 +1518,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
     };
 
@@ -1240,7 +1547,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU4User2",          /* USERID_COL */
@@ -1259,7 +1571,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV2",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU4User3",          /* USERID_COL */
@@ -1278,7 +1595,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV3",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU4User4",          /* USERID_COL */
@@ -1297,7 +1619,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV4",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU4User5",          /* USERID_COL */
@@ -1316,7 +1643,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV5",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU4User6",          /* USERID_COL */
@@ -1335,7 +1667,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV6",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU4User7",          /* USERID_COL */
@@ -1354,7 +1691,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV7",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU4User8",          /* USERID_COL */
@@ -1373,7 +1715,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV8",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU4User9",          /* USERID_COL */
@@ -1392,7 +1739,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV9",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU4User10",         /* USERID_COL */
@@ -1411,7 +1763,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
     };
 
@@ -1436,7 +1793,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User2",          /* USERID_COL */
@@ -1455,7 +1817,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV2",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User3",          /* USERID_COL */
@@ -1474,7 +1841,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV3",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User4",          /* USERID_COL */
@@ -1493,7 +1865,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV4",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User5",          /* USERID_COL */
@@ -1512,7 +1889,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV5",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User6",          /* USERID_COL */
@@ -1531,7 +1913,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV6",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User7",          /* USERID_COL */
@@ -1550,7 +1937,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV7",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User8",          /* USERID_COL */
@@ -1569,7 +1961,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV8",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User9",          /* USERID_COL */
@@ -1588,7 +1985,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV9",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User10",         /* USERID_COL */
@@ -1607,7 +2009,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User11",         /* USERID_COL */
@@ -1626,7 +2033,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User12",         /* USERID_COL */
@@ -1645,7 +2057,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User13",         /* USERID_COL */
@@ -1664,7 +2081,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User14",         /* USERID_COL */
@@ -1683,7 +2105,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User15",         /* USERID_COL */
@@ -1702,7 +2129,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User16",         /* USERID_COL */
@@ -1721,7 +2153,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User17",         /* USERID_COL */
@@ -1740,7 +2177,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User18",         /* USERID_COL */
@@ -1759,7 +2201,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User19",         /* USERID_COL */
@@ -1778,7 +2225,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User20",         /* USERID_COL */
@@ -1797,7 +2249,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User21",         /* USERID_COL */
@@ -1816,7 +2273,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User22",         /* USERID_COL */
@@ -1835,7 +2297,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User23",         /* USERID_COL */
@@ -1854,7 +2321,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User24",         /* USERID_COL */
@@ -1873,7 +2345,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User25",         /* USERID_COL */
@@ -1892,7 +2369,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User26",         /* USERID_COL */
@@ -1911,7 +2393,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -1935,7 +2422,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User2",          /* USERID_COL */
@@ -1954,7 +2446,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV2",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User3",          /* USERID_COL */
@@ -1973,7 +2470,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV3",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User4",          /* USERID_COL */
@@ -1992,7 +2494,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV4",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User5",          /* USERID_COL */
@@ -2011,7 +2518,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV5",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User6",          /* USERID_COL */
@@ -2030,7 +2542,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV6",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User7",          /* USERID_COL */
@@ -2049,7 +2566,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV7",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User8",          /* USERID_COL */
@@ -2068,7 +2590,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV8",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User9",          /* USERID_COL */
@@ -2087,7 +2614,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV9",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU5User10",         /* USERID_COL */
@@ -2106,7 +2638,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
     };
 
@@ -2130,7 +2667,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU6User2",          /* USERID_COL */
@@ -2149,7 +2691,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU6User3",          /* USERID_COL */
@@ -2168,7 +2715,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU6User4",          /* USERID_COL */
@@ -2187,7 +2739,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU6User5",          /* USERID_COL */
@@ -2206,7 +2763,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -2231,7 +2793,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU7User2",          /* USERID_COL */
@@ -2250,7 +2817,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV2",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU7User3",          /* USERID_COL */
@@ -2269,7 +2841,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV3",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU7User4",          /* USERID_COL */
@@ -2288,7 +2865,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV4",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU7User5",          /* USERID_COL */
@@ -2307,7 +2889,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV5",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU7User6",          /* USERID_COL */
@@ -2326,7 +2913,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV6",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU7User7",          /* USERID_COL */
@@ -2345,7 +2937,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV7",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU7User8",          /* USERID_COL */
@@ -2364,7 +2961,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV8",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU7User9",          /* USERID_COL */
@@ -2383,7 +2985,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV9",                 /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU7User10",         /* USERID_COL */
@@ -2402,7 +3009,12 @@ public class UserTestData extends TestCase
             "none",                 /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV10",                /* ORG_COL */
-            "30"                    /* TIMEOUT_COL */
+            "30",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
     };
 
@@ -2426,7 +3038,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU8User2",        /* USERID_COL */
@@ -2445,7 +3062,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU8User3",        /* USERID_COL */
@@ -2464,7 +3086,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU8User4",        /* USERID_COL */
@@ -2483,7 +3110,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -2507,7 +3139,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU9User2",        /* USERID_COL */
@@ -2526,7 +3163,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU9User3",        /* USERID_COL */
@@ -2545,7 +3187,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
     // Test Case TU10:
@@ -2568,7 +3215,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU10User2",       /* USERID_COL */
@@ -2587,7 +3239,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU10User3",       /* USERID_COL */
@@ -2606,7 +3263,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
     // Test Case TU11:
@@ -2629,7 +3291,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU11User2",       /* USERID_COL */
@@ -2648,7 +3315,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU11User3",       /* USERID_COL */
@@ -2667,7 +3339,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -2692,7 +3369,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU12User2",       /* USERID_COL */
@@ -2711,7 +3393,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU12User3",       /* USERID_COL */
@@ -2730,7 +3417,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU12User4",       /* USERID_COL */
@@ -2749,7 +3441,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -2773,7 +3470,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU13User2",       /* USERID_COL */
@@ -2792,7 +3494,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU13User3",       /* USERID_COL */
@@ -2811,7 +3518,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
     // Test Case TU14:
@@ -2834,7 +3546,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU14User2",       /* USERID_COL */
@@ -2853,7 +3570,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU14User3",       /* USERID_COL */
@@ -2872,7 +3594,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
     // Test Case TU15:
@@ -2895,7 +3622,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU15User2",       /* USERID_COL */
@@ -2914,7 +3646,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU15User3",       /* USERID_COL */
@@ -2933,7 +3670,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -2957,7 +3699,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16User2",       /* USERID_COL */
@@ -2976,7 +3723,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16User3",       /* USERID_COL */
@@ -2995,7 +3747,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16User4",       /* USERID_COL */
@@ -3014,7 +3771,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16User5",       /* USERID_COL */
@@ -3033,7 +3795,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16User6",       /* USERID_COL */
@@ -3052,7 +3819,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16User7",       /* USERID_COL */
@@ -3071,7 +3843,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16User8",       /* USERID_COL */
@@ -3090,7 +3867,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16User9",       /* USERID_COL */
@@ -3109,7 +3891,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16User10",      /* USERID_COL */
@@ -3128,7 +3915,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -3152,7 +3944,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "oamT1UOrg1",         /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16BUser2",      /* USERID_COL */
@@ -3171,7 +3968,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "oamT1UOrg2",         /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16BUser3",      /* USERID_COL */
@@ -3190,7 +3992,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "oamT1UOrg3",         /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16BUser4",      /* USERID_COL */
@@ -3209,7 +4016,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "oamT1UOrg4",         /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16BUser5",      /* USERID_COL */
@@ -3228,7 +4040,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "oamT1UOrg5",         /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16BUser6",      /* USERID_COL */
@@ -3247,7 +4064,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "oamT1UOrg6",         /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16BUser7",      /* USERID_COL */
@@ -3266,7 +4088,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "oamT1UOrg7",         /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16BUser8",      /* USERID_COL */
@@ -3285,7 +4112,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "oamT1UOrg8",         /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16BUser9",      /* USERID_COL */
@@ -3304,7 +4136,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "oamT1UOrg9",         /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU16BUser10",     /* USERID_COL */
@@ -3323,7 +4160,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "oamT1UOrg10",        /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -3347,7 +4189,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU17AUser2",      /* USERID_COL */
@@ -3366,7 +4213,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU17AUser3",      /* USERID_COL */
@@ -3385,7 +4237,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU17AUser4",      /* USERID_COL */
@@ -3404,7 +4261,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU17AUser5",      /* USERID_COL */
@@ -3423,7 +4285,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             "DEV1",               /* ORG_COL */
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -3447,7 +4314,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             OrgUnitTestData.getName(OrgUnitTestData.ORGS_USR_TO5[0]),
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU17UUser2",      /* USERID_COL */
@@ -3466,7 +4338,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             OrgUnitTestData.getName(OrgUnitTestData.ORGS_USR_TO5[1]),
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU17UUser3",      /* USERID_COL */
@@ -3485,7 +4362,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             OrgUnitTestData.getName(OrgUnitTestData.ORGS_USR_TO5[2]),
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU17UUser4",      /* USERID_COL */
@@ -3504,7 +4386,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             OrgUnitTestData.getName(OrgUnitTestData.ORGS_USR_TO5[3]),
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU17UUser5",      /* USERID_COL */
@@ -3523,7 +4410,12 @@ public class UserTestData extends TestCase
             "20300115",           /* ELOCKDATE_COL */
             "1234567",            /* DAYMASK_COL */
             OrgUnitTestData.getName(OrgUnitTestData.ORGS_USR_TO5[4]),
-            "15"                  /* TIMEOUT_COL */
+            "15",                   /* TIMEOUT_COL */
+            "",                     /* ASSGND_ROLES_COL */
+            "",                     /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -3549,7 +4441,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6A1",                  /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User2",             /* USERID_COL */
@@ -3570,7 +4465,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6B1A1",                /* ASSGND_ROLES_COL */
-            "oamT6A1,"                  /* AUTHZ_ROLES_COL */
+            "oamT6A1,",                 /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User3",             /* USERID_COL */
@@ -3591,7 +4489,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6B2A1",                /* ASSGND_ROLES_COL */
-            "oamT6A1,"                  /* AUTHZ_ROLES_COL */
+            "oamT6A1,",                 /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User4",             /* USERID_COL */
@@ -3612,7 +4513,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6C1B1A1",              /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1"         /* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B1A1",        /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User5",             /* USERID_COL */
@@ -3633,7 +4537,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6C2B1A1",              /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1,oamT6B2A1"/* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B1A1,oamT6B2A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User6",             /* USERID_COL */
@@ -3654,7 +4561,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6C3B2A1",              /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1"         /* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B2A1",        /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User7",             /* USERID_COL */
@@ -3675,7 +4585,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6C4B2A1",              /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1"         /* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B2A1",        /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User8",             /* USERID_COL */
@@ -3696,7 +4609,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6D1C1B1A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1,oamT6C1B1A1"/* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B1A1,oamT6C1B1A1", /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User9",             /* USERID_COL */
@@ -3717,7 +4633,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6D2C1B1A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C1B1A1,oamT6C2B1A1"/* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C1B1A1,oamT6C2B1A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User10",            /* USERID_COL */
@@ -3738,7 +4657,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6D3C2B1A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C2B1A1"/* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C2B1A1",  /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User11",            /* USERID_COL */
@@ -3759,7 +4681,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6D4C2B1A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C2B1A1"/* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C2B1A1", /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User12",            /* USERID_COL */
@@ -3780,7 +4705,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6D5C3B2A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1,oamT6C3B2A1"/* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B2A1,oamT6C3B2A1", /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User13",            /* USERID_COL */
@@ -3801,7 +4729,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6D6C3B2A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1,oamT6C3B2A1,oamT6C4B2A1"/* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B2A1,oamT6C3B2A1,oamT6C4B2A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User14",            /* USERID_COL */
@@ -3822,7 +4753,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6D7C4B2A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1,oamT6C4B2A1"/* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B2A1,oamT6C4B2A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU18User15",            /* USERID_COL */
@@ -3843,7 +4777,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT6D8C4B2A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1,oamT6C4B2A1"/* AUTHZ_ROLES_COL */
+            "oamT6A1,oamT6B2A1,oamT6C4B2A1", /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -3869,7 +4806,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7A1",                  /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User2",             /* USERID_COL */
@@ -3890,7 +4830,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7B1A1",                /* ASSGND_ROLES_COL */
-            "oamT7A1,"                  /* AUTHZ_ROLES_COL */
+            "oamT7A1,",                 /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User3",             /* USERID_COL */
@@ -3911,7 +4854,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7B2A1",                /* ASSGND_ROLES_COL */
-            "oamT7A1,"                  /* AUTHZ_ROLES_COL */
+            "oamT7A1,",                 /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User4",             /* USERID_COL */
@@ -3932,7 +4878,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7C1B1A1",              /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1"         /* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B1A1",        /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User5",             /* USERID_COL */
@@ -3953,7 +4902,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7C2B1A1",              /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1,oamT7B2A1"/* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B1A1,oamT7B2A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User6",             /* USERID_COL */
@@ -3974,7 +4926,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7C3B2A1",              /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1"         /* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B2A1",        /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User7",             /* USERID_COL */
@@ -3995,7 +4950,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7C4B2A1",              /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1"         /* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B2A1",        /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User8",             /* USERID_COL */
@@ -4016,7 +4974,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7D1C1B1A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1,oamT7C1B1A1"/* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B1A1,oamT7C1B1A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User9",             /* USERID_COL */
@@ -4037,7 +4998,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7D2C1B1A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C1B1A1,oamT7C2B1A1"/* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C1B1A1,oamT7C2B1A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User10",            /* USERID_COL */
@@ -4058,7 +5022,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7D3C2B1A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C2B1A1"/* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C2B1A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User11",            /* USERID_COL */
@@ -4079,7 +5046,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7D4C2B1A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C2B1A1"/* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C2B1A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User12",            /* USERID_COL */
@@ -4100,7 +5070,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7D5C3B2A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1,oamT7C3B2A1"/* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B2A1,oamT7C3B2A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User13",            /* USERID_COL */
@@ -4121,7 +5094,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7D6C3B2A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1,oamT7C3B2A1,oamT7C4B2A1"/* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B2A1,oamT7C3B2A1,oamT7C4B2A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User14",            /* USERID_COL */
@@ -4142,7 +5118,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7D7C4B2A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1,oamT7C4B2A1"/* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B2A1,oamT7C4B2A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU19User15",            /* USERID_COL */
@@ -4163,7 +5142,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "oamT7D8C4B2A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1,oamT7C4B2A1"/* AUTHZ_ROLES_COL */
+            "oamT7A1,oamT7B2A1,oamT7C4B2A1",/* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
@@ -4189,7 +5171,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "",                         /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "" ,                        /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU20User2",             /* USERID_COL */
@@ -4210,7 +5195,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "",                         /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU20User3",             /* USERID_COL */
@@ -4231,7 +5219,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "",                         /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU20User4",             /* USERID_COL */
@@ -4252,7 +5243,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "",                         /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU20User5",             /* USERID_COL */
@@ -4273,7 +5267,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "",                         /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU20User6",             /* USERID_COL */
@@ -4294,7 +5291,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "",                         /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU20User7",             /* USERID_COL */
@@ -4315,7 +5315,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "",                         /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU20User8",             /* USERID_COL */
@@ -4336,7 +5339,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "",                         /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU20User9",             /* USERID_COL */
@@ -4357,7 +5363,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "",                         /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Maumelle,AR,72113,9 Vantage Point,2 floor,MBR",  /* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
             "oamTU20User10",            /* USERID_COL */
@@ -4378,7 +5387,10 @@ public class UserTestData extends TestCase
             "DEV1",                     /* ORG_COL */
             "0",                        /* TIMEOUT_COL */
             "",                         /* ASSGND_ROLES_COL */
-            ""                          /* AUTHZ_ROLES_COL */
+            "",                         /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
     };
 
@@ -4404,6 +5416,10 @@ public class UserTestData extends TestCase
     private final static int TIMEOUT_COL = 16;
     private final static int ASSGND_ROLES_COL = 17;
     private final static int AUTHZ_ROLES_COL = 18;
+    private final static int ADDRESS_COL = 19;
+    private final static int PHONES_COL = 20;
+    private final static int MOBILES_COL = 21;
+
 
     /**
      * @param user
@@ -4418,8 +5434,18 @@ public class UserTestData extends TestCase
         assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user cn", (getFName(usr) + " " + getLName(usr)), user.getCn());
         assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user sn", getLName(usr), user.getSn());
         assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user ou", getOu(usr), user.getOu());
+        assertTrue(UserTestData.class.getName() + ".assertEquals failed compare user address", getAddress(usr).equals(user.getAddress()));
+        //assertAddress(usr, user.getAddress());
+        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user phones", getPhones(usr), user.getPhones());
+        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user mobiles", getMobiles(usr), user.getMobiles());
         Constraint validConstraint = getUserConstraint(usr);
         TestUtils.assertTemporal(UserTestData.class.getName() + ".assertEquals", validConstraint, user);
+    }
+
+    public static void assertAddress(String[] usr, Address address)
+    {
+        Address expectedAddress = getAddress(usr);
+        assertTrue(UserTestData.class.getName() + ".assertEquals failed compare user address", expectedAddress.equals(address));
     }
 
     /**
@@ -4572,6 +5598,9 @@ public class UserTestData extends TestCase
         user.setCn(user.getName());
         user.setSn(getLName(usr));
         user.setOu(getOu(usr));
+        user.setAddress(getAddress(usr));
+        user.setPhones(getPhones(usr));
+        user.setMobiles(getMobiles(usr));
         return user;
     }
 
@@ -4614,6 +5643,79 @@ public class UserTestData extends TestCase
 
     /**
      * @param szInput
+     * @return
+     */
+    public static List<String> getPhones(String[] szInput)
+    {
+        return getList(szInput, PHONES_COL);
+    }
+
+    /**
+     * @param szInput
+     * @return
+     */
+    public static List<String> getMobiles(String[] szInput)
+    {
+        return getList(szInput, MOBILES_COL);
+    }
+
+    /**
+     * @param szInput
+     * @return
+     */
+    public static Address getAddress(String[] szInput)
+    {
+        return getAddress(szInput, ADDRESS_COL);
+    }
+
+    /**
+     * @param szInput
+     * @param col
+     * @return
+     */
+    private static Address getAddress(String[] szInput, int col)
+    {
+        Address address = null;
+        try
+        {
+            if (VUtil.isNotNullOrEmpty(szInput[col]))
+            {
+                address = new Address();
+                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], ",");
+                if (charSetTkn.countTokens() > 0)
+                {
+                    int count = 0;
+                    while (charSetTkn.hasMoreTokens())
+                    {
+                        String value = charSetTkn.nextToken();
+                        switch(count++)
+                        {
+                            case 0:
+                                address.setCity(value);
+                                break;
+                            case 1:
+                                address.setState(value);
+                                break;
+                            case 2:
+                                address.setPostalCode(value);
+                                break;
+                            default:
+                                address.setAddress(value);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        catch (java.lang.ArrayIndexOutOfBoundsException ae)
+        {
+            // ignore
+        }
+        return address;
+    }
+
+    /**
+     * @param szInput
      * @param col
      * @return
      */
@@ -4640,6 +5742,37 @@ public class UserTestData extends TestCase
             // ignore
         }
         return vSets;
+    }
+
+
+    /**
+     * @param szInput
+     * @param col
+     * @return
+     */
+    private static List<String> getList(String[] szInput, int col)
+    {
+        List<String> vList = new ArrayList<String>();
+        try
+        {
+            if (VUtil.isNotNullOrEmpty(szInput[col]))
+            {
+                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], ",");
+                if (charSetTkn.countTokens() > 0)
+                {
+                    while (charSetTkn.hasMoreTokens())
+                    {
+                        String value = charSetTkn.nextToken();
+                        vList.add(value);
+                    }
+                }
+            }
+        }
+        catch (java.lang.ArrayIndexOutOfBoundsException ae)
+        {
+            // ignore
+        }
+        return vList;
     }
 
     /**

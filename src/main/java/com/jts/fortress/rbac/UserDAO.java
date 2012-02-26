@@ -129,6 +129,7 @@ public final class UserDAO
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, USER_OBJ_CLASS));
+
             entity.setInternalId();
             attrs.add(DaoUtil.createAttribute(GlobalIds.FT_IID, entity.getInternalId()));
             attrs.add(DaoUtil.createAttribute(GlobalIds.UID, entity.getUserId()));
@@ -146,6 +147,12 @@ public final class UserDAO
             attrs.add(DaoUtil.createAttribute(SN, entity.getSn()));
             attrs.add(DaoUtil.createAttribute(PW, new String(entity.getPassword())));
             attrs.add(DaoUtil.createAttribute(DISPLAY_NAME, entity.getCn()));
+
+            // These are multi-valued attributes, use the util function to load:
+            // These items are optional.  The utility function will return quietly if no items are loaded into collection:
+            DaoUtil.loadAttrs(entity.getPhones(), attrs, TELEPHONE_NUMBER);
+            DaoUtil.loadAttrs(entity.getMobiles(), attrs, MOBILE);
+            DaoUtil.loadAttrs(entity.getEmails(), attrs, MAIL);
 
             // The following attributes are optional:
             if (VUtil.isNotNullOrEmpty(entity.getPwPolicy()))
@@ -170,6 +177,7 @@ public final class UserDAO
             attrs.add(DaoUtil.createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint(entity)));
             loadUserRoles(entity.getRoles(), attrs);
             loadUserAdminRoles(entity.getAdminRoles(), attrs);
+            loadAddress(entity.getAddress(), attrs);
             String dn = GlobalIds.UID + "=" + entity.getUserId() + "," + Config.getProperty(GlobalIds.USER_ROOT);
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
             DaoUtil.add(ld, myEntry, entity);
@@ -257,11 +265,19 @@ public final class UserDAO
             {
                 DaoUtil.loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, true);
             }
-            if (mods != null && mods.size() > 0)
+
+            loadAddress(entity.getAddress(), mods);
+            // These are multi-valued attributes, use the util function to load:
+            DaoUtil.loadAttrs(entity.getPhones(), mods, TELEPHONE_NUMBER);
+            DaoUtil.loadAttrs(entity.getMobiles(), mods, MOBILE);
+            DaoUtil.loadAttrs(entity.getEmails(), mods, MAIL);
+
+            if (mods.size() > 0)
             {
                 DaoUtil.modify(ld, userDn, mods, entity);
                 entity.setDn(userDn);
             }
+
             entity.setDn(userDn);
         }
         catch (LDAPException e)
@@ -1360,6 +1376,10 @@ public final class UserDAO
         DaoUtil.unloadTemporal(le, entity);
         entity.setRoles(unloadUserRoles(le, entity.getUserId()));
         entity.setAdminRoles(unloadUserAdminRoles(le, entity.getUserId()));
+        entity.setAddress(unloadAddress(le));
+        entity.setPhones(DaoUtil.getAttributes(le, TELEPHONE_NUMBER));
+        entity.setMobiles(DaoUtil.getAttributes(le, MOBILE));
+        entity.setEmails(DaoUtil.getAttributes(le, MAIL));
         String szBoolean = DaoUtil.getAttribute(le, OPENLDAP_PW_RESET);
         if (szBoolean != null && szBoolean.equalsIgnoreCase("true"))
         {
@@ -1664,6 +1684,126 @@ public final class UserDAO
     }
 
     /**
+     * Given a User address, {@link Address}, load into ldap attribute set in preparation for ldap add.
+     *
+     * @param address  contains User address {@link Address} targeted for adding to ldap.
+     * @param attrs collection of ldap attributes containing RBAC role assignments in raw ldap format.
+     */
+    private static void loadAddress(Address address, LDAPAttributeSet attrs)
+    {
+        if (address != null)
+        {
+            LDAPAttribute attr;
+            if(VUtil.isNotNullOrEmpty(address.getAddresses()))
+            {
+                for(String val : address.getAddresses())
+                {
+                    attr = new LDAPAttribute(POSTAL_ADDRESS, val);
+                    attrs.add(attr);
+                }
+            }
+
+            if(VUtil.isNotNullOrEmpty(address.getCity()))
+            {
+                attr = new LDAPAttribute(L, address.getCity());
+                attrs.add(attr);
+            }
+            //if(VUtil.isNotNullOrEmpty(address.getCountry()))
+            //{
+            //    attr = new LDAPAttribute(GlobalIds.COUNTRY, address.getAddress1());
+            //    attrs.add(attr);
+            //}
+            if(VUtil.isNotNullOrEmpty(address.getPostalCode()))
+            {
+                attr = new LDAPAttribute(POSTAL_CODE, address.getPostalCode());
+                attrs.add(attr);
+            }
+            if(VUtil.isNotNullOrEmpty(address.getPostOfficeBox()))
+            {
+                attr = new LDAPAttribute(POST_OFFICE_BOX, address.getPostOfficeBox());
+                attrs.add(attr);
+            }
+            if(VUtil.isNotNullOrEmpty(address.getState()))
+            {
+                attr = new LDAPAttribute(STATE, address.getState());
+                attrs.add(attr);
+            }
+        }
+    }
+
+    /**
+     * Given an address, {@link Address}, load into ldap modification set in preparation for ldap modify.
+     *
+     * @param address contains entity of type {@link Address} targeted for updating into ldap.
+     * @param mods contains ldap modification set contains attributes to be updated in ldap.
+     */
+    private static void loadAddress(Address address, LDAPModificationSet mods)
+    {
+        LDAPAttribute attr;
+        if (address != null)
+        {
+            if(VUtil.isNotNullOrEmpty(address.getAddresses()))
+            {
+                for(String val : address.getAddresses())
+                {
+                    attr = new LDAPAttribute(POSTAL_ADDRESS, val);
+                    mods.add(LDAPModification.REPLACE, attr);
+                }
+            }
+            if(VUtil.isNotNullOrEmpty(address.getCity()))
+            {
+                attr = new LDAPAttribute(L, address.getCity());
+                mods.add(LDAPModification.REPLACE, attr);
+            }
+            if(VUtil.isNotNullOrEmpty(address.getPostalCode()))
+            {
+                attr = new LDAPAttribute(POSTAL_CODE, address.getPostalCode());
+                mods.add(LDAPModification.REPLACE, attr);
+            }
+            if(VUtil.isNotNullOrEmpty(address.getPostOfficeBox()))
+            {
+                attr = new LDAPAttribute(POST_OFFICE_BOX, address.getPostOfficeBox());
+                mods.add(LDAPModification.REPLACE, attr);
+            }
+            if(VUtil.isNotNullOrEmpty(address.getState()))
+            {
+                attr = new LDAPAttribute(STATE, address.getState());
+                mods.add(LDAPModification.REPLACE, attr);
+            }
+        }
+    }
+
+    /**
+     * Given an ldap entry containing organzationalPerson address information, convert to {@link Address}
+     *
+     * @param le     contains ldap entry to retrieve admin roles from.
+     * @return entity of type {@link Address}.
+     * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
+     */
+    private static Address unloadAddress(LDAPEntry le)
+        throws LDAPException
+    {
+        Address addr = new ObjectFactory().createAddress();
+        List<String> pAddrs = DaoUtil.getAttributes(le, POSTAL_ADDRESS);
+        if (pAddrs != null)
+        {
+            for (String pAddr : pAddrs)
+            {
+                addr.setAddress(pAddr);
+            }
+        }
+        addr.setCity(DaoUtil.getAttribute(le, L));
+        addr.setState(DaoUtil.getAttribute(le, STATE));
+        addr.setPostalCode(DaoUtil.getAttribute(le, POSTAL_CODE));
+        addr.setPostOfficeBox(DaoUtil.getAttribute(le, POST_OFFICE_BOX));
+
+        // todo: fixme:
+        //addr.setCountry(DaoUtil.getAttribute(le, GlobalIds.COUNTRY));
+
+        return addr;
+    }
+
+    /**
      * Given an ldap entry containing ARBAC roles assigned to user, retrieve the raw data and convert to a collection of {@link UserAdminRole}
      * including {@link com.jts.fortress.util.time.Constraint}.
      *
@@ -1744,13 +1884,62 @@ public final class UserDAO
       *  ************************************************************************
       */
     private final static String USERS_AUX_OBJECT_CLASS_NAME = "ftUserAttrs";
+    private final static String ORGANIZATIONAL_PERSON_OBJECT_CLASS_NAME = "organizationalPerson";
     private final static String USER_OBJECT_CLASS = "user.objectclass";
     private final static String USER_OBJ_CLASS[] = {
-        GlobalIds.TOP, Config.getProperty(USER_OBJECT_CLASS), USERS_AUX_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+       GlobalIds.TOP, Config.getProperty(USER_OBJECT_CLASS), USERS_AUX_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
     private final static String objectClassImpl = Config.getProperty(USER_OBJECT_CLASS);
     private final static String SN = "sn";
     private final static String PW = "userpassword";
+    /**
+     * Constant contains the locale attribute name used within organizationalPerson ldap object classes.
+     */
+    private final static String L = "l";
+
+    /**
+     * Constant contains the postal address attribute name used within organizationalPerson ldap object classes.
+     */
+    private final static String POSTAL_ADDRESS = "postalAddress";
+
+    /**
+     * Constant contains the state attribute name used within organizationalPerson ldap object classes.
+     */
+    private final static String STATE = "st";
+
+    /**
+     * Constant contains the postal code attribute name used within organizationalPerson ldap object classes.
+     */
+    private final static String POSTAL_CODE = "postalCode";
+
+    /**
+     * Constant contains the post office box attribute name used within organizationalPerson ldap object classes.
+     */
+    private final static String POST_OFFICE_BOX = "postOfficeBox";
+
+
+    /**
+     * Constant contains the country attribute name used within organizationalPerson ldap object classes.
+     */
+    private final static String COUNTRY = "c";
+
+    /**
+     * Constant contains the mobile attribute values used within iNetOrgPerson ldap object classes.
+     */
+    private final static String MOBILE = "mobile";
+
+    /**
+     * Constant contains the telephone attribute values used within organizationalPerson ldap object classes.
+     */
+    private final static String TELEPHONE_NUMBER = "telephoneNumber";
+
+    /**
+     * Constant contains the email attribute values used within iNetOrgPerson ldap object classes.
+     */
+    private final static String MAIL = "mail";
+
+
+
     private final static String DISPLAY_NAME = "displayName";
     private final static String OPENLDAP_POLICY_SUBENTRY = "pwdPolicySubentry";
     private final static String OPENLDAP_PW_RESET = "pwdReset";
@@ -1774,6 +1963,7 @@ public final class UserDAO
         GlobalIds.FT_IID, GlobalIds.UID, PW, GlobalIds.DESC, GlobalIds.OU, GlobalIds.CN, SN,
         GlobalIds.USER_ROLE_DATA, GlobalIds.CONSTRAINT, GlobalIds.USER_ROLE_ASSIGN, OPENLDAP_PW_RESET,
         OPENLDAP_PW_LOCKED_TIME, GlobalIds.PROPS, GlobalIds.USER_ADMINROLE_ASSIGN, GlobalIds.USER_ADMINROLE_DATA,
+        POSTAL_ADDRESS, L, POSTAL_CODE, POST_OFFICE_BOX, STATE, TELEPHONE_NUMBER, MOBILE, MAIL,
     };
 
     private final static String[] ROLE_ATR = {

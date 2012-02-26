@@ -21,6 +21,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -183,7 +184,10 @@ public class RestUtils
             post.setRequestEntity(entity);
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod(post);
-            szResponse = post.getResponseBodyAsString();
+            InputStream responseStream = post.getResponseBodyAsStream();
+            szResponse = responseStream.toString();
+            // szResponse = post.getResponseBodyAsString();
+
             log.debug(CLS_NM + ".post [" + function + "]  response=" + szResponse);
         }
         catch (IOException ioe)

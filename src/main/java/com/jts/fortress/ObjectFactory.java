@@ -11,6 +11,7 @@ import com.jts.fortress.audit.Bind;
 import com.jts.fortress.audit.Mod;
 import com.jts.fortress.audit.UserAudit;
 import com.jts.fortress.pwpolicy.PswdPolicy;
+import com.jts.fortress.rbac.Address;
 import com.jts.fortress.rbac.PermGrant;
 import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.OrgUnit;
@@ -74,6 +75,7 @@ public class ObjectFactory
     private final static QName _FortRolePerm_QNAME = new QName("", "fortRolePerm");
     private final static QName _FortResponse_QNAME = new QName("", "fortResponse");
     private final static QName FortRequest_QNAME = new QName("", "fortRequest");
+    private final static QName FortAddress_QNAME = new QName("", "fortAddress");
 
 
     @XmlElementDecl(namespace = "", name = "fortEntity")
@@ -256,6 +258,12 @@ public class ObjectFactory
         return new JAXBElement<RolePerm>(_FortRolePerm_QNAME, RolePerm.class, null, value);
     }
 
+    @XmlElementDecl(namespace = "", name = "fortAddress")
+    public JAXBElement<Address> createFortAddress(Address value)
+    {
+        return new JAXBElement<Address>(FortAddress_QNAME, Address.class, null, value);
+    }
+
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.jts.fortress.model2
      */
@@ -416,5 +424,10 @@ public class ObjectFactory
     public FortRequest createFortRequest()
     {
         return new FortRequest();
+    }
+
+    public Address createAddress()
+    {
+        return new Address();
     }
 }

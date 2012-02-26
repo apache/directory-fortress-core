@@ -12,6 +12,7 @@ import com.jts.fortress.example.Example;
 import com.jts.fortress.example.ExampleAdminMgr;
 import com.jts.fortress.example.ExampleAdminMgrFactory;
 import com.jts.fortress.pwpolicy.PolicyTestData;
+import com.jts.fortress.rbac.Address;
 import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.SDSet;
@@ -338,6 +339,20 @@ public class AdminMgrConsole
                 System.out.println("Enter next prop key (or NULL if done entering properties)");
                 key = ReaderUtil.readLn();
             }
+
+            ue.setAddress(new Address());
+            ue.getAddress().setAddress("123 Test Ln");
+            ue.getAddress().setAddress("Suite 1");
+            ue.getAddress().setAddress("c/o resident");
+            ue.getAddress().setCity("TestCity");
+            ue.getAddress().setCountry("US");
+            ue.getAddress().setPostalCode("72113");
+            ue.getAddress().setState("AR");
+
+            ue.setPhone("111-222-3333");
+            ue.setPhone("222-222-3333");
+            ue.setMobile("333-222-3333");
+            ue.setMobile("444-222-3333");
 
             User ue2 = am.addUser(ue);
             System.out.println("userId [" + ue2.getUserId() + "]");

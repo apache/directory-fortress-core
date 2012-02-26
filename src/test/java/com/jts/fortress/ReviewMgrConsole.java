@@ -6,11 +6,13 @@ package com.jts.fortress;
 
 import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.arbac.OrgUnit;
+import com.jts.fortress.rbac.Address;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.RoleUtil;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
+import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.time.Constraint;
 import org.apache.log4j.Logger;
 
@@ -166,6 +168,9 @@ public class ReviewMgrConsole
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 printTemporal(ue, "USER");
+                printAddress(ue.getAddress(), "ADDRESS");
+                printPhone(ue.getPhones(), "PHONES");
+                printPhone(ue.getMobiles(), "MOBILES");
                 if (ue.getRoles() != null)
                 {
                     for (UserRole ur : ue.getRoles())
@@ -222,7 +227,9 @@ public class ReviewMgrConsole
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 System.out.println("    seqId       [" + ue.getSequenceId() + "]");
                 printTemporal(ue, "USER");
-
+                printAddress(ue.getAddress(), "ADDRESS");
+                printPhone(ue.getPhones(), "PHONES");
+                printPhone(ue.getMobiles(), "MOBILES");
                 if (ue.getRoles() != null)
                 {
                     for (UserRole ur : ue.getRoles())
@@ -285,7 +292,9 @@ public class ReviewMgrConsole
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 printTemporal(ue, "USER");
-
+                printAddress(ue.getAddress(), "ADDRESS");
+                printPhone(ue.getPhones(), "PHONES");
+                printPhone(ue.getMobiles(), "MOBILES");
                 if (ue.getRoles() != null)
                 {
                     for (UserRole ur : ue.getRoles())
@@ -353,7 +362,9 @@ public class ReviewMgrConsole
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 printTemporal(ue, "USER");
-
+                printAddress(ue.getAddress(), "ADDRESS");
+                printPhone(ue.getPhones(), "PHONES");
+                printPhone(ue.getMobiles(), "MOBILES");
                 if (ue.getRoles() != null)
                 {
                     for (UserRole ur : ue.getRoles())
@@ -429,7 +440,7 @@ public class ReviewMgrConsole
      }
 
 
-     static void printTemporal(Constraint constraint, String label)
+    static void printTemporal(Constraint constraint, String label)
     {
         if (constraint != null)
         {
@@ -442,6 +453,36 @@ public class ReviewMgrConsole
             System.out.println("        end lock [" + constraint.getEndLockDate() + "]");
             System.out.println("        day mask [" + constraint.getDayMask() + "]");
             System.out.println("        time out [" + constraint.getTimeout() + "]");
+        }
+    }
+
+    static void printAddress(Address address, String label)
+    {
+        if (address != null)
+        {
+            System.out.println(label);
+            if(VUtil.isNotNullOrEmpty(address.getAddresses()))
+            {
+                for (String addr : address.getAddresses())
+                {
+                    System.out.println("    line        [" + addr + "]");
+                }
+            }
+            System.out.println("    city        [" + address.getCity() + "]");
+            System.out.println("    state       [" + address.getState() + "]");
+            System.out.println("    zip         [" + address.getPostalCode() + "]");
+        }
+    }
+
+    static void printPhone(List<String> phones, String label)
+    {
+        if (phones != null)
+        {
+            System.out.println(label);
+            for(String phone : phones)
+            {
+                System.out.println("    number      [" + phone + "]");
+            }
         }
     }
 

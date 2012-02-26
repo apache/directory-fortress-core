@@ -9,7 +9,6 @@ import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.util.time.Constraint;
 
 import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.util.*;
 
@@ -64,6 +63,7 @@ import java.util.*;
  * The combination of the standard and custom object classes form a single entry within the directory and is represented in this entity class.
  *
  * <h4>Fortress User Schema</h4>
+ *
  * 1. InetOrgPerson Structural Object Class. <br />
  * <code># The inetOrgPerson represents people who are associated with an</code><br />
  * <code># organization in some way.  It is a structural class and is derived</code><br />
@@ -85,7 +85,23 @@ import java.util.*;
  * <li>  ------------------------------------------
  * </ul>
  *
- * 2. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br />
+ * 2. organizationalPerson Structural Object Class.
+ * <ul>
+ * <li>  ------------------------------------------
+ * <li> <code>objectclass ( 2.5.6.7</code>
+ * <li> <code>NAME 'organizationalPerson'</code>
+ * <li> <code>DESC 'RFC2256: an organizational person'</code>
+ * <li> <code>SUP person</code>
+ * <li> <code>STRUCTURAL</code>
+ * <li> <code>MAY ( title $ x121Address $ registeredAddress $ destinationIndicator $</code>
+ * <li> <code>preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $</code>
+ * <li> <code>telephoneNumber $ internationaliSDNNumber $</code>
+ * <li> <code>facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $</code>
+ * <li> <code>postalAddress $ physicalDeliveryOfficeName $ ou $ st $ l ) )</code>
+ * <li>  ------------------------------------------
+ * </ul>
+ *
+ * 3. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br />
  * <code># This aux object class can be used to store custom attributes.</code><br />
  * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
  * <ul>
@@ -98,8 +114,7 @@ import java.util.*;
  * <li>  ------------------------------------------
  * </ul>
  *
- *
- * 3. ftUserAttrs is used to store user RBAC and Admin role assignment and other security attributes on User entity.
+ * 4. ftUserAttrs is used to store user RBAC and Admin role assignment and other security attributes on User entity.
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.1</code>
@@ -111,7 +126,7 @@ import java.util.*;
  * <li>  ------------------------------------------
  * </ul>
  *
- * 4. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
+ * 5. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
@@ -141,6 +156,10 @@ import java.util.*;
     "sn",
     "cn",
     "dn",
+    "address",
+    "phones",
+    "mobiles",
+    "emails",
     "props",
     "locked",
     "reset",
@@ -190,6 +209,14 @@ public class User extends FortEntity implements Constraint, Serializable
     private boolean locked;
     @XmlElement(nillable = true)
     private Props props = new Props();
+    @XmlElement(nillable = true)
+    private Address address;
+    @XmlElement(nillable = true)
+    private List<String> phones;
+    @XmlElement(nillable = true)
+    private List<String> mobiles;
+    @XmlElement(nillable = true)
+    private List<String> emails;
 
     /**
      * Default constructor not intended for external use and is typically used by internal Fortress classes.
@@ -987,6 +1014,158 @@ public class User extends FortEntity implements Constraint, Serializable
             }
         }
         return properties;
+    }
+
+    /**
+     * Contains data retrieved from the following LDAP attributes:
+     *
+     * <ul>
+     * <li>  ------------------------------------------
+     * <li> <code>postalAddress</code>
+     * <li> <code>st</code>
+     * <li> <code>postalCode</code>
+     * <li> <code>postOfficeBox</code>
+     * <li>  ------------------------------------------
+     * </ul>
+     *
+     * @return {@link Address}
+     */
+    public Address getAddress()
+    {
+        return address;
+    }
+
+    /**
+     * Contains data bound for the following LDAP attributes:
+     *
+     * <ul>
+     * <li>  ------------------------------------------
+     * <li> <code>postalAddress</code>
+     * <li> <code>st</code>
+     * <li> <code>postalCode</code>
+     * <li> <code>postOfficeBox</code>
+     * <li>  ------------------------------------------
+     * </ul>
+     *
+     * @param {@link Address}
+     */
+    public void setAddress(Address address)
+    {
+        this.address = address;
+    }
+
+    /**
+     * Retrieve multi-occurring {@code telephoneNumber} associated with {@code organizationalPerson} object class.
+     *
+     * @return List of type String that contains zero or more phone numbers associated with the user.
+     */
+    public List<String> getPhones()
+    {
+        if (phones == null)
+        {
+            phones = new ArrayList<String>();
+        }
+        return phones;
+    }
+
+    /**
+     * Set multi-occurring {@code telephoneNumber} number to associated with {@code organizationalPerson} object class.
+     *
+     * @param phones contains an ArrayList of type String with zero or more phone numbers associated with the user.
+     */
+    public void setPhones(List<String> phones)
+    {
+        this.phones = phones;
+    }
+
+    /**
+     * Set phone number to stored in rfc822Mailbox format and associated with {@code inetOrgPerson} object class.
+     *
+     * @param phone contains String bound to {@code telephoneNumber} attribute on {@code organizationalPerson} object class.
+     */
+    public void setPhone(String phone)
+    {
+        if (phones == null)
+        {
+            phones = new ArrayList<String>();
+        }
+        this.phones.add(phone);
+    }
+
+    /**
+     * Retrieve multi-occurring {@code mobile} associated with {@code inetOrgPerson} object class.
+     *
+     * @return List of type String that contains zero or more mobile phone numbers associated with the user.
+     */
+    public List<String> getMobiles()
+    {
+        if (mobiles == null)
+        {
+            mobiles = new ArrayList<String>();
+        }
+        return mobiles;
+    }
+
+    /**
+     * Set multi-occurring {@code mobile} associated with {@code inetOrgPerson} object class.
+     *
+     * @param mobiles contains an ArrayList of type String with zero or more mobile phone numbers associated with the user.
+     */
+    public void setMobiles(List<String> mobiles)
+    {
+        this.mobiles = mobiles;
+    }
+
+    /**
+     * Set a single {@code mobile} associated with {@code inetOrgPerson} object class.
+     *
+     * @param mobile contains a String containing mobile phone numbers associated with the user.
+     */
+    public void setMobile(String mobile)
+    {
+        if (mobiles == null)
+        {
+            mobiles = new ArrayList<String>();
+        }
+        this.mobiles.add(mobile);
+    }
+
+    /**
+     * Retrieve multi-occurring email address stored in rfc822Mailbox format associated with {@code inetOrgPerson} object class.
+     *
+     * @return List of type String that contains zero or more email addresses associated with the user.
+     */
+    public List<String> getEmails()
+    {
+        if (emails == null)
+        {
+            emails = new ArrayList<String>();
+        }
+        return emails;
+    }
+
+    /**
+     * Set multi-occurring email address to stored in rfc822Mailbox format and associated with {@code inetOrgPerson} object class.
+     *
+     * @param emails contains an ArrayList of type String with zero or more email addresses associated with the user.
+     */
+    public void setEmails(List<String> emails)
+    {
+        this.emails = emails;
+    }
+
+    /**
+     * Set a single email address in rfc822Mailbox format to be assoicated with {@code inetOrgPerson} object class.
+     *
+     * @param email contains a String to be stored as email address on user.
+     */
+    public void setEmail(String email)
+    {
+        if (emails == null)
+        {
+            emails = new ArrayList<String>();
+        }
+        this.emails.add(email);
     }
 
     /**

@@ -1053,8 +1053,11 @@ public class CommandLineInterpreter
             printRow(type, "DMSK", user.getDayMask());
             printRow(type, "TO  ", "" + user.getTimeout());
             printRow(type, "REST", "" + user.isReset());
-
             printTemporal(type, user, "USER");
+            printAddress(type, user.getAddress(), "ADDR");
+            printPhone(type, user.getPhones(), "PHNE");
+            printPhone(type, user.getPhones(), "MOBL");
+
             if (VUtil.isNotNullOrEmpty(user.getRoles()))
             {
                 for (UserRole ur : user.getRoles())
@@ -1115,7 +1118,39 @@ public class CommandLineInterpreter
         }
     }
 
-    /**
+    private void printAddress(String type, Address address, String label)
+     {
+         if (address != null)
+         {
+            printRow(type, "TYPE", label);
+             System.out.println(label);
+             if(VUtil.isNotNullOrEmpty(address.getAddresses()))
+             {
+                 for (String addr : address.getAddresses())
+                 {
+                    printRow(type, "LINE", addr);
+                 }
+             }
+            printRow(type, "CITY", address.getCity());
+            printRow(type, "PROV", address.getState());
+            printRow(type, "ZIPC", address.getPostalCode());
+            printRow(type, "PBOX", address.getPostOfficeBox());
+         }
+     }
+
+     private void printPhone(String type, List<String> phones, String label)
+     {
+         if (phones != null)
+         {
+             printRow(type, "TYPE", label);
+             for(String phone : phones)
+             {
+                printRow(type, "TELE", phone);
+             }
+         }
+     }
+
+     /**
      * @param ur
      */
     private void printAdminRole(String type, UserAdminRole ur)

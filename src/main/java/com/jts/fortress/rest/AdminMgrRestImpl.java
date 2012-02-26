@@ -536,7 +536,7 @@ public final class AdminMgrRestImpl implements AdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_UPDATE);
+        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {

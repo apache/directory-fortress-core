@@ -16,7 +16,7 @@ import java.util.Vector;
 
 /**
  * This converts between Fortress entities and the JArg Options.  It contains attributes passed from JArgs command interpreter.
-
+ *
  * @author smckinn
  * @created December 1, 2011
  */
@@ -55,9 +55,16 @@ public class Options implements java.io.Serializable
     CmdLineParser.Option endRange;
     CmdLineParser.Option beginInclusive;
     CmdLineParser.Option endInclusive;
+    CmdLineParser.Option phones;
+    CmdLineParser.Option mobiles;
+    CmdLineParser.Option emails;
+    CmdLineParser.Option address;
+    CmdLineParser.Option state;
+    CmdLineParser.Option city;
+    CmdLineParser.Option postalCode;
+    CmdLineParser.Option postalOfficeBox;
 
     /**
-     *
      * @param parser
      */
     public Options(CmdLineParser parser)
@@ -95,10 +102,17 @@ public class Options implements java.io.Serializable
         this.endRange = parser.addStringOption('w', "endRange");
         this.beginInclusive = parser.addStringOption('y', "beginInclusive");
         this.endInclusive = parser.addStringOption('z', "endInclusive");
+        this.phones = parser.addStringOption('-', "phones");
+        this.mobiles = parser.addStringOption('&', "mobiles");
+        this.emails = parser.addStringOption('@', "emails");
+        this.address = parser.addStringOption('>', "address");
+        this.state = parser.addStringOption('<', "state");
+        this.city = parser.addStringOption('3', "city");
+        this.postalCode = parser.addStringOption('*', "postalCode");
+        this.postalOfficeBox = parser.addStringOption('2', "postalOfficeBox");
     }
 
     /**
-     *
      * @return
      */
     public SDSet getSdSet()
@@ -112,7 +126,7 @@ public class Options implements java.io.Serializable
             Integer cardinality = new Integer(getCardinality());
             sdSet.setCardinality(cardinality);
         }
-        catch(NumberFormatException ne)
+        catch (NumberFormatException ne)
         {
             // default is '2'.
             sdSet.setCardinality(new Integer(2));
@@ -121,7 +135,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     *
      * @return
      */
     public OrgUnit getOrgUnit()
@@ -133,7 +146,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     *
      * @return
      */
     public Role getRole()
@@ -145,7 +157,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     *
      * @return
      */
     public AdminRole getAdminRole()
@@ -165,7 +176,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     *
      * @return
      */
     public Relationship getRelationship()
@@ -177,7 +187,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     *
      * @return
      */
     public PermObj getPermObj()
@@ -203,7 +212,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     *
      * @return
      */
     public User getUser()
@@ -220,6 +228,10 @@ public class Options implements java.io.Serializable
         updateProperties(user);
         updateRoleAssigns(user);
         updateAdminRoleAssigns(user);
+        updatePhones(user);
+        updateMobiles(user);
+        updateEmails(user);
+        updateAddress(user);
         return user;
     }
 
@@ -238,7 +250,7 @@ public class Options implements java.io.Serializable
             Integer to = new Integer(getTimeout());
             constraint.setTimeout(to.intValue());
         }
-        catch(NumberFormatException ne)
+        catch (NumberFormatException ne)
         {
             constraint.setTimeout(0);
         }
@@ -246,14 +258,14 @@ public class Options implements java.io.Serializable
 
     public String getUserId()
     {
-        return (String)parser.getOptionValue(userId);
+        return (String) parser.getOptionValue(userId);
     }
 
     public char[] getPassword()
     {
         char[] pw = null;
-        String szPw = (String)parser.getOptionValue(password);
-        if(VUtil.isNotNullOrEmpty(szPw))
+        String szPw = (String) parser.getOptionValue(password);
+        if (VUtil.isNotNullOrEmpty(szPw))
         {
             pw = szPw.toCharArray();
         }
@@ -263,8 +275,8 @@ public class Options implements java.io.Serializable
     public char[] getNewPassword()
     {
         char[] pw = null;
-        String szPw = (String)parser.getOptionValue(newPassword);
-        if(VUtil.isNotNullOrEmpty(szPw))
+        String szPw = (String) parser.getOptionValue(newPassword);
+        if (VUtil.isNotNullOrEmpty(szPw))
         {
             pw = szPw.toCharArray();
         }
@@ -274,11 +286,11 @@ public class Options implements java.io.Serializable
     private void updateProperties(User user)
     {
         Vector fractionValues = parser.getOptionValues(properties);
-        if(fractionValues != null)
+        if (fractionValues != null)
         {
-            for(Object raw : fractionValues)
+            for (Object raw : fractionValues)
             {
-                String szRaw = (String)raw;
+                String szRaw = (String) raw;
                 int indx = szRaw.indexOf(':');
                 if (indx >= 1)
                 {
@@ -291,11 +303,11 @@ public class Options implements java.io.Serializable
     private void updateProperties(PermObj permObj)
     {
         Vector fractionValues = parser.getOptionValues(properties);
-        if(fractionValues != null)
+        if (fractionValues != null)
         {
-            for(Object raw : fractionValues)
+            for (Object raw : fractionValues)
             {
-                String szRaw = (String)raw;
+                String szRaw = (String) raw;
                 int indx = szRaw.indexOf(':');
                 if (indx >= 1)
                 {
@@ -308,11 +320,11 @@ public class Options implements java.io.Serializable
     private void updateProperties(Permission perm)
     {
         Vector fractionValues = parser.getOptionValues(properties);
-        if(fractionValues != null)
+        if (fractionValues != null)
         {
-            for(Object raw : fractionValues)
+            for (Object raw : fractionValues)
             {
-                String szRaw = (String)raw;
+                String szRaw = (String) raw;
                 int indx = szRaw.indexOf(':');
                 if (indx >= 1)
                 {
@@ -325,11 +337,11 @@ public class Options implements java.io.Serializable
     private void updateRoleAssigns(User user)
     {
         Vector fractionValues = parser.getOptionValues(roleAssigns);
-        if(fractionValues != null)
+        if (fractionValues != null)
         {
-            for(Object raw : fractionValues)
+            for (Object raw : fractionValues)
             {
-                String szRaw = (String)raw;
+                String szRaw = (String) raw;
                 user.setRole(szRaw);
             }
         }
@@ -338,11 +350,11 @@ public class Options implements java.io.Serializable
     private void updateRoleAssigns(Permission perm)
     {
         Vector fractionValues = parser.getOptionValues(roleAssigns);
-        if(fractionValues != null)
+        if (fractionValues != null)
         {
-            for(Object raw : fractionValues)
+            for (Object raw : fractionValues)
             {
-                String szRaw = (String)raw;
+                String szRaw = (String) raw;
                 perm.setRole(szRaw);
             }
         }
@@ -351,11 +363,11 @@ public class Options implements java.io.Serializable
     private void updateAdminRoleAssigns(User user)
     {
         Vector fractionValues = parser.getOptionValues(adminRoleAssigns);
-        if(fractionValues != null)
+        if (fractionValues != null)
         {
-            for(Object raw : fractionValues)
+            for (Object raw : fractionValues)
             {
-                String szRaw = (String)raw;
+                String szRaw = (String) raw;
                 user.setAdminRole(szRaw);
             }
         }
@@ -364,11 +376,11 @@ public class Options implements java.io.Serializable
     private void updateRoleAssigns(SDSet sdSet)
     {
         Vector fractionValues = parser.getOptionValues(roleAssigns);
-        if(fractionValues != null)
+        if (fractionValues != null)
         {
-            for(Object raw : fractionValues)
+            for (Object raw : fractionValues)
             {
-                String szRaw = (String)raw;
+                String szRaw = (String) raw;
                 sdSet.addMember(szRaw);
             }
         }
@@ -377,11 +389,11 @@ public class Options implements java.io.Serializable
     private void updateOsPs(AdminRole role)
     {
         Vector fractionValues = parser.getOptionValues(osPs);
-        if(fractionValues != null)
+        if (fractionValues != null)
         {
-            for(Object raw : fractionValues)
+            for (Object raw : fractionValues)
             {
-                String szRaw = (String)raw;
+                String szRaw = (String) raw;
                 role.setOsP(szRaw);
             }
         }
@@ -390,133 +402,210 @@ public class Options implements java.io.Serializable
     private void updateOsUs(AdminRole role)
     {
         Vector fractionValues = parser.getOptionValues(osPs);
-        if(fractionValues != null)
+        if (fractionValues != null)
         {
-            for(Object raw : fractionValues)
+            for (Object raw : fractionValues)
             {
-                String szRaw = (String)raw;
+                String szRaw = (String) raw;
                 role.setOsU(szRaw);
             }
         }
     }
 
-    public String getOu()
+    private void updatePhones(User user)
     {
-        return (String)parser.getOptionValue(ou);
+        Vector fractionValues = parser.getOptionValues(phones);
+        if (fractionValues != null)
+        {
+            for (Object val : fractionValues)
+            {
+                String number = (String) val;
+                user.setPhone(number);
+            }
+        }
     }
 
-    public String getPwPolicy()
+    private void updateMobiles(User user)
     {
-        return (String)parser.getOptionValue(pwPolicy);
+        Vector fractionValues = parser.getOptionValues(mobiles);
+        if (fractionValues != null)
+        {
+            for (Object val : fractionValues)
+            {
+                String number = (String) val;
+                user.setMobile(number);
+            }
+        }
     }
 
-    public String getCn()
+    private void updateEmails(User user)
     {
-        return (String)parser.getOptionValue(cn);
+        Vector fractionValues = parser.getOptionValues(emails);
+        if (fractionValues != null)
+        {
+            for (Object val : fractionValues)
+            {
+                String email = (String) val;
+                user.setPhone(email);
+            }
+        }
     }
 
-    public String getSn()
+    void updateAddress(User user)
     {
-        return (String)parser.getOptionValue(sn);
+        Address uAddr = user.getAddress();
+        Vector fractionValues = parser.getOptionValues(address);
+        if (fractionValues != null)
+        {
+            for (Object val : fractionValues)
+            {
+                String szAddress = (String) val;
+                uAddr.setAddress(szAddress);
+            }
+        }
+        uAddr.setCity(getCity());
+        uAddr.setState(getState());
+        uAddr.setPostalCode(getPostalCode());
+        uAddr.setPostOfficeBox(getPostOfficeBox());
     }
 
-    public String getDescription()
+    String getState()
     {
-        return (String)parser.getOptionValue(description);
+        return (String) parser.getOptionValue(state);
     }
 
-    public String getBeginTime()
+    String getCity()
     {
-        return (String)parser.getOptionValue(beginTime);
+        return (String) parser.getOptionValue(city);
     }
 
-    public String getEndTime()
+    String getPostalCode()
     {
-        return (String)parser.getOptionValue(endTime);
+        return (String) parser.getOptionValue(postalCode);
     }
 
-    public String getBeginDate()
+    String getPostOfficeBox()
     {
-        return (String)parser.getOptionValue(beginDate);
+        return (String) parser.getOptionValue(postalOfficeBox);
     }
 
-    public String getEndDate()
+    String getOu()
     {
-        return (String)parser.getOptionValue(endDate);
+        return (String) parser.getOptionValue(ou);
     }
 
-    public String getBeginLockDate()
+    String getPwPolicy()
     {
-        return (String)parser.getOptionValue(beginLockDate);
+        return (String) parser.getOptionValue(pwPolicy);
     }
 
-    public String getEndLockDate()
+    String getCn()
     {
-        return (String)parser.getOptionValue(endLockDate);
+        return (String) parser.getOptionValue(cn);
     }
 
-    public String getDayMask()
+    String getSn()
     {
-        return (String)parser.getOptionValue(dayMask);
+        return (String) parser.getOptionValue(sn);
     }
 
-    public String getRoleNm()
-     {
-         return (String)parser.getOptionValue(role);
-     }
-
-     public String getName()
+    String getDescription()
     {
-        return (String)parser.getOptionValue(name);
+        return (String) parser.getOptionValue(description);
     }
 
-    public String getTimeout()
+    String getBeginTime()
     {
-        return (String)parser.getOptionValue(timeout);
+        return (String) parser.getOptionValue(beginTime);
     }
 
-    public String getType()
+    String getEndTime()
     {
-        return (String)parser.getOptionValue(type);
+        return (String) parser.getOptionValue(endTime);
     }
 
-    public String getOpName()
+    String getBeginDate()
     {
-        return (String)parser.getOptionValue(opName);
+        return (String) parser.getOptionValue(beginDate);
     }
 
-    public String getAscendant()
+    String getEndDate()
     {
-        return (String)parser.getOptionValue(ascendant);
+        return (String) parser.getOptionValue(endDate);
     }
 
-    public String getDescendant()
+    String getBeginLockDate()
     {
-        return (String)parser.getOptionValue(descendant);
+        return (String) parser.getOptionValue(beginLockDate);
     }
 
-    public String getCardinality()
+    String getEndLockDate()
     {
-        return (String)parser.getOptionValue(cardinality);
+        return (String) parser.getOptionValue(endLockDate);
     }
 
-    public String getBeginRange()
+    String getDayMask()
     {
-        return (String)parser.getOptionValue(beginRange);
+        return (String) parser.getOptionValue(dayMask);
     }
 
-    public String getEndRange()
+    String getRoleNm()
     {
-        return (String)parser.getOptionValue(endRange);
+        return (String) parser.getOptionValue(role);
     }
 
-    public String getBeginInclusive()
+    String getName()
     {
-        return (String)parser.getOptionValue(beginInclusive);
+        return (String) parser.getOptionValue(name);
     }
 
-    public String getEndInclusive()
+    String getTimeout()
     {
-        return (String)parser.getOptionValue(endInclusive);
+        return (String) parser.getOptionValue(timeout);
+    }
+
+    String getType()
+    {
+        return (String) parser.getOptionValue(type);
+    }
+
+    String getOpName()
+    {
+        return (String) parser.getOptionValue(opName);
+    }
+
+    String getAscendant()
+    {
+        return (String) parser.getOptionValue(ascendant);
+    }
+
+    String getDescendant()
+    {
+        return (String) parser.getOptionValue(descendant);
+    }
+
+    String getCardinality()
+    {
+        return (String) parser.getOptionValue(cardinality);
+    }
+
+    String getBeginRange()
+    {
+        return (String) parser.getOptionValue(beginRange);
+    }
+
+    String getEndRange()
+    {
+        return (String) parser.getOptionValue(endRange);
+    }
+
+    String getBeginInclusive()
+    {
+        return (String) parser.getOptionValue(beginInclusive);
+    }
+
+    String getEndInclusive()
+    {
+        return (String) parser.getOptionValue(endInclusive);
     }
 }

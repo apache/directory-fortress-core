@@ -18,6 +18,7 @@ package com.jts.fortress;
  * <li>{@link FinderException} in the event DAO cannot find the entity.
  * <li>{@link PasswordException} in the event user fails password checks or password policy exception occurs.
  * <li>{@link RemoveException} in the event DAO cannot remove entity.
+ * <li>{@link RestException} during HTTP event failure.
  * <li>{@link UpdateException} in the event DAO cannot update entity.
  * <li>{@link ValidationException} in the event entity validation fails.
  * </ul>

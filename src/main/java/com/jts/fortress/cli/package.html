@@ -88,6 +88,14 @@ iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core/bui
                      <li>c : cn - maps to INetOrgPerson common name attribute</li>
                      <li>s : sn - maps to INetOrgPerson surname attribute</li>
                      <li>d : description - maps to INetOrgPerson description attribute</li>
+                     <li>- : phones - maps to organizationalPerson telephoneNumber  attribute</li>
+                     <li>& : mobiles - maps to INetOrgPerson mobile attribute</li>
+                     <li>@ : emails - maps to INetOrgPerson mail attribute</li>
+                     <li>> : address - multi-occurring attribute maps to organizationalPerson postalAddress attribute</li>
+                     <li>< : state - maps to organizationalPerson st attribute</li>
+                     <li>3 : city - maps to organizationalPerson l attribute</li>
+                     <li>* : postalCode - maps to postalCode description attribute</li>
+                     <li>2 : postalOfficeBox - maps to organizationalPerson postOfficeBox attribute</li>
                      <li>b : beginTime - HHMM - determines begin hour user may activate session</li>
                      <li>e : endTime - HHMM - determines end hour user may activate session.</li>
                      <li>B : beginDate - YYYYMMDD - determines date when user may sign on</li>
@@ -97,8 +105,8 @@ iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core/bui
                      <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
                      <li>t : timeout - number in seconds of session inactivity time allowed</li>
                      <li>v : properties * - multi-occurring attribute contains property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
-                     <li>r : roles * - multi-occuring attribute contains the name of already existing role to assign to user</li>
-                     <li>a : adminRoles * - multi-occuring attribute contains the name of already existing adminRole to assign to user</li>
+                     <li>r : roles * - multi-occurring attribute contains the name of already existing role to assign to user</li>
+                     <li>a : adminRoles * - multi-occurring attribute contains the name of already existing adminRole to assign to user</li>
                   </ul>
                <h4>example</h4>
                   <ul>
@@ -125,6 +133,14 @@ iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core/bui
                      <li>c : cn - maps to INetOrgPerson common name attribute</li>
                      <li>s : sn - maps to INetOrgPerson surname attribute</li>
                      <li>d : description - maps to INetOrgPerson description attribute</li>
+                     <li>- : phones - maps to organizationalPerson telephoneNumber  attribute</li>
+                     <li>& : mobiles - maps to INetOrgPerson mobile attribute</li>
+                     <li>@ : emails - maps to INetOrgPerson mail attribute</li>
+                     <li>> : address - maps to organizationalPerson postalAddress attribute</li>
+                     <li>< : state - maps to organizationalPerson st attribute</li>
+                     <li>l : city - maps to organizationalPerson l attribute</li>
+                     <li>* : postalCode - maps to postalCode description attribute</li>
+                     <li>2 : postalOfficeBox - maps to organizationalPerson postOfficeBox attribute</li>
                      <li>b : beginTime - HHMM - determines begin hour user may activate session</li>
                      <li>e : endTime - HHMM - determines end hour user may activate session.</li>
                      <li>B : beginDate - YYYYMMDD - determines date when user may sign on</li>
@@ -134,8 +150,8 @@ iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core/bui
                      <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
                      <li>t : timeout - number in seconds of session inactivity time allowed</li>
                      <li>v : properties * - multi-occurring attribute contains property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
-                     <li>r : roles * - multi-occuring attribute contains the name of already existing role to assign to user</li>
-                     <li>a : adminRoles * - multi-occuring attribute contains the name of already existing adminRole to assign to user</li>
+                     <li>r : roles * - multi-occurring attribute contains the name of already existing role to assign to user</li>
+                     <li>a : adminRoles * - multi-occurring attribute contains the name of already existing adminRole to assign to user</li>
                   </ul>
                <h4>example</h4>
                   <ul>

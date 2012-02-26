@@ -393,7 +393,7 @@ public class ReviewMgrRestImpl
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_READ);
+        String szResponse = RestUtils.post(szRequest, HttpIds.USER_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
