@@ -88,13 +88,13 @@ iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core/bui
                      <li>c : cn - maps to INetOrgPerson common name attribute</li>
                      <li>s : sn - maps to INetOrgPerson surname attribute</li>
                      <li>d : description - maps to INetOrgPerson description attribute</li>
-                     <li>- : phones - maps to organizationalPerson telephoneNumber  attribute</li>
-                     <li>& : mobiles - maps to INetOrgPerson mobile attribute</li>
+                     <li>y : phones - maps to organizationalPerson telephoneNumber  attribute</li>
+                     <li>Y : mobiles - maps to INetOrgPerson mobile attribute</li>
                      <li>@ : emails - maps to INetOrgPerson mail attribute</li>
                      <li>> : address - multi-occurring attribute maps to organizationalPerson postalAddress attribute</li>
                      <li>< : state - maps to organizationalPerson st attribute</li>
                      <li>3 : city - maps to organizationalPerson l attribute</li>
-                     <li>* : postalCode - maps to postalCode description attribute</li>
+                     <li>z : postalCode - maps to postalCode description attribute</li>
                      <li>2 : postalOfficeBox - maps to organizationalPerson postOfficeBox attribute</li>
                      <li>b : beginTime - HHMM - determines begin hour user may activate session</li>
                      <li>e : endTime - HHMM - determines end hour user may activate session.</li>
@@ -108,10 +108,12 @@ iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core/bui
                      <li>r : roles * - multi-occurring attribute contains the name of already existing role to assign to user</li>
                      <li>a : adminRoles * - multi-occurring attribute contains the name of already existing adminRole to assign to user</li>
                   </ul>
+
                <h4>example</h4>
                   <ul>
                      <li>admin auser -u testuser1 -p mypasword123 -o dev1</li>
                      <li>admin auser -u testuser2 -p mypasword456 -o dev1 -r oamRole1 -d mydescription -b 0800 -e 1700 -B 20111203 -E 20111231 -l 20111215 -n 20111217 -m 17 -t 30 -v n1:v1 -v n2:v2</li>
+                     <li>admin auser -u testuser3 -p mypasword789 -o dev1 -z 1111111 -2 123 -y 555-555-5555 -y 444-444-4444 -> "joshuatree1 one two three" -> "joshuatree2 four five six" -< CA -3 twentyninepalms -Y 333-333-3333</li>
                   </ul>
            </li><br>
 
@@ -133,13 +135,13 @@ iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core/bui
                      <li>c : cn - maps to INetOrgPerson common name attribute</li>
                      <li>s : sn - maps to INetOrgPerson surname attribute</li>
                      <li>d : description - maps to INetOrgPerson description attribute</li>
-                     <li>- : phones - maps to organizationalPerson telephoneNumber  attribute</li>
-                     <li>& : mobiles - maps to INetOrgPerson mobile attribute</li>
+                     <li>y : phones - maps to organizationalPerson telephoneNumber  attribute</li>
+                     <li>Y : mobiles - maps to INetOrgPerson mobile attribute</li>
                      <li>@ : emails - maps to INetOrgPerson mail attribute</li>
-                     <li>> : address - maps to organizationalPerson postalAddress attribute</li>
+                     <li>> : address - multi-occurring attribute maps to organizationalPerson postalAddress attribute</li>
                      <li>< : state - maps to organizationalPerson st attribute</li>
-                     <li>l : city - maps to organizationalPerson l attribute</li>
-                     <li>* : postalCode - maps to postalCode description attribute</li>
+                     <li>3 : city - maps to organizationalPerson l attribute</li>
+                     <li>z : postalCode - maps to postalCode description attribute</li>
                      <li>2 : postalOfficeBox - maps to organizationalPerson postOfficeBox attribute</li>
                      <li>b : beginTime - HHMM - determines begin hour user may activate session</li>
                      <li>e : endTime - HHMM - determines end hour user may activate session.</li>
@@ -157,6 +159,7 @@ iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core/bui
                   <ul>
                      <li>admin uuser -u testuser1 -d mynewdescription</li>
                      <li>admin uuser -u testuser2 -p mynewpasword456 -r oamRole2 -b 0805 -e 1701 -B 20111203 -E 20111231 -l 20111215 -n 20111217 -m 17 -t 30 -v n1:v1 -v n2:v2</li>
+                     <li>admin uuser -u testuser3 -p password123 -z 1111111 -2 123 -y 555-555-5555 -y 444-444-4444 -> "joshuatree1 one two three" -> "joshuatree2 four five six" -< CA -3 twentyninepalms -Y 333-333-3333</li>
                   </ul>
            </li><br>
 

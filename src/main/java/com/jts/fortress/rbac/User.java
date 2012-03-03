@@ -1032,6 +1032,10 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public Address getAddress()
     {
+        if(address == null)
+        {
+            address = new Address();
+        }
         return address;
     }
 

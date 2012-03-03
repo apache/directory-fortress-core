@@ -3,6 +3,8 @@ package com.jts.fortress.cli;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.jts.fortress.*;
 import com.jts.fortress.arbac.AdminRole;
@@ -147,6 +149,7 @@ public class CommandLineInterpreter
             {
                 String error = CLS_NM + ".runInteractiveMode caught Exception=" + e.toString();
                 log.error(error);
+                e.printStackTrace();
             }
         }
     }
@@ -844,37 +847,51 @@ public class CommandLineInterpreter
     }
 
     /**
+     *
      * @param input
      * @return
      */
     private String[] parseUserInput(String input)
     {
-        String[] options = null;
-        StringTokenizer sToken = new StringTokenizer(input, " ");
-        if (sToken.countTokens() > 0)
+        List<String> options = new ArrayList<String>();
+        // Break into separate tokens Strings that are delimited by "", '', or white space:
+        Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
+        Matcher regexMatcher = regex.matcher(input);
+
+        boolean isPassword = false;
+        while (regexMatcher.find())
         {
-            int indx = 0;
-            options = new String[sToken.countTokens()];
-            boolean isPassword = false;
-            while (sToken.hasMoreTokens())
+            String arg;
+            if (regexMatcher.group(1) != null)
             {
-                String arg = sToken.nextToken();
-                options[indx++] = arg;
-                if (!isPassword)
-                {
-                    log.info("arg:" + arg);
-                }
-                else
-                {
-                    isPassword = false;
-                }
-                if ("-p".equalsIgnoreCase(arg))
-                {
-                    isPassword = true;
-                }
+                // Add double-quoted string without the quotes
+                arg = regexMatcher.group(1);
+            }
+            else if (regexMatcher.group(2) != null)
+            {
+                // Add single-quoted string without the quotes
+                arg = regexMatcher.group(2);
+            }
+            else
+            {
+                // Add unquoted word
+                arg = regexMatcher.group();
+            }
+            options.add(arg);
+            if (!isPassword)
+            {
+                log.info("arg:" + arg);
+            }
+            else
+            {
+                isPassword = false;
+            }
+            if ("-p".equalsIgnoreCase(arg))
+            {
+                isPassword = true;
             }
         }
-        return options;
+        return options.toArray(new String[0]);
     }
 
     /**
@@ -1119,38 +1136,38 @@ public class CommandLineInterpreter
     }
 
     private void printAddress(String type, Address address, String label)
-     {
-         if (address != null)
-         {
+    {
+        if (address != null)
+        {
             printRow(type, "TYPE", label);
-             System.out.println(label);
-             if(VUtil.isNotNullOrEmpty(address.getAddresses()))
-             {
-                 for (String addr : address.getAddresses())
-                 {
+            System.out.println(label);
+            if (VUtil.isNotNullOrEmpty(address.getAddresses()))
+            {
+                for (String addr : address.getAddresses())
+                {
                     printRow(type, "LINE", addr);
-                 }
-             }
+                }
+            }
             printRow(type, "CITY", address.getCity());
             printRow(type, "PROV", address.getState());
             printRow(type, "ZIPC", address.getPostalCode());
             printRow(type, "PBOX", address.getPostOfficeBox());
-         }
-     }
+        }
+    }
 
-     private void printPhone(String type, List<String> phones, String label)
-     {
-         if (phones != null)
-         {
-             printRow(type, "TYPE", label);
-             for(String phone : phones)
-             {
+    private void printPhone(String type, List<String> phones, String label)
+    {
+        if (phones != null)
+        {
+            printRow(type, "TYPE", label);
+            for (String phone : phones)
+            {
                 printRow(type, "TELE", phone);
-             }
-         }
-     }
+            }
+        }
+    }
 
-     /**
+    /**
      * @param ur
      */
     private void printAdminRole(String type, UserAdminRole ur)

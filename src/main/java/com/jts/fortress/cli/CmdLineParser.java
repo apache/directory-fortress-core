@@ -201,7 +201,7 @@ public class CmdLineParser
             {
                 if (arg == null)
                 {
-                    throw new IllegalOptionValueException(this, "");
+                    throw new IllegalOptionValueException(this, "arg is null");
                 }
                 return this.parseValue(arg, locale);
             }

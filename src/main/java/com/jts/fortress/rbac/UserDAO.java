@@ -1744,10 +1744,12 @@ public final class UserDAO
         {
             if(VUtil.isNotNullOrEmpty(address.getAddresses()))
             {
+                attr = new LDAPAttribute(POSTAL_ADDRESS);
+                mods.add(LDAPModification.REPLACE, attr);
                 for(String val : address.getAddresses())
                 {
                     attr = new LDAPAttribute(POSTAL_ADDRESS, val);
-                    mods.add(LDAPModification.REPLACE, attr);
+                    mods.add(LDAPModification.ADD, attr);
                 }
             }
             if(VUtil.isNotNullOrEmpty(address.getCity()))

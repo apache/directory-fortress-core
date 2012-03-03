@@ -173,6 +173,9 @@
            <pathelement location="${jsr311-api.jar}"/>
            <pathelement location="${cxf-common-utilities.jar}"/>
            <pathelement location="${commons-codec.jar}"/>
+           <pathelement location="${jaxb-api.jar}"/>
+           <pathelement location="${jaxb-impl.jar}"/>
+           <pathelement location="${jaxb-xjc.jar}"/>
        </path>
 
        <!-- This is used before the initial loads have stored properties on the ldap server. -->

@@ -102,13 +102,13 @@ public class Options implements java.io.Serializable
         this.endRange = parser.addStringOption('w', "endRange");
         this.beginInclusive = parser.addStringOption('y', "beginInclusive");
         this.endInclusive = parser.addStringOption('z', "endInclusive");
-        this.phones = parser.addStringOption('-', "phones");
-        this.mobiles = parser.addStringOption('&', "mobiles");
+        this.phones = parser.addStringOption('y', "phones");
+        this.mobiles = parser.addStringOption('Y', "mobiles");
         this.emails = parser.addStringOption('@', "emails");
         this.address = parser.addStringOption('>', "address");
         this.state = parser.addStringOption('<', "state");
         this.city = parser.addStringOption('3', "city");
-        this.postalCode = parser.addStringOption('*', "postalCode");
+        this.postalCode = parser.addStringOption('z', "postalCode");
         this.postalOfficeBox = parser.addStringOption('2', "postalOfficeBox");
     }
 
@@ -451,7 +451,7 @@ public class Options implements java.io.Serializable
         }
     }
 
-    void updateAddress(User user)
+    private void updateAddress(User user)
     {
         Address uAddr = user.getAddress();
         Vector fractionValues = parser.getOptionValues(address);
