@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+# Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
 #
 
 # Host name and port of LDAP DIT:
@@ -28,10 +28,10 @@ enable.pool.reconnect=true
 crypto.prop=@CFG_CRYPTO_PROP@
 
 # These credentials are used for accessing En Masse:
-#http.user=demouser4
-#http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
-#http.host=localhost
-#http.port=8080
+http.user=demouser4
+http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
+http.host=localhost
+http.port=8080
 
 # These will override default LDAP for REST implementations:
 #reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrRestImpl
@@ -42,3 +42,56 @@ crypto.prop=@CFG_CRYPTO_PROP@
 #policymgr.implementation=com.jts.fortress.rest.PswdPolicyMgrRestImpl
 #delegated.accessmgr.implementation=com.jts.fortress.rest.DelegatedAccessMgrRestImpl
 #auditmgr.implementation=com.jts.fortress.rest.AuditMgrRestImpl
+#configmgr.implementation=com.jts.fortress.rest.ConfigMgrRestImpl
+
+#########  This section is for filtering out LDAP meta characters from search field input:
+#########  Ensure the chars are placed in ASCII value ascending order.
+
+# This must match the total number of items that need to be filtered in our list:
+ldap.filter.size=15
+
+#! 33 0041 0x21
+ldap.filter.1=!
+ldap.sub.1=21
+#% 37 0045 0x25
+ldap.filter.2=%
+ldap.sub.2=25
+#& 38 0046 0x26
+ldap.filter.3=&
+ldap.sub.3=26
+#( 40 0050 0x28
+ldap.filter.4=(
+ldap.sub.4=28
+#) 41 0051 0x29
+ldap.filter.5=)
+ldap.sub.5=29
+#* 42 0052 0x2a
+ldap.filter.6=*
+ldap.sub.6=2a
+#+ 43 0053 0x2b
+ldap.filter.7=+
+ldap.sub.7=2b
+#- 45 0055 0x2d
+ldap.filter.8=-
+ldap.sub.8=2d
+#/ 47 0057 0x2f
+ldap.filter.9=/
+ldap.sub.9=2f
+#< 60 0074 0x3c
+ldap.filter.10=<
+ldap.sub.10=3c
+#= 61 0075 0x3d
+ldap.filter.11==
+ldap.sub.11=3d
+#> 62 0076 0x3e
+ldap.filter.12=>
+ldap.sub.12=3e
+#\ 92 0134 0x5c
+ldap.filter.13=\\
+ldap.sub.13=5c
+#| 124 0174 0x7c
+ldap.filter.14=|
+ldap.sub.14=7c
+#~ 126 0176 0x7e
+ldap.filter.15=~
+ldap.sub.15=7e

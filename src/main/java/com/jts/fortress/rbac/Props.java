@@ -1,8 +1,12 @@
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.FortEntity;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,11 +48,12 @@ import java.util.List;
  *
  *
  */
+@XmlRootElement(name = "fortProps")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
+@XmlType(name = "props", propOrder = {
     "entry"
 })
-public class Props
+public class Props extends FortEntity implements Serializable
 {
     private List<Props.Entry> entry;
 

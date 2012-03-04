@@ -16,6 +16,7 @@ import com.jts.fortress.pwpolicy.PswdPolicy;
 import com.jts.fortress.rbac.PermGrant;
 import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.Permission;
+import com.jts.fortress.rbac.Props;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.RoleRelationship;
 import com.jts.fortress.rbac.SDSet;
@@ -87,7 +88,8 @@ import java.util.UUID;
     UserAudit.class,
     AuthZ.class,
     Bind.class,
-    Mod.class
+    Mod.class,
+    Props.class
 })
 public abstract class FortEntity
 {

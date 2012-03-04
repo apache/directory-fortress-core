@@ -36,6 +36,6 @@ public class ConfigMgrFactory
         {
             configClassName = GlobalIds.CONFIG_DEFAULT_CLASS;
         }
-        return (ConfigMgr) ClassUtil.createInstance(GlobalIds.CONFIG_DEFAULT_CLASS);
+        return (ConfigMgr) ClassUtil.createInstance(configClassName);
     }
 }

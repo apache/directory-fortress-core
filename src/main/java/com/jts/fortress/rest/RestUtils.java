@@ -1,8 +1,10 @@
 package com.jts.fortress.rest;
 
+import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RestException;
 import com.jts.fortress.configuration.Config;
 import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.rbac.Props;
 import com.jts.fortress.util.crypto.EncryptUtil;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
@@ -24,6 +26,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -333,5 +338,53 @@ public class RestUtils
             httpMethod.releaseConnection();
         }
         return szResponse;
+    }
+
+    /**
+     * @param inProps
+     * @return
+     */
+    public static final Properties getProperties(Props inProps)
+    {
+        Properties properties = null;
+        List<Props.Entry> props = inProps.getEntry();
+        if (props.size() > 0)
+        {
+            properties = new Properties();
+            int size = props.size();
+            for (int i = 0; i < size; i++)
+            {
+                Props.Entry entry = props.get(i);
+                String key = (String) entry.getKey();
+                String val = (String) entry.getValue();
+                properties.setProperty(key, val);
+            }
+        }
+        return properties;
+    }
+
+
+    /**
+     *
+     * @param properties
+     * @return
+     */
+    public static final Props getProps(Properties properties)
+    {
+        Props props = null;
+        if (properties != null)
+        {
+            props = new ObjectFactory().createProps();
+            for (Enumeration e = properties.propertyNames(); e.hasMoreElements(); )
+            {
+                String key = (String) e.nextElement();
+                String val = properties.getProperty(key);
+                Props.Entry entry = new Props.Entry();
+                entry.setKey(key);
+                entry.setValue(val);
+                props.getEntry().add(entry);
+            }
+        }
+        return props;
     }
 }

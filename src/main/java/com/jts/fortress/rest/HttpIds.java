@@ -128,4 +128,8 @@ public class HttpIds
     public static final String AUDIT_SESSIONS = "auditSessions";
     public static final String AUDIT_MODS = "auditMods";
     public static final String AUDIT_INVLD = "auditInvld";
+    public static final String CFG_ADD = "cfgAdd";
+    public static final String CFG_UPDATE = "cfgUpdate";
+    public static final String CFG_DELETE = "cfgDelete";
+    public static final String CFG_READ = "cfgRead";
 }

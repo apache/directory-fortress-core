@@ -31,7 +31,7 @@
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
-       <property name="version" value="1.0.0-rc6"/>
+       <property name="version" value="1.0.0-rc7"/>
        <property name="ivy.install.version" value="2.2.0"/>
        <property name="title" value="Fortress Identity and Access Management LDAP SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
@@ -119,7 +119,7 @@
        <!-- ########### Javadoc properties ########################### -->
        <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
        <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
-       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2011 Joshua Tree Software, LLC. All Rights Reserved.  Generated ${TODAY}&lt;/small&gt;"/>
+       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2012 Joshua Tree Software, LLC. All Rights Reserved.  Generated ${TODAY}&lt;/small&gt;"/>
        <property name="javadoc.overview" value="${src.java.dir}/com/jts/fortress/overview.html" />
        <property name="javadoc.dist.zip" value="${dist.dir}/${name}Doc-${version}.zip"/>
        <property name="javadoc.stylesheet" value="${src.java.dir}/com/jts/fortress/fortress-javadoc.css" />
@@ -799,13 +799,12 @@
              <include name="com/jts/fortress/rbac/PermGrant.java"/>
              <include name="com/jts/fortress/rbac/Session.java"/>
              <include name="com/jts/fortress/rbac/RolePerm.java"/>
-             <include name="com/jts/fortress/rbac/.java"/>
+             <include name="com/jts/fortress/rbac/Permission.java"/>
+             <include name="com/jts/fortress/rbac/Props.java"/>
              <include name="com/jts/fortress/arbac/OrgUnit.java"/>
              <include name="com/jts/fortress/arbac/UserAdminRole.java"/>
              <include name="com/jts/fortress/arbac/AdminRoleRelationship.java"/>
              <include name="com/jts/fortress/arbac/OrgUnitRelationship.java"/>
-             <include name="com/jts/fortress/arbac/.java"/>
-             <include name="com/jts/fortress/arbac/.java"/>
              <include name="com/jts/fortress/audit/UserAudit.java"/>
              <include name="com/jts/fortress/audit/AuthZ.java"/>
              <include name="com/jts/fortress/audit/Bind.java"/>
