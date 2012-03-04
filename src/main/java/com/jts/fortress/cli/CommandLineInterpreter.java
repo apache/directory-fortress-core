@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ */
 package com.jts.fortress.cli;
 
 import java.io.BufferedReader;

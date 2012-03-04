@@ -22,7 +22,9 @@
        For example:
        <pre>admin auser -u hounddog42 -p myNewP@$$w0rd -o development</pre>
        In this example the group is 'admin', the function is 'auser' or add user, and the options are -u for userid, -p for password and -o that points to a valid USERS OrgUnit node.
-       Despite being called an 'option', so named parameters may or may not be required for a given function.  Options are always preceded by a dash ('-') when entered.
+       Despite being called an 'option', so named parameters may or may not be required for a given function.  Option names are always preceded by a dash ('-') when entered.  Option values
+       must be enclosed within single quotes '' or double quotes "" iff value contains multiple Strings separated by whitespace.  For example the user description value can be entered like
+       this: -d "This description contains more than one word" or this: -d 'This description also contains more than one word'.
        <br>
        <br>Below is reference manual for Fortress' CLI commands
        </p>

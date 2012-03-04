@@ -1,9 +1,7 @@
 /*
  * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  */
-
 package com.jts.fortress.cli;
-
 
 import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.OrgUnit;
