@@ -14,6 +14,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.cxf.common.util.Base64Utility;
+import org.apache.cxf.helpers.IOUtils;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.WebApplicationException;
@@ -189,10 +190,7 @@ public class RestUtils
             post.setRequestEntity(entity);
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod(post);
-            InputStream responseStream = post.getResponseBodyAsStream();
-            szResponse = responseStream.toString();
-            // szResponse = post.getResponseBodyAsString();
-
+            szResponse = IOUtils.toString(post.getResponseBodyAsStream(), "UTF-8");
             log.debug(CLS_NM + ".post [" + function + "]  response=" + szResponse);
         }
         catch (IOException ioe)
@@ -236,7 +234,7 @@ public class RestUtils
             post.setRequestEntity(entity);
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod(post);
-            szResponse = post.getResponseBodyAsString();
+            szResponse = IOUtils.toString(post.getResponseBodyAsStream(), "UTF-8");
             log.debug(CLS_NM + ".post [" + function + "]  response=" + szResponse);
         }
         catch (IOException ioe)

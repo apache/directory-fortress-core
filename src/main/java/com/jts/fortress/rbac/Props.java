@@ -11,15 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: smckinn
- * Date: 1/8/12
- * Time: 5:05 PM
- * To change this template use File | Settings | File Templates.
- */
-
-/**
- * <p>Java class for complex type.
+ * This class is used as a container for {@code java.util.Properties} for passing to En Masse server.
+ * </p>
+ * This class is thread safe.
+ *
+ * @author smckinn
+ * @created January 8, 2012
  *
  * <p>The following schema fragment specifies the expected content contained within this class.
  *
