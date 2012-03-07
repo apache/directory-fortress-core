@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+# Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
 #
 
 # Host name and port of LDAP DIT:
@@ -108,7 +108,7 @@ ldap.sub.7=2b
 #- 45 0055 0x2d
 ldap.filter.8=-
 ldap.sub.8=2d
-#/ 47 0057 0x2f 
+#/ 47 0057 0x2f
 ldap.filter.9=/
 ldap.sub.9=2f
 #< 60 0074 0x3c
