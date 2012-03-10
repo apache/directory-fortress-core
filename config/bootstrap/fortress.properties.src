@@ -75,6 +75,8 @@ sys.user.5=oamTU6User5
 accessmgr.implementation=com.jts.fortress.rbac.AccessMgrImpl
 auditmgr.implementation=com.jts.fortress.audit.AuditMgrImpl
 
+ehcache.config.file=ehcache.xml
+
 ## Fortress Data Validation settings
 field.length=130
 

@@ -13,6 +13,8 @@ import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.hier.Hier;
 import com.jts.fortress.util.attr.VUtil;
 
+import com.jts.fortress.util.cache.CacheMgr;
+import com.jts.fortress.util.cache.Cache;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.TreeSet;
 
 /**
  * This utility wraps {@link com.jts.fortress.hier.HierUtil} and {@link com.jts.fortress.hier.HierP} methods to provide hierarchical functionality using the {@link com.jts.fortress.arbac.OrgUnit} data set for User type {@link com.jts.fortress.arbac.OrgUnit.Type#USER}.
- * The {@code cn=Hierarchies, ou=OS-U} data contains User OU pools is stored as instance variable, {@link #m_graph}, contained within this class.  The parent-child edges are contained in LDAP,
+ * The {@code cn=Hierarchies, ou=OS-U} data contains User OU pools is stored within a data cache, {@link #m_usoCache}, contained within this class.  The parent-child edges are contained in LDAP,
  * i.e. {@code cn=Hierarchies, ou=OS-U} which uses entity {@link com.jts.fortress.hier.Hier}.  The ldap data is retrieved {@link com.jts.fortress.hier.HierP#read(com.jts.fortress.hier.Hier.Type)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
@@ -46,8 +48,9 @@ import java.util.TreeSet;
  */
 public class UsoUtil
 {
-    // Is synchronized on update:
-    private static SimpleDirectedGraph<String, Relationship> m_graph = null;
+    private static Cache m_usoCache;
+    private static final String USO = "uso";
+    private static final String FORTRESS_USO = "fortress.uso";
 
     /**
      * Initialize the User OU hierarchies.  This will read the {@link com.jts.fortress.hier.Hier} data set from ldap and load into
@@ -55,7 +58,9 @@ public class UsoUtil
      */
     static
     {
-        loadGraph(Hier.Type.USER);
+        CacheMgr cacheMgr = CacheMgr.getInstance();
+        UsoUtil.m_usoCache = cacheMgr.getCache(FORTRESS_USO);
+        loadGraph();
     }
 
     /**
@@ -66,7 +71,7 @@ public class UsoUtil
      */
     public static Set<String> getDescendants(String name)
     {
-        return HierUtil.getDescendants(name, m_graph);
+        return HierUtil.getDescendants(name, getGraph());
     }
 
     /**
@@ -77,7 +82,7 @@ public class UsoUtil
      */
     public static Set<String> getAscendants(String name)
     {
-        return HierUtil.getAscendants(name, m_graph);
+        return HierUtil.getAscendants(name, getGraph());
     }
 
     /**
@@ -88,7 +93,7 @@ public class UsoUtil
      */
     public static Set<String> getChildren(String name)
     {
-        return HierUtil.getChildren(name, m_graph);
+        return HierUtil.getChildren(name, getGraph());
     }
 
     /**
@@ -99,7 +104,7 @@ public class UsoUtil
      */
     public static Set<String> getParents(String name)
     {
-        return HierUtil.getParents(name, m_graph);
+        return HierUtil.getParents(name, getGraph());
     }
 
     /**
@@ -110,7 +115,7 @@ public class UsoUtil
      */
     public static int numChildren(String name)
     {
-        return HierUtil.numChildren(name, m_graph);
+        return HierUtil.numChildren(name, getGraph());
     }
 
     /**
@@ -129,7 +134,7 @@ public class UsoUtil
             {
                 String name = ou.getName();
                 iOUs.add(name);
-                Set<String> parents = HierUtil.getAscendants(name, m_graph);
+                Set<String> parents = HierUtil.getAscendants(name, getGraph());
                 if (VUtil.isNotNullOrEmpty(parents))
                     iOUs.addAll(parents);
             }
@@ -157,7 +162,7 @@ public class UsoUtil
     public static void validateRelationship(OrgUnit child, OrgUnit parent, boolean mustExist)
         throws ValidationException
     {
-        HierUtil.validateRelationship(m_graph, child.getName(), parent.getName(), mustExist);
+        HierUtil.validateRelationship(getGraph(), child.getName(), parent.getName(), mustExist);
     }
 
     /**
@@ -172,22 +177,33 @@ public class UsoUtil
     public static void updateHier(Hier hier, Hier.Op op) throws SecurityException
     {
         HierP hp = new HierP();
-        // todo: ensure this is the correct way to manage singleton object.
-        // thread safe access to singleton object:
-        synchronized (m_graph)
-        {
-            hp.update(hier, op);
-            loadGraph(Hier.Type.USER);
-        }
+        hp.update(hier, op);
+        loadGraph();
     }
 
     /**
      * Read this ldap record,{@code cn=Hierarchies, ou=OS-U} into this entity, {@link com.jts.fortress.hier.Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      */
-    private static void loadGraph(Hier.Type type)
+    private static SimpleDirectedGraph<String, Relationship> loadGraph()
     {
-        Hier hier = HierUtil.readHier(type);
-        m_graph = HierUtil.buildGraph(hier);
+        Hier hier = HierUtil.readHier(Hier.Type.USER);
+        SimpleDirectedGraph<String, Relationship> graph = HierUtil.buildGraph(hier);
+        m_usoCache.put(USO, graph);
+        return graph;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private static SimpleDirectedGraph<String, Relationship> getGraph()
+    {
+        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) m_usoCache.get(USO);
+        if (graph == null)
+        {
+            graph = loadGraph();
+        }
+        return graph;
     }
 }

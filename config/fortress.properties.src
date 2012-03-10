@@ -33,6 +33,8 @@ http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
 http.host=localhost
 http.port=8080
 
+ehcache.config.file=ehcache.xml
+
 # These will override default LDAP for REST implementations:
 #reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrRestImpl
 #adminmgr.implementation=com.jts.fortress.rest.AdminMgrRestImpl

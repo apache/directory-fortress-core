@@ -25,8 +25,20 @@ public abstract class BaseRuntimeException extends RuntimeException
      */
 	public BaseRuntimeException(int errorId, String msgParam, Throwable previousException)
 	{
-		//super(String.valueOf(errorId));
 		super(msgParam + ", errCode=" + errorId, previousException);
+		this.errorId = errorId;
+		this.msgParams = new String[1];
+		this.msgParams[0] = msgParam;
+	}
+
+    /**
+     *
+     * @param errorId int contains the error id which is defined here {@link com.jts.fortress.constants.GlobalErrIds}.
+     * @param msgParam contains message pertaining to exception.
+     */
+	public BaseRuntimeException(int errorId, String msgParam)
+	{
+		super(msgParam + ", errCode=" + errorId);
 		this.errorId = errorId;
 		this.msgParams = new String[1];
 		this.msgParams[0] = msgParam;

@@ -7,6 +7,8 @@ package com.jts.fortress.util;
 import com.jts.fortress.ConfigurationException;
 import com.jts.fortress.constants.GlobalErrIds;
 
+import java.io.InputStream;
+
 
 /**
  * General purpose factory uses java reflection to instantiate new Manager object.
@@ -68,4 +70,22 @@ public class ClassUtil
         }
         return target;
 	}
+
+
+    /**
+     * Find a file on the classloader and return as InputStream.
+     * @param name contains the name of the file resource.
+     * @return handle to the InputStream
+     * @throws ConfigurationException in the event resource is not found on classloader.
+     */
+    static public InputStream resourceAsStream(String name) throws ConfigurationException
+    {
+        InputStream is = null;
+        is = ClassUtil.class.getClassLoader().getResourceAsStream(name);
+        if (is == null)
+        {
+            throw new ConfigurationException(GlobalErrIds.FT_RESOURCE_NOT_FOUND, name);
+        }
+        return is;
+    }
 }

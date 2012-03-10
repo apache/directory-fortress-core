@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.jts.fortress.util.attr.VUtil;
+import com.jts.fortress.util.cache.CacheMgr;
+import com.jts.fortress.util.cache.Cache;
 import org.apache.log4j.Logger;
 
 /**
@@ -31,7 +33,7 @@ import org.apache.log4j.Logger;
  *  or {@link com.jts.fortress.ValidationException} as {@link com.jts.fortress.SecurityException}s with appropriate
  * error id from {@link GlobalErrIds}.
  * <p>
- * This object uses 2 synchronized data sets ({@link #userPool}, {@link #permPool}) but is thread safe.
+ * This object uses synchronized data sets ({@link #ouCache} but is thread safe.
  * <p/>
 
  * @author smckinn
@@ -46,12 +48,21 @@ public final class OrgUnitP
     // these fields are used to synchronize access to the above static pools:
     private static final Object userPoolSynchLock = new Object();
     private static final Object permPoolSynchLock = new Object();
+    private static Cache ouCache;
 
     // DAO class for OU data sets must be initializer before the other statics:
     private static final OrgUnitDAO oDao = new OrgUnitDAO();
-    // these static data sets are use to store the list of valid user ou's and perm ou's:
-    private static Set<String> userPool = loadOrgSet(OrgUnit.Type.USER);
-    private static Set<String> permPool = loadOrgSet(OrgUnit.Type.PERM);
+    private static final String USER_OUS = "user.ous";
+    private static final String PERM_OUS = "perm.ous";
+    private static final String FORTRESS_OUS = "fortress.ous";
+
+    static
+    {
+        CacheMgr cacheMgr = CacheMgr.getInstance();
+        OrgUnitP.ouCache = cacheMgr.getCache(FORTRESS_OUS);
+        loadOrgSet(OrgUnit.Type.USER);
+        loadOrgSet(OrgUnit.Type.PERM);
+    }
 
     /**
      * This function uses a case insensitive search.
@@ -61,13 +72,21 @@ public final class OrgUnitP
     public boolean isValid(OrgUnit entity)
     {
         boolean result = false;
-        if (userPool != null && entity.getType() == OrgUnit.Type.USER)
+        if(entity.type == OrgUnit.Type.USER)
         {
-            result = userPool.contains(entity.getName());
+            Set<String> userPool = getOrgSet(OrgUnit.Type.USER);
+            if (userPool != null && entity.getType() == OrgUnit.Type.USER)
+            {
+                result = userPool.contains(entity.getName());
+            }
         }
-        else if (permPool != null)
+        else
         {
-            result = permPool.contains(entity.getName());
+            Set<String> permPool = getOrgSet(OrgUnit.Type.PERM);
+            if (permPool != null)
+            {
+                result = permPool.contains(entity.getName());
+            }
         }
         return result;
     }
@@ -88,7 +107,39 @@ public final class OrgUnitP
             String warning = CLS_NM + ".loadOrgSet static initializer caught SecurityException=" + se;
             log.info(warning, se);
         }
+        if(type == OrgUnit.Type.USER)
+        {
+            ouCache.put(USER_OUS, ouSet);
+        }
+        else
+        {
+            ouCache.put(PERM_OUS, ouSet);
+        }
+
         return ouSet;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private static Set<String> getOrgSet(OrgUnit.Type type)
+    {
+        Set<String> orgSet;
+        if(type == OrgUnit.Type.USER)
+        {
+            orgSet = (Set<String>)ouCache.get(USER_OUS);
+        }
+        else
+        {
+            orgSet = (Set<String>)ouCache.get(PERM_OUS);
+        }
+
+        if (orgSet == null)
+        {
+            orgSet = loadOrgSet(type);
+        }
+        return orgSet;
     }
 
 
@@ -139,6 +190,7 @@ public final class OrgUnitP
         OrgUnit oe = oDao.create(entity);
         if (entity.getType() == OrgUnit.Type.USER)
         {
+            Set<String> userPool = getOrgSet(OrgUnit.Type.USER);
             synchronized (userPoolSynchLock)
             {
                 if(userPool != null)
@@ -147,6 +199,7 @@ public final class OrgUnitP
         }
         else
         {
+            Set<String> permPool = getOrgSet(OrgUnit.Type.PERM);
             synchronized (permPoolSynchLock)
             {
                 if(permPool != null)
@@ -189,6 +242,7 @@ public final class OrgUnitP
         oDao.remove(entity);
         if (entity.getType() == OrgUnit.Type.USER)
         {
+            Set<String> userPool = getOrgSet(OrgUnit.Type.USER);
             synchronized (userPoolSynchLock)
             {
                 if(userPool != null)
@@ -197,6 +251,7 @@ public final class OrgUnitP
         }
         else
         {
+            Set<String> permPool = getOrgSet(OrgUnit.Type.PERM);
             synchronized (permPoolSynchLock)
             {
                 if(permPool != null)

@@ -10,6 +10,8 @@ import com.jts.fortress.ValidationException;
 import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.pwpolicy.PswdPolicy;
+import com.jts.fortress.util.cache.CacheMgr;
+import com.jts.fortress.util.cache.Cache;
 import org.apache.log4j.Logger;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +30,7 @@ import java.util.Set;
  * or {@link com.jts.fortress.ValidationException} as {@link com.jts.fortress.SecurityException}s with appropriate
  * error id from {@link com.jts.fortress.constants.GlobalErrIds}.
  * <p/>
- * This object uses one synchronized data sets {@link #policySet} but is thread safe.
+ * This object uses one reference to synchronized data set {@link #policyCache} but is thread safe.
  * <p/>
 
  *
@@ -37,6 +39,7 @@ import java.util.Set;
  */
 public class PolicyP
 {
+
     private static final String CLS_NM = PolicyP.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
     // This is 5 years duration in seconds:
@@ -44,14 +47,23 @@ public class PolicyP
 
     // DAO class for ol pw policy data sets must be initialized before the other statics:
     private static final PolicyDAO olDao = new PolicyDAO();
-    // static field holds the list of names for all valid pw policies in effect:
-    private static Set<String> policySet = loadPolicySet();
     // this field is used to synchronize access to the above static data set:
     private static final Object policySetSynchLock = new Object();
+    // static field holds the list of names for all valid pw policies in effect:
+    private static Cache policyCache;
     private static final int MIN_PW_LEN = 20;
     private static final int MAX_FAILURE = 100;
     private static final int MAX_GRACE_COUNT = 10;
     private static final int MAX_HISTORY = 100;
+    private static final String POLICIES = "policies";
+    private static final String FORTRESS_POLICIES = "fortress.policies";
+
+    static
+    {
+        CacheMgr cacheMgr = CacheMgr.getInstance();
+        PolicyP.policyCache = cacheMgr.getCache(FORTRESS_POLICIES);
+        loadPolicySet();
+    }
 
     /**
      * This function uses a case insensitive search.
@@ -62,6 +74,7 @@ public class PolicyP
     public boolean isValid(String name)
     {
         boolean result = false;
+        Set<String> policySet = getPolicySet();
         if (policySet != null)
             result = policySet.contains(name);
         return result;
@@ -96,6 +109,7 @@ public class PolicyP
         olDao.create(policy);
         synchronized (policySetSynchLock)
         {
+            Set<String> policySet = getPolicySet();
             if (policySet != null)
                 policySet.add(policy.getName());
         }
@@ -132,6 +146,7 @@ public class PolicyP
         olDao.remove(policy);
         synchronized (policySetSynchLock)
         {
+            Set<String> policySet = getPolicySet();
             if (policySet != null)
                 policySet.remove(policy.getName());
         }
@@ -290,6 +305,21 @@ public class PolicyP
         {
             String warning = CLS_NM + ".loadPolicySet static initializer caught SecurityException=" + se;
             log.info(warning);
+        }
+        policyCache.put(POLICIES, policySet);
+        return policySet;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private static Set<String> getPolicySet()
+    {
+        Set<String> policySet = (Set<String>)policyCache.get(POLICIES);
+        if (policySet == null)
+        {
+            policySet = loadPolicySet();
         }
         return policySet;
     }

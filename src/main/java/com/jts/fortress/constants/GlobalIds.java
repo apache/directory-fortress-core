@@ -118,6 +118,16 @@ public class GlobalIds
      */
     public final static String CONFIG_IMPLEMENTATION = "configmgr.implementation";
 
+    /**
+     * When this optional tag, {@code cacheImplementation}, is placed in Fortress properties,
+     */
+    public final static String CACHE_IMPLEMENTATION = "cachemgr.implementation";
+
+    /**
+     * Default instance for the CacheMgr is {@link com.jts.fortress.util.cache.EhCacheImpl}.
+     */
+    public final static String CACHE_DEFAULT_CLASS = "com.jts.fortress.util.cache.EhCacheImpl";
+
     //	AUTHENTICATION_TYPE
     /**
      * This property is used to specify if authentication is being performed within a security realm.

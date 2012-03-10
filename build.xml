@@ -31,7 +31,7 @@
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
-       <property name="version" value="1.0.0-rc7"/>
+       <property name="version" value="1.0.0-rc8"/>
        <property name="ivy.install.version" value="2.2.0"/>
        <property name="title" value="Fortress Identity and Access Management LDAP SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
@@ -75,12 +75,13 @@
        <property name="jaxb-api.jar" value="${lib.dir}/jaxb-api-2.2.6.jar"/>
        <property name="jaxb-impl.jar" value="${lib.dir}/jaxb-impl-2.2.4-1.jar"/>
        <property name="jaxb-xjc.jar" value="${lib.dir}/jaxb-xjc-2.2.4-1.jar"/>
-
        <property name="jackson-jaxrs.jar" value="${lib.dir}/jackson-jaxrs-1.9.0.jar"/>
        <property name="commons-httpclient.jar" value="${lib.dir}/commons-httpclient-3.1.jar"/>
        <property name="jsr311-api.jar" value="${lib.dir}/jsr311-api-1.1.1.jar"/>
        <property name="cxf-common-utilities.jar" value="${lib.dir}/cxf-common-utilities-2.5.0.jar"/>
        <property name="commons-codec.jar" value="${lib.dir}/commons-codec-1.2.jar"/>
+       <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.5.1.jar"/>
+       <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
 
        <!-- ########### Test properties ########################### -->
        <property name="test.sample.entry" value="com.jts.fortress.samples.AllSamplesJUnitTest"/>
@@ -151,6 +152,7 @@
            <pathelement location="${commons-httpclient.jar}"/>
            <pathelement location="${jsr311-api.jar}"/>
            <pathelement location="${cxf-common-utilities.jar}"/>
+           <pathelement location="${ehcache-core.jar}"/>
        </path>
 
        <!-- This is used for the JUnit Tests -->
@@ -176,6 +178,8 @@
            <pathelement location="${jaxb-api.jar}"/>
            <pathelement location="${jaxb-impl.jar}"/>
            <pathelement location="${jaxb-xjc.jar}"/>
+           <pathelement location="${ehcache-core.jar}"/>
+           <pathelement location="${slf4j-api.jar}"/>
        </path>
 
        <!-- This is used before the initial loads have stored properties on the ldap server. -->
@@ -192,6 +196,7 @@
            <pathelement location="${commons-logging.jar}"/>
            <pathelement location="${commons-collections.jar}"/>
            <pathelement location="${jasypt.jar}"/>
+           <pathelement location="${ehcache-core.jar}"/>
        </path>
 
     </target>

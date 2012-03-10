@@ -13,6 +13,8 @@ import com.jts.fortress.hier.HierUtil;
 import com.jts.fortress.hier.Relationship;
 
 import com.jts.fortress.util.attr.VUtil;
+import com.jts.fortress.util.cache.CacheMgr;
+import com.jts.fortress.util.cache.Cache;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.TreeSet;
 
 /**
  * This utility wraps {@link HierUtil} and {@link com.jts.fortress.hier.HierP} methods to provide hierarchical functionality for the {@link com.jts.fortress.arbac.AdminRole} data set.
- * The {@code cn=Hierarchies, ou=AdminRoles} data is stored as an instance variable, {@link #m_graph}, contained within this class.  The parent-child edges are contained in LDAP,
+ * The {@code cn=Hierarchies, ou=AdminRoles} data is stored within a data cache, {@link #m_adminRoleCache}, contained within this class.  The parent-child edges are contained in LDAP,
  * i.e. {@code cn=Hierarchies, ou=AdminRoles,...} which uses entity {@link Hier}.  The ldap data is retrieved {@link com.jts.fortress.hier.HierP#read(com.jts.fortress.hier.Hier.Type)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
@@ -45,8 +47,9 @@ import java.util.TreeSet;
  */
 public class AdminRoleUtil
 {
-    // Is synchronized on update:
-    private static SimpleDirectedGraph<String, Relationship> m_graph = null;
+    private static Cache m_adminRoleCache;
+    private static final String ADMIN_ROLES = "adminRoles";
+    private static final String FORTRESS_ADMIN_ROLES = "fortress.admin.roles";
 
     /**
      * Initialize the AdminRole hierarchies.  This will read the {@link Hier} data set from ldap and load into
@@ -54,6 +57,8 @@ public class AdminRoleUtil
      */
     static
     {
+        CacheMgr cacheMgr = CacheMgr.getInstance();
+        AdminRoleUtil.m_adminRoleCache = cacheMgr.getCache(FORTRESS_ADMIN_ROLES);
         loadGraph();
     }
 
@@ -84,7 +89,7 @@ public class AdminRoleUtil
      */
     public static Set<String> getDescendants(String roleName)
     {
-        return HierUtil.getDescendants(roleName, m_graph);
+        return HierUtil.getDescendants(roleName, getGraph());
     }
 
     /**
@@ -94,7 +99,7 @@ public class AdminRoleUtil
      */
     public static Set<String> getAscendants(String roleName)
     {
-        return HierUtil.getAscendants(roleName, m_graph);
+        return HierUtil.getAscendants(roleName, getGraph());
     }
 
     /**
@@ -104,7 +109,7 @@ public class AdminRoleUtil
      */
     public static Set<String> getParents(String roleName)
     {
-        return HierUtil.getParents(roleName, m_graph);
+        return HierUtil.getParents(roleName, getGraph());
     }
 
     /**
@@ -114,7 +119,7 @@ public class AdminRoleUtil
      */
     public static Set<String> getChildren(String roleName)
     {
-        return HierUtil.getChildren(roleName, m_graph);
+        return HierUtil.getChildren(roleName, getGraph());
     }
 
     /**
@@ -124,7 +129,7 @@ public class AdminRoleUtil
      */
     public static int numChildren(String roleName)
     {
-        return HierUtil.numChildren(roleName, m_graph);
+        return HierUtil.numChildren(roleName, getGraph());
     }
 
     /**
@@ -143,7 +148,7 @@ public class AdminRoleUtil
             {
                 String rleName = uRole.getName();
                 iRoles.add(rleName);
-                Set<String> parents = HierUtil.getAscendants(rleName, m_graph);
+                Set<String> parents = HierUtil.getAscendants(rleName, getGraph());
                 if (VUtil.isNotNullOrEmpty(parents))
                     iRoles.addAll(parents);
             }
@@ -170,7 +175,7 @@ public class AdminRoleUtil
     public static void validateRelationship(AdminRole childRole, AdminRole parentRole, boolean mustExist)
         throws ValidationException
     {
-        HierUtil.validateRelationship(m_graph, childRole.getName(), parentRole.getName(), mustExist);
+        HierUtil.validateRelationship(getGraph(), childRole.getName(), parentRole.getName(), mustExist);
     }
 
     /**
@@ -184,13 +189,8 @@ public class AdminRoleUtil
     public static void updateHier(Hier hier, Hier.Op op) throws SecurityException
     {
         HierP hp = new HierP();
-        // todo: ensure this is the correct way to manage singleton object.
-        // thread safe access to singleton object:
-        synchronized (m_graph)
-        {
-            hp.update(hier, op);
-            loadGraph();
-        }
+        hp.update(hier, op);
+        loadGraph();
     }
 
     /**
@@ -198,9 +198,25 @@ public class AdminRoleUtil
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      *
      */
-    private static void loadGraph()
+    private static SimpleDirectedGraph<String, Relationship> loadGraph()
     {
         Hier hier = HierUtil.readHier(Hier.Type.AROLE);
-        m_graph = HierUtil.buildGraph(hier);
+        SimpleDirectedGraph<String, Relationship> graph = HierUtil.buildGraph(hier);
+        m_adminRoleCache.put(ADMIN_ROLES, graph);
+        return graph;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private static SimpleDirectedGraph<String, Relationship> getGraph()
+    {
+        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) m_adminRoleCache.get(ADMIN_ROLES);
+        if (graph == null)
+        {
+            graph = loadGraph();
+        }
+        return graph;
     }
 }

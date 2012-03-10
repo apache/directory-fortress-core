@@ -112,6 +112,41 @@ public class GlobalErrIds
     public final static int FT_CONFIG_INITIALIZE_FAILED = 127;
 
     /**
+     * The resource could not be located on the runtime classloader path.
+     */
+    public final static int FT_RESOURCE_NOT_FOUND = 128;
+
+    /**
+     * The Fortress cache is not configured.
+     */
+    public final static int FT_CACHE_NOT_CONFIGURED = 129;
+
+    /**
+     * The Fortress cache get operation failed.
+     */
+    public final static int FT_CACHE_GET_ERR = 130;
+
+    /**
+     * The Fortress cache put operation failed.
+     */
+    public final static int FT_CACHE_PUT_ERR = 131;
+
+    /**
+     * The Fortress cache clear operation failed.
+     */
+    public final static int FT_CACHE_CLEAR_ERR = 132;
+
+    /**
+     * The Fortress cache flush operation failed.
+     */
+    public final static int FT_CACHE_FLUSH_ERR = 133;
+
+    /**
+     * The Fortress cache is null.
+     */
+    public final static int FT_NULL_CACHE = 134;
+
+    /**
      * 1000's - User Entity Rule and LDAP Errors
      */
 
