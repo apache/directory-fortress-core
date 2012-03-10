@@ -740,6 +740,17 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            memoryStoreEvictionPolicy="LFU"
            />
 
+    <cache name="fortress.dsd"
+           maxElementsInMemory="1000"
+           maxElementsOnDisk="10"
+           eternal="false"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           />
+
     <!--
     Sample caches. Following are some example caches. Remove these before use.
     -->

@@ -877,7 +877,9 @@ public final class AdminMgrImpl implements AdminMgr
         SDSet entity = rMgr.dsdRoleSet(dsdSet);
         entity.addMember(role.getName());
         AdminUtil.setAdminData(dsdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
-        return sdP.update(entity);
+        SDSet dsdOut = sdP.update(entity);
+        SDUtil.clear(role.getName());
+        return dsdOut;
     }
 
 
@@ -910,7 +912,9 @@ public final class AdminMgrImpl implements AdminMgr
             entity.addMember(GlobalIds.NONE);
         }
         AdminUtil.setAdminData(dsdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
-        return sdP.update(entity);
+        SDSet dsdOut = sdP.update(entity);
+        SDUtil.clear(role.getName());
+        return dsdOut;
     }
 
 
