@@ -48,6 +48,13 @@ package com.jts.fortress;
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#FT_CONFIG_ALREADY_EXISTS} = 125;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#FT_CONFIG_BOOTSTRAP_FAILED} = 126;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#FT_CONFIG_INITIALIZE_FAILED} = 127;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#FT_RESOURCE_NOT_FOUND} = 128;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#FT_CACHE_NOT_CONFIGURED} = 129;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#FT_CACHE_GET_ERR} = 130;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#FT_CACHE_PUT_ERR} = 131;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#FT_CACHE_CLEAR_ERR} = 132;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#FT_CACHE_FLUSH_ERR} = 133;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#FT_NULL_CACHE} = 134;</code>
  * </ul>
  * <h3>
  * <p/>1000's - User Entity Rule and LDAP Errors
@@ -355,6 +362,16 @@ package com.jts.fortress;
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#CONST_DAYMASK_NULL} = 10013;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#CONST_DESC_LEN_INVLD} = 10014;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#CONST_NULL_TEXT} = 10015;</code>
+ * </ul>
+ * <h3>
+ * <p/>10100's - REST calls through remote En Masse Interface Error Ids
+ * </h3>
+ * <ul>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#REST_WEB_ERR} = 10101;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#REST_IO_ERR} = 10102;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#REST_MARSHALL_ERR} = 10103;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#REST_UNMARSHALL_ERR} = 10104;</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#REST_GET_FAILED} = 10105;</code>
  * </ul>
  * <p/>
 

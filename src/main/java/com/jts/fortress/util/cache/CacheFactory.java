@@ -27,10 +27,8 @@ public class CacheFactory
      * Create and return a reference to {@link com.jts.fortress.util.cache.CacheMgr} object.
      *
      * @return instance of {@link Cache}.
-     * @throws com.jts.fortress.SecurityException in the event of failure during instantiation.
      */
     public static Cache createInstance(String name, net.sf.ehcache.CacheManager cacheManager)
-    //    throws com.jts.fortress.SecurityException
     {
         com.jts.fortress.AdminMgr adminMgrs;
         if (cacheClassName == null || cacheClassName.compareTo("") == 0)

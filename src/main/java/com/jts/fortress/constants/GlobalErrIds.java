@@ -1416,11 +1416,29 @@ public class GlobalErrIds
      */
     public final static int CONST_NULL_TEXT = 10015;
 
-
+    /**
+     *
+     */
     public final static int REST_WEB_ERR = 10101;
+
+    /**
+     *
+     */
     public final static int REST_IO_ERR = 10102;
+
+    /**
+     *
+     */
     public final static int REST_MARSHALL_ERR = 10103;
+
+    /**
+     *
+     */
     public final static int REST_UNMARSHALL_ERR = 10104;
+
+    /**
+     *
+     */
     public final static int REST_GET_FAILED = 10105;
 }
 

@@ -43,7 +43,7 @@ import java.util.Set;
  * @author smckinn
  * @created February 13, 2012
  */
-public class DelegatedAccessMgrRestImpl extends AccessMgrImpl implements DelegatedAccessMgr
+public class DelegatedAccessMgrRestImpl extends AccessMgrRestImpl implements DelegatedAccessMgr
 {
     private static final String CLS_NM = DelegatedAccessMgrRestImpl.class.getName();
 
