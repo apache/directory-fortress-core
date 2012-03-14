@@ -752,7 +752,9 @@ public final class AdminMgrImpl implements AdminMgr
         SDSet entity = rMgr.ssdRoleSet(ssdSet);
         entity.addMember(role.getName());
         AdminUtil.setAdminData(ssdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
-        return sdP.update(entity);
+        SDSet ssdOut= sdP.update(entity);
+        SDUtil.clearSsdCacheEntry(role.getName());
+        return ssdOut;
     }
 
     /**
@@ -784,7 +786,9 @@ public final class AdminMgrImpl implements AdminMgr
             entity.addMember(GlobalIds.NONE);
         }
         AdminUtil.setAdminData(ssdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
-        return sdP.update(entity);
+        SDSet ssdOut= sdP.update(entity);
+        SDUtil.clearSsdCacheEntry(role.getName());
+        return ssdOut;
     }
 
     /**
@@ -878,7 +882,7 @@ public final class AdminMgrImpl implements AdminMgr
         entity.addMember(role.getName());
         AdminUtil.setAdminData(dsdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
         SDSet dsdOut = sdP.update(entity);
-        SDUtil.clear(role.getName());
+        SDUtil.clearDsdCacheEntry(role.getName());
         return dsdOut;
     }
 
@@ -913,7 +917,7 @@ public final class AdminMgrImpl implements AdminMgr
         }
         AdminUtil.setAdminData(dsdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
         SDSet dsdOut = sdP.update(entity);
-        SDUtil.clear(role.getName());
+        SDUtil.clearDsdCacheEntry(role.getName());
         return dsdOut;
     }
 

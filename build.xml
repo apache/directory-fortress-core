@@ -45,8 +45,6 @@
        <property name="lib.dir" value="${basedir}/lib"/>
        <property name="src.java.dir" value="${src.dir}/main/java"/>
        <property name="src.test.dir" value="${src.dir}/test/java"/>
-       <!--property name="src.java.dir" value="${src.dir}/java"/>
-       <property name="src.test.dir" value="${src.dir}/test"/-->
 
        <property name="build.dir" value="${basedir}/build"/>
        <property name="build.classes.dir" value="${build.dir}/classes"/>

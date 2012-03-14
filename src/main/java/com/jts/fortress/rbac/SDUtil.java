@@ -28,11 +28,14 @@ public class SDUtil
     private static ReviewMgr rMgr = new ReviewMgrImpl();
     private static Cache m_dsdCache;
     private static final String FORTRESS_DSDS = "fortress.dsd";
+    private static Cache m_ssdCache;
+    private static final String FORTRESS_SSDS = "fortress.ssd";
 
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
         SDUtil.m_dsdCache = cacheMgr.getCache(FORTRESS_DSDS);
+        SDUtil.m_ssdCache = cacheMgr.getCache(FORTRESS_SSDS);
     }
 
     /**
@@ -70,7 +73,7 @@ public class SDUtil
         }
 
         // get all SSD sets that contain the new role
-        List<SDSet> ssdSets = rMgr.ssdRoleSets(role);
+        List<SDSet> ssdSets = getSsdCache(role.getName());
         for (SDSet ssd : ssdSets)
         {
             matchCount = 0;
@@ -117,7 +120,7 @@ public class SDUtil
         }
 
         // get all DSD sets that contain the target role
-        List<SDSet> dsdSets = getCache(role.getName());
+        List<SDSet> dsdSets = getDsdCache(role.getName());
         for (SDSet dsd : dsdSets)
         {
             // Keeps the number of matched roles to a particular DSD set.
@@ -175,7 +178,7 @@ public class SDUtil
      * @param name
      * @throws SecurityException
      */
-    static void clear(String name)
+    static void clearDsdCacheEntry(String name)
         throws SecurityException
     {
         m_dsdCache.clear(name);
@@ -187,7 +190,7 @@ public class SDUtil
      * @return
      * @throws SecurityException
      */
-    private static List<SDSet> putCache(String name)
+    private static List<SDSet> putDsdCache(String name)
         throws SecurityException
     {
         List<SDSet> dsdSets = rMgr.dsdRoleSets(new Role(name));
@@ -201,14 +204,56 @@ public class SDUtil
      * @return
      * @throws SecurityException
      */
-    private static List<SDSet> getCache(String name)
+    private static List<SDSet> getDsdCache(String name)
         throws SecurityException
     {
         List<SDSet> dsdSets = (List<SDSet>) m_dsdCache.get(name);
         if (dsdSets == null)
         {
-            dsdSets = putCache(name);
+            dsdSets = putDsdCache(name);
         }
         return dsdSets;
+    }
+
+    /**
+     *
+     * @param name
+     * @throws SecurityException
+     */
+    static void clearSsdCacheEntry(String name)
+        throws SecurityException
+    {
+        m_ssdCache.clear(name);
+    }
+
+    /**
+     *
+     * @param name
+     * @return
+     * @throws SecurityException
+     */
+    private static List<SDSet> putSsdCache(String name)
+        throws SecurityException
+    {
+        List<SDSet> ssdSets = rMgr.ssdRoleSets(new Role(name));
+        m_ssdCache.put(name, ssdSets);
+        return ssdSets;
+    }
+
+    /**
+     *
+     * @param name
+     * @return
+     * @throws SecurityException
+     */
+    private static List<SDSet> getSsdCache(String name)
+        throws SecurityException
+    {
+        List<SDSet> ssdSets = (List<SDSet>) m_ssdCache.get(name);
+        if (ssdSets == null)
+        {
+            ssdSets = putSsdCache(name);
+        }
+        return ssdSets;
     }
 }
