@@ -10,11 +10,10 @@ import net.sf.ehcache.CacheManager;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Created by IntelliJ IDEA.
- * User: smckinn
- * Date: 3/9/12
- * Time: 6:41 PM
- * To change this template use File | Settings | File Templates.
+ * This class is a facade and shields internal Fortress objects from specifics of the actual
+ * cache implementation that is in use.
+ * @author smckinn
+ * @created March 9, 2012
  */
 public class CacheMgr
 {

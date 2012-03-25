@@ -4,11 +4,10 @@ import com.jts.fortress.constants.GlobalErrIds;
 import net.sf.ehcache.Element;
 
 /**
- * Created by IntelliJ IDEA.
- * User: smckinn
- * Date: 3/9/12
- * Time: 7:24 PM
- * To change this template use File | Settings | File Templates.
+ * This object provides cache functionality from <a href="http://ehcache.org//">Ehcache</a> provider.
+ *
+ * @author smckinn
+ * @created March 9, 2012
  */
 public class EhCacheImpl implements Cache
 {
@@ -17,7 +16,6 @@ public class EhCacheImpl implements Cache
     private String name;
 
     /**
-     *
      * @param name
      * @param cache
      */
@@ -28,14 +26,13 @@ public class EhCacheImpl implements Cache
     }
 
     /**
-     *
      * @param key
      * @return
      * @throws CacheException
      */
     public Object get(Object key) throws CacheException
     {
-        if(cache == null)
+        if (cache == null)
         {
             String error = CLS_NM + ".get detected null cache name [" + name + "]";
             throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
@@ -60,14 +57,13 @@ public class EhCacheImpl implements Cache
     }
 
     /**
-     *
      * @param key
      * @param value
      * @throws CacheException
      */
     public void put(Object key, Object value) throws CacheException
     {
-        if(cache == null)
+        if (cache == null)
         {
             String error = CLS_NM + ".put detected null cache name [" + name + "]";
             throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
@@ -84,7 +80,6 @@ public class EhCacheImpl implements Cache
     }
 
     /**
-     *
      * @param key
      * @return
      * @throws CacheException
@@ -92,7 +87,7 @@ public class EhCacheImpl implements Cache
     public boolean clear(Object key) throws CacheException
     {
         boolean result = false;
-        if(cache == null)
+        if (cache == null)
         {
             String error = CLS_NM + ".clear detected null cache name [" + name + "]";
             throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
@@ -110,12 +105,11 @@ public class EhCacheImpl implements Cache
     }
 
     /**
-     *
      * @throws CacheException
      */
     public void flush() throws CacheException
     {
-        if(cache == null)
+        if (cache == null)
         {
             String error = CLS_NM + ".flush detected null cache name [" + name + "]";
             throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);

@@ -43,7 +43,6 @@ import org.apache.log4j.Logger;
  * <p>
  * This object is thread safe.
  * </p>
-
  *
  * @author smckinn
  * @created August 30, 2009

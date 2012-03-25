@@ -18,7 +18,6 @@ import java.util.Set;
 /**
  * This utilty provides functionality to process SSD requests.
  *
-
  * @author smckinn
  * @created September 3, 2010
  */
