@@ -109,12 +109,13 @@
        <property name="db.cfg" value="${ldap.dir}/DB_CONFIG"/>
        <property name="src.remote.conf" value="${config.dir}/fortress.properties.src"/>
        <property name="dst.remote.conf" value="${config.dir}/fortress.properties"/>
-       <property name="src.bootstrap.conf" value="${config.dir}/bootstrap/fortress.properties.src"/>
-       <property name="dst.bootstrap.conf" value="${config.dir}/bootstrap/fortress.properties"/>
-
+       <property name="src.bootstrap.conf" value="${config.bootstrap.dir}/fortress.properties.src"/>
+       <property name="dst.bootstrap.conf" value="${config.bootstrap.dir}/fortress.properties"/>
        <property name="builder.bootstrap.conf" value="${builder.home}/config/bootstrap/fortress.properties"/>
        <property name="builder.remote.conf" value="${builder.home}/config/fortress.properties"/>
        <property name="builder.load.bootstrap.script" value="${builder.home}/ldap/refreshLDAPData-src.xml"/>
+       <property name="ehcache.conf" value="${config.dir}/ehcache.xml"/>
+       <property name="bootstrap.ehcache.conf" value="${config.bootstrap.dir}/ehcache.xml"/>
 
        <!-- ########### Javadoc properties ########################### -->
        <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
@@ -569,7 +570,7 @@
     </target>
 
     <!-- =================================
-          target: init-fortress-config - modifies fortress-core configuration artifacts for use of openldap in target system environment.
+          target: init-fortress-config - uses configuration artifacts created by Fortress Builder in target system environment.
          ================================= -->
      <target name="init-fortress-config-remote" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files.."  if="builder.home">
 
@@ -577,6 +578,9 @@
 	     <copy file="${builder.bootstrap.conf}" tofile="${dst.bootstrap.conf}"/>
 	     <copy file="${builder.remote.conf}" tofile="${dst.remote.conf}"/>
 	     <copy file="${builder.load.bootstrap.script}" tofile="${dst.load.bootstrap.script}"/>
+         <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
+         <delete file="${bootstrap.ehcache.conf}"/>
+	     <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>
          <echo message="Target init-fortress-config-remote complete."/>
      </target>
 
@@ -625,6 +629,10 @@
          <replace file="${dst.load.bootstrap.script}" token="@LOG_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@USR_MIN_CONN@" value="${log.min.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@USR_MAX_CONN@" value="${log.max.conn}"/>
+
+         <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
+         <delete file="${bootstrap.ehcache.conf}"/>
+	     <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>
 
          <echo message="Target init-fortress-config-local complete."/>
      </target>
