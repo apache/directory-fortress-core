@@ -469,7 +469,6 @@ public final class UserP
             session = createSession(user.getUserId(), user.getPassword());
         }
 
-        // todo - convert this to Set notation.
         if (VUtil.isNotNullOrEmpty(user.getRoles()))
         {
             // Process selective activation of user's RBAC roles into session:

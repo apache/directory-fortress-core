@@ -558,4 +558,6 @@ public class GlobalIds
      * Attribute is used in Fortress day mask constraints as default which will always pass.  i.e. values stored as dayMask=all will always pass the day of week constraint.
      */
     public static final String ALL = "all";
+    public static final String COMMA = ",";
+    public static final char COLON = ':';
 }

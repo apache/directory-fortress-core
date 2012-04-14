@@ -31,7 +31,7 @@
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
-       <property name="version" value="1.0.0-rc8"/>
+       <property name="version" value="1.0.0-rc9"/>
        <property name="ivy.install.version" value="2.2.0"/>
        <property name="title" value="Fortress Identity and Access Management LDAP SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>

@@ -4,6 +4,7 @@
 
 package com.jts.fortress.arbac;
 
+import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.rbac.UserRole;
 import com.jts.fortress.util.AlphabeticalOrder;
 
@@ -119,8 +120,7 @@ public class UserAdminRole extends UserRole implements com.jts.fortress.arbac.Ad
     {
         if (szRawData != null && szRawData.length() > 0)
         {
-            // todo: remove the hardcoded literal here:
-            StringTokenizer tkn = new StringTokenizer(szRawData, ",");
+            StringTokenizer tkn = new StringTokenizer(szRawData, GlobalIds.COMMA);
             if (tkn.countTokens() > 0)
             {
                 int count = tkn.countTokens();
@@ -194,32 +194,30 @@ public class UserAdminRole extends UserRole implements com.jts.fortress.arbac.Ad
      */
     public String getRawData()
     {
-        String COMMA = ",";
         String szRole;
         StringBuilder sb = new StringBuilder();
-        // todo: remove the hardcoded literal here:
         sb.append(this.getName());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         sb.append(this.getTimeout());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getBeginTime() != null)
             sb.append(this.getBeginTime());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getEndTime() != null)
             sb.append(this.getEndTime());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getBeginDate() != null)
             sb.append(this.getBeginDate());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getEndDate() != null)
             sb.append(this.getEndDate());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getBeginLockDate() != null)
             sb.append(this.getBeginLockDate());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getEndLockDate() != null)
             sb.append(this.getEndLockDate());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getDayMask() != null)
             sb.append(this.getDayMask());
         if (this.getOsU() != null)

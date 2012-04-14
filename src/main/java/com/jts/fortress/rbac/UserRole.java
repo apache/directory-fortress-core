@@ -6,6 +6,7 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.FortEntity;
 import com.jts.fortress.arbac.UserAdminRole;
+import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.time.Constraint;
 
@@ -122,9 +123,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
     {
         if (szRawData != null && szRawData.length() > 0)
         {
-            //this.setRawData(inputString);
-            // todo: remove the hardcoded literal here:
-            StringTokenizer tkn = new StringTokenizer(szRawData, ",");
+            StringTokenizer tkn = new StringTokenizer(szRawData, GlobalIds.COMMA);
             if (tkn.countTokens() > 0)
             {
                 int count = tkn.countTokens();
@@ -173,32 +172,30 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      */
     public String getRawData()
     {
-        String COMMA = ",";
         String szRole;
         StringBuilder sb = new StringBuilder();
-        // todo: remove the hardcoded literal here:
         sb.append(this.getName());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         sb.append(this.getTimeout());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getBeginTime() != null)
             sb.append(this.getBeginTime());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getEndTime() != null)
             sb.append(this.getEndTime());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getBeginDate() != null)
             sb.append(this.getBeginDate());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getEndDate() != null)
             sb.append(this.getEndDate());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getBeginLockDate() != null)
             sb.append(this.getBeginLockDate());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getEndLockDate() != null)
             sb.append(this.getEndLockDate());
-        sb.append(COMMA);
+        sb.append(GlobalIds.COMMA);
         if (this.getDayMask() != null)
             sb.append(this.getDayMask());
         szRole = sb.toString();

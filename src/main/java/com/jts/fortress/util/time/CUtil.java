@@ -53,11 +53,9 @@ public class CUtil
      */
     public static void setConstraint(String inputString, Constraint constraint)
     {
-        // TODO: move this method to Constraint object:
-        if (inputString != null && inputString.length() > 0)
+        if(VUtil.isNotNullOrEmpty(inputString))
         {
-            // todo: remove the hardcoded literal here:
-            StringTokenizer tkn = new StringTokenizer(inputString, ",");
+            StringTokenizer tkn = new StringTokenizer(inputString, GlobalIds.COMMA);
             if (tkn.countTokens() > 0)
             {
                 int count = tkn.countTokens();
@@ -109,14 +107,12 @@ public class CUtil
      */
     public static String setConstraint(Constraint constraint)
     {
-        // TODO: move this method to Constraint object:
         String szConstraint = null;
         if (constraint != null)
         {
             StringBuilder sb = new StringBuilder();
             sb.append(constraint.getName());
-            // todo: remove the hardcoded literal here:
-            sb.append(",");
+            sb.append(GlobalIds.COMMA);
             if(constraint.getTimeout() != null)
                 sb.append(constraint.getTimeout());
             sb.append(",");
@@ -424,7 +420,6 @@ public class CUtil
             }
         }
 
-        // TODO: FIXME - remove the extra boolean variable 'checkDsd'.
         // now perform DSD validation on session's rbac roles:
         if (checkDsd && DSDVALIDATOR != null && DSDVALIDATOR.length() > 0 && type == ConstraintType.ROLE && com.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(session.getRoles()))
         {
@@ -459,4 +454,3 @@ public class CUtil
         return validators;
     }
 }
-

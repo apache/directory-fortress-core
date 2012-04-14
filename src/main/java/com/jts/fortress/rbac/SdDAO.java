@@ -466,20 +466,9 @@ public final class SdDAO
         entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setName(DaoUtil.getAttribute(le, SD_SET_NM));
         entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
-        //entity.setMembers(DaoUtil.getAttributeMap(le, ROLES));
         entity.setMembers(DaoUtil.getAttributeSet(le, ROLES));
         String szCard = DaoUtil.getAttribute(le, SD_SET_CARDINALITY);
         entity.setCardinality(new Integer(szCard));
-        //todo: fix me:
-        //String objectClass = DaoUtil.getAttribute(le, GlobalIds.OBJECT_CLASS);
-        //if(objectClass.equalsIgnoreCase(SSD_OBJECT_CLASS_NM))
-        //{
-        //    entity.setType(SDSet.SDType.STATIC);
-        //}
-        //else
-        //{
-        //    entity.setType(SDSet.SDType.DYNAMIC);
-        //}        
         return entity;
     }
 }

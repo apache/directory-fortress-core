@@ -10,6 +10,7 @@ import com.jts.fortress.rbac.AccessMgrImpl;
 import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.RoleUtil;
+import com.jts.fortress.rbac.SDUtil;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserP;
@@ -204,8 +205,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
             String info = methodName + " Admin Role [" + role.getName() + "] User [" + session.getUserId() + "] adminRole not authorized for user.";
             throw new SecurityException(GlobalErrIds.ARLE_ACTIVATE_FAILED, info);
         }
-        // TODO:  add validate Dynamic Separation of Duty Relations here:
-        //SDUtil.validateDSD(session, role);
+        SDUtil.validateDSD(session, role);
 
         // now activate the role to the session:
         session.setRole(uRoles.get(indx));

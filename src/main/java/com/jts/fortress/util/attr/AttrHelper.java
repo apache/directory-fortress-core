@@ -6,6 +6,7 @@ package com.jts.fortress.util.attr;
 
 import com.jts.fortress.arbac.Administrator;
 import com.jts.fortress.audit.AuthZ;
+import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.rbac.Permission;
 
 import java.text.ParseException;
@@ -66,8 +67,7 @@ public class AttrHelper
             {
 
                 String raw = propList.get(i);
-                // todo: remove the hardcoded literal here:
-                int indx = raw.indexOf(':');
+                int indx = raw.indexOf(GlobalIds.COLON);
                 if (indx >= 1)
                 {
                     props.setProperty(raw.substring(0, indx), raw.substring(indx + 1));
@@ -88,15 +88,13 @@ public class AttrHelper
         Properties props = new Properties();
         if (inputString != null && inputString.length() > 0)
         {
-            // todo: remove the hardcoded literal here:
-            StringTokenizer maxTkn = new StringTokenizer(inputString, ",");
+            StringTokenizer maxTkn = new StringTokenizer(inputString, GlobalIds.COMMA);
             if (maxTkn.countTokens() > 0)
             {
                 while (maxTkn.hasMoreTokens())
                 {
                     String val = maxTkn.nextToken();
-                    // todo: remove the hardcoded literal here:
-                    int indx = val.indexOf(':');
+                    int indx = val.indexOf(GlobalIds.COLON);
                     if (indx >= 1)
                     {
                         String name = val.substring(0, indx);

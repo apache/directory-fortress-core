@@ -146,6 +146,7 @@ import org.apache.log4j.Logger;
  */
 public class FortressAntTask extends Task implements InputHandler
 {
+    private static final String SEMICOLON = ";";
     final private List<com.jts.fortress.ant.Addconfig> addconfig = new ArrayList<com.jts.fortress.ant.Addconfig>();
     final private List<com.jts.fortress.ant.Delconfig> delconfig = new ArrayList<com.jts.fortress.ant.Delconfig>();
     final private List<Adduser> addusers = new ArrayList<Adduser>();
@@ -1873,15 +1874,13 @@ public class FortressAntTask extends Task implements InputHandler
         Properties props = new Properties();
         if (inputString != null && inputString.length() > 0)
         {
-            // todo: remove the hardcoded literal here:
-            StringTokenizer maxTkn = new StringTokenizer(inputString, ";");
+            StringTokenizer maxTkn = new StringTokenizer(inputString, SEMICOLON);
             if (maxTkn.countTokens() > 0)
             {
                 while (maxTkn.hasMoreTokens())
                 {
                     String val = maxTkn.nextToken();
-                    // todo: remove the hardcoded literal here:
-                    int indx = val.indexOf(':');
+                    int indx = val.indexOf(GlobalIds.COLON);
                     if (indx >= 1)
                     {
                         String name = val.substring(0, indx);

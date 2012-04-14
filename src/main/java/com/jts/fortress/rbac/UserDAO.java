@@ -169,7 +169,7 @@ public final class UserDAO
                 attrs.add(DaoUtil.createAttribute(GlobalIds.DESC, entity.getDescription()));
             }
             // props are optional as well:
-            // TODO: don't add "initial" property here.
+            // Add "initial" property here.
             entity.addProperty("init", "");
             DaoUtil.loadProperties(entity.getProperties(), attrs, GlobalIds.PROPS);
             // map the userid to the name field in constraint:
@@ -1050,12 +1050,18 @@ public final class UserDAO
             ld = PoolMgr.getConnection(PoolMgr.ConnType.USER);
             PoolMgr.bind(ld, userDn, entity.getPassword());
             mods = new LDAPModificationSet();
-            // TODO: fix this to allow user to update ftModifier attribute on record.  Currently getting LDAP 50 error - access control violation.
-            // cannot do this - insufficient as user can't modify this attribute
-            //DaoUtil.loadAdminData(entity, mods);
             LDAPAttribute pw = new LDAPAttribute(PW, new String(newPassword));
             mods.add(LDAPModification.REPLACE, pw);
             DaoUtil.modify(ld, userDn, mods);
+
+            // The 2nd modify is to update audit attributes on the User entry:
+            if (GlobalIds.IS_AUDIT && entity.getAdminSession() != null)
+            {
+                // Because the user modified their own password, set their userId here:
+                //(entity.getAdminSession()).setInternalUserId(entity.getUserId());
+                mods = new LDAPModificationSet();
+                DaoUtil.modify(ld, userDn, mods, entity);
+            }
         }
         catch (LDAPException e)
         {

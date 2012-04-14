@@ -121,7 +121,6 @@ public class HierP
     private void validate(String function, Hier entity)
         throws SecurityException
     {
-        // todo put some more valiation logic here
         VUtil.assertNotNull(entity, GlobalErrIds.HIER_NULL, CLS_NM + ".validate function: " + function);
         VUtil.assertNotNull(entity.getType(), GlobalErrIds.HIER_TYPE_NULL, CLS_NM + ".validate type function: " + function);
     }

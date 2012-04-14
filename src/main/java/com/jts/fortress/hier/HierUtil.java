@@ -507,7 +507,7 @@ public class HierUtil
                 SimpleDirectedGraph<String, Relationship> g =
                     new SimpleDirectedGraph<String, com.jts.fortress.hier.Relationship>(Relationship.class);
 
-                //todo: must add edge to JGraph to workaround init problem.  fix me:
+                // Add Default edge to JGraph to workaround init problem.
                 String dflt1 = DEFAULT_VERTEX_1;
                 String dflt2 = DEFAULT_VERTEX_2;
                 g.addVertex(dflt1);

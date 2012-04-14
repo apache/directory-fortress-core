@@ -286,7 +286,6 @@ public final class AdminMgrImpl implements AdminMgr
         }
         // search for all users assigned this role and deassign:
         ReviewMgr rMgr = ReviewMgrFactory.createInstance();
-        // todo: change the max value to param set in config:
         List<User> users = rMgr.assignedUsers(role);
         if (users != null)
         {

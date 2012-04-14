@@ -73,7 +73,6 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
     {
         if (this.adminSess != null)
         {
-            // TODO: TURN IT BACK ON:
             AdminUtil.setEntitySession(adminSess, new Permission(CLS_NM, opName), entity);
         }
     }

@@ -135,18 +135,8 @@ public class ConfigP
         throws SecurityException
     {
         Properties outProps;
-
-        // todo: fix me:
-        //if (VUtil.isNotNullOrEmpty(name))
-        //{
-            ConfigDAO cfgDao = new ConfigDAO();
-            outProps = cfgDao.getConfig(name);
-        //}
-        //else
-        //{
-        //    String warning = CLS_NM + ".read detected null config realm name";
-        //    log.warn(warning);
-        //}
+        ConfigDAO cfgDao = new ConfigDAO();
+        outProps = cfgDao.getConfig(name);
         return outProps;
     }
 

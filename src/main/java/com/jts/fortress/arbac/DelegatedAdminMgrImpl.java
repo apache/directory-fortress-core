@@ -107,7 +107,6 @@ public final class DelegatedAdminMgrImpl
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
         // search for all users assigned this role and deassign:
-        // todo: change the max value to param set in config:
         List<User> users = userP.getAssignedUsers(role);
         if (users != null)
         {
@@ -193,7 +192,7 @@ public final class DelegatedAdminMgrImpl
 
         // retrieve the admin role info:
         AdminRole validRole = admRP.read(uAdminRole.getName());
-        // todo:  use: CUtil.validateOrCopy(validRole, uRole);
+
         // if the UserAdminRole entity doesn't have temporal constraints set already, copy from the AdminRole declaration:
         // if the input role entity attribute doesn't have temporal constraints set, copy from the role declaration:
         CUtil.validateOrCopy(validRole, uAdminRole);
@@ -603,7 +602,6 @@ public final class DelegatedAdminMgrImpl
         String methodName = "addInheritanceRole";
         VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
-        // todo: set the hier entity not the parentRole:
         setEntitySession(methodName, parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
         Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
@@ -626,7 +624,6 @@ public final class DelegatedAdminMgrImpl
         String methodName = "deleteInheritanceRole";
         VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
-        // todo: set the hier entity not the parentRole:
         setEntitySession(methodName, parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, true);
         Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());

@@ -293,8 +293,6 @@ public class ReviewMgrImpl
         String methodName = "assignedUsers";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
-
-        // todo: place limit in this method:
         Role entity = roleP.read(role.getName());
         // this one retrieves from the role itself.
         List<String> users = entity.getOccupants();
@@ -520,11 +518,7 @@ public class ReviewMgrImpl
             {
                 authorizedUsers = new TreeSet<String>();
             }
-            // todo: fix me as there is better way to add contents of list to authorized user set:
-            for(String userId : assignedUsers)
-            {
-                authorizedUsers.add(userId);
-            }
+            authorizedUsers.addAll(assignedUsers);
         }
         // The returned list includes all assigned users plus any users assigned via authorized roles.
         return authorizedUsers;
