@@ -30,7 +30,7 @@ import com.jts.fortress.util.attr.VUtil;
  * </p>
 
  *
- * @author kpmckinn
+ * @author Kevin McKinney
  * @created October 29, 2009
  */
 public final class RoleP

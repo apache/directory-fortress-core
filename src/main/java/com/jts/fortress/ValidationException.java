@@ -9,7 +9,7 @@ package com.jts.fortress;
  * This exception extends {@link SecurityException} and is thrown when Fortress cannot validate entity.
  * See the {@link com.jts.fortress.constants.GlobalErrIds} javadoc for list of error ids.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 9, 2011
  */
 public class ValidationException extends SecurityException

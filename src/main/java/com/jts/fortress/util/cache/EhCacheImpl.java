@@ -6,7 +6,7 @@ import net.sf.ehcache.Element;
 /**
  * This object provides cache functionality from <a href="http://ehcache.org//">Ehcache</a> provider.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 9, 2012
  */
 public class EhCacheImpl implements Cache

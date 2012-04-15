@@ -45,7 +45,7 @@ import java.util.List;
  * This object is NOT thread safe.
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 13, 2012
  */
 public class PswdPolicyMgrRestImpl implements PswdPolicyMgr

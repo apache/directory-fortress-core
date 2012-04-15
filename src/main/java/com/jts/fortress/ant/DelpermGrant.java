@@ -25,7 +25,7 @@ import java.util.List;
  * }
  * </pre>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created July 22, 2010
  */
 public class DelpermGrant

@@ -27,7 +27,7 @@ import java.util.Properties;
  * </p>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 24, 2009
  */
 public class Config

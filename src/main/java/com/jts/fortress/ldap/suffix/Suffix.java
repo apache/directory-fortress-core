@@ -32,7 +32,7 @@ package com.jts.fortress.ldap.suffix;
  * <p/>
  * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 21, 2010
  */
 public class Suffix

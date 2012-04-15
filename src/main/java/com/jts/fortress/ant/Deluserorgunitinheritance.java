@@ -26,7 +26,7 @@ import java.util.List;
  * </pre>
  *
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created November 18, 2011
  */
 public class Deluserorgunitinheritance

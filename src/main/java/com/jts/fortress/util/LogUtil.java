@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 /**
  * Contains a simple wrapper for log4j that is used by test utilities.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 28, 2010
  */
 public class LogUtil

@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 /**
  * Object provides example of Fortress API.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created December 26, 2010
  */
 public class ExampleAdminMgrImpl implements ExampleAdminMgr

@@ -11,7 +11,7 @@ import com.jts.fortress.BaseRuntimeException;
  * This is critical runtime exception and means system is inoperable due to a caching error.
  * See the {@link com.jts.fortress.constants.GlobalErrIds} javadoc for list of error ids.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 9, 2012
  */
 public class CacheException extends BaseRuntimeException

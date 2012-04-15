@@ -16,7 +16,7 @@ import java.util.TreeSet;
 /**
  * Description of the Class
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created November 13, 2010
  */
 class AdminRoleTestData extends TestCase

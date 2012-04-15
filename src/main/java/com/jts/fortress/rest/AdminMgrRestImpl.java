@@ -48,7 +48,7 @@ import com.jts.fortress.util.attr.VUtil;
  * This object is NOT thread safe as it contains instance variables.
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 12, 2012
  */
 public final class AdminMgrRestImpl implements AdminMgr

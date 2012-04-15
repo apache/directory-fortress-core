@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * This entity is used by en masse to communicate parent and child {@link com.jts.fortress.arbac.AdminRole} information to the server.
  * <p/>
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 28, 2012
  */
 @XmlRootElement(name = "fortAdminRoleRelationship")

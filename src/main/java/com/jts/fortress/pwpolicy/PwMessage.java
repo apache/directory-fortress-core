@@ -10,7 +10,7 @@ package com.jts.fortress.pwpolicy;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 13, 2009
  */
 public interface PwMessage

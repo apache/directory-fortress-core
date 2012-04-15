@@ -16,7 +16,7 @@ import com.jts.fortress.util.ClassUtil;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 13, 2009
  */
 public class AccessMgrFactory

@@ -27,7 +27,7 @@ import java.util.Date;
  * <p/>
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created April 1, 2010
  */
 @XmlRootElement(name = "fortUserAudit")

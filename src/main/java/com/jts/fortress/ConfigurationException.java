@@ -9,7 +9,7 @@ package com.jts.fortress;
  * This exception extends {@link SecurityException} and is thrown when Fortress cannot find correct configuration for a particular entity.
  * See the {@link com.jts.fortress.constants.GlobalErrIds} javadoc for list of error ids.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 20, 2011
  */
 public class ConfigurationException extends SecurityException

@@ -21,7 +21,7 @@ import java.util.Properties;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 5, 2011
  */
 public class ConfigMgrImpl implements ConfigMgr

@@ -39,7 +39,7 @@ import java.util.Set;
 /**
  * DelegatedMgrImpl Tester.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 18, 2010
   */
 public class DelegatedMgrImplTest extends TestCase

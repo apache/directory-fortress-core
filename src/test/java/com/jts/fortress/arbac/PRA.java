@@ -7,7 +7,7 @@ package com.jts.fortress.arbac;
 /**
  *  Description of the Class
  *
- *@author     smckinn
+ *@author     Shawn McKinney
  *@created    December 5, 2010
  */
 public class PRA

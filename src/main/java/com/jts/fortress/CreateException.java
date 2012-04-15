@@ -9,7 +9,7 @@ package com.jts.fortress;
  * This exception extends {@link SecurityException} and is thrown when DAO cannot create entity.
  * See the {@link com.jts.fortress.constants.GlobalErrIds} javadoc for list of error ids.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 30, 2009
  */
 public class CreateException extends SecurityException

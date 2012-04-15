@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * CreateUserRoleSample JUnit Test. This test suite demonstrates RBAC Role assignment and deassignment to Users.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 4, 2011
  */
 public class CreateUserRoleSample extends TestCase

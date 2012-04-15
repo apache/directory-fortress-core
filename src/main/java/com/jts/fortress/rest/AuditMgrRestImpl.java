@@ -60,7 +60,7 @@ import java.util.List;
  * </ul>
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 13, 2012
  */
 public class AuditMgrRestImpl implements AuditMgr

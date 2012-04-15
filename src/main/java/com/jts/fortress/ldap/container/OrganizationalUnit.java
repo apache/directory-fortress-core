@@ -29,7 +29,7 @@ package com.jts.fortress.ldap.container;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 21, 2010
  */
 public class OrganizationalUnit

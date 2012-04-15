@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
 /**
  * * Test class for driving Fortress RBAC runtime policy APIs within a console.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 13, 2009
  */
 public class AccessMgrConsole

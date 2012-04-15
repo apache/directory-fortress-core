@@ -15,7 +15,7 @@ import java.util.Set;
  * </p>
  * This class is thread safe.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created Feb 10, 2012
  */
 @XmlRootElement(name = "FortResponse")

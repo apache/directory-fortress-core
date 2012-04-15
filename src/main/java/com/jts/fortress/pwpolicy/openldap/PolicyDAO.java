@@ -75,7 +75,7 @@ import java.util.TreeSet;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 17, 2009
  */
 public final class PolicyDAO

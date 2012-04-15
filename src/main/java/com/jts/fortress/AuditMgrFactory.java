@@ -16,7 +16,7 @@ import com.jts.fortress.util.ClassUtil;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created April 2, 2010
  */
 public class AuditMgrFactory

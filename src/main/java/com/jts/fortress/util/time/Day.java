@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
  * </ol>
  * </p>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 13, 2010
  */
 public class Day

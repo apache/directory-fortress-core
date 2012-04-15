@@ -8,7 +8,7 @@ package com.jts.fortress.ant;
 /**
  * This entity contains the list of name/value pairs targeted for updating on server.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 1, 2011
  */
 public class ConfigAnt

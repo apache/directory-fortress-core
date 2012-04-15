@@ -19,7 +19,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 13, 2009
  */
 public class OLPWControlImpl implements PwPolicyControl

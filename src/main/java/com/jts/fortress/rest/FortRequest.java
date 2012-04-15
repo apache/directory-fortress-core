@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.*;
  * </p>
  * This class is thread safe.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created Feb 10, 2012
  */
 @XmlRootElement(name = "FortRequest")

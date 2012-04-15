@@ -12,7 +12,7 @@ import java.util.Set;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created November 13, 2010
  */
 public interface Administrator

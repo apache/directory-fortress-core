@@ -45,7 +45,7 @@ import java.util.TreeSet;
  * This object is thread safe.
  * <p/>
 
- * @author smckinn
+ * @author Shawn McKinney
  * @created December 3, 2010
  */
 public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAccessMgr

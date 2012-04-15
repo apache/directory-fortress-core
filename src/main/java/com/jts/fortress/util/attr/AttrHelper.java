@@ -23,7 +23,7 @@ import java.util.Properties;
  * This class is thread safe.
  * <p/>
 
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 29, 2009
  */
 public class AttrHelper

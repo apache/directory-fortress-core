@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
  * Roles constrained by Date and Time can be overridden when the Role is assigned to a User, see {@code CreateUserRoleSample}.
  * Temporal constraints checks will be peformed when the Role is activated, see {@code CreateSessionSample}.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 1, 2011
  */
 public class CreateRoleSample extends TestCase

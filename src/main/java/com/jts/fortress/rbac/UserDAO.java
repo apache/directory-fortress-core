@@ -102,7 +102,7 @@ import java.util.TreeSet;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 30, 2009
  */
 public final class UserDAO

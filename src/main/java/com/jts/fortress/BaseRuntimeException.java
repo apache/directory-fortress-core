@@ -8,7 +8,7 @@ package com.jts.fortress;
  *  Base runtime exception class for Fortress runtime exceptions.
  * See the {@link com.jts.fortress.constants.GlobalErrIds} javadoc for list of error ids.
  *
- * @author     smckinn
+ * @author     Shawn McKinney
  * @created    March 12, 2011
  */
 public abstract class BaseRuntimeException extends RuntimeException

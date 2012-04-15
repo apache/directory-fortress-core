@@ -115,7 +115,7 @@ import java.util.UUID;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 18, 2010
  */
 @XmlRootElement(name = "fortOrgUnit")

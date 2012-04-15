@@ -13,7 +13,7 @@ import com.jts.fortress.rbac.Session;
  * the Session object.  The permissions checked will be administrative permissions.
  * <p/>
 
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 9, 2011
  */
 public interface Authorizable

@@ -23,7 +23,7 @@ import java.util.Properties;
  * This object is thread safe.
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 4, 2012
  */
 public class ConfigMgrRestImpl implements ConfigMgr

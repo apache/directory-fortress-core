@@ -82,7 +82,7 @@ import java.util.UUID;
  * </ul>
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 11, 2010
  */
 @XmlRootElement(name = "fortSet")

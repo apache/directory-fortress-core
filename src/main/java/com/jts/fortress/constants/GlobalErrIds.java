@@ -21,7 +21,7 @@ package com.jts.fortress.constants;
  * All Fortress public Manager Impl APIs will throw exception derived from {@link com.jts.fortress.SecurityException} and containing
  * an id that maps to one of these error codes.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 24, 2009
  */
 public class GlobalErrIds

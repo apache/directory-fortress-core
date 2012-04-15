@@ -50,7 +50,7 @@ import java.util.TreeSet;
  * <p/>
  *
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 12, 2012
  */
 public class AccessMgrRestImpl implements AccessMgr

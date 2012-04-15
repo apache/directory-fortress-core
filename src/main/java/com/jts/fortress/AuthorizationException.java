@@ -9,7 +9,7 @@ package com.jts.fortress;
  * This exception extends {@link SecurityException} and is thrown when administrative permission check fails.
  * See the {@link com.jts.fortress.constants.GlobalErrIds} javadoc for list of error ids.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created April 23, 2011
  */
 public class AuthorizationException extends SecurityException

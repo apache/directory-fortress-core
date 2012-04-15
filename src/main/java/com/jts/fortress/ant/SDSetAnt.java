@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
  * Entity is used by custom Apache Ant task for special handling of collections.  This is necessary because the
  * Ant parser cannot deal with complex data attribute types.  The class extends a base entity.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created December 18, 2010
  */
 public class SDSetAnt extends SDSet

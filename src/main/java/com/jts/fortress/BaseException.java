@@ -10,7 +10,7 @@ package com.jts.fortress;
  * The BaseException class has been extended by {@link SecurityException} which is then declared thrown on most Fortress public APIs.
  * See the {@link com.jts.fortress.constants.GlobalErrIds} javadoc for list of error ids that will be set.
  *
- * @author     smckinn
+ * @author     Shawn McKinney
  * @created    August 23, 2009
  */
 public abstract class BaseException extends Exception implements StandardException

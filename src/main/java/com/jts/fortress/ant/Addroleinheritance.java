@@ -25,7 +25,7 @@ import java.util.List;
  * }
  * </pre>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created November 16, 2011
  */
 public class Addroleinheritance

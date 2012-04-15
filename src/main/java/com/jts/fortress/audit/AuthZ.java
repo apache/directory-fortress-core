@@ -47,7 +47,7 @@ import java.io.Serializable;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created April 1, 2010
  */
 @XmlRootElement(name = "fortAuthZ")

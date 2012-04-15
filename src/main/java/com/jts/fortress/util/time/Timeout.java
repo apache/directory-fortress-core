@@ -20,7 +20,7 @@ import com.jts.fortress.rbac.Session;
  * </ol>
  * </p>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 13, 2010
  */
 public class Timeout

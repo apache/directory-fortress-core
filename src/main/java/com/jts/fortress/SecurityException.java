@@ -304,7 +304,7 @@ package com.jts.fortress;
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ORG_SEARCH_FAILED_PERM} = 8065;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ORG_GET_FAILED_PERM} = 8066;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ORG_NOT_FOUND_PERM} = 8067;</code>
- * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ORG_NULL_PERM = 8068};</code>
+ * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ORG_NULL_PERM} = 8068;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ORG_TYPE_NULL_PERM} = 8069;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ORG_DEL_FAILED_PERM} = 8070;</code>
  * <li> <code>{@link com.jts.fortress.constants.GlobalErrIds#ORG_LEN_INVLD} = 8071;</code>
@@ -376,7 +376,7 @@ package com.jts.fortress;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 23, 2009
  */
 public class SecurityException extends BaseException

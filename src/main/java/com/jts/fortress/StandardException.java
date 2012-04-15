@@ -8,7 +8,7 @@ package com.jts.fortress;
  *  Interface that is implemented by exception base class {@link StandardException} used to associate a Fortress error code to the exception instance.
  * See the {@link com.jts.fortress.constants.GlobalErrIds} javadoc for list of error ids used by Fortress.
  *
- * @author     smckinn
+ * @author     Shawn McKinney
  * @created    August 23, 2009
  */
 public interface StandardException

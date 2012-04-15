@@ -9,7 +9,7 @@ import com.jts.fortress.SecurityException;
 /**
  * Factory class used to instantiate the ExampleAdminMgrImpl.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created December 26, 2010
  */
 public class ExampleAdminMgrFactory

@@ -75,7 +75,7 @@ import org.apache.log4j.Logger;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created June 13, 2010
  */
 public final class HierDAO

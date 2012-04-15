@@ -83,7 +83,7 @@ import java.util.List;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created November 13, 2009
  */
 public final class AdminRoleDAO

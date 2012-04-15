@@ -58,7 +58,7 @@ import java.util.UUID;
  * </ul>
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 14, 2011
  */
 @XmlRootElement(name = "fortEntity")

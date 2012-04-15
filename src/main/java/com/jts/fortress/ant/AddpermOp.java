@@ -23,7 +23,7 @@ import java.util.List;
  * }
  * </pre>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created November 23, 2010
  */
 public class AddpermOp

@@ -16,5 +16,11 @@
           The entities include {@link com.jts.fortress.rbac.User User},{@link com.jts.fortress.rbac.Role Role}, {@link com.jts.fortress.rbac.PermObj PermObj}, {@link com.jts.fortress.rbac.Permission Permission}, and more.
           See the corresponding javadoc contained with this package for more info.
       </p>
+      <h3>Fortress Manager APIs implemented in this package</h3>
+       <ol>
+       <li><a href="AccessMgrImpl.html">AccessMgrImpl</a> - This implements using LDAP the runtime access control operations on objects that are provisioned <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities that reside in LDAP directory.</li>
+       <li><a href="AdminMgrImpl.html">AdminMgrImpl</a> - This implements using LDAP the administrative functions to provision Fortress <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities into the LDAP directory.</li>
+       <li><a href="ReviewMgrImpl.html">ReviewMgrImpl</a> - This implements using LDAP the administrative review functions on already provisioned Fortress <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities that reside in LDAP directory.</li>
+       </ol>
    </body>
 </html>

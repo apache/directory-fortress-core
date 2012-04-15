@@ -33,7 +33,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConstraints;
  * This class is thread safe.
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 30, 2009
  */
 public class PoolMgr

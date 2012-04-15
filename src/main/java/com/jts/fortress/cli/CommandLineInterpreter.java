@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
 /**
  * Main program for Fortress Command Line Interpreter..
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created December 1, 2011
  */
 public class CommandLineInterpreter

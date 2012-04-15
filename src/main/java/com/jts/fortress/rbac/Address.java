@@ -27,7 +27,7 @@ import java.util.List;
  * <li>  ------------------------------------------
  * </ul>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 25, 2012
  */
 @XmlRootElement(name = "fortAddress")

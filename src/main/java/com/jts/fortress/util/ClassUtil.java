@@ -26,7 +26,7 @@ import java.io.InputStream;
  * <li>{@link com.jts.fortress.configuration.ConfigMgrFactory}</li>
  * </ol>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 13, 2010
  */
 public class ClassUtil

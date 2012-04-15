@@ -130,7 +130,7 @@ import java.util.UUID;
  * Adm  day mask        [23456]<br />
  * Adm  time out        [30]<br />
  * <p/>
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 13, 2009
  */
 @XmlRootElement(name = "fortSession")

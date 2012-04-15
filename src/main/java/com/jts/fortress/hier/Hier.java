@@ -65,7 +65,7 @@ import java.util.List;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created June 13, 2010
  */
 public class Hier extends FortEntity

@@ -35,7 +35,7 @@ import java.util.Properties;
 /**
  * This utilty class provides methods that wrap Apache's HTTP Client APIs.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 11, 2012
  */
 public class RestUtils

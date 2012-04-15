@@ -10,7 +10,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
  * Interface is used to allow pluggable password policy interrogation.
  *
 
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 13, 2009
  */
 public interface PwPolicyControl

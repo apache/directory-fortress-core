@@ -39,7 +39,7 @@ import com.jts.fortress.rbac.UserRole;
  * <p/>
  * <img src="../../../images/RbacDSD.png">
  * <p/>
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 13, 2009
  */
 public interface AccessMgr

@@ -39,7 +39,7 @@ import java.util.TreeSet;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created July 10, 2010
  */
 public class HierUtil
@@ -389,7 +389,7 @@ public class HierUtil
      * @param graph       contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @param parents     contains the result set of parent nodes.
      * @param stopName    contains the name of node where traversal ends.
-     * @param isInclusive if set to true will include the parentName in the result set.  /home/smckinn/GIT/fortressDev/openldap-fortress-core/ldap/setup/HierarchicalRoleExample.xmlFalse will not return specified parentName.
+     * @param isInclusive if set to true will include the parentName in the result set.  /home/Shawn McKinney/GIT/fortressDev/openldap-fortress-core/ldap/setup/HierarchicalRoleExample.xmlFalse will not return specified parentName.
      * @return Set of names that are parents of given child.
      */
     private static String getAscendants(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> parents, String stopName, boolean isInclusive)

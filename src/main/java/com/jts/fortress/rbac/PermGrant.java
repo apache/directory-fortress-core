@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  * This entity is used for Ant and En Masse processing only.
  * <p/>
 
- * @author smckinn
+ * @author Shawn McKinney
  * @created July 22, 2010
  */
 @XmlRootElement(name = "fortGrant")

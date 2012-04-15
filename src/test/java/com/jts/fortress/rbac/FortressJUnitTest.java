@@ -28,7 +28,7 @@ import junit.framework.TestCase;
  * are designed to recover on repeated runs if/when ldap data falls out of synch - BUT - if/when errors do occur during repeat of buildup phase,
  * delete the old test data manually in directory before trying again.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 28, 2010
  */
 public class FortressJUnitTest extends TestCase

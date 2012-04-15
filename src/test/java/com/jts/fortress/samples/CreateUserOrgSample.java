@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  * one must be created before any User can be added to the directory.  Each OrgUnit may be related to one or more parent
  * OrgUnits although that functionality is not demonstrated here.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 1, 2011
  */
 public class CreateUserOrgSample extends TestCase

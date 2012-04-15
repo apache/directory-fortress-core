@@ -23,7 +23,7 @@ import java.util.Set;
 /**
  * ReviewMgrImpl Tester.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @version 1.0
  * @since <pre>01/24/2010</pre>
  */

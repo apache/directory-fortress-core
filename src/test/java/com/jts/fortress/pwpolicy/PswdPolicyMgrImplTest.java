@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * PswdPolicyMgrImpl Tester.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @version 1.0
  * @since <pre>02/20/2010</pre>
  */

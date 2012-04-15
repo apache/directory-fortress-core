@@ -24,7 +24,7 @@ import java.util.Set;
 /**
  * AdminMgrImpl Tester.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @version 1.0
  * @created January 24, 2010
  * @since <pre>01/24/2010</pre>

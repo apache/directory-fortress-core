@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
  * This object uses synchronized data sets ({@link #ouCache} but is thread safe.
  * <p/>
 
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 18, 2010
  */
 public final class OrgUnitP

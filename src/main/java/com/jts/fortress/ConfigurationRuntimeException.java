@@ -11,7 +11,7 @@ import com.jts.fortress.constants.GlobalErrIds;
  * This is critical runtime exception and means system is inoperable due to a configuration error.
  * See the {@link com.jts.fortress.constants.GlobalErrIds} javadoc for list of error ids.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 20, 2011
  */
 public class ConfigurationRuntimeException extends BaseRuntimeException

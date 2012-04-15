@@ -40,7 +40,7 @@ import java.util.Set;
  * This object is thread safe.
  * <p/>
 
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 13, 2012
  */
 public class DelegatedAccessMgrRestImpl extends AccessMgrRestImpl implements DelegatedAccessMgr

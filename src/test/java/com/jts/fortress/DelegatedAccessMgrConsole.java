@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 /**
  *  This class is used to test drive the Fortress Delegated Access Control APIs.
  *
- *@author     smckinn
+ *@author     Shawn McKinney
  *@created    December 4, 2010
  */
 public class DelegatedAccessMgrConsole

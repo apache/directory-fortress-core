@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 /**
  * Description of the Class
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 20, 2010
  */
 

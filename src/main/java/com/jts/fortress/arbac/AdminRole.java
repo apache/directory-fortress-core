@@ -122,7 +122,7 @@ import java.util.TreeSet;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created November 13, 2010
  */
 @XmlRootElement(name = "fortAdminRole")

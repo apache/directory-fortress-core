@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 /**
  * Description of the Class
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 28, 2010
  */
 public class PermTestData extends TestCase

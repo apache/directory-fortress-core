@@ -85,7 +85,7 @@ import javax.xml.bind.annotation.XmlType;
  *
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 17, 2009
  */
 @XmlRootElement(name = "fortPolicy")

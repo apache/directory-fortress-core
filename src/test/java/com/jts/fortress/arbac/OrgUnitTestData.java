@@ -17,7 +17,7 @@ import java.util.TreeSet;
 /**
  * Description of the Class
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 18, 2010
  */
 public class OrgUnitTestData extends TestCase

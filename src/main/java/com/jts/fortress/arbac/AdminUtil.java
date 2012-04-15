@@ -20,7 +20,7 @@ import com.jts.fortress.rbac.User;
  * </p>
  * This object is thread safe.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 9, 2011
  */
 public class AdminUtil

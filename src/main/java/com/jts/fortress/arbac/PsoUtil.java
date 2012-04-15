@@ -43,7 +43,7 @@ import java.util.TreeSet;
  * This class contains singleton that can be updated but is thread safe.
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 26, 2010
  */
 public class PsoUtil

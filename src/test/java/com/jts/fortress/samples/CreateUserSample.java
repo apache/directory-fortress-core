@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
  * extra steps demonstrated in this test class, i.e. reading User after adding, that are for instructional purposes and not required
  * for real world applications.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 1, 2011
  */
 public class CreateUserSample extends TestCase

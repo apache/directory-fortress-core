@@ -49,7 +49,7 @@ import java.util.List;
  * This object is NOT thread safe as it contains instance variables.
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 30, 2009
  */
 public final class AdminMgrImpl implements AdminMgr

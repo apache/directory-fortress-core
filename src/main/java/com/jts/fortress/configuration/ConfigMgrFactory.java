@@ -16,7 +16,7 @@ import com.jts.fortress.SecurityException;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 5, 2011
  */
 public class ConfigMgrFactory

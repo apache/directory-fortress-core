@@ -26,7 +26,7 @@ import com.jts.fortress.arbac.OrgUnitAnt;
  * }
  * </pre>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created November 19, 2010
  */
 public class Delorgunit

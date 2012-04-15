@@ -43,7 +43,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 21, 2010
  */
 public final class SuffixDAO

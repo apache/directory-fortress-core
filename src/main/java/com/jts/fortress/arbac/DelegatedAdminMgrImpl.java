@@ -34,7 +34,7 @@ import java.util.List;
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 18, 2010
  */
 public final class DelegatedAdminMgrImpl

@@ -42,7 +42,7 @@ import java.util.Set;
  * <img src="../../../images/RbacDSD.png">
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 23, 2009
  */
 public interface ReviewMgr extends com.jts.fortress.Authorizable

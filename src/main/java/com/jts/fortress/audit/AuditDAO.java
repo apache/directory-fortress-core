@@ -95,7 +95,7 @@ import java.util.List;
  * Note this class used descriptions pulled from man pages on slapd access log.
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created April 2, 2010
  */
 public class AuditDAO

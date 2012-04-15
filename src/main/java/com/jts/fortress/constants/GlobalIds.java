@@ -17,7 +17,7 @@ import com.jts.fortress.configuration.Config;
  * </p>
  * This class is thread safe.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 24, 2009
  */
 public class GlobalIds

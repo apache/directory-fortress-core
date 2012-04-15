@@ -9,7 +9,7 @@ import com.jts.fortress.SecurityException;
 /**
  * Interface class for ExampleAdminMgrImpl.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created December 26, 2010
  */
 public interface ExampleAdminMgr

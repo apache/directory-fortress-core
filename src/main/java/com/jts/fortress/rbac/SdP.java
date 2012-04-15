@@ -33,7 +33,7 @@ import java.util.Set;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 11, 2010
  */
 public class SdP

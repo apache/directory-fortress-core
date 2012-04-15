@@ -34,7 +34,7 @@ import java.util.StringTokenizer;
  * </ul>
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 23, 2009
  */
 @XmlRootElement(name = "fortUserRole")

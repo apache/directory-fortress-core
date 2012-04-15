@@ -140,7 +140,7 @@ import java.util.*;
  * <li>  ------------------------------------------
  * </ul>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 23, 2009
  */
 

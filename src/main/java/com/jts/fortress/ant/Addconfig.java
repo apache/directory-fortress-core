@@ -23,7 +23,7 @@ import java.util.List;
  * }
  * </pre>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 5, 2011
  */
 public class Addconfig

@@ -39,7 +39,7 @@ import com.jts.fortress.rbac.Session;
  * </ol>
  *
 
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 13, 2010
  */
 public interface Validator

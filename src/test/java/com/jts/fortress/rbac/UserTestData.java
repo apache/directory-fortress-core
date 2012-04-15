@@ -20,7 +20,7 @@ import java.util.TreeSet;
  * Description of the Class
  * M
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 28, 2010
  */
 public class UserTestData extends TestCase

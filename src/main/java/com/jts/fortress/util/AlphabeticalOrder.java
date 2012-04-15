@@ -14,7 +14,7 @@ import java.util.Comparator;
  * The following example shows how to instantiate a case insensitive name set:<br/>
  * {@code Set<String> attrValues = new TreeSet<String>(new AlphabeticalOrder());}
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 10, 2010
  */
 public class AlphabeticalOrder implements Comparator<String>, Serializable

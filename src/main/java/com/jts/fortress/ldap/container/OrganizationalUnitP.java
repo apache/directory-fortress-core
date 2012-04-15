@@ -38,7 +38,7 @@ import org.apache.log4j.Logger;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 21, 2010
  */
 public class OrganizationalUnitP

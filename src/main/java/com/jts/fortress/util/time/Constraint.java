@@ -46,7 +46,7 @@ package com.jts.fortress.util.time;
  * </ul>
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 1, 2009
  */
 public interface Constraint

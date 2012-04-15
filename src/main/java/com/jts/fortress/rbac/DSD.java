@@ -32,7 +32,7 @@ import java.util.Set;
  * </ol>
  * </p>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 12, 2010
  */
 public class DSD

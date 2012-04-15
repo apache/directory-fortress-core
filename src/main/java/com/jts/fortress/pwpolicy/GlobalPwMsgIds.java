@@ -7,7 +7,7 @@ package com.jts.fortress.pwpolicy;
 /**
  * This class contains constants that contain status for Fortress password policy checking within {@link com.jts.fortress.pwpolicy.openldap.OLPWControlImpl#checkPasswordPolicy(com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection, boolean, com.jts.Fortress.security.rbac.user.PwMessage)}
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 13, 2009
  */
 public class GlobalPwMsgIds

@@ -43,7 +43,7 @@ import java.util.TreeSet;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 25, 2010
  */
 public class RoleUtil

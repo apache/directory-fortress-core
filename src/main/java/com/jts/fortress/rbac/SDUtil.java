@@ -18,7 +18,7 @@ import java.util.Set;
 /**
  * This utilty provides functionality to process SSD requests.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 3, 2010
  */
 public class SDUtil

@@ -25,7 +25,7 @@ import com.jts.fortress.rbac.PermObj;
  * }
  * </pre>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created November 23, 2010
  */
 public class AddpermObj

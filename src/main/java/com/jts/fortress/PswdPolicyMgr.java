@@ -35,7 +35,7 @@ import java.util.List;
  * </ol>
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 17, 2009
  */
 public interface PswdPolicyMgr extends com.jts.fortress.Authorizable

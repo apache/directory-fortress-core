@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 /**
  *  Description of the Class
  *
- * @author     smckinn
+ * @author     Shawn McKinney
  * @created    August 24, 2009
  */
 public class ProcessMenuCommand

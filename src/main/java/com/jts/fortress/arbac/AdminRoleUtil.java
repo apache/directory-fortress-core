@@ -42,7 +42,7 @@ import java.util.TreeSet;
  * This class contains singleton that can be updated but is thread safe.
  * <p/>
 
- *  @author smckinn
+ *  @author Shawn McKinney
  * @created December 17, 2010
  */
 public class AdminRoleUtil

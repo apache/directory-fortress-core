@@ -7,7 +7,7 @@ package com.jts.fortress.util.cache;
 /**
  * Creates an instance of the {@link EhCacheImpl} object with a {@link Cache} facade.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created Mar 9, 2012
  */
 public class CacheFactory

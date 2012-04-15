@@ -153,7 +153,7 @@ import java.util.UUID;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created November 23, 2009
  */
 @XmlRootElement(name = "fortPermission")

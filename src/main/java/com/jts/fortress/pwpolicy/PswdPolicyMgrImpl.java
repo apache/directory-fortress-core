@@ -47,7 +47,7 @@ import java.util.List;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 17, 2009
  */
 public class PswdPolicyMgrImpl implements PswdPolicyMgr

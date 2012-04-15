@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 /**
  * This Junit test class calls all of the Samples.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created April 3, 2011
  */
 public class AllSamplesJUnitTest extends TestCase

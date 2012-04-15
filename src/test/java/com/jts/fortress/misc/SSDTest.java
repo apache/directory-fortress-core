@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  *  Description of the Class
  *
- *@author     smckinn
+ *@author     Shawn McKinney
  *@created    August 14, 2010
  */
 public class SSDTest

@@ -59,7 +59,7 @@ import java.util.List;
  * </ul>
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created April 2, 2010
  */
 public class AuditMgrImpl implements AuditMgr

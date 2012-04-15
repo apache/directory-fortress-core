@@ -29,7 +29,7 @@ import java.util.List;
  * thick client applications (i.e. Applets) unless the thick client is running on a machine that is "behind the firewall" (or on VPN) that
  * are common to enterprise data center runtime environments.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 6, 2011
  */
 public class AccessMgrSample extends TestCase

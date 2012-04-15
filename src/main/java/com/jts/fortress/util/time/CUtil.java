@@ -35,7 +35,7 @@ import java.util.StringTokenizer;
  * </ol>
  * </p>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 13, 2010
  */
 public class CUtil

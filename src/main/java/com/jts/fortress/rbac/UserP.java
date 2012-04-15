@@ -44,7 +44,7 @@ import org.apache.log4j.Logger;
  * This object is thread safe.
  * </p>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 30, 2009
  */
 public final class UserP

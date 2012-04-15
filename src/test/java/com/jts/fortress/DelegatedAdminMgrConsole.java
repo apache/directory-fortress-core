@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 /**
  * Description of the Class
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 26, 2010
  */
 public class DelegatedAdminMgrConsole

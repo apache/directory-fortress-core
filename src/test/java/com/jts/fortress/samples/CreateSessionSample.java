@@ -23,7 +23,7 @@ import java.util.List;
  * and error status flags that were set during User's previous CreateSession invocation.
  *
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 1, 2011
  */
 public class CreateSessionSample extends TestCase

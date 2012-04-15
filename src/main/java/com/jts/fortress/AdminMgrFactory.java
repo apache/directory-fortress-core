@@ -17,7 +17,7 @@ import com.jts.fortress.util.ClassUtil;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 30, 2009
  */
 public class AdminMgrFactory

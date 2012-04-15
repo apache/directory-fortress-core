@@ -34,7 +34,7 @@ import java.util.Set;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 18, 2010
  */
 public class PolicyP

@@ -38,7 +38,7 @@ import com.jts.fortress.rbac.UserRole;
  * <img src="../../../images/RbacDSD.png">
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 23, 2009
  */
 public interface AdminMgr extends com.jts.fortress.Authorizable

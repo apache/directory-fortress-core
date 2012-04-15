@@ -45,7 +45,7 @@ import java.util.Set;
  * <p/>
  *
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 13, 2009
  */
 public class AccessMgrImpl implements AccessMgr

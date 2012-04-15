@@ -31,7 +31,7 @@ import java.util.List;
  * </p>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 29, 2009
  */
 public class PermP

@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 30, 2009
  */
 public class ReviewMgrFactory

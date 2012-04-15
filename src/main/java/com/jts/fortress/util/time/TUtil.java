@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
  * Utility class to convert current time/date into internal format, {@link Time}, used for {@link Constraint} checks {@link CUtil#validateConstraints(com.jts.fortress.rbac.Session, CUtil.ConstraintType)}.
  * This utility processes custom date formats and should not be used by external programs.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 13, 2010
  */
 public class TUtil

@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  *  Regular expression utilities to perform data validations on Fortress attributes.  These utils use the standard
  * java regular expression library.
  *
- * @author     smckinn
+ * @author     Shawn McKinney
  * @created    August 30, 2009
  */
 public class RegExUtil

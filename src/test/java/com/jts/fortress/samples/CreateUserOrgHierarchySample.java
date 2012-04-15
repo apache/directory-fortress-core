@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
  * inheritance between OrgUnits and there are no limits on how deep a hierarchy can be.  The OrgUnits require name and type.  Optionally can
  * include a description.  The User OrgUnit must be associated with Users and are used to provide Administratrive RBAC control
  * over who may perform User Role assigns and deassigns in directory.
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 19, 2011
  */
 public class CreateUserOrgHierarchySample extends TestCase

@@ -11,7 +11,7 @@ import java.lang.String;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created September 18, 2010
  */
 public class Relationship

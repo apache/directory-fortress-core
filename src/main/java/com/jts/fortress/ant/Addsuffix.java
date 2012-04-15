@@ -25,7 +25,7 @@ import com.jts.fortress.ldap.suffix.Suffix;
  * }
  * </pre>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 21, 2010
  */
 public class Addsuffix

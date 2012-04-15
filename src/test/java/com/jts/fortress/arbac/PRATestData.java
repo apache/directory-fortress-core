@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Description of the Class
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created December 5, 2010
  */
 class PRATestData extends TestCase

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * Created by IntelliJ IDEA.
- * User: smckinn
+ * User: Shawn McKinney
  * Date: 1/8/12
  * Time: 7:29 AM
  */

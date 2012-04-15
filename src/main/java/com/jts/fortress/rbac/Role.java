@@ -128,7 +128,7 @@ import java.util.UUID;
  * </ul>
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created October 3, 2009
  */
 @XmlRootElement(name = "fortRole")

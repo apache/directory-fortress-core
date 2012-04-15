@@ -15,7 +15,7 @@ import java.util.List;
  * </p>
  * This class is thread safe.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created January 8, 2012
  *
  * <p>The following schema fragment specifies the expected content contained within this class.

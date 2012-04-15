@@ -6,7 +6,7 @@ package com.jts.fortress.util.cache;
 /**
  * This Interface is implemented by cacheable Fortress objects.
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created March 9, 2012
  */
 public interface Cache

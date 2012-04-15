@@ -141,7 +141,7 @@ import org.apache.log4j.Logger;
  * </ol>
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 5, 2011
  */
 public class FortressAntTask extends Task implements InputHandler

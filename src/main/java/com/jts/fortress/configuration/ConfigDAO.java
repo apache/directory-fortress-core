@@ -55,7 +55,7 @@ import java.util.Properties;
  * <p/>
 
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created February 4, 2011
  */
 public final class ConfigDAO

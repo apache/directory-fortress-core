@@ -44,7 +44,7 @@ import java.util.TreeSet;
  * This object is thread safe.
  * <p/>
  *
- * @author smckinn
+ * @author Shawn McKinney
  * @created August 30, 2009
  */
 public class ReviewMgrImpl
