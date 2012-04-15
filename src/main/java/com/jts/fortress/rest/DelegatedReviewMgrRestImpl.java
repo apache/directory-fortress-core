@@ -29,10 +29,10 @@ import java.util.List;
  * Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
  * <p/>
-
+ *
  * @author smckinn
  * @created February 13, 2012
- *
+ * <p/>
  * This object is NOT thread safe iff "adminSession" instance variable is set
  */
 public class DelegatedReviewMgrRestImpl
@@ -43,6 +43,10 @@ public class DelegatedReviewMgrRestImpl
 
     /**
      * Method reads Admin Role entity from the admin role container in directory.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link AdminRole#name} - contains the name of the new AdminRole being targeted for read</li>
+     * </ul>
      *
      * @param role contains role name to be read.
      * @return AdminRole entity that corresponds with role name.
@@ -77,6 +81,10 @@ public class DelegatedReviewMgrRestImpl
 
     /**
      * Method will return a list of type Admin Role.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link AdminRole#name} - contains all or some chars in the name of AdminRole(s) targeted for search</li>
+     * </ul>
      *
      * @param searchVal contains the all or some of the chars corresponding to admin role entities stored in directory.
      * @return List of type AdminRole containing role entities that match the search criteria.
@@ -111,10 +119,15 @@ public class DelegatedReviewMgrRestImpl
     /**
      * This function returns the set of admin roles assigned to a given user. The function is valid if and
      * only if the user is a member of the USERS data set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - contains the userId associated with the User object targeted for search.</li>
+     * </ul>
      *
      * @param user contains userId matching user entity stored in the directory.
      * @return List of type UserAdminRole containing the user admin role data.
-     * @throws com.jts.fortress.SecurityException If user not found or system error occurs.
+     * @throws com.jts.fortress.SecurityException
+     *          If user not found or system error occurs.
      */
     public List<UserAdminRole> assignedRoles(User user)
         throws SecurityException
@@ -145,10 +158,15 @@ public class DelegatedReviewMgrRestImpl
     /**
      * This method returns the data set of all users who are assigned the given admin role.  This searches the User data set for
      * Role relationship.  This method does NOT search for hierarchical Admin Roles relationships.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link AdminRole#name} - contains the name of AdminRole targeted for search</li>
+     * </ul>
      *
      * @param role contains the role name used to search the User data set.
      * @return List of type User containing the users assigned data.
-     * @throws com.jts.fortress.SecurityException If system error occurs.
+     * @throws com.jts.fortress.SecurityException
+     *          If system error occurs.
      */
     public List<User> assignedUsers(AdminRole role)
         throws SecurityException
@@ -168,7 +186,7 @@ public class DelegatedReviewMgrRestImpl
         {
             retUsers = response.getEntities();
             // do not return a null list to the caller:
-            if(retUsers == null)
+            if (retUsers == null)
             {
                 retUsers = new ArrayList<User>();
             }
@@ -184,9 +202,16 @@ public class DelegatedReviewMgrRestImpl
     /**
      * Commands reads existing OrgUnit entity from OrgUnit dataset.  The OrgUnit can be either User or Perm and is
      * set by setting type attribute.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link OrgUnit#name} - contains the name associated with the OrgUnit object targeted for search.</li>
+     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * </ul>
+     *
      * @param entity contains OrgUnit name and type.
      * @return
-     * @throws com.jts.fortress.SecurityException in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          in the event of data validation or system error.
      */
     public OrgUnit read(OrgUnit entity)
         throws SecurityException
@@ -217,10 +242,17 @@ public class DelegatedReviewMgrRestImpl
     /**
      * Commands searches existing OrgUnit entities from OrgUnit dataset.  The OrgUnit can be either User or Perm and is
      * set by setting type parameter on API.
-     * @param type either PERM or USER
-     * @param searchVal contains the leading chars for existing OrgUnit in OrgUnit dataset.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * <li>searchVal - contains some or all of the chars associated with the OrgUnit objects targeted for search.</li>
+     * </ul>
+     *
+     * @param type      either PERM or USER
+     * @param searchVal contains the leading chars that map to {@link OrgUnit#name} on existing OrgUnit(s) targeted for search.
      * @return
      * @throws com.jts.fortress.SecurityException
+     *
      */
     public List<OrgUnit> search(OrgUnit.Type type, String searchVal)
         throws SecurityException

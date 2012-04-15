@@ -33,7 +33,7 @@ import java.util.List;
  * Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
  * <p/>
-
+ *
  * @author smckinn
  * @created September 18, 2010
  */
@@ -51,8 +51,9 @@ public final class DelegatedAdminMgrImpl
 
     /**
      * Setting Session into this object will enforce Administrative controls.
+     *
      * @param session
-    */
+     */
     public void setAdmin(Session session)
     {
         this.adminSess = session;
@@ -70,6 +71,28 @@ public final class DelegatedAdminMgrImpl
      * This command creates a new admin role. The command is valid if and only if the new admin role is not
      * already a member of the ADMIN ROLES data set. The ADMIN ROLES data set is updated.
      * Initially, no user or permission is assigned to the new role.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link AdminRole#name} - contains the name of the new AdminRole being targeted for addition to LDAP</li>
+     * </ul>
+     * <p/>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link AdminRole#description} - contains any safe text</li>
+     * <li>{@link AdminRole#osPs} * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
+     * <li>{@link AdminRole#osUs} * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
+     * <li>{@link AdminRole#beginRange} - contains the name of an existing RBAC Role that represents the lowest role in hierarchy that administrator (whoever has this AdminRole activated) controls</li>
+     * <li>{@link AdminRole#endRange} - contains the name of an existing RBAC Role that represents that highest role in hierarchy that administrator may control</li>
+     * <li>{@link AdminRole#beginInclusive} - if 'true' the RBAC Role specified in beginRange is also controlled by the posessor of this AdminRole</li>
+     * <li>{@link AdminRole#endInclusive} - if 'true' the RBAC Role specified in endRange is also controlled by the administratrator</li>
+     * <li>{@link AdminRole#beginTime} - HHMM - determines begin hour adminRole may be activated into user's ARBAC session</li>
+     * <li>{@link AdminRole#endTime} - HHMM - determines end hour adminRole may be activated into user's ARBAC session.</li>
+     * <li>{@link AdminRole#beginDate} - YYYYMMDD - determines date when adminRole may be activated into user's ARBAC session</li>
+     * <li>{@link AdminRole#endDate} - YYYYMMDD - indicates latest date adminRole may be activated into user's ARBAC session</li>
+     * <li>{@link AdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link AdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link AdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's ARBAC session</li>
+     * </ul>
      *
      * @param role Contains role name and description.
      * @throws com.jts.fortress.SecurityException
@@ -87,8 +110,13 @@ public final class DelegatedAdminMgrImpl
 
     /**
      * This command deletes an existing admin role from the ARBAC database. The command is valid
-     * if and only if the admin role to be deleted is a member of the ADMIN ROLES data set and has been
-     * deassigned from all users.
+     * if and only if the role to be deleted is a member of the ADMIN ROLES data set.  This command will
+     * also deassign role from all users.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link AdminRole#name} - contains the name of the new AdminRole being targeted for removal</li>
+     * </ul>
+     * <p/>
      *
      * @param role Contains role name.
      * @throws com.jts.fortress.SecurityException
@@ -110,7 +138,7 @@ public final class DelegatedAdminMgrImpl
         List<User> users = userP.getAssignedUsers(role);
         if (users != null)
         {
-            for(User ue : users)
+            for (User ue : users)
             {
                 User user = new User(ue.getUserId());
                 UserAdminRole uAdminRole = new UserAdminRole(ue.getUserId(), role.getName());
@@ -123,8 +151,29 @@ public final class DelegatedAdminMgrImpl
     }
 
     /**
-
      * Method will update a admin Role entity in the directory.  The role must exist in admin role container prior to this call.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link AdminRole#name} - contains the name of the new AdminRole being targeted for updating</li>
+     * </ul>
+     * <p/>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link AdminRole#description} - contains any safe text</li>
+     * <li>{@link AdminRole#osPs} * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
+     * <li>{@link AdminRole#osUs} * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
+     * <li>{@link AdminRole#beginRange} - contains the name of an existing RBAC Role that represents the lowest role in hierarchy that administrator (whoever has this AdminRole activated) controls</li>
+     * <li>{@link AdminRole#endRange} - contains the name of an existing RBAC Role that represents that highest role in hierarchy that administrator may control</li>
+     * <li>{@link AdminRole#beginInclusive} - if 'true' the RBAC Role specified in beginRange is also controlled by the posessor of this AdminRole</li>
+     * <li>{@link AdminRole#endInclusive} - if 'true' the RBAC Role specified in endRange is also controlled by the administratrator</li>
+     * <li>{@link AdminRole#beginTime} - HHMM - determines begin hour adminRole may be activated into user's ARBAC session</li>
+     * <li>{@link AdminRole#endTime} - HHMM - determines end hour adminRole may be activated into user's ARBAC session.</li>
+     * <li>{@link AdminRole#beginDate} - YYYYMMDD - determines date when adminRole may be activated into user's ARBAC session</li>
+     * <li>{@link AdminRole#endDate} - YYYYMMDD - indicates latest date adminRole may be activated into user's ARBAC session</li>
+     * <li>{@link AdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link AdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link AdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's ARBAC session</li>
+     * </ul>
      *
      * @param role Contains role name and new description.
      * @throws com.jts.fortress.SecurityException
@@ -138,7 +187,7 @@ public final class DelegatedAdminMgrImpl
         setEntitySession(methodName, role);
         AdminRole re = admRP.update(role);
         List<User> users = userP.getAssignedUsers(re);
-        for(User ue : users)
+        for (User ue : users)
         {
             User upUe = new User(ue.getUserId());
             AdminUtil.setAdminData(role.getAdminSession(), new Permission(CLS_NM, methodName), upUe);
@@ -160,7 +209,6 @@ public final class DelegatedAdminMgrImpl
 
 
     /**
-     *
      * This command assigns a user to an admin role.
      * Successful completion of this op, the following occurs:
      * </p>
@@ -179,6 +227,22 @@ public final class DelegatedAdminMgrImpl
      * <li> dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week role may be activated.
      * </ul>
      * </ul>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link UserAdminRole#name} - contains the name for already existing AdminRole to be assigned</li>
+     * <li>{@link UserAdminRole#userId} - contains the userId for existing User</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link UserAdminRole#beginTime} - HHMM - determines begin hour AdminRole may be activated into user's RBAC session</li>
+     * <li>{@link UserAdminRole#endTime} - HHMM - determines end hour AdminRole may be activated into user's RBAC session.</li>
+     * <li>{@link UserAdminRole#beginDate} - YYYYMMDD - determines date when AdminRole may be activated into user's RBAC session</li>
+     * <li>{@link UserAdminRole#endDate} - YYYYMMDD - indicates latest date AdminRole may be activated into user's RBAC session</li>
+     * <li>{@link UserAdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link UserAdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link UserAdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's ARBAC session</li>
+     * </ul>
+     *
      * @param uAdminRole entity contains {@link User#userId} and {@link AdminRole#name} and optional {@code Constraints}.
      * @return AdminRole contains copy of input entity and additional data processed by request.
      * @throws SecurityException in the event data error in user or role objects or system error.
@@ -211,9 +275,14 @@ public final class DelegatedAdminMgrImpl
      * This method removes assigned admin role from user entity.  Both user and admin role entities must exist and have role relationship
      * before calling this method.
      * Successful completion:
-     *      del Role to User assignment in User data set
+     * del Role to User assignment in User data set
      * AND
-     *      User to Role assignment in Admin Role data set.
+     * User to Role assignment in Admin Role data set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link UserAdminRole#name} - contains the name for already existing AdminRole to be deassigned</li>
+     * <li>{@link UserAdminRole#userId} - contains the userId for existing User</li>
+     * </ul>
      *
      * @param uAdminRole entity contains {@link User#userId} and {@link AdminRole#name}.
      * @return AdminRole contains copy of input entity and additional data processed by request.
@@ -238,9 +307,20 @@ public final class DelegatedAdminMgrImpl
     /**
      * Commands adds a new OrgUnit entity to OrgUnit dataset.  The OrgUnit can be either User or Perm and is
      * set by setting type attribute.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be added</li>
+     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link OrgUnit#description} - contains any safe text</li>
+     * </ul>
+     *
      * @param entity contains OrgUnit name and type.
      * @return
-     * @throws com.jts.fortress.SecurityException in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          in the event of data validation or system error.
      */
     public OrgUnit add(OrgUnit entity)
         throws SecurityException
@@ -256,9 +336,20 @@ public final class DelegatedAdminMgrImpl
     /**
      * Commands updates existing OrgUnit entity to OrgUnit dataset.  The OrgUnit can be either User or Perm and is
      * set by setting type attribute.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be updated</li>
+     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link OrgUnit#description} - contains any safe text</li>
+     * </ul>
+     *
      * @param entity contains OrgUnit name and type.
      * @return
-     * @throws com.jts.fortress.SecurityException in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          in the event of data validation or system error.
      */
     public OrgUnit update(OrgUnit entity)
         throws SecurityException
@@ -274,6 +365,13 @@ public final class DelegatedAdminMgrImpl
     /**
      * Commands deletes existing OrgUnit entity to OrgUnit dataset.  The OrgUnit can be either User or Perm and is
      * set by setting type attribute.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be removed</li>
+     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * </ul>
+     * </ul>
+     *
      * @param entity contains OrgUnit name and type.
      * @return
      * @throws SecurityException in the event of data validation or system error.
@@ -286,7 +384,7 @@ public final class DelegatedAdminMgrImpl
         setEntitySession(methodName, entity);
         VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         int numChildren;
-        if(entity.getType() == OrgUnit.Type.USER)
+        if (entity.getType() == OrgUnit.Type.USER)
         {
             numChildren = UsoUtil.numChildren(entity.getName());
         }
@@ -299,11 +397,11 @@ public final class DelegatedAdminMgrImpl
             String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must remove [" + numChildren + "] descendants before deletion";
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
-        if(entity.getType() == OrgUnit.Type.USER)
+        if (entity.getType() == OrgUnit.Type.USER)
         {
             // Ensure the org unit is not assigned to any users, but set the sizeLimit to "true" to limit result set size.
             List<User> assignedUsers = userP.search(entity, true);
-            if(VUtil.isNotNullOrEmpty(assignedUsers))
+            if (VUtil.isNotNullOrEmpty(assignedUsers))
             {
                 String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedUsers.size() + "] users before deletion";
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_USER, error, null);
@@ -313,7 +411,7 @@ public final class DelegatedAdminMgrImpl
         {
             // Ensure the org unit is not assigned to any permission objects but set the sizeLimit to "true" to limit result set size..
             List<PermObj> assignedPerms = permP.search(entity, true);
-            if(VUtil.isNotNullOrEmpty(assignedPerms))
+            if (VUtil.isNotNullOrEmpty(assignedPerms))
             {
                 String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedPerms.size() + "] perm objs before deletion";
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_PERM, error, null);
@@ -339,7 +437,17 @@ public final class DelegatedAdminMgrImpl
      * <li> Adds new orgunit.
      * <li> Assigns orgunit relationship between new child and pre-existing parent.
      * </ul>
-     * </p>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>parentRole - {@link OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
+     * <li>parentRole - {@link OrgUnit#type} - contains the type of OrgUnit targeted: {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * <li>childRole - {@link OrgUnit#name} - contains the name of new OrgUnit to be child</li>
+     * </ul>
+     * <h4>optional parameters child</h4>
+     * <ul>
+     * <li>childRole - {@link OrgUnit#description} - maps to description attribute on organizationalUnit object class for new child</li>
+     * </ul>
+     *
      * @param parent This entity must be present in ORGUNIT data set.  Success will add rel with child.
      * @param child  This entity must not be present in ORGUNIT data set.  Success will add the new entity to ORGUNIT data set.
      * @throws com.jts.fortress.SecurityException
@@ -355,7 +463,7 @@ public final class DelegatedAdminMgrImpl
         setEntitySession(methodName, child);
         // ensure the parent OrgUnit exists:
         ouP.read(parent);
-        if(parent.getType() == OrgUnit.Type.USER)
+        if (parent.getType() == OrgUnit.Type.USER)
         {
             UsoUtil.validateRelationship(child, parent, false);
         }
@@ -366,7 +474,7 @@ public final class DelegatedAdminMgrImpl
         ouP.add(child);
         Hier hier = new Hier(child.getName(), parent.getName());
         AdminUtil.setAdminData(child.getAdminSession(), new Permission(CLS_NM, methodName), hier);
-        if(parent.getType() == OrgUnit.Type.USER)
+        if (parent.getType() == OrgUnit.Type.USER)
         {
             hier.setType(Hier.Type.USER);
             UsoUtil.updateHier(hier, Hier.Op.ADD);
@@ -394,7 +502,17 @@ public final class DelegatedAdminMgrImpl
      * <li> Adds new orgunit.
      * <li> Assigns orgunit relationship between new parent and pre-existing child.
      * </ul>
-     * </p>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>parent - {@link OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
+     * <li>parent - {@link OrgUnit#type} - contains the type of OrgUnit targeted: {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * <li>child - {@link OrgUnit#name} - contains the name of new OrgUnit to be child</li>
+     * </ul>
+     * <h4>optional parameters child</h4>
+     * <ul>
+     * <li>child - {@link OrgUnit#description} - maps to description attribute on organizationalUnit object class for new child</li>
+     * </ul>
+     *
      * @param parent completion of op assigns new child relationship with child orgunit.
      * @param child  completion of op assigns new parent relationship with parent orgunit.
      * @throws com.jts.fortress.SecurityException
@@ -410,7 +528,7 @@ public final class DelegatedAdminMgrImpl
         VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
         // ensure the child OrgUnit exists:
         ouP.read(child);
-        if(parent.getType() == OrgUnit.Type.USER)
+        if (parent.getType() == OrgUnit.Type.USER)
         {
             UsoUtil.validateRelationship(child, parent, false);
         }
@@ -421,7 +539,7 @@ public final class DelegatedAdminMgrImpl
         ouP.add(parent);
         Hier hier = new Hier(child.getName(), parent.getName());
         AdminUtil.setAdminData(parent.getAdminSession(), new Permission(CLS_NM, methodName), hier);
-        if(parent.getType() == OrgUnit.Type.USER)
+        if (parent.getType() == OrgUnit.Type.USER)
         {
             hier.setType(Hier.Type.USER);
             UsoUtil.updateHier(hier, Hier.Op.ADD);
@@ -443,6 +561,13 @@ public final class DelegatedAdminMgrImpl
      * <li> The child does not properly inherit parent (in order to avoid cycle creation).
      * </ul>
      * </p>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>parent - {@link OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
+     * <li>parent - {@link OrgUnit#type} - contains the type of OrgUnit targeted: {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * <li>child - {@link OrgUnit#name} - contains the name of existing OrgUnit to be child</li>
+     * </ul>
+     *
      * @param parent completion of op deassigns child relationship with child orgunit.
      * @param child  completion of op deassigns parent relationship with parent orgunit.
      * @throws com.jts.fortress.SecurityException
@@ -456,7 +581,7 @@ public final class DelegatedAdminMgrImpl
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, parent);
-        if(parent.getType() == OrgUnit.Type.USER)
+        if (parent.getType() == OrgUnit.Type.USER)
         {
             UsoUtil.validateRelationship(child, parent, false);
         }
@@ -471,7 +596,7 @@ public final class DelegatedAdminMgrImpl
         // we're still good, now set the hierarchical relationship:
         Hier hier = new Hier(child.getName(), parent.getName());
         AdminUtil.setAdminData(parent.getAdminSession(), new Permission(CLS_NM, methodName), hier);
-        if(parent.getType() == OrgUnit.Type.USER)
+        if (parent.getType() == OrgUnit.Type.USER)
         {
             hier.setType(Hier.Type.USER);
             UsoUtil.updateHier(hier, Hier.Op.ADD);
@@ -485,7 +610,7 @@ public final class DelegatedAdminMgrImpl
 
     /**
      * This command deletes an existing immediate inheritance relationship parent <<-- child.
-     * <p>
+     * <p/>
      * The command is valid if and only if:
      * <ul>
      * <li> The orgunits parent and child are members of the ORGUNITS data set.
@@ -493,7 +618,12 @@ public final class DelegatedAdminMgrImpl
      * <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate inheritance
      * relation resulted after deleting the relationship parent <<-- child.
      * </ul>
-     * </p>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>parent - {@link OrgUnit#name} - contains the name of existing OrgUnit to remove as parent</li>
+     * <li>parent - {@link OrgUnit#type} - contains the type of OrgUnit targeted: {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * <li>child - {@link OrgUnit#name} - contains the name of existing OrgUnit to remove as child</li>
+     * </ul>
      *
      * @param parent completion of op removes child relationship with childRole.
      * @param child  completion of op removes parent relationship with parentRole.
@@ -508,7 +638,7 @@ public final class DelegatedAdminMgrImpl
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, parent);
-        if(parent.getType() == OrgUnit.Type.USER)
+        if (parent.getType() == OrgUnit.Type.USER)
         {
             UsoUtil.validateRelationship(child, parent, true);
         }
@@ -518,7 +648,7 @@ public final class DelegatedAdminMgrImpl
         }
         Hier hier = new Hier(child.getName(), parent.getName());
         AdminUtil.setAdminData(parent.getAdminSession(), new Permission(CLS_NM, methodName), hier);
-        if(parent.getType() == OrgUnit.Type.USER)
+        if (parent.getType() == OrgUnit.Type.USER)
         {
             hier.setType(Hier.Type.USER);
             UsoUtil.updateHier(hier, Hier.Op.REM);
@@ -535,11 +665,28 @@ public final class DelegatedAdminMgrImpl
      * This commands creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
      * the existing role parentRole. The command is valid if and only if childRole is not a member of the ROLES data set,
      * and parentRole is a member of the ROLES data set.
-     * @param parentRole This entity must be present in ROLE data set.  Success will add role rel with childRole.
-     * @param childRole  This entity must not be present in ROLE data set.  Success will add the new role entity to ROLE data set.
-     * This method:
-     * 1 - Adds new role.
-     * 2 - Assigns role relationship between new childRole and pre-existing parentRole.
+     *
+     * @param parentRole This entity must be present in ADMINROLES data set.  Success will add role rel with childRole.
+     * @param childRole  This entity must not be present in ADMINROLES data set.  Success will add the new role entity to ROLE data set.
+     *                   This method:
+     *                   1 - Adds new role.
+     *                   2 - Assigns role relationship between new childRole and pre-existing parentRole.
+     *                   <h4>required parameters</h4>
+     *                   <ul>
+     *                   <li>parentRole - {@link AdminRole#name} - contains the name of existing Role to be parent</li>
+     *                   <li>childRole - {@link AdminRole#name} - contains the name of new Role to be child</li>
+     *                   </ul>
+     *                   <h4>optional parameters childRole</h4>
+     *                   <ul>
+     *                   <li>childRole - {@link AdminRole#description} - maps to description attribute on organizationalRole object class for new child</li>
+     *                   <li>childRole - {@link AdminRole#beginTime} - HHMM - determines begin hour role may be activated into user's session for new child</li>
+     *                   <li>childRole - {@link AdminRole#endTime} - HHMM - determines end hour role may be activated into user's session for new child</li>
+     *                   <li>childRole - {@link AdminRole#beginDate} - YYYYMMDD - determines date when role may be activated into user's session for new child</li>
+     *                   <li>childRole - {@link AdminRole#endDate} - YYYYMMDD - indicates latest date role may be activated into user's session for new child</li>
+     *                   <li>childRole - {@link AdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for new child</li>
+     *                   <li>childRole - {@link AdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new child</li>
+     *                   <li>childRole - {@link AdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's session for new child</li>
+     *                   </ul>
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
@@ -566,6 +713,23 @@ public final class DelegatedAdminMgrImpl
      * This method:
      * 1 - Adds new role.
      * 2 - Assigns role relationship between new parentRole and pre-existing childRole.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>childRole - {@link AdminRole#name} - contains the name of existing Role to be child</li>
+     * <li>parentRole - {@link AdminRole#name} - contains the name of new Role to be added as parent</li>
+     * </ul>
+     * <h4>optional parameters parentRole</h4>
+     * <ul>
+     * <li>parentRole - {@link AdminRole#description} - maps to description attribute on organizationalRole object class for new parent</li>
+     * <li>parentRole - {@link AdminRole#beginTime} - HHMM - determines begin hour role may be activated into user's session for new parent</li>
+     * <li>parentRole - {@link AdminRole#endTime} - HHMM - determines end hour role may be activated into user's session for new parent</li>
+     * <li>parentRole - {@link AdminRole#beginDate} - YYYYMMDD - determines date when role may be activated into user's session for new parent</li>
+     * <li>parentRole - {@link AdminRole#endDate} - YYYYMMDD - indicates latest date role may be activated into user's session for new parent</li>
+     * <li>parentRole - {@link AdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for new parent</li>
+     * <li>parentRole - {@link AdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new parent</li>
+     * <li>parentRole - {@link AdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's session for new parent</li>
+     * </ul>
+     *
      * @param parentRole completion of op assigns new child relationship with childRole.
      * @param childRole  completion of op assigns new parent relationship with parentRole.
      * @throws com.jts.fortress.SecurityException
@@ -592,9 +756,16 @@ public final class DelegatedAdminMgrImpl
      * roles parentRole, childRole. The command is valid if and only if parentRole and childRole are members of the ROLES data
      * set, parentRole is not an immediate ascendant of childRole, and childRole does not properly inherit parentRole (in order to
      * avoid cycle creation).
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>parentRole - {@link AdminRole#name} - contains the name of existing AdminRole to be parent</li>
+     * <li>childRole - {@link AdminRole#name} - contains the name of existing AdminRole to be child</li>
+     * </ul>
+     *
      * @param parentRole completion of op deassigns child relationship with childRole.
      * @param childRole  completion of op deassigns parent relationship with parentRole.
-     * @throws com.jts.fortress.SecurityException thrown in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          thrown in the event of data validation or system error.
      */
     public void addInheritance(AdminRole parentRole, AdminRole childRole)
         throws SecurityException
@@ -614,9 +785,16 @@ public final class DelegatedAdminMgrImpl
      * valid if and only if the roles parentRole and childRole are members of the ROLES data set, and parentRole is an
      * immediate ascendant of childRole. The new inheritance relation is computed as the reflexive-transitive
      * closure of the immediate inheritance relation resulted after deleting the relationship parentRole <<-- childRole.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>parentRole - {@link AdminRole#name} - contains the name of existing AdminRole to remove as parent</li>
+     * <li>childRole - {@link AdminRole#name} - contains the name of existing AdminRole to remove as child</li>
+     * </ul>
+     *
      * @param parentRole completion of op removes child relationship with childRole.
      * @param childRole  completion of op removes parent relationship with parentRole.
-     * @throws com.jts.fortress.SecurityException thrown in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          thrown in the event of data validation or system error.
      */
     public void deleteInheritance(AdminRole parentRole, AdminRole childRole)
         throws SecurityException
@@ -635,6 +813,18 @@ public final class DelegatedAdminMgrImpl
      * This method will add an administrative permission operation to an existing permission object which resides under {@code ou=AdminPerms,ou=ARBAC,dc=yourHostName,dc=com} container in directory information tree.
      * The perm operation entity may have {@link com.jts.fortress.arbac.AdminRole} or {@link com.jts.fortress.rbac.User} associations.  The target {@link Permission} must not exist prior to calling.
      * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission add</li>
+     * <li>{@link Permission#opName} - contains the name of new permission operation being added</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
+     * <li>{@link Permission#users} * - multi occurring attribute contains Users that permission operation is being granted to</li>
+     * <li>{@link Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link Permission#type} - any safe text</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link com.jts.fortress.rbac.Permission#objectName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
      * @return copy of Permission entity.
@@ -652,10 +842,23 @@ public final class DelegatedAdminMgrImpl
      * This method will update administrative permission operation pre-existing in target directory under {@code ou=AdminPerms,ou=ARBAC,dc=yourHostName,dc=com} container in directory information tree.
      * The perm operation entity may also contain {@link com.jts.fortress.arbac.AdminRole} or {@link com.jts.fortress.rbac.User} associations to add or remove using this function.
      * The perm operation must exist before making this call.  Only non-null attributes will be updated.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission update</li>
+     * <li>{@link Permission#opName} - contains the name of existing permission operation being updated</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
+     * <li>{@link Permission#users} * - multi occurring attribute contains Users that permission operation is being granted to</li>
+     * <li>{@link Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link Permission#type} - any safe text</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
      * @return copy of permOp entity.
-     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          - thrown in the event of perm object data or system error.
      */
     public Permission updatePermission(Permission perm)
         throws SecurityException
@@ -668,9 +871,15 @@ public final class DelegatedAdminMgrImpl
     /**
      * This method will remove administrative permission operation entity from permission object. A Fortress permission is (object->operation).
      * The perm operation must exist before making this call.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission delete</li>
+     * <li>{@link Permission#opName} - contains the name of existing permission operation being removed</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
-     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          - thrown in the event of perm object data or system error.
      */
     public void deletePermission(Permission perm)
         throws SecurityException
@@ -683,6 +892,17 @@ public final class DelegatedAdminMgrImpl
     /**
      * This method will add administrative permission object to admin perms container in directory. The perm object must not exist before making this call.
      * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link PermObj#objectName} - contains the name of new object being added</li>
+     * <li>{@link PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link PermObj#description} - any safe text</li>
+     * <li>{@link PermObj#type} - contains any safe text</li>
+     * <li>{@link PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName} and {@link PermObj#ou}.  The other attributes are optional.
      * @return copy of permObj entity.
@@ -699,10 +919,22 @@ public final class DelegatedAdminMgrImpl
     /**
      * This method will update administrative permission object in perms container in directory.  The perm object must exist before making this call.
      * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link PermObj#objectName} - contains the name of existing object being updated</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
+     * <li>{@link PermObj#description} - any safe text</li>
+     * <li>{@link PermObj#type} - contains any safe text</li>
+     * <li>{@link PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName}. Only non-null attributes will be updated.
      * @return copy of newly updated permObj entity.
-     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          - thrown in the event of perm object data or system error.
      */
     public PermObj updatePermObj(PermObj pObj)
         throws SecurityException
@@ -715,6 +947,10 @@ public final class DelegatedAdminMgrImpl
     /**
      * This method will remove administrative permission object from perms container in directory.  This method will also remove
      * in associated permission objects that are attached to this object.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link PermObj#objectName} - contains the name of existing object targeted for removal</li>
+     * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName} of object targeted for removal.
      * @return copy of permObj entity.
@@ -734,10 +970,17 @@ public final class DelegatedAdminMgrImpl
      * the object involved.
      * The command is valid if and only if the pair (operation, object) represents a permission,
      * and the adminRole is a member of the ADMIN_ROLES data set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the object name</li>
+     * <li>{@link Permission#opName} - contains the operation name</li>
+     * <li>{@link AdminRole#name} - contains the adminRole name</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
      * @param role must contains {@link AdminRole#name}.
-     * @throws com.jts.fortress.SecurityException Thrown in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          Thrown in the event of data validation or system error.
      */
     public void grantPermission(Permission perm, AdminRole role)
         throws SecurityException
@@ -753,6 +996,12 @@ public final class DelegatedAdminMgrImpl
      * list of the object involved.
      * The command is valid if and only if the pair (operation, object) represents a permission,
      * the role is a member of the ADMIN_ROLES data set, and the permission is assigned to that AdminRole.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the object name</li>
+     * <li>{@link Permission#opName} - contains the operation name</li>
+     * <li>{@link AdminRole#name} - contains the adminRole name</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
      * @param role must contains {@link AdminRole#name}.
@@ -768,10 +1017,17 @@ public final class DelegatedAdminMgrImpl
 
     /**
      * Method grants an administrative permission directly to a User entity.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the object name</li>
+     * <li>{@link Permission#opName} - contains the operation name</li>
+     * <li>{@link User#userId} - contains the userId</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
      * @param user must contain {@link User#userId} of target User entity.
-     * @throws com.jts.fortress.SecurityException Thrown in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          Thrown in the event of data validation or system error.
      */
     public void grantPermission(Permission perm, User user)
         throws SecurityException
@@ -783,6 +1039,12 @@ public final class DelegatedAdminMgrImpl
 
     /**
      * Method revokes an administrative permission directly from a User entity.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the object name</li>
+     * <li>{@link Permission#opName} - contains the operation name</li>
+     * <li>{@link User#userId} - contains the userId</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
      * @param user must contain {@link User#userId} of target User entity.

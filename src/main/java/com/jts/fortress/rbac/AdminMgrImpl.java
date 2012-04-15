@@ -48,7 +48,6 @@ import java.util.List;
  * <p/>
  * This object is NOT thread safe as it contains instance variables.
  * <p/>
-
  *
  * @author smckinn
  * @created August 30, 2009
@@ -69,7 +68,6 @@ public final class AdminMgrImpl implements AdminMgr
     private Session adminSess;
 
 
-
     /**
      * Setting Session into this object will enforce ARBAC controls and render this class
      * thread unsafe..
@@ -85,6 +83,34 @@ public final class AdminMgrImpl implements AdminMgr
      * This command creates a new RBAC user. The command is valid only if the new user is
      * not already a member of the USERS data set. The USER data set is updated. The new user
      * does not own any session at the time of its creation.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     * <li>{@link User#password} - used to authenticate the User</li>
+     * <li>{@link User#ou} - contains the name of an already existing User OU node</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link User#pwPolicy} - contains the name of an already existing OpenLDAP password policy node</li>
+     * <li>{@link User#cn} - maps to INetOrgPerson common name attribute</li>
+     * <li>{@link User#sn} - maps to INetOrgPerson surname attribute</li>
+     * <li>{@link User#description} - maps to INetOrgPerson description attribute</li>
+     * <li>{@link User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber  attribute</li>
+     * <li>{@link User#mobiles} * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
+     * <li>{@link User#emails} * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
+     * <li>{@link User#address} * - multi-occurring attribute maps to organizationalPerson postalAddress, st, l, postalCode, postOfficeBox attributes</li>
+     * <li>{@link User#beginTime} - HHMM - determines begin hour user may activate session</li>
+     * <li>{@link User#endTime} - HHMM - determines end hour user may activate session.</li>
+     * <li>{@link User#beginDate} - YYYYMMDD - determines date when user may sign on</li>
+     * <li>{@link User#endDate} - YYYYMMDD - indicates latest date user may sign on</li>
+     * <li>{@link User#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link User#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
+     * <li>{@link User#timeout} - number in seconds of session inactivity time allowed</li>
+     * <li>{@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link User#roles} * - multi-occurring attribute contains the name of already existing role to assign to user</li>
+     * <li>{@link User#adminRoles} * - multi-occurring attribute contains the name of already existing adminRole to assign to user</li>
+     * </ul>
      *
      * @param user User entity must contain {@link User#userId} and {@link User#ou} (required) and optional {@link User#description},{@link User#roles} and many others.
      * @return Returns entity containing user data that was added.
@@ -114,9 +140,13 @@ public final class AdminMgrImpl implements AdminMgr
      * - deassigns all roles from the user
      * - locks the user's password in LDAP
      * - revokes all perms that have been granted to user entity.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     * </ul>
      *
      * @param user Contains the {@link User#userId} of the User targeted for deletion.
-     * @throws SecurityException  Thrown in the event of data validation or system error.
+     * @throws SecurityException Thrown in the event of data validation or system error.
      */
     public void disableUser(User user)
         throws SecurityException
@@ -142,9 +172,13 @@ public final class AdminMgrImpl implements AdminMgr
      * UA data sets and the assigned_users function are updated.
      * This method performs a "hard" delete.  It completely removes all data associated with this user from the directory.
      * User entity must exist in directory prior to making this call else exception will be thrown.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     * </ul>
      *
      * @param user Contains the {@link User#userId} of the User targeted for deletion.
-     * @throws SecurityException  Thrown in the event of data validation or system error.
+     * @throws SecurityException Thrown in the event of data validation or system error.
      */
     public void deleteUser(User user)
         throws SecurityException
@@ -165,6 +199,34 @@ public final class AdminMgrImpl implements AdminMgr
     /**
      * This method performs an update on User entity in directory.  Prior to making this call the entity must exist in
      * directory.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link User#password} - used to authenticate the User</li>
+     * <li>{@link User#ou} - contains the name of an already existing User OU node</li>
+     * <li>{@link User#pwPolicy} - contains the name of an already existing OpenLDAP password policy node</li>
+     * <li>{@link User#cn} - maps to INetOrgPerson common name attribute</li>
+     * <li>{@link User#sn} - maps to INetOrgPerson surname attribute</li>
+     * <li>{@link User#description} - maps to INetOrgPerson description attribute</li>
+     * <li>{@link User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber  attribute</li>
+     * <li>{@link User#mobiles} * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
+     * <li>{@link User#emails} * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
+     * <li>{@link User#address} * - multi-occurring attribute maps to organizationalPerson postalAddress, st, l, postalCode, postOfficeBox attributes</li>
+     * <li>{@link User#beginTime} - HHMM - determines begin hour user may activate session</li>
+     * <li>{@link User#endTime} - HHMM - determines end hour user may activate session.</li>
+     * <li>{@link User#beginDate} - YYYYMMDD - determines date when user may sign on</li>
+     * <li>{@link User#endDate} - YYYYMMDD - indicates latest date user may sign on</li>
+     * <li>{@link User#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link User#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
+     * <li>{@link User#timeout} - number in seconds of session inactivity time allowed</li>
+     * <li>{@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link User#roles} * - multi-occurring attribute contains the name of already existing role to assign to user</li>
+     * <li>{@link User#adminRoles} * - multi-occurring attribute contains the name of already existing adminRole to assign to user</li>
+     * </ul>
      *
      * @param user must contain {@link User#userId} and optional entity data to update i.e. desc, ou, properties, all attributes that are not set will be ignored.
      * @return Updated user entity data.
@@ -181,10 +243,17 @@ public final class AdminMgrImpl implements AdminMgr
 
     /**
      * Method will change user's password.  This method will evaluate user's password policies.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     * <li>{@link User#password} - contains the User's old password</li>
+     * <li>newPassword - contains the User's new password</li>
+     * </ul>
      *
      * @param user        contains {@link User#userId} and old user password {@link User#password}.
      * @param newPassword contains new user password.
-     * @throws com.jts.fortress.SecurityException Will be thrown in the event of password policy violation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          Will be thrown in the event of password policy violation or system error.
      */
     public void changePassword(User user, char[] newPassword)
         throws SecurityException
@@ -198,6 +267,11 @@ public final class AdminMgrImpl implements AdminMgr
 
     /**
      * Method will lock user's password which will prevent the user from authenticating with directory.
+     * <p/>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     * </ul>
      *
      * @param user entity contains {@link User#userId} of User to be locked.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
@@ -213,6 +287,11 @@ public final class AdminMgrImpl implements AdminMgr
 
     /**
      * Method will unlock user's password which will enable user to authenticate with directory.
+     * <p/>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     * </ul>
      *
      * @param user entity contains {@link User#userId} of User to be unlocked.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
@@ -228,7 +307,13 @@ public final class AdminMgrImpl implements AdminMgr
 
     /**
      * Method will reset user's password which will require user to change password before successful authentication with directory.
-     * This method will not evaulate password policies on the new user password as it must be changed before use.
+     * This method will not evaluate password policies on the new user password as it must be changed before use.
+     * <p/>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     * <li>newPassword - contains the User's new password</li>
+     * </ul>
      *
      * @param user entity contains {@link User#userId} of User to be reset.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
@@ -248,6 +333,22 @@ public final class AdminMgrImpl implements AdminMgr
      * This command creates a new role. The command is valid if and only if the new role is not
      * already a member of the ROLES data set. The ROLES data set is updated.
      * Initially, no user or permission is assigned to the new role.
+     * <p/>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Role#name} - contains the name to use for the Role to be created.</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link Role#description} - maps to description attribute on organizationalRole object class</li>
+     * <li>{@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+     * <li>{@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+     * <li>{@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
+     * <li>{@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
+     * <li>{@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
+     * </ul>
      *
      * @param role must contains {@link Role#name} (required) and optional {@link Role#description}.
      * @throws SecurityException Thrown in the event of data validation or system error.
@@ -264,8 +365,13 @@ public final class AdminMgrImpl implements AdminMgr
 
     /**
      * This command deletes an existing role from the RBAC database. The command is valid
-     * if and only if the role to be deleted is a member of the ROLES data set and has been
-     * deassigned from all users.
+     * if and only if the role to be deleted is a member of the ROLES data set.  This command will
+     * also deassign role from all users.
+     * <p/>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Role#name} - contains the name to use for the Role to be deleted.</li>
+     * </ul>
      *
      * @param role Contains {@link Role#name} for Role to delete.
      * @throws com.jts.fortress.SecurityException
@@ -302,9 +408,26 @@ public final class AdminMgrImpl implements AdminMgr
 
     /**
      * Method will update a Role entity in the directory.  The role must exist prior to this call.
+     * <p/>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Role#name} - contains the name to use for the Role to be updated.</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link Role#description} - maps to description attribute on organizationalRole object class</li>
+     * <li>{@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+     * <li>{@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+     * <li>{@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
+     * <li>{@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
+     * <li>{@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
+     * </ul>
      *
      * @param role must contains {@link Role#name} and may contain new description or {@link com.jts.fortress.util.time.Constraint}
-     * @throws com.jts.fortress.SecurityException in the event of validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          in the event of validation or system error.
      */
     public Role updateRole(Role role)
         throws SecurityException
@@ -344,9 +467,25 @@ public final class AdminMgrImpl implements AdminMgr
      * <li> dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week role may be activated.
      * </ul>
      * </ul>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link UserRole#name} - contains the name for already existing Role to be assigned</li>
+     * <li>{@link UserRole#userId} - contains the userId for existing User</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link UserRole#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+     * <li>{@link UserRole#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+     * <li>{@link UserRole#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
+     * <li>{@link UserRole#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
+     * <li>{@link UserRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link UserRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link UserRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
+     * </ul>
      *
      * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name} and optional {@code Constraints}.
-     * @throws com.jts.fortress.SecurityException in the event of validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          in the event of validation or system error.
      */
     public void assignUser(UserRole uRole)
         throws SecurityException
@@ -380,6 +519,11 @@ public final class AdminMgrImpl implements AdminMgr
      * User entity in USER data set has role assignment removed.
      * Role entity in ROLE data set has userId removed as role occupant.
      * (optional) Temporal constraints will be removed from user aux object if set prior to call.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link UserRole#name} - contains the name for already existing Role to be deassigned</li>
+     * <li>{@link UserRole#userId} - contains the userId for existing User</li>
+     * </ul>
      *
      * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}.
      * @throws SecurityException - in the event data error in user or role objects or system error.
@@ -403,6 +547,18 @@ public final class AdminMgrImpl implements AdminMgr
      * This method will add permission operation to an existing permission object which resides under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
      * The perm operation entity may have {@link com.jts.fortress.rbac.Role} or {@link com.jts.fortress.rbac.User} associations.  The target {@link Permission} must not exist prior to calling.
      * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission add</li>
+     * <li>{@link Permission#opName} - contains the name of new permission operation being added</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
+     * <li>{@link Permission#users} * - multi occurring attribute contains Users that permission operation is being granted to</li>
+     * <li>{@link Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link Permission#type} - any safe text</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link com.jts.fortress.rbac.Permission#objectName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
      * @return copy of Permission entity.
@@ -421,10 +577,23 @@ public final class AdminMgrImpl implements AdminMgr
      * This method will update permission operation pre-existing in target directory under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
      * The perm operation entity may also contain {@link com.jts.fortress.rbac.Role} or {@link com.jts.fortress.rbac.User} associations to add or remove using this function.
      * The perm operation must exist before making this call.  Only non-null attributes will be updated.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission update</li>
+     * <li>{@link Permission#opName} - contains the name of existing permission operation being updated</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
+     * <li>{@link Permission#users} * - multi occurring attribute contains Users that permission operation is being granted to</li>
+     * <li>{@link Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link Permission#type} - any safe text</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
      * @return copy of permOp entity.
-     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          - thrown in the event of perm object data or system error.
      */
     public Permission updatePermission(Permission perm)
         throws SecurityException
@@ -438,9 +607,15 @@ public final class AdminMgrImpl implements AdminMgr
     /**
      * This method will remove permission operation entity from permission object. A Fortress permission is (object->operation).
      * The perm operation must exist before making this call.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission delete</li>
+     * <li>{@link Permission#opName} - contains the name of existing permission operation being removed</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
-     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          - thrown in the event of perm object data or system error.
      */
     public void deletePermission(Permission perm)
         throws SecurityException
@@ -454,6 +629,17 @@ public final class AdminMgrImpl implements AdminMgr
     /**
      * This method will add permission object to perms container in directory. The perm object must not exist before making this call.
      * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link PermObj#objectName} - contains the name of new object being added</li>
+     * <li>{@link PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link PermObj#description} - any safe text</li>
+     * <li>{@link PermObj#type} - contains any safe text</li>
+     * <li>{@link PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName} and {@link PermObj#ou}.  The other attributes are optional.
      * @return copy of permObj entity.
@@ -471,10 +657,22 @@ public final class AdminMgrImpl implements AdminMgr
     /**
      * This method will update permission object in perms container in directory.  The perm object must exist before making this call.
      * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link PermObj#objectName} - contains the name of existing object being updated</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
+     * <li>{@link PermObj#description} - any safe text</li>
+     * <li>{@link PermObj#type} - contains any safe text</li>
+     * <li>{@link PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName}. Only non-null attributes will be updated.
      * @return copy of newly updated permObj entity.
-     * @throws com.jts.fortress.SecurityException - thrown in the event of perm object data or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          - thrown in the event of perm object data or system error.
      */
     public PermObj updatePermObj(PermObj pObj)
         throws SecurityException
@@ -488,6 +686,10 @@ public final class AdminMgrImpl implements AdminMgr
     /**
      * This method will remove permission object to perms container in directory.  This method will also remove
      * in associated permission objects that are attached to this object.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link PermObj#objectName} - contains the name of existing object targeted for removal</li>
+     * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName} of object targeted for removal.
      * @return copy of permObj entity.
@@ -508,10 +710,17 @@ public final class AdminMgrImpl implements AdminMgr
      * the object involved.
      * The command is valid if and only if the pair (operation, object) represents a permission,
      * and the role is a member of the ROLES data set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the object name</li>
+     * <li>{@link Permission#opName} - contains the operation name</li>
+     * <li>{@link Role#name} - contains the role name</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
      * @param role must contains {@link Role#name}.
-     * @throws com.jts.fortress.SecurityException Thrown in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          Thrown in the event of data validation or system error.
      */
     public void grantPermission(Permission perm, Role role)
         throws SecurityException
@@ -539,6 +748,12 @@ public final class AdminMgrImpl implements AdminMgr
      * list of the object involved.
      * The command is valid if and only if the pair (operation, object) represents a permission,
      * the role is a member of the ROLES data set, and the permission is assigned to that role.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the object name</li>
+     * <li>{@link Permission#opName} - contains the operation name</li>
+     * <li>{@link Role#name} - contains the role name</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
      * @param role must contains {@link Role#name}.
@@ -560,10 +775,17 @@ public final class AdminMgrImpl implements AdminMgr
 
     /**
      * Method grants a permission directly to a User entity.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the object name</li>
+     * <li>{@link Permission#opName} - contains the operation name</li>
+     * <li>{@link User#userId} - contains the userId</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
      * @param user must contain {@link User#userId} of target User entity.
-     * @throws com.jts.fortress.SecurityException Thrown in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          Thrown in the event of data validation or system error.
      */
     public void grantPermission(Permission perm, User user)
         throws SecurityException
@@ -579,6 +801,12 @@ public final class AdminMgrImpl implements AdminMgr
 
     /**
      * Method revokes a permission directly from a User entity.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objectName} - contains the object name</li>
+     * <li>{@link Permission#opName} - contains the operation name</li>
+     * <li>{@link User#userId} - contains the userId</li>
+     * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
      * @param user must contain {@link User#userId} of target User entity.
@@ -598,6 +826,22 @@ public final class AdminMgrImpl implements AdminMgr
      * This commands creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
      * the existing role parentRole. The command is valid if and only if childRole is not a member of the ROLES data set,
      * and parentRole is a member of the ROLES data set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>parentRole - {@link Role#name} - contains the name of existing Role to be parent</li>
+     * <li>childRole - {@link Role#name} - contains the name of new Role to be child</li>
+     * </ul>
+     * <h4>optional parameters childRole</h4>
+     * <ul>
+     * <li>childRole - {@link Role#description} - maps to description attribute on organizationalRole object class for new child</li>
+     * <li>childRole - {@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session for new child</li>
+     * <li>childRole - {@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session for new child</li>
+     * <li>childRole - {@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session for new child</li>
+     * <li>childRole - {@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session for new child</li>
+     * <li>childRole - {@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for new child</li>
+     * <li>childRole - {@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new child</li>
+     * <li>childRole - {@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session for new child</li>
+     * </ul>
      *
      * @param parentRole This entity must be present in ROLE data set.  Success will add role rel with childRole.
      * @param childRole  This entity must not be present in ROLE data set.  Success will add the new role entity to ROLE data set.
@@ -631,6 +875,22 @@ public final class AdminMgrImpl implements AdminMgr
      * This method:
      * 1 - Adds new role.
      * 2 - Assigns role relationship between new parentRole and pre-existing childRole.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>childRole - {@link Role#name} - contains the name of existing child Role</li>
+     * <li>parentRole - {@link Role#name} - contains the name of new Role to be parent</li>
+     * </ul>
+     * <h4>optional parameters parentRole</h4>
+     * <ul>
+     * <li>parentRole - {@link Role#description} - maps to description attribute on organizationalRole object class for new parent</li>
+     * <li>parentRole - {@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session for new parent</li>
+     * <li>parentRole - {@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session for new parent</li>
+     * <li>parentRole - {@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session for new parent</li>
+     * <li>parentRole - {@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session for new parent</li>
+     * <li>parentRole - {@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for new parent</li>
+     * <li>parentRole - {@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new parent</li>
+     * <li>parentRole - {@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session for new parent</li>
+     * </ul>
      *
      * @param parentRole completion of op assigns new child relationship with childRole.
      * @param childRole  completion of op assigns new parent relationship with parentRole.
@@ -657,10 +917,16 @@ public final class AdminMgrImpl implements AdminMgr
      * roles parentRole, childRole. The command is valid if and only if parentRole and childRole are members of the ROLES data
      * set, parentRole is not an immediate ascendant of childRole, and childRole does not properly inherit parentRole (in order to
      * avoid cycle creation).
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>parentRole - {@link Role#name} - contains the name of existing Role to be parent</li>
+     * <li>childRole - {@link Role#name} - contains the name of existing Role to be child</li>
+     * </ul>
      *
      * @param parentRole completion of op deassigns child relationship with childRole.
      * @param childRole  completion of op deassigns parent relationship with parentRole.
-     * @throws com.jts.fortress.SecurityException thrown in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          thrown in the event of data validation or system error.
      */
     public void addInheritance(Role parentRole, Role childRole)
         throws SecurityException
@@ -684,6 +950,11 @@ public final class AdminMgrImpl implements AdminMgr
      * valid if and only if the roles parentRole and childRole are members of the ROLES data set, and parentRole is an
      * immediate ascendant of childRole. The new inheritance relation is computed as the reflexive-transitive
      * closure of the immediate inheritance relation resulted after deleting the relationship parentRole <<-- childRole.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>parentRole - {@link Role#name} - contains the name of existing Role to remove parent relationship</li>
+     * <li>childRole - {@link Role#name} - contains the name of existing Role to remove child relationship</li>
+     * </ul>
      *
      * @param parentRole completion of op removes child relationship with childRole.
      * @param childRole  completion of op removes parent relationship with parentRole.
@@ -709,10 +980,21 @@ public final class AdminMgrImpl implements AdminMgr
      * 2 - all the roles in the SSD set are members of the ROLES data set
      * 3 - n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the SSD role set,
      * 4 - the SSD constraint for the new role set is satisfied.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of new SSD role set to be added</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     * <li>{@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to User from a particular set</li>
+     * <li>{@link SDSet#description} - contains any safe text</li>
+     * </ul>
      *
      * @param ssdSet contains an instantiated reference to new SSD set containing, name, members, and cardinality (default 2)
      * @return reference to newly created SSDSet object.
-     * @throws com.jts.fortress.SecurityException in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          in the event of data validation or system error.
      */
     public SDSet createSsdSet(SDSet ssdSet)
         throws SecurityException
@@ -735,6 +1017,11 @@ public final class AdminMgrImpl implements AdminMgr
      * 1 - the SSD role set exists, and
      * 2 - the role to be added is a member of the ROLES data set but not of a member of the SSD role set, and
      * 3 - the SSD constraint is satisfied after the addition of the role to the SSD role set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of SSD role set to be modified</li>
+     * <li>{@link Role#name} - contains the name of new {@link SDSet#members} to be added</li>
+     * </ul>
      *
      * @param ssdSet contains an instantiated reference to new SSD set containing, name
      * @param role   contains instantiated Role object with role name field set.
@@ -751,7 +1038,7 @@ public final class AdminMgrImpl implements AdminMgr
         SDSet entity = rMgr.ssdRoleSet(ssdSet);
         entity.addMember(role.getName());
         AdminUtil.setAdminData(ssdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
-        SDSet ssdOut= sdP.update(entity);
+        SDSet ssdOut = sdP.update(entity);
         SDUtil.clearSsdCacheEntry(role.getName());
         return ssdOut;
     }
@@ -763,8 +1050,13 @@ public final class AdminMgrImpl implements AdminMgr
      * 2 - the role to be removed is a member of the SSD role set, and
      * 3 - the cardinality associated with the SSD role set is less than the number of elements of the SSD role set.
      * Note that the SSD constraint should be satisfied after the removal of the role from the SSD role set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of SSD role set to be modified</li>
+     * <li>{@link Role#name} - contains the name of existing {@link SDSet#members} to be removed</li>
+     * </ul>
      *
-     * @param ssdSet contains an instantiated reference to new SSD set containing, name
+     * @param ssdSet contains an instantiated reference to new SSD set containing name.
      * @param role   contains instantiated Role object with role name field set.
      * @return reference to updated SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
@@ -785,15 +1077,19 @@ public final class AdminMgrImpl implements AdminMgr
             entity.addMember(GlobalIds.NONE);
         }
         AdminUtil.setAdminData(ssdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
-        SDSet ssdOut= sdP.update(entity);
+        SDSet ssdOut = sdP.update(entity);
         SDUtil.clearSsdCacheEntry(role.getName());
         return ssdOut;
     }
 
     /**
      * This command deletes a SSD role set completely. The command is valid if and only if the SSD role set exists.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing SSD role set to be removed</li>
+     * </ul>
      *
-     * @param ssdSet contains an instantiated reference to new SSD set containing, name
+     * @param ssdSet contains an instantiated reference to SSD set targeted for removal.
      * @return reference to deleted SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
@@ -812,6 +1108,11 @@ public final class AdminMgrImpl implements AdminMgr
      * 1 - the SSD role set exists, and
      * 2 - the new cardinality is a natural number greater than or equal to 2 and less than or equal to the number of elements of the SSD role set, and
      * 3 - the SSD constraint is satisfied after setting the new cardinality.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of SSD role set to be modified</li>
+     * <li>cardinality - contains new cardinality setting for SSD</li>
+     * </ul>
      *
      * @param ssdSet      contains an instantiated reference to new SSD set containing, name
      * @param cardinality integer value contains new cardinality value for data set.
@@ -837,6 +1138,16 @@ public final class AdminMgrImpl implements AdminMgr
      * 2 - all the roles in the DSD set are members of the ROLES data set
      * 3 - n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the DSD role set,
      * 4 - the DSD constraint for the new role set is satisfied.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of new DSD role set to be added</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     * <li>{@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to User from a particular set</li>
+     * <li>{@link SDSet#description} - contains any safe text</li>
+     * </ul>
      *
      * @param dsdSet contains an instantiated reference to new DSD set containing, name, members, and cardinality (default 2)
      * @return reference to newly created SSDSet object.
@@ -864,11 +1175,17 @@ public final class AdminMgrImpl implements AdminMgr
      * 1 - the DSD role set exists, and
      * 2 - the role to be added is a member of the ROLES data set but not of a member of the DSD role set, and
      * 3 - the DSD constraint is satisfied after the addition of the role to the SSD role set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of DSD role set to be modified</li>
+     * <li>{@link Role#name} - contains the name of new {@link SDSet#members} to be added</li>
+     * </ul>
      *
      * @param dsdSet contains an instantiated reference to new DSD set containing, name
      * @param role   contains instantiated Role object with role name field set.
      * @return reference to updated DSDSet object.
-     * @throws com.jts.fortress.SecurityException in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          in the event of data validation or system error.
      */
     public SDSet addDsdRoleMember(SDSet dsdSet, Role role)
         throws SecurityException
@@ -893,8 +1210,13 @@ public final class AdminMgrImpl implements AdminMgr
      * 2 - the role to be removed is a member of the DSD role set, and
      * 3 - the cardinality associated with the DSD role set is less than the number of elements of the DSD role set.
      * Note that the DSD constraint should be satisfied after the removal of the role from the DSD role set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of DSD role set to be modified</li>
+     * <li>{@link Role#name} - contains the name of existing {@link SDSet#members} to be removed</li>
+     * </ul>
      *
-     * @param dsdSet contains an instantiated reference to new DSD set containing, name
+     * @param dsdSet contains an instantiated reference to new DSD set containing name.
      * @param role   contains instantiated Role object with role name field set.
      * @return reference to updated DSDSet object.
      * @throws SecurityException in the event of data validation or system error.
@@ -923,10 +1245,15 @@ public final class AdminMgrImpl implements AdminMgr
 
     /**
      * This command deletes a DSD role set completely. The command is valid if and only if the DSD role set exists.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of DSD role set to be removed</li>
+     * </ul>
      *
-     * @param dsdSet contains an instantiated reference to new DSD set containing, name
+     * @param dsdSet contains an instantiated reference to DSD set targeted for removal.
      * @return reference to deleted DSDSet object.
-     * @throws com.jts.fortress.SecurityException in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          in the event of data validation or system error.
      */
     public SDSet deleteDsdSet(SDSet dsdSet)
         throws SecurityException
@@ -944,11 +1271,17 @@ public final class AdminMgrImpl implements AdminMgr
      * 1 - the SSD role set exists, and
      * 2 - the new cardinality is a natural number greater than or equal to 2 and less than or equal to the number of elements of the SSD role set, and
      * 3 - the SSD constraint is satisfied after setting the new cardinality.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of SSD role set to be modified</li>
+     * <li>cardinality - contains new cardinality setting for DSD</li>
+     * </ul>
      *
      * @param dsdSet      contains an instantiated reference to new DSD set containing, name
      * @param cardinality integer value contains new cardinality value for data set.
      * @return reference to updated DSDSet object.
-     * @throws com.jts.fortress.SecurityException in the event of data validation or system error.
+     * @throws com.jts.fortress.SecurityException
+     *          in the event of data validation or system error.
      */
     public SDSet setDsdSetCardinality(SDSet dsdSet, int cardinality)
         throws SecurityException

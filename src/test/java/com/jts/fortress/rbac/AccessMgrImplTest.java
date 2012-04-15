@@ -967,7 +967,7 @@ public class AccessMgrImplTest extends TestCase
     {
         // public void dropActiveRole(Session session, String role)
         dropActiveRoles("DRP-ACT-RLS TU1_UPD TR1 bad:TR2", UserTestData.USERS_TU1_UPD, RoleTestData.ROLES_TR1);
-        dropActiveRoles("DRP-ACT-RLS TU3 TR3 bad:TR1:", UserTestData.USERS_TU3, RoleTestData.ROLES_TR3);
+        dropActiveRoles("DRP-ACT-RLS TU3 TR3 bad:TR1", UserTestData.USERS_TU3, RoleTestData.ROLES_TR3);
         dropActiveRoles("DRP-ACT-RLS TU4 TR2 bad:TR1", UserTestData.USERS_TU4, RoleTestData.ROLES_TR2);
     }
 

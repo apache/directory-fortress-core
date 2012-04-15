@@ -1805,7 +1805,7 @@ public final class UserDAO
         addr.setPostalCode(DaoUtil.getAttribute(le, POSTAL_CODE));
         addr.setPostOfficeBox(DaoUtil.getAttribute(le, POST_OFFICE_BOX));
 
-        // todo: fixme:
+        // todo: add support for country attribute
         //addr.setCountry(DaoUtil.getAttribute(le, GlobalIds.COUNTRY));
 
         return addr;

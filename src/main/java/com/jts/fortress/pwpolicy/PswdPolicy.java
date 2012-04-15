@@ -112,7 +112,7 @@ public class PswdPolicy extends FortEntity
     implements java.io.Serializable
 {
     /**
-     * Description of the Field
+     * Maps to name attribute of pwdPolicy object class.
      */
     private String name;
 
@@ -287,7 +287,7 @@ public class PswdPolicy extends FortEntity
      * This attribute indicates whether users can change their own
      * passwords, although the change operation is still subject to access
      * control.  If this attribute is not present, a value of "TRUE" is
-     * assumed.  This attribute is intended to be used in the absense of an
+     * assumed.  This attribute is intended to be used in the absence of an
      * access control mechanism.
      */
     @XmlElement(nillable = true)
@@ -692,7 +692,7 @@ public class PswdPolicy extends FortEntity
      * This optional attribute indicates whether users can change their own
      * passwords, although the change operation is still subject to access
      * control. If this attribute is not present, a value of "TRUE" is
-     * assumed. This attribute is intended to be used in the absense of an
+     * assumed. This attribute is intended to be used in the absence of an
      * access control mechanism.
      *
      * @return attribute stored as 'pwdAllowUserChange' in 'pwdPolicy' object class.
@@ -706,7 +706,7 @@ public class PswdPolicy extends FortEntity
      * This optional attribute indicates whether users can change their own
      * passwords, although the change operation is still subject to access
      * control. If this attribute is not present, a value of "TRUE" is
-     * assumed. This attribute is intended to be used in the absense of an
+     * assumed. This attribute is intended to be used in the absence of an
      * access control mechanism.
      *
      * @param allowUserChange attribute stored as 'pwdAllowUserChange' in 'pwdPolicy' object class.

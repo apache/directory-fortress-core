@@ -295,7 +295,7 @@ public class AccessMgrRestImpl implements AccessMgr
         if (response.getErrorCode() == 0)
         {
             Set<String> tempNames = response.getValueSet();
-            // TODO: This is done to use a case insensitive TreeSet for returned names.  Find a better way to do this:
+            // This is done to use a case insensitive TreeSet for returned names.
             retRoleNames.addAll(tempNames);
             Session outSession = (Session)response.getSession();
             session.copy(outSession);
