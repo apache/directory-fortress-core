@@ -33,7 +33,7 @@ import java.util.Properties;
 
 
 /**
- * This utilty class provides methods that wrap Apache's HTTP Client APIs.
+ * This utility class provides methods that wrap Apache's HTTP Client APIs.  This class is thread safe.
  *
  * @author Shawn McKinney
  * @created February 11, 2012

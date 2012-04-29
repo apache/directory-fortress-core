@@ -1016,7 +1016,11 @@ public final class DelegatedAdminMgrImpl
     }
 
     /**
-     * Method grants an administrative permission directly to a User entity.
+     * This command grants a user the administrative permission to perform an operation on an object to a user.
+     * The command is implemented by granting administrative permission by setting the access control list of
+     * the object involved.
+     * The command is valid if and only if the pair (operation, object) represents an administrative permission,
+     * and the user is a member of the USERS data set.
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link Permission#objectName} - contains the object name</li>
@@ -1038,7 +1042,11 @@ public final class DelegatedAdminMgrImpl
     }
 
     /**
-     * Method revokes an administrative permission directly from a User entity.
+     * This command revokes the administrative permission to perform an operation on an object from the set
+     * of permissions assigned to a user. The command is implemented by setting the access control
+     * list of the object involved.
+     * The command is valid if and only if the pair (operation, object) represents an administrative permission,
+     * the user is a member of the USERS data set, and the permission is assigned to that user.
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link Permission#objectName} - contains the object name</li>

@@ -844,12 +844,12 @@ public class AdminMgrConsole
             //System.out.println("Enter Perm abstract name:");
             //pe.setAbstractName(ReaderUtil.readLn());
 
-            System.out.println("Enter name (or NULL to skip):");
+            System.out.println("Enter role name (or NULL to skip):");
             String val = ReaderUtil.readLn();
             for (int i = 0; val != null && val.length() > 0; i++)
             {
                 pe.setRole(val);
-                System.out.println("Enter next name (or NULL if done entering roles):");
+                System.out.println("Enter next role name (or NULL if done entering roles):");
                 val = ReaderUtil.readLn();
             }
             System.out.println("Enter user (or NULL to skip):");

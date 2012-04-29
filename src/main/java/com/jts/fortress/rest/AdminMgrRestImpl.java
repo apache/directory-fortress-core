@@ -961,7 +961,11 @@ public final class AdminMgrRestImpl implements AdminMgr
     }
 
     /**
-     * Method grants a permission directly to a User entity.
+     * This command grants a user the permission to perform an operation on an object to a role.
+     * The command is implemented by granting permission by setting the access control list of
+     * the object involved.
+     * The command is valid if and only if the pair (operation, object) represents a permission,
+     * and the user is a member of the USERS data set.
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link Permission#objectName} - contains the object name</li>
@@ -1001,7 +1005,11 @@ public final class AdminMgrRestImpl implements AdminMgr
     }
 
     /**
-     * Method revokes a permission directly from a User entity.
+     * This command revokes the permission to perform an operation on an object from the set
+     * of permissions assigned to a user. The command is implemented by setting the access control
+     * list of the object involved.
+     * The command is valid if and only if the pair (operation, object) represents a permission,
+     * the user is a member of the USERS data set, and the permission is assigned to that user.
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link Permission#objectName} - contains the object name</li>
@@ -1357,6 +1365,7 @@ public final class AdminMgrRestImpl implements AdminMgr
 
     /**
      * This command deletes a SSD role set completely. The command is valid if and only if the SSD role set exists.
+     * <h4>required parameters</h4>
      * <ul>
      * <li>{@link SDSet#name} - contains the name of new SSD role set to be removed</li>
      * </ul>
@@ -1575,6 +1584,7 @@ public final class AdminMgrRestImpl implements AdminMgr
 
     /**
      * This command deletes a DSD role set completely. The command is valid if and only if the DSD role set exists.
+     * <h4>required parameters</h4>
      * <ul>
      * <li>{@link SDSet#name} - contains the name of new DSD role set to be removed</li>
      * </ul>

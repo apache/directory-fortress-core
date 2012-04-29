@@ -1,8 +1,8 @@
 ___________________________________________________________________________________
 ###################################################################################
 README for Fortress Identity and Access Management SDK
-Version 1.0.0.rc6
-last updated: February 4, 2012
+Version 1.0.0.rc9
+last updated: April 22, 2012
 
 This document contains instructions to download, compile, test and use the
 Fortress Identity and Access Management system.

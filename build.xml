@@ -51,9 +51,9 @@
        <property name="build.test-classes.dir" value="${build.dir}/test-classes"/>
        <property name="dist.dir" value="${basedir}/dist"/>
        <property name="dist.jar" value="${dist.dir}/${name}-${version}.jar"/>
-       <property name="dist.test.jar" value="${dist.dir}/${name}Tst-${version}.jar"/>
-       <property name="src.dist.zip" value="${dist.dir}/${name}Src-${version}.zip"/>
-       <property name="src.test.dist.zip" value="${dist.dir}/${name}TestSrc-${version}.zip"/>
+       <property name="dist.test.jar" value="${dist.dir}/${name}-${version}-test.jar"/>
+       <property name="src.dist.zip" value="${dist.dir}/${name}-${version}-sources.jar"/>
+       <property name="src.test.dist.zip" value="${dist.dir}/${name}-${version}-sourcestest.jar"/>
        <property name="src.samples.dist.zip" value="${dist.dir}/${name}SamplesSrc-${version}.zip"/>
        <property name="samples.dist.zip" value="${dist.dir}/${name}Samples-${version}.zip"/>
 
@@ -122,12 +122,12 @@
        <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
        <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2012 Joshua Tree Software, LLC. All Rights Reserved.  Generated ${TODAY}&lt;/small&gt;"/>
        <property name="javadoc.overview" value="${src.java.dir}/com/jts/fortress/overview.html" />
-       <property name="javadoc.dist.zip" value="${dist.dir}/${name}Doc-${version}.zip"/>
+       <property name="javadoc.dist.zip" value="${dist.dir}/${name}-${version}-javadoc.jar"/>
        <property name="javadoc.stylesheet" value="${src.java.dir}/com/jts/fortress/fortress-javadoc.css" />
 
        <property name="javadoc.samples.dir" value="${dist.dir}/docs/samples"/>
        <property name="javadoc.samples.images.dir" value="${javadoc.samples.dir}/images"/>
-       <property name="javadoc.samples.dist.zip" value="${dist.dir}/${name}SamplesDoc-${version}.zip"/>
+       <property name="javadoc.samples.dist.zip" value="${dist.dir}/${name}-${version}-javadocsamples.jar"/>
        <property name="javadoc.samples.overview" value="${src.test.dir}/com/jts/fortress/samples/overview.html" />
 
        <property name="javac.optimize" value="false"/>
