@@ -157,7 +157,7 @@ public class DelegatedReviewMgrRestImpl
 
     /**
      * This method returns the data set of all users who are assigned the given admin role.  This searches the User data set for
-     * Role relationship.  This method does NOT search for hierarchical Admin Roles relationships.
+     * AdminRole relationship.  This method does NOT search for hierarchical Admin Roles relationships.
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link AdminRole#name} - contains the name of AdminRole targeted for search</li>

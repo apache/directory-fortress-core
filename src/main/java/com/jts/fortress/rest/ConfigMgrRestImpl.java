@@ -35,7 +35,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
      * a {@link com.jts.fortress.SecurityException} with error {@link com.jts.fortress.constants.GlobalErrIds#FT_CONFIG_ALREADY_EXISTS} will be thrown.
      *
      * @param name    attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @param inProperties contains {@link java.util.Properties} with list of name/value pairs to remove from existing config node.
+     * @param inProperties contains {@link Properties} with list of name/value pairs to add to existing config node.
      * @return {@link java.util.Properties} containing the collection of name/value pairs just added.
      * @throws com.jts.fortress.SecurityException
      *          in the event entry already present or other system error.
@@ -128,13 +128,12 @@ public class ConfigMgrRestImpl implements ConfigMgr
     }
 
     /**
-     * Delete existing configuration node with additional properties, or, replace existing properties.  The name is required.  If node does not exist,
+     * Delete properties from existing configuration node.  The name is required.  If node does not exist,
      * a {@link com.jts.fortress.SecurityException} with error {@link com.jts.fortress.constants.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      *
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
-     * @throws com.jts.fortress.SecurityException
-     *          in the event entry not present or other system error.
+     * @return {@link Properties} containing the collection of name/value pairs to remove from existing node.
+     * @throws com.jts.fortress.SecurityException in the event entry not present or other system error.
      */
     public void delete(String name, Properties inProperties) throws SecurityException
     {

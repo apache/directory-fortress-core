@@ -413,7 +413,7 @@ public class PswdPolicyMgrRestImpl implements PswdPolicyMgr
 
 
     /**
-     * This method will return the pw policy assignment from a user entity.  This function is valid
+     * This method will remove the pw policy assignment from a user entity.  This function is valid
      * if and only if the user is a member of the USERS data set and the policy attribute is assigned.
      * Removal of pw policy assignment will revert the user's policy to use the global default for OpenLDAP
      * instance that contains user.

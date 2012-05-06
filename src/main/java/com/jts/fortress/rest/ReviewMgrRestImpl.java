@@ -185,10 +185,10 @@ public class ReviewMgrRestImpl
     }
 
     /**
-     * Method returns a list of type Permission that match the perm object search string.
+     * Method returns a list of type PermObj that match the perm object search string.
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link Permission#objectName} - contains one or more characters of existing object being targeted</li>
+     * <li>{@link PermObj#objectName} - contains one or more characters of existing object being targeted</li>
      * </ul>
      *
      * @param permObj contains object name search string.  The search val contains 1 or more leading chars that correspond to object name.
@@ -299,7 +299,7 @@ public class ReviewMgrRestImpl
     /**
      * Method will return a list of type Role matching all or part of Role name, {@link Role#name}.
      *
-     * @param searchVal contains the all or some of the chars corresponding to role entities stored in directory.
+     * @param searchVal contains all or some of the chars corresponding to role entities stored in directory.
      * @return List of type Role containing role entities that match the search criteria.
      * @throws com.jts.fortress.SecurityException
      *          in the event of system error.

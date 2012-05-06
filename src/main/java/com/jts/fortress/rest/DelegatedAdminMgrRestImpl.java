@@ -145,7 +145,7 @@ public final class DelegatedAdminMgrRestImpl
     }
 
     /**
-     * Method will update a admin Role entity in the directory.  The role must exist in admin role container prior to this call.
+     * Method will update an AdminRole entity in the directory.  The role must exist in directory prior to this call.
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link AdminRole#name} - contains the name of the new AdminRole being targeted for updating</li>
@@ -629,30 +629,31 @@ public final class DelegatedAdminMgrRestImpl
 
     /**
      * This commands creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
-     * the existing role parentRole. The command is valid if and only if childRole is not a member of the ROLES data set,
-     * and parentRole is a member of the ROLES data set.
+     * the existing role parentRole. The command is valid if and only if childRole is not a member of the ADMINROLES data set,
+     * and parentRole is a member of the ADMINROLES data set.
+     * <p/>
+     * This method:
+     * 1 - Adds new role.
+     * 2 - Assigns role relationship between new childRole and pre-existing parentRole.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>parentRole - {@link AdminRole#name} - contains the name of existing Role to be parent</li>
+     * <li>childRole - {@link AdminRole#name} - contains the name of new Role to be child</li>
+     * </ul>
+     * <h4>optional parameters childRole</h4>
+     * <ul>
+     * <li>childRole - {@link AdminRole#description} - maps to description attribute on organizationalRole object class for new child</li>
+     * <li>childRole - {@link AdminRole#beginTime} - HHMM - determines begin hour role may be activated into user's session for new child</li>
+     * <li>childRole - {@link AdminRole#endTime} - HHMM - determines end hour role may be activated into user's session for new child</li>
+     * <li>childRole - {@link AdminRole#beginDate} - YYYYMMDD - determines date when role may be activated into user's session for new child</li>
+     * <li>childRole - {@link AdminRole#endDate} - YYYYMMDD - indicates latest date role may be activated into user's session for new child</li>
+     * <li>childRole - {@link AdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for new child</li>
+     * <li>childRole - {@link AdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new child</li>
+     * <li>childRole - {@link AdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's session for new child</li>
+     * </ul>
      *
      * @param parentRole This entity must be present in ADMINROLES data set.  Success will add role rel with childRole.
-     * @param childRole  This entity must not be present in ADMINROLES data set.  Success will add the new role entity to ROLE data set.
-     *                   This method:
-     *                   1 - Adds new role.
-     *                   2 - Assigns role relationship between new childRole and pre-existing parentRole.
-     *                   <h4>required parameters</h4>
-     *                   <ul>
-     *                   <li>parentRole - {@link AdminRole#name} - contains the name of existing Role to be parent</li>
-     *                   <li>childRole - {@link AdminRole#name} - contains the name of new Role to be child</li>
-     *                   </ul>
-     *                   <h4>optional parameters childRole</h4>
-     *                   <ul>
-     *                   <li>childRole - {@link AdminRole#description} - maps to description attribute on organizationalRole object class for new child</li>
-     *                   <li>childRole - {@link AdminRole#beginTime} - HHMM - determines begin hour role may be activated into user's session for new child</li>
-     *                   <li>childRole - {@link AdminRole#endTime} - HHMM - determines end hour role may be activated into user's session for new child</li>
-     *                   <li>childRole - {@link AdminRole#beginDate} - YYYYMMDD - determines date when role may be activated into user's session for new child</li>
-     *                   <li>childRole - {@link AdminRole#endDate} - YYYYMMDD - indicates latest date role may be activated into user's session for new child</li>
-     *                   <li>childRole - {@link AdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for new child</li>
-     *                   <li>childRole - {@link AdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new child</li>
-     *                   <li>childRole - {@link AdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's session for new child</li>
-     *                   </ul>
+     * @param childRole  This entity must not be present in ADMINROLES data set.  Success will add the new role entity to ADMINROLES data set.
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
