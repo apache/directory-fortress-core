@@ -567,9 +567,9 @@ public class User extends FortEntity implements Constraint, Serializable
     }
 
     /**
-     * Set the optional, clearDsdCacheEntry text, password attribute associated for a User.  Note, this value is required before User will pass Fortress
+     * Set the optional password attribute associated for a User.  Note, this value is required before User will pass Fortress
      * authentication in {@link AccessMgrImpl#createSession(User, boolean)}.
-     * Even though password is passed into api as clearDsdCacheEntry text it is stored on ldap server as standard, secure, and one-way encrypted format.
+     * Even though password is char[] format here it will be stored on the ldap server (using server-side controls) in configurable and standard hashed formats.
      *
      * @param password maps to 'userPassword' attribute in 'inetOrgPerson' object class.
      */

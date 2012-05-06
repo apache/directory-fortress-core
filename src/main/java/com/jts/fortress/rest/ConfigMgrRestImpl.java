@@ -99,13 +99,11 @@ public class ConfigMgrRestImpl implements ConfigMgr
     }
 
     /**
-     * <font size="3" color="red">
-     * Completely removes named configuration node from the directory.
+      * Completely removes named configuration node from the directory.
      * <p/>
-     * This method is destructive and will remove the configuration node completely from directory.<BR>
+     * <font size="3" color="red">This method is destructive and will remove the configuration node completely from directory.<BR>
      * Care should be taken during execution to ensure target name is correct and permanent removal of all parameters located
      * there is intended.  There is no 'undo' for this operation.
-     * <p/>
      * </font>
      *
      * @param name is required and maps to 'cn' attribute on 'device' object class of node targeted for operation.
