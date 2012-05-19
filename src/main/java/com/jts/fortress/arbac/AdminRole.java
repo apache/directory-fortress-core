@@ -354,7 +354,7 @@ public class AdminRole extends Role implements com.jts.fortress.arbac.Administra
     }
 
     /**
-     * Set the begin inclusive which specifies if role range includes or excludes the 'beginRange' attribute.
+     * Get the begin inclusive which specifies if role range includes or excludes the 'beginRange' attribute.
      *
      * @return String that maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
@@ -364,7 +364,7 @@ public class AdminRole extends Role implements com.jts.fortress.arbac.Administra
     }
 
     /**
-     * Get the begin inclusive which specifies if role range includes or excludes the 'beginRange' attribute.
+     * Set the begin inclusive which specifies if role range includes or excludes the 'beginRange' attribute.
      *
      * @param beginInclusive maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
@@ -374,7 +374,7 @@ public class AdminRole extends Role implements com.jts.fortress.arbac.Administra
     }
 
     /**
-     * Set the end inclusive which specifies if role range includes or excludes the 'endRange' attribute.
+     * Get the end inclusive which specifies if role range includes or excludes the 'endRange' attribute.
      *
      * @return String that maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
@@ -384,7 +384,7 @@ public class AdminRole extends Role implements com.jts.fortress.arbac.Administra
     }
 
     /**
-     * Get the end inclusive which specifies if role range includes or excludes the 'endRange' attribute.
+     * Set the end inclusive which specifies if role range includes or excludes the 'endRange' attribute.
      *
      * @param endInclusive maps to 'ftRange' attribute on 'ftPools' aux object class.
      */

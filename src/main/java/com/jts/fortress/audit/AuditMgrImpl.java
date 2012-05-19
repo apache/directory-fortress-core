@@ -220,7 +220,7 @@ public class AuditMgrImpl implements AuditMgr
      * </p>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link UserAudit#userId} - contains the target userId<</li>
+     * <li>{@link UserAudit#userId} - contains the target userId</li>
      * <li>{@link UserAudit#beginDate} - contains the date in which to begin search</li>
      * <li>{@link UserAudit#failedOnly} - if set to 'true', return only failed authorization events</li>
      * </ul>
