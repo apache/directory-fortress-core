@@ -69,9 +69,9 @@ public class DSD
             List<SDSet> dsdSets = sp.search(authorizedRoleSet, SDSet.SDType.DYNAMIC);
             if (dsdSets != null && dsdSets.size() > 0)
             {
-                Iterator activatedRoles = activeRoleList.iterator();
                 for (SDSet dsd : dsdSets)
                 {
+                    Iterator activatedRoles = activeRoleList.iterator();
                     matchCount = 0;
                     Set<String> map = dsd.getMembers();
 
@@ -79,7 +79,6 @@ public class DSD
                     while (activatedRoles.hasNext())
                     {
                         UserRole activatedRole = (UserRole) activatedRoles.next();
-                        //if (map.containsKey(activatedRole.getName()))
                         if (map.contains(activatedRole.getName()))
                         {
                             matchCount++;
@@ -97,7 +96,6 @@ public class DSD
                             // now check for every role inherited from this activated role:
                             for (String parentRole : parentSet)
                             {
-                                //if (map.containsKey(parentRole))
                                 if (map.contains(parentRole))
                                 {
                                     matchCount++;
@@ -114,7 +112,6 @@ public class DSD
                                     break;
                                 }
                             }
-
                         }
                     }
                 }

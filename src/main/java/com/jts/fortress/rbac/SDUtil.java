@@ -153,7 +153,6 @@ public class SDUtil
                     // Iterate over the list of parent roles:
                     for (String parentRole : parentSet)
                     {
-                        //if (map.containsKey(parentRole)) // is there match between parent and DSD member?
                         if (map.contains(parentRole)) // is there match between parent and DSD member?
                         {
                             matchCount++;
