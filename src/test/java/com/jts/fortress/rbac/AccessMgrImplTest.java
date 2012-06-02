@@ -496,6 +496,7 @@ public class AccessMgrImplTest extends TestCase
         createSessionsDSD("CR-SESS-DSD TU13 DSD_T4_B", UserTestData.USERS_TU13_DSD_HIER, RoleTestData.DSD_T4_B);
         createSessionsDSD("CR-SESS-DSD TU14 DSD_T5_B", UserTestData.USERS_TU14_DSD_HIER, RoleTestData.DSD_T5_B);
         createSessionsDSD("CR-SESS-DSD TU15 DSD_T6_C", UserTestData.USERS_TU15_DSD_HIER, RoleTestData.DSD_T6_C);
+        createSessionsDSD("CR-SESS-DSD TU21 DSD_T8_BRUNO", UserTestData.USERS_TU21_DSD_BRUNO, RoleTestData.DSD_T8_BRUNO);
     }
     /**
      *

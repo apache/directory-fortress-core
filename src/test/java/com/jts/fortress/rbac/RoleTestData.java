@@ -2991,8 +2991,58 @@ public class RoleTestData extends TestCase
         }
     };
 
+    final static String[][] ROLES_TR17_DSD_BRUNO = {
+          {
+              "oamT17DSD1",                              /* NAME_COL */
+              "Test Case TR17",                          /* DESC_COL */
+              "30",                                      /* TIMEOUT_COL */
+              "0000",                                    /* BTIME_COL */
+              "0000",                                    /* ETIME_COL */
+              "20090101",                                /* BDATE_COL */
+              "21000101",                                /* EDATE_COL */
+              "20500101",                                /* BLOCKDATE_COL */
+              "20500115",                                /* ELOCKDATE_COL */
+              "1234567"                                  /* DAYMASK_COL */
+          },
+          {
+              "oamT17DSD2",                              /* NAME_COL */
+              "Test Case TR17",                          /* DESC_COL */
+              "30",                                      /* TIMEOUT_COL */
+              "0000",                                    /* BTIME_COL */
+              "0000",                                    /* ETIME_COL */
+              "20090101",                                /* BDATE_COL */
+              "21000101",                                /* EDATE_COL */
+              "20500101",                                /* BLOCKDATE_COL */
+              "20500115",                                /* ELOCKDATE_COL */
+              "1234567"                                  /* DAYMASK_COL */
+          },
+          {
+              "oamT17DSD3",                              /* NAME_COL */
+              "Test Case TR17",                          /* DESC_COL */
+              "30",                                      /* TIMEOUT_COL */
+              "0000",                                    /* BTIME_COL */
+              "0000",                                    /* ETIME_COL */
+              "20090101",                                /* BDATE_COL */
+              "21000101",                                /* EDATE_COL */
+              "20500101",                                /* BLOCKDATE_COL */
+              "20500115",                                /* ELOCKDATE_COL */
+              "1234567"                                  /* DAYMASK_COL */
+          },
+          {
+              "oamT17DSD4",                              /* NAME_COL */
+              "Test Case TR17",                          /* DESC_COL */
+              "30",                                      /* TIMEOUT_COL */
+              "0000",                                    /* BTIME_COL */
+              "0000",                                    /* ETIME_COL */
+              "20090101",                                /* BDATE_COL */
+              "21000101",                                /* EDATE_COL */
+              "20500101",                                /* BLOCKDATE_COL */
+              "20500115",                                /* ELOCKDATE_COL */
+              "1234567"                                  /* DAYMASK_COL */
+          }
+      };
 
-     /**
+      /**
      * The Fortress test data for junit uses 2-dimensional arrays.
      */
     private final static int NAME_COL = 0;
@@ -3748,6 +3798,27 @@ public class RoleTestData extends TestCase
             "Test Case T7",                            /* DESC_COL */
             "0",                                       /* CARDINALITY */
             "",                                        /* RELATIONSHIP_COL */
+        }
+     };
+
+    final static String[][] DSD_T8_BRUNO = {
+         {
+             "oamT8Dsd1",                              /* NAME_COL */
+             "Test Case T8",                           /* DESC_COL */
+             "2",                                      /* CARDINALITY */
+             "oamT17DSD1,oamT17DSD2",                  /* RELATIONSHIP_COL */
+         },
+        {
+            "oamT8Dsd2",                               /* NAME_COL */
+            "Test Case T8",                            /* DESC_COL */
+            "2",                                       /* CARDINALITY */
+            "oamT17DSD3,oamT17DSD4",                   /* RELATIONSHIP_COL */
+        },
+        {
+            "oamT8Dsd3",                               /* NAME_COL */
+            "Test Case T8",                            /* DESC_COL */
+            "2",                                       /* CARDINALITY */
+            "oamT17DSD1,oamT17DSD3",                   /* RELATIONSHIP_COL */
         }
      };
 }

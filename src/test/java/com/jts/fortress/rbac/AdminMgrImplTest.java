@@ -88,6 +88,7 @@ public class AdminMgrImplTest extends TestCase
         addUsers("ADD-USRS TU18 TR6_DESC", UserTestData.USERS_TU18U_TR6_DESC, true);
         addUsers("ADD-USRS TU19 TR7_ASC", UserTestData.USERS_TU19U_TR7_ASC, true);
         addUsers("ADD-USRS TU20 TR5_HIER", UserTestData.USERS_TU20U_TR5B, true);
+        addUsers("ADD-USRS TU21 DSD_BRUNO", UserTestData.USERS_TU21_DSD_BRUNO, true);
     }
 
     /**
@@ -226,6 +227,7 @@ public class AdminMgrImplTest extends TestCase
         deleteUsers("FDEL-USRS TU18_TR6_DESC", UserTestData.USERS_TU18U_TR6_DESC, true, true);
         deleteUsers("FDEL-USRS TU19_TR7_ASC", UserTestData.USERS_TU19U_TR7_ASC, true, true);
         deleteUsers("FDEL-USRS TU20_TR5_HIER", UserTestData.USERS_TU20U_TR5B, true, true);
+        deleteUsers("FDEL-USRS TU21 DSD_BRUNO", UserTestData.USERS_TU21_DSD_BRUNO, true, true);
     }
 
 
@@ -404,6 +406,7 @@ public class AdminMgrImplTest extends TestCase
         addRoles("ADD-RLS ROLES_TR9_DSD", RoleTestData.ROLES_TR9_DSD);
         addRoles("ADD-RLS ROLES_TR10_DSD", RoleTestData.ROLES_TR10_DSD);
         addRoles("ADD-RLS ROLES_TR16_SD", RoleTestData.ROLES_TR16_SD);
+        addRoles("ADD-RLS ROLES_TR17_DSD_BRUNO", RoleTestData.ROLES_TR17_DSD_BRUNO);
 
     }
 
@@ -448,6 +451,7 @@ public class AdminMgrImplTest extends TestCase
         deleteRoles("DEL-RLS ROLES_TR9_DSD", RoleTestData.ROLES_TR9_DSD);
         deleteRoles("DEL-RLS ROLES_TR10_DSD", RoleTestData.ROLES_TR10_DSD);
         deleteRoles("DEL-RLS ROLES_TR16_SD", RoleTestData.ROLES_TR16_SD);
+        deleteRoles("DEL-RLS ROLES_TR17_DSD_BRUNO", RoleTestData.ROLES_TR17_DSD_BRUNO);
     }
 
     /**
@@ -913,8 +917,8 @@ public class AdminMgrImplTest extends TestCase
         createDsdSet("ADD-DSD T4", RoleTestData.DSD_T4);
         createDsdSet("ADD-DSD T5", RoleTestData.DSD_T5);
         createDsdSet("ADD-DSD T6", RoleTestData.DSD_T6);
+        createDsdSet("ADD-DSD T8 BRUNO", RoleTestData.DSD_T8_BRUNO);
     }
-
 
     /**
      * @param sArray
@@ -939,7 +943,9 @@ public class AdminMgrImplTest extends TestCase
         }
     }
 
-
+    /**
+     *
+     */
     public void testDeleteSsdSet()
     {
         //     public SDSet deleteSsdSet(SDSet ssdSet)
@@ -948,6 +954,7 @@ public class AdminMgrImplTest extends TestCase
         deleteSsdSet("DEL-SSD T5", RoleTestData.SSD_T5);
         deleteSsdSet("DEL-SSD T6", RoleTestData.SSD_T6);
         deleteSsdSet("DEL-SSD T7", RoleTestData.SSD_T7);
+        deleteDsdSet("DEL-DSD T7 BRUNO", RoleTestData.DSD_T8_BRUNO);
     }
 
     /**
@@ -981,7 +988,7 @@ public class AdminMgrImplTest extends TestCase
         deleteDsdSet("DEL-DSD T4", RoleTestData.DSD_T4);
         deleteDsdSet("DEL-DSD T5", RoleTestData.DSD_T5);
         deleteDsdSet("DEL-DSD T6", RoleTestData.DSD_T6);
-        deleteDsdSet("DEL-DSD T7", RoleTestData.DSD_T7);
+        deleteDsdSet("DEL-DSD T8", RoleTestData.DSD_T7);
     }
 
     /**
@@ -1453,7 +1460,6 @@ public class AdminMgrImplTest extends TestCase
             for (String[] usr : uArray)
             {
                 SDSet dsd = RoleTestData.getSDSet(sArray[i++]);
-                //Set<String> roles = dsd.getMembers().keySet();
                 Set<String> roles = dsd.getMembers();
                 User user = UserTestData.getUser(usr);
                 int j = 0;
@@ -1463,12 +1469,12 @@ public class AdminMgrImplTest extends TestCase
                     UserRole uRole = new UserRole(user.getUserId(), role);
                     try
                     {
-
                         adminMgr.assignUser(uRole);
                     }
                     catch (SecurityException ex)
                     {
-                        fail(CLS_NM + ".assignUsersDSD user [" + user.getUserId() + "] role [" + role + "] ssd [" + dsd.getName() + "] failed");
+                        log.error(CLS_NM + ".assignUsersDSD caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                        fail(CLS_NM + ".assignUsersDSD user [" + user.getUserId() + "] role [" + role + "] dsd [" + dsd.getName() + "] failed");
                     }
                 }
             }

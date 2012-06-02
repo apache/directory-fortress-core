@@ -5394,7 +5394,36 @@ public class UserTestData extends TestCase
         },
     };
 
-    /**
+   // Test Case TU12:
+    @MyAnnotation(name = "USERS_TU21_DSD_BRUNO", value = "USR TU21_DSD_BRUNO")
+    final static String[][] USERS_TU21_DSD_BRUNO = {
+        {
+            "oamTU21User1",       /* USERID_COL */
+            "passw0rd1",          /* PASSWORD_COL */
+            "Test1",              /* PW POLICY ATTR */
+            "Test Case TU21",     /* DESC_COL */
+            "fnameoneupd",        /* CN_COL */
+            "lnameoneupd",        /* SN_COL */
+            "jtsU1TU21@jts.com", /* EMAIL_COL */
+            "501-111-1111",       /* PHONE_COL */
+            "0000",               /* BTIME_COL */
+            "0000",               /* ETIME_COL */
+            "20091001",           /* BDATE_COL */
+            "21000101",           /* EDATE_COL */
+            "20300101",           /* BLOCKDATE_COL */
+            "20300115",           /* ELOCKDATE_COL */
+            "1234567",            /* DAYMASK_COL */
+            "DEV1",               /* ORG_COL */
+            "15",                 /* TIMEOUT_COL */
+            "oamT17DSD1,oamT17DSD3",/* ASSGND_ROLES_COL */
+            "",                   /* AUTHZ_ROLES_COL */
+            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+            "888-888-8888,777-777-7777",/* PHONES_COL */
+            "555-555-5555,444-444-4444",/* MOBILES_COL */
+        }
+    };
+
+     /**
      * The Fortress test data for junit uses 2-dimensional arrays.
      */
     private final static int USERID_COL = 0;
