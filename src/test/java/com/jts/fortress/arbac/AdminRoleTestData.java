@@ -9,9 +9,9 @@ import com.jts.fortress.util.attr.VUtil;
 import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 /**
  * Description of the Class
@@ -878,7 +878,7 @@ class AdminRoleTestData extends TestCase
 
     public static Set<String> getOsU(String[] rle)
     {
-        Set<String> members = new TreeSet<String>();
+        Set<String> members = new HashSet<String>();
         if(VUtil.isNotNullOrEmpty(rle[OSU]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[OSU], ",");
@@ -896,7 +896,7 @@ class AdminRoleTestData extends TestCase
 
     public static Set<String> getOsP(String[] rle)
     {
-        Set<String> members = new TreeSet<String>();
+        Set<String> members = new HashSet<String>();
         if(com.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[OSP]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[OSP], ",");

@@ -96,7 +96,7 @@ import java.util.UUID;
     "type"
 })
 public class SDSet extends FortEntity
-    implements java.io.Serializable
+    implements java.io.Serializable, Comparable
 {
     private String id;
     private String name;
@@ -314,6 +314,15 @@ public class SDSet extends FortEntity
             return;
         }
         this.members.remove(role);
+    }
+
+    public int compareTo(Object o)
+    {
+        SDSet k1 = this;
+        SDSet k2 = (SDSet) o;
+        String s1 = k1.getName();
+        String s2 = k2.getName();
+        return s1.compareToIgnoreCase(s2);
     }
 
     /**

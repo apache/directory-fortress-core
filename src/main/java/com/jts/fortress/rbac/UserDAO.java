@@ -33,9 +33,9 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Data access class for LDAP User entity.
@@ -822,7 +822,7 @@ public final class UserDAO
     Set<String> getAssignedUsers(Set<String> roles)
         throws FinderException
     {
-        Set<String> userSet = new TreeSet<String>();
+        Set<String> userSet = new HashSet<String>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String userRoot = Config.getProperty(GlobalIds.USER_ROOT);

@@ -11,11 +11,11 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 /**
  * Description of the Class
@@ -3199,7 +3199,7 @@ public class RoleTestData extends TestCase
      */
     public static Set<String> getRelationships(String[] rle)
     {
-        Set<String> parents = new TreeSet<String>();
+        Set<String> parents = new HashSet<String>();
         if(com.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[RELATIONSHIP_COL]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[RELATIONSHIP_COL], ",");
@@ -3242,7 +3242,7 @@ public class RoleTestData extends TestCase
      */
     public static Set<String> getInheritances(String[] rle)
     {
-        Set<String> rels = new TreeSet<String>();
+        Set<String> rels = new HashSet<String>();
         if(VUtil.isNotNullOrEmpty(rle[INHERITANCE_COL]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[INHERITANCE_COL], ",");
@@ -3378,7 +3378,7 @@ public class RoleTestData extends TestCase
 
     public static Set<String> getMembers(String[] rle)
     {
-        Set<String> mems = new TreeSet<String>();
+        Set<String> mems = new HashSet<String>();
         if(com.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[MEMBERS]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[MEMBERS], ",");

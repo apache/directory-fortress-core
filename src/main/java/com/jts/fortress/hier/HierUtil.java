@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -335,7 +336,7 @@ public class HierUtil
      */
     public static Set<String> getChildren(String vertex, SimpleDirectedGraph<String, Relationship> graph)
     {
-        Set<String> descendants = new TreeSet<String>();
+        Set<String> descendants = new HashSet<String>();
         if (graph == null)
         {
             log.debug(CLS_NM + ".getChildren graph is null");
@@ -449,7 +450,7 @@ public class HierUtil
      */
     public static Set<String> getParents(String vertex, SimpleDirectedGraph<String, Relationship> graph)
     {
-        Set<String> parents = new TreeSet<String>();
+        Set<String> parents = new HashSet<String>();
         if (graph == null)
         {
             log.debug(CLS_NM + ".getParents graph is null");

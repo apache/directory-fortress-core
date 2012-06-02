@@ -35,7 +35,7 @@ public class PRA
         this.urole = urole;
         this.canAssign = canAssign;
     }
-    
+
     public int compareTo(Object o)
     {
         PRA k1 = this;

@@ -134,11 +134,11 @@ public class SdP
      * Will search using list of input RBAC role names either STATIC or DYNAMIC SDSet depending on which type is passed.
      * The role entity contains full RBAC Role name associated with SDSet node in directory.
      *
-     * @param rls  contains list of type String containing full role names associated with SDSet.
+     * @param rls  contains set of type String containing full role names associated with SDSet.
      * @param type either STATIC or DYNAMIC depending on target search data set.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final List<SDSet> search(Set<String> rls, SDSet.SDType type)
+    public final Set<SDSet> search(Set<String> rls, SDSet.SDType type)
         throws SecurityException
     {
         return sdDao.search(rls, type);

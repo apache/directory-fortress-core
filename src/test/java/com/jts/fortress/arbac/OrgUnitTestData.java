@@ -9,10 +9,10 @@ import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 /**
  * Description of the Class
@@ -811,7 +811,7 @@ public class OrgUnitTestData extends TestCase
         Set<String> parents = null;
         if(VUtil.isNotNullOrEmpty(ole[RELATIONSHIP_COL]))
         {
-            parents = new TreeSet<String>();
+            parents = new HashSet<String>();
             StringTokenizer charSetTkn = new StringTokenizer(ole[RELATIONSHIP_COL], ",");
             if (charSetTkn.countTokens() > 0)
             {
@@ -857,7 +857,7 @@ public class OrgUnitTestData extends TestCase
      */
     public static Set<String> getInheritances(String[] ole)
     {
-        Set<String> rels = new TreeSet<String>();
+        Set<String> rels = new HashSet<String>();
         if(com.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(ole[INHERITANCE_COL]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(ole[INHERITANCE_COL], ",");

@@ -12,9 +12,9 @@ import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.util.attr.VUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * This object performs administrative review functions on already provisioned Fortress RBAC entities
@@ -639,7 +639,7 @@ public class ReviewMgrImpl
             // It is possible this dataset has not yet been instantiated (if perm has no assigned roles):
             if (authorizedUsers == null)
             {
-                authorizedUsers = new TreeSet<String>();
+                authorizedUsers = new HashSet<String>();
             }
             authorizedUsers.addAll(assignedUsers);
         }

@@ -5,7 +5,11 @@ package com.jts.fortress.cli;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -932,7 +936,7 @@ public class CommandLineInterpreter
         Set<String> commands = null;
         if (VUtil.isNotNullOrEmpty(otherArgs))
         {
-            commands = new TreeSet<String>();
+            commands = new HashSet<String>();
             for (String value : otherArgs)
             {
                 commands.add(value);

@@ -40,7 +40,6 @@ public class DSD
 {
     private static final String CLS_NM = DSD.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
-    private static final SdP sp = new SdP();
 
     /**
      * This method is called during entity activation, {@link com.jts.fortress.util.time.CUtil#validateConstraints} and ensures the role does not violate dynamic separation of duty constraints.
@@ -65,8 +64,9 @@ public class DSD
         Set<String> authorizedRoleSet = RoleUtil.getInheritedRoles(activeRoleList);
         if (authorizedRoleSet != null && authorizedRoleSet.size() > 0)
         {
-            // get all DSD sets that contain the candidate activated and authorized roles:
-            List<SDSet> dsdSets = sp.search(authorizedRoleSet, SDSet.SDType.DYNAMIC);
+            // get all DSD sets that contain the candidate activated and authorized roles,
+            //If DSD cache is disabled, this will search the directory using authorizedRoleSet
+            Set<SDSet> dsdSets = SDUtil.getDsdCache(authorizedRoleSet);
             if (dsdSets != null && dsdSets.size() > 0)
             {
                 for (SDSet dsd : dsdSets)

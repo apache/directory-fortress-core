@@ -6,11 +6,13 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ReviewMgr;
+import com.jts.fortress.configuration.Config;
 import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.util.cache.Cache;
 import com.jts.fortress.util.cache.CacheMgr;
 import com.jts.fortress.util.time.Constraint;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +31,8 @@ public class SDUtil
     private static final String FORTRESS_DSDS = "fortress.dsd";
     private static Cache m_ssdCache;
     private static final String FORTRESS_SSDS = "fortress.ssd";
+    private static final SdP sp = new SdP();
+    private static final String ENABLE_DSD_CACHE = "enable.dsd.cache";
 
     static
     {
@@ -211,6 +215,41 @@ public class SDUtil
             dsdSets = putDsdCache(name);
         }
         return dsdSets;
+    }
+
+
+    /**
+     *
+     * @param authorizedRoleSet
+     * @return
+     * @throws SecurityException
+     */
+    static Set<SDSet> getDsdCache(Set<String> authorizedRoleSet)
+        throws SecurityException
+    {
+        Set<SDSet> finalSets = new HashSet<SDSet>();
+        boolean isCacheEnabled = Config.getBoolean(ENABLE_DSD_CACHE);
+        if(isCacheEnabled)
+        {
+            for(String name : authorizedRoleSet)
+            {
+                List<SDSet> dsdSets = (List<SDSet>) m_dsdCache.get(name);
+                if (dsdSets == null)
+                {
+                    dsdSets = putDsdCache(name);
+                }
+                if(dsdSets != null)
+                {
+                    finalSets.addAll(dsdSets);
+                }
+            }
+        }
+        else
+        {
+            finalSets = sp.search(authorizedRoleSet, SDSet.SDType.DYNAMIC);
+        }
+
+        return finalSets;
     }
 
     /**

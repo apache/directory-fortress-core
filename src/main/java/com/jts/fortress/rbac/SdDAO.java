@@ -27,6 +27,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -400,10 +401,10 @@ public final class SdDAO
      * @return
      * @throws com.jts.fortress.FinderException
      */
-    List<SDSet> search(Set<String> roles, SDSet.SDType type)
+    Set<SDSet> search(Set<String> roles, SDSet.SDType type)
         throws FinderException
     {
-        List<SDSet> sdList = new ArrayList<SDSet>();
+        Set<SDSet> sdList = new HashSet<SDSet>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String ssdRoot = Config.getProperty(GlobalIds.SD_ROOT);
