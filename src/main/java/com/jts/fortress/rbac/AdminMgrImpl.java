@@ -1016,6 +1016,7 @@ public final class AdminMgrImpl implements AdminMgr
             // default cardinality == 2
             ssdSet.setCardinality(2);
         }
+        clearSSDCache(ssdSet);
         return sdP.add(ssdSet);
     }
 
@@ -1047,7 +1048,8 @@ public final class AdminMgrImpl implements AdminMgr
         entity.addMember(role.getName());
         AdminUtil.setAdminData(ssdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
         SDSet ssdOut = sdP.update(entity);
-        SDUtil.clearSsdCacheEntry(role.getName());
+        // remove any references to the old SSD from cache:
+        clearSSDCache(role);
         return ssdOut;
     }
 
@@ -1086,7 +1088,8 @@ public final class AdminMgrImpl implements AdminMgr
         }
         AdminUtil.setAdminData(ssdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
         SDSet ssdOut = sdP.update(entity);
-        SDUtil.clearSsdCacheEntry(role.getName());
+        // remove any references to the old SSD from cache:
+        clearSSDCache(role);
         return ssdOut;
     }
 
@@ -1108,7 +1111,39 @@ public final class AdminMgrImpl implements AdminMgr
         VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, ssdSet);
         ssdSet.setType(SDSet.SDType.STATIC);
+        // remove any references to the old SSD from cache:
+        clearSSDCache(ssdSet);
         return sdP.delete(ssdSet);
+    }
+
+    /**
+     * Clear the SSD cache entries that correspond to this SSD
+     *
+     * @param ssdSet
+     * @throws SecurityException
+     */
+    private void clearSSDCache(SDSet ssdSet)
+        throws SecurityException
+    {
+        if(ssdSet.getMembers() != null)
+        {
+            for(String roleName : ssdSet.getMembers())
+            {
+                SDUtil.clearSsdCacheEntry(roleName);
+            }
+        }
+    }
+
+    /**
+     * Clear the SSD cache entries that correspond to this Role.
+     *
+     * @param role
+     * @throws SecurityException
+     */
+    private void clearSSDCache(Role role)
+        throws SecurityException
+    {
+        SDUtil.clearSsdCacheEntry(role.getName());
     }
 
     /**
@@ -1135,6 +1170,8 @@ public final class AdminMgrImpl implements AdminMgr
         setEntitySession(methodName, ssdSet);
         ssdSet.setType(SDSet.SDType.STATIC);
         ssdSet.setCardinality(cardinality);
+        // remove any references to the old SSD from cache:
+        clearSSDCache(ssdSet);
         return sdP.update(ssdSet);
     }
 
@@ -1206,7 +1243,8 @@ public final class AdminMgrImpl implements AdminMgr
         entity.addMember(role.getName());
         AdminUtil.setAdminData(dsdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
         SDSet dsdOut = sdP.update(entity);
-        SDUtil.clearDsdCacheEntry(role.getName());
+        // remove any references to the old DSD from cache:
+        clearDSDCache(dsdSet);
         return dsdOut;
     }
 
@@ -1246,7 +1284,8 @@ public final class AdminMgrImpl implements AdminMgr
         }
         AdminUtil.setAdminData(dsdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
         SDSet dsdOut = sdP.update(entity);
-        SDUtil.clearDsdCacheEntry(role.getName());
+        // remove any references to the old DSD from cache:
+        clearDSDCache(dsdSet);
         return dsdOut;
     }
 
@@ -1270,6 +1309,8 @@ public final class AdminMgrImpl implements AdminMgr
         VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, dsdSet);
         dsdSet.setType(SDSet.SDType.DYNAMIC);
+        // remove any references to the old DSD from cache:
+        clearDSDCache(dsdSet);
         return sdP.delete(dsdSet);
     }
 
@@ -1299,7 +1340,21 @@ public final class AdminMgrImpl implements AdminMgr
         setEntitySession(methodName, dsdSet);
         dsdSet.setType(SDSet.SDType.DYNAMIC);
         dsdSet.setCardinality(cardinality);
+        // remove any references to the old DSD from cache:
+        clearDSDCache(dsdSet);
         return sdP.update(dsdSet);
+    }
+
+    /**
+     * Clear the DSD cache entries that correspond to this DSD
+     *
+     * @param dsdSet
+     * @throws SecurityException
+     */
+    private void clearDSDCache(SDSet dsdSet)
+        throws SecurityException
+    {
+        SDUtil.clearDsdCacheEntry(dsdSet.getName());
     }
 
     /**

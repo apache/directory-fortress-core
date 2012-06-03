@@ -46,8 +46,11 @@ public class SDUtil
 
     static
     {
+        // Get a reference to the CacheManager Singleton object:
         CacheMgr cacheMgr = CacheMgr.getInstance();
+        // This cache contains a wrapper entry for DSD and is searchable by both DSD and Role name:
         SDUtil.m_dsdCache = cacheMgr.getCache(FORTRESS_DSDS);
+        // This cache is not searchable and contains Lists of SSD objects by Role:
         SDUtil.m_ssdCache = cacheMgr.getCache(FORTRESS_SSDS);
     }
 
@@ -80,7 +83,8 @@ public class SDUtil
         int matchCount;
         // get all authorized roles for user
         Set<String> rls = rMgr.authorizedRoles(user);
-        if (rls == null || rls.size() == 0)
+        // Need to proceed?
+        if (!VUtil.isNotNullOrEmpty(rls))
         {
             return;
         }
@@ -122,10 +126,9 @@ public class SDUtil
     public static void validateDSD(Session session, Constraint role)
         throws SecurityException
     {
-        //int matchCount;
         // get all activated roles from user's session:
         List<UserRole> rls = session.getRoles();
-        if (rls == null || rls.size() == 0)
+        if (!VUtil.isNotNullOrEmpty(rls))
         {
             // An empty list of roles was passed in the session variable.
             // No need to continue.
@@ -256,49 +259,50 @@ public class SDUtil
     static Set<SDSet> getDsdCache(Set<String> authorizedRoleSet)
         throws SecurityException
     {
-        Set<SDSet> finalSets = new HashSet<SDSet>();
-        if(VUtil.isNotNullOrEmpty(authorizedRoleSet))
+        Set<SDSet> dsdRetSets = new HashSet<SDSet>();
+        // Need to proceed?
+        if(!VUtil.isNotNullOrEmpty(authorizedRoleSet))
         {
-            return finalSets;
+            return dsdRetSets;
         }
+        // Was the DSD Cache switched off?
         boolean isCacheDisabled = Config.getBoolean(IS_DSD_CACHE_DISABLED_PARM, false);
-        // If cache has been disabled, get the DSD's from the directory using search:
+        // If so, get DSD's from LDAP:
         if(isCacheDisabled)
         {
-            finalSets = sp.search(authorizedRoleSet, SDSet.SDType.DYNAMIC);
+            dsdRetSets = sp.search(authorizedRoleSet, SDSet.SDType.DYNAMIC);
         }
+        // Search the DSD cache for matching Role members:
         else
         {
+            // Search on roleName attribute which maps to 'member' attr on the cache record:
             Attribute<String> member = m_dsdCache.getSearchAttribute(MEMBER);
             Query query = m_dsdCache.createQuery();
             query.includeKeys();
             query.includeValues();
-            // Add the Role names as search arguments to cache:
+            // Add the passed in authorized Role names to this cache query:
             Set<String> roles = new HashSet<String>(authorizedRoleSet);
             query.addCriteria(member.in(roles));
+            // Return all DSD cache entries that match roleName to the 'member' attribute in cache entry:
             Results results = query.execute();
-            Set<SDSet> dsdSets = new HashSet<SDSet>();
             for (Result result : results.all())
             {
                 DsdCacheEntry entry = (DsdCacheEntry) result.getValue();
                 // Do not add dummy DSD sets to the final list:
                 if(!entry.isEmpty())
                 {
-                    dsdSets.add(entry.getSdSet());
+                    dsdRetSets.add(entry.getSdSet());
                 }
-                // Remove these role members from authorizedRoleSet to preclude from upcoming DSD search:
+                // Remove role member from authorizedRoleSet to preclude from upcoming DSD search:
                 authorizedRoleSet.remove(entry.getMember());
             }
+            // Authorized roles remaining in this set correspond to missed cache hits from above:
             if (authorizedRoleSet.size() > 0)
             {
-                finalSets = putDsdCache(authorizedRoleSet);
-            }
-            else
-            {
-                finalSets = dsdSets;
+                dsdRetSets = putDsdCache(authorizedRoleSet);
             }
         }
-        return finalSets;
+        return dsdRetSets;
     }
 
     /**
@@ -324,6 +328,7 @@ public class SDUtil
                     Set<String> members = dsd.getMembers();
                     if(members != null)
                     {
+                        // Seed the cache with DSD objects mapped to role name:
                         for(String member : members)
                         {
                             String key = buildKey(dsd.getName(), member);
@@ -333,6 +338,7 @@ public class SDUtil
                         }
                     }
                 }
+                // Maintain the set of DSD's to be returned to the caller:
                 dsdSets.addAll(dsdList);
             }
             else
@@ -372,6 +378,7 @@ public class SDUtil
                 Set<String> members = dsd.getMembers();
                 if(members != null)
                 {
+                    // Seed the cache with DSD objects mapped to role name:
                     for(String member : members)
                     {
                         String key = buildKey(dsd.getName(), member);

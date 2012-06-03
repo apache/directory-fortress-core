@@ -28,15 +28,18 @@ moduleload  accesslog.la
 access to dn.sub="ou=Permissions,ou=RBAC,@SUFFIX@" by users read
 access to dn.sub="ou=AdminPerms,ou=ARBAC,@SUFFIX@" by users read
 ### This one allows user to modify their own password (needed for pw policies):
-access to attrs=userpassword
-	by self write
-	by * auth
-### Have to give access to dn.base to read supported features on this directory:
+### This also allows user to modify their own ftmod attributes (needed for audit):
+access to attrs=userpassword,ftModCode,ftModId,ftModifier
+         by self write
+         by * auth
+
+### Must allow access to dn.base to read supported features on this directory:
 access to dn.base="" by * read
 access to dn.base="cn=Subschema" by * read
 access to *
 	by self write
 	by anonymous auth
+
 ### Disable null base search of rootDSE
 ### This disables auto-discovery capabilities of clients.
 # Changed -> access to dn.base="" by * read <- to the following:
