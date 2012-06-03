@@ -8,17 +8,24 @@ import com.jts.fortress.SecurityException;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.configuration.Config;
 import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.Cache;
 import com.jts.fortress.util.cache.CacheMgr;
+import com.jts.fortress.util.cache.DsdCacheEntry;
 import com.jts.fortress.util.time.Constraint;
+import net.sf.ehcache.search.Attribute;
+import net.sf.ehcache.search.Query;
+import net.sf.ehcache.search.Result;
+import net.sf.ehcache.search.Results;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 /**
- * This utilty provides functionality to process SSD requests.
+ * This utilty provides functionality necessary for SSD and DSD processing but should not be called by components outside fortress.
+ *
+ * This class is thread safe.
  *
  * @author Shawn McKinney
  * @created September 3, 2010
@@ -32,7 +39,10 @@ public class SDUtil
     private static Cache m_ssdCache;
     private static final String FORTRESS_SSDS = "fortress.ssd";
     private static final SdP sp = new SdP();
-    private static final String ENABLE_DSD_CACHE = "enable.dsd.cache";
+    private static final String IS_DSD_CACHE_DISABLED_PARM = "enable.dsd.cache";
+    private static final String MEMBER = "member";
+    private static final String DSD_NAME = "name";
+    private static final String EMPTY_ELEMENT = "empty";
 
     static
     {
@@ -123,7 +133,7 @@ public class SDUtil
         }
 
         // get all DSD sets that contain the target role
-        List<SDSet> dsdSets = getDsdCache(role.getName());
+        Set<SDSet> dsdSets = getDsdCache(role.getName());
         for (SDSet dsd : dsdSets)
         {
             // Keeps the number of matched roles to a particular DSD set.
@@ -176,86 +186,227 @@ public class SDUtil
     }
 
     /**
+     * Given DSD entry name, clear its corresponding object values from the cache.
      *
-     * @param name
-     * @throws SecurityException
+     * @param name contains the name of object to be cleared.
+     * @throws SecurityException in the event of system or rule violation.
      */
     static void clearDsdCacheEntry(String name)
         throws SecurityException
     {
-        m_dsdCache.clear(name);
-    }
-
-    /**
-     *
-     * @param name
-     * @return
-     * @throws SecurityException
-     */
-    private static List<SDSet> putDsdCache(String name)
-        throws SecurityException
-    {
-        List<SDSet> dsdSets = rMgr.dsdRoleSets(new Role(name));
-        m_dsdCache.put(name, dsdSets);
-        return dsdSets;
-    }
-
-    /**
-     *
-     * @param name
-     * @return
-     * @throws SecurityException
-     */
-    private static List<SDSet> getDsdCache(String name)
-        throws SecurityException
-    {
-        List<SDSet> dsdSets = (List<SDSet>) m_dsdCache.get(name);
-        if (dsdSets == null)
+        Attribute<String> dsdName = m_dsdCache.getSearchAttribute(DSD_NAME);
+        Query query = m_dsdCache.createQuery();
+        query.includeKeys();
+        query.includeValues();
+        query.addCriteria(dsdName.eq(name));
+        Results results = query.execute();
+        for (Result result : results.all())
         {
-            dsdSets = putDsdCache(name);
+            m_dsdCache.clear(result.getKey());
         }
-        return dsdSets;
     }
 
+    /**
+     * Given a role name, return the set of DSD's that have a matching member.
+     *
+     * @param name contains name of authorized Role used to search the cache.
+     * @return un-ordered set of matching DSD's.
+     * @throws SecurityException in the event of system or rule violation.
+     */
+    private static Set<SDSet> getDsdCache(String name)
+        throws SecurityException
+    {
+        Attribute<String> member = m_dsdCache.getSearchAttribute(MEMBER);
+        Query query = m_dsdCache.createQuery();
+        query.includeKeys();
+        query.includeValues();
+        query.addCriteria(member.eq(name));
+        Results results = query.execute();
+        Set<SDSet> finalSet = new HashSet<SDSet>();
+        boolean empty = false;
+        for (Result result : results.all())
+        {
+            DsdCacheEntry entry = (DsdCacheEntry) result.getValue();
+            if(!entry.isEmpty())
+            {
+                finalSet.add(entry.getSdSet());
+                finalSet = putDsdCache(name);
+            }
+            else
+            {
+                empty = true;
+            }
+            finalSet.add(entry.getSdSet());
+        }
+        // If nothing was found in the cache, determine if it needs to be seeded:
+        if (finalSet.size() == 0 && !empty)
+        {
+            finalSet = putDsdCache(name);
+        }
+        return finalSet;
+    }
 
     /**
+     * Given a Set of authorized Roles, return the set of DSD's that have matching members.
      *
-     * @param authorizedRoleSet
-     * @return
-     * @throws SecurityException
+     * @param authorizedRoleSet contains an un-order Set of authorized Roles.
+     * @return un-ordered set of matching DSD's.
+     * @throws SecurityException in the event of system or rule violation.
      */
     static Set<SDSet> getDsdCache(Set<String> authorizedRoleSet)
         throws SecurityException
     {
         Set<SDSet> finalSets = new HashSet<SDSet>();
-        boolean isCacheEnabled = Config.getBoolean(ENABLE_DSD_CACHE);
-        if(isCacheEnabled)
+        if(VUtil.isNotNullOrEmpty(authorizedRoleSet))
         {
-            for(String name : authorizedRoleSet)
+            return finalSets;
+        }
+        boolean isCacheDisabled = Config.getBoolean(IS_DSD_CACHE_DISABLED_PARM, false);
+        // If cache has been disabled, get the DSD's from the directory using search:
+        if(isCacheDisabled)
+        {
+            finalSets = sp.search(authorizedRoleSet, SDSet.SDType.DYNAMIC);
+        }
+        else
+        {
+            Attribute<String> member = m_dsdCache.getSearchAttribute(MEMBER);
+            Query query = m_dsdCache.createQuery();
+            query.includeKeys();
+            query.includeValues();
+            // Add the Role names as search arguments to cache:
+            Set<String> roles = new HashSet<String>(authorizedRoleSet);
+            query.addCriteria(member.in(roles));
+            Results results = query.execute();
+            Set<SDSet> dsdSets = new HashSet<SDSet>();
+            for (Result result : results.all())
             {
-                List<SDSet> dsdSets = (List<SDSet>) m_dsdCache.get(name);
-                if (dsdSets == null)
+                DsdCacheEntry entry = (DsdCacheEntry) result.getValue();
+                // Do not add dummy DSD sets to the final list:
+                if(!entry.isEmpty())
                 {
-                    dsdSets = putDsdCache(name);
+                    dsdSets.add(entry.getSdSet());
                 }
-                if(dsdSets != null)
+                // Remove these role members from authorizedRoleSet to preclude from upcoming DSD search:
+                authorizedRoleSet.remove(entry.getMember());
+            }
+            if (authorizedRoleSet.size() > 0)
+            {
+                finalSets = putDsdCache(authorizedRoleSet);
+            }
+            else
+            {
+                finalSets = dsdSets;
+            }
+        }
+        return finalSets;
+    }
+
+    /**
+     * Get the matching DSD's from directory and add to the cache (if found).  If matching DSD not found,
+     * add dummy entry to cache to prevent repeated searches.
+     *
+     * @param authorizedRoleSet contains set of Roles used to search directory for matching DSD's.
+     * @return List of DSD's who have matching Role members.
+     * @throws SecurityException in the event of system or rule violation.
+     */
+    private static Set<SDSet> putDsdCache(Set<String> authorizedRoleSet)
+        throws SecurityException
+    {
+        Set<SDSet> dsdSets = new HashSet<SDSet>();
+        // Search the DSD's iteratively to seed the DSD cache by Role name:
+        for(String roleName : authorizedRoleSet)
+        {
+            List<SDSet> dsdList = sp.search(new Role(roleName), SDSet.SDType.DYNAMIC);
+            if(VUtil.isNotNullOrEmpty(dsdList))
+            {
+                for (SDSet dsd : dsdList)
                 {
-                    finalSets.addAll(dsdSets);
+                    Set<String> members = dsd.getMembers();
+                    if(members != null)
+                    {
+                        for(String member : members)
+                        {
+                            String key = buildKey(dsd.getName(), member);
+                            DsdCacheEntry entry = new DsdCacheEntry(member, dsd, false);
+                            entry.setName(dsd.getName());
+                            m_dsdCache.put(key, entry);
+                        }
+                    }
+                }
+                dsdSets.addAll(dsdList);
+            }
+            else
+            {
+                // Seed the cache with dummy entry for a Role that is not referenced by DSD:
+                String key = buildKey(EMPTY_ELEMENT, roleName);
+                SDSet sdSet = new SDSet();
+                sdSet.setType(SDSet.SDType.DYNAMIC);
+                sdSet.setName(key);
+                sdSet.setMember(roleName);
+                DsdCacheEntry entry = new DsdCacheEntry(roleName, sdSet, true);
+                entry.setName(key);
+                m_dsdCache.put(sdSet.getName(), entry);
+            }
+        }
+        return dsdSets;
+    }
+
+    /**
+     *
+     * Get the matching DSD's from directory and add to the cache (if found).  If matching DSD not found,
+     * add dummy entry to cache to prevent repeated searches.
+     *
+     * @param roleName of Role is used to search directory for matching DSD's.
+     * @return Set of DSD's who have matching Role member.
+     * @throws SecurityException in the event of system or rule violation.
+     */
+    private static Set<SDSet> putDsdCache(String roleName)
+        throws SecurityException
+    {
+        List<SDSet> dsdList = rMgr.dsdRoleSets(new Role(roleName));
+        Set<SDSet> finalSet = new HashSet<SDSet>(dsdList);
+        if(VUtil.isNotNullOrEmpty(dsdList))
+        {
+            for (SDSet dsd : dsdList)
+            {
+                Set<String> members = dsd.getMembers();
+                if(members != null)
+                {
+                    for(String member : members)
+                    {
+                        String key = buildKey(dsd.getName(), member);
+                        DsdCacheEntry entry = new DsdCacheEntry(member, dsd, false);
+                        entry.setName(dsd.getName());
+                        m_dsdCache.put(key, entry);
+                    }
                 }
             }
         }
         else
         {
-            finalSets = sp.search(authorizedRoleSet, SDSet.SDType.DYNAMIC);
+            // Seed the cache with dummy entry for Role that does not have DSD:
+            String key = buildKey(EMPTY_ELEMENT, roleName);
+            SDSet sdSet = new SDSet();
+            sdSet.setType(SDSet.SDType.DYNAMIC);
+            sdSet.setName(key);
+            sdSet.setMember(roleName);
+            DsdCacheEntry entry = new DsdCacheEntry(roleName, sdSet, true);
+            entry.setName(key);
+            m_dsdCache.put(sdSet.getName(), entry);
         }
+        return finalSet;
+    }
 
-        return finalSets;
+    private static String buildKey(String parm1, String parm2)
+    {
+        return parm1 + ":" + parm2;
     }
 
     /**
+     * Given entry name, clear its corresponding object value from the cache.
      *
-     * @param name
-     * @throws SecurityException
+     * @param name contains the name of object to be cleared.
+     * @throws SecurityException in the event of system or rule violation.
      */
     static void clearSsdCacheEntry(String name)
         throws SecurityException
@@ -264,10 +415,11 @@ public class SDUtil
     }
 
     /**
+     * Get the matching SSD's from directory and add to the cache (if found).
      *
-     * @param name
-     * @return
-     * @throws SecurityException
+     * @param name of Role is used to search directory for matching SSD's.
+     * @return List of SSD's who have matching Role member.
+     * @throws SecurityException in the event of system or rule violation.
      */
     private static List<SDSet> putSsdCache(String name)
         throws SecurityException
@@ -278,10 +430,11 @@ public class SDUtil
     }
 
     /**
+     * Look in cache for matching List of SSD's.
      *
-     * @param name
-     * @return
-     * @throws SecurityException
+     * @param name of Role is used to search directory for matching SSD's.
+     * @return List of SSD's who have matching Role member.
+     * @throws SecurityException in the event of system or rule violation.
      */
     private static List<SDSet> getSsdCache(String name)
         throws SecurityException

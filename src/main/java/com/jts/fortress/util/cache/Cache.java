@@ -3,6 +3,9 @@
  */
 package com.jts.fortress.util.cache;
 
+import net.sf.ehcache.search.Attribute;
+import net.sf.ehcache.search.Query;
+
 /**
  * This Interface is implemented by cacheable Fortress objects.
  *
@@ -44,4 +47,9 @@ public interface Cache
      * @throws CacheException
      */
     public void flush() throws CacheException;
+
+
+    public <T> Attribute<T> getSearchAttribute(String attributeName) throws CacheException;
+
+    public Query createQuery();
 }

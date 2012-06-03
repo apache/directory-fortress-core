@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
@@ -267,6 +268,30 @@ public class SDSet extends FortEntity
     }
 
     /**
+     *
+     * @return
+     */
+    //public String getMember()
+    //{
+    //    String szMember = null;
+    //    if(members != null)
+    //    {
+    //        szMember = members.toString();
+    //    }
+    //    return szMember;
+    //}
+
+    //public String getMember(String roleName)
+    //{
+    //    String szMember = null;
+    //    if(members != null)
+    //    {
+    //        szMember = members.toString();
+    //    }
+    //    return szMember;
+    //}
+
+    /**
      * Return the alphabetically sorted Set containing Role membership to SDSet.
      *
      * @return attribute maps to 'ftRoles' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.
@@ -285,6 +310,21 @@ public class SDSet extends FortEntity
     public void setMembers(Set<String> members)
     {
         this.members = members;
+    }
+
+
+    /**
+     * Add a member to the set.
+     *
+     * @param member role name.
+     */
+    public void setMember(String member)
+    {
+        if(this.members == null)
+        {
+            this.members = new HashSet<String>();
+        }
+        this.members.add(member);
     }
 
 

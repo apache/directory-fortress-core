@@ -325,6 +325,58 @@ public final class SdDAO
 
 
     /**
+     * Given an SSD name and type, find matching object in the directory.
+     * @param sdset requires name and type.
+     * @return List of matching SDSets.
+     * @throws com.jts.fortress.FinderException
+     */
+    List<SDSet> search(SDSet sdset)
+        throws FinderException
+    {
+        List<SDSet> sdList = new ArrayList<SDSet>();
+        LDAPConnection ld = null;
+        LDAPSearchResults searchResults;
+        String ssdRoot = Config.getProperty(GlobalIds.SD_ROOT);
+        String objectClass = SSD_OBJECT_CLASS_NM;
+        if (sdset.getType() == SDSet.SDType.DYNAMIC)
+        {
+            objectClass = DSD_OBJECT_CLASS_NM;
+        }
+        try
+        {
+            String searchVal = VUtil.encodeSafeText(sdset.getName(), GlobalIds.ROLE_LEN);
+            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            String filter = "(&(objectclass=" + objectClass + ")(" + SD_SET_NM + "=" + searchVal + "*))";
+            searchResults = DaoUtil.search(ld, ssdRoot,
+                LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
+            while (searchResults.hasMoreElements())
+            {
+                sdList.add(unloadLdapEntry(searchResults.next(), sequence++));
+            }
+        }
+        catch (LDAPException e)
+        {
+            String error = CLS_NM + ".search sdset name [" + sdset.getName() + "] type [" + sdset.getType() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            int errCode;
+            if (sdset.getType() == SDSet.SDType.DYNAMIC)
+            {
+                errCode = GlobalErrIds.DSD_SEARCH_FAILED;
+            }
+            else
+            {
+                errCode = GlobalErrIds.SSD_SEARCH_FAILED;
+            }
+            throw new FinderException(errCode, error, e);
+        }
+        finally
+        {
+            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+        }
+        return sdList;
+    }
+
+    /**
      * @param role
      * @return
      * @throws com.jts.fortress.FinderException

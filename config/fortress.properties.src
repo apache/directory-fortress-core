@@ -35,6 +35,10 @@ http.port=8080
 
 ehcache.config.file=ehcache.xml
 
+# If for any reason echcache must be DISABLED for DSD, make sure this parameter is set to 'true' which is the default.  Otherwise performance penalty will be incurred during multi-role activations.
+disable.dsd.cache=false
+
+
 # These will override default LDAP for REST implementations:
 #reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrRestImpl
 #adminmgr.implementation=com.jts.fortress.rest.AdminMgrRestImpl

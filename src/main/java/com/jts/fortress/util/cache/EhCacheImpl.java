@@ -2,6 +2,8 @@ package com.jts.fortress.util.cache;
 
 import com.jts.fortress.constants.GlobalErrIds;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.search.Attribute;
+import net.sf.ehcache.search.Query;
 
 /**
  * This object provides cache functionality from <a href="http://ehcache.org//">Ehcache</a> provider.
@@ -124,5 +126,26 @@ public class EhCacheImpl implements Cache
             throw new CacheException(GlobalErrIds.FT_CACHE_FLUSH_ERR, error, ce);
 
         }
+    }
+
+    /**
+     *
+     * @param attributeName
+     * @param <T>
+     * @return
+     * @throws CacheException
+     */
+    public <T> Attribute<T> getSearchAttribute(String attributeName) throws CacheException
+    {
+        return this.cache.getSearchAttribute(attributeName);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Query createQuery()
+    {
+        return this.cache.createQuery();
     }
 }

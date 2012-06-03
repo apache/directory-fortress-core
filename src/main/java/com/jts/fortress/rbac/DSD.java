@@ -62,7 +62,8 @@ public class DSD
         }
         // get the list of authorized roles for this user:
         Set<String> authorizedRoleSet = RoleUtil.getInheritedRoles(activeRoleList);
-        if (authorizedRoleSet != null && authorizedRoleSet.size() > 0)
+        // only need to check DSD constraints if more than one role is being activated:
+        if (authorizedRoleSet != null && authorizedRoleSet.size() > 1)
         {
             // get all DSD sets that contain the candidate activated and authorized roles,
             //If DSD cache is disabled, this will search the directory using authorizedRoleSet

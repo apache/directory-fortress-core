@@ -227,7 +227,9 @@ public class FortressJUnitTest extends TestCase
         suite.addTest(new AccessMgrImplTest("testCreateSession"));
         suite.addTest(new AccessMgrImplTest("testCreateSessionTrusted"));
         suite.addTest(new AccessMgrImplTest("testCreateSessionHier"));
-        suite.addTest(new AccessMgrImplTest("createSessionsDSD"));        
+        suite.addTest(new AccessMgrImplTest("createSessionsDSD"));
+        // hit it again to make sure the caching is working good:
+        suite.addTest(new AccessMgrImplTest("createSessionsDSD"));
         suite.addTest(new AccessMgrImplTest("testSessionRole"));
         suite.addTest(new AccessMgrImplTest("testCheckAccess"));
         suite.addTest(new AccessMgrImplTest("testAddActiveRole"));

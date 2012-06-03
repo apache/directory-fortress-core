@@ -119,6 +119,20 @@ public class SdP
      * Will search using a single RBAC Role name either STATIC or DYNAMIC SDSet depending on which type is passed.
      * The role entity contains full RBAC Role name associated with SDSet node in directory.
      *
+     * @param sdSet contains sdset name or partial name along with sdset type of STATIC or DYNAMIC.
+     * @throws com.jts.fortress.SecurityException in the event of DAO search error.
+     */
+    public final List<SDSet> search(SDSet sdSet)
+        throws SecurityException
+    {
+        return sdDao.search(sdSet);
+    }
+
+
+    /**
+     * Will search using a single RBAC Role name either STATIC or DYNAMIC SDSet depending on which type is passed.
+     * The role entity contains full RBAC Role name associated with SDSet node in directory.
+     *
      * @param role contains full role name associated with SDSet.
      * @param type either STATIC or DYNAMIC depending on target search data set.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.

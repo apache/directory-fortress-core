@@ -740,7 +740,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            memoryStoreEvictionPolicy="LFU"
            />
 
-    <cache name="fortress.dsd"
+    <cache name="fortress.dsd.x"
            maxElementsInMemory="1000"
            maxElementsOnDisk="10"
            eternal="false"
@@ -750,6 +750,21 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            timeToLiveSeconds="600"
            memoryStoreEvictionPolicy="LFU"
            />
+
+    <cache name="fortress.dsd"
+           maxElementsInMemory="1000"
+           maxElementsOnDisk="10"
+           eternal="false"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU">
+           <searchable>
+               <searchAttribute name="member" expression="value.getMember()"/>
+               <searchAttribute name="name" expression="value.getName()"/>
+           </searchable>
+        </cache>
 
     <cache name="fortress.ssd"
            maxElementsInMemory="1000"
@@ -802,7 +817,6 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            overflowToDisk="false"
            memoryStoreEvictionPolicy="FIFO"
             /-->
-
 
     <!--
     Sample cache named sampleCache3. This cache overflows to disk. The disk store is
