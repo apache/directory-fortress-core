@@ -17,6 +17,7 @@ import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
 import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
+import org.apache.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,8 @@ import java.util.Set;
 
 /**
  * This utilty provides functionality necessary for SSD and DSD processing but should not be called by components outside fortress.
- *
+ * This class also contains utility functions for maintaining the SSD and DSD cache.
+ * <p/>
  * This class is thread safe.
  *
  * @author Shawn McKinney
@@ -33,6 +35,7 @@ import java.util.Set;
 public class SDUtil
 {
     private static final String CLS_NM = SDUtil.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     private static ReviewMgr rMgr = new ReviewMgrImpl();
     private static Cache m_dsdCache;
     private static final String FORTRESS_DSDS = "fortress.dsd";
@@ -49,9 +52,9 @@ public class SDUtil
         // Get a reference to the CacheManager Singleton object:
         CacheMgr cacheMgr = CacheMgr.getInstance();
         // This cache contains a wrapper entry for DSD and is searchable by both DSD and Role name:
-        SDUtil.m_dsdCache = cacheMgr.getCache(FORTRESS_DSDS);
+        m_dsdCache = cacheMgr.getCache(FORTRESS_DSDS);
         // This cache is not searchable and contains Lists of SSD objects by Role:
-        SDUtil.m_ssdCache = cacheMgr.getCache(FORTRESS_SSDS);
+        m_ssdCache = cacheMgr.getCache(FORTRESS_SSDS);
     }
 
     /**
@@ -219,18 +222,18 @@ public class SDUtil
     private static Set<SDSet> getDsdCache(String name)
         throws SecurityException
     {
+        Set<SDSet> finalSet = new HashSet<SDSet>();
         Attribute<String> member = m_dsdCache.getSearchAttribute(MEMBER);
         Query query = m_dsdCache.createQuery();
         query.includeKeys();
         query.includeValues();
         query.addCriteria(member.eq(name));
         Results results = query.execute();
-        Set<SDSet> finalSet = new HashSet<SDSet>();
         boolean empty = false;
         for (Result result : results.all())
         {
             DsdCacheEntry entry = (DsdCacheEntry) result.getValue();
-            if(!entry.isEmpty())
+            if (!entry.isEmpty())
             {
                 finalSet.add(entry.getSdSet());
                 finalSet = putDsdCache(name);
@@ -261,14 +264,14 @@ public class SDUtil
     {
         Set<SDSet> dsdRetSets = new HashSet<SDSet>();
         // Need to proceed?
-        if(!VUtil.isNotNullOrEmpty(authorizedRoleSet))
+        if (!VUtil.isNotNullOrEmpty(authorizedRoleSet))
         {
             return dsdRetSets;
         }
         // Was the DSD Cache switched off?
         boolean isCacheDisabled = Config.getBoolean(IS_DSD_CACHE_DISABLED_PARM, false);
         // If so, get DSD's from LDAP:
-        if(isCacheDisabled)
+        if (isCacheDisabled)
         {
             dsdRetSets = sp.search(authorizedRoleSet, SDSet.SDType.DYNAMIC);
         }
@@ -289,7 +292,7 @@ public class SDUtil
             {
                 DsdCacheEntry entry = (DsdCacheEntry) result.getValue();
                 // Do not add dummy DSD sets to the final list:
-                if(!entry.isEmpty())
+                if (!entry.isEmpty())
                 {
                     dsdRetSets.add(entry.getSdSet());
                 }
@@ -318,18 +321,18 @@ public class SDUtil
     {
         Set<SDSet> dsdSets = new HashSet<SDSet>();
         // Search the DSD's iteratively to seed the DSD cache by Role name:
-        for(String roleName : authorizedRoleSet)
+        for (String roleName : authorizedRoleSet)
         {
             List<SDSet> dsdList = sp.search(new Role(roleName), SDSet.SDType.DYNAMIC);
-            if(VUtil.isNotNullOrEmpty(dsdList))
+            if (VUtil.isNotNullOrEmpty(dsdList))
             {
                 for (SDSet dsd : dsdList)
                 {
                     Set<String> members = dsd.getMembers();
-                    if(members != null)
+                    if (members != null)
                     {
                         // Seed the cache with DSD objects mapped to role name:
-                        for(String member : members)
+                        for (String member : members)
                         {
                             String key = buildKey(dsd.getName(), member);
                             DsdCacheEntry entry = new DsdCacheEntry(member, dsd, false);
@@ -358,7 +361,6 @@ public class SDUtil
     }
 
     /**
-     *
      * Get the matching DSD's from directory and add to the cache (if found).  If matching DSD not found,
      * add dummy entry to cache to prevent repeated searches.
      *
@@ -371,15 +373,15 @@ public class SDUtil
     {
         List<SDSet> dsdList = rMgr.dsdRoleSets(new Role(roleName));
         Set<SDSet> finalSet = new HashSet<SDSet>(dsdList);
-        if(VUtil.isNotNullOrEmpty(dsdList))
+        if (VUtil.isNotNullOrEmpty(dsdList))
         {
             for (SDSet dsd : dsdList)
             {
                 Set<String> members = dsd.getMembers();
-                if(members != null)
+                if (members != null)
                 {
                     // Seed the cache with DSD objects mapped to role name:
-                    for(String member : members)
+                    for (String member : members)
                     {
                         String key = buildKey(dsd.getName(), member);
                         DsdCacheEntry entry = new DsdCacheEntry(member, dsd, false);

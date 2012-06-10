@@ -268,30 +268,6 @@ public class SDSet extends FortEntity
     }
 
     /**
-     *
-     * @return
-     */
-    //public String getMember()
-    //{
-    //    String szMember = null;
-    //    if(members != null)
-    //    {
-    //        szMember = members.toString();
-    //    }
-    //    return szMember;
-    //}
-
-    //public String getMember(String roleName)
-    //{
-    //    String szMember = null;
-    //    if(members != null)
-    //    {
-    //        szMember = members.toString();
-    //    }
-    //    return szMember;
-    //}
-
-    /**
      * Return the alphabetically sorted Set containing Role membership to SDSet.
      *
      * @return attribute maps to 'ftRoles' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.

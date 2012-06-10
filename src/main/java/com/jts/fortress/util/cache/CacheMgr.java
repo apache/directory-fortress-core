@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * This class is a facade and shields internal Fortress objects from specifics of the actual
  * cache implementation that is in use.
+ *
  * @author Shawn McKinney
  * @created March 9, 2012
  */

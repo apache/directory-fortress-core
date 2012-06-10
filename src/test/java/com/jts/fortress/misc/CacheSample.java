@@ -2,14 +2,7 @@ package com.jts.fortress.misc;
 
 import com.jts.fortress.rbac.SDSet;
 import com.jts.fortress.rbac.SdP;
-//import net.sf.ehcache.CacheManager;
 import com.jts.fortress.util.cache.Cache;
-import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.Configuration;
-import net.sf.ehcache.config.SearchAttribute;
-import net.sf.ehcache.config.Searchable;
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
 import net.sf.ehcache.search.Result;
@@ -35,43 +28,12 @@ public class CacheSample
     final protected static Logger log = Logger.getLogger(CLS_NM);
     private static final SdP sdP = new SdP();
     private CacheMgr cacheManager;
-    //private Ehcache cache;
     private Cache cache;
 
     private void initializeCache()
     {
         cacheManager = CacheMgr.getInstance();
         cache = cacheManager.getCache("fortress.dsd");
-        // Create Cache
-        //Configuration cacheManagerConfig = new Configuration();
-
-
-        //CacheConfiguration cacheConfig = new CacheConfiguration("fortress.dsd", -1).eternal(true)
-            // .terracotta(new TerracottaConfiguration())
-        //    ;
-        //CacheConfiguration cacheConfig = new CacheConfiguration("test", -1)
-        //    .eternal(true)
-            // .terracotta(new TerracottaConfiguration())
-        //    ;
-        //Searchable searchable = new Searchable();
-        //cacheConfig.addSearchable(searchable);
-        //searchable.addSearchAttribute(new SearchAttribute().name("member"));
-
-        /*
-         * If you want to initialize it via ehcache.xml it would look like this:
-         *
-         * <cache name="test" maxElementsInMemory="0" eternal="true"
-         * overflowToDisk="false"> <searchable> <searchAttribute name="age"/>
-         * <searchAttribute name="name"
-         * class="org.sharrissf.sample.EhcacheSearchPlaying$NameAttributeExtractor"
-         * /> <searchAttribute name="gender" expression="value.getGender()"/>
-         * <searchAttribute name="state" expression="value.getState()"/>
-         * </searchable> </cache>
-         */
-
-        //cacheManagerConfig.addCache(cacheConfig);
-        //cacheManager = new CacheManager(cacheManagerConfig);
-        //cache = cacheManager.getEhcache("test");
     }
 
     private void loadCache()
@@ -87,13 +49,12 @@ public class CacheSample
                 for (SDSet dsd : dsds)
                 {
                     Set<String> members = dsd.getMembers();
-                    if(members != null)
+                    if (members != null)
                     {
-                        for(String member : members)
+                        for (String member : members)
                         {
                             DsdCacheEntry entry = new DsdCacheEntry(member, dsd);
                             String key = dsd.getName() + ":" + member;
-                            //cache.put(new Element(key, entry));
                             cache.put(key, entry);
                             log.info("Add DSD key: " + key + " members: " + dsd.getMembers() + " to the cache");
                         }
@@ -186,6 +147,7 @@ public class CacheSample
         {
             this.member = member;
         }
+
         public SDSet getSdSet()
         {
             return sdSet;

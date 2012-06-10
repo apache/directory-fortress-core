@@ -1,5 +1,6 @@
 package com.jts.fortress.util.cache;
 
+import com.jts.fortress.ConfigurationRuntimeException;
 import com.jts.fortress.constants.GlobalErrIds;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.search.Attribute;
@@ -18,19 +19,28 @@ public class EhCacheImpl implements Cache
     private String name;
 
     /**
-     * @param name
-     * @param cache
+     * Create an instance of a wrapped, singleton cache instance using Ehcache.
+     *
+     * @param name name for the cache instance.
+     * @param cache that is being wrapped.
      */
     EhCacheImpl(String name, net.sf.ehcache.Cache cache)
     {
         this.name = name;
+        if(cache == null)
+        {
+            String error = CLS_NM + " constructor cache: " + name + " is null";
+            throw new ConfigurationRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error);
+        }
         this.cache = cache;
     }
 
     /**
-     * @param key
-     * @return
-     * @throws CacheException
+     * Given a key name, return the corresponding value.
+     *
+     * @param key is the name used to store the entry.
+     * @return entry stored in the cache.
+     * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
     public Object get(Object key) throws CacheException
     {
@@ -59,9 +69,11 @@ public class EhCacheImpl implements Cache
     }
 
     /**
-     * @param key
-     * @param value
-     * @throws CacheException
+     * Add a new entry to the cache.
+     *
+     * @param key name to be used for the entry.
+     * @param value object that is stored.
+     * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
     public void put(Object key, Object value) throws CacheException
     {
@@ -82,9 +94,11 @@ public class EhCacheImpl implements Cache
     }
 
     /**
-     * @param key
-     * @return
-     * @throws CacheException
+     * Clear a cache entry for a given name.
+     *
+     * @param key name that entry is stored as.
+     * @return boolean value will be false if entry not found and true if entry was found and removed.
+     * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
     public boolean clear(Object key) throws CacheException
     {
@@ -96,7 +110,7 @@ public class EhCacheImpl implements Cache
         }
         try
         {
-            cache.flush();
+            result = cache.remove(key);
         }
         catch (net.sf.ehcache.CacheException ce)
         {
@@ -107,7 +121,9 @@ public class EhCacheImpl implements Cache
     }
 
     /**
-     * @throws CacheException
+     * Remove all entries from this cache.
+     *
+     * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
     public void flush() throws CacheException
     {
@@ -129,23 +145,35 @@ public class EhCacheImpl implements Cache
     }
 
     /**
+     * Retrieve the Cache attribute
      *
-     * @param attributeName
-     * @param <T>
-     * @return
-     * @throws CacheException
+     * @param attributeName the name of search attribute
+     * @param <T> the type of search attribute
+     * @return the search attribute
+     * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
     public <T> Attribute<T> getSearchAttribute(String attributeName) throws CacheException
     {
+        if (cache == null)
+        {
+            String error = CLS_NM + ".getSearchAttribute detected null cache name [" + name + "]";
+            throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
+        }
         return this.cache.getSearchAttribute(attributeName);
     }
 
     /**
+     * Create a search query builder for the cache.
      *
-     * @return
+     * @return a new Query builder
      */
     public Query createQuery()
     {
+        if (cache == null)
+        {
+            String error = CLS_NM + ".createQuery detected null cache name [" + name + "]";
+            throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
+        }
         return this.cache.createQuery();
     }
 }
