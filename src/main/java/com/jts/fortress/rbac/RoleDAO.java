@@ -5,6 +5,7 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.*;
+import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.util.time.CUtil;

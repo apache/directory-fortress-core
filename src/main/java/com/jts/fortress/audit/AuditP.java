@@ -37,6 +37,13 @@ public class AuditP
     private static final Logger log = Logger.getLogger(CLS_NM);
     private static final AuditDAO aDao = new AuditDAO();
 
+    /**
+     * Package private constructor
+     */
+    AuditP()
+    {
+
+    }
 
     /**
      * This method returns a list of authorization events for a particular user {@link UserAudit#userId}
@@ -47,7 +54,7 @@ public class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws com.jts.fortress.SecurityException if a runtime system error occurs.
      */
-    public final List<AuthZ> getAuthZs(UserAudit uAudit)
+    final List<AuthZ> getAuthZs(UserAudit uAudit)
         throws SecurityException
     {
         return aDao.getAllAuthZs(uAudit);
@@ -63,7 +70,7 @@ public class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws SecurityException if a runtime system error occurs.
      */
-    public final List<AuthZ> searchAuthZs(UserAudit uAudit)
+    final List<AuthZ> searchAuthZs(UserAudit uAudit)
         throws SecurityException
     {
         return aDao.searchAuthZs(uAudit);
@@ -78,7 +85,7 @@ public class AuditP
      * @return a List of objects of type Bind.  Each Bind object contains one bind event.
      * @throws com.jts.fortress.SecurityException if a runtime system error occurs.
      */
-    public final List<Bind> searchBinds(UserAudit uAudit)
+    final List<Bind> searchBinds(UserAudit uAudit)
         throws SecurityException
     {
         return aDao.searchBinds(uAudit);
@@ -93,7 +100,7 @@ public class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws com.jts.fortress.SecurityException if a runtime system error occurs.
      */
-    public final List<Mod> searchUserMods(UserAudit uAudit)
+    final List<Mod> searchUserMods(UserAudit uAudit)
         throws SecurityException
     {
         return aDao.searchUserMods(uAudit);
@@ -109,7 +116,7 @@ public class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws com.jts.fortress.SecurityException if a runtime system error occurs.
      */
-    public final List<Mod> searchAdminMods(UserAudit uAudit)
+    final List<Mod> searchAdminMods(UserAudit uAudit)
         throws SecurityException
     {
         return aDao.searchAdminMods(uAudit);
@@ -128,7 +135,7 @@ public class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one failed authentication event.
      * @throws com.jts.fortress.SecurityException if a runtime system error occurs.
      */
-    public final List<AuthZ> searchInvalidAuthNs(UserAudit uAudit)
+    final List<AuthZ> searchInvalidAuthNs(UserAudit uAudit)
         throws SecurityException
     {
         return aDao.searchInvalidAuthNs(uAudit);

@@ -5,6 +5,8 @@
 package com.jts.fortress.arbac;
 
 import com.jts.fortress.*;
+import com.jts.fortress.hier.PsoUtil;
+import com.jts.fortress.hier.UsoUtil;
 import com.jts.fortress.util.AlphabeticalOrder;
 
 import com.jts.fortress.ldap.DaoUtil;

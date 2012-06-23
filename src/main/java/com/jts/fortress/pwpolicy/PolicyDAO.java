@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  */
 
-package com.jts.fortress.pwpolicy.openldap;
+package com.jts.fortress.pwpolicy;
 
 import com.jts.fortress.CreateException;
 import com.jts.fortress.FinderException;
@@ -16,7 +16,6 @@ import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.configuration.Config;
-import com.jts.fortress.pwpolicy.PswdPolicy;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;

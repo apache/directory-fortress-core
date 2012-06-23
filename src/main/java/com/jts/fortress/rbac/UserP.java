@@ -4,19 +4,20 @@
 
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.DelegatedReviewMgr;
 import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.PasswordException;
+import com.jts.fortress.arbac.DelegatedReviewMgrImpl;
 import com.jts.fortress.configuration.Config;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ValidationException;
 import com.jts.fortress.arbac.AdminRole;
-import com.jts.fortress.arbac.AdminRoleP;
 import com.jts.fortress.arbac.OrgUnit;
 import com.jts.fortress.arbac.OrgUnitP;
 import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.pwpolicy.openldap.PolicyP;
+import com.jts.fortress.pwpolicy.PolicyP;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.AlphabeticalOrder;
 
@@ -49,6 +50,14 @@ import org.apache.log4j.Logger;
  */
 public final class UserP
 {
+    DelegatedReviewMgr dRMgr = new DelegatedReviewMgrImpl();
+
+    /**
+     * Package private constructor.
+     */
+    UserP()
+    {
+    }
     /**
      * Takes a User entity that contains full or partial userId OR a full internal userId for search.
      *
@@ -56,14 +65,14 @@ public final class UserP
      * @return List of type User containing fully populated matching User entities.  If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<User> search(User user)
+    final List<User> search(User user)
         throws SecurityException
     {
         return uDao.findUsers(user);
     }
 
 
-    public final List<User> search(OrgUnit ou, boolean limitSize)
+    public final static List<User> search(OrgUnit ou, boolean limitSize)
         throws SecurityException
     {
         return uDao.findUsers(ou, limitSize);
@@ -79,7 +88,7 @@ public final class UserP
      * @return List of type String containing userId of all matching User entities. If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<String> search(String searchVal, int limit)
+    final List<String> search(String searchVal, int limit)
         throws SecurityException
     {
         return uDao.findUsers(searchVal, limit);
@@ -93,7 +102,7 @@ public final class UserP
      * @return List of type User containing fully populated matching User entities. If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<User> getAuthorizedUsers(Role role)
+    final List<User> getAuthorizedUsers(Role role)
         throws SecurityException
     {
         return uDao.getAuthorizedUsers(role);
@@ -107,7 +116,7 @@ public final class UserP
      * @return Set of type String containing the userId's for matching User entities. If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final Set<String> getAssignedUsers(Set<String> roles)
+    final Set<String> getAssignedUsers(Set<String> roles)
         throws SecurityException
     {
         return uDao.getAssignedUsers(roles);
@@ -124,7 +133,7 @@ public final class UserP
      * @return list of type String of userIds. If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<String> getAuthorizedUsers(Role role, int limit)
+    final List<String> getAuthorizedUsers(Role role, int limit)
         throws SecurityException
     {
         return uDao.getAuthorizedUsers(role, limit);
@@ -139,7 +148,7 @@ public final class UserP
      * @return List of fully populated User entities matching target search. If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<User> getAssignedUsers(Role role)
+    final List<User> getAssignedUsers(Role role)
         throws SecurityException
     {
         return uDao.getAssignedUsers(role);
@@ -154,7 +163,7 @@ public final class UserP
      * @return List of fully populated User entities matching target search.  If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<User> getAssignedUsers(AdminRole role)
+    public static final List<User> getAssignedUsers(AdminRole role)
         throws SecurityException
     {
         return uDao.getAssignedUsers(role);
@@ -168,7 +177,7 @@ public final class UserP
      * @return List of type String containing RBAC role names.  If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<String> getAssignedRoles(String userId)
+    final List<String> getAssignedRoles(String userId)
         throws SecurityException
     {
         return uDao.getRoles(userId);
@@ -184,7 +193,7 @@ public final class UserP
      * @return User entity containing all attributes associated with User in directory.
      * @throws com.jts.fortress.SecurityException in the event of User not found or DAO search error.
      */
-    public User read(String userId, boolean isRoles)
+    final User read(String userId, boolean isRoles)
         throws SecurityException
     {
         return uDao.getUser(userId, isRoles);
@@ -200,7 +209,7 @@ public final class UserP
      * @return User entity copy of input + additional attributes (internalId) that were added by op.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public User add(User entity)
+    final User add(User entity)
         throws SecurityException
     {
         return add(entity, true);
@@ -217,7 +226,7 @@ public final class UserP
      * @return User entity copy of input + additional attributes (internalId)
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public User add(User entity, boolean validate)
+    final User add(User entity, boolean validate)
         throws SecurityException
     {
         if (validate)
@@ -241,7 +250,7 @@ public final class UserP
      * @return User entity copy of input
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public User update(User entity)
+    final User update(User entity)
         throws SecurityException
     {
         return update(entity, true);
@@ -272,7 +281,7 @@ public final class UserP
      * @return User entity copy of input
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public User update(User entity, boolean validate)
+    final User update(User entity, boolean validate)
         throws SecurityException
     {
         if (validate)
@@ -293,7 +302,7 @@ public final class UserP
      * @return User entity copy of input
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    private User updateProps(User entity, Session session, boolean replace)
+    private final User updateProps(User entity, Session session, boolean replace)
         throws SecurityException
     {
         int i = 1;
@@ -328,7 +337,7 @@ public final class UserP
      * @param user Contains the userId of the user targeted for deletion.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public String softDelete(User user)
+    final String softDelete(User user)
         throws SecurityException
     {
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
@@ -350,7 +359,7 @@ public final class UserP
      * @param user Contains the userid of the user targeted for deletion.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public String delete(User user)
+    final String delete(User user)
         throws SecurityException
     {
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
@@ -371,7 +380,7 @@ public final class UserP
      * @param user contains the userId for target user.
      * @throws com.jts.fortress.SecurityException in the event of DAO error.
      */
-    public void deletePwPolicy(User user)
+    final void deletePwPolicy(User user)
         throws com.jts.fortress.SecurityException
     {
         uDao.deletePwPolicy(user);
@@ -386,7 +395,7 @@ public final class UserP
      * @return Session object will be returned if authentication successful.  This will not contain user's roles.
      * @throws com.jts.fortress.SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    public final Session authenticate(String userId, char[] password)
+    final Session authenticate(String userId, char[] password)
         throws com.jts.fortress.SecurityException
     {
         Session session;
@@ -455,7 +464,7 @@ public final class UserP
      * @return Session object will contain authentication result code, RBAC and Admin role activations, OpenLDAP pw policy output and more.
      * @throws com.jts.fortress.SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    public final Session createSession(User user, boolean trusted)
+    final Session createSession(User user, boolean trusted)
         throws SecurityException
     {
         Session session;
@@ -551,7 +560,7 @@ public final class UserP
      * @param user Contains userId that represents rDn of node in ldap directory.
      * @throws com.jts.fortress.SecurityException in the event of DAO error.
      */
-    public final void lock(User user)
+    final void lock(User user)
         throws SecurityException
     {
         uDao.lock(user);
@@ -563,7 +572,7 @@ public final class UserP
      * @param user Contains userId that represents rDn of node in ldap directory.
      * @throws com.jts.fortress.SecurityException in the event of DAO  error.
      */
-    public final void unlock(User user)
+    final void unlock(User user)
         throws SecurityException
     {
         uDao.unlock(user);
@@ -576,7 +585,7 @@ public final class UserP
      * @param newPassword contains the new password which must pass the password policy constraints.
      * @throws com.jts.fortress.SecurityException in the event of data validation failure, password policy violation or DAO error.
      */
-    public final void changePassword(User entity, char[] newPassword)
+    final void changePassword(User entity, char[] newPassword)
         throws SecurityException
     {
         String userId = entity.getUserId();
@@ -594,7 +603,7 @@ public final class UserP
      * @param user contains the userId and the new password.
      * @throws com.jts.fortress.SecurityException in the event of DAO error.
      */
-    public final void resetPassword(User user)
+    final void resetPassword(User user)
         throws SecurityException
     {
         uDao.resetUserPassword(user);
@@ -635,7 +644,7 @@ public final class UserP
      * @return String containing the user's DN.  This value is used to update the "roleOccupant" attribute on associated role entity.
      * @throws com.jts.fortress.SecurityException in the event data error in user or role objects or system error.
      */
-    public final String assign(UserRole uRole)
+    final String assign(UserRole uRole)
         throws SecurityException
     {
         // "assign" custom Fortress role data, i.e. temporal constraints, onto the user node:
@@ -656,7 +665,7 @@ public final class UserP
      * @return String containing the user's DN.  This value is used to remove the "roleOccupant" attribute on associated RBAC Role entity.
      * @throws com.jts.fortress.SecurityException - in the event data error in user or role objects or system error.
      */
-    public final String deassign(UserRole uRole)
+    final String deassign(UserRole uRole)
         throws SecurityException
     {
         // "deassign" custom Fortress role data from the user's node:
@@ -687,7 +696,7 @@ public final class UserP
      * @return String containing the user's DN.  This value is used to update the "roleOccupant" attribute on associated Admin Role entity.
      * @throws com.jts.fortress.SecurityException in the event data error in user or role objects or system error.
      */
-    public final String assign(UserAdminRole uRole)
+    public final static String assign(UserAdminRole uRole)
         throws SecurityException
     {
         // Assign custom Fortress role data, i.e. temporal constraints, onto the user node:
@@ -707,7 +716,7 @@ public final class UserP
      * @return String containing the user's DN.  This value is used to remove the "roleOccupant" attribute on associated Admin Role entity.
      * @throws com.jts.fortress.SecurityException - in the event data error in user or role objects or system error.
      */
-    public final String deassign(UserAdminRole uRole)
+    public final static String deassign(UserAdminRole uRole)
         throws SecurityException
     {
         // Deassign custom Fortress role data from the user's node:
@@ -726,7 +735,7 @@ public final class UserP
      * @param isUpdate if true update operation is being performed which specifies a different set of targeted attributes.
      * @throws com.jts.fortress.SecurityException in the event of data validation error or DAO error on Org validation.
      */
-    private void validate(User entity, boolean isUpdate)
+    private final void validate(User entity, boolean isUpdate)
         throws SecurityException
     {
         if (!isUpdate)
@@ -754,7 +763,7 @@ public final class UserP
             VUtil.orgUnit(entity.getOu());
             // ensure ou exists in the OS-U pool:
             OrgUnit ou = new OrgUnit(entity.getOu(), OrgUnit.Type.USER);
-            if (!op.isValid(ou))
+            if (!OrgUnitP.isValid(ou))
             {
                 String error = CLS_NM + ".validate detected invalid orgUnit name [" + entity.getOu() + "] for userId [" + entity.getUserId() + "]";
                 throw new ValidationException(GlobalErrIds.USER_OU_INVALID, error);
@@ -786,7 +795,7 @@ public final class UserP
                 VUtil.orgUnit(entity.getOu());
                 // ensure ou exists in the OS-U pool:
                 OrgUnit ou = new OrgUnit(entity.getOu(), OrgUnit.Type.USER);
-                if (!op.isValid(ou))
+                if (!OrgUnitP.isValid(ou))
                 {
                     String error = CLS_NM + ".validate detected invalid orgUnit name [" + entity.getOu() + "] for userId [" + entity.getUserId() + "]";
                     //log.warn(error);
@@ -802,8 +811,7 @@ public final class UserP
         // 1 OpenLDAP password policy name must be valid if set:
         if (VUtil.isNotNullOrEmpty(entity.getPwPolicy()))
         {
-            PolicyP pP = new PolicyP();
-            if (!pP.isValid(entity.getPwPolicy()))
+            if (!PolicyP.isValid(entity.getPwPolicy()))
             {
                 String error = CLS_NM + ".validate detected invalid OpenLDAP policy name [" + entity.getPwPolicy() + "] for userId [" + entity.getUserId() + "]. Assignment is optional for User but must be valid if specified.";
                 throw new ValidationException(GlobalErrIds.USER_PW_PLCY_INVALID, error);
@@ -828,11 +836,10 @@ public final class UserP
         // 4 Validate and copy constraints on Administrative roles:
         if (VUtil.isNotNullOrEmpty(entity.getAdminRoles()))
         {
-            AdminRoleP arp = new AdminRoleP();
             List<UserAdminRole> uRoles = entity.getAdminRoles();
             for (UserAdminRole uare : uRoles)
             {
-                AdminRole aRole = arp.read(uare.getName());
+                AdminRole aRole = dRMgr.readRole(new AdminRole(uare.getName()));
                 CUtil.validateOrCopy(aRole, uare);
 
                 // copy the ARBAC AdminRole attributes to UserAdminRole:
@@ -846,7 +853,7 @@ public final class UserP
      *
      * @return
      */
-   private static Set<String> getSysUserSet()
+   private final static Set<String> getSysUserSet()
     {
         Set<String> localSet =  new TreeSet<String>(new AlphabeticalOrder());
         for (int i = 1; ; i++)
@@ -866,7 +873,6 @@ public final class UserP
     private static final String CLS_NM = UserP.class.getName();
     private static final UserDAO uDao = new UserDAO();
     private static final Logger log = Logger.getLogger(CLS_NM);
-    private static final OrgUnitP op = new OrgUnitP();
     private static final String SYSTEM_USER_PREFIX = "sys.user.";
     // This Set contains list of system users as specified in Fortress config.  These users will not be allowed to be deleted using API.
     private Set<String> sysUserSet = getSysUserSet();

@@ -5,6 +5,7 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.util.time.Validator;
 import com.jts.fortress.util.time.Constraint;
 import com.jts.fortress.util.time.Time;

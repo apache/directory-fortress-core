@@ -7,6 +7,7 @@ package com.jts.fortress.rbac;
 import com.jts.fortress.FortEntity;
 import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.constants.GlobalIds;
+import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.time.Constraint;
 

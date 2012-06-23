@@ -2,15 +2,13 @@
  * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  */
 
-package com.jts.fortress.arbac;
+package com.jts.fortress.hier;
 
 import com.jts.fortress.ValidationException;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.hier.HierP;
+import com.jts.fortress.arbac.AdminRole;
+import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.util.AlphabeticalOrder;
-import com.jts.fortress.hier.Hier;
-import com.jts.fortress.hier.HierUtil;
-import com.jts.fortress.hier.Relationship;
 
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.CacheMgr;

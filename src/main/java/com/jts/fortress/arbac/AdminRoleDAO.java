@@ -10,6 +10,7 @@ import com.jts.fortress.configuration.Config;
 import com.jts.fortress.FinderException;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.UpdateException;
+import com.jts.fortress.hier.AdminRoleUtil;
 import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.constants.GlobalErrIds;

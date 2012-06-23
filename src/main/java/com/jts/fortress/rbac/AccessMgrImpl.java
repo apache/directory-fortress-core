@@ -7,6 +7,7 @@ package com.jts.fortress.rbac;
 import com.jts.fortress.AccessMgr;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.time.CUtil;
 
@@ -85,7 +86,7 @@ public class AccessMgrImpl implements AccessMgr
      * <h4> This API will...</h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
-     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link com.jts.fortress.pwpolicy.openldap.OLPWControlImpl}.
+     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link com.jts.fortress.pwpolicy.OLPWControlImpl}.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link User#isLocked()}, regardless of trusted flag being set as parm on API.
      * <li> evaluate temporal {@link com.jts.fortress.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link com.jts.fortress.arbac.UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.

@@ -325,7 +325,6 @@ public class ProcessMenuCommand
         System.out.println("M.  Add Role Descendant");
         System.out.println("N.  Add SSD Data Set");
         System.out.println("O.  Add DSD Data Set");
-        System.out.println("W.  Test JGraph");
         System.out.println("X.  Test Annotation");
         System.out.println("Y.  Add Example");
         System.out.println("Z.  Test Config");
@@ -442,10 +441,6 @@ public class ProcessMenuCommand
                     case 'o':
                     case 'O':
                         adminConsole.addDsd();
-                        break;
-                    case 'w':
-                    case 'W':
-                        adminConsole.addJGraph3();
                         break;
                     case 'x':
                     case 'X':

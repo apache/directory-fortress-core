@@ -12,7 +12,7 @@ import com.jts.fortress.constants.GlobalErrIds;
 import java.util.List;
 
 import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.rbac.RoleUtil;
+import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 
@@ -50,7 +50,7 @@ public class AdminRoleP
      * @return AdminRole entity containing all attributes associated with Administrative Role in directory.
      * @throws com.jts.fortress.SecurityException in the event AdminRole not found or DAO search error.
      */
-    public AdminRole read(String name)
+    final AdminRole read(String name)
         throws SecurityException
     {
         return rDao.getRole(name);
@@ -63,7 +63,7 @@ public class AdminRoleP
      * @return List of type Role containing fully populated matching Admin Role entities.  If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<AdminRole> search(String searchVal)
+    final List<AdminRole> search(String searchVal)
         throws SecurityException
     {
         return rDao.findRoles(searchVal);
@@ -78,7 +78,7 @@ public class AdminRoleP
      * @return List of type String containing Admin Role name of all matching User entities.  If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<String> search(String searchVal, int limit)
+    final List<String> search(String searchVal, int limit)
         throws SecurityException
     {
         return rDao.findRoles(searchVal, limit);
@@ -93,7 +93,7 @@ public class AdminRoleP
      * @return AdminRole entity copy of input + additional attributes (internalId) that were added by op.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public AdminRole add(AdminRole entity)
+    final AdminRole add(AdminRole entity)
         throws SecurityException
     {
         validate(entity);
@@ -109,7 +109,7 @@ public class AdminRoleP
      * @return AdminRole entity contains fully populated updated entity.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public AdminRole update(AdminRole entity)
+    final AdminRole update(AdminRole entity)
         throws SecurityException
     {
         validate(entity);
@@ -142,7 +142,7 @@ public class AdminRoleP
      * @return AdminRole contains copy of input entity and additional data processed by request.
      * @throws com.jts.fortress.SecurityException in the event data error in user or role objects or system error.
      */
-    public AdminRole assign(AdminRole entity, String userDn)
+    static final AdminRole assign(AdminRole entity, String userDn)
         throws SecurityException
     {
         return rDao.assign(entity, userDn);
@@ -157,7 +157,7 @@ public class AdminRoleP
      * @param userDn contains the userId targeted for attribute addition.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final void addOccupant(List<UserAdminRole> uRoles, String userDn)
+    public static final void addOccupant(List<UserAdminRole> uRoles, String userDn)
         throws SecurityException
     {
         if (VUtil.isNotNullOrEmpty(uRoles))
@@ -177,7 +177,7 @@ public class AdminRoleP
      * @param userDn contains the userId targeted for attribute removal.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final void removeOccupant(String userDn)
+    public static final void removeOccupant(String userDn)
         throws SecurityException
     {
         List<String> list;
@@ -209,7 +209,7 @@ public class AdminRoleP
      * @return AdminRole contains copy of input entity and additional data processed by request.
      * @throws com.jts.fortress.SecurityException - in the event data error in user or role objects or system error.
      */
-    public AdminRole deassign(AdminRole entity, String userDn)
+    static final AdminRole deassign(AdminRole entity, String userDn)
         throws SecurityException
     {
         return rDao.deassign(entity, userDn);
@@ -223,7 +223,7 @@ public class AdminRoleP
      * @param entity Contains the name of the Admin Role targeted for deletion.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public void delete(AdminRole entity)
+    final void delete(AdminRole entity)
         throws SecurityException
     {
         try

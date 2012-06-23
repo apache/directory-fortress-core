@@ -2,17 +2,14 @@
  * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  */
 
-package com.jts.fortress.arbac;
+package com.jts.fortress.hier;
 
-import com.jts.fortress.SecurityException;
 import com.jts.fortress.ValidationException;
-import com.jts.fortress.hier.HierP;
-import com.jts.fortress.hier.HierUtil;
-import com.jts.fortress.hier.Relationship;
+import com.jts.fortress.SecurityException;
+import com.jts.fortress.arbac.OrgUnit;
 import com.jts.fortress.util.AlphabeticalOrder;
-import com.jts.fortress.hier.Hier;
-import com.jts.fortress.util.attr.VUtil;
 
+import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.CacheMgr;
 import com.jts.fortress.util.cache.Cache;
 import org.jgrapht.graph.SimpleDirectedGraph;
@@ -22,9 +19,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * This utility wraps {@link com.jts.fortress.hier.HierUtil} and {@link com.jts.fortress.hier.HierP} methods to provide hierarchical functionality using the {@link com.jts.fortress.arbac.OrgUnit} data set for User type {@link com.jts.fortress.arbac.OrgUnit.Type#USER}.
- * The {@code cn=Hierarchies, ou=OS-U} data contains User OU pools is stored within a data cache, {@link #m_usoCache}, contained within this class.  The parent-child edges are contained in LDAP,
- * i.e. {@code cn=Hierarchies, ou=OS-U} which uses entity {@link com.jts.fortress.hier.Hier}.  The ldap data is retrieved {@link com.jts.fortress.hier.HierP#read(com.jts.fortress.hier.Hier.Type)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
+ * This utility wraps {@link com.jts.fortress.hier.HierUtil} and {@link com.jts.fortress.hier.HierP} methods to provide hierarchical functionality using the {@link com.jts.fortress.arbac.OrgUnit} data set
+ * for Permissions, {@link com.jts.fortress.arbac.OrgUnit.Type#PERM}.
+ * The {@code cn=Hierarchies, ou=OS-P} data contains Permission OU pools and within a data cache, {@link #m_psoCache}, contained within this class.  The parent-child edges are contained in LDAP,
+ * i.e. {@code cn=Hierarchies, ou=OS-P} which uses entity {@link com.jts.fortress.hier.Hier}.  The ldap data is retrieved {@link com.jts.fortress.hier.HierP#read(com.jts.fortress.hier.Hier.Type)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
  * <li>is stored as singleton in this class with vertices of {@code String}, and edges, as {@link com.jts.fortress.hier.Relationship}s</li>
@@ -41,25 +39,25 @@ import java.util.TreeSet;
  * <p/>
  * This class contains singleton that can be updated but is thread safe.
  * <p/>
-
  *
  * @author Shawn McKinney
  * @created September 26, 2010
  */
-public class UsoUtil
+public class PsoUtil
 {
-    private static Cache m_usoCache;
-    private static final String USO = "uso";
-    private static final String FORTRESS_USO = "fortress.uso";
+    private static Cache m_psoCache;
+    private static final String PSO = "pso";
+    private static final String FORTRESS_PSO = "fortress.pso";
+
 
     /**
-     * Initialize the User OU hierarchies.  This will read the {@link com.jts.fortress.hier.Hier} data set from ldap and load into
+     * Initialize the Perm OU hierarchies.  This will read the {@link com.jts.fortress.hier.Hier} data set from ldap and load into
      * the JGraphT simple digraph that referenced statically within this class.
      */
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        UsoUtil.m_usoCache = cacheMgr.getCache(FORTRESS_USO);
+        PsoUtil.m_psoCache = cacheMgr.getCache(FORTRESS_PSO);
         loadGraph();
     }
 
@@ -108,7 +106,7 @@ public class UsoUtil
     }
 
     /**
-     * Recursively traverse the {@link com.jts.fortress.arbac.OrgUnit.Type#USER} graph and return number of children a given parent ou has.
+     * Recursively traverse the {@link com.jts.fortress.arbac.OrgUnit.Type#PERM} graph and return number of children a given parent ou has.
      *
      * @param name maps to logical {@link com.jts.fortress.arbac.OrgUnit#name} and physical 'ftRels' attribute on 'ftHier' object class.
      * @return int value contains the number of children of a given parent ou.
@@ -119,7 +117,7 @@ public class UsoUtil
     }
 
     /**
-     * Return Set of {@link com.jts.fortress.arbac.OrgUnit#name}s ascendants contained within {@link com.jts.fortress.arbac.OrgUnit.Type#USER}.
+     * Return Set of {@link com.jts.fortress.arbac.OrgUnit#name}s ascendants contained within {@link com.jts.fortress.arbac.OrgUnit.Type#PERM}.
      *
      * @param ous contains list of {@link com.jts.fortress.arbac.OrgUnit}s.
      * @return contains Set of all descendants.
@@ -142,9 +140,10 @@ public class UsoUtil
         return iOUs;
     }
 
+
     /**
-     * This api is used by {@link com.jts.fortress.arbac.DelegatedAdminMgrImpl} to determine parentage for User OU processing.
-     * It calls {@link com.jts.fortress.hier.HierUtil#validateRelationship(org.jgrapht.graph.SimpleDirectedGraph, String, String, boolean)} to evaluate three OU relationship expressions:
+     * This api is used by {@link com.jts.fortress.arbac.DelegatedAdminMgrImpl} to determine parentage for Permission OU processing.
+     * It calls {@link HierUtil#validateRelationship(org.jgrapht.graph.SimpleDirectedGraph, String, String, boolean)} to evaluate three OU relationship expressions:
      * <ol>
      * <li>If child equals parent</li>
      * <li>If mustExist true and parent-child relationship exists</li>
@@ -166,13 +165,13 @@ public class UsoUtil
     }
 
     /**
-     * This api allows synchronized access to {@link com.jts.fortress.hier.HierUtil#validateRelationship(org.jgrapht.graph.SimpleDirectedGraph, String, String, boolean)}
-     * to {@link com.jts.fortress.arbac.DelegatedAdminMgrImpl} to allow updates to User OU relationships.
-     * Method will update the User OU hierarchical data set and reload the JGraphT simple digraph with latest.
+     * This api allows synchronizparentsed access to {@link com.jts.fortress.hier.HierUtil#validateRelationship(org.jgrapht.graph.SimpleDirectedGraph, String, String, boolean)}
+     * to {@link com.jts.fortress.arbac.DelegatedAdminMgrImpl} to allow updates to Permission OU relationships.
+     * Method will update the Permission OU hierarchical data set and reload the JGraphT simple digraph with latest.
      *
      * @param hier maps to 'ftRels' attribute on 'ftHier' object class.
-     * @param op   used to pass the ldap op {@link Hier.Op#ADD}, {@link Hier.Op#MOD}, {@link com.jts.fortress.hier.Hier.Op#REM}
-     * @throws com.jts.fortress.SecurityException in the event of a system error.
+     * @param op   used to pass the ldap op {@link com.jts.fortress.hier.Hier.Op#ADD}, {@link com.jts.fortress.hier.Hier.Op#MOD}, {@link com.jts.fortress.hier.Hier.Op#REM}
+     * @throws SecurityException in the event of a system error.
      */
     public static void updateHier(Hier hier, Hier.Op op) throws SecurityException
     {
@@ -182,24 +181,23 @@ public class UsoUtil
     }
 
     /**
-     * Read this ldap record,{@code cn=Hierarchies, ou=OS-U} into this entity, {@link com.jts.fortress.hier.Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
+     * Read this ldap record,{@code cn=Hierarchies, ou=OS-P} into this entity, {@link com.jts.fortress.hier.Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      */
     private static SimpleDirectedGraph<String, Relationship> loadGraph()
     {
-        Hier hier = HierUtil.readHier(Hier.Type.USER);
+        Hier hier = HierUtil.readHier(Hier.Type.PERM);
         SimpleDirectedGraph<String, Relationship> graph = HierUtil.buildGraph(hier);
-        m_usoCache.put(USO, graph);
+        m_psoCache.put(PSO, graph);
         return graph;
     }
 
     /**
-     *
      * @return
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph()
     {
-        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) m_usoCache.get(USO);
+        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) m_psoCache.get(PSO);
         if (graph == null)
         {
             graph = loadGraph();

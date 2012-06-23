@@ -5,6 +5,7 @@
 package com.jts.fortress.arbac;
 
 import com.jts.fortress.constants.GlobalIds;
+import com.jts.fortress.hier.AdminRoleUtil;
 import com.jts.fortress.rbac.UserRole;
 import com.jts.fortress.util.AlphabeticalOrder;
 

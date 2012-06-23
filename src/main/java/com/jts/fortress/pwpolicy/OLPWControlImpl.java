@@ -2,12 +2,9 @@
  * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  */
 
-package com.jts.fortress.pwpolicy.openldap;
+package com.jts.fortress.pwpolicy;
 
 import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.pwpolicy.GlobalPwMsgIds;
-import com.jts.fortress.pwpolicy.PwMessage;
-import com.jts.fortress.pwpolicy.PwPolicyControl;
 import org.apache.log4j.Logger;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;

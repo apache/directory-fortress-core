@@ -5,15 +5,19 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.AdminMgr;
+import com.jts.fortress.DelegatedReviewMgr;
 import com.jts.fortress.FortEntity;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
 import com.jts.fortress.SecurityException;
+import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.arbac.AdminRoleP;
 import com.jts.fortress.arbac.AdminUtil;
+import com.jts.fortress.arbac.DelegatedReviewMgrImpl;
 import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.hier.Hier;
 import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
@@ -56,9 +60,9 @@ public final class AdminMgrImpl implements AdminMgr
 {
     private static final String CLS_NM = AdminMgrImpl.class.getName();
     private static final ReviewMgr rMgr = new ReviewMgrImpl();
+    private static final DelegatedReviewMgr dRMgr = new DelegatedReviewMgrImpl();
     private static final UserP userP = new UserP();
     private static final RoleP roleP = new RoleP();
-    private static final AdminRoleP adminRoleP = new AdminRoleP();
     private static final AdminRoleP adminP = new AdminRoleP();
     private static final PermP permP = new PermP();
     private static final SdP sdP = new SdP();
@@ -127,7 +131,7 @@ public final class AdminMgrImpl implements AdminMgr
         User newUser = userP.add(user);
         // This method will add the user dn as occupant attribute if assigned it has role assignments.
         roleP.addOccupant(newUser.getRoles(), newUser.getDn());
-        adminRoleP.addOccupant(newUser.getAdminRoles(), newUser.getDn());
+        adminP.addOccupant(newUser.getAdminRoles(), newUser.getDn());
         return newUser;
     }
 
@@ -163,7 +167,7 @@ public final class AdminMgrImpl implements AdminMgr
         // remove the user dn occupant attribute from assigned ldap role entities.
         roleP.removeOccupant(userDn);
         // remove the user dn occupant attribute from assigned ldap adminRole entities.
-        adminRoleP.removeOccupant(userDn);
+        adminP.removeOccupant(userDn);
     }
 
     /**
@@ -193,7 +197,7 @@ public final class AdminMgrImpl implements AdminMgr
         // remove the user dn occupant attribute from assigned ldap role entities.
         roleP.removeOccupant(userDn);
         // remove the user dn occupant attribute from assigned ldap adminRole entities.
-        adminRoleP.removeOccupant(userDn);
+        adminP.removeOccupant(userDn);
     }
 
     /**
@@ -327,6 +331,26 @@ public final class AdminMgrImpl implements AdminMgr
         setEntitySession(methodName, user);
         user.setPassword(newPassword);
         userP.resetPassword(user);
+    }
+
+    /**
+     * Method will delete user's password policy designation.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     * <li>newPassword - contains the User's new password</li>
+     * </ul>
+     *
+     * @param user  contains {@link User#userId}.
+     * @throws SecurityException will be thrown in the event of password policy violation or system error.
+     */
+    public void deletePasswordPolicy(User user)
+        throws SecurityException
+    {
+        String methodName = "deletePasswordPolicy";
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
+        setEntitySession(methodName, user);
+        userP.deletePwPolicy(user);
     }
 
     /**
@@ -732,7 +756,7 @@ public final class AdminMgrImpl implements AdminMgr
         // validate role
         if (perm.isAdmin())
         {
-            adminP.read(role.getName());
+            dRMgr.readRole(new AdminRole(role.getName()));
         }
         else
         {
@@ -1316,7 +1340,7 @@ public final class AdminMgrImpl implements AdminMgr
 
 
     /**
-     * This command sets the cardinality associated with a given DSD role set. The command is valid if and only if:
+h     * This command sets the cardinality associated with a given DSD role set. The command is valid if and only if:
      * 1 - the SSD role set exists, and
      * 2 - the new cardinality is a natural number greater than or equal to 2 and less than or equal to the number of elements of the SSD role set, and
      * 3 - the SSD constraint is satisfied after setting the new cardinality.

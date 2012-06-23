@@ -4,10 +4,12 @@
 
 package com.jts.fortress.arbac;
 
+import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.DelegatedReviewMgr;
 import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.rbac.Permission;
+import com.jts.fortress.rbac.ReviewMgrImpl;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserP;
@@ -40,7 +42,8 @@ public class DelegatedReviewMgrImpl
     private static final String CLS_NM = DelegatedReviewMgrImpl.class.getName();
     private static final OrgUnitP ouP = new OrgUnitP();
     private static final AdminRoleP admRP = new AdminRoleP();
-    private static final UserP userP = new UserP();
+    private static final ReviewMgr rMgr = new ReviewMgrImpl();
+
 
     /**
      * Method reads Admin Role entity from the admin role container in directory.
@@ -104,7 +107,7 @@ public class DelegatedReviewMgrImpl
         String methodName = "assignedRoles";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
-        User ue = userP.read(user.getUserId(), true);
+        User ue = rMgr.readUser(user);
         return ue.getAdminRoles();
     }
 
@@ -128,7 +131,7 @@ public class DelegatedReviewMgrImpl
         String methodName = "assignedUsers";
         VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
         checkAccess(methodName);
-        return userP.getAssignedUsers(role);
+        return UserP.getAssignedUsers(role);
     }
 
 

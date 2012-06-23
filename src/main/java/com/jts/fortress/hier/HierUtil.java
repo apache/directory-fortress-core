@@ -22,10 +22,10 @@ import java.util.TreeSet;
  * </p>
  * It is used to provide hierarchical processing APIs for the following data sets:
  * <ol>
- * <li>RBAC Role relations are stored in {@code cn=Hierarchies,ou=Roles,ou=RBAC} ldap node and cached as singleton in {@link com.jts.fortress.rbac.RoleUtil}</li>
- * <li>ARBAC Admin Role relations are stored in {@code cn=Hierarchies,ou=AdminRoles,ou=ARBAC} ldap node and cached as singleton in {@link com.jts.fortress.arbac.AdminRoleUtil}</li>
+ * <li>RBAC Role relations are stored in {@code cn=Hierarchies,ou=Roles,ou=RBAC} ldap node and cached as singleton in {@link RoleUtil}</li>
+ * <li>ARBAC Admin Role relations are stored in {@code cn=Hierarchies,ou=AdminRoles,ou=ARBAC} ldap node and cached as singleton in {@link AdminRoleUtil}</li>
  * <li>User Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-U,ou=ARBAC} node and cached as {@link com.jts.fortress.arbac.UsoUtil}</li>
- * <li>Permission Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-P,ou=ARBAC} node and cached as {@link com.jts.fortress.arbac.PsoUtil}</li>
+ * <li>Permission Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-P,ou=ARBAC} node and cached as {@link PsoUtil}</li>
  * </ol>
  * This class...
  * <ol>
@@ -482,10 +482,10 @@ public class HierUtil
      * ldap this method will create a new node and store default data.
      * The following ldap nodes are currently storing hierarchical data:
      * <ol>
-     * <li>RBAC Role relations are stored in {@code cn=Hierarchies,ou=Roles,ou=RBAC} ldap node and cached as singleton in {@link com.jts.fortress.rbac.RoleUtil}</li>
-     * <li>ARBAC Admin Role relations are stored in {@code cn=Hierarchies,ou=AdminRoles,ou=ARBAC} ldap node and cached as singleton in {@link com.jts.fortress.arbac.AdminRoleUtil}</li>
+     * <li>RBAC Role relations are stored in {@code cn=Hierarchies,ou=Roles,ou=RBAC} ldap node and cached as singleton in {@link RoleUtil}</li>
+     * <li>ARBAC Admin Role relations are stored in {@code cn=Hierarchies,ou=AdminRoles,ou=ARBAC} ldap node and cached as singleton in {@link AdminRoleUtil}</li>
      * <li>User Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-U,ou=ARBAC} node and cached as {@link com.jts.fortress.arbac.UsoUtil}</li>
-     * <li>Permission Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-P,ou=ARBAC} node and cached as {@link com.jts.fortress.arbac.PsoUtil}</li>
+     * <li>Permission Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-P,ou=ARBAC} node and cached as {@link PsoUtil}</li>
      * </ol>
      *
      * @param type contains {@link Hier.Type#ROLE},{@link Hier.Type#AROLE}, {@link Hier.Type#USER}, {@link Hier.Type#PERM}

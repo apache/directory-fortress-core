@@ -98,7 +98,7 @@ public class AccessMgrRestImpl implements AccessMgr
      * <h4> This API will...</h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
-     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link com.jts.fortress.pwpolicy.openldap.OLPWControlImpl}.
+     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link com.jts.fortress.pwpolicy.OLPWControlImpl}.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link User#isLocked()}, regardless of trusted flag being set as parm on API.
      * <li> evaluate temporal {@link com.jts.fortress.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link com.jts.fortress.arbac.UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.

@@ -7,10 +7,15 @@ package com.jts.fortress.arbac;
 import com.jts.fortress.*;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.hier.AdminRoleUtil;
 import com.jts.fortress.hier.Hier;
+import com.jts.fortress.hier.PsoUtil;
+import com.jts.fortress.hier.UsoUtil;
+import com.jts.fortress.rbac.AdminMgrImpl;
 import com.jts.fortress.rbac.PermP;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.PermObj;
+import com.jts.fortress.rbac.ReviewMgrImpl;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserP;
 import com.jts.fortress.rbac.Session;
@@ -43,8 +48,8 @@ public final class DelegatedAdminMgrImpl
     private static final String CLS_NM = DelegatedAdminMgrImpl.class.getName();
     final private static OrgUnitP ouP = new OrgUnitP();
     final private static AdminRoleP admRP = new AdminRoleP();
-    final private static UserP userP = new UserP();
-    final private static PermP permP = new PermP();
+    private static final AdminMgr aMgr = new AdminMgrImpl();
+    private static final ReviewMgr rMgr = new ReviewMgrImpl();
 
     // thread unsafe variable:
     private Session adminSess;
@@ -135,7 +140,7 @@ public final class DelegatedAdminMgrImpl
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
         // search for all users assigned this role and deassign:
-        List<User> users = userP.getAssignedUsers(role);
+        List<User> users = rMgr.assignedUsers(role);
         if (users != null)
         {
             for (User ue : users)
@@ -146,7 +151,7 @@ public final class DelegatedAdminMgrImpl
                 deassignUser(uAdminRole);
             }
         }
-        permP.remove(role);
+        PermP.remove(role);
         admRP.delete(role);
     }
 
@@ -186,7 +191,7 @@ public final class DelegatedAdminMgrImpl
         VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, role);
         AdminRole re = admRP.update(role);
-        List<User> users = userP.getAssignedUsers(re);
+        List<User> users = rMgr.assignedUsers(re);
         for (User ue : users)
         {
             User upUe = new User(ue.getUserId());
@@ -202,7 +207,7 @@ public final class DelegatedAdminMgrImpl
             uaRoles.add(chgRole);
             upUe.setUserId(ue.getUserId());
             upUe.setAdminRole(chgRole);
-            userP.update(upUe);
+            aMgr.updateUser(upUe);
         }
         return re;
     }
@@ -263,7 +268,7 @@ public final class DelegatedAdminMgrImpl
 
         // copy the ARBAC AdminRole attributes to UserAdminRole:
         AttrHelper.copyAdminAttrs(validRole, uAdminRole);
-        String dn = userP.assign(uAdminRole);
+        String dn = UserP.assign(uAdminRole);
         // copy the admin session info to AdminRole:
         AdminUtil.setAdminData(uAdminRole.getAdminSession(), new Permission(CLS_NM, methodName), validRole);
         // Assign user dn attribute to the adminRole, this will add a single, standard attribute value, called "roleOccupant", directly onto the adminRole node:
@@ -294,7 +299,7 @@ public final class DelegatedAdminMgrImpl
         String methodName = "deassignUser";
         VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
         setEntitySession(methodName, uAdminRole);
-        String dn = userP.deassign(uAdminRole);
+        String dn = UserP.deassign(uAdminRole);
         AdminRole adminRole = new AdminRole(uAdminRole.getName());
         // copy the ARBAC attributes to AdminRole:
         AdminUtil.setAdminData(uAdminRole.getAdminSession(), new Permission(CLS_NM, methodName), adminRole);
@@ -400,7 +405,7 @@ public final class DelegatedAdminMgrImpl
         if (entity.getType() == OrgUnit.Type.USER)
         {
             // Ensure the org unit is not assigned to any users, but set the sizeLimit to "true" to limit result set size.
-            List<User> assignedUsers = userP.search(entity, true);
+            List<User> assignedUsers = UserP.search(entity, true);
             if (VUtil.isNotNullOrEmpty(assignedUsers))
             {
                 String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedUsers.size() + "] users before deletion";
@@ -410,7 +415,7 @@ public final class DelegatedAdminMgrImpl
         else
         {
             // Ensure the org unit is not assigned to any permission objects but set the sizeLimit to "true" to limit result set size..
-            List<PermObj> assignedPerms = permP.search(entity, true);
+            List<PermObj> assignedPerms = rMgr.findPermObjs(entity);
             if (VUtil.isNotNullOrEmpty(assignedPerms))
             {
                 String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedPerms.size() + "] perm objs before deletion";

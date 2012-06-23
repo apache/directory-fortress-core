@@ -4,13 +4,13 @@
 
 package com.jts.fortress.pwpolicy;
 
+import com.jts.fortress.AdminMgr;
 import com.jts.fortress.FortEntity;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.arbac.AdminUtil;
-import com.jts.fortress.pwpolicy.openldap.PolicyP;
+import com.jts.fortress.rbac.AdminMgrImpl;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Session;
-import com.jts.fortress.rbac.UserP;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.PswdPolicyMgr;
 import com.jts.fortress.constants.GlobalErrIds;
@@ -54,6 +54,7 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
 {
     private static final String CLS_NM = PswdPolicyMgrImpl.class.getName();
     private static final PolicyP policyP = new PolicyP();
+    private static final AdminMgr aMgr = new AdminMgrImpl();
 
     // thread unsafe variable:
     private Session adminSess;
@@ -343,12 +344,11 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
         String methodName = "updateUserPolicy";
         VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNullOrEmpty(policyName, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + "." + methodName);
-        UserP up = new UserP();
         User user = new User(userId);
         user.setPwPolicy(policyName);
         user.setAdminSession(adminSess);
         setEntitySession(methodName, user);
-        up.update(user);
+        aMgr.updateUser(user);
     }
 
 
@@ -366,11 +366,10 @@ public class PswdPolicyMgrImpl implements PswdPolicyMgr
     {
         String methodName = "deletePasswordPolicy";
         VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        UserP up = new UserP();
         User user = new User(userId);
         user.setAdminSession(adminSess);
         setEntitySession(methodName, user);
-        up.deletePwPolicy(user);
+        aMgr.deletePasswordPolicy(user);
     }
 }
 

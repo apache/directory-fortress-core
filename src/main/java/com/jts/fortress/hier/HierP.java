@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
  * Each entry in the Hier data set contains a parent-child pairing that is read into graph using {@link HierUtil}.
  * The type of Hier entity is set via {@link com.jts.fortress.hier.Hier.Type} which must be equal to one of the following: {@link com.jts.fortress.hier.Hier.Type#ROLE},{@link com.jts.fortress.hier.Hier.Type#AROLE}, {@link com.jts.fortress.hier.Hier.Type#USER}, {@link com.jts.fortress.hier.Hier.Type#PERM}.
  * This class performs data validations and error mapping in addition to calling DAO methods.  It is called by internal Fortress Hierarchical utility classes,
- * {@link HierUtil},{@link com.jts.fortress.rbac.RoleUtil},{@link com.jts.fortress.arbac.AdminRoleUtil},{@link com.jts.fortress.arbac.UsoUtil},{@link com.jts.fortress.arbac.PsoUtil}
+ * {@link HierUtil},{@link RoleUtil},{@link AdminRoleUtil},{@link com.jts.fortress.arbac.UsoUtil},{@link PsoUtil}
  * <p>
  * This class will accept Fortress entity, {@link com.jts.fortress.hier.Hier}, validate its contents and forward to DAO class {@link HierDAO}.
  * <p>
@@ -45,6 +45,14 @@ public class HierP
     private static final HierDAO hDao = new HierDAO();
 
     /**
+     * Package private constructor
+     */
+    HierP()
+    {
+
+    }
+
+    /**
      * Return a fully populated Hier entity for a given type.  If matching record not found a SecurityException will be thrown.
      *
      * @param type contains {@link com.jts.fortress.hier.Hier.Type#ROLE}, {@link com.jts.fortress.hier.Hier.Type#AROLE}, {@link com.jts.fortress.hier.Hier.Type#USER}, {@link com.jts.fortress.hier.Hier.Type#PERM} which points to the target Hier data set.
@@ -52,7 +60,7 @@ public class HierP
      * @throws FinderException in the event DAO search error.
      * @throws com.jts.fortress.ValidationException in the event input data fails validate checks.
      */
-    public Hier read(Hier.Type type)
+    final Hier read(Hier.Type type)
         throws FinderException, ValidationException
     {
         VUtil.assertNotNull(type, GlobalErrIds.HIER_TYPE_NULL, CLS_NM + ".read type=" + type);
@@ -68,7 +76,7 @@ public class HierP
      * @return Hier entity copy of input + additional attributes (internalId) that were added by op.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public Hier add(Hier entity)
+    final Hier add(Hier entity)
         throws SecurityException
     {
         validate("add", entity);
@@ -86,7 +94,7 @@ public class HierP
      * @return Hier entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public Hier update(Hier entity, Hier.Op op)
+    final Hier update(Hier entity, Hier.Op op)
         throws SecurityException
     {
         validate("update", entity);
@@ -102,7 +110,7 @@ public class HierP
      * @param hier Contains the type name of the SDSet node targeted for deletion - {@link com.jts.fortress.hier.Hier.Type#ROLE}, {@link com.jts.fortress.hier.Hier.Type#AROLE}, {@link com.jts.fortress.hier.Hier.Type#USER}, {@link com.jts.fortress.hier.Hier.Type#PERM}.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public void delete(Hier hier)
+    final void delete(Hier hier)
         throws SecurityException
     {
         VUtil.assertNotNull(hier.getType(), GlobalErrIds.HIER_TYPE_NULL, CLS_NM + ".delete type");

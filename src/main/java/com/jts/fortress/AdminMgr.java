@@ -228,6 +228,21 @@ public interface AdminMgr extends com.jts.fortress.Authorizable
 
 
     /**
+     * Method will delete user's password policy designation.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     * <li>newPassword - contains the User's new password</li>
+     * </ul>
+     *
+     * @param user  contains {@link User#userId}.
+     * @throws SecurityException will be thrown in the event of password policy violation or system error.
+     */
+    public void deletePasswordPolicy(User user)
+        throws SecurityException;
+
+
+    /**
      * This command creates a new role. The command is valid if and only if the new role is not
      * already a member of the ROLES data set. The ROLES data set is updated.
      * Initially, no user or permission is assigned to the new role.

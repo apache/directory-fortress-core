@@ -2,15 +2,13 @@
  * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  */
 
-package com.jts.fortress.rbac;
+package com.jts.fortress.hier;
 
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ValidationException;
-import com.jts.fortress.hier.HierP;
-import com.jts.fortress.hier.HierUtil;
-import com.jts.fortress.hier.Relationship;
+import com.jts.fortress.rbac.Role;
+import com.jts.fortress.rbac.UserRole;
 import com.jts.fortress.util.AlphabeticalOrder;
-import com.jts.fortress.hier.Hier;
 
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.CacheMgr;
@@ -36,7 +34,7 @@ import java.util.TreeSet;
  * </ol>
  * After update is performed to ldap, the singleton is refreshed with latest info.
  * <p/>
- * Public static methods on this class are intended for use by other Fortress classes, i.e. {@link UserDAO} and {@link com.jts.fortress.rbac.PermDAO}
+ * Public static methods on this class are intended for use by other Fortress classes, i.e. {@link com.jts.fortress.rbac.UserDAO} and {@link com.jts.fortress.rbac.PermDAO}
  * but should not be directly invoked by outside programs.
  * <p/>
  * This class contains singleton that can be updated but is thread safe.
@@ -64,12 +62,12 @@ public class RoleUtil
     }
 
     /**
-     * Used to determine if one {@link Role} is the parent of another.  This method
+     * Used to determine if one {@link com.jts.fortress.rbac.Role} is the parent of another.  This method
      * will call recursive routine {@link #getAscendants(String)} to walk the {@code org.jgrapht.graph.SimpleDirectedGraph} data structure
      * returning flag indicating if parent-child relationship is valid.
      *
-     * @param child  maps to logical {@link Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
-     * @param parent maps to logical {@link Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param child  maps to logical {@link com.jts.fortress.rbac.Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param parent maps to logical {@link com.jts.fortress.rbac.Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
      * @return boolean result, 'true' indicates parent/child relationship exists.
      */
     public static boolean isParent(String child, String parent)
@@ -84,10 +82,10 @@ public class RoleUtil
     }
 
     /**
-     * Recursively traverse the {@link Role} graph and return all of the descendants of a given node {@link Role#name}.
+     * Recursively traverse the {@link com.jts.fortress.rbac.Role} graph and return all of the descendants of a given node {@link com.jts.fortress.rbac.Role#name}.
      *
-     * @param roleName {@link Role#name} maps to 'ftRels' attribute on 'ftHier' object class.
-     * @return Set of Role names are descendants {@link Role}s of given parent.
+     * @param roleName {@link com.jts.fortress.rbac.Role#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @return Set of Role names are descendants {@link com.jts.fortress.rbac.Role}s of given parent.
      */
     public static Set<String> getDescendants(String roleName)
     {
@@ -95,10 +93,10 @@ public class RoleUtil
     }
 
     /**
-     * Traverse the {@link Role} graph and return all children (direct descendants) of a given parent node {@link Role#name}.
+     * Traverse the {@link com.jts.fortress.rbac.Role} graph and return all children (direct descendants) of a given parent node {@link com.jts.fortress.rbac.Role#name}.
      *
-     * @param roleName {@link Role#name} maps to 'ftRels' attribute on 'ftHier' object class.
-     * @return Set of Role names are children {@link Role}s of given parent.
+     * @param roleName {@link com.jts.fortress.rbac.Role#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @return Set of Role names are children {@link com.jts.fortress.rbac.Role}s of given parent.
      */
     public static Set<String> getChildren(String roleName)
     {
@@ -108,7 +106,7 @@ public class RoleUtil
     /**
      * Recursively traverse the hierarchical role graph and return all of the ascendants of a given role.
      *
-     * @param roleName maps to logical {@link Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName maps to logical {@link com.jts.fortress.rbac.Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
      * @return Set of Role names that are ascendants of given child.
      */
     public static Set<String> getAscendants(String roleName)
@@ -119,7 +117,7 @@ public class RoleUtil
     /**
      * Traverse the hierarchical role graph and return all of the parents (direct ascendants) of a given role.
      *
-     * @param roleName maps to logical {@link Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName maps to logical {@link com.jts.fortress.rbac.Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
      * @return Set of Role names that are parents of given child.
      */
     public static Set<String> getParents(String roleName)
@@ -130,7 +128,7 @@ public class RoleUtil
     /**
      * Determine the number of children (direct descendants) a given parent role has.
      *
-     * @param roleName maps to logical {@link Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName maps to logical {@link com.jts.fortress.rbac.Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
      * @return int value contains the number of children of a given parent nRole.
      */
     public static int numChildren(String roleName)
@@ -139,10 +137,10 @@ public class RoleUtil
     }
 
     /**
-     * Return Set of RBAC {@link Role#name}s ascendants.  Used by {@link com.jts.fortress.rbac.PermDAO#checkPermission}
-     * for computing authorized {@link UserRole#name}s.
+     * Return Set of RBAC {@link com.jts.fortress.rbac.Role#name}s ascendants.  Used by {@link com.jts.fortress.rbac.PermDAO#checkPermission}
+     * for computing authorized {@link com.jts.fortress.rbac.UserRole#name}s.
      *
-     * @param uRoles contains list of Roles activated within a {@link User}'s {@link com.jts.fortress.rbac.Session}.
+     * @param uRoles contains list of Roles activated within a {@link com.jts.fortress.rbac.User}'s {@link com.jts.fortress.rbac.Session}.
      * @return contains Set of all authorized RBAC Roles for a given User.
      */
     public static Set<String> getInheritedRoles(List<UserRole> uRoles)
@@ -232,8 +230,8 @@ public class RoleUtil
      * Method will throw {@link com.jts.fortress.ValidationException} if rule check fails meaning caller failed validation
      * attempt to add/remove hierarchical relationship failed.
      *
-     * @param childRole  contains {@link Role#name} of child.
-     * @param parentRole contains {@link Role#name} of parent.
+     * @param childRole  contains {@link com.jts.fortress.rbac.Role#name} of child.
+     * @param parentRole contains {@link com.jts.fortress.rbac.Role#name} of parent.
      * @param mustExist  boolean is used to specify if relationship must be true.
      * @throws com.jts.fortress.ValidationException
      *          in the event it fails one of the 3 checks.

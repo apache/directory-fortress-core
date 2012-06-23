@@ -39,6 +39,12 @@ public final class RoleP
     private static final RoleDAO rDao = new RoleDAO();
 
     /**
+     * Package private
+     */
+    RoleP()
+    {
+    }
+    /**
      * Return a fully populated Role entity for a given RBAC role name.  If matching record not found a
      * SecurityException will be thrown.
      *
@@ -46,7 +52,7 @@ public final class RoleP
      * @return Role entity containing all attributes associated with Role in directory.
      * @throws SecurityException in the event Role not found or DAO search error.
      */
-    public Role read(String name)
+    final Role read(String name)
         throws SecurityException
     {
         return rDao.getRole(name);
@@ -59,7 +65,7 @@ public final class RoleP
      * @return List of type Role containing fully populated matching RBAC Role entities.  If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<Role> search(String searchVal)
+    final List<Role> search(String searchVal)
         throws SecurityException
     {
         return rDao.findRoles(searchVal);
@@ -75,7 +81,7 @@ public final class RoleP
      * @return List of type String containing RBAC Role name of all matching User entities.  If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<String> search(String searchVal, int limit)
+    final List<String> search(String searchVal, int limit)
         throws SecurityException
     {
         return rDao.findRoles(searchVal, limit);
@@ -90,7 +96,7 @@ public final class RoleP
      * @return Role entity copy of input + additional attributes (internalId) that were added by op.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public Role add(Role entity)
+    final Role add(Role entity)
         throws SecurityException
     {
         validate(entity);
@@ -106,7 +112,7 @@ public final class RoleP
      * @return Role entity contains fully populated updated entity.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public Role update(Role entity)
+    final Role update(Role entity)
         throws SecurityException
     {
         validate(entity);
@@ -122,7 +128,7 @@ public final class RoleP
      * @return Role containing copy of input data.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public Role assign(Role entity, String userDn)
+    final Role assign(Role entity, String userDn)
         throws SecurityException
     {
         return rDao.assign(entity, userDn);
@@ -137,7 +143,7 @@ public final class RoleP
      * @return Role containing copy of input data.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public Role deassign(Role entity, String userDn)
+    final Role deassign(Role entity, String userDn)
         throws SecurityException
     {
         return entity = rDao.deassign(entity, userDn);
@@ -152,7 +158,7 @@ public final class RoleP
      * @param userDn contains the userId targeted for addition.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final void addOccupant(List<UserRole> uRoles, String userDn)
+    final void addOccupant(List<UserRole> uRoles, String userDn)
         throws SecurityException
     {
         if (VUtil.isNotNullOrEmpty(uRoles))
@@ -172,7 +178,7 @@ public final class RoleP
      * @param userDn contains the userId targeted for attribute removal.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final void removeOccupant(String userDn)
+    final void removeOccupant(String userDn)
         throws SecurityException
     {
         List<String> list;
@@ -199,7 +205,7 @@ public final class RoleP
      * @param entity Contains the name of the RBAC Role targeted for deletion.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public void delete(Role entity)
+    void delete(Role entity)
         throws SecurityException
     {
         rDao.remove(entity);

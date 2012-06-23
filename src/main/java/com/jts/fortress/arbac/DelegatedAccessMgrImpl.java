@@ -4,19 +4,22 @@
 
 package com.jts.fortress.arbac;
 
+import com.jts.fortress.AccessMgr;
+import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.configuration.Config;
 import com.jts.fortress.DelegatedAccessMgr;
+import com.jts.fortress.hier.AdminRoleUtil;
+import com.jts.fortress.hier.PsoUtil;
+import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.rbac.AccessMgrImpl;
 import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.Permission;
-import com.jts.fortress.rbac.RoleUtil;
+import com.jts.fortress.rbac.ReviewMgrImpl;
 import com.jts.fortress.rbac.SDUtil;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.User;
-import com.jts.fortress.rbac.UserP;
 import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.rbac.PermP;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.SecurityException;
@@ -51,9 +54,9 @@ import java.util.TreeSet;
 public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAccessMgr
 {
     private static final String CLS_NM = DelegatedAccessMgrImpl.class.getName();
-    private static final UserP uP = new UserP();
-    private static final PermP pP = new PermP();
+    private static final ReviewMgr rMgr = new ReviewMgrImpl();
     private static final String SUPER_ADMIN = Config.getProperty("superadmin.role", "ftSuperAdmin");
+    private static final AccessMgr accMgr = new AccessMgrImpl();
 
     /**
      * This function will determine if the user contains an AdminRole that is authorized assignment control over
@@ -161,7 +164,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         // This flag set will check administrative permission data set.
         perm.setAdmin(true);
-        return pP.checkPermission(session, perm);
+        return accMgr.checkAccess(session, perm);
     }
 
 
@@ -196,7 +199,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
             throw new SecurityException(GlobalErrIds.ARLE_ALREADY_ACTIVE, info);
         }
 
-        User ue = uP.read(session.getUserId(), true);
+        User ue = rMgr.readUser(session.getUser());
         List<UserAdminRole> uRoles = ue.getAdminRoles();
         int indx;
         // Is the admin role activation target valid for this user?
@@ -288,7 +291,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
         if(VUtil.isNotNullOrEmpty(uaRoles))
         {
             // validate user and retrieve user' ou:
-            User ue = uP.read(user.getUserId(), true);
+            User ue = rMgr.readUser(user);
             for(UserAdminRole uaRole : uaRoles)
             {
                 if(uaRole.getName().equalsIgnoreCase(SUPER_ADMIN))
@@ -305,7 +308,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
                     {
                         // Add osU children to the set:
                         osUsFinal.add(osU);
-                        Set<String> children = UsoUtil.getDescendants(osU);
+                        Set<String> children = com.jts.fortress.hier.UsoUtil.getDescendants(osU);
                         osUsFinal.addAll(children);
                     }
                     // does the admin role have authority over the user object?
@@ -359,7 +362,7 @@ public class DelegatedAccessMgrImpl extends AccessMgrImpl implements DelegatedAc
         if(VUtil.isNotNullOrEmpty(uaRoles))
         {
             // validate perm and retrieve perm's ou:
-            PermObj pObj = pP.read(new PermObj(perm.getObjectName()));
+            PermObj pObj = rMgr.readPermObj(new PermObj(perm.getObjectName()));
             for(UserAdminRole uaRole : uaRoles)
             {
                 if(uaRole.getName().equalsIgnoreCase(SUPER_ADMIN))

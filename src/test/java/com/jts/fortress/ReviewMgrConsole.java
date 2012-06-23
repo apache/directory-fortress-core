@@ -6,10 +6,10 @@ package com.jts.fortress;
 
 import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.arbac.OrgUnit;
+import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.rbac.Address;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
-import com.jts.fortress.rbac.RoleUtil;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
 import com.jts.fortress.util.attr.VUtil;

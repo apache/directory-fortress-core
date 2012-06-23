@@ -8,6 +8,7 @@ import com.jts.fortress.SecurityException;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.configuration.Config;
 import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.Cache;
 import com.jts.fortress.util.cache.CacheMgr;
@@ -35,7 +36,6 @@ import java.util.Set;
 public class SDUtil
 {
     private static final String CLS_NM = SDUtil.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
     private static ReviewMgr rMgr = new ReviewMgrImpl();
     private static Cache m_dsdCache;
     private static final String FORTRESS_DSDS = "fortress.dsd";

@@ -65,11 +65,19 @@ public final class OrgUnitP
     }
 
     /**
+     * Package private constructor.
+     */
+    OrgUnitP()
+    {
+
+    }
+
+    /**
      * This function uses a case insensitive search.
      * @param entity
      * @return
      */
-    public boolean isValid(OrgUnit entity)
+    public static final boolean isValid(OrgUnit entity)
     {
         boolean result = false;
         if(entity.type == OrgUnit.Type.USER)
@@ -95,7 +103,7 @@ public final class OrgUnitP
      * @param type
      * @return
      */
-    private static Set<String> loadOrgSet(OrgUnit.Type type)
+    private static final Set<String> loadOrgSet(OrgUnit.Type type)
     {
         Set<String> ouSet = null;
         try
@@ -123,7 +131,7 @@ public final class OrgUnitP
      *
      * @return
      */
-    private static Set<String> getOrgSet(OrgUnit.Type type)
+    private static final Set<String> getOrgSet(OrgUnit.Type type)
     {
         Set<String> orgSet;
         if(type == OrgUnit.Type.USER)
@@ -151,7 +159,7 @@ public final class OrgUnitP
      * @return OrgUnit entity containing all attributes associated with ou in directory.
      * @throws com.jts.fortress.SecurityException in the event OrgUnit not found or DAO search error.
      */
-    public OrgUnit read(OrgUnit entity)
+    final OrgUnit read(OrgUnit entity)
         throws SecurityException
     {
         validate(entity, false);
@@ -166,7 +174,7 @@ public final class OrgUnitP
      * @return List of type OrgUnit containing fully populated matching OU entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final List<OrgUnit> search(OrgUnit.Type type, String searchVal)
+    final List<OrgUnit> search(OrgUnit.Type type, String searchVal)
         throws SecurityException
     {
         // Call the finder.
@@ -183,7 +191,7 @@ public final class OrgUnitP
      * @return OrgUnit entity copy of input + additional attributes (internalId) that were added by op.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public OrgUnit add(OrgUnit entity)
+    final OrgUnit add(OrgUnit entity)
         throws SecurityException
     {
         validate(entity, false);
@@ -220,7 +228,7 @@ public final class OrgUnitP
      * @return OrgUnit entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public OrgUnit update(OrgUnit entity)
+    final OrgUnit update(OrgUnit entity)
         throws SecurityException
     {
         validate(entity, false);
@@ -236,7 +244,7 @@ public final class OrgUnitP
      * @param entity Contains the name of the OrgUnit node targeted for deletion.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public OrgUnit delete(OrgUnit entity)
+    final OrgUnit delete(OrgUnit entity)
         throws SecurityException
     {
         oDao.remove(entity);
@@ -271,7 +279,7 @@ public final class OrgUnitP
      * @param isUpdate not used at this time.
      * @throws SecurityException thrown in the event the attribute is null.
      */
-    void validate(OrgUnit entity, boolean isUpdate)
+    private final void validate(OrgUnit entity, boolean isUpdate)
         throws SecurityException
     {
         VUtil.safeText(entity.getName(), GlobalIds.OU_LEN);

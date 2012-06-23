@@ -2,14 +2,13 @@
  * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
  */
 
-package com.jts.fortress.pwpolicy.openldap;
+package com.jts.fortress.pwpolicy;
 
 import com.jts.fortress.SecurityException;
 
 import com.jts.fortress.ValidationException;
 import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.pwpolicy.PswdPolicy;
 import com.jts.fortress.util.cache.CacheMgr;
 import com.jts.fortress.util.cache.Cache;
 import org.apache.log4j.Logger;
@@ -66,12 +65,20 @@ public class PolicyP
     }
 
     /**
+     * Package private constructor.
+     */
+    PolicyP()
+    {
+
+    }
+
+    /**
      * This function uses a case insensitive search.
      *
      * @param name
      * @return
      */
-    public boolean isValid(String name)
+    public static final boolean isValid(String name)
     {
         boolean result = false;
         Set<String> policySet = getPolicySet();
@@ -88,7 +95,7 @@ public class PolicyP
      * @return PswdPolicy entity returns fully populated with attributes.
      * @throws com.jts.fortress.SecurityException In the event policy entry not found, data validation or system error.
      */
-    public PswdPolicy read(String name)
+    final PswdPolicy read(String name)
         throws SecurityException
     {
         // Call the finder method for the primary key.
@@ -102,7 +109,7 @@ public class PolicyP
      * @param policy Object contains the password policy attributes.
      * @throws com.jts.fortress.SecurityException In the event of data validation or system error.
      */
-    public void add(PswdPolicy policy)
+    final void add(PswdPolicy policy)
         throws SecurityException
     {
         validate(policy);
@@ -124,7 +131,7 @@ public class PolicyP
      *               be updated.  null attributes will be ignored.
      * @throws com.jts.fortress.SecurityException In the event policy not found , data validation or system error.
      */
-    public void update(PswdPolicy policy)
+    final void update(PswdPolicy policy)
         throws SecurityException
     {
         validate(policy);
@@ -140,7 +147,7 @@ public class PolicyP
      * @param policy Object must contain the name of the policy entity.
      * @throws com.jts.fortress.SecurityException In the event policy entity not found or system error.
      */
-    public void delete(PswdPolicy policy)
+    final void delete(PswdPolicy policy)
         throws SecurityException
     {
         olDao.remove(policy);
@@ -161,7 +168,7 @@ public class PolicyP
      * @return List<PswdPolicy> contains all matching password policy entities. If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException In the event of data validation or system error.
      */
-    public final List<PswdPolicy> search(String searchVal)
+    final List<PswdPolicy> search(String searchVal)
         throws SecurityException
     {
 
@@ -176,7 +183,7 @@ public class PolicyP
      * @param policy contains data targeted for insertion or update.
      * @throws com.jts.fortress.SecurityException in the event of data validation error or DAO error on Org validation.
      */
-    private void validate(PswdPolicy policy)
+    private final void validate(PswdPolicy policy)
         throws ValidationException
     {
         int length = policy.getName().length();
@@ -294,7 +301,7 @@ public class PolicyP
      *
      * @return Set of unique names.
      */
-    private static Set<String> loadPolicySet()
+    private static final Set<String> loadPolicySet()
     {
         Set<String> policySet = null;
         try
@@ -314,7 +321,7 @@ public class PolicyP
      *
      * @return
      */
-    private static Set<String> getPolicySet()
+    private static final Set<String> getPolicySet()
     {
         Set<String> policySet = (Set<String>)policyCache.get(POLICIES);
         if (policySet == null)

@@ -44,6 +44,13 @@ public class ConfigP
     private static final Logger log = Logger.getLogger(CLS_NM);
 
     /**
+     * Package private constructor
+     */
+    ConfigP()
+    {
+    }
+
+    /**
      * Create a new configuration node with given name and properties.  The name is required.  If node already exists,
      * a {@link com.jts.fortress.SecurityException} with error {@link GlobalErrIds#FT_CONFIG_ALREADY_EXISTS} will be thrown.
      *
@@ -52,7 +59,7 @@ public class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs just added.
      * @throws SecurityException in the event entry already present or other system error.
      */
-    public final Properties add(String name, Properties inProps)
+    final Properties add(String name, Properties inProps)
         throws SecurityException
     {
         validate(name, inProps);
@@ -70,7 +77,7 @@ public class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws com.jts.fortress.SecurityException in the event entry not present or other system error.
      */
-    public final Properties update(String name, Properties inProps)
+    final Properties update(String name, Properties inProps)
         throws com.jts.fortress.SecurityException
     {
         validate(name, inProps);
@@ -94,7 +101,7 @@ public class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws SecurityException in the event entry not present or other system error.
      */
-    public final void delete(String name)
+    final void delete(String name)
         throws com.jts.fortress.SecurityException
     {
         if (!VUtil.isNotNullOrEmpty(name))
@@ -115,7 +122,7 @@ public class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws com.jts.fortress.SecurityException in the event entry not present or other system error.
      */
-    public final void delete(String name, Properties inProps)
+    final void delete(String name, Properties inProps)
         throws SecurityException
     {
         validate(name, inProps);
@@ -131,7 +138,7 @@ public class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs just added. Maps to 'ftProps' attribute in 'ftProperties' object class.
      * @throws com.jts.fortress.SecurityException in the event entry doesn't exist or other system error.
      */
-    public final Properties read(String name)
+    final Properties read(String name)
         throws SecurityException
     {
         Properties outProps;
