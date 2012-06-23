@@ -44,9 +44,9 @@ public class UserTestData extends TestCase
             "20500115",                   /* ELOCKDATE_COL */
             "1234567",                    /* DAYMASK_COL */
             "DEV0",                       /* ORG_COL */
-            "10",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
+            "100",                        /* TIMEOUT_COL */
+            "",                           /* ASSGND_ROLES_COL */
+            "",                           /* AUTHZ_ROLES_COL */
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
