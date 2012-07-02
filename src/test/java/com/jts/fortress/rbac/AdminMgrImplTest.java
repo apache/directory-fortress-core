@@ -76,6 +76,10 @@ public class AdminMgrImplTest extends TestCase
         addUsers("ADD-USRS TU3", UserTestData.USERS_TU3, true);
         addUsers("ADD-USRS TU4", UserTestData.USERS_TU4, true);
         addUsers("ADD-USRS TU5", UserTestData.USERS_TU5, true);
+        if(FortressJUnitTest.isFirstRun())
+        {
+            addUsers("ADD-USRS TU6", UserTestData.USERS_TU6, true);
+        }
         addUsers("ADD-USRS TU7_HIER", UserTestData.USERS_TU7_HIER, true);
         addUsers("ADD-USRS TU8_SSD", UserTestData.USERS_TU8_SSD, true);
         addUsers("ADD-USRS TU9_SSD_HIER", UserTestData.USERS_TU9_SSD_HIER, true);

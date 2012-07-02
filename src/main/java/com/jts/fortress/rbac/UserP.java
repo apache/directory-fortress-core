@@ -342,7 +342,8 @@ public final class UserP
     {
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
         // Is there a match between this userId and a Fortress system user?
-        if (sysUserSet.contains(user.getUserId()))
+        User checkUser = read(user.getUserId(), true);
+        if (VUtil.isNotNullOrEmpty(checkUser.isSystem()) && checkUser.isSystem())
         {
             String warning = CLS_NM + ".softDelete userId [" + user.getUserId() + "] can't be removed due to policy violation, OAMCD=" + GlobalErrIds.USER_PW_PLCY_VIOLATION;
             throw new SecurityException(GlobalErrIds.USER_PW_PLCY_VIOLATION, warning);
@@ -364,7 +365,8 @@ public final class UserP
     {
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
         // Is there a match between this userId and a Fortress system user?
-        if (sysUserSet.contains(user.getUserId()))
+        User checkUser = read(user.getUserId(), true);
+        if (VUtil.isNotNullOrEmpty(checkUser.isSystem()) && checkUser.isSystem())
         {
             String warning = CLS_NM + ".delete userId [" + user.getUserId() + "] can't be removed due to policy violation, OAMCD=" + GlobalErrIds.USER_PW_PLCY_VIOLATION;
             throw new SecurityException(GlobalErrIds.USER_PW_PLCY_VIOLATION, warning);
@@ -849,31 +851,8 @@ public final class UserP
     }
 
 
-    /**
-     *
-     * @return
-     */
-   private final static Set<String> getSysUserSet()
-    {
-        Set<String> localSet =  new TreeSet<String>(new AlphabeticalOrder());
-        for (int i = 1; ; i++)
-        {
-            String prop = SYSTEM_USER_PREFIX + i;
-            String value = Config.getProperty(prop);
-            if (value == null)
-            {
-                break;
-            }
-            localSet.add(value);
-        }
-        return localSet;
-    }
-
     private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean("user.session.props.enabled", false);
     private static final String CLS_NM = UserP.class.getName();
     private static final UserDAO uDao = new UserDAO();
     private static final Logger log = Logger.getLogger(CLS_NM);
-    private static final String SYSTEM_USER_PREFIX = "sys.user.";
-    // This Set contains list of system users as specified in Fortress config.  These users will not be allowed to be deleted using API.
-    private Set<String> sysUserSet = getSysUserSet();
 }

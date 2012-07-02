@@ -77,11 +77,6 @@
                 <config props="temporal.validator.3:com.jts.fortress.util.time.ClockTime"/>
                 <config props="temporal.validator.4:com.jts.fortress.util.time.Day"/>
                 <config props="temporal.validator.dsd:com.jts.fortress.rbac.DSD"/>
-                <config props="sys.user.1:oamTU6User1"/>
-                <config props="sys.user.2:oamTU6User2"/>
-                <config props="sys.user.3:oamTU6User3"/>
-                <config props="sys.user.4:oamTU6User4"/>
-                <config props="sys.user.5:oamTU6User5"/>
                 <config props="user.objectclass:inetOrgPerson"/>
                 <!--config props="accessmgr.implementation:com.jts.fortress.rbac.AccessMgrImpl"/-->
                 <!--config props="auditmgr.implementation:com.jts.fortress.audit.AuditMgrImpl"/-->

@@ -2673,6 +2673,7 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "TRUE",                 /* SYSTEM USER */
         },
         {
             "oamTU6User2",          /* USERID_COL */
@@ -2697,6 +2698,7 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "TRUE",                 /* SYSTEM USER */
         },
         {
             "oamTU6User3",          /* USERID_COL */
@@ -2721,6 +2723,7 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "TRUE",                 /* SYSTEM USER */
         },
         {
             "oamTU6User4",          /* USERID_COL */
@@ -2745,6 +2748,7 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "TRUE",                 /* SYSTEM USER */
         },
         {
             "oamTU6User5",          /* USERID_COL */
@@ -2769,6 +2773,7 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "TRUE",                 /* SYSTEM USER */
         }
     };
 
@@ -5448,6 +5453,7 @@ public class UserTestData extends TestCase
     private final static int ADDRESS_COL = 19;
     private final static int PHONES_COL = 20;
     private final static int MOBILES_COL = 21;
+    private final static int SYSTEM_COL = 22;
 
 
     /**
@@ -5616,6 +5622,32 @@ public class UserTestData extends TestCase
      * @param usr
      * @return
      */
+    public static Boolean isSystem(String[] usr)
+    {
+        Boolean isSystem;
+        try
+        {
+            String szBoolean = usr[SYSTEM_COL];
+            if(VUtil.isNotNullOrEmpty(szBoolean))
+            {
+                isSystem = new Boolean(szBoolean);
+            }
+            else
+            {
+                isSystem = false;
+            }
+        }
+        catch(java.lang.ArrayIndexOutOfBoundsException ae)
+        {
+                isSystem = false;
+        }
+        return isSystem;
+    }
+
+    /**
+     * @param usr
+     * @return
+     */
     public static User getUser(String[] usr)
     {
         User user = (User) getUserConstraint(usr);
@@ -5630,6 +5662,7 @@ public class UserTestData extends TestCase
         user.setAddress(getAddress(usr));
         user.setPhones(getPhones(usr));
         user.setMobiles(getMobiles(usr));
+        user.setSystem(isSystem(usr));
         return user;
     }
 

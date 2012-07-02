@@ -552,6 +552,21 @@ public class VUtil
     }
 
     /**
+     * Method will return true if input is not null or empty.
+     * @param bVal contains the reference to Boolean variable.
+     * @return boolean if validation succeeds.
+     */
+    public static boolean isNotNullOrEmpty(Boolean bVal)
+     {
+        boolean result = false;
+        if (bVal != null)
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    /**
      *
      * @param value
      * @param validLen

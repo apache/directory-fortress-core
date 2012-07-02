@@ -156,6 +156,10 @@ public final class UserDAO
             DaoUtil.loadAttrs(entity.getEmails(), attrs, MAIL);
 
             // The following attributes are optional:
+            if (VUtil.isNotNullOrEmpty(entity.isSystem()))
+            {
+                attrs.add(DaoUtil.createAttribute(SYSTEM_USER, entity.isSystem().toString().toUpperCase()));
+            }
             if (VUtil.isNotNullOrEmpty(entity.getPwPolicy()))
             {
                 String dn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + Config.getProperty(GlobalIds.PPOLICY_ROOT);
@@ -242,6 +246,11 @@ public final class UserDAO
                 String szDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + Config.getProperty(GlobalIds.PPOLICY_ROOT);
                 LDAPAttribute dn = new LDAPAttribute(OPENLDAP_POLICY_SUBENTRY, szDn);
                 mods.add(LDAPModification.REPLACE, dn);
+            }
+            if (VUtil.isNotNullOrEmpty(entity.isSystem()))
+            {
+                LDAPAttribute system = new LDAPAttribute(SYSTEM_USER, entity.isSystem().toString().toUpperCase());
+                mods.add(LDAPModification.REPLACE, system);
             }
             if (entity.isTemporalSet())
             {
@@ -1397,6 +1406,11 @@ public final class UserDAO
         {
             entity.setLocked(true);
         }
+        szBoolean = DaoUtil.getAttribute(le, SYSTEM_USER);
+        if (szBoolean != null)
+        {
+            entity.setSystem(new Boolean(szBoolean));
+        }
         entity.addProperties(AttrHelper.getProperties(DaoUtil.getAttributes(le, GlobalIds.PROPS)));
         return entity;
     }
@@ -1901,6 +1915,8 @@ public final class UserDAO
     private final static String objectClassImpl = Config.getProperty(USER_OBJECT_CLASS);
     private final static String SN = "sn";
     private final static String PW = "userpassword";
+   private final static String SYSTEM_USER = "ftSystem";
+
     /**
      * Constant contains the locale attribute name used within organizationalPerson ldap object classes.
      */
@@ -1972,7 +1988,7 @@ public final class UserDAO
         GlobalIds.FT_IID, GlobalIds.UID, PW, GlobalIds.DESC, GlobalIds.OU, GlobalIds.CN, SN,
         GlobalIds.USER_ROLE_DATA, GlobalIds.CONSTRAINT, GlobalIds.USER_ROLE_ASSIGN, OPENLDAP_PW_RESET,
         OPENLDAP_PW_LOCKED_TIME, GlobalIds.PROPS, GlobalIds.USER_ADMINROLE_ASSIGN, GlobalIds.USER_ADMINROLE_DATA,
-        POSTAL_ADDRESS, L, POSTAL_CODE, POST_OFFICE_BOX, STATE, TELEPHONE_NUMBER, MOBILE, MAIL,
+        POSTAL_ADDRESS, L, POSTAL_CODE, POST_OFFICE_BOX, STATE, TELEPHONE_NUMBER, MOBILE, MAIL, SYSTEM_USER
     };
 
     private final static String[] ROLE_ATR = {

@@ -163,6 +163,7 @@ import java.util.*;
     "props",
     "locked",
     "reset",
+    "system",
     "beginTime",
     "endTime",
     "beginDate",
@@ -207,6 +208,7 @@ public class User extends FortEntity implements Constraint, Serializable
     private int timeout;
     private boolean reset;
     private boolean locked;
+    private Boolean system;
     @XmlElement(nillable = true)
     private Props props = new Props();
     @XmlElement(nillable = true)
@@ -1170,6 +1172,16 @@ public class User extends FortEntity implements Constraint, Serializable
             emails = new ArrayList<String>();
         }
         this.emails.add(email);
+    }
+
+    public Boolean isSystem()
+    {
+        return system;
+    }
+
+    public void setSystem(Boolean system)
+    {
+        this.system = system;
     }
 
     /**
