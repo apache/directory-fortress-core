@@ -1440,5 +1440,17 @@ public class GlobalErrIds
      *
      */
     public final static int REST_GET_FAILED = 10105;
+
+    /**
+     *
+     */
+    public final static int REST_NOT_FOUND_ERR = 10106;
+
+    /**
+     *
+     */
+    public final static int REST_UNKNOWN_ERR = 10107;
+
+
 }
 

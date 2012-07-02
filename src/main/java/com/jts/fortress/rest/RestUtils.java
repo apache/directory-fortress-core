@@ -49,6 +49,8 @@ public class RestUtils
     private final static String HTTP_PORT = Config.getProperty("http.port");
     private static final String SERVICE = "enmasse";
     private static final String URI = "http://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
+    private static final int HTTP_OK = 200;
+    private static final int HTTP_404_NOT_FOUND = 404;
 
     /**
      * Marshall the request into an XML String.
@@ -234,8 +236,23 @@ public class RestUtils
             post.setRequestEntity(entity);
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod(post);
-            szResponse = IOUtils.toString(post.getResponseBodyAsStream(), "UTF-8");
-            log.debug(CLS_NM + ".post [" + function + "]  response=" + szResponse);
+            if(result == HTTP_OK)
+            {
+                szResponse = IOUtils.toString(post.getResponseBodyAsStream(), "UTF-8");
+                log.debug(CLS_NM + ".post [" + function + "]  response=" + szResponse);
+            }
+            else if(result == HTTP_404_NOT_FOUND)
+            {
+                String error = CLS_NM + ".post [" + function + "] 404 not found from host";
+                log.error(error);
+                throw new RestException(GlobalErrIds.REST_NOT_FOUND_ERR, error);
+            }
+            else
+            {
+                String error = CLS_NM + ".post [" + function + "] error received from host: " + result;
+                log.error(error);
+                throw new RestException(GlobalErrIds.REST_UNKNOWN_ERR, error);
+            }
         }
         catch (IOException ioe)
         {
