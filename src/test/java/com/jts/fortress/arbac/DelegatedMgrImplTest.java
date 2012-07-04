@@ -743,8 +743,12 @@ public class DelegatedMgrImplTest extends TestCase
         addOrgUnits("ADD ORGS_ORGS_PRM_TO3", OrgUnitTestData.ORGS_PRM_TO3);
         addOrgUnits("ADD ORGS_PRM_TO4", OrgUnitTestData.ORGS_PRM_TO4);
         addOrgUnits("ADD ORGS_USR_TO5", OrgUnitTestData.ORGS_USR_TO5);
-        addOrgUnits("ADD ORGS_PRM_TO5", OrgUnitTestData.ORGS_PRM_TO5);        
-        addOrgUnits("ADD ORGS_DEV1", OrgUnitTestData.ORGS_DEV1);
+        addOrgUnits("ADD ORGS_PRM_TO5", OrgUnitTestData.ORGS_PRM_TO5);
+        // The DEV1 OU is not removed during cleanup phase because the test system users belong to it:
+        if(FortressJUnitTest.isFirstRun())
+        {
+            addOrgUnits("ADD ORGS_DEV1", OrgUnitTestData.ORGS_DEV1);
+        }
         addOrgUnits("ADD ORGS_APP1", OrgUnitTestData.ORGS_APP1);
     }
 
@@ -800,7 +804,8 @@ public class DelegatedMgrImplTest extends TestCase
         deleteOrgUnits("DEL ORGS_PRM_TO4", OrgUnitTestData.ORGS_PRM_TO4);
         deleteOrgUnits("DEL ORGS_USR_TO5", OrgUnitTestData.ORGS_USR_TO5);
         deleteOrgUnits("DEL ORGS_PRM_TO5", OrgUnitTestData.ORGS_PRM_TO5);
-        deleteOrgUnits("DEL ORGS_DEV1", OrgUnitTestData.ORGS_DEV1);
+        // Don't delete because the test system users will belong to DEV1 OU and cannot be removed by normal API call:
+        // deleteOrgUnits("DEL ORGS_DEV1", OrgUnitTestData.ORGS_DEV1);
         deleteOrgUnits("DEL ORGS_APP1", OrgUnitTestData.ORGS_APP1);
     }
 
