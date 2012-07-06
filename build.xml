@@ -97,8 +97,11 @@
        <property name="dst.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData.xml"/>
        <property name="load.demo.script" value="${ldap.setup.dir}/FortressDemoUsers.xml"/>
 
+       <property name="stop.slapd.script-win" value="${ldap.setup.dir}/stopSlapd.cmd"/>
+       <property name="start.slapd.script-win" value="${ldap.setup.dir}/startSlapd.cmd"/>
        <property name="stop.slapd.script" value="${ldap.setup.dir}/stopSlapd.sh"/>
        <property name="start.slapd.script" value="${ldap.setup.dir}/startSlapd.sh"/>
+
        <property name="uninstall.slapd.script" value="${ldap.setup.dir}/uninstall.sh"/>
        <property name="install.slapd.script" value="${ldap.setup.dir}/install.sh"/>
        <property name="source.slapd.conf" value="${ldap.dir}/slapd.conf.src"/>
@@ -688,17 +691,8 @@
         <echo message="###############  Initialize OpenLDAP  ###############"/>
 
         <echo message="###############  Stop slapd process  ###############"/>
-        <exec dir="." executable="/bin/sh">
-          <arg line="${stop.slapd.script}"/>
-          <arg value="${sudo.pw}"/>
-        </exec>
-
-        <echo message="###############  Uninstall slapd ###############"/>
-        <exec dir="." executable="/bin/sh">
-          <arg line="${uninstall.slapd.script}"/>
-          <arg value="${slapd.uninstall}"/>
-          <arg value="${sudo.pw}"/>
-        </exec>
+        <antcall target="stop-slapd"></antcall>
+        <antcall target="uninstall-slapd"></antcall>
 
         <echo message="###############  Backup the slpad bdb folders  ###############"/>
         <!-- Backup the OpenLDAP access log db folder -->
@@ -710,12 +704,7 @@
            <fileset dir="${db.dir}"/>
         </move>
 
-        <echo message="###############  Install slapd ###############"/>
-        <exec dir="${ldap.setup.dir}" executable="/bin/sh">
-          <arg line="${install.slapd.script}"/>
-          <arg value="${slapd.install}"/>
-          <arg value="${sudo.pw}"/>
-        </exec>
+        <antcall target="install-slapd"></antcall>
 
         <echo message="###############  Create new slapd bdb folders  ###############"/>
         <mkdir dir="${db.dir}"/>
@@ -741,16 +730,70 @@
 			</fileset>
 		</copy>
 
+        <antcall target="start-slapd"></antcall>
+        <antcall target="load-slapd"></antcall>
+        <echo message="Target init-slapd complete."/>
+    </target>
+
+    <target name="uninstall-slapd" depends="init" unless="windows">
+        <echo message="###############  Uninstall OpenLDAP binaries"/>
+        <exec dir="." executable="/bin/sh">
+            <arg line="${uninstall.slapd.script}"/>
+            <arg value="${slapd.uninstall}"/>
+            <arg value="${sudo.pw}"/>
+        </exec>
+    </target>
+
+    <target name="install-slapd" depends="init" unless="windows">
+        <echo message="###############  Install OpenLDAP binaries"/>
+        <exec dir="${ldap.setup.dir}" executable="/bin/sh">
+            <arg line="${install.slapd.script}"/>
+            <arg value="${slapd.install}"/>
+            <arg value="${sudo.pw}"/>
+        </exec>
+    </target>
+
+    <target name="start-slapd" depends="init">
+        <antcall target="start-slapd-win"></antcall>
+        <antcall target="start-slapd-nix"></antcall>
+    </target>
+
+    <target name="start-slapd-win" depends="init" if="windows">
+        <echo message="###############  Start the slapd process up: ${slapd.exe.dir}"/>
+        <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${slapd.exe.dir}">
+            <arg value="/c"/>
+            <arg value="${start.slapd.script-win}"/>
+        </exec>
+    </target>
+
+    <target name="start-slapd-nix" depends="init" unless="windows">
         <echo message="###############  Start the slapd process up  ###############"/>
         <exec dir="." executable="/bin/sh">
-          <arg line="${start.slapd.script}"/>
-          <arg value="${slapd.start}"/>
+            <arg line="${start.slapd.script}"/>
+            <arg value="${slapd.start}"/>
+            <arg value="${sudo.pw}"/>
+        </exec>
+    </target>
+
+    <target name="stop-slapd" depends="init">
+        <antcall target="stop-slapd-win"></antcall>
+        <antcall target="stop-slapd-nix"></antcall>
+    </target>
+
+    <target name="stop-slapd-win" depends="init" if="windows">
+        <echo message="###############  Stop the slapd process: ${slapd.exe.dir}"/>
+        <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${slapd.exe.dir}">
+            <arg value="/c"/>
+            <arg value="${stop.slapd.script-win}"/>
+        </exec>
+    </target>
+
+    <target name="stop-slapd-nix" depends="init" unless="windows">
+        <echo message="###############  Stop the slapd process"/>
+        <exec dir="." executable="/bin/sh">
+          <arg line="${stop.slapd.script}"/>
           <arg value="${sudo.pw}"/>
         </exec>
-
-        <antcall target="load-slapd"></antcall>
-
-        <echo message="Target init-slapd complete."/>
     </target>
 
     <!-- =================================
@@ -866,7 +909,6 @@
                 <include name="*/**"/>
             </zipfileset>
         </zip>
-
      </target>
 
 </project>
