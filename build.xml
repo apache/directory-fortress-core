@@ -840,54 +840,31 @@
 
     <!-- ###############  create Fortress Builder distribution package ############################ -->
     <target name="builder" depends="dist" description="Create binary distribution">
-
-        <echo message="###############  Modify fortress configuration per user settings  ###############"/>
-
+        <echo message="###############  Build Fortress Builder distribution package named: ${fortressBuilder.zip} ###############"/>
         <zip destfile="${fortressBuilder.zip}"
              update="true">
-
             <zipfileset dir="${src.dir}" prefix="src">
                 <include name="*/**"/>
                 <exclude name="*.iml"/>
             </zipfileset>
-
             <zipfileset dir="${basedir}">
                 <include name="*.xml"/>
                 <include name="*.txt"/>
                 <include name="*.properties"/>
                 <include name="*.sh"/>
             </zipfileset>
-
             <zipfileset dir="${lib.dir}" prefix="lib">
                 <include name="*"/>
             </zipfileset>
-
             <zipfileset dir="${dist.dir}" prefix="dist">
                 <include name="*"/>
             </zipfileset>
-
             <zipfileset dir="${ldap.dir}" prefix="ldap">
-                <include name="*"/>
+                <include name="*/**"/>
             </zipfileset>
-
-            <mappedresources>
-                <fileset dir="${ldap.schema.dir}"/>
-                <globmapper from="*" to="ldap/schema/*"/>
-            </mappedresources>
-
-            <mappedresources>
-                <fileset dir="${ldap.setup.dir}"/>
-                <globmapper from="*" to="ldap/setup/*"/>
-            </mappedresources>
-
             <zipfileset dir="${config.dir}" prefix="config">
-                <include name="*"/>
+                <include name="*/**"/>
             </zipfileset>
-
-            <mappedresources>
-                <fileset dir="${config.bootstrap.dir}"/>
-                <globmapper from="*" to="config/bootstrap/*"/>
-            </mappedresources>
         </zip>
 
      </target>
