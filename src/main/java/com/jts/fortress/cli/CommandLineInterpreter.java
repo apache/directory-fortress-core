@@ -14,10 +14,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.jts.fortress.*;
-import com.jts.fortress.arbac.AdminRole;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.arbac.UserAdminRole;
-import com.jts.fortress.hier.Relationship;
+import com.jts.fortress.rbac.AdminRole;
+import com.jts.fortress.rbac.OrgUnit;
+import com.jts.fortress.rbac.UserAdminRole;
+import com.jts.fortress.rbac.Relationship;
 import com.jts.fortress.rbac.*;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.time.Constraint;
@@ -37,10 +37,10 @@ public class CommandLineInterpreter
     private AdminMgr adminMgr;
     private ReviewMgr reviewMgr;
     private AccessMgr accessMgr;
-    private DelegatedAdminMgr delegatedAdminMgr;
-    private DelegatedReviewMgr delegatedReviewMgr;
-    private DelegatedAccessMgr delegatedAccessMgr;
-    private PswdPolicyMgr pswdPolicyMgr;
+    private DelAdminMgr delAdminMgr;
+    private DelReviewMgr delReviewMgr;
+    private DelAccessMgr delAccessMgr;
+    private PwPolicyMgr pswdPolicyMgr;
 
     /* THESE ARE THE HIGH LEVEL COMMANDS: */
     private static final String ADMIN = "admin";
@@ -214,21 +214,21 @@ public class CommandLineInterpreter
                 command = ADD_ROLE;
                 log.info(command);
                 AdminRole role = options.getAdminRole();
-                delegatedAdminMgr.addRole(role);
+                delAdminMgr.addRole(role);
             }
             else if (commands.contains(UPDATE_ROLE))
             {
                 command = UPDATE_ROLE;
                 log.info(command);
                 AdminRole role = options.getAdminRole();
-                delegatedAdminMgr.updateRole(role);
+                delAdminMgr.updateRole(role);
             }
             else if (commands.contains(DELETE_ROLE))
             {
                 command = DELETE_ROLE;
                 log.info(command);
                 AdminRole role = options.getAdminRole();
-                delegatedAdminMgr.deleteRole(role);
+                delAdminMgr.deleteRole(role);
             }
             else if (commands.contains(ASSIGN_ROLE))
             {
@@ -236,7 +236,7 @@ public class CommandLineInterpreter
                 log.info(command);
                 Role role = options.getRole();
                 String userId = options.getUserId();
-                delegatedAdminMgr.assignUser(new UserAdminRole(userId, role));
+                delAdminMgr.assignUser(new UserAdminRole(userId, role));
             }
             else if (commands.contains(DEASSIGN_ROLE))
             {
@@ -244,63 +244,63 @@ public class CommandLineInterpreter
                 log.info(command);
                 Role role = options.getRole();
                 String userId = options.getUserId();
-                delegatedAdminMgr.deassignUser(new UserAdminRole(userId, role));
+                delAdminMgr.deassignUser(new UserAdminRole(userId, role));
             }
             else if (commands.contains(ADD_ROLE_INHERITANCE))
             {
                 command = ADD_ROLE_INHERITANCE;
                 log.info(command);
                 Relationship relationship = options.getRelationship();
-                delegatedAdminMgr.addInheritance(new AdminRole(relationship.getParent()), new AdminRole(relationship.getChild()));
+                delAdminMgr.addInheritance(new AdminRole(relationship.getParent()), new AdminRole(relationship.getChild()));
             }
             else if (commands.contains(DELETE_ROLE_INHERITANCE))
             {
                 command = DELETE_ROLE_INHERITANCE;
                 log.info(command);
                 Relationship relationship = options.getRelationship();
-                delegatedAdminMgr.deleteInheritance(new AdminRole(relationship.getParent()), new AdminRole(relationship.getChild()));
+                delAdminMgr.deleteInheritance(new AdminRole(relationship.getParent()), new AdminRole(relationship.getChild()));
             }
             else if (commands.contains(ADD_POBJ))
             {
                 command = ADD_POBJ;
                 log.info(command);
                 PermObj permObj = options.getPermObj();
-                delegatedAdminMgr.addPermObj(permObj);
+                delAdminMgr.addPermObj(permObj);
             }
             else if (commands.contains(UPDATE_POBJ))
             {
                 command = UPDATE_POBJ;
                 log.info(command);
                 PermObj permObj = options.getPermObj();
-                delegatedAdminMgr.updatePermObj(permObj);
+                delAdminMgr.updatePermObj(permObj);
             }
             else if (commands.contains(DELETE_POBJ))
             {
                 command = DELETE_POBJ;
                 log.info(command);
                 PermObj permObj = options.getPermObj();
-                delegatedAdminMgr.deletePermObj(permObj);
+                delAdminMgr.deletePermObj(permObj);
             }
             else if (commands.contains(ADD_PERM))
             {
                 command = ADD_PERM;
                 log.info(command);
                 Permission perm = options.getPermission();
-                delegatedAdminMgr.addPermission(perm);
+                delAdminMgr.addPermission(perm);
             }
             else if (commands.contains(UPDATE_PERM))
             {
                 command = UPDATE_PERM;
                 log.info(command);
                 Permission perm = options.getPermission();
-                delegatedAdminMgr.updatePermission(perm);
+                delAdminMgr.updatePermission(perm);
             }
             else if (commands.contains(DELETE_PERM))
             {
                 command = DELETE_PERM;
                 log.info(command);
                 Permission permObj = options.getPermission();
-                delegatedAdminMgr.deletePermission(permObj);
+                delAdminMgr.deletePermission(permObj);
             }
             else if (commands.contains(GRANT))
             {
@@ -309,7 +309,7 @@ public class CommandLineInterpreter
                 Permission perm = options.getPermission();
                 AdminRole role = options.getAdminRole();
                 role.setName(options.getRoleNm());
-                delegatedAdminMgr.grantPermission(perm, role);
+                delAdminMgr.grantPermission(perm, role);
             }
             else if (commands.contains(REVOKE))
             {
@@ -318,7 +318,7 @@ public class CommandLineInterpreter
                 Permission perm = options.getPermission();
                 AdminRole role = options.getAdminRole();
                 role.setName(options.getRoleNm());
-                delegatedAdminMgr.revokePermission(perm, role);
+                delAdminMgr.revokePermission(perm, role);
             }
             else if (commands.contains(ADD_USERORG))
             {
@@ -326,7 +326,7 @@ public class CommandLineInterpreter
                 log.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.USER);
-                delegatedAdminMgr.add(orgUnit);
+                delAdminMgr.add(orgUnit);
             }
             else if (commands.contains(UPDATE_USERORG))
             {
@@ -334,7 +334,7 @@ public class CommandLineInterpreter
                 log.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.USER);
-                delegatedAdminMgr.update(orgUnit);
+                delAdminMgr.update(orgUnit);
             }
             else if (commands.contains(DELETE_USERORG))
             {
@@ -342,21 +342,21 @@ public class CommandLineInterpreter
                 log.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.USER);
-                delegatedAdminMgr.delete(orgUnit);
+                delAdminMgr.delete(orgUnit);
             }
             else if (commands.contains(ADD_USERORG_INHERITANCE))
             {
                 command = ADD_USERORG_INHERITANCE;
                 log.info(command);
                 Relationship relationship = options.getRelationship();
-                delegatedAdminMgr.addInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.USER), new OrgUnit(relationship.getChild(), OrgUnit.Type.USER));
+                delAdminMgr.addInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.USER), new OrgUnit(relationship.getChild(), OrgUnit.Type.USER));
             }
             else if (commands.contains(DELETE_USERORG_INHERITANCE))
             {
                 command = DELETE_USERORG_INHERITANCE;
                 log.info(command);
                 Relationship relationship = options.getRelationship();
-                delegatedAdminMgr.deleteInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.USER), new OrgUnit(relationship.getChild(), OrgUnit.Type.USER));
+                delAdminMgr.deleteInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.USER), new OrgUnit(relationship.getChild(), OrgUnit.Type.USER));
             }
             else if (commands.contains(ADD_PERMORG))
             {
@@ -364,7 +364,7 @@ public class CommandLineInterpreter
                 log.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.PERM);
-                delegatedAdminMgr.add(orgUnit);
+                delAdminMgr.add(orgUnit);
             }
             else if (commands.contains(UPDATE_PERMORG))
             {
@@ -372,7 +372,7 @@ public class CommandLineInterpreter
                 log.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.PERM);
-                delegatedAdminMgr.update(orgUnit);
+                delAdminMgr.update(orgUnit);
             }
             else if (commands.contains(DELETE_PERMORG))
             {
@@ -380,21 +380,21 @@ public class CommandLineInterpreter
                 log.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.PERM);
-                delegatedAdminMgr.delete(orgUnit);
+                delAdminMgr.delete(orgUnit);
             }
             else if (commands.contains(ADD_PERMORG_INHERITANCE))
             {
                 command = ADD_PERMORG_INHERITANCE;
                 log.info(command);
                 Relationship relationship = options.getRelationship();
-                delegatedAdminMgr.addInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.PERM), new OrgUnit(relationship.getChild(), OrgUnit.Type.PERM));
+                delAdminMgr.addInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.PERM), new OrgUnit(relationship.getChild(), OrgUnit.Type.PERM));
             }
             else if (commands.contains(DELETE_PERMORG_INHERITANCE))
             {
                 command = DELETE_PERMORG_INHERITANCE;
                 log.info(command);
                 Relationship relationship = options.getRelationship();
-                delegatedAdminMgr.deleteInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.PERM), new OrgUnit(relationship.getChild(), OrgUnit.Type.PERM));
+                delAdminMgr.deleteInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.PERM), new OrgUnit(relationship.getChild(), OrgUnit.Type.PERM));
             }
             else
             {
@@ -1220,13 +1220,13 @@ public class CommandLineInterpreter
         boolean success = false;
         try
         {
-            adminMgr = AdminMgrFactory.createInstance();
-            reviewMgr = ReviewMgrFactory.createInstance();
-            accessMgr = AccessMgrFactory.createInstance();
-            delegatedAdminMgr = DelegatedAdminMgrFactory.createInstance();
-            delegatedReviewMgr = DelegatedReviewMgrFactory.createInstance();
-            delegatedAccessMgr = DelegatedAccessMgrFactory.createInstance();
-            PswdPolicyMgr pswdPolicyMgr = PswdPolicyMgrFactory.createInstance();
+            adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
+            accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
+            delAdminMgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
+            delReviewMgr = DelReviewMgrFactory.createInstance(GlobalIds.HOME);
+            delAccessMgr = DelAccessMgrFactory.createInstance(GlobalIds.HOME);
+            PwPolicyMgr pwPolicyMgr = PwPolicyMgrFactory.createInstance(GlobalIds.HOME);
             success = true;
         }
         catch (com.jts.fortress.SecurityException se)

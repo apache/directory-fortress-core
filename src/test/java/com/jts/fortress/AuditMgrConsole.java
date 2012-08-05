@@ -7,10 +7,10 @@
  */
 package com.jts.fortress;
 
-import com.jts.fortress.audit.Bind;
-import com.jts.fortress.audit.AuthZ;
-import com.jts.fortress.audit.Mod;
-import com.jts.fortress.audit.UserAudit;
+import com.jts.fortress.rbac.Bind;
+import com.jts.fortress.rbac.AuthZ;
+import com.jts.fortress.rbac.Mod;
+import com.jts.fortress.rbac.UserAudit;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.util.attr.AttrHelper;
 import com.jts.fortress.util.attr.VUtil;
@@ -30,7 +30,7 @@ public class AuditMgrConsole
     {
         try
         {
-            am = AuditMgrFactory.createInstance();
+            am = AuditMgrFactory.createInstance(GlobalIds.HOME);
         }
         catch (SecurityException e)
         {

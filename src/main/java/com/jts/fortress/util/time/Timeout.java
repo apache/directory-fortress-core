@@ -4,7 +4,7 @@
 
 package com.jts.fortress.util.time;
 
-import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.rbac.Session;
 
 /**
@@ -15,8 +15,8 @@ import com.jts.fortress.rbac.Session;
  * <li>{@link com.jts.fortress.rbac.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
  * <li>{@link com.jts.fortress.rbac.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
  * <li>{@link com.jts.fortress.rbac.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link com.jts.fortress.arbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link com.jts.fortress.arbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
+ * <li>{@link com.jts.fortress.rbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link com.jts.fortress.rbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
  * </ol>
  * </p>
  *
@@ -33,7 +33,7 @@ public class Timeout
      * @param session    required for {@link Validator} interface but not used here.
      * @param constraint contains the elapsed time entity may remain inactive in minutes.  Maps listed above.
      * @param time       contains the current timestamp.
-     * @return '0' if validation succeeds else {@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_TIMEOUT} if failed.
+     * @return '0' if validation succeeds else {@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_TIMEOUT} if failed.
      */
     public int validate(Session session, Constraint constraint, Time time)
     {

@@ -5,19 +5,15 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.CreateException;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RemoveException;
-import com.jts.fortress.hier.AdminRoleUtil;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.configuration.Config;
+import com.jts.fortress.cfg.Config;
 import com.jts.fortress.FinderException;
 import com.jts.fortress.UpdateException;
-import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
-import com.jts.fortress.arbac.AdminRole;
-import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.constants.GlobalErrIds;
 
 import com.jts.fortress.util.attr.AttrHelper;
 import com.jts.fortress.util.attr.VUtil;
@@ -125,24 +121,23 @@ import java.util.Set;
  * @author Shawn McKinney
  * @created September 29, 2009
  */
-public final class PermDAO
+final class PermDAO
 {
-
     private static final String CLS_NM = PermDAO.class.getName();
     /*
       *  *************************************************************************
       *  **  OpenAccessMgr PERMISSION STATICS
       *  ************************************************************************
       */
-    private final static String TYPE = "ftType";
-    private final static String PERM_OBJ_OBJECT_CLASS_NAME = "ftObject";
-    private final static String PERM_OP_OBJECT_CLASS_NAME = "ftOperation";
+    private static final String TYPE = "ftType";
+    private static final String PERM_OBJ_OBJECT_CLASS_NAME = "ftObject";
+    private static final String PERM_OP_OBJECT_CLASS_NAME = "ftOperation";
 
-    private final static String PERM_OBJ_OBJ_CLASS[] = {
+    private static final String PERM_OBJ_OBJ_CLASS[] = {
         GlobalIds.TOP, "organizationalunit", PERM_OBJ_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
-    private final static String PERM_OP_OBJ_CLASS[] = {
+    private static final String PERM_OP_OBJ_CLASS[] = {
         GlobalIds.TOP, "organizationalrole", PERM_OP_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
@@ -165,8 +160,7 @@ public final class PermDAO
      * Default constructor is used by internal Fortress classes.
      */
     PermDAO()
-    {
-    }
+    {}
 
     /**
      * @param entity
@@ -174,11 +168,11 @@ public final class PermDAO
      * @throws com.jts.fortress.CreateException
      *
      */
-    PermObj createObject(PermObj entity)
+    final PermObj createObject(PermObj entity)
         throws CreateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(entity);
+        String dn = getDn(entity, entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -235,11 +229,11 @@ public final class PermDAO
      * @throws com.jts.fortress.UpdateException
      *
      */
-    PermObj updateObj(PermObj entity)
+    final PermObj updateObj(PermObj entity)
         throws UpdateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(entity);
+        String dn = getDn(entity, entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -288,11 +282,11 @@ public final class PermDAO
      * @throws com.jts.fortress.RemoveException
      *
      */
-    void deleteObj(PermObj entity)
+    final void deleteObj(PermObj entity)
         throws RemoveException
     {
         LDAPConnection ld = null;
-        String dn = getDn(entity);
+        String dn = getDn(entity, entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -316,11 +310,11 @@ public final class PermDAO
      * @throws com.jts.fortress.CreateException
      *
      */
-    Permission createOperation(Permission entity)
+    final Permission createOperation(Permission entity)
         throws CreateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(entity);
+        String dn = getDn(entity, entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -384,11 +378,11 @@ public final class PermDAO
      * @throws com.jts.fortress.UpdateException
      *
      */
-    Permission updateOperation(Permission entity)
+    final Permission updateOperation(Permission entity)
         throws UpdateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(entity);
+        String dn = getDn(entity, entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -434,11 +428,11 @@ public final class PermDAO
      * @throws com.jts.fortress.RemoveException
      *
      */
-    void deleteOperation(Permission entity)
+    final void deleteOperation(Permission entity)
         throws RemoveException
     {
         LDAPConnection ld = null;
-        String dn = getOpRdn(entity.getOpName(), entity.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + entity.getObjectName() + "," + getRootDn(entity.isAdmin());
+        String dn = getOpRdn(entity.getOpName(), entity.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + entity.getObjectName() + "," + getRootDn(entity.isAdmin(), entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -464,11 +458,11 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    void grant(Permission pOp, Role role)
+    final void grant(Permission pOp, Role role)
         throws UpdateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(pOp);
+        String dn = getDn(pOp, pOp.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -510,11 +504,11 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    void revoke(Permission pOp, Role role)
+    final void revoke(Permission pOp, Role role)
         throws UpdateException, FinderException
     {
         LDAPConnection ld = null;
-        String dn = getDn(pOp);
+        String dn = getDn(pOp, pOp.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -551,11 +545,11 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    void grant(Permission pOp, User user)
+    final void grant(Permission pOp, User user)
         throws UpdateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(pOp);
+        String dn = getDn(pOp, pOp.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -597,11 +591,11 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    void revoke(Permission pOp, User user)
+    final void revoke(Permission pOp, User user)
         throws UpdateException, FinderException
     {
         LDAPConnection ld = null;
-        String dn = getDn(pOp);
+        String dn = getDn(pOp, pOp.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -636,12 +630,12 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    Permission getPerm(Permission permission)
+    final Permission getPerm(Permission permission)
         throws FinderException
     {
         Permission entity = null;
         LDAPConnection ld = null;
-        String dn = getOpRdn(permission.getOpName(), permission.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + permission.getObjectName() + "," + getRootDn(permission.isAdmin());
+        String dn = getOpRdn(permission.getOpName(), permission.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + permission.getObjectName() + "," + getRootDn(permission.isAdmin(), permission.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -678,12 +672,12 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    PermObj getPerm(PermObj permObj)
+    final PermObj getPerm(PermObj permObj)
         throws FinderException
     {
         PermObj entity = null;
         LDAPConnection ld = null;
-        String dn = GlobalIds.POBJ_NAME + "=" + permObj.getObjectName() + "," + getRootDn(permObj.isAdmin());
+        String dn = GlobalIds.POBJ_NAME + "=" + permObj.getObjectName() + "," + getRootDn(permObj.isAdmin(), permObj.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -720,12 +714,12 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    boolean checkPermission(Session session, Permission permission)
+    final boolean checkPermission(Session session, Permission permission)
         throws FinderException
     {
         boolean result = false;
         LDAPConnection ld = null;
-        String dn = GlobalIds.POBJ_NAME + "=" + permission.getObjectName() + "," + getRootDn(permission.isAdmin());
+        String dn = GlobalIds.POBJ_NAME + "=" + permission.getObjectName() + "," + getRootDn(permission.isAdmin(), permission.getContextId());
         try
         {
             String permObjVal = VUtil.encodeSafeText(permission.getObjectName(), GlobalIds.PERM_LEN);
@@ -740,11 +734,11 @@ public final class PermDAO
             Set<String> roles;
             if (permission.isAdmin())
             {
-                roles = AdminRoleUtil.getInheritedRoles(session.getAdminRoles());
+                roles = AdminRoleUtil.getInheritedRoles(session.getAdminRoles(), permission.getContextId());
             }
             else
             {
-                roles = RoleUtil.getInheritedRoles(session.getRoles());
+                roles = RoleUtil.getInheritedRoles(session.getRoles(), permission.getContextId());
             }
             if (VUtil.isNotNullOrEmpty(roles))
             {
@@ -784,7 +778,9 @@ public final class PermDAO
 
 
     /**
+     *
      * @param le
+     * @param sequence
      * @return
      * @throws LDAPException
      */
@@ -806,7 +802,9 @@ public final class PermDAO
     }
 
     /**
+     *
      * @param le
+     * @param sequence
      * @return
      * @throws LDAPException
      */
@@ -831,13 +829,13 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    List<Permission> findPermissions(Permission permission)
+    final List<Permission> findPermissions(Permission permission)
         throws FinderException
     {
         List<Permission> permList = new ArrayList<Permission>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String permRoot = getRootDn(permission.isAdmin());
+        String permRoot = getRootDn(permission.isAdmin(), permission.getContextId());
         try
         {
             String permObjVal = VUtil.encodeSafeText(permission.getObjectName(), GlobalIds.PERM_LEN);
@@ -874,13 +872,13 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    List<PermObj> findPermissions(PermObj permObj)
+    final List<PermObj> findPermissions(PermObj permObj)
         throws FinderException
     {
         List<PermObj> permList = new ArrayList<PermObj>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String permRoot = getRootDn(permObj.isAdmin());
+        String permRoot = getRootDn(permObj.isAdmin(), permObj.getContextId());
         try
         {
             String permObjVal = VUtil.encodeSafeText(permObj.getObjectName(), GlobalIds.PERM_LEN);
@@ -913,13 +911,13 @@ public final class PermDAO
      * @return
      * @throws FinderException
      */
-    List<PermObj> findPermissions(OrgUnit ou, boolean limitSize)
+    final List<PermObj> findPermissions(OrgUnit ou, boolean limitSize)
         throws FinderException
     {
         List<PermObj> permList = new ArrayList<PermObj>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String permRoot = Config.getProperty(GlobalIds.PERM_ROOT);
+        String permRoot = DaoUtil.getRootDn(ou.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
             String ouVal = VUtil.encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
@@ -962,7 +960,7 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    List<Permission> findPermissions(Role role)
+    final List<Permission> findPermissions(Role role)
         throws FinderException
     {
         List<Permission> permList = new ArrayList<Permission>();
@@ -971,11 +969,11 @@ public final class PermDAO
         String permRoot;
         if (role.getClass().equals(AdminRole.class))
         {
-            permRoot = Config.getProperty(GlobalIds.ADMIN_PERM_ROOT);
+            permRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.ADMIN_PERM_ROOT);
         }
         else
         {
-            permRoot = Config.getProperty(GlobalIds.PERM_ROOT);
+            permRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.PERM_ROOT);
         }
         try
         {
@@ -985,11 +983,11 @@ public final class PermDAO
             Set<String> roles;
             if (role.getClass().equals(AdminRole.class))
             {
-                roles = AdminRoleUtil.getAscendants(role.getName());
+                roles = AdminRoleUtil.getAscendants(role.getName(), role.getContextId());
             }
             else
             {
-                roles = RoleUtil.getAscendants(role.getName());
+                roles = RoleUtil.getAscendants(role.getName(), role.getContextId());
             }
 
             if (VUtil.isNotNullOrEmpty(roles))
@@ -1032,18 +1030,18 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    List<Permission> findPermissions(User user)
+    final List<Permission> findPermissions(User user)
         throws FinderException
     {
         List<Permission> permList = new ArrayList<Permission>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String permRoot = Config.getProperty(GlobalIds.PERM_ROOT);
+        String permRoot = DaoUtil.getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")(|";
-            Set<String> roles = RoleUtil.getInheritedRoles(user.getRoles());
+            Set<String> roles = RoleUtil.getInheritedRoles(user.getRoles(), user.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))
             {
                 for (String uRole : roles)
@@ -1079,13 +1077,13 @@ public final class PermDAO
      * @throws com.jts.fortress.FinderException
      *
      */
-    List<Permission> findUserPermissions(User user)
+    final List<Permission> findUserPermissions(User user)
         throws FinderException
     {
         List<Permission> permList = new ArrayList<Permission>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String permRoot = Config.getProperty(GlobalIds.PERM_ROOT);
+        String permRoot = DaoUtil.getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -1111,27 +1109,25 @@ public final class PermDAO
         return permList;
     }
 
-
     /**
      * @param session
      * @return
      * @throws com.jts.fortress.FinderException
      *
      */
-    List<Permission> findPermissions(Session session)
+    final List<Permission> findPermissions(Session session)
         throws FinderException
     {
         List<Permission> permList = new ArrayList<Permission>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String permRoot = Config.getProperty(GlobalIds.PERM_ROOT);
+         String permRoot = DaoUtil.getRootDn(session.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             filter += "(" + USERS + "=" + session.getUserId() + ")";
-            //Set<String> roles = session.getAuthorizedRoles();
-            Set<String> roles = RoleUtil.getInheritedRoles(session.getRoles());
+             Set<String> roles = RoleUtil.getInheritedRoles(session.getRoles(), session.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))
             {
                 for (String uRole : roles)
@@ -1166,7 +1162,7 @@ public final class PermDAO
      * @param objId
      * @return
      */
-    final static String getOpRdn(String opName, String objId)
+    final String getOpRdn(String opName, String objId)
     {
         String rDn;
         if (objId != null && objId.length() > 0)
@@ -1176,30 +1172,26 @@ public final class PermDAO
         return rDn;
     }
 
-    private String getDn(Permission pOp)
+    private String getDn(Permission pOp, String contextId)
     {
-        return getOpRdn(pOp.getOpName(), pOp.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + pOp.getObjectName() + "," + getRootDn(pOp.isAdmin());
+        return getOpRdn(pOp.getOpName(), pOp.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + pOp.getObjectName() + "," + getRootDn(pOp.isAdmin(), contextId);
     }
 
-    private String getDn(PermObj pObj)
+    private String getDn(PermObj pObj, String contextId)
     {
-        return GlobalIds.POBJ_NAME + "=" + pObj.getObjectName() + "," + getRootDn(pObj.isAdmin());
+        return GlobalIds.POBJ_NAME + "=" + pObj.getObjectName() + "," + getRootDn(pObj.isAdmin(), contextId);
     }
 
-    /**
-     * @param isAdmin
-     * @return
-     */
-    private String getRootDn(boolean isAdmin)
+    private String getRootDn(boolean isAdmin, String contextId)
     {
         String dn;
         if (isAdmin)
         {
-            dn = Config.getProperty(GlobalIds.ADMIN_PERM_ROOT);
+            dn = DaoUtil.getRootDn(contextId, GlobalIds.ADMIN_PERM_ROOT);
         }
         else
         {
-            dn = Config.getProperty(GlobalIds.PERM_ROOT);
+            dn = DaoUtil.getRootDn(contextId, GlobalIds.PERM_ROOT);
         }
         return dn;
     }

@@ -6,9 +6,10 @@ package com.jts.fortress.samples;
 
 import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
-import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
@@ -19,6 +20,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.apache.log4j.Logger;
 
+import javax.xml.bind.annotation.XmlElementDecl;
 import java.util.List;
 
 /**
@@ -81,10 +83,10 @@ public class CreatePermSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
 
             // Iterate over roles...
             for (int i = 1; i < 11; i++)
@@ -133,12 +135,12 @@ public class CreatePermSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
             // this will remove the object along with any operations associated with it:
             adminMgr.deletePermObj(new PermObj(TEST_PERM_OBJECT, CreatePermOrgSample.TEST_PERM_OU_NM));
 
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
             try
             {
                 // this should fail:
@@ -173,7 +175,7 @@ public class CreatePermSample extends TestCase
         try
         {
             // Instantiate the AdminMgr first
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             // Now Instantiate the Object
             PermObj shoppingCart = new PermObj("ShoppingCart", "KillerBikes.com");
@@ -198,13 +200,13 @@ public class CreatePermSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             // Add the PermObj entity to ldap.  The PermObj entity must have a name and an OrgUnit affiliation.
             adminMgr.addPermObj(new PermObj(TEST_PERM_OBJECT, CreatePermOrgSample.TEST_PERM_OU_NM));
 
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
             // now read the newly created Object entity back:
             PermObj outObj = reviewMgr.readPermObj(new PermObj(TEST_PERM_OBJECT));
 
@@ -230,7 +232,7 @@ public class CreatePermSample extends TestCase
         try
         {
             // Instantiate the AdminMgr first
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             // Now Instantiate the Object
             PermObj shoppingCart = new PermObj("ShoppingCart", "KillerBikes.com");
@@ -275,7 +277,7 @@ public class CreatePermSample extends TestCase
         String szLocation = CLS_NM + ".testAddPermOperations";
         try
         {
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
             for (int i = 1; i < 6; i++)
             {
                 // The Permission entity is associated with PermObj (name) entity and is uniquely identified by Operation name:
@@ -285,7 +287,7 @@ public class CreatePermSample extends TestCase
                 adminMgr.addPermission(inPerm);
 
                 // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-                ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+                ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
 
                 // now read the newly created Permission entity back.
                 Permission outPerm = reviewMgr.readPermission(inPerm);
@@ -314,7 +316,7 @@ public class CreatePermSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             // Iterate over roles...
             for (int i = 1; i < 11; i++)
@@ -332,7 +334,7 @@ public class CreatePermSample extends TestCase
             }
 
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
 
             // Iterate test to ensure that all Roles contain the associated Operation assignments:
             for (int i = 1; i < 11; i++)
@@ -364,7 +366,7 @@ public class CreatePermSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
             // Iterate over perms...
             for (int i = 1; i < 6; i++)
             {
@@ -376,7 +378,7 @@ public class CreatePermSample extends TestCase
                 log.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
             }
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
 
             // Iterate over roles...
             for (int i = 1; i < 6; i++)
@@ -409,7 +411,7 @@ public class CreatePermSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
             // Iterate over perms...
             for (int i = 1; i < 6; i++)
             {
@@ -420,7 +422,7 @@ public class CreatePermSample extends TestCase
                 adminMgr.revokePermission(inPerm, inUser);
 
                 // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-                ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+                ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
                 // now read the list of Users that are still granted.  This should be a null list because of revocation performed above:
                 List<String> assignedUsers = reviewMgr.permissionUsers(inPerm);
                 assertNull(assignedUsers);

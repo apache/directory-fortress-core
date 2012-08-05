@@ -6,7 +6,7 @@ package com.jts.fortress.samples;
 
 import com.jts.fortress.*;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.UserRole;
@@ -102,7 +102,7 @@ public class CreateSessionSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation which perform runtime RBAC operations.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
 
             // The User entity is used to pass data into the createSession API.
             User user = new User(userId, password);
@@ -166,7 +166,7 @@ public class CreateSessionSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation which perform runtime RBAC operations.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
 
             // The User entity is used to pass data into the createSession API.
             User user = new User(userId, password, role);
@@ -203,7 +203,7 @@ public class CreateSessionSample extends TestCase
         String szLocation = CLS_NM + ".createSessionsWithRolesTrusted";
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
 
             // The User entity is used to pass data into the createSession API.
             User user = new User(userId);
@@ -251,7 +251,7 @@ public class CreateSessionSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation which perform runtime RBAC operations.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
 
             // The User entity is used to pass data into the createSession API.
             User user = new User(userId);

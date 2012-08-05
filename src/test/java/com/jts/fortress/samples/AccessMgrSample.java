@@ -6,7 +6,8 @@ package com.jts.fortress.samples;
 
 import com.jts.fortress.AccessMgr;
 import com.jts.fortress.AccessMgrFactory;
-import com.jts.fortress.arbac.UserAdminRole;
+import com.jts.fortress.GlobalIds;
+import com.jts.fortress.rbac.UserAdminRole;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.User;
@@ -71,7 +72,7 @@ public class AccessMgrSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
 
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
@@ -107,7 +108,7 @@ public class AccessMgrSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
 
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
@@ -146,7 +147,7 @@ public class AccessMgrSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
             Session session = createSession(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr);
@@ -186,7 +187,7 @@ public class AccessMgrSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
             // authenticate will check the password but will not activated any roles into Session.
             Session session = authenticate(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr);
             assertNotNull(session);
@@ -218,7 +219,7 @@ public class AccessMgrSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
             // Calling createSession and not setting any roles on User beforehand will attempt to activate all assigned Roles:
             Session session = createSession(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr);
             assertNotNull(session);
@@ -247,7 +248,7 @@ public class AccessMgrSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
             Session session = createSession(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr);

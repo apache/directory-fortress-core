@@ -4,8 +4,9 @@
 
 package com.jts.fortress.util.attr;
 
-import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.GlobalErrIds;
 
+import com.jts.fortress.GlobalIds;
 import org.apache.log4j.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +22,7 @@ public class RegExUtil
 {
     private static final String CLS_NM = RegExUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
-	private static final String safeTextPatternStr = com.jts.fortress.configuration.Config.getProperty(com.jts.fortress.constants.GlobalIds.REG_EX_SAFE_TEXT);
+	private static final String safeTextPatternStr = com.jts.fortress.cfg.Config.getProperty(GlobalIds.REG_EX_SAFE_TEXT);
 
 	/**
 	 *  Perform safe text validation on character string.
@@ -34,7 +35,7 @@ public class RegExUtil
 	{
 		if (safeTextPatternStr == null || safeTextPatternStr.compareTo("") == 0)
 		{
-			String warning = CLS_NM + ".safeText can't find safeText regular expression pattern.  Check your Fortress configuration";
+			String warning = CLS_NM + ".safeText can't find safeText regular expression pattern.  Check your Fortress cfg";
 			log.debug(warning);
 		}
 		else

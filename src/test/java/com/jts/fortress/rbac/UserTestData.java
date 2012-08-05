@@ -3,8 +3,6 @@
  */
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.arbac.OrgUnitTestData;
-import com.jts.fortress.pwpolicy.MyAnnotation;
 import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.time.Constraint;
@@ -98,7 +96,7 @@ public class UserTestData extends TestCase
             "20500115",             /* ELOCKDATE_COL */
             "1234567",              /* DAYMASK_COL */
             "DEV1",                 /* ORG_COL */
-            "10",                   /* TIMEOUT_COL */
+            "10",                   /* TIMEOUT_privateCOL */
             "",                     /* ASSGND_ROLES_COL */
             "",                     /* AUTHZ_ROLES_COL */
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
@@ -5453,7 +5451,7 @@ public class UserTestData extends TestCase
     private final static int ADDRESS_COL = 19;
     private final static int PHONES_COL = 20;
     private final static int MOBILES_COL = 21;
-    private final static int SYSTEM_COL = 22;
+    private static int SYSTEM_COL = 22;
 
 
     /**

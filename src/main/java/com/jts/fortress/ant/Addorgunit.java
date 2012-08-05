@@ -4,13 +4,13 @@
 
 package com.jts.fortress.ant;
 
-import com.jts.fortress.arbac.OrgUnitAnt;
+import com.jts.fortress.rbac.OrgUnitAnt;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class is used by {@link FortressAntTask} to create new {@link com.jts.fortress.arbac.OrgUnit}s used to drive {@link com.jts.fortress.DelegatedAdminMgr#add(com.jts.fortress.arbac.OrgUnit)}.
+ * The class is used by {@link FortressAntTask} to create new {@link com.jts.fortress.rbac.OrgUnit}s used to drive {@link com.jts.fortress.DelAdminMgr#add(com.jts.fortress.rbac.OrgUnit)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Addorgunit', is used for the xml tag in the load script.</p>
  * <pre>
@@ -65,7 +65,7 @@ public class Addorgunit
     /**
      * Used by {@link FortressAntTask#addOrgunits()} to retrieve list of OrgUnits as defined in input xml file.
      *
-     * @return collection containing {@link com.jts.fortress.arbac.OrgUnit}s targeted for insertion.
+     * @return collection containing {@link com.jts.fortress.rbac.OrgUnit}s targeted for insertion.
      */
     public List<OrgUnitAnt> getOrgUnits()
     {

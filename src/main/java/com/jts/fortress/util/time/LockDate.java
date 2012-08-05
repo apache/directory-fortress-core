@@ -5,20 +5,20 @@
 package com.jts.fortress.util.time;
 
 
-import com.jts.fortress.constants.GlobalIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.rbac.Session;
 
 /**
  * This class performs lock date validation for {@link com.jts.fortress.util.time.Constraint}.  This validator will ensure the current date falls outside {@link com.jts.fortress.util.time.Constraint#getBeginLockDate()} and {@link com.jts.fortress.util.time.Constraint#getEndLockDate()} range.
  * The idea is an entity can be barred from activation for a particular blackout period, i.e. vacation, leave of absence, etc.
- * The data format requires YYYYMMDD, i.e. 20110101 for January 1, 2011.  The constant {@link com.jts.fortress.constants.GlobalIds#NONE} may be used to disable checks for a particular entity.
+ * The data format requires YYYYMMDD, i.e. 20110101 for January 1, 2011.  The constant {@link com.jts.fortress.GlobalIds#NONE} may be used to disable checks for a particular entity.
  * <h4> Constraint Targets include</h4>
  * <ol>
  * <li>{@link com.jts.fortress.rbac.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
  * <li>{@link com.jts.fortress.rbac.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
  * <li>{@link com.jts.fortress.rbac.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link com.jts.fortress.arbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link com.jts.fortress.arbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
+ * <li>{@link com.jts.fortress.rbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link com.jts.fortress.rbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
  * </ol>
  * </p>
  *
@@ -39,7 +39,7 @@ public class LockDate
      * @param session    required for {@link Validator} interface but not used here.
      * @param constraint contains the begin and end lock dates.  Maps listed above.
      * @param time       contains the current time stamp.
-     * @return '0' if validation succeeds else {@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_LOCK} if failed.
+     * @return '0' if validation succeeds else {@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_LOCK} if failed.
      */
     public int validate(Session session, Constraint constraint, Time time)
     {

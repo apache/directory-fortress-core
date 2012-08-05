@@ -4,15 +4,12 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.arbac.DelegatedMgrImplTest;
-import com.jts.fortress.audit.AuditMgrImplTest;
-import com.jts.fortress.pwpolicy.PswdPolicyMgrImplTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;
 
 /**
- * This JUnit test class drives all of the Fortress Administration APIs contained within {@link AdminMgrImplTest}, {@link com.jts.fortress.arbac.DelegatedMgrImplTest}, {@link com.jts.fortress.pwpolicy.PswdPolicyMgrImpl} and {@link com.jts.fortress.audit.AuditMgrImpl}.
+ * This JUnit test class drives all of the Fortress Administration APIs contained within {@link AdminMgrImplTest}, {@link DelegatedMgrImplTest}, {@link PwPolicyMgrImpl} and {@link AuditMgrImpl}.
  * There are more than 125 distinct test cases that kicked off from within this JUnit test wrapper.
  * Fortress JUnit test phases in this file include:
  * 1. Tear-down data (optional) - during this phase previously loaded test data is removed from directory.
@@ -33,6 +30,20 @@ import junit.framework.TestCase;
  */
 public class FortressJUnitTest extends TestCase
 {
+    public static String getContext()
+    {
+        return context;
+    }
+
+    public static void setContext(String context)
+    {
+        FortressJUnitTest.context = context;
+    }
+
+    //private static String context = "client123";
+    //private static String context = "client456";
+    private static String context = "";
+
     public static boolean isFirstRun()
     {
         return isFirstRun;
@@ -102,7 +113,7 @@ public class FortressJUnitTest extends TestCase
             suite.addTest(new AdminMgrImplTest("testDeleteRole"));
             suite.addTest(new PswdPolicyMgrImplTest("testDelete"));
 
-            // DelegatedAdminMgr ARBAC Teardown APIs
+            // DelAdminMgr ARBAC Teardown APIs
             suite.addTest(new DelegatedMgrImplTest("testRevokePermissionRole"));
             suite.addTest(new DelegatedMgrImplTest("testDeassignAdminUser"));
             suite.addTest(new DelegatedMgrImplTest("testDeleteUser"));
@@ -171,7 +182,7 @@ public class FortressJUnitTest extends TestCase
         /* 3. Interrogation                                        */
         /***********************************************************/
 
-        // DelegatedReviewMgr ARBAC:
+        // DelReviewMgr ARBAC:
         suite.addTest(new DelegatedMgrImplTest("testReadOrgUnit"));
         suite.addTest(new DelegatedMgrImplTest("testSearchOrgUnits"));
         suite.addTest(new DelegatedMgrImplTest("testReadAdminRole"));
@@ -207,7 +218,7 @@ public class FortressJUnitTest extends TestCase
         /* 4. Security Checks                                      */
         /***********************************************************/
 
-        // DelegatedAccessMgr ARABC:
+        // DelAccessMgr ARABC:
         suite.addTest(new DelegatedMgrImplTest("testCheckAccess"));
         suite.addTest(new DelegatedMgrImplTest("testCanAssignUser"));
         suite.addTest(new DelegatedMgrImplTest("testCanDeassignUser"));

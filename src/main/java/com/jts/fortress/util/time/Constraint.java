@@ -8,7 +8,7 @@ package com.jts.fortress.util.time;
 /**
  * The Fortress Constraint interface prescribes attributes that are used to store, process and retrieve temporal validation attributes on
  * {@link com.jts.fortress.rbac.User}, {@link com.jts.fortress.rbac.UserRole}, {@link com.jts.fortress.rbac.Role},
- * {@link com.jts.fortress.arbac.AdminRole}, {@link com.jts.fortress.arbac.UserAdminRole} entities.
+ * {@link com.jts.fortress.rbac.AdminRole}, {@link com.jts.fortress.rbac.UserAdminRole} entities.
  * <p/>
  * <img src="../../../../../images/TemporalRbac.png">
  * <p/>

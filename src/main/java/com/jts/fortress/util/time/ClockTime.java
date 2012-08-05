@@ -4,20 +4,21 @@
 
 package com.jts.fortress.util.time;
 
-import com.jts.fortress.constants.GlobalIds;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.rbac.Session;
 
 /**
  * This class performs time validation for {@link com.jts.fortress.util.time.Constraint}.  This validator will ensure the current time falls between {@link com.jts.fortress.util.time.Constraint#getBeginTime()} and {@link com.jts.fortress.util.time.Constraint#getEndTime()}
- * The format requires military time, i.e. 0800 for 8:00 am, 1700 for 5:00 pm.  The constant {@link com.jts.fortress.constants.GlobalIds#NONE} may be used to disable checks for a particular entity.
+ * The format requires military time, i.e. 0800 for 8:00 am, 1700 for 5:00 pm.  The constant {@link com.jts.fortress.GlobalIds#NONE} may be used to disable checks for a particular entity.
  * for {@link com.jts.fortress.util.time.Constraint} validations that occur in
  * <h4> Constraint Targets include</h4>
  * <ol>
  * <li>{@link com.jts.fortress.rbac.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
  * <li>{@link com.jts.fortress.rbac.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
  * <li>{@link com.jts.fortress.rbac.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link com.jts.fortress.arbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link com.jts.fortress.arbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
+ * <li>{@link com.jts.fortress.rbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link com.jts.fortress.rbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
  * </ol>
  * </p>
  *
@@ -34,11 +35,11 @@ public class ClockTime
      * @param session    required for {@link Validator} interface but not used here.
      * @param constraint contains the begin and end times.  Maps listed above.
      * @param time       contains the current time.
-     * @return '0' if validation succeeds else {@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_TIME} if failed.
+     * @return '0' if validation succeeds else {@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_TIME} if failed.
      */
     public int validate(Session session, Constraint constraint, Time time)
     {
-        int rc = com.jts.fortress.constants.GlobalErrIds.ACTV_FAILED_TIME;
+        int rc = GlobalErrIds.ACTV_FAILED_TIME;
         if (constraint.getBeginTime() == null || constraint.getBeginTime().compareToIgnoreCase(GlobalIds.NONE) == 0)
         {
             rc = 0;

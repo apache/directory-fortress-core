@@ -27,6 +27,13 @@ moduleload  accesslog.la
 ### Allow users to read permission records (needed for OAM authorization):
 access to dn.sub="ou=Permissions,ou=RBAC,@SUFFIX@" by users read
 access to dn.sub="ou=AdminPerms,ou=ARBAC,@SUFFIX@" by users read
+
+access to dn.sub="ou=Permissions,ou=RBAC,ou=client123,@SUFFIX@" by users read
+access to dn.sub="ou=AdminPerms,ou=ARBAC,ou=client123,@SUFFIX@" by users read
+
+access to dn.sub="ou=Permissions,ou=RBAC,ou=client456,@SUFFIX@" by users read
+access to dn.sub="ou=AdminPerms,ou=ARBAC,ou=client456,@SUFFIX@" by users read
+
 ### This one allows user to modify their own password (needed for pw policies):
 ### This also allows user to modify their own ftmod attributes (needed for audit):
 access to attrs=userpassword,ftModCode,ftModId,ftModifier

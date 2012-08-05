@@ -5,17 +5,16 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.CreateException;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RemoveException;
-import com.jts.fortress.configuration.Config;
+import com.jts.fortress.cfg.Config;
 import com.jts.fortress.FinderException;
 import com.jts.fortress.UpdateException;
-import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
-import com.jts.fortress.constants.GlobalErrIds;
 
-import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.util.attr.VUtil;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
@@ -97,44 +96,45 @@ import java.util.Set;
  * @author Shawn McKinney
  * @created September 11, 2010
  */
-public final class SdDAO
+final class SdDAO
 
 {
     private static final String CLS_NM = SdDAO.class.getName();
 
-    private final static String SD_SET_NM = "ftSetName";
-    private final static String ROLES = "ftRoles";
-    private final static String SD_SET_CARDINALITY = "ftSetCardinality";
+    private static final String SD_SET_NM = "ftSetName";
+    private static final String ROLES = "ftRoles";
+    private static final String SD_SET_CARDINALITY = "ftSetCardinality";
 
-    private final static String SSD_OBJECT_CLASS_NM = "ftSSDSet";
-    private final static String SSD_OBJ_CLASS[] = {
+    private static final String SSD_OBJECT_CLASS_NM = "ftSSDSet";
+    private static final String SSD_OBJ_CLASS[] = {
         GlobalIds.TOP, SSD_OBJECT_CLASS_NM, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
-    private final static String DSD_OBJECT_CLASS_NM = "ftDSDSet";
-    private final static String DSD_OBJ_CLASS[] = {
+    private static final String DSD_OBJECT_CLASS_NM = "ftDSDSet";
+    private static final String DSD_OBJ_CLASS[] = {
         GlobalIds.TOP, DSD_OBJECT_CLASS_NM, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
-    private final static String[] SD_SET_ATRS = {
+    private static final String[] SD_SET_ATRS = {
         GlobalIds.FT_IID, SD_SET_NM, GlobalIds.DESC, ROLES, SD_SET_CARDINALITY
     };
 
     /**
      * Package private constructor
      */
-    SdDAO(){}
+    SdDAO()
+    {}
 
     /**
      * @param entity
      * @return
      * @throws com.jts.fortress.CreateException
      */
-    SDSet create(SDSet entity)
+    final SDSet create(SDSet entity)
         throws CreateException
     {
         LDAPConnection ld = null;
-        String dn = GlobalIds.CN + "=" + entity.getName() + "," + Config.getProperty(GlobalIds.SD_ROOT);
+        String dn = getDn(entity.getName(), entity.getContextId());
         String[] objectClass = SSD_OBJ_CLASS;
         if (entity.getType() == SDSet.SDType.DYNAMIC)
         {
@@ -155,7 +155,6 @@ public final class SdDAO
             }
             // CN attribute is required for this object class:
             attrs.add(DaoUtil.createAttribute(GlobalIds.CN, entity.getName()));
-            //DaoUtil.loadAttrs(entity.getMembers().keySet(), attrs, ROLES);
             DaoUtil.loadAttrs(entity.getMembers(), attrs, ROLES);
             attrs.add(DaoUtil.createAttribute(SD_SET_CARDINALITY, "" + entity.getCardinality()));
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
@@ -189,11 +188,11 @@ public final class SdDAO
      * @return
      * @throws com.jts.fortress.UpdateException
      */
-    SDSet update(SDSet entity)
+    final SDSet update(SDSet entity)
         throws UpdateException
     {
         LDAPConnection ld = null;
-        String dn = GlobalIds.CN + "=" + entity.getName() + "," + Config.getProperty(GlobalIds.SD_ROOT);
+        String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -208,7 +207,6 @@ public final class SdDAO
                 LDAPAttribute cardinality = new LDAPAttribute(SD_SET_CARDINALITY, "" + entity.getCardinality());
                 mods.add(LDAPModification.REPLACE, cardinality);
             }
-            //DaoUtil.loadAttrs(entity.getMembers().keySet(), mods, ROLES);
             DaoUtil.loadAttrs(entity.getMembers(), mods, ROLES);
             if (mods.size() > 0)
             {
@@ -242,11 +240,11 @@ public final class SdDAO
      * @param entity
      * @throws com.jts.fortress.RemoveException
      */
-    SDSet remove(SDSet entity)
+    final SDSet remove(SDSet entity)
         throws RemoveException
     {
         LDAPConnection ld = null;
-        String dn = GlobalIds.CN + "=" + entity.getName() + "," + Config.getProperty(GlobalIds.SD_ROOT);
+        String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -276,16 +274,16 @@ public final class SdDAO
 
 
     /**
-     * @param name
+     * @param sdSet
      * @return
      * @throws FinderException
      */
-    SDSet getSD(String name)
+    final SDSet getSD(SDSet sdSet)
         throws FinderException
     {
         SDSet entity = null;
         LDAPConnection ld = null;
-        String dn = GlobalIds.CN + "=" + name + "," + Config.getProperty(GlobalIds.SD_ROOT);
+        String dn = getDn(sdSet.getName(), sdSet.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -331,13 +329,13 @@ public final class SdDAO
      * @return List of matching SDSets.
      * @throws com.jts.fortress.FinderException
      */
-    List<SDSet> search(SDSet sdset)
+    final List<SDSet> search(SDSet sdset)
         throws FinderException
     {
         List<SDSet> sdList = new ArrayList<SDSet>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String ssdRoot = Config.getProperty(GlobalIds.SD_ROOT);
+        String ssdRoot = getSdRoot(sdset.getContextId());
         String objectClass = SSD_OBJECT_CLASS_NM;
         if (sdset.getType() == SDSet.SDType.DYNAMIC)
         {
@@ -382,13 +380,13 @@ public final class SdDAO
      * @return
      * @throws com.jts.fortress.FinderException
      */
-    List<SDSet> search(Role role, SDSet.SDType type)
+    final List<SDSet> search(Role role, SDSet.SDType type)
         throws FinderException
     {
         List<SDSet> sdList = new ArrayList<SDSet>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String ssdRoot = Config.getProperty(GlobalIds.SD_ROOT);
+        String ssdRoot = getSdRoot(role.getContextId());
         String objectClass = SSD_OBJECT_CLASS_NM;
         if (type == SDSet.SDType.DYNAMIC)
         {
@@ -402,7 +400,7 @@ public final class SdDAO
             //String filter = "(&(objectclass=" + SSD_OBJECT_CLASS_NM + ")(" + ROLES + "=" + roleVal + "))";
             String filter = "(&(objectclass=" + objectClass + ")(";
             // Include any parents target role may have:
-            Set<String> roles = RoleUtil.getAscendants(role.getName());
+            Set<String> roles = RoleUtil.getAscendants(role.getName(), role.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))
             {
                 filter += "|(" + ROLES + "=" + roleVal + ")";
@@ -450,19 +448,19 @@ public final class SdDAO
 
     /**
      * @param roles
-     * @param type
+     * @param sdSet
      * @return
      * @throws com.jts.fortress.FinderException
      */
-    Set<SDSet> search(Set<String> roles, SDSet.SDType type)
+    final Set<SDSet> search(Set<String> roles, SDSet sdSet)
         throws FinderException
     {
         Set<SDSet> sdList = new HashSet<SDSet>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String ssdRoot = Config.getProperty(GlobalIds.SD_ROOT);
+        String ssdRoot = getSdRoot(sdSet.getContextId());
         String objectClass = SSD_OBJECT_CLASS_NM;
-        if (type == SDSet.SDType.DYNAMIC)
+        if (sdSet.getType() == SDSet.SDType.DYNAMIC)
         {
             objectClass = DSD_OBJECT_CLASS_NM;
         }
@@ -488,9 +486,9 @@ public final class SdDAO
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".search type [" + type + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = CLS_NM + ".search type [" + sdSet.getType() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             int errCode;
-            if (type == SDSet.SDType.DYNAMIC)
+            if (sdSet.getType() == SDSet.SDType.DYNAMIC)
             {
                 errCode = GlobalErrIds.DSD_SEARCH_FAILED;
             }
@@ -524,6 +522,16 @@ public final class SdDAO
         String szCard = DaoUtil.getAttribute(le, SD_SET_CARDINALITY);
         entity.setCardinality(new Integer(szCard));
         return entity;
+    }
+
+    private String getDn(String name, String contextId)
+    {
+        return GlobalIds.CN + "=" + name + "," + getSdRoot(contextId);
+    }
+
+    private String getSdRoot(String contextId)
+    {
+        return DaoUtil.getRootDn(contextId, GlobalIds.SD_ROOT);
     }
 }
 

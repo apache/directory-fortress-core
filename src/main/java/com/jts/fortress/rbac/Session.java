@@ -4,15 +4,11 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.FortEntity;
-import com.jts.fortress.arbac.UserAdminRole;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -147,7 +143,7 @@ import java.util.UUID;
     "message",
     "warningId"
 })
-public class Session  extends FortEntity implements com.jts.fortress.pwpolicy.PwMessage, java.io.Serializable
+public class Session  extends FortEntity implements PwMessage, java.io.Serializable
 {
     private User user;
     private String sessionId;
@@ -323,7 +319,7 @@ public class Session  extends FortEntity implements com.jts.fortress.pwpolicy.Pw
 
     /**
      * Return a list of User's Admin Roles  that have been activated into User's session.  This list will not include
-     * ascendant ARBAC roles which may be retrieved using {@link com.jts.fortress.DelegatedAccessMgr#authorizedAdminRoles(Session)}.
+     * ascendant ARBAC roles which may be retrieved using {@link com.jts.fortress.DelAccessMgr#authorizedAdminRoles(Session)}.
      *
      * @return List containing User's Admin roles.  This list may be empty if User not assigned Administrative role.
      */

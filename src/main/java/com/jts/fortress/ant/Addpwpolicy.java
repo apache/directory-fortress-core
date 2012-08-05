@@ -4,11 +4,13 @@
 
 package com.jts.fortress.ant;
 
+import com.jts.fortress.rbac.PwPolicy;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link com.jts.fortress.pwpolicy.PswdPolicy}s used to drive {@link com.jts.fortress.PswdPolicyMgr#add(com.jts.fortress.pwpolicy.PswdPolicy)}.
+ * The class is used by {@link FortressAntTask} to load {@link com.jts.fortress.rbac.PwPolicy}s used to drive {@link com.jts.fortress.PwPolicyMgr#add(com.jts.fortress.rbac.PwPolicy)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Addpwpolicy', is used for the xml tag in the load script.</p>
  * <pre>
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class Addpwpolicy
 {
-    final private List<com.jts.fortress.pwpolicy.PswdPolicy> policies = new ArrayList<com.jts.fortress.pwpolicy.PswdPolicy>();
+    final private List<PwPolicy> policies = new ArrayList<PwPolicy>();
 
     /**
      * All Ant data entities must have a default constructor.
@@ -63,17 +65,17 @@ public class Addpwpolicy
      *
      * @param policy contains reference to data element targeted for insertion..
      */
-    public void addPolicy(com.jts.fortress.pwpolicy.PswdPolicy policy)
+    public void addPolicy(PwPolicy policy)
     {
         this.policies.add(policy);
     }
 
     /**
-     * Used by {@link FortressAntTask#addPolicies()} to retrieve list of PswdPolicy as defined in input xml file.
+     * Used by {@link FortressAntTask#addPolicies()} to retrieve list of PwPolicy as defined in input xml file.
      *
-     * @return collection containing {@link com.jts.fortress.pwpolicy.PswdPolicy}s targeted for insertion.
+     * @return collection containing {@link com.jts.fortress.rbac.PwPolicy}s targeted for insertion.
      */
-    public List<com.jts.fortress.pwpolicy.PswdPolicy> getPolicies()
+    public List<PwPolicy> getPolicies()
     {
         return this.policies;
     }

@@ -4,8 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.FortEntity;
-import com.jts.fortress.arbac.AdminRole;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.time.Constraint;
 
@@ -22,7 +20,7 @@ import java.util.UUID;
 
 /**
  * All entities ({@link User}, {@link Role}, {@link com.jts.fortress.rbac.Permission},
- * {@link com.jts.fortress.pwpolicy.PswdPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
+ * {@link PwPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <h4>Fortress Processing Layers</h4>

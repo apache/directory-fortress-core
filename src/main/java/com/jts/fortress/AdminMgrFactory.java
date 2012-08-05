@@ -4,16 +4,16 @@
 
 package com.jts.fortress;
 
-import com.jts.fortress.configuration.Config;
-import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.util.ClassUtil;
+import com.jts.fortress.cfg.Config;
+import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.util.attr.VUtil;
 
 /**
  * Creates an instance of the AdminMgr object.
  * The factory allows deployments of Fortress override the default AdminMgrImpl component with another.
  * <p/>
- * The default class is specified as {@link com.jts.fortress.constants.GlobalIds#ADMIN_DEFAULT_CLASS} but can be overridden by
- * adding the {@link com.jts.fortress.constants.GlobalIds#ADMIN_IMPLEMENTATION} config property.
+ * The default class is specified as {@link GlobalIds#ADMIN_DEFAULT_CLASS} but can be overridden by
+ * adding the {@link GlobalIds#ADMIN_IMPLEMENTATION} config property.
  * <p/>
 
  *
@@ -23,6 +23,7 @@ import com.jts.fortress.util.ClassUtil;
 public class AdminMgrFactory
 {
     private static String adminClassName = Config.getProperty(GlobalIds.ADMIN_IMPLEMENTATION);
+    private static final String CLS_NM = AdminMgrFactory.class.getName();
 
     /**
      * Create and return a reference to {@link com.jts.fortress.AdminMgr} object.
@@ -30,15 +31,16 @@ public class AdminMgrFactory
      * @return instance of {@link com.jts.fortress.AdminMgr}.
      * @throws com.jts.fortress.SecurityException in the event of failure during instantiation.
      */
-    public static com.jts.fortress.AdminMgr createInstance()
+    public static com.jts.fortress.AdminMgr createInstance(String contextId)
         throws com.jts.fortress.SecurityException
     {
-        com.jts.fortress.AdminMgr adminMgrs;
+        VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         if (adminClassName == null || adminClassName.compareTo("") == 0)
         {
             adminClassName = GlobalIds.ADMIN_DEFAULT_CLASS;
         }
         AdminMgr adminMgr = (com.jts.fortress.AdminMgr) ClassUtil.createInstance(adminClassName);
+        adminMgr.setContextId(contextId);
         return adminMgr;
     }
 }

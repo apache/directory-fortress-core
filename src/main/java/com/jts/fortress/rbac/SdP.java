@@ -4,8 +4,8 @@
 
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.util.attr.VUtil;
 
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.Set;
  * error internal to DAO object. This class will forward DAO exceptions ({@link com.jts.fortress.FinderException},
  * {@link com.jts.fortress.CreateException},{@link com.jts.fortress.UpdateException},{@link com.jts.fortress.RemoveException}),
  * or {@link com.jts.fortress.ValidationException} as {@link com.jts.fortress.SecurityException}s with appropriate
- * error id from {@link com.jts.fortress.constants.GlobalErrIds}.
+ * error id from {@link com.jts.fortress.GlobalErrIds}.
  * <p>
  * This object is thread safe.
  * <p/>
@@ -36,12 +36,18 @@ import java.util.Set;
  * @author Shawn McKinney
  * @created September 11, 2010
  */
-public class SdP
+final class SdP
 {
     /**
      * Get the DAO created:
      */
     private static final SdDAO sdDao = new SdDAO();
+
+    /**
+     * Package private constructor.
+     */
+    SdP()
+    {}
 
     /**
      * Adds a new SDSet to directory. The OrgUnit SDType enum will determine which data set insertion will
@@ -52,7 +58,7 @@ public class SdP
      * @return SDSet entity copy of input + additional attributes (internalId) that were added by op.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public SDSet add(SDSet entity)
+    final SDSet add(SDSet entity)
         throws SecurityException
     {
         validate(entity);
@@ -70,7 +76,7 @@ public class SdP
      * @return SDSet entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public SDSet update(SDSet entity)
+    final SDSet update(SDSet entity)
         throws SecurityException
     {
         validate(entity);
@@ -84,9 +90,10 @@ public class SdP
      * SDSet entity must exist in directory prior to making this call else exception will be thrown.
      *
      * @param entity Contains the name of the SDSet node targeted for deletion.
+     * @return SDSet is a copy of entity.
      * @throws com.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    public SDSet delete(SDSet entity)
+    final SDSet delete(SDSet entity)
         throws SecurityException
     {
         return sdDao.remove(entity);
@@ -101,14 +108,14 @@ public class SdP
      * @return SDSet entity containing all attributes associated with ou in directory.
      * @throws SecurityException in the event SDSet not found or DAO search error.
      */
-    public SDSet read(SDSet entity)
+    final SDSet read(SDSet entity)
         throws SecurityException
     {
         SDSet sde;
         // The assumption is this method is called from ReviewMgr.ssdRoleSetRoles or ReviewMgr.dsdRoleSetRoles.
         // If called from ReviewMgr, the object class type will be passed in:
         SDSet.SDType type = entity.getType();
-        sde = sdDao.getSD(entity.getName());
+        sde = sdDao.getSD(entity);
         // Load the previously saved type onto the return entity:
         sde.setType(type);
         return sde;
@@ -120,9 +127,10 @@ public class SdP
      * The role entity contains full RBAC Role name associated with SDSet node in directory.
      *
      * @param sdSet contains sdset name or partial name along with sdset type of STATIC or DYNAMIC.
+     * @return List of SDSet entities found.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<SDSet> search(SDSet sdSet)
+    final List<SDSet> search(SDSet sdSet)
         throws SecurityException
     {
         return sdDao.search(sdSet);
@@ -135,9 +143,10 @@ public class SdP
      *
      * @param role contains full role name associated with SDSet.
      * @param type either STATIC or DYNAMIC depending on target search data set.
+     * @return List of SDSet entities found.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    public final List<SDSet> search(Role role, SDSet.SDType type)
+    final List<SDSet> search(Role role, SDSet.SDType type)
         throws SecurityException
     {
         return sdDao.search(role, type);
@@ -149,13 +158,14 @@ public class SdP
      * The role entity contains full RBAC Role name associated with SDSet node in directory.
      *
      * @param rls  contains set of type String containing full role names associated with SDSet.
-     * @param type either STATIC or DYNAMIC depending on target search data set.
+     * @param sdSet contains type either STATIC or DYNAMIC depending on target search data set.
+     * @return List of SDSet entities found.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final Set<SDSet> search(Set<String> rls, SDSet.SDType type)
+    final Set<SDSet> search(Set<String> rls, SDSet sdSet)
         throws SecurityException
     {
-        return sdDao.search(rls, type);
+        return sdDao.search(rls, sdSet);
     }
 
 
@@ -187,7 +197,9 @@ public class SdP
                 if (!key.equalsIgnoreCase(GlobalIds.NONE))
                 {
                     // Ensure the name exists:
-                    rp.read(key);
+                    Role role = new Role(key);
+                    role.setContextId(entity.getContextId());
+                    rp.read(role);
                 }
             }
         }

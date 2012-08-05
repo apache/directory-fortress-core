@@ -6,6 +6,7 @@ package com.jts.fortress.samples;
 
 import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
 import com.jts.fortress.SecurityException;
@@ -71,7 +72,7 @@ public class CreateUserRoleSample extends TestCase
         try
         {
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
 
             // This should return null because all Roles assigned to User were removed above:
             List<UserRole> assignedRoles = reviewMgr.assignedRoles(inUser);
@@ -79,7 +80,7 @@ public class CreateUserRoleSample extends TestCase
             if(assignedRoles != null)
             {
                 // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-                AdminMgr adminMgr = AdminMgrFactory.createInstance();
+                AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
                 for(UserRole uRole : assignedRoles)
                 {
                     // Call the API to deassign the Role from the User entity.  This will remove 'oamRA' and 'oamRC' attributes from the 'oamUserAttrs' object class.
@@ -111,7 +112,7 @@ public class CreateUserRoleSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             // Create roles, sampleRole1 - sampleRole10
             for(int i = 1; i < 11; i++)
@@ -138,7 +139,7 @@ public class CreateUserRoleSample extends TestCase
             }
 
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
 
             // Return the list of Roles assigned to User.  The User - Role assignments are loaded into the UserRole entity:
             List<UserRole> assignedRoles = reviewMgr.assignedRoles(inUser);

@@ -1,7 +1,7 @@
 package com.jts.fortress.util.cache;
 
-import com.jts.fortress.ConfigurationRuntimeException;
-import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.CfgRuntimeException;
+import com.jts.fortress.GlobalErrIds;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
@@ -30,7 +30,7 @@ public class EhCacheImpl implements Cache
         if(cache == null)
         {
             String error = CLS_NM + " constructor cache: " + name + " is null";
-            throw new ConfigurationRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error);
+            throw new CfgRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error);
         }
         this.cache = cache;
     }

@@ -5,9 +5,8 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.AccessMgr;
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.time.CUtil;
 
@@ -42,18 +41,22 @@ import java.util.Set;
  * <p/>
  * <img src="../../../../images/RbacDSD.png">
  * <p/>
- * This object is thread safe and may be used in servlet or other multi-threaded environment.
+ * This object is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  * <p/>
  *
  *
  * @author Shawn McKinney
  * @created October 13, 2009
  */
-public class AccessMgrImpl implements AccessMgr
+public class AccessMgrImpl  extends Manageable implements AccessMgr
 {
     private static final String CLS_NM = AccessMgrImpl.class.getName();
     private static final UserP userP = new UserP();
     private static final PermP permP = new PermP();
+
+    // package private constructor ensures outside classes cannot use:
+    AccessMgrImpl()
+    {}
 
     /**
      * Perform user authentication only.  It does not activate RBAC roles in session but will evaluate
@@ -70,11 +73,15 @@ public class AccessMgrImpl implements AccessMgr
         String fullMethodName = CLS_NM + ".authenticate";
         VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_ID_NULL, fullMethodName);
         VUtil.assertNotNullOrEmpty(password, GlobalErrIds.USER_PW_NULL, fullMethodName);
+        User inUser = new User(userId);
+        inUser.setContextId(this.contextId);
         // false tells the User Read not to fetch roles.
-        User user = userP.read(userId, false);
-        Session oamSess = userP.authenticate(userId, password);
-        oamSess.setUser(user);
-        return oamSess;
+        User user = userP.read(inUser, false);
+        user.setPassword(password);
+        user.setContextId(this.contextId);
+        Session ftSess = userP.authenticate(user);
+        ftSess.setUser(user);
+        return ftSess;
     }
 
     /**
@@ -82,15 +89,15 @@ public class AccessMgrImpl implements AccessMgr
      * This method must be called once per user prior to calling other methods within this class.
      * The successful result is {@link Session} that contains target user's RBAC {@link User#roles} and Admin role {@link User#adminRoles}.<br />
      * In addition to checking user password validity it will apply configured password policy checks {@link User#pwPolicy}..<br />
-     * Method may also store parms passed in for audit trail {@link com.jts.fortress.FortEntity}.
+     * Method may also store parms passed in for audit trail {@link FortEntity}.
      * <h4> This API will...</h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
-     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link com.jts.fortress.pwpolicy.OLPWControlImpl}.
+     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link com.jts.fortress.ldap.openldap.OLPWControlImpl}.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link User#isLocked()}, regardless of trusted flag being set as parm on API.
-     * <li> evaluate temporal {@link com.jts.fortress.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link com.jts.fortress.arbac.UserAdminRole} entities.
+     * <li> evaluate temporal {@link com.jts.fortress.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.
-     * <li> check Dynamic Separation of Duties {@link DSD#validate(Session, com.jts.fortress.util.time.Constraint, com.jts.fortress.util.time.Time)} on {@link User#roles}.
+     * <li> check Dynamic Separation of Duties {@link DSDChecker#validate(Session, com.jts.fortress.util.time.Constraint, com.jts.fortress.util.time.Time)} on {@link User#roles}.
      * <li> process selective administrative role activations {@link User#adminRoles}.
      * <li> return a {@link Session} containing {@link Session#getUser()}, {@link Session#getRoles()} and (if admin user) {@link Session#getAdminRoles()} if everything checks out good.
      * <li> throw a checked exception that will be {@link com.jts.fortress.SecurityException} or its derivation.
@@ -135,6 +142,7 @@ public class AccessMgrImpl implements AccessMgr
         throws SecurityException
     {
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".createSession");
+        user.setContextId(this.contextId);
         return userP.createSession(user, isTrusted);
     }
 
@@ -162,6 +170,8 @@ public class AccessMgrImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, fullMethodName);
         CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
         CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
+        session.setContextId(this.contextId);
+        perm.setContextId(this.contextId);
         return permP.checkPermission(session, perm);
     }
 
@@ -179,6 +189,7 @@ public class AccessMgrImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionPermissions");
         CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
         CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
+        session.setContextId(this.contextId);
         return permP.search(session);
     }
 
@@ -215,7 +226,7 @@ public class AccessMgrImpl implements AccessMgr
         VUtil.assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles");
         CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
         CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
-        return RoleUtil.getInheritedRoles(session.getRoles());
+        return RoleUtil.getInheritedRoles(session.getRoles(), this.contextId);
     }
 
 
@@ -243,6 +254,8 @@ public class AccessMgrImpl implements AccessMgr
         String fullMethodName = CLS_NM + ".addActiveRole";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, fullMethodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, fullMethodName);
+        session.setContextId(this.contextId);
+        role.setContextId(this.contextId);
         role.setUserId(session.getUserId());
         List<UserRole> uRoles;
         List<UserRole> sRoles = session.getRoles();
@@ -253,7 +266,9 @@ public class AccessMgrImpl implements AccessMgr
             throw new SecurityException(GlobalErrIds.URLE_ALREADY_ACTIVE, info);
         }
 
-        User ue = userP.read(session.getUserId(), true);
+        User inUser = new User(session.getUserId());
+        inUser.setContextId(this.contextId);
+        User ue = userP.read(inUser, true);
         uRoles = ue.getRoles();
         int indx;
         // Is the role activation target valid for this user?
@@ -284,6 +299,8 @@ public class AccessMgrImpl implements AccessMgr
         String fullMethodName = ".dropActiveRole";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + fullMethodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + fullMethodName);
+        session.setContextId(this.contextId);
+        role.setContextId(this.contextId);
         role.setUserId(session.getUserId());
         List<UserRole> roles = session.getRoles();
         VUtil.assertNotNull(roles, GlobalErrIds.URLE_DEACTIVE_FAILED, CLS_NM + fullMethodName);

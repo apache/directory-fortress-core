@@ -5,14 +5,15 @@
 package com.jts.fortress.rest;
 
 import com.jts.fortress.AuditMgr;
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.audit.AuthZ;
-import com.jts.fortress.audit.Bind;
-import com.jts.fortress.audit.Mod;
-import com.jts.fortress.audit.UserAudit;
+import com.jts.fortress.rbac.AuthZ;
+import com.jts.fortress.rbac.Bind;
+import com.jts.fortress.rbac.Manageable;
+import com.jts.fortress.rbac.Mod;
+import com.jts.fortress.rbac.UserAudit;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.util.attr.VUtil;
-import com.jts.fortress.constants.GlobalErrIds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
  * This object performs searches across <a href="http://www.openldap.org/">OpenLDAP</a>'s slapd access log using HTTP access to En Masse REST server.
  * The access log events are
  * persisted in <a href="http://www.oracle.com/technetwork/database/berkeleydb/overview/index.html">BDB</a>.
- * Audit entries stored on behalf of Fortress operations correspond to runtime authentication {@link com.jts.fortress.audit.Bind}, authorization {@link com.jts.fortress.audit.AuthZ} and modification {@link Mod}
+ * Audit entries stored on behalf of Fortress operations correspond to runtime authentication {@link com.jts.fortress.rbac.Bind}, authorization {@link com.jts.fortress.rbac.AuthZ} and modification {@link Mod}
  * events as they occur automatically on the server when audit is enabled.
  * <h4>Audit Interrogator</h4>
  * Provides an OpenLDAP access log retrieval mechanism that enables security event monitoring.
@@ -34,7 +35,7 @@ import java.util.List;
  * </ol>
  * <img src="../../../../images/Audit.png">
  * <p/>
- * All events include Fortress context, see {@link com.jts.fortress.FortEntity}.
+ * All events include Fortress context, see {@link com.jts.fortress.rbac.FortEntity}.
  * <p/>
  * <h4>
  * The following APIs generate events subsequently stored in this access log:
@@ -43,37 +44,34 @@ import java.util.List;
  * <li> {@link com.jts.fortress.AccessMgr}
  * <li> {@link com.jts.fortress.AdminMgr}
  * <li> {@link com.jts.fortress.AdminMgr}
- * <li> {@link com.jts.fortress.DelegatedAdminMgr}
- * <li> {@link com.jts.fortress.configuration.ConfigMgr}
- * <li> {@link com.jts.fortress.PswdPolicyMgr}
+ * <li> {@link com.jts.fortress.DelAdminMgr}
+ * <li> {@link com.jts.fortress.cfg.ConfigMgr}
+ * <li> {@link com.jts.fortress.PwPolicyMgr}
  * </ul>
  * <h4>
- * The following reports are supported using search input: {@link com.jts.fortress.audit.UserAudit}
+ * The following reports are supported using search input: {@link com.jts.fortress.rbac.UserAudit}
  * </h4>
  * <ul>
- * <li>User Authentications:     <code>List<{@link com.jts.fortress.audit.Bind}>  {@link com.jts.fortress.AuditMgr#searchBinds(com.jts.fortress.audit.UserAudit)}</code>
- * <li>Invalid Users AuthN:      <code>List<{@link com.jts.fortress.audit.Bind}>  {@link com.jts.fortress.AuditMgr#searchInvalidUsers(com.jts.fortress.audit.UserAudit)} </code>
- * <li>User Authorizations 1:    <code>List<{@link com.jts.fortress.audit.AuthZ}> {@link com.jts.fortress.AuditMgr#getUserAuthZs(com.jts.fortress.audit.UserAudit)} </code>
- * <li>User Authorizations 2:    <code>List<{@link com.jts.fortress.audit.AuthZ}> {@link com.jts.fortress.AuditMgr#searchAuthZs(com.jts.fortress.audit.UserAudit)} </code>
- * <li>User Session Activations: <code>List<{@link Mod}>   {@link com.jts.fortress.AuditMgr#searchUserSessions(com.jts.fortress.audit.UserAudit)} </code>
- * <li>Entity Modifications:     <code>List<{@link Mod}>   {@link com.jts.fortress.AuditMgr#searchAdminMods(com.jts.fortress.audit.UserAudit)} </code>
+ * <li>User Authentications:     <code>List<{@link com.jts.fortress.rbac.Bind}>  {@link com.jts.fortress.AuditMgr#searchBinds(com.jts.fortress.rbac.UserAudit)}</code>
+ * <li>Invalid Users AuthN:      <code>List<{@link com.jts.fortress.rbac.Bind}>  {@link com.jts.fortress.AuditMgr#searchInvalidUsers(com.jts.fortress.rbac.UserAudit)} </code>
+ * <li>User Authorizations 1:    <code>List<{@link com.jts.fortress.rbac.AuthZ}> {@link com.jts.fortress.AuditMgr#getUserAuthZs(com.jts.fortress.rbac.UserAudit)} </code>
+ * <li>User Authorizations 2:    <code>List<{@link com.jts.fortress.rbac.AuthZ}> {@link com.jts.fortress.AuditMgr#searchAuthZs(com.jts.fortress.rbac.UserAudit)} </code>
+ * <li>User Session Activations: <code>List<{@link Mod}>   {@link com.jts.fortress.AuditMgr#searchUserSessions(com.jts.fortress.rbac.UserAudit)} </code>
+ * <li>Entity Modifications:     <code>List<{@link Mod}>   {@link com.jts.fortress.AuditMgr#searchAdminMods(com.jts.fortress.rbac.UserAudit)} </code>
  * </ul>
  * <p/>
  *
  * @author Shawn McKinney
  * @created February 13, 2012
  */
-public class AuditMgrRestImpl implements AuditMgr
+public class AuditMgrRestImpl extends Manageable implements AuditMgr
 {
     private static final String CLS_NM = AuditMgrRestImpl.class.getName();
-    // thread unsafe variable:
-    private Session adminSess;
-
 
     /**
-     * This method returns a list of authorization events for a particular user {@link com.jts.fortress.audit.UserAudit#userId}
-     * and given timestamp field {@link com.jts.fortress.audit.UserAudit#beginDate}.<BR>
-     * Method also can discriminate between all events or failed only by setting {@link com.jts.fortress.audit.UserAudit#failedOnly}.
+     * This method returns a list of authorization events for a particular user {@link com.jts.fortress.rbac.UserAudit#userId}
+     * and given timestamp field {@link com.jts.fortress.rbac.UserAudit#beginDate}.<BR>
+     * Method also can discriminate between all events or failed only by setting {@link com.jts.fortress.rbac.UserAudit#failedOnly}.
      * <h4>optional parameters</h4>
      * <ul>
      * <li>{@link UserAudit#userId} - contains the target userId</li>
@@ -92,6 +90,7 @@ public class AuditMgrRestImpl implements AuditMgr
         VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".getUserAuthZs");
         List<AuthZ> outRecords;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(uAudit);
         if (this.adminSess != null)
         {
@@ -118,9 +117,9 @@ public class AuditMgrRestImpl implements AuditMgr
 
 
     /**
-     * This method returns a list of authorization events for a particular user {@link com.jts.fortress.audit.UserAudit#userId},
-     * object {@link com.jts.fortress.audit.UserAudit#objName}, and given timestamp field {@link com.jts.fortress.audit.UserAudit#beginDate}.<BR>
-     * Method also can discriminate between all events or failed only by setting flag {@link com.jts.fortress.audit.UserAudit#failedOnly}..
+     * This method returns a list of authorization events for a particular user {@link com.jts.fortress.rbac.UserAudit#userId},
+     * object {@link com.jts.fortress.rbac.UserAudit#objName}, and given timestamp field {@link com.jts.fortress.rbac.UserAudit#beginDate}.<BR>
+     * Method also can discriminate between all events or failed only by setting flag {@link com.jts.fortress.rbac.UserAudit#failedOnly}..
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link UserAudit#userId} - contains the target userId<</li>
@@ -142,6 +141,7 @@ public class AuditMgrRestImpl implements AuditMgr
         VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".searchAuthZs");
         List<AuthZ> outRecords;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(uAudit);
         if (this.adminSess != null)
         {
@@ -168,8 +168,8 @@ public class AuditMgrRestImpl implements AuditMgr
 
 
     /**
-     * This method returns a list of authentication audit events for a particular user {@link com.jts.fortress.audit.UserAudit#userId},
-     * and given timestamp field {@link com.jts.fortress.audit.UserAudit#beginDate}.<BR>
+     * This method returns a list of authentication audit events for a particular user {@link com.jts.fortress.rbac.UserAudit#userId},
+     * and given timestamp field {@link com.jts.fortress.rbac.UserAudit#beginDate}.<BR>
      * <h4>optional parameters</h4>
      * <ul>
      * <li>{@link UserAudit#userId} - contains the target userId<</li>
@@ -188,6 +188,7 @@ public class AuditMgrRestImpl implements AuditMgr
         VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".searchBinds");
         List<Bind> outRecords;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(uAudit);
         if (this.adminSess != null)
         {
@@ -213,8 +214,8 @@ public class AuditMgrRestImpl implements AuditMgr
     }
 
     /**
-     * This method returns a list of sessions created for a given user {@link com.jts.fortress.audit.UserAudit#userId},
-     * and timestamp {@link com.jts.fortress.audit.UserAudit#beginDate}.<BR>
+     * This method returns a list of sessions created for a given user {@link com.jts.fortress.rbac.UserAudit#userId},
+     * and timestamp {@link com.jts.fortress.rbac.UserAudit#beginDate}.<BR>
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link UserAudit#userId} - contains the target userId<</li>
@@ -235,6 +236,7 @@ public class AuditMgrRestImpl implements AuditMgr
         VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".searchUserSessions");
         List<Mod> outRecords;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(uAudit);
         if (this.adminSess != null)
         {
@@ -260,9 +262,9 @@ public class AuditMgrRestImpl implements AuditMgr
     }
 
     /**
-     * This method returns a list of admin operations events for a particular entity {@link com.jts.fortress.audit.UserAudit#dn},
-     * object {@link com.jts.fortress.audit.UserAudit#objName} and timestamp {@link com.jts.fortress.audit.UserAudit#beginDate}.  If the internal
-     * userId {@link com.jts.fortress.audit.UserAudit#internalUserId} is set it will limit search by that field.
+     * This method returns a list of admin operations events for a particular entity {@link com.jts.fortress.rbac.UserAudit#dn},
+     * object {@link com.jts.fortress.rbac.UserAudit#objName} and timestamp {@link com.jts.fortress.rbac.UserAudit#beginDate}.  If the internal
+     * userId {@link com.jts.fortress.rbac.UserAudit#internalUserId} is set it will limit search by that field.
      * <h4>optional parameters</h4>
      * <ul>
      * <li>{@link UserAudit#dn} - contains the LDAP distinguished name for the updated object.  For example if caller
@@ -285,6 +287,7 @@ public class AuditMgrRestImpl implements AuditMgr
         VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".searchAdminMods");
         List<Mod> outRecords;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(uAudit);
         if (this.adminSess != null)
         {
@@ -311,8 +314,8 @@ public class AuditMgrRestImpl implements AuditMgr
 
 
     /**
-     * This method returns a list of failed authentication events for a particular invalid user {@link com.jts.fortress.audit.UserAudit#userId},
-     * and given timestamp {@link com.jts.fortress.audit.UserAudit#beginDate}.  If the {@link com.jts.fortress.audit.UserAudit#failedOnly} is true it will
+     * This method returns a list of failed authentication events for a particular invalid user {@link com.jts.fortress.rbac.UserAudit#userId},
+     * and given timestamp {@link com.jts.fortress.rbac.UserAudit#beginDate}.  If the {@link com.jts.fortress.rbac.UserAudit#failedOnly} is true it will
      * return only authentication attempts made with invalid userId.
      * </p>
      * This is possible because Fortress performs read on user before the bind.
@@ -335,6 +338,7 @@ public class AuditMgrRestImpl implements AuditMgr
         VUtil.assertNotNull(uAudit, GlobalErrIds.AUDT_INPUT_NULL, CLS_NM + ".searchInvalidUsers");
         List<AuthZ> outRecords;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(uAudit);
         if (this.adminSess != null)
         {
@@ -357,17 +361,5 @@ public class AuditMgrRestImpl implements AuditMgr
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
         return outRecords;
-    }
-
-
-    /**
-     * Setting Session into this object will enforce ARBAC controls and render this class
-     * thread unsafe..
-     *
-     * @param session
-     */
-    public void setAdmin(Session session)
-    {
-        this.adminSess = session;
     }
 }

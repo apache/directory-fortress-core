@@ -7,8 +7,8 @@
  */
 package com.jts.fortress;
 
-import com.jts.fortress.configuration.ConfigMgr;
-import com.jts.fortress.configuration.ConfigMgrFactory;
+import com.jts.fortress.cfg.ConfigMgr;
+import com.jts.fortress.cfg.ConfigMgrFactory;
 import com.jts.fortress.rbac.Session;
 
 import java.util.Enumeration;

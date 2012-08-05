@@ -4,8 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.FortEntity;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +17,7 @@ import java.util.UUID;
 
 /**
  * All entities ({@link User}, {@link Role}, {@link com.jts.fortress.rbac.Permission},
- * {@link com.jts.fortress.pwpolicy.PswdPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
+ * {@link PwPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
@@ -43,7 +41,7 @@ import java.util.UUID;
  * <h4>More Permission entity notes</h4>
  * <ul>
  * <li>The {@link PermObj} entity is not used for authorization checks, rather contains {@link com.jts.fortress.rbac.Permission} which are themselves authorization targets.<br />
- * <li>This entity must be associated with a valid Perm OU {@link com.jts.fortress.arbac.OrgUnit.Type#PERM} that is contained within the {@code ou=OS-P,ou=ARBAC,dc=example,dc=com} location in ldap.
+ * <li>This entity must be associated with a valid Perm OU {@link OrgUnit.Type#PERM} that is contained within the {@code ou=OS-P,ou=ARBAC,dc=example,dc=com} location in ldap.
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
  * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link com.jts.fortress.rbac.Permission}
  * <p/>

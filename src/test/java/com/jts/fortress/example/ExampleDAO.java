@@ -5,11 +5,11 @@
 package com.jts.fortress.example;
 
 import com.jts.fortress.CreateException;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.UpdateException;
 import com.jts.fortress.ldap.DaoUtil;
-import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.configuration.Config;
+import com.jts.fortress.cfg.Config;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -32,7 +32,7 @@ public class ExampleDAO
     private static final String CLS_NM = ExampleDAO.class.getName();
     final protected static Logger log = Logger.getLogger(CLS_NM);
     protected final static String[] EXAMPLE_ATRS = {
-        com.jts.fortress.constants.GlobalIds.FT_IID, EIds.EXAMPLE_NM, com.jts.fortress.constants.GlobalIds.DESC, com.jts.fortress.constants.GlobalIds.CONSTRAINT
+        GlobalIds.FT_IID, EIds.EXAMPLE_NM, GlobalIds.DESC, GlobalIds.CONSTRAINT
     };
 
     /**
@@ -45,7 +45,7 @@ public class ExampleDAO
         throws CreateException
     {
         LDAPConnection ld = null;
-        String dn = com.jts.fortress.constants.GlobalIds.CN + "=" + entity.getName() + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
+        String dn = GlobalIds.CN + "=" + entity.getName() + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (log.isEnabledFor(Level.DEBUG))
         {
             log.debug(CLS_NM + ".create dn [" + dn + "]");
@@ -75,16 +75,16 @@ public class ExampleDAO
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(com.jts.fortress.ldap.DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, EIds.EXAMPLE_OBJ_CLASS));
             entity.setId();
-            attrs.add(com.jts.fortress.ldap.DaoUtil.createAttribute(com.jts.fortress.constants.GlobalIds.FT_IID, entity.getId()));
+            attrs.add(com.jts.fortress.ldap.DaoUtil.createAttribute(GlobalIds.FT_IID, entity.getId()));
             attrs.add(DaoUtil.createAttribute(EIds.EXAMPLE_NM, entity.getName()));
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
-                attrs.add(com.jts.fortress.ldap.DaoUtil.createAttribute(com.jts.fortress.constants.GlobalIds.DESC, entity.getDescription()));
+                attrs.add(com.jts.fortress.ldap.DaoUtil.createAttribute(GlobalIds.DESC, entity.getDescription()));
             // organizational name requires CN attribute:
-            attrs.add(com.jts.fortress.ldap.DaoUtil.createAttribute(com.jts.fortress.constants.GlobalIds.CN, entity.getName()));
+            attrs.add(com.jts.fortress.ldap.DaoUtil.createAttribute(GlobalIds.CN, entity.getName()));
 
             //AttrHelper.loadTemporalAttrs(entity, attrs);
             entity.setName("EXAMPLE");
-            attrs.add(com.jts.fortress.ldap.DaoUtil.createAttribute(com.jts.fortress.constants.GlobalIds.CONSTRAINT, com.jts.fortress.util.time.CUtil.setConstraint(entity)));
+            attrs.add(com.jts.fortress.ldap.DaoUtil.createAttribute(GlobalIds.CONSTRAINT, com.jts.fortress.util.time.CUtil.setConstraint(entity)));
 
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
             DaoUtil.add(ld, myEntry);
@@ -113,7 +113,7 @@ public class ExampleDAO
         throws UpdateException
     {
         LDAPConnection ld = null;
-        String dn = GlobalIds.CN + "=" + entity.getName() + "," + com.jts.fortress.configuration.Config.getProperty(EIds.EXAMPLE_ROOT);
+        String dn = GlobalIds.CN + "=" + entity.getName() + "," + com.jts.fortress.cfg.Config.getProperty(EIds.EXAMPLE_ROOT);
         if (log.isEnabledFor(Level.DEBUG))
         {
             log.debug(CLS_NM + ".update dn [" + dn + "]");
@@ -124,13 +124,13 @@ public class ExampleDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
             {
-                LDAPAttribute desc = new LDAPAttribute(com.jts.fortress.constants.GlobalIds.DESC, entity.getDescription());
+                LDAPAttribute desc = new LDAPAttribute(GlobalIds.DESC, entity.getDescription());
                 mods.add(LDAPModification.REPLACE, desc);
             }
             String szRawData = com.jts.fortress.util.time.CUtil.setConstraint(entity);
             if (szRawData != null && szRawData.length() > 0)
             {
-                LDAPAttribute constraint = new LDAPAttribute(com.jts.fortress.constants.GlobalIds.CONSTRAINT, szRawData);
+                LDAPAttribute constraint = new LDAPAttribute(GlobalIds.CONSTRAINT, szRawData);
                 mods.add(LDAPModification.REPLACE, constraint);
             }
             if (mods.size() > 0)
@@ -161,7 +161,7 @@ public class ExampleDAO
         throws RemoveException
     {
         LDAPConnection ld = null;
-        String dn = com.jts.fortress.constants.GlobalIds.CN + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
+        String dn = GlobalIds.CN + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (log.isEnabledFor(Level.DEBUG))
         {
             log.debug(CLS_NM + ".remove dn [" + dn + "]");
@@ -195,7 +195,7 @@ public class ExampleDAO
     {
         Example entity = null;
         LDAPConnection ld = null;
-        String dn = com.jts.fortress.constants.GlobalIds.CN + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
+        String dn = GlobalIds.CN + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (log.isEnabledFor(Level.DEBUG))
         {
             log.debug(CLS_NM + ".findByKey dn [" + dn + "]");
@@ -247,7 +247,7 @@ public class ExampleDAO
         List<Example> exampleList = new ArrayList<Example>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String exampleRoot = com.jts.fortress.configuration.Config.getProperty(EIds.EXAMPLE_ROOT);
+        String exampleRoot = com.jts.fortress.cfg.Config.getProperty(EIds.EXAMPLE_ROOT);
 
         if (log.isEnabledFor(Level.DEBUG))
         {
@@ -306,9 +306,9 @@ public class ExampleDAO
             private int timeout;        // this attribute is oamTimeOut
             */
         Example entity = new Example();
-        entity.setId(com.jts.fortress.ldap.DaoUtil.getAttribute(le, com.jts.fortress.constants.GlobalIds.FT_IID));
+        entity.setId(com.jts.fortress.ldap.DaoUtil.getAttribute(le, GlobalIds.FT_IID));
         entity.setName(com.jts.fortress.ldap.DaoUtil.getAttribute(le, EIds.EXAMPLE_NM));
-        entity.setDescription(com.jts.fortress.ldap.DaoUtil.getAttribute(le, com.jts.fortress.constants.GlobalIds.DESC));
+        entity.setDescription(com.jts.fortress.ldap.DaoUtil.getAttribute(le, GlobalIds.DESC));
         DaoUtil.unloadTemporal(le, entity);
         return entity;
     }

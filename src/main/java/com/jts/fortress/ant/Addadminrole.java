@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link com.jts.fortress.arbac.AdminRole}s used to drive {@link com.jts.fortress.DelegatedAdminMgr#addRole(com.jts.fortress.arbac.AdminRole)}.
+ * The class is used by {@link FortressAntTask} to load {@link com.jts.fortress.rbac.AdminRole}s used to drive {@link com.jts.fortress.DelAdminMgr#addRole(com.jts.fortress.rbac.AdminRole)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Addadminrole', is used for the xml tag in the load script.</p>
  * <pre>
@@ -54,7 +54,7 @@ public class Addadminrole
      * }
      * </pre>
      *
-     * @param role contains extension of {@link com.jts.fortress.arbac.AdminRole}.
+     * @param role contains extension of {@link com.jts.fortress.rbac.AdminRole}.
      */
     public void addRole(AdminRoleAnt role)
     {

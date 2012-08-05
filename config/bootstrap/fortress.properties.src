@@ -62,7 +62,7 @@ temporal.validator.3=com.jts.fortress.util.time.ClockTime
 temporal.validator.4=com.jts.fortress.util.time.Day
 
 # enabling this property will enable Dynamic Separation of Duty constraint checks on role activations:
-temporal.validator.dsd=com.jts.fortress.rbac.DSD
+temporal.validator.dsd=com.jts.fortress.rbac.DSDChecker
 
 # Users in the following list cannot be deleted using OAM admin functions (AdminMgr.deleteUser, AdminMgr.forceDeleteUser)
 sys.user.1=oamTU6User1
@@ -73,7 +73,7 @@ sys.user.5=oamTU6User5
 
 # Fortress Class Definitions:  NOT NEEDED UNLESS OVERIDING DEFAULT IMPLEMENTATIONS
 accessmgr.implementation=com.jts.fortress.rbac.AccessMgrImpl
-auditmgr.implementation=com.jts.fortress.audit.AuditMgrImpl
+auditmgr.implementation=com.jts.fortress.rbac.AuditMgrImpl
 
 ehcache.config.file=ehcache.xml
 

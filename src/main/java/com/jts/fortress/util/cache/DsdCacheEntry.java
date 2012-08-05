@@ -15,6 +15,7 @@ public class DsdCacheEntry
     private String member;
     private SDSet sdSet;
     private boolean empty;
+    private String contextId;
 
     /**
      * Non-default contructor takes a {@link DsdCacheEntry#member} that maps to  {@link com.jts.fortress.rbac.Role#name}, along
@@ -29,6 +30,7 @@ public class DsdCacheEntry
         this.sdSet = sdSet;
         this.member = member;
         this.empty = empty;
+        this.contextId = sdSet.getContextId();
     }
 
     /**
@@ -109,5 +111,25 @@ public class DsdCacheEntry
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    /**
+     * Set the contextId for this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT
+     *
+     * @return value maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     */
+    public String getContextId()
+    {
+        return contextId;
+    }
+
+    /**
+     * Return the contextId associated with this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT
+     *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     */
+    void setContextId(String contextId)
+    {
+        this.contextId = contextId;
     }
 }

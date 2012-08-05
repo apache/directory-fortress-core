@@ -4,8 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.FortEntity;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * This entity is used by {@link com.jts.fortress.ant.FortressAntTask} to add {@link com.jts.fortress.rbac.Permission} grants to
- * RBAC {@link com.jts.fortress.rbac.Role}, or ARBAC {@link com.jts.fortress.arbac.AdminRole}.
+ * RBAC {@link com.jts.fortress.rbac.Role}, or ARBAC {@link AdminRole}.
  * Can also be used to grant Permissions directly to {@link com.jts.fortress.rbac.User}s.
  * This entity is used for Ant and En Masse processing only.
  * <p/>
@@ -137,8 +135,8 @@ public class PermGrant extends FortEntity
 
 
     /**
-     * If set to true entity will be stored in ldap subdirectory associated with administrative permissions {@link com.jts.fortress.constants.GlobalIds#ADMIN_PERM_ROOT}.
-     * otherwise will be RBAC permissions {@link com.jts.fortress.constants.GlobalIds#PERM_ROOT}
+     * If set to true entity will be stored in ldap subdirectory associated with administrative permissions {@link com.jts.fortress.GlobalIds#ADMIN_PERM_ROOT}.
+     * otherwise will be RBAC permissions {@link com.jts.fortress.GlobalIds#PERM_ROOT}
      * @return boolean if administrative entity.
      */
     public boolean isAdmin()

@@ -5,6 +5,7 @@
 package com.jts.fortress.example;
 
 import com.jts.fortress.SecurityException;
+import com.jts.fortress.rbac.ClassUtil;
 
 /**
  * Factory class used to instantiate the ExampleAdminMgrImpl.
@@ -14,7 +15,7 @@ import com.jts.fortress.SecurityException;
  */
 public class ExampleAdminMgrFactory
 {
-    private static String exampleAdminClassName = com.jts.fortress.configuration.Config.getProperty(EIds.EXAMPLE_ADMIN_IMPLEMENTATION);
+    private static String exampleAdminClassName = com.jts.fortress.cfg.Config.getProperty(EIds.EXAMPLE_ADMIN_IMPLEMENTATION);
 
 
     public static ExampleAdminMgr createInstance()
@@ -25,7 +26,7 @@ public class ExampleAdminMgrFactory
         {
             exampleAdminClassName = EIds.EXAMPLE_ADMIN_DEFAULT_CLASS;
         }
-        adminMgr = (ExampleAdminMgr) com.jts.fortress.util.ClassUtil.createInstance(exampleAdminClassName);
+        adminMgr = (ExampleAdminMgr) ClassUtil.createInstance(exampleAdminClassName);
         return adminMgr;
     }
 }

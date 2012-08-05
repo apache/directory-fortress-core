@@ -4,20 +4,20 @@
 
 package com.jts.fortress.util.time;
 
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.constants.GlobalIds;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.rbac.Session;
 
 /**
  * This class performs date validation for {@link com.jts.fortress.util.time.Constraint}.  This validator will ensure the current date falls between {@link com.jts.fortress.util.time.Constraint#getBeginDate()} and {@link com.jts.fortress.util.time.Constraint#getEndDate()}
- * The format requires YYYYMMDD, i.e. 20110101 for January 1, 2011.  The constant {@link com.jts.fortress.constants.GlobalIds#NONE} may be used to disable checks for a particular entity.
+ * The format requires YYYYMMDD, i.e. 20110101 for January 1, 2011.  The constant {@link com.jts.fortress.GlobalIds#NONE} may be used to disable checks for a particular entity.
  * <h4> Constraint Targets include</h4>
  * <ol>
  * <li>{@link com.jts.fortress.rbac.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
  * <li>{@link com.jts.fortress.rbac.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
  * <li>{@link com.jts.fortress.rbac.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link com.jts.fortress.arbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link com.jts.fortress.arbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
+ * <li>{@link com.jts.fortress.rbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link com.jts.fortress.rbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
  * </ol>
  * </p>
  *

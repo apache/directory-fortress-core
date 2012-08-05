@@ -7,9 +7,9 @@
  */
 package com.jts.fortress;
 
-import com.jts.fortress.arbac.AdminRole;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.arbac.UserAdminRole;
+import com.jts.fortress.rbac.AdminRole;
+import com.jts.fortress.rbac.OrgUnit;
+import com.jts.fortress.rbac.UserAdminRole;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.User;
@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
  */
 public class DelegatedAdminMgrConsole
 {
-    private DelegatedAdminMgr dAmgr = null;
+    private DelAdminMgr dAmgr = null;
     private AdminMgr aMgr = null;
     private static final String CLS_NM = DelegatedAdminMgrConsole.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
@@ -36,14 +36,61 @@ public class DelegatedAdminMgrConsole
     {
         try
         {
-            dAmgr = DelegatedAdminMgrFactory.createInstance();
-            aMgr = AdminMgrFactory.createInstance();
+            dAmgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
+            dAmgr.setContextId("client123");
+            aMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            aMgr.setContextId("client123");
         }
         catch (SecurityException e)
         {
             log.error(CLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
+
+
+    protected void addRole()
+    {
+        AdminRole re = new AdminRole();
+        try
+        {
+            ReaderUtil.clearScreen();
+            System.out.println("Enter role name:");
+            re.setName(ReaderUtil.readLn());
+            System.out.println("Enter Role's description field");
+            re.setDescription(ReaderUtil.readLn());
+
+            System.out.println("Enter OSP name (or NULL to skip):");
+            String val = ReaderUtil.readLn();
+            for (int i = 0; val != null && val.length() > 0; i++)
+            {
+                re.setOsP(val);
+                System.out.println("Enter next name (or NULL if done entering OSPs):");
+                val = ReaderUtil.readLn();
+            }
+
+            System.out.println("Enter OSU name (or NULL to skip):");
+            val = ReaderUtil.readLn();
+            for (int i = 0; val != null && val.length() > 0; i++)
+            {
+                re.setOsU(val);
+                System.out.println("Enter next name (or NULL if done entering OSUs):");
+                val = ReaderUtil.readLn();
+            }
+
+            AdminRole re2 = dAmgr.addRole(re);
+            System.out.println("name [" + re2.getName() + "]");
+            System.out.println("internalId [" + re2.getId() + "]");
+            System.out.println("name description [" + re2.getDescription() + "]");
+            System.out.println("has been updated");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            log.error(CLS_NM + ".updateRole caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
 
 
     /**

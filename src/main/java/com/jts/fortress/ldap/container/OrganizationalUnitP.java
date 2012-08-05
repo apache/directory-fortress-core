@@ -4,10 +4,10 @@
 
 package com.jts.fortress.ldap.container;
 
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ValidationException;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 
@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
  * error internal to DAO object. This class will forward DAO exceptions (
  * {@link com.jts.fortress.CreateException},,{@link com.jts.fortress.RemoveException}),
  *  or {@link com.jts.fortress.ValidationException} as {@link com.jts.fortress.SecurityException}s with appropriate
- *  error id from {@link com.jts.fortress.constants.GlobalErrIds}.
+ *  error id from {@link com.jts.fortress.GlobalErrIds}.
  * <p>
  * <font size="3" color="red">
  * The {@link #delete} method in this class is destructive as it will remove all nodes below the container using recursive delete function.<BR>
@@ -51,7 +51,7 @@ public class OrganizationalUnitP
      * node will be inserted after suffix, i.e. ou=NewContainerName, dc=companyName, dc=com.
      *
      * @param orgUnit contains the ou name and description for target node.
-     * @throws com.jts.fortress.SecurityException in the event node already present, {@link GlobalErrIds#CNTR_CREATE_FAILED}, validation, {@link GlobalErrIds#CNTR_NAME_NULL}, {@link com.jts.fortress.constants.GlobalErrIds#CNTR_NAME_INVLD} or system error.
+     * @throws com.jts.fortress.SecurityException in the event node already present, {@link GlobalErrIds#CNTR_CREATE_FAILED}, validation, {@link GlobalErrIds#CNTR_NAME_NULL}, {@link com.jts.fortress.GlobalErrIds#CNTR_NAME_INVLD} or system error.
      */
     public final void add(OrganizationalUnit orgUnit)
         throws SecurityException
@@ -74,7 +74,7 @@ public class OrganizationalUnitP
      * <p/>
      *
      * @param orgUnit contains the ou name of container targeted for removal.
-     * @throws com.jts.fortress.SecurityException in the event node not present, {@link com.jts.fortress.constants.GlobalErrIds#CNTR_DELETE_FAILED}, validation, {@link com.jts.fortress.constants.GlobalErrIds#CNTR_NAME_NULL}, {@link com.jts.fortress.constants.GlobalErrIds#CNTR_NAME_INVLD} or system error.
+     * @throws com.jts.fortress.SecurityException in the event node not present, {@link com.jts.fortress.GlobalErrIds#CNTR_DELETE_FAILED}, validation, {@link com.jts.fortress.GlobalErrIds#CNTR_NAME_NULL}, {@link com.jts.fortress.GlobalErrIds#CNTR_NAME_INVLD} or system error.
      */
     public final void delete(OrganizationalUnit orgUnit)
         throws SecurityException

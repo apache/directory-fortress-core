@@ -8,7 +8,7 @@
 
 package com.jts.fortress.misc;
 
-import com.jts.fortress.hier.Relationship;
+import com.jts.fortress.rbac.Relationship;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

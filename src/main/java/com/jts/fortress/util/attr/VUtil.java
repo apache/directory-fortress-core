@@ -4,10 +4,10 @@
 
 package com.jts.fortress.util.attr;
 
-import com.jts.fortress.configuration.Config;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
+import com.jts.fortress.cfg.Config;
 import com.jts.fortress.ValidationException;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.constants.GlobalIds;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import org.apache.log4j.Logger;
 
@@ -61,9 +61,9 @@ public class VUtil
     private static final char SATURDAY = '7';
 
     /**
-     * Simple length check on orgunit that uses {@link com.jts.fortress.constants.GlobalIds#OU_LEN}.
+     * Simple length check on orgunit that uses {@link com.jts.fortress.GlobalIds#OU_LEN}.
      * @param orgUnitId contains the ou name.
-     * @throws ValidationException in the event of failure, {@link com.jts.fortress.constants.GlobalErrIds#ORG_LEN_INVLD}.
+     * @throws ValidationException in the event of failure, {@link com.jts.fortress.GlobalErrIds#ORG_LEN_INVLD}.
      *
      */
     public static void orgUnit(String orgUnitId)
@@ -78,9 +78,9 @@ public class VUtil
     }
 
     /**
-     * Simple length check on User password that uses {@link com.jts.fortress.constants.GlobalIds#PASSWORD_LEN}.
+     * Simple length check on User password that uses {@link com.jts.fortress.GlobalIds#PASSWORD_LEN}.
      * @param password contains the User's password.
-     * @throws com.jts.fortress.ValidationException in the event of failure, {@link com.jts.fortress.constants.GlobalErrIds#USER_PW_INVLD_LEN}.
+     * @throws com.jts.fortress.ValidationException in the event of failure, {@link com.jts.fortress.GlobalErrIds#USER_PW_INVLD_LEN}.
      *
      */
     public static void password(char[] password)
@@ -95,9 +95,9 @@ public class VUtil
     }
 
     /**
-     * Simple length check and safe text validation on description field that uses {@link com.jts.fortress.constants.GlobalIds#DESC_LEN}.
+     * Simple length check and safe text validation on description field that uses {@link com.jts.fortress.GlobalIds#DESC_LEN}.
      * @param description contains the User's password.
-     * @throws com.jts.fortress.ValidationException in the event of failure, {@link com.jts.fortress.constants.GlobalErrIds#CONST_DESC_LEN_INVLD}.
+     * @throws com.jts.fortress.ValidationException in the event of failure, {@link com.jts.fortress.GlobalErrIds#CONST_DESC_LEN_INVLD}.
      *
      */
     public static void description(String description)
@@ -116,7 +116,7 @@ public class VUtil
      * Perform a simple length and safe text validation.
      * @param value contains the attribute to check.
      * @param validLen contains the length to use.
-     * @throws com.jts.fortress.ValidationException in the event of length {@link com.jts.fortress.constants.GlobalErrIds#CONST_INVLD_FIELD_LEN} or regex failure.
+     * @throws com.jts.fortress.ValidationException in the event of length {@link com.jts.fortress.GlobalErrIds#CONST_INVLD_FIELD_LEN} or regex failure.
      *
      */
     public static void safeText(String value, int validLen)
@@ -137,7 +137,7 @@ public class VUtil
     }
 
     /**
-     * Simple null, {@link com.jts.fortress.constants.GlobalErrIds#USER_ID_NULL}, and length checks, {@link com.jts.fortress.constants.GlobalErrIds#CONST_INVLD_FIELD_LEN}, on userId.
+     * Simple null, {@link com.jts.fortress.GlobalErrIds#USER_ID_NULL}, and length checks, {@link com.jts.fortress.GlobalErrIds#CONST_INVLD_FIELD_LEN}, on userId.
      * @param userId contains the userId, maps to {@link com.jts.fortress.rbac.User#userId}.
      * @throws com.jts.fortress.ValidationException in the event of failure, {@link GlobalErrIds#CONST_INVLD_FIELD_LEN}.
      *
@@ -173,8 +173,8 @@ public class VUtil
             {
                 String key = (String) e.nextElement();
                 String val = props.getProperty(key);
-                safeText(key, com.jts.fortress.constants.GlobalIds.PROP_LEN);
-                safeText(val, com.jts.fortress.constants.GlobalIds.PROP_LEN);
+                safeText(key, GlobalIds.PROP_LEN);
+                safeText(val, GlobalIds.PROP_LEN);
             }
         }
     }
@@ -240,7 +240,7 @@ public class VUtil
         else
         {
             String error = CLS_NM + ".endTime - null or invalid length (must be 4) for endTime value";
-            throw new com.jts.fortress.ValidationException(com.jts.fortress.constants.GlobalErrIds.CONST_ENDTIME_LEN_ERR, error);
+            throw new com.jts.fortress.ValidationException(GlobalErrIds.CONST_ENDTIME_LEN_ERR, error);
         }
     }
 
@@ -255,7 +255,7 @@ public class VUtil
     {
         if (isNotNullOrEmpty(beginDate))
         {
-            if (beginDate.compareToIgnoreCase(com.jts.fortress.constants.GlobalIds.NONE) != 0)
+            if (beginDate.compareToIgnoreCase(GlobalIds.NONE) != 0)
             {
                 if (beginDate.length() != DATE_LEN || checkDate(beginDate))
                 {

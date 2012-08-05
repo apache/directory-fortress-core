@@ -4,7 +4,7 @@
 
 package com.jts.fortress;
 
-import com.jts.fortress.arbac.OrgUnit;
+import com.jts.fortress.rbac.OrgUnit;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.Role;
@@ -41,11 +41,12 @@ import java.util.Set;
  * <p/>
  * <img src="../../../images/RbacDSD.png">
  * <p/>
+ * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(com.jts.fortress.rbac.Session)}) are set.
  *
  * @author Shawn McKinney
  * @created August 23, 2009
  */
-public interface ReviewMgr extends com.jts.fortress.Authorizable
+public interface ReviewMgr extends Manageable
 {
 
     /**
@@ -118,7 +119,7 @@ public interface ReviewMgr extends com.jts.fortress.Authorizable
      * <li>{@link OrgUnit#name} - contains one or more characters of org unit associated with existing object being targeted</li>
      * </ul>
      *
-     * @param ou contains org unit name {@link com.jts.fortress.arbac.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
+     * @param ou contains org unit name {@link com.jts.fortress.rbac.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
      * @return List of type PermObj.  Fortress permissions are object->operation mappings.
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of system error.

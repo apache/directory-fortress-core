@@ -3,7 +3,7 @@
   ~ Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
   -->
 <project basedir="." default="all" name="Fortress Sample Data">
-    <property name="version" value="1.0.0-rc11"/>
+    <property name="version" value="1.0.0-rc12"/>
     <property name="home.dir" value = "../../" />
     <property name="lib.dir" value = "${home.dir}/lib" />
     <property name="dist.dir" value = "${home.dir}/dist" />
@@ -31,6 +31,8 @@
             </addsuffix>
 
             <addcontainer>
+                <container name="Client123" description="Client 123 test context"/>
+                <container name="Client456" description="Client 456 test context"/>
                 <container name="Config" description="Fortress Configuration Realms"/>
                 <container name="People" description="Fortress People"/>
                 <container name="Policies" description="Fortress Policies"/>
@@ -76,7 +78,7 @@
                 <config props="temporal.validator.2:com.jts.fortress.util.time.Timeout"/>
                 <config props="temporal.validator.3:com.jts.fortress.util.time.ClockTime"/>
                 <config props="temporal.validator.4:com.jts.fortress.util.time.Day"/>
-                <config props="temporal.validator.dsd:com.jts.fortress.rbac.DSD"/>
+                <config props="temporal.validator.dsd:com.jts.fortress.rbac.DSDChecker"/>
                 <config props="user.objectclass:inetOrgPerson"/>
                 <!--config props="accessmgr.implementation:com.jts.fortress.rbac.AccessMgrImpl"/-->
                 <!--config props="auditmgr.implementation:com.jts.fortress.audit.AuditMgrImpl"/-->
@@ -139,9 +141,9 @@
                 <config props="temporal.validator.2:com.jts.fortress.util.time.Timeout"/>
                 <config props="temporal.validator.3:com.jts.fortress.util.time.ClockTime"/>
                 <config props="temporal.validator.4:com.jts.fortress.util.time.Day"/>
-                <config props="temporal.validator.dsd:com.jts.fortress.rbac.DSD"/>
+                <config props="temporal.validator.dsd:com.jts.fortress.rbac.DSDChecker"/>
                 <config props="accessmgr.implementation:com.jts.fortress.rbac.AccessMgrImpl"/>
-                <config props="auditmgr.implementation:com.jts.fortress.audit.AuditMgrImpl"/>
+                <config props="auditmgr.implementation:com.jts.fortress.rbac.AuditMgrImpl"/>
                 <config props="user.objectclass:inetOrgPerson"/>
                 <config props="field.length:130"/>
 

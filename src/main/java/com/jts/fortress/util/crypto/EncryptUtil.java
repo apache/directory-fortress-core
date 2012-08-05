@@ -4,7 +4,7 @@
 
 package com.jts.fortress.util.crypto;
 
-import com.jts.fortress.configuration.Config;
+import com.jts.fortress.cfg.Config;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 /**
@@ -39,8 +39,8 @@ public class EncryptUtil
 
 
     /**
-     * Returns 'true' if the property {@code crypto.prop} has a value set in fortress configuration.  If this value
-     * is 'false', Fortress will assume LDAP password in configuration file are clear text.
+     * Returns 'true' if the property {@code crypto.prop} has a value set in fortress cfg.  If this value
+     * is 'false', Fortress will assume LDAP password in cfg file are clear text.
      *
      * @return
      */

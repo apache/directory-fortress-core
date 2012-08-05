@@ -5,7 +5,7 @@
 package com.jts.fortress.ant;
 
 
-import com.jts.fortress.arbac.AdminRole;
+import com.jts.fortress.rbac.AdminRole;
 
 import java.util.StringTokenizer;
 

@@ -491,8 +491,7 @@ public class ProcessMenuCommand
         System.out.println("9. Perm Users");
         System.out.println("A. Authorized Users");
         System.out.println("B. Role Permissions");
-        System.out.println("C. Get Parent Roles");
-        System.out.println("D. Get Assigned Roles");
+        System.out.println("C. Get Assigned Roles");
         System.out.println("Enter q or Q to return to previous menu");
     }
 
@@ -554,10 +553,6 @@ public class ProcessMenuCommand
                         break;
                     case 'c':
                     case 'C':
-                        reviewConsole.getParents();
-                        break;
-                    case 'd':
-                    case 'D':
                         reviewConsole.assignedRoles();
                         break;
 					case 'q':
@@ -784,9 +779,10 @@ public class ProcessMenuCommand
         System.out.println("D.  Add ORG Descendant PSO");        
         System.out.println("E.  Assign Admin Role");
         System.out.println("F.  Deassign Admin Role");
-        System.out.println("G.  Update Admin Role");
-        System.out.println("H.  Grant Admin Perm to Admin Role");
-        System.out.println("I.  Revoke Admin Perm from Admin Role");
+        System.out.println("G.  Add Admin Role");
+        System.out.println("H.  Update Admin Role");
+        System.out.println("I.  Grant Admin Perm to Admin Role");
+        System.out.println("J.  Revoke Admin Perm from Admin Role");
         System.out.println("Enter q or Q to return to previous menu");
     }
 
@@ -864,14 +860,18 @@ public class ProcessMenuCommand
                         break;
                     case 'g':
                     case 'G':
-                        delAdminConsole.updateRole();
+                        delAdminConsole.addRole();
                         break;
                     case 'h':
                     case 'H':
-						delAdminConsole.grantPermission(true);
-						break;
+                        delAdminConsole.updateRole();
+                        break;
                     case 'i':
                     case 'I':
+						delAdminConsole.grantPermission(true);
+						break;
+                    case 'j':
+                    case 'J':
 						delAdminConsole.revokePermission(true);
 						break;
 					case 'q':

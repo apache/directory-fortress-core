@@ -6,9 +6,9 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ReviewMgr;
-import com.jts.fortress.arbac.DelegatedMgrImplTest;
-import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.LogUtil;
@@ -34,6 +34,7 @@ public class AdminMgrImplTest extends TestCase
     private static final String CLS_NM = AdminMgrImplTest.class.getName();
     final protected static Logger log = Logger.getLogger(CLS_NM);
     static Session adminSess = null;
+    private static final String contextId = FortressJUnitTest.getContext();
 
     public AdminMgrImplTest(String name)
     {
@@ -70,6 +71,7 @@ public class AdminMgrImplTest extends TestCase
 
     public void testAddUser()
     {
+
         //     public User addUser(User user)
         addUsers("ADD-USRS TU1", UserTestData.USERS_TU1, true);
         addUsers("ADD-USRS TU2", UserTestData.USERS_TU2, true);
@@ -110,7 +112,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance();
+                adminMgr = AdminMgrFactory.createInstance(contextId);
             }
             for (String[] usr : uArray)
             {
@@ -171,7 +173,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance();
+                adminMgr = AdminMgrFactory.createInstance(contextId);
             }
             for (String[] usr : uArray)
             {
@@ -193,7 +195,7 @@ public class AdminMgrImplTest extends TestCase
                 catch (SecurityException ex)
                 {
                     // don't fail test if user was a system user:
-                    if (ex.getErrorId() != com.jts.fortress.constants.GlobalErrIds.USER_PW_PLCY_VIOLATION)
+                    if (ex.getErrorId() != GlobalErrIds.USER_PW_PLCY_VIOLATION)
                     {
                         log.error(CLS_NM + ".deleteUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                         fail(ex.getMessage());
@@ -1608,7 +1610,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance();
+                adminMgr = AdminMgrFactory.createInstance(contextId);
             }
             for (String[] obj : objArray)
             {
@@ -1657,7 +1659,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance();
+                adminMgr = AdminMgrFactory.createInstance(contextId);
             }
             for (String[] obj : objArray)
             {
@@ -1710,7 +1712,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance();
+                adminMgr = AdminMgrFactory.createInstance(contextId);
             }
             for (String[] obj : objArray)
             {
@@ -1759,7 +1761,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance();
+                adminMgr = AdminMgrFactory.createInstance(contextId);
             }
             for (String[] obj : objArray)
             {
@@ -1797,7 +1799,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance();
+                adminMgr = AdminMgrFactory.createInstance(contextId);
             }
             for (String[] obj : objArray)
             {
@@ -1837,7 +1839,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance();
+                adminMgr = AdminMgrFactory.createInstance(contextId);
             }
             for (String[] obj : objArray)
             {
@@ -1892,7 +1894,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance();
+                adminMgr = AdminMgrFactory.createInstance(contextId);
             }
             for (String[] rle : rArray)
             {
@@ -2037,7 +2039,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance();
+                adminMgr = AdminMgrFactory.createInstance(contextId);
             }
             for (String[] rle : rArray)
             {
@@ -2232,7 +2234,7 @@ public class AdminMgrImplTest extends TestCase
      */
     public static AdminMgr getManagedAdminMgr() throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance();
+        AdminMgr adminMgr = AdminMgrFactory.createInstance(contextId);
         if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();

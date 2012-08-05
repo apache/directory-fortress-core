@@ -5,19 +5,9 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.AdminMgr;
-import com.jts.fortress.DelegatedReviewMgr;
-import com.jts.fortress.FortEntity;
-import com.jts.fortress.ReviewMgr;
-import com.jts.fortress.ReviewMgrFactory;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.arbac.AdminRole;
-import com.jts.fortress.arbac.AdminRoleP;
-import com.jts.fortress.arbac.AdminUtil;
-import com.jts.fortress.arbac.DelegatedReviewMgrImpl;
-import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.hier.Hier;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
@@ -50,17 +40,15 @@ import java.util.List;
  * <p/>
  * <img src="../../../../images/RbacDSD.png">
  * <p/>
- * This object is NOT thread safe as it contains instance variables.
+ * This object is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  * <p/>
  *
  * @author Shawn McKinney
  * @created August 30, 2009
  */
-public final class AdminMgrImpl implements AdminMgr
+public final class AdminMgrImpl extends Manageable implements AdminMgr
 {
     private static final String CLS_NM = AdminMgrImpl.class.getName();
-    private static final ReviewMgr rMgr = new ReviewMgrImpl();
-    private static final DelegatedReviewMgr dRMgr = new DelegatedReviewMgrImpl();
     private static final UserP userP = new UserP();
     private static final RoleP roleP = new RoleP();
     private static final AdminRoleP adminP = new AdminRoleP();
@@ -68,20 +56,9 @@ public final class AdminMgrImpl implements AdminMgr
     private static final SdP sdP = new SdP();
     private static final Logger log = Logger.getLogger(CLS_NM);
 
-    // thread unsafe variable:
-    private Session adminSess;
-
-
-    /**
-     * Setting Session into this object will enforce ARBAC controls and render this class
-     * thread unsafe..
-     *
-     * @param session contains Session to add as instance variable.
-     */
-    public void setAdmin(Session session)
-    {
-        this.adminSess = session;
-    }
+    // package private constructor ensures outside classes cannot use:
+    AdminMgrImpl()
+    {}
 
     /**
      * This command creates a new RBAC user. The command is valid only if the new user is
@@ -125,13 +102,14 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "addUser";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, user);
+        setEntitySession(CLS_NM, methodName, user);
 
         // Add the User record to ldap.
         User newUser = userP.add(user);
+
         // This method will add the user dn as occupant attribute if assigned it has role assignments.
-        roleP.addOccupant(newUser.getRoles(), newUser.getDn());
-        adminP.addOccupant(newUser.getAdminRoles(), newUser.getDn());
+        roleP.addOccupant(newUser.getRoles(), newUser.getDn(), user.getContextId());
+        adminP.addOccupant(newUser.getAdminRoles(), newUser.getDn(), user.getContextId());
         return newUser;
     }
 
@@ -157,7 +135,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "disableUser";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, user);
+        setEntitySession(CLS_NM, methodName, user);
         // set the user's status to "deleted"
         String userDn = userP.softDelete(user);
         // lock the user out of ldap.
@@ -165,9 +143,9 @@ public final class AdminMgrImpl implements AdminMgr
         // remove the userId attribute from any granted permission operations (if applicable).
         permP.remove(user);
         // remove the user dn occupant attribute from assigned ldap role entities.
-        roleP.removeOccupant(userDn);
+        roleP.removeOccupant(userDn, this.contextId);
         // remove the user dn occupant attribute from assigned ldap adminRole entities.
-        adminP.removeOccupant(userDn);
+        adminP.removeOccupant(userDn, user.getContextId());
     }
 
     /**
@@ -189,15 +167,15 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "deleteUser";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, user);
+        setEntitySession(CLS_NM, methodName, user);
         // remove the userId attribute from any granted permission operations (if applicable).
         permP.remove(user);
         // remove the user inetOrgPerson object from ldap.
         String userDn = userP.delete(user);
         // remove the user dn occupant attribute from assigned ldap role entities.
-        roleP.removeOccupant(userDn);
+        roleP.removeOccupant(userDn, this.contextId);
         // remove the user dn occupant attribute from assigned ldap adminRole entities.
-        adminP.removeOccupant(userDn);
+        adminP.removeOccupant(userDn, user.getContextId());
     }
 
     /**
@@ -241,7 +219,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "updateUser";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, user);
+        setEntitySession(CLS_NM, methodName, user);
         return userP.update(user);
     }
 
@@ -264,7 +242,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "changePassword";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, user);
+        setEntitySession(CLS_NM, methodName, user);
         VUtil.assertNotNullOrEmpty(newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + methodName);
         userP.changePassword(user, newPassword);
     }
@@ -285,7 +263,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "lockUserAccount";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, user);
+        setEntitySession(CLS_NM, methodName, user);
         userP.lock(user);
     }
 
@@ -305,7 +283,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "unlockUserAccount";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, user);
+        setEntitySession(CLS_NM, methodName, user);
         userP.unlock(user);
     }
 
@@ -328,7 +306,7 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "resetPassword";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNullOrEmpty(newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, user);
+        setEntitySession(CLS_NM, methodName, user);
         user.setPassword(newPassword);
         userP.resetPassword(user);
     }
@@ -349,7 +327,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "deletePasswordPolicy";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, user);
+        setEntitySession(CLS_NM, methodName, user);
         userP.deletePwPolicy(user);
     }
 
@@ -375,6 +353,7 @@ public final class AdminMgrImpl implements AdminMgr
      * </ul>
      *
      * @param role must contains {@link Role#name} (required) and optional {@link Role#description}.
+     * @return Role contains reference to entity operated on.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     public Role addRole(Role role)
@@ -382,9 +361,8 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "addRole";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, role);
-        Role newRole = roleP.add(role);
-        return newRole;
+        setEntitySession(CLS_NM, methodName, role);
+        return roleP.add(role);
     }
 
     /**
@@ -406,8 +384,8 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "deleteRole";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, role);
-        int numChildren = RoleUtil.numChildren(role.getName());
+        setEntitySession(CLS_NM, methodName, role);
+        int numChildren = RoleUtil.numChildren(role.getName(), role.getContextId());
         if (numChildren > 0)
         {
             String error = CLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren + "] descendants before deletion";
@@ -415,14 +393,14 @@ public final class AdminMgrImpl implements AdminMgr
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
         // search for all users assigned this role and deassign:
-        ReviewMgr rMgr = ReviewMgrFactory.createInstance();
-        List<User> users = rMgr.assignedUsers(role);
+        role.setContextId(this.contextId);
+        List<User> users =  userP.getAssignedUsers(role);
         if (users != null)
         {
             for (User ue : users)
             {
                 UserRole uRole = new UserRole(ue.getUserId(), role.getName());
-                AdminUtil.setAdminData(role.getAdminSession(), new Permission(CLS_NM, methodName), uRole);
+                setAdminData(CLS_NM, methodName, uRole);
                 deassignUser(uRole);
             }
         }
@@ -450,6 +428,7 @@ public final class AdminMgrImpl implements AdminMgr
      * </ul>
      *
      * @param role must contains {@link Role#name} and may contain new description or {@link com.jts.fortress.util.time.Constraint}
+     * @return Role contains reference to entity operated on.
      * @throws com.jts.fortress.SecurityException
      *          in the event of validation or system error.
      */
@@ -458,7 +437,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "updateRole";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, role);
+        setEntitySession(CLS_NM, methodName, role);
         return roleP.update(role);
     }
 
@@ -517,19 +496,22 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "assignUser";
         VUtil.assertNotNull(uRole, GlobalErrIds.URLE_NULL, CLS_NM + "." + methodName);
         Role role = new Role(uRole.getName());
+        role.setContextId(contextId);
         User user = new User(uRole.getUserId());
-        setEntitySession(methodName, uRole);
-        AdminUtil.canAssign(uRole.getAdminSession(), user, role);
+        user.setContextId(contextId);
+        setEntitySession(CLS_NM, methodName, uRole);
+        AdminUtil.canAssign(uRole.getAdminSession(), user, role, contextId);
         SDUtil.validateSSD(user, role);
 
         // Get the default constraints from role:
-        Role validRole = roleP.read(role.getName());
+        role.setContextId(this.contextId);
+        Role validRole = roleP.read(role);
         // if the input role entity attribute doesn't have temporal constraints set, copy from the role declaration:
         CUtil.validateOrCopy(validRole, uRole);
 
         // Assign the Role data to User:
         String dn = userP.assign(uRole);
-        AdminUtil.setAdminData(uRole.getAdminSession(), new Permission(CLS_NM, methodName), role);
+        setAdminData(CLS_NM, methodName, role);
         // Assign user dn attribute to the role, this will add a single, standard attribute value, called "roleOccupant", directly onto the role node:
         roleP.assign(role, dn);
     }
@@ -558,11 +540,12 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "deassignUser";
         VUtil.assertNotNull(uRole, GlobalErrIds.URLE_NULL, CLS_NM + "." + methodName);
         Role role = new Role(uRole.getName());
+        role.setContextId(contextId);
         User user = new User(uRole.getUserId());
-        setEntitySession(methodName, uRole);
-        AdminUtil.canDeassign(user.getAdminSession(), user, role);
+        setEntitySession(CLS_NM, methodName, uRole);
+        AdminUtil.canDeassign(user.getAdminSession(), user, role, contextId);
         String dn = userP.deassign(uRole);
-        AdminUtil.setAdminData(uRole.getAdminSession(), new Permission(CLS_NM, methodName), role);
+        setAdminData(CLS_NM, methodName, role);
         // Now "deassign" user dn attribute, this will remove a single, standard attribute value, called "roleOccupant", from the node:
         roleP.deassign(role, dn);
     }
@@ -593,7 +576,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "addPermission";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, perm);
+        setEntitySession(CLS_NM, methodName, perm);
         return permP.add(perm);
     }
 
@@ -615,7 +598,7 @@ public final class AdminMgrImpl implements AdminMgr
      * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
-     * @return copy of permOp entity.
+     * @return copy of Permission entity.
      * @throws com.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
@@ -624,7 +607,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "updatePermission";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, perm);
+        setEntitySession(CLS_NM, methodName, perm);
         return permP.update(perm);
     }
 
@@ -646,7 +629,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "deletePermission";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, perm);
+        setEntitySession(CLS_NM, methodName, perm);
         permP.delete(perm);
     }
 
@@ -666,7 +649,7 @@ public final class AdminMgrImpl implements AdminMgr
      * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName} and {@link PermObj#ou}.  The other attributes are optional.
-     * @return copy of permObj entity.
+     * @return copy of PermObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     public PermObj addPermObj(PermObj pObj)
@@ -674,7 +657,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "addPermObj";
         VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, pObj);
+        setEntitySession(CLS_NM, methodName, pObj);
         return permP.add(pObj);
     }
 
@@ -694,7 +677,7 @@ public final class AdminMgrImpl implements AdminMgr
      * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName}. Only non-null attributes will be updated.
-     * @return copy of newly updated permObj entity.
+     * @return copy of newly updated PermObj entity.
      * @throws com.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
@@ -703,7 +686,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "updatePermObj";
         VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, pObj);
+        setEntitySession(CLS_NM, methodName, pObj);
         return permP.update(pObj);
     }
 
@@ -716,7 +699,6 @@ public final class AdminMgrImpl implements AdminMgr
      * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName} of object targeted for removal.
-     * @return copy of permObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     public void deletePermObj(PermObj pObj)
@@ -724,7 +706,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "deletePermObj";
         VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, pObj);
+        setEntitySession(CLS_NM, methodName, pObj);
         permP.delete(pObj);
     }
 
@@ -752,16 +734,20 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "grantPermission";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, perm);
+        setEntitySession(CLS_NM, methodName, perm);
+        role.setContextId(this.contextId);
+
         // validate role
         if (perm.isAdmin())
         {
-            dRMgr.readRole(new AdminRole(role.getName()));
+            AdminRole adminRole = new AdminRole(role.getName());
+            adminRole.setContextId(this.contextId);
+            adminP.read(adminRole);
         }
         else
         {
-            AdminUtil.canGrant(perm.getAdminSession(), role, perm);
-            roleP.read(role.getName());
+            AdminUtil.canGrant(perm.getAdminSession(), role, perm, contextId);
+            roleP.read(role);
         }
         permP.grant(perm, role);
     }
@@ -789,10 +775,11 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "revokePermission";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, perm);
+        setEntitySession(CLS_NM, methodName, perm);
+        role.setContextId(this.contextId);
         if (!perm.isAdmin())
         {
-            AdminUtil.canRevoke(perm.getAdminSession(), role, perm);
+            AdminUtil.canRevoke(perm.getAdminSession(), role, perm, contextId);
         }
         permP.revoke(perm, role);
     }
@@ -820,10 +807,11 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "grantPermissionUser";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, perm);
+        setEntitySession(CLS_NM, methodName, perm);
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
+        user.setContextId(this.contextId);
         // Ensure the user entity exists:
-        userP.read(user.getUserId(), false);
+        userP.read(user, false);
         permP.grant(perm, user);
     }
 
@@ -849,7 +837,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "revokePermissionUser";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, perm);
+        setEntitySession(CLS_NM, methodName, perm);
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         permP.revoke(perm, user);
     }
@@ -888,15 +876,20 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "addDescendant";
         VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, childRole);
+        setEntitySession(CLS_NM, methodName, childRole);
+        parentRole.setContextId(this.contextId);
+        childRole.setContextId(this.contextId);
         // make sure the parent role is already there:
-        roleP.read(parentRole.getName());
+        Role role = new Role(parentRole.getName());
+        role.setContextId(this.contextId);
+        roleP.read(role);
         RoleUtil.validateRelationship(childRole, parentRole, false);
         roleP.add(childRole);
         Hier hier = new Hier();
         hier.setRelationship(childRole.getName(), parentRole.getName());
         hier.setType(Hier.Type.ROLE);
-        AdminUtil.setAdminData(childRole.getAdminSession(), new Permission(CLS_NM, methodName), hier);
+        setAdminData(CLS_NM, methodName, hier);
+        hier.setContextId(this.contextId);
         RoleUtil.updateHier(hier, Hier.Op.ADD);
     }
 
@@ -933,14 +926,19 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "addAscendant";
         VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, parentRole);
+        setEntitySession(CLS_NM, methodName, parentRole);
         VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + "." + methodName);
+        parentRole.setContextId(this.contextId);
+        childRole.setContextId(this.contextId);
         // make sure the child role is already there:
-        roleP.read(childRole.getName());
+        Role role = new Role(childRole.getName());
+        role.setContextId(this.contextId);
+        roleP.read(role);
         RoleUtil.validateRelationship(childRole, parentRole, false);
         roleP.add(parentRole);
         Hier hier = new Hier(Hier.Type.ROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(CLS_NM, methodName), hier);
+        setAdminData(CLS_NM, methodName, hier);
+        hier.setContextId(this.contextId);
         RoleUtil.updateHier(hier, Hier.Op.ADD);
     }
 
@@ -966,14 +964,21 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "addInheritance";
         VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, parentRole);
+        setEntitySession(CLS_NM, methodName, parentRole);
+        parentRole.setContextId(this.contextId);
+        childRole.setContextId(this.contextId);
         // make sure the parent role is already there:
-        roleP.read(parentRole.getName());
+        Role pRole = new Role(parentRole.getName());
+        pRole.setContextId(this.contextId);
+        roleP.read(pRole);
         // make sure the child role is already there:
-        roleP.read(childRole.getName());
+        Role cRole = new Role(parentRole.getName());
+        cRole.setContextId(this.contextId);
+        roleP.read(cRole);
         RoleUtil.validateRelationship(childRole, parentRole, false);
         Hier hier = new Hier(Hier.Type.ROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(CLS_NM, methodName), hier);
+        setAdminData(CLS_NM, methodName, hier);
+        hier.setContextId(this.contextId);
         RoleUtil.updateHier(hier, Hier.Op.ADD);
     }
 
@@ -997,11 +1002,14 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "deleteInheritance";
         VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, parentRole);
+        setEntitySession(CLS_NM, methodName, parentRole);
         VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + methodName);
+        parentRole.setContextId(this.contextId);
+        childRole.setContextId(this.contextId);
         RoleUtil.validateRelationship(childRole, parentRole, true);
         Hier hier = new Hier(Hier.Type.ROLE, childRole.getName(), parentRole.getName());
-        AdminUtil.setAdminData(parentRole.getAdminSession(), new Permission(CLS_NM, methodName), hier);
+        setAdminData(CLS_NM, methodName, hier);
+        hier.setContextId(this.contextId);
         RoleUtil.updateHier(hier, Hier.Op.REM);
     }
 
@@ -1033,7 +1041,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "createSsdSet";
         VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, ssdSet);
+        setEntitySession(CLS_NM, methodName, ssdSet);
         ssdSet.setType(SDSet.SDType.STATIC);
         if (ssdSet.getCardinality() == null)
         {
@@ -1067,10 +1075,12 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "addSsdRoleMember";
         VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, ssdSet);
-        SDSet entity = rMgr.ssdRoleSet(ssdSet);
+        setEntitySession(CLS_NM, methodName, ssdSet);
+        SDSet entity = sdP.read(ssdSet);
+        entity.setContextId(this.contextId);
+        entity.setContextId(this.contextId);
         entity.addMember(role.getName());
-        AdminUtil.setAdminData(ssdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
+        setAdminData(CLS_NM, methodName, entity);
         SDSet ssdOut = sdP.update(entity);
         // remove any references to the old SSD from cache:
         clearSSDCache(role);
@@ -1101,8 +1111,9 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "deleteSsdRoleMember";
         VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, ssdSet);
-        SDSet entity = rMgr.ssdRoleSet(ssdSet);
+        setEntitySession(CLS_NM, methodName, ssdSet);
+        SDSet entity = sdP.read(ssdSet);
+        entity.setContextId(this.contextId);
         entity.delMember(role.getName());
 
         // when removing last role member a placeholder must be left in data set:
@@ -1110,7 +1121,7 @@ public final class AdminMgrImpl implements AdminMgr
         {
             entity.addMember(GlobalIds.NONE);
         }
-        AdminUtil.setAdminData(ssdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
+        setAdminData(CLS_NM, methodName, entity);
         SDSet ssdOut = sdP.update(entity);
         // remove any references to the old SSD from cache:
         clearSSDCache(role);
@@ -1133,7 +1144,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "deleteSsdSet";
         VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, ssdSet);
+        setEntitySession(CLS_NM, methodName, ssdSet);
         ssdSet.setType(SDSet.SDType.STATIC);
         // remove any references to the old SSD from cache:
         clearSSDCache(ssdSet);
@@ -1153,7 +1164,7 @@ public final class AdminMgrImpl implements AdminMgr
         {
             for(String roleName : ssdSet.getMembers())
             {
-                SDUtil.clearSsdCacheEntry(roleName);
+                SDUtil.clearSsdCacheEntry(roleName, contextId);
             }
         }
     }
@@ -1167,7 +1178,7 @@ public final class AdminMgrImpl implements AdminMgr
     private void clearSSDCache(Role role)
         throws SecurityException
     {
-        SDUtil.clearSsdCacheEntry(role.getName());
+        SDUtil.clearSsdCacheEntry(role.getName(), contextId);
     }
 
     /**
@@ -1191,7 +1202,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "setSsdSetCardinality";
         VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, ssdSet);
+        setEntitySession(CLS_NM, methodName, ssdSet);
         ssdSet.setType(SDSet.SDType.STATIC);
         ssdSet.setCardinality(cardinality);
         // remove any references to the old SSD from cache:
@@ -1227,7 +1238,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "createDsdSet";
         VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, dsdSet);
+        setEntitySession(CLS_NM, methodName, dsdSet);
         dsdSet.setType(SDSet.SDType.DYNAMIC);
         if (dsdSet.getCardinality() == null)
         {
@@ -1262,10 +1273,12 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "addDsdRoleMember";
         VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, dsdSet);
-        SDSet entity = rMgr.dsdRoleSet(dsdSet);
+        setEntitySession(CLS_NM, methodName, dsdSet);
+        SDSet entity = sdP.read(dsdSet);
+        entity.setContextId(this.contextId);
         entity.addMember(role.getName());
-        AdminUtil.setAdminData(dsdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
+        setAdminData(CLS_NM, methodName, entity);
+        entity.setContextId(contextId);
         SDSet dsdOut = sdP.update(entity);
         // remove any references to the old DSD from cache:
         clearDSDCache(dsdSet);
@@ -1297,8 +1310,9 @@ public final class AdminMgrImpl implements AdminMgr
         String methodName = "deleteDsdRoleMember";
         VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, dsdSet);
-        SDSet entity = rMgr.dsdRoleSet(dsdSet);
+        setEntitySession(CLS_NM, methodName, dsdSet);
+        SDSet entity = sdP.read(dsdSet);
+        entity.setContextId(this.contextId);
         entity.delMember(role.getName());
 
         // when removing last role member a placeholder must be left in data set:
@@ -1306,7 +1320,7 @@ public final class AdminMgrImpl implements AdminMgr
         {
             entity.addMember(GlobalIds.NONE);
         }
-        AdminUtil.setAdminData(dsdSet.getAdminSession(), new Permission(CLS_NM, methodName), entity);
+        setAdminData(CLS_NM, methodName, entity);
         SDSet dsdOut = sdP.update(entity);
         // remove any references to the old DSD from cache:
         clearDSDCache(dsdSet);
@@ -1331,7 +1345,7 @@ public final class AdminMgrImpl implements AdminMgr
     {
         String methodName = "deleteDsdSet";
         VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, dsdSet);
+        setEntitySession(CLS_NM, methodName, dsdSet);
         dsdSet.setType(SDSet.SDType.DYNAMIC);
         // remove any references to the old DSD from cache:
         clearDSDCache(dsdSet);
@@ -1361,7 +1375,7 @@ h     * This command sets the cardinality associated with a given DSD role set. 
     {
         String methodName = "setDsdSetCardinality";
         VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
-        setEntitySession(methodName, dsdSet);
+        setEntitySession(CLS_NM, methodName, dsdSet);
         dsdSet.setType(SDSet.SDType.DYNAMIC);
         dsdSet.setCardinality(cardinality);
         // remove any references to the old DSD from cache:
@@ -1378,19 +1392,6 @@ h     * This command sets the cardinality associated with a given DSD role set. 
     private void clearDSDCache(SDSet dsdSet)
         throws SecurityException
     {
-        SDUtil.clearDsdCacheEntry(dsdSet.getName());
-    }
-
-    /**
-     * @param opName
-     * @param entity
-     * @throws SecurityException
-     */
-    private void setEntitySession(String opName, FortEntity entity) throws SecurityException
-    {
-        if (this.adminSess != null)
-        {
-            AdminUtil.setEntitySession(adminSess, new Permission(CLS_NM, opName), entity);
-        }
+        SDUtil.clearDsdCacheEntry(dsdSet.getName(), contextId);
     }
 }

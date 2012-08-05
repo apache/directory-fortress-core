@@ -3,7 +3,7 @@
  */
 package com.jts.fortress.rest;
 
-import com.jts.fortress.FortEntity;
+import com.jts.fortress.rbac.FortEntity;
 import com.jts.fortress.rbac.Session;
 
 import javax.xml.bind.annotation.*;

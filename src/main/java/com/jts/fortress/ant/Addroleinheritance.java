@@ -4,7 +4,7 @@
 
 package com.jts.fortress.ant;
 
-import com.jts.fortress.hier.Relationship;
+import com.jts.fortress.rbac.Relationship;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,8 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.FortEntity;
-import com.jts.fortress.arbac.UserAdminRole;
 import com.jts.fortress.util.time.Constraint;
 
 import javax.xml.bind.annotation.*;
@@ -15,7 +13,7 @@ import java.util.*;
 
 /**
  * All entities ({@link User}, {@link com.jts.fortress.rbac.Role}, {@link com.jts.fortress.rbac.Permission},
- * {@link com.jts.fortress.pwpolicy.PswdPolicy} {@link com.jts.fortress.rbac.SDSet} etc...) are used to carry data between three Fortress
+ * {@link PwPolicy} {@link com.jts.fortress.rbac.SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <p/>
@@ -37,7 +35,7 @@ import java.util.*;
  * <li>{@link #setOu} is required before calling {@link com.jts.fortress.rbac.AdminMgrImpl#addUser(User)} to add a new user to ldap.
  * <li>{@link #setRoles} will be set for {@link com.jts.fortress.rbac.AccessMgrImpl#createSession(User, boolean)} when selective RBAC Role activation is required.
  * <li>{@link #setAdminRoles} will be set for {@link com.jts.fortress.rbac.AccessMgrImpl#createSession(User, boolean)} when selective Administrative Role activation is required.
- * <li>{@link #setPwPolicy} may be set for {@link com.jts.fortress.rbac.AdminMgrImpl#updateUser(User)} to assign User to a policy {@link com.jts.fortress.pwpolicy.PswdPolicy}.
+ * <li>{@link #setPwPolicy} may be set for {@link com.jts.fortress.rbac.AdminMgrImpl#updateUser(User)} to assign User to a policy {@link PwPolicy}.
  * <li>{@link #password} is the only case sensitive attribute on this entity.
  * </ul>
  * <p/>
@@ -180,12 +178,10 @@ import java.util.*;
 public class User extends FortEntity implements Constraint, Serializable
 {
     private String userId;
-    //@XmlJavaTypeAdapter(CharArrayAdapter.class)
-    @XmlElement(nillable = true)
-    private char[] newPassword;
-    //@XmlJavaTypeAdapter(CharArrayAdapter.class)
     @XmlElement(nillable = true)
     private char[] password;
+    @XmlElement(nillable = true)
+    private char[] newPassword;
     private String internalId;
     @XmlElement(nillable = true)
     private List<UserRole> roles;
@@ -440,7 +436,7 @@ public class User extends FortEntity implements Constraint, Serializable
         // do not return a null List to caller:
         if (adminRoles == null)
         {
-            adminRoles = new ArrayList<com.jts.fortress.arbac.UserAdminRole>();
+            adminRoles = new ArrayList<UserAdminRole>();
         }
         return adminRoles;
     }
@@ -464,7 +460,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (adminRoles == null)
         {
-            adminRoles = new ArrayList<com.jts.fortress.arbac.UserAdminRole>();
+            adminRoles = new ArrayList<UserAdminRole>();
         }
         adminRoles.add(role);
     }
@@ -478,7 +474,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (adminRoles == null)
         {
-            adminRoles = new ArrayList<com.jts.fortress.arbac.UserAdminRole>();
+            adminRoles = new ArrayList<UserAdminRole>();
         }
         adminRoles.add(new UserAdminRole(this.userId, roleName));
     }

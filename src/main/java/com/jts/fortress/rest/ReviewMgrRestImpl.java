@@ -4,10 +4,11 @@
 
 package com.jts.fortress.rest;
 
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.rbac.Manageable;
+import com.jts.fortress.rbac.OrgUnit;
 import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
@@ -54,24 +55,9 @@ import java.util.TreeSet;
  * @author Shawn McKinney
  * @created February 5, 2012
  */
-public class ReviewMgrRestImpl
-    implements ReviewMgr
+public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
 {
     private static final String CLS_NM = ReviewMgrRestImpl.class.getName();
-    // thread unsafe variable:
-    private Session adminSess;
-
-
-    /**
-     * Setting Session into this object will enforce ARBAC controls and render this class
-     * thread unsafe..
-     *
-     * @param session
-     */
-    public void setAdmin(Session session)
-    {
-        this.adminSess = session;
-    }
 
     /**
      * This method returns a matching permission entity to caller.
@@ -91,6 +77,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(permission, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".readPermission");
         Permission retPerm;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(permission);
         if (this.adminSess != null)
         {
@@ -127,6 +114,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".readPermObj");
         PermObj retObj;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(permObj);
         if (this.adminSess != null)
         {
@@ -165,6 +153,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(permission, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".findPermissions");
         List<Permission> retPerms;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(permission);
         if (this.adminSess != null)
         {
@@ -202,6 +191,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".findPermObjs");
         List<PermObj> retObjs;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(permObj);
         if (this.adminSess != null)
         {
@@ -228,7 +218,7 @@ public class ReviewMgrRestImpl
      * <li>{@link OrgUnit#name} - contains one or more characters of org unit associated with existing object being targeted</li>
      * </ul>
      *
-     * @param ou contains org unit name {@link com.jts.fortress.arbac.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
+     * @param ou contains org unit name {@link com.jts.fortress.rbac.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
      * @return List of type PermObj.  Fortress permissions are object->operation mappings.
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of system error.
@@ -239,6 +229,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(ou, GlobalErrIds.ORG_NULL_PERM, CLS_NM + ".findPermObjs");
         List<PermObj> retObjs;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         PermObj inObj = new PermObj();
         inObj.setOu(ou.getName());
         request.setEntity(inObj);
@@ -277,6 +268,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".readRole");
         Role retRole;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(role);
         if (this.adminSess != null)
         {
@@ -310,6 +302,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(searchVal, GlobalErrIds.ROLE_NM_NULL, CLS_NM + ".findRoles");
         List<Role> retRoles;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setValue(searchVal);
         if (this.adminSess != null)
         {
@@ -345,6 +338,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(searchVal, GlobalErrIds.ROLE_NM_NULL, CLS_NM + ".findRoles");
         List<String> retRoles;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setValue(searchVal);
         request.setLimit(limit);
         if (this.adminSess != null)
@@ -382,8 +376,9 @@ public class ReviewMgrRestImpl
         throws SecurityException
     {
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".readUser");
-        User retUser = null;
+        User retUser;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(user);
         if (this.adminSess != null)
         {
@@ -421,6 +416,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".findUsers");
         List<User> retUsers;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(user);
         if (this.adminSess != null)
         {
@@ -447,7 +443,7 @@ public class ReviewMgrRestImpl
      * <li>{@link OrgUnit#name} - contains one or more characters of org unit associated with existing object(s) being targeted</li>
      * </ul>
      *
-     * @param ou contains name of User OU, {@link com.jts.fortress.arbac.OrgUnit#name} that match ou attribute associated with User entity in the directory.
+     * @param ou contains name of User OU, {@link com.jts.fortress.rbac.OrgUnit#name} that match ou attribute associated with User entity in the directory.
      * @return List of type User.
      * @throws SecurityException In the event of system error.
      */
@@ -457,6 +453,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(ou, GlobalErrIds.ORG_NULL_USER, CLS_NM + ".findUsers");
         List<User> retUsers;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         User inUser = new User();
         inUser.setOu(ou.getName());
         request.setEntity(inUser);
@@ -498,6 +495,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".findUsers");
         List<String> retUsers;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setLimit(limit);
         request.setEntity(user);
         if (this.adminSess != null)
@@ -541,6 +539,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".assignedUsers");
         List<String> retUsers;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setLimit(limit);
         request.setEntity(role);
         if (this.adminSess != null)
@@ -584,6 +583,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".assignedUsers");
         List<User> retUsers;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(role);
         if (this.adminSess != null)
         {
@@ -621,6 +621,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".assignedRoles");
         List<UserRole> retUserRoles = null;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(user);
         if (this.adminSess != null)
         {
@@ -654,6 +655,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + ".assignedRoles");
         List<String> retUserRoles;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setValue(userId);
         if (this.adminSess != null)
         {
@@ -691,6 +693,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".authorizedUsers");
         List<User> retUsers;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(role);
         if (this.adminSess != null)
         {
@@ -732,6 +735,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles");
         Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(user);
         if (this.adminSess != null)
         {
@@ -772,6 +776,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".rolePermissions");
         List<Permission> retPerms;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(role);
         if (this.adminSess != null)
         {
@@ -810,6 +815,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".userPermissions");
         List<Permission> retPerms;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(user);
         if (this.adminSess != null)
         {
@@ -847,6 +853,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".permissionRoles");
         List<String> retRoleNames;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(perm);
         if (this.adminSess != null)
         {
@@ -885,6 +892,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".authorizedPermissionRoles");
         Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(perm);
         if (this.adminSess != null)
         {
@@ -925,6 +933,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".permissionUsers");
         List<String> retUsers;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(perm);
         if (this.adminSess != null)
         {
@@ -963,6 +972,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".authorizedPermissionUsers");
         Set<String> retUserIds = new TreeSet<String>(new AlphabeticalOrder());
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(perm);
         if (this.adminSess != null)
         {
@@ -1003,6 +1013,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".ssdRoleSets");
         List<SDSet> retSsdRoleSets;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(role);
         if (this.adminSess != null)
         {
@@ -1044,6 +1055,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(set, GlobalErrIds.SSD_NULL, CLS_NM + ".ssdRoleSet");
         SDSet retSet;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(set);
         if (this.adminSess != null)
         {
@@ -1081,6 +1093,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(ssd, GlobalErrIds.SSD_NULL, CLS_NM + ".ssdRoleSetRoles");
         Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(ssd);
         if (this.adminSess != null)
         {
@@ -1118,18 +1131,26 @@ public class ReviewMgrRestImpl
         throws SecurityException
     {
         VUtil.assertNotNull(ssd, GlobalErrIds.SSD_NULL, CLS_NM + ".ssdRoleSetCardinality");
-        String szResponse = RestUtils.get(ssd.getName(), null, null, HttpIds.SSD_CARD);
-        int cardinality;
-        if (VUtil.isNotNullOrEmpty(szResponse))
+        SDSet retSet;
+        FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
+        request.setEntity(ssd);
+        if (this.adminSess != null)
         {
-            Integer tmpInt = new Integer(szResponse);
-            cardinality = tmpInt.intValue();
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_CARD);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retSet = (SDSet) response.getEntity();
         }
         else
         {
-            throw new SecurityException(GlobalErrIds.REST_GET_FAILED, CLS_NM + ".ssdRoleSetCardinality failed HTTP Get");
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
-        return cardinality;
+        return retSet.getCardinality();
     }
 
     /**
@@ -1151,6 +1172,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".dsdRoleSets");
         List<SDSet> retDsdRoleSets;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(role);
         if (this.adminSess != null)
         {
@@ -1192,6 +1214,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(set, GlobalErrIds.DSD_NULL, CLS_NM + ".dsdRoleSet");
         SDSet retSet;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(set);
         if (this.adminSess != null)
         {
@@ -1229,6 +1252,7 @@ public class ReviewMgrRestImpl
         VUtil.assertNotNull(dsd, GlobalErrIds.SSD_NULL, CLS_NM + ".dsdRoleSetRoles");
         Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(dsd);
         if (this.adminSess != null)
         {
@@ -1266,17 +1290,25 @@ public class ReviewMgrRestImpl
         throws SecurityException
     {
         VUtil.assertNotNull(dsd, GlobalErrIds.DSD_NULL, CLS_NM + ".dsdRoleSetCardinality");
-        String szResponse = RestUtils.get(dsd.getName(), null, null, HttpIds.DSD_CARD);
-        int cardinality;
-        if (VUtil.isNotNullOrEmpty(szResponse))
+        SDSet retSet;
+        FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
+        request.setEntity(dsd);
+        if (this.adminSess != null)
         {
-            Integer tmpInt = new Integer(szResponse);
-            cardinality = tmpInt.intValue();
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_CARD);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retSet = (SDSet) response.getEntity();
         }
         else
         {
-            throw new SecurityException(GlobalErrIds.REST_GET_FAILED, CLS_NM + ".dsdRoleSetCardinality failed HTTP Get");
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
-        return cardinality;
+        return retSet.getCardinality();
     }
 }

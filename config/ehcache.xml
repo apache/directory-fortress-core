@@ -132,6 +132,7 @@ This ehcache.xml corresponds to a single CacheManager.
            <searchable>
                <searchAttribute name="member" expression="value.getMember()"/>
                <searchAttribute name="name" expression="value.getName()"/>
+               <searchAttribute name="contextId" expression="value.getContextId()"/>
            </searchable>
         </cache>
 

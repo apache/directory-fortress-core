@@ -7,12 +7,12 @@
  */
 package com.jts.fortress;
 
-import com.jts.fortress.pwpolicy.PswdPolicy;
+import com.jts.fortress.rbac.PwPolicy;
 import org.apache.log4j.Logger;
 
 public class PolicyMgrConsole
 {
-	private PswdPolicyMgr pm = null;
+	private PwPolicyMgr pm = null;
 	final private static String PWDATTRIBUTE = "This attribute contains the name of the attribute to which the password policy is applied. For example, the password policy may be  applied  to the userPassword attribute. \n Note:  in this implementation, the only value accepted for pwdAttribute is  userPassword .";
 	final private static String PWDMINAGE = "This attribute contains the number of seconds that must elapse  between modifications allowed  to  the	password.  If  this  attribute	is not present, zero seconds is assumed (i.e. the  password  may  be  modified whenever and however often is desired).";
 	final private static String PWDMAXAGE = "This attribute contains the number of seconds after which a modified password will expire.  If this attribute is not present, or if its value is zero (0), then passwords will not expire.";
@@ -39,7 +39,8 @@ public class PolicyMgrConsole
 	{
 		try
 		{
-			pm = PswdPolicyMgrFactory.createInstance();
+			//pm = PwPolicyMgrFactory.createInstance(GlobalIds.HOME);
+			pm = PwPolicyMgrFactory.createInstance("client123");
 		}
 		catch (SecurityException e)
 		{
@@ -50,11 +51,11 @@ public class PolicyMgrConsole
 
     protected void add()
 	{
-		PswdPolicy policy = new PswdPolicy();
+		PwPolicy policy = new PwPolicy();
 		try
 		{			
 			/*
-			 *  public class PswdPolicy
+			 *  public class PwPolicy
 			 *  {
                     private String name;
                     private String attribute;

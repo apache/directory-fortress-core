@@ -4,12 +4,13 @@
 
 package com.jts.fortress.samples;
 
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
-import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.rbac.User;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -74,13 +75,13 @@ public class CreateUserSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
             User inUser = new User(TEST_USERID);
             adminMgr.deleteUser(inUser);
 
             // now read it back:
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
             try
             {
                 // this should fail because User was deleted above:
@@ -112,7 +113,7 @@ public class CreateUserSample extends TestCase
         {
             // Instantiate the AdminMgr implementation.  All AdminMgr APIs can throw a SecurityException in the event
             // of rule violation or system error.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
             // You do not have to assign a Role to User when calling 'addUser'.  Role assignment may be done using the 'assignUser' API.
             /**
              * Create new User entity:
@@ -130,7 +131,7 @@ public class CreateUserSample extends TestCase
             assertNotNull(outUser);
 
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
 
             // now read the newly created User entity back:
             User outUser2 = reviewMgr.readUser(inUser);

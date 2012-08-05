@@ -4,10 +4,10 @@
 
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
-import com.jts.fortress.arbac.DelegatedMgrImplTest;
 
 import com.jts.fortress.util.LogUtil;
 import junit.framework.Test;
@@ -30,6 +30,7 @@ import java.util.Set;
 public class ReviewMgrImplTest extends TestCase
 {
     private static final String CLS_NM = ReviewMgrImplTest.class.getName();
+    private static final String contextId = FortressJUnitTest.getContext();
     final protected static Logger log = Logger.getLogger(CLS_NM);
     static Session adminSess = null;
 
@@ -1209,7 +1210,7 @@ public class ReviewMgrImplTest extends TestCase
      */
     public static ReviewMgr getManagedReviewMgr() throws SecurityException
     {
-        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(contextId);
         if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();

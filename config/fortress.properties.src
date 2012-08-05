@@ -27,7 +27,7 @@ enable.pool.reconnect=true
 
 crypto.prop=@CFG_CRYPTO_PROP@
 
-# These credentials are used for accessing En Masse:
+# Optional parameters needed when Fortress client is connecting with the En Masse (rather than LDAP) server:
 http.user=demouser4
 http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
 http.host=localhost
@@ -40,12 +40,12 @@ disable.dsd.cache=false
 
 
 # These will override default LDAP for REST implementations:
-#reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrRestImpl
-#adminmgr.implementation=com.jts.fortress.rest.AdminMgrRestImpl
-#accessmgr.implementation=com.jts.fortress.rest.AccessMgrRestImpl
-#delegated.adminmgr.implementation=com.jts.fortress.rest.DelegatedAdminMgrRestImpl
-#delegated.reviewmgr.implementation=com.jts.fortress.rest.DelegatedReviewMgrRestImpl
-#policymgr.implementation=com.jts.fortress.rest.PswdPolicyMgrRestImpl
-#delegated.accessmgr.implementation=com.jts.fortress.rest.DelegatedAccessMgrRestImpl
-#auditmgr.implementation=com.jts.fortress.rest.AuditMgrRestImpl
-#configmgr.implementation=com.jts.fortress.rest.ConfigMgrRestImpl
+reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrRestImpl
+adminmgr.implementation=com.jts.fortress.rest.AdminMgrRestImpl
+accessmgr.implementation=com.jts.fortress.rest.AccessMgrRestImpl
+delegated.adminmgr.implementation=com.jts.fortress.rest.DelAdminMgrRestImpl
+delegated.reviewmgr.implementation=com.jts.fortress.rest.DelReviewMgrRestImpl
+policymgr.implementation=com.jts.fortress.rest.PwPolicyMgrRestImpl
+delegated.accessmgr.implementation=com.jts.fortress.rest.DelAccessMgrRestImpl
+auditmgr.implementation=com.jts.fortress.rest.AuditMgrRestImpl
+configmgr.implementation=com.jts.fortress.rest.ConfigMgrRestImpl

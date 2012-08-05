@@ -3,9 +3,9 @@
  */
 package com.jts.fortress.cli;
 
-import com.jts.fortress.arbac.AdminRole;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.hier.Relationship;
+import com.jts.fortress.rbac.AdminRole;
+import com.jts.fortress.rbac.OrgUnit;
+import com.jts.fortress.rbac.Relationship;
 import com.jts.fortress.rbac.*;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.time.Constraint;

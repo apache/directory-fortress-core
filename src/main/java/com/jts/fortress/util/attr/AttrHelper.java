@@ -4,9 +4,9 @@
 
 package com.jts.fortress.util.attr;
 
-import com.jts.fortress.arbac.Administrator;
-import com.jts.fortress.audit.AuthZ;
-import com.jts.fortress.constants.GlobalIds;
+import com.jts.fortress.GlobalIds;
+import com.jts.fortress.rbac.Administrator;
+import com.jts.fortress.rbac.AuthZ;
 import com.jts.fortress.rbac.Permission;
 
 import java.text.ParseException;
@@ -31,7 +31,7 @@ public class AttrHelper
 
 
     /**
-     * Perform copy on ARBAC attributes.  This is used during assignment of {@link com.jts.fortress.arbac.AdminRole} to {@link com.jts.fortress.rbac.User}.
+     * Perform copy on ARBAC attributes.  This is used during assignment of {@link com.jts.fortress.rbac.AdminRole} to {@link com.jts.fortress.rbac.User}.
      * This method does not perform input validations.
      *
      * @param srcR contains source attributes to copy.

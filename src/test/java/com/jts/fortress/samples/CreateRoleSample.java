@@ -7,9 +7,10 @@ package com.jts.fortress.samples;
 import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
 import com.jts.fortress.FinderException;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
-import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.SecurityException;
 import junit.framework.Test;
@@ -71,7 +72,7 @@ public class CreateRoleSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             // At its simplest a Role contains only a name.
             Role inRole = new Role(TEST_SIMPLE_ROLE);
@@ -101,7 +102,7 @@ public class CreateRoleSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             for(String roleName : TEST_SIMPLE_ROLE2)
             {
@@ -136,7 +137,7 @@ public class CreateRoleSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
             for(int i = 1; i < 11; i++)
             {
                 // The key that must be set to locate any Role is simply the name.
@@ -146,7 +147,7 @@ public class CreateRoleSample extends TestCase
                 adminMgr.deleteRole(inRole);
 
                 // Instantiate the ReviewMgr implementation which is used to interrogate RBAC policy information.
-                ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+                ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
                 try
                 {
                     // this should fail because the Role was deleted above:
@@ -178,7 +179,7 @@ public class CreateRoleSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             // At its simplest a Role contains only a name.
             Role inRole = new Role(TEST_SIMPLE_ROLE);
@@ -187,7 +188,7 @@ public class CreateRoleSample extends TestCase
             adminMgr.addRole(inRole);
 
             // Instantiate the ReviewMgr implementation which is used to interrogate RBAC policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
 
             // now read the newly created Role entity back:
             Role outRole = reviewMgr.readRole(inRole);
@@ -207,7 +208,7 @@ public class CreateRoleSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             for(String roleName : TEST_SIMPLE_ROLE2)
             {
@@ -218,7 +219,7 @@ public class CreateRoleSample extends TestCase
                 adminMgr.addRole(inRole);
 
                 // Instantiate the ReviewMgr implementation which is used to interrogate RBAC policy information.
-                ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+                ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
 
                 // now read the newly created Role entity back:
                 Role outRole = reviewMgr.readRole(inRole);
@@ -245,7 +246,7 @@ public class CreateRoleSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
 
             // Create roles, sampleRole2 - sampleRole10
             for(int i = 1; i < 11; i++)
@@ -271,7 +272,7 @@ public class CreateRoleSample extends TestCase
                 adminMgr.addRole(inRole);
 
                 // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-                ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+                ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
 
                 // now read the newly created Role entity back:
                 Role outRole = reviewMgr.readRole(inRole);

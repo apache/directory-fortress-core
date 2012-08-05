@@ -6,7 +6,7 @@ package com.jts.fortress;
 
 /**
  *  Base runtime exception class for Fortress runtime exceptions.
- * See the {@link com.jts.fortress.constants.GlobalErrIds} javadoc for list of error ids.
+ * See the {@link GlobalErrIds} javadoc for list of error ids.
  *
  * @author     Shawn McKinney
  * @created    March 12, 2011
@@ -19,7 +19,7 @@ public abstract class BaseRuntimeException extends RuntimeException
 
     /**
      *
-     * @param errorId int contains the error id which is defined here {@link com.jts.fortress.constants.GlobalErrIds}.
+     * @param errorId int contains the error id which is defined here {@link GlobalErrIds}.
      * @param msgParam contains message pertaining to exception.
      * @param previousException contains reference to related exception which usually is system related, i.e. ldap.
      */
@@ -33,7 +33,7 @@ public abstract class BaseRuntimeException extends RuntimeException
 
     /**
      *
-     * @param errorId int contains the error id which is defined here {@link com.jts.fortress.constants.GlobalErrIds}.
+     * @param errorId int contains the error id which is defined here {@link GlobalErrIds}.
      * @param msgParam contains message pertaining to exception.
      */
 	public BaseRuntimeException(int errorId, String msgParam)
@@ -58,9 +58,9 @@ public abstract class BaseRuntimeException extends RuntimeException
 	}
 
     /**
-     * Return the error id that is defined by this class {@link com.jts.fortress.constants.GlobalErrIds}.
+     * Return the error id that is defined by this class {@link GlobalErrIds}.
      *
-     * @return error id which is defined here {@link com.jts.fortress.constants.GlobalErrIds}.
+     * @return error id which is defined here {@link GlobalErrIds}.
      */
 	public int getErrorId()
 	{

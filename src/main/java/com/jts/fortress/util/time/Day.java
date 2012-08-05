@@ -4,21 +4,21 @@
 
 package com.jts.fortress.util.time;
 
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.constants.GlobalIds;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.rbac.Session;
 import org.apache.log4j.Logger;
 
 /**
  * This class performs lock day of week validation for {@link com.jts.fortress.util.time.Constraint}.  This validator will ensure the current day is allowed for {@link com.jts.fortress.util.time.Constraint#getDayMask()}.
- * The data format requires 1234567 for Sun, Mon, Tue, Wed, Thur, Fri, Sat, Sun respectively.  i.e. 23456 will allow entity to activated Monday - Friday.  The constant {@link com.jts.fortress.constants.GlobalIds#ALL} may be used to disable checks for a particular entity.
+ * The data format requires 1234567 for Sun, Mon, Tue, Wed, Thur, Fri, Sat, Sun respectively.  i.e. 23456 will allow entity to activated Monday - Friday.  The constant {@link com.jts.fortress.GlobalIds#ALL} may be used to disable checks for a particular entity.
  * <h4> Constraint Targets include</h4>
  * <ol>
  * <li>{@link com.jts.fortress.rbac.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
  * <li>{@link com.jts.fortress.rbac.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
  * <li>{@link com.jts.fortress.rbac.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link com.jts.fortress.arbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link com.jts.fortress.arbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
+ * <li>{@link com.jts.fortress.rbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link com.jts.fortress.rbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
  * </ol>
  * </p>
  *
@@ -37,7 +37,7 @@ public class Day
      * @param session    required for {@link Validator} interface but not used here.
      * @param constraint contains the days of week entity may be activated.  Data mappings listed above.
      * @param time       contains the current time stamp.
-     * @return '0' if validation succeeds else {@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_DAY} if failed.
+     * @return '0' if validation succeeds else {@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_DAY} if failed.
      */
     public int validate(Session session, Constraint constraint, Time time)
     {

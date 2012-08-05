@@ -3,7 +3,7 @@
  */
 package com.jts.fortress.rest;
 
-import com.jts.fortress.FortEntity;
+import com.jts.fortress.rbac.FortEntity;
 import com.jts.fortress.rbac.Session;
 
 import javax.xml.bind.annotation.*;
@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.*;
     "entity",
     "value",
     "limit",
+    "contextId",
     "session"
 })
 public class FortRequest
@@ -34,6 +35,7 @@ public class FortRequest
     private String value;
     @XmlElement(nillable = true)
     private Integer limit;
+    private String contextId;
 
     public FortEntity getEntity()
     {
@@ -73,6 +75,16 @@ public class FortRequest
     public void setLimit(Integer limit)
     {
         this.limit = limit;
+    }
+
+    public String getContextId()
+    {
+        return contextId;
+    }
+
+    public void setContextId(String contextId)
+    {
+        this.contextId = contextId;
     }
 }
 

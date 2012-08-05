@@ -4,9 +4,9 @@
 
 package com.jts.fortress.ldap.suffix;
 
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 

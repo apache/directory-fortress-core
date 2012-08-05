@@ -4,7 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.FortEntity;
 import com.jts.fortress.util.AlphabeticalOrder;
 
 import javax.xml.bind.annotation.XmlAccessType;

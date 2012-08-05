@@ -3,19 +3,20 @@
  */
 package com.jts.fortress;
 
-import com.jts.fortress.arbac.AdminRoleRelationship;
-import com.jts.fortress.arbac.OrgUnitRelationship;
-import com.jts.fortress.arbac.RolePerm;
-import com.jts.fortress.audit.AuthZ;
-import com.jts.fortress.audit.Bind;
-import com.jts.fortress.audit.Mod;
-import com.jts.fortress.audit.UserAudit;
-import com.jts.fortress.pwpolicy.PswdPolicy;
+import com.jts.fortress.rbac.AdminRoleRelationship;
+import com.jts.fortress.rbac.AdminRole;
+import com.jts.fortress.rbac.AuthZ;
+import com.jts.fortress.rbac.Bind;
+import com.jts.fortress.rbac.FortEntity;
+import com.jts.fortress.rbac.OrgUnitRelationship;
+import com.jts.fortress.rbac.PwPolicy;
+import com.jts.fortress.rbac.RolePerm;
+import com.jts.fortress.rbac.Mod;
+import com.jts.fortress.rbac.UserAudit;
 import com.jts.fortress.rbac.Address;
 import com.jts.fortress.rbac.PermGrant;
-import com.jts.fortress.arbac.AdminRole;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.arbac.UserAdminRole;
+import com.jts.fortress.rbac.OrgUnit;
+import com.jts.fortress.rbac.UserAdminRole;
 import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Props;
@@ -108,12 +109,12 @@ public class ObjectFactory
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PswdPolicy }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.PwPolicy }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortPolicy")
-    public JAXBElement<PswdPolicy> createFortPolicy(PswdPolicy value)
+    public JAXBElement<PwPolicy> createFortPolicy(PwPolicy value)
     {
-        return new JAXBElement<PswdPolicy>(_FortPolicy_QNAME, PswdPolicy.class, null, value);
+        return new JAXBElement<PwPolicy>(_FortPolicy_QNAME, PwPolicy.class, null, value);
     }
 
     /**
@@ -168,7 +169,7 @@ public class ObjectFactory
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.arbac.OrgUnitRelationship}{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.OrgUnitRelationship}{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortAdminRoleRelationship")
     public JAXBElement<AdminRoleRelationship> createFortAdminRoleRelationship(AdminRoleRelationship value)
@@ -177,7 +178,7 @@ public class ObjectFactory
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.arbac.OrgUnitRelationship}{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.OrgUnitRelationship}{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortOrgUnitRelationship")
     public JAXBElement<OrgUnitRelationship> createFortOrgUnitRelationship(OrgUnitRelationship value)
@@ -204,7 +205,7 @@ public class ObjectFactory
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.arbac.UserAdminRole }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link com.jts.fortress.rbac.UserAdminRole }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortUserAdminRole")
     public JAXBElement<UserAdminRole> createFortUserRole(UserAdminRole value)
@@ -289,11 +290,11 @@ public class ObjectFactory
     }
 
     /**
-     * Create an instance of {@link PswdPolicy }
+     * Create an instance of {@link com.jts.fortress.rbac.PwPolicy }
      */
-    public PswdPolicy createPswdPolicy()
+    public PwPolicy createPswdPolicy()
     {
-        return new PswdPolicy();
+        return new PwPolicy();
     }
 
     /**

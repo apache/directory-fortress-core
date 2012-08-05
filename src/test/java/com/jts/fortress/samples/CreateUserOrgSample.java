@@ -6,8 +6,8 @@ package com.jts.fortress.samples;
 
 import com.jts.fortress.*;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.rbac.OrgUnit;
+import com.jts.fortress.GlobalErrIds;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -58,7 +58,7 @@ public class CreateUserOrgSample extends TestCase
         String szLocation = CLS_NM + ".testCreateUserOrg";
         try
         {
-            DelegatedReviewMgr dRevAdminMgr = DelegatedReviewMgrFactory.createInstance();
+            DelReviewMgr dRevAdminMgr = DelReviewMgrFactory.createInstance(GlobalIds.HOME);
 
             // The OrgUnit requires name and type to be set before use.
             OrgUnit inOU = new OrgUnit(TEST_USER_OU_NM, OrgUnit.Type.USER);
@@ -76,13 +76,13 @@ public class CreateUserOrgSample extends TestCase
             }
 
             // Instantiate the Delegated AdminMgr implementation object which provisions OrgUnits and AdminRoles to the system.
-            DelegatedAdminMgr dAdminMgr = DelegatedAdminMgrFactory.createInstance();
+            DelAdminMgr dAdminMgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
 
             // Add the OrgUnit to the directory.
             dAdminMgr.add(inOU);
 
             // Instantiate the Delegated RevewMgr implementation which interrogates the OrgUnit and AdminRole data.
-            DelegatedReviewMgr dReviewMgr = DelegatedReviewMgrFactory.createInstance();
+            DelReviewMgr dReviewMgr = DelReviewMgrFactory.createInstance(GlobalIds.HOME);
 
             // Now read the OrgUnit back to make sure it got added OK.
             OrgUnit outOU = dReviewMgr.read(inOU);

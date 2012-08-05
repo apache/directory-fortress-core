@@ -4,11 +4,11 @@
 
 package com.jts.fortress.ldap.container;
 
-import com.jts.fortress.configuration.Config;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
+import com.jts.fortress.cfg.Config;
 import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 
@@ -46,15 +46,15 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
  * @author Shawn McKinney
  * @created January 21, 2010
  */
-public final class OrganizationalUnitDAO
+final class OrganizationalUnitDAO
 {
     private static final String CLS_NM = OrganizationalUnitDAO.class.getName();
-    final private static Logger log = Logger.getLogger(CLS_NM);
-    private final static String[] ORG_UNIT_ATRS = {
+    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final String[] ORG_UNIT_ATRS = {
         GlobalIds.OU, GlobalIds.DESC
     };
-    private final static String ORGUNIT_CLASS = "organizationalunit";
-    private final static String[] ORGUNIT_OBJ_CLASS = {
+    private static final String ORGUNIT_CLASS = "organizationalunit";
+    private static final String[] ORGUNIT_OBJ_CLASS = {
         ORGUNIT_CLASS
     };
 
@@ -66,19 +66,23 @@ public final class OrganizationalUnitDAO
     }
 
 
+    private String getSdRoot(String contextId)
+    {
+        return DaoUtil.getRootDn(contextId, GlobalIds.SUFFIX);
+    }
+
     /**
      * @param oe
      * @throws com.jts.fortress.CreateException
      */
-    void create(OrganizationalUnit oe)
+    final void create(OrganizationalUnit oe)
         throws com.jts.fortress.CreateException
     {
         LDAPConnection ld = null;
-        //String nodeDn = "ou=" + oe.getName() + "," + Config.getProperty(GlobalIds.SUFFIX);
         String nodeDn = GlobalIds.OU + "=" + oe.getName() + ",";
         if (VUtil.isNotNullOrEmpty(oe.getParent()))
             nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
-        nodeDn += Config.getProperty(GlobalIds.SUFFIX);
+        nodeDn += DaoUtil.getRootDn(oe.getContextId());
         try
         {
             log.info(CLS_NM + ".create container dn [" + nodeDn + "]");
@@ -107,14 +111,14 @@ public final class OrganizationalUnitDAO
      * @param oe
      * @throws com.jts.fortress.RemoveException
      */
-    void remove(OrganizationalUnit oe)
+    final void remove(OrganizationalUnit oe)
         throws com.jts.fortress.RemoveException
     {
         LDAPConnection ld = null;
         String nodeDn = GlobalIds.OU + "=" + oe.getName() + ",";
         if (VUtil.isNotNullOrEmpty(oe.getParent()))
             nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
-        nodeDn += Config.getProperty(GlobalIds.SUFFIX);
+        nodeDn += DaoUtil.getRootDn(oe.getContextId(), GlobalIds.SUFFIX);
 
         log.info(CLS_NM + ".remove container dn [" + nodeDn + "]");
         try

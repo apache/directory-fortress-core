@@ -4,6 +4,7 @@
 
 package com.jts.fortress.example;
 
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.util.attr.VUtil;
 
@@ -95,7 +96,7 @@ public class ExampleP
         else
         {
             //name name
-            VUtil.safeText(ee.getName(), com.jts.fortress.constants.GlobalIds.ROLE_LEN);
+            VUtil.safeText(ee.getName(), GlobalIds.ROLE_LEN);
             if (ee.getDescription() != null && ee.getDescription().length() > 0)
             {
                 VUtil.description(ee.getDescription());

@@ -4,9 +4,8 @@
 
 package com.jts.fortress;
 
-import com.jts.fortress.arbac.UserAdminRole;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.hier.RoleUtil;
+import com.jts.fortress.rbac.OrgUnit;
+import com.jts.fortress.rbac.UserAdminRole;
 import com.jts.fortress.rbac.Address;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
@@ -40,34 +39,12 @@ public class ReviewMgrConsole
     {
         try
         {
-            rm = ReviewMgrFactory.createInstance();
+            rm = ReviewMgrFactory.createInstance(GlobalIds.HOME);
         }
         catch (SecurityException e)
         {
             log.error(CLS_NM + " constructor caught SecurityException  errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
-    }
-
-    /**
-     *
-     */
-    protected void getParents()
-    {
-        ReaderUtil.clearScreen();
-        System.out.println("Enter role value to get parent Roles with:");
-        String val = ReaderUtil.readLn();
-        Set<String> pRoles = RoleUtil.getAscendants(val);
-        if (pRoles != null && pRoles.size() > 0)
-        {
-            System.out.println(pRoles);
-
-        }
-        else
-        {
-            System.out.println("name [" + val + "] was not found");
-        }
-        System.out.println("ENTER to continue");
-        ReaderUtil.readChar();
     }
 
     /**

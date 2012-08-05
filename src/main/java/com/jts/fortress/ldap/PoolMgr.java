@@ -4,8 +4,8 @@
 
 package com.jts.fortress.ldap;
 
-import com.jts.fortress.configuration.Config;
-import com.jts.fortress.constants.GlobalIds;
+import com.jts.fortress.GlobalIds;
+import com.jts.fortress.cfg.Config;
 import com.jts.fortress.util.crypto.EncryptUtil;
 import org.apache.log4j.Logger;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
@@ -39,21 +39,21 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConstraints;
 public class PoolMgr
 {
     // Property names for ldap connection pools:
-    private final static String LDAP_ADMIN_POOL_UID = "admin.user";
-    private final static String LDAP_ADMIN_POOL_PW = "admin.pw";
-    private final static String LDAP_LOG_POOL_UID = "log.admin.user";
-    private final static String LDAP_LOG_POOL_PW = "log.admin.pw";
-    private final static String LDAP_ADMIN_POOL_MIN = "min.admin.conn";
-    private final static String LDAP_ADMIN_POOL_MAX = "max.admin.conn";
-    private final static String LDAP_USER_POOL_MIN = "min.user.conn";
-    private final static String LDAP_USER_POOL_MAX = "max.user.conn";
-    private final static String LDAP_LOG_POOL_MIN = "min.log.conn";
-    private final static String LDAP_LOG_POOL_MAX = "max.log.conn";
-    private final static String LDAP_VERSION = "ldapVersion";
-    private final static String LDAP_CONNECTION_TIMEOUT = "connTimeout";
-    private final static String LDAP_DEBUG_FLAG = "debug.ldap.pool";
-    private final static String LDAP_HOST = "host";
-    private final static String LDAP_PORT = "port";
+    private static final String LDAP_ADMIN_POOL_UID = "admin.user";
+    private static final String LDAP_ADMIN_POOL_PW = "admin.pw";
+    private static final String LDAP_LOG_POOL_UID = "log.admin.user";
+    private static final String LDAP_LOG_POOL_PW = "log.admin.pw";
+    private static final String LDAP_ADMIN_POOL_MIN = "min.admin.conn";
+    private static final String LDAP_ADMIN_POOL_MAX = "max.admin.conn";
+    private static final String LDAP_USER_POOL_MIN = "min.user.conn";
+    private static final String LDAP_USER_POOL_MAX = "max.user.conn";
+    private static final String LDAP_LOG_POOL_MIN = "min.log.conn";
+    private static final String LDAP_LOG_POOL_MAX = "max.log.conn";
+    private static final String LDAP_VERSION = "ldapVersion";
+    private static final String LDAP_CONNECTION_TIMEOUT = "connTimeout";
+    private static final String LDAP_DEBUG_FLAG = "debug.ldap.pool";
+    private static final String LDAP_HOST = "host";
+    private static final String LDAP_PORT = "port";
 
     // 3 types of connection pools are managed by ths class:
     public enum ConnType
@@ -523,6 +523,8 @@ public class PoolMgr
      * This method will recover a connection pool in the event the connections become stale due to some network
      * or system issue.
      *
+     * @param type contains connection type of request.
+     * @return ConnectionPool reference to newly created connection pool.
      * @throws LDAPException in the event of ldap system error or the routine fails to reestablish the pool successfully.
      */
     private static ConnectionPool recoverPool(ConnType type) throws LDAPException

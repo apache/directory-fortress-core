@@ -14,8 +14,8 @@ import com.jts.fortress.rbac.Session;
  * <li>{@link com.jts.fortress.rbac.User}</li>
  * <li>{@link com.jts.fortress.rbac.UserRole}</li>
  * <li>{@link com.jts.fortress.rbac.Role}</li>
- * <li>{@link com.jts.fortress.arbac.AdminRole}</li>
- * <li>{@link com.jts.fortress.arbac.UserAdminRole}</li>
+ * <li>{@link com.jts.fortress.rbac.AdminRole}</li>
+ * <li>{@link com.jts.fortress.rbac.UserAdminRole}</li>
  * </ol>
  * </p>
  * <h4> Constraint Processors </h4>
@@ -30,12 +30,12 @@ import com.jts.fortress.rbac.Session;
  * </p>
  * <h4> Constraint Error Codes </h4>
  * <ol>
- * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_DAY}</li>
- * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_DATE}</li>
- * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_TIME}</li>
- * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_TIMEOUT}</li>
- * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_LOCK}</li>
- * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_DSD}</li>
+ * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_DAY}</li>
+ * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_DATE}</li>
+ * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_TIME}</li>
+ * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_TIMEOUT}</li>
+ * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_LOCK}</li>
+ * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_DSD}</li>
  * </ol>
  *
 
@@ -45,16 +45,16 @@ import com.jts.fortress.rbac.Session;
 public interface Validator
 {
     /**
-     * This method is called during activation of {@link com.jts.fortress.rbac.UserRole} and {@link com.jts.fortress.arbac.UserAdminRole}
+     * This method is called during activation of {@link com.jts.fortress.rbac.UserRole} and {@link com.jts.fortress.rbac.UserAdminRole}
      * </p>
      * The following error codes can be returned for validations:
      * <ol>
-     * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_DAY}</li>
-     * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_DATE}</li>
-     * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_TIME}</li>
-     * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_TIMEOUT}</li>
-     * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_LOCK}</li>
-     * <li>{@link com.jts.fortress.constants.GlobalErrIds#ACTV_FAILED_DSD}</li>
+     * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_DAY}</li>
+     * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_DATE}</li>
+     * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_TIME}</li>
+     * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_TIMEOUT}</li>
+     * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_LOCK}</li>
+     * <li>{@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_DSD}</li>
      * </ol>
      *
      * @param session contains the reference to Fortress entities that are targets for constraints.

@@ -4,11 +4,11 @@
 
 package com.jts.fortress.ldap.suffix;
 
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.constants.GlobalIds;
 import org.apache.log4j.Logger;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
@@ -46,13 +46,13 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
  * @author Shawn McKinney
  * @created January 21, 2010
  */
-public final class SuffixDAO
+final class SuffixDAO
 {
     private static final String CLS_NM = SuffixDAO.class.getName();
-    final private static Logger log = Logger.getLogger(CLS_NM);
-    private final static String DC = "dc";
-    private final static String O = "o";
-    private final static String[] SUFFIX_OBJ_CLASS = {
+    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final String DC = "dc";
+    private static final String O = "o";
+    private static final String[] SUFFIX_OBJ_CLASS = {
         GlobalIds.SUFFIX_CLASS, GlobalIds.ORGANIZATION_CLASS
     };
 
@@ -63,12 +63,11 @@ public final class SuffixDAO
     {
     }
 
-
     /**
      * @param se
      * @throws com.jts.fortress.CreateException
      */
-    void create(Suffix se)
+    final void create(Suffix se)
         throws com.jts.fortress.CreateException
     {
         LDAPConnection ld = null;
@@ -108,7 +107,7 @@ public final class SuffixDAO
      * @param se
      * @throws com.jts.fortress.RemoveException
      */
-    void remove(Suffix se)
+    final void remove(Suffix se)
         throws com.jts.fortress.RemoveException
     {
         LDAPConnection ld = null;

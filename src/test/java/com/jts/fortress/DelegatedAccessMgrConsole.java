@@ -7,7 +7,6 @@
  */
 package com.jts.fortress;
 
-import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.User;
@@ -24,7 +23,7 @@ import org.apache.log4j.Logger;
  */
 public class DelegatedAccessMgrConsole
 {
-	private DelegatedAccessMgr dAmgr = null;
+	private DelAccessMgr dAmgr = null;
     private Session session = null;
     private static final String CLS_NM = DelegatedAccessMgrConsole.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
@@ -36,7 +35,7 @@ public class DelegatedAccessMgrConsole
 	{
 		try
 		{
-			dAmgr = DelegatedAccessMgrFactory.createInstance();
+			dAmgr = DelAccessMgrFactory.createInstance(GlobalIds.HOME);
 		}
 		catch (SecurityException e)
 		{

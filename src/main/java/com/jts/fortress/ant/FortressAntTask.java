@@ -10,24 +10,26 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 
 import com.jts.fortress.AdminMgr;
-import com.jts.fortress.PswdPolicyMgr;
+import com.jts.fortress.DelAdminMgr;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
+import com.jts.fortress.PwPolicyMgr;
+import com.jts.fortress.PwPolicyMgrFactory;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.arbac.AdminRole;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.configuration.ConfigMgr;
-import com.jts.fortress.configuration.ConfigMgrFactory;
-import com.jts.fortress.hier.Relationship;
+import com.jts.fortress.rbac.AdminRole;
+import com.jts.fortress.rbac.Context;
+import com.jts.fortress.rbac.OrgUnit;
+import com.jts.fortress.cfg.ConfigMgr;
+import com.jts.fortress.cfg.ConfigMgrFactory;
+import com.jts.fortress.rbac.PwPolicy;
+import com.jts.fortress.rbac.Relationship;
 import com.jts.fortress.ldap.container.OrganizationalUnit;
 import com.jts.fortress.ldap.container.OrganizationalUnitP;
 import com.jts.fortress.ldap.suffix.Suffix;
 import com.jts.fortress.ldap.suffix.SuffixP;
-import com.jts.fortress.DelegatedAdminMgr;
-import com.jts.fortress.DelegatedAdminMgrFactory;
-import com.jts.fortress.arbac.UserAdminRole;
-import com.jts.fortress.arbac.OrgUnitAnt;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.pwpolicy.PswdPolicy;
+import com.jts.fortress.DelAdminMgrFactory;
+import com.jts.fortress.rbac.UserAdminRole;
+import com.jts.fortress.rbac.OrgUnitAnt;
 import com.jts.fortress.rbac.PermGrant;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.PermObj;
@@ -49,8 +51,8 @@ import org.apache.log4j.Logger;
  * <p/>
  * <ol>
  * <li>{@link com.jts.fortress.AdminMgr}</li>
- * <li>{@link DelegatedAdminMgr}</li>
- * <li>{@link com.jts.fortress.PswdPolicyMgr}</li>
+ * <li>{@link com.jts.fortress.DelAdminMgr}</li>
+ * <li>{@link com.jts.fortress.PwPolicyMgr}</li>
  * <li>{@link ConfigMgr}</li>
  * </ol>
  * <p/>
@@ -104,38 +106,38 @@ import org.apache.log4j.Logger;
  * processing order within this class.
  * <ol>
  * <li>Delete User Role Assignments {@link com.jts.fortress.AdminMgr#deassignUser(com.jts.fortress.rbac.UserRole)}</li>
- * <li>Delete User AdminRole Assignments {@link DelegatedAdminMgr#deassignUser(com.jts.fortress.arbac.UserAdminRole)}</li>
+ * <li>Delete User AdminRole Assignments {@link com.jts.fortress.DelAdminMgr#deassignUser(com.jts.fortress.rbac.UserAdminRole)}</li>
  * <li>Revoke Permission Assignments Delete{@link com.jts.fortress.AdminMgr#revokePermission(com.jts.fortress.rbac.Permission, com.jts.fortress.rbac.Role)}</li>
  * <li>Delete Users {@link com.jts.fortress.AdminMgr#disableUser(com.jts.fortress.rbac.User)}</li>
- * <li>Delete Password Policies {@link com.jts.fortress.PswdPolicyMgr#delete(com.jts.fortress.pwpolicy.PswdPolicy)}</li>
+ * <li>Delete Password Policies {@link com.jts.fortress.PwPolicyMgr#delete(com.jts.fortress.rbac.PwPolicy)}</li>
  * <li>Delete Permission Operations {@link com.jts.fortress.AdminMgr#deletePermission(com.jts.fortress.rbac.Permission)}</li>
  * <li>Delete Permission Objects {@link com.jts.fortress.AdminMgr#deletePermObj(com.jts.fortress.rbac.PermObj)}</li>
  * <li>Delete SSD and DSD Sets {@link com.jts.fortress.AdminMgr#deleteDsdSet(com.jts.fortress.rbac.SDSet)} and {@link com.jts.fortress.AdminMgr#deleteSsdSet(com.jts.fortress.rbac.SDSet)}</li>
  * <li>Delete RBAC Roles Inheritances {@link com.jts.fortress.AdminMgr#deleteInheritance(com.jts.fortress.rbac.Role, com.jts.fortress.rbac.Role)}</li>
  * <li>Delete RBAC Roles {@link com.jts.fortress.AdminMgr#deleteRole(com.jts.fortress.rbac.Role)}</li>
- * <li>Delete ARBAC Role Inheritances {@link com.jts.fortress.DelegatedAdminMgr#deleteInheritance(com.jts.fortress.arbac.AdminRole, com.jts.fortress.arbac.AdminRole)}</li>
- * <li>Delete ARBAC Roles {@link com.jts.fortress.DelegatedAdminMgr#deleteRole(com.jts.fortress.arbac.AdminRole)}</li>
- * <li>Delete User and Perm OU Inheritances {@link DelegatedAdminMgr#deleteInheritance(com.jts.fortress.arbac.OrgUnit, com.jts.fortress.arbac.OrgUnit)} USER and PERM</li>
- * <li>Delete User and Perm OUs {@link com.jts.fortress.DelegatedAdminMgr#delete(com.jts.fortress.arbac.OrgUnit)} USER and PERM</li>
- * <li>Delete Configuration Entries {@link com.jts.fortress.configuration.ConfigMgr#delete(String, java.util.Properties)}</li>
+ * <li>Delete ARBAC Role Inheritances {@link com.jts.fortress.DelAdminMgr#deleteInheritance(com.jts.fortress.rbac.AdminRole, com.jts.fortress.rbac.AdminRole)}</li>
+ * <li>Delete ARBAC Roles {@link com.jts.fortress.DelAdminMgr#deleteRole(com.jts.fortress.rbac.AdminRole)}</li>
+ * <li>Delete User and Perm OU Inheritances {@link com.jts.fortress.DelAdminMgr#deleteInheritance(com.jts.fortress.rbac.OrgUnit, com.jts.fortress.rbac.OrgUnit)} USER and PERM</li>
+ * <li>Delete User and Perm OUs {@link com.jts.fortress.DelAdminMgr#delete(com.jts.fortress.rbac.OrgUnit)} USER and PERM</li>
+ * <li>Delete Configuration Entries {@link com.jts.fortress.cfg.ConfigMgr#delete(String, java.util.Properties)}</li>
  * <li>Delete Containers {@link com.jts.fortress.ldap.container.OrganizationalUnitP#delete(com.jts.fortress.ldap.container.OrganizationalUnit)}</li>
  * <li>Delete Suffix {@link com.jts.fortress.ldap.suffix.SuffixP#delete(com.jts.fortress.ldap.suffix.Suffix)}}</li>
  * <li>Add Suffix {@link com.jts.fortress.ldap.suffix.SuffixP#add(com.jts.fortress.ldap.suffix.Suffix)}}</li>
  * <li>Add Containers {@link com.jts.fortress.ldap.container.OrganizationalUnitP#add(com.jts.fortress.ldap.container.OrganizationalUnit)}</li>
  * <li>Add Configuration Parameters {@link ConfigMgr#add(String, java.util.Properties)}</li>
- * <li>Add User and Perm OUs {@link DelegatedAdminMgr#add(com.jts.fortress.arbac.OrgUnit)} USER and PERM</li>
- * <li>Add User and Perm OU Inheritances {@link DelegatedAdminMgr#addInheritance(com.jts.fortress.arbac.OrgUnit, com.jts.fortress.arbac.OrgUnit)} USER and PERM</li>
- * <li>Add ARBAC Roles {@link com.jts.fortress.DelegatedAdminMgr#addRole(com.jts.fortress.arbac.AdminRole)}</li>
- * <li>Add ARBAC Role Inheritances {@link com.jts.fortress.DelegatedAdminMgr#addInheritance(com.jts.fortress.arbac.AdminRole, com.jts.fortress.arbac.AdminRole)}</li>
+ * <li>Add User and Perm OUs {@link com.jts.fortress.DelAdminMgr#add(com.jts.fortress.rbac.OrgUnit)} USER and PERM</li>
+ * <li>Add User and Perm OU Inheritances {@link com.jts.fortress.DelAdminMgr#addInheritance(com.jts.fortress.rbac.OrgUnit, com.jts.fortress.rbac.OrgUnit)} USER and PERM</li>
+ * <li>Add ARBAC Roles {@link com.jts.fortress.DelAdminMgr#addRole(com.jts.fortress.rbac.AdminRole)}</li>
+ * <li>Add ARBAC Role Inheritances {@link com.jts.fortress.DelAdminMgr#addInheritance(com.jts.fortress.rbac.AdminRole, com.jts.fortress.rbac.AdminRole)}</li>
  * <li>Add RBAC Roles {@link com.jts.fortress.AdminMgr#addRole(com.jts.fortress.rbac.Role)}</li>
  * <li>Add RBAC Role Inheritances {@link com.jts.fortress.AdminMgr#addInheritance(com.jts.fortress.rbac.Role, com.jts.fortress.rbac.Role)}</li>
  * <li>Add DSD and SSD Sets {@link com.jts.fortress.AdminMgr#createDsdSet(com.jts.fortress.rbac.SDSet)} and {@link com.jts.fortress.AdminMgr#createSsdSet(com.jts.fortress.rbac.SDSet)}</li>
  * <li>Add Permission Objects {@link com.jts.fortress.AdminMgr#addPermObj(com.jts.fortress.rbac.PermObj)}</li>
  * <li>Add Permission Operations {@link com.jts.fortress.AdminMgr#addPermission(com.jts.fortress.rbac.Permission)}</li>
- * <li>Add Password Policies {@link com.jts.fortress.PswdPolicyMgr#add(com.jts.fortress.pwpolicy.PswdPolicy)}</li>
+ * <li>Add Password Policies {@link com.jts.fortress.PwPolicyMgr#add(com.jts.fortress.rbac.PwPolicy)}</li>
  * <li>Add Users {@link com.jts.fortress.AdminMgr#addUser(com.jts.fortress.rbac.User)}</li>
  * <li>Grant RBAC Permissions {@link com.jts.fortress.AdminMgr#grantPermission(com.jts.fortress.rbac.Permission, com.jts.fortress.rbac.Role)}</li>
- * <li>Assign ARBAC Roles {@link DelegatedAdminMgr#assignUser(com.jts.fortress.arbac.UserAdminRole)}</li>
+ * <li>Assign ARBAC Roles {@link com.jts.fortress.DelAdminMgr#assignUser(com.jts.fortress.rbac.UserAdminRole)}</li>
  * <li>Assign RBAC Roles {@link com.jts.fortress.AdminMgr#assignUser(com.jts.fortress.rbac.UserRole)}</li>
  * </li>
  * </ol>
@@ -183,12 +185,41 @@ public class FortressAntTask extends Task implements InputHandler
     final private List<Addadminroleinheritance> addadminroleinheritances = new ArrayList<Addadminroleinheritance>();
     final private List<Deladminroleinheritance> deladminroleinheritances = new ArrayList<Deladminroleinheritance>();
     final private List<Deluseradminrole> deluseradminroles = new ArrayList<Deluseradminrole>();
+    final private List<Addcontext> addcontexts = new ArrayList<Addcontext>();
+
     private ConfigMgr cfgMgr = null;
     private AdminMgr adminMgr = null;
-    private DelegatedAdminMgr dAdminMgr = null;
-    private PswdPolicyMgr policyMgr = null;
+    private DelAdminMgr dAdminMgr = null;
+    private PwPolicyMgr policyMgr = null;
     private static final String CLS_NM = FortressAntTask.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
+    private Context context;
+
+    /**
+     * Load the entity with data.
+     *
+     * @param addcontext contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addAddcontext(Addcontext addcontext)
+    {
+        this.addcontexts.add(addcontext);
+    }
+
+    public void setContext(Context context)
+    {
+        System.out.println(CLS_NM + ".setContext name: " + context.getName());
+        this.context = context;
+        try
+        {
+            adminMgr = com.jts.fortress.AdminMgrFactory.createInstance(context.getName());
+            dAdminMgr = DelAdminMgrFactory.createInstance(context.getName());
+            policyMgr = PwPolicyMgrFactory.createInstance(context.getName());
+        }
+        catch (SecurityException se)
+        {
+            log.warn(CLS_NM + " FortressAntTask setContext caught SecurityException=" + se);
+        }
+    }
 
     /**
      * Default constructor initializes he Manager APIs.
@@ -198,9 +229,9 @@ public class FortressAntTask extends Task implements InputHandler
         try
         {
             cfgMgr = ConfigMgrFactory.createInstance();
-            adminMgr = com.jts.fortress.AdminMgrFactory.createInstance();
-            dAdminMgr = DelegatedAdminMgrFactory.createInstance();
-            policyMgr = com.jts.fortress.PswdPolicyMgrFactory.createInstance();
+            adminMgr = com.jts.fortress.AdminMgrFactory.createInstance(GlobalIds.HOME);
+            dAdminMgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
+            policyMgr = PwPolicyMgrFactory.createInstance(GlobalIds.HOME);
         }
         catch (SecurityException se)
         {
@@ -597,6 +628,10 @@ public class FortressAntTask extends Task implements InputHandler
     public void execute()
         throws BuildException
     {
+        if (isListNotNull(addcontexts))
+        {
+            setContext(addcontexts.get(0).getContexts().get(0));
+        }
         if (isListNotNull(deluserroles))
         {
             delUserRoles();
@@ -1078,7 +1113,7 @@ public class FortressAntTask extends Task implements InputHandler
                     catch (com.jts.fortress.SecurityException se)
                     {
                         // If Perm Object entity already there then call the udpate method.
-                        if (se.getErrorId() == com.jts.fortress.constants.GlobalErrIds.PERM_DUPLICATE)
+                        if (se.getErrorId() == GlobalErrIds.PERM_DUPLICATE)
                         {
                             adminMgr.updatePermObj(permObj);
                             System.out.println(CLS_NM + ".addPermObjs - update entity objectName=" + permObj.getObjectName());
@@ -1147,7 +1182,7 @@ public class FortressAntTask extends Task implements InputHandler
                     catch (com.jts.fortress.SecurityException se)
                     {
                         // If Perm Object entity already there then call the udpate method.
-                        if (se.getErrorId() == com.jts.fortress.constants.GlobalErrIds.PERM_DUPLICATE)
+                        if (se.getErrorId() == GlobalErrIds.PERM_DUPLICATE)
                         {
                             adminMgr.updatePermission(permission);
                             log.info(CLS_NM + ".addPermOps - update entity - name=" + permission.getOpName()
@@ -1296,8 +1331,8 @@ public class FortressAntTask extends Task implements InputHandler
         // Loop through the entityclass elements
         for (Addpwpolicy addpwpolicy : addpolicies)
         {
-            List<PswdPolicy> policies = addpwpolicy.getPolicies();
-            for (PswdPolicy policy : policies)
+            List<PwPolicy> policies = addpwpolicy.getPolicies();
+            for (PwPolicy policy : policies)
             {
                 log.info(CLS_NM + ".addPolicies name=" + policy.getName());
                 try
@@ -1322,8 +1357,8 @@ public class FortressAntTask extends Task implements InputHandler
         // Loop through the entityclass elements
         for (Delpwpolicy delpwpolicy : delpolicies)
         {
-            List<PswdPolicy> policies = delpwpolicy.getPolicies();
-            for (PswdPolicy policy : policies)
+            List<PwPolicy> policies = delpwpolicy.getPolicies();
+            for (PwPolicy policy : policies)
             {
                 log.info(CLS_NM + ".deletePolicies name=" + policy.getName());
                 try
@@ -1355,6 +1390,11 @@ public class FortressAntTask extends Task implements InputHandler
                 try
                 {
                     OrganizationalUnitP op = new OrganizationalUnitP();
+                    if(this.context != null)
+                    {
+                        ou.setContextId(this.context.getName());
+                    }
+
                     op.add(ou);
                 }
                 catch (SecurityException se)
@@ -1458,7 +1498,7 @@ public class FortressAntTask extends Task implements InputHandler
         for (Addorgunit addorgunit : addorgunits)
         {
             List<OrgUnitAnt> ous = addorgunit.getOrgUnits();
-            for (com.jts.fortress.arbac.OrgUnitAnt ou : ous)
+            for (OrgUnitAnt ou : ous)
             {
                 log.info(CLS_NM + ".addOrgunits name=" + ou.getName()
                     + " typeName=" + ou.getTypeName()
@@ -1485,7 +1525,7 @@ public class FortressAntTask extends Task implements InputHandler
         // Loop through the entityclass elements
         for (Delorgunit delorgunit : delorgunits)
         {
-            List<com.jts.fortress.arbac.OrgUnitAnt> ous = delorgunit.getOrgUnits();
+            List<OrgUnitAnt> ous = delorgunit.getOrgUnits();
             for (OrgUnitAnt ou : ous)
             {
                 log.info(CLS_NM + ".deleteOrgunits name=" + ou.getName()
@@ -1726,7 +1766,7 @@ public class FortressAntTask extends Task implements InputHandler
         // Loop through the entityclass elements
         for (Adduseradminrole adduserrole : adduseradminroles)
         {
-            List<com.jts.fortress.arbac.UserAdminRole> userroles = adduserrole.getUserRoles();
+            List<UserAdminRole> userroles = adduserrole.getUserRoles();
             for (UserAdminRole userRole : userroles)
             {
                 log.info(CLS_NM + ".addUserAdminRoles userid=" + userRole.getUserId()

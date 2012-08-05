@@ -6,10 +6,9 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.AccessMgr;
 import com.jts.fortress.AccessMgrFactory;
-import com.jts.fortress.PswdPolicyMgr;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.pwpolicy.PolicyTestData;
-import com.jts.fortress.pwpolicy.PswdPolicyMgrImplTest;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
+import com.jts.fortress.PwPolicyMgr;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.util.LogUtil;
 import junit.framework.Test;
@@ -31,6 +30,7 @@ import java.util.Set;
 public class AccessMgrImplTest extends TestCase
 {
     private static final String CLS_NM = AccessMgrImplTest.class.getName();
+    private static final String contextId = FortressJUnitTest.getContext();
     final protected static Logger log = Logger.getLogger(CLS_NM);
 
     public static Test suite()
@@ -82,7 +82,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -117,7 +117,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -154,7 +154,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -171,7 +171,6 @@ public class AccessMgrImplTest extends TestCase
                 {
                     assertTrue(CLS_NM + "authenticateUsers reset excep id check", se.getErrorId() == GlobalErrIds.USER_PW_INVLD);
                     // pass
-
                 }
             }
             log.debug(CLS_NM + ".authenticateUsers successful");
@@ -203,7 +202,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -247,8 +246,8 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
-            PswdPolicyMgr policyMgr = PswdPolicyMgrImplTest.getManagedPswdMgr();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
+            PwPolicyMgr policyMgr = PswdPolicyMgrImplTest.getManagedPswdMgr();
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -296,7 +295,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -356,7 +355,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -403,7 +402,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -450,7 +449,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -509,7 +508,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             int i = 0;
             for (String[] usr : uArray)
             {
@@ -561,7 +560,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -624,7 +623,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -680,7 +679,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -727,7 +726,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             int i = 0;
             for (String[] usr : uArray)
             {
@@ -825,7 +824,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -877,7 +876,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -982,7 +981,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -1031,7 +1030,7 @@ public class AccessMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance();
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
             int i = 0;
             for (String[] usr : uArray)
             {

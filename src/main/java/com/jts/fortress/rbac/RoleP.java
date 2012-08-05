@@ -5,13 +5,13 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.FinderException;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ValidationException;
-import com.jts.fortress.constants.GlobalErrIds;
 
 import java.util.List;
 
-import com.jts.fortress.constants.GlobalIds;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
@@ -24,7 +24,7 @@ import com.jts.fortress.util.attr.VUtil;
  * error internal to DAO object. This class will forward DAO exceptions ({@link com.jts.fortress.FinderException},
  * {@link com.jts.fortress.CreateException},{@link com.jts.fortress.UpdateException},{@link com.jts.fortress.RemoveException}),
  *  or {@link com.jts.fortress.ValidationException} as {@link com.jts.fortress.SecurityException}s with appropriate
- * error id from {@link com.jts.fortress.constants.GlobalErrIds}.
+ * error id from {@link com.jts.fortress.GlobalErrIds}.
  * <p>
  * This object is thread safe.
  * </p>
@@ -33,7 +33,7 @@ import com.jts.fortress.util.attr.VUtil;
  * @author Kevin McKinney
  * @created October 29, 2009
  */
-public final class RoleP
+final class RoleP
 {
     private static final String CLS_NM = RoleP.class.getName();
     private static final RoleDAO rDao = new RoleDAO();
@@ -42,33 +42,33 @@ public final class RoleP
      * Package private
      */
     RoleP()
-    {
-    }
+    {}
+
     /**
      * Return a fully populated Role entity for a given RBAC role name.  If matching record not found a
      * SecurityException will be thrown.
      *
-     * @param name contains full role name for RBAC role in directory.
+     * @param role contains full role name for RBAC role in directory.
      * @return Role entity containing all attributes associated with Role in directory.
      * @throws SecurityException in the event Role not found or DAO search error.
      */
-    final Role read(String name)
+    final Role read(Role role)
         throws SecurityException
     {
-        return rDao.getRole(name);
+        return rDao.getRole(role);
     }
 
     /**
      * Takes a search string that contains full or partial RBAC Role name in directory.
      *
-     * @param searchVal contains full or partial RBAC role name.
+     * @param role contains full or partial RBAC role name.
      * @return List of type Role containing fully populated matching RBAC Role entities.  If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<Role> search(String searchVal)
+    final List<Role> search(Role role)
         throws SecurityException
     {
-        return rDao.findRoles(searchVal);
+        return rDao.findRoles(role);
     }
 
 
@@ -76,15 +76,15 @@ public final class RoleP
      * Takes a search string that contains full or partial RBAC Role name in directory.
      * This search is used by RealmMgr for Websphere.
      *
-     * @param searchVal contains full or partial RBAC role name.
+     * @param role contains full or partial RBAC role name.
      * @param limit     specify the max number of records to return in result set.
      * @return List of type String containing RBAC Role name of all matching User entities.  If no records found this will be empty.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<String> search(String searchVal, int limit)
+    final List<String> search(Role role, int limit)
         throws SecurityException
     {
-        return rDao.findRoles(searchVal, limit);
+        return rDao.findRoles(role, limit);
     }
 
 
@@ -156,16 +156,19 @@ public final class RoleP
      *
      * @param uRoles contains a collection of UserRole being targeted for assignment.
      * @param userDn contains the userId targeted for addition.
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final void addOccupant(List<UserRole> uRoles, String userDn)
+    final void addOccupant(List<UserRole> uRoles, String userDn, String contextId)
         throws SecurityException
     {
         if (VUtil.isNotNullOrEmpty(uRoles))
         {
             for (UserRole uRole : uRoles)
             {
-                assign(new Role(uRole.getName()), userDn);
+                Role role = new Role(uRole.getName());
+                role.setContextId(contextId);
+                assign(role, userDn);
             }
         }
     }
@@ -176,18 +179,21 @@ public final class RoleP
      * when the User is being deleted.
      *
      * @param userDn contains the userId targeted for attribute removal.
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws com.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final void removeOccupant(String userDn)
+    final void removeOccupant(String userDn, String contextId)
         throws SecurityException
     {
         List<String> list;
         try
         {
-            list = rDao.findAssignedRoles(userDn);
+            list = rDao.findAssignedRoles(userDn, contextId);
             for (String roleNm : list)
             {
-                deassign(new Role(roleNm), userDn);
+                Role role = new Role(roleNm);
+                role.setContextId(contextId);
+                deassign(role, userDn);
             }
         }
         catch (FinderException fe)

@@ -4,12 +4,9 @@
 
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.arbac.AdminUtil;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.util.attr.VUtil;
 
 import java.util.ArrayList;
@@ -42,45 +39,23 @@ import java.util.Set;
  * <p/>
  * <img src="../../../../images/RbacDSD.png">
  * <p/>
- * This object is thread safe.
+ * This object is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  * <p/>
  *
  * @author Shawn McKinney
  * @created August 30, 2009
  */
-public class ReviewMgrImpl
-    implements ReviewMgr
+public class ReviewMgrImpl extends Manageable implements ReviewMgr
 {
     private static final String CLS_NM = ReviewMgrImpl.class.getName();
     private static final UserP userP = new UserP();
     private static final RoleP roleP = new RoleP();
     private static final PermP permP = new PermP();
     private static final SdP ssdP = new SdP();
-    // thread unsafe variable:
-    private Session adminSess;
 
-    /**
-     * Setting Session into this object will enforce ARBAC controls and render this class
-     * thread unsafe..
-     *
-     * @param session
-     */
-    public void setAdmin(Session session)
-    {
-        this.adminSess = session;
-    }
-
-    /**
-     * @param opName
-     * @throws SecurityException
-     */
-    private void checkAccess(String opName) throws SecurityException
-    {
-        if (this.adminSess != null)
-        {
-            AdminUtil.checkAccess(adminSess, new Permission(CLS_NM, opName));
-        }
-    }
+    // package private constructor ensures outside classes cannot use:
+    ReviewMgrImpl()
+    {}
 
     /**
      * This method returns a matching permission entity to caller.
@@ -101,7 +76,8 @@ public class ReviewMgrImpl
         VUtil.assertNotNull(permission, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNullOrEmpty(permission.getObjectName(), GlobalErrIds.PERM_OBJECT_NM_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNullOrEmpty(permission.getOpName(), GlobalErrIds.PERM_OPERATION_NM_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        permission.setContextId(this.contextId);
         return permP.read(permission);
     }
 
@@ -122,7 +98,8 @@ public class ReviewMgrImpl
         String methodName = "readPermObj";
         VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(permObj.getObjectName(), GlobalErrIds.PERM_OBJECT_NM_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        permObj.setContextId(this.contextId);
         return permP.read(permObj);
     }
 
@@ -144,7 +121,8 @@ public class ReviewMgrImpl
     {
         String methodName = "findPermissions";
         VUtil.assertNotNull(permission, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        permission.setContextId(this.contextId);
         return permP.search(permission);
     }
 
@@ -165,7 +143,8 @@ public class ReviewMgrImpl
     {
         String methodName = "findPermObjs";
         VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        permObj.setContextId(this.contextId);
         return permP.search(permObj);
     }
 
@@ -176,7 +155,7 @@ public class ReviewMgrImpl
      * <li>{@link OrgUnit#name} - contains one or more characters of org unit associated with existing object being targeted</li>
      * </ul>
      *
-     * @param ou contains org unit name {@link com.jts.fortress.arbac.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
+     * @param ou contains org unit name {@link OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
      * @return List of type PermObj.  Fortress permissions are object->operation mappings.
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of system error.
@@ -186,7 +165,8 @@ public class ReviewMgrImpl
     {
         String methodName = "findPermObjs";
         VUtil.assertNotNull(ou, GlobalErrIds.ORG_NULL_PERM, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        ou.setContextId(this.contextId);
         // pass a "false" which places no restrictions on how many records server returns.
         return permP.search(ou, false);
     }
@@ -208,8 +188,9 @@ public class ReviewMgrImpl
         String methodName = "readRole";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNullOrEmpty(role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
-        return roleP.read(role.getName());
+        checkAccess(CLS_NM, methodName);
+        role.setContextId(this.contextId);
+        return roleP.read(role);
     }
 
     /**
@@ -225,8 +206,10 @@ public class ReviewMgrImpl
     {
         String methodName = "findRoles";
         VUtil.assertNotNull(searchVal, GlobalErrIds.ROLE_NM_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
-        return roleP.search(searchVal);
+        checkAccess(CLS_NM, methodName);
+        Role role = new Role(searchVal);
+        role.setContextId(this.contextId);
+        return roleP.search(role);
     }
 
     /**
@@ -244,8 +227,10 @@ public class ReviewMgrImpl
     {
         String methodName = "findRoles";
         VUtil.assertNotNull(searchVal, GlobalErrIds.ROLE_NM_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
-        return roleP.search(searchVal, limit);
+        checkAccess(CLS_NM, methodName);
+        Role role = new Role(searchVal);
+        role.setContextId(this.contextId);
+        return roleP.search(role, limit);
     }
 
     /**
@@ -267,8 +252,9 @@ public class ReviewMgrImpl
         String methodName = "readUser";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNullOrEmpty(user.getUserId(), GlobalErrIds.USER_ID_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
-        return userP.read(user.getUserId(), true);
+        checkAccess(CLS_NM, methodName);
+        user.setContextId(this.contextId);
+        return userP.read(user, true);
     }
 
     /**
@@ -287,7 +273,8 @@ public class ReviewMgrImpl
     {
         String methodName = "findUsers";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        user.setContextId(this.contextId);
         return userP.search(user);
     }
 
@@ -298,7 +285,7 @@ public class ReviewMgrImpl
      * <li>{@link OrgUnit#name} - contains one or more characters of org unit associated with existing object(s) being targeted</li>
      * </ul>
      *
-     * @param ou contains name of User OU, {@link com.jts.fortress.arbac.OrgUnit#name} that match ou attribute associated with User entity in the directory.
+     * @param ou contains name of User OU, {@link OrgUnit#name} that match ou attribute associated with User entity in the directory.
      * @return List of type User.
      * @throws SecurityException In the event of system error.
      */
@@ -307,7 +294,8 @@ public class ReviewMgrImpl
     {
         String methodName = "findUsers";
         VUtil.assertNotNull(ou, GlobalErrIds.ORG_NULL_USER, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        ou.setContextId(this.contextId);
         // pass a "false" which places no restrictions on how many records server returns.
         return userP.search(ou, false);
     }
@@ -331,8 +319,9 @@ public class ReviewMgrImpl
     {
         String methodName = "findUsers";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
-        return userP.search(user.getUserId(), limit);
+        checkAccess(CLS_NM, methodName);
+        user.setContextId(this.contextId);
+        return userP.search(user, limit);
     }
 
     /**
@@ -357,8 +346,9 @@ public class ReviewMgrImpl
     {
         String methodName = "assignedUsers";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
-        Role entity = roleP.read(role.getName());
+        checkAccess(CLS_NM, methodName);
+        role.setContextId(this.contextId);
+        Role entity = roleP.read(role);
         // this one retrieves from the role itself.
         List<String> users = entity.getOccupants();
         if (users != null && users.size() > limit)
@@ -393,7 +383,8 @@ public class ReviewMgrImpl
     {
         String methodName = "assignedUsers";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        role.setContextId(this.contextId);
         return userP.getAssignedUsers(role);
     }
 
@@ -414,8 +405,9 @@ public class ReviewMgrImpl
     {
         String methodName = "assignedRoles";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
-        User ue = userP.read(user.getUserId(), true);
+        checkAccess(CLS_NM, methodName);
+        user.setContextId(this.contextId);
+        User ue = userP.read(user, true);
         return ue.getRoles();
     }
 
@@ -432,8 +424,10 @@ public class ReviewMgrImpl
     {
         String methodName = "assignedRoles";
         VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
-        return userP.getAssignedRoles(userId);
+        checkAccess(CLS_NM, methodName);
+        User user = new User(userId);
+        user.setContextId(this.contextId);
+        return userP.getAssignedRoles(user);
     }
 
     /**
@@ -453,7 +447,8 @@ public class ReviewMgrImpl
     {
         String methodName = "authorizedUsers";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        role.setContextId(this.contextId);
         return userP.getAuthorizedUsers(role);
     }
 
@@ -474,13 +469,14 @@ public class ReviewMgrImpl
     {
         String methodName = "authorizedRoles";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
-        User ue = userP.read(user.getUserId(), true);
+        checkAccess(CLS_NM, methodName);
+        user.setContextId(this.contextId);
+        User ue = userP.read(user, true);
         List<UserRole> roles = ue.getRoles();
         Set<String> iRoles = null;
         if (VUtil.isNotNullOrEmpty(roles))
         {
-            iRoles = RoleUtil.getInheritedRoles(roles);
+            iRoles = RoleUtil.getInheritedRoles(roles, this.contextId);
         }
         return iRoles;
     }
@@ -503,7 +499,8 @@ public class ReviewMgrImpl
     {
         String methodName = "rolePermissions";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        role.setContextId(this.contextId);
         return permP.search(role);
     }
 
@@ -525,8 +522,10 @@ public class ReviewMgrImpl
     {
         String methodName = "userPermissions";
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        user.setContextId(this.contextId);
         user = readUser(user);
+        user.setContextId(this.contextId);
         return permP.search(user);
     }
 
@@ -547,7 +546,8 @@ public class ReviewMgrImpl
     {
         String methodName = "permissionRoles";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        perm.setContextId(this.contextId);
         Permission pe = permP.read(perm);
         return pe.getRoles();
     }
@@ -571,7 +571,8 @@ public class ReviewMgrImpl
         Set<String> authorizedRoles = null;
         String methodName = "authorizedPermissionRoles";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        perm.setContextId(this.contextId);
         // Pull the permission from ldap:
         Permission pe = permP.read(perm);
 
@@ -598,7 +599,8 @@ public class ReviewMgrImpl
     {
         String methodName = "permissionUsers";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        perm.setContextId(this.contextId);
         Permission pe = permP.read(perm);
         return pe.getUsers();
     }
@@ -622,7 +624,8 @@ public class ReviewMgrImpl
         Set<String> authorizedUsers = null;
         String methodName = "authorizedPermissionUsers";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        perm.setContextId(this.contextId);
         // Pull the permission from ldap:
         Permission pe = permP.read(perm);
 
@@ -631,7 +634,7 @@ public class ReviewMgrImpl
         if (authorizedRoles != null)
         {
             // Pull the set of users assigned to descendant or assigned roles from ldap:
-            authorizedUsers = userP.getAssignedUsers(authorizedRoles);
+            authorizedUsers = userP.getAssignedUsers(authorizedRoles, this.contextId);
         }
         // Now add any users who have been directly assigned to this permission entity:
         List<String> assignedUsers = pe.getUsers();
@@ -660,7 +663,7 @@ public class ReviewMgrImpl
         if (assignedRoles != null)
         {
             // Get the descendant roles of all assigned roles from jgrapht hierarchical roles data set:
-            authorizedRoles = RoleUtil.getDescendantRoles(assignedRoles);
+            authorizedRoles = RoleUtil.getDescendantRoles(assignedRoles, this.contextId);
         }
         return authorizedRoles;
     }
@@ -683,7 +686,8 @@ public class ReviewMgrImpl
     {
         String methodName = "ssdRoleSets";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        role.setContextId(this.contextId);
         return ssdP.search(role, SDSet.SDType.STATIC);
     }
 
@@ -704,7 +708,8 @@ public class ReviewMgrImpl
     {
         String methodName = "ssdRoleSet";
         VUtil.assertNotNull(set, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        set.setContextId(this.contextId);
         set.setType(SDSet.SDType.STATIC);
         return ssdP.read(set);
     }
@@ -726,7 +731,8 @@ public class ReviewMgrImpl
     {
         String methodName = "ssdRoleSetRoles";
         VUtil.assertNotNull(ssd, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        ssd.setContextId(this.contextId);
         ssd.setType(SDSet.SDType.STATIC);
         SDSet se = ssdP.read(ssd);
         return se.getMembers();
@@ -749,7 +755,8 @@ public class ReviewMgrImpl
     {
         String methodName = "ssdRoleSetCardinality";
         VUtil.assertNotNull(ssd, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        ssd.setContextId(this.contextId);
         SDSet se = ssdP.read(ssd);
         return se.getCardinality();
     }
@@ -772,7 +779,8 @@ public class ReviewMgrImpl
     {
         String methodName = "dsdRoleSets";
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        role.setContextId(this.contextId);
         return ssdP.search(role, SDSet.SDType.DYNAMIC);
     }
 
@@ -793,7 +801,8 @@ public class ReviewMgrImpl
     {
         String methodName = "dsdRoleSet";
         VUtil.assertNotNull(set, GlobalErrIds.DSD_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        set.setContextId(this.contextId);
         set.setType(SDSet.SDType.DYNAMIC);
         return ssdP.read(set);
     }
@@ -815,7 +824,8 @@ public class ReviewMgrImpl
     {
         String methodName = "dsdRoleSetRoles";
         VUtil.assertNotNull(dsd, GlobalErrIds.SSD_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        dsd.setContextId(this.contextId);
         dsd.setType(SDSet.SDType.DYNAMIC);
         SDSet se = ssdP.read(dsd);
         return se.getMembers();
@@ -838,10 +848,9 @@ public class ReviewMgrImpl
     {
         String methodName = "dsdRoleSetCardinality";
         VUtil.assertNotNull(dsd, GlobalErrIds.DSD_NULL, CLS_NM + "." + methodName);
-        checkAccess(methodName);
+        checkAccess(CLS_NM, methodName);
+        dsd.setContextId(this.contextId);
         SDSet se = ssdP.read(dsd);
         return se.getCardinality();
     }
 }
-
-

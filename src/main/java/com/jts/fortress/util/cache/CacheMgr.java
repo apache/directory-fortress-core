@@ -1,10 +1,10 @@
 package com.jts.fortress.util.cache;
 
-import com.jts.fortress.ConfigurationException;
-import com.jts.fortress.ConfigurationRuntimeException;
-import com.jts.fortress.configuration.Config;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.util.ClassUtil;
+import com.jts.fortress.CfgException;
+import com.jts.fortress.CfgRuntimeException;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.cfg.Config;
+import com.jts.fortress.rbac.ClassUtil;
 import net.sf.ehcache.CacheManager;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -51,9 +51,9 @@ public class CacheMgr
                     m_ftCacheImpl = new CacheMgr(CacheManager.create(ClassUtil.resourceAsStream(cacheConfig)));
                     isFtCacheInitialized.set(true);
                 }
-                catch (ConfigurationException ce)
+                catch (CfgException ce)
                 {
-                    throw new ConfigurationRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, cacheConfig);
+                    throw new CfgRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, cacheConfig);
                 }
             }
         }

@@ -4,10 +4,7 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.FortEntity;
-import com.jts.fortress.arbac.UserAdminRole;
-import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.hier.RoleUtil;
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.time.Constraint;
 
@@ -120,7 +117,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @param szRawData contains a raw formatted String that maps to 'ftRC' attribute on 'ftUserAttrs' object class
      */
-    public void load(String szRawData)
+    public void load(String szRawData, String contextId)
     {
         if (szRawData != null && szRawData.length() > 0)
         {
@@ -134,7 +131,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
                     {
                         case 0:
                             this.setName(tkn.nextToken());
-                            this.setParents(RoleUtil.getParents(this.name.toUpperCase()));
+                            this.setParents(RoleUtil.getParents(this.name.toUpperCase(), contextId));
                             break;
                         case 1:
                             this.setTimeout(Integer.parseInt(tkn.nextToken()));

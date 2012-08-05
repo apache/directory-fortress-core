@@ -5,6 +5,8 @@
 package com.jts.fortress.example;
 
 
+import com.jts.fortress.GlobalIds;
+
 public class EIds
 {
     public final static String EXAMPLE_ADMIN_IMPLEMENTATION = "exampleAdminImplementation";
@@ -19,7 +21,7 @@ public class EIds
     public final static String EXAMPLE_OBJECT_CLASS_NM = "oamExamples";
 
     public final static String EXAMPLE_OBJ_CLASS[] = {
-            com.jts.fortress.constants.GlobalIds.TOP, EXAMPLE_OBJECT_CLASS_NM, com.jts.fortress.constants.GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
+            GlobalIds.TOP, EXAMPLE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
 //            GlobalIds.TOP, EXAMPLE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.TEMPORAL_AUX_OBJECT_CLASS_NAME
     };
 

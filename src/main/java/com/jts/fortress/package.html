@@ -14,10 +14,10 @@
           <li>{@link com.jts.fortress.AccessMgr} is used for RBAC runtime security checking</li>
           <li>{@link com.jts.fortress.AdminMgr} is for RBAC provisioning</li>
           <li>{@link com.jts.fortress.AuditMgr} is for interrogating OpenLDAP audit and historical logs</li>
-          <li>{@link com.jts.fortress.DelegatedAccessMgr} is used for ARBAC runtime security checking</li>
-          <li>{@link com.jts.fortress.DelegatedAdminMgr} is for ARBAC provisioning</li>
-          <li>{@link com.jts.fortress.DelegatedReviewMgr} is used to interrogate ARBAC policy</li>
-          <li>{@link com.jts.fortress.PswdPolicyMgr} is for performing OpenLDAP pwpolicy provisioning and interrogation</li>
+          <li>{@link com.jts.fortress.DelAccessMgr} is used for ARBAC runtime security checking</li>
+          <li>{@link com.jts.fortress.DelAdminMgr} is for ARBAC provisioning</li>
+          <li>{@link com.jts.fortress.DelReviewMgr} is used to interrogate ARBAC policy</li>
+          <li>{@link com.jts.fortress.PwPolicyMgr} is for performing OpenLDAP pwpolicy provisioning and interrogation</li>
           <li>{@link com.jts.fortress.ReviewMgr} is used to interrogate RBAC policy</li>
           </ol>
       </p>
@@ -117,20 +117,26 @@
       <li> {@link com.jts.fortress.AccessMgr}
       <li> {@link com.jts.fortress.AdminMgr}
       <li> {@link com.jts.fortress.AdminMgr}
-      <li> {@link com.jts.fortress.DelegatedAdminMgr}
-      <li> {@link com.jts.fortress.configuration.ConfigMgr}
-      <li> {@link com.jts.fortress.PswdPolicyMgr}
+      <li> {@link com.jts.fortress.DelAdminMgr}
+      <li> {@link com.jts.fortress.cfg.ConfigMgr}
+      <li> {@link com.jts.fortress.PwPolicyMgr}
       </ul>
       <h4>
-      The following reports are supported using search input: {@link com.jts.fortress.audit.UserAudit}
+          The following reports are supported using search input: {@link com.jts.fortress.rbac.audit.UserAudit}
       </h4>
       <ul>
-      <li>User Authentications:     <code>List<{@link com.jts.fortress.audit.Bind}>  {@link AuditMgr#searchBinds(com.jts.fortress.audit.UserAudit)}</code>
-      <li>Invalid Users AuthN:      <code>List<{@link com.jts.fortress.audit.Bind}>  {@link AuditMgr#searchAuthNInvalid(com.jts.fortress.audit.UserAudit)} </code>
-      <li>User Authorizations 1:    <code>List<{@link com.jts.fortress.audit.AuthZ}> {@link AuditMgr#getAuthZs(com.jts.fortress.audit.UserAudit)} </code>
-      <li>User Authorizations 2:    <code>List<{@link com.jts.fortress.audit.AuthZ}> {@link AuditMgr#searchAuthZs(com.jts.fortress.audit.UserAudit)} </code>
-      <li>User Session Activations: <code>List<{@link com.jts.fortress.audit.Mod}>   {@link AuditMgr#searchMods(com.jts.fortress.audit.UserAudit)} </code>
-      <li>Entity Modifications:     <code>List<{@link com.jts.fortress.audit.Mod}>   {@link AuditMgr#searchAdminMods(com.jts.fortress.audit.UserAudit)} </code>
+      <li>User Authentications:     <code>List&amp;lt;{@licom.jts.fortress.rbac.auditdit.Bind}&amp;gt; {@link
+          AuditMgr#searchBinds(com.jts.fortress.rbac.UserAudit)}</code>
+      <li>Invalid Users AuthN:      <code>List&amp;lt;{@link com.jts.fortress.rbac.Bind}&amp;gt; {@link
+          AuditMgr#searchAucom.jts.fortress.rbac.audittress.audit.UserAudit)} </code>
+      <li>User Authorizations 1:    <code>List&amp;lt;{@link com.jts.fortress.rbac.AuthZ}&amp;gt; {@link
+          AuditMgrcom.jts.fortress.rbac.audittress.audit.UserAudit)} </code>
+      <li>User Authorizations 2:    <code>List&amp;lt;{@link com.jts.fortress.rbac.AuthZ}&amp;gt; {@link
+          AuditMgr#secom.jts.fortress.rbac.audittress.audit.UserAudit)} </code>
+      <li>User Session Activations: <code>List&amp;lt;{@link com.jts.fortress.rbac.Mod}&amp;gt; {@link
+          AuditMgr#com.jts.fortress.rbac.audittress.audit.UserAudit)} </code>
+      <li>Entity Modifications:     <code>List&amp;lt;{@link com.jts.fortress.rbac.Mod}&amp;gt; {@link
+          AuditMgr#searccom.jts.fortress.rbac.UserAudit)} </code>
       </ul>
       <p/>
 

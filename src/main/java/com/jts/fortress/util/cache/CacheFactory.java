@@ -4,8 +4,8 @@
 
 package com.jts.fortress.util.cache;
 
-import com.jts.fortress.ConfigurationRuntimeException;
-import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.CfgRuntimeException;
+import com.jts.fortress.GlobalErrIds;
 
 /**
  * Creates an instance of the {@link EhCacheImpl} object with a {@link Cache} facade.
@@ -28,7 +28,7 @@ public class CacheFactory
         if(cache == null)
         {
             String error = CLS_NM + ".createInstance cache: " + name + " is null";
-            throw new ConfigurationRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error);
+            throw new CfgRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error);
         }
         return new EhCacheImpl(name, cache);
     }

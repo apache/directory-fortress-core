@@ -37,6 +37,17 @@ public class OrganizationalUnit
     private String name;
     private String parent;
     private String description;
+    private String contextId = "";
+
+    public String getContextId()
+    {
+        return this.contextId;
+    }
+
+    public void setContextId(String contextId)
+    {
+        this.contextId = contextId;
+    }
 
     /**
      * Generate instance of organizational unit object to be loaded as container node.

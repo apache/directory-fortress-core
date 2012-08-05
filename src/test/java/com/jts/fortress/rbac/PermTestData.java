@@ -4,7 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.arbac.OrgUnitTestData;
 import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 
@@ -1056,7 +1055,7 @@ public class PermTestData extends TestCase
 
     public final static String[][] ARBAC_OBJS_1 = {
         {
-            "DelegatedAdminMgr",/* NAME_COL */
+            "DelAdminMgr",/* NAME_COL */
             "ARBAC02 policies", /* DESC_COL */
             "APP1",             /* ORG_COL */
             "TST",              /* TYPE_COL */
@@ -1485,7 +1484,7 @@ public class PermTestData extends TestCase
 
     public final static String[][] PSWDMGR_OBJ = {
         {
-            "com.jts.fortress.pwpolicy.PswdPolicyMgrImpl",
+            "com.jts.fortress.rbac.PwPolicyMgrImpl",
             "ARBAC02 policies", /* DESC_COL */
             "APP0",             /* ORG_COL */
             "TST",              /* TYPE_COL */
@@ -1981,10 +1980,9 @@ public class PermTestData extends TestCase
 
     };
 
-
     public final static String[][] DELEGATEDMGR_OBJ = {
          {
-             "com.jts.fortress.arbac.DelegatedAdminMgrImpl",
+             "com.jts.fortress.rbac.DelAdminMgrImpl",
              "Delegated Admin Mgr Object",  /* DESC_COL */
              "APP0",                        /* ORG_COL */
              "TST",                         /* TYPE_COL */
@@ -2177,7 +2175,7 @@ public class PermTestData extends TestCase
 
     public final static String[][] DELEGATEDREVIEWMGR_OBJ = {
          {
-             "com.jts.fortress.arbac.DelegatedReviewMgrImpl",
+             "com.jts.fortress.rbac.DelReviewMgrImpl",
              "Delegated Review Mgr Object", /* DESC_COL */
              "APP0",                        /* ORG_COL */
              "TST",                         /* TYPE_COL */
@@ -2567,7 +2565,7 @@ public class PermTestData extends TestCase
 
     public final static String[][] AUDITMGR_OBJ = {
          {
-             "com.jts.fortress.audit.AuditMgrImpl",
+             "com.jts.fortress.rbac.AuditMgrImpl",
              "Audit Mgr Object",            /* DESC_COL */
              "APP0",                        /* ORG_COL */
              "TST",                         /* TYPE_COL */

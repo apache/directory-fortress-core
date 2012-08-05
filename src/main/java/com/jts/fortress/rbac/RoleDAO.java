@@ -5,14 +5,13 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.*;
-import com.jts.fortress.hier.RoleUtil;
 import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.attr.VUtil;
-import com.jts.fortress.constants.GlobalErrIds;
-import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.configuration.Config;
+import com.jts.fortress.GlobalErrIds;
+import com.jts.fortress.GlobalIds;
+import com.jts.fortress.cfg.Config;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
@@ -72,7 +71,7 @@ import java.util.List;
  * @author Kevin McKinney
  * @created October 29, 2009
  */
-public final class RoleDAO
+final class RoleDAO
 
 {
     /*
@@ -81,12 +80,12 @@ public final class RoleDAO
       *  ************************************************************************
       */
     private static final String CLS_NM = RoleDAO.class.getName();
-    private final static String ROLE_OCCUPANT = "roleOccupant";
-    private final static String ROLE_NM = "ftRoleName";
-    private final static String[] ROLE_NM_ATR = {
+    private static final String ROLE_OCCUPANT = "roleOccupant";
+    private static final String ROLE_NM = "ftRoleName";
+    private static final String[] ROLE_NM_ATR = {
         ROLE_NM
     };
-    private final static String[] ROLE_ATRS = {
+    private static final String[] ROLE_ATRS = {
         GlobalIds.FT_IID, ROLE_NM, GlobalIds.DESC, GlobalIds.CONSTRAINT, ROLE_OCCUPANT
     };
 
@@ -95,19 +94,18 @@ public final class RoleDAO
      * Don't let any classes outside of this package construct instance of this class.
      */
     RoleDAO()
-    {
-    }
+    {}
 
     /**
      * @param entity
      * @return
      * @throws CreateException
      */
-    Role create(Role entity)
+    final Role create(Role entity)
         throws CreateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(entity.getName());
+        String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -146,11 +144,11 @@ public final class RoleDAO
      * @throws com.jts.fortress.UpdateException
      *
      */
-    Role update(Role entity)
+    final Role update(Role entity)
         throws UpdateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(entity.getName());
+        String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -202,11 +200,11 @@ public final class RoleDAO
      * @throws com.jts.fortress.UpdateException
      *
      */
-    Role assign(Role entity, String userDn)
+    final Role assign(Role entity, String userDn)
         throws UpdateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(entity.getName());
+        String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -235,11 +233,11 @@ public final class RoleDAO
      * @throws com.jts.fortress.UpdateException
      *
      */
-    Role deassign(Role entity, String userDn)
+    final Role deassign(Role entity, String userDn)
         throws UpdateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(entity.getName());
+        String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -265,11 +263,11 @@ public final class RoleDAO
      * @param role
      * @throws RemoveException
      */
-    void remove(Role role)
+    final void remove(Role role)
         throws RemoveException
     {
         LDAPConnection ld = null;
-        String dn = getDn(role.getName());
+        String dn = getDn(role.getName(), role.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -288,22 +286,22 @@ public final class RoleDAO
 
 
     /**
-     * @param name
+     * @param role
      * @return
      * @throws com.jts.fortress.FinderException
      *
      */
-    Role getRole(String name)
+    final Role getRole(Role role)
         throws FinderException
     {
         Role entity = null;
         LDAPConnection ld = null;
-        String dn = getDn(name);
+        String dn = getDn(role.getName(), role.getContextId());
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPEntry findEntry = DaoUtil.read(ld, dn, ROLE_ATRS);
-            entity = unloadLdapEntry(findEntry, 0);
+            entity = unloadLdapEntry(findEntry, 0, role.getContextId());
             if (entity == null)
             {
                 String warning = CLS_NM + ".getRole no entry found dn [" + dn + "]";
@@ -329,22 +327,22 @@ public final class RoleDAO
 
 
     /**
-     * @param searchVal
+     * @param role
      * @return
      * @throws com.jts.fortress.FinderException
      *
      */
-    List<Role> findRoles(String searchVal)
+    final List<Role> findRoles(Role role)
         throws FinderException
     {
         List<Role> roleList = new ArrayList<Role>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String roleRoot = Config.getProperty(GlobalIds.ROLE_ROOT);
+        String roleRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.ROLE_ROOT);
         String filter = null;
         try
         {
-            searchVal = VUtil.encodeSafeText(searchVal, GlobalIds.ROLE_LEN);
+            String searchVal = VUtil.encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
@@ -353,7 +351,7 @@ public final class RoleDAO
             long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                roleList.add(unloadLdapEntry(searchResults.next(), sequence++));
+                roleList.add(unloadLdapEntry(searchResults.next(), sequence++, role.getContextId()));
             }
         }
         catch (LDAPException e)
@@ -370,23 +368,23 @@ public final class RoleDAO
 
 
     /**
-     * @param searchVal
+     * @param role
      * @param limit
      * @return
      * @throws com.jts.fortress.FinderException
      *
      */
-    List<String> findRoles(String searchVal, int limit)
+    final List<String> findRoles(Role role, int limit)
         throws FinderException
     {
         List<String> roleList = new ArrayList<String>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String roleRoot = Config.getProperty(GlobalIds.ROLE_ROOT);
+        String roleRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.ROLE_ROOT);
         String filter = null;
         try
         {
-            searchVal = VUtil.encodeSafeText(searchVal, GlobalIds.ROLE_LEN);
+            String searchVal = VUtil.encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
@@ -412,17 +410,19 @@ public final class RoleDAO
 
 
     /**
+     *
      * @param userDn
+     * @param contextId
      * @return
      * @throws FinderException
      */
-    List<String> findAssignedRoles(String userDn)
+    final List<String> findAssignedRoles(String userDn, String contextId)
         throws FinderException
     {
         List<String> roleNameList = new ArrayList<String>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String roleRoot = Config.getProperty(GlobalIds.ROLE_ROOT);
+        String roleRoot = DaoUtil.getRootDn(contextId, GlobalIds.ROLE_ROOT);
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -449,11 +449,14 @@ public final class RoleDAO
 
 
     /**
+     *
      * @param le
+     * @param sequence
+     * @param contextId
      * @return
      * @throws LDAPException
      */
-    private Role unloadLdapEntry(LDAPEntry le, long sequence)
+    private Role unloadLdapEntry(LDAPEntry le, long sequence, String contextId)
         throws LDAPException
     {
         Role entity = new ObjectFactory().createRole();
@@ -462,19 +465,14 @@ public final class RoleDAO
         entity.setName(DaoUtil.getAttribute(le, ROLE_NM));
         entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
         entity.setOccupants(DaoUtil.getAttributes(le, ROLE_OCCUPANT));
-        entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase()));
-        entity.setChildren(RoleUtil.getChildren(entity.getName().toUpperCase()));
+        entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
+        entity.setChildren(RoleUtil.getChildren(entity.getName().toUpperCase(), contextId));
         DaoUtil.unloadTemporal(le, entity);
         return entity;
     }
 
-    /**
-     * @param name
-     * @return
-     */
-    private String getDn(String name)
+    private String getDn(String name, String contextId)
     {
-        return GlobalIds.CN + "=" + name + "," + Config.getProperty(GlobalIds.ROLE_ROOT);
+        return GlobalIds.CN + "=" + name + "," + DaoUtil.getRootDn(contextId, GlobalIds.ROLE_ROOT);
     }
 }
-

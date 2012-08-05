@@ -4,13 +4,14 @@
 
 package com.jts.fortress.util.time;
 
-import com.jts.fortress.configuration.Config;
+import com.jts.fortress.CfgException;
+import com.jts.fortress.GlobalIds;
+import com.jts.fortress.cfg.Config;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ValidationException;
-import com.jts.fortress.constants.GlobalIds;
+import com.jts.fortress.rbac.ClassUtil;
 import com.jts.fortress.rbac.Session;
 
-import com.jts.fortress.util.ClassUtil;
 import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 
@@ -22,16 +23,16 @@ import java.util.StringTokenizer;
 /**
  * This class contains utilities for temporal constraint processing that are used by Fortress internal.  All of the methods are static and the class
  * is thread safe.
- * The Validators are configured via properties set in Fortress configuration:
+ * The Validators are configured via properties set in Fortress cfg:
  * <p/>
  * <h4> Validators supported include</h4>
  * <ol>
- * <li>{@link com.jts.fortress.constants.GlobalIds#VALIDATOR_PROPS}0={@link Date}</li>
- * <li>{@link com.jts.fortress.constants.GlobalIds#VALIDATOR_PROPS}1={@link LockDate}</li>
- * <li>{@link com.jts.fortress.constants.GlobalIds#VALIDATOR_PROPS}2={@link Timeout}</li>
- * <li>{@link com.jts.fortress.constants.GlobalIds#VALIDATOR_PROPS}3={@link ClockTime}</li>
- * <li>{@link com.jts.fortress.constants.GlobalIds#VALIDATOR_PROPS}4={@link Day}</li>
- * <li>{@link com.jts.fortress.constants.GlobalIds#DSD_VALIDATOR_PROP}={@link com.jts.fortress.rbac.DSD}</li>
+ * <li>{@link com.jts.fortress.GlobalIds#VALIDATOR_PROPS}0={@link Date}</li>
+ * <li>{@link com.jts.fortress.GlobalIds#VALIDATOR_PROPS}1={@link LockDate}</li>
+ * <li>{@link com.jts.fortress.GlobalIds#VALIDATOR_PROPS}2={@link Timeout}</li>
+ * <li>{@link com.jts.fortress.GlobalIds#VALIDATOR_PROPS}3={@link ClockTime}</li>
+ * <li>{@link com.jts.fortress.GlobalIds#VALIDATOR_PROPS}4={@link Day}</li>
+ * <li>{@link com.jts.fortress.GlobalIds#DSD_VALIDATOR_PROP}={@link com.jts.fortress.rbac.DSD}</li>
  * </ol>
  * </p>
  *
@@ -345,6 +346,7 @@ public class CUtil
      *
      * @param session contains {@link com.jts.fortress.rbac.User} and {@link com.jts.fortress.rbac.UserRole} constraints {@link Constraint} to be checked.
      * @param type    specifies User {@link ConstraintType#USER} or rOLE {@link ConstraintType#ROLE}.
+     * @param checkDsd will check DSD constraints if true
      * @throws com.jts.fortress.SecurityException in the event validation fails for User or system error occurs.
      */
     public static void validateConstraints(Session session, ConstraintType type, boolean checkDsd)
@@ -423,8 +425,8 @@ public class CUtil
         // now perform DSD validation on session's rbac roles:
         if (checkDsd && DSDVALIDATOR != null && DSDVALIDATOR.length() > 0 && type == ConstraintType.ROLE && com.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(session.getRoles()))
         {
-            Validator dsdVal = (Validator) com.jts.fortress.util.ClassUtil.createInstance(DSDVALIDATOR);
-            rc = dsdVal.validate(session, session.getUser(), null);
+            Validator dsdVal = (Validator) ClassUtil.createInstance(DSDVALIDATOR);
+            dsdVal.validate(session, session.getUser(), null);
         }
         // reset the user's last access timestamp:
         session.setLastAccess();
@@ -434,10 +436,10 @@ public class CUtil
      * Utility is used internally by this class to retrieve a list of all Validator class names, instantiate and return.
      *
      * @return list of type {@link Validator} containing all active validation routines for entity constraint processing.
-     * @throws com.jts.fortress.ConfigurationException in the event validator cannot be instantiated.
+     * @throws com.jts.fortress.CfgException in the event validator cannot be instantiated.
      */
     private static List<Validator> getValidators()
-        throws com.jts.fortress.ConfigurationException
+        throws CfgException
     {
         List<Validator> validators = new ArrayList<Validator>();
         for (int i = 0; ; i++)

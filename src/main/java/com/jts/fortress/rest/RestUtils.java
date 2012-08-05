@@ -1,9 +1,9 @@
 package com.jts.fortress.rest;
 
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RestException;
-import com.jts.fortress.configuration.Config;
-import com.jts.fortress.constants.GlobalErrIds;
+import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.Props;
 import com.jts.fortress.util.crypto.EncryptUtil;
 import org.apache.commons.httpclient.HttpClient;
@@ -24,7 +24,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Enumeration;

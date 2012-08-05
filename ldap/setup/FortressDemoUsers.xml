@@ -3,7 +3,7 @@
   ~ Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
   -->
 <project basedir="." default="all" name="Fortress Sample Data">
-    <property name="version" value="1.0.0-rc11"/>
+    <property name="version" value="1.0.0-rc12"/>
     <property name="home.dir" value = "../../" />
     <property name="lib.dir" value = "${home.dir}/lib" />
     <property name="dist.dir" value = "${home.dir}/dist" />
@@ -25,6 +25,29 @@
 
     <target name="all">
         <FortressAdmin>
+
+<!--
+            <addcontext>
+                <context name="client123"/>
+            </addcontext>
+-->
+            <addcontext>
+                <context name="client456"/>
+            </addcontext>
+
+            <addcontainer>
+                <container name="People" description="Fortress People"/>
+                <container name="Policies" description="Fortress Policies"/>
+                <container name="RBAC" description="Fortress RBAC Policies"/>
+                <container name="Roles" parent="RBAC" description="Fortress Roles"/>
+                <container name="Permissions" parent="RBAC" description="Fortress Permissions"/>
+                <container name="Constraints" parent="RBAC" description="Fortress Separation of Duty Constraints"/>
+                <container name="ARBAC" description="Fortress Administrative RBAC Policies"/>
+                <container name="OS-U" parent="ARBAC" description="Fortress User Organizational Units"/>
+                <container name="OS-P" parent="ARBAC" description="Fortress Perm Organizational Units"/>
+                <container name="AdminRoles" parent="ARBAC" description="Fortress AdminRoles"/>
+                <container name="AdminPerms" parent="ARBAC" description="Fortress Admin Permissions"/>
+            </addcontainer>
 
             <!-- Begin RBAC Admin Data: -->
         	<adduser>

@@ -7,23 +7,24 @@
  */
 package com.jts.fortress;
 
-import com.jts.fortress.configuration.Config;
+import com.jts.fortress.cfg.Config;
 import com.jts.fortress.example.Example;
 import com.jts.fortress.example.ExampleAdminMgr;
 import com.jts.fortress.example.ExampleAdminMgrFactory;
-import com.jts.fortress.pwpolicy.PolicyTestData;
+import com.jts.fortress.rbac.MyAnnotation;
+import com.jts.fortress.rbac.PolicyTestData;
 import com.jts.fortress.rbac.Address;
+import com.jts.fortress.rbac.Hier;
 import com.jts.fortress.rbac.PermObj;
+import com.jts.fortress.rbac.Relationship;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.SDSet;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.TestUtils;
-import com.jts.fortress.hier.Relationship;
-import com.jts.fortress.pwpolicy.MyAnnotation;
 import com.jts.fortress.rbac.Permission;
-import com.jts.fortress.hier.Hier;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
+import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -32,9 +33,7 @@ import org.jgrapht.graph.SimpleGraph;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,6 +50,8 @@ public class AdminMgrConsole
     private AdminMgr am = null;
     private static final String CLS_NM = AdminMgrConsole.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
+    //private static String contextId = GlobalIds.HOME;
+        private static String contextId = "client123";
 
     /**
      * put your documentation comment here
@@ -59,7 +60,8 @@ public class AdminMgrConsole
     {
         try
         {
-            am = AdminMgrFactory.createInstance();
+            am = AdminMgrFactory.createInstance(contextId);
+            //am.setContextId("client123");
         }
         catch (SecurityException e)
         {
@@ -340,6 +342,13 @@ public class AdminMgrConsole
                 key = ReaderUtil.readLn();
             }
 
+            System.out.println("Enter password policy (or NULL to skip):");
+            String policy = ReaderUtil.readLn();
+            if(VUtil.isNotNullOrEmpty(policy))
+            {
+                ue.setPwPolicy(policy);
+            }
+
             ue.setAddress(new Address());
             ue.getAddress().setAddress("123 Test Ln");
             ue.getAddress().setAddress("Suite 1");
@@ -391,7 +400,7 @@ public class AdminMgrConsole
             String choice = ReaderUtil.readLn();
             if (choice != null && choice.equalsIgnoreCase("Y"))
             {
-                AccessMgr accessMgr = AccessMgrFactory.createInstance();
+                AccessMgr accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
                 User admin = new User();
                 System.out.println("Enter userId");
                 admin.setUserId(ReaderUtil.readLn());
@@ -1094,7 +1103,7 @@ public class AdminMgrConsole
      * @throws com.jts.fortress.SecurityException
      *
      */
-    public static SimpleDirectedGraph<String, com.jts.fortress.hier.Relationship> toGraphNotUsed(Hier hier)
+    public static SimpleDirectedGraph<String, Relationship> toGraphNotUsed(Hier hier)
         throws com.jts.fortress.SecurityException
     {
         log.info(CLS_NM + ".toGraphX");

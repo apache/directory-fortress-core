@@ -4,13 +4,13 @@
 
 package com.jts.fortress.ant;
 
-import com.jts.fortress.arbac.UserAdminRole;
+import com.jts.fortress.rbac.UserAdminRole;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link com.jts.fortress.arbac.UserAdminRole}s used to drive {@link com.jts.fortress.DelegatedAdminMgr#deassignUser(com.jts.fortress.rbac.User, com.jts.fortress.arbac.AdminRole)}.
+ * The class is used by {@link FortressAntTask} to load {@link com.jts.fortress.rbac.UserAdminRole}s used to drive {@link com.jts.fortress.DelAdminMgr#deassignUser(com.jts.fortress.rbac.User, com.jts.fortress.rbac.AdminRole)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Deluseradminrole', is used for the xml tag in the load script.</p>
  * <pre>
@@ -59,7 +59,7 @@ public class Deluseradminrole
     /**
      * Used by {@link FortressAntTask#delUserAdminRoles()} to retrieve list of UserAdminRoles as defined in input xml file.
      *
-     * @return collection containing {@link com.jts.fortress.arbac.UserAdminRole}s targeted for removal.
+     * @return collection containing {@link com.jts.fortress.rbac.UserAdminRole}s targeted for removal.
      */
     public List<UserAdminRole> getUserRoles()
     {

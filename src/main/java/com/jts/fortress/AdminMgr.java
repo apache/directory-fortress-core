@@ -37,11 +37,12 @@ import com.jts.fortress.rbac.UserRole;
  * <p/>
  * <img src="../../../images/RbacDSD.png">
  * <p/>
+ * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(com.jts.fortress.rbac.Session)}) are set.
  *
  * @author Shawn McKinney
  * @created August 23, 2009
  */
-public interface AdminMgr extends com.jts.fortress.Authorizable
+public interface AdminMgr extends Manageable
 {
     /**
      * This command creates a new RBAC user. The command is valid only if the new user is
@@ -303,6 +304,7 @@ public interface AdminMgr extends com.jts.fortress.Authorizable
      * <li>{@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
      * </ul>
      * @param role Must contains {@link Role#name} and may contain new description or {@link com.jts.fortress.util.time.Constraint}
+     * @return Role contains reference to entity operated on.
      * @throws SecurityException in the event of validation or system error.
      */
     public Role updateRole(Role role)
@@ -425,7 +427,7 @@ public interface AdminMgr extends com.jts.fortress.Authorizable
      * </ul>
      *
      * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
-     * @return copy of permOp entity.
+     * @return copy of Permission entity.
      * @throws com.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
@@ -465,7 +467,7 @@ public interface AdminMgr extends com.jts.fortress.Authorizable
      * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName} and {@link PermObj#ou}.  The other attributes are optional.
-     * @return copy of permObj entity.
+     * @return copy of PermObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     public PermObj addPermObj(PermObj pObj)
@@ -488,7 +490,7 @@ public interface AdminMgr extends com.jts.fortress.Authorizable
      * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName}. Only non-null attributes will be updated.
-     * @return copy of newly updated permObj entity.
+     * @return copy of newly updated PermObj entity.
      * @throws com.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
@@ -505,7 +507,6 @@ public interface AdminMgr extends com.jts.fortress.Authorizable
      * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName} of object targeted for removal.
-     * @return copy of permObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     public void deletePermObj(PermObj pObj)
@@ -957,4 +958,3 @@ public interface AdminMgr extends com.jts.fortress.Authorizable
     public SDSet setDsdSetCardinality(SDSet dsdSet, int cardinality)
         throws com.jts.fortress.SecurityException;
 }
-

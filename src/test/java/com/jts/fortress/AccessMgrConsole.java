@@ -7,10 +7,9 @@
  */
 package com.jts.fortress;
 
-import com.jts.fortress.arbac.UserAdminRole;
+import com.jts.fortress.rbac.UserAdminRole;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Session;
-import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
 
@@ -40,7 +39,7 @@ public class AccessMgrConsole
     {
         try
         {
-            am = AccessMgrFactory.createInstance();
+            am = AccessMgrFactory.createInstance(GlobalIds.HOME);
         }
         catch (SecurityException e)
         {

@@ -5,12 +5,9 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.FinderException;
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ValidationException;
-import com.jts.fortress.arbac.AdminRole;
-import com.jts.fortress.arbac.OrgUnit;
-import com.jts.fortress.arbac.OrgUnitP;
-import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.util.attr.VUtil;
 
 import java.util.List;
@@ -25,7 +22,7 @@ import java.util.List;
  * error internal to DAO object. This class will forward DAO exceptions ({@link com.jts.fortress.FinderException},
  * {@link com.jts.fortress.CreateException},{@link com.jts.fortress.UpdateException},{@link com.jts.fortress.RemoveException}),
  *  or {@link com.jts.fortress.ValidationException} as {@link com.jts.fortress.SecurityException}s with appropriate
- * error id from {@link com.jts.fortress.constants.GlobalErrIds}.
+ * error id from {@link com.jts.fortress.GlobalErrIds}.
  * <p>
  * This object is thread safe.
  * </p>
@@ -34,20 +31,20 @@ import java.util.List;
  * @author Shawn McKinney
  * @created September 29, 2009
  */
-public class PermP
+final class PermP
 {
     /**
      * Description of the Field
      */
     private static final String CLS_NM = PermP.class.getName();
     private static final PermDAO pDao = new PermDAO();
+    private OrgUnitP orgUnitP = new OrgUnitP();
 
     /**
      * Package private constructor
      */
     PermP()
-    {
-    }
+    {}
 
     /**
      * This function returns a Boolean value meaning whether the subject of a given session is
@@ -101,6 +98,7 @@ public class PermP
      * Takes an OrgUnit entity that contains full or partial orgUnitId for search Permission Objects in directory..
      *
      * @param ou contains all or OrgUnitId.
+     * @param limitSize contains max number of entries to return.
      * @return List of type Permission Objects containing fully populated matching entities.
      * @throws SecurityException in the event of DAO search error.
      */
@@ -147,7 +145,7 @@ public class PermP
      * @param user contains the userId targeted for attribute removal.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final static void remove(User user)
+    final void remove(User user)
         throws SecurityException
     {
         List<Permission> list;
@@ -174,7 +172,7 @@ public class PermP
      * @param role contains the name of Role targeted for attribute removal.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final static void remove(Role role)
+    final void remove(Role role)
         throws SecurityException
     {
         List<Permission> list;
@@ -195,13 +193,13 @@ public class PermP
 
 
     /**
-     * Remove the Admin Role assignment attribute from all Admin permssions.  This method is called by DelegatedAdminMgrImpl
+     * Remove the Admin Role assignment attribute from all Admin permssions.  This method is called by DelAdminMgrImpl
      * when the AdminRole is being deleted.
      *
      * @param role contains the name of AdminRole targeted for attribute removal.
      * @throws SecurityException in the event of DAO search error.
      */
-    final static void remove(AdminRole role)
+    final void remove(AdminRole role)
         throws SecurityException
     {
         List<Permission> list;
@@ -326,7 +324,7 @@ public class PermP
      * @return Permission entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    private final PermObj update(PermObj entity, boolean validate)
+    private PermObj update(PermObj entity, boolean validate)
         throws SecurityException
     {
         if (validate)
@@ -364,7 +362,7 @@ public class PermP
      * @return Permission entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    private final Permission update(Permission entity, boolean validate)
+    private Permission update(Permission entity, boolean validate)
         throws SecurityException
     {
         if (validate)
@@ -434,7 +432,7 @@ public class PermP
      * @param role contains role name
      * @throws com.jts.fortress.SecurityException Thrown in the event of data validation or system error.
      */
-    final static void revoke(Permission pOp, Role role)
+    final void revoke(Permission pOp, Role role)
         throws SecurityException
     {
         pDao.revoke(pOp, role);
@@ -463,7 +461,7 @@ public class PermP
      * @param user contains userid of User entity.
      * @throws com.jts.fortress.SecurityException Thrown in the event of data validation or system error.
      */
-    final static void revoke(Permission pOp, User user)
+    final void revoke(Permission pOp, User user)
         throws SecurityException
     {
         pDao.revoke(pOp, user);
@@ -487,7 +485,8 @@ public class PermP
             VUtil.orgUnit(pObj.getOu());
             // ensure ou exists in the OS-P pool:
             OrgUnit ou = new OrgUnit(pObj.getOu(), OrgUnit.Type.PERM);
-            if (!OrgUnitP.isValid(ou))
+            ou.setContextId(pObj.getContextId());
+            if (!orgUnitP.isValid(ou))
             {
                 String error = CLS_NM + ".validate detected invalid orgUnit name [" + pObj.getOu() + "] for object name [" + pObj.getObjectName() + "]";
                 //log.warn(error);
@@ -513,7 +512,8 @@ public class PermP
                 VUtil.orgUnit(pObj.getOu());
                 // ensure ou exists in the OS-P pool:
                 OrgUnit ou = new OrgUnit(pObj.getOu(), OrgUnit.Type.PERM);
-                if (!OrgUnitP.isValid(ou))
+                ou.setContextId(pObj.getContextId());
+                if (!orgUnitP.isValid(ou))
                 {
                     String error = CLS_NM + ".validate detected invalid orgUnit name [" + pObj.getOu() + "] for object name [" + pObj.getObjectName() + "]";
                     throw new ValidationException(GlobalErrIds.PERM_OU_INVALID, error);
@@ -535,7 +535,7 @@ public class PermP
      * @param isUpdate if true update operation is being performed which specifies a different set of targeted attributes.
      * @throws com.jts.fortress.SecurityException in the event of data validation error or DAO error.
      */
-    void validate(Permission pOp, boolean isUpdate)
+    private void validate(Permission pOp, boolean isUpdate)
         throws SecurityException
     {
         if (!isUpdate)
@@ -555,8 +555,10 @@ public class PermP
         {
             List<String> roles = pOp.getRoles();
             RoleP rp = new RoleP();
-            for (String role : roles)
+            for (String roleNm : roles)
             {
+                Role role = new Role(roleNm);
+                role.setContextId(pOp.getContextId());
                 rp.read(role);
             }
         }
@@ -567,7 +569,9 @@ public class PermP
             UserP up = new UserP();
             for (String userId : users)
             {
-                up.read(userId, false);
+                User user = new User(userId);
+                user.setContextId(pOp.getContextId());
+                up.read(user, false);
             }
         }
     }

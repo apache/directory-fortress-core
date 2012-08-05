@@ -4,12 +4,13 @@
 
 package com.jts.fortress.ldap;
 
-import com.jts.fortress.FortEntity;
-import com.jts.fortress.constants.GlobalIds;
-import com.jts.fortress.hier.Relationship;
+import com.jts.fortress.GlobalIds;
+import com.jts.fortress.cfg.Config;
+import com.jts.fortress.rbac.FortEntity;
+import com.jts.fortress.rbac.Relationship;
+import com.jts.fortress.rbac.Hier;
 import com.jts.fortress.util.time.Constraint;
 import com.jts.fortress.util.AlphabeticalOrder;
-import com.jts.fortress.hier.Hier;
 import com.jts.fortress.util.time.CUtil;
 
 import com.jts.fortress.util.attr.VUtil;
@@ -42,17 +43,63 @@ import java.util.TreeSet;
  * <p/>
  * This class is thread safe.
  * <p/>
-
  *
  * @author Shawn McKinney
  * @created August 30, 2009
  */
-public class DaoUtil
+public final class DaoUtil
 {
     private static final String OPENLDAP_PROXY_CONTROL = "2.16.840.1.113730.3.4.18";
     private static final int MAX_DEPTH = 100;
     private static final String CLS_NM = DaoUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
+
+    /**
+     * Given a contextId and a fortress param name return the LDAP dn.
+     * @param contextId is to determine what sub-tree to use.
+     * @param root contains the fortress parameter name that corresponds with a particular LDAP container.
+     * @return String contains the dn to use for operation.
+     */
+    public static String getRootDn(String contextId, String root)
+    {
+        String szDn = Config.getProperty(root);
+        StringBuffer dn = new StringBuffer();
+        if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL) && !contextId.equals(GlobalIds.HOME))
+        {
+            int idx = szDn.indexOf(Config.getProperty(GlobalIds.SUFFIX));
+            if(idx != -1)
+            {
+                dn.append(szDn.substring(0, idx-1)).append(",").append(GlobalIds.OU).append("=").append(contextId).append(",").append(szDn.substring(idx));
+            }
+        }
+        else
+        {
+            dn.append(szDn);
+        }
+        return dn.toString();
+    }
+
+
+    /**
+     * Given a contextId return the LDAP dn that includes the suffix.
+     * @param contextId is to determine what sub-tree to use.
+     * @return String contains the dn to use for operation.
+     */
+    public static String getRootDn(String contextId)
+    {
+        String szDn = Config.getProperty(GlobalIds.SUFFIX);
+        StringBuffer dn = new StringBuffer();
+        if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL) && !contextId.equals(GlobalIds.HOME))
+        {
+            dn.append(GlobalIds.OU).append("=").append(contextId).append(",").append(Config.getProperty(GlobalIds.SUFFIX));
+        }
+        else
+        {
+            dn.append(Config.getProperty(GlobalIds.SUFFIX));
+        }
+        return dn.toString();
+    }
+
 
     /**
      * Read the ldap record from specified location.
@@ -513,11 +560,11 @@ public class DaoUtil
 
 
     /**
-     * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and return as a list of type {@link com.jts.fortress.hier.Relationship}.
+     * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and return as a list of type {@link com.jts.fortress.rbac.Relationship}.
      *
      * @param entry         contains the target ldap entry.
      * @param attributeName name of ldap attribute to retrieve.
-     * @return List of type {@link com.jts.fortress.hier.Relationship} containing parent-child relationships.
+     * @return List of type {@link com.jts.fortress.rbac.Relationship} containing parent-child relationships.
      * @throws LDAPException in the event of ldap client error.
      */
     public static List<Relationship> getRelationshipAttributes(LDAPEntry entry, String attributeName)
@@ -701,9 +748,9 @@ public class DaoUtil
 
 
     /**
-     * Given a collection of {@link com.jts.fortress.hier.Relationship}, convert to raw data name-value format and load into ldap attribute set in preparation for ldap add.
+     * Given a collection of {@link com.jts.fortress.rbac.Relationship}, convert to raw data name-value format and load into ldap attribute set in preparation for ldap add.
      *
-     * @param list     contains List of type {@link com.jts.fortress.hier.Relationship} targeted for adding to ldap.
+     * @param list     contains List of type {@link com.jts.fortress.rbac.Relationship} targeted for adding to ldap.
      * @param attrs    collection of ldap attributes containing parent-child relationships in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be added.
      */
@@ -786,12 +833,12 @@ public class DaoUtil
 
 
     /**
-     * Given a collection of {@link com.jts.fortress.hier.Relationship}s, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
+     * Given a collection of {@link com.jts.fortress.rbac.Relationship}s, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
      *
-     * @param list     contains List of type {@link com.jts.fortress.hier.Relationship} targeted for updating in ldap.
+     * @param list     contains List of type {@link com.jts.fortress.rbac.Relationship} targeted for updating in ldap.
      * @param mods     ldap modification set containing parent-child relationships in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be updated.
-     * @param op       specifies type of mod: {@link Hier.Op#ADD}, {@link com.jts.fortress.hier.Hier.Op#MOD}, {@link Hier.Op#REM}
+     * @param op       specifies type of mod: {@link Hier.Op#ADD}, {@link com.jts.fortress.rbac.Hier.Op#MOD}, {@link Hier.Op#REM}
      */
     public static void loadRelationshipAttrs(List<Relationship> list, LDAPModificationSet mods, String attrName, Hier.Op op)
     {

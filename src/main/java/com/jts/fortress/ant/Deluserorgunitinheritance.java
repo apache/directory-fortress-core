@@ -4,13 +4,14 @@
 
 package com.jts.fortress.ant;
 
-import com.jts.fortress.hier.Relationship;
+import com.jts.fortress.rbac.Relationship;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link Relationship}s used to drive {@link com.jts.fortress.DelegatedAdminMgr#deleteInheritance(com.jts.fortress.arbac.OrgUnit, com.jts.fortress.arbac.OrgUnit)}.
+ * The class is used by {@link FortressAntTask} to load {@link Relationship}s used to drive {@link com.jts.fortress.DelAdminMgr#deleteInheritance(com.jts.fortress.rbac.OrgUnit, com.jts.fortress.rbac.OrgUnit)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Deluserorgunitinheritance', is used for the xml tag in the load script.</p>
  * <pre>

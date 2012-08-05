@@ -4,7 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.pwpolicy.MyAnnotation;
 import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.LogUtil;
 import com.jts.fortress.util.attr.VUtil;

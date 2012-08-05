@@ -4,9 +4,10 @@
 package com.jts.fortress.rest;
 
 import com.jts.fortress.AccessMgr;
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.constants.GlobalErrIds;
 import com.jts.fortress.rbac.AccessMgrImpl;
+import com.jts.fortress.rbac.Manageable;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.User;
@@ -53,10 +54,9 @@ import java.util.TreeSet;
  * @author Shawn McKinney
  * @created February 12, 2012
  */
-public class AccessMgrRestImpl implements AccessMgr
+public class AccessMgrRestImpl extends Manageable implements AccessMgr
 {
     private static final String CLS_NM = AccessMgrImpl.class.getName();
-
 
     /**
      * Perform user authentication only.  It does not activate RBAC roles in session but will evaluate
@@ -74,6 +74,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNullOrEmpty(password, GlobalErrIds.USER_PW_NULL, ".authenticate");
         Session retSession;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(new User(userId, password));
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(szRequest, HttpIds.RBAC_AUTHN);
@@ -94,15 +95,15 @@ public class AccessMgrRestImpl implements AccessMgr
      * This method must be called once per user prior to calling other methods within this class.
      * The successful result is {@link Session} that contains target user's RBAC {@link User#roles} and Admin role {@link User#adminRoles}.<br />
      * In addition to checking user password validity it will apply configured password policy checks {@link User#pwPolicy}..<br />
-     * Method may also store parms passed in for audit trail {@link com.jts.fortress.FortEntity}.
+     * Method may also store parms passed in for audit trail {@link com.jts.fortress.rbac.FortEntity}.
      * <h4> This API will...</h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
-     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link com.jts.fortress.pwpolicy.OLPWControlImpl}.
+     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link com.jts.fortress.ldap.openldap.OLPWControlImpl}.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link User#isLocked()}, regardless of trusted flag being set as parm on API.
-     * <li> evaluate temporal {@link com.jts.fortress.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link com.jts.fortress.arbac.UserAdminRole} entities.
+     * <li> evaluate temporal {@link com.jts.fortress.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link com.jts.fortress.rbac.UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.
-     * <li> check Dynamic Separation of Duties {@link com.jts.fortress.rbac.DSD#validate(Session, com.jts.fortress.util.time.Constraint, com.jts.fortress.util.time.Time)} on {@link User#roles}.
+     * <li> check Dynamic Separation of Duties {@link com.jts.fortress.rbac.DSDChecker#validate(Session, com.jts.fortress.util.time.Constraint, com.jts.fortress.util.time.Time)} on {@link User#roles}.
      * <li> process selective administrative role activations {@link User#adminRoles}.
      * <li> return a {@link Session} containing {@link Session#getUser()}, {@link Session#getRoles()} and (if admin user) {@link Session#getAdminRoles()} if everything checks out good.
      * <li> throw a checked exception that will be {@link com.jts.fortress.SecurityException} or its derivation.
@@ -149,6 +150,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".createSession");
         Session retSession;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setEntity(user);
         String szRequest = RestUtils.marshal(request);
         String szResponse = null;
@@ -193,6 +195,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".checkAccess");
         boolean result;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setSession(session);
         request.setEntity(perm);
         String szRequest = RestUtils.marshal(request);
@@ -225,6 +228,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionPermissions");
         List<Permission> retPerms;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(szRequest, HttpIds.RBAC_PERMS);
@@ -257,6 +261,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionRoles");
         List<UserRole> retRoles;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(szRequest, HttpIds.RBAC_ROLES);
@@ -288,6 +293,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionRoles");
         Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(szRequest, HttpIds.RBAC_AUTHZ_ROLES);
@@ -332,6 +338,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, fullMethodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, fullMethodName);
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setSession(session);
         request.setEntity(role);
         String szRequest = RestUtils.marshal(request);
@@ -365,6 +372,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + fullMethodName);
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + fullMethodName);
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setSession(session);
         request.setEntity(role);
         String szRequest = RestUtils.marshal(request);
@@ -395,6 +403,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".getUserId");
         String userId;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(szRequest, HttpIds.RBAC_USERID);
@@ -467,6 +476,7 @@ public class AccessMgrRestImpl implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".getUser");
         User retUser;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(szRequest, HttpIds.RBAC_USER);

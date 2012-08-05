@@ -39,10 +39,11 @@ import com.jts.fortress.rbac.UserRole;
  * <p/>
  * <img src="../../../images/RbacDSD.png">
  * <p/>
+ * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(com.jts.fortress.rbac.Session)}) are set.
  * @author Shawn McKinney
  * @created October 13, 2009
  */
-public interface AccessMgr
+public interface AccessMgr extends Manageable
 {
 
     /**
@@ -64,15 +65,15 @@ public interface AccessMgr
      * This method must be called once per user prior to calling other methods within this class.
      * The successful result is {@link com.jts.fortress.rbac.Session} that contains target user's RBAC {@link User#roles} and Admin role {@link User#adminRoles}.<br />
      * In addition to checking user password validity it will apply configured password policy checks {@link com.jts.fortress.rbac.User#pwPolicy}..<br />
-     * Method may also store parms passed in for audit trail {@link FortEntity}.
+     * Method may also store parms passed in for audit trail {@link com.jts.fortress.rbac.FortEntity}.
      * <h4> This API will...</h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
-     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link com.jts.fortress.pwpolicy.OLPWControlImpl}.
+     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link com.jts.fortress.ldap.openldap.OLPWControlImpl}.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link com.jts.fortress.rbac.User#isLocked()}, regardless of trusted flag being set as parm on API.
-     * <li> evaluate temporal {@link com.jts.fortress.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link com.jts.fortress.arbac.UserAdminRole} entities.
+     * <li> evaluate temporal {@link com.jts.fortress.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link com.jts.fortress.rbac.UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.
-     * <li> check Dynamic Separation of Duties {@link com.jts.fortress.rbac.DSD#validate(com.jts.fortress.rbac.Session, com.jts.fortress.util.time.Constraint, com.jts.fortress.util.time.Time)} on {@link com.jts.fortress.rbac.User#roles}.
+     * <li> check Dynamic Separation of Duties {@link com.jts.fortress.rbac.DSDChecker#validate(com.jts.fortress.rbac.Session, com.jts.fortress.util.time.Constraint, com.jts.fortress.util.time.Time)} on {@link com.jts.fortress.rbac.User#roles}.
      * <li> process selective administrative role activations {@link User#adminRoles}.
      * <li> return a {@link com.jts.fortress.rbac.Session} containing {@link com.jts.fortress.rbac.Session#getUser()}, {@link com.jts.fortress.rbac.Session#getRoles()} and (if admin user) {@link com.jts.fortress.rbac.Session#getAdminRoles()} if everything checks out good.
      * <li> throw a checked exception that will be {@link com.jts.fortress.SecurityException} or its derivation.
