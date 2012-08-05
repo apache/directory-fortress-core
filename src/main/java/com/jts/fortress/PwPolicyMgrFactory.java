@@ -6,6 +6,7 @@ package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.rbac.Session;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
@@ -27,6 +28,7 @@ public class PwPolicyMgrFactory
     /**
      * Create and return a reference to {@link PwPolicyMgr} object.
      *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return instance of {@link PwPolicyMgr}.
      * @throws com.jts.fortress.SecurityException in the event of failure during instantiation.
      */
@@ -42,6 +44,22 @@ public class PwPolicyMgrFactory
 
         policyMgr = (PwPolicyMgr) ClassUtil.createInstance(policyClassName);
         policyMgr.setContextId(contextId);
+        return policyMgr;
+    }
+
+    /**
+     * Create and return a reference to {@link com.jts.fortress.PwPolicyMgr} object.
+     *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link com.jts.fortress.PwPolicyMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static PwPolicyMgr createInstance(String contextId, Session adminSess)
+        throws SecurityException
+    {
+        PwPolicyMgr policyMgr = createInstance(contextId);
+        policyMgr.setAdmin(adminSess);
         return policyMgr;
     }
 }

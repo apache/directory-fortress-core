@@ -1762,12 +1762,11 @@ public class DelegatedMgrImplTest extends TestCase
      */
     public static DelAdminMgr getManagedDelegatedMgr() throws SecurityException
     {
-        DelAdminMgr dAdminMgr = DelAdminMgrFactory.createInstance(contextId);
         if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        dAdminMgr.setAdmin(adminSess);
+        DelAdminMgr dAdminMgr = DelAdminMgrFactory.createInstance(contextId, adminSess);
         return dAdminMgr;
     }
 

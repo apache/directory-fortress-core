@@ -1253,12 +1253,11 @@ public class PswdPolicyMgrImplTest extends TestCase
      */
     public static PwPolicyMgr getManagedPswdMgr() throws SecurityException
     {
-        PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance(contextId);
         if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        policyMgr.setAdmin(adminSess);
+        PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance(contextId, adminSess);
         return policyMgr;
     }
 }

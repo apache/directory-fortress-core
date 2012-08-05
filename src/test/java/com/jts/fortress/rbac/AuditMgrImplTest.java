@@ -29,8 +29,8 @@ public class AuditMgrImplTest extends TestCase
 {
     private static final String CLS_NM = AuditMgrImplTest.class.getName();
     private static final String contextId = FortressJUnitTest.getContext();
+    private static Session adminSess = null;
     final protected static Logger log = Logger.getLogger(CLS_NM);
-
 
     public AuditMgrImplTest(String name)
     {
@@ -120,7 +120,7 @@ public class AuditMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AuditMgr auditMgr = AuditMgrFactory.createInstance(contextId);
+            AuditMgr auditMgr = getManagedAuditMgr();
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -174,7 +174,7 @@ public class AuditMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AuditMgr auditMgr = AuditMgrFactory.createInstance(contextId);
+            AuditMgr auditMgr = getManagedAuditMgr();
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -219,7 +219,7 @@ public class AuditMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AuditMgr auditMgr = AuditMgrFactory.createInstance(contextId);
+            AuditMgr auditMgr = getManagedAuditMgr();
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -271,7 +271,7 @@ public class AuditMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AuditMgr auditMgr = AuditMgrFactory.createInstance(contextId);
+            AuditMgr auditMgr = getManagedAuditMgr();
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -317,7 +317,7 @@ public class AuditMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AuditMgr auditMgr = AuditMgrFactory.createInstance(contextId);
+            AuditMgr auditMgr = getManagedAuditMgr();
             UserAudit uAudit = new UserAudit();
             List<AuthZ> resultSet = auditMgr.searchInvalidUsers(uAudit);
             assertNotNull(resultSet);
@@ -352,7 +352,7 @@ public class AuditMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            AuditMgr auditMgr = AuditMgrFactory.createInstance(contextId);
+            AuditMgr auditMgr = getManagedAuditMgr();
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
@@ -379,4 +379,18 @@ public class AuditMgrImplTest extends TestCase
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws com.jts.fortress.SecurityException
+     */
+    public static AuditMgr getManagedAuditMgr() throws SecurityException
+    {
+        if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
+        {
+            adminSess = DelegatedMgrImplTest.createAdminSession();
+        }
+        AuditMgr auditMgr = AuditMgrFactory.createInstance(contextId, adminSess);
+        return auditMgr;
+    }
 }

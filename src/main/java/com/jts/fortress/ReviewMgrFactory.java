@@ -6,8 +6,8 @@ package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.rbac.Session;
 import com.jts.fortress.util.attr.VUtil;
-import org.apache.log4j.Logger;
 
 /**
  * Creates an instance of the ReviewMgr object.
@@ -22,13 +22,13 @@ import org.apache.log4j.Logger;
  */
 public class ReviewMgrFactory
 {
-    private static Logger log = Logger.getLogger(ReviewMgrFactory.class.getName());
     private static String reviewClassName = Config.getProperty(GlobalIds.REVIEW_IMPLEMENTATION);
     private static final String CLS_NM = ReviewMgrFactory.class.getName();
 
     /**
      * Create and return a reference to {@link com.jts.fortress.ReviewMgr} object.
      *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return instance of {@link com.jts.fortress.ReviewMgr}.
      * @throws SecurityException in the event of failure during instantiation.
      */
@@ -43,6 +43,22 @@ public class ReviewMgrFactory
         }
         reviewMgr = (com.jts.fortress.ReviewMgr) ClassUtil.createInstance(reviewClassName);
         reviewMgr.setContextId(contextId);
+        return reviewMgr;
+    }
+
+    /**
+     * Create and return a reference to {@link com.jts.fortress.ReviewMgr} object.
+     *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link com.jts.fortress.ReviewMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static ReviewMgr createInstance(String contextId, Session adminSess)
+        throws SecurityException
+    {
+        ReviewMgr reviewMgr = createInstance(contextId);
+        reviewMgr.setAdmin(adminSess);
         return reviewMgr;
     }
 }

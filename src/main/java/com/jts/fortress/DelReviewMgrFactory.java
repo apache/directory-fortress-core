@@ -6,6 +6,7 @@ package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.rbac.Session;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
@@ -27,6 +28,7 @@ public class DelReviewMgrFactory
     /**
      * Create and return a reference to {@link DelReviewMgr} object.
      *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return instance of {@link DelReviewMgr}.
      * @throws com.jts.fortress.SecurityException in the event of failure during instantiation.
      */
@@ -41,6 +43,22 @@ public class DelReviewMgrFactory
         }
         delReviewMgr = (DelReviewMgr) ClassUtil.createInstance(dReviewClassName);
         delReviewMgr.setContextId(contextId);
+        return delReviewMgr;
+    }
+
+    /**
+     * Create and return a reference to {@link com.jts.fortress.DelReviewMgr} object.
+     *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link com.jts.fortress.DelReviewMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static DelReviewMgr createInstance(String contextId, Session adminSess)
+        throws SecurityException
+    {
+        DelReviewMgr delReviewMgr = createInstance(contextId);
+        delReviewMgr.setAdmin(adminSess);
         return delReviewMgr;
     }
 }

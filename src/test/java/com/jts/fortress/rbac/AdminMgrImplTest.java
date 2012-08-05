@@ -2234,12 +2234,11 @@ public class AdminMgrImplTest extends TestCase
      */
     public static AdminMgr getManagedAdminMgr() throws SecurityException
     {
-        AdminMgr adminMgr = AdminMgrFactory.createInstance(contextId);
         if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        adminMgr.setAdmin(adminSess);
+        AdminMgr adminMgr = AdminMgrFactory.createInstance(contextId, adminSess);
         return adminMgr;
     }
 }

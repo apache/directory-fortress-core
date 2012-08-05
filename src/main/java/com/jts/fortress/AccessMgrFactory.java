@@ -6,6 +6,7 @@ package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.rbac.Session;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
@@ -27,10 +28,11 @@ public class AccessMgrFactory
     /**
      * Create and return a reference to {@link com.jts.fortress.AccessMgr} object.
      *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return instance of {@link com.jts.fortress.AccessMgr}.
      * @throws com.jts.fortress.SecurityException in the event of failure during instantiation.
      */
-    public static com.jts.fortress.AccessMgr createInstance(String contextId)
+    public static AccessMgr createInstance(String contextId)
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
@@ -39,8 +41,25 @@ public class AccessMgrFactory
         {
             accessClassName = GlobalIds.ACCESS_DEFAULT_CLASS;
         }
-        accessMgr = (com.jts.fortress.AccessMgr) ClassUtil.createInstance(accessClassName);
+        accessMgr = (AccessMgr) ClassUtil.createInstance(accessClassName);
         accessMgr.setContextId(contextId);
+        return accessMgr;
+    }
+
+
+    /**
+     * Create and return a reference to {@link com.jts.fortress.AccessMgr} object.
+     *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link com.jts.fortress.AccessMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static AccessMgr createInstance(String contextId, Session adminSess)
+        throws SecurityException
+    {
+        AccessMgr accessMgr = createInstance(contextId);
+        accessMgr.setAdmin(adminSess);
         return accessMgr;
     }
 }

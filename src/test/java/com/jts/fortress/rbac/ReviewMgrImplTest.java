@@ -1210,12 +1210,11 @@ public class ReviewMgrImplTest extends TestCase
      */
     public static ReviewMgr getManagedReviewMgr() throws SecurityException
     {
-        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(contextId);
         if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        reviewMgr.setAdmin(adminSess);
+        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(contextId, adminSess);
         return reviewMgr;
     }
 }

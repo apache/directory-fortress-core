@@ -2269,7 +2269,6 @@ public class PermTestData extends TestCase
      };
 
 
-
       /**
       * Test Case TOP1:
       */

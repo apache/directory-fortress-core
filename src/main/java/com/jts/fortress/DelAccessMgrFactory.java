@@ -6,6 +6,7 @@ package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.rbac.Session;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
@@ -27,6 +28,7 @@ public class DelAccessMgrFactory
     /**
      * Create and return a reference to {@link DelAccessMgr} object.
      *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return instance of {@link DelAccessMgr}.
      * @throws SecurityException in the event of failure during instantiation.
      */
@@ -41,6 +43,23 @@ public class DelAccessMgrFactory
         }
         accessMgr = (DelAccessMgr) ClassUtil.createInstance(accessClassName);
         accessMgr.setContextId(contextId);
+        return accessMgr;
+    }
+
+
+    /**
+     * Create and return a reference to {@link com.jts.fortress.DelAccessMgr} object.
+     *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link com.jts.fortress.DelAccessMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static DelAccessMgr createInstance(String contextId, Session adminSess)
+        throws SecurityException
+    {
+        DelAccessMgr accessMgr = createInstance(contextId);
+        accessMgr.setAdmin(adminSess);
         return accessMgr;
     }
 }
