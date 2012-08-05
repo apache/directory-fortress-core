@@ -31,9 +31,11 @@
                 <context name="client123"/>
             </addcontext>
 -->
+<!--
             <addcontext>
                 <context name="client456"/>
             </addcontext>
+-->
 
             <addcontainer>
                 <container name="People" description="Fortress People"/>
