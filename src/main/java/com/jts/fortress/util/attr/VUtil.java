@@ -8,6 +8,7 @@ import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.ValidationException;
+import com.jts.fortress.rbac.FortEntity;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import org.apache.log4j.Logger;
 
@@ -407,7 +408,7 @@ public class VUtil
     {
         if (obj == null)
         {
-            String error = CLS_NM + ".assertNotNull detected null entity for method [" + method + "], error code [" + errorCode + "]";
+            String error = CLS_NM + ".assertContext detected null entity for method [" + method + "], error code [" + errorCode + "]";
             throw new ValidationException(errorCode, error);
         }
     }
@@ -424,7 +425,7 @@ public class VUtil
     {
         if (value == null || value.length() == 0)
         {
-            String error = CLS_NM + ".assertNotNull detected null entity for method [" + method + "], error code [" + errorCode + "]";
+            String error = CLS_NM + ".assertContext detected null entity for method [" + method + "], error code [" + errorCode + "]";
             throw new com.jts.fortress.ValidationException(errorCode, error);
         }
     }
@@ -441,7 +442,7 @@ public class VUtil
     {
         if (value == null || value.length == 0)
         {
-            String error = CLS_NM + ".assertNotNull detected null entity for method [" + method + "], error code [" + errorCode + "]";
+            String error = CLS_NM + ".assertContext detected null entity for method [" + method + "], error code [" + errorCode + "]";
             throw new com.jts.fortress.ValidationException(errorCode, error);
         }
     }

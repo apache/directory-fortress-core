@@ -79,7 +79,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "addRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ARLE_NULL);
         setEntitySession(CLS_NM, methodName, role);
         AdminRole newRole = admRP.add(role);
         return newRole;
@@ -103,7 +103,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "deleteRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ARLE_NULL);
         setEntitySession(CLS_NM, methodName, role);
         int numChildren = AdminRoleUtil.numChildren(role.getName(), role.getContextId());
         if (numChildren > 0)
@@ -111,7 +111,6 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
             String error = CLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren + "] descendants before deletion";
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
-        role.setContextId(this.contextId);
         // search for all users assigned this role and deassign:
         List<User> users = userP.getAssignedUsers(role);
         if (users != null)
@@ -163,10 +162,9 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "updateRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ARLE_NULL);
         setEntitySession(CLS_NM, methodName, role);
         AdminRole re = admRP.update(role);
-        role.setContextId(this.contextId);
         // search for all users assigned this role and update:
         List<User> users = userP.getAssignedUsers(role);
         if(VUtil.isNotNullOrEmpty(users))
@@ -236,7 +234,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "assignUser";
-        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, uAdminRole, GlobalErrIds.ARLE_NULL);
         setEntitySession(CLS_NM, methodName, uAdminRole);
 
         AdminRole adminRole = new AdminRole(uAdminRole.getName());
@@ -278,7 +276,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "deassignUser";
-        VUtil.assertNotNull(uAdminRole, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, uAdminRole, GlobalErrIds.ARLE_NULL);
         setEntitySession(CLS_NM, methodName, uAdminRole);
         String dn = userP.deassign(uAdminRole);
         AdminRole adminRole = new AdminRole(uAdminRole.getName());
@@ -311,7 +309,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "addOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, entity, GlobalErrIds.ORG_NULL);
         setEntitySession(CLS_NM, methodName, entity);
         VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         return ouP.add(entity);
@@ -339,7 +337,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "updateOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, entity, GlobalErrIds.ORG_NULL);
         setEntitySession(CLS_NM, methodName, entity);
         VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         return ouP.update(entity);
@@ -363,7 +361,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "deleteOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, entity, GlobalErrIds.ORG_NULL);
         setEntitySession(CLS_NM, methodName, entity);
         VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         int numChildren;
@@ -393,7 +391,6 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         else
         {
             // Ensure the org unit is not assigned to any permission objects but set the sizeLimit to "true" to limit result set size..
-            entity.setContextId(this.contextId);
             // pass a "false" which places no restrictions on how many records server returns.
             List<PermObj> assignedPerms = permP.search(entity, false);
             if (VUtil.isNotNullOrEmpty(assignedPerms))
@@ -442,12 +439,10 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "addDescendantOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, parent, GlobalErrIds.ORG_PARENT_NULL);
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, child, GlobalErrIds.ORG_CHILD_NULL);
         setEntitySession(CLS_NM, methodName, child);
-        parent.setContextId(this.contextId);
-        child.setContextId(this.contextId);
 
         // ensure the parent OrgUnit exists:
         ouP.read(parent);
@@ -510,12 +505,10 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "addAscendantOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, parent, GlobalErrIds.ORG_PARENT_NULL);
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         setEntitySession(CLS_NM, methodName, parent);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
-        parent.setContextId(this.contextId);
-        child.setContextId(this.contextId);
+        assertContext(CLS_NM, methodName, child, GlobalErrIds.ORG_CHILD_NULL);
 
         // ensure the child OrgUnit exists:
         ouP.read(child);
@@ -569,11 +562,9 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "addInheritanceOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, parent, GlobalErrIds.ORG_PARENT_NULL);
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
-        parent.setContextId(this.contextId);
-        child.setContextId(this.contextId);
+        assertContext(CLS_NM, methodName, child, GlobalErrIds.ORG_CHILD_NULL);
         setEntitySession(CLS_NM, methodName, parent);
         if (parent.getType() == OrgUnit.Type.USER)
         {
@@ -628,12 +619,10 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "deleteInheritanceOU";
-        VUtil.assertNotNull(parent, GlobalErrIds.ORG_PARENT_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, parent, GlobalErrIds.ORG_PARENT_NULL);
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
-        VUtil.assertNotNull(child, GlobalErrIds.ORG_CHILD_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, child, GlobalErrIds.ORG_CHILD_NULL);
         setEntitySession(CLS_NM, methodName, parent);
-        parent.setContextId(this.contextId);
-        child.setContextId(this.contextId);
 
         if (parent.getType() == OrgUnit.Type.USER)
         {
@@ -692,11 +681,9 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "addDescendantRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, parentRole, GlobalErrIds.ARLE_PARENT_NULL);
+        assertContext(CLS_NM, methodName, childRole, GlobalErrIds.ARLE_CHILD_NULL);
         setEntitySession(CLS_NM, methodName, childRole);
-        parentRole.setContextId(this.contextId);
-        childRole.setContextId(this.contextId);
         // ensure the parent AdminRole exists:
         admRP.read(parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
@@ -740,14 +727,13 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "addAscendantRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, parentRole, GlobalErrIds.ARLE_PARENT_NULL);
         setEntitySession(CLS_NM, methodName, parentRole);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
-        childRole.setContextId(this.contextId);
+        assertContext(CLS_NM, methodName, childRole, GlobalErrIds.ARLE_CHILD_NULL);
         // ensure the child AdminRole exists:
         admRP.read(childRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
-        parentRole.setContextId(this.contextId);
+        //parentRole.setContextId(this.contextId);
         admRP.add(parentRole);
         Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
         setAdminData(CLS_NM, methodName, hier);
@@ -775,10 +761,8 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "addInheritanceRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
-        parentRole.setContextId(this.contextId);
-        childRole.setContextId(this.contextId);
+        assertContext(CLS_NM, methodName, parentRole, GlobalErrIds.ARLE_PARENT_NULL);
+        assertContext(CLS_NM, methodName, childRole, GlobalErrIds.ARLE_CHILD_NULL);
         setEntitySession(CLS_NM, methodName, parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
         Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
@@ -807,10 +791,8 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         throws SecurityException
     {
         String methodName = "deleteInheritanceRole";
-        VUtil.assertNotNull(parentRole, GlobalErrIds.ARLE_PARENT_NULL, CLS_NM + "." + methodName);
-        VUtil.assertNotNull(childRole, GlobalErrIds.ARLE_CHILD_NULL, CLS_NM + "." + methodName);
-        parentRole.setContextId(this.contextId);
-        childRole.setContextId(this.contextId);
+        assertContext(CLS_NM, methodName, parentRole, GlobalErrIds.ARLE_PARENT_NULL);
+        assertContext(CLS_NM, methodName, childRole, GlobalErrIds.ARLE_CHILD_NULL);
         setEntitySession(CLS_NM, methodName, parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, true);
         Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());

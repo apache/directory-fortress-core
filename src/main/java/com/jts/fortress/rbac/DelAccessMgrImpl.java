@@ -62,12 +62,10 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     public boolean canAssign(Session session, User user, Role role)
         throws SecurityException
     {
-        String methodName = CLS_NM + ".canAssign";
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, methodName);
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
-        user.setContextId(contextId);
-        role.setContextId(contextId);
+        String methodName = "canAssign";
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
+        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         return checkUserRole(session, user, role);
     }
 
@@ -84,12 +82,10 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     public boolean canDeassign(Session session, User user, Role role)
         throws SecurityException
     {
-        String methodName = CLS_NM + ".canDeassign";
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, methodName);
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
-        user.setContextId(contextId);
-        role.setContextId(contextId);
+        String methodName = "canDeassign";
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
+        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         return checkUserRole(session, user, role);
     }
 
@@ -106,10 +102,10 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     public boolean canGrant(Session session, Role role, Permission perm)
         throws SecurityException
     {
-        String methodName = CLS_NM + "canGrant";
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OBJECT_NULL, methodName);
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
+        String methodName = "canGrant";
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
+        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OBJECT_NULL);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         return checkRolePermission(session, role, perm);
     }
 
@@ -126,10 +122,10 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     public boolean canRevoke(Session session, Role role, Permission perm)
         throws SecurityException
     {
-        String methodName = CLS_NM + "canRevoke";
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OBJECT_NULL, methodName);
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, methodName);
+        String methodName = "canRevoke";
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
+        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OBJECT_NULL);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         return checkRolePermission(session, role, perm);
     }
 
@@ -152,14 +148,13 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     public boolean checkAccess(Session session, Permission perm)
         throws SecurityException
     {
-        String methodName = CLS_NM + ".checkAccess";
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, methodName);
+        String methodName =  "checkAccess";
+        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_NULL);
         VUtil.assertNotNullOrEmpty(perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL, methodName);
         VUtil.assertNotNullOrEmpty(perm.getObjectName(), GlobalErrIds.PERM_OBJECT_NULL, methodName);
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
         // This flag set will check administrative permission data set.
         perm.setAdmin(true);
-        super.setContextId(this.contextId);
         return super.checkAccess(session, perm);
     }
 
@@ -183,15 +178,15 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     public void addActiveRole(Session session, UserAdminRole role)
         throws SecurityException
     {
-        String methodName = CLS_NM + ".addActiveRole";
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, methodName);
+        String methodName = "addActiveRole";
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ARLE_NULL);
         role.setUserId(session.getUserId());
         List<UserAdminRole> sRoles = session.getAdminRoles();
         // If session already has admin role activated log an error and throw an exception:
         if (sRoles != null && sRoles.contains(role))
         {
-            String info = methodName + " User [" + session.getUserId() + "] Role [" + role.getName() + "] role already activated.";
+            String info = getFullMethodName(CLS_NM, methodName) + " User [" + session.getUserId() + "] Role [" + role.getName() + "] role already activated.";
             throw new SecurityException(GlobalErrIds.ARLE_ALREADY_ACTIVE, info);
         }
 
@@ -201,7 +196,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
         // Is the admin role activation target valid for this user?
         if (!VUtil.isNotNullOrEmpty(uRoles) || ((indx = uRoles.indexOf(role)) == -1))
         {
-            String info = methodName + " Admin Role [" + role.getName() + "] User [" + session.getUserId() + "] adminRole not authorized for user.";
+            String info = getFullMethodName(CLS_NM, methodName) + " Admin Role [" + role.getName() + "] User [" + session.getUserId() + "] adminRole not authorized for user.";
             throw new SecurityException(GlobalErrIds.ARLE_ACTIVATE_FAILED, info);
         }
         SDUtil.validateDSD(session, role);
@@ -223,9 +218,9 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     public void dropActiveRole(Session session, UserAdminRole role)
         throws SecurityException
     {
-        String methodName = CLS_NM + ".dropActiveRole";
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, methodName);
+        String methodName = "dropActiveRole";
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ARLE_NULL);
         role.setUserId(session.getUserId());
         List<UserAdminRole> roles = session.getAdminRoles();
         VUtil.assertNotNull(roles, GlobalErrIds.ARLE_DEACTIVE_FAILED, methodName);
@@ -266,8 +261,9 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     public Set<String> authorizedAdminRoles(Session session)
         throws SecurityException
     {
-        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".authorizedAdminRoles");
-        VUtil.assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedAdminRoles");
+        String methodName = "authorizedAdminRoles";
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
+        assertContext(CLS_NM, methodName, session.getUser(), GlobalErrIds.USER_NULL);
         return AdminRoleUtil.getInheritedRoles(session.getAdminRoles(), this.contextId);
     }
 

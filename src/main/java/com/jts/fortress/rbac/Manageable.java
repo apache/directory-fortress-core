@@ -4,8 +4,9 @@
 
 package com.jts.fortress.rbac;
 
-
 import com.jts.fortress.SecurityException;
+import com.jts.fortress.ValidationException;
+import com.jts.fortress.util.attr.VUtil;
 
 /**
  * Abstract class allows outside clients to manage security and multi-tenant concerns within the Fortress runtime.
@@ -78,7 +79,7 @@ public abstract class Manageable implements com.jts.fortress.Manageable
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
-    protected void checkAccess(String className, String opName) throws SecurityException
+    protected final void checkAccess(String className, String opName) throws SecurityException
     {
         if (this.adminSess != null)
         {
@@ -103,7 +104,7 @@ public abstract class Manageable implements com.jts.fortress.Manageable
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
-    protected  final void setAdminData(String className, String opName, FortEntity entity) throws com.jts.fortress.SecurityException
+    protected final void setAdminData(String className, String opName, FortEntity entity) throws com.jts.fortress.SecurityException
     {
         if (this.adminSess != null)
         {
@@ -112,5 +113,31 @@ public abstract class Manageable implements com.jts.fortress.Manageable
             entity.setModCode(AdminUtil.getObjName(perm.getObjectName()) + "." + perm.getOpName());
         }
         entity.setContextId(this.contextId);
+    }
+
+    /**
+     * Method will throw exception if entity reference is null, otherwise will set the contextId of the tenant onto the supplied entity reference.
+     * @param className contains the class name of caller.
+     * @param opName contains operation name of caller.
+     * @param entity  used here to pass the tenant id into the Fortress DAO layer..
+     * @param errorCode contains the error id to use if null.
+     * @throws com.jts.fortress.ValidationException in the event object is null.
+     */
+    protected final void assertContext(String className, String opName, FortEntity entity, int errorCode)
+        throws ValidationException
+    {
+        VUtil.assertNotNull(entity, errorCode, getFullMethodName(className, opName));
+        entity.setContextId(this.contextId);
+    }
+
+    /**
+     * This method is used to generate log statements and returns the concatenation of class name to the operation name.
+     * @param className of the caller
+     * @param opName of the caller
+     * @return className + '.' + opName
+     */
+    protected final String getFullMethodName(String className, String opName)
+    {
+        return className + "." + opName;
     }
 }

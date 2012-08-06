@@ -56,9 +56,8 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
         throws SecurityException
     {
         String methodName = "readRole";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ARLE_NULL);
         checkAccess(CLS_NM, methodName);
-        role.setContextId(this.contextId);
         return admRP.read(role);
     }
 
@@ -103,9 +102,8 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
         throws SecurityException
     {
         String methodName = "assignedRoles";
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
         checkAccess(CLS_NM, methodName);
-        user.setContextId(this.contextId);
         User ue = userP.read(user, true);
         return ue.getAdminRoles();
     }
@@ -128,9 +126,8 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
         throws SecurityException
     {
         String methodName = "assignedUsers";
-        VUtil.assertNotNull(role, GlobalErrIds.ARLE_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ARLE_NULL);
         checkAccess(CLS_NM, methodName);
-        role.setContextId(this.contextId);
         return userP.getAssignedUsers(role);
     }
 
@@ -153,9 +150,8 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
         throws SecurityException
     {
         String methodName = "readOU";
-        VUtil.assertNotNull(entity, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, entity, GlobalErrIds.ORG_NULL);
         checkAccess(CLS_NM, methodName);
-        entity.setContextId(this.contextId);
         return ouP.read(entity);
     }
 

@@ -142,8 +142,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
         throws SecurityException
     {
         String methodName = "add";
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + "." + methodName);
-        policy.setContextId(this.contextId);
+        assertContext(CLS_NM, methodName, policy, GlobalErrIds.PSWD_PLCY_NULL);
         setEntitySession(CLS_NM, methodName, policy);
         policyP.add(policy);
     }
@@ -238,7 +237,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
         throws SecurityException
     {
         String methodName = "update";
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, policy, GlobalErrIds.PSWD_PLCY_NULL);
         setEntitySession(CLS_NM, methodName, policy);
         policyP.update(policy);
     }
@@ -260,7 +259,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
         throws SecurityException
     {
         String methodName = "delete";
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + "." + methodName);
+        assertContext(CLS_NM, methodName, policy, GlobalErrIds.PSWD_PLCY_NULL);
         policy.setAdminSession(adminSess);
         setEntitySession(CLS_NM, methodName, policy);
         policyP.delete(policy);
