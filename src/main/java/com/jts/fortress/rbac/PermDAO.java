@@ -9,10 +9,9 @@ import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RemoveException;
-import com.jts.fortress.cfg.Config;
 import com.jts.fortress.FinderException;
 import com.jts.fortress.UpdateException;
-import com.jts.fortress.ldap.DaoUtil;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.ldap.PoolMgr;
 
 import com.jts.fortress.util.attr.AttrHelper;
@@ -121,7 +120,7 @@ import java.util.Set;
  * @author Shawn McKinney
  * @created September 29, 2009
  */
-final class PermDAO
+final class PermDAO extends DataProvider
 {
     private static final String CLS_NM = PermDAO.class.getName();
     /*
@@ -177,38 +176,38 @@ final class PermDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, PERM_OBJ_OBJ_CLASS));
-            attrs.add(DaoUtil.createAttribute(GlobalIds.POBJ_NAME, entity.getObjectName()));
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, PERM_OBJ_OBJ_CLASS));
+            attrs.add(createAttribute(GlobalIds.POBJ_NAME, entity.getObjectName()));
 
             // this will generatre a new random, unique id on this entity:
             entity.setInternalId();
             // create the rDN:
-            attrs.add(DaoUtil.createAttribute(GlobalIds.FT_IID, entity.getInternalId()));
+            attrs.add(createAttribute(GlobalIds.FT_IID, entity.getInternalId()));
             // ou is required:
-            attrs.add(DaoUtil.createAttribute(GlobalIds.OU, entity.getOu()));
+            attrs.add(createAttribute(GlobalIds.OU, entity.getOu()));
 
             // description is optional:
             if (VUtil.isNotNullOrEmpty(entity.getDescription()))
             {
-                attrs.add(DaoUtil.createAttribute(GlobalIds.DESC, entity.getDescription()));
+                attrs.add(createAttribute(GlobalIds.DESC, entity.getDescription()));
             }
             // type is optional:
             if (VUtil.isNotNullOrEmpty(entity.getType()))
             {
-                attrs.add(DaoUtil.createAttribute(TYPE, entity.getType()));
+                attrs.add(createAttribute(TYPE, entity.getType()));
             }
             // props are optional as well:
             //if the props is null don't try to load these attributes
             if (VUtil.isNotNullOrEmpty(entity.getProperties()))
             {
-                DaoUtil.loadProperties(entity.getProperties(), attrs, GlobalIds.PROPS);
+                loadProperties(entity.getProperties(), attrs, GlobalIds.PROPS);
             }
 
             // create the new entry:
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
 
             // now add the new entry to directory:
-            DaoUtil.add(ld, myEntry, entity);
+            add(ld, myEntry, entity);
         }
         catch (LDAPException e)
         {
@@ -257,11 +256,11 @@ final class PermDAO
             }
             if (VUtil.isNotNullOrEmpty(entity.getProperties()))
             {
-                DaoUtil.loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, true);
+                loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, true);
             }
             if (mods.size() > 0)
             {
-                DaoUtil.modify(ld, dn, mods, entity);
+                modify(ld, dn, mods, entity);
             }
         }
         catch (LDAPException e)
@@ -290,7 +289,7 @@ final class PermDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.deleteRecursive(ld, dn, entity);
+            deleteRecursive(ld, dn, entity);
         }
         catch (LDAPException e)
         {
@@ -319,45 +318,45 @@ final class PermDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS));
-            attrs.add(DaoUtil.createAttribute(POP_NAME, entity.getOpName()));
-            attrs.add(DaoUtil.createAttribute(GlobalIds.POBJ_NAME, entity.getObjectName()));
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS));
+            attrs.add(createAttribute(POP_NAME, entity.getOpName()));
+            attrs.add(createAttribute(GlobalIds.POBJ_NAME, entity.getObjectName()));
             entity.setAbstractName(entity.getObjectName() + "." + entity.getOpName());
 
             // this will generatre a new random, unique id on this entity:
             entity.setInternalId();
             // create the internal id:
-            attrs.add(DaoUtil.createAttribute(GlobalIds.FT_IID, entity.getInternalId()));
+            attrs.add(createAttribute(GlobalIds.FT_IID, entity.getInternalId()));
             // the abstract name is the human readable identifier:
-            attrs.add(DaoUtil.createAttribute(PERM_NAME, entity.getAbstractName()));
+            attrs.add(createAttribute(PERM_NAME, entity.getAbstractName()));
             // organizational name requires CN attribute:
-            attrs.add(DaoUtil.createAttribute(GlobalIds.CN, entity.getAbstractName()));
+            attrs.add(createAttribute(GlobalIds.CN, entity.getAbstractName()));
 
             // objectid is optional:
             if (VUtil.isNotNullOrEmpty(entity.getObjectId()))
             {
-                attrs.add(DaoUtil.createAttribute(POBJ_ID, entity.getObjectId()));
+                attrs.add(createAttribute(POBJ_ID, entity.getObjectId()));
             }
             // type is optional:
             if (VUtil.isNotNullOrEmpty(entity.getType()))
             {
-                attrs.add(DaoUtil.createAttribute(TYPE, entity.getType()));
+                attrs.add(createAttribute(TYPE, entity.getType()));
             }
             // These are multi-valued attributes, use the util function to load:
             // These items are optional as well.  The utility function will return quietly if no items are loaded into collection:
-            DaoUtil.loadAttrs(entity.getRoles(), attrs, ROLES);
-            DaoUtil.loadAttrs(entity.getUsers(), attrs, USERS);
+            loadAttrs(entity.getRoles(), attrs, ROLES);
+            loadAttrs(entity.getUsers(), attrs, USERS);
 
             // props are optional as well:
             //if the props is null don't try to load these attributes
             if (VUtil.isNotNullOrEmpty(entity.getProperties()))
             {
-                DaoUtil.loadProperties(entity.getProperties(), attrs, GlobalIds.PROPS);
+                loadProperties(entity.getProperties(), attrs, GlobalIds.PROPS);
             }
             // create the new entry:
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
             // now add the new entry to directory:
-            DaoUtil.add(ld, myEntry, entity);
+            add(ld, myEntry, entity);
         }
         catch (LDAPException e)
         {
@@ -402,12 +401,12 @@ final class PermDAO
             }
 
             // These are multi-valued attributes, use the util function to load:
-            DaoUtil.loadAttrs(entity.getRoles(), mods, ROLES);
-            DaoUtil.loadAttrs(entity.getUsers(), mods, USERS);
-            DaoUtil.loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, true);
+            loadAttrs(entity.getRoles(), mods, ROLES);
+            loadAttrs(entity.getUsers(), mods, USERS);
+            loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, true);
             if (mods.size() > 0)
             {
-                DaoUtil.modify(ld, dn, mods, entity);
+                modify(ld, dn, mods, entity);
             }
         }
         catch (LDAPException e)
@@ -436,7 +435,7 @@ final class PermDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.deleteRecursive(ld, dn, entity);
+            deleteRecursive(ld, dn, entity);
         }
         catch (LDAPException e)
         {
@@ -469,7 +468,7 @@ final class PermDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(ROLES, role.getName());
             mods.add(LDAPModification.ADD, attr);
-            DaoUtil.modify(ld, dn, mods, pOp);
+            modify(ld, dn, mods, pOp);
         }
         catch (LDAPException e)
         {
@@ -515,7 +514,7 @@ final class PermDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(ROLES, role.getName());
             mods.add(LDAPModification.DELETE, attr);
-            DaoUtil.modify(ld, dn, mods, pOp);
+            modify(ld, dn, mods, pOp);
         }
         catch (LDAPException e)
         {
@@ -556,7 +555,7 @@ final class PermDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(USERS, user.getUserId());
             mods.add(LDAPModification.ADD, attr);
-            DaoUtil.modify(ld, dn, mods, pOp);
+            modify(ld, dn, mods, pOp);
         }
         catch (LDAPException e)
         {
@@ -602,7 +601,7 @@ final class PermDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(USERS, user.getUserId());
             mods.add(LDAPModification.DELETE, attr);
-            DaoUtil.modify(ld, dn, mods, pOp);
+            modify(ld, dn, mods, pOp);
         }
         catch (LDAPException e)
         {
@@ -639,7 +638,7 @@ final class PermDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, dn, PERMISSION_OP_ATRS);
+            LDAPEntry findEntry = read(ld, dn, PERMISSION_OP_ATRS);
             entity = unloadPopLdapEntry(findEntry, 0);
             if (entity == null)
             {
@@ -681,7 +680,7 @@ final class PermDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, dn, PERMISION_OBJ_ATRS);
+            LDAPEntry findEntry = read(ld, dn, PERMISION_OBJ_ATRS);
             entity = unloadPobjLdapEntry(findEntry, 0);
             if (entity == null)
             {
@@ -749,7 +748,7 @@ final class PermDAO
             }
             filter += "))";
             // The search method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection: 
-            LDAPEntry entry = DaoUtil.searchNode(ld, dn, LDAPConnection.SCOPE_ONE, filter, GlobalIds.NO_ATRS, true, session.getUser().getDn());
+            LDAPEntry entry = searchNode(ld, dn, LDAPConnection.SCOPE_ONE, filter, GlobalIds.NO_ATRS, true, session.getUser().getDn());
             Permission entity = unloadPopLdapEntry(entry, 0);
             if (entity != null)
             {
@@ -789,15 +788,15 @@ final class PermDAO
     {
         Permission entity = new ObjectFactory().createPermission();
         entity.setSequenceId(sequence);
-        entity.setAbstractName(DaoUtil.getAttribute(le, PERM_NAME));
-        entity.setObjectName(DaoUtil.getAttribute(le, GlobalIds.POBJ_NAME));
-        entity.setObjectId(DaoUtil.getAttribute(le, POBJ_ID));
-        entity.setOpName(DaoUtil.getAttribute(le, POP_NAME));
-        entity.setInternalId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
-        entity.setRoles(DaoUtil.getAttributes(le, ROLES));
-        entity.setUsers(DaoUtil.getAttributes(le, USERS));
-        entity.setType(DaoUtil.getAttribute(le, TYPE));
-        entity.addProperties(AttrHelper.getProperties(DaoUtil.getAttributes(le, GlobalIds.PROPS)));
+        entity.setAbstractName(getAttribute(le, PERM_NAME));
+        entity.setObjectName(getAttribute(le, GlobalIds.POBJ_NAME));
+        entity.setObjectId(getAttribute(le, POBJ_ID));
+        entity.setOpName(getAttribute(le, POP_NAME));
+        entity.setInternalId(getAttribute(le, GlobalIds.FT_IID));
+        entity.setRoles(getAttributes(le, ROLES));
+        entity.setUsers(getAttributes(le, USERS));
+        entity.setType(getAttribute(le, TYPE));
+        entity.addProperties(AttrHelper.getProperties(getAttributes(le, GlobalIds.PROPS)));
         return entity;
     }
 
@@ -813,13 +812,13 @@ final class PermDAO
     {
         PermObj entity = new ObjectFactory().createPermObj();
         entity.setSequenceId(sequence);
-        entity.setObjectName(DaoUtil.getAttribute(le, GlobalIds.POBJ_NAME));
-        entity.setOu(DaoUtil.getAttribute(le, GlobalIds.OU));
+        entity.setObjectName(getAttribute(le, GlobalIds.POBJ_NAME));
+        entity.setOu(getAttribute(le, GlobalIds.OU));
         entity.setDn(le.getDN());
-        entity.setInternalId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
-        entity.setType(DaoUtil.getAttribute(le, TYPE));
-        entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
-        entity.addProperties(AttrHelper.getProperties(DaoUtil.getAttributes(le, GlobalIds.PROPS)));
+        entity.setInternalId(getAttribute(le, GlobalIds.FT_IID));
+        entity.setType(getAttribute(le, TYPE));
+        entity.setDescription(getAttribute(le, GlobalIds.DESC));
+        entity.addProperties(AttrHelper.getProperties(getAttributes(le, GlobalIds.PROPS)));
         return entity;
     }
 
@@ -845,7 +844,7 @@ final class PermDAO
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*)("
                 + POP_NAME + "=" + permOpVal + "*))";
 
-            searchResults = DaoUtil.search(ld, permRoot,
+            searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -885,7 +884,7 @@ final class PermDAO
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*))";
-            searchResults = DaoUtil.search(ld, permRoot,
+            searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -917,7 +916,7 @@ final class PermDAO
         List<PermObj> permList = new ArrayList<PermObj>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String permRoot = DaoUtil.getRootDn(ou.getContextId(), GlobalIds.PERM_ROOT);
+        String permRoot = getRootDn(ou.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
             String ouVal = VUtil.encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
@@ -933,7 +932,7 @@ final class PermDAO
             {
                 maxLimit = 0;
             }
-            searchResults = DaoUtil.search(ld, permRoot,
+            searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -969,11 +968,11 @@ final class PermDAO
         String permRoot;
         if (role.getClass().equals(AdminRole.class))
         {
-            permRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.ADMIN_PERM_ROOT);
+            permRoot = getRootDn(role.getContextId(), GlobalIds.ADMIN_PERM_ROOT);
         }
         else
         {
-            permRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.PERM_ROOT);
+            permRoot = getRootDn(role.getContextId(), GlobalIds.PERM_ROOT);
         }
         try
         {
@@ -1004,7 +1003,7 @@ final class PermDAO
                 filter += ROLES + "=" + roleVal + ")";
             }
             filter += ")";
-            searchResults = DaoUtil.search(ld, permRoot,
+            searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -1036,7 +1035,7 @@ final class PermDAO
         List<Permission> permList = new ArrayList<Permission>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String permRoot = DaoUtil.getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
+        String permRoot = getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -1050,7 +1049,7 @@ final class PermDAO
                 }
             }
             filter += "(" + USERS + "=" + user.getUserId() + ")))";
-            searchResults = DaoUtil.search(ld, permRoot,
+            searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -1083,13 +1082,13 @@ final class PermDAO
         List<Permission> permList = new ArrayList<Permission>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String permRoot = DaoUtil.getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
+        String permRoot = getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")";
             filter += "(" + USERS + "=" + user.getUserId() + "))";
-            searchResults = DaoUtil.search(ld, permRoot,
+            searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -1121,7 +1120,7 @@ final class PermDAO
         List<Permission> permList = new ArrayList<Permission>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-         String permRoot = DaoUtil.getRootDn(session.getContextId(), GlobalIds.PERM_ROOT);
+         String permRoot = getRootDn(session.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
@@ -1136,7 +1135,7 @@ final class PermDAO
                 }
             }
             filter += "))";
-            searchResults = DaoUtil.search(ld, permRoot,
+            searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -1187,11 +1186,11 @@ final class PermDAO
         String dn;
         if (isAdmin)
         {
-            dn = DaoUtil.getRootDn(contextId, GlobalIds.ADMIN_PERM_ROOT);
+            dn = getRootDn(contextId, GlobalIds.ADMIN_PERM_ROOT);
         }
         else
         {
-            dn = DaoUtil.getRootDn(contextId, GlobalIds.PERM_ROOT);
+            dn = getRootDn(contextId, GlobalIds.PERM_ROOT);
         }
         return dn;
     }

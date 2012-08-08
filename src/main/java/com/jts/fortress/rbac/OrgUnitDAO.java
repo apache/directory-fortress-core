@@ -5,14 +5,13 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.*;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.util.AlphabeticalOrder;
 
-import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.GlobalIds;
-import com.jts.fortress.cfg.Config;
 
 import org.apache.log4j.Logger;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
@@ -78,7 +77,7 @@ import java.util.TreeSet;
  * @author Shawn McKinney
  * @created September 18, 2010
  */
-final class OrgUnitDAO
+final class OrgUnitDAO extends DataProvider
 
 {
     private static final String CLS_NM = OrgUnitDAO.class.getName();
@@ -117,15 +116,15 @@ final class OrgUnitDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS));
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS));
             entity.setId();
-            attrs.add(DaoUtil.createAttribute(GlobalIds.FT_IID, entity.getId()));
+            attrs.add(createAttribute(GlobalIds.FT_IID, entity.getId()));
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
-                attrs.add(DaoUtil.createAttribute(GlobalIds.DESC, entity.getDescription()));
+                attrs.add(createAttribute(GlobalIds.DESC, entity.getDescription()));
             // organizational name requires OU attribute:
-            attrs.add(DaoUtil.createAttribute(GlobalIds.OU, entity.getName()));
+            attrs.add(createAttribute(GlobalIds.OU, entity.getName()));
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
-            DaoUtil.add(ld, myEntry, entity);
+            add(ld, myEntry, entity);
         }
         catch (LDAPException e)
         {
@@ -172,7 +171,7 @@ final class OrgUnitDAO
             }
             if (mods.size() > 0)
             {
-                DaoUtil.modify(ld, dn, mods, entity);
+                modify(ld, dn, mods, entity);
             }
         }
         catch (LDAPException e)
@@ -213,7 +212,7 @@ final class OrgUnitDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.delete(ld, dn, entity);
+            delete(ld, dn, entity);
         }
         catch (LDAPException e)
         {
@@ -254,7 +253,7 @@ final class OrgUnitDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, dn, ORGUNIT_ATRS);
+            LDAPEntry findEntry = read(ld, dn, ORGUNIT_ATRS);
             oe = getEntityFromLdapEntry(findEntry, 0, entity.getContextId());
             if (entity == null)
             {
@@ -332,7 +331,7 @@ final class OrgUnitDAO
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + ORGUNIT_OBJECT_CLASS_NM + ")("
                 + GlobalIds.OU + "=" + searchVal + "*))";
-            searchResults = DaoUtil.search(ld, orgUnitRoot,
+            searchResults = search(ld, orgUnitRoot,
                 LDAPConnection.SCOPE_ONE, filter, ORGUNIT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -379,11 +378,11 @@ final class OrgUnitDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(objectclass=" + ORGUNIT_OBJECT_CLASS_NM + ")";
-            LDAPSearchResults searchResults = DaoUtil.search(ld, orgUnitRoot,
+            LDAPSearchResults searchResults = search(ld, orgUnitRoot,
                 LDAPConnection.SCOPE_ONE, filter, ORGUNIT_ATR, false, GlobalIds.BATCH_SIZE);
             while (searchResults.hasMoreElements())
             {
-                ouSet.add(DaoUtil.getAttribute(searchResults.next(), GlobalIds.OU));
+                ouSet.add(getAttribute(searchResults.next(), GlobalIds.OU));
             }
         }
         catch (LDAPException e)
@@ -417,10 +416,10 @@ final class OrgUnitDAO
         switch (orgUnit.type)
         {
             case USER:
-                 dn = GlobalIds.OU + "=" + orgUnit.getName() + "," + DaoUtil.getRootDn(orgUnit.getContextId(), GlobalIds.OSU_ROOT);
+                 dn = GlobalIds.OU + "=" + orgUnit.getName() + "," + getRootDn(orgUnit.getContextId(), GlobalIds.OSU_ROOT);
                 break;
             case PERM:
-                dn = GlobalIds.OU + "=" + orgUnit.getName() + "," + DaoUtil.getRootDn(orgUnit.getContextId(), GlobalIds.PSU_ROOT);
+                dn = GlobalIds.OU + "=" + orgUnit.getName() + "," + getRootDn(orgUnit.getContextId(), GlobalIds.PSU_ROOT);
                 break;
             default:
                 String warning = CLS_NM + ".getDn invalid type";
@@ -441,10 +440,10 @@ final class OrgUnitDAO
         switch (orgUnit.type)
         {
             case USER:
-                dn = DaoUtil.getRootDn(orgUnit.getContextId(), GlobalIds.OSU_ROOT);
+                dn = getRootDn(orgUnit.getContextId(), GlobalIds.OSU_ROOT);
                 break;
             case PERM:
-                dn = DaoUtil.getRootDn(orgUnit.getContextId(), GlobalIds.PSU_ROOT);
+                dn = getRootDn(orgUnit.getContextId(), GlobalIds.PSU_ROOT);
                 break;
             default:
                 String warning = CLS_NM + ".getOrgRootDn invalid type";
@@ -467,17 +466,17 @@ final class OrgUnitDAO
     {
         OrgUnit entity = new ObjectFactory().createOrgUnit();
         entity.setSequenceId(sequence);
-        entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
-        entity.setName(DaoUtil.getAttribute(le, GlobalIds.OU));
-        entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
+        entity.setId(getAttribute(le, GlobalIds.FT_IID));
+        entity.setName(getAttribute(le, GlobalIds.OU));
+        entity.setDescription(getAttribute(le, GlobalIds.DESC));
         String dn = le.getDN();
-        if (dn.indexOf(DaoUtil.getRootDn(contextId, GlobalIds.PSU_ROOT)) != -1)
+        if (dn.indexOf(getRootDn(contextId, GlobalIds.PSU_ROOT)) != -1)
         {
             entity.setType(OrgUnit.Type.PERM);
             entity.setParents(PsoUtil.getParents(entity.getName().toUpperCase(), contextId));
             entity.setChildren(PsoUtil.getChildren(entity.getName().toUpperCase(), contextId));
         }
-        else if (dn.indexOf(DaoUtil.getRootDn(contextId, GlobalIds.OSU_ROOT)) != -1)
+        else if (dn.indexOf(getRootDn(contextId, GlobalIds.OSU_ROOT)) != -1)
         {
             entity.setType(OrgUnit.Type.USER);
             entity.setParents(UsoUtil.getParents(entity.getName().toUpperCase(), contextId));

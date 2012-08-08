@@ -37,21 +37,21 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Class contains static utilities to perform low-level entity to ldap persistence.  These methods are called by the
+ * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
  * Fortress DAO's, i.e. {@link com.jts.fortress.rbac.UserDAO}. {@link com.jts.fortress.rbac.RoleDAO}, {@link com.jts.fortress.rbac.PermDAO}, ....
- * These are low-level data utilities and no validations are performed.  These APIs are not intended for outside programs.
+ * These are low-level data utilities and no validations are performed.
  * <p/>
  * This class is thread safe.
  * <p/>
  *
  * @author Shawn McKinney
- * @created August 30, 2009
+ * @created August 7, 2012
  */
-public final class DaoUtil
+public abstract class DataProvider
 {
     private static final String OPENLDAP_PROXY_CONTROL = "2.16.840.1.113730.3.4.18";
     private static final int MAX_DEPTH = 100;
-    private static final String CLS_NM = DaoUtil.class.getName();
+    private static final String CLS_NM = DataProvider.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
 
     /**
@@ -60,7 +60,7 @@ public final class DaoUtil
      * @param root contains the fortress parameter name that corresponds with a particular LDAP container.
      * @return String contains the dn to use for operation.
      */
-    public static String getRootDn(String contextId, String root)
+    protected String getRootDn(String contextId, String root)
     {
         String szDn = Config.getProperty(root);
         StringBuffer dn = new StringBuffer();
@@ -85,7 +85,7 @@ public final class DaoUtil
      * @param contextId is to determine what sub-tree to use.
      * @return String contains the dn to use for operation.
      */
-    public static String getRootDn(String contextId)
+    protected String getRootDn(String contextId)
     {
         String szDn = Config.getProperty(GlobalIds.SUFFIX);
         StringBuffer dn = new StringBuffer();
@@ -110,7 +110,7 @@ public final class DaoUtil
      * @return ldap entry.
      * @throws LDAPException in the event system error occurs.
      */
-    public static LDAPEntry read(LDAPConnection ld, String dn, String[] atrs)
+    protected LDAPEntry read(LDAPConnection ld, String dn, String[] atrs)
         throws LDAPException
     {
         return ld.read(dn, atrs);
@@ -123,7 +123,7 @@ public final class DaoUtil
      * @param entry contains data to add..
      * @throws LDAPException in the event system error occurs.
      */
-    public static void add(LDAPConnection ld, LDAPEntry entry)
+    protected void add(LDAPConnection ld, LDAPEntry entry)
         throws LDAPException
     {
         ld.add(entry);
@@ -137,7 +137,7 @@ public final class DaoUtil
      * @param entity contains audit context.
      * @throws LDAPException in the event system error occurs.
      */
-    public static void add(LDAPConnection ld, LDAPEntry entry, FortEntity entity)
+    protected void add(LDAPConnection ld, LDAPEntry entry, FortEntity entity)
         throws LDAPException
     {
         if (GlobalIds.IS_AUDIT && entity != null && entity.getAdminSession() != null)
@@ -167,7 +167,7 @@ public final class DaoUtil
      * @param mods contains data to modify.
      * @throws LDAPException in the event system error occurs.
      */
-    public static void modify(LDAPConnection ld, String dn, LDAPModificationSet mods)
+    protected void modify(LDAPConnection ld, String dn, LDAPModificationSet mods)
         throws LDAPException
     {
         ld.modify(dn, mods);
@@ -182,7 +182,7 @@ public final class DaoUtil
      * @param entity contains audit context.
      * @throws LDAPException in the event system error occurs.
      */
-    public static void modify(LDAPConnection ld, String dn, LDAPModificationSet mods, FortEntity entity)
+    protected void modify(LDAPConnection ld, String dn, LDAPModificationSet mods, FortEntity entity)
         throws LDAPException
     {
         audit(mods, entity);
@@ -196,7 +196,7 @@ public final class DaoUtil
      * @param dn contains distinguished node of entry targeted for removal..
      * @throws LDAPException in the event system error occurs.
      */
-    public static void delete(LDAPConnection ld, String dn)
+    protected void delete(LDAPConnection ld, String dn)
         throws LDAPException
     {
         ld.delete(dn);
@@ -211,7 +211,7 @@ public final class DaoUtil
      * @param entity contains audit context.
      * @throws LDAPException in the event system error occurs.
      */
-    public static void delete(LDAPConnection ld, String dn, FortEntity entity)
+    protected void delete(LDAPConnection ld, String dn, FortEntity entity)
         throws LDAPException
     {
         LDAPModificationSet mods = new LDAPModificationSet();
@@ -228,7 +228,7 @@ public final class DaoUtil
      * @param dn contains distinguished node of entry targeted for removal..
      * @throws LDAPException in the event system error occurs.
      */
-    public static void deleteRecursive(LDAPConnection ld, String dn)
+    protected void deleteRecursive(LDAPConnection ld, String dn)
         throws LDAPException
     {
         int recursiveCount = 0;
@@ -244,7 +244,7 @@ public final class DaoUtil
      * @param entity contains audit context.
      * @throws LDAPException in the event system error occurs.
      */
-    public static void deleteRecursive(LDAPConnection ld, String dn, FortEntity entity)
+    protected void deleteRecursive(LDAPConnection ld, String dn, FortEntity entity)
         throws LDAPException
     {
         LDAPModificationSet mods = new LDAPModificationSet();
@@ -262,7 +262,7 @@ public final class DaoUtil
      * @param recursiveCount keeps track of how many iterations have been performed.
      * @throws LDAPException in the event system error occurs.
      */
-    private static void deleteRecursive(String dn, LDAPConnection ld, int recursiveCount)
+    private void deleteRecursive(String dn, LDAPConnection ld, int recursiveCount)
         throws LDAPException
     {
         String method = "deleteRecursive";
@@ -349,7 +349,7 @@ public final class DaoUtil
      * @return result set containing ldap entries returned from directory.
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
-    public static LDAPSearchResults search(LDAPConnection ld,
+    protected LDAPSearchResults search(LDAPConnection ld,
                                            String baseDn,
                                            int scope,
                                            String filter,
@@ -375,7 +375,7 @@ public final class DaoUtil
      * @return result set containing ldap entries returned from directory.
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
-    public static LDAPSearchResults search(LDAPConnection ld,
+    protected LDAPSearchResults search(LDAPConnection ld,
                                            String baseDn,
                                            int scope,
                                            String filter,
@@ -408,7 +408,7 @@ public final class DaoUtil
      * @return result set containing ldap entries returned from directory.
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
-    public static LDAPSearchResults search(LDAPConnection ld,
+    protected LDAPSearchResults search(LDAPConnection ld,
                                            String baseDn,
                                            int scope,
                                            String filter,
@@ -440,7 +440,7 @@ public final class DaoUtil
      * @return entry   containing target ldap node.
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
-    public static LDAPEntry searchNode(LDAPConnection ld,
+    protected LDAPEntry searchNode(LDAPConnection ld,
                                        String baseDn,
                                        int scope, String filter,
                                        String[] atrs,
@@ -469,7 +469,7 @@ public final class DaoUtil
      * @return
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
-    public static LDAPEntry searchNode(LDAPConnection ld,
+    protected LDAPEntry searchNode(LDAPConnection ld,
                                        String baseDn,
                                        int scope,
                                        String filter,
@@ -498,7 +498,7 @@ public final class DaoUtil
      * @return List of type string containing attribute values.
      * @throws LDAPException in the event of ldap client error.
      */
-    public static List<String> getAttributes(LDAPEntry entry, String attributeName)
+    protected List<String> getAttributes(LDAPEntry entry, String attributeName)
         throws LDAPException
     {
         List<String> attrValues = new ArrayList<String>();
@@ -532,7 +532,7 @@ public final class DaoUtil
      * @return List of type string containing attribute values.
      * @throws LDAPException in the event of ldap client error.
      */
-    public static Set<String> getAttributeSet(LDAPEntry entry, String attributeName)
+    protected Set<String> getAttributeSet(LDAPEntry entry, String attributeName)
         throws LDAPException
     {
         // create Set with case insensitive comparator:
@@ -567,7 +567,7 @@ public final class DaoUtil
      * @return List of type {@link com.jts.fortress.rbac.Relationship} containing parent-child relationships.
      * @throws LDAPException in the event of ldap client error.
      */
-    public static List<Relationship> getRelationshipAttributes(LDAPEntry entry, String attributeName)
+    protected List<Relationship> getRelationshipAttributes(LDAPEntry entry, String attributeName)
         throws LDAPException
     {
         List<Relationship> attrValues = new ArrayList<Relationship>();
@@ -619,7 +619,7 @@ public final class DaoUtil
      * @return value contained in a string variable.
      * @throws LDAPException in the event of ldap client error.
      */
-    public static String getAttribute(LDAPEntry entry, String attributeName)
+    protected String getAttribute(LDAPEntry entry, String attributeName)
         throws LDAPException
     {
         String attrValue = null;
@@ -649,7 +649,7 @@ public final class DaoUtil
      * @return rDn as string.
      * @throws LDAPException in the event of ldap client error.
      */
-    public static String getRdn(String dn)
+    protected String getRdn(String dn)
         throws LDAPException
     {
         String[] dnList;
@@ -666,7 +666,7 @@ public final class DaoUtil
      * @return LDAPAttribute containing multi-occurring attribute set.
      * @throws LDAPException in the event of ldap client error.
      */
-    public static LDAPAttribute createAttributes(String name, String values[])
+    protected LDAPAttribute createAttributes(String name, String values[])
         throws LDAPException
     {
         LDAPAttribute attr = new LDAPAttribute(name);
@@ -687,7 +687,7 @@ public final class DaoUtil
      * @return LDAPAttribute containing new ldap attribute.
      * @throws LDAPException in the event of ldap client error.
      */
-    public static LDAPAttribute createAttribute(String name, String value)
+    protected LDAPAttribute createAttribute(String name, String value)
         throws LDAPException
     {
         LDAPAttribute attr = new LDAPAttribute(name);
@@ -704,7 +704,7 @@ public final class DaoUtil
      * @param ftDateTime reference to {@link com.jts.fortress.util.time.Constraint} containing formatted data.
      * @throws LDAPException in the event of ldap client error.
      */
-    public static void unloadTemporal(LDAPEntry le, Constraint ftDateTime)
+    protected void unloadTemporal(LDAPEntry le, Constraint ftDateTime)
         throws LDAPException
     {
 
@@ -723,7 +723,7 @@ public final class DaoUtil
      * @param attrs    contains ldap attribute set targeted for adding.
      * @param attrName name of ldap attribute being added.
      */
-    public static void loadAttrs(List<String> list, LDAPAttributeSet attrs, String attrName)
+    protected void loadAttrs(List<String> list, LDAPAttributeSet attrs, String attrName)
     {
         if (list != null && list.size() > 0)
         {
@@ -754,7 +754,7 @@ public final class DaoUtil
      * @param attrs    collection of ldap attributes containing parent-child relationships in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be added.
      */
-    public static void loadRelationshipAttrs(List<Relationship> list, LDAPAttributeSet attrs, String attrName)
+    protected void loadRelationshipAttrs(List<Relationship> list, LDAPAttributeSet attrs, String attrName)
     {
         if (list != null)
         {
@@ -786,7 +786,7 @@ public final class DaoUtil
      * @param attrs    contains ldap attribute set targeted for adding.
      * @param attrName name of ldap attribute being added.
      */
-    public static void loadAttrs(Set<String> values, LDAPAttributeSet attrs, String attrName)
+    protected void loadAttrs(Set<String> values, LDAPAttributeSet attrs, String attrName)
     {
         if (values != null && values.size() > 0)
         {
@@ -817,7 +817,7 @@ public final class DaoUtil
      * @param mods     contains ldap modification set targeted for updating.
      * @param attrName name of ldap attribute being modified.
      */
-    public static void loadAttrs(List<String> list, LDAPModificationSet mods, String attrName)
+    protected void loadAttrs(List<String> list, LDAPModificationSet mods, String attrName)
     {
         if (list != null && list.size() > 0)
         {
@@ -840,7 +840,7 @@ public final class DaoUtil
      * @param attrName contains the name of the ldap attribute to be updated.
      * @param op       specifies type of mod: {@link Hier.Op#ADD}, {@link com.jts.fortress.rbac.Hier.Op#MOD}, {@link Hier.Op#REM}
      */
-    public static void loadRelationshipAttrs(List<Relationship> list, LDAPModificationSet mods, String attrName, Hier.Op op)
+    protected void loadRelationshipAttrs(List<Relationship> list, LDAPModificationSet mods, String attrName, Hier.Op op)
     {
         if (list != null)
         {
@@ -873,7 +873,7 @@ public final class DaoUtil
      * @param mods     contains ldap modification set targeted for updating.
      * @param attrName name of ldap attribute being updated.
      */
-    public static void loadAttrs(Set<String> values, LDAPModificationSet mods, String attrName)
+    protected void loadAttrs(Set<String> values, LDAPModificationSet mods, String attrName)
     {
         if (values != null && values.size() > 0)
         {
@@ -896,7 +896,7 @@ public final class DaoUtil
      * @param attrName contains the name of the ldap attribute to be updated.
      * @param replace  boolean variable, if set to true use {@link LDAPModification#REPLACE} else {@link LDAPModification#ADD}.
      */
-    public static void loadProperties(Properties props, LDAPModificationSet mods, String attrName, boolean replace)
+    protected void loadProperties(Properties props, LDAPModificationSet mods, String attrName, boolean replace)
     {
         if (props != null && props.size() > 0)
         {
@@ -923,7 +923,7 @@ public final class DaoUtil
      * @param mods     ldap modification set containing name-value pairs in raw ldap format to be removed.
      * @param attrName contains the name of the ldap attribute to be removed.
      */
-    public static void removeProperties(Properties props, LDAPModificationSet mods, String attrName)
+    protected void removeProperties(Properties props, LDAPModificationSet mods, String attrName)
     {
         if (props != null && props.size() > 0)
         {
@@ -947,7 +947,7 @@ public final class DaoUtil
      * @param attrs    ldap attribute set containing name-value pairs in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be added.
      */
-    public static void loadProperties(Properties props, LDAPAttributeSet attrs, String attrName)
+    protected void loadProperties(Properties props, LDAPAttributeSet attrs, String attrName)
     {
         if (props != null && props.size() > 0)
         {

@@ -11,11 +11,10 @@ import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.UpdateException;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.util.AlphabeticalOrder;
-import com.jts.fortress.ldap.DaoUtil;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.util.attr.VUtil;
-import com.jts.fortress.cfg.Config;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
@@ -77,7 +76,7 @@ import java.util.TreeSet;
  * @author Shawn McKinney
  * @created October 17, 2009
  */
-public final class PolicyDAO
+public final class PolicyDAO extends DataProvider
 {
     /*
       *  *************************************************************************
@@ -141,80 +140,80 @@ public final class PolicyDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, OAM_PWPOLICY_OBJ_CLASS));
-            attrs.add(DaoUtil.createAttribute(GlobalIds.CN, entity.getName()));
-            attrs.add(DaoUtil.createAttribute(OLPW_ATTRIBUTE, OLPW_POLICY_EXTENSION));
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, OAM_PWPOLICY_OBJ_CLASS));
+            attrs.add(createAttribute(GlobalIds.CN, entity.getName()));
+            attrs.add(createAttribute(OLPW_ATTRIBUTE, OLPW_POLICY_EXTENSION));
             if (entity.getMinAge() != null)
             {
-                attrs.add(DaoUtil.createAttribute(OLPW_MIN_AGE, entity.getMinAge().toString()));
+                attrs.add(createAttribute(OLPW_MIN_AGE, entity.getMinAge().toString()));
             }
             if (entity.getMaxAge() != null)
             {
-                attrs.add(DaoUtil.createAttribute(OLPW_MAX_AGE, entity.getMaxAge().toString()));
+                attrs.add(createAttribute(OLPW_MAX_AGE, entity.getMaxAge().toString()));
             }
             if (entity.getInHistory() != null)
             {
-                attrs.add(DaoUtil.createAttribute(OLPW_IN_HISTORY, entity.getInHistory().toString()));
+                attrs.add(createAttribute(OLPW_IN_HISTORY, entity.getInHistory().toString()));
             }
             if (entity.getCheckQuality() != null)
             {
-                attrs.add(DaoUtil.createAttribute(OLPW_CHECK_QUALITY, entity.getCheckQuality().toString()));
+                attrs.add(createAttribute(OLPW_CHECK_QUALITY, entity.getCheckQuality().toString()));
             }
             if (entity.getMinLength() != null)
             {
-                attrs.add(DaoUtil.createAttribute(OLPW_MIN_LENGTH, entity.getMinLength().toString()));
+                attrs.add(createAttribute(OLPW_MIN_LENGTH, entity.getMinLength().toString()));
             }
             if (entity.getExpireWarning() != null)
             {
-                attrs.add(DaoUtil.createAttribute(OLPW_EXPIRE_WARNING, entity.getExpireWarning().toString()));
+                attrs.add(createAttribute(OLPW_EXPIRE_WARNING, entity.getExpireWarning().toString()));
             }
             if (entity.getGraceLoginLimit() != null)
             {
-                attrs.add(DaoUtil.createAttribute(OLPW_GRACE_LOGIN_LIMIT, entity.getGraceLoginLimit().toString()));
+                attrs.add(createAttribute(OLPW_GRACE_LOGIN_LIMIT, entity.getGraceLoginLimit().toString()));
             }
             if (entity.getLockout() != null)
             {
                 /**
                  * For some reason OpenLDAP requires the pwdLockout boolean value to be upper case:
                  */
-                attrs.add(DaoUtil.createAttribute(OLPW_LOCKOUT, entity.getLockout().toString().toUpperCase()));
+                attrs.add(createAttribute(OLPW_LOCKOUT, entity.getLockout().toString().toUpperCase()));
             }
             if (entity.getLockoutDuration() != null)
             {
-                attrs.add(DaoUtil.createAttribute(OLPW_LOCKOUT_DURATION, entity.getLockoutDuration().toString()));
+                attrs.add(createAttribute(OLPW_LOCKOUT_DURATION, entity.getLockoutDuration().toString()));
             }
             if (entity.getMaxFailure() != null)
             {
-                attrs.add(DaoUtil.createAttribute(OLPW_MAX_FAILURE, entity.getMaxFailure().toString()));
+                attrs.add(createAttribute(OLPW_MAX_FAILURE, entity.getMaxFailure().toString()));
             }
             if (entity.getFailureCountInterval() != null)
             {
-                attrs.add(DaoUtil.createAttribute(OLPW_FAILURE_COUNT_INTERVAL, entity.getFailureCountInterval().toString()));
+                attrs.add(createAttribute(OLPW_FAILURE_COUNT_INTERVAL, entity.getFailureCountInterval().toString()));
             }
             if (entity.getMustChange() != null)
             {
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                attrs.add(DaoUtil.createAttribute(OLPW_MUST_CHANGE, entity.getMustChange().toString().toUpperCase()));
+                attrs.add(createAttribute(OLPW_MUST_CHANGE, entity.getMustChange().toString().toUpperCase()));
             }
             if (entity.getAllowUserChange() != null)
             {
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                attrs.add(DaoUtil.createAttribute(OLPW_ALLOW_USER_CHANGE, entity.getAllowUserChange().toString().toUpperCase()));
+                attrs.add(createAttribute(OLPW_ALLOW_USER_CHANGE, entity.getAllowUserChange().toString().toUpperCase()));
             }
             if (entity.getSafeModify() != null)
             {
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                attrs.add(DaoUtil.createAttribute(OLPW_SAFE_MODIFY, entity.getSafeModify().toString().toUpperCase()));
+                attrs.add(createAttribute(OLPW_SAFE_MODIFY, entity.getSafeModify().toString().toUpperCase()));
             }
 
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
-            DaoUtil.add(ld, myEntry, entity);
+            add(ld, myEntry, entity);
         }
         catch (LDAPException e)
         {
@@ -327,7 +326,7 @@ public final class PolicyDAO
             }
             if (mods != null && mods.size() > 0)
             {
-                DaoUtil.modify(ld, dn, mods, entity);
+                modify(ld, dn, mods, entity);
             }
         }
         catch (LDAPException e)
@@ -354,7 +353,7 @@ public final class PolicyDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.delete(ld, dn, entity);
+            delete(ld, dn, entity);
         }
         catch (LDAPException e)
         {
@@ -383,7 +382,7 @@ public final class PolicyDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, dn, PASSWORD_POLICY_ATRS);
+            LDAPEntry findEntry = read(ld, dn, PASSWORD_POLICY_ATRS);
             entity = unloadLdapEntry(findEntry, 0);
         }
         catch (LDAPException e)
@@ -422,87 +421,87 @@ public final class PolicyDAO
     {
         PwPolicy entity = new ObjectFactory().createPswdPolicy();
         entity.setSequenceId(sequence);
-        entity.setName(DaoUtil.getRdn(le.getDN()));
-        //entity.setAttribute(DaoUtil.getAttribute(le, OLPW_ATTRIBUTE));
-        String val = DaoUtil.getAttribute(le, OLPW_MIN_AGE);
+        entity.setName(getRdn(le.getDN()));
+        //entity.setAttribute(getAttribute(le, OLPW_ATTRIBUTE));
+        String val = getAttribute(le, OLPW_MIN_AGE);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setMinAge(new Integer(val));
         }
-        val = DaoUtil.getAttribute(le, OLPW_MAX_AGE);
+        val = getAttribute(le, OLPW_MAX_AGE);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setMaxAge(new Long(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_IN_HISTORY);
+        val = getAttribute(le, OLPW_IN_HISTORY);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setInHistory(new Short(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_CHECK_QUALITY);
+        val = getAttribute(le, OLPW_CHECK_QUALITY);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setCheckQuality(new Short(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_MIN_LENGTH);
+        val = getAttribute(le, OLPW_MIN_LENGTH);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setMinLength(new Short(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_EXPIRE_WARNING);
+        val = getAttribute(le, OLPW_EXPIRE_WARNING);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setExpireWarning(new Long(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_GRACE_LOGIN_LIMIT);
+        val = getAttribute(le, OLPW_GRACE_LOGIN_LIMIT);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setGraceLoginLimit(new Short(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_LOCKOUT);
+        val = getAttribute(le, OLPW_LOCKOUT);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setLockout(Boolean.valueOf(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_LOCKOUT_DURATION);
+        val = getAttribute(le, OLPW_LOCKOUT_DURATION);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setLockoutDuration(new Integer(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_MAX_FAILURE);
+        val = getAttribute(le, OLPW_MAX_FAILURE);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setMaxFailure(new Short(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_FAILURE_COUNT_INTERVAL);
+        val = getAttribute(le, OLPW_FAILURE_COUNT_INTERVAL);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setFailureCountInterval(new Short(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_MUST_CHANGE);
+        val = getAttribute(le, OLPW_MUST_CHANGE);
         if(VUtil.isNotNullOrEmpty(val))
         {
             //noinspection BooleanConstructorCall
             entity.setMustChange(Boolean.valueOf(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_ALLOW_USER_CHANGE);
+        val = getAttribute(le, OLPW_ALLOW_USER_CHANGE);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setAllowUserChange(Boolean.valueOf(val));
         }
 
-        val = DaoUtil.getAttribute(le, OLPW_SAFE_MODIFY);
+        val = getAttribute(le, OLPW_SAFE_MODIFY);
         if(VUtil.isNotNullOrEmpty(val))
         {
             entity.setSafeModify(Boolean.valueOf(val));
@@ -531,7 +530,7 @@ public final class PolicyDAO
             searchVal = VUtil.encodeSafeText(policy.getName(), GlobalIds.PWPOLICY_NAME_LEN);
             String filter = "(&(objectclass=" + OLPW_POLICY_CLASS + ")("
                 + GlobalIds.POLICY_NODE_TYPE + "=" + searchVal + "*))";
-            searchResults = DaoUtil.search(ld, policyRoot,
+            searchResults = search(ld, policyRoot,
                 LDAPConnection.SCOPE_ONE, filter, PASSWORD_POLICY_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -566,11 +565,11 @@ public final class PolicyDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(objectclass=" + OLPW_POLICY_CLASS + ")";
-            searchResults = DaoUtil.search(ld, policyRoot,
+            searchResults = search(ld, policyRoot,
                 LDAPConnection.SCOPE_ONE, filter, PASSWORD_POLICY_NAME_ATR, false, GlobalIds.BATCH_SIZE);
             while (searchResults.hasMoreElements())
             {
-                policySet.add(DaoUtil.getAttribute(searchResults.next(), GlobalIds.CN));
+                policySet.add(getAttribute(searchResults.next(), GlobalIds.CN));
             }
         }
         catch (LDAPException e)
@@ -592,7 +591,7 @@ public final class PolicyDAO
 
     private String getPolicyRoot(String contextId)
     {
-        return DaoUtil.getRootDn(contextId, GlobalIds.PPOLICY_ROOT);
+        return getRootDn(contextId, GlobalIds.PPOLICY_ROOT);
     }
 }
 

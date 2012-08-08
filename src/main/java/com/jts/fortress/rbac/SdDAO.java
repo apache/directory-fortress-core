@@ -9,10 +9,9 @@ import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RemoveException;
-import com.jts.fortress.cfg.Config;
 import com.jts.fortress.FinderException;
 import com.jts.fortress.UpdateException;
-import com.jts.fortress.ldap.DaoUtil;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.ldap.PoolMgr;
 
 import com.jts.fortress.util.attr.VUtil;
@@ -96,7 +95,7 @@ import java.util.Set;
  * @author Shawn McKinney
  * @created September 11, 2010
  */
-final class SdDAO
+final class SdDAO extends DataProvider
 
 {
     private static final String CLS_NM = SdDAO.class.getName();
@@ -144,21 +143,21 @@ final class SdDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, objectClass));
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, objectClass));
             entity.setId();
-            attrs.add(DaoUtil.createAttribute(GlobalIds.FT_IID, entity.getId()));
-            attrs.add(DaoUtil.createAttribute(SD_SET_NM, entity.getName()));
+            attrs.add(createAttribute(GlobalIds.FT_IID, entity.getId()));
+            attrs.add(createAttribute(SD_SET_NM, entity.getName()));
             // description field is optional on this object class:
             if (VUtil.isNotNullOrEmpty(entity.getDescription()))
             {
-                attrs.add(DaoUtil.createAttribute(GlobalIds.DESC, entity.getDescription()));
+                attrs.add(createAttribute(GlobalIds.DESC, entity.getDescription()));
             }
             // CN attribute is required for this object class:
-            attrs.add(DaoUtil.createAttribute(GlobalIds.CN, entity.getName()));
-            DaoUtil.loadAttrs(entity.getMembers(), attrs, ROLES);
-            attrs.add(DaoUtil.createAttribute(SD_SET_CARDINALITY, "" + entity.getCardinality()));
+            attrs.add(createAttribute(GlobalIds.CN, entity.getName()));
+            loadAttrs(entity.getMembers(), attrs, ROLES);
+            attrs.add(createAttribute(SD_SET_CARDINALITY, "" + entity.getCardinality()));
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
-            DaoUtil.add(ld, myEntry, entity);
+            add(ld, myEntry, entity);
         }
         catch (LDAPException e)
         {
@@ -207,10 +206,10 @@ final class SdDAO
                 LDAPAttribute cardinality = new LDAPAttribute(SD_SET_CARDINALITY, "" + entity.getCardinality());
                 mods.add(LDAPModification.REPLACE, cardinality);
             }
-            DaoUtil.loadAttrs(entity.getMembers(), mods, ROLES);
+            loadAttrs(entity.getMembers(), mods, ROLES);
             if (mods.size() > 0)
             {
-                DaoUtil.modify(ld, dn, mods, entity);
+                modify(ld, dn, mods, entity);
             }
         }
         catch (LDAPException e)
@@ -248,7 +247,7 @@ final class SdDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.delete(ld, dn, entity);
+            delete(ld, dn, entity);
         }
         catch (LDAPException e)
         {
@@ -287,7 +286,7 @@ final class SdDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, dn, SD_SET_ATRS);
+            LDAPEntry findEntry = read(ld, dn, SD_SET_ATRS);
             entity = unloadLdapEntry(findEntry, 0);
             if (entity == null)
             {
@@ -346,7 +345,7 @@ final class SdDAO
             String searchVal = VUtil.encodeSafeText(sdset.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + objectClass + ")(" + SD_SET_NM + "=" + searchVal + "*))";
-            searchResults = DaoUtil.search(ld, ssdRoot,
+            searchResults = search(ld, ssdRoot,
                 LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -415,7 +414,7 @@ final class SdDAO
                 filter += ROLES + "=" + roleVal + ")";
             }
             filter += ")";
-            searchResults = DaoUtil.search(ld, ssdRoot,
+            searchResults = search(ld, ssdRoot,
                 LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
 
             long sequence = 0;
@@ -475,7 +474,7 @@ final class SdDAO
                     filter += "(" + ROLES + "=" + rle + ")";
                 }
                 filter += "))";
-                searchResults = DaoUtil.search(ld, ssdRoot,
+                searchResults = search(ld, ssdRoot,
                     LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
                 long sequence = 0;
                 while (searchResults.hasMoreElements())
@@ -515,11 +514,11 @@ final class SdDAO
     {
         SDSet entity = new ObjectFactory().createSDset();
         entity.setSequenceId(sequence);
-        entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
-        entity.setName(DaoUtil.getAttribute(le, SD_SET_NM));
-        entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
-        entity.setMembers(DaoUtil.getAttributeSet(le, ROLES));
-        String szCard = DaoUtil.getAttribute(le, SD_SET_CARDINALITY);
+        entity.setId(getAttribute(le, GlobalIds.FT_IID));
+        entity.setName(getAttribute(le, SD_SET_NM));
+        entity.setDescription(getAttribute(le, GlobalIds.DESC));
+        entity.setMembers(getAttributeSet(le, ROLES));
+        String szCard = getAttribute(le, SD_SET_CARDINALITY);
         entity.setCardinality(new Integer(szCard));
         return entity;
     }
@@ -531,7 +530,7 @@ final class SdDAO
 
     private String getSdRoot(String contextId)
     {
-        return DaoUtil.getRootDn(contextId, GlobalIds.SD_ROOT);
+        return getRootDn(contextId, GlobalIds.SD_ROOT);
     }
 }
 

@@ -7,7 +7,7 @@ package com.jts.fortress.ldap.suffix;
 import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.RemoveException;
-import com.jts.fortress.ldap.DaoUtil;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.ldap.PoolMgr;
 import org.apache.log4j.Logger;
 
@@ -46,7 +46,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
  * @author Shawn McKinney
  * @created January 21, 2010
  */
-final class SuffixDAO
+final class SuffixDAO extends DataProvider
 {
     private static final String CLS_NM = SuffixDAO.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
@@ -77,11 +77,11 @@ final class SuffixDAO
             log.info(CLS_NM + ".create suffix dn [" + nodeDn + "]");
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS));
-            attrs.add(DaoUtil.createAttribute(DC, se.getName()));
-            attrs.add(DaoUtil.createAttribute(O, se.getDescription()));
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS));
+            attrs.add(createAttribute(DC, se.getName()));
+            attrs.add(createAttribute(O, se.getDescription()));
             LDAPEntry myEntry = new LDAPEntry(nodeDn, attrs);
-            DaoUtil.add(ld, myEntry);
+            add(ld, myEntry);
         }
         catch (LDAPException e)
         {
@@ -116,7 +116,7 @@ final class SuffixDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.deleteRecursive(ld, nodeDn);
+            deleteRecursive(ld, nodeDn);
         }
         catch (LDAPException e)
         {

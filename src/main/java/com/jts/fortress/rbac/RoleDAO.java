@@ -5,13 +5,12 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.*;
-import com.jts.fortress.ldap.DaoUtil;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
-import com.jts.fortress.cfg.Config;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
@@ -71,7 +70,7 @@ import java.util.List;
  * @author Kevin McKinney
  * @created October 29, 2009
  */
-final class RoleDAO
+final class RoleDAO extends DataProvider
 
 {
     /*
@@ -110,20 +109,20 @@ final class RoleDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, GlobalIds.ROLE_OBJ_CLASS));
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, GlobalIds.ROLE_OBJ_CLASS));
             entity.setId();
-            attrs.add(DaoUtil.createAttribute(GlobalIds.FT_IID, entity.getId()));
-            attrs.add(DaoUtil.createAttribute(ROLE_NM, entity.getName()));
+            attrs.add(createAttribute(GlobalIds.FT_IID, entity.getId()));
+            attrs.add(createAttribute(ROLE_NM, entity.getName()));
             // description field is optional on this object class:
             if (VUtil.isNotNullOrEmpty(entity.getDescription()))
             {
-                attrs.add(DaoUtil.createAttribute(GlobalIds.DESC, entity.getDescription()));
+                attrs.add(createAttribute(GlobalIds.DESC, entity.getDescription()));
             }
             // CN attribute is required for this object class:
-            attrs.add(DaoUtil.createAttribute(GlobalIds.CN, entity.getName()));
-            attrs.add(DaoUtil.createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint(entity)));
+            attrs.add(createAttribute(GlobalIds.CN, entity.getName()));
+            attrs.add(createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint(entity)));
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
-            DaoUtil.add(ld, myEntry, entity);
+            add(ld, myEntry, entity);
         }
         catch (LDAPException e)
         {
@@ -177,7 +176,7 @@ final class RoleDAO
             }
             if (mods.size() > 0)
             {
-                DaoUtil.modify(ld, dn, mods, entity);
+                modify(ld, dn, mods, entity);
             }
         }
         catch (LDAPException e)
@@ -211,7 +210,7 @@ final class RoleDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute occupant = new LDAPAttribute(ROLE_OCCUPANT, userDn);
             mods.add(LDAPModification.ADD, occupant);
-            DaoUtil.modify(ld, dn, mods, entity);
+            modify(ld, dn, mods, entity);
         }
         catch (LDAPException e)
         {
@@ -244,7 +243,7 @@ final class RoleDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute occupant = new LDAPAttribute(ROLE_OCCUPANT, userDn);
             mods.add(LDAPModification.DELETE, occupant);
-            DaoUtil.modify(ld, dn, mods, entity);
+            modify(ld, dn, mods, entity);
         }
         catch (LDAPException e)
         {
@@ -271,7 +270,7 @@ final class RoleDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.delete(ld, dn, role);
+            delete(ld, dn, role);
         }
         catch (LDAPException e)
         {
@@ -300,7 +299,7 @@ final class RoleDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, dn, ROLE_ATRS);
+            LDAPEntry findEntry = read(ld, dn, ROLE_ATRS);
             entity = unloadLdapEntry(findEntry, 0, role.getContextId());
             if (entity == null)
             {
@@ -338,7 +337,7 @@ final class RoleDAO
         List<Role> roleList = new ArrayList<Role>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String roleRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.ROLE_ROOT);
+        String roleRoot = getRootDn(role.getContextId(), GlobalIds.ROLE_ROOT);
         String filter = null;
         try
         {
@@ -346,7 +345,7 @@ final class RoleDAO
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
-            searchResults = DaoUtil.search(ld, roleRoot,
+            searchResults = search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, ROLE_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -380,7 +379,7 @@ final class RoleDAO
         List<String> roleList = new ArrayList<String>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String roleRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.ROLE_ROOT);
+        String roleRoot = getRootDn(role.getContextId(), GlobalIds.ROLE_ROOT);
         String filter = null;
         try
         {
@@ -388,12 +387,12 @@ final class RoleDAO
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
-            searchResults = DaoUtil.search(ld, roleRoot,
+            searchResults = search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE, limit);
             while (searchResults.hasMoreElements())
             {
                 LDAPEntry entry = searchResults.next();
-                roleList.add(DaoUtil.getAttribute(entry, ROLE_NM));
+                roleList.add(getAttribute(entry, ROLE_NM));
             }
         }
         catch (LDAPException e)
@@ -422,17 +421,17 @@ final class RoleDAO
         List<String> roleNameList = new ArrayList<String>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String roleRoot = DaoUtil.getRootDn(contextId, GlobalIds.ROLE_ROOT);
+        String roleRoot = getRootDn(contextId, GlobalIds.ROLE_ROOT);
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")";
             filter += "(" + ROLE_OCCUPANT + "=" + userDn + "))";
-            searchResults = DaoUtil.search(ld, roleRoot,
+            searchResults = search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE);
             while (searchResults.hasMoreElements())
             {
-                roleNameList.add(DaoUtil.getAttribute(searchResults.next(), ROLE_NM));
+                roleNameList.add(getAttribute(searchResults.next(), ROLE_NM));
             }
         }
         catch (LDAPException e)
@@ -461,18 +460,18 @@ final class RoleDAO
     {
         Role entity = new ObjectFactory().createRole();
         entity.setSequenceId(sequence);
-        entity.setId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
-        entity.setName(DaoUtil.getAttribute(le, ROLE_NM));
-        entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
-        entity.setOccupants(DaoUtil.getAttributes(le, ROLE_OCCUPANT));
+        entity.setId(getAttribute(le, GlobalIds.FT_IID));
+        entity.setName(getAttribute(le, ROLE_NM));
+        entity.setDescription(getAttribute(le, GlobalIds.DESC));
+        entity.setOccupants(getAttributes(le, ROLE_OCCUPANT));
         entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setChildren(RoleUtil.getChildren(entity.getName().toUpperCase(), contextId));
-        DaoUtil.unloadTemporal(le, entity);
+        unloadTemporal(le, entity);
         return entity;
     }
 
     private String getDn(String name, String contextId)
     {
-        return GlobalIds.CN + "=" + name + "," + DaoUtil.getRootDn(contextId, GlobalIds.ROLE_ROOT);
+        return GlobalIds.CN + "=" + name + "," + getRootDn(contextId, GlobalIds.ROLE_ROOT);
     }
 }

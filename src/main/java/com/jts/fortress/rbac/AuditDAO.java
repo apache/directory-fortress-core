@@ -12,7 +12,7 @@ import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.FinderException;
-import com.jts.fortress.ldap.DaoUtil;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.util.attr.AttrHelper;
 import com.jts.fortress.util.attr.VUtil;
@@ -20,8 +20,6 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
-
-import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +99,7 @@ import java.util.List;
  * @author Shawn McKinney
  * @created April 2, 2010
  */
-final class AuditDAO
+final class AuditDAO extends DataProvider
 
 {
     private static final String CLS_NM = AuditDAO.class.getName();
@@ -250,7 +248,7 @@ final class AuditDAO
 
             //log.warn("filter=" + filter);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
-            searchResults = DaoUtil.search(ld, auditRoot,
+            searchResults = search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -288,8 +286,8 @@ final class AuditDAO
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);
-        String permRoot = DaoUtil.getRootDn(audit.getContextId(), GlobalIds.PERM_ROOT);
-        String userRoot = DaoUtil.getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
+        String permRoot = getRootDn(audit.getContextId(), GlobalIds.PERM_ROOT);
+        String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
 
         try
         {
@@ -310,7 +308,7 @@ final class AuditDAO
             filter += ")";
 
             //log.warn("filter=" + filter);
-            searchResults = DaoUtil.search(ld, auditRoot,
+            searchResults = search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -344,7 +342,7 @@ final class AuditDAO
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);
-        String userRoot = DaoUtil.getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
 
         try
         {
@@ -374,7 +372,7 @@ final class AuditDAO
             filter += ")";
 
             //log.warn("filter=" + filter);
-            searchResults = DaoUtil.search(ld, auditRoot,
+            searchResults = search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -408,7 +406,7 @@ final class AuditDAO
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);
-        String userRoot = DaoUtil.getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
 
         try
         {
@@ -444,7 +442,7 @@ final class AuditDAO
                 filter += ")";
             }
             //log.warn("filter=" + filter);
-            searchResults = DaoUtil.search(ld, auditRoot,
+            searchResults = search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_BIND_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -479,7 +477,7 @@ final class AuditDAO
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);
 
-        String userRoot = DaoUtil.getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
@@ -492,7 +490,7 @@ final class AuditDAO
             }
             filter += ")";
             //log.warn("filter=" + filter);
-            searchResults = DaoUtil.search(ld, auditRoot,
+            searchResults = search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_MOD_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -597,7 +595,7 @@ final class AuditDAO
 
             filter += ")";
             //log.warn("filter=" + filter);
-            searchResults = DaoUtil.search(ld, auditRoot,
+            searchResults = search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_MOD_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -653,26 +651,26 @@ final class AuditDAO
 
         Bind auditBind = new ObjectFactory().createBind();
         auditBind.setSequenceId(sequence);
-        auditBind.setCreateTimestamp(DaoUtil.getAttribute(le, CREATETIMESTAMP));
-        auditBind.setCreatorsName(DaoUtil.getAttribute(le, CREATORSNAME));
-        auditBind.setEntryCSN(DaoUtil.getAttribute(le, ENTRYCSN));
-        auditBind.setEntryDN(DaoUtil.getAttribute(le, ENTRYDN));
-        auditBind.setEntryUUID(DaoUtil.getAttribute(le, ENTRYUUID));
-        auditBind.setHasSubordinates(DaoUtil.getAttribute(le, HASSUBORDINATES));
-        auditBind.setModifiersName(DaoUtil.getAttribute(le, MODIFIERSNAME));
-        auditBind.setModifyTimestamp(DaoUtil.getAttribute(le, MODIFYTIMESTAMP));
-        auditBind.setObjectClass(DaoUtil.getAttribute(le, OBJECTCLASS));
-        auditBind.setReqAuthzID(DaoUtil.getAttribute(le, REQUAUTHZID));
-        auditBind.setReqControls(DaoUtil.getAttribute(le, REQCONTROLS));
-        auditBind.setReqDN(DaoUtil.getAttribute(le, REQDN));
-        auditBind.setReqEnd(DaoUtil.getAttribute(le, REQEND));
-        auditBind.setReqMethod(DaoUtil.getAttribute(le, REQMETHOD));
-        auditBind.setReqResult(DaoUtil.getAttribute(le, REQRESULT));
-        auditBind.setReqSession(DaoUtil.getAttribute(le, REQSESSION));
-        auditBind.setReqStart(DaoUtil.getAttribute(le, REQSTART));
-        auditBind.setReqType(DaoUtil.getAttribute(le, REQTYPE));
-        auditBind.setReqVersion(DaoUtil.getAttribute(le, REQVERSION));
-        auditBind.setStructuralObjectClass(DaoUtil.getAttribute(le, STRUCTURALOBJECTCLASS));
+        auditBind.setCreateTimestamp(getAttribute(le, CREATETIMESTAMP));
+        auditBind.setCreatorsName(getAttribute(le, CREATORSNAME));
+        auditBind.setEntryCSN(getAttribute(le, ENTRYCSN));
+        auditBind.setEntryDN(getAttribute(le, ENTRYDN));
+        auditBind.setEntryUUID(getAttribute(le, ENTRYUUID));
+        auditBind.setHasSubordinates(getAttribute(le, HASSUBORDINATES));
+        auditBind.setModifiersName(getAttribute(le, MODIFIERSNAME));
+        auditBind.setModifyTimestamp(getAttribute(le, MODIFYTIMESTAMP));
+        auditBind.setObjectClass(getAttribute(le, OBJECTCLASS));
+        auditBind.setReqAuthzID(getAttribute(le, REQUAUTHZID));
+        auditBind.setReqControls(getAttribute(le, REQCONTROLS));
+        auditBind.setReqDN(getAttribute(le, REQDN));
+        auditBind.setReqEnd(getAttribute(le, REQEND));
+        auditBind.setReqMethod(getAttribute(le, REQMETHOD));
+        auditBind.setReqResult(getAttribute(le, REQRESULT));
+        auditBind.setReqSession(getAttribute(le, REQSESSION));
+        auditBind.setReqStart(getAttribute(le, REQSTART));
+        auditBind.setReqType(getAttribute(le, REQTYPE));
+        auditBind.setReqVersion(getAttribute(le, REQVERSION));
+        auditBind.setStructuralObjectClass(getAttribute(le, STRUCTURALOBJECTCLASS));
         return auditBind;
     }
 
@@ -720,34 +718,34 @@ final class AuditDAO
         // these attrs also on audit bind OC:
         AuthZ authZ = new ObjectFactory().createAuthZ();
         authZ.setSequenceId(sequence);
-        authZ.setCreateTimestamp(DaoUtil.getAttribute(le, CREATETIMESTAMP));
-        authZ.setCreatorsName(DaoUtil.getAttribute(le, CREATORSNAME));
-        authZ.setEntryCSN(DaoUtil.getAttribute(le, ENTRYCSN));
-        authZ.setEntryDN(DaoUtil.getAttribute(le, ENTRYDN));
-        authZ.setEntryUUID(DaoUtil.getAttribute(le, ENTRYUUID));
-        authZ.setHasSubordinates(DaoUtil.getAttribute(le, HASSUBORDINATES));
-        authZ.setModifiersName(DaoUtil.getAttribute(le, MODIFIERSNAME));
-        authZ.setModifyTimestamp(DaoUtil.getAttribute(le, MODIFYTIMESTAMP));
-        authZ.setObjectClass(DaoUtil.getAttribute(le, OBJECTCLASS));
-        authZ.setReqAuthzID(DaoUtil.getAttribute(le, REQUAUTHZID));
-        authZ.setReqControls(DaoUtil.getAttribute(le, REQCONTROLS));
-        authZ.setReqDN(DaoUtil.getAttribute(le, REQDN));
-        authZ.setReqEnd(DaoUtil.getAttribute(le, REQEND));
-        authZ.setReqResult(DaoUtil.getAttribute(le, REQRESULT));
-        authZ.setReqSession(DaoUtil.getAttribute(le, REQSESSION));
-        authZ.setReqStart(DaoUtil.getAttribute(le, REQSTART));
-        authZ.setReqType(DaoUtil.getAttribute(le, REQTYPE));
-        authZ.setStructuralObjectClass(DaoUtil.getAttribute(le, STRUCTURALOBJECTCLASS));
+        authZ.setCreateTimestamp(getAttribute(le, CREATETIMESTAMP));
+        authZ.setCreatorsName(getAttribute(le, CREATORSNAME));
+        authZ.setEntryCSN(getAttribute(le, ENTRYCSN));
+        authZ.setEntryDN(getAttribute(le, ENTRYDN));
+        authZ.setEntryUUID(getAttribute(le, ENTRYUUID));
+        authZ.setHasSubordinates(getAttribute(le, HASSUBORDINATES));
+        authZ.setModifiersName(getAttribute(le, MODIFIERSNAME));
+        authZ.setModifyTimestamp(getAttribute(le, MODIFYTIMESTAMP));
+        authZ.setObjectClass(getAttribute(le, OBJECTCLASS));
+        authZ.setReqAuthzID(getAttribute(le, REQUAUTHZID));
+        authZ.setReqControls(getAttribute(le, REQCONTROLS));
+        authZ.setReqDN(getAttribute(le, REQDN));
+        authZ.setReqEnd(getAttribute(le, REQEND));
+        authZ.setReqResult(getAttribute(le, REQRESULT));
+        authZ.setReqSession(getAttribute(le, REQSESSION));
+        authZ.setReqStart(getAttribute(le, REQSTART));
+        authZ.setReqType(getAttribute(le, REQTYPE));
+        authZ.setStructuralObjectClass(getAttribute(le, STRUCTURALOBJECTCLASS));
 
         // these attrs only on audit search OC:
-        authZ.setReqAttr(DaoUtil.getAttribute(le, REQATTR));
-        authZ.setReqAttrsOnly(DaoUtil.getAttribute(le, REQATTRSONLY));
-        authZ.setReqDerefAliases(DaoUtil.getAttribute(le, REQDREFALIASES));
-        authZ.setReqEntries(DaoUtil.getAttribute(le, REQENTRIES));
-        authZ.setReqFilter(DaoUtil.getAttribute(le, REQFILTER));
-        authZ.setReqScope(DaoUtil.getAttribute(le, REQSCOPE));
-        authZ.setReqSizeLimit(DaoUtil.getAttribute(le, REQSIZELIMIT));
-        authZ.setReqTimeLimit(DaoUtil.getAttribute(le, REQTIMELIMIT));
+        authZ.setReqAttr(getAttribute(le, REQATTR));
+        authZ.setReqAttrsOnly(getAttribute(le, REQATTRSONLY));
+        authZ.setReqDerefAliases(getAttribute(le, REQDREFALIASES));
+        authZ.setReqEntries(getAttribute(le, REQENTRIES));
+        authZ.setReqFilter(getAttribute(le, REQFILTER));
+        authZ.setReqScope(getAttribute(le, REQSCOPE));
+        authZ.setReqSizeLimit(getAttribute(le, REQSIZELIMIT));
+        authZ.setReqTimeLimit(getAttribute(le, REQTIMELIMIT));
         return authZ;
     }
 
@@ -772,15 +770,15 @@ final class AuditDAO
 
         Mod mod = new ObjectFactory().createMod();
         mod.setSequenceId(sequence);
-        mod.setObjectClass(DaoUtil.getAttribute(le, OBJECTCLASS));
-        mod.setReqAuthzID(DaoUtil.getAttribute(le, REQUAUTHZID));
-        mod.setReqDN(DaoUtil.getAttribute(le, REQDN));
-        mod.setReqEnd(DaoUtil.getAttribute(le, REQEND));
-        mod.setReqResult(DaoUtil.getAttribute(le, REQRESULT));
-        mod.setReqSession(DaoUtil.getAttribute(le, REQSESSION));
-        mod.setReqStart(DaoUtil.getAttribute(le, REQSTART));
-        mod.setReqType(DaoUtil.getAttribute(le, REQTYPE));
-        mod.setReqMod(DaoUtil.getAttributes(le, REQMOD));
+        mod.setObjectClass(getAttribute(le, OBJECTCLASS));
+        mod.setReqAuthzID(getAttribute(le, REQUAUTHZID));
+        mod.setReqDN(getAttribute(le, REQDN));
+        mod.setReqEnd(getAttribute(le, REQEND));
+        mod.setReqResult(getAttribute(le, REQRESULT));
+        mod.setReqSession(getAttribute(le, REQSESSION));
+        mod.setReqStart(getAttribute(le, REQSTART));
+        mod.setReqType(getAttribute(le, REQTYPE));
+        mod.setReqMod(getAttributes(le, REQMOD));
         return mod;
     }
 }

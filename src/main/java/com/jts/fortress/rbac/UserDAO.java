@@ -7,7 +7,7 @@ package com.jts.fortress.rbac;
 import com.jts.fortress.*;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.cfg.Config;
-import com.jts.fortress.ldap.DaoUtil;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.GlobalErrIds;
@@ -99,7 +99,7 @@ import java.util.Set;
  * @author Shawn McKinney
  * @created August 30, 2009
  */
-final class UserDAO
+final class UserDAO extends DataProvider
 {
     private static final String CLS_NM = UserDAO.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
@@ -229,64 +229,64 @@ final class UserDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, USER_OBJ_CLASS));
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, USER_OBJ_CLASS));
 
             entity.setInternalId();
-            attrs.add(DaoUtil.createAttribute(GlobalIds.FT_IID, entity.getInternalId()));
-            attrs.add(DaoUtil.createAttribute(GlobalIds.UID, entity.getUserId()));
+            attrs.add(createAttribute(GlobalIds.FT_IID, entity.getInternalId()));
+            attrs.add(createAttribute(GlobalIds.UID, entity.getUserId()));
             // CN is required on inetOrgPerson object class, if caller did not set, use the userId:
             if (!VUtil.isNotNullOrEmpty(entity.getCn()))
             {
                 entity.setCn(entity.getUserId());
             }
-            attrs.add(DaoUtil.createAttribute(GlobalIds.CN, entity.getCn()));
+            attrs.add(createAttribute(GlobalIds.CN, entity.getCn()));
             // SN is required on inetOrgPerson object class, if caller did not set, use the userId:
             if (!VUtil.isNotNullOrEmpty(entity.getSn()))
             {
                 entity.setSn(entity.getUserId());
             }
-            attrs.add(DaoUtil.createAttribute(SN, entity.getSn()));
-            attrs.add(DaoUtil.createAttribute(PW, new String(entity.getPassword())));
-            attrs.add(DaoUtil.createAttribute(DISPLAY_NAME, entity.getCn()));
+            attrs.add(createAttribute(SN, entity.getSn()));
+            attrs.add(createAttribute(PW, new String(entity.getPassword())));
+            attrs.add(createAttribute(DISPLAY_NAME, entity.getCn()));
 
             // These are multi-valued attributes, use the util function to load:
             // These items are optional.  The utility function will return quietly if no items are loaded into collection:
-            DaoUtil.loadAttrs(entity.getPhones(), attrs, TELEPHONE_NUMBER);
-            DaoUtil.loadAttrs(entity.getMobiles(), attrs, MOBILE);
-            DaoUtil.loadAttrs(entity.getEmails(), attrs, MAIL);
+            loadAttrs(entity.getPhones(), attrs, TELEPHONE_NUMBER);
+            loadAttrs(entity.getMobiles(), attrs, MOBILE);
+            loadAttrs(entity.getEmails(), attrs, MAIL);
 
             // The following attributes are optional:
             if (VUtil.isNotNullOrEmpty(entity.isSystem()))
             {
-                attrs.add(DaoUtil.createAttribute(SYSTEM_USER, entity.isSystem().toString().toUpperCase()));
+                attrs.add(createAttribute(SYSTEM_USER, entity.isSystem().toString().toUpperCase()));
             }
             if (VUtil.isNotNullOrEmpty(entity.getPwPolicy()))
             {
-                String dn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + DaoUtil.getRootDn(entity.getContextId(), GlobalIds.PPOLICY_ROOT);
-                attrs.add(DaoUtil.createAttribute(OPENLDAP_POLICY_SUBENTRY, dn));
+                String dn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn(entity.getContextId(), GlobalIds.PPOLICY_ROOT);
+                attrs.add(createAttribute(OPENLDAP_POLICY_SUBENTRY, dn));
             }
             if (VUtil.isNotNullOrEmpty(entity.getOu()))
             {
-                attrs.add(DaoUtil.createAttribute(GlobalIds.OU, entity.getOu()));
+                attrs.add(createAttribute(GlobalIds.OU, entity.getOu()));
             }
             if (VUtil.isNotNullOrEmpty(entity.getDescription()))
             {
-                attrs.add(DaoUtil.createAttribute(GlobalIds.DESC, entity.getDescription()));
+                attrs.add(createAttribute(GlobalIds.DESC, entity.getDescription()));
             }
             // props are optional as well:
             // Add "initial" property here.
             entity.addProperty("init", "");
-            DaoUtil.loadProperties(entity.getProperties(), attrs, GlobalIds.PROPS);
+            loadProperties(entity.getProperties(), attrs, GlobalIds.PROPS);
             // map the userid to the name field in constraint:
             entity.setName(entity.getUserId());
-            attrs.add(DaoUtil.createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint(entity)));
+            attrs.add(createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint(entity)));
             loadUserRoles(entity.getRoles(), attrs);
             loadUserAdminRoles(entity.getAdminRoles(), attrs);
             loadAddress(entity.getAddress(), attrs);
             String dn = getDn(entity.getUserId(), entity.getContextId());
 
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
-            DaoUtil.add(ld, myEntry, entity);
+            add(ld, myEntry, entity);
             entity.setDn(dn);
         }
         catch (LDAPException e)
@@ -344,7 +344,7 @@ final class UserDAO
             }
             if (VUtil.isNotNullOrEmpty(entity.getPwPolicy()))
             {
-                String szDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + DaoUtil.getRootDn(entity.getContextId(), GlobalIds.PPOLICY_ROOT);
+                String szDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn(entity.getContextId(), GlobalIds.PPOLICY_ROOT);
                 LDAPAttribute dn = new LDAPAttribute(OPENLDAP_POLICY_SUBENTRY, szDn);
                 mods.add(LDAPModification.REPLACE, dn);
             }
@@ -374,18 +374,18 @@ final class UserDAO
             }
             if (VUtil.isNotNullOrEmpty(entity.getProperties()))
             {
-                DaoUtil.loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, true);
+                loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, true);
             }
 
             loadAddress(entity.getAddress(), mods);
             // These are multi-valued attributes, use the util function to load:
-            DaoUtil.loadAttrs(entity.getPhones(), mods, TELEPHONE_NUMBER);
-            DaoUtil.loadAttrs(entity.getMobiles(), mods, MOBILE);
-            DaoUtil.loadAttrs(entity.getEmails(), mods, MAIL);
+            loadAttrs(entity.getPhones(), mods, TELEPHONE_NUMBER);
+            loadAttrs(entity.getMobiles(), mods, MOBILE);
+            loadAttrs(entity.getEmails(), mods, MAIL);
 
             if (mods.size() > 0)
             {
-                DaoUtil.modify(ld, userDn, mods, entity);
+                modify(ld, userDn, mods, entity);
                 entity.setDn(userDn);
             }
 
@@ -421,11 +421,11 @@ final class UserDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getProperties()))
             {
-                DaoUtil.loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, replace);
+                loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, replace);
             }
             if (mods != null && mods.size() > 0)
             {
-                DaoUtil.modify(ld, userDn, mods, entity);
+                modify(ld, userDn, mods, entity);
                 entity.setDn(userDn);
             }
             entity.setDn(userDn);
@@ -455,7 +455,7 @@ final class UserDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.delete(ld, userDn, user);
+            delete(ld, userDn, user);
         }
         catch (LDAPException e)
         {
@@ -486,7 +486,7 @@ final class UserDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute pwdAccoutLock = new LDAPAttribute(OPENLDAP_ACCOUNT_LOCKED_TIME, LOCK_VALUE);
             mods.add(LDAPModification.REPLACE, pwdAccoutLock);
-            DaoUtil.modify(ld, userDn, mods, user);
+            modify(ld, userDn, mods, user);
         }
         catch (LDAPException e)
         {
@@ -516,7 +516,7 @@ final class UserDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute pwdlockedTime = new LDAPAttribute(OPENLDAP_ACCOUNT_LOCKED_TIME);
             mods.add(LDAPModification.DELETE, pwdlockedTime);
-            DaoUtil.modify(ld, userDn, mods, user);
+            modify(ld, userDn, mods, user);
         }
         catch (LDAPException e)
         {
@@ -566,7 +566,7 @@ final class UserDAO
             }
 
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, userDn, uATTRS);
+            LDAPEntry findEntry = read(ld, userDn, uATTRS);
             entity = unloadLdapEntry(findEntry, 0, user.getContextId());
             if (entity == null)
             {
@@ -607,7 +607,7 @@ final class UserDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, userDn, AROLE_ATR);
+            LDAPEntry findEntry = read(ld, userDn, AROLE_ATR);
             roles = unloadUserAdminRoles(findEntry, user.getUserId(), user.getContextId());
         }
         catch (LDAPException e)
@@ -644,13 +644,13 @@ final class UserDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, userDn, ROLES);
+            LDAPEntry findEntry = read(ld, userDn, ROLES);
             if (findEntry == null)
             {
                 String warning = CLS_NM + ".getRoles userId [" + user.getUserId() + "] not found, Fortress errCode=" + GlobalErrIds.USER_NOT_FOUND;
                 throw new FinderException(GlobalErrIds.USER_NOT_FOUND, warning);
             }
-            roles = DaoUtil.getAttributes(findEntry, GlobalIds.USER_ROLE_ASSIGN);
+            roles = getAttributes(findEntry, GlobalIds.USER_ROLE_ASSIGN);
         }
         catch (LDAPException e)
         {
@@ -738,7 +738,7 @@ final class UserDAO
         List<User> userList = new ArrayList<User>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String userRoot = DaoUtil.getRootDn(user.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(user.getContextId(), GlobalIds.USER_ROOT);
         try
         {
 
@@ -764,7 +764,7 @@ final class UserDAO
                 // Beware - returns ALL users!!:"
                 filter = "(objectclass=" + objectClassImpl + ")";
             }
-            searchResults = DaoUtil.search(ld, userRoot,
+            searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -802,19 +802,19 @@ final class UserDAO
         List<String> userList = new ArrayList<String>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String userRoot = DaoUtil.getRootDn(user.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(user.getContextId(), GlobalIds.USER_ROOT);
         try
         {
             String searchVal = VUtil.encodeSafeText(user.getUserId(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
-            searchResults = DaoUtil.search(ld, userRoot,
+            searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, USERID, false, GlobalIds.BATCH_SIZE, limit);
             while (searchResults.hasMoreElements())
             {
                 LDAPEntry entry = searchResults.next();
-                userList.add(DaoUtil.getAttribute(entry, GlobalIds.UID));
+                userList.add(getAttribute(entry, GlobalIds.UID));
             }
         }
         catch (LDAPException e)
@@ -842,7 +842,7 @@ final class UserDAO
         List<User> userList = new ArrayList<User>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String userRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
         try
         {
             String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
@@ -863,7 +863,7 @@ final class UserDAO
                 filter += GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + ")";
             }
             filter += ")";
-            searchResults = DaoUtil.search(ld, userRoot,
+            searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -895,14 +895,14 @@ final class UserDAO
         List<User> userList = new ArrayList<User>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String userRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
         try
         {
             String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
-            searchResults = DaoUtil.search(ld, userRoot,
+            searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -935,7 +935,7 @@ final class UserDAO
         Set<String> userSet = new HashSet<String>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String userRoot = DaoUtil.getRootDn(contextId, GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(contextId, GlobalIds.USER_ROOT);
         try
         {
             String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")(|";
@@ -953,11 +953,11 @@ final class UserDAO
             }
             filter += "))";
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            searchResults = DaoUtil.search(ld, userRoot,
+            searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, USERID_ATRS, false, GlobalIds.BATCH_SIZE);
             while (searchResults.hasMoreElements())
             {
-                userSet.add(DaoUtil.getAttribute(searchResults.next(), GlobalIds.UID));
+                userSet.add(getAttribute(searchResults.next(), GlobalIds.UID));
             }
         }
         catch (LDAPException e)
@@ -984,14 +984,14 @@ final class UserDAO
         List<User> userList = new ArrayList<User>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String userRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
         try
         {
             String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ADMINROLE_ASSIGN + "=" + roleVal + "))";
-            searchResults = DaoUtil.search(ld, userRoot,
+            searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -1025,19 +1025,19 @@ final class UserDAO
         List<String> userList = new ArrayList<String>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String userRoot = DaoUtil.getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
         try
         {
             String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
-            searchResults = DaoUtil.search(ld, userRoot,
+            searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, USERID, false, GlobalIds.BATCH_SIZE, limit);
             while (searchResults.hasMoreElements())
             {
                 LDAPEntry entry = searchResults.next();
-                userList.add(DaoUtil.getAttribute(entry, GlobalIds.UID));
+                userList.add(getAttribute(entry, GlobalIds.UID));
             }
         }
         catch (LDAPException e)
@@ -1064,14 +1064,14 @@ final class UserDAO
         List<String> userList = new ArrayList<String>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String userRoot = DaoUtil.getRootDn(contextId, GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(contextId, GlobalIds.USER_ROOT);
         try
         {
             searchVal = VUtil.encodeSafeText(searchVal, GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
-            searchResults = DaoUtil.search(ld, userRoot,
+            searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -1103,7 +1103,7 @@ final class UserDAO
         List<User> userList = new ArrayList<User>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String userRoot = DaoUtil.getRootDn(ou.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn(ou.getContextId(), GlobalIds.USER_ROOT);
         try
         {
             String szOu = VUtil.encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
@@ -1119,7 +1119,7 @@ final class UserDAO
             {
                 maxLimit = 0;
             }
-            searchResults = DaoUtil.search(ld, userRoot,
+            searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit);
             long sequence = 0;
             while (searchResults.hasMoreElements())
@@ -1162,7 +1162,7 @@ final class UserDAO
             mods = new LDAPModificationSet();
             LDAPAttribute pw = new LDAPAttribute(PW, new String(newPassword));
             mods.add(LDAPModification.REPLACE, pw);
-            DaoUtil.modify(ld, userDn, mods);
+            modify(ld, userDn, mods);
 
             // The 2nd modify is to update audit attributes on the User entry:
             if (GlobalIds.IS_AUDIT && entity.getAdminSession() != null)
@@ -1170,7 +1170,7 @@ final class UserDAO
                 // Because the user modified their own password, set their userId here:
                 //(entity.getAdminSession()).setInternalUserId(entity.getUserId());
                 mods = new LDAPModificationSet();
-                DaoUtil.modify(ld, userDn, mods, entity);
+                modify(ld, userDn, mods, entity);
             }
         }
         catch (LDAPException e)
@@ -1215,7 +1215,7 @@ final class UserDAO
             mods.add(LDAPModification.REPLACE, pw);
             LDAPAttribute pwdReset = new LDAPAttribute(OPENLDAP_PW_RESET, "TRUE");
             mods.add(LDAPModification.REPLACE, pwdReset);
-            DaoUtil.modify(ld, userDn, mods, user);
+            modify(ld, userDn, mods, user);
         }
         catch (LDAPException e)
         {
@@ -1251,7 +1251,7 @@ final class UserDAO
             mods.add(LDAPModification.ADD, attr);
             attr = new LDAPAttribute(GlobalIds.USER_ROLE_ASSIGN, uRole.getName());
             mods.add(LDAPModification.ADD, attr);
-            DaoUtil.modify(ld, userDn, mods, uRole);
+            modify(ld, userDn, mods, uRole);
         }
         catch (LDAPException e)
         {
@@ -1309,7 +1309,7 @@ final class UserDAO
                     mods.add(LDAPModification.DELETE, rAttr);
                     rAttr = new LDAPAttribute(GlobalIds.USER_ROLE_ASSIGN, fRole.getName());
                     mods.add(LDAPModification.DELETE, rAttr);
-                    DaoUtil.modify(ld, userDn, mods, uRole);
+                    modify(ld, userDn, mods, uRole);
                 }
             }
             // target name not found:
@@ -1355,7 +1355,7 @@ final class UserDAO
             mods.add(LDAPModification.ADD, attr);
             attr = new LDAPAttribute(GlobalIds.USER_ADMINROLE_ASSIGN, uRole.getName());
             mods.add(LDAPModification.ADD, attr);
-            DaoUtil.modify(ld, userDn, mods, uRole);
+            modify(ld, userDn, mods, uRole);
         }
         catch (LDAPException e)
         {
@@ -1417,7 +1417,7 @@ final class UserDAO
                     mods.add(LDAPModification.DELETE, rAttr);
                     rAttr = new LDAPAttribute(GlobalIds.USER_ADMINROLE_ASSIGN, fRole.getName());
                     mods.add(LDAPModification.DELETE, rAttr);
-                    DaoUtil.modify(ld, userDn, mods, uRole);
+                    modify(ld, userDn, mods, uRole);
                 }
             }
             // target name not found:
@@ -1458,7 +1458,7 @@ final class UserDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute policy = new LDAPAttribute(OPENLDAP_POLICY_SUBENTRY);
             mods.add(LDAPModification.DELETE, policy);
-            DaoUtil.modify(ld, userDn, mods, user);
+            modify(ld, userDn, mods, user);
         }
         catch (LDAPException e)
         {
@@ -1483,37 +1483,37 @@ final class UserDAO
     {
         User entity = new ObjectFactory().createUser();
         entity.setSequenceId(sequence);
-        entity.setInternalId(DaoUtil.getAttribute(le, GlobalIds.FT_IID));
-        entity.setDescription(DaoUtil.getAttribute(le, GlobalIds.DESC));
-        entity.setUserId(DaoUtil.getAttribute(le, GlobalIds.UID));
-        entity.setCn(DaoUtil.getAttribute(le, GlobalIds.CN));
+        entity.setInternalId(getAttribute(le, GlobalIds.FT_IID));
+        entity.setDescription(getAttribute(le, GlobalIds.DESC));
+        entity.setUserId(getAttribute(le, GlobalIds.UID));
+        entity.setCn(getAttribute(le, GlobalIds.CN));
         entity.setName(entity.getCn());
-        entity.setSn(DaoUtil.getAttribute(le, SN));
-        entity.setOu(DaoUtil.getAttribute(le, GlobalIds.OU));
+        entity.setSn(getAttribute(le, SN));
+        entity.setOu(getAttribute(le, GlobalIds.OU));
         entity.setDn(le.getDN());
-        DaoUtil.unloadTemporal(le, entity);
+        unloadTemporal(le, entity);
         entity.setRoles(unloadUserRoles(le, entity.getUserId(), contextId));
         entity.setAdminRoles(unloadUserAdminRoles(le, entity.getUserId(), contextId));
         entity.setAddress(unloadAddress(le));
-        entity.setPhones(DaoUtil.getAttributes(le, TELEPHONE_NUMBER));
-        entity.setMobiles(DaoUtil.getAttributes(le, MOBILE));
-        entity.setEmails(DaoUtil.getAttributes(le, MAIL));
-        String szBoolean = DaoUtil.getAttribute(le, OPENLDAP_PW_RESET);
+        entity.setPhones(getAttributes(le, TELEPHONE_NUMBER));
+        entity.setMobiles(getAttributes(le, MOBILE));
+        entity.setEmails(getAttributes(le, MAIL));
+        String szBoolean = getAttribute(le, OPENLDAP_PW_RESET);
         if (szBoolean != null && szBoolean.equalsIgnoreCase("true"))
         {
             entity.setReset(true);
         }
-        szBoolean = DaoUtil.getAttribute(le, OPENLDAP_PW_LOCKED_TIME);
+        szBoolean = getAttribute(le, OPENLDAP_PW_LOCKED_TIME);
         if (szBoolean != null && szBoolean.equals(LOCK_VALUE))
         {
             entity.setLocked(true);
         }
-        szBoolean = DaoUtil.getAttribute(le, SYSTEM_USER);
+        szBoolean = getAttribute(le, SYSTEM_USER);
         if (szBoolean != null)
         {
             entity.setSystem(new Boolean(szBoolean));
         }
-        entity.addProperties(AttrHelper.getProperties(DaoUtil.getAttributes(le, GlobalIds.PROPS)));
+        entity.addProperties(AttrHelper.getProperties(getAttributes(le, GlobalIds.PROPS)));
         return entity;
     }
 
@@ -1532,7 +1532,7 @@ final class UserDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, userDn, ROLE_ATR);
+            LDAPEntry findEntry = read(ld, userDn, ROLE_ATR);
             roles = unloadUserRoles(findEntry, userId, contextId);
         }
         catch (LDAPException e)
@@ -1900,7 +1900,7 @@ final class UserDAO
         throws LDAPException
     {
         Address addr = new ObjectFactory().createAddress();
-        List<String> pAddrs = DaoUtil.getAttributes(le, POSTAL_ADDRESS);
+        List<String> pAddrs = getAttributes(le, POSTAL_ADDRESS);
         if (pAddrs != null)
         {
             for (String pAddr : pAddrs)
@@ -1908,13 +1908,13 @@ final class UserDAO
                 addr.setAddress(pAddr);
             }
         }
-        addr.setCity(DaoUtil.getAttribute(le, L));
-        addr.setState(DaoUtil.getAttribute(le, STATE));
-        addr.setPostalCode(DaoUtil.getAttribute(le, POSTAL_CODE));
-        addr.setPostOfficeBox(DaoUtil.getAttribute(le, POST_OFFICE_BOX));
+        addr.setCity(getAttribute(le, L));
+        addr.setState(getAttribute(le, STATE));
+        addr.setPostalCode(getAttribute(le, POSTAL_CODE));
+        addr.setPostOfficeBox(getAttribute(le, POST_OFFICE_BOX));
 
         // todo: add support for country attribute
-        //addr.setCountry(DaoUtil.getAttribute(le, GlobalIds.COUNTRY));
+        //addr.setCountry(getAttribute(le, GlobalIds.COUNTRY));
 
         return addr;
     }
@@ -1933,7 +1933,7 @@ final class UserDAO
         throws LDAPException
     {
         List<UserAdminRole> uRoles = null;
-        List<String> roles = DaoUtil.getAttributes(le, GlobalIds.USER_ADMINROLE_DATA);
+        List<String> roles = getAttributes(le, GlobalIds.USER_ADMINROLE_DATA);
         if (roles != null)
         {
             long sequence = 0;
@@ -1958,7 +1958,7 @@ final class UserDAO
      */
      private String getDn(String userId, String contextId)
      {
-         return GlobalIds.UID + "=" + userId + "," + DaoUtil.getRootDn(contextId, GlobalIds.USER_ROOT);
+         return GlobalIds.UID + "=" + userId + "," + getRootDn(contextId, GlobalIds.USER_ROOT);
      }
 
      /**
@@ -1975,7 +1975,7 @@ final class UserDAO
         throws LDAPException
     {
         List<UserRole> uRoles = null;
-        List<String> roles = DaoUtil.getAttributes(le, GlobalIds.USER_ROLE_DATA);
+        List<String> roles = getAttributes(le, GlobalIds.USER_ROLE_DATA);
         if (roles != null)
         {
             long sequence = 0;

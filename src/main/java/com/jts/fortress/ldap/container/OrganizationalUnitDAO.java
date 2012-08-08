@@ -6,8 +6,7 @@ package com.jts.fortress.ldap.container;
 
 import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
-import com.jts.fortress.cfg.Config;
-import com.jts.fortress.ldap.DaoUtil;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
@@ -46,7 +45,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
  * @author Shawn McKinney
  * @created January 21, 2010
  */
-final class OrganizationalUnitDAO
+final class OrganizationalUnitDAO extends DataProvider
 {
     private static final String CLS_NM = OrganizationalUnitDAO.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
@@ -68,7 +67,7 @@ final class OrganizationalUnitDAO
 
     private String getSdRoot(String contextId)
     {
-        return DaoUtil.getRootDn(contextId, GlobalIds.SUFFIX);
+        return getRootDn(contextId, GlobalIds.SUFFIX);
     }
 
     /**
@@ -82,18 +81,18 @@ final class OrganizationalUnitDAO
         String nodeDn = GlobalIds.OU + "=" + oe.getName() + ",";
         if (VUtil.isNotNullOrEmpty(oe.getParent()))
             nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
-        nodeDn += DaoUtil.getRootDn(oe.getContextId());
+        nodeDn += getRootDn(oe.getContextId());
         try
         {
             log.info(CLS_NM + ".create container dn [" + nodeDn + "]");
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS,
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS,
                 ORGUNIT_OBJ_CLASS));
-            attrs.add(DaoUtil.createAttribute(GlobalIds.OU, oe.getName()));
-            attrs.add(DaoUtil.createAttribute(GlobalIds.DESC, oe.getDescription()));
+            attrs.add(createAttribute(GlobalIds.OU, oe.getName()));
+            attrs.add(createAttribute(GlobalIds.DESC, oe.getDescription()));
             LDAPEntry myEntry = new LDAPEntry(nodeDn, attrs);
-            DaoUtil.add(ld, myEntry);
+            add(ld, myEntry);
         }
         catch (LDAPException e)
         {
@@ -118,13 +117,13 @@ final class OrganizationalUnitDAO
         String nodeDn = GlobalIds.OU + "=" + oe.getName() + ",";
         if (VUtil.isNotNullOrEmpty(oe.getParent()))
             nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
-        nodeDn += DaoUtil.getRootDn(oe.getContextId(), GlobalIds.SUFFIX);
+        nodeDn += getRootDn(oe.getContextId(), GlobalIds.SUFFIX);
 
         log.info(CLS_NM + ".remove container dn [" + nodeDn + "]");
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.deleteRecursive(ld, nodeDn);
+            deleteRecursive(ld, nodeDn);
         }
         catch (LDAPException e)
         {

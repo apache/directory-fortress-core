@@ -9,7 +9,7 @@ import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.UpdateException;
-import com.jts.fortress.ldap.DaoUtil;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.util.attr.AttrHelper;
 import com.jts.fortress.util.attr.VUtil;
@@ -58,7 +58,7 @@ import java.util.Properties;
  * @author Shawn McKinney
  * @created February 4, 2011
  */
-final class ConfigDAO
+final class ConfigDAO extends DataProvider
 
 {
     private static final String CLS_NM = ConfigDAO.class.getName();
@@ -96,11 +96,11 @@ final class ConfigDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, CONFIG_OBJ_CLASS));
-            attrs.add(DaoUtil.createAttribute(GlobalIds.CN, name));
-            DaoUtil.loadProperties(props, attrs, GlobalIds.PROPS);
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, CONFIG_OBJ_CLASS));
+            attrs.add(createAttribute(GlobalIds.CN, name));
+            loadProperties(props, attrs, GlobalIds.PROPS);
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
-            DaoUtil.add(ld, myEntry);
+            add(ld, myEntry);
         }
         catch (LDAPException e)
         {
@@ -143,11 +143,11 @@ final class ConfigDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             if (com.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(props))
             {
-                DaoUtil.loadProperties(props, mods, GlobalIds.PROPS, true);
+                loadProperties(props, mods, GlobalIds.PROPS, true);
             }
             if (mods.size() > 0)
             {
-                DaoUtil.modify(ld, dn, mods);
+                modify(ld, dn, mods);
             }
         }
         catch (LDAPException e)
@@ -176,7 +176,7 @@ final class ConfigDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.delete(ld, dn);
+            delete(ld, dn);
         }
         catch (LDAPException e)
         {
@@ -208,11 +208,11 @@ final class ConfigDAO
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(props))
             {
-                DaoUtil.removeProperties(props, mods, GlobalIds.PROPS);
+                removeProperties(props, mods, GlobalIds.PROPS);
             }
             if (mods.size() > 0)
             {
-                DaoUtil.modify(ld, dn, mods);
+                modify(ld, dn, mods);
             }
         }
         catch (LDAPException e)
@@ -243,8 +243,8 @@ final class ConfigDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, dn, CONFIG_ATRS);
-            props = AttrHelper.getProperties(DaoUtil.getAttributes(findEntry, GlobalIds.PROPS));
+            LDAPEntry findEntry = read(ld, dn, CONFIG_ATRS);
+            props = AttrHelper.getProperties(getAttributes(findEntry, GlobalIds.PROPS));
         }
         catch (LDAPException e)
         {

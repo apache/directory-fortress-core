@@ -56,7 +56,7 @@ public class PoolMgr
     private static final String LDAP_PORT = "port";
 
     // 3 types of connection pools are managed by ths class:
-    public enum ConnType
+    public static enum ConnType
     {
         /**
          * Admin connections used for most of the Fortress internal operations.  Internal bind on connection

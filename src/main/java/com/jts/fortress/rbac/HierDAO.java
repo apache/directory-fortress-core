@@ -6,14 +6,12 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
-import com.jts.fortress.cfg.Config;
 import com.jts.fortress.CreateException;
 import com.jts.fortress.FinderException;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.UpdateException;
-import com.jts.fortress.ldap.DaoUtil;
+import com.jts.fortress.ldap.DataProvider;
 import com.jts.fortress.ldap.PoolMgr;
-import com.jts.fortress.util.attr.VUtil;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
@@ -79,7 +77,7 @@ import org.apache.log4j.Logger;
  * @author Shawn McKinney
  * @created June 13, 2010
  */
-final class HierDAO
+final class HierDAO extends DataProvider
 
 {
     private static final String CLS_NM = HierDAO.class.getName();
@@ -115,11 +113,11 @@ final class HierDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(DaoUtil.createAttributes(GlobalIds.OBJECT_CLASS, HIER_OBJ_CLASS));
-            attrs.add(DaoUtil.createAttribute(GlobalIds.CN, "Hierarchies"));
-            DaoUtil.loadRelationshipAttrs(entity.getRelationships(), attrs, NODE_RELS);
+            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, HIER_OBJ_CLASS));
+            attrs.add(createAttribute(GlobalIds.CN, "Hierarchies"));
+            loadRelationshipAttrs(entity.getRelationships(), attrs, NODE_RELS);
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
-            DaoUtil.add(ld, myEntry, entity);
+            add(ld, myEntry, entity);
         }
         catch (LDAPException e)
         {
@@ -148,10 +146,10 @@ final class HierDAO
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPModificationSet mods = new LDAPModificationSet();
-            DaoUtil.loadRelationshipAttrs(entity.getRelationships(), mods, NODE_RELS, op);
+            loadRelationshipAttrs(entity.getRelationships(), mods, NODE_RELS, op);
             if (mods.size() > 0)
             {
-                DaoUtil.modify(ld, dn, mods, entity);
+                modify(ld, dn, mods, entity);
             }
         }
         catch (LDAPException e)
@@ -178,7 +176,7 @@ final class HierDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            DaoUtil.delete(ld, dn, hier);
+            delete(ld, dn, hier);
         }
         catch (LDAPException e)
         {
@@ -202,16 +200,16 @@ final class HierDAO
         switch (hier.getType())
         {
             case ROLE:
-                dn += DaoUtil.getRootDn(hier.getContextId(), GlobalIds.ROLE_ROOT);
+                dn += getRootDn(hier.getContextId(), GlobalIds.ROLE_ROOT);
                 break;
             case AROLE:
-                dn += DaoUtil.getRootDn(hier.getContextId(), GlobalIds.ADMIN_ROLE_ROOT);
+                dn += getRootDn(hier.getContextId(), GlobalIds.ADMIN_ROLE_ROOT);
                 break;
             case USER:
-                dn += DaoUtil.getRootDn(hier.getContextId(), GlobalIds.OSU_ROOT);
+                dn += getRootDn(hier.getContextId(), GlobalIds.OSU_ROOT);
                 break;
             case PERM:
-                dn += DaoUtil.getRootDn(hier.getContextId(), GlobalIds.PSU_ROOT);
+                dn += getRootDn(hier.getContextId(), GlobalIds.PSU_ROOT);
                 break;
             default:
                 String warning = CLS_NM + ".getDn invalid type";
@@ -235,7 +233,7 @@ final class HierDAO
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            LDAPEntry findEntry = DaoUtil.read(ld, dn, HIER_ATRS);
+            LDAPEntry findEntry = read(ld, dn, HIER_ATRS);
             entity = unloadLdapEntry(findEntry);
             if (entity == null)
             {
@@ -269,7 +267,7 @@ final class HierDAO
     private Hier unloadLdapEntry(LDAPEntry le)
         throws LDAPException
     {
-        Hier entity = new Hier(DaoUtil.getRelationshipAttributes(le, NODE_RELS));
+        Hier entity = new Hier(getRelationshipAttributes(le, NODE_RELS));
         return entity;
     }
 }
