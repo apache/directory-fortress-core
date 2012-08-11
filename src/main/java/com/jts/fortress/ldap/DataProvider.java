@@ -63,7 +63,7 @@ public abstract class DataProvider
     protected String getRootDn(String contextId, String root)
     {
         String szDn = Config.getProperty(root);
-        StringBuffer dn = new StringBuffer();
+        StringBuilder dn = new StringBuilder();
         if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL) && !contextId.equals(GlobalIds.HOME))
         {
             int idx = szDn.indexOf(Config.getProperty(GlobalIds.SUFFIX));
@@ -87,8 +87,7 @@ public abstract class DataProvider
      */
     protected String getRootDn(String contextId)
     {
-        String szDn = Config.getProperty(GlobalIds.SUFFIX);
-        StringBuffer dn = new StringBuffer();
+        StringBuilder dn = new StringBuilder();
         if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL) && !contextId.equals(GlobalIds.HOME))
         {
             dn.append(GlobalIds.OU).append("=").append(contextId).append(",").append(Config.getProperty(GlobalIds.SUFFIX));
@@ -314,7 +313,7 @@ public abstract class DataProvider
      * @param entity contains audit context.
      * @throws LDAPException in the event of error with ldap client.
      */
-    private static void audit(LDAPModificationSet mods, FortEntity entity)
+    private void audit(LDAPModificationSet mods, FortEntity entity)
         throws LDAPException
     {
         if (GlobalIds.IS_AUDIT && entity != null && entity.getAdminSession() != null)
@@ -672,7 +671,7 @@ public abstract class DataProvider
         LDAPAttribute attr = new LDAPAttribute(name);
         for (int i = 0; i < values.length; i++)
         {
-            VUtil.encodeSafeText(values[i], values[i].length());
+            encodeSafeText(values[i], values[i].length());
             attr.addValue(values[i]);
         }
         return attr;
@@ -691,7 +690,7 @@ public abstract class DataProvider
         throws LDAPException
     {
         LDAPAttribute attr = new LDAPAttribute(name);
-        VUtil.encodeSafeText(value, value.length());
+        encodeSafeText(value, value.length());
         attr.addValue(value);
         return attr;
     }
@@ -972,5 +971,32 @@ public abstract class DataProvider
                 attrs.add(attr);
             }
         }
+    }
+
+
+    /**
+     *
+     * @param value
+     * @param validLen
+     * @return
+     * @throws LDAPException
+     */
+    protected String encodeSafeText(String value, int validLen)
+        throws LDAPException
+    {
+        if (VUtil.isNotNullOrEmpty(value))
+        {
+            int length = value.length();
+            if (length > validLen)
+            {
+                String error = CLS_NM + ".encodeSafeText value [" + value + "] invalid length [" + length + "]";
+                throw new LDAPException(error, LDAPException.PARAM_ERROR);
+            }
+            if (GlobalIds.LDAP_FILTER_SIZE_FOUND)
+            {
+                value = VUtil.escapeLDAPSearchFilter(value);
+            }
+        }
+        return value;
     }
 }

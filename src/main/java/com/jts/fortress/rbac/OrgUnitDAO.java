@@ -327,7 +327,7 @@ final class OrgUnitDAO extends DataProvider
         String orgUnitRoot = getOrgRoot(orgUnit);
         try
         {
-            String searchVal = VUtil.encodeSafeText(orgUnit.getName(), GlobalIds.ROLE_LEN);
+            String searchVal = encodeSafeText(orgUnit.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + ORGUNIT_OBJECT_CLASS_NM + ")("
                 + GlobalIds.OU + "=" + searchVal + "*))";

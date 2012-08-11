@@ -8,8 +8,6 @@ import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.ValidationException;
-import com.jts.fortress.rbac.FortEntity;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import org.apache.log4j.Logger;
 
 import java.text.ParseException;
@@ -569,71 +567,6 @@ public class VUtil
 
     /**
      *
-     * @param value
-     * @param validLen
-     * @return
-     * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException
-     */
-    public static String encodeSafeText(String value, int validLen)
-        throws LDAPException
-    {
-        if (isNotNullOrEmpty(value))
-        {
-            int length = value.length();
-            if (length > validLen)
-            {
-                String error = CLS_NM + ".encodeSafeText value [" + value + "] invalid length [" + length + "]";
-                throw new LDAPException(error, LDAPException.PARAM_ERROR);
-            }
-            if (GlobalIds.LDAP_FILTER_SIZE_FOUND)
-            {
-                value = escapeLDAPSearchFilter(value);
-            }
-        }
-        return value;
-    }
-
-    /**
-     * Perform encoding on supplied input string for certain unsafe ascii characters.  These chars may be unsafe because ldap reserves some
-     * characters as operands.  Safe encoding safeguards from malicious scripting input errors that are possible iff data filtering
-     * did not get performed before being passed into dao layer.
-     *
-     * @param filter contains the data to filter.
-     * @return possibly modified input string for matched characters.
-     */
-    public static String escapeLDAPSearchFilter(String filter)
-    {
-        StringBuilder sb = new StringBuilder();
-        int filterLen = filter.length();
-        for (int i = 0; i < filterLen; i++)
-        {
-            boolean found = false;
-            char curChar = filter.charAt(i);
-            int j = 0;
-            for (; j < GlobalIds.LDAP_FILTER_SIZE; j++)
-            {
-                if (LDAP_META_CHARS[j] > curChar)
-                {
-                    break;
-                }
-                else if (curChar == LDAP_META_CHARS[j])
-                {
-                    sb.append("\\");
-                    sb.append(LDAP_REPL_VALS[j]);
-                    found = true;
-                    break;
-                }
-            }
-            if (!found)
-            {
-                sb.append(curChar);
-            }
-        }
-        return sb.toString();
-    }
-
-    /**
-     *
      * @return
      */
     private static char[] loadLdapEscapeChars()
@@ -678,5 +611,45 @@ public class VUtil
             ldapReplacements[i - 1] = value;
         }
         return ldapReplacements;
+    }
+
+
+    /**
+     * Perform encoding on supplied input string for certain unsafe ascii characters.  These chars may be unsafe because ldap reserves some
+     * characters as operands.  Safe encoding safeguards from malicious scripting input errors that are possible iff data filtering
+     * did not get performed before being passed into dao layer.
+     *
+     * @param filter contains the data to filter.
+     * @return possibly modified input string for matched characters.
+     */
+    public static String escapeLDAPSearchFilter(String filter)
+    {
+        StringBuilder sb = new StringBuilder();
+        int filterLen = filter.length();
+        for (int i = 0; i < filterLen; i++)
+        {
+            boolean found = false;
+            char curChar = filter.charAt(i);
+            int j = 0;
+            for (; j < GlobalIds.LDAP_FILTER_SIZE; j++)
+            {
+                if (LDAP_META_CHARS[j] > curChar)
+                {
+                    break;
+                }
+                else if (curChar == LDAP_META_CHARS[j])
+                {
+                    sb.append("\\");
+                    sb.append(LDAP_REPL_VALS[j]);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                sb.append(curChar);
+            }
+        }
+        return sb.toString();
     }
 }

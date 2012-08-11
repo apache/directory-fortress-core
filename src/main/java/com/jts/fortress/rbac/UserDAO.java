@@ -747,14 +747,14 @@ final class UserDAO extends DataProvider
             if (VUtil.isNotNullOrEmpty(user.getUserId()))
             {
                 // place a wild card after the input userId:
-                String searchVal = VUtil.encodeSafeText(user.getUserId(), GlobalIds.USERID_LEN);
+                String searchVal = encodeSafeText(user.getUserId(), GlobalIds.USERID_LEN);
                 filter = "(&(objectclass=" + objectClassImpl + ")("
                     + GlobalIds.UID + "=" + searchVal + "*))";
             }
             else if (VUtil.isNotNullOrEmpty(user.getInternalId()))
             {
                 // internalUserId search
-                String searchVal = VUtil.encodeSafeText(user.getInternalId(), GlobalIds.USERID_LEN);
+                String searchVal = encodeSafeText(user.getInternalId(), GlobalIds.USERID_LEN);
                 // this is not a wildcard search. Must be exact match.
                 filter = "(&(objectclass=" + objectClassImpl + ")("
                     + GlobalIds.FT_IID + "=" + searchVal + "))";
@@ -805,7 +805,7 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn(user.getContextId(), GlobalIds.USER_ROOT);
         try
         {
-            String searchVal = VUtil.encodeSafeText(user.getUserId(), GlobalIds.USERID_LEN);
+            String searchVal = encodeSafeText(user.getUserId(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
@@ -845,7 +845,7 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
         try
         {
-            String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
+            String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")(";
             Set<String> roles = RoleUtil.getDescendants(role.getName(), role.getContextId());
@@ -898,7 +898,7 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
         try
         {
-            String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
+            String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
@@ -943,7 +943,7 @@ final class UserDAO extends DataProvider
             {
                 for (String roleVal : roles)
                 {
-                    String filteredVal = VUtil.encodeSafeText(roleVal, GlobalIds.USERID_LEN);
+                    String filteredVal = encodeSafeText(roleVal, GlobalIds.USERID_LEN);
                     filter += "(" + GlobalIds.USER_ROLE_ASSIGN + "=" + filteredVal + ")";
                 }
             }
@@ -987,7 +987,7 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
         try
         {
-            String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
+            String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ADMINROLE_ASSIGN + "=" + roleVal + "))";
@@ -1028,7 +1028,7 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
         try
         {
-            String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
+            String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
@@ -1067,7 +1067,7 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn(contextId, GlobalIds.USER_ROOT);
         try
         {
-            searchVal = VUtil.encodeSafeText(searchVal, GlobalIds.USERID_LEN);
+            searchVal = encodeSafeText(searchVal, GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
@@ -1106,7 +1106,7 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn(ou.getContextId(), GlobalIds.USER_ROOT);
         try
         {
-            String szOu = VUtil.encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
+            String szOu = encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + objectClassImpl + ")("
                 + GlobalIds.OU + "=" + szOu + "))";

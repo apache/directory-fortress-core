@@ -341,7 +341,7 @@ final class RoleDAO extends DataProvider
         String filter = null;
         try
         {
-            String searchVal = VUtil.encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
+            String searchVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
@@ -383,7 +383,7 @@ final class RoleDAO extends DataProvider
         String filter = null;
         try
         {
-            String searchVal = VUtil.encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
+            String searchVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";

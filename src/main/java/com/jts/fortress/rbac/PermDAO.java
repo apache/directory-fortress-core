@@ -721,8 +721,8 @@ final class PermDAO extends DataProvider
         String dn = GlobalIds.POBJ_NAME + "=" + permission.getObjectName() + "," + getRootDn(permission.isAdmin(), permission.getContextId());
         try
         {
-            String permObjVal = VUtil.encodeSafeText(permission.getObjectName(), GlobalIds.PERM_LEN);
-            String permOpVal = VUtil.encodeSafeText(permission.getOpName(), GlobalIds.PERM_LEN);
+            String permObjVal = encodeSafeText(permission.getObjectName(), GlobalIds.PERM_LEN);
+            String permOpVal = encodeSafeText(permission.getOpName(), GlobalIds.PERM_LEN);
 
             // use an unauthenticated connection as we're asserting the end user's identity onto the it:
             ld = PoolMgr.getConnection(PoolMgr.ConnType.USER);
@@ -837,8 +837,8 @@ final class PermDAO extends DataProvider
         String permRoot = getRootDn(permission.isAdmin(), permission.getContextId());
         try
         {
-            String permObjVal = VUtil.encodeSafeText(permission.getObjectName(), GlobalIds.PERM_LEN);
-            String permOpVal = VUtil.encodeSafeText(permission.getOpName(), GlobalIds.PERM_LEN);
+            String permObjVal = encodeSafeText(permission.getObjectName(), GlobalIds.PERM_LEN);
+            String permOpVal = encodeSafeText(permission.getOpName(), GlobalIds.PERM_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*)("
@@ -880,7 +880,7 @@ final class PermDAO extends DataProvider
         String permRoot = getRootDn(permObj.isAdmin(), permObj.getContextId());
         try
         {
-            String permObjVal = VUtil.encodeSafeText(permObj.getObjectName(), GlobalIds.PERM_LEN);
+            String permObjVal = encodeSafeText(permObj.getObjectName(), GlobalIds.PERM_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*))";
@@ -919,7 +919,7 @@ final class PermDAO extends DataProvider
         String permRoot = getRootDn(ou.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
-            String ouVal = VUtil.encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
+            String ouVal = encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.OU + "=" + ouVal + "*))";
@@ -976,7 +976,7 @@ final class PermDAO extends DataProvider
         }
         try
         {
-            String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
+            String roleVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")(";
             Set<String> roles;

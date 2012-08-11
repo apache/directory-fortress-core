@@ -11,6 +11,7 @@ import com.jts.fortress.UpdateException;
 import com.jts.fortress.cfg.Config;
 
 import com.jts.fortress.ldap.DataProvider;
+import com.jts.fortress.ldap.PoolMgr;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
@@ -71,7 +72,7 @@ public class ExampleDAO extends DataProvider
             private int timeout;        // this attribute is oamTimeOut
             */
 
-            ld = com.jts.fortress.ldap.PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            ld = PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, EIds.EXAMPLE_OBJ_CLASS));
             entity.setId();
@@ -120,7 +121,7 @@ public class ExampleDAO extends DataProvider
         }
         try
         {
-            ld = com.jts.fortress.ldap.PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            ld = PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
             LDAPModificationSet mods = new LDAPModificationSet();
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
             {
@@ -168,7 +169,7 @@ public class ExampleDAO extends DataProvider
         }
         try
         {
-            ld = com.jts.fortress.ldap.PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            ld = PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
             delete(ld, dn);
         }
         catch (LDAPException e)
@@ -202,7 +203,7 @@ public class ExampleDAO extends DataProvider
         }
         try
         {
-            ld = com.jts.fortress.ldap.PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            ld = PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
             LDAPEntry findEntry = read(ld, dn, EXAMPLE_ATRS);
             entity = getEntityFromLdapEntry(findEntry);
             if (entity == null)
@@ -255,8 +256,8 @@ public class ExampleDAO extends DataProvider
         }
         try
         {
-            searchVal = com.jts.fortress.util.attr.VUtil.encodeSafeText(searchVal, GlobalIds.ROLE_LEN);
-            ld = com.jts.fortress.ldap.PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            searchVal = encodeSafeText(searchVal, GlobalIds.ROLE_LEN);
+            ld = PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + EIds.EXAMPLE_OBJ_CLASS.toString() + ")("
                 + EIds.EXAMPLE_NM + "=" + searchVal + "*))";
             searchResults = search(ld, exampleRoot,

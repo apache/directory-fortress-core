@@ -342,7 +342,7 @@ final class SdDAO extends DataProvider
         }
         try
         {
-            String searchVal = VUtil.encodeSafeText(sdset.getName(), GlobalIds.ROLE_LEN);
+            String searchVal = encodeSafeText(sdset.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + objectClass + ")(" + SD_SET_NM + "=" + searchVal + "*))";
             searchResults = search(ld, ssdRoot,
@@ -394,7 +394,7 @@ final class SdDAO extends DataProvider
 
         try
         {
-            String roleVal = VUtil.encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
+            String roleVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             //String filter = "(&(objectclass=" + SSD_OBJECT_CLASS_NM + ")(" + ROLES + "=" + roleVal + "))";
             String filter = "(&(objectclass=" + objectClass + ")(";
