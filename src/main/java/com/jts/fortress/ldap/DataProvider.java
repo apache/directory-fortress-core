@@ -489,6 +489,20 @@ public abstract class DataProvider
     }
 
 
+    protected boolean compareNode(LDAPConnection ld,
+                                       String dn,
+                                       String userDn,
+                                       LDAPAttribute attribute)
+        throws LDAPException, UnsupportedEncodingException
+    {
+        LDAPControl proxyCtl = new LDAPControl(OPENLDAP_PROXY_CONTROL, true, (GlobalIds.DN + ": " + userDn).getBytes(GlobalIds.UTF8));
+        com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints opt = new com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints();
+        opt.setServerControls(proxyCtl);
+        boolean result = ld.compare(dn,attribute, opt);
+        return result;
+    }
+
+
     /**
      * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns as a list of strings.
      *

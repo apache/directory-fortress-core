@@ -40,12 +40,12 @@ disable.dsd.cache=false
 
 
 # These will override default LDAP for REST implementations:
-#reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrRestImpl
-#adminmgr.implementation=com.jts.fortress.rest.AdminMgrRestImpl
-#accessmgr.implementation=com.jts.fortress.rest.AccessMgrRestImpl
-#delegated.adminmgr.implementation=com.jts.fortress.rest.DelAdminMgrRestImpl
-#delegated.reviewmgr.implementation=com.jts.fortress.rest.DelReviewMgrRestImpl
-#policymgr.implementation=com.jts.fortress.rest.PwPolicyMgrRestImpl
-#delegated.accessmgr.implementation=com.jts.fortress.rest.DelAccessMgrRestImpl
-#auditmgr.implementation=com.jts.fortress.rest.AuditMgrRestImpl
-#configmgr.implementation=com.jts.fortress.rest.ConfigMgrRestImpl
+reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrRestImpl
+adminmgr.implementation=com.jts.fortress.rest.AdminMgrRestImpl
+accessmgr.implementation=com.jts.fortress.rest.AccessMgrRestImpl
+delegated.adminmgr.implementation=com.jts.fortress.rest.DelAdminMgrRestImpl
+delegated.reviewmgr.implementation=com.jts.fortress.rest.DelReviewMgrRestImpl
+policymgr.implementation=com.jts.fortress.rest.PwPolicyMgrRestImpl
+delegated.accessmgr.implementation=com.jts.fortress.rest.DelAccessMgrRestImpl
+auditmgr.implementation=com.jts.fortress.rest.AuditMgrRestImpl
+configmgr.implementation=com.jts.fortress.rest.ConfigMgrRestImpl

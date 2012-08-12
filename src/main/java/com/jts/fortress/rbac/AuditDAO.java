@@ -133,8 +133,10 @@ final class AuditDAO extends DataProvider
     private static final String REQSCOPE = "reqScope";
     private static final String REQSIZELIMIT = "reqSizeLimit";
     private static final String REQTIMELIMIT = "reqTimeLimit";
+    private static final String REQASSERTION = "reqAssertion";
     private static final String ACCESS_BIND_CLASS_NM = "auditBind";
-    private static final String ACCESS_AUTHZ_CLASS_NM = "auditSearch";
+    //private static final String ACCESS_AUTHZ_CLASS_NM = "auditSearch";
+    private static final String ACCESS_AUTHZ_CLASS_NM = "auditCompare";
     private static final String ACCESS_MOD_CLASS_NM = "auditModify";
     private static final String ACCESS_ADD_CLASS_NM = "auditAdd";
     private static final String AUDIT_ROOT = "audit.root";
@@ -160,7 +162,8 @@ final class AuditDAO extends DataProvider
      * Package private default constructor.
      */
     AuditDAO()
-    {}
+    {
+    }
 
     /**
      * This method returns failed authentications where the userid is not present in the directory.  This
@@ -192,7 +195,7 @@ final class AuditDAO extends DataProvider
      * reqEntries: 0
      * reqFilter: (|(objectClass=*)(?objectClass=ldapSubentry))
      * reqType: search
-     * reqDN: uid=foo,ou=People,dc=jts,dc=com
+     * reqDN: uid=foo,ou=People,dc=jts,dc=com        /cal/cal2.jsp
      * reqTimeLimit: -1
      * reqScope: base
      *
@@ -286,19 +289,17 @@ final class AuditDAO extends DataProvider
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);
-        String permRoot = getRootDn(audit.getContextId(), GlobalIds.PERM_ROOT);
+        String permRoot = getRootDn(audit.isAdmin(), audit.getContextId());
         String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
-
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
-            String filter = "(&(objectclass=" + ACCESS_AUTHZ_CLASS_NM + ")(" +
-                REQDN + "=" + GlobalIds.POBJ_NAME + "=" + audit.getObjName() + "," + permRoot + ")(" +
-                REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
-
+            String reqDn = PermDAO.getOpRdn(audit.getOpName(), audit.getObjId()) + "," + GlobalIds.POBJ_NAME + "=" + audit.getObjName() + "," + permRoot;
+            String filter = "(&(objectclass=" + ACCESS_AUTHZ_CLASS_NM + ")(" + REQDN + "=" +
+                reqDn + ")(" + REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
             if (audit.isFailedOnly())
             {
-                filter += "(" + REQENTRIES + "=" + 0 + ")";
+                filter += "(!(" + REQRESULT + "=" + 6 + "))";
             }
             if (audit.getBeginDate() != null)
             {
@@ -307,7 +308,7 @@ final class AuditDAO extends DataProvider
             }
             filter += ")";
 
-            //log.warn("filter=" + filter);
+            //System.out.println("filter=" + filter);
             searchResults = search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -328,6 +329,20 @@ final class AuditDAO extends DataProvider
         return auditList;
     }
 
+
+    private String getRootDn(boolean isAdmin, String contextId)
+    {
+        String dn;
+        if (isAdmin)
+        {
+            dn = getRootDn(contextId, GlobalIds.ADMIN_PERM_ROOT);
+        }
+        else
+        {
+            dn = getRootDn(contextId, GlobalIds.PERM_ROOT);
+        }
+        return dn;
+    }
 
     /**
      * @param audit
@@ -357,12 +372,12 @@ final class AuditDAO extends DataProvider
                 // have to limit the query to only authorization entries.
                 // TODO: determine why the cn=Manager user is showing up in this search:
                 filter += REQUAUTHZID + "=*)(!(" + REQUAUTHZID + "=cn=Manager," + Config.getProperty(GlobalIds.SUFFIX) + "))";
-            }
 
-            // TODO: fix this so filter by only the Fortress AuthZ entries and not the others:
-            if (audit.isFailedOnly())
-            {
-                filter += "(" + REQENTRIES + "=" + 0 + ")";
+                // TODO: fix this so filter by only the Fortress AuthZ entries and not the others:
+                if (audit.isFailedOnly())
+                {
+                    filter += "(!(" + REQRESULT + "=" + 6 + "))";
+                }
             }
             if (audit.getBeginDate() != null)
             {

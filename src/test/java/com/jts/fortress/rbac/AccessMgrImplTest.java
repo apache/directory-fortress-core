@@ -36,7 +36,8 @@ public class AccessMgrImplTest extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest(new AccessMgrImplTest("testDropActiveRole"));
+        //suite.addTest(new AccessMgrImplTest("testDropActiveRole"));
+        suite.addTest(new AccessMgrImplTest("testCheckAccess"));
         return suite;
     }
 
@@ -637,11 +638,11 @@ public class AccessMgrImplTest extends TestCase
                     {
                         // Call checkAccess method
                         assertTrue(CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objectName [" + PermTestData.getName(obj) + "] operationName [" + PermTestData.getName(op) + "]",
-                            accessMgr.checkAccess(session, new Permission(PermTestData.getName(obj), PermTestData.getName(op))));
+                            accessMgr.checkAccess(session, new Permission(PermTestData.getName(obj), PermTestData.getName(op), PermTestData.getObjectId(opArray[j]))));
 
                         // Call checkAccess method (this should fail):
                         assertTrue(CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objectName [" + PermTestData.getName(oArrayBad[i]) + "] operationName [" + PermTestData.getName(opArrayBad[j]) + "]",
-                            !accessMgr.checkAccess(session, new Permission(PermTestData.getName(oArrayBad[i]),PermTestData.getName(opArrayBad[j]))));
+                            !accessMgr.checkAccess(session, new Permission(PermTestData.getName(oArrayBad[i]),PermTestData.getName(opArrayBad[j]), PermTestData.getObjectId(opArrayBad[j]))));
 
                         j++;
                     }

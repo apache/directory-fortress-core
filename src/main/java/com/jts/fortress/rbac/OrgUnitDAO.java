@@ -185,7 +185,6 @@ final class OrgUnitDAO extends DataProvider
             else
             {
                 errCode = GlobalErrIds.ORG_UPDATE_FAILED_USER;
-
             }
 
             throw new UpdateException(errCode, error, e);
@@ -225,7 +224,6 @@ final class OrgUnitDAO extends DataProvider
             else
             {
                 errCode = GlobalErrIds.ORG_DELETE_FAILED_USER;
-
             }
 
             throw new RemoveException(errCode, error, e);
@@ -266,7 +264,6 @@ final class OrgUnitDAO extends DataProvider
                 else
                 {
                     errCode = GlobalErrIds.ORG_NOT_FOUND_USER;
-
                 }
                 throw new FinderException(errCode, warning);
             }
@@ -284,7 +281,6 @@ final class OrgUnitDAO extends DataProvider
                 else
                 {
                     errCode = GlobalErrIds.ORG_NOT_FOUND_USER;
-
                 }
                 throw new FinderException(errCode, warning);
             }
@@ -299,7 +295,6 @@ final class OrgUnitDAO extends DataProvider
                 else
                 {
                     errCode = GlobalErrIds.ORG_READ_FAILED_USER;
-
                 }
                 throw new FinderException(errCode, error, e);
             }
@@ -470,13 +465,13 @@ final class OrgUnitDAO extends DataProvider
         entity.setName(getAttribute(le, GlobalIds.OU));
         entity.setDescription(getAttribute(le, GlobalIds.DESC));
         String dn = le.getDN();
-        if (dn.indexOf(getRootDn(contextId, GlobalIds.PSU_ROOT)) != -1)
+         if (dn.contains(getRootDn(contextId, GlobalIds.PSU_ROOT)))
         {
             entity.setType(OrgUnit.Type.PERM);
             entity.setParents(PsoUtil.getParents(entity.getName().toUpperCase(), contextId));
             entity.setChildren(PsoUtil.getChildren(entity.getName().toUpperCase(), contextId));
         }
-        else if (dn.indexOf(getRootDn(contextId, GlobalIds.OSU_ROOT)) != -1)
+         else if (dn.contains(getRootDn(contextId, GlobalIds.OSU_ROOT)))
         {
             entity.setType(OrgUnit.Type.USER);
             entity.setParents(UsoUtil.getParents(entity.getName().toUpperCase(), contextId));

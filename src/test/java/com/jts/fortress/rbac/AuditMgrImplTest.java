@@ -50,12 +50,12 @@ public class AuditMgrImplTest extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest(new AuditMgrImplTest("testSearchBinds"));
-        suite.addTest(new AuditMgrImplTest("testSearchAuthNInvalid"));
-        suite.addTest(new AuditMgrImplTest("testGetAuthZs"));
+        //suite.addTest(new AuditMgrImplTest("testSearchBinds"));
+        //suite.addTest(new AuditMgrImplTest("testSearchAuthNInvalid"));
+        //suite.addTest(new AuditMgrImplTest("testGetAuthZs"));
         suite.addTest(new AuditMgrImplTest("testSearchAuthZs"));
-        suite.addTest(new AuditMgrImplTest("testSearchMods"));
-        suite.addTest(new AuditMgrImplTest("testSearchAdminMods"));
+        //suite.addTest(new AuditMgrImplTest("testSearchMods"));
+        //suite.addTest(new AuditMgrImplTest("testSearchAdminMods"));
         return suite;
     }
 
@@ -233,6 +233,7 @@ public class AuditMgrImplTest extends TestCase
                     for (String[] op : opArray)
                     {
                         uAudit.setOpName(PermTestData.getName(op));
+                        uAudit.setObjId(PermTestData.getObjectId(op));
                         uAudit.setFailedOnly(failedOnly);
                         List<AuthZ> authZs = auditMgr.searchAuthZs(uAudit);
                         assertNotNull(authZs);

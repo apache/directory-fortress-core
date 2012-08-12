@@ -40,9 +40,9 @@ public class FortressJUnitTest extends TestCase
         FortressJUnitTest.context = context;
     }
 
-    //private static String context = "client123";
-    private static String context = "client456";
-    //private static String context = "";
+    //private static String context = "Client123";
+    //private static String context = "Client456";
+    private static String context = "";
 
     public static boolean isFirstRun()
     {
@@ -52,6 +52,7 @@ public class FortressJUnitTest extends TestCase
     public static void setFirstRun(boolean firstRun)
     {
         isFirstRun = firstRun;
+        //isFirstRun = true;
     }
 
     private static boolean isFirstRun = false;
@@ -268,13 +269,14 @@ public class FortressJUnitTest extends TestCase
         /* 5. Audit Checks                                         */
         /***********************************************************/
 
+        //suite.addTest(new AuditMgrImplTest("testSearchAuthNInvalid"));
+
         suite.addTest(new AuditMgrImplTest("testSearchBinds"));
-        suite.addTest(new AuditMgrImplTest("testSearchAuthNInvalid"));
         suite.addTest(new AuditMgrImplTest("testGetAuthZs"));
         suite.addTest(new AuditMgrImplTest("testSearchAuthZs"));
         suite.addTest(new AuditMgrImplTest("testSearchMods"));
         suite.addTest(new AuditMgrImplTest("testSearchAdminMods"));
-        
+
 		return suite;
 	}
 

@@ -35,12 +35,14 @@ import java.util.Date;
     "description",
     "failedOnly",
     "objName",
+    "objId",
     "opName",
     "userId",
     "internalUserId",
     "beginDate",
     "endDate",
-    "dn"
+    "dn",
+    "admin"
 })
 public class UserAudit extends FortEntity implements java.io.Serializable
 {
@@ -48,6 +50,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
     private String description;
     private boolean failedOnly;
     private String objName;
+    private String objId;
     private String opName;
     private String userId;
     private String internalUserId;
@@ -56,7 +59,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
     @XmlElement(nillable = true)
     private Date endDate;
     private String dn;
-
+    private boolean admin = false;
 
     /**
      * Get the optional objName attribute which limits set by {@link com.jts.fortress.rbac.Permission#objectName}.
@@ -246,5 +249,25 @@ public class UserAudit extends FortEntity implements java.io.Serializable
     public void setDn(String dn)
     {
         this.dn = dn;
+    }
+
+    public String getObjId()
+    {
+        return objId;
+    }
+
+    public void setObjId(String objId)
+    {
+        this.objId = objId;
+    }
+
+    public boolean isAdmin()
+    {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin)
+    {
+        this.admin = admin;
     }
 }

@@ -562,4 +562,5 @@ public class GlobalIds
     public static final String COMMA = ",";
     public static final char COLON = ':';
     public static final String NULL = "null";
+    public static final String POP_NAME = "ftOpNm";
 }

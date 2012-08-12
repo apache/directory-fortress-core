@@ -24,6 +24,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
+import org.apache.log4j.Logger;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -123,6 +124,7 @@ import java.util.Set;
 final class PermDAO extends DataProvider
 {
     private static final String CLS_NM = PermDAO.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
     /*
       *  *************************************************************************
       *  **  OpenAccessMgr PERMISSION STATICS
@@ -142,11 +144,10 @@ final class PermDAO extends DataProvider
 
     private static final String PERM_NAME = "ftPermName";
     private static final String POBJ_ID = "ftObjId";
-    private static final String POP_NAME = "ftOpNm";
     private static final String ROLES = "ftRoles";
     private static final String USERS = "ftUsers";
     private static final String[] PERMISSION_OP_ATRS = {
-        GlobalIds.FT_IID, PERM_NAME, GlobalIds.POBJ_NAME, POP_NAME, GlobalIds.DESC, GlobalIds.OU,
+        GlobalIds.FT_IID, PERM_NAME, GlobalIds.POBJ_NAME, GlobalIds.POP_NAME, GlobalIds.DESC, GlobalIds.OU,
         POBJ_ID, TYPE, ROLES, USERS, GlobalIds.PROPS
     };
 
@@ -159,7 +160,8 @@ final class PermDAO extends DataProvider
      * Default constructor is used by internal Fortress classes.
      */
     PermDAO()
-    {}
+    {
+    }
 
     /**
      * @param entity
@@ -319,7 +321,7 @@ final class PermDAO extends DataProvider
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS));
-            attrs.add(createAttribute(POP_NAME, entity.getOpName()));
+            attrs.add(createAttribute(GlobalIds.POP_NAME, entity.getOpName()));
             attrs.add(createAttribute(GlobalIds.POBJ_NAME, entity.getObjectName()));
             entity.setAbstractName(entity.getObjectName() + "." + entity.getOpName());
 
@@ -718,41 +720,27 @@ final class PermDAO extends DataProvider
     {
         boolean result = false;
         LDAPConnection ld = null;
-        String dn = GlobalIds.POBJ_NAME + "=" + permission.getObjectName() + "," + getRootDn(permission.isAdmin(), permission.getContextId());
+        String dn =  getOpRdn(permission.getOpName(), permission.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + permission.getObjectName() + "," + getRootDn(permission.isAdmin(), permission.getContextId());
         try
         {
-            String permObjVal = encodeSafeText(permission.getObjectName(), GlobalIds.PERM_LEN);
-            String permOpVal = encodeSafeText(permission.getOpName(), GlobalIds.PERM_LEN);
-
             // use an unauthenticated connection as we're asserting the end user's identity onto the it:
             ld = PoolMgr.getConnection(PoolMgr.ConnType.USER);
-            String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")("
-                + POP_NAME + "=" + permOpVal + ")("
-                + GlobalIds.POBJ_NAME + "=" + permObjVal + ")(|";
-            filter += "(" + USERS + "=" + session.getUserId() + ")";
-            Set<String> roles;
-            if (permission.isAdmin())
+            LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS);
+            Permission entity = unloadPopLdapEntry(entry, 0);
+            entity.setAdmin(permission.isAdmin());
+            entity.setContextId(permission.getContextId());
+            result = checkIt(session, entity);
+            if (result)
             {
-                roles = AdminRoleUtil.getInheritedRoles(session.getAdminRoles(), permission.getContextId());
+                LDAPAttribute attribute = createAttribute(GlobalIds.POP_NAME, permission.getOpName());
+                // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
+                compareNode(ld, dn, session.getUser().getDn(), attribute);
             }
             else
             {
-                roles = RoleUtil.getInheritedRoles(session.getRoles(), permission.getContextId());
-            }
-            if (VUtil.isNotNullOrEmpty(roles))
-            {
-                for (String uRole : roles)
-                {
-                    filter += "(" + ROLES + "=" + uRole + ")";
-                }
-            }
-            filter += "))";
-            // The search method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection: 
-            LDAPEntry entry = searchNode(ld, dn, LDAPConnection.SCOPE_ONE, filter, GlobalIds.NO_ATRS, true, session.getUser().getDn());
-            Permission entity = unloadPopLdapEntry(entry, 0);
-            if (entity != null)
-            {
-                result = true;
+                LDAPAttribute attribute = createAttribute(GlobalIds.POP_NAME, "failed1");
+                // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
+                compareNode(ld, dn, session.getUser().getDn(), attribute);
             }
         }
         catch (UnsupportedEncodingException ee)
@@ -767,6 +755,25 @@ final class PermDAO extends DataProvider
                 String error = CLS_NM + ".checkPermission caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, e);
             }
+            else
+            {
+                try
+                {
+                    LDAPAttribute attribute = createAttribute(GlobalIds.POP_NAME, "failed2");
+                    // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
+                    compareNode(ld, dn, session.getUser().getDn(), attribute);
+                }
+                catch (LDAPException le)
+                {
+                    String warn = CLS_NM + ".checkPermission caught LDAPException during failed authZ audit, id=" + le.errorCodeToString() + " msg=" + le.getMessage();
+                    log.warn(warn);
+                }
+                catch (UnsupportedEncodingException ee)
+                {
+                    String warn = CLS_NM + ".checkPermission caught UnsupportedEncodingException during failed authZ audit=" + ee.getMessage();
+                    log.warn(warn);
+                }
+            }
         }
         finally
         {
@@ -775,9 +782,53 @@ final class PermDAO extends DataProvider
         return result;
     }
 
+    /**
+     * @param session
+     * @param permission
+     * @return
+     */
+    private boolean checkIt(Session session, Permission permission)
+    {
+        boolean result = false;
+        List<String> userIds = permission.getUsers();
+        // TODO: Need a case insensitive compartator here:
+        if (VUtil.isNotNullOrEmpty(userIds) && userIds.contains(session.getUserId()))
+        {
+            return true;
+        }
+        List<String> roles = permission.getRoles();
+        if (VUtil.isNotNullOrEmpty(roles))
+        {
+            if (permission.isAdmin())
+            {
+                Set<String> activatedRoles = AdminRoleUtil.getInheritedRoles(session.getAdminRoles(), permission.getContextId());
+                for (String role : roles)
+                {
+                    if (activatedRoles.contains(role))
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                Set<String> activatedRoles = RoleUtil.getInheritedRoles(session.getRoles(), permission.getContextId());
+                for (String role : roles)
+                {
+                    if (activatedRoles.contains(role))
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
 
     /**
-     *
      * @param le
      * @param sequence
      * @return
@@ -791,7 +842,7 @@ final class PermDAO extends DataProvider
         entity.setAbstractName(getAttribute(le, PERM_NAME));
         entity.setObjectName(getAttribute(le, GlobalIds.POBJ_NAME));
         entity.setObjectId(getAttribute(le, POBJ_ID));
-        entity.setOpName(getAttribute(le, POP_NAME));
+        entity.setOpName(getAttribute(le, GlobalIds.POP_NAME));
         entity.setInternalId(getAttribute(le, GlobalIds.FT_IID));
         entity.setRoles(getAttributes(le, ROLES));
         entity.setUsers(getAttributes(le, USERS));
@@ -801,7 +852,6 @@ final class PermDAO extends DataProvider
     }
 
     /**
-     *
      * @param le
      * @param sequence
      * @return
@@ -842,7 +892,7 @@ final class PermDAO extends DataProvider
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*)("
-                + POP_NAME + "=" + permOpVal + "*))";
+                + GlobalIds.POP_NAME + "=" + permOpVal + "*))";
 
             searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
@@ -1120,13 +1170,13 @@ final class PermDAO extends DataProvider
         List<Permission> permList = new ArrayList<Permission>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-         String permRoot = getRootDn(session.getContextId(), GlobalIds.PERM_ROOT);
+        String permRoot = getRootDn(session.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             filter += "(" + USERS + "=" + session.getUserId() + ")";
-             Set<String> roles = RoleUtil.getInheritedRoles(session.getRoles(), session.getContextId());
+            Set<String> roles = RoleUtil.getInheritedRoles(session.getRoles(), session.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))
             {
                 for (String uRole : roles)
@@ -1161,13 +1211,13 @@ final class PermDAO extends DataProvider
      * @param objId
      * @return
      */
-    final String getOpRdn(String opName, String objId)
+    final static String getOpRdn(String opName, String objId)
     {
         String rDn;
         if (objId != null && objId.length() > 0)
-            rDn = POP_NAME + "=" + opName + "+" + POBJ_ID + "=" + objId;
+            rDn = GlobalIds.POP_NAME + "=" + opName + "+" + POBJ_ID + "=" + objId;
         else
-            rDn = POP_NAME + "=" + opName;
+            rDn = GlobalIds.POP_NAME + "=" + opName;
         return rDn;
     }
 
