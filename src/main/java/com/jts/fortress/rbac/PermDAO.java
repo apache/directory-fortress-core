@@ -710,8 +710,8 @@ final class PermDAO extends DataProvider
 
     /**
      * This method performs fortress authorization using data passed in (session) and stored on ldap server (permission).  It has been recently changed to use ldap compare operations in order to trigger slapd access log updates in directory.
-     * It performs two ldap operations:  read and compare.  The first is to pull back the permission to see if user has access or not.  The second is to trigger audit
-     * record storage on ldap server.
+     * It performs ldap operations:  read and (optionally) compare.  The first is to pull back the permission to see if user has access or not.  The second is to trigger audit
+     * record storage on ldap server but can be disabled.
      *
      * @param session contains {@link Session#getUserId()}, for rbac check {@link com.jts.fortress.rbac.Session#getRoles()}, for arbac check: {@link com.jts.fortress.rbac.Session#getAdminRoles()}.
      * @param inPerm  must contain required attributes {@link Permission#objectName} and {@link Permission#opName}.  {@link Permission#objectId} is optional.
@@ -743,20 +743,23 @@ final class PermDAO extends DataProvider
             LDAPAttribute attribute;
             // This method determines if the user is authorized for this permission:
             result = isAuthorized(session, outPerm);
-            if (result)
+            // This is done to leave an audit trail in ldap server log:
+            if (GlobalIds.IS_AUDIT)
             {
-                // Yes, set the operation name onto this attribute for storage into audit trail:
-                attribute = createAttribute(GlobalIds.POP_NAME, outPerm.getOpName());
+                if (result)
+                {
+                    // Yes, set the operation name onto this attribute for storage into audit trail:
+                    attribute = createAttribute(GlobalIds.POP_NAME, outPerm.getOpName());
+                }
+                else
+                {
+                    // No, set a simple error message onto this attribute for storage into audit trail:
+                    attribute = createAttribute(GlobalIds.POP_NAME, "AuthZ Failure");
+                }
+                // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
+                // LDAP Operation #2: Compare:
+                compareNode(ld, dn, session.getUser().getDn(), attribute);
             }
-            else
-            {
-                // No, set a simple error message onto this attribute for storage into audit trail:
-                attribute = createAttribute(GlobalIds.POP_NAME, "AuthZ Failure");
-            }
-            // This is done to leave an audit trail in slapd access log.
-            // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
-            // LDAP Operation #2: Compare:
-            compareNode(ld, dn, session.getUser().getDn(), attribute);
         }
         catch (UnsupportedEncodingException ee)
         {

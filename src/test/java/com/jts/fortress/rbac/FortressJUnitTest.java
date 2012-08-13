@@ -41,8 +41,8 @@ public class FortressJUnitTest extends TestCase
     }
 
     //private static String context = "Client123";
-    //private static String context = "Client456";
-    private static String context = "";
+    private static String context = "Client456";
+    //private static String context = "";
 
     public static boolean isFirstRun()
     {
