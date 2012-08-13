@@ -709,39 +709,54 @@ final class PermDAO extends DataProvider
 
 
     /**
-     * @param session
-     * @param permission
-     * @return
-     * @throws com.jts.fortress.FinderException
+     * This method performs fortress authorization using data passed in (session) and stored on ldap server (permission).  It has been recently changed to use ldap compare operations in order to trigger slapd access log updates in directory.
+     * It performs two ldap operations:  read and compare.  The first is to pull back the permission to see if user has access or not.  The second is to trigger audit
+     * record storage on ldap server.
      *
+     * @param session contains {@link Session#getUserId()}, for rbac check {@link com.jts.fortress.rbac.Session#getRoles()}, for arbac check: {@link com.jts.fortress.rbac.Session#getAdminRoles()}.
+     * @param inPerm  must contain required attributes {@link Permission#objectName} and {@link Permission#opName}.  {@link Permission#objectId} is optional.
+     * @return boolean containing result of check.
+     * @throws com.jts.fortress.FinderException
+     *          In the event system error occurs looking up data on ldap server.
      */
-    final boolean checkPermission(Session session, Permission permission)
+    final boolean checkPermission(Session session, Permission inPerm)
         throws FinderException
     {
         boolean result = false;
         LDAPConnection ld = null;
-        String dn =  getOpRdn(permission.getOpName(), permission.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + permission.getObjectName() + "," + getRootDn(permission.isAdmin(), permission.getContextId());
+        String dn = getOpRdn(inPerm.getOpName(), inPerm.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + inPerm.getObjectName() + "," + getRootDn(inPerm.isAdmin(), inPerm.getContextId());
         try
         {
-            // use an unauthenticated connection as we're asserting the end user's identity onto the it:
+            // Use unauthenticated connection because we want to assert the end user identity onto ldap hop:
             ld = PoolMgr.getConnection(PoolMgr.ConnType.USER);
-            LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS);
-            Permission entity = unloadPopLdapEntry(entry, 0);
-            entity.setAdmin(permission.isAdmin());
-            entity.setContextId(permission.getContextId());
-            result = checkIt(session, entity);
+            // LDAP Operation #1: Read the targeted permission from ldap server
+            LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS, session.getUser().getDn());
+            // load the permission entity with data retrieved from the permission node:
+            Permission outPerm = unloadPopLdapEntry(entry, 0);
+            // The admin flag will be set to 'true' if this is an administrative permission:
+            outPerm.setAdmin(inPerm.isAdmin());
+            // Pass the tenant id along:
+            outPerm.setContextId(inPerm.getContextId());
+            // The objective of these next steps is to evaluate the outcome of authorization attempt and trigger a write to slapd access logger containing the result.
+            // The objectClass triggered by slapd access log write for upcoming ldap op is 'auditCompare'.
+            // Set this attribute either with actual operation name that will succeed compare (for authZ success) or bogus value which will fail compare (for authZ failure):
+            LDAPAttribute attribute;
+            // This method determines if the user is authorized for this permission:
+            result = isAuthorized(session, outPerm);
             if (result)
             {
-                LDAPAttribute attribute = createAttribute(GlobalIds.POP_NAME, permission.getOpName());
-                // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
-                compareNode(ld, dn, session.getUser().getDn(), attribute);
+                // Yes, set the operation name onto this attribute for storage into audit trail:
+                attribute = createAttribute(GlobalIds.POP_NAME, outPerm.getOpName());
             }
             else
             {
-                LDAPAttribute attribute = createAttribute(GlobalIds.POP_NAME, "failed1");
-                // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
-                compareNode(ld, dn, session.getUser().getDn(), attribute);
+                // No, set a simple error message onto this attribute for storage into audit trail:
+                attribute = createAttribute(GlobalIds.POP_NAME, "AuthZ Failure");
             }
+            // This is done to leave an audit trail in slapd access log.
+            // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
+            // LDAP Operation #2: Compare:
+            compareNode(ld, dn, session.getUser().getDn(), attribute);
         }
         catch (UnsupportedEncodingException ee)
         {
@@ -754,25 +769,6 @@ final class PermDAO extends DataProvider
             {
                 String error = CLS_NM + ".checkPermission caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, e);
-            }
-            else
-            {
-                try
-                {
-                    LDAPAttribute attribute = createAttribute(GlobalIds.POP_NAME, "failed2");
-                    // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
-                    compareNode(ld, dn, session.getUser().getDn(), attribute);
-                }
-                catch (LDAPException le)
-                {
-                    String warn = CLS_NM + ".checkPermission caught LDAPException during failed authZ audit, id=" + le.errorCodeToString() + " msg=" + le.getMessage();
-                    log.warn(warn);
-                }
-                catch (UnsupportedEncodingException ee)
-                {
-                    String warn = CLS_NM + ".checkPermission caught UnsupportedEncodingException during failed authZ audit=" + ee.getMessage();
-                    log.warn(warn);
-                }
             }
         }
         finally
@@ -787,7 +783,7 @@ final class PermDAO extends DataProvider
      * @param permission
      * @return
      */
-    private boolean checkIt(Session session, Permission permission)
+    private boolean isAuthorized(Session session, Permission permission)
     {
         boolean result = false;
         List<String> userIds = permission.getUsers();

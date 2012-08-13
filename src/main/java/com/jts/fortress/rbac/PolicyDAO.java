@@ -76,7 +76,7 @@ import java.util.TreeSet;
  * @author Shawn McKinney
  * @created October 17, 2009
  */
-public final class PolicyDAO extends DataProvider
+final class PolicyDAO extends DataProvider
 {
     /*
       *  *************************************************************************

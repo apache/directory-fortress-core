@@ -116,6 +116,26 @@ public abstract class DataProvider
     }
 
     /**
+     * Read the ldap record from specified location with user assertion.
+     *
+     * @param ld   handle to ldap connection.
+     * @param dn   contains ldap distinguished name.
+     * @param atrs array contains array names to pull back.
+     * @param userDn    string value represents the identity of user on who's behalf the request was initiated.  The value will be stored in openldap auditsearch record AuthZID's attribute.
+     * @return ldap entry.
+     * @throws LDAPException in the event system error occurs.
+     * @throws UnsupportedEncodingException for search control errors.
+     */
+    protected LDAPEntry read(LDAPConnection ld, String dn, String[] atrs, String userDn)
+        throws LDAPException, UnsupportedEncodingException
+    {
+        LDAPControl proxyCtl = new LDAPControl(OPENLDAP_PROXY_CONTROL, true, (GlobalIds.DN + ": " + userDn).getBytes(GlobalIds.UTF8));
+        com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints opt = new com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints();
+        opt.setServerControls(proxyCtl);
+        return ld.read(dn, atrs, opt);
+    }
+
+    /**
      * Add a new ldap entry to the directory.  Do not add audit context.
      *
      * @param ld    handle to ldap connection.
