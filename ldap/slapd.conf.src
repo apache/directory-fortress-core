@@ -19,7 +19,7 @@ gentlehup on
 pidfile		@PID_PATH@/slapd.pid
 argsfile	@PID_PATH@/slapd.args
 modulepath	@SLAPD_MODULE_PATH@
-moduleload	back_bdb.la
+moduleload	back_mdb.la
 moduleload	ppolicy.la
 moduleload  accesslog.la
 
@@ -57,11 +57,12 @@ password-hash {SSHA}
 #######################################################################
 # History DB Settings
 #######################################################################
-database	bdb
+database	mdb
+maxreaders 4
+maxsize 1000000000
 suffix		"@LOG_SUFFIX@"
 rootdn      "@LOG_ROOT_DN@"
 rootpw      "@LOG_ROOT_PW@"
-cachesize 	100000
 index objectClass,reqDN,reqAuthzID,reqStart,reqAttr eq
 directory	@HISTORY_DB_PATH@
 access to *
@@ -72,7 +73,9 @@ access to *
 #######################################################################
 # Default DB Settings
 #######################################################################
-database	bdb
+database	mdb
+maxreaders 4
+maxsize 1000000000
 suffix		"@SUFFIX@"
 rootdn      "@ROOT_DN@"
 rootpw      "@ROOT_PW@"
@@ -80,9 +83,6 @@ index ou,uid,uidNumber,gidNumber,objectclass eq,pres
 index cn,sn eq,sub
 index ftId,ftPermName,ftObjNm,ftOpNm,ftRoles,ftUsers,ftRA,ftARA,ftRoleName eq
 directory	@DEFAULT_DB_PATH@
-idlcachesize	2500
-checkpoint	512	60
-cachesize     10000
 overlay accesslog
 logdb   "@LOG_SUFFIX@"
 @DFLT_DBNOSYNCH@

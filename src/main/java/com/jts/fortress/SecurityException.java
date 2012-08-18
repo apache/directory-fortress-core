@@ -32,6 +32,7 @@ package com.jts.fortress;
  * <p/>100's - Configuration Errors
  * </h3>
  * <ul>
+ * <li> <code>{@link GlobalErrIds#CONTEXT_NULL} = 103;</code>
  * <li> <code>{@link GlobalErrIds#FT_MGR_CLASS_NOT_FOUND} = 103;</code>
  * <li> <code>{@link GlobalErrIds#FT_MGR_INST_EXCEPTION} = 104;</code>
  * <li> <code>{@link GlobalErrIds#FT_MGR_ILLEGAL_ACCESS} = 105;</code>
@@ -160,6 +161,9 @@ package com.jts.fortress;
  * <li> <code>{@link GlobalErrIds#PERM_BULK_ROLE_REVOKE_FAILED} = 3023;</code>
  * <li> <code>{@link GlobalErrIds#PERM_BULK_ADMINROLE_REVOKE_FAILED} = 3024;</code>
  * <li> <code>{@link GlobalErrIds#PERM_OU_INVALID} = 3025;</code>
+ * <li> <code>{@link GlobalErrIds#PERM_OPERATION_NM_NULL} = 3026;</code>
+ * <li> <code>{@link GlobalErrIds#PERM_OBJECT_NM_NULL} = 3027;</code>
+ * <li> <code>{@link GlobalErrIds#PERM_COMPARE_OP_FAILED} = 3028;</code>
  * </ul>
  * <h3>
  * <p/>4000's - Password Policy Entity
@@ -308,6 +312,8 @@ package com.jts.fortress;
  * <li> <code>{@link GlobalErrIds#ORG_TYPE_NULL_PERM} = 8069;</code>
  * <li> <code>{@link GlobalErrIds#ORG_DEL_FAILED_PERM} = 8070;</code>
  * <li> <code>{@link GlobalErrIds#ORG_LEN_INVLD} = 8071;</code>
+ * <li> <code>{@link GlobalErrIds#ORG_PARENT_NULL} = 8072;</code>
+ * <li> <code>{@link GlobalErrIds#ORG_CHILD_NULL} = 8073;</code>
  * </ul>
  * <h3>
  * <p/>9000's Administrative RBAC
@@ -372,9 +378,10 @@ package com.jts.fortress;
  * <li> <code>{@link GlobalErrIds#REST_MARSHALL_ERR} = 10103;</code>
  * <li> <code>{@link GlobalErrIds#REST_UNMARSHALL_ERR} = 10104;</code>
  * <li> <code>{@link GlobalErrIds#REST_GET_FAILED} = 10105;</code>
+ * <li> <code>{@link GlobalErrIds#REST_NOT_FOUND_ERR} = 10105;</code>
+ * <li> <code>{@link GlobalErrIds#REST_UNKNOWN_ERR} = 10105;</code>
  * </ul>
  * <p/>
-
  *
  * @author Shawn McKinney
  * @created August 23, 2009

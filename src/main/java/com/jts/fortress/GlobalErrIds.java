@@ -336,11 +336,6 @@ public class GlobalErrIds
     public final static int USER_OU_INVALID = 1035;
 
     /**
-     * The required User Session was not supplied and is required.
-     */
-    public final static int SESS_CTXT_NULL = 1036;
-
-    /**
      * 2000's User-Role assignments
      */
 
@@ -591,6 +586,11 @@ public class GlobalErrIds
      * The supplied Permission object name is required but was passed as null.
      */
     public final static int PERM_OBJECT_NM_NULL = 3027;
+    /**
+     * The supplied Permission operation could not be read due to server failure.
+     */
+    public final static int PERM_COMPARE_OP_FAILED = 3028;
+
     /**
      * 4000's - Password Policy Entity
      */

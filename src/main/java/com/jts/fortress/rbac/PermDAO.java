@@ -740,7 +740,7 @@ final class PermDAO extends DataProvider
             // The objective of these next steps is to evaluate the outcome of authorization attempt and trigger a write to slapd access logger containing the result.
             // The objectClass triggered by slapd access log write for upcoming ldap op is 'auditCompare'.
             // Set this attribute either with actual operation name that will succeed compare (for authZ success) or bogus value which will fail compare (for authZ failure):
-            LDAPAttribute attribute;
+            String attributeValue = null;
             // This method determines if the user is authorized for this permission:
             result = isAuthorized(session, outPerm);
             // This is done to leave an audit trail in ldap server log:
@@ -749,16 +749,16 @@ final class PermDAO extends DataProvider
                 if (result)
                 {
                     // Yes, set the operation name onto this attribute for storage into audit trail:
-                    attribute = createAttribute(GlobalIds.POP_NAME, outPerm.getOpName());
+                    attributeValue = outPerm.getOpName();
                 }
                 else
                 {
                     // No, set a simple error message onto this attribute for storage into audit trail:
-                    attribute = createAttribute(GlobalIds.POP_NAME, "AuthZ Failure");
+                    attributeValue = "AuthZ Failure";
                 }
                 // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
                 // LDAP Operation #2: Compare:
-                compareNode(ld, dn, session.getUser().getDn(), attribute);
+                addAuthZAudit(ld, dn, session.getUser().getDn(), attributeValue);
             }
         }
         catch (UnsupportedEncodingException ee)
@@ -773,12 +773,47 @@ final class PermDAO extends DataProvider
                 String error = CLS_NM + ".checkPermission caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, e);
             }
+            else
+            {
+                addAuthZAudit(ld, dn, session.getUser().getDn(), "AuthZ Perm invalid");
+            }
         }
         finally
         {
             PoolMgr.closeConnection(ld, PoolMgr.ConnType.USER);
         }
         return result;
+    }
+
+    /**
+     * @param ld
+     * @param permDn
+     * @param userDn
+     * @param attributeValue
+     * @throws FinderException
+     */
+    private void addAuthZAudit(LDAPConnection ld, String permDn, String userDn, String attributeValue)
+        throws FinderException
+    {
+        try
+        {
+            // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
+            // LDAP Operation #2: Compare:
+            compareNode(ld, permDn, userDn, createAttribute(GlobalIds.POP_NAME, attributeValue));
+        }
+        catch (UnsupportedEncodingException ee)
+        {
+            String error = CLS_NM + ".addAuthZAudit caught UnsupportedEncodingException=" + ee.getMessage();
+            throw new FinderException(GlobalErrIds.PERM_COMPARE_OP_FAILED, error, ee);
+        }
+        catch (LDAPException e)
+        {
+            if (e.getLDAPResultCode() != LDAPException.NO_RESULTS_RETURNED && e.getLDAPResultCode() != LDAPException.NO_SUCH_OBJECT)
+            {
+                String error = CLS_NM + ".addAuthZAudit caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                throw new FinderException(GlobalErrIds.PERM_COMPARE_OP_FAILED, error, e);
+            }
+        }
     }
 
     /**
@@ -790,7 +825,7 @@ final class PermDAO extends DataProvider
     {
         boolean result = false;
         List<String> userIds = permission.getUsers();
-        // TODO: Need a case insensitive compartator here:
+        // TODO: Need a case insensitive comparator here:
         if (VUtil.isNotNullOrEmpty(userIds) && userIds.contains(session.getUserId()))
         {
             return true;
@@ -800,9 +835,11 @@ final class PermDAO extends DataProvider
         {
             if (permission.isAdmin())
             {
+                // ARBAC Permission check include's User's inherited admin roles:
                 Set<String> activatedRoles = AdminRoleUtil.getInheritedRoles(session.getAdminRoles(), permission.getContextId());
                 for (String role : roles)
                 {
+                    // This is case insensitive op determines if user has matching admin role to the admin permission::
                     if (activatedRoles.contains(role))
                     {
                         result = true;
@@ -812,9 +849,11 @@ final class PermDAO extends DataProvider
             }
             else
             {
+                // RBAC Permission check include's User's inherited roles:
                 Set<String> activatedRoles = RoleUtil.getInheritedRoles(session.getRoles(), permission.getContextId());
                 for (String role : roles)
                 {
+                    // This is case insensitive op determines if user has matching role:
                     if (activatedRoles.contains(role))
                     {
                         result = true;
