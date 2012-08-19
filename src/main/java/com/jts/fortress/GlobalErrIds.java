@@ -37,7 +37,6 @@ public class GlobalErrIds
 
     /**
      * The Manager impl could not be instantiated because the supplied class name was not found.
-     *
      */
     public final static int FT_MGR_CLASS_NOT_FOUND = 103;
 
@@ -336,6 +335,11 @@ public class GlobalErrIds
     public final static int USER_OU_INVALID = 1035;
 
     /**
+     * The required User Session was not supplied and is required.  Used by fortress realm.
+     */
+    public final static int SESS_CTXT_NULL = 1036;
+
+    /**
      * 2000's User-Role assignments
      */
 
@@ -632,7 +636,6 @@ public class GlobalErrIds
 
     /**
      * The supplied Password quality value failed length check.
-     *
      */
     public final static int PSWD_QLTY_INVLD_LEN = 4007;
 
@@ -896,7 +899,7 @@ public class GlobalErrIds
 
     /**
      * The Static Separation of Duty name is required and cannot be null.
-      */
+     */
     public final static int SSD_NM_NULL = 5085;
 
     /**
@@ -941,7 +944,7 @@ public class GlobalErrIds
 
     /**
      * The Dynamic Separation of Duty name is required and cannot be null.
-      */
+     */
     public final static int DSD_NM_NULL = 5094;
 
     /**
@@ -1244,31 +1247,26 @@ public class GlobalErrIds
 
     /**
      * Method requires list of Administrative Roles and cannot be null.
-     *
      */
     public final static int ARLE_LST_NULL = 9010;
 
     /**
      * The supplied begin range for Administrative Role is required and cannot be null.
-     *
      */
     public final static int ARLE_BEGIN_RANGE_NULL = 9011;
 
     /**
      * The supplied end range for Administrative Role is required and cannot be null.
-     *
      */
     public final static int ARLE_END_RANGE_NULL = 9011;
 
     /**
      * The supplied range for Administrative Role is invalid.
-     *
      */
     public final static int ARLE_INVLD_RANGE = 9012;
 
     /**
      * The supplied range for Administrative Role inclusion is invalid.
-     *
      */
     public final static int ARLE_INVLD_RANGE_INCLUSIVE = 9013;
 

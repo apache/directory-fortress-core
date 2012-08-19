@@ -722,7 +722,7 @@ final class PermDAO extends DataProvider
     final boolean checkPermission(Session session, Permission inPerm)
         throws FinderException
     {
-        boolean result = false;
+        boolean isAuthZd = false;
         LDAPConnection ld = null;
         String dn = getOpRdn(inPerm.getOpName(), inPerm.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + inPerm.getObjectName() + "," + getRootDn(inPerm.isAdmin(), inPerm.getContextId());
         try
@@ -740,26 +740,24 @@ final class PermDAO extends DataProvider
             // The objective of these next steps is to evaluate the outcome of authorization attempt and trigger a write to slapd access logger containing the result.
             // The objectClass triggered by slapd access log write for upcoming ldap op is 'auditCompare'.
             // Set this attribute either with actual operation name that will succeed compare (for authZ success) or bogus value which will fail compare (for authZ failure):
-            String attributeValue = null;
+            String attributeValue;
             // This method determines if the user is authorized for this permission:
-            result = isAuthorized(session, outPerm);
+            isAuthZd = isAuthorized(session, outPerm);
             // This is done to leave an audit trail in ldap server log:
-            if (GlobalIds.IS_AUDIT)
+            if (isAuthZd)
             {
-                if (result)
-                {
-                    // Yes, set the operation name onto this attribute for storage into audit trail:
-                    attributeValue = outPerm.getOpName();
-                }
-                else
-                {
-                    // No, set a simple error message onto this attribute for storage into audit trail:
-                    attributeValue = "AuthZ Failure";
-                }
-                // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
-                // LDAP Operation #2: Compare:
-                addAuthZAudit(ld, dn, session.getUser().getDn(), attributeValue);
+                // Yes, set the operation name onto this attribute for storage into audit trail:
+                attributeValue = outPerm.getOpName();
             }
+            else
+            {
+                // No, set a simple error message onto this attribute for storage into audit trail:
+                attributeValue = "AuthZ Failed";
+            }
+            // There is a switch in fortress config to disable audit ops like this one.
+            // But if used the compare method will use OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection.
+            // LDAP Operation #2: Compare.
+            addAuthZAudit(ld, dn, session.getUser().getDn(), attributeValue);
         }
         catch (UnsupportedEncodingException ee)
         {
@@ -773,53 +771,61 @@ final class PermDAO extends DataProvider
                 String error = CLS_NM + ".checkPermission caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, e);
             }
-            else
-            {
-                addAuthZAudit(ld, dn, session.getUser().getDn(), "AuthZ Perm invalid");
-            }
+            // There is a switch in fortress config to disable the audit ops.
+            addAuthZAudit(ld, dn, session.getUser().getDn(), "AuthZ Invalid");
         }
         finally
         {
             PoolMgr.closeConnection(ld, PoolMgr.ConnType.USER);
         }
-        return result;
+        return isAuthZd;
     }
 
     /**
-     * @param ld
-     * @param permDn
-     * @param userDn
-     * @param attributeValue
-     * @throws FinderException
+     * Perform LDAP compare operation here to associate audit record with user authorization event.
+     *
+     * @param ld this method expects the ldap connection to be good
+     * @param permDn contains distinguished name of the permission object.
+     * @param userDn contains the distinguished name of the user object.
+     * @param attributeValue string value will be associated with the 'audit' record stored in ldap.
+     * @throws FinderException in the event ldap system exception occurs.
      */
     private void addAuthZAudit(LDAPConnection ld, String permDn, String userDn, String attributeValue)
         throws FinderException
     {
-        try
+        // Audit can be turned off here with fortress config param: 'enable.audit=false'
+        if (GlobalIds.IS_AUDIT)
         {
-            // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
-            // LDAP Operation #2: Compare:
-            compareNode(ld, permDn, userDn, createAttribute(GlobalIds.POP_NAME, attributeValue));
-        }
-        catch (UnsupportedEncodingException ee)
-        {
-            String error = CLS_NM + ".addAuthZAudit caught UnsupportedEncodingException=" + ee.getMessage();
-            throw new FinderException(GlobalErrIds.PERM_COMPARE_OP_FAILED, error, ee);
-        }
-        catch (LDAPException e)
-        {
-            if (e.getLDAPResultCode() != LDAPException.NO_RESULTS_RETURNED && e.getLDAPResultCode() != LDAPException.NO_SUCH_OBJECT)
+            try
             {
-                String error = CLS_NM + ".addAuthZAudit caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new FinderException(GlobalErrIds.PERM_COMPARE_OP_FAILED, error, e);
+                // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
+                // LDAP Operation #2: Compare:
+                compareNode(ld, permDn, userDn, createAttribute(GlobalIds.POP_NAME, attributeValue));
+            }
+            catch (UnsupportedEncodingException ee)
+            {
+                String error = CLS_NM + ".addAuthZAudit caught UnsupportedEncodingException=" + ee.getMessage();
+                throw new FinderException(GlobalErrIds.PERM_COMPARE_OP_FAILED, error, ee);
+            }
+            catch (LDAPException e)
+            {
+                if (e.getLDAPResultCode() != LDAPException.NO_RESULTS_RETURNED && e.getLDAPResultCode() != LDAPException.NO_SUCH_OBJECT)
+                {
+                    String error = CLS_NM + ".addAuthZAudit caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                    throw new FinderException(GlobalErrIds.PERM_COMPARE_OP_FAILED, error, e);
+                }
             }
         }
     }
 
     /**
-     * @param session
-     * @param permission
-     * @return
+     * This function will first compare the userId from the session object with the list of users attached to permission object.
+     * If match does not occur there, determine if there is a match between the authorized roles of user with roles attached to permission object.
+     * For this use {@link com.jts.fortress.rbac.Permission#isAdmin()} to determine if admin permissions or normal permissions have been passed in by caller.
+     *
+     * @param session contains the {@link com.jts.fortress.rbac.Session#getUserId()},{@link Session#getRoles()} or {@link com.jts.fortress.rbac.Session#getAdminRoles()}.
+     * @param permission contains {@link com.jts.fortress.rbac.Permission#getUsers()} and {@link Permission#getRoles()}.
+     * @return binary result.
      */
     private boolean isAuthorized(Session session, Permission permission)
     {
@@ -828,6 +834,7 @@ final class PermDAO extends DataProvider
         // TODO: Need a case insensitive comparator here:
         if (VUtil.isNotNullOrEmpty(userIds) && userIds.contains(session.getUserId()))
         {
+            // user is assigned directly to this permission, no need to look further.
             return true;
         }
         List<String> roles = permission.getRoles();
