@@ -137,7 +137,7 @@
        <property name="javac.debug" value="true"/>
        <property name="javac.deprecation" value="true"/>
 
-       <property name="fortressBuilder.zip" value="${dist.dir}/fortressBuilder-${version}.zip"/>
+       <property name="fortressBuilder.zip" value="${dist.dir}/fortressBuilder-${platform}-${version}.zip"/>
 
        <!-- ########### Define classpaths ########################### -->
        <path id="build.class.path">
@@ -746,7 +746,7 @@
 
     <target name="install-slapd" depends="init" unless="windows">
         <echo message="###############  Install OpenLDAP binaries"/>
-        <exec dir="${ldap.setup.dir}" executable="/bin/sh">
+        <exec dir="${openldap.install.artifact.dir}" executable="/bin/sh">
             <arg line="${install.slapd.script}"/>
             <arg value="${slapd.install}"/>
             <arg value="${sudo.pw}"/>
@@ -908,6 +908,9 @@
                 <include name="*/**"/>
             </zipfileset>
             <zipfileset dir="${config.dir}" prefix="config">
+                <include name="*/**"/>
+            </zipfileset>
+            <zipfileset dir="${install.image.dir}" prefix="openldap">
                 <include name="*/**"/>
             </zipfileset>
         </zip>
