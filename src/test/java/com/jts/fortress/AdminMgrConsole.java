@@ -887,18 +887,18 @@ public class AdminMgrConsole
             System.out.println("internalId [" + pe.getInternalId() + "]");
             if (pe.getUsers() != null && pe.getUsers().size() > 0)
             {
-                for (int j = 0; j < pe.getUsers().size(); j++)
+                int ctr = 0;
+                for (String user : pe.getUsers())
                 {
-                    String user = pe.getUsers().get(j);
-                    System.out.println("user[" + j + "]=" + user);
+                    System.out.println("user[" + ctr++ + "]=" + user);
                 }
             }
             if (pe.getRoles() != null && pe.getRoles().size() > 0)
             {
-                for (int j = 0; j < pe.getRoles().size(); j++)
+                int ctr = 0;
+                for (String role : pe.getRoles())
                 {
-                    String role = pe.getRoles().get(j);
-                    System.out.println("name[" + j + "]=" + role);
+                    System.out.println("name[" + ctr++ + "]=" + role);
                 }
             }
             if (pe.getProperties() != null && pe.getProperties().size() > 0)

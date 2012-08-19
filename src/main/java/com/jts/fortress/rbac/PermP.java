@@ -11,6 +11,7 @@ import com.jts.fortress.ValidationException;
 import com.jts.fortress.util.attr.VUtil;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Process module for the Permission entity.  This class performs data validations and error mapping.  It is typically called
@@ -553,7 +554,7 @@ final class PermP
         // Validate Role Grants:
         if (VUtil.isNotNullOrEmpty(pOp.getRoles()))
         {
-            List<String> roles = pOp.getRoles();
+            Set<String> roles = pOp.getRoles();
             RoleP rp = new RoleP();
             for (String roleNm : roles)
             {
@@ -565,7 +566,7 @@ final class PermP
         // Validate User Grants:
         if (VUtil.isNotNullOrEmpty(pOp.getUsers()))
         {
-            List<String> users = pOp.getUsers();
+            Set<String> users = pOp.getUsers();
             UserP up = new UserP();
             for (String userId : users)
             {

@@ -6,7 +6,6 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.ValidationException;
-import com.jts.fortress.util.AlphabeticalOrder;
 import org.apache.log4j.Logger;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
@@ -209,7 +208,7 @@ final class HierUtil
         Map vx = new HashMap();
         // TreeSet will return in sorted order:
         // create Set with case insensitive comparator:
-        Set<String> parents = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> parents = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         vx.put(VERTEX, childName.toUpperCase());
         getAscendants(vx, graph, parents);
         return parents;
@@ -275,7 +274,7 @@ final class HierUtil
         Map vx = new HashMap();
         // TreeSet will return in sorted order:
         // create Set with case insensitive comparator:
-        Set<String> children = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> children = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
 
         vx.put(VERTEX, parentName.toUpperCase());
         getDescendants(vx, graph, children);
@@ -376,7 +375,7 @@ final class HierUtil
         Map vx = new HashMap();
         // TreeSet will return in sorted order:
         // create Set with case insensitive comparator:
-        Set<String> parents = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> parents = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
 
         vx.put(VERTEX, childName.toUpperCase());
         getAscendants(vx, graph, parents, parentName, isInclusive);

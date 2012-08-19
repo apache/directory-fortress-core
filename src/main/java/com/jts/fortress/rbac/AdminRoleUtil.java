@@ -7,7 +7,6 @@ package com.jts.fortress.rbac;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ValidationException;
 import com.jts.fortress.SecurityException;
-import com.jts.fortress.util.AlphabeticalOrder;
 
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.CacheMgr;
@@ -144,7 +143,7 @@ final class AdminRoleUtil
     static Set<String> getInheritedRoles(List<UserAdminRole> uRoles, String contextId)
     {
         // create Set with case insensitive comparator:
-        Set<String> iRoles = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> iRoles = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         if (VUtil.isNotNullOrEmpty(uRoles))
         {
             for (UserAdminRole uRole : uRoles)

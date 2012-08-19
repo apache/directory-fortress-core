@@ -12,7 +12,6 @@ import com.jts.fortress.ObjectFactory;
 import com.jts.fortress.RemoveException;
 import com.jts.fortress.UpdateException;
 import com.jts.fortress.ldap.DataProvider;
-import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.util.attr.VUtil;
 
@@ -557,7 +556,7 @@ final class PolicyDAO extends DataProvider
     final Set<String> getPolicies(String contextId)
         throws FinderException
     {
-        Set<String> policySet = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> policySet = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String policyRoot = getPolicyRoot(contextId);

@@ -6,11 +6,9 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.*;
 import com.jts.fortress.ldap.DataProvider;
-import com.jts.fortress.util.AlphabeticalOrder;
 
 import com.jts.fortress.ldap.PoolMgr;
 import com.jts.fortress.GlobalErrIds;
-import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.GlobalIds;
 
 import org.apache.log4j.Logger;
@@ -366,7 +364,7 @@ final class OrgUnitDAO extends DataProvider
     final Set<String> getOrgs(OrgUnit orgUnit)
         throws FinderException
     {
-        Set<String> ouSet = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> ouSet = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         LDAPConnection ld = null;
         String orgUnitRoot = getOrgRoot(orgUnit);
         try

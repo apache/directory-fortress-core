@@ -10,7 +10,6 @@ import com.jts.fortress.rbac.FortEntity;
 import com.jts.fortress.rbac.Relationship;
 import com.jts.fortress.rbac.Hier;
 import com.jts.fortress.util.time.Constraint;
-import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.time.CUtil;
 
 import com.jts.fortress.util.attr.VUtil;
@@ -569,7 +568,7 @@ public abstract class DataProvider
         throws LDAPException
     {
         // create Set with case insensitive comparator:
-        Set<String> attrValues = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> attrValues = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         LDAPAttribute attr;
         Enumeration values;
         attr = entry.getAttribute(attributeName);

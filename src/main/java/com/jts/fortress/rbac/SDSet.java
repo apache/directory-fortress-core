@@ -4,8 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.util.AlphabeticalOrder;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -155,7 +153,7 @@ public class SDSet extends FortEntity
      */
     public static Set<String> createMembers()
     {
-        return new TreeSet<String>(new AlphabeticalOrder());
+        return new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
     }
 
 

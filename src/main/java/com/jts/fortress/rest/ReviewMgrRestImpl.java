@@ -13,10 +13,8 @@ import com.jts.fortress.rbac.PermObj;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.SDSet;
-import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
-import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.attr.VUtil;
 
 import java.util.ArrayList;
@@ -733,7 +731,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles");
-        Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> retRoleNames = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(user);
@@ -890,7 +888,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".authorizedPermissionRoles");
-        Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> retRoleNames = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(perm);
@@ -970,7 +968,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".authorizedPermissionUsers");
-        Set<String> retUserIds = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> retUserIds = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(perm);
@@ -1091,7 +1089,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         VUtil.assertNotNull(ssd, GlobalErrIds.SSD_NULL, CLS_NM + ".ssdRoleSetRoles");
-        Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> retRoleNames = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(ssd);
@@ -1250,7 +1248,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         VUtil.assertNotNull(dsd, GlobalErrIds.SSD_NULL, CLS_NM + ".dsdRoleSetRoles");
-        Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> retRoleNames = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(dsd);

@@ -12,7 +12,6 @@ import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Session;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
-import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.attr.VUtil;
 
 import java.util.List;
@@ -291,7 +290,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         throws SecurityException
     {
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionRoles");
-        Set<String> retRoleNames = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> retRoleNames = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setSession(session);

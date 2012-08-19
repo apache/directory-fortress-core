@@ -7,7 +7,6 @@ package com.jts.fortress.rbac;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ValidationException;
-import com.jts.fortress.util.AlphabeticalOrder;
 
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.CacheMgr;
@@ -151,7 +150,7 @@ final class RoleUtil
     static Set<String> getInheritedRoles(List<UserRole> uRoles, String contextId)
     {
         // create Set with case insensitive comparator:
-        Set<String> iRoles = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> iRoles = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         if (VUtil.isNotNullOrEmpty(uRoles))
         {
             for (UserRole uRole : uRoles)
@@ -175,7 +174,7 @@ final class RoleUtil
     static Set<String> getAscendantRoles(List<String> roles, String contextId)
     {
         // create Set with case insensitive comparator:
-        Set<String> iRoles = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> iRoles = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         if (VUtil.isNotNullOrEmpty(roles))
         {
             for (String role : roles)
@@ -195,10 +194,10 @@ final class RoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return
      */
-    static Set<String> getDescendantRoles(List<String> roles, String contextId)
+    static Set<String> getDescendantRoles(Set<String> roles, String contextId)
     {
         // create Set with case insensitive comparator:
-        Set<String> iRoles = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> iRoles = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         if (VUtil.isNotNullOrEmpty(roles))
         {
             for (String role : roles)

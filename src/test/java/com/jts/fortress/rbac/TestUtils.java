@@ -4,7 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.LogUtil;
 import com.jts.fortress.util.attr.VUtil;
 import junit.framework.TestCase;
@@ -182,7 +181,7 @@ public class TestUtils extends TestCase
      */
     public static Set<String> getSets(String szInput)
     {
-        Set<String> vSets = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> vSets = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         try
         {
             if (VUtil.isNotNullOrEmpty(szInput))

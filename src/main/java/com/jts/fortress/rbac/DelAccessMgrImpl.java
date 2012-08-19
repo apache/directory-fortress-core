@@ -7,7 +7,6 @@ package com.jts.fortress.rbac;
 import com.jts.fortress.DelAccessMgr;
 import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.cfg.Config;
-import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.SecurityException;
 
@@ -295,7 +294,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                 if(VUtil.isNotNullOrEmpty(osUs))
                 {
                     // create Set with case insensitive comparator:
-                    Set<String> osUsFinal = new TreeSet<String>(new AlphabeticalOrder());
+                    Set<String> osUsFinal = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
                     for(String osU : osUs)
                     {
                         // Add osU children to the set:
@@ -368,7 +367,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                 if(VUtil.isNotNullOrEmpty(osPs))
                 {
                     // create Set with case insensitive comparator:
-                    Set<String> osPsFinal = new TreeSet<String>(new AlphabeticalOrder());
+                    Set<String> osPsFinal = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
                     for(String osP : osPs)
                     {
                         // Add osU children to the set:

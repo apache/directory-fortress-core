@@ -3,7 +3,6 @@
  */
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.time.Constraint;
 import junit.framework.TestCase;
@@ -5781,7 +5780,7 @@ public class UserTestData extends TestCase
      */
     private static Set<String> getSets(String[] szInput, int col)
     {
-        Set<String> vSets = new TreeSet<String>(new AlphabeticalOrder());
+        Set<String> vSets = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         try
         {
             if (VUtil.isNotNullOrEmpty(szInput[col]))

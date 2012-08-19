@@ -59,7 +59,7 @@ public class TestComparator
         }
 
 
-        // this.members = new TreeMap<String, String>( new AlphabeticalOrder() );
+        // this.members = new TreeMap<String, String>( String.CASE_INSENSITIVE_ORDER );
 
 	}
 
@@ -89,7 +89,7 @@ public class TestComparator
     {
         if (this.members == null)
         {
-            this.members = new TreeMap<String, String>( new AlphabeticalOrder() );
+            this.members = new TreeMap<String, String>( String.CASE_INSENSITIVE_ORDER );
         }
         this.members.put(role, role);
     }

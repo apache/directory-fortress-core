@@ -6,7 +6,6 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.util.time.CUtil;
 import com.jts.fortress.util.time.Constraint;
-import com.jts.fortress.util.AlphabeticalOrder;
 import com.jts.fortress.util.attr.VUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -272,7 +271,7 @@ public class AdminRole extends Role implements Administrator
         if (this.osPs == null)
         {
             // create Set with case insensitive comparator:
-            osPs = new TreeSet<String>(new AlphabeticalOrder());
+            osPs = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         }
         osPs.add(osP);
     }
@@ -307,7 +306,7 @@ public class AdminRole extends Role implements Administrator
         if (this.osUs == null)
         {
             // create Set with case insensitive comparator:
-            osUs = new TreeSet<String>(new AlphabeticalOrder());
+            osUs = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         }
         osUs.add(osU);
     }

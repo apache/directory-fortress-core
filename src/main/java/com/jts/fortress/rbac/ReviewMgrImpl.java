@@ -531,7 +531,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OBJECT_NULL);
         checkAccess(CLS_NM, methodName);
         Permission pe = permP.read(perm);
-        return pe.getRoles();
+        return new ArrayList<String>(pe.getRoles());
     }
 
     /**
@@ -582,7 +582,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL);
         checkAccess(CLS_NM, methodName);
         Permission pe = permP.read(perm);
-        return pe.getUsers();
+        return new ArrayList<String>(pe.getUsers());
     }
 
     /**
@@ -616,7 +616,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
             authorizedUsers = userP.getAssignedUsers(authorizedRoles, this.contextId);
         }
         // Now add any users who have been directly assigned to this permission entity:
-        List<String> assignedUsers = pe.getUsers();
+        Set<String> assignedUsers = pe.getUsers();
         if (assignedUsers != null)
         {
             // It is possible this dataset has not yet been instantiated (if perm has no assigned roles):
@@ -635,7 +635,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return
      * @throws SecurityException
      */
-    private Set<String> authorizeRoles(List<String> assignedRoles)
+    private Set<String> authorizeRoles(Set<String> assignedRoles)
         throws SecurityException
     {
         Set<String> authorizedRoles = null;

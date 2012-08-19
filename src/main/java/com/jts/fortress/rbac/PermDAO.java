@@ -830,14 +830,13 @@ final class PermDAO extends DataProvider
     private boolean isAuthorized(Session session, Permission permission)
     {
         boolean result = false;
-        List<String> userIds = permission.getUsers();
-        // TODO: Need a case insensitive comparator here:
+        Set<String> userIds = permission.getUsers();
         if (VUtil.isNotNullOrEmpty(userIds) && userIds.contains(session.getUserId()))
         {
             // user is assigned directly to this permission, no need to look further.
             return true;
         }
-        List<String> roles = permission.getRoles();
+        Set<String> roles = permission.getRoles();
         if (VUtil.isNotNullOrEmpty(roles))
         {
             if (permission.isAdmin())
@@ -889,8 +888,8 @@ final class PermDAO extends DataProvider
         entity.setObjectId(getAttribute(le, POBJ_ID));
         entity.setOpName(getAttribute(le, GlobalIds.POP_NAME));
         entity.setInternalId(getAttribute(le, GlobalIds.FT_IID));
-        entity.setRoles(getAttributes(le, ROLES));
-        entity.setUsers(getAttributes(le, USERS));
+        entity.setRoles(getAttributeSet(le, ROLES));
+        entity.setUsers(getAttributeSet(le, USERS));
         entity.setType(getAttribute(le, TYPE));
         entity.addProperties(AttrHelper.getProperties(getAttributes(le, GlobalIds.PROPS)));
         return entity;

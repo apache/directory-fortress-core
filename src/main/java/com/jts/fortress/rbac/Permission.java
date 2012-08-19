@@ -13,6 +13,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 /**
@@ -182,9 +184,9 @@ public class Permission extends FortEntity
     private Props props = new Props();
     //private Properties props;
     @XmlElement(nillable = true)
-    private List<String> roles;
+    private Set<String> roles;
     @XmlElement(nillable = true)
-    private List<String> users;
+    private Set<String> users;
 
     /**
      * This constructor is commonly used to create Permission that is a target for authorization API.
@@ -414,7 +416,7 @@ public class Permission extends FortEntity
     {
         if (roles == null)
         {
-            roles = new ArrayList<String>();
+            roles = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         }
 
         this.roles.add(role);
@@ -437,9 +439,9 @@ public class Permission extends FortEntity
      * Return the collection of optional Roles that have been loaded into this entity.  This is stored as a multi-occurring
      * attribute of Role names on the 'ftOperation' object class.
      *
-     * @return List containing the roles which maps to 'ftRoles' attribute in 'ftOperation' object class.
+     * @return Set containing the roles which maps to 'ftRoles' attribute in 'ftOperation' object class.
      */
-    public List<String> getRoles()
+    public Set<String> getRoles()
     {
         return this.roles;
     }
@@ -450,7 +452,7 @@ public class Permission extends FortEntity
      *
      * @param roles maps to 'ftRoles' attribute in 'ftOperation' object class.
      */
-    public void setRoles(List<String> roles)
+    public void setRoles(Set<String> roles)
     {
         this.roles = roles;
     }
@@ -464,7 +466,7 @@ public class Permission extends FortEntity
     {
         if (users == null)
         {
-            users = new ArrayList<String>();
+            users = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
         }
 
         this.users.add(user);
@@ -474,9 +476,9 @@ public class Permission extends FortEntity
      * Return the collection of optional Users that have been loaded into this entity.  This is stored as a multi-occurring
      * attribute of ftUsers on the 'ftOperation' object class.
      *
-     * @return List containing the Users which maps to 'ftUsers' attribute in 'ftOperation' object class.
+     * @return Set containing the Users which maps to 'ftUsers' attribute in 'ftOperation' object class.
      */
-    public List<String> getUsers()
+    public Set<String> getUsers()
     {
         return this.users;
     }
@@ -487,7 +489,7 @@ public class Permission extends FortEntity
      *
      * @param users maps to 'ftUsers' attribute in 'ftOperation' object class.
      */
-    public void setUsers(List<String> users)
+    public void setUsers(Set<String> users)
     {
         this.users = users;
     }
