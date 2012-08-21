@@ -341,6 +341,12 @@ public class GlobalIds
      */
     public final static String FT_IID = "ftId";
 
+    /**
+     * This string literal contains a common start for most ldap search filters that fortress uses.
+     */
+    public final static String FILTER_PREFIX = "(&(objectclass=";
+
+
     /*
       *  *************************************************************************
       *  **  OpenAccessMgr PROPERTIES are used by USER, PERM, CONFIG DAO'S.

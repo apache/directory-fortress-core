@@ -748,7 +748,7 @@ final class UserDAO extends DataProvider
             {
                 // place a wild card after the input userId:
                 String searchVal = encodeSafeText(user.getUserId(), GlobalIds.USERID_LEN);
-                filter = "(&(objectclass=" + objectClassImpl + ")("
+                filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                     + GlobalIds.UID + "=" + searchVal + "*))";
             }
             else if (VUtil.isNotNullOrEmpty(user.getInternalId()))
@@ -756,7 +756,7 @@ final class UserDAO extends DataProvider
                 // internalUserId search
                 String searchVal = encodeSafeText(user.getInternalId(), GlobalIds.USERID_LEN);
                 // this is not a wildcard search. Must be exact match.
-                filter = "(&(objectclass=" + objectClassImpl + ")("
+                filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                     + GlobalIds.FT_IID + "=" + searchVal + "))";
             }
             else
@@ -807,7 +807,7 @@ final class UserDAO extends DataProvider
         {
             String searchVal = encodeSafeText(user.getUserId(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + objectClassImpl + ")("
+            String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
             searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, USERID, false, GlobalIds.BATCH_SIZE, limit);
@@ -847,7 +847,7 @@ final class UserDAO extends DataProvider
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")(";
+            String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")(";
             Set<String> roles = RoleUtil.getDescendants(role.getName(), role.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))
             {
@@ -900,7 +900,7 @@ final class UserDAO extends DataProvider
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")("
+            String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
             searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
@@ -938,7 +938,7 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn(contextId, GlobalIds.USER_ROOT);
         try
         {
-            String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")(|";
+            String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")(|";
             if (VUtil.isNotNullOrEmpty(roles))
             {
                 for (String roleVal : roles)
@@ -989,7 +989,7 @@ final class UserDAO extends DataProvider
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")("
+            String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ADMINROLE_ASSIGN + "=" + roleVal + "))";
             searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
@@ -1030,7 +1030,7 @@ final class UserDAO extends DataProvider
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + USERS_AUX_OBJECT_CLASS_NAME + ")("
+            String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
             searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, USERID, false, GlobalIds.BATCH_SIZE, limit);
@@ -1069,7 +1069,7 @@ final class UserDAO extends DataProvider
         {
             searchVal = encodeSafeText(searchVal, GlobalIds.USERID_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + objectClassImpl + ")("
+            String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
             searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
@@ -1108,7 +1108,7 @@ final class UserDAO extends DataProvider
         {
             String szOu = encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + objectClassImpl + ")("
+            String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.OU + "=" + szOu + "))";
             int maxLimit;
             if (limitSize)

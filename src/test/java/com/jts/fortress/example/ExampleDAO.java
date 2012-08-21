@@ -258,7 +258,7 @@ public class ExampleDAO extends DataProvider
         {
             searchVal = encodeSafeText(searchVal, GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(com.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + EIds.EXAMPLE_OBJ_CLASS.toString() + ")("
+            String filter = GlobalIds.FILTER_PREFIX + EIds.EXAMPLE_OBJ_CLASS.toString() + ")("
                 + EIds.EXAMPLE_NM + "=" + searchVal + "*))";
             searchResults = search(ld, exampleRoot,
                 LDAPConnection.SCOPE_ONE, filter, EXAMPLE_ATRS, false, EIds.BATCH_SIZE);

@@ -343,7 +343,7 @@ final class RoleDAO extends DataProvider
         {
             String searchVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
+            filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             searchResults = search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, ROLE_ATRS, false, GlobalIds.BATCH_SIZE);
@@ -385,7 +385,7 @@ final class RoleDAO extends DataProvider
         {
             String searchVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
+            filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             searchResults = search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE, limit);
@@ -425,7 +425,7 @@ final class RoleDAO extends DataProvider
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + GlobalIds.ROLE_OBJECT_CLASS_NM + ")";
+            String filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")";
             filter += "(" + ROLE_OCCUPANT + "=" + userDn + "))";
             searchResults = search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE);

@@ -344,7 +344,7 @@ final class SdDAO extends DataProvider
         {
             String searchVal = encodeSafeText(sdset.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + objectClass + ")(" + SD_SET_NM + "=" + searchVal + "*))";
+            String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(" + SD_SET_NM + "=" + searchVal + "*))";
             searchResults = search(ld, ssdRoot,
                 LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -396,8 +396,8 @@ final class SdDAO extends DataProvider
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            //String filter = "(&(objectclass=" + SSD_OBJECT_CLASS_NM + ")(" + ROLES + "=" + roleVal + "))";
-            String filter = "(&(objectclass=" + objectClass + ")(";
+            //String filter = GlobalIds.FILTER_PREFIX + SSD_OBJECT_CLASS_NM + ")(" + ROLES + "=" + roleVal + "))";
+            String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(";
             // Include any parents target role may have:
             Set<String> roles = RoleUtil.getAscendants(role.getName(), role.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))
@@ -468,7 +468,7 @@ final class SdDAO extends DataProvider
             if (VUtil.isNotNullOrEmpty(roles))
             {
                 ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-                String filter = "(&(objectclass=" + objectClass + ")(|";
+                String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(|";
                 for (String rle : roles)
                 {
                     filter += "(" + ROLES + "=" + rle + ")";

@@ -322,7 +322,7 @@ final class OrgUnitDAO extends DataProvider
         {
             String searchVal = encodeSafeText(orgUnit.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + ORGUNIT_OBJECT_CLASS_NM + ")("
+            String filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
                 + GlobalIds.OU + "=" + searchVal + "*))";
             searchResults = search(ld, orgUnitRoot,
                 LDAPConnection.SCOPE_ONE, filter, ORGUNIT_ATRS, false, GlobalIds.BATCH_SIZE);

@@ -223,7 +223,7 @@ final class AuditDAO extends DataProvider
             //      (reqEntries=0)
             // )
 
-            String filter = "(&(objectclass=" + ACCESS_AUTHZ_CLASS_NM + ")(";
+            String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(";
             String userId;
             if (VUtil.isNotNullOrEmpty(audit.getUserId()))
             {
@@ -295,7 +295,7 @@ final class AuditDAO extends DataProvider
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
             String reqDn = PermDAO.getOpRdn(audit.getOpName(), audit.getObjId()) + "," + GlobalIds.POBJ_NAME + "=" + audit.getObjName() + "," + permRoot;
-            String filter = "(&(objectclass=" + ACCESS_AUTHZ_CLASS_NM + ")(" + REQDN + "=" +
+            String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(" + REQDN + "=" +
                 reqDn + ")(" + REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
             if (audit.isFailedOnly())
             {
@@ -362,7 +362,7 @@ final class AuditDAO extends DataProvider
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
-            String filter = "(&(objectclass=" + ACCESS_AUTHZ_CLASS_NM + ")(";
+            String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(";
             if (audit.getUserId() != null && audit.getUserId().length() > 0)
             {
                 filter += REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
@@ -429,7 +429,7 @@ final class AuditDAO extends DataProvider
             String filter;
             if (audit.getUserId() != null && audit.getUserId().length() > 0)
             {
-                filter = "(&(objectclass=" + ACCESS_BIND_CLASS_NM + ")(" +
+                filter = GlobalIds.FILTER_PREFIX + ACCESS_BIND_CLASS_NM + ")(" +
                     REQDN + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
                 if (audit.isFailedOnly())
                 {
@@ -444,7 +444,7 @@ final class AuditDAO extends DataProvider
             }
             else
             {
-                filter = "(&(objectclass=" + ACCESS_BIND_CLASS_NM + ")";
+                filter = GlobalIds.FILTER_PREFIX + ACCESS_BIND_CLASS_NM + ")";
                 if (audit.isFailedOnly())
                 {
                     filter += "(" + REQRESULT + ">=" + 1 + ")";
@@ -496,7 +496,7 @@ final class AuditDAO extends DataProvider
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
-            String filter = "(&(objectclass=" + ACCESS_MOD_CLASS_NM + ")(" +
+            String filter = GlobalIds.FILTER_PREFIX + ACCESS_MOD_CLASS_NM + ")(" +
                 REQDN + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
             if (audit.getBeginDate() != null)
             {

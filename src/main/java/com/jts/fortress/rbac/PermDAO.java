@@ -934,7 +934,7 @@ final class PermDAO extends DataProvider
             String permObjVal = encodeSafeText(permission.getObjectName(), GlobalIds.PERM_LEN);
             String permOpVal = encodeSafeText(permission.getOpName(), GlobalIds.PERM_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")("
+            String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*)("
                 + GlobalIds.POP_NAME + "=" + permOpVal + "*))";
 
@@ -976,7 +976,7 @@ final class PermDAO extends DataProvider
         {
             String permObjVal = encodeSafeText(permObj.getObjectName(), GlobalIds.PERM_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + PERM_OBJ_OBJECT_CLASS_NAME + ")("
+            String filter = GlobalIds.FILTER_PREFIX + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*))";
             searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE);
@@ -1015,7 +1015,7 @@ final class PermDAO extends DataProvider
         {
             String ouVal = encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + PERM_OBJ_OBJECT_CLASS_NAME + ")("
+            String filter = GlobalIds.FILTER_PREFIX + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.OU + "=" + ouVal + "*))";
             int maxLimit;
             if (limitSize)
@@ -1072,7 +1072,7 @@ final class PermDAO extends DataProvider
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")(";
+            String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(";
             Set<String> roles;
             if (role.getClass().equals(AdminRole.class))
             {
@@ -1133,7 +1133,7 @@ final class PermDAO extends DataProvider
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")(|";
+            String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             Set<String> roles = RoleUtil.getInheritedRoles(user.getRoles(), user.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))
             {
@@ -1180,7 +1180,7 @@ final class PermDAO extends DataProvider
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")";
+            String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")";
             filter += "(" + USERS + "=" + user.getUserId() + "))";
             searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
@@ -1218,7 +1218,7 @@ final class PermDAO extends DataProvider
         try
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
-            String filter = "(&(objectclass=" + PERM_OP_OBJECT_CLASS_NAME + ")(|";
+            String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             filter += "(" + USERS + "=" + session.getUserId() + ")";
             Set<String> roles = RoleUtil.getInheritedRoles(session.getRoles(), session.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))

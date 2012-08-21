@@ -527,7 +527,7 @@ final class PolicyDAO extends DataProvider
         {
             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
             searchVal = encodeSafeText(policy.getName(), GlobalIds.PWPOLICY_NAME_LEN);
-            String filter = "(&(objectclass=" + OLPW_POLICY_CLASS + ")("
+            String filter = GlobalIds.FILTER_PREFIX + OLPW_POLICY_CLASS + ")("
                 + GlobalIds.POLICY_NODE_TYPE + "=" + searchVal + "*))";
             searchResults = search(ld, policyRoot,
                 LDAPConnection.SCOPE_ONE, filter, PASSWORD_POLICY_ATRS, false, GlobalIds.BATCH_SIZE);
