@@ -19,7 +19,7 @@ gentlehup on
 pidfile		@PID_PATH@/slapd.pid
 argsfile	@PID_PATH@/slapd.args
 modulepath	@SLAPD_MODULE_PATH@
-moduleload	back_mdb.la
+moduleload	@DB_MODULE_NM@
 moduleload	ppolicy.la
 moduleload  accesslog.la
 
@@ -57,9 +57,9 @@ password-hash {SSHA}
 #######################################################################
 # History DB Settings
 #######################################################################
-database	mdb
-maxreaders 4
-maxsize 1000000000
+database	 @DB_TYPE@
+@LOG_RDRS@
+@LOG_SIZE@
 suffix		"@LOG_SUFFIX@"
 rootdn      "@LOG_ROOT_DN@"
 rootpw      "@LOG_ROOT_PW@"
@@ -69,13 +69,14 @@ access to *
     by dn.base="@LOG_ROOT_DN@" write
 @LOG_DBNOSYNCH@
 @LOG_CHECKPOINT@
+@LOG_BDB_CACHE_SIZE@
 
 #######################################################################
 # Default DB Settings
 #######################################################################
-database	mdb
-maxreaders 4
-maxsize 1000000000
+database	@DB_TYPE@
+@DFLT_RDRS@
+@DFLT_SIZE@
 suffix		"@SUFFIX@"
 rootdn      "@ROOT_DN@"
 rootpw      "@ROOT_PW@"
@@ -87,6 +88,8 @@ overlay accesslog
 logdb   "@LOG_SUFFIX@"
 @DFLT_DBNOSYNCH@
 @DFLT_CHECKPOINT@
+@DFLT_BDB_CACHE_SIZE@
+@DFLT_BDB_CACHE_IDLE_SIZE@
 
 #######################################################################
 # Audit Log Settings

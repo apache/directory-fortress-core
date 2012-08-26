@@ -97,10 +97,15 @@
        <property name="dst.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData.xml"/>
        <property name="load.demo.script" value="${ldap.setup.dir}/FortressDemoUsers.xml"/>
 
-       <property name="stop.slapd.script-win" value="${ldap.setup.dir}/stopSlapd.cmd"/>
-       <property name="start.slapd.script-win" value="${ldap.setup.dir}/startSlapd.cmd"/>
+       <property name="stop.slapd.script-win" value="${ldap.setup.dir}/stopSlapd.cmd"/>      
+       <property name="src.start.slapd.script-win" value="${ldap.setup.dir}/startSlapd.cmd.src"/>
+       <property name="dst.start.slapd.script-win" value="${ldap.setup.dir}/startSlapd.cmd"/>
        <property name="stop.slapd.script" value="${ldap.setup.dir}/stopSlapd.sh"/>
        <property name="start.slapd.script" value="${ldap.setup.dir}/startSlapd.sh"/>
+
+       <property name="build.win.properties" value="${basedir}/build.win.properties"/>
+       <property name="build.nix.properties" value="${basedir}/build.nix.properties"/>
+       <property name="build.properties" value="${basedir}/build.properties"/>
 
        <property name="uninstall.slapd.script" value="${ldap.setup.dir}/uninstall.sh"/>
        <property name="install.slapd.script" value="${ldap.setup.dir}/install.sh"/>
@@ -565,8 +570,27 @@
          <replace file="${target.slapd.conf}" token="@LOG_CHECKPOINT@" value="${log.checkpoint}"/>
          <replace file="${target.slapd.conf}" token="@DFLT_DBNOSYNCH@" value="${dflt.dbnosynch}"/>
          <replace file="${target.slapd.conf}" token="@DFLT_CHECKPOINT@" value="${dflt.checkpoint}"/>
+
+         <replace file="${target.slapd.conf}" token="@DB_MODULE_NM@" value="back_${db.type}.la"/>
+         <replace file="${target.slapd.conf}" token="@DB_TYPE@" value="${db.type}"/>
+         <replace file="${target.slapd.conf}" token="@LOG_RDRS@" value="${log.rdrs}"/>
+         <replace file="${target.slapd.conf}" token="@LOG_SIZE@" value="${log.size}"/>
+         <replace file="${target.slapd.conf}" token="@LOG_BDB_CACHE_SIZE@" value="${log.bdb.cache.size}"/>
+         <replace file="${target.slapd.conf}" token="@DFLT_RDRS@" value="${dflt.rdrs}"/>
+         <replace file="${target.slapd.conf}" token="@DFLT_SIZE@" value="${dflt.size}"/>
+         <replace file="${target.slapd.conf}" token="@DFLT_BDB_CACHE_SIZE@" value="${dflt.bdb.cache.size}"/>
+         <replace file="${target.slapd.conf}" token="@DFLT_BDB_CACHE_IDLE_SIZE@" value="${dflt.bdb.cache.idle.size}"/>
          <echo message="Target init-all-config complete."/>
      </target>
+
+    <!--<target name="init-slapd-win-script" depends="init" description="This task creates a startup file for slapd on windows"  if="windows">-->
+    <target name="init-slapd-win-script" depends="init" description="This task creates a startup file for slapd on windows">
+        <echo message="###############  Create slapd startup script for windows  ###############"/>
+        <delete file="${dst.start.slapd.script-win}"/>
+        <copy file="${src.start.slapd.script-win}" tofile="${dst.start.slapd.script-win}"/>
+        <replace file="${dst.start.slapd.script-win}" token="@SLAPD_LOCATION@" value="${slapd.exe.location}"/>
+        <echo message="init-slapd-win-script."/>
+    </target>
 
     <target name="init-fortress-config" depends="init">
        <echo message="Determine configuration requirements"/>
@@ -723,18 +747,40 @@
         <copy todir="${slapd.schema.dir}" file="${source.fortress.schema}"/>
         <copy todir="${slapd.dir}" file="${target.slapd.conf}"/>
 
-        <echo message="###############  Copy access log libs to openldap lib folder  ###############"/>
-		<copy todir="${slapd.module.dir}" failonerror="false">
-			<fileset dir="${ldap.setup.dir}">
-				<include name="**/accesslog*"/>
-			</fileset>
-		</copy>
-
+        <antcall target="copy-access-libs"></antcall>		
+        <antcall target="init-slapd-win-script"></antcall>
         <antcall target="start-slapd"></antcall>
         <antcall target="load-slapd"></antcall>
         <echo message="Target init-slapd complete."/>
     </target>
 
+    <target name="test-config" depends="init">
+        <echo message="###############  Test Config Steps"/>
+        <echo message="###############  Setup meta config and base load scripts for openldap and fortress  ###############"/>
+        <antcall target="init-all-config"></antcall>
+
+        <echo message="###############  Copy slapd configuration and Fortress LDAP schema files from source  ###############"/>
+        <copy todir="${slapd.schema.dir}" file="${source.fortress.schema}"/>
+        <copy todir="${slapd.dir}" file="${target.slapd.conf}"/>
+
+        <antcall target="copy-access-libs"></antcall>
+        <antcall target="init-slapd-win-script"></antcall>
+    </target>
+
+    <target name="copy-access-libs" depends="init" if="windows">
+        <echo message="###############  Copy access log libs ${openldap.install.artifact.dir} to openldap lib folder ${slapd.exe.location}"/>
+		<copy todir="${slapd.exe.location}/openldap" failonerror="false">
+			<fileset dir="${openldap.install.artifact.dir}">
+				<include name="**/accesslog*"/>
+			</fileset>
+		</copy>
+    </target>
+            
+    <target name="echo-slapd" depends="init">    
+        <echo message="slapd.schema.dir=${slapd.schema.dir}"/>
+        <echo message="slapd.dir=${slapd.dir}"/>        
+    </target>
+    
     <target name="uninstall-slapd" depends="init" unless="windows">
         <echo message="###############  Uninstall OpenLDAP binaries"/>
         <exec dir="." executable="/bin/sh">
@@ -758,14 +804,6 @@
         <antcall target="start-slapd-nix"></antcall>
     </target>
 
-    <target name="start-slapd-win" depends="init" if="windows">
-        <echo message="###############  Start the slapd process up: ${slapd.exe.dir}"/>
-        <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${slapd.exe.dir}">
-            <arg value="/c"/>
-            <arg value="${start.slapd.script-win}"/>
-        </exec>
-    </target>
-
     <target name="start-slapd-nix" depends="init" unless="windows">
         <echo message="###############  Start the slapd process up  ###############"/>
         <exec dir="." executable="/bin/sh">
@@ -780,19 +818,27 @@
         <antcall target="stop-slapd-nix"></antcall>
     </target>
 
-    <target name="stop-slapd-win" depends="init" if="windows">
-        <echo message="###############  Stop the slapd process: ${slapd.exe.dir}"/>
-        <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${slapd.exe.dir}">
-            <arg value="/c"/>
-            <arg value="${stop.slapd.script-win}"/>
-        </exec>
-    </target>
-
     <target name="stop-slapd-nix" depends="init" unless="windows">
         <echo message="###############  Stop the slapd process"/>
         <exec dir="." executable="/bin/sh">
           <arg line="${stop.slapd.script}"/>
           <arg value="${sudo.pw}"/>
+        </exec>
+    </target>
+
+    <target name="start-slapd-win" depends="init" if="windows">
+       <echo message="###############  Start the slapd process up: ${dst.start.slapd.script-win} in ${slapd.exe.dir}"/>       
+        <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${slapd.exe.drive}:/${slapd.exe.dir}">
+            <arg value="/${fortress.home.drive}"/>
+            <arg value="${dst.start.slapd.script-win}"/>
+        </exec>
+    </target>
+
+    <target name="stop-slapd-win" depends="init" if="windows">
+        <echo message="###############  Stop the slapd process by running ${stop.slapd.script-win}"/>
+        <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${slapd.exe.location}">
+            <arg value="/${fortress.home.drive}"/>
+            <arg value="${stop.slapd.script-win}"/>
         </exec>
     </target>
 
@@ -884,6 +930,11 @@
     <!-- ###############  create Fortress Builder distribution package ############################ -->
     <target name="builder" depends="dist" description="Create binary distribution">
         <echo message="###############  Build Fortress Builder distribution package named: ${fortressBuilder.zip} ###############"/>
+
+<!--
+        <antcall target="copy-nix-props"></antcall>
+        <antcall target="copy-win-props"></antcall>
+-->
         <zip destfile="${fortressBuilder.zip}"
              update="true">
             <zipfileset dir="${ant.home}" prefix="apache-ant">
@@ -898,6 +949,8 @@
                 <include name="*.txt"/>
                 <include name="*.properties"/>
                 <include name="*.sh"/>
+                <include name="*.bat"/>
+                <exclude name="*.log"/>
             </zipfileset>
 <!--
             <zipfileset dir="${lib.dir}" prefix="lib">
@@ -914,6 +967,17 @@
                 <include name="*/**"/>
             </zipfileset>
         </zip>
+
      </target>
+
+<!--
+    <target name="copy-nix-props" depends="init" description="Copy ${build.nix.properties} to ${build.properties}" unless="windows">
+        <copy file="${build.nix.properties}" tofile="${build.properties}"/>
+    </target>
+
+    <target name="copy-win-props" depends="init" description="Copy ${build.win.properties} to ${build.properties}" if="windows">
+        <copy file="${build.win.properties}" tofile="${build.properties}"/>
+    </target>
+-->
 
 </project>
