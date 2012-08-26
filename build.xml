@@ -930,20 +930,17 @@
     <!-- ###############  create Fortress Builder distribution package ############################ -->
     <target name="builder" depends="dist" description="Create binary distribution">
         <echo message="###############  Build Fortress Builder distribution package named: ${fortressBuilder.zip} ###############"/>
-
-<!--
-        <antcall target="copy-nix-props"></antcall>
-        <antcall target="copy-win-props"></antcall>
--->
         <zip destfile="${fortressBuilder.zip}"
              update="true">
             <zipfileset dir="${ant.home}" prefix="apache-ant">
                 <include name="*/**"/>
             </zipfileset>
+
             <zipfileset dir="${src.dir}" prefix="src">
                 <include name="*/**"/>
                 <exclude name="*.iml"/>
             </zipfileset>
+
             <zipfileset dir="${basedir}">
                 <include name="*.xml"/>
                 <include name="*.txt"/>
@@ -952,32 +949,21 @@
                 <include name="*.bat"/>
                 <exclude name="*.log"/>
             </zipfileset>
-<!--
-            <zipfileset dir="${lib.dir}" prefix="lib">
-                <include name="*"/>
-            </zipfileset>
--->
+
             <zipfileset dir="${ldap.dir}" prefix="ldap">
                 <include name="*/**"/>
+                <exclude name="*.conf"/>
             </zipfileset>
+
             <zipfileset dir="${config.dir}" prefix="config">
                 <include name="*/**"/>
             </zipfileset>
+
             <zipfileset dir="${install.image.dir}" prefix="openldap">
                 <include name="*/**"/>
             </zipfileset>
         </zip>
 
      </target>
-
-<!--
-    <target name="copy-nix-props" depends="init" description="Copy ${build.nix.properties} to ${build.properties}" unless="windows">
-        <copy file="${build.nix.properties}" tofile="${build.properties}"/>
-    </target>
-
-    <target name="copy-win-props" depends="init" description="Copy ${build.win.properties} to ${build.properties}" if="windows">
-        <copy file="${build.win.properties}" tofile="${build.properties}"/>
-    </target>
--->
 
 </project>

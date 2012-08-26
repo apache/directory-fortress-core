@@ -1,15 +1,16 @@
 --------------------------------------------------------------
-JoshuaTree Fortress Builder Quickstart for Windows
+JoshuaTree Fortress Builder Quickstart README for Windows
 created: August 25, 2012
 --------------------------------------------------------------
 
-These instructions are intended for new users who want to get the
-Fortress/OpenLDAP system up and running on Windows machine.
+These instructions are intended for new users who want to quickly learn how to use Fortress and OpenLDAP IAM software.
+Follow these steps carefully, and OpenLDAP will be installed, configured, loaded, and ready to use by Section III.
 
 For more detailed instructions on how to tailor this for User
 preferences, view the README.txt in the same package or
 check out the documentation on joshuatreesoftware.us and
 iamfortress.org websites.
+
 ___________________________________________________________________________________
 ###################################################################################
 # Prerequisites
@@ -29,10 +30,12 @@ ________________________________________________________________________________
 ###################################################################################
 # Guidelines & Tips for first-time users
 ###################################################################################
-- In the document that follows, when you read  "[version]" or "[platform]" with correct Fortress edition.
+- In the document that follows, when you read  "[version]" or "[platform]" substitute with current package info.
   For example - if version is 1.0.0 and platform is 'Windows Silver i686',
   change fortressBuilder-[platform]-[version].jar to
   fortressBuilder-Windows-Silver-i686-1.0.0.zip
+
+- Does your machine OS end with an 'X'?  Go to README-QUICKSTART.txt
 ___________________________________________________________________________________
 ###################################################################################
 # I. Instructions to extract and configure Fortress Builder Package to
@@ -52,11 +55,11 @@ ________________________________________________________________________________
 # II. Instructions to install OpenLDAP
 ###################################################################################
 
-a. navigate to FORTRESS_BUILDER_HOME\openldap
+a. Navigate to FORTRESS_HOME\openldap
 
-b. start the install by double-clicking on name from windows explorer, etc...
+b. Start the install by double-clicking on name from windows explorer, etc...
 
-c. accept the Symas agreement
+c. Accept the Symas agreement
 
 d. Set the Destination Folder: i.e. C:\Fortress
 
@@ -65,7 +68,7 @@ let fortress know by setting in build.properties file located in FORTRESS_HOME:
 slapd.exe.drive=C
 slapd.exe.dir=Fortress
 
-e. click Finish
+e. Click Finish
 
 f. Verify installation completed successfully.
 
@@ -92,43 +95,69 @@ b. Set locations as below, save and exit:
 
 slapd.exe.drive=C         <-- this is drive that you installed Symas OpenLDAP to (i.e. 'C')
 slapd.exe.dir=Fortress    <-- this is folder that you installed Symas OpenLDAP to (i.e. 'Fortress')
-fortress.home.drive=C     <-- this is the drive that you extracted this package (FORTRESS BUILDER) to (i.e. 'C')
+fortress.home.drive=D     <-- this is the drive that you extracted FORTRESS_HOME to (i.e. 'D')
+
+c. From FORTRESS_HOME root folder, edit the b.sh file to point to java home directory:
+set JAVA_HOME=\Progra~1\Java\jdk1.7.0
 
 c. From FORTRESS_HOME folder, enter the following command
 from a system prompt:
 
 > b init-slapd
 
-If the above step completed successfully you now have OpenLDAP installed on your target server and configured to perform Fortress IAM
-functionality.  The following optional steps describe how you can run tests and perform admin tasks using fortress utilities.
+Note 1: After this step completes, OpenLDAP will be installed, configured and loaded with fortress bootstrap config.  This
+step also runs provisioning scripts which may be tailored according to requirements.  Check out the xml load scripts
+in FORTRESS_HOME/ldap/setup folder.
+
+Note 2: Point your LDAP browser to the installed directory.
+The config switches you'll need to browse can be found in the 'slapd.conf' file this step generates:
+
+    To view data stored in default database:
+        suffix		"dc=jts,dc=com"
+        rootdn      "cn=Manager,dc=jts,dc=com"
+        rootpw      "secret"    <--- This clear text value will be encrypted before stored in slapd.conf
+
+    To view data stored in audit log database:
+        suffix		"cn=log"
+        rootdn      "cn=Manager,cn=log"
+        rootpw      "secret"    <--- This clear text value will be encrypted before stored in slapd.conf
 
 ___________________________________________________________________________________
 ###################################################################################
-# IV. Instructions to test Fortress and Symas OpenLDAP (optional)
+# IV. Instructions to regression test Fortress and Symas OpenLDAP on target machine
 ###################################################################################
 
 a. From FORTRESS_HOME root folder, enter the following command
 from a system prompt:
 
 > ./b.bat test-full-init
-b. verfify the tests ran with no failures.
 
-c. If no errors you have successfully installed Symas OpenLDAP and
-enabled for use with Fortress.
+b. Verify the tests ran with no failures.
 
+c. To re-run these tests:
+> ./b.bat test-full
+
+Note 1: WARNING messages are good as these are negative tests in action
+
+Note 2: If you made it to this point with no ERRORS this means Fortress and OpenLDAP are good to go on your machine.
+
+Note 3: This section prescribes that you run the Fortress regression test targets.  They load tens of thousands of test records into your directory.
+The 'init-slapd' target may be re-run after the 'test-full-init' and 'test-full' targets have completed.  This will delete the test data from the directory
+and restart directory with clean base load.
 ___________________________________________________________________________________
 ###################################################################################
 # V. Instructions to run the Fortress Command Line
 Interpreter (CLI) utility (optional)
 ###################################################################################
 
-a. from the same shell prompt as 2a enter the following:
+a. Enter:
 
 > ./b.bat cli
-b. follow instructions in the command line interpreter reference
+
+b. Follow instructions in the command line interpreter reference
 manual in the javadoc located here:
 
-FORTRESS_HOME/dist/docs/api/com/jts/fortress/cli/package-summary.html
+- FORTRESS_HOME/dist/docs/api/com/jts/fortress/cli/package-summary.html
 
 ___________________________________________________________________________________
 ###################################################################################
@@ -141,21 +170,31 @@ a. From FORTRESS_HOME root folder, enter the following command
 from a system prompt:
 
 > ./b.bat console
+
 b. Follow the screen prompts to Add, Update, Delete and Search
 Fortress entities via a command line tool.
 
 ___________________________________________________________________________________
 ###################################################################################
-# VII. Instructions to view Javadoc  (optional)
+# VII. Instructions to generate and view Javadoc  (optional)
 ###################################################################################
 
 a. run the javadoc target (this does not need to be run if you successfully ran init-slapd target above):
 
 > ./b.bat javadoc
 
-b. Open the following document using your preferred HTML Browser:
+b. Open the documents using your preferred HTML Browser:
 
-FORTRESS_HOME/dist/docs/api/com/jts/fortress//dist/docs/api/index.html
+c. The javadoc provides coverage of the Fortress APIs and also provides explanations on how RBAC works.
+
+d. Good places to start learning about Fortress:
+
+l1 - FORTRESS_HOME/dist/docs/api/com/jts/fortress//dist/docs/api/com/jts/fortress/package-summary.html
+l2 - FORTRESS_HOME/dist/docs/api/com/jts/fortress//dist/docs/api/com/jts/fortress/rbac/package-summary.html
+l3 - FORTRESS_HOME/dist/docs/api/com/jts/fortress//dist/docs/api/com/jts/fortress/AdminMgr.html
+l4 - FORTRESS_HOME/dist/docs/api/com/jts/fortress//dist/docs/api/com/jts/fortress/AuditMgr.html
+l5 - FORTRESS_HOME/dist/docs/api/com/jts/fortress//dist/docs/api/com/jts/fortress/cli/package-summary.html
+l6 - FORTRESS_HOME/dist/docs/api/com/jts/fortress//dist/docs/api/com/jts/fortress/ant/FortressAntTask.html
 ___________________________________________________________________________________
 ###################################################################################
 # VIII. Instructions to Uninstall OpenLDAP from target machine (optional)
@@ -174,3 +213,20 @@ d. click on 'Uninstall'
 e. close the dialog
 
 f. you may now start over with OpenLDAP install, Section II.
+
+___________________________________________________________________________________
+###################################################################################
+# IX. More Utilities
+###################################################################################
+
+Other execution targets you may find useful:
+
+a. 'test-samples' - contains easy to follow examples of how the Fortress API's work
+check out the following javadoc for more info on the samples package:
+- FORTRESS_HOME/dist/docs/api/com/jts/fortress//dist/docs/samples/index.html
+
+b. 'admin' - provides an XML-centric way to provision RBAC data policies and user accounts.
+check out the following javadoc for more info on this utility:
+- FORTRESS_HOME/dist/docs/api/com/jts/fortress//dist/docs/api/com/jts/fortress/ant/FortressAntTask.html
+
+c. 'encrypt' - interface to jacypt encryption utility
