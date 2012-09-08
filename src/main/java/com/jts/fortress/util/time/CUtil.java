@@ -32,7 +32,7 @@ import java.util.StringTokenizer;
  * <li>{@link com.jts.fortress.GlobalIds#VALIDATOR_PROPS}2={@link Timeout}</li>
  * <li>{@link com.jts.fortress.GlobalIds#VALIDATOR_PROPS}3={@link ClockTime}</li>
  * <li>{@link com.jts.fortress.GlobalIds#VALIDATOR_PROPS}4={@link Day}</li>
- * <li>{@link com.jts.fortress.GlobalIds#DSD_VALIDATOR_PROP}={@link com.jts.fortress.rbac.DSD}</li>
+ * <li>{@link com.jts.fortress.GlobalIds#DSD_VALIDATOR_PROP}={@link com.jts.fortress.rbac.DSDChecker}</li>
  * </ol>
  * </p>
  *
@@ -47,7 +47,7 @@ public class CUtil
     private static final String DSDVALIDATOR = Config.getProperty(GlobalIds.DSD_VALIDATOR_PROP);
 
     /**
-     * Used by DAO utilities to convert from internal ldap format {@link Constraint} to {@link Constraint}.
+     * Used by DAO utilities to convert from a string with comma delimited values to fortress internal format {@link Constraint}.
      *
      * @param inputString contains raw data format which is comma delimited containing temporal data.
      * @param constraint  used by internal processing to perform validations.
@@ -101,7 +101,7 @@ public class CUtil
     }
 
     /**
-     * Convert from internal {@link Constraint} to raw ldap format.
+     * Convert from fortress {@link Constraint} to comma delimited ldap format.
      *
      * @param constraint contains the temporal data.
      * @return string containing raw data bound for ldap.

@@ -25,7 +25,7 @@ import com.jts.fortress.rbac.Session;
  * <li>Days of week: {@link com.jts.fortress.util.time.Day}</li>
  * <li>Timeout:      {@link com.jts.fortress.util.time.Timeout}</li>
  * <li>Lock dates:   {@link com.jts.fortress.util.time.LockDate}</li>
- * <li>DSDs:         {@link com.jts.fortress.rbac.DSD}</li>
+ * <li>DSDs:         {@link com.jts.fortress.rbac.DSDChecker}</li>
  * </ol>
  * </p>
  * <h4> Constraint Error Codes </h4>
