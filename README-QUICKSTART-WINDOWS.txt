@@ -15,8 +15,7 @@ ________________________________________________________________________________
 ###################################################################################
 # Prerequisites
 ###################################################################################
-1. Internet access to retrieve source code from OpenLDAP GIT and
-binary dependencies from online Maven repo.
+1. Internet access to retrieve binary dependencies from online Maven repo.
 
 NOTE: The Fortress build.xml may run without connection to Internet iff:
 - The binary dependencies are already present in FORTRESS_HOME/lib folder

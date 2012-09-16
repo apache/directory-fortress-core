@@ -31,7 +31,7 @@
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
-       <property name="version" value="1.0.0-RC14"/>
+       <property name="version" value="1.0.0-RC15"/>
        <property name="ivy.install.version" value="2.2.0"/>
        <property name="title" value="Fortress Identity and Access Management LDAP SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
@@ -947,11 +947,15 @@
                 <include name="*.properties"/>
                 <include name="*.sh"/>
                 <include name="*.bat"/>
+                <include name="*.html"/>
                 <exclude name="*.log"/>
+                <exclude name="build.sh"/>
+                <exclude name="READ-ME.txt"/>
             </zipfileset>
 
             <zipfileset dir="${images.dir}" prefix="images">
                 <include name="*.png"/>
+                <include name="*.jpg"/>
             </zipfileset>
 
             <zipfileset dir="${ldap.dir}" prefix="ldap">

@@ -14,8 +14,7 @@ ________________________________________________________________________________
 ###################################################################################
 # Prerequisites
 ###################################################################################
-1. Internet access to retrieve source code from OpenLDAP GIT and
-binary dependencies from online Maven repo.
+1. Internet access to retrieve binary dependencies from online Maven repo.
 
 NOTE: The Fortress build.xml may run without connection to Internet iff:
 - The binary dependencies are already present in FORTRESS_HOME/lib folder
@@ -30,7 +29,7 @@ ________________________________________________________________________________
 ###################################################################################
 
 - In the document that follows, when you read  "[version]" or "[platform]" substitute with current package info.
-  For example - if the downloaded package version is 1.0.0 and platform is 'Windows Silver i686',
+  For example - if the downloaded package version is 1.0.0 and platform is 'Debian Silver i386',
   change fortressBuilder-[platform]-[version].jar to
   fortressBuilder-Debian-Silver-i386-1.0.0.zip
 
@@ -42,7 +41,7 @@ ________________________________________________________________________________
 # I. Instructions to extract and configure Fortress Builder Package to Target System
 ###################################################################################
 
-a. Copy fortressBuilder-[platform]-[version].jar to hard drive on target server env.  
+a. Copy fortressBuilder-[platform]-[version].zip to hard drive on target server env.
 
 b. Extract the zip.  The location for archive can vary according to requirements.  The location
 for package will be referred to as "FORTRESS_HOME" later in these instructions.
