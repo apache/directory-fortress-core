@@ -840,7 +840,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
     }
 
     /**
-     * This commands creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
+     * This command creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
      * the existing role parentRole. The command is valid if and only if childRole is not a member of the ROLES data set,
      * and parentRole is a member of the ROLES data set.
      * <h4>required parameters</h4>
@@ -889,7 +889,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
     }
 
     /**
-     * This commands creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
+     * This command creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
      * the existing role childRole. The command is valid if and only if parentRole is not a member of the ROLES data set,
      * and childRole is a member of the ROLES data set.
      * This method:
@@ -936,7 +936,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
     }
 
     /**
-     * This commands establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
+     * This command establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
      * roles parentRole, childRole. The command is valid if and only if parentRole and childRole are members of the ROLES data
      * set, parentRole is not an immediate ascendant of childRole, and childRole does not properly inherit parentRole (in order to
      * avoid cycle creation).

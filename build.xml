@@ -215,7 +215,7 @@
     <!-- =================================
           target: download-ivy - pulls down ivy.jar from maven 2 website
          ================================= -->
-    <target name="download-ivy" depends="init" unless="local.mode">
+    <target name="download-ivy" depends="init"  description="--> pull the ivy jar dependency" unless="local.mode">
 		<!-- download from web site so that it can be used even without any special installation -->
 		<echo message="downloading ivy to Ant home: ${ant.home}"/>
     	<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
@@ -239,7 +239,7 @@
     <!-- =================================
           target: clean - Will remove old distribution packages from dist folder
          ================================= -->
-    <target name="clean" depends="init" description="removes generated files">
+    <target name="clean" depends="init" description="--> removes generated files">
       <delete dir="${build.dir}" />
       <delete dir="${dist.dir}" />
     </target>
@@ -247,7 +247,7 @@
     <!-- =================================
           target: compile
          ================================= -->
-   <target name="compile" depends="init,resolve" description="compiles source files">
+   <target name="compile" depends="init,resolve" description="--> compiles source files">
       <mkdir dir="${build.classes.dir}"/>
       <javac srcdir="${src.java.dir}"
              debug="${javac.debug}"
@@ -260,7 +260,7 @@
     <!-- =================================
           target: compile-test
          ================================= -->
-    <target name="compile-test" depends="compile">
+    <target name="compile-test" depends="compile" description="--> compiles test source files">
        <mkdir dir="${build.test-classes.dir}"/>
        <javac destdir="${build.test-classes.dir}"
               srcdir="${src.test.dir}"
@@ -274,7 +274,7 @@
     <!-- =================================
            target: build-jar - create java archive (jar) files which contain the runtime Fortress Java classes.
           ================================= -->
-    <target name="build-jar" depends="compile">
+    <target name="build-jar" depends="compile" description="--> create the core classes">
        <mkdir dir="${dist.dir}"/>
        <jar jarfile="${dist.jar}">
           <fileset dir="${build.classes.dir}"/>
@@ -296,7 +296,7 @@
      <!-- =================================
            target: build-jar-test
           ================================= -->
-     <target name="build-jar-test" depends="compile-test">
+     <target name="build-jar-test" depends="compile-test" description="--> create the core test classes">
         <mkdir dir="${dist.dir}"/>
         <jar jarfile="${dist.test.jar}">
            <fileset dir="${build.test-classes.dir}"/>
@@ -318,7 +318,7 @@
     <!-- =================================
           target: javadoc
          ================================= -->
-    <target name="javadoc" depends="init" description="generates javadocs">
+    <target name="javadoc" depends="init" description="--> generates javadocs">
       <mkdir dir="${javadoc.dir}"/>
       <mkdir dir="${javadoc.images.dir}"/>
 
@@ -351,7 +351,7 @@
     <!-- =================================
           target: javadoc-samples
          ================================= -->
-    <target name="javadoc-samples" depends="init" description="generates samples javadocs">
+    <target name="javadoc-samples" depends="init" description="--> generates samples javadocs">
        <mkdir dir="${javadoc.samples.dir}"/>
 
        <javadoc packagenames="${package.samples}"
@@ -383,7 +383,7 @@
      <!-- =================================
            target: build
           ================================= -->
-    <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples">
+    <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples" description="--> create the core Fortress library">
        <copy todir="${dist.dir}" file="${basedir}/LICENSE.txt"/>
        <copy todir="${dist.dir}" file="${basedir}/NOTICE.txt"/>
     </target>
@@ -391,7 +391,7 @@
      <!-- =================================
            target: dist - creates the distribution packages
           ================================= -->
-    <target name="dist" depends="build" description="Create source and binary distribution">
+    <target name="dist" depends="build" description="--> create source and binary distribution">
          <zip destfile='${src.dist.zip}'>
            <zipfileset dir='${src.java.dir}'/>
 
@@ -430,7 +430,7 @@
     <!-- =================================
           target: test-samples - runs junit samples tests
          ================================= -->
-    <target name="test-samples" depends="compile-test,init-fortress-config" description="runs (junit) sample unit tests">
+    <target name="test-samples" depends="compile-test,init-fortress-config" description="--> runs (junit) sample unit tests">
         <echo message="Run the Fortress sample JUnit tests..."/>
         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
@@ -443,7 +443,7 @@
     <!-- =================================
           target: test-samples-init - runs junit samples tests
          ================================= -->
-     <target name="test-samples-init" depends="compile-test,init-fortress-config" description="runs (junit) sample unit tests without teardown">
+     <target name="test-samples-init" depends="compile-test,init-fortress-config" description="--> runs (junit) sample unit tests without teardown">
          <echo message="Run the Fortress sample JUnit tests..."/>
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
@@ -456,7 +456,7 @@
     <!-- =================================
           target: test-full - runs full junit regression tests
          ================================= -->
-    <target name="test-full" depends="compile-test,init-fortress-config" description="run (junit) full regression tests">
+    <target name="test-full" depends="compile-test,init-fortress-config" description="--> run (junit) full regression tests">
         <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
@@ -469,7 +469,7 @@
     <!-- =================================
           target: test-full-init - runs junit regression tests without teardown
          ================================= -->
-     <target name="test-full-init" depends="compile-test,init-fortress-config" description="run (junit) regression tests without teardown">
+     <target name="test-full-init" depends="compile-test,init-fortress-config" description="--> run (junit) regression tests without teardown">
          <echo message="Run the Fortress regression JUnit tests without teardown.  Be patient this can take a while to complete."/>
           <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
@@ -482,7 +482,7 @@
     <!-- =================================
           target: console - starts the Fortress Console app
          ================================= -->
-     <target name="console" depends="compile-test,init-fortress-config" description="start Fortress Console app">
+     <target name="console" depends="compile-test,init-fortress-config" description="--> start Fortress Console app">
          <echo message="Run the Fortress console app"/>
          <java
                  classname="com.jts.fortress.FortressConsole"
@@ -497,7 +497,7 @@
     <!-- =================================
           target: cli - starts the Fortress Command Line Interpreter
          ================================= -->
-     <target name="cli" depends="compile,init-fortress-config" description="start Fortress Command Line Interpreter">
+     <target name="cli" depends="compile,init-fortress-config" description="--> start Fortress Command Line Interpreter">
          <echo message="Run the Fortress Command Line Interpreter"/>
          <java
                  classname="com.jts.fortress.cli.CommandLineInterpreter"
@@ -512,7 +512,7 @@
     <!-- =================================
           target: encrypt - allows users to encrypt values which are displayed to the standard output
          ================================= -->
-     <target name="encrypt" depends="compile" description="Encrypts a text value">
+     <target name="encrypt" depends="compile" description="--> convert from a clear text to encrypted cypher string that is hex encoded">
          <echo message="Encrypt a value"/>
          <java
                  classname="com.jts.fortress.util.crypto.EncryptUtil"
@@ -528,7 +528,7 @@
     <!-- =================================
           target: admin - runs the Ant demo load scripts
          ================================= -->
-     <target name="admin" depends="init-fortress-config" description="run Fortress admin script">
+     <target name="admin" depends="init-fortress-config" description="--> run Fortress admin script">
          <echo message="###############  Run Fortress Ant script ${param1}  ###############"/>
          <java
                  classname="org.apache.tools.ant.launch.Launcher"
@@ -549,7 +549,7 @@
     <!-- =================================
           target: init-openldap-config - modifies openldap artifacts for runtime use of fortress-core
          ================================= -->
-     <target name="init-openldap-config" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files..">
+     <target name="init-openldap-config" depends="init" description="--> map env params from build.properties to scripts and config files">
 
          <echo message="###############  Modify slapd configuration per user settings  ###############"/>
          <delete file="${target.slapd.conf}"/>
@@ -584,7 +584,7 @@
      </target>
 
     <!--<target name="init-slapd-win-script" depends="init" description="This task creates a startup file for slapd on windows"  if="windows">-->
-    <target name="init-slapd-win-script" depends="init" description="This task creates a startup file for slapd on windows">
+    <target name="init-slapd-win-script" depends="init" description="--> creates a startup file for slapd on windows">
         <echo message="###############  Create slapd startup script for windows  ###############"/>
         <delete file="${dst.start.slapd.script-win}"/>
         <copy file="${src.start.slapd.script-win}" tofile="${dst.start.slapd.script-win}"/>
@@ -601,7 +601,7 @@
     <!-- =================================
           target: init-fortress-config - uses configuration artifacts created by Fortress Builder in target system environment.
          ================================= -->
-     <target name="init-fortress-config-remote" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files.."  if="builder.home">
+     <target name="init-fortress-config-remote" depends="init" description="--> uses external build.properties to create local script and config files.."  if="builder.home">
 
          <echo message="###############  Import fortress configuration from Builder directory  ###############"/>
 	     <copy file="${builder.bootstrap.conf}" tofile="${dst.bootstrap.conf}"/>
@@ -616,7 +616,7 @@
     <!-- =================================
           target: init-fortress-config - modifies fortress-core configuration artifacts for use of openldap in target system environment.
          ================================= -->
-     <target name="init-fortress-config-local" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files.."  unless="builder.home">
+     <target name="init-fortress-config-local" depends="init" description="--> map env params from build.properties to scripts and config files.."  unless="builder.home">
 
          <echo message="###############  Modify fortress configuration per user settings  ###############"/>
          <delete file="${dst.bootstrap.conf}"/>
@@ -669,7 +669,7 @@
     <!-- =================================
           target: init-all-config - configures openldap, fortress and the the base load scripts for ldap Directory Information Tree (DIT)
          ================================= -->
-     <target name="init-all-config" depends="init" description="This task maps environment specific params in build.properties to the target scripts and config files..">
+     <target name="init-all-config" depends="init" description="--> map env params from build.properties to scripts and config files">
 
          <antcall target="init-openldap-config"></antcall>
          <antcall target="init-fortress-config"></antcall>
@@ -679,7 +679,7 @@
     <!-- =================================
           target: load-slapd - seeds openldap and base loads for test/use.
          ================================= -->
-    <target name="load-slapd" depends="build-jar" description="This task is destructive and must be run as elevated priv's for teardown/creation of slapd files and folders.">
+    <target name="load-slapd" depends="build-jar" description="--> task is destructive and must be run as elevated priv's to teardown/create slapd files and folders">
         <echo message="###############  Initialize OpenLDAP  ###############"/>
 
         <echo message="Load the Fortress boostrap config and demo users"/>
@@ -696,7 +696,7 @@
     <!-- =================================
           target: use-slapd - configures fortress to work with an existing OpenLDAP system.
          ================================= -->
-    <target name="use-slapd" depends="build-jar" description="This task is destructive and must be run as elevated priv's for teardown/creation of slapd files and folders.">
+    <target name="use-slapd" depends="build-jar" description="--> task is destructive and must be run as elevated priv's to teardown/create slapd files and folders">
         <echo message="###############  Use OpenLDAP  ###############"/>
         <antcall target="init-fortress-config"></antcall>
         <antcall target="load-slapd"></antcall>
@@ -711,7 +711,7 @@
 
           Never run this Ant target on a production system.
          ================================= -->
-    <target name="init-slapd" depends="build-jar" description="This task is destructive and must be run as elevated priv's for teardown/creation of slapd files and folders.">
+    <target name="init-slapd" depends="build-jar" description="--> task is destructive and must be run as elevated priv's to teardown/create slapd files and folders">
         <echo message="###############  Initialize OpenLDAP  ###############"/>
 
         <echo message="###############  Stop slapd process  ###############"/>
@@ -781,7 +781,7 @@
         <echo message="slapd.dir=${slapd.dir}"/>        
     </target>
     
-    <target name="uninstall-slapd" depends="init" unless="windows">
+    <target name="uninstall-slapd" depends="init" unless="windows" description="--> uninstall openldap">
         <echo message="###############  Uninstall OpenLDAP binaries"/>
         <exec dir="." executable="/bin/sh">
             <arg line="${uninstall.slapd.script}"/>
@@ -790,7 +790,7 @@
         </exec>
     </target>
 
-    <target name="install-slapd" depends="init" unless="windows">
+    <target name="install-slapd" depends="init" unless="windows" description="--> install openldap">
         <echo message="###############  Install OpenLDAP binaries"/>
         <exec dir="${openldap.install.artifact.dir}" executable="/bin/sh">
             <arg line="${install.slapd.script}"/>
@@ -799,7 +799,7 @@
         </exec>
     </target>
 
-    <target name="start-slapd" depends="init">
+    <target name="start-slapd" depends="init" description="--> start the OpenLDAP server">
         <antcall target="start-slapd-win"></antcall>
         <antcall target="start-slapd-nix"></antcall>
     </target>
@@ -813,7 +813,7 @@
         </exec>
     </target>
 
-    <target name="stop-slapd" depends="init">
+    <target name="stop-slapd" depends="init" description="--> stop the OpenLDAP server">
         <antcall target="stop-slapd-win"></antcall>
         <antcall target="stop-slapd-nix"></antcall>
     </target>
@@ -849,7 +849,7 @@
 
           Never run this Ant target on a production system.
          ================================= -->
-     <target name="bdb-delete" depends="init" description="delete BDB DB">
+     <target name="bdb-delete" depends="init" description="--> delete OpenLDAP DB">
          <echo message="Delete BDB DB"/>
 
          <exec dir="." executable="/bin/sh">
@@ -863,7 +863,7 @@
     <!-- =================================
           target: init-jaxb - initializes properties and taskdefs used for schema generation and compilation.
          ================================= -->
-    <target name="init-jaxb" depends="resolve" >
+    <target name="init-jaxb" depends="resolve" description="--> initializes properties and taskdefs used for schema generation and compilation">
 
         <property name="generated.dir" value="${basedir}/generated"/>
         <property name="generated.classes.dir" value="${generated.dir}/classes"/>
@@ -883,7 +883,7 @@
     <!-- =================================
           target: generate-schema - generates JAXB schmea based on Java classes.
          ================================= -->
-    <target name="generate-schema" depends="init-jaxb,compile">
+    <target name="generate-schema" depends="init-jaxb,compile" description="--> generates JAXB schema based on Fortress entity classes">
         <echo message="Generating schemas..."/>
         <mkdir dir="${generated.schema.dir}"/>
 
@@ -920,7 +920,7 @@
     <!-- =================================
           target: compile-schema - generates Java classes based on schema.
          ================================= -->
-    <target name="compile-schema" depends="init-jaxb,generate-schema">
+    <target name="compile-schema" depends="init-jaxb,generate-schema" description="--> generates Java classes based on Fortress schema">
         <echo message="Compiling the schema..."/>
         <mkdir dir="${generated.classes.dir}"/>
         <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="com.jts.fortress.model" removeOldOutput="yes"/>
@@ -928,7 +928,7 @@
 
 
     <!-- ###############  create Fortress Builder distribution package ############################ -->
-    <target name="builder" depends="dist" description="Create binary distribution">
+    <target name="builder" depends="dist" description="--> create the Fortress QUICKSTART package">
         <echo message="###############  Build Fortress Builder distribution package named: ${fortressBuilder.zip} ###############"/>
         <zip destfile="${fortressBuilder.zip}"
              update="true">

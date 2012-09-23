@@ -243,7 +243,7 @@ public interface DelAdminMgr extends Manageable
 
 
     /**
-     * This commands creates a new orgunit child, and inserts it in the orgunit hierarchy as an immediate descendant of
+     * This command creates a new orgunit child, and inserts it in the orgunit hierarchy as an immediate descendant of
      * the existing orgunit parent.
      * <p>
      * The command is valid if and only if:
@@ -278,7 +278,7 @@ public interface DelAdminMgr extends Manageable
 
 
     /**
-     * This commands creates a new orgunit parent, and inserts it in the orgunit hierarchy as an immediate ascendant of
+     * This command creates a new orgunit parent, and inserts it in the orgunit hierarchy as an immediate ascendant of
      * the existing child orgunit.
      * <p>
      * The command is valid if and only if:
@@ -313,7 +313,7 @@ public interface DelAdminMgr extends Manageable
 
 
     /**
-     * This commands establishes a new immediate inheritance relationship with parent orgunit <<-- child orgunit
+     * This command establishes a new immediate inheritance relationship with parent orgunit <<-- child orgunit
      * <p/>
      * The command is valid if and only if:
      * <ul>
@@ -364,7 +364,7 @@ public interface DelAdminMgr extends Manageable
 
 
     /**
-     * This commands creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
+     * This command creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
      * the existing role parentRole. The command is valid if and only if childRole is not a member of the ADMINROLES data set,
      * and parentRole is a member of the ADMINROLES data set.
      * <p/>
@@ -397,7 +397,7 @@ public interface DelAdminMgr extends Manageable
         throws com.jts.fortress.SecurityException;
 
     /**
-     * This commands creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
+     * This command creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
      * the existing role childRole. The command is valid if and only if parentRole is not a member of the ADMINROLES data set,
      * and childRole is a member of the ADMINROLES data set.
      * This method:
@@ -428,7 +428,7 @@ public interface DelAdminMgr extends Manageable
         throws SecurityException;
 
     /**
-     * This commands establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
+     * This command establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
      * roles parentRole, childRole. The command is valid if and only if parentRole and childRole are members of the ADMINROLES data
      * set, parentRole is not an immediate ascendant of childRole, and childRole does not properly inherit parentRole (in order to
      * avoid cycle creation).

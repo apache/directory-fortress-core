@@ -597,7 +597,7 @@ public interface AdminMgr extends Manageable
         throws com.jts.fortress.SecurityException;
 
     /**
-     * This commands creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
+     * This command creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
      * the existing role parentRole.
      * <p>
      * The command is valid if and only if:
@@ -638,7 +638,7 @@ public interface AdminMgr extends Manageable
 
 
     /**
-     * This commands creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
+     * This command creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
      * the existing role childRole.
      * <p>
      * The command is valid if and only if:
@@ -678,7 +678,7 @@ public interface AdminMgr extends Manageable
 
 
     /**
-     * This commands establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
+     * This command establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
      * roles parentRole, childRole.
      * <p>
      * The command is valid if and only if:
