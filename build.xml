@@ -102,6 +102,7 @@
        <property name="dst.start.slapd.script-win" value="${ldap.setup.dir}/startSlapd.cmd"/>
        <property name="stop.slapd.script" value="${ldap.setup.dir}/stopSlapd.sh"/>
        <property name="start.slapd.script" value="${ldap.setup.dir}/startSlapd.sh"/>
+       <property name="mkdir.slapd-win" value="${ldap.setup.dir}/mkDir.cmd"/>
 
        <property name="build.win.properties" value="${basedir}/build.win.properties"/>
        <property name="build.nix.properties" value="${basedir}/build.nix.properties"/>
@@ -768,20 +769,34 @@
     </target>
 
     <target name="copy-access-libs" depends="init" if="windows">
-        <echo message="###############  Copy access log libs ${openldap.install.artifact.dir} to openldap lib folder ${slapd.exe.location}"/>
-		<copy todir="${slapd.exe.location}" failonerror="false">
+        <echo message="###############  Copy access log libs ${openldap.install.artifact.dir} to openldap lib folder ${slapd.module.dir}"/>
+		<copy todir="${slapd.module.dir}" failonerror="false">
 			<fileset dir="${openldap.install.artifact.dir}">
 				<include name="**/accesslog*"/>
 			</fileset>
 		</copy>
     </target>
-            
-    <target name="echo-slapd" depends="init">    
+
+    <!-- new -->
+    <target name="mkdir-slapd-win" depends="init" if="windows">
+        <echo message="###############  Create the folder for windows slapd by running ${mkdir.slapd-win}"/>
+        <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${install.image.loc}">
+            <arg value="/${fortress.home.drive}"/>
+            <arg value="${mkdir.slapd-win}"/>
+        </exec>
+    </target>
+
+    <target name="echo-slapd" depends="init">
         <echo message="slapd.schema.dir=${slapd.schema.dir}"/>
         <echo message="slapd.dir=${slapd.dir}"/>        
     </target>
-    
-    <target name="uninstall-slapd" depends="init" unless="windows" description="--> uninstall openldap">
+
+    <target name="uninstall-slapd" depends="init">
+        <antcall target="uninstall-slapd-win"></antcall>
+        <antcall target="uninstall-slapd-nix"></antcall>
+    </target>
+
+    <target name="uninstall-slapd-nix" depends="init" unless="windows">
         <echo message="###############  Uninstall OpenLDAP binaries"/>
         <exec dir="." executable="/bin/sh">
             <arg line="${uninstall.slapd.script}"/>
@@ -790,12 +805,41 @@
         </exec>
     </target>
 
-    <target name="install-slapd" depends="init" unless="windows" description="--> install openldap">
+    <target name="uninstall-slapd-win" depends="init" if="windows">
+        <antcall target="uninstall-slapd-win-if-present"></antcall>
+    </target>
+
+    <target name="uninstall-slapd-win-if-present" depends="slapd.dir.check" if="slapd.dir.exists">
+        <echo message="###############  Uninstall OpenLDAP WIN binaries: from ${slapd.exe.location2}"/>
+        <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${slapd.exe.location2}" >
+            <arg value="/${fortress.home.drive}"/>
+            <arg value="${uninstall.image.exe}"/>
+            <arg value="/S"/>
+        </exec>
+    </target>
+
+    <target name="install-slapd" depends="init">
+        <antcall target="install-slapd-win"></antcall>
+        <antcall target="install-slapd-nix"></antcall>
+    </target>
+
+    <target name="install-slapd-nix" depends="init" unless="windows">
         <echo message="###############  Install OpenLDAP binaries"/>
         <exec dir="${openldap.install.artifact.dir}" executable="/bin/sh">
             <arg line="${install.slapd.script}"/>
             <arg value="${slapd.install}"/>
             <arg value="${sudo.pw}"/>
+        </exec>
+    </target>
+
+    <target name="install-slapd-win" depends="init" if="windows">
+        <echo message="###############  Install OpenLDAP WIN binaries to ${slapd.exe.location}"/>
+        <mkdir dir="${slapd.exe.location}"/>
+        <exec command="cmd.exe" spawn="false" osfamily="windows" dir="${install.image.loc}">
+            <arg value="/${fortress.home.drive}"/>
+            <arg value="${install.image.exe}"/>
+            <arg value="/S"/>
+            <arg value="/D=${slapd.exe.location}"/>
         </exec>
     </target>
 
@@ -834,13 +878,24 @@
         </exec>
     </target>
 
+    <target name="slapd.dir.check">
+        <condition property="slapd.dir.exists">
+            <available file="${slapd.exe.location}" type="dir"/>
+		</condition>
+     </target>
+
     <target name="stop-slapd-win" depends="init" if="windows">
+        <antcall target="stop-slapd-win-if-present"></antcall>
+    </target>
+
+    <target name="stop-slapd-win-if-present" depends="slapd.dir.check" if="slapd.dir.exists">
+        <echo>${directory} exists</echo>
         <echo message="###############  Stop the slapd process by running ${stop.slapd.script-win}"/>
         <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${slapd.exe.location}">
             <arg value="/${fortress.home.drive}"/>
             <arg value="${stop.slapd.script-win}"/>
         </exec>
-    </target>
+	  </target>
 
     <!-- =================================
           target: bdb-delete - Use Caution as it removes the file volume containing the BerkeleyDB User data!

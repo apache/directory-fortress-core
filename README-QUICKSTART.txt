@@ -33,7 +33,7 @@ ________________________________________________________________________________
   change fortressBuilder-[platform]-[version].jar to
   fortressBuilder-Debian-Silver-i386-1.0.0.zip
 
-- Is your target machine windows?  Go to README-QUICKSTART-WINDOWS.txt
+- Is your target machine windows?  Go to README-QUICKSTART-WINDOWS.html
 
 - The source code for this project is located in FORTRESS_HOME/src folder.
 ___________________________________________________________________________________
