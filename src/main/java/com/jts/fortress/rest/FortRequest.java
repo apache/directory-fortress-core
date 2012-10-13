@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.*;
 /**
  * This class is used to pass request data to En Masse server.
  * </p>
- * This class is thread safe.
+ * This class is not thread safe.
  *
  * @author Shawn McKinney
  * @created Feb 10, 2012
