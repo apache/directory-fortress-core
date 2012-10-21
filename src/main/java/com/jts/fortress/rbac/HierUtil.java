@@ -508,76 +508,6 @@ final class HierUtil
         return parents;
     }
 
-    /**
-     * This method will retrieve the list of all parent-child relationships for a given node.  If the node was not found in
-     * ldap this method will create a new node and store default data.
-     * The following ldap nodes are currently storing hierarchical data:
-     * <ol>
-     * <li>RBAC Role relations are stored in {@code cn=Hierarchies,ou=Roles,ou=RBAC} ldap node and cached as singleton in {@link RoleUtil}</li>
-     * <li>ARBAC Admin Role relations are stored in {@code cn=Hierarchies,ou=AdminRoles,ou=ARBAC} ldap node and cached as singleton in {@link AdminRoleUtil}</li>
-     * <li>User Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-U,ou=ARBAC} node and cached as {@link UsoUtil}</li>
-     * <li>Permission Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-P,ou=ARBAC} node and cached as {@link PsoUtil}</li>
-     * </ol>
-     *
-     * @param inHier contains {@link Hier.Type#ROLE},{@link Hier.Type#AROLE}, {@link Hier.Type#USER}, {@link Hier.Type#PERM}
-     * @return reference the the Hier result set retrieved from ldap.
-     */
-/*
-    static Hier readHier(Hier inHier)
-    {
-        HierP hp = new HierP();
-        Hier hier = null;
-        log.debug(CLS_NM + ".readHier is initializing...");
-        try
-        {
-            hier = hp.read(inHier);
-        }
-        catch (com.jts.fortress.SecurityException se)
-        {
-            if (se.getErrorId() == GlobalErrIds.HIER_NOT_FOUND)
-            {
-                log.info(CLS_NM + ".readHier type [" + inHier.getType() + "] building default config...");
-                SimpleDirectedGraph<String, Relationship> g =
-                    new SimpleDirectedGraph<String, Relationship>(Relationship.class);
-
-                // Add Default edge to JGraph to workaround init problem.
-                String dflt1 = DEFAULT_VERTEX_1;
-                String dflt2 = DEFAULT_VERTEX_2;
-                g.addVertex(dflt1);
-                g.addVertex(dflt2);
-                g.addEdge(dflt1, dflt2, new Relationship(dflt1, dflt2));
-                try
-                {
-                    hier = HierUtil.toHier(g);
-                    hier.setContextId(inHier.getContextId());
-                    hier.setType(inHier.getType());
-                    hier = hp.add(hier);
-                    //hier = hp.read(type);
-                }
-                catch (com.jts.fortress.SecurityException sec)
-                {
-                    String error = CLS_NM + ".readHier type [" + inHier.getType() + "] failed default config load, SecurityException=" + sec;
-                    log.error(error);
-                }
-            }
-            else
-            {
-                String error = CLS_NM + ".readHier type [" + inHier.getType() + "] SecurityException=" + se;
-                log.error(error);
-            }
-        }
-        if (hier != null)
-        {
-            log.debug(CLS_NM + ".readHier type [" + inHier.getType() + "] success");
-        }
-        else
-        {
-            String warning = CLS_NM + ".readHier type [" + inHier.getType() + "] failed.";
-            log.warn(warning);
-        }
-        return hier;
-    }
-*/
 
     /**
      * This method will retrieve the list of all parent-child relationships for a given node.  If the node was not found in
@@ -635,53 +565,6 @@ final class HierUtil
         else
             throw new SecurityException(GlobalErrIds.HIER_CANNOT_PERFORM, CLS_NM + ".updateHier Cannot perform hierarchical operation");
     }
-
-/*
-    static Hier readHier2x(Hier inHier)
-    {
-        Hier hier = new Hier();
-        inHier.setType(Hier.Type.ROLE);
-        log.info(CLS_NM + ".readHier initializing ROLE context [" + inHier.getContextId() + "]");
-        com.jts.fortress.rbac.RoleP roleP = new com.jts.fortress.rbac.RoleP();
-        List<Role> descendants = null;
-        try
-        {
-            descendants = roleP.getAllDescendants(inHier.getContextId());
-        }                                                                * @param hier maps to 'ftRels' attribute on 'ftHier' object class.
-        catch(SecurityException se)
-        {
-            log.info(CLS_NM + ".loadHier caught SecurityException=" + se);
-        }
-        if (VUtil.isNotNullOrEmpty(descendants))
-        {
-            hier.setContextId(inHier.getContextId());
-            for (Role descendant : descendants)
-            {
-                Set<String> parents = descendant.getParents();
-                if (VUtil.isNotNullOrEmpty(parents))
-                {
-                    for (String parent : parents)
-                    {
-                        Relationship relationship = new Relationship();
-                        relationship.setChild(descendant.getName().toUpperCase());
-                        relationship.setParent(parent.toUpperCase());
-                        hier.setRelationship(relationship);
-                    }
-                }
-            }
-        }
-        if (hier != null)
-        {
-            log.debug(CLS_NM + ".readHier type [" + inHier.getType() + "] success");
-        }
-        else
-        {
-            String warning = CLS_NM + ".readHier type [" + inHier.getType() + "] failed.";
-            log.warn(warning);
-        }
-        return hier;
-    }
-*/
 
     /**
      * Method instantiates a new digraph, {@code org.jgrapht.graph.SimpleDirectedGraph}, using data passed in via
