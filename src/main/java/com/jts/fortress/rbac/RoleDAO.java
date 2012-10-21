@@ -22,6 +22,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
+import javax.xml.bind.annotation.XmlElementDecl;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,11 +82,12 @@ final class RoleDAO extends DataProvider
     private static final String CLS_NM = RoleDAO.class.getName();
     private static final String ROLE_OCCUPANT = "roleOccupant";
     private static final String ROLE_NM = "ftRoleName";
+
     private static final String[] ROLE_NM_ATR = {
         ROLE_NM
     };
     private static final String[] ROLE_ATRS = {
-        GlobalIds.FT_IID, ROLE_NM, GlobalIds.DESC, GlobalIds.CONSTRAINT, ROLE_OCCUPANT
+        GlobalIds.FT_IID, ROLE_NM, GlobalIds.DESC, GlobalIds.CONSTRAINT, ROLE_OCCUPANT, GlobalIds.PARENT_NODES
     };
 
 
@@ -121,6 +123,10 @@ final class RoleDAO extends DataProvider
             // CN attribute is required for this object class:
             attrs.add(createAttribute(GlobalIds.CN, entity.getName()));
             attrs.add(createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint(entity)));
+
+            // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
+            loadAttrs(entity.getParents(), attrs, GlobalIds.PARENT_NODES);
+
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
             add(ld, myEntry, entity);
         }
@@ -174,6 +180,7 @@ final class RoleDAO extends DataProvider
                     mods.add(LDAPModification.REPLACE, constraint);
                 }
             }
+            loadAttrs(entity.getParents(), mods, GlobalIds.PARENT_NODES);
             if (mods.size() > 0)
             {
                 modify(ld, dn, mods, entity);
@@ -449,6 +456,64 @@ final class RoleDAO extends DataProvider
 
     /**
      *
+     * @param contextId
+     * @return
+     * @throws FinderException
+     */
+    final List<Graphable> getAllDescendants(String contextId)
+        throws FinderException
+    {
+        String[] DESC_ATRS = { ROLE_NM, GlobalIds.PARENT_NODES };
+        List<Graphable> descendants = new ArrayList<Graphable>();
+        LDAPConnection ld = null;
+        LDAPSearchResults searchResults;
+        String roleRoot = getRootDn(contextId, GlobalIds.ROLE_ROOT);
+        String filter = null;
+        try
+        {
+            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
+                + GlobalIds.PARENT_NODES + "=*))";
+            searchResults = search(ld, roleRoot,
+                LDAPConnection.SCOPE_ONE, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE);
+            long sequence = 0;
+            while (searchResults.hasMoreElements())
+            {
+                descendants.add(unloadDescendants(searchResults.next(), sequence++, contextId));
+            }
+        }
+        catch (LDAPException e)
+        {
+            String error = CLS_NM + ".getAllDescendants filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            throw new FinderException(GlobalErrIds.ROLE_SEARCH_FAILED, error, e);
+        }
+        finally
+        {
+            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+        }
+        return descendants;
+    }
+
+    /**
+     *
+     * @param le
+     * @param sequence
+     * @param contextId
+     * @return
+     * @throws LDAPException
+     */
+    private Graphable unloadDescendants(LDAPEntry le, long sequence, String contextId)
+        throws LDAPException
+    {
+        Role entity = new ObjectFactory().createRole();
+        entity.setSequenceId(sequence);
+        entity.setName(getAttribute(le, ROLE_NM));
+        entity.setParents(getAttributeSet(le, GlobalIds.PARENT_NODES));
+        return entity;
+    }
+
+    /**
+     *
      * @param le
      * @param sequence
      * @param contextId
@@ -464,8 +529,9 @@ final class RoleDAO extends DataProvider
         entity.setName(getAttribute(le, ROLE_NM));
         entity.setDescription(getAttribute(le, GlobalIds.DESC));
         entity.setOccupants(getAttributes(le, ROLE_OCCUPANT));
-        entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
+        //entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setChildren(RoleUtil.getChildren(entity.getName().toUpperCase(), contextId));
+        entity.setParents(getAttributeSet(le, GlobalIds.PARENT_NODES));
         unloadTemporal(le, entity);
         return entity;
     }

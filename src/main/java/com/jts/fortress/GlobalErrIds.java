@@ -866,6 +866,10 @@ public class GlobalErrIds
      * The supplied Hierarchical type is required and cannot be null.
      */
     public final static int HIER_TYPE_NULL = 5062;
+    /**
+     * The supplied Hierarchical type is required and cannot be null.
+     */
+    public final static int HIER_CANNOT_PERFORM = 5063;
 
 
     /**

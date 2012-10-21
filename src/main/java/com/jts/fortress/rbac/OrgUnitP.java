@@ -269,6 +269,20 @@ final class OrgUnitP
 
 
     /**
+     * Return all OrgUnits that have a parent assignment.  This used for hierarchical processing.
+     *
+      * @param orgUnit will either be a User or Perm OU.
+     * @return List of type OrgUnit containing {@link OrgUnit#name} and {@link OrgUnit#parents} populated.
+     * @throws com.jts.fortress.SecurityException in the event of DAO search error.
+     */
+    final List<Graphable> getAllDescendants(OrgUnit orgUnit)
+        throws SecurityException
+    {
+        return oDao.getAllDescendants(orgUnit);
+    }
+
+
+    /**
      * Method will perform simple validations to ensure the integrity of the OrgUnit entity targeted for insertion
      * or updating in directory.  This method will ensure the name and type enum are specified.  It will also perform
      * reasonability check on description if set.

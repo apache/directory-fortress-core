@@ -34,11 +34,11 @@ This ehcache.xml corresponds to a single CacheManager.
            />
 
     <!--
-        Thic cache contains password policy entries.  It is used to save a read on User password policy edits.
+        Thic cache contains password policy entries.  It is used to save a read on User password policy edits. There should be one element for every tenant.
     -->
     <cache name="fortress.policies"
-           maxElementsInMemory="1"
-           maxElementsOnDisk="1"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
            eternal="false"
            overflowToDisk="false"
            diskSpoolBufferSizeMB="2"
@@ -48,7 +48,7 @@ This ehcache.xml corresponds to a single CacheManager.
            />
 
     <!--
-        Contains the value OrgUnits for User and Permissions.
+        Contains the value OrgUnits for User and Permissions. There should be two elements for every tenant.
     -->
     <cache name="fortress.ous"
            maxElementsInMemory="2"
@@ -62,11 +62,11 @@ This ehcache.xml corresponds to a single CacheManager.
            />
 
     <!--
-        Contains the JGraphT hierarchies for RBAC roles
+        Contains the JGraphT hierarchies for RBAC roles.  There should be one element for every tenant.
     -->
     <cache name="fortress.roles"
-           maxElementsInMemory="1"
-           maxElementsOnDisk="1"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
            eternal="false"
            overflowToDisk="false"
            diskSpoolBufferSizeMB="2"
@@ -76,11 +76,11 @@ This ehcache.xml corresponds to a single CacheManager.
            />
 
     <!--
-        Contains the JGraphT hierarchies for ARBAC roles
+        Contains the JGraphT hierarchies for ARBAC roles. There should be one element for every tenant.
     -->
     <cache name="fortress.admin.roles"
-           maxElementsInMemory="1"
-           maxElementsOnDisk="1"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
            eternal="false"
            overflowToDisk="false"
            diskSpoolBufferSizeMB="2"
@@ -90,11 +90,11 @@ This ehcache.xml corresponds to a single CacheManager.
            />
 
     <!--
-        Contains the JGraphT hierarchies for Perm OUs
+        Contains the JGraphT hierarchies for Perm OUs. There should be one element for every tenant.
     -->
     <cache name="fortress.pso"
-           maxElementsInMemory="1"
-           maxElementsOnDisk="1"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
            eternal="false"
            overflowToDisk="false"
            diskSpoolBufferSizeMB="2"
@@ -104,11 +104,11 @@ This ehcache.xml corresponds to a single CacheManager.
            />
 
     <!--
-        Contains the JGraphT hierarchies for User OUs
+        Contains the JGraphT hierarchies for User OUs.  There should be one element for every tenant.
     -->
     <cache name="fortress.uso"
-           maxElementsInMemory="1"
-           maxElementsOnDisk="1"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
            eternal="false"
            overflowToDisk="false"
            diskSpoolBufferSizeMB="2"

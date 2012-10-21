@@ -5,7 +5,7 @@
   <img src="./images/fortresscommunitylogov3.jpg" />  
 <br>
 <p>
-These instructions are intended for new users who want to quickly learn how to use Fortress and OpenLDAP IAM software.
+These instructions are intended for new users who want to quickly learn how to use JoshuaTree Fortress and Symas OpenLDAP IAM software.
 <br><br>Follow them carefully and OpenLDAP will be installed, configured, loaded, and ready to use by <em>Section IV</em>
 </p>
    <h2>System Prerequisites</h2>
@@ -84,9 +84,8 @@ You may now view the project binaries and documentation located under FORTRESS_H
     </li>
 
     <li>
-       <h3>Instructions to run the Builder to Install OpenLDAP, configure and load with seed data</h3>
-<strong><p style="color:red;font-size:14px;">Warning: This target is destructive as it reinstalls and reloads the OpenLDAP server program, configuration and data.  
-Do not point this at OpenLDAP server that is in use.  It will disrupt user access and clear out all old entries including Users, passwords, policies, etc.
+       <h3>Instructions to run the Builder to Install Symas OpenLDAP, configure and load with seed data</h3>
+<strong><p style="color:blue;font-size:14px;">Important: This target reinstalls and reloads the OpenLDAP server program, configuration and data.
 </p>
   
 </strong>       
@@ -112,7 +111,7 @@ Verify it ran correctly according to Ant.
 </p></pre>
 	   <img src="./images/Screenshot7-init-slapd-success.png" /><br><br>
            <li>
-After above step completes, OpenLDAP will be installed, configured and loaded with fortress bootstrap config.  This
+After above step completes, Symas OpenLDAP will be installed, configured and loaded with fortress bootstrap config.  This
 step also runs provisioning scripts which may be tailored according to requirements.  Check out the xml load scripts
 in FORTRESS_HOME/ldap/setup folder.
 <br><br>	   
@@ -165,7 +164,7 @@ To re-run these tests:
         </ol>
 Note 1: WARNING messages in test output are good as these are negative tests in action:
 	   <br><img src="./images/Screenshot12-junit-warn.png" />	   	   
-<br><br>Note 2: If you made it this far without junit or ant ERRORS, the Fortress and OpenLDAP IAM system are certified to run on your machine.
+<br><br>Note 2: If you made it this far without junit or ant ERRORS, the Fortress and Symas OpenLDAP IAM system are certified to run on your machine.
 <br><br>Note 3: These tests load tens of thousands of records into your newly installed directory.
 The 'init-slapd' target may be re-run after the 'test-full-init' and 'test-full' targets have completed.  This will delete the test data from the directory
 and restart directory with a clean slate.

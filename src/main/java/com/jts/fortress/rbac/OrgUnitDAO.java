@@ -86,7 +86,7 @@ final class OrgUnitDAO extends DataProvider
         GlobalIds.TOP, ORGUNIT_OBJECT_CLASS_NM, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
     private static final String[] ORGUNIT_ATRS = {
-        GlobalIds.FT_IID, GlobalIds.OU, GlobalIds.DESC
+        GlobalIds.FT_IID, GlobalIds.OU, GlobalIds.DESC, GlobalIds.PARENT_NODES
     };
 
     private static final String[] ORGUNIT_ATR = {
@@ -121,6 +121,10 @@ final class OrgUnitDAO extends DataProvider
                 attrs.add(createAttribute(GlobalIds.DESC, entity.getDescription()));
             // organizational name requires OU attribute:
             attrs.add(createAttribute(GlobalIds.OU, entity.getName()));
+
+            // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
+            loadAttrs(entity.getParents(), attrs, GlobalIds.PARENT_NODES);
+
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
             add(ld, myEntry, entity);
         }
@@ -167,6 +171,7 @@ final class OrgUnitDAO extends DataProvider
                 LDAPAttribute desc = new LDAPAttribute(GlobalIds.DESC, entity.getDescription());
                 mods.add(LDAPModification.REPLACE, desc);
             }
+            loadAttrs(entity.getParents(), mods, GlobalIds.PARENT_NODES);
             if (mods.size() > 0)
             {
                 modify(ld, dn, mods, entity);
@@ -400,6 +405,46 @@ final class OrgUnitDAO extends DataProvider
     }
 
     /**
+      *
+      * @param orgUnit
+      * @return
+      * @throws FinderException
+      */
+     final List<Graphable> getAllDescendants(OrgUnit orgUnit)
+         throws FinderException
+     {
+         String orgUnitRoot = getOrgRoot(orgUnit);
+         String[] DESC_ATRS = { GlobalIds.OU, GlobalIds.PARENT_NODES };
+         List<Graphable> descendants = new ArrayList<Graphable>();
+         LDAPConnection ld = null;
+         LDAPSearchResults searchResults;
+         String filter = null;
+         try
+         {
+             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+             filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
+                 + GlobalIds.PARENT_NODES + "=*))";
+             searchResults = search(ld, orgUnitRoot,
+                 LDAPConnection.SCOPE_ONE, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE);
+             long sequence = 0;
+             while (searchResults.hasMoreElements())
+             {
+                 descendants.add(unloadDescendants(searchResults.next(), sequence++, orgUnit.getContextId()));
+             }
+         }
+         catch (LDAPException e)
+         {
+             String error = CLS_NM + ".getAllDescendants filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+             throw new FinderException(GlobalErrIds.ARLE_SEARCH_FAILED, error, e);
+         }
+         finally
+         {
+             PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+         }
+         return descendants;
+     }
+
+    /**
      * @param orgUnit
      * @return
      */
@@ -447,6 +492,24 @@ final class OrgUnitDAO extends DataProvider
     }
 
     /**
+    *
+    * @param le
+    * @param sequence
+    * @param contextId
+    * @return
+    * @throws LDAPException
+    */
+   private Graphable unloadDescendants(LDAPEntry le, long sequence, String contextId)
+       throws LDAPException
+   {
+       OrgUnit entity = new ObjectFactory().createOrgUnit();
+       entity.setSequenceId(sequence);
+       entity.setName(getAttribute(le, GlobalIds.OU));
+       entity.setParents(getAttributeSet(le, GlobalIds.PARENT_NODES));
+       return entity;
+   }
+
+    /**
      *
      * @param le
      * @param sequence
@@ -466,15 +529,16 @@ final class OrgUnitDAO extends DataProvider
          if (dn.contains(getRootDn(contextId, GlobalIds.PSU_ROOT)))
         {
             entity.setType(OrgUnit.Type.PERM);
-            entity.setParents(PsoUtil.getParents(entity.getName().toUpperCase(), contextId));
+            //entity.setParents(PsoUtil.getParents(entity.getName().toUpperCase(), contextId));
             entity.setChildren(PsoUtil.getChildren(entity.getName().toUpperCase(), contextId));
         }
          else if (dn.contains(getRootDn(contextId, GlobalIds.OSU_ROOT)))
         {
             entity.setType(OrgUnit.Type.USER);
-            entity.setParents(UsoUtil.getParents(entity.getName().toUpperCase(), contextId));
+            //entity.setParents(UsoUtil.getParents(entity.getName().toUpperCase(), contextId));
             entity.setChildren(UsoUtil.getChildren(entity.getName().toUpperCase(), contextId));
         }
+        entity.setParents(getAttributeSet(le, GlobalIds.PARENT_NODES));
         return entity;
     }
 }

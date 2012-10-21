@@ -103,7 +103,7 @@ final class AdminRoleDAO extends DataProvider
     };
 
     private static final String[] ROLE_ATRS = {
-        GlobalIds.FT_IID, ROLE_NM, GlobalIds.DESC, GlobalIds.CONSTRAINT, ROLE_OCCUPANT, ROLE_OSP, ROLE_OSU, ROLE_RANGE
+        GlobalIds.FT_IID, ROLE_NM, GlobalIds.DESC, GlobalIds.CONSTRAINT, ROLE_OCCUPANT, ROLE_OSP, ROLE_OSU, ROLE_RANGE, GlobalIds.PARENT_NODES
     };
 
     AdminRoleDAO(){}
@@ -144,6 +144,9 @@ final class AdminRoleDAO extends DataProvider
             {
                 attrs.add(createAttribute(ROLE_RANGE, szRaw));
             }
+            // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
+            loadAttrs(entity.getParents(), attrs, GlobalIds.PARENT_NODES);
+
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
             add(ld, myEntry, entity);
         }
@@ -207,6 +210,7 @@ final class AdminRoleDAO extends DataProvider
                 LDAPAttribute raw = new LDAPAttribute(ROLE_RANGE, szRaw);
                 mods.add(LDAPModification.REPLACE, raw);
             }
+            loadAttrs(entity.getParents(), mods, GlobalIds.PARENT_NODES);
             if (mods.size() > 0)
             {
                 modify(ld, dn, mods, entity);
@@ -486,6 +490,63 @@ final class AdminRoleDAO extends DataProvider
         return roleNameList;
     }
 
+    /**
+      *
+      * @param contextId
+      * @return
+      * @throws FinderException
+      */
+     final List<Graphable> getAllDescendants(String contextId)
+         throws FinderException
+     {
+         String[] DESC_ATRS = { ROLE_NM, GlobalIds.PARENT_NODES };
+         List<Graphable> descendants = new ArrayList<Graphable>();
+         LDAPConnection ld = null;
+         LDAPSearchResults searchResults;
+         String roleRoot = getRootDn(contextId, GlobalIds.ADMIN_ROLE_ROOT);
+         String filter = null;
+         try
+         {
+             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
+                 + GlobalIds.PARENT_NODES + "=*))";
+             searchResults = search(ld, roleRoot,
+                 LDAPConnection.SCOPE_ONE, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE);
+             long sequence = 0;
+             while (searchResults.hasMoreElements())
+             {
+                 descendants.add(unloadDescendants(searchResults.next(), sequence++, contextId));
+             }
+         }
+         catch (LDAPException e)
+         {
+             String error = CLS_NM + ".getAllDescendants filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+             throw new FinderException(GlobalErrIds.ARLE_SEARCH_FAILED, error, e);
+         }
+         finally
+         {
+             PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+         }
+         return descendants;
+     }
+
+     /**
+     *
+     * @param le
+     * @param sequence
+     * @param contextId
+     * @return
+     * @throws LDAPException
+     */
+    private Graphable unloadDescendants(LDAPEntry le, long sequence, String contextId)
+        throws LDAPException
+    {
+        Role entity = new ObjectFactory().createRole();
+        entity.setSequenceId(sequence);
+        entity.setName(getAttribute(le, ROLE_NM));
+        entity.setParents(getAttributeSet(le, GlobalIds.PARENT_NODES));
+        return entity;
+    }
 
     /**
      * @param le
@@ -505,7 +566,8 @@ final class AdminRoleDAO extends DataProvider
         entity.setOsU(getAttributeSet(le, ROLE_OSU));
         unloadTemporal(le, entity);
         entity.setRoleRangeRaw(getAttribute(le, ROLE_RANGE));
-        entity.setParents(AdminRoleUtil.getParents(entity.getName().toUpperCase(), contextId));
+        //entity.setParents(AdminRoleUtil.getParents(entity.getName().toUpperCase(), contextId));
+        entity.setParents(getAttributeSet(le, GlobalIds.PARENT_NODES));
         entity.setChildren(AdminRoleUtil.getChildren(entity.getName().toUpperCase(), contextId));
         return entity;
     }

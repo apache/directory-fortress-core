@@ -4,6 +4,7 @@
 
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ValidationException;
 import com.jts.fortress.SecurityException;
@@ -11,6 +12,7 @@ import com.jts.fortress.SecurityException;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.CacheMgr;
 import com.jts.fortress.util.cache.Cache;
+import org.apache.log4j.Logger;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * This utility wraps {@link HierUtil} and {@link HierP} methods to provide hierarchical functionality for the {@link com.jts.fortress.rbac.AdminRole} data set.
+ * This utility wraps {@link HierUtil} methods to provide hierarchical functionality for the {@link com.jts.fortress.rbac.AdminRole} data set.
  * The {@code cn=Hierarchies, ou=AdminRoles} data is stored within a data cache, {@link #m_adminRoleCache}, contained within this class.  The parent-child edges are contained in LDAP,
  * i.e. {@code cn=Hierarchies, ou=AdminRoles,...} which uses entity {@link Hier}.  The ldap data is retrieved {@link HierP#read(com.jts.fortress.rbac.Hier.Type)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
@@ -44,8 +46,11 @@ import java.util.TreeSet;
 final class AdminRoleUtil
 {
     private static Cache m_adminRoleCache;
+    private static AdminRoleP adminRoleP = new AdminRoleP();
     private static final String ADMIN_ROLES = "adminRoles";
     private static final String FORTRESS_ADMIN_ROLES = "fortress.admin.roles";
+    private static final String CLS_NM = AdminRoleUtil.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     /**
      * Initialize the AdminRole hierarchies.  This will read the {@link Hier} data set from ldap and load into
@@ -188,28 +193,56 @@ final class AdminRoleUtil
      * @param op used to pass the ldap op {@link Hier.Op#ADD}, {@link Hier.Op#MOD}, {@link Hier.Op#REM}
      * @throws com.jts.fortress.SecurityException in the event of a system error.
      */
+/*
     static void updateHier(Hier hier, Hier.Op op) throws SecurityException
     {
         HierP hp = new HierP();
         hp.update(hier, op);
         loadGraph(hier.getContextId());
     }
+*/
 
     /**
-     * Read this ldap record,{@code cn=Hierarchies, ou=AdminRoles} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
+     * This api allows synchronized access to allow updates to hierarchical relationships.
+     * Method will update the hierarchical data set and reload the JGraphT simple digraph with latest.
+     *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param relationship contains parent-child relationship targeted for addition.
+     * @param op   used to pass the ldap op {@link Hier.Op#ADD}, {@link Hier.Op#MOD}, {@link com.jts.fortress.rbac.Hier.Op#REM}
+     * @throws com.jts.fortress.SecurityException in the event of a system error.
+     */
+    static void updateHier(String contextId, Relationship relationship, Hier.Op op) throws SecurityException
+    {
+        HierUtil.updateHier(getGraph(contextId), relationship, op);
+    }
+
+    /**
+     * Read this ldap record,{@code cn=Hierarchies, ou=OS-P} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @return
      */
     private static SimpleDirectedGraph<String, Relationship> loadGraph(String contextId)
     {
-        Hier inHier = new Hier(Hier.Type.AROLE);
+        Hier inHier = new Hier(Hier.Type.ROLE);
         inHier.setContextId(contextId);
-
-        Hier hier = HierUtil.readHier(inHier);
+        log.info(CLS_NM + ".loadGraph initializing ADMIN ROLE context [" + inHier.getContextId() + "]");
+        List<Graphable> descendants = null;
+        try
+        {
+            descendants = adminRoleP.getAllDescendants(inHier.getContextId());
+        }
+        catch(SecurityException se)
+        {
+            log.info(CLS_NM + ".loadGraph caught SecurityException=" + se);
+        }
+        Hier hier = HierUtil.loadHier(contextId, descendants);
         SimpleDirectedGraph<String, Relationship> graph = HierUtil.buildGraph(hier);
         m_adminRoleCache.put(getKey(contextId), graph);
         return graph;
     }
+
 
     /**
      * Read this ldap record,{@code cn=Hierarchies, ou=OS-P} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}

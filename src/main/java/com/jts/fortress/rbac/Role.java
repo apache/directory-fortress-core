@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -151,7 +152,7 @@ import java.util.UUID;
     AdminRole.class
 })
 public class Role extends FortEntity
-    implements Constraint, java.io.Serializable
+    implements Constraint, Graphable, java.io.Serializable
 {
     private String id;          // this maps to ftId
     private String name;          // this is ftRoleName
@@ -528,6 +529,31 @@ public class Role extends FortEntity
     public void setParents(Set<String> parents)
     {
         this.parents = parents;
+    }
+
+    /**
+     * Set the occupant attribute with the contents of the User dn.
+     * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
+     */
+    public void setParent(String parent)
+    {
+        if (this.parents == null)
+        {
+            this.parents = new HashSet<String>();
+        }
+        this.parents.add(parent);
+    }
+
+    /**
+     * Set the occupant attribute with the contents of the User dn.
+     * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
+     */
+    public void delParent(String parent)
+    {
+        if (this.parents != null)
+        {
+            this.parents.remove(parent);
+        }
     }
 
     /**

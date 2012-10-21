@@ -454,21 +454,17 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         {
             PsoUtil.validateRelationship(child, parent, false);
         }
+        child.setParent(parent.getName());
         ouP.add(child);
-        Hier hier = new Hier(child.getName(), parent.getName());
-        setAdminData(CLS_NM, methodName, hier);
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            hier.setType(Hier.Type.USER);
-            UsoUtil.updateHier(hier, Hier.Op.ADD);
+            UsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
         else
         {
-            hier.setType(Hier.Type.PERM);
-            PsoUtil.updateHier(hier, Hier.Op.ADD);
+            PsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
     }
-
 
     /**
      * This command creates a new orgunit parent, and inserts it in the orgunit hierarchy as an immediate ascendant of
@@ -511,7 +507,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         assertContext(CLS_NM, methodName, child, GlobalErrIds.ORG_CHILD_NULL);
 
         // ensure the child OrgUnit exists:
-        ouP.read(child);
+        OrgUnit newChild = ouP.read(child);
         if (parent.getType() == OrgUnit.Type.USER)
         {
             UsoUtil.validateRelationship(child, parent, false);
@@ -521,18 +517,16 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
             PsoUtil.validateRelationship(child, parent, false);
         }
         ouP.add(parent);
-        Hier hier = new Hier(child.getName(), parent.getName());
-        setAdminData(CLS_NM, methodName, hier);
+        newChild.setParent(parent.getName());
+        newChild.setContextId(this.contextId);
+        ouP.update(newChild);
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            hier.setType(Hier.Type.USER);
-
-            UsoUtil.updateHier(hier, Hier.Op.ADD);
+            UsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
         else
         {
-            hier.setType(Hier.Type.PERM);
-            PsoUtil.updateHier(hier, Hier.Op.ADD);
+            PsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
     }
 
@@ -575,21 +569,21 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
             PsoUtil.validateRelationship(child, parent, false);
         }
         // validate that both orgs are present:
-        ouP.read(child);
         ouP.read(parent);
+        OrgUnit cOrg = ouP.read(child);
+        cOrg.setParent(parent.getName());
+        cOrg.setContextId(this.contextId);
+        setAdminData(CLS_NM, methodName, cOrg);
+        ouP.update(cOrg);
 
         // we're still good, now set the hierarchical relationship:
-        Hier hier = new Hier(child.getName(), parent.getName());
-        setAdminData(CLS_NM, methodName, hier);
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            hier.setType(Hier.Type.USER);
-            UsoUtil.updateHier(hier, Hier.Op.ADD);
+            UsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
         else
         {
-            hier.setType(Hier.Type.PERM);
-            PsoUtil.updateHier(hier, Hier.Op.ADD);
+            PsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
     }
 
@@ -623,7 +617,6 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         VUtil.assertNotNull(parent.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         assertContext(CLS_NM, methodName, child, GlobalErrIds.ORG_CHILD_NULL);
         setEntitySession(CLS_NM, methodName, parent);
-
         if (parent.getType() == OrgUnit.Type.USER)
         {
             UsoUtil.validateRelationship(child, parent, true);
@@ -632,18 +625,19 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         {
             PsoUtil.validateRelationship(child, parent, true);
         }
-        Hier hier = new Hier(child.getName(), parent.getName());
-        setAdminData(CLS_NM, methodName, hier);
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            hier.setType(Hier.Type.USER);
-            UsoUtil.updateHier(hier, Hier.Op.REM);
+            UsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.REM);
         }
         else
         {
-            hier.setType(Hier.Type.PERM);
-            PsoUtil.updateHier(hier, Hier.Op.REM);
+            PsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.REM);
         }
+        OrgUnit cOrg = ouP.read(child);
+        cOrg.setContextId(this.contextId);
+        cOrg.delParent(parent.getName());
+        setAdminData(CLS_NM, methodName, cOrg);
+        ouP.update(cOrg);
     }
 
 
@@ -687,12 +681,11 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         // ensure the parent AdminRole exists:
         admRP.read(parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
+        childRole.setParent(parentRole.getName());
         admRP.add(childRole);
-        Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        setAdminData(CLS_NM, methodName, hier);
-        hier.setContextId(this.contextId);
-        AdminRoleUtil.updateHier(hier, Hier.Op.ADD);
+        AdminRoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
     }
+
 
     /**
      * This command creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
@@ -731,15 +724,15 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         setEntitySession(CLS_NM, methodName, parentRole);
         assertContext(CLS_NM, methodName, childRole, GlobalErrIds.ARLE_CHILD_NULL);
         // ensure the child AdminRole exists:
-        admRP.read(childRole);
+        AdminRole newChild = admRP.read(childRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
-        //parentRole.setContextId(this.contextId);
         admRP.add(parentRole);
-        Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        setAdminData(CLS_NM, methodName, hier);
-        hier.setContextId(this.contextId);
-        AdminRoleUtil.updateHier(hier, Hier.Op.ADD);
+        newChild.setParent(parentRole.getName());
+        newChild.setContextId(this.contextId);
+        admRP.update(newChild);
+        AdminRoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
     }
+
 
     /**
      * This command establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
@@ -764,12 +757,20 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         assertContext(CLS_NM, methodName, parentRole, GlobalErrIds.ARLE_PARENT_NULL);
         assertContext(CLS_NM, methodName, childRole, GlobalErrIds.ARLE_CHILD_NULL);
         setEntitySession(CLS_NM, methodName, parentRole);
+        // make sure the parent role is already there:
+        AdminRole pRole = admRP.read(parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
-        Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        setAdminData(CLS_NM, methodName, hier);
-        hier.setContextId(this.contextId);
-        AdminRoleUtil.updateHier(hier, Hier.Op.ADD);
+        // make sure the child role is already there:
+        AdminRole cRole = new AdminRole(childRole.getName());
+        cRole.setContextId(this.contextId);
+        cRole = admRP.read(cRole);
+        AdminRoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
+        cRole.setParent(parentRole.getName());
+        cRole.setContextId(this.contextId);
+        setAdminData(CLS_NM, methodName, cRole);
+        admRP.update(cRole);
     }
+
 
     /**
      * This command deletes an existing immediate inheritance relationship parentRole <<-- childRole. The command is
@@ -795,10 +796,15 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         assertContext(CLS_NM, methodName, childRole, GlobalErrIds.ARLE_CHILD_NULL);
         setEntitySession(CLS_NM, methodName, parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, true);
-        Hier hier = new Hier(Hier.Type.AROLE, childRole.getName(), parentRole.getName());
-        setAdminData(CLS_NM, methodName, hier);
-        hier.setContextId(this.contextId);
-        AdminRoleUtil.updateHier(hier, Hier.Op.REM);
+        AdminRoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.REM);
+        // need to remove the parent from the child role:
+        AdminRole cRole = new AdminRole(childRole.getName());
+        cRole.setContextId(this.contextId);
+        cRole = admRP.read(cRole);
+        cRole.setContextId(this.contextId);
+        cRole.delParent(parentRole.getName());
+        setAdminData(CLS_NM, methodName, cRole);
+        admRP.update(cRole);
     }
 
     /**

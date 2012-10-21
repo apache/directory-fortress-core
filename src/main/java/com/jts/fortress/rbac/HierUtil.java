@@ -4,8 +4,9 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.GlobalErrIds;
-import com.jts.fortress.ValidationException;
+import com.jts.fortress.*;
+import com.jts.fortress.SecurityException;
+import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
@@ -23,7 +24,7 @@ import java.util.TreeSet;
  * <ol>
  * <li>RBAC Role relations are stored in {@code cn=Hierarchies,ou=Roles,ou=RBAC} ldap node and cached as singleton in {@link RoleUtil}</li>
  * <li>ARBAC Admin Role relations are stored in {@code cn=Hierarchies,ou=AdminRoles,ou=ARBAC} ldap node and cached as singleton in {@link AdminRoleUtil}</li>
- * <li>User Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-U,ou=ARBAC} node and cached as {@link com.jts.fortress.arbac.UsoUtil}</li>
+ * <li>User Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-U,ou=ARBAC} node and cached as {@link com.jts.fortress.rbac.UsoUtil}</li>
  * <li>Permission Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-P,ou=ARBAC} node and cached as {@link PsoUtil}</li>
  * </ol>
  * This class...
@@ -37,7 +38,6 @@ import java.util.TreeSet;
  * <p/>
  * This class is thread safe.
  * <p/>
-
  *
  * @author Shawn McKinney
  * @created July 10, 2010
@@ -68,7 +68,8 @@ final class HierUtil
      * @param child     contains name of child.
      * @param parent    contains name of parent.
      * @param mustExist boolean is used to specify if relationship must be true.
-     * @throws com.jts.fortress.ValidationException in the event it fails one of the 3 checks.
+     * @throws com.jts.fortress.ValidationException
+     *          in the event it fails one of the 3 checks.
      */
     static void validateRelationship(SimpleDirectedGraph<String, Relationship> graph, String child, String parent, boolean mustExist)
         throws com.jts.fortress.ValidationException
@@ -137,6 +138,37 @@ final class HierUtil
             }
         }
         return graph;
+    }
+
+
+    /**
+     * This method adds an edge and its associated vertices to simple directed graph stored in static memory of this process.
+     *
+     * @param graph contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @param relation contains parent-child relationship targeted for addition.
+     * @return {@code org.jgrapht.graph.SimpleDirectedGraph} containing the vertices of {@code String}, and edges, as {@link Relationship}s that correspond to relational data.
+     */
+    static void addEdge(SimpleDirectedGraph<String, Relationship> graph, Relationship relation)
+        throws com.jts.fortress.SecurityException
+    {
+        log.debug(CLS_NM + ".addEdge");
+        graph.addVertex(relation.getChild().toUpperCase());
+        graph.addVertex(relation.getParent().toUpperCase());
+        graph.addEdge(relation.getChild().toUpperCase(), relation.getParent().toUpperCase(), relation);
+    }
+
+    /**
+     * This method removes an edge from a simple directed graph stored in static memory of this process.
+     *
+     * @param graph contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @param relation contains parent-child relationship targeted for removal.
+     * @return {@code org.jgrapht.graph.SimpleDirectedGraph} containing the vertices of {@code String}, and edges, as {@link Relationship}s that correspond to relational data.
+     */
+    static void removeEdge(SimpleDirectedGraph<String, Relationship> graph, Relationship relation)
+        throws com.jts.fortress.SecurityException
+    {
+        log.debug(CLS_NM + ".removeEdge");
+        graph.removeEdge(relation);
     }
 
     /**
@@ -217,8 +249,8 @@ final class HierUtil
     /**
      * Utility function recursively traverses a given digraph to build a set of all ascendant names.
      *
-     * @param vertex  contains the position of the cursor for traversal of graph.
-     * @param graph   contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @param vertex     contains the position of the cursor for traversal of graph.
+     * @param graph      contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @param ascendants contains the result set of ascendant names.
      * @return value contains the vertex of current position.
      */
@@ -285,8 +317,8 @@ final class HierUtil
     /**
      * Utility function recursively traverses a given digraph to build a set of all descendants names.
      *
-     * @param vertex   contains the position of the cursor for traversal of graph.
-     * @param graph    contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @param vertex      contains the position of the cursor for traversal of graph.
+     * @param graph       contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @param descendants contains the result set of names of all descendants of node.
      * @return value contains the vertex of current position.
      */
@@ -329,8 +361,8 @@ final class HierUtil
     /**
      * Utility function returns a set of all children (direct descendant) names.
      *
-     * @param vertex   contains the position of the cursor for traversal of graph.
-     * @param graph    contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @param vertex contains the position of the cursor for traversal of graph.
+     * @param graph  contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @return value contains the vertex of current position.
      */
     static Set<String> getChildren(String vertex, SimpleDirectedGraph<String, Relationship> graph)
@@ -389,7 +421,7 @@ final class HierUtil
      * @param graph       contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @param parents     contains the result set of parent nodes.
      * @param stopName    contains the name of node where traversal ends.
-     * @param isInclusive if set to true will include the parentName in the result set.  /home/Shawn McKinney/GIT/fortressDev/openldap-fortress-core/ldap/setup/HierarchicalRoleExample.xmlFalse will not return specified parentName.
+     * @param isInclusive if set to true will include the parentName in the result set. False will not return specified parentName.
      * @return Set of names that are parents of given child.
      */
     private static String getAscendants(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> parents, String stopName, boolean isInclusive)
@@ -443,8 +475,8 @@ final class HierUtil
     /**
      * Private utility to return the parents (direct ascendants) of a given child node.
      *
-     * @param vertex      contains node name and acts as cursor for current location.
-     * @param graph       contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @param vertex contains node name and acts as cursor for current location.
+     * @param graph  contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @return Set of names that are parents of given child.
      */
     static Set<String> getParents(String vertex, SimpleDirectedGraph<String, Relationship> graph)
@@ -490,6 +522,7 @@ final class HierUtil
      * @param inHier contains {@link Hier.Type#ROLE},{@link Hier.Type#AROLE}, {@link Hier.Type#USER}, {@link Hier.Type#PERM}
      * @return reference the the Hier result set retrieved from ldap.
      */
+/*
     static Hier readHier(Hier inHier)
     {
         HierP hp = new HierP();
@@ -544,6 +577,111 @@ final class HierUtil
         }
         return hier;
     }
+*/
+
+    /**
+     * This method will retrieve the list of all parent-child relationships for a given node.  If the node was not found in
+     * ldap this method will create a new node and store default data.
+     * The following ldap nodes are currently storing hierarchical data:
+     * <ol>
+     * <li>RBAC Role relations are stored in {@code cn=Hierarchies,ou=Roles,ou=RBAC} ldap node and cached as singleton in {@link RoleUtil}</li>
+     * <li>ARBAC Admin Role relations are stored in {@code cn=Hierarchies,ou=AdminRoles,ou=ARBAC} ldap node and cached as singleton in {@link AdminRoleUtil}</li>
+     * <li>User Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-U,ou=ARBAC} node and cached as {@link UsoUtil}</li>
+     * <li>Permission Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-P,ou=ARBAC} node and cached as {@link PsoUtil}</li>
+     * </ol>
+     *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @return reference the the Hier result set retrieved from ldap.
+     */
+    static Hier loadHier(String contextId, List<Graphable> descendants)
+    {
+        Hier hier = new Hier();
+        if (VUtil.isNotNullOrEmpty(descendants))
+        {
+            hier.setContextId(contextId);
+            for (Graphable descendant : descendants)
+            {
+                Set<String> parents = descendant.getParents();
+                if (VUtil.isNotNullOrEmpty(parents))
+                {
+                    for (String parent : parents)
+                    {
+                        Relationship relationship = new Relationship();
+                        relationship.setChild(descendant.getName().toUpperCase());
+                        relationship.setParent(parent.toUpperCase());
+                        hier.setRelationship(relationship);
+                    }
+                }
+            }
+        }
+        return hier;
+    }
+
+    /**
+     * This api allows synchronized access to allow updates to hierarchical relationships.
+     * Method will update the hierarchical data set and reload the JGraphT simple digraph with latest.
+     *
+     * @param graph contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @param relationship contains parent-child relationship targeted for addition.
+     * @param op   used to pass the ldap op {@link Hier.Op#ADD}, {@link Hier.Op#MOD}, {@link com.jts.fortress.rbac.Hier.Op#REM}
+     * @throws com.jts.fortress.SecurityException in the event of a system error.
+     */
+    static void updateHier(SimpleDirectedGraph<String, Relationship> graph, Relationship relationship, Hier.Op op) throws SecurityException
+    {
+        if(op == Hier.Op.ADD)
+            HierUtil.addEdge(graph, relationship);
+        else if(op == Hier.Op.REM)
+            HierUtil.removeEdge(graph, relationship);
+        else
+            throw new SecurityException(GlobalErrIds.HIER_CANNOT_PERFORM, CLS_NM + ".updateHier Cannot perform hierarchical operation");
+    }
+
+/*
+    static Hier readHier2x(Hier inHier)
+    {
+        Hier hier = new Hier();
+        inHier.setType(Hier.Type.ROLE);
+        log.info(CLS_NM + ".readHier initializing ROLE context [" + inHier.getContextId() + "]");
+        com.jts.fortress.rbac.RoleP roleP = new com.jts.fortress.rbac.RoleP();
+        List<Role> descendants = null;
+        try
+        {
+            descendants = roleP.getAllDescendants(inHier.getContextId());
+        }                                                                * @param hier maps to 'ftRels' attribute on 'ftHier' object class.
+        catch(SecurityException se)
+        {
+            log.info(CLS_NM + ".loadHier caught SecurityException=" + se);
+        }
+        if (VUtil.isNotNullOrEmpty(descendants))
+        {
+            hier.setContextId(inHier.getContextId());
+            for (Role descendant : descendants)
+            {
+                Set<String> parents = descendant.getParents();
+                if (VUtil.isNotNullOrEmpty(parents))
+                {
+                    for (String parent : parents)
+                    {
+                        Relationship relationship = new Relationship();
+                        relationship.setChild(descendant.getName().toUpperCase());
+                        relationship.setParent(parent.toUpperCase());
+                        hier.setRelationship(relationship);
+                    }
+                }
+            }
+        }
+        if (hier != null)
+        {
+            log.debug(CLS_NM + ".readHier type [" + inHier.getType() + "] success");
+        }
+        else
+        {
+            String warning = CLS_NM + ".readHier type [" + inHier.getType() + "] failed.";
+            log.warn(warning);
+        }
+        return hier;
+    }
+*/
 
     /**
      * Method instantiates a new digraph, {@code org.jgrapht.graph.SimpleDirectedGraph}, using data passed in via

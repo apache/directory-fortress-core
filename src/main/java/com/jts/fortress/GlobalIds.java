@@ -423,6 +423,11 @@ public class GlobalIds
      */
     public final static String POBJ_NAME = "ftObjNm";
 
+    /**
+     * Attribute name for storing parent node names for hierarchical processing.
+     */
+    public final static String PARENT_NODES = "ftParents";
+
     /*
     *  *************************************************************************
     *  **  RBAC Entity maximum length constants

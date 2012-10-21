@@ -537,6 +537,7 @@ final class UserP
         throws SecurityException
     {
         User user = read(inUser, true);
+        user.setContextId(inUser.getContextId());
         if (user.isLocked())
         {
             String warning = CLS_NM + ".createSession failed for userId [" + inUser.getUserId() + "] reason user is locked";

@@ -4,7 +4,7 @@ created: November 12, 2011
 last updated: August 25, 2012
 --------------------------------------------------------------
 
-These instructions are intended for new users who want to quickly learn how to use Fortress and OpenLDAP IAM software.
+These instructions are intended for new users who want to quickly learn how to use JoshuaTree Fortress and Symas OpenLDAP IAM software.
 Follow these steps carefully, and OpenLDAP will be installed, configured, loaded, and ready to use by Section IV.
 
 For more detailed instructions on how to tailor this for User preferences, view the README.txt in the same package or
@@ -81,11 +81,11 @@ c. Verify it ran correctly according to Ant.
 You may now view the project binaries and documentation located under FORTRESS_HOME/dist.
 
 ###################################################################################
-# III. Instructions to run the Builder to Install OpenLDAP, configure and load with seed data
+# III. Instructions to run the Builder to Install Symas OpenLDAP, configure and load with seed data
 ###################################################################################
 
-Warning: This target is destructive as it reinstalls and reloads the OpenLDAP server program, configuration and data.  
-Do not point this at OpenLDAP server that is in use.  It will disrupt user access and clear out all old entries including Users, passwords, policies, etc.
+Important: This target reinstalls and reloads the OpenLDAP server program, configuration and data.
+
 
 a. From FORTRESS_HOME root folder, enter the following command from a system prompt:
 
@@ -101,7 +101,7 @@ b. Verify it ran correctly according to Ant.
 >BUILD SUCCESSFUL
 
 
-Note 1: After this step completes, OpenLDAP will be installed, configured and loaded with fortress bootstrap config.  This
+Note 1: After this step completes, Symas OpenLDAP will be installed, configured and loaded with fortress bootstrap config.  This
 step also runs provisioning scripts which may be tailored according to requirements.  Check out the xml load scripts
 in FORTRESS_HOME/ldap/setup folder.
 
@@ -136,7 +136,7 @@ c. To re-run these tests:
 
 Note 1: WARNING messages are good as these are negative tests in action
 
-Note 2: If you made it to this point with no ERRORS this means Fortress and OpenLDAP are good to go on your machine.
+Note 2: If you made it to this point with no ERRORS this means Fortress and Symas OpenLDAP are good to go on your machine.
 
 Note 3: This section prescribes that you run the Fortress regression test targets.  They load tens of thousands of test records into your directory.
 The 'init-slapd' target may be re-run after the 'test-full-init' and 'test-full' targets have completed.  This will delete the test data from the directory

@@ -4,6 +4,7 @@
 
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ValidationException;
@@ -11,6 +12,8 @@ import com.jts.fortress.ValidationException;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.CacheMgr;
 import com.jts.fortress.util.cache.Cache;
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+import org.apache.log4j.Logger;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
 import java.util.List;
@@ -18,9 +21,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * This utility wraps {@link HierUtil} and {@link HierP} methods to provide hierarchical functionality for the {@link com.jts.fortress.rbac.Role} data set.
+ * This utility wraps {@link HierUtil} methods to provide hierarchical functionality for the {@link com.jts.fortress.rbac.Role} data set.
  * The {@code cn=Hierarchies, ou=Roles} data is stored within a cache, {@link #m_roleCache}, contained within this class.  The parent-child edges are contained in LDAP,
- * i.e. {@code cn=Hierarchies, ou=Roles} which uses entity {@link Hier}.  The ldap data is retrieved {@link HierP#read(Hier)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
+ * i.e. {@code cn=Hierarchies, ou=Roles} which uses entity {@link Hier}.  The ldap data is retrieved and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
  * <li>is stored as singleton in this class with vertices of {@code String}, and edges, as {@link Relationship}s</li>
@@ -45,8 +48,11 @@ import java.util.TreeSet;
 final class RoleUtil
 {
     private static Cache m_roleCache;
+    private static final RoleP roleP = new RoleP();
     private static final String ROLES = "roles";
     private static final String FORTRESS_ROLES = "fortress.roles";
+    private static final String CLS_NM = RoleUtil.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
     /**
      * Initialize the Role hierarchies.  This will read the {@link Hier} data set from ldap and load into
@@ -250,19 +256,17 @@ final class RoleUtil
     }
 
     /**
-     * This api allows synchronized access to {@link HierUtil#validateRelationship(org.jgrapht.graph.SimpleDirectedGraph, String, String, boolean)}
-     * to {@link com.jts.fortress.rbac.AdminMgrImpl} to allow updates to RBAC Role relationships.
-     * Method will update the RBAC Role hierarchical data set and reload the JGraphT simple digraph with latest.
+     * This api allows synchronized access to allow updates to hierarchical relationships.
+     * Method will update the hierarchical data set and reload the JGraphT simple digraph with latest.
      *
-     * @param hier maps to 'ftRels' attribute on 'ftHier' object class.
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param relationship contains parent-child relationship targeted for addition.
      * @param op   used to pass the ldap op {@link Hier.Op#ADD}, {@link Hier.Op#MOD}, {@link com.jts.fortress.rbac.Hier.Op#REM}
      * @throws com.jts.fortress.SecurityException in the event of a system error.
      */
-    static void updateHier(Hier hier, Hier.Op op) throws SecurityException
+    static void updateHier(String contextId, Relationship relationship, Hier.Op op) throws SecurityException
     {
-        HierP hp = new HierP();
-        hp.update(hier, op);
-        loadGraph(hier.getContextId());
+        HierUtil.updateHier(getGraph(contextId), relationship, op);
     }
 
     /**
@@ -276,7 +280,17 @@ final class RoleUtil
     {
         Hier inHier = new Hier(Hier.Type.ROLE);
         inHier.setContextId(contextId);
-        Hier hier = HierUtil.readHier(inHier);
+        log.info(CLS_NM + ".loadGraph initializing ROLE context [" + inHier.getContextId() + "]");
+        List<Graphable> descendants = null;
+        try
+        {
+            descendants = roleP.getAllDescendants(inHier.getContextId());
+        }
+        catch(SecurityException se)
+        {
+            log.info(CLS_NM + ".loadGraph caught SecurityException=" + se);
+        }
+        Hier hier = HierUtil.loadHier(contextId, descendants);
         SimpleDirectedGraph<String, Relationship> graph = HierUtil.buildGraph(hier);
         m_roleCache.put(getKey(contextId), graph);
         return graph;

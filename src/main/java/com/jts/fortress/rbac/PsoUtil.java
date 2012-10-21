@@ -11,6 +11,7 @@ import com.jts.fortress.SecurityException;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.CacheMgr;
 import com.jts.fortress.util.cache.Cache;
+import org.apache.log4j.Logger;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
 import java.util.List;
@@ -18,10 +19,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * This utility wraps {@link HierUtil} and {@link HierP} methods to provide hierarchical functionality using the {@link com.jts.fortress.rbac.OrgUnit} data set
+ * This utility wraps {@link HierUtil} methods to provide hierarchical functionality using the {@link com.jts.fortress.rbac.OrgUnit} data set
  * for Permissions, {@link com.jts.fortress.rbac.OrgUnit.Type#PERM}.
  * The {@code cn=Hierarchies, ou=OS-P} data contains Permission OU pools and within a data cache, {@link #m_psoCache}, contained within this class.  The parent-child edges are contained in LDAP,
- * i.e. {@code cn=Hierarchies, ou=OS-P} which uses entity {@link Hier}.  The ldap data is retrieved {@link HierP#read(Hier)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
+ * i.e. {@code cn=Hierarchies, ou=OS-P} which uses entity {@link Hier}.  The ldap data is retrieved and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
  * <li>is stored as singleton in this class with vertices of {@code String}, and edges, as {@link Relationship}s</li>
@@ -45,8 +46,11 @@ import java.util.TreeSet;
 final class PsoUtil
 {
     private static Cache m_psoCache;
+    private static OrgUnitP orgUnitP = new OrgUnitP();
     private static final String PSO = "pso";
     private static final String FORTRESS_PSO = "fortress.pso";
+    private static final String CLS_NM = PsoUtil.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
 
 
     /**
@@ -169,27 +173,20 @@ final class PsoUtil
         HierUtil.validateRelationship(getGraph(child.getContextId()), child.getName(), parent.getName(), mustExist);
     }
 
+
     /**
-     * This api allows synchronizparentsed access to {@link HierUtil#validateRelationship(org.jgrapht.graph.SimpleDirectedGraph, String, String, boolean)}
-     * to {@link DelAdminMgrImpl} to allow updates to Permission OU relationships.
-     * Method will update the Permission OU hierarchical data set and reload the JGraphT simple digraph with latest.
+     * This api allows synchronized access to allow updates to hierarchical relationships.
+     * Method will update the hierarchical data set and reload the JGraphT simple digraph with latest.
      *
-     * @param hier maps to 'ftRels' attribute on 'ftHier' object class.
-     * @param op   used to pass the ldap op {@link com.jts.fortress.rbac.Hier.Op#ADD}, {@link com.jts.fortress.rbac.Hier.Op#MOD}, {@link com.jts.fortress.rbac.Hier.Op#REM}
-     * @throws SecurityException in the event of a system error.
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param relationship contains parent-child relationship targeted for addition.
+     * @param op   used to pass the ldap op {@link Hier.Op#ADD}, {@link Hier.Op#MOD}, {@link com.jts.fortress.rbac.Hier.Op#REM}
+     * @throws com.jts.fortress.SecurityException in the event of a system error.
      */
-    static void updateHier(Hier hier, Hier.Op op) throws SecurityException
+    static void updateHier(String contextId, Relationship relationship, Hier.Op op) throws SecurityException
     {
-        HierP hp = new HierP();
-        hp.update(hier, op);
-        loadGraph(hier.getContextId());
+        HierUtil.updateHier(getGraph(contextId), relationship, op);
     }
-
-    /**
-     * Read this ldap record,{@code cn=Hierarchies, ou=OS-P} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
-     * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
-     */
-
 
     /**
      * Read this ldap record,{@code cn=Hierarchies, ou=OS-P} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
@@ -200,10 +197,22 @@ final class PsoUtil
      */
     private static SimpleDirectedGraph<String, Relationship> loadGraph(String contextId)
     {
-        Hier inHier = new Hier(Hier.Type.PERM);
+        Hier inHier = new Hier(Hier.Type.ROLE);
         inHier.setContextId(contextId);
-
-        Hier hier = HierUtil.readHier(inHier);
+        log.info(CLS_NM + ".loadGraph initializing PSO context [" + inHier.getContextId() + "]");
+        List<Graphable> descendants = null;
+        try
+        {
+            OrgUnit orgUnit = new OrgUnit();
+            orgUnit.setType(OrgUnit.Type.PERM);
+            orgUnit.setContextId(contextId);
+            descendants = orgUnitP.getAllDescendants(orgUnit);
+        }
+        catch(SecurityException se)
+        {
+            log.info(CLS_NM + ".loadGraph caught SecurityException=" + se);
+        }
+        Hier hier = HierUtil.loadHier(contextId, descendants);
         SimpleDirectedGraph<String, Relationship> graph = HierUtil.buildGraph(hier);
         m_psoCache.put(getKey(contextId), graph);
         return graph;

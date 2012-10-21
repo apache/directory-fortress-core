@@ -226,6 +226,14 @@ attributetype ( 1.3.6.1.4.1.1.38088.1.27
 	EQUALITY booleanMatch
     SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE )
 
+# A28: Parent Nodes, type STRING, MULTI VALUE
+attributetype ( 1.3.6.1.4.1.1.38088.1.28
+    NAME 'ftParents'
+	DESC 'Fortress Parent Nodes'
+	EQUALITY caseIgnoreMatch
+	SUBSTR caseIgnoreSubstringsMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
 ######################################################################
 ## 2. JoshuaTree Software Fortress Structural object class definitions
 ######################################################################
@@ -242,7 +250,8 @@ objectclass	( 1.3.6.1.4.1.38088.2.1
 		)
     MAY (
 		description $
-        ftCstr
+        ftCstr $
+        ftParents
 		)
 	)
 
@@ -321,8 +330,12 @@ objectclass	( 1.3.6.1.4.1.38088.2.6
 	DESC 'Fortress OrgUnit Structural Object Class'
     SUP organizationalunit
     STRUCTURAL
-	MUST (		ftId
+	MUST (
+	    ftId
 	    )
+    MAY (
+        ftParents
+		)
 	)
 
 ## OC7: Fortress Hierarchies Structural Object Class

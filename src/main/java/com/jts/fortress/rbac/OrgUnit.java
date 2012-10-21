@@ -4,6 +4,7 @@
 package com.jts.fortress.rbac;
 
 import javax.xml.bind.annotation.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -127,7 +128,7 @@ import java.util.UUID;
     "type"
 })
 public class OrgUnit extends FortEntity
-    implements java.io.Serializable
+    implements Graphable, java.io.Serializable
 {
     /**
      * Maps to the location for a particular OrgUnit entity to either the User, {@code ou=OS-U}, or Permission, {@code ou=OS-P}, tree in ldap.
@@ -298,6 +299,31 @@ public class OrgUnit extends FortEntity
     public void setParents(Set<String> parents)
     {
         this.parents = parents;
+    }
+
+    /**
+     * Set the occupant attribute with the contents of the User dn.
+     * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
+     */
+    public void setParent(String parent)
+    {
+        if (this.parents == null)
+        {
+            this.parents = new HashSet<String>();
+        }
+        this.parents.add(parent);
+    }
+
+    /**
+     * Set the occupant attribute with the contents of the User dn.
+     * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
+     */
+    public void delParent(String parent)
+    {
+        if (this.parents != null)
+        {
+            this.parents.remove(parent);
+        }
     }
 
     /**

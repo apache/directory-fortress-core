@@ -879,13 +879,9 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         role.setContextId(this.contextId);
         roleP.read(role);
         RoleUtil.validateRelationship(childRole, parentRole, false);
+        childRole.setParent(parentRole.getName());
         roleP.add(childRole);
-        Hier hier = new Hier();
-        hier.setRelationship(childRole.getName(), parentRole.getName());
-        hier.setType(Hier.Type.ROLE);
-        setAdminData(CLS_NM, methodName, hier);
-        hier.setContextId(this.contextId);
-        RoleUtil.updateHier(hier, Hier.Op.ADD);
+        RoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
     }
 
     /**
@@ -926,13 +922,13 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         // make sure the child role is already there:
         Role role = new Role(childRole.getName());
         role.setContextId(this.contextId);
-        roleP.read(role);
+        role = roleP.read(role);
+        role.setContextId(this.contextId);
         RoleUtil.validateRelationship(childRole, parentRole, false);
         roleP.add(parentRole);
-        Hier hier = new Hier(Hier.Type.ROLE, childRole.getName(), parentRole.getName());
-        setAdminData(CLS_NM, methodName, hier);
-        hier.setContextId(this.contextId);
-        RoleUtil.updateHier(hier, Hier.Op.ADD);
+        role.setParent(parentRole.getName());
+        roleP.update(role);
+        RoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
     }
 
     /**
@@ -963,14 +959,15 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         pRole.setContextId(this.contextId);
         roleP.read(pRole);
         // make sure the child role is already there:
-        Role cRole = new Role(parentRole.getName());
+        Role cRole = new Role(childRole.getName());
         cRole.setContextId(this.contextId);
-        roleP.read(cRole);
+        cRole = roleP.read(cRole);
         RoleUtil.validateRelationship(childRole, parentRole, false);
-        Hier hier = new Hier(Hier.Type.ROLE, childRole.getName(), parentRole.getName());
-        setAdminData(CLS_NM, methodName, hier);
-        hier.setContextId(this.contextId);
-        RoleUtil.updateHier(hier, Hier.Op.ADD);
+        RoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
+        cRole.setParent(parentRole.getName());
+        cRole.setContextId(this.contextId);
+        setAdminData(CLS_NM, methodName, cRole);
+        roleP.update(cRole);
     }
 
     /**
@@ -996,10 +993,15 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         setEntitySession(CLS_NM, methodName, parentRole);
         assertContext(CLS_NM, methodName, childRole, GlobalErrIds.CHILD_ROLE_NULL);
         RoleUtil.validateRelationship(childRole, parentRole, true);
-        Hier hier = new Hier(Hier.Type.ROLE, childRole.getName(), parentRole.getName());
-        setAdminData(CLS_NM, methodName, hier);
-        hier.setContextId(this.contextId);
-        RoleUtil.updateHier(hier, Hier.Op.REM);
+        RoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.REM);
+        // need to remove the parent from the child role:
+        Role cRole = new Role(childRole.getName());
+        cRole.setContextId(this.contextId);
+        cRole = roleP.read(cRole);
+        cRole.setContextId(this.contextId);
+        cRole.delParent(parentRole.getName());
+        setAdminData(CLS_NM, methodName, cRole);
+        roleP.update(cRole);
     }
 
     /**

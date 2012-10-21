@@ -91,6 +91,20 @@ final class AdminRoleP
 
 
     /**
+     * Return all AdminRoles that have a parent assignment.  This used for hierarchical processing.
+     *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @return List of type AdminRole containing {@link AdminRole#name} and {@link AdminRole#parents} populated.
+     * @throws com.jts.fortress.SecurityException in the event of DAO search error.
+     */
+    final List<Graphable> getAllDescendants(String contextId)
+        throws SecurityException
+    {
+        return rDao.getAllDescendants(contextId);
+    }
+
+
+    /**
      * Adds a new Admin Role entity to directory.  The Role entity input object will be validated to ensure that:
      * role name is present, and reasonability checks on all of the other populated values.
      *

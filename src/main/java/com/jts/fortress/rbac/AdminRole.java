@@ -126,8 +126,6 @@ import java.util.TreeSet;
 @XmlRootElement(name = "fortAdminRole")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "adminRole", propOrder = {
-    "parents",
-    "children",
     "osPs",
     "osUs",
     "beginRange",
@@ -143,8 +141,6 @@ public class AdminRole extends Role implements Administrator
     private String endRange;
     private boolean beginInclusive;
     private boolean endInclusive;
-    private Set<String> parents;
-    private Set<String> children;
 
     /**
      * Default constructor is used by internal Fortress classes.
@@ -395,37 +391,45 @@ public class AdminRole extends Role implements Administrator
      * Get the names of admin roles that are parents (direct ascendants) of this admin role.
      * @return Set of parent admin role names assigned to this admin role.
      */
+/*
     public Set<String> getParents()
     {
         return parents;
     }
+*/
 
     /**
      * Set the names of admin roles names that are parents (direct ascendants) of this admin role.
      * @param parents contains the Set of parent admin role names assigned to this admin role.
      */
+/*
     public void setParents(Set<String> parents)
     {
         this.parents = parents;
     }
+*/
 
     /**
      * Return the Set of child admin role names (direct descendants) of this admin role.
      * @return Set of child admin role names assigned to this admin role.
      */
+/*
     public Set<String> getChildren()
     {
         return children;
     }
+*/
 
     /**
      * Set the Set of child admin role names (direct descendants) of this admin role
      * @param children contains the Set of child admin role names assigned to this admin role.
      */
+/*
     public void setChildren(Set<String> children)
     {
         this.children = children;
     }
+*/
 
     /**
      * Matches the name from two AdminRole entities.

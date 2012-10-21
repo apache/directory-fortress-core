@@ -65,6 +65,7 @@ public class ReviewMgrConsole
                 System.out.println("    name      [" + re.getName() + "]");
                 System.out.println("    internalId  [" + re.getId() + "]");
                 System.out.println("    description [" + re.getDescription() + "]");
+                System.out.println("    parents [" + re.getParents() + "]");
                 printTemporal(re, "RBACROLE");
             }
             else
@@ -98,6 +99,7 @@ public class ReviewMgrConsole
                     System.out.println("    name      [" + re.getName() + "]");
                     System.out.println("    internalId  [" + re.getId() + "]");
                     System.out.println("    description [" + re.getDescription() + "]");
+                    System.out.println("    parents [" + re.getParents() + "]");
                     printTemporal(re, "RBACROLE");
                 }
             }
