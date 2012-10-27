@@ -44,7 +44,6 @@ final class AdminRoleUtil
 {
     private static Cache m_adminRoleCache;
     private static AdminRoleP adminRoleP = new AdminRoleP();
-    private static final String ADMIN_ROLES = "adminRoles";
     private static final String FORTRESS_ADMIN_ROLES = "fortress.admin.roles";
     private static final String CLS_NM = AdminRoleUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
@@ -183,23 +182,6 @@ final class AdminRoleUtil
     }
 
     /**
-     * This api allows synchronized access to {@link HierUtil#validateRelationship(org.jgrapht.graph.SimpleDirectedGraph, String, String, boolean)}
-     * to {@link DelAdminMgrImpl} to allow updates to AdminRole relationships.
-     * Method will update the AdminRole container hierarchical data set and reload the JGraphT simple digraph with latest.
-     * @param hier maps to 'ftRels' attribute on 'ftHier' object class.
-     * @param op used to pass the ldap op {@link Hier.Op#ADD}, {@link Hier.Op#MOD}, {@link Hier.Op#REM}
-     * @throws com.jts.fortress.SecurityException in the event of a system error.
-     */
-/*
-    static void updateHier(Hier hier, Hier.Op op) throws SecurityException
-    {
-        HierP hp = new HierP();
-        hp.update(hier, op);
-        loadGraph(hier.getContextId());
-    }
-*/
-
-    /**
      * This api allows synchronized access to allow updates to hierarchical relationships.
      * Method will update the hierarchical data set and reload the JGraphT simple digraph with latest.
      *
@@ -235,11 +217,14 @@ final class AdminRoleUtil
             log.info(CLS_NM + ".loadGraph caught SecurityException=" + se);
         }
         Hier hier = HierUtil.loadHier(contextId, descendants);
-        SimpleDirectedGraph<String, Relationship> graph = HierUtil.buildGraph(hier);
+        SimpleDirectedGraph<String, Relationship> graph;
+        synchronized (HierUtil.getLock(contextId, HierUtil.Type.ARLE))
+        {
+            graph = HierUtil.buildGraph(hier);
+        }
         m_adminRoleCache.put(getKey(contextId), graph);
         return graph;
     }
-
 
     /**
      * Read this ldap record,{@code cn=Hierarchies, ou=OS-P} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
@@ -265,7 +250,7 @@ final class AdminRoleUtil
      */
     private static String getKey(String contextId)
     {
-        String key = ADMIN_ROLES;
+        String key = HierUtil.Type.ARLE.toString();
         if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL))
         {
             key += ":" + contextId;

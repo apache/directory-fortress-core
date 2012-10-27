@@ -45,7 +45,6 @@ final class RoleUtil
 {
     private static Cache m_roleCache;
     private static final RoleP roleP = new RoleP();
-    private static final String ROLES = "roles";
     private static final String FORTRESS_ROLES = "fortress.roles";
     private static final String CLS_NM = RoleUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
@@ -262,7 +261,6 @@ final class RoleUtil
      */
     static void updateHier(String contextId, Relationship relationship, Hier.Op op) throws SecurityException
     {
-        // TODO: synchronize:
         HierUtil.updateHier(getGraph(contextId), relationship, op);
     }
 
@@ -275,7 +273,6 @@ final class RoleUtil
      */
     private static SimpleDirectedGraph<String, Relationship> loadGraph(String contextId)
     {
-        // TODO: synchronize:
         Hier inHier = new Hier(Hier.Type.ROLE);
         inHier.setContextId(contextId);
         log.info(CLS_NM + ".loadGraph initializing ROLE context [" + inHier.getContextId() + "]");
@@ -289,7 +286,11 @@ final class RoleUtil
             log.info(CLS_NM + ".loadGraph caught SecurityException=" + se);
         }
         Hier hier = HierUtil.loadHier(contextId, descendants);
-        SimpleDirectedGraph<String, Relationship> graph = HierUtil.buildGraph(hier);
+        SimpleDirectedGraph<String, Relationship> graph;
+        synchronized (HierUtil.getLock(contextId, HierUtil.Type.ROLE))
+        {
+            graph = HierUtil.buildGraph(hier);
+        }
         m_roleCache.put(getKey(contextId), graph);
         return graph;
     }
@@ -301,7 +302,7 @@ final class RoleUtil
      */
     private static String getKey(String contextId)
     {
-        String key = ROLES;
+        String key =  HierUtil.Type.ROLE.toString();
         if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL))
         {
             key += ":" + contextId;

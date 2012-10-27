@@ -45,7 +45,6 @@ final class UsoUtil
 {
     private static Cache m_usoCache;
     private static OrgUnitP orgUnitP = new OrgUnitP();
-    private static final String USO = "uso";
     private static final String FORTRESS_USO = "fortress.uso";
     private static final String CLS_NM = UsoUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
@@ -202,7 +201,11 @@ final class UsoUtil
             log.info(CLS_NM + ".loadGraph caught SecurityException=" + se);
         }
         Hier hier = HierUtil.loadHier(contextId, descendants);
-        SimpleDirectedGraph<String, Relationship> graph = HierUtil.buildGraph(hier);
+        SimpleDirectedGraph<String, Relationship> graph;
+        synchronized (HierUtil.getLock(contextId, HierUtil.Type.USO))
+        {
+            graph = HierUtil.buildGraph(hier);
+        }
         m_usoCache.put(getKey(contextId), graph);
         return graph;
     }
@@ -224,7 +227,7 @@ final class UsoUtil
 
     private static String getKey(String contextId)
     {
-        String key = USO;
+        String key = HierUtil.Type.USO.toString();
         if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL))
         {
             key += ":" + contextId;

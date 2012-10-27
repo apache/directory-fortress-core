@@ -3,6 +3,7 @@ package com.jts.fortress.util.cache;
 import com.jts.fortress.CfgRuntimeException;
 import com.jts.fortress.GlobalErrIds;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.constructs.blocking.BlockingCache;
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
 
@@ -15,24 +16,24 @@ import net.sf.ehcache.search.Query;
 public class EhCacheImpl implements Cache
 {
     private static final String CLS_NM = EhCacheImpl.class.getName();
-    private net.sf.ehcache.Cache cache;
+    private BlockingCache cache;
     private String name;
 
     /**
      * Create an instance of a wrapped, singleton cache instance using Ehcache.
      *
      * @param name name for the cache instance.
-     * @param cache that is being wrapped.
+     * @param blockingCache that is being wrapped.
      */
-    EhCacheImpl(String name, net.sf.ehcache.Cache cache)
+    EhCacheImpl(String name, BlockingCache blockingCache)
     {
         this.name = name;
-        if(cache == null)
+        if(blockingCache == null)
         {
             String error = CLS_NM + " constructor cache: " + name + " is null";
             throw new CfgRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error);
         }
-        this.cache = cache;
+        this.cache = blockingCache;
     }
 
     /**

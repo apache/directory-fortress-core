@@ -45,7 +45,6 @@ final class PsoUtil
 {
     private static Cache m_psoCache;
     private static OrgUnitP orgUnitP = new OrgUnitP();
-    private static final String PSO = "pso";
     private static final String FORTRESS_PSO = "fortress.pso";
     private static final String CLS_NM = PsoUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
@@ -211,7 +210,11 @@ final class PsoUtil
             log.info(CLS_NM + ".loadGraph caught SecurityException=" + se);
         }
         Hier hier = HierUtil.loadHier(contextId, descendants);
-        SimpleDirectedGraph<String, Relationship> graph = HierUtil.buildGraph(hier);
+        SimpleDirectedGraph<String, Relationship> graph;
+        synchronized (HierUtil.getLock(contextId, HierUtil.Type.PSO))
+        {
+            graph = HierUtil.buildGraph(hier);
+        }
         m_psoCache.put(getKey(contextId), graph);
         return graph;
     }
@@ -237,7 +240,7 @@ final class PsoUtil
      */
     private static String getKey(String contextId)
     {
-        String key = PSO;
+        String key = HierUtil.Type.PSO.toString();
         if (VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL))
         {
             key += ":" + contextId;

@@ -50,8 +50,47 @@ final class HierUtil
     private static final String CLS_NM = HierUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
     private static final String VERTEX = "Vertex";
-    private static final String DEFAULT_VERTEX_1 = "df1";
-    private static final String DEFAULT_VERTEX_2 = "df2";
+
+    /**
+     * The 'Type' attribute corresponds to what type of hierarchy is being referred to.
+     */
+    static enum Type
+    {
+        ROLE,
+        ARLE,
+        USO,
+        PSO
+    }
+
+    private static final Map<String,Object> synchMap = new HashMap<String, Object>();
+
+    /**
+     *
+     * @param contextId
+     * @param type
+     * @return
+     */
+    static Object getLock(String contextId, Type type)
+    {
+        Object synchObj = synchMap.get(getSynchKey(contextId, type));
+        if(synchObj == null)
+        {
+            synchObj = new Object();
+            synchMap.put(getSynchKey(contextId, type), synchObj);
+        }
+        return synchObj;
+    }
+
+    /**
+     *
+     * @param contextId
+     * @param type
+     * @return
+     */
+    private static String getSynchKey(String contextId, Type type)
+    {
+        return type.toString() + ":" + contextId;
+    }
 
     /**
      * This api is used to determine parentage for Hierarchical processing.
@@ -142,9 +181,9 @@ final class HierUtil
 
 
     /**
-     * This method adds an edge and its associated vertices to simple directed graph stored in static memory of this process.
+     * This method is synchronized and adds an edge and its associated vertices to simple directed graph stored in static memory of this process.
      *
-     * @param graph contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @param graph synchronized parameter contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @param relation contains parent-child relationship targeted for addition.
      * @return {@code org.jgrapht.graph.SimpleDirectedGraph} containing the vertices of {@code String}, and edges, as {@link Relationship}s that correspond to relational data.
      */
@@ -152,15 +191,18 @@ final class HierUtil
         throws com.jts.fortress.SecurityException
     {
         log.debug(CLS_NM + ".addEdge");
-        graph.addVertex(relation.getChild().toUpperCase());
-        graph.addVertex(relation.getParent().toUpperCase());
-        graph.addEdge(relation.getChild().toUpperCase(), relation.getParent().toUpperCase(), relation);
+        synchronized (graph)
+        {
+            graph.addVertex(relation.getChild().toUpperCase());
+            graph.addVertex(relation.getParent().toUpperCase());
+            graph.addEdge(relation.getChild().toUpperCase(), relation.getParent().toUpperCase(), relation);
+        }
     }
 
     /**
-     * This method removes an edge from a simple directed graph stored in static memory of this process.
+     * This method is synchronized and removes an edge from a simple directed graph stored in static memory of this process.
      *
-     * @param graph contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @param graph synchronized parameter contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @param relation contains parent-child relationship targeted for removal.
      * @return {@code org.jgrapht.graph.SimpleDirectedGraph} containing the vertices of {@code String}, and edges, as {@link Relationship}s that correspond to relational data.
      */
@@ -168,7 +210,10 @@ final class HierUtil
         throws com.jts.fortress.SecurityException
     {
         log.debug(CLS_NM + ".removeEdge");
-        graph.removeEdge(relation);
+        synchronized (graph)
+        {
+            graph.removeEdge(relation);
+        }
     }
 
     /**
