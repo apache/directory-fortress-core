@@ -4,7 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ValidationException;
 import com.jts.fortress.SecurityException;
@@ -21,16 +20,14 @@ import java.util.TreeSet;
 
 /**
  * This utility wraps {@link HierUtil} methods to provide hierarchical functionality for the {@link com.jts.fortress.rbac.AdminRole} data set.
- * The {@code cn=Hierarchies, ou=AdminRoles} data is stored within a data cache, {@link #m_adminRoleCache}, contained within this class.  The parent-child edges are contained in LDAP,
- * i.e. {@code cn=Hierarchies, ou=AdminRoles,...} which uses entity {@link Hier}.  The ldap data is retrieved {@link HierP#read(com.jts.fortress.rbac.Hier.Type)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
+ * The child to parent relationships are stored within a data cache, {@link #m_adminRoleCache}, contained within this class.  The parent-child edges are contained in LDAP,
+ * in {@code ftParents} attribute.  The ldap data is retrieved {@link AdminRoleP#getAllDescendants(String)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
  * <li>is stored as singleton in this class with vertices of {@code String}, and edges, as {@link Relationship}s</li>
  * <li>utilizes open source library, see <a href="http://www.jgrapht.org/">JGraphT</a>.</li>
  * <li>contains a general hierarchical data structure i.e. allows multiple inheritance with parents.</li>
  * <li>is a simple directed graph thus does not allow cycles.</li>
- * <li>is refreshed by reading this ldap record,{@code cn=Hierarchies, ou=AdminRoles} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph} using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
- * <li>can only be updated via the synchronized method {@link #updateHier} which may add, {@link com.jts.fortress.rbac.Hier.Op#ADD}, change, {@link com.jts.fortress.rbac.Hier.Op#MOD}, or delete, {@link com.jts.fortress.rbac.Hier.Op#REM} parent-child relationships.</li>
  * </ol>
  * After update is performed to ldap, the singleton is refreshed with latest info.
  * <p/>
@@ -67,8 +64,8 @@ final class AdminRoleUtil
      * will call recursive routine {@link #getAscendants(String, String)} to walk the {@code org.jgrapht.graph.SimpleDirectedGraph} data structure
      * returning flag indicating if parent-child relationship is valid.
      *
-     * @param child maps to logical {@link com.jts.fortress.rbac.AdminRole#name} and physical 'ftRels' attribute on 'ftHier' object class.
-     * @param parent maps to logical {@link com.jts.fortress.rbac.AdminRole#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param child maps to logical {@link com.jts.fortress.rbac.AdminRole#name} on 'ftRls' object class.
+     * @param parent maps to logical {@link com.jts.fortress.rbac.AdminRole#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return boolean result, 'true' indicates parent/child relationship exists.
      */
@@ -85,7 +82,7 @@ final class AdminRoleUtil
 
     /**
      * Recursively traverse the {@link com.jts.fortress.rbac.AdminRole} graph and return all of the descendants of a given parent {@link com.jts.fortress.rbac.AdminRole#name}.
-     * @param roleName {@link com.jts.fortress.rbac.AdminRole#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName {@link com.jts.fortress.rbac.AdminRole#name} maps on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of AdminRole names are children {@link com.jts.fortress.rbac.AdminRole}s of given parent.
      */
@@ -96,7 +93,7 @@ final class AdminRoleUtil
 
     /**
      * Recursively traverse the hierarchical role graph and return all of the parents of a given child role.
-     * @param roleName maps to logical {@link com.jts.fortress.rbac.AdminRole#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName maps to logical {@link com.jts.fortress.rbac.AdminRole#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of AdminRole names that are descendants of given node.
      */
@@ -107,7 +104,7 @@ final class AdminRoleUtil
 
     /**
      * Traverse one level of the {@link com.jts.fortress.rbac.AdminRole} graph and return all of the parents (direct ascendants) of a given parent {@link com.jts.fortress.rbac.AdminRole#name}.
-     * @param roleName {@link com.jts.fortress.rbac.AdminRole#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName {@link com.jts.fortress.rbac.AdminRole#name} maps on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of AdminRole names are parents {@link com.jts.fortress.rbac.AdminRole}s of given child.
      */
@@ -118,7 +115,7 @@ final class AdminRoleUtil
 
     /**
      * Traverse one level of the hierarchical role graph and return all of the children (direct descendants) of a given parent role.
-     * @param roleName maps to logical {@link com.jts.fortress.rbac.AdminRole#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName maps to logical {@link com.jts.fortress.rbac.AdminRole#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of AdminRole names that are children of given parent.
      */
@@ -129,7 +126,7 @@ final class AdminRoleUtil
 
     /**
      * Return number of children (direct descendants) a given parent role has.
-     * @param roleName maps to logical {@link com.jts.fortress.rbac.AdminRole#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName maps to logical {@link com.jts.fortress.rbac.AdminRole#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return int value contains the number of children of a given parent AdminRole.
      */

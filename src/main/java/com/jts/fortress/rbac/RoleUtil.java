@@ -4,7 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ValidationException;
@@ -12,7 +11,6 @@ import com.jts.fortress.ValidationException;
 import com.jts.fortress.util.attr.VUtil;
 import com.jts.fortress.util.cache.CacheMgr;
 import com.jts.fortress.util.cache.Cache;
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import org.apache.log4j.Logger;
 import org.jgrapht.graph.SimpleDirectedGraph;
 
@@ -23,15 +21,13 @@ import java.util.TreeSet;
 /**
  * This utility wraps {@link HierUtil} methods to provide hierarchical functionality for the {@link com.jts.fortress.rbac.Role} data set.
  * The {@code cn=Hierarchies, ou=Roles} data is stored within a cache, {@link #m_roleCache}, contained within this class.  The parent-child edges are contained in LDAP,
- * i.e. {@code cn=Hierarchies, ou=Roles} which uses entity {@link Hier}.  The ldap data is retrieved and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
+ * in {@code ftParents} attribute.  The ldap data is retrieved {@link RoleP#getAllDescendants(String)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
  * <li>is stored as singleton in this class with vertices of {@code String}, and edges, as {@link Relationship}s</li>
  * <li>utilizes open source library, see <a href="http://www.jgrapht.org/">JGraphT</a>.</li>
  * <li>contains a general hierarchical data structure i.e. allows multiple inheritance with parents.</li>
  * <li>is a simple directed graph thus does not allow cycles.</li>
- * <li>is refreshed by reading this ldap record,{@code cn=Hierarchies, ou=Roles} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph} using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
- * <li>can only be updated via the synchronized method {@link #updateHier} which may add, {@link com.jts.fortress.rbac.Hier.Op#ADD}, change, {@link com.jts.fortress.rbac.Hier.Op#MOD}, or delete, {@link com.jts.fortress.rbac.Hier.Op#REM} parent-child relationships.</li>
  * </ol>
  * After update is performed to ldap, the singleton is refreshed with latest info.
  * <p/>
@@ -69,8 +65,8 @@ final class RoleUtil
      * will call recursive routine {@link #getAscendants(String, String)} to walk the {@code org.jgrapht.graph.SimpleDirectedGraph} data structure
      * returning flag indicating if parent-child relationship is valid.
      *
-     * @param child  maps to logical {@link com.jts.fortress.rbac.Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
-     * @param parent maps to logical {@link com.jts.fortress.rbac.Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param child  maps to logical {@link com.jts.fortress.rbac.Role#name} on 'ftRls' object class.
+     * @param parent maps to logical {@link com.jts.fortress.rbac.Role#name} on 'ftRels' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return boolean result, 'true' indicates parent/child relationship exists.
      */
@@ -88,7 +84,7 @@ final class RoleUtil
     /**
      * Recursively traverse the {@link com.jts.fortress.rbac.Role} graph and return all of the descendants of a given node {@link com.jts.fortress.rbac.Role#name}.
      *
-     * @param roleName {@link com.jts.fortress.rbac.Role#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName {@link com.jts.fortress.rbac.Role#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names are descendants {@link com.jts.fortress.rbac.Role}s of given parent.
      */
@@ -100,7 +96,7 @@ final class RoleUtil
     /**
      * Traverse the {@link com.jts.fortress.rbac.Role} graph and return all children (direct descendants) of a given parent node {@link com.jts.fortress.rbac.Role#name}.
      *
-     * @param roleName {@link com.jts.fortress.rbac.Role#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName {@link com.jts.fortress.rbac.Role#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names are children {@link com.jts.fortress.rbac.Role}s of given parent.
      */
@@ -112,7 +108,7 @@ final class RoleUtil
     /**
      * Recursively traverse the hierarchical role graph and return all of the ascendants of a given role.
      *
-     * @param roleName maps to logical {@link com.jts.fortress.rbac.Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName maps to logical {@link com.jts.fortress.rbac.Role#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names that are ascendants of given child.
      */
@@ -124,7 +120,7 @@ final class RoleUtil
     /**
      * Traverse the hierarchical role graph and return all of the parents (direct ascendants) of a given role.
      *
-     * @param roleName maps to logical {@link com.jts.fortress.rbac.Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName maps to logical {@link com.jts.fortress.rbac.Role#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names that are parents of given child.
      */
@@ -136,7 +132,7 @@ final class RoleUtil
     /**
      * Determine the number of children (direct descendants) a given parent role has.
      *
-     * @param roleName maps to logical {@link com.jts.fortress.rbac.Role#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param roleName maps to logical {@link com.jts.fortress.rbac.Role#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return int value contains the number of children of a given parent nRole.
      */
@@ -266,6 +262,7 @@ final class RoleUtil
      */
     static void updateHier(String contextId, Relationship relationship, Hier.Op op) throws SecurityException
     {
+        // TODO: synchronize:
         HierUtil.updateHier(getGraph(contextId), relationship, op);
     }
 
@@ -278,6 +275,7 @@ final class RoleUtil
      */
     private static SimpleDirectedGraph<String, Relationship> loadGraph(String contextId)
     {
+        // TODO: synchronize:
         Hier inHier = new Hier(Hier.Type.ROLE);
         inHier.setContextId(contextId);
         log.info(CLS_NM + ".loadGraph initializing ROLE context [" + inHier.getContextId() + "]");

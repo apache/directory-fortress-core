@@ -21,15 +21,13 @@ import java.util.TreeSet;
 /**
  * This utility wraps {@link HierUtil} methods to provide hierarchical functionality using the {@link com.jts.fortress.rbac.OrgUnit} data set for User type {@link com.jts.fortress.rbac.OrgUnit.Type#USER}.
  * The {@code cn=Hierarchies, ou=OS-U} data contains User OU pools is stored within a data cache, {@link #m_usoCache}, contained within this class.  The parent-child edges are contained in LDAP,
- * i.e. {@code cn=Hierarchies, ou=OS-U} which uses entity {@link Hier}.  The ldap data is retrieved and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
+ * in {@code ftParents} attribute.  The ldap data is retrieved {@link OrgUnitP#getAllDescendants(OrgUnit)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
  * <li>is stored as singleton in this class with vertices of {@code String}, and edges, as {@link Relationship}s</li>
  * <li>utilizes open source library, see <a href="http://www.jgrapht.org/">JGraphT</a>.</li>
  * <li>contains a general hierarchical data structure i.e. allows multiple inheritance with parents.</li>
  * <li>is a simple directed graph thus does not allow cycles.</li>
- * <li>is refreshed by reading this ldap record,{@code cn=Hierarchies, ou=OS-U} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph} using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
- * <li>can only be updated via the synchronized method {@link #updateHier} which may add, {@link Hier.Op#ADD}, change, {@link Hier.Op#MOD}, or delete, {@link Hier.Op#REM} parent-child relationships.</li>
  * </ol>
  * After update is performed to ldap, the singleton is refreshed with latest info.
  * <p/>
@@ -66,7 +64,7 @@ final class UsoUtil
     /**
      * Recursively traverse the {@link com.jts.fortress.rbac.OrgUnit} graph and return all of the descendants of a given parent {@link com.jts.fortress.rbac.OrgUnit#name}.
      *
-     * @param name {@link com.jts.fortress.rbac.OrgUnit#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @param name {@link com.jts.fortress.rbac.OrgUnit#name} on 'ftOrgUnit' object class.
      * @return Set of names of descendants {@link com.jts.fortress.rbac.OrgUnit}s of given parent.
      */
     static Set<String> getDescendants(String name, String contextId)
@@ -77,7 +75,7 @@ final class UsoUtil
     /**
      * Recursively traverse the {@link com.jts.fortress.rbac.OrgUnit.Type#USER} graph and return all of the ascendants of a given child ou.
      *
-     * @param name maps to logical {@link com.jts.fortress.rbac.OrgUnit#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param name maps to logical {@link com.jts.fortress.rbac.OrgUnit#name} on 'ftOrgUnit' object class.
      * @return Set of ou names that are ascendants of given child.
      */
     static Set<String> getAscendants(String name, String contextId)
@@ -88,7 +86,7 @@ final class UsoUtil
     /**
      * Traverse one level of the {@link com.jts.fortress.rbac.OrgUnit} graph and return all of the children (direct descendants) of a given parent {@link com.jts.fortress.rbac.OrgUnit#name}.
      *
-     * @param name {@link com.jts.fortress.rbac.OrgUnit#name} maps to 'ftRels' attribute on 'ftHier' object class.
+     * @param name {@link com.jts.fortress.rbac.OrgUnit#name} maps on 'ftOrgUnit' object class.
      * @return Set of names of children {@link com.jts.fortress.rbac.OrgUnit}s of given parent.
      */
     static Set<String> getChildren(String name, String contextId)
@@ -99,7 +97,7 @@ final class UsoUtil
     /**
      * Traverse one level of the {@link com.jts.fortress.rbac.OrgUnit.Type#USER} graph and return all of the parents (direct ascendants) of a given child ou.
      *
-     * @param name maps to logical {@link com.jts.fortress.rbac.OrgUnit#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param name maps to logical {@link com.jts.fortress.rbac.OrgUnit#name} on 'ftOrgUnit' object class.
      * @return Set of ou names that are parents of given child.
      */
     static Set<String> getParents(String name, String contextId)
@@ -110,7 +108,7 @@ final class UsoUtil
     /**
      * Recursively traverse the {@link com.jts.fortress.rbac.OrgUnit.Type#USER} graph and return number of children a given parent ou has.
      *
-     * @param name maps to logical {@link com.jts.fortress.rbac.OrgUnit#name} and physical 'ftRels' attribute on 'ftHier' object class.
+     * @param name maps to logical {@link com.jts.fortress.rbac.OrgUnit#name} on 'ftOrgUnit' object class.
      * @return int value contains the number of children of a given parent ou.
      */
     static int numChildren(String name, String contextId)
