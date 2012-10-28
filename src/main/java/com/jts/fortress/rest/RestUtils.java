@@ -46,7 +46,8 @@ public class RestUtils
     private final static String HTTP_PW = ((EncryptUtil.isEnabled()) ? EncryptUtil.decrypt(Config.getProperty(HTTP_PW_PARAM)) : Config.getProperty(HTTP_PW_PARAM));
     private final static String HTTP_HOST = Config.getProperty("http.host");
     private final static String HTTP_PORT = Config.getProperty("http.port");
-    private static final String SERVICE = "enmasse";
+    private static final String VERSION = System.getProperty("version");
+    private static final String SERVICE = "enmasse-" + VERSION;
     private static final String URI = "http://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
     private static final int HTTP_OK = 200;
     private static final int HTTP_404_NOT_FOUND = 404;

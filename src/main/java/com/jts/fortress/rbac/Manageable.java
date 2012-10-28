@@ -66,9 +66,8 @@ public abstract class Manageable implements com.jts.fortress.Manageable
         {
             Permission perm = new Permission(className, opName);
             perm.setContextId(this.contextId);
-            AdminUtil.setEntitySession(this.adminSess, perm, entity, contextId);
+            AdminUtil.setEntitySession(this.adminSess, perm, entity, this.contextId);
         }
-        entity.setContextId(this.contextId);
     }
 
     /**

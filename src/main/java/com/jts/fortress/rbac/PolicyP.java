@@ -313,8 +313,7 @@ final class PolicyP
             String warning = CLS_NM + ".loadPolicySet static initializer caught SecurityException=" + se;
             log.info(warning);
         }
-        // TODO:  ass context id to this cache
-        policyCache.put(getKey(POLICIES), policySet);
+        policyCache.put(getKey(contextId), policySet);
         return policySet;
     }
 
@@ -325,7 +324,7 @@ final class PolicyP
      */
     private static final Set<String> getPolicySet(String contextId)
     {
-        Set<String> policySet = (Set<String>)policyCache.get(getKey(POLICIES));
+        Set<String> policySet = (Set<String>)policyCache.get(getKey(contextId));
         if (policySet == null)
         {
             policySet = loadPolicySet(contextId);
