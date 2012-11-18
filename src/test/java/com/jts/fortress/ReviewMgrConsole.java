@@ -87,6 +87,7 @@ public class ReviewMgrConsole
         ReaderUtil.clearScreen();
         try
         {
+            System.out.println("");
             System.out.println("Enter value to search Roles with:");
             String val = ReaderUtil.readLn();
             List<Role> list = rm.findRoles(val);

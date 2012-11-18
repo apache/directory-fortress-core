@@ -31,7 +31,7 @@
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
-       <property name="version" value="1.0.0-RC16"/>
+       <property name="version" value="1.0.0-RC17"/>
        <property name="ivy.install.version" value="2.2.0"/>
        <property name="title" value="Fortress Identity and Access Management LDAP SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
@@ -461,6 +461,7 @@
         <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
+            <sysproperty key="version" value="${version}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
             <test name="${test.regression.entry}"/>
@@ -474,6 +475,7 @@
          <echo message="Run the Fortress regression JUnit tests without teardown.  Be patient this can take a while to complete."/>
           <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
+             <sysproperty key="version" value="${version}"/>
              <classpath refid="test.class.path"/>
              <formatter type="plain" usefile="false"/>
              <test name="${test.regression.entry}"/>
@@ -492,6 +494,7 @@
                  timeout="4000000"
                  >
              <classpath refid="test.class.path"/>
+             <sysproperty key="version" value="${version}"/>
          </java>
      </target>
 
@@ -507,6 +510,7 @@
                  timeout="4000000"
                  >
              <classpath refid="test.class.path"/>
+             <sysproperty key="version" value="${version}"/>
          </java>
      </target>
 
@@ -768,7 +772,7 @@
         <antcall target="init-slapd-win-script"></antcall>
     </target>
 
-    <target name="copy-access-libs" depends="init" if="windows">
+    <target name="copy-access-libs" depends="init" >
         <echo message="###############  Copy access log libs ${openldap.install.artifact.dir} to openldap lib folder ${slapd.module.dir}"/>
 		<copy todir="${slapd.module.dir}" failonerror="false">
 			<fileset dir="${openldap.install.artifact.dir}">
