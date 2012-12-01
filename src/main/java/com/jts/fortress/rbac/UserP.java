@@ -33,7 +33,7 @@ import org.apache.log4j.Logger;
  *  or {@link com.jts.fortress.ValidationException} as {@link com.jts.fortress.SecurityException}s with appropriate
  * error id from {@link com.jts.fortress.GlobalErrIds}.
  * <p>
- * This object is thread safe.
+ * This class is thread safe.
  * </p>
  *
  * @author Shawn McKinney

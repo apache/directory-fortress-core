@@ -94,7 +94,7 @@ import java.util.Set;
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
-
+ * This class is thread safe.
  *
  * @author Shawn McKinney
  * @created August 30, 2009

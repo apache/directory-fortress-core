@@ -36,9 +36,7 @@ import java.util.List;
  * <li>Safe Modification of Password</li>
  * </ol>
  * <p/>
- * This object is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
- * <p/>
-
+ * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  *
  * @author Shawn McKinney
  * @created October 17, 2009

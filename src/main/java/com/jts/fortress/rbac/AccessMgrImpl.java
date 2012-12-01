@@ -41,9 +41,8 @@ import java.util.Set;
  * <p/>
  * <img src="../../../../images/RbacDSD.png">
  * <p/>
- * This object is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
+ * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  * <p/>
- *
  *
  * @author Shawn McKinney
  * @created October 13, 2009

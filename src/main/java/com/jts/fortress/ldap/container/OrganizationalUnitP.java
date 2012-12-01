@@ -34,9 +34,8 @@ import org.apache.log4j.Logger;
  * </font>
  * <p/>
  * Simple error mapping is performed in {@link #validate} class.
- * <BR><BR>
  * <p/>
-
+ * This class is thread safe.
  *
  * @author Shawn McKinney
  * @created January 21, 2010

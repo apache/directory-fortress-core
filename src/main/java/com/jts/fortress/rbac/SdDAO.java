@@ -90,7 +90,6 @@ import java.util.Set;
  * <p/>
  * This class is thread safe.
  * <p/>
-
  *
  * @author Shawn McKinney
  * @created September 11, 2010

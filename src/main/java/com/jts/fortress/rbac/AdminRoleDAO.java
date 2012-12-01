@@ -80,7 +80,7 @@ import java.util.List;
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
-
+ * This class is thread safe.
  *
  * @author Shawn McKinney
  * @created November 13, 2009

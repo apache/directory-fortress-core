@@ -30,7 +30,7 @@ import java.util.Set;
  * or {@link com.jts.fortress.ValidationException} as {@link com.jts.fortress.SecurityException}s with appropriate
  * error id from {@link com.jts.fortress.GlobalErrIds}.
  * <p/>
- * This object uses one reference to synchronized data set {@link #policyCache} but is thread safe.
+ * This class uses one reference to synchronized data set {@link #policyCache} but is thread safe.
  * <p/>
 
  *

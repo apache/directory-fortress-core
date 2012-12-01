@@ -40,7 +40,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
-
+ * This class is thread safe.
  *
  * @author Shawn McKinney
  * @created January 21, 2010

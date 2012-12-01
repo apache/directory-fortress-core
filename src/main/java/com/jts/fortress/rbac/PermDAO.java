@@ -116,6 +116,7 @@ import java.util.Set;
  * <li> <code>ftModId ) )</code>
  * <li>  ------------------------------------------
  * </ul>
+ * This class is thread safe.
  * <p/>
  *
  * @author Shawn McKinney

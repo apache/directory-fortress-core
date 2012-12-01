@@ -27,7 +27,7 @@ import java.util.List;
  * @author Shawn McKinney
  * @created September 18, 2010
  * <p/>
- * This object is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
+ * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  */
 public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
 {

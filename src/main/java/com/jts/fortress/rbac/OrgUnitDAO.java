@@ -70,8 +70,7 @@ import java.util.TreeSet;
  * </ul>
  * <p/>
  * This class is thread safe.
- * <p/>
-
+ *
  * @author Shawn McKinney
  * @created September 18, 2010
  */

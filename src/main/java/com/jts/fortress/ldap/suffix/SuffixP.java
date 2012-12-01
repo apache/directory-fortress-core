@@ -33,10 +33,7 @@ import org.apache.log4j.Logger;
  * <p/>
  * Simple error mapping is performed in {@link #validate} class.
  * <p/>
-
- * <BR><BR>
- * <PRE>
- * </PRE>
+ * This class is thread safe.
  *
  * @author Shawn McKinney
  * @created January 21, 2010

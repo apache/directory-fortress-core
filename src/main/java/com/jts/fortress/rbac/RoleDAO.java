@@ -67,6 +67,7 @@ import java.util.List;
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
+ * This class is thread safe.
  *
  * @author Kevin McKinney
  * @created October 29, 2009

@@ -31,9 +31,9 @@ import java.util.TreeSet;
  * Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
  * <p/>
- * This object is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
+ * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  * <p/>
-
+ *
  * @author Shawn McKinney
  * @created December 3, 2010
  */

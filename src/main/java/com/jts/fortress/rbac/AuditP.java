@@ -8,8 +8,6 @@ import com.jts.fortress.SecurityException;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 
 /**
  * This class is process layer for Fortress audit data.  It performs data validation
@@ -26,15 +24,13 @@ import org.apache.log4j.Logger;
  * <p/>
  * This class performs simple data validations.
  * <p/>
-
+ * This class is thread safe.
  *
  * @author Shawn McKinney
  * @created April 1, 2010
  */
 final class AuditP
 {
-    private static final String CLS_NM = AuditP.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
     private static final AuditDAO aDao = new AuditDAO();
 
     /**

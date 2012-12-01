@@ -54,7 +54,7 @@ import java.util.List;
  * <li>Entity Modifications:     <code>List<{@link Mod}>   {@link com.jts.fortress.AuditMgr#searchAdminMods(UserAudit)} </code>
  * </ul>
  * <p/>
- * This object is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
+ * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  *
  * @author Shawn McKinney
  * @created April 2, 2010

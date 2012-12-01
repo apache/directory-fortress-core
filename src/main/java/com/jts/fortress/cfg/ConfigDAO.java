@@ -53,7 +53,7 @@ import java.util.Properties;
  * </ul>
  * <p/>
  * <p/>
-
+ * This class is thread safe.
  *
  * @author Shawn McKinney
  * @created February 4, 2011

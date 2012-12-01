@@ -95,6 +95,7 @@ import java.util.List;
  * <p/>
  * Note this class used descriptions pulled from man pages on slapd access log.
  * <p/>
+ * This class is thread safe.
  *
  * @author Shawn McKinney
  * @created April 2, 2010

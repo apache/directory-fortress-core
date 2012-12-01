@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
  *  or {@link com.jts.fortress.ValidationException} as {@link com.jts.fortress.SecurityException}s with appropriate
  * error id from {@link GlobalErrIds}.
  * <p>
- * This object uses synchronized data sets ({@link #ouCache} but is thread safe.
+ * This class uses synchronized data sets ({@link #ouCache} but is thread safe.
  * <p/>
 
  * @author Shawn McKinney
