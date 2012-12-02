@@ -46,7 +46,7 @@ import java.util.TreeSet;
  * <p/>
  * <img src="../../../../images/RbacDSD.png">
  * <p/>
- * This object is thread safe and may be used in servlet or other multi-threaded environment.
+ * This class is thread safe and may be used in servlet or other multi-threaded environment.
  * <p/>
  *
  *

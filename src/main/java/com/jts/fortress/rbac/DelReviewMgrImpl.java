@@ -12,7 +12,7 @@ import com.jts.fortress.util.attr.VUtil;
 import java.util.List;
 
 /**
- * This object implements the ARBAC02 DelReviewMgr interface for performing policy interrogation of provisioned Fortress ARBAC entities
+ * This class implements the ARBAC02 DelReviewMgr interface for performing policy interrogation of provisioned Fortress ARBAC entities
  * that reside in LDAP directory.
  * These APIs map directly to similar named APIs specified by ARBAC02 functions.  The ARBAC Functional specification describes delegated administrative
  * operations for the creation and maintenance of ARBAC element sets and relations.  Delegated administrative review functions for performing administrative queries

@@ -17,7 +17,7 @@ import java.util.Properties;
  * Each process using Fortress client is free to share an existing node with other processes or create its own unique config
  * instance using the methods within this class.<BR>
  * <p/>
- * This object is thread safe.
+ * This class is thread safe.
  * <p/>
 
  *

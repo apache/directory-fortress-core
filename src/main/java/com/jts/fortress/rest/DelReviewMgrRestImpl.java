@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This object implements the ARBAC02 DelReviewMgr interface for performing policy interrogation of provisioned Fortress ARBAC entities
+ * This class implements the ARBAC02 DelReviewMgr interface for performing policy interrogation of provisioned Fortress ARBAC entities
  * using HTTP access to En Masse REST server.
  * These APIs map directly to similar named APIs specified by ARBAC02 functions.  The ARBAC Functional specification describes delegated administrative
  * operations for the creation and maintenance of ARBAC element sets and relations.  Delegated administrative review functions for performing administrative queries
@@ -34,7 +34,7 @@ import java.util.List;
  * @author Shawn McKinney
  * @created February 13, 2012
  * <p/>
- * This object is NOT thread safe iff "adminSession" instance variable is set
+ * This class is NOT thread safe iff "adminSession" instance variable is set
  */
 public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
 {

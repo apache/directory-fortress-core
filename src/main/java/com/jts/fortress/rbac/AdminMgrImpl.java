@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 import java.util.List;
 
 /**
- * This object performs administrative functions to provision Fortress RBAC entities into the LDAP directory.  These APIs
+ * This class performs administrative functions to provision Fortress RBAC entities into the LDAP directory.  These APIs
  * map directly to similar named APIs specified by ANSI and NIST RBAC models.
  * Many of the java doc function descriptions found below were taken directly from ANSI INCITS 359-2004.
  * The RBAC Functional specification describes administrative operations for the creation

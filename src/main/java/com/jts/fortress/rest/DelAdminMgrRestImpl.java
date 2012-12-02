@@ -12,12 +12,12 @@ import com.jts.fortress.util.attr.VUtil;
 
 
 /**
- * This object implements the ARBAC02 DelAdminMgr interface for performing policy administration of Fortress ARBAC entities
+ * This class implements the ARBAC02 DelAdminMgr interface for performing policy administration of Fortress ARBAC entities
  * using HTTP access to En Masse REST server.
  * These APIs map directly to similar named APIs specified by ARBAC02 functions.  The ARBAC Functional specification describes delegated administrative
  * operations for the creation and maintenance of ARBAC element sets and relations.  Delegated administrative review functions for performing administrative queries
  * and system functions for creating and managing ARBAC attributes on user sessions and making delegated administrative access control decisions.
- * This object is NOT thread safe.
+ * This class is NOT thread safe.
  * <h3>Administrative Role Based Access Control (ARBAC)</h3>
  * <img src="../../../../images/ARbac.png">
  * <p/>

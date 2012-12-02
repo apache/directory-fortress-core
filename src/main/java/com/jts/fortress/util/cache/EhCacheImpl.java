@@ -8,7 +8,7 @@ import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
 
 /**
- * This object provides cache functionality from <a href="http://ehcache.org//">Ehcache</a> provider.
+ * This class provides cache functionality from <a href="http://ehcache.org//">Ehcache</a> provider.
  *
  * @author Shawn McKinney
  * @created March 9, 2012

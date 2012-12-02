@@ -14,12 +14,12 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<project name="fortress-core" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
-
+<project name="fortress-core" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+    <!-- =================================
+          initialize all Fortress Core package properties
+         ================================= -->
    <target name="init">
       <tstamp/>
-
-       <!-- ########### BEGIN NON-USER DEFINED properties ########################### -->
        <!-- read user defined properties from the build.properties -->
        <property name="component-propfile" value="${basedir}/build.properties"/>
        <property file="${component-propfile}"/>
@@ -31,9 +31,10 @@
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
-       <property name="version" value="1.0.0-RC17"/>
+       <property name="version" value="1.0-RC18"/>
+        <!--       <property name="version" value="1.0-SNAPSHOT"/>-->
        <property name="ivy.install.version" value="2.2.0"/>
-       <property name="title" value="Fortress Identity and Access Management LDAP SDK for Java ${version}"/>
+       <property name="title" value="Fortress Identity and Access Management SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
        <property name="vendor" value="Joshua Tree Software"/>
        <property name="package" value="com.jts.fortress.*"/>
@@ -46,6 +47,7 @@
        <property name="src.java.dir" value="${src.dir}/main/java"/>
        <property name="src.test.dir" value="${src.dir}/test/java"/>
 
+       <!-- ########### Build properties & artifacts ########################### -->
        <property name="build.dir" value="${basedir}/build"/>
        <property name="build.classes.dir" value="${build.dir}/classes"/>
        <property name="build.test-classes.dir" value="${build.dir}/test-classes"/>
@@ -56,10 +58,67 @@
        <property name="src.test.dist.zip" value="${dist.dir}/${name}-${version}-sourcestest.jar"/>
        <property name="src.samples.dist.zip" value="${dist.dir}/${name}SamplesSrc-${version}.zip"/>
        <property name="samples.dist.zip" value="${dist.dir}/${name}Samples-${version}.zip"/>
+       <property name="fortressBuilder.zip" value="${dist.dir}/fortressBuilder-${platform}-${version}.zip"/>
 
-       <!-- ########### Fortress Dependencies ########################### -->
+       <!-- ########### LDAP properties ########################### -->
+       <property name="ldap.dir" value="${basedir}/ldap"/>
+       <property name="ldap.setup.dir" value="${ldap.dir}/setup"/>
+       <property name="ldap.schema.dir" value="${ldap.dir}/schema"/>
+       <property name="slapd.schema.dir" value="${slapd.dir}/schema"/>
+
+       <!-- ########### Configuration, Load and builder properties ########################### -->
+       <property name="src.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData-src.xml"/>
+       <property name="dst.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData.xml"/>
+       <property name="load.demo.script" value="${ldap.setup.dir}/FortressDemoUsers.xml"/>
+       <property name="build.win.properties" value="${basedir}/build.win.properties"/>
+       <property name="build.nix.properties" value="${basedir}/build.nix.properties"/>
+       <property name="build.properties" value="${basedir}/build.properties"/>
        <property name="config.dir" value="${basedir}/config"/>
        <property name="config.bootstrap.dir" value="${config.dir}/bootstrap"/>
+       <property name="src.remote.conf" value="${config.dir}/fortress.properties.src"/>
+       <property name="dst.remote.conf" value="${config.dir}/fortress.properties"/>
+       <property name="src.bootstrap.conf" value="${config.bootstrap.dir}/fortress.properties.src"/>
+       <property name="dst.bootstrap.conf" value="${config.bootstrap.dir}/fortress.properties"/>
+       <property name="builder.bootstrap.conf" value="${builder.home}/config/bootstrap/fortress.properties"/>
+       <property name="builder.remote.conf" value="${builder.home}/config/fortress.properties"/>
+       <property name="builder.load.bootstrap.script" value="${builder.home}/ldap/refreshLDAPData-src.xml"/>
+       <property name="ehcache.conf" value="${config.dir}/ehcache.xml"/>
+       <property name="bootstrap.ehcache.conf" value="${config.bootstrap.dir}/ehcache.xml"/>
+
+       <!-- ########### Slapd manage & config properties ########################### -->
+       <property name="stop.slapd.script-win" value="${ldap.setup.dir}/stopSlapd.cmd"/>
+       <property name="src.start.slapd.script-win" value="${ldap.setup.dir}/startSlapd.cmd.src"/>
+       <property name="dst.start.slapd.script-win" value="${ldap.setup.dir}/startSlapd.cmd"/>
+       <property name="stop.slapd.script" value="${ldap.setup.dir}/stopSlapd.sh"/>
+       <property name="start.slapd.script" value="${ldap.setup.dir}/startSlapd.sh"/>
+       <property name="mkdir.slapd-win" value="${ldap.setup.dir}/mkDir.cmd"/>
+       <property name="uninstall.slapd.script" value="${ldap.setup.dir}/uninstall.sh"/>
+       <property name="install.slapd.script" value="${ldap.setup.dir}/install.sh"/>
+       <property name="source.slapd.conf" value="${ldap.dir}/slapd.conf.src"/>
+       <property name="target.slapd.conf" value="${ldap.dir}/slapd.conf"/>
+       <property name="dst.slapd.conf" value="${slapd.dir}/slapd.conf"/>
+       <property name="source.fortress.schema" value="${ldap.schema.dir}/fortress.schema"/>
+       <property name="target.fortress.schema" value="${slapd.schema.dir}/fortress.schema"/>
+       <property name="db.cfg" value="${ldap.dir}/DB_CONFIG"/>
+
+       <!-- ########### Java compile switches ########################### -->
+       <property name="javac.optimize" value="false"/>
+       <property name="javac.debug" value="true"/>
+       <property name="javac.deprecation" value="true"/>
+
+       <!-- ########### Javadoc properties ########################### -->
+       <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
+       <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
+       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2012 Joshua Tree Software, LLC. All Rights Reserved.  Generated ${TODAY}&lt;/small&gt;"/>
+       <property name="javadoc.overview" value="${src.java.dir}/com/jts/fortress/overview.html" />
+       <property name="javadoc.dist.zip" value="${dist.dir}/${name}-${version}-javadoc.jar"/>
+       <property name="javadoc.stylesheet" value="${src.java.dir}/com/jts/fortress/fortress-javadoc.css" />
+       <property name="javadoc.samples.dir" value="${dist.dir}/docs/samples"/>
+       <property name="javadoc.samples.images.dir" value="${javadoc.samples.dir}/images"/>
+       <property name="javadoc.samples.dist.zip" value="${dist.dir}/${name}-${version}-javadocsamples.jar"/>
+       <property name="javadoc.samples.overview" value="${src.test.dir}/com/jts/fortress/samples/overview.html" />
+
+       <!-- ########### Fortress Package Dependencies ########################### -->
        <property name="commons-config.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
        <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
        <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
@@ -81,69 +140,6 @@
        <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.5.1.jar"/>
        <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
        <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.6.1.jar"/>
-
-       <!-- ########### Test properties ########################### -->
-       <property name="test.sample.entry" value="com.jts.fortress.samples.AllSamplesJUnitTest"/>
-       <property name="test.regression.entry"  value="com.jts.fortress.rbac.FortressJUnitTest"/>
-       <property name="test.failonerror" value="false" />
-       <property name="test.showoutput" value="yes" />
-
-       <property name="ldap.dir" value="${basedir}/ldap"/>
-       <property name="ldap.setup.dir" value="${ldap.dir}/setup"/>
-       <property name="ldap.schema.dir" value="${ldap.dir}/schema"/>
-       <property name="slapd.schema.dir" value="${slapd.dir}/schema"/>
-
-       <property name="src.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData-src.xml"/>
-       <property name="dst.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData.xml"/>
-       <property name="load.demo.script" value="${ldap.setup.dir}/FortressDemoUsers.xml"/>
-
-       <property name="stop.slapd.script-win" value="${ldap.setup.dir}/stopSlapd.cmd"/>      
-       <property name="src.start.slapd.script-win" value="${ldap.setup.dir}/startSlapd.cmd.src"/>
-       <property name="dst.start.slapd.script-win" value="${ldap.setup.dir}/startSlapd.cmd"/>
-       <property name="stop.slapd.script" value="${ldap.setup.dir}/stopSlapd.sh"/>
-       <property name="start.slapd.script" value="${ldap.setup.dir}/startSlapd.sh"/>
-       <property name="mkdir.slapd-win" value="${ldap.setup.dir}/mkDir.cmd"/>
-
-       <property name="build.win.properties" value="${basedir}/build.win.properties"/>
-       <property name="build.nix.properties" value="${basedir}/build.nix.properties"/>
-       <property name="build.properties" value="${basedir}/build.properties"/>
-
-       <property name="uninstall.slapd.script" value="${ldap.setup.dir}/uninstall.sh"/>
-       <property name="install.slapd.script" value="${ldap.setup.dir}/install.sh"/>
-       <property name="source.slapd.conf" value="${ldap.dir}/slapd.conf.src"/>
-       <property name="target.slapd.conf" value="${ldap.dir}/slapd.conf"/>
-       <property name="dst.slapd.conf" value="${slapd.dir}/slapd.conf"/>
-       <property name="source.fortress.schema" value="${ldap.schema.dir}/fortress.schema"/>
-       <property name="target.fortress.schema" value="${slapd.schema.dir}/fortress.schema"/>
-       <property name="db.cfg" value="${ldap.dir}/DB_CONFIG"/>
-       <property name="src.remote.conf" value="${config.dir}/fortress.properties.src"/>
-       <property name="dst.remote.conf" value="${config.dir}/fortress.properties"/>
-       <property name="src.bootstrap.conf" value="${config.bootstrap.dir}/fortress.properties.src"/>
-       <property name="dst.bootstrap.conf" value="${config.bootstrap.dir}/fortress.properties"/>
-       <property name="builder.bootstrap.conf" value="${builder.home}/config/bootstrap/fortress.properties"/>
-       <property name="builder.remote.conf" value="${builder.home}/config/fortress.properties"/>
-       <property name="builder.load.bootstrap.script" value="${builder.home}/ldap/refreshLDAPData-src.xml"/>
-       <property name="ehcache.conf" value="${config.dir}/ehcache.xml"/>
-       <property name="bootstrap.ehcache.conf" value="${config.bootstrap.dir}/ehcache.xml"/>
-
-       <!-- ########### Javadoc properties ########################### -->
-       <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
-       <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
-       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2012 Joshua Tree Software, LLC. All Rights Reserved.  Generated ${TODAY}&lt;/small&gt;"/>
-       <property name="javadoc.overview" value="${src.java.dir}/com/jts/fortress/overview.html" />
-       <property name="javadoc.dist.zip" value="${dist.dir}/${name}-${version}-javadoc.jar"/>
-       <property name="javadoc.stylesheet" value="${src.java.dir}/com/jts/fortress/fortress-javadoc.css" />
-
-       <property name="javadoc.samples.dir" value="${dist.dir}/docs/samples"/>
-       <property name="javadoc.samples.images.dir" value="${javadoc.samples.dir}/images"/>
-       <property name="javadoc.samples.dist.zip" value="${dist.dir}/${name}-${version}-javadocsamples.jar"/>
-       <property name="javadoc.samples.overview" value="${src.test.dir}/com/jts/fortress/samples/overview.html" />
-
-       <property name="javac.optimize" value="false"/>
-       <property name="javac.debug" value="true"/>
-       <property name="javac.deprecation" value="true"/>
-
-       <property name="fortressBuilder.zip" value="${dist.dir}/fortressBuilder-${platform}-${version}.zip"/>
 
        <!-- ########### Define classpaths ########################### -->
        <path id="build.class.path">
@@ -211,30 +207,26 @@
            <pathelement location="${ehcache-core.jar}"/>
        </path>
 
-    </target>
+       <!-- ########### Test properties ########################### -->
+       <property name="test.sample.entry" value="com.jts.fortress.samples.AllSamplesJUnitTest"/>
+       <property name="test.regression.entry"  value="com.jts.fortress.rbac.FortressJUnitTest"/>
+       <property name="test.failonerror" value="false" />
+       <property name="test.showoutput" value="yes" />
 
-    <!-- =================================
-          target: download-ivy - pulls down ivy.jar from maven 2 website
-         ================================= -->
-    <target name="download-ivy" depends="init"  description="--> pull the ivy jar dependency" unless="local.mode">
-		<!-- download from web site so that it can be used even without any special installation -->
-		<echo message="downloading ivy to Ant home: ${ant.home}"/>
-    	<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
-    		 dest="${ant.home}/lib" usetimestamp="true"/>
-    </target>
+       <!-- define Maven coordinates (publishing only) -->
+       <property name="groupId" value="us.joshuatreesoftware" />
+       <property name="artifactId" value="fortress" />
 
-    <!-- =================================
-          target: resolve
-         ================================= -->
-    <target name="resolve" depends="download-ivy" description="--> retreive dependencies with ivy" unless="local.mode">
-        <ivy:retrieve pattern="${lib.dir}/[artifact]-[revision].[ext]" />
-    </target>
+       <!-- defined maven snapshots and staging repository id and url (publishing only) -->
+       <property name="maven-snapshots-repository-id" value="sonatype-nexus-snapshots" />
+       <property name="maven-snapshots-repository-url" value="https://oss.sonatype.org/content/repositories/snapshots" />
+       <property name="maven-staging-repository-id" value="sonatype-nexus-staging" />
+       <property name="maven-staging-repository-url" value="https://oss.sonatype.org/service/local/staging/deploy/maven2/" />
 
-    <!-- =================================
-          target: clean-cache
-         ================================= -->
-	<target name="clean-cache" description="--> clean the ivy cache">
-		<ivy:cleancache />
+       <!-- define artifacts' name, which follows the convention of Maven (publishing only) -->
+       <property name="maven-jar" value="${dist.jar}" />
+       <property name="maven-javadoc-jar" value="${javadoc.dist.zip}" />
+       <property name="maven-sources-jar" value="${src.dist.zip}" />
     </target>
 
     <!-- =================================
@@ -246,34 +238,34 @@
     </target>
 
     <!-- =================================
-          target: compile
+          target: compile the source
          ================================= -->
-   <target name="compile" depends="init,resolve" description="--> compiles source files">
-      <mkdir dir="${build.classes.dir}"/>
-      <javac srcdir="${src.java.dir}"
-             debug="${javac.debug}"
-             deprecation="${javac.deprecation}"
-             destdir="${build.classes.dir}">
+    <target name="compile" depends="init,resolve" description="--> compiles source files">
+        <mkdir dir="${build.classes.dir}"/>
+        <javac srcdir="${src.java.dir}"
+            debug="${javac.debug}"
+            deprecation="${javac.deprecation}"
+            destdir="${build.classes.dir}">
             <classpath refid="build.class.path"/>
         </javac>
-   </target>
-
-    <!-- =================================
-          target: compile-test
-         ================================= -->
-    <target name="compile-test" depends="compile" description="--> compiles test source files">
-       <mkdir dir="${build.test-classes.dir}"/>
-       <javac destdir="${build.test-classes.dir}"
-              srcdir="${src.test.dir}"
-              debug="${javac.debug}"
-              deprecation="${javac.deprecation}"
-              optimize="${javac.optimize}">
-              <classpath refid="build.class.path"/>
-       </javac>
     </target>
 
     <!-- =================================
-           target: build-jar - create java archive (jar) files which contain the runtime Fortress Java classes.
+          target: compile the test source
+         ================================= -->
+    <target name="compile-test" depends="compile" description="--> compiles test source files">
+        <mkdir dir="${build.test-classes.dir}"/>
+        <javac destdir="${build.test-classes.dir}"
+            srcdir="${src.test.dir}"
+            debug="${javac.debug}"
+            deprecation="${javac.deprecation}"
+            optimize="${javac.optimize}">
+            <classpath refid="build.class.path"/>
+        </javac>
+    </target>
+
+    <!-- =================================
+           target: build-jar - create java archive (jar) files which contain the compiled classes
           ================================= -->
     <target name="build-jar" depends="compile" description="--> create the core classes">
        <mkdir dir="${dist.dir}"/>
@@ -295,7 +287,7 @@
     </target>
 
      <!-- =================================
-           target: build-jar-test
+           target: build-jar-test - create jar containing compiled test classes
           ================================= -->
      <target name="build-jar-test" depends="compile-test" description="--> create the core test classes">
         <mkdir dir="${dist.dir}"/>
@@ -317,7 +309,7 @@
      </target>
 
     <!-- =================================
-          target: javadoc
+          target: create the javadoc based on source code
          ================================= -->
     <target name="javadoc" depends="init" description="--> generates javadocs">
       <mkdir dir="${javadoc.dir}"/>
@@ -350,7 +342,7 @@
     </target>
 
     <!-- =================================
-          target: javadoc-samples
+          target: create the javadoc based on source test code
          ================================= -->
     <target name="javadoc-samples" depends="init" description="--> generates samples javadocs">
        <mkdir dir="${javadoc.samples.dir}"/>
@@ -427,7 +419,6 @@
         </zip>
      </target>
 
-
     <!-- =================================
           target: test-samples - runs junit samples tests
          ================================= -->
@@ -455,23 +446,9 @@
      </target>
 
     <!-- =================================
-          target: test-full - runs full junit regression tests
+          target: test-full-init - runs before 'test-full' and performs junit regression tests without teardown operations
          ================================= -->
-    <target name="test-full" depends="compile-test,init-fortress-config" description="--> run (junit) full regression tests">
-        <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
-         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
-            <sysproperty key="isFirstJUnitRun" value="false" />
-            <sysproperty key="version" value="${version}"/>
-            <classpath refid="test.class.path"/>
-            <formatter type="plain" usefile="false"/>
-            <test name="${test.regression.entry}"/>
-        </junit>
-    </target>
-
-    <!-- =================================
-          target: test-full-init - runs junit regression tests without teardown
-         ================================= -->
-     <target name="test-full-init" depends="compile-test,init-fortress-config" description="--> run (junit) regression tests without teardown">
+     <target name="test-full-init" depends="compile-test,init-fortress-config" description="--> run junit regression tests without teardown">
          <echo message="Run the Fortress regression JUnit tests without teardown.  Be patient this can take a while to complete."/>
           <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
@@ -481,6 +458,20 @@
              <test name="${test.regression.entry}"/>
          </junit>
      </target>
+
+    <!-- =================================
+          target: test-full - runs after 'test-full-init' and performs junit regression tests with teardown operations
+         ================================= -->
+    <target name="test-full" depends="compile-test,init-fortress-config" description="--> run junit FULL regression tests with teardown">
+        <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
+         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
+            <sysproperty key="isFirstJUnitRun" value="false" />
+            <sysproperty key="version" value="${version}"/>
+            <classpath refid="test.class.path"/>
+            <formatter type="plain" usefile="false"/>
+            <test name="${test.regression.entry}"/>
+        </junit>
+    </target>
 
     <!-- =================================
           target: console - starts the Fortress Console app
@@ -555,7 +546,6 @@
           target: init-openldap-config - modifies openldap artifacts for runtime use of fortress-core
          ================================= -->
      <target name="init-openldap-config" depends="init" description="--> map env params from build.properties to scripts and config files">
-
          <echo message="###############  Modify slapd configuration per user settings  ###############"/>
          <delete file="${target.slapd.conf}"/>
 	     <copy file="${source.slapd.conf}" tofile="${target.slapd.conf}"/>
@@ -588,7 +578,9 @@
          <echo message="Target init-all-config complete."/>
      </target>
 
-    <!--<target name="init-slapd-win-script" depends="init" description="This task creates a startup file for slapd on windows"  if="windows">-->
+    <!-- =================================
+          init slapd for windows
+         ================================= -->
     <target name="init-slapd-win-script" depends="init" description="--> creates a startup file for slapd on windows">
         <echo message="###############  Create slapd startup script for windows  ###############"/>
         <delete file="${dst.start.slapd.script-win}"/>
@@ -597,6 +589,9 @@
         <echo message="init-slapd-win-script."/>
     </target>
 
+    <!-- =================================
+          initialize the config files
+         ================================= -->
     <target name="init-fortress-config" depends="init">
        <echo message="Determine configuration requirements"/>
        <antcall target="init-fortress-config-local"></antcall>
@@ -607,7 +602,6 @@
           target: init-fortress-config - uses configuration artifacts created by Fortress Builder in target system environment.
          ================================= -->
      <target name="init-fortress-config-remote" depends="init" description="--> uses external build.properties to create local script and config files.."  if="builder.home">
-
          <echo message="###############  Import fortress configuration from Builder directory  ###############"/>
 	     <copy file="${builder.bootstrap.conf}" tofile="${dst.bootstrap.conf}"/>
 	     <copy file="${builder.remote.conf}" tofile="${dst.remote.conf}"/>
@@ -622,7 +616,6 @@
           target: init-fortress-config - modifies fortress-core configuration artifacts for use of openldap in target system environment.
          ================================= -->
      <target name="init-fortress-config-local" depends="init" description="--> map env params from build.properties to scripts and config files.."  unless="builder.home">
-
          <echo message="###############  Modify fortress configuration per user settings  ###############"/>
          <delete file="${dst.bootstrap.conf}"/>
          <delete file="${dst.remote.conf}"/>
@@ -675,7 +668,6 @@
           target: init-all-config - configures openldap, fortress and the the base load scripts for ldap Directory Information Tree (DIT)
          ================================= -->
      <target name="init-all-config" depends="init" description="--> map env params from build.properties to scripts and config files">
-
          <antcall target="init-openldap-config"></antcall>
          <antcall target="init-fortress-config"></antcall>
          <echo message="Target init-all-config complete."/>
@@ -759,6 +751,9 @@
         <echo message="Target init-slapd complete."/>
     </target>
 
+    <!-- =================================
+          perform test configurations
+         ================================= -->
     <target name="test-config" depends="init">
         <echo message="###############  Test Config Steps"/>
         <echo message="###############  Setup meta config and base load scripts for openldap and fortress  ###############"/>
@@ -772,6 +767,9 @@
         <antcall target="init-slapd-win-script"></antcall>
     </target>
 
+    <!-- =================================
+          copy the slapd access log libs from install to bin folder
+         ================================= -->
     <target name="copy-access-libs" depends="init" >
         <echo message="###############  Copy access log libs ${openldap.install.artifact.dir} to openldap lib folder ${slapd.module.dir}"/>
 		<copy todir="${slapd.module.dir}" failonerror="false">
@@ -781,7 +779,9 @@
 		</copy>
     </target>
 
-    <!-- new -->
+    <!-- =================================
+          if windows system create slapd server folders
+         ================================= -->
     <target name="mkdir-slapd-win" depends="init" if="windows">
         <echo message="###############  Create the folder for windows slapd by running ${mkdir.slapd-win}"/>
         <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${install.image.loc}">
@@ -790,16 +790,17 @@
         </exec>
     </target>
 
-    <target name="echo-slapd" depends="init">
-        <echo message="slapd.schema.dir=${slapd.schema.dir}"/>
-        <echo message="slapd.dir=${slapd.dir}"/>        
-    </target>
-
+    <!-- =================================
+          call the target to uninstall slapd server
+         ================================= -->
     <target name="uninstall-slapd" depends="init">
         <antcall target="uninstall-slapd-win"></antcall>
         <antcall target="uninstall-slapd-nix"></antcall>
     </target>
 
+    <!-- =================================
+          uninstall slapd from unix system
+         ================================= -->
     <target name="uninstall-slapd-nix" depends="init" unless="windows">
         <echo message="###############  Uninstall OpenLDAP binaries"/>
         <exec dir="." executable="/bin/sh">
@@ -809,10 +810,16 @@
         </exec>
     </target>
 
+    <!-- =================================
+          call the target to uninstall slapd from windows system
+         ================================= -->
     <target name="uninstall-slapd-win" depends="init" if="windows">
         <antcall target="uninstall-slapd-win-if-present"></antcall>
     </target>
 
+    <!-- =================================
+          if detect running windows uninstall slapd server from windows system.
+         ================================= -->
     <target name="uninstall-slapd-win-if-present" depends="slapd.dir.check" if="slapd.dir.exists">
         <echo message="###############  Uninstall OpenLDAP WIN binaries: from ${slapd.exe.location2}"/>
         <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${slapd.exe.location2}" >
@@ -822,11 +829,17 @@
         </exec>
     </target>
 
+    <!-- =================================
+          call the target to uninstall slapd server
+         ================================= -->
     <target name="install-slapd" depends="init">
         <antcall target="install-slapd-win"></antcall>
         <antcall target="install-slapd-nix"></antcall>
     </target>
 
+    <!-- =================================
+          uninstall slapd from unix system
+         ================================= -->
     <target name="install-slapd-nix" depends="init" unless="windows">
         <echo message="###############  Install OpenLDAP binaries"/>
         <exec dir="${openldap.install.artifact.dir}" executable="/bin/sh">
@@ -836,6 +849,9 @@
         </exec>
     </target>
 
+    <!-- =================================
+          uninstall slapd from windows system
+         ================================= -->
     <target name="install-slapd-win" depends="init" if="windows">
         <echo message="###############  Install OpenLDAP WIN binaries to ${slapd.exe.location}"/>
         <mkdir dir="${slapd.exe.location}"/>
@@ -847,11 +863,17 @@
         </exec>
     </target>
 
+    <!-- =================================
+          call the target to start the slapd server
+         ================================= -->
     <target name="start-slapd" depends="init" description="--> start the OpenLDAP server">
         <antcall target="start-slapd-win"></antcall>
         <antcall target="start-slapd-nix"></antcall>
     </target>
 
+    <!-- =================================
+          start the slapd server on unix system
+         ================================= -->
     <target name="start-slapd-nix" depends="init" unless="windows">
         <echo message="###############  Start the slapd process up  ###############"/>
         <exec dir="." executable="/bin/sh">
@@ -861,11 +883,17 @@
         </exec>
     </target>
 
+    <!-- =================================
+          call the target to stop the slapd server
+         ================================= -->
     <target name="stop-slapd" depends="init" description="--> stop the OpenLDAP server">
         <antcall target="stop-slapd-win"></antcall>
         <antcall target="stop-slapd-nix"></antcall>
     </target>
 
+    <!-- =================================
+          stop the slapd server on unix system
+         ================================= -->
     <target name="stop-slapd-nix" depends="init" unless="windows">
         <echo message="###############  Stop the slapd process"/>
         <exec dir="." executable="/bin/sh">
@@ -874,6 +902,9 @@
         </exec>
     </target>
 
+    <!-- =================================
+          start the slapd server on windows system
+         ================================= -->
     <target name="start-slapd-win" depends="init" if="windows">
        <echo message="###############  Start the slapd process up: ${dst.start.slapd.script-win} in ${slapd.exe.dir}"/>       
         <exec command="cmd.exe" spawn="true" osfamily="windows" dir="${slapd.exe.drive}:/${slapd.exe.dir}">
@@ -882,16 +913,25 @@
         </exec>
     </target>
 
+    <!-- =================================
+          return true if slapd bin folder exists
+         ================================= -->
     <target name="slapd.dir.check">
         <condition property="slapd.dir.exists">
             <available file="${slapd.exe.location}" type="dir"/>
 		</condition>
      </target>
 
+    <!-- =================================
+          call the target to stop the slapd server on windows system
+         ================================= -->
     <target name="stop-slapd-win" depends="init" if="windows">
         <antcall target="stop-slapd-win-if-present"></antcall>
     </target>
 
+    <!-- =================================
+          if slapd dir exists stop the slapd server on windows system
+         ================================= -->
     <target name="stop-slapd-win-if-present" depends="slapd.dir.check" if="slapd.dir.exists">
         <echo>${directory} exists</echo>
         <echo message="###############  Stop the slapd process by running ${stop.slapd.script-win}"/>
@@ -985,8 +1025,9 @@
         <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="com.jts.fortress.model" removeOldOutput="yes"/>
     </target>
 
-
-    <!-- ###############  create Fortress Builder distribution package ############################ -->
+    <!-- =================================
+          create Fortress Builder distribution package
+         ================================= -->
     <target name="builder" depends="dist" description="--> create the Fortress QUICKSTART package">
         <echo message="###############  Build Fortress Builder distribution package named: ${fortressBuilder.zip} ###############"/>
         <zip destfile="${fortressBuilder.zip}"
@@ -1030,7 +1071,79 @@
                 <include name="*/**"/>
             </zipfileset>
         </zip>
+    </target>
 
-     </target>
+    <!-- =================================
+          target: download-ivy - pulls down ivy.jar from maven 2 website
+         ================================= -->
+    <target name="download-ivy" depends="init"  description="--> pull the ivy jar dependency" unless="local.mode">
+		<!-- download from web site so that it can be used even without any special installation -->
+		<echo message="downloading ivy to Ant home: ${ant.home}"/>
+    	<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+    		 dest="${ant.home}/lib" usetimestamp="true"/>
+    </target>
 
+    <!-- =================================
+          target: resolve
+         ================================= -->
+    <target name="resolve" depends="download-ivy" description="--> retreive dependencies with ivy" unless="local.mode">
+        <ivy:retrieve pattern="${lib.dir}/[artifact]-[revision].[ext]" />
+    </target>
+
+    <!-- =================================
+          target: clean-cache
+         ================================= -->
+	<target name="clean-cache" description="--> clean the ivy cache">
+		<ivy:cleancache />
+    </target>
+
+    <!-- =================================
+          Deploy snapshot to remote Maven repository
+         ================================= -->
+    <target name="deploy" depends="init" description="deploy snapshot version to Maven snapshot repository">
+        <artifact:mvn>
+            <arg value="org.apache.maven.plugins:maven-deploy-plugin:2.6:deploy-file" />
+            <arg value="-Durl=${maven-snapshots-repository-url}" />
+            <arg value="-DrepositoryId=${maven-snapshots-repository-id}" />
+            <arg value="-DpomFile=pom.xml" />
+            <arg value="-Dfile=${maven-jar}" />
+        </artifact:mvn>
+    </target>
+
+    <!-- =================================
+          Update project version (both build.xml and pom.xml) from SNAPSHOT to RELEASE
+         ================================= -->
+	<target name="stage" depends="dist" description="deploy release version to Maven staging repository">
+		<!-- sign and deploy the main artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${maven-staging-repository-url}" />
+			<arg value="-DrepositoryId=${maven-staging-repository-id}" />
+			<arg value="-DpomFile=pom.xml" />
+			<arg value="-Dfile=${maven-jar}" />
+            <arg value="-Pgpg" />
+		</artifact:mvn>
+
+		<!-- sign and deploy the sources artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${maven-staging-repository-url}" />
+			<arg value="-DrepositoryId=${maven-staging-repository-id}" />
+			<arg value="-DpomFile=pom.xml" />
+			<arg value="-Dfile=${maven-sources-jar}" />
+			<arg value="-Dclassifier=sources" />
+            <arg value="-Pgpg" />
+		</artifact:mvn>
+
+		<!-- sign and deploy the javadoc artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${maven-staging-repository-url}" />
+			<arg value="-DrepositoryId=${maven-staging-repository-id}" />
+			<arg value="-DpomFile=pom.xml" />
+			<arg value="-Dfile=${maven-javadoc-jar}" />
+			<arg value="-Dclassifier=javadoc" />
+            <arg value="-Pgpg" />
+		</artifact:mvn>
+	</target>
 </project>

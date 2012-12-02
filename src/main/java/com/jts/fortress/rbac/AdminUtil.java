@@ -13,7 +13,7 @@ import com.jts.fortress.DelAccessMgrFactory;
  * This class supplies static wrapper utilities to provide ARBAC functionality to Fortress internal Manager APIs.
  * The utilities within this class are all static and can not be called by code outside of Fortress.
  * </p>
- * This object is thread safe.
+ * This class is thread safe.
  *
  * @author Shawn McKinney
  * @created January 9, 2011

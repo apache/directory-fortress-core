@@ -15,7 +15,7 @@ import com.jts.fortress.util.attr.VUtil;
  * The ARBAC permissions will be checked each time outside client makes calls into Fortress API.
  * This interface also allows Fortress clients to operate in a multi-tenant fashion using {@link #setContextId(String)}.
  * <p/>
- * Implementers of this abstract class will NOT be thread safe because this class has instance variables that may be set.
+ * Implementers of this abstract class will NOT be thread safe because of instance variables that may be set.
  *
  * @author Shawn McKinney
  * @created August 3, 2012

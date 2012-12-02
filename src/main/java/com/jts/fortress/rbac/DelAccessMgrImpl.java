@@ -15,15 +15,15 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * This object implements the ARBAC02 DelAccessMgr interface for performing runtime delegated access control operations on objects that are provisioned Fortress ARBAC entities
+ * This class implements the ARBAC02 DelAccessMgr interface for performing runtime delegated access control operations on objects that are provisioned Fortress ARBAC entities
  * that reside in LDAP directory.  These APIs map directly to similar named APIs specified by ARBAC02 functions.  The ARBAC Functional specification describes delegated administrative
  * operations for the creation and maintenance of ARBAC element sets and relations.  Delegated administrative review functions for performing administrative queries
  * and system functions for creating and managing ARBAC attributes on user sessions and making delegated administrative access control decisions.
  *
- * This object also extends the RBAC AccessMgrImpl object which is used for performing runtime session creation and
+ * This class also extends the RBAC AccessMgrImpl object which is used for performing runtime session creation and
  * access control decisions based on behalf of administrative user who is logged onto the system.  (See the AccessMgr javadoc for more info of how RBAC works).
  *
- * This object provides both sets of functionality as is necessary to fulfill runtime delegated administrative access control functionality
+ * This class provides both sets of functionality as is necessary to fulfill runtime delegated administrative access control functionality
  * within RBAC provisioning systems.
  * <h3>Administrative Role Based Access Control (ARBAC)</h3>
  * <img src="../../../../images/ARbac.png">

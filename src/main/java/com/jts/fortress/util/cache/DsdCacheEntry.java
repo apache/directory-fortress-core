@@ -3,7 +3,7 @@ package com.jts.fortress.util.cache;
 import com.jts.fortress.rbac.SDSet;
 
 /**
- * Value object wraps {@link SDSet} for caching purposes.  This object also provides attributes that are used for
+ * Value object wraps {@link SDSet} for caching purposes.  This class also provides attributes that are used for
  * searching the DSD cache.
  *
  * @author Shawn McKinney
