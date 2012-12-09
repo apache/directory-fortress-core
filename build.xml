@@ -101,6 +101,16 @@
        <property name="target.fortress.schema" value="${slapd.schema.dir}/fortress.schema"/>
        <property name="db.cfg" value="${ldap.dir}/DB_CONFIG"/>
 
+       <!-- ########### Sentry manage & config properties ########################### -->
+       <property name="sentry" value="sentry"/>
+       <property name="sentry.dir" value="${basedir}/${sentry}-${version}"/>
+       <property name="sentry.zip" value="${basedir}/${sentry}-${version}.jar"/>
+
+       <!-- ########### EnMasse manage & config properties ########################### -->
+       <property name="enmasse" value="enmasse"/>
+       <property name="enmasse.dir" value="${basedir}/${enmasse}-${version}"/>
+       <property name="enmasse.zip" value="${enmasse.dir}.jar"/>
+
        <!-- ########### Java compile switches ########################### -->
        <property name="javac.optimize" value="false"/>
        <property name="javac.debug" value="true"/>
@@ -1070,7 +1080,155 @@
             <zipfileset dir="${install.image.dir}" prefix="openldap">
                 <include name="*/**"/>
             </zipfileset>
+
+            <zipfileset dir="${tomcat.image.dir}" prefix="tomcat">
+                <include name="*/**"/>
+            </zipfileset>
+
         </zip>
+    </target>
+
+    <!-- =================================
+          Install EnMasse Demo
+         ================================= -->
+    <target name="install-enmasse-demo" depends="init"  description="--> install EnMasse Demo">
+       <antcall target="install-sentry"></antcall>
+       <antcall target="sentry-ant-deploy-tomcat"></antcall>
+       <antcall target="sentry-ant-start-tomcat"></antcall>
+       <antcall target="install-enmasse"></antcall>
+       <antcall target="enmasse-maven-test"></antcall>
+    </target>
+
+    <!-- =================================
+          Install Fortress Sentry
+         ================================= -->
+   <target name="install-sentry" depends="init"  description="--> install sentry">
+       <unzip src="${sentry.zip}" dest="${basedir}"/>
+       <antcall target="sentry-ant-dist"></antcall>
+       <chmod dir="${basedir}" perm="a+x" includes="**/*.sh"/>
+   </target>
+
+    <!-- =================================
+          Call the Sentry Ant target to Install Fortress Sentry
+         ================================= -->
+   <target name="sentry-ant-dist" depends="init" description="--> run Fortress admin script">
+        <echo message="###############  Build Sentry Distribution  ###############"/>
+        <java
+                classname="org.apache.tools.ant.launch.Launcher"
+                fork="true"
+                failonerror="true"
+                dir="${sentry.dir}"
+                timeout="4000000"
+                taskname="startAnt">
+            <classpath>
+                <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
+            </classpath>
+            <arg value="dist"/>
+        </java>
+    </target>
+
+    <!-- =================================
+          Call the Sentry Ant target to deploy Tomcat Realm
+         ================================= -->
+    <target name="sentry-ant-deploy-tomcat" depends="init" description="--> deploy Sentry to Tomcat">
+        <echo message="###############  Deploy Sentry to Tomcat  ###############"/>
+        <java
+                classname="org.apache.tools.ant.launch.Launcher"
+                fork="true"
+                failonerror="true"
+                dir="${sentry.dir}"
+                timeout="4000000"
+                taskname="startAnt">
+            <classpath>
+                <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
+            </classpath>
+            <arg value="deploy-tomcat"/>
+        </java>
+    </target>
+
+    <!-- =================================
+          Call the Sentry Ant target to start Tomcat server
+         ================================= -->
+    <target name="sentry-ant-start-tomcat" depends="init" description="--> start Tomcat server">
+        <echo message="###############  Start Tomcat Server  ###############"/>
+        <property name="tomcat.dir" value="./tomcat"/>
+        <java
+                classname="org.apache.tools.ant.launch.Launcher"
+                fork="true"
+                failonerror="true"
+                dir="${sentry.dir}"
+                timeout="4000000"
+                taskname="startAnt">
+            <classpath>
+                <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
+            </classpath>
+            <arg value="start-tomcat"/>
+        </java>
+    </target>
+
+    <!-- =================================
+          Call the Sentry Ant target to stop Tomcat server
+         ================================= -->
+    <target name="sentry-ant-stop-tomcat" depends="init" description="--> stop Tomcat server">
+        <echo message="###############  Stop Tomcat Server  ###############"/>
+        <property name="tomcat.dir" value="./tomcat"/>
+        <java
+                classname="org.apache.tools.ant.launch.Launcher"
+                fork="true"
+                failonerror="true"
+                dir="${sentry.dir}"
+                timeout="4000000"
+                taskname="startAnt">
+            <classpath>
+                <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
+            </classpath>
+            <arg value="stop-tomcat"/>
+        </java>
+    </target>
+
+    <!-- =================================
+          Install EnMasse
+         ================================= -->
+    <target name="install-enmasse" depends="init"  description="--> install sentry">
+       <unzip src="${enmasse.zip}" dest="${basedir}"/>
+       <antcall target="enmasse-maven-install"></antcall>
+       <antcall target="enmasse-maven-deploy"></antcall>
+    </target>
+
+    <!-- =================================
+          Call the EnMasse Maven to install
+         ================================= -->
+    <target name="enmasse-maven-install" depends="init" description="deploy snapshot version to Maven snapshot repository">
+        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="/usr/share/maven2"  fork="true">
+        	<arg value="install"/>
+        </artifact:mvn>
+    </target>
+
+    <!-- =================================
+          Call the EnMasse Maven to deploy Web app
+         ================================= -->
+    <target name="enmasse-maven-deploy" depends="init" description="deploy snapshot version to Maven snapshot repository">
+        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="/usr/share/maven2"  fork="true">
+        	<arg value="tomcat:deploy"/>
+        </artifact:mvn>
+    </target>
+
+    <!-- =================================
+          Call the EnMasse Maven to redeploy Web app
+         ================================= -->
+    <target name="enmasse-maven-redeploy" depends="init" description="deploy snapshot version to Maven snapshot repository">
+        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="/usr/share/maven2"  fork="true">
+        	<arg value="tomcat:redeploy"/>
+        </artifact:mvn>
+    </target>
+
+    <!-- =================================
+          Call the EnMasse Maven to test Web app
+         ================================= -->
+    <target name="enmasse-maven-test" depends="init" description="deploy snapshot version to Maven snapshot repository">
+        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="/usr/share/maven2"  fork="true">
+        	<arg value="test"/>
+        </artifact:mvn>
     </target>
 
     <!-- =================================
