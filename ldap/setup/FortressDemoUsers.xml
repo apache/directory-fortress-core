@@ -3,7 +3,7 @@
   ~ Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
   -->
 <project basedir="." default="all" name="Fortress Sample Data">
-    <property name="version" value="1.0.0-RC17"/>
+    <property name="version" value="1.0-RC18"/>
     <property name="home.dir" value = "../../" />
     <property name="lib.dir" value = "${home.dir}/lib" />
     <property name="dist.dir" value = "${home.dir}/dist" />
@@ -137,6 +137,7 @@
 
                 <userrole userId="tcmanager" name="manager-gui"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="tcmanager" name="manager"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="tcmanager" name="manager-jmx"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
             </adduserrole>
 
             <addrole>
@@ -144,6 +145,7 @@
                 <role name="role2" description="Tomcat Role 2 for Calendar App"/>
                 <role name="manager-gui" description="Tomcat 7 Manager Role"/>
                 <role name="manager" description="Tomcat Manager Role"/>
+                <role name="manager-jmx" description="Tomcat Manager Role"/>
                 <role name="EnmasseSuperUser" description="Role to access En Masse services"/>
                 <!--role name="role1" description="Tomcat Role for Calendar App" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/-->
             </addrole>

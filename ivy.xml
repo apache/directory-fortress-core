@@ -17,6 +17,8 @@
 <ivy-module version="2.0">
     <info organisation="org.apache" module="openldap-fortress-core"/>
     <dependencies>
+        <!--<dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC18" conf="default->master"/>-->
+        <!--<dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC18" conf="default->master"/>-->
         <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>
         <dependency org="commons-configuration" name="commons-configuration" rev="1.6" conf="default->master"/>
         <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>

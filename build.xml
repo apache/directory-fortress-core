@@ -221,7 +221,7 @@
        <property name="maven-snapshots-repository-id" value="sonatype-nexus-snapshots" />
        <property name="maven-snapshots-repository-url" value="https://oss.sonatype.org/content/repositories/snapshots" />
        <property name="maven-staging-repository-id" value="sonatype-nexus-staging" />
-       <property name="maven-staging-repository-url" value="https://oss.sonatype.org/service/local/staging/deploy/maven2/" />
+       <property name="maven-staging-repository-url" value="https://oss.sonatype.org/service/local/staging/deploy/maven2" />
 
        <!-- define artifacts' name, which follows the convention of Maven (publishing only) -->
        <property name="maven-jar" value="${dist.jar}" />
@@ -1146,4 +1146,5 @@
             <arg value="-Pgpg" />
 		</artifact:mvn>
 	</target>
+
 </project>
