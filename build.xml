@@ -104,12 +104,12 @@
        <!-- ########### Sentry manage & config properties ########################### -->
        <property name="sentry" value="sentry"/>
        <property name="sentry.dir" value="${basedir}/${sentry}-${version}"/>
-       <property name="sentry.zip" value="${basedir}/${sentry}-${version}.jar"/>
+       <property name="sentry.zip" value="${lib.dir}/${sentry}-${version}.jar"/>
 
        <!-- ########### EnMasse manage & config properties ########################### -->
        <property name="enmasse" value="enmasse"/>
        <property name="enmasse.dir" value="${basedir}/${enmasse}-${version}"/>
-       <property name="enmasse.zip" value="${enmasse.dir}.jar"/>
+       <property name="enmasse.zip" value="${lib.dir}/${enmasse}-${version}.jar"/>
 
        <!-- ########### Java compile switches ########################### -->
        <property name="javac.optimize" value="false"/>
@@ -150,6 +150,7 @@
        <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.5.1.jar"/>
        <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
        <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.6.1.jar"/>
+
 
        <!-- ########### Define classpaths ########################### -->
        <path id="build.class.path">

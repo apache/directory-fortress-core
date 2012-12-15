@@ -25,7 +25,7 @@ import java.util.StringTokenizer;
  * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.1</code>
  * <li> <code>NAME 'ftUserAttrs'</code>
  * <li> <code>DESC 'Fortress User Attribute AUX Object Class'</code>
- * <li> <code>AUXILIARY</cuserroleode>
+ * <li> <code>AUXILIARY</code>
  * <li> <code>MUST ( ftId )</code>
  * <li> <code>MAY ( ftRC $ ftRA $ ftARC $ ftARA $ ftCstr</code>
  * <li>  ------------------------------------------
