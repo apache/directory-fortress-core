@@ -1208,7 +1208,7 @@
     <!-- =================================
           Call the EnMasse Maven to install
          ================================= -->
-    <target name="enmasse-maven-install" depends="init" description="deploy snapshot version to Maven snapshot repository">
+    <target name="enmasse-maven-install" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="install"/>
         </artifact:mvn>
@@ -1217,7 +1217,7 @@
     <!-- =================================
           Call the EnMasse Maven to deploy Web app
          ================================= -->
-    <target name="enmasse-maven-deploy" depends="init" description="deploy snapshot version to Maven snapshot repository">
+    <target name="enmasse-maven-deploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="tomcat:deploy"/>
         </artifact:mvn>
@@ -1226,7 +1226,7 @@
     <!-- =================================
           Call the EnMasse Maven to redeploy Web app
          ================================= -->
-    <target name="enmasse-maven-redeploy" depends="init" description="deploy snapshot version to Maven snapshot repository">
+    <target name="enmasse-maven-redeploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="tomcat:redeploy"/>
         </artifact:mvn>
@@ -1235,7 +1235,7 @@
     <!-- =================================
           Call the EnMasse Maven to test Web app
          ================================= -->
-    <target name="enmasse-maven-test" depends="init" description="deploy snapshot version to Maven snapshot repository">
+    <target name="enmasse-maven-test" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="test"/>
         </artifact:mvn>
@@ -1268,7 +1268,7 @@
     <!-- =================================
           Deploy snapshot to remote Maven repository
          ================================= -->
-    <target name="deploy" depends="init" description="deploy snapshot version to Maven snapshot repository">
+    <target name="deploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn>
             <arg value="org.apache.maven.plugins:maven-deploy-plugin:2.6:deploy-file" />
             <arg value="-Durl=${maven-snapshots-repository-url}" />
@@ -1281,7 +1281,7 @@
     <!-- =================================
           Update project version (both build.xml and pom.xml) from SNAPSHOT to RELEASE
          ================================= -->
-	<target name="stage" depends="dist" description="deploy release version to Maven staging repository">
+	<target name="stage" depends="dist" description="--> deploy release version to Maven staging repository">
 		<!-- sign and deploy the main artifact -->
 		<artifact:mvn>
 			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
