@@ -457,7 +457,7 @@
     <!-- =================================
           target: test-full-init - runs before 'test-full' and performs junit regression tests without teardown operations
          ================================= -->
-     <target name="test-full-init" depends="compile-test,init-fortress-config" description="--> run junit regression tests without teardown">
+     <target name="test-full-init" depends="build-jar,compile-test,init-fortress-config" description="--> run junit regression tests without teardown">
          <echo message="Run the Fortress regression JUnit tests without teardown.  Be patient this can take a while to complete."/>
           <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
@@ -471,7 +471,7 @@
     <!-- =================================
           target: test-full - runs after 'test-full-init' and performs junit regression tests with teardown operations
          ================================= -->
-    <target name="test-full" depends="compile-test,init-fortress-config" description="--> run junit FULL regression tests with teardown">
+    <target name="test-full" depends="build-jar,compile-test,init-fortress-config" description="--> run junit FULL regression tests with teardown">
         <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
@@ -485,7 +485,7 @@
     <!-- =================================
           target: console - starts the Fortress Console app
          ================================= -->
-     <target name="console" depends="compile-test,init-fortress-config" description="--> start Fortress Console app">
+     <target name="console" depends="build-jar,compile-test,init-fortress-config" description="--> start Fortress Console app">
          <echo message="Run the Fortress console app"/>
          <java
                  classname="com.jts.fortress.FortressConsole"
@@ -501,7 +501,7 @@
     <!-- =================================
           target: cli - starts the Fortress Command Line Interpreter
          ================================= -->
-     <target name="cli" depends="compile,init-fortress-config" description="--> start Fortress Command Line Interpreter">
+     <target name="cli" depends="build-jar,compile,init-fortress-config" description="--> start Fortress Command Line Interpreter">
          <echo message="Run the Fortress Command Line Interpreter"/>
          <java
                  classname="com.jts.fortress.cli.CommandLineInterpreter"
