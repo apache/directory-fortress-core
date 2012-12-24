@@ -181,7 +181,7 @@ public class RestUtils
      */
     public static String post(String userId, String password, String szInput, String function) throws RestException
     {
-        log.debug(CLS_NM + ".post [" + function + "]  request=" + szInput);
+        log.debug(CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], request=" + szInput);
         String szResponse = null;
         PostMethod post = new PostMethod(URI + function);
         post.addRequestHeader("Accept", "text/xml");
@@ -193,17 +193,17 @@ public class RestUtils
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod(post);
             szResponse = IOUtils.toString(post.getResponseBodyAsStream(), "UTF-8");
-            log.debug(CLS_NM + ".post [" + function + "]  response=" + szResponse);
+            log.debug(CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], response=" + szResponse);
         }
         catch (IOException ioe)
         {
-            String error = CLS_NM + ".post [" + function + "] caught IOException=" + ioe;
+            String error = CLS_NM + ".post URI=[" + URI + "], [" + function + "] caught IOException=" + ioe;
             log.error(error);
             throw new RestException(GlobalErrIds.REST_IO_ERR, error, ioe);
         }
         catch (WebApplicationException we)
         {
-            String error = CLS_NM + ".post [" + function + "] caught WebApplicationException=" + we;
+            String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function + "] caught WebApplicationException=" + we;
             log.error(error);
             throw new RestException(GlobalErrIds.REST_WEB_ERR, error, we);
         }
@@ -225,7 +225,7 @@ public class RestUtils
      */
     public static String post(String szInput, String function) throws RestException
     {
-        log.debug(CLS_NM + ".post [" + function + "]  request=" + szInput);
+        log.debug(CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], request=" + szInput);
         String szResponse = null;
         PostMethod post = new PostMethod(URI + function);
         post.addRequestHeader("Accept", "text/xml");
@@ -239,30 +239,30 @@ public class RestUtils
             if(result == HTTP_OK)
             {
                 szResponse = IOUtils.toString(post.getResponseBodyAsStream(), "UTF-8");
-                log.debug(CLS_NM + ".post [" + function + "]  response=" + szResponse);
+                log.debug(CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], response=" + szResponse);
             }
             else if(result == HTTP_404_NOT_FOUND)
             {
-                String error = CLS_NM + ".post [" + function + "] 404 not found from host";
+                String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], 404 not found from host";
                 log.error(error);
                 throw new RestException(GlobalErrIds.REST_NOT_FOUND_ERR, error);
             }
             else
             {
-                String error = CLS_NM + ".post [" + function + "] error received from host: " + result;
+                String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], error received from host: " + result;
                 log.error(error);
                 throw new RestException(GlobalErrIds.REST_UNKNOWN_ERR, error);
             }
         }
         catch (IOException ioe)
         {
-            String error = CLS_NM + ".post [" + function + "] caught IOException=" + ioe;
+            String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function + "] caught IOException=" + ioe;
             log.error(error);
             throw new RestException(GlobalErrIds.REST_IO_ERR, error, ioe);
         }
         catch (WebApplicationException we)
         {
-            String error = CLS_NM + ".post [" + function + "] caught WebApplicationException=" + we;
+            String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function + "] caught WebApplicationException=" + we;
             log.error(error);
             throw new RestException(GlobalErrIds.REST_WEB_ERR, error, we);
         }

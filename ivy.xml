@@ -16,7 +16,10 @@
 -->
 <ivy-module version="2.0">
     <info organisation="org.apache" module="openldap-fortress-core"/>
+
     <dependencies>
+
+        <!-- Fortress core libs: -->
         <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>
         <dependency org="commons-configuration" name="commons-configuration" rev="1.6" conf="default->master"/>
         <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>
@@ -39,9 +42,14 @@
         <dependency org="net.sf.ehcache" name="ehcache-core" rev="2.5.1" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-api" rev="1.6.1" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.6.1" conf="default->master"/>
-        <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC18"  conf="default->master"/>
-        <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC18"  conf="default->master">
-            <artifact name="enmasse" type="jar" />
-        </dependency>
+
+        <!-- Other Fortress product source bundles will be pulled down for the QUICKSTART package: -->
+        <!--
+                <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC20"  conf="default->master"/>
+                <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC20"  conf="default->master">
+                    <artifact name="enmasse" type="jar"/>
+                </dependency>
+        -->
+
     </dependencies>
 </ivy-module>

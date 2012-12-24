@@ -42,23 +42,10 @@ public class FortressJUnitTest extends TestCase
     }
     //private static String context = "";
 
-
     private static String context = GlobalIds.HOME;
     //private static String context = "Client123";
     //private static String context = "Client456";
 
-    public static boolean isFirstRun()
-    {
-        return isFirstRun;
-    }
-
-    public static void setFirstRun(boolean firstRun)
-    {
-        isFirstRun = firstRun;
-        //isFirstRun = true;
-    }
-
-    private static boolean isFirstRun = false;
     private static boolean adminEnabled;
     public static boolean isAdminEnabled()
     {
@@ -70,6 +57,24 @@ public class FortressJUnitTest extends TestCase
         adminEnabled = adminVal;
     }
 
+    private static boolean isFirstRun = getFirstRun();
+    private static boolean getFirstRun()
+    {
+        isFirstRun = !ReviewMgrImplTest.teardownRequired("TD-RLS TR1", RoleTestData.ROLES_TR1);
+        return isFirstRun;
+    }
+
+    public static boolean isFirstRun()
+    {
+        return isFirstRun;
+    }
+
+    @Deprecated
+    public static void setFirstRun(boolean firstRun)
+    {
+        isFirstRun = firstRun;
+    }
+
     /**
      * @return
      */
@@ -79,8 +84,8 @@ public class FortressJUnitTest extends TestCase
         //setAdminEnabled(false);
         setAdminEnabled(true);
         String szRunProp = "isFirstJUnitRun";
-        String szFirstRun = System.getProperty(szRunProp);
-        setFirstRun(szFirstRun != null && szFirstRun.equalsIgnoreCase("true"));
+        //String szFirstRun = System.getProperty(szRunProp);
+        //setFirstRun(szFirstRun != null && szFirstRun.equalsIgnoreCase("true"));
 
         /***********************************************************/
         /* 0. Load the base Admin Policy if need be:
@@ -303,7 +308,6 @@ public class FortressJUnitTest extends TestCase
     {
         super.setUp();
     }
-
 
     /**
      * The teardown method for JUnit

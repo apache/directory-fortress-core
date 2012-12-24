@@ -6,13 +6,15 @@ package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.rbac.ReviewMgrImpl;
 import com.jts.fortress.rbac.Session;
+import com.jts.fortress.rest.ReviewMgrRestImpl;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
  * Creates an instance of the ReviewMgr object.
  * <p/>
- * The default implementation class is specified as {@link GlobalIds#REVIEW_DEFAULT_CLASS} but can be overridden by
+ * The default implementation class is specified as {@link ReviewMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#REVIEW_IMPLEMENTATION} config property.
  * <p/>
 
@@ -36,12 +38,19 @@ public class ReviewMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
-        com.jts.fortress.ReviewMgr reviewMgr;
-        if (reviewClassName == null || reviewClassName.compareTo("") == 0)
+        if (!VUtil.isNotNullOrEmpty(reviewClassName))
         {
-            reviewClassName = GlobalIds.REVIEW_DEFAULT_CLASS;
+            if(GlobalIds.IS_REST)
+            {
+                reviewClassName = ReviewMgrRestImpl.class.getName();
+            }
+            else
+            {
+                reviewClassName = ReviewMgrImpl.class.getName();
+            }
         }
-        reviewMgr = (com.jts.fortress.ReviewMgr) ClassUtil.createInstance(reviewClassName);
+
+        ReviewMgr reviewMgr = (com.jts.fortress.ReviewMgr) ClassUtil.createInstance(reviewClassName);
         reviewMgr.setContextId(contextId);
         return reviewMgr;
     }

@@ -6,7 +6,6 @@ package com.jts.fortress.rbac;
 
 import com.jts.fortress.AuditMgr;
 import com.jts.fortress.AuditMgrFactory;
-import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.util.LogUtil;
 import junit.framework.Test;

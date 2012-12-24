@@ -31,8 +31,6 @@
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
-       <property name="version" value="1.0-RC18"/>
-        <!--       <property name="version" value="1.0-SNAPSHOT"/>-->
        <property name="ivy.install.version" value="2.2.0"/>
        <property name="title" value="Fortress Identity and Access Management SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
@@ -109,7 +107,7 @@
        <!-- ########### EnMasse manage & config properties ########################### -->
        <property name="enmasse" value="enmasse"/>
        <property name="enmasse.dir" value="${basedir}/${enmasse}-${version}"/>
-       <property name="enmasse.zip" value="${lib.dir}/${enmasse}-${version}.jar"/>
+       <property name="enmasse.zip" value="${basedir}/lib/${enmasse}-${version}.jar"/>
 
        <!-- ########### Java compile switches ########################### -->
        <property name="javac.optimize" value="false"/>
@@ -547,6 +545,7 @@
              <classpath>
                  <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
              </classpath>
+             <sysproperty key="version" value="${version}"/>
              <arg value="-buildfile"/>
              <arg file="${param1}"/>
              <arg value="-Dbasedir=${ldap.setup.dir}"/>
@@ -654,6 +653,11 @@
          <replace file="${dst.remote.conf}" token="@ADM_MIN_CONN@" value="${admin.min.conn}"/>
          <replace file="${dst.remote.conf}" token="@ADM_MAX_CONN@" value="${admin.max.conn}"/>
          <replace file="${dst.remote.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
+         <replace file="${dst.remote.conf}" token="@ENABLE_REST@" value="${enable.mgr.impl.rest}"/>
+         <replace file="${dst.remote.conf}" token="@REST_HTTP_USER@" value="${http.user}"/>
+         <replace file="${dst.remote.conf}" token="@REST_HTTP_PW@" value="${http.pw}"/>
+         <replace file="${dst.remote.conf}" token="@REST_HTTP_HOST@" value="${http.host}"/>
+         <replace file="${dst.remote.conf}" token="@REST_HTTP_PORT@" value="${http.port}"/>
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
          <delete file="${dst.load.bootstrap.script}"/>
@@ -1043,10 +1047,6 @@
         <echo message="###############  Build Fortress Builder distribution package named: ${fortressBuilder.zip} ###############"/>
         <zip destfile="${fortressBuilder.zip}"
              update="true">
-            <zipfileset dir="${ant.home}" prefix="apache-ant">
-                <include name="*/**"/>
-            </zipfileset>
-
             <zipfileset dir="${src.dir}" prefix="src">
                 <include name="*/**"/>
                 <exclude name="*.iml"/>
@@ -1059,6 +1059,7 @@
                 <include name="*.sh"/>
                 <include name="*.bat"/>
                 <include name="*.html"/>
+                <include name="enmasse*.jar"/>
                 <exclude name="*.log"/>
                 <exclude name="build.sh"/>
                 <exclude name="READ-ME.txt"/>
@@ -1078,11 +1079,19 @@
                 <include name="*/**"/>
             </zipfileset>
 
-            <zipfileset dir="${install.image.dir}" prefix="openldap">
+            <zipfileset dir="${install.image.dir}" prefix="symas-openldap">
                 <include name="*/**"/>
             </zipfileset>
 
-            <zipfileset dir="${tomcat.image.dir}" prefix="tomcat">
+            <zipfileset dir="${ant.home}" prefix="apache-ant">
+                <include name="*/**"/>
+            </zipfileset>
+
+            <zipfileset dir="${maven.image.dir}" prefix="apache-maven">
+                <include name="*/**"/>
+            </zipfileset>
+
+            <zipfileset dir="${tomcat.image.dir}" prefix="apache-tomcat">
                 <include name="*/**"/>
             </zipfileset>
 
@@ -1200,7 +1209,7 @@
           Call the EnMasse Maven to install
          ================================= -->
     <target name="enmasse-maven-install" depends="init" description="deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="/usr/share/maven2"  fork="true">
+        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="install"/>
         </artifact:mvn>
     </target>
@@ -1209,7 +1218,7 @@
           Call the EnMasse Maven to deploy Web app
          ================================= -->
     <target name="enmasse-maven-deploy" depends="init" description="deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="/usr/share/maven2"  fork="true">
+        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="tomcat:deploy"/>
         </artifact:mvn>
     </target>
@@ -1218,7 +1227,7 @@
           Call the EnMasse Maven to redeploy Web app
          ================================= -->
     <target name="enmasse-maven-redeploy" depends="init" description="deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="/usr/share/maven2"  fork="true">
+        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="tomcat:redeploy"/>
         </artifact:mvn>
     </target>
@@ -1227,7 +1236,7 @@
           Call the EnMasse Maven to test Web app
          ================================= -->
     <target name="enmasse-maven-test" depends="init" description="deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="/usr/share/maven2"  fork="true">
+        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="test"/>
         </artifact:mvn>
     </target>

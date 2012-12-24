@@ -46,7 +46,7 @@ import java.util.*;
  *  // Instantiate the AdminMgr first
  *  AdminMgr adminMgr = AdminMgrFactory.createInstance();
  *
- *  User myUser = new User("myUserId", "myPassword", myRoleName", "myOU");
+ *  User myUser = new User("myUserId", "myPassword".toCharArray(), myRoleName", "myOU");
  *  adminMgr.addUser(myUser);
  * }
  * catch (SecurityException ex)
@@ -1015,7 +1015,7 @@ public class User extends FortEntity implements Constraint, Serializable
     }
 
     /**
-     * Contains data retrieved from the following LDAP attributes:
+     * Get address data from entity that was persisted in directory as attributes defined by RFC 2798's LDAP inetOrgPerson Object Class:
      *
      * <ul>
      * <li>  ------------------------------------------
@@ -1038,7 +1038,7 @@ public class User extends FortEntity implements Constraint, Serializable
     }
 
     /**
-     * Contains data bound for the following LDAP attributes:
+     * Set address data onto entity that stored in directory as attributes defined by RFC 2798's LDAP inetOrgPerson Object Class:
      *
      * <ul>
      * <li>  ------------------------------------------

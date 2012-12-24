@@ -7,7 +7,6 @@ package com.jts.fortress.rbac;
 import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
 import com.jts.fortress.GlobalErrIds;
-import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.util.time.CUtil;

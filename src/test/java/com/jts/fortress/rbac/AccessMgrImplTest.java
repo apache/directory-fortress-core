@@ -7,7 +7,6 @@ package com.jts.fortress.rbac;
 import com.jts.fortress.AccessMgr;
 import com.jts.fortress.AccessMgrFactory;
 import com.jts.fortress.GlobalErrIds;
-import com.jts.fortress.GlobalIds;
 import com.jts.fortress.PwPolicyMgr;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.util.LogUtil;

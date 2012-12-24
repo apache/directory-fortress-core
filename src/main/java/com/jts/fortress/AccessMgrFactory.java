@@ -5,14 +5,16 @@
 package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
+import com.jts.fortress.rbac.AccessMgrImpl;
 import com.jts.fortress.rbac.ClassUtil;
 import com.jts.fortress.rbac.Session;
+import com.jts.fortress.rest.AccessMgrRestImpl;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
  * Creates an instance of the AccessMgr object.
  * <p/>
- * The default implementation class is specified as {@link GlobalIds#ACCESS_DEFAULT_CLASS} but can be overridden by
+ * The default implementation class is specified as {@link AccessMgrRestImpl} but can be overridden by
  * adding the {@link GlobalIds#ACCESS_IMPLEMENTATION} config property.
  * <p/>
 
@@ -36,12 +38,19 @@ public class AccessMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
-        com.jts.fortress.AccessMgr accessMgr;
-        if (accessClassName == null || accessClassName.compareTo("") == 0)
+        if (!VUtil.isNotNullOrEmpty(accessClassName))
         {
-            accessClassName = GlobalIds.ACCESS_DEFAULT_CLASS;
+            if(GlobalIds.IS_REST)
+            {
+                accessClassName = AccessMgrRestImpl.class.getName();
+            }
+            else
+            {
+                accessClassName = AccessMgrImpl.class.getName();
+            }
         }
-        accessMgr = (AccessMgr) ClassUtil.createInstance(accessClassName);
+
+        AccessMgr accessMgr = (AccessMgr) ClassUtil.createInstance(accessClassName);
         accessMgr.setContextId(contextId);
         return accessMgr;
     }

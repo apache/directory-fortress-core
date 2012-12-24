@@ -12,7 +12,6 @@ import com.jts.fortress.DelAdminMgr;
 import com.jts.fortress.DelAdminMgrFactory;
 import com.jts.fortress.DelReviewMgr;
 import com.jts.fortress.DelReviewMgrFactory;
-import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
 import com.jts.fortress.SecurityException;

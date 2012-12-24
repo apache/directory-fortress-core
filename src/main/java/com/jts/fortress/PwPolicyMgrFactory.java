@@ -6,13 +6,15 @@ package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.rbac.PwPolicyMgrImpl;
 import com.jts.fortress.rbac.Session;
+import com.jts.fortress.rest.PwPolicyMgrRestImpl;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
  * Creates an instance of the PwPolicyMgr object.
  * <p/>
- * The default implementation class is specified as {@link GlobalIds#PSWD_POLICY_DEFAULT_CLASS} but can be overridden by
+ * The default implementation class is specified as {@link PwPolicyMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#PSWD_POLICY_IMPLEMENTATION} config property.
  * <p/>
 
@@ -36,13 +38,19 @@ public class PwPolicyMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
-        PwPolicyMgr policyMgr;
-        if (policyClassName == null || policyClassName.compareTo("") == 0)
+        if (!VUtil.isNotNullOrEmpty(policyClassName))
         {
-            policyClassName = GlobalIds.PSWD_POLICY_DEFAULT_CLASS;
+            if(GlobalIds.IS_REST)
+            {
+                policyClassName = PwPolicyMgrRestImpl.class.getName();
+            }
+            else
+            {
+                policyClassName = PwPolicyMgrImpl.class.getName();
+            }
         }
 
-        policyMgr = (PwPolicyMgr) ClassUtil.createInstance(policyClassName);
+        PwPolicyMgr policyMgr = (PwPolicyMgr) ClassUtil.createInstance(policyClassName);
         policyMgr.setContextId(contextId);
         return policyMgr;
     }

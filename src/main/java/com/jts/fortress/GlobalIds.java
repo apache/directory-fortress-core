@@ -5,6 +5,24 @@
 package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
+import com.jts.fortress.cfg.ConfigMgrImpl;
+import com.jts.fortress.rbac.AccessMgrImpl;
+import com.jts.fortress.rbac.AdminMgrImpl;
+import com.jts.fortress.rbac.AuditMgrImpl;
+import com.jts.fortress.rbac.DelAccessMgrImpl;
+import com.jts.fortress.rbac.DelAdminMgrImpl;
+import com.jts.fortress.rbac.DelReviewMgrImpl;
+import com.jts.fortress.rbac.PwPolicyMgrImpl;
+import com.jts.fortress.rbac.ReviewMgrImpl;
+import com.jts.fortress.rest.AccessMgrRestImpl;
+import com.jts.fortress.rest.AdminMgrRestImpl;
+import com.jts.fortress.rest.AuditMgrRestImpl;
+import com.jts.fortress.rest.ConfigMgrRestImpl;
+import com.jts.fortress.rest.DelAccessMgrRestImpl;
+import com.jts.fortress.rest.DelAdminMgrRestImpl;
+import com.jts.fortress.rest.DelReviewMgrRestImpl;
+import com.jts.fortress.rest.PwPolicyMgrRestImpl;
+import com.jts.fortress.rest.ReviewMgrRestImpl;
 
 
 /**
@@ -25,19 +43,17 @@ public class GlobalIds
     public static final String HOME = "HOME";
     public static final String ENABLE_AUDIT = "enable.audit";
     public static final boolean IS_AUDIT = ((Config.getProperty(ENABLE_AUDIT) != null) && (Config.getProperty(ENABLE_AUDIT).equalsIgnoreCase("true")));
+    public static final String ENABLE_REST = "enable.mgr.impl.rest";
+    public static final boolean IS_REST = ((Config.getProperty(ENABLE_REST) != null) && (Config.getProperty(ENABLE_REST).equalsIgnoreCase("true")));
 
     /**
      * The following constants are used within the factory classes:
      */
+
     /**
      * When this optional tag, {@code accessmgr.implementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.AccessMgr} instance used.
      */
     public final static String ACCESS_IMPLEMENTATION = "accessmgr.implementation";
-
-    /**
-     * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.AccessMgrImpl}.
-     */
-    public final static String ACCESS_DEFAULT_CLASS = "com.jts.fortress.rbac.AccessMgrImpl";
 
     /**
      * When this optional tag, {@code adminImplementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.AdminMgr} instance used.
@@ -45,19 +61,9 @@ public class GlobalIds
     public final static String ADMIN_IMPLEMENTATION = "adminmgr.implementation";
 
     /**
-     * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.AdminMgrImpl}.
-     */
-    public final static String ADMIN_DEFAULT_CLASS = "com.jts.fortress.rbac.AdminMgrImpl";
-
-    /**
      * When this optional tag, {@code reviewImplementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.ReviewMgr} instance used.
      */
     public final static String REVIEW_IMPLEMENTATION = "reviewmgr.implementation";
-
-    /**
-     * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.ReviewMgrImpl}.
-     */
-    public final static String REVIEW_DEFAULT_CLASS = "com.jts.fortress.rbac.ReviewMgrImpl";
 
     /**
      * When this optional tag, {@code policyImplementation}, is placed in Fortress properties, its class name will be the default {@link PwPolicyMgr} instance used.
@@ -65,19 +71,9 @@ public class GlobalIds
     public final static String PSWD_POLICY_IMPLEMENTATION = "policymgr.implementation";
 
     /**
-     * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.PwPolicyMgrImpl}.
-     */
-    public final static String PSWD_POLICY_DEFAULT_CLASS = "com.jts.fortress.rbac.PwPolicyMgrImpl";
-
-    /**
      * When this optional tag, {@code auditmgr.implementation}, is placed in Fortress properties, its class name will be the default {@link com.jts.fortress.AuditMgr} instance used.
      */
     public final static String AUDIT_IMPLEMENTATION = "auditmgr.implementation";
-
-    /**
-     * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.AuditMgrImpl}.
-     */
-    public final static String AUDIT_DEFAULT_CLASS = "com.jts.fortress.rbac.AuditMgrImpl";
 
     /**
      * When this optional tag, {@code delegatedAdminImplementation}, is placed in Fortress properties, its class name will be the default {@link DelAdminMgr} instance used.
@@ -85,19 +81,9 @@ public class GlobalIds
     public final static String DELEGATED_ADMIN_IMPLEMENTATION = "delegated.adminmgr.implementation";
 
     /**
-     * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.DelAccessMgrImpl}.
-     */
-    public final static String DELEGATED_ADMIN_DEFAULT_CLASS = "com.jts.fortress.rbac.DelAdminMgrImpl";
-
-    /**
      * When this optional tag, {@code delegatedReviewImplementation}, is placed in Fortress properties, its class name will be the default {@link DelReviewMgr} instance used.
      */
     public final static String DELEGATED_REVIEW_IMPLEMENTATION = "delegated.reviewmgr.implementation";
-
-    /**
-     * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.DelReviewMgrImpl}.
-     */
-    public final static String DELEGATED_REVIEW_DEFAULT_CLASS = "com.jts.fortress.rbac.DelReviewMgrImpl";
 
     /**
      * When this optional tag, {@code delegatedAccessImplementation}, is placed in Fortress properties, its class name will be the default {@link DelAccessMgr} instance used.
@@ -105,29 +91,9 @@ public class GlobalIds
     public final static String DELEGATED_ACCESS_IMPLEMENTATION = "delegated.accessmgr.implementation";
 
     /**
-     * Default instance for the AccessMgr is {@link com.jts.fortress.rbac.DelAdminMgrImpl}.
-     */
-    public final static String DELEGATED_ACCESS_DEFAULT_CLASS = "com.jts.fortress.rbac.DelAccessMgrImpl";
-
-    /**
-     * Default instance for the AccessMgr is {@link com.jts.fortress.cfg.ConfigMgrImpl}.
-     */
-    public static final String CONFIG_DEFAULT_CLASS = "com.jts.fortress.cfg.ConfigMgrImpl";
-
-    /**
      * When this optional tag, {@code configImplementation}, is placed in Fortress properties, its class name will be the default {link ConfigMgr} instance used.
      */
     public final static String CONFIG_IMPLEMENTATION = "configmgr.implementation";
-
-    /**
-     * When this optional tag, {@code cacheImplementation}, is placed in Fortress properties,
-     */
-    public final static String CACHE_IMPLEMENTATION = "cachemgr.implementation";
-
-    /**
-     * Default instance for the CacheMgr is {@link com.jts.fortress.util.cache.EhCacheImpl}.
-     */
-    public final static String CACHE_DEFAULT_CLASS = "com.jts.fortress.util.cache.EhCacheImpl";
 
     //	AUTHENTICATION_TYPE
     /**

@@ -5,14 +5,16 @@
 package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
+import com.jts.fortress.rbac.AuditMgrImpl;
 import com.jts.fortress.rbac.ClassUtil;
 import com.jts.fortress.rbac.Session;
+import com.jts.fortress.rest.AuditMgrRestImpl;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
  * Creates an instance of the AuditMgr object.
  * <p/>
- * The default implementation class is specified as {@link GlobalIds#AUDIT_DEFAULT_CLASS} but can be overridden by
+ * The default implementation class is specified as {@link AuditMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#AUDIT_IMPLEMENTATION} config property.
  * <p/>
 
@@ -36,12 +38,19 @@ public class AuditMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
-        com.jts.fortress.AuditMgr auditMgr;
-        if (auditClassName == null || auditClassName.compareTo("") == 0)
+        if (!VUtil.isNotNullOrEmpty(auditClassName))
         {
-            auditClassName = GlobalIds.AUDIT_DEFAULT_CLASS;
+            if(GlobalIds.IS_REST)
+            {
+                auditClassName = AuditMgrRestImpl.class.getName();
+            }
+            else
+            {
+                auditClassName = AuditMgrImpl.class.getName();
+            }
         }
-        auditMgr = (AuditMgr) ClassUtil.createInstance(auditClassName);
+
+        AuditMgr auditMgr = (AuditMgr) ClassUtil.createInstance(auditClassName);
         auditMgr.setContextId(contextId);
         return auditMgr;
     }

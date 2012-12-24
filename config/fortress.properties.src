@@ -27,25 +27,26 @@ enable.pool.reconnect=true
 
 crypto.prop=@CFG_CRYPTO_PROP@
 
-# Optional parameters needed when Fortress client is connecting with the En Masse (rather than LDAP) server:
-http.user=demouser4
-http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
-http.host=localhost
-http.port=8080
-
 ehcache.config.file=ehcache.xml
 
 # If for any reason echcache must be DISABLED for DSD, make sure this parameter is set to 'true' which is the default.  Otherwise performance penalty will be incurred during multi-role activations.
 disable.dsd.cache=false
 
+# This will override default LDAP manager implementations for the RESTful ones:
+enable.mgr.impl.rest=@ENABLE_REST@
+# Optional parameters needed when Fortress client is connecting with the En Masse (rather than LDAP) server:
+http.user=@REST_HTTP_USER@
+http.pw=@REST_HTTP_PW@
+http.host=@REST_HTTP_HOST@
+http.port=@REST_HTTP_PORT@
 
-# These will override default LDAP for REST implementations:
-#reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrRestImpl
-#adminmgr.implementation=com.jts.fortress.rest.AdminMgrRestImpl
-#accessmgr.implementation=com.jts.fortress.rest.AccessMgrRestImpl
-#delegated.adminmgr.implementation=com.jts.fortress.rest.DelAdminMgrRestImpl
-#delegated.reviewmgr.implementation=com.jts.fortress.rest.DelReviewMgrRestImpl
-#policymgr.implementation=com.jts.fortress.rest.PwPolicyMgrRestImpl
-#delegated.accessmgr.implementation=com.jts.fortress.rest.DelAccessMgrRestImpl
-#auditmgr.implementation=com.jts.fortress.rest.AuditMgrRestImpl
-#configmgr.implementation=com.jts.fortress.rest.ConfigMgrRestImpl
+# These may be used to override default LDAP or REST with OTHER implementations:
+#reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrOtherImpl
+#adminmgr.implementation=com.jts.fortress.rest.AdminMgrOtherImpl
+#accessmgr.implementation=com.jts.fortress.rest.AccessMgrOtherImpl
+#delegated.adminmgr.implementation=com.jts.fortress.rest.DelAdminMgrOtherImpl
+#delegated.reviewmgr.implementation=com.jts.fortress.rest.DelReviewMgrOtherImpl
+#policymgr.implementation=com.jts.fortress.rest.PwPolicyMgrOtherImpl
+#delegated.accessmgr.implementation=com.jts.fortress.rest.DelAccessMgrOtherImpl
+#auditmgr.implementation=com.jts.fortress.rest.AuditMgrOtherImpl
+#configmgr.implementation=com.jts.fortress.rest.ConfigMgrOtherImpl

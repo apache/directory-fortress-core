@@ -769,10 +769,6 @@ final class UserDAO extends DataProvider
             long sequence = 0;
             while (searchResults.hasMoreElements())
             {
-                if(userList.size() == 99)
-                {
-                    System.out.println("break");
-                }
                 userList.add(unloadLdapEntry(searchResults.next(), sequence++, user.getContextId()));
             }
         }

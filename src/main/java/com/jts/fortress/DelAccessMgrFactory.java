@@ -6,13 +6,15 @@ package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.rbac.DelAccessMgrImpl;
 import com.jts.fortress.rbac.Session;
+import com.jts.fortress.rest.DelAccessMgrRestImpl;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
  * Creates an instance of the DelAccessMgr object.
  * <p/>
- * The default implementation class is specified as {@link GlobalIds#DELEGATED_ACCESS_DEFAULT_CLASS} but can be overridden by
+ * The default implementation class is specified as {@link DelAccessMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#DELEGATED_ACCESS_IMPLEMENTATION} config property.
  * <p/>
 
@@ -36,12 +38,19 @@ public class DelAccessMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
-        DelAccessMgr accessMgr;
-        if (accessClassName == null || accessClassName.compareTo("") == 0)
+        if (!VUtil.isNotNullOrEmpty(accessClassName))
         {
-            accessClassName = GlobalIds.DELEGATED_ACCESS_DEFAULT_CLASS;
+            if(GlobalIds.IS_REST)
+            {
+                accessClassName = DelAccessMgrRestImpl.class.getName();
+            }
+            else
+            {
+                accessClassName = DelAccessMgrImpl.class.getName();
+            }
         }
-        accessMgr = (DelAccessMgr) ClassUtil.createInstance(accessClassName);
+
+        DelAccessMgr accessMgr = (DelAccessMgr) ClassUtil.createInstance(accessClassName);
         accessMgr.setContextId(contextId);
         return accessMgr;
     }

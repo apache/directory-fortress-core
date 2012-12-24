@@ -4,7 +4,6 @@
 
 package com.jts.fortress.rbac;
 
-import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
@@ -280,6 +279,33 @@ public class ReviewMgrImplTest extends TestCase
         readRoles("RD-RLS TR2", RoleTestData.ROLES_TR2);
         readRoles("RD-RLS TR3", RoleTestData.ROLES_TR3);
         readRoles("RD-RLS TR4_UPD", RoleTestData.ROLES_TR4_UPD);
+    }
+
+    /**
+     *
+     * @param msg
+     * @param rArray
+     */
+    public static boolean teardownRequired(String msg, String[][] rArray)
+    {
+        boolean tearDown = true;
+        LogUtil.logIt(msg);
+        try
+        {
+            ReviewMgr reviewMgr = getManagedReviewMgr();
+            for (String[] rle : rArray)
+            {
+                Role entity = reviewMgr.readRole(new Role(RoleTestData.getName(rle)));
+                RoleTestData.assertEquals(entity, rle);
+                log.debug(CLS_NM + ".teardownRequired [" + entity.getName() + "] successful");
+            }
+        }
+        catch (SecurityException ex)
+        {
+            tearDown = false;
+        }
+        log.info(CLS_NM + ".teardownRequired:" + tearDown);
+        return tearDown;
     }
 
     /**

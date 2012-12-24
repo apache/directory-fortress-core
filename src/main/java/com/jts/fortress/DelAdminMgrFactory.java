@@ -6,13 +6,15 @@ package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.rbac.DelAdminMgrImpl;
 import com.jts.fortress.rbac.Session;
+import com.jts.fortress.rest.DelAdminMgrRestImpl;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
  * Creates an instance of the DelAdminMgr object.
  * <p/>
- * The default implementation class is specified as {@link GlobalIds#DELEGATED_ADMIN_DEFAULT_CLASS} but can be overridden by
+ * The default implementation class is specified as {@link DelAdminMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#DELEGATED_ADMIN_IMPLEMENTATION} config property.
  * <p/>
 
@@ -36,12 +38,19 @@ public class DelAdminMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
-        DelAdminMgr delAdminMgr;
-        if (dAdminClassName == null || dAdminClassName.compareTo("") == 0)
+        if (!VUtil.isNotNullOrEmpty(dAdminClassName))
         {
-            dAdminClassName = GlobalIds.DELEGATED_ADMIN_DEFAULT_CLASS;
+            if(GlobalIds.IS_REST)
+            {
+                dAdminClassName = DelAdminMgrRestImpl.class.getName();
+            }
+            else
+            {
+                dAdminClassName = DelAdminMgrImpl.class.getName();
+            }
         }
-        delAdminMgr = (DelAdminMgr) ClassUtil.createInstance(dAdminClassName);
+
+        DelAdminMgr delAdminMgr = (DelAdminMgr) ClassUtil.createInstance(dAdminClassName);
         delAdminMgr.setContextId(contextId);
         return delAdminMgr;
     }

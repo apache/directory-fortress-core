@@ -6,13 +6,15 @@ package com.jts.fortress;
 
 import com.jts.fortress.cfg.Config;
 import com.jts.fortress.rbac.ClassUtil;
+import com.jts.fortress.rbac.DelReviewMgrImpl;
 import com.jts.fortress.rbac.Session;
+import com.jts.fortress.rest.DelReviewMgrRestImpl;
 import com.jts.fortress.util.attr.VUtil;
 
 /**
  * Creates an instance of the DelReviewMgr object.
  * <p/>
- * The default implementation class is specified as {@link GlobalIds#DELEGATED_REVIEW_DEFAULT_CLASS} but can be overridden by
+ * The default implementation class is specified as {@link DelReviewMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#DELEGATED_REVIEW_IMPLEMENTATION} config property.
  * <p/>
 
@@ -36,12 +38,19 @@ public class DelReviewMgrFactory
         throws com.jts.fortress.SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
-        DelReviewMgr delReviewMgr;
-        if (dReviewClassName == null || dReviewClassName.compareTo("") == 0)
+        if (!VUtil.isNotNullOrEmpty(dReviewClassName))
         {
-            dReviewClassName = GlobalIds.DELEGATED_REVIEW_DEFAULT_CLASS;
+            if(GlobalIds.IS_REST)
+            {
+                dReviewClassName = DelReviewMgrRestImpl.class.getName();
+            }
+            else
+            {
+                dReviewClassName = DelReviewMgrImpl.class.getName();
+            }
         }
-        delReviewMgr = (DelReviewMgr) ClassUtil.createInstance(dReviewClassName);
+
+        DelReviewMgr delReviewMgr = (DelReviewMgr) ClassUtil.createInstance(dReviewClassName);
         delReviewMgr.setContextId(contextId);
         return delReviewMgr;
     }

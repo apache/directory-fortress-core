@@ -4,8 +4,8 @@
   <artifactId>fortress</artifactId>
   <packaging>jar</packaging>
   <name>Fortress Core</name>
-  <version>1.0-RC18</version>
-  <description>A standards based Identity and Access Management SDK.  Its objects communicate LDAPv3 protocol to directory servers or Representational state transfer over the Web.</description>
+  <version>1.0-RC20</version>
+  <description>Fortress is a standards-based Identity and Access Management SDK.  It communicates LDAPv3 protocol to directory servers or Representational state transfer over the Web.</description>
   <url>https://joshuatreesoftware.us</url>
   <licenses>
     <license>
@@ -15,44 +15,16 @@
     </license>
   </licenses>
   <scm>
-    <url>http://www.openldap.org/devel/gitweb.cgi?p=openldap-fortress-core.git;a=summary</url>
-    <connection>http://www.openldap.org/devel/gitweb.cgi?p=openldap-fortress-core.git;a=summary</connection>
+    <url>http://www.openldap.org/software/repo/openldap-fortress-core.git</url>
+    <connection>git://git.openldap.org/openldap-fortress-core.git</connection>
   </scm>
   <developers>
     <developer>
-      <id>smckinn</id>
+      <id>smckinney</id>
       <name>Shawn McKinney</name>
       <email>shawn.mckinney@joshuatreesoftware.us</email>
     </developer>
   </developers>
-
-<!--
-    <build>
-        <finalName>enmasse-${version}</finalName>
-        <plugins>
-
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <configuration>
-                            <target>
-                                <property name="buildDir" value="." />
-                                <ant antfile="build.xml" target="init" />
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
--->
 
   <dependencies>
 	<dependency>
