@@ -1,25 +1,27 @@
 <!--
-  ~ Copyright © Joshua Tree Software, LLC, 2009-2012 All Rights Reserved.
+  ~ Copyright © 2009-2013, JoshuaTree. All Rights Reserved.
   -->
 <body>
   <img src="./images/fortresscommunitylogov3.jpg" />  
 <br>
 <p>
-These instructions are intended for new users who want to quickly learn how to use JoshuaTree Fortress and Symas OpenLDAP IAM software.
-<br><br>Follow them carefully and OpenLDAP will be installed, configured, loaded, and ready to use by <em>Section IV</em>.   EnMasse Policy Server demo starts in <em>Section VIII</em>
+These instructions are intended for new users who want to quickly learn how to install and test JoshuaTree Fortress and Symas OpenLDAP IAM software.
+<br><br>Follow the steps and OpenLDAP will be installed, configured, loaded, and ready to use by <em>Section IV</em>.   EnMasse Policy Server demo starts in <em>Section VIII</em>
 </p>
    <h2>System Prerequisites</h2>
-   The following steps are required...
    <p>
     <ul>
     <li>Internet access to retrieve binary dependencies from online Maven repo.</li>
     <li>Java SDK Version 6 or beyond installed to target environment</li>
-    </ul>       
+    <li>Redhat or Ubuntu server machine (for window environments use <em>README-QUICKSTART-WINDOWS.html</em>)</li>    
+    <li>1GB RAM</li>
+    <li>20GB HD</li>
+    </ul>
    </p>
 
 <b>NOTE:</b> The Fortress build.xml may run without connection to Internet iff:
     <ul>
-    <li>The binary dependencies are already present in FORTRESS_HOME/lib folder</li>
+    <li>The binary dependencies have previously been downloaded to FORTRESS_HOME/lib folder</li>
     <li>Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties: local.mode=true</li>
     </ul>       
 
@@ -385,5 +387,5 @@ Note: for slapd commands sudo or elevated privileges may be required.
     </li>
         </ol>    
 </ol>
-Copyright (c) Joshua Tree Software, LLC, 2009-2012 All Rights Reserved.
+Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
 </body>

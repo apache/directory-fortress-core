@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 package com.jts.fortress.rest;
 
@@ -16,7 +16,6 @@ import java.util.Set;
  * This class is not thread safe.
  *
  * @author Shawn McKinney
- * @created Feb 10, 2012
  */
 @XmlRootElement(name = "FortResponse")
 @XmlAccessorType(XmlAccessType.FIELD)

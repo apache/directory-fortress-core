@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -21,7 +21,6 @@ import com.jts.fortress.util.attr.VUtil;
 
  *
  * @author Shawn McKinney
- * @created August 30, 2009
  */
 public class AdminMgrFactory
 {

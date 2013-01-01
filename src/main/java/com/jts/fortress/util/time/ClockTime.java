@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.util.time;
@@ -23,7 +23,6 @@ import com.jts.fortress.rbac.Session;
  * </p>
  *
  * @author Shawn McKinney
- * @created February 13, 2010
  */
 public class ClockTime
     implements Validator
@@ -37,6 +36,7 @@ public class ClockTime
      * @param time       contains the current time.
      * @return '0' if validation succeeds else {@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_TIME} if failed.
      */
+    @Override
     public int validate(Session session, Constraint constraint, Time time)
     {
         int rc = GlobalErrIds.ACTV_FAILED_TIME;

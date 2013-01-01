@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.samples;
@@ -12,7 +12,6 @@ import junit.framework.TestCase;
  * This Junit test class calls all of the Samples.
  *
  * @author Shawn McKinney
- * @created April 3, 2011
  */
 public class AllSamplesJUnitTest extends TestCase
 {
@@ -33,7 +32,7 @@ public class AllSamplesJUnitTest extends TestCase
     }
 
     /**
-     * @return
+     * @return Test
      */
     public static Test suite() throws Exception
     {

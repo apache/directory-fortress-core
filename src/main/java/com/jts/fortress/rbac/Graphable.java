@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -11,13 +11,13 @@ import java.util.Set;
  * The Fortress Graphable interface prescribes attributes that are used to maintain implementor within a simple directed graph.
  * {@link com.jts.fortress.rbac.Role}, {@link com.jts.fortress.rbac.AdminRole}, {@link com.jts.fortress.rbac.OrgUnit} entities.
  * <p/>
- * <img src="../../../../images/HierRoleAscendants.png">
+ * <img src="../doc-files/HierRoleAscendants.png">
  * <p/>
  * <p/>
- * <img src="../../../../images/HierRoleDescendants.png">
+ * <img src="../doc-files/HierRoleDescendants.png">
  * <p/>
  * <p/>
- * <img src="../../../../images/HierRoleSimple.png">
+ * <img src="../doc-files/HierRoleSimple.png">
  * <p/>
  * <h4>Manageable Schema</h4>
  * The entity maps to Fortress LDAP attributetype ( 1.3.6.1.4.1.1.38088.1.28
@@ -29,7 +29,6 @@ import java.util.Set;
  * <p/>
  *
  * @author Shawn McKinney
- * @created October 21, 2012
  */
 public interface Graphable
 {
@@ -71,7 +70,6 @@ public interface Graphable
     /**
      * Sets the required name attribute on the node.
      *
-     * @return name maps to attribute on 'organizationalUnit' object class.
      */
     public void setName(String name);
 }

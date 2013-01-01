@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.samples;
@@ -22,7 +22,6 @@ import org.apache.log4j.Logger;
  * OrgUnits although that functionality is not demonstrated here.
  *
  * @author Shawn McKinney
- * @created March 1, 2011
  */
 public class CreateUserOrgSample extends TestCase
 {
@@ -37,7 +36,7 @@ public class CreateUserOrgSample extends TestCase
 
     /**
      * Run the User OrgUnit test suite.
-     * @return
+     * @return Test
      */
     public static Test suite()
     {

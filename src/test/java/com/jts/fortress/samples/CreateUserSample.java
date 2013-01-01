@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.samples;
@@ -24,7 +24,6 @@ import org.apache.log4j.Logger;
  * for real world applications.
  *
  * @author Shawn McKinney
- * @created March 1, 2011
  */
 public class CreateUserSample extends TestCase
 {
@@ -44,7 +43,7 @@ public class CreateUserSample extends TestCase
     /**
      * Run the Create User samples.
      *
-     * @return
+     * @return Test
      */
     public static Test suite()
     {

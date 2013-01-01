@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ldap.container;
@@ -38,7 +38,6 @@ import org.apache.log4j.Logger;
  * This class is thread safe.
  *
  * @author Shawn McKinney
- * @created January 21, 2010
  */
 public class OrganizationalUnitP
 {

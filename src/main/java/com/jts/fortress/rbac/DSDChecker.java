@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -33,7 +33,6 @@ import java.util.Set;
  * </p>
  *
  * @author Shawn McKinney
- * @created September 12, 2010
  */
 public class DSDChecker
     implements Validator
@@ -49,6 +48,7 @@ public class DSDChecker
      * @param time       required for Validator interface, not used here.
      * @return '0' if validation succeeds else {@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_DSD} if failed.
      */
+    @Override
     public int validate(Session session, Constraint constraint, Time time) throws com.jts.fortress.SecurityException
     {
         int rc = 0;

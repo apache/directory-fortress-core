@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 /*
  *  This class is used for testing purposes.
@@ -13,7 +13,6 @@ import java.util.HashMap;
  *  Description of the Class
  *
  *@author     Shawn McKinney
- *@created    August 14, 2010
  */
 public class SSDTest
 {

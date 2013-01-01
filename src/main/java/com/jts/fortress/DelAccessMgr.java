@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -21,7 +21,7 @@ import java.util.Set;
  * operations for the creation and maintenance of ARBAC element sets and relations.  Delegated administrative review functions for performing administrative queries
  * and system functions for creating and managing ARBAC attributes on user sessions and making delegated administrative access control decisions.
  * <h3>Administrative Role Based Access Control (ARBAC)</h3>
- * <img src="../../../images/ARbac.png">
+ * <img src="./doc-files/ARbac.png">
  * <p/>
  * Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
@@ -29,7 +29,6 @@ import java.util.Set;
  * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(com.jts.fortress.rbac.Session)}) are set.
  *
  * @author Shawn McKinney
- * @created December 3, 2010
  */
 public interface DelAccessMgr extends Manageable
 {

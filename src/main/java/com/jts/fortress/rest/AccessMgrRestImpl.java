@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 package com.jts.fortress.rest;
 
@@ -32,26 +32,25 @@ import java.util.TreeSet;
  * <h4>RBAC0 - Core</h4>
  * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions.  API to add, update, delete identity data and perform identity and access control decisions during runtime operations.
  * <p/>
- * <img src="../../../../images/RbacCore.png">
+ * <img src="../doc-files/RbacCore.png">
  * <h4>RBAC1 - General Hierarchical Roles</h4>
  * Simplifies role engineering tasks using inheritance of one or more parent roles.
  * <p/>
- * <img src="../../../../images/RbacHier.png">
+ * <img src="../doc-files/RbacHier.png">
  * <h4>RBAC2 - Static Separation of Duty (SSD) Relations</h4>
  * Enforce mutual membership exclusions across role assignments.  Facilitate dual control policies by restricting which roles may be assigned to users in combination.  SSD provide added granularity for authorization limits which help enterprises meet strict compliance regulations.
  * <p/>
- * <img src="../../../../images/RbacSSD.png">
+ * <img src="../doc-files/RbacSSD.png">
  * <h4>RBAC3 - Dynamic Separation of Duty (DSD) Relations</h4>
  * Control allowed role combinations to be activated within an RBAC session.  DSD policies fine tune role policies that facilitate authorization dual control and two man policy restrictions during runtime security checks.
  * <p/>
- * <img src="../../../../images/RbacDSD.png">
+ * <img src="../doc-files/RbacDSD.png">
  * <p/>
  * This class is thread safe and may be used in servlet or other multi-threaded environment.
  * <p/>
  *
  *
  * @author Shawn McKinney
- * @created February 12, 2012
  */
 public class AccessMgrRestImpl extends Manageable implements AccessMgr
 {
@@ -66,6 +65,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * @return Session object will be returned if authentication successful.  This will not contain user's roles.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
+    @Override
     public Session authenticate(String userId, char[] password)
         throws SecurityException
     {
@@ -143,6 +143,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * @return Session object will contain authentication result code {@link Session#errorId}, RBAC role activations {@link Session#getRoles()}, Admin Role activations {@link Session#getAdminRoles()},OpenLDAP pw policy codes {@link Session#warningId}, {@link Session#expirationSeconds}, {@link Session#graceLogins} and more.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
+    @Override
     public Session createSession(User user, boolean isTrusted)
         throws SecurityException
     {
@@ -187,6 +188,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * @return True if user has access, false otherwise.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
+    @Override
     public boolean checkAccess(Session session, Permission perm)
         throws SecurityException
     {
@@ -221,6 +223,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * @return List<Permission> containing permissions (op, obj) active for user's session.
      * @throws SecurityException in the event runtime error occurs with system.
      */
+    @Override
     public List<Permission> sessionPermissions(Session session)
         throws SecurityException
     {
@@ -254,6 +257,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * @throws SecurityException
      *          is thrown if session invalid or system. error.
      */
+    @Override
     public List<UserRole> sessionRoles(Session session)
         throws SecurityException
     {
@@ -286,6 +290,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * @return Set<String> containing all roles active in user's session.  This will contain inherited roles.
      * @throws SecurityException is thrown if session invalid or system. error.
      */
+    @Override
     public Set<String> authorizedRoles(Session session)
         throws SecurityException
     {
@@ -330,6 +335,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * @param role object contains the role name, {@link UserRole#name}, to be activated into session.
      * @throws SecurityException is thrown if user is not allowed to activate or runtime error occurs with system.
      */
+    @Override
     public void addActiveRole(Session session, UserRole role)
         throws SecurityException
     {
@@ -364,6 +370,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * @param role object contains the role name, {@link UserRole#name}, to be deactivated.
      * @throws SecurityException is thrown if user is not allowed to deactivate or runtime error occurs with system.
      */
+    @Override
     public void dropActiveRole(Session session, UserRole role)
         throws SecurityException
     {
@@ -396,6 +403,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * @return The userId value
      * @throws SecurityException is thrown if user session not active or runtime error occurs with system.
      */
+    @Override
     public String getUserId(Session session)
         throws SecurityException
     {
@@ -469,6 +477,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      *         </ul>
      * @throws SecurityException is thrown if user session not active or runtime error occurs with system.
      */
+    @Override
     public User getUser(Session session)
         throws SecurityException
     {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -20,7 +20,6 @@ import org.apache.log4j.Logger;
  * Description of the Class
  *
  * @author Shawn McKinney
- * @created January 28, 2010
  */
 public class TestUtils extends TestCase
 {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -45,7 +45,7 @@ import java.util.UUID;
  * <li>The unique key to locate a Permission entity (which is required for all authZ requests) is {@link Permission#objectName} and {@link Permission#opName}.<br />
  * <li>The Permission entity is used to target function points within computer programs needing authorization. This permission model allows a one-to-many relationship between the objects {@link PermObj} and operations {@link Permission}.
  * <p/>
- * <img src="../../../../images/RbacCore.png">
+ * <img src="../doc-files/RbacCore.png">
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
  * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link Permission}
  * <li>Permissions in Fortress may also be assigned directly to {@link #users}.
@@ -154,7 +154,6 @@ import java.util.UUID;
 
  *
  * @author Shawn McKinney
- * @created November 23, 2009
  */
 @XmlRootElement(name = "fortPermission")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -258,7 +257,7 @@ public class Permission extends FortEntity
     /**
      * Set will determine if this Permission is for RBAC or ARBAC processing.
      *
-     * @param 'true' indicates administrative permission.
+     * @param admin contains is 'true' if ARBAC permission..
      */
     public void setAdmin(boolean admin)
     {
@@ -336,7 +335,6 @@ public class Permission extends FortEntity
      * This attribute is required and sets the authorization target object name.  This name is typically derived from the class name
      * for component that is the target for Fortress authorization check. For example 'CustomerCheckOutPage'.
      *
-     * @return the name of the object which maps to 'ftObjNm' attribute in 'ftOperation' object class.
      */
     public void setObjectName(String objectName)
     {

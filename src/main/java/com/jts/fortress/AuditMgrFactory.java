@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -17,10 +17,8 @@ import com.jts.fortress.util.attr.VUtil;
  * The default implementation class is specified as {@link AuditMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#AUDIT_IMPLEMENTATION} config property.
  * <p/>
-
  *
  * @author Shawn McKinney
- * @created April 2, 2010
  */
 public class AuditMgrFactory
 {

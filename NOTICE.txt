@@ -1,5 +1,5 @@
 Fortress Identity Access Management SDK
-Copyright (c) 2009-2012 JoshuaTree Software, LLC
+Copyright (c) 2009-2013 JoshuaTree Software, LLC
 
 This product distribution source code was developed by JoshuaTree Software (https://joshuatreesoftware.us/).
 
@@ -13,3 +13,4 @@ This product includes software developed by:
 4. JUnit.org (http://www.junit.org/)
 5. The Java Community Process (http://www.jcp.org/)
 6. SLF4J (http://www.slf4j.org/)
+7. Terracotta (http://www.terracotta.org/TPL)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -48,7 +48,6 @@ import java.io.Serializable;
 
  *
  * @author Shawn McKinney
- * @created April 1, 2010
  */
 @XmlRootElement(name = "fortAuthZ")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -329,7 +328,6 @@ public class AuthZ extends FortEntity implements Serializable
      * may be altered in various circumstances.
      * For Fortress bind operations this will map to {@link com.jts.fortress.rbac.User#userId}
      *
-     * @return value that maps to 'reqAuthzID' on 'auditSearch' object class.
      */
     public void setReqAuthzID(String reqAuthzID)
     {
@@ -714,7 +712,7 @@ public class AuthZ extends FortEntity implements Serializable
      * The reqDerefAliases attribute is on of never, finding, searching, or always, denoting how aliases
      * will be processed during the search.
      *
-     * @returns value that maps to 'reqDerefAliases' on 'auditSearch' object class.
+     * @return value that maps to 'reqDerefAliases' on 'auditSearch' object class.
      */
     public String getReqDerefAliases()
     {

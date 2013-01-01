@@ -1,7 +1,6 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
-
 package com.jts.fortress.util.cache;
 
 import com.jts.fortress.CfgRuntimeException;
@@ -12,7 +11,6 @@ import net.sf.ehcache.constructs.blocking.BlockingCache;
  * Creates an instance of the {@link EhCacheImpl} object with a {@link Cache} facade.
  *
  * @author Shawn McKinney
- * @created March 9, 2012
  */
 public class CacheFactory
 {

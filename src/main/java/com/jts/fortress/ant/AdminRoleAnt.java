@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ant;
@@ -14,7 +14,6 @@ import java.util.StringTokenizer;
  * Ant parser cannot deal with complex data attribute types.
  *
  * @author Shawn McKinney
- * @created December 19, 2010
  */
 public class AdminRoleAnt extends AdminRole
 {
@@ -24,7 +23,7 @@ public class AdminRoleAnt extends AdminRole
     /**
      * Default constructor required for all Ant entities.
      *
-     * @return
+     * @return String containing OSPs.
      */
     public String getOSPs()
     {
@@ -63,7 +62,7 @@ public class AdminRoleAnt extends AdminRole
     /**
      * Return the comma delimited OU string.
      *
-     * @return
+     * @return String containing OSUs.
      */
     public String getOSUs()
     {

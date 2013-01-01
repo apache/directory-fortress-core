@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -26,7 +26,7 @@ import java.util.TreeSet;
  * This class provides both sets of functionality as is necessary to fulfill runtime delegated administrative access control functionality
  * within RBAC provisioning systems.
  * <h3>Administrative Role Based Access Control (ARBAC)</h3>
- * <img src="../../../../images/ARbac.png">
+ * <img src="../doc-files/ARbac.png">
  * <p/>
  * Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
@@ -35,7 +35,6 @@ import java.util.TreeSet;
  * <p/>
  *
  * @author Shawn McKinney
- * @created December 3, 2010
  */
 public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
 {
@@ -58,6 +57,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * @return boolean value true indicates access allowed.
      * @throws com.jts.fortress.SecurityException In the event of data validation error (i.e. invalid userId or role name) or system error.
      */
+    @Override
     public boolean canAssign(Session session, User user, Role role)
         throws SecurityException
     {
@@ -78,6 +78,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * @return boolean value true indicates access allowed.
      * @throws SecurityException In the event of data validation error (i.e. invalid userId or role name) or system error.
      */
+    @Override
     public boolean canDeassign(Session session, User user, Role role)
         throws SecurityException
     {
@@ -98,6 +99,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * @return boolean value true indicates access allowed.
      * @throws com.jts.fortress.SecurityException In the event of data validation error (i.e. invalid perm or role name) or system error.
      */
+    @Override
     public boolean canGrant(Session session, Role role, Permission perm)
         throws SecurityException
     {
@@ -118,6 +120,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * @return boolean value true indicates access allowed.
      * @throws SecurityException In the event of data validation error (i.e. invalid perm or role name) or system error.
      */
+    @Override
     public boolean canRevoke(Session session, Role role, Permission perm)
         throws SecurityException
     {
@@ -174,6 +177,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * @param role    object contains the adminRole name to be activated into session.
      * @throws com.jts.fortress.SecurityException is thrown if user is not allowed to activate or runtime error occurs with system.
      */
+    @Override
     public void addActiveRole(Session session, UserAdminRole role)
         throws SecurityException
     {
@@ -214,6 +218,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * @param role    object contains the adminRole name to be deactivated.
      * @throws com.jts.fortress.SecurityException is thrown if user is not allowed to deactivate or runtime error occurs with system.
      */
+    @Override
     public void dropActiveRole(Session session, UserAdminRole role)
         throws SecurityException
     {
@@ -242,6 +247,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * @return List<UserAdminRole> containing all adminRoles active in user's session.  This will NOT contain inherited roles.
      * @throws SecurityException is thrown if session invalid or system. error.
      */
+    @Override
     public List<UserAdminRole> sessionAdminRoles(Session session)
         throws SecurityException
     {
@@ -257,6 +263,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * @return Set<String> containing all adminRoles authorized in user's session.  This will contain inherited roles.
      * @throws SecurityException is thrown if session invalid or system. error.
      */
+    @Override
     public Set<String> authorizedAdminRoles(Session session)
         throws SecurityException
     {
@@ -271,7 +278,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * @param session
      * @param user
      * @param role
-     * @return
+     * @return boolean
      * @throws SecurityException
      */
     private boolean checkUserRole(Session session, User user, Role role)
@@ -342,7 +349,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * @param session
      * @param role
      * @param perm
-     * @return
+     * @return boolean
      * @throws SecurityException
      */
     private boolean checkRolePermission(Session session, Role role, Permission perm)

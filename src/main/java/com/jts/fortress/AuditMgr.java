@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -25,7 +25,7 @@ import java.util.List;
  * <li>Entity mods and deletes
  * </li>
  * </ol>
- * <img src="../../../images/Audit.png">
+ * <img src="./doc-files/Audit.png">
  * <p/>
  * All events include Fortress context, see {@link com.jts.fortress.rbac.FortEntity}.
  * <p/>
@@ -55,7 +55,6 @@ import java.util.List;
  * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(com.jts.fortress.rbac.Session)}) are set.
  *
  * @author Shawn McKinney
- * @created April 2, 2010
  */
 public interface AuditMgr extends Manageable
 {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -18,7 +18,6 @@ import com.jts.fortress.util.attr.VUtil;
  * Implementers of this abstract class will NOT be thread safe because of instance variables that may be set.
  *
  * @author Shawn McKinney
- * @created August 3, 2012
  */
 public abstract class Manageable implements com.jts.fortress.Manageable
 {

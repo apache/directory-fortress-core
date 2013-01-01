@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ldap.openldap;
@@ -20,7 +20,6 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
 
  *
  * @author Shawn McKinney
- * @created October 13, 2009
  */
 public class OLPWControlImpl implements PwPolicyControl
 {
@@ -65,6 +64,7 @@ public class OLPWControlImpl implements PwPolicyControl
      * @param isAuthenticated set to 'true' if password checks pass.
      * @param pwMsg describes the outcome of the policy checks.
      */
+    @Override
     public void checkPasswordPolicy(LDAPConnection ld, boolean isAuthenticated, PwMessage pwMsg)
     {
         String methodName = ".checkPasswordPolicy";
@@ -256,7 +256,7 @@ public class OLPWControlImpl implements PwPolicyControl
 
     /**
      * @param bte
-     * @return
+     * @return int
      */
     private static int getInt(byte bte)
     {
@@ -350,5 +350,3 @@ public class OLPWControlImpl implements PwPolicyControl
         return byteString;
     }
 }
-
-

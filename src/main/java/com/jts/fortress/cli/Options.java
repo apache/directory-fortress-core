@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 package com.jts.fortress.cli;
 
@@ -16,7 +16,6 @@ import java.util.Vector;
  * This converts between Fortress entities and the JArg Options.  It contains attributes passed from JArgs command interpreter.
  *
  * @author Shawn McKinney
- * @created December 1, 2011
  */
 public class Options implements java.io.Serializable
 {
@@ -111,7 +110,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     * @return
      */
     public SDSet getSdSet()
     {
@@ -133,7 +131,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     * @return
      */
     public OrgUnit getOrgUnit()
     {
@@ -144,7 +141,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     * @return
      */
     public Role getRole()
     {
@@ -155,7 +151,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     * @return
      */
     public AdminRole getAdminRole()
     {
@@ -174,7 +169,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     * @return
      */
     public Relationship getRelationship()
     {
@@ -185,7 +179,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     * @return
      */
     public PermObj getPermObj()
     {
@@ -210,7 +203,6 @@ public class Options implements java.io.Serializable
     }
 
     /**
-     * @return
      */
     public User getUser()
     {

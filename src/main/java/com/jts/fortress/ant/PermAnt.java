@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ant;
@@ -14,7 +14,6 @@ import java.util.StringTokenizer;
  * Ant parser cannot deal with complex data attribute types.  The class extends a base entity.
  *
  * @author Shawn McKinney
- * @created February 1, 2011
  */
 public class PermAnt extends Permission
 {
@@ -23,7 +22,7 @@ public class PermAnt extends Permission
     /**
      * Return the roles as a String.
      *
-     * @return
+     * @return String contains a comma delimited set of role names assigned to permission.
      */
     public String getAntRoles()
     {

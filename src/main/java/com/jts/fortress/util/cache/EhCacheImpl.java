@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ */
 package com.jts.fortress.util.cache;
 
 import com.jts.fortress.CfgRuntimeException;
@@ -11,7 +14,6 @@ import net.sf.ehcache.search.Query;
  * This class provides cache functionality from <a href="http://ehcache.org//">Ehcache</a> provider.
  *
  * @author Shawn McKinney
- * @created March 9, 2012
  */
 public class EhCacheImpl implements Cache
 {
@@ -43,6 +45,7 @@ public class EhCacheImpl implements Cache
      * @return entry stored in the cache.
      * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
+    @Override
     public Object get(Object key) throws CacheException
     {
         if (cache == null)
@@ -76,6 +79,7 @@ public class EhCacheImpl implements Cache
      * @param value object that is stored.
      * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
+    @Override
     public void put(Object key, Object value) throws CacheException
     {
         if (cache == null)
@@ -101,6 +105,7 @@ public class EhCacheImpl implements Cache
      * @return boolean value will be false if entry not found and true if entry was found and removed.
      * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
+    @Override
     public boolean clear(Object key) throws CacheException
     {
         boolean result = false;
@@ -126,6 +131,7 @@ public class EhCacheImpl implements Cache
      *
      * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
+    @Override
     public void flush() throws CacheException
     {
         if (cache == null)
@@ -153,6 +159,7 @@ public class EhCacheImpl implements Cache
      * @return the search attribute
      * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
+    @Override
     public <T> Attribute<T> getSearchAttribute(String attributeName) throws CacheException
     {
         if (cache == null)
@@ -168,6 +175,7 @@ public class EhCacheImpl implements Cache
      *
      * @return a new Query builder
      */
+    @Override
     public Query createQuery()
     {
         if (cache == null)

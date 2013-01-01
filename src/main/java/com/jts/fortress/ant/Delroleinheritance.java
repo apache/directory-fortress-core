@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ant;
@@ -28,7 +28,6 @@ import java.util.List;
  *
  *
  * @author Shawn McKinney
- * @created November 16, 2011
  */
 public class Delroleinheritance
 {

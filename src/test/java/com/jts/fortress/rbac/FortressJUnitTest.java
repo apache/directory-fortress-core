@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -27,7 +27,6 @@ import junit.framework.TestCase;
  * delete the old test data manually in directory before trying again.
  *
  * @author Shawn McKinney
- * @created January 28, 2010
  */
 public class FortressJUnitTest extends TestCase
 {
@@ -45,6 +44,7 @@ public class FortressJUnitTest extends TestCase
     private static String context = GlobalIds.HOME;
     //private static String context = "Client123";
     //private static String context = "Client456";
+    //private static String context = "Client789";
 
     private static boolean adminEnabled;
     public static boolean isAdminEnabled()

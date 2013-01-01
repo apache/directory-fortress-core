@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -26,24 +26,23 @@ import java.util.List;
  * <h4>RBAC0 - Core</h4>
  * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions.  API to add, update, delete identity data and perform identity and access control decisions during runtime operations.
  * <p/>
- * <img src="../../../../images/RbacCore.png">
+ * <img src="../doc-files/RbacCore.png">
  * <h4>RBAC1 - General Hierarchical Roles</h4>
  * Simplifies role engineering tasks using inheritance of one or more parent roles.
  * <p/>
- * <img src="../../../../images/RbacHier.png">
+ * <img src="../doc-files/RbacHier.png">
  * <h4>RBAC2 - Static Separation of Duty (SSD) Relations</h4>
  * Enforce mutual membership exclusions across role assignments.  Facilitate dual control policies by restricting which roles may be assigned to users in combination.  SSD provide added granularity for authorization limits which help enterprises meet strict compliance regulations.
  * <p/>
- * <img src="../../../../images/RbacSSD.png">
+ * <img src="../doc-files/RbacSSD.png">
  * <h4>RBAC3 - Dynamic Separation of Duty (DSD) Relations</h4>
  * Control allowed role combinations to be activated within an RBAC session.  DSD policies fine tune role policies that facilitate authorization dual control and two man policy restrictions during runtime security checks.
  * <p/>
- * <img src="../../../../images/RbacDSD.png">
+ * <img src="../doc-files/RbacDSD.png">
  * <p/>
  * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  *
  * @author Shawn McKinney
- * @created August 30, 2009
  */
 public final class AdminMgrImpl extends Manageable implements AdminMgr
 {
@@ -96,6 +95,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return Returns entity containing user data that was added.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
+    @Override
     public User addUser(User user)
         throws SecurityException
     {
@@ -129,6 +129,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param user Contains the {@link User#userId} of the User targeted for deletion.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
+    @Override
     public void disableUser(User user)
         throws SecurityException
     {
@@ -161,6 +162,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param user Contains the {@link User#userId} of the User targeted for deletion.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
+    @Override
     public void deleteUser(User user)
         throws SecurityException
     {
@@ -213,6 +215,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return Updated user entity data.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
+    @Override
     public User updateUser(User user)
         throws SecurityException
     {
@@ -236,6 +239,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          Will be thrown in the event of password policy violation or system error.
      */
+    @Override
     public void changePassword(User user, char[] newPassword)
         throws SecurityException
     {
@@ -257,6 +261,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param user entity contains {@link User#userId} of User to be locked.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
+    @Override
     public void lockUserAccount(User user)
         throws SecurityException
     {
@@ -277,6 +282,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param user entity contains {@link User#userId} of User to be unlocked.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
+    @Override
     public void unlockUserAccount(User user)
         throws SecurityException
     {
@@ -299,6 +305,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param user entity contains {@link User#userId} of User to be reset.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
+    @Override
     public void resetPassword(User user, char[] newPassword)
         throws SecurityException
     {
@@ -321,6 +328,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param user  contains {@link User#userId}.
      * @throws SecurityException will be thrown in the event of password policy violation or system error.
      */
+    @Override
     public void deletePasswordPolicy(User user)
         throws SecurityException
     {
@@ -355,6 +363,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return Role contains reference to entity operated on.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
+    @Override
     public Role addRole(Role role)
         throws SecurityException
     {
@@ -378,6 +387,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
      */
+    @Override
     public void deleteRole(Role role)
         throws SecurityException
     {
@@ -431,6 +441,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of validation or system error.
      */
+    @Override
     public Role updateRole(Role role)
         throws SecurityException
     {
@@ -489,6 +500,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of validation or system error.
      */
+    @Override
     public void assignUser(UserRole uRole)
         throws SecurityException
     {
@@ -533,6 +545,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
+    @Override
     public void deassignUser(UserRole uRole)
         throws SecurityException
     {
@@ -570,6 +583,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
+    @Override
     public Permission addPermission(Permission perm)
         throws SecurityException
     {
@@ -601,6 +615,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
+    @Override
     public Permission updatePermission(Permission perm)
         throws SecurityException
     {
@@ -623,6 +638,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
+    @Override
     public void deletePermission(Permission perm)
         throws SecurityException
     {
@@ -651,6 +667,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return copy of PermObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
+    @Override
     public PermObj addPermObj(PermObj pObj)
         throws SecurityException
     {
@@ -680,6 +697,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
+    @Override
     public PermObj updatePermObj(PermObj pObj)
         throws SecurityException
     {
@@ -700,6 +718,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param pObj must contain the {@link PermObj#objectName} of object targeted for removal.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
+    @Override
     public void deletePermObj(PermObj pObj)
         throws SecurityException
     {
@@ -727,6 +746,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
      */
+    @Override
     public void grantPermission(Permission perm, Role role)
         throws SecurityException
     {
@@ -767,6 +787,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param role must contains {@link Role#name}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
+    @Override
     public void revokePermission(Permission perm, Role role)
         throws SecurityException
     {
@@ -799,6 +820,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
      */
+    @Override
     public void grantPermission(Permission perm, User user)
         throws SecurityException
     {
@@ -828,6 +850,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param user must contain {@link User#userId} of target User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
+    @Override
     public void revokePermission(Permission perm, User user)
         throws SecurityException
     {
@@ -866,6 +889,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      *                   2 - Assigns role relationship between new childRole and pre-existing parentRole.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
+    @Override
     public void addDescendant(Role parentRole, Role childRole)
         throws SecurityException
     {
@@ -911,6 +935,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param childRole  completion of op assigns new parent relationship with parentRole.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
+    @Override
     public void addAscendant(Role childRole, Role parentRole)
         throws SecurityException
     {
@@ -946,6 +971,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
+    @Override
     public void addInheritance(Role parentRole, Role childRole)
         throws SecurityException
     {
@@ -984,6 +1010,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param childRole  completion of op removes parent relationship with parentRole.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
+    @Override
     public void deleteInheritance(Role parentRole, Role childRole)
         throws SecurityException
     {
@@ -1026,6 +1053,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
+    @Override
     public SDSet createSsdSet(SDSet ssdSet)
         throws SecurityException
     {
@@ -1059,6 +1087,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return reference to updated SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
+    @Override
     public SDSet addSsdRoleMember(SDSet ssdSet, Role role)
         throws SecurityException
     {
@@ -1095,6 +1124,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return reference to updated SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
+    @Override
     public SDSet deleteSsdRoleMember(SDSet ssdSet, Role role)
         throws SecurityException
     {
@@ -1129,6 +1159,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return reference to deleted SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
+    @Override
     public SDSet deleteSsdSet(SDSet ssdSet)
         throws SecurityException
     {
@@ -1187,6 +1218,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return reference to updated SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
+    @Override
     public SDSet setSsdSetCardinality(SDSet ssdSet, int cardinality)
         throws SecurityException
     {
@@ -1223,6 +1255,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return reference to newly created SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
+    @Override
     public SDSet createDsdSet(SDSet dsdSet)
         throws SecurityException
     {
@@ -1257,6 +1290,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
+    @Override
     public SDSet addDsdRoleMember(SDSet dsdSet, Role role)
         throws SecurityException
     {
@@ -1294,6 +1328,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @return reference to updated DSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
+    @Override
     public SDSet deleteDsdRoleMember(SDSet dsdSet, Role role)
         throws SecurityException
     {
@@ -1330,6 +1365,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
+    @Override
     public SDSet deleteDsdSet(SDSet dsdSet)
         throws SecurityException
     {
@@ -1360,6 +1396,7 @@ h     * This command sets the cardinality associated with a given DSD role set. 
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
+    @Override
     public SDSet setDsdSetCardinality(SDSet dsdSet, int cardinality)
         throws SecurityException
     {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 package com.jts.fortress.util.cache;
 
@@ -10,7 +10,6 @@ import net.sf.ehcache.search.Query;
  * This Interface is implemented by cacheable Fortress objects and is used to wrap the caching implementation to provide isolation.
  *
  * @author Shawn McKinney
- * @created March 9, 2012
  */
 public interface Cache
 {

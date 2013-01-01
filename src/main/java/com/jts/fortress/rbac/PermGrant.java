@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -17,7 +17,6 @@ import javax.xml.bind.annotation.XmlType;
  * <p/>
 
  * @author Shawn McKinney
- * @created July 22, 2010
  */
 @XmlRootElement(name = "fortGrant")
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -25,24 +25,23 @@ import java.util.Set;
  * <h4>RBAC0 - Core</h4>
  * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions.  API to add, update, delete identity data and perform identity and access control decisions during runtime operations.
  * <p/>
- * <img src="../../../../images/RbacCore.png">
+ * <img src="../doc-files/RbacCore.png">
  * <h4>RBAC1 - General Hierarchical Roles</h4>
  * Simplifies role engineering tasks using inheritance of one or more parent roles.
  * <p/>
- * <img src="../../../../images/RbacHier.png">
+ * <img src="../doc-files/RbacHier.png">
  * <h4>RBAC2 - Static Separation of Duty (SSD) Relations</h4>
  * Enforce mutual membership exclusions across role assignments.  Facilitate dual control policies by restricting which roles may be assigned to users in combination.  SSD provide added granularity for authorization limits which help enterprises meet strict compliance regulations.
  * <p/>
- * <img src="../../../../images/RbacSSD.png">
+ * <img src="../doc-files/RbacSSD.png">
  * <h4>RBAC3 - Dynamic Separation of Duty (DSD) Relations</h4>
  * Control allowed role combinations to be activated within an RBAC session.  DSD policies fine tune role policies that facilitate authorization dual control and two man policy restrictions during runtime security checks.
  * <p/>
- * <img src="../../../../images/RbacDSD.png">
+ * <img src="../doc-files/RbacDSD.png">
  * <p/>
  * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  *
  * @author Shawn McKinney
- * @created August 30, 2009
  */
 public class ReviewMgrImpl extends Manageable implements ReviewMgr
 {
@@ -68,6 +67,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return Permission entity that is loaded with data.
      * @throws SecurityException if permission not found or system error occurs.
      */
+    @Override
     public Permission readPermission(Permission permission)
         throws SecurityException
     {
@@ -90,6 +90,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return PermObj loaded with perm object data.
      * @throws SecurityException is thrown if object not found or system error.
      */
+    @Override
     public PermObj readPermObj(PermObj permObj)
         throws SecurityException
     {
@@ -113,6 +114,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      *         assigned user, role or group entities as well.
      * @throws SecurityException thrown in the event of system error.
      */
+    @Override
     public List<Permission> findPermissions(Permission permission)
         throws SecurityException
     {
@@ -134,6 +136,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of system error.
      */
+    @Override
     public List<PermObj> findPermObjs(PermObj permObj)
         throws SecurityException
     {
@@ -155,6 +158,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of system error.
      */
+    @Override
     public List<PermObj> findPermObjs(OrgUnit ou)
         throws SecurityException
     {
@@ -176,6 +180,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return Role entity that corresponds with role name.
      * @throws SecurityException will be thrown if role not found or system error occurs.
      */
+    @Override
     public Role readRole(Role role)
         throws SecurityException
     {
@@ -194,6 +199,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of system error.
      */
+    @Override
     public List<Role> findRoles(String searchVal)
         throws SecurityException
     {
@@ -212,9 +218,10 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      *
      * @param searchVal contains all or some leading chars that correspond to roles stored in the role container in the directory.
      * @param limit     integer value specifies the max records that may be returned in the result set.
-     * @return
+     * @return List of type String containing names of the role entities that match the inbound search criteria.
      * @throws SecurityException in the event of system error.
      */
+    @Override
     public List<String> findRoles(String searchVal, int limit)
         throws SecurityException
     {
@@ -239,6 +246,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          if record not found or system error occurs.
      */
+    @Override
     public final User readUser(User user)
         throws SecurityException
     {
@@ -260,6 +268,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return List of type User.
      * @throws SecurityException In the event of system error.
      */
+    @Override
     public final List<User> findUsers(User user)
         throws SecurityException
     {
@@ -280,6 +289,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return List of type User.
      * @throws SecurityException In the event of system error.
      */
+    @Override
     public List<User> findUsers(OrgUnit ou)
         throws SecurityException
     {
@@ -304,6 +314,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return List of type String containing matching userIds.
      * @throws SecurityException in the event of system error.
      */
+    @Override
     public final List<String> findUsers(User user, int limit)
         throws SecurityException
     {
@@ -330,6 +341,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
+    @Override
     public List<String> assignedUsers(Role role, int limit)
         throws SecurityException
     {
@@ -366,6 +378,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return List of type User containing the users assigned data.
      * @throws SecurityException If system error occurs.
      */
+    @Override
     public List<User> assignedUsers(Role role)
         throws SecurityException
     {
@@ -387,6 +400,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return List of type UserRole containing the Roles assigned to User.
      * @throws SecurityException If user not found or system error occurs.
      */
+    @Override
     public List<UserRole> assignedRoles(User user)
         throws SecurityException
     {
@@ -405,6 +419,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return List of type String containing the role names of all roles assigned to user.
      * @throws SecurityException If user not found or system error occurs.
      */
+    @Override
     public List<String> assignedRoles(String userId)
         throws SecurityException
     {
@@ -428,6 +443,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return List of type User containing all user's that having matching role assignment.
      * @throws SecurityException In the event the role is not present in directory or system error occurs.
      */
+    @Override
     public List<User> authorizedUsers(Role role)
         throws SecurityException
     {
@@ -449,6 +465,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return Set of type String containing the roles assigned and roles inherited.
      * @throws SecurityException If user not found or system error occurs.
      */
+    @Override
     public Set<String> authorizedRoles(User user)
         throws SecurityException
     {
@@ -478,6 +495,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return List of type Permission that contains all perms granted to a role.
      * @throws SecurityException In the event system error occurs.
      */
+    @Override
     public List<Permission> rolePermissions(Role role)
         throws SecurityException
     {
@@ -500,6 +518,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *
      */
+    @Override
     public List<Permission> userPermissions(User user)
         throws SecurityException
     {
@@ -523,6 +542,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return List of type string containing the role names that have the matching perm granted.
      * @throws SecurityException in the event permission not found or system error occurs.
      */
+    @Override
     public List<String> permissionRoles(Permission perm)
         throws SecurityException
     {
@@ -546,6 +566,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of validation or system error.
      */
+    @Override
     public Set<String> authorizedPermissionRoles(Permission perm)
         throws SecurityException
     {
@@ -574,6 +595,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of validation or system error.
      */
+    @Override
     public List<String> permissionUsers(Permission perm)
         throws SecurityException
     {
@@ -597,6 +619,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of validation or system error.
      */
+    @Override
     public Set<String> authorizedPermissionUsers(Permission perm)
         throws SecurityException
     {
@@ -631,7 +654,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
 
     /**
      * @param assignedRoles
-     * @return
+     * @return Set contains both assigned and descendant role names
      * @throws SecurityException
      */
     private Set<String> authorizeRoles(Set<String> assignedRoles)
@@ -659,6 +682,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data or system error.
      */
+    @Override
     public List<SDSet> ssdRoleSets(Role role)
         throws SecurityException
     {
@@ -680,6 +704,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data or system error.
      */
+    @Override
     public SDSet ssdRoleSet(SDSet set)
         throws SecurityException
     {
@@ -702,6 +727,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return Map containing all Roles that are members of SSD data set.
      * @throws SecurityException in the event of data or system error.
      */
+    @Override
     public Set<String> ssdRoleSetRoles(SDSet ssd)
         throws SecurityException
     {
@@ -725,6 +751,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return int value containing cardinality of SSD set.
      * @throws SecurityException in the event of data or system error.
      */
+    @Override
     public int ssdRoleSetCardinality(SDSet ssd)
         throws SecurityException
     {
@@ -748,6 +775,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data or system error.
      */
+    @Override
     public List<SDSet> dsdRoleSets(Role role)
         throws SecurityException
     {
@@ -769,6 +797,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data or system error.
      */
+    @Override
     public SDSet dsdRoleSet(SDSet set)
         throws SecurityException
     {
@@ -791,6 +820,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return List containing all Roles that are members of DSD data set.
      * @throws SecurityException in the event of data or system error.
      */
+    @Override
     public Set<String> dsdRoleSetRoles(SDSet dsd)
         throws SecurityException
     {
@@ -814,6 +844,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @return int value containing cardinality of DSD set.
      * @throws SecurityException in the event of data or system error.
      */
+    @Override
     public int dsdRoleSetCardinality(SDSet dsd)
         throws SecurityException
     {

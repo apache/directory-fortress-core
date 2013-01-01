@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -18,14 +18,13 @@ import java.util.List;
  * operations for the creation and maintenance of ARBAC element sets and relations.  Delegated administrative review functions for performing administrative queries
  * and system functions for creating and managing ARBAC attributes on user sessions and making delegated administrative access control decisions.
  * <h3>Administrative Role Based Access Control (ARBAC)</h3>
- * <img src="../../../../images/ARbac.png">
+ * <img src="../doc-files/ARbac.png">
  * <p/>
  * Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
  * <p/>
  *
  * @author Shawn McKinney
- * @created September 18, 2010
  * <p/>
  * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  */
@@ -52,6 +51,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          will be thrown if role not found or system error occurs.
      */
+    @Override
     public AdminRole readRole(AdminRole role)
         throws SecurityException
     {
@@ -74,6 +74,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of system error.
      */
+    @Override
     public List<AdminRole> findRoles(String searchVal)
         throws SecurityException
     {
@@ -98,6 +99,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          If user not found or system error occurs.
      */
+    @Override
     public List<UserAdminRole> assignedRoles(User user)
         throws SecurityException
     {
@@ -122,6 +124,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
      * @throws com.jts.fortress.SecurityException
      *          If system error occurs.
      */
+    @Override
     public List<User> assignedUsers(AdminRole role)
         throws SecurityException
     {
@@ -142,10 +145,11 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
      * </ul>
      *
      * @param entity contains OrgUnit name and type.
-     * @return
+     * @return OrgUnit entity that corresponds with ou name and type.
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
+    @Override
     public OrgUnit read(OrgUnit entity)
         throws SecurityException
     {
@@ -167,10 +171,11 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
      *
      * @param type      either PERM or USER
      * @param searchVal contains the leading chars that map to {@link OrgUnit#name} on existing OrgUnit(s) targeted for search.
-     * @return
+     * @return List of type OrgUnit containing the OrgUnit data.
      * @throws com.jts.fortress.SecurityException
      *
      */
+    @Override
     public List<OrgUnit> search(OrgUnit.Type type, String searchVal)
         throws SecurityException
     {

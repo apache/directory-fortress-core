@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -121,7 +121,6 @@ import java.util.TreeSet;
 
  *
  * @author Shawn McKinney
- * @created November 13, 2010
  */
 @XmlRootElement(name = "fortAdminRole")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -162,7 +161,6 @@ public class AdminRole extends Role implements Administrator
     /**
      * Construct an AdminRole entity with a given name.
      *
-     * @return attribute maps to 'cn' attribute on 'organizationalrole' object class.
      */
     public AdminRole(String name)
     {
@@ -175,6 +173,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @param szRaw maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
+    @Override
     public void setRoleRangeRaw(String szRaw)
     {
         if (VUtil.isNotNullOrEmpty(szRaw))
@@ -217,6 +216,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @return String maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
+    @Override
     public String getRoleRangeRaw()
     {
         String szRaw = "";
@@ -242,6 +242,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @return List of type String containing Perm OU.  This maps to 'ftOSP' attribute on 'ftPools' aux object class.
      */
+    @Override
     public Set<String> getOsP()
     {
         return osPs;
@@ -252,6 +253,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @param osPs is a List of type String containing Perm OU.  This maps to 'ftOSP' attribute on 'ftPools' aux object class.
      */
+    @Override
     public void setOsP(Set<String> osPs)
     {
         this.osPs = osPs;
@@ -262,6 +264,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @param osP is a Perm OU that maps to 'ftOSP' attribute on 'ftPools' aux object class.
      */
+    @Override
     public void setOsP(String osP)
     {
         if (this.osPs == null)
@@ -277,6 +280,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @return List of type String containing User OU.  This maps to 'ftOSU' attribute on 'ftPools' aux object class.
      */
+    @Override
     public Set<String> getOsU()
     {
         return osUs;
@@ -287,6 +291,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @param osUs is a List of type String containing User OU.  This maps to 'ftOSU' attribute on 'ftPools' aux object class.
      */
+    @Override
     public void setOsU(Set<String> osUs)
     {
         this.osUs = osUs;
@@ -297,6 +302,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @param osU is a User OU that maps to 'ftOSU' attribute on 'ftPools' aux object class.
      */
+    @Override
     public void setOsU(String osU)
     {
         if (this.osUs == null)
@@ -312,6 +318,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @return String that maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
+    @Override
     public String getBeginRange()
     {
         return beginRange;
@@ -322,6 +329,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @param beginRange maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
+    @Override
     public void setBeginRange(String beginRange)
     {
         this.beginRange = beginRange;
@@ -332,6 +340,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @return String that maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
+    @Override
     public String getEndRange()
     {
         return endRange;
@@ -342,6 +351,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @param endRange maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
+    @Override
     public void setEndRange(String endRange)
     {
         this.endRange = endRange;
@@ -352,6 +362,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @return String that maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
+    @Override
     public boolean isBeginInclusive()
     {
         return beginInclusive;
@@ -362,6 +373,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @param beginInclusive maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
+    @Override
     public void setBeginInclusive(boolean beginInclusive)
     {
         this.beginInclusive = beginInclusive;
@@ -372,6 +384,7 @@ public class AdminRole extends Role implements Administrator
      *
      * @return String that maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
+    @Override
     public boolean isEndInclusive()
     {
         return endInclusive;
@@ -382,54 +395,11 @@ public class AdminRole extends Role implements Administrator
      *
      * @param endInclusive maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
+    @Override
     public void setEndInclusive(boolean endInclusive)
     {
         this.endInclusive = endInclusive;
     }
-
-    /**
-     * Get the names of admin roles that are parents (direct ascendants) of this admin role.
-     * @return Set of parent admin role names assigned to this admin role.
-     */
-/*
-    public Set<String> getParents()
-    {
-        return parents;
-    }
-*/
-
-    /**
-     * Set the names of admin roles names that are parents (direct ascendants) of this admin role.
-     * @param parents contains the Set of parent admin role names assigned to this admin role.
-     */
-/*
-    public void setParents(Set<String> parents)
-    {
-        this.parents = parents;
-    }
-*/
-
-    /**
-     * Return the Set of child admin role names (direct descendants) of this admin role.
-     * @return Set of child admin role names assigned to this admin role.
-     */
-/*
-    public Set<String> getChildren()
-    {
-        return children;
-    }
-*/
-
-    /**
-     * Set the Set of child admin role names (direct descendants) of this admin role
-     * @param children contains the Set of child admin role names assigned to this admin role.
-     */
-/*
-    public void setChildren(Set<String> children)
-    {
-        this.children = children;
-    }
-*/
 
     /**
      * Matches the name from two AdminRole entities.

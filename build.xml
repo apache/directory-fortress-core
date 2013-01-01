@@ -1,5 +1,5 @@
 <!--
-  Copyright © 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+  Copyright (C) 2009-2013, JoshuaTree. All Rights Reserved.
   Licensed to Joshua Tree Software, LLC under New BSD license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
   JTS licenses this file to You under the New BSD License
@@ -117,7 +117,7 @@
        <!-- ########### Javadoc properties ########################### -->
        <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
        <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
-       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2012 Joshua Tree Software, LLC. All Rights Reserved.  Generated ${TODAY}&lt;/small&gt;"/>
+       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2013, JoshuaTree. All Rights Reserved. Generated ${TODAY}&lt;/small&gt;"/>
        <property name="javadoc.overview" value="${src.java.dir}/com/jts/fortress/overview.html" />
        <property name="javadoc.dist.zip" value="${dist.dir}/${name}-${version}-javadoc.jar"/>
        <property name="javadoc.stylesheet" value="${src.java.dir}/com/jts/fortress/fortress-javadoc.css" />
@@ -197,6 +197,7 @@
            <pathelement location="${ehcache-core.jar}"/>
            <pathelement location="${slf4j-api.jar}"/>
            <pathelement location="${slf4j-jcl.jar}"/>
+           <pathelement location="${ant.home}/lib/ant.jar"/>
        </path>
 
        <!-- This is used before the initial loads have stored properties on the ldap server. -->
@@ -322,8 +323,6 @@
          ================================= -->
     <target name="javadoc" depends="init" description="--> generates javadocs">
       <mkdir dir="${javadoc.dir}"/>
-      <mkdir dir="${javadoc.images.dir}"/>
-
       <javadoc packagenames="${package}"
                sourcepath="${src.java.dir}"
                destdir="${javadoc.dir}"
@@ -331,7 +330,6 @@
                doctitle="${title} "
                bottom="${javadoc.bottom}"
                overview="${javadoc.overview}"
-               stylesheetfile="${javadoc.stylesheet}"
                public="true"
                version="true"
                author="true"
@@ -342,12 +340,9 @@
                noindex="false"
                nohelp="true"
                nonavbar="false"
+               classpathref="test.class.path"
                serialwarn="false">
       </javadoc>
-
-      <copy todir="${javadoc.images.dir}">
-              <fileset dir="${images.dir}"/>
-      </copy>
     </target>
 
     <!-- =================================
@@ -355,7 +350,6 @@
          ================================= -->
     <target name="javadoc-samples" depends="init" description="--> generates samples javadocs">
        <mkdir dir="${javadoc.samples.dir}"/>
-
        <javadoc packagenames="${package.samples}"
                 sourcepath="${src.test.dir}"
                 destdir="${javadoc.samples.dir}"
@@ -363,7 +357,6 @@
                 doctitle="${title.samples} "
                 bottom="${javadoc.bottom}"
                 overview="${javadoc.samples.overview}"
-                stylesheetfile="${javadoc.stylesheet}"
                 public="true"
                 version="true"
                 author="true"
@@ -374,12 +367,9 @@
                 noindex="false"
                 nohelp="true"
                 nonavbar="false"
+                classpathref="test.class.path"
                 serialwarn="false">
        </javadoc>
-
-       <copy todir="${javadoc.samples.images.dir}">
-            <fileset dir="${images.dir}"/>
-       </copy>
     </target>
 
      <!-- =================================
@@ -1054,15 +1044,14 @@
 
             <zipfileset dir="${basedir}">
                 <include name="*.xml"/>
-                <include name="*.txt"/>
                 <include name="*.properties"/>
                 <include name="*.sh"/>
                 <include name="*.bat"/>
                 <include name="*.html"/>
-                <include name="enmasse*.jar"/>
+                <include name="LICENSE.txt"/>
+                <include name="NOTICE.txt"/>
                 <exclude name="*.log"/>
                 <exclude name="build.sh"/>
-                <exclude name="READ-ME.txt"/>
             </zipfileset>
 
             <zipfileset dir="${images.dir}" prefix="images">

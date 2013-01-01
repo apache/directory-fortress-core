@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -16,7 +16,6 @@ import java.lang.annotation.Target;
  * Description of the Class
  *
  * @author Shawn McKinney
- * @created February 20, 2010
  */
 
 public class PolicyTestData extends TestCase

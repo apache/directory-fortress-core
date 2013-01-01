@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ */
 package com.jts.fortress.util.cache;
 
 import com.jts.fortress.rbac.SDSet;
@@ -7,7 +10,6 @@ import com.jts.fortress.rbac.SDSet;
  * searching the DSD cache.
  *
  * @author Shawn McKinney
- * @created June 2, 2012
  */
 public class DsdCacheEntry
 {
@@ -19,7 +21,7 @@ public class DsdCacheEntry
 
     /**
      * Non-default contructor takes a {@link DsdCacheEntry#member} that maps to  {@link com.jts.fortress.rbac.Role#name}, along
-     * with a reference to {@link SDSet} and a boolean value to indicate if DSD not found for member, which indicates empty.
+     * with a reference to {@link com.jts.fortress.rbac.SDSet} and a boolean value to indicate if DSD not found for member, which indicates empty.
      *
      * @param member maps to {@link com.jts.fortress.rbac.Role#name}
      * @param sdSet contains DSD entry.
@@ -76,7 +78,7 @@ public class DsdCacheEntry
     /**
      * Get the DSD for this cache entry.
      *
-     * @return {@link SDSet} of type {@link SDSet.SDType#DYNAMIC}.
+     * @return SDSet of type {@link com.jts.fortress.rbac.SDSet.SDType#DYNAMIC}.
      */
     public SDSet getSdSet()
     {
@@ -86,7 +88,7 @@ public class DsdCacheEntry
     /**
      * Set the DSD for this cache entry.
      *
-     * @param sdSet reference to non-null {@link SDSet} of type {@link SDSet.SDType#DYNAMIC}.
+     * @param sdSet reference to non-null {@link SDSet} of type {@link com.jts.fortress.rbac.SDSet.SDType#DYNAMIC}.
      */
     public void setSdSet(SDSet sdSet)
     {

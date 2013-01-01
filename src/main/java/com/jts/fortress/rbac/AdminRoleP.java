@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -32,7 +32,6 @@ import org.apache.log4j.Logger;
 
  *
  * @author Shawn McKinney
- * @created November 13, 2009
  */
 final class AdminRoleP
 {

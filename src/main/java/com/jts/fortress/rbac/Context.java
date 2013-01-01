@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+* Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
 */
 
 package com.jts.fortress.rbac;
@@ -10,7 +10,6 @@ package com.jts.fortress.rbac;
  * <p/>
  *
  * @author Shawn McKinney
- * @created July 27, 2012
  */
 public class Context
 {

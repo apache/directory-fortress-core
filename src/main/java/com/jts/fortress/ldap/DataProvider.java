@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ldap;
@@ -44,7 +44,6 @@ import java.util.TreeSet;
  * <p/>
  *
  * @author Shawn McKinney
- * @created August 7, 2012
  */
 public abstract class DataProvider
 {
@@ -484,7 +483,7 @@ public abstract class DataProvider
      * @param atrs      is the requested list of attritubutes to return from directory search.
      * @param attrsOnly if true pull back attribute names only.
      * @param userDn    string value represents the identity of user on who's behalf the request was initiated.  The value will be stored in openldap auditsearch record AuthZID's attribute.
-     * @return
+     * @return entry   containing target ldap node.
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
     protected LDAPEntry searchNode(LDAPConnection ld,
@@ -1011,7 +1010,7 @@ public abstract class DataProvider
      *
      * @param value
      * @param validLen
-     * @return
+     * @return String containing encoded data.
      * @throws LDAPException
      */
     protected String encodeSafeText(String value, int validLen)

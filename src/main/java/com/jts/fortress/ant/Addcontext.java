@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ant;
@@ -27,7 +27,6 @@ import java.util.List;
  * </pre>
  *
  * @author Shawn McKinney
- * @created July 27, 2012
  */
 public class Addcontext
 
@@ -61,7 +60,7 @@ public class Addcontext
     /**
      * Used by {@link Context} to retrieve list of contexts as defined in input xml file.
      *
-     * @return collection containing {@Context}s targeted for insertion.
+     * @return List of context names.
      */
     public List<Context> getContexts()
     {

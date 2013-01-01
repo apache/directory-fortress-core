@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.samples;
@@ -23,7 +23,6 @@ import java.util.List;
  * CreateUserRoleSample JUnit Test. This test suite demonstrates RBAC Role assignment and deassignment to Users.
  *
  * @author Shawn McKinney
- * @created March 4, 2011
  */
 public class CreateUserRoleSample extends TestCase
 {
@@ -42,7 +41,7 @@ public class CreateUserRoleSample extends TestCase
     /**
      * Run the RBAC role test cases.
      *
-     * @return
+     * @return Test
      */
     public static Test suite()
     {

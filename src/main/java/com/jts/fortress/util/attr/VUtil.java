@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.util.attr;
@@ -326,7 +326,7 @@ public class VUtil
 
     /**
      * @param time
-     * @return
+     * @return boolean
      */
     private static boolean checkTime(String time)
     {
@@ -351,7 +351,7 @@ public class VUtil
     /**
      *
      * @param date
-     * @return
+     * @return boolean
      */
     private static boolean checkDate(String date)
     {
@@ -375,7 +375,7 @@ public class VUtil
 
     /**
      * @param mask
-     * @return
+     * @return boolean
      */
     private static boolean checkMask(String mask)
     {
@@ -567,7 +567,6 @@ public class VUtil
 
     /**
      *
-     * @return
      */
     private static char[] loadLdapEscapeChars()
     {
@@ -591,7 +590,6 @@ public class VUtil
 
     /**
      *
-     * @return
      */
     private static String[] loadValidLdapVals()
     {

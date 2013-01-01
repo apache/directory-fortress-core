@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -9,9 +9,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 /**
  * Interface is used to allow pluggable password policy interrogation.
  *
-
  * @author Shawn McKinney
- * @created October 13, 2009
  */
 public interface PwPolicyControl
 {

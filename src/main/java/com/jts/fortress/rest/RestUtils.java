@@ -35,7 +35,6 @@ import java.util.Properties;
  * This utility class provides methods that wrap Apache's HTTP Client APIs.  This class is thread safe.
  *
  * @author Shawn McKinney
- * @created February 11, 2012
  */
 public class RestUtils
 {
@@ -56,7 +55,7 @@ public class RestUtils
      * Marshall the request into an XML String.
      *
      * @param request
-     * @return
+     * @return String containing xml request
      * @throws RestException
      */
     public static String marshal(FortRequest request) throws RestException
@@ -89,7 +88,7 @@ public class RestUtils
      * Unmarshall the XML response into its associated Java objects.
      *
      * @param szResponse
-     * @return
+     * @return FortResponse
      * @throws RestException
      */
     public static FortResponse unmarshall(String szResponse) throws RestException
@@ -120,7 +119,7 @@ public class RestUtils
      * @param id2
      * @param id3
      * @param function
-     * @return
+     * @return String containing response
      * @throws RestException
      */
     public static String get(String userId, String password, String id, String id2, String id3, String function) throws RestException
@@ -148,7 +147,7 @@ public class RestUtils
      * @param id2
      * @param id3
      * @param function
-     * @return
+     * @return String containing response
      * @throws RestException
      */
     public static String get(String id, String id2, String id3, String function) throws RestException
@@ -176,7 +175,7 @@ public class RestUtils
      * @param password
      * @param szInput
      * @param function
-     * @return
+     * @return String containing response
      * @throws RestException
      */
     public static String post(String userId, String password, String szInput, String function) throws RestException
@@ -220,7 +219,7 @@ public class RestUtils
      *
      * @param szInput
      * @param function
-     * @return
+     * @return String containing response
      * @throws RestException
      */
     public static String post(String szInput, String function) throws RestException
@@ -298,7 +297,7 @@ public class RestUtils
      * Convert from non-Base64 to Base64 encoded.
      *
      * @param value
-     * @return
+     * @return String contains encoded data
      */
     public static String base64Encode(String value)
     {
@@ -309,7 +308,7 @@ public class RestUtils
      * Process the HTTP method request.
      *
      * @param httpMethod
-     * @return
+     * @return String containing response
      * @throws Exception
      */
     public static String handleHttpMethod(HttpMethod httpMethod) throws RestException
@@ -357,7 +356,7 @@ public class RestUtils
 
     /**
      * @param inProps
-     * @return
+     * @return Properties
      */
     public static final Properties getProperties(Props inProps)
     {
@@ -382,7 +381,7 @@ public class RestUtils
     /**
      *
      * @param properties
-     * @return
+     * @return Prop contains name value pairs.
      */
     public static final Props getProps(Properties properties)
     {

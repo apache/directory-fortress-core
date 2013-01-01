@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 /*
@@ -43,7 +43,6 @@ import java.util.Set;
  * Description of the Class
  *
  * @author Shawn McKinney
- * @created August 24, 2009
  */
 public class AdminMgrConsole
 {

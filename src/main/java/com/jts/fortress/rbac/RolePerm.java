@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlType;
  * This entity is used by en masse to communicate {@link com.jts.fortress.rbac.Role}, {@link com.jts.fortress.rbac.Permission} and {@link com.jts.fortress.rbac.Session} information to the server for access control decisions.
  * <p/>
  * @author Shawn McKinney
- * @created January 29, 2012
  */
 @XmlRootElement(name = "fortRolePerm")
 @XmlAccessorType(XmlAccessType.FIELD)

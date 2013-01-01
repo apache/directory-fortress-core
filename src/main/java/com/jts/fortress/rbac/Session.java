@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -127,7 +127,6 @@ import java.util.UUID;
  * Adm  time out        [30]<br />
  * <p/>
  * @author Shawn McKinney
- * @created October 13, 2009
  */
 @XmlRootElement(name = "fortSession")
 @XmlAccessorType(XmlAccessType.FIELD)

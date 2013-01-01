@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -22,7 +22,6 @@ package com.jts.fortress;
  * an id that maps to one of these error codes.
  *
  * @author Shawn McKinney
- * @created August 24, 2009
  */
 public class GlobalErrIds
 {

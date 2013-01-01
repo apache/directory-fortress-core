@@ -1,14 +1,13 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
 
 /**
- * This class contains constants that contain status for Fortress password policy checking within {@link com.jts.fortress.ldap.openldap.OLPWControlImpl#checkPasswordPolicy(com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection, boolean, com.jts.Fortress.security.rbac.user.PwMessage)}
+ * This class contains constants that contain status for Fortress password policy checking.
  *
  * @author Shawn McKinney
- * @created October 13, 2009
  */
 public class GlobalPwMsgIds
     implements java.io.Serializable
@@ -156,7 +155,7 @@ public class GlobalPwMsgIds
      * within the message array.
      *
      * @param strMsg
-     * @return
+     * @return int
      */
     private static int getMessageCode(String strMsg)
     {

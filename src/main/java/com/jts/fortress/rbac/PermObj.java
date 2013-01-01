@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -45,7 +45,7 @@ import java.util.UUID;
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
  * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link com.jts.fortress.rbac.Permission}
  * <p/>
- * <img src="../../../../images/RbacCore.png">
+ * <img src="../doc-files/RbacCore.png">
  * <li>The unique key to locate an Fortress PermObj entity is {@code PermObj#objectName}.
  * <li>For sample code usages check out {@link com.jts.fortress.rbac.Permission} javadoc.
  * </ul>
@@ -96,7 +96,6 @@ import java.util.UUID;
  * <p/>
  *
  * @author Shawn McKinney
- * @created November 23, 2009
  */
 @XmlRootElement(name = "fortObject")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -148,7 +147,7 @@ public class PermObj extends FortEntity
      * Construct an Fortress PermObj entity given an object and perm ou name.
      *
      * @param objectName maps to 'ftObjNm' attribute in 'ftObject' object class.
-     * @param objectName maps to 'ou' attribute in 'ftObject' object class.
+     * @param ou maps to 'ou' attribute in 'ftObject' object class.
      */
     public PermObj(String objectName, String ou)
     {
@@ -172,7 +171,6 @@ public class PermObj extends FortEntity
      * This attribute is required and sets the authorization target object name.  This name is typically derived from the class name
      * for component that is the target for Fortress authorization check. For example 'CustomerCheckOutPage'.
      *
-     * @return the name of the object which maps to 'ftObjNm' attribute in 'ftObject' object class.
      */
     public void setObjectName(String objectName)
     {

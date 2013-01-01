@@ -10,7 +10,6 @@ import java.util.TreeMap;
  * Description of the Class
  *
  * @author Shawn McKinney
- * @created September 9, 2010
  */
 public class TestComparator
 {

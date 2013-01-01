@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -8,8 +8,7 @@ package com.jts.fortress;
  *  Base runtime exception class for Fortress runtime exceptions.
  * See the {@link GlobalErrIds} javadoc for list of error ids.
  *
- * @author     Shawn McKinney
- * @created    March 12, 2011
+ * @author Shawn McKinney
  */
 public abstract class BaseRuntimeException extends RuntimeException
 {

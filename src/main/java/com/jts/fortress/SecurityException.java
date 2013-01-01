@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -384,7 +384,6 @@ package com.jts.fortress;
  * <p/>
  *
  * @author Shawn McKinney
- * @created August 23, 2009
  */
 public class SecurityException extends BaseException
 {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -10,8 +10,7 @@ package com.jts.fortress;
  * The BaseException class has been extended by {@link SecurityException} which is then declared thrown on most Fortress public APIs.
  * See the {@link GlobalErrIds} javadoc for list of error ids that will be set.
  *
- * @author     Shawn McKinney
- * @created    August 23, 2009
+ * @author Shawn McKinney
  */
 public abstract class BaseException extends Exception implements StandardException
 {

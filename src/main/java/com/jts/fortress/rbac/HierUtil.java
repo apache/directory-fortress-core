@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -40,7 +40,6 @@ import java.util.TreeSet;
  * <p/>
  *
  * @author Shawn McKinney
- * @created July 10, 2010
  */
 final class HierUtil
 {

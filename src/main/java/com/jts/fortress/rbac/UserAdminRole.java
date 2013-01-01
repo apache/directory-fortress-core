@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -35,10 +35,8 @@ import java.util.TreeSet;
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
-
  *
  * @author Shawn McKinney
- * @created November 13, 2010
  */
 /*
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -190,6 +188,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @return String contains a raw formatted String that maps to 'ftARC' attribute on 'ftUserAttrs' object class
      */
+    @Override
     public String getRawData()
     {
         String szRole;
@@ -251,6 +250,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @param szRaw contains a raw formatted String that maps to 'ftARC' attribute on 'ftUserAttrs' object class
      */
+    @Override
     public void setRoleRangeRaw(String szRaw)
     {
         if (com.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(szRaw))
@@ -293,6 +293,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @return String contains a raw formatted String that maps to 'ftARC' attribute on 'ftUserAttrs' object class
      */
+    @Override
     public String getRoleRangeRaw()
     {
         String szRaw = "";
@@ -318,6 +319,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @return List of type String containing Perm OU.  This maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public Set<String> getOsP()
     {
         return osPs;
@@ -328,6 +330,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @param osPs is a List of type String containing Perm OU.  This maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public void setOsP(Set<String> osPs)
     {
         this.osPs = osPs;
@@ -338,6 +341,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @param osP is a Perm OU that maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public void setOsP(String osP)
     {
         if (this.osPs == null)
@@ -353,6 +357,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @return List of type String containing User OU.  This maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public Set<String> getOsU()
     {
         return osUs;
@@ -363,6 +368,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @param osUs is a List of type String containing User OU.  This maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public void setOsU(Set<String> osUs)
     {
         this.osUs = osUs;
@@ -373,6 +379,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @param osU is a User OU that maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public void setOsU(String osU)
     {
         if (this.osUs == null)
@@ -388,6 +395,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @return String that maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public String getBeginRange()
     {
         return beginRange;
@@ -398,6 +406,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @param beginRange maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public void setBeginRange(String beginRange)
     {
         this.beginRange = beginRange;
@@ -408,6 +417,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @return String that maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public String getEndRange()
     {
         return endRange;
@@ -418,6 +428,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @param endRange maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public void setEndRange(String endRange)
     {
         this.endRange = endRange;
@@ -428,6 +439,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @return String that maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public boolean isBeginInclusive()
     {
         return beginInclusive;
@@ -438,6 +450,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @param beginInclusive maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public void setBeginInclusive(boolean beginInclusive)
     {
         this.beginInclusive = beginInclusive;
@@ -448,6 +461,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @return String that maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public boolean isEndInclusive()
     {
         return endInclusive;
@@ -458,6 +472,7 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @param endInclusive maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
+    @Override
     public void setEndInclusive(boolean endInclusive)
     {
         this.endInclusive = endInclusive;
@@ -467,6 +482,7 @@ public class UserAdminRole extends UserRole implements Administrator
      * Get the names of admin roles that are parents (direct ascendants) of this admin role.
      * @return Set of parent admin role names assigned to this admin role.
      */
+    @Override
     public Set<String> getParents()
     {
         return parents;
@@ -476,6 +492,7 @@ public class UserAdminRole extends UserRole implements Administrator
      * Set the names of parent admin roles.
      * @param parents Set of admin role names.
      */
+    @Override
     public void setParents(Set<String> parents)
     {
         this.parents = parents;
@@ -497,4 +514,3 @@ public class UserAdminRole extends UserRole implements Administrator
         return ((thatRole.getName().equalsIgnoreCase(this.getName())) && (thatRole.getUserId().equalsIgnoreCase(this.getUserId())));
     }
 }
-

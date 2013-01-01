@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 package com.jts.fortress.util.cache;
 
@@ -12,7 +12,6 @@ import com.jts.fortress.BaseRuntimeException;
  * See the {@link com.jts.fortress.GlobalErrIds} javadoc for list of error ids.
  *
  * @author Shawn McKinney
- * @created March 9, 2012
  */
 public class CacheException extends BaseRuntimeException
 {

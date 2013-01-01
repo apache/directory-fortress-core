@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -25,7 +25,6 @@ import java.util.List;
  *
  * @author Shawn McKinney
  * @version 1.0
- * @since <pre>02/20/2010</pre>
  */
 public class PswdPolicyMgrImplTest extends TestCase
 {

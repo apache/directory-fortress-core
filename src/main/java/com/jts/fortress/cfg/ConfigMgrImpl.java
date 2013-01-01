@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.cfg;
@@ -22,7 +22,6 @@ import java.util.Properties;
 
  *
  * @author Shawn McKinney
- * @created February 5, 2011
  */
 public class ConfigMgrImpl implements ConfigMgr
 {
@@ -37,6 +36,7 @@ public class ConfigMgrImpl implements ConfigMgr
      * @return {@link Properties} containing the collection of name/value pairs just added.
      * @throws com.jts.fortress.SecurityException in the event entry already present or other system error.
      */
+    @Override
     public Properties add(String name, Properties inProps) throws com.jts.fortress.SecurityException
     {
         return cfgP.add(name, inProps);
@@ -52,6 +52,7 @@ public class ConfigMgrImpl implements ConfigMgr
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws com.jts.fortress.SecurityException in the event entry not present or other system error.
      */
+    @Override
     public Properties update(String name, Properties inProps) throws com.jts.fortress.SecurityException
     {
         return cfgP.update(name, inProps);
@@ -68,6 +69,7 @@ public class ConfigMgrImpl implements ConfigMgr
      * @param name is required and maps to 'cn' attribute on 'device' object class of node targeted for operation.
      * @throws com.jts.fortress.SecurityException in the event of system error.
      */
+    @Override
     public void delete(String name) throws SecurityException
     {
         cfgP.delete(name);
@@ -78,9 +80,9 @@ public class ConfigMgrImpl implements ConfigMgr
      * a {@link com.jts.fortress.SecurityException} with error {@link com.jts.fortress.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      *
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @return {@link Properties} containing the collection of name/value pairs to remove from existing node.
      * @throws com.jts.fortress.SecurityException in the event entry not present or other system error.
      */
+    @Override
     public void delete(String name, Properties inProps) throws SecurityException
     {
         cfgP.delete(name, inProps);
@@ -94,6 +96,7 @@ public class ConfigMgrImpl implements ConfigMgr
      * @return {@link Properties} containing the collection of name/value pairs just added. Maps to 'ftProps' attribute in 'ftProperties' object class.
      * @throws SecurityException in the event entry doesn't exist or other system error.
      */
+    @Override
     public Properties read(String name) throws com.jts.fortress.SecurityException
     {
         return cfgP.read(name);

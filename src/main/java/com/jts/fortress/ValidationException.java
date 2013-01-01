@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -10,7 +10,6 @@ package com.jts.fortress;
  * See the {@link GlobalErrIds} javadoc for list of error ids.
  *
  * @author Shawn McKinney
- * @created February 9, 2011
  */
 public class ValidationException extends SecurityException
 {

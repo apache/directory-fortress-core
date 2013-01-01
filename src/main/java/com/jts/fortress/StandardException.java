@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -8,8 +8,7 @@ package com.jts.fortress;
  *  Interface that is implemented by exception base class {@link StandardException} used to associate a Fortress error code to the exception instance.
  * See the {@link GlobalErrIds} javadoc for list of error ids used by Fortress.
  *
- * @author     Shawn McKinney
- * @created    August 23, 2009
+ * @author Shawn McKinney
  */
 public interface StandardException
 {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ant;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link com.jts.fortress.rbac.UserRole}s used to drive {@link com.jts.fortress.AdminMgr#deassignUser(com.jts.fortress.rbac.User, com.jts.fortress.rbac.Role)}.
+ * The class is used by {@link FortressAntTask} to load {@link com.jts.fortress.rbac.UserRole}s used to drive {@link com.jts.fortress.AdminMgr#deassignUser(com.jts.fortress.rbac.UserRole)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Deluserrole', is used for the xml tag in the load script.</p>
  * <pre>
@@ -26,7 +26,6 @@ import java.util.List;
  * </pre>
  *
  * @author Shawn McKinney
- * @created January 28, 2010
  */
 public class Deluserrole
 {

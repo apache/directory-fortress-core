@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.samples;
@@ -28,7 +28,6 @@ import java.util.List;
  * permissions may be granted to Roles and Users.
  *
  * @author Shawn McKinney
- * @created March 6, 2011
  */
 public class CreatePermSample extends TestCase
 {
@@ -48,7 +47,7 @@ public class CreatePermSample extends TestCase
     /**
      * Run the permission test cases.
      *
-     * @return
+     * @return Test
      */
     public static Test suite()
     {

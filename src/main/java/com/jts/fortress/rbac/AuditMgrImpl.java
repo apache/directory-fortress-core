@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -27,7 +27,7 @@ import java.util.List;
  * <li>Entity mods and deletes
  * </li>
  * </ol>
- * <img src="../../../../images/Audit.png">
+ * <img src="../doc-files/Audit.png">
  * <p/>
  * All events include Fortress context, see {@link com.jts.fortress.rbac.FortEntity}.
  * <p/>
@@ -57,7 +57,6 @@ import java.util.List;
  * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  *
  * @author Shawn McKinney
- * @created April 2, 2010
  */
 public class AuditMgrImpl extends Manageable implements AuditMgr
 {
@@ -84,6 +83,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr
      * @throws com.jts.fortress.SecurityException
      *          if a runtime system error occurs.
      */
+    @Override
     public List<AuthZ> getUserAuthZs(UserAudit uAudit)
         throws SecurityException
     {
@@ -113,6 +113,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws SecurityException if a runtime system error occurs.
      */
+    @Override
     public List<AuthZ> searchAuthZs(UserAudit uAudit)
         throws SecurityException
     {
@@ -138,6 +139,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr
      * @throws com.jts.fortress.SecurityException
      *          if a runtime system error occurs.
      */
+    @Override
     public List<Bind> searchBinds(UserAudit uAudit)
         throws SecurityException
     {
@@ -164,6 +166,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr
      * @throws com.jts.fortress.SecurityException
      *          if a runtime system error occurs.
      */
+    @Override
     public List<Mod> searchUserSessions(UserAudit uAudit)
         throws SecurityException
     {
@@ -193,6 +196,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr
      * @throws com.jts.fortress.SecurityException
      *          if a runtime system error occurs.
      */
+    @Override
     public List<Mod> searchAdminMods(UserAudit uAudit)
         throws SecurityException
     {
@@ -228,6 +232,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr
      * @throws com.jts.fortress.SecurityException
      *          if a runtime system error occurs.
      */
+    @Override
     public List<AuthZ> searchInvalidUsers(UserAudit uAudit)
         throws SecurityException
     {

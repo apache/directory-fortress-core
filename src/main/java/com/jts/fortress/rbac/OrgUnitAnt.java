@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -10,7 +10,6 @@ package com.jts.fortress.rbac;
  * Ant parser cannot deal with complex data attribute types.  The class extends a base entity.
  *
  * @author Shawn McKinney
- * @created September 18, 2010
  */
 public class OrgUnitAnt extends OrgUnit
     implements java.io.Serializable

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 package com.jts.fortress.rbac;
 
@@ -115,7 +115,6 @@ import java.util.UUID;
 
  *
  * @author Shawn McKinney
- * @created September 18, 2010
  */
 @XmlRootElement(name = "fortOrgUnit")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -185,7 +184,6 @@ public class OrgUnit extends FortEntity
     /**
      * Sets the required name attribute on the OrgUnit object
      *
-     * @return name maps to 'ou' attribute on 'organizationalUnit' object class.
      */
     public void setName(String name)
     {
@@ -346,7 +344,7 @@ public class OrgUnit extends FortEntity
 
     /**
      * @param thatObj
-     * @return
+     * @return boolean value of 'true if objects match
      */
     public boolean equals(Object thatObj)
     {

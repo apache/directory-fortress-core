@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -21,7 +21,6 @@ import java.util.StringTokenizer;
  * Description of the Class
  *
  * @author Shawn McKinney
- * @created January 28, 2010
  */
 public class RoleTestData extends TestCase
 {

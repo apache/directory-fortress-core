@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -21,7 +21,7 @@ import java.util.List;
  * and system functions for creating and managing ARBAC attributes on user sessions and making delegated administrative access control decisions.
  * This class is NOT thread safe.
  * <h3>Administrative Role Based Access Control (ARBAC)</h3>
- * <img src="../../../../images/ARbac.png">
+ * <img src="../doc-files/ARbac.png">
  * <p/>
  * Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
@@ -29,7 +29,6 @@ import java.util.List;
  * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  *
  * @author Shawn McKinney
- * @created September 18, 2010
  */
 public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
 {
@@ -75,6 +74,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
      */
+    @Override
     public AdminRole addRole(AdminRole role)
         throws SecurityException
     {
@@ -99,6 +99,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
      */
+    @Override
     public void deleteRole(AdminRole role)
         throws SecurityException
     {
@@ -158,6 +159,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          Description of the Exception
      */
+    @Override
     public AdminRole updateRole(AdminRole role)
         throws SecurityException
     {
@@ -213,23 +215,24 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * </ul>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link UserAdminRole#name} - contains the name for already existing AdminRole to be assigned</li>
-     * <li>{@link UserAdminRole#userId} - contains the userId for existing User</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#name} - contains the name for already existing AdminRole to be assigned</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#userId} - contains the userId for existing User</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link UserAdminRole#beginTime} - HHMM - determines begin hour AdminRole may be activated into user's RBAC session</li>
-     * <li>{@link UserAdminRole#endTime} - HHMM - determines end hour AdminRole may be activated into user's RBAC session.</li>
-     * <li>{@link UserAdminRole#beginDate} - YYYYMMDD - determines date when AdminRole may be activated into user's RBAC session</li>
-     * <li>{@link UserAdminRole#endDate} - YYYYMMDD - indicates latest date AdminRole may be activated into user's RBAC session</li>
-     * <li>{@link UserAdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     * <li>{@link UserAdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     * <li>{@link UserAdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's ARBAC session</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#beginTime} - HHMM - determines begin hour AdminRole may be activated into user's RBAC session</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#endTime} - HHMM - determines end hour AdminRole may be activated into user's RBAC session.</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#beginDate} - YYYYMMDD - determines date when AdminRole may be activated into user's RBAC session</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#endDate} - YYYYMMDD - indicates latest date AdminRole may be activated into user's RBAC session</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's ARBAC session</li>
      * </ul>
      *
-     * @param uAdminRole entity contains {@link User#userId} and {@link AdminRole#name} and optional {@code Constraints}.
+     * @param uAdminRole entity contains {@link com.jts.fortress.rbac.User#userId} and {@link com.jts.fortress.rbac.AdminRole#name} and optional {@code com.jts.fortress.rbac.Constraints}.
      * @throws SecurityException in the event data error in user or role objects or system error.
      */
+    @Override
     public void assignUser(UserAdminRole uAdminRole)
         throws SecurityException
     {
@@ -265,13 +268,14 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * User to Role assignment in Admin Role data set.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link UserAdminRole#name} - contains the name for already existing AdminRole to be deassigned</li>
-     * <li>{@link UserAdminRole#userId} - contains the userId for existing User</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#name} - contains the name for already existing AdminRole to be deassigned</li>
+     * <li>{@link com.jts.fortress.rbac.UserAdminRole#userId} - contains the userId for existing User</li>
      * </ul>
      *
-     * @param uAdminRole entity contains {@link User#userId} and {@link AdminRole#name}.
+     * @param uAdminRole entity contains {@link com.jts.fortress.rbac.User#userId} and {@link com.jts.fortress.rbac.AdminRole#name}.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
+    @Override
     public void deassignUser(UserAdminRole uAdminRole)
         throws SecurityException
     {
@@ -292,12 +296,12 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * set by setting type attribute.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be added</li>
-     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * <li>{@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be added</li>
+     * <li>{@link com.jts.fortress.rbac.OrgUnit#type} - contains the type of OU:  {@link com.jts.fortress.rbac.OrgUnit.Type#USER} or {@link com.jts.fortress.rbac.OrgUnit.Type#PERM}</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link OrgUnit#description} - contains any safe text</li>
+     * <li>{@link com.jts.fortress.rbac.OrgUnit#description} - contains any safe text</li>
      * </ul>
      *
      * @param entity contains OrgUnit name and type.
@@ -305,6 +309,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
+    @Override
     public OrgUnit add(OrgUnit entity)
         throws SecurityException
     {
@@ -320,12 +325,12 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * set by setting type attribute.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be updated</li>
-     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
+     * <li>{@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be updated</li>
+     * <li>{@link com.jts.fortress.rbac.OrgUnit#type} - contains the type of OU:  {@link com.jts.fortress.rbac.OrgUnit.Type#USER} or {@link com.jts.fortress.rbac.OrgUnit.Type#PERM}</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link OrgUnit#description} - contains any safe text</li>
+     * <li>{@link com.jts.fortress.rbac.OrgUnit#description} - contains any safe text</li>
      * </ul>
      *
      * @param entity contains OrgUnit name and type.
@@ -333,6 +338,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
+    @Override
     public OrgUnit update(OrgUnit entity)
         throws SecurityException
     {
@@ -348,15 +354,15 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * set by setting type attribute.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be removed</li>
-     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
-     * </ul>
+     * <li>{@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be removed</li>
+     * <li>{@link com.jts.fortress.rbac.OrgUnit#type} - contains the type of OU:  {@link com.jts.fortress.rbac.OrgUnit.Type#USER} or {@link com.jts.fortress.rbac.OrgUnit.Type#PERM}</li>
      * </ul>
      *
      * @param entity contains OrgUnit name and type.
      * @return OrgUnit contains reference to entity operated on.
      * @throws SecurityException in the event of data validation or system error.
      */
+    @Override
     public OrgUnit delete(OrgUnit entity)
         throws SecurityException
     {
@@ -421,13 +427,13 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * </ul>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>parentRole - {@link OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
-     * <li>parentRole - {@link OrgUnit#type} - contains the type of OrgUnit targeted: {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
-     * <li>childRole - {@link OrgUnit#name} - contains the name of new OrgUnit to be child</li>
+     * <li>parentRole - {@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
+     * <li>parentRole - {@link com.jts.fortress.rbac.OrgUnit#type} - contains the type of OrgUnit targeted: {@link com.jts.fortress.rbac.OrgUnit.Type#USER} or {@link com.jts.fortress.rbac.OrgUnit.Type#PERM}</li>
+     * <li>childRole - {@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of new OrgUnit to be child</li>
      * </ul>
      * <h4>optional parameters child</h4>
      * <ul>
-     * <li>childRole - {@link OrgUnit#description} - maps to description attribute on organizationalUnit object class for new child</li>
+     * <li>childRole - {@link com.jts.fortress.rbac.OrgUnit#description} - maps to description attribute on organizationalUnit object class for new child</li>
      * </ul>
      *
      * @param parent This entity must be present in ORGUNIT data set.  Success will add rel with child.
@@ -435,6 +441,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
+    @Override
     public void addDescendant(OrgUnit parent, OrgUnit child)
         throws SecurityException
     {
@@ -483,13 +490,13 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * </ul>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>parent - {@link OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
-     * <li>parent - {@link OrgUnit#type} - contains the type of OrgUnit targeted: {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
-     * <li>child - {@link OrgUnit#name} - contains the name of new OrgUnit to be child</li>
+     * <li>parent - {@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
+     * <li>parent - {@link com.jts.fortress.rbac.OrgUnit#type} - contains the type of OrgUnit targeted: {@link com.jts.fortress.rbac.OrgUnit.Type#USER} or {@link com.jts.fortress.rbac.OrgUnit.Type#PERM}</li>
+     * <li>child - {@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of new OrgUnit to be child</li>
      * </ul>
      * <h4>optional parameters child</h4>
      * <ul>
-     * <li>child - {@link OrgUnit#description} - maps to description attribute on organizationalUnit object class for new child</li>
+     * <li>child - {@link com.jts.fortress.rbac.OrgUnit#description} - maps to description attribute on organizationalUnit object class for new child</li>
      * </ul>
      *
      * @param parent completion of op assigns new child relationship with child orgunit.
@@ -497,6 +504,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
+    @Override
     public void addAscendant(OrgUnit child, OrgUnit parent)
         throws SecurityException
     {
@@ -542,9 +550,9 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * </p>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>parent - {@link OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
-     * <li>parent - {@link OrgUnit#type} - contains the type of OrgUnit targeted: {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
-     * <li>child - {@link OrgUnit#name} - contains the name of existing OrgUnit to be child</li>
+     * <li>parent - {@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
+     * <li>parent - {@link com.jts.fortress.rbac.OrgUnit#type} - contains the type of OrgUnit targeted: {@link com.jts.fortress.rbac.OrgUnit.Type#USER} or {@link com.jts.fortress.rbac.OrgUnit.Type#PERM}</li>
+     * <li>child - {@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of existing OrgUnit to be child</li>
      * </ul>
      *
      * @param parent completion of op deassigns child relationship with child orgunit.
@@ -552,6 +560,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
+    @Override
     public void addInheritance(OrgUnit parent, OrgUnit child)
         throws SecurityException
     {
@@ -599,9 +608,9 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * </ul>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>parent - {@link OrgUnit#name} - contains the name of existing OrgUnit to remove as parent</li>
-     * <li>parent - {@link OrgUnit#type} - contains the type of OrgUnit targeted: {@link OrgUnit.Type#USER} or {@link OrgUnit.Type#PERM}</li>
-     * <li>child - {@link OrgUnit#name} - contains the name of existing OrgUnit to remove as child</li>
+     * <li>parent - {@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of existing OrgUnit to remove as parent</li>
+     * <li>parent - {@link com.jts.fortress.rbac.OrgUnit#type} - contains the type of OrgUnit targeted: {@link com.jts.fortress.rbac.OrgUnit.Type#USER} or {@link com.jts.fortress.rbac.OrgUnit.Type#PERM}</li>
+     * <li>child - {@link com.jts.fortress.rbac.OrgUnit#name} - contains the name of existing OrgUnit to remove as child</li>
      * </ul>
      *
      * @param parent completion of op removes child relationship with childRole.
@@ -609,6 +618,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
+    @Override
     public void deleteInheritance(OrgUnit parent, OrgUnit child)
         throws SecurityException
     {
@@ -671,6 +681,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
+    @Override
     public void addDescendant(AdminRole parentRole, AdminRole childRole)
         throws SecurityException
     {
@@ -716,6 +727,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
+    @Override
     public void addAscendant(AdminRole childRole, AdminRole parentRole)
         throws SecurityException
     {
@@ -750,6 +762,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
+    @Override
     public void addInheritance(AdminRole parentRole, AdminRole childRole)
         throws SecurityException
     {
@@ -788,6 +801,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          thrown in the event of data validation or system error.
      */
+    @Override
     public void deleteInheritance(AdminRole parentRole, AdminRole childRole)
         throws SecurityException
     {
@@ -828,6 +842,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
+    @Override
     public Permission addPermission(Permission perm)
         throws SecurityException
     {
@@ -858,6 +873,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
+    @Override
     public Permission updatePermission(Permission perm)
         throws SecurityException
     {
@@ -879,6 +895,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
+    @Override
     public void deletePermission(Permission perm)
         throws SecurityException
     {
@@ -906,6 +923,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @return copy of PermObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
+    @Override
     public PermObj addPermObj(PermObj pObj)
         throws SecurityException
     {
@@ -934,6 +952,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
+    @Override
     public PermObj updatePermObj(PermObj pObj)
         throws SecurityException
     {
@@ -953,6 +972,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @param pObj must contain the {@link PermObj#objectName} of object targeted for removal.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
+    @Override
     public void deletePermObj(PermObj pObj)
         throws SecurityException
     {
@@ -979,6 +999,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
      */
+    @Override
     public void grantPermission(Permission perm, AdminRole role)
         throws SecurityException
     {
@@ -1004,6 +1025,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @param role must contains {@link AdminRole#name}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
+    @Override
     public void revokePermission(Permission perm, AdminRole role)
         throws SecurityException
     {
@@ -1030,6 +1052,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @throws com.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
      */
+    @Override
     public void grantPermission(Permission perm, User user)
         throws SecurityException
     {
@@ -1055,6 +1078,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * @param user must contain {@link User#userId} of target User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
+    @Override
     public void revokePermission(Permission perm, User user)
         throws SecurityException
     {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.cfg;
@@ -21,7 +21,6 @@ import java.util.Properties;
 
  *
  * @author Shawn McKinney
- * @created February 5, 2011
  */
 public interface ConfigMgr
 {
@@ -65,7 +64,6 @@ public interface ConfigMgr
      * a {@link com.jts.fortress.SecurityException} with error {@link com.jts.fortress.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      *
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @return {@link Properties} containing the collection of name/value pairs to remove from existing node.
      * @throws com.jts.fortress.SecurityException in the event entry not present or other system error.
      */
     public void delete(String name, Properties inProps) throws com.jts.fortress.SecurityException;

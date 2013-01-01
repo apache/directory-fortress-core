@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 package com.jts.fortress;
 
@@ -48,7 +48,6 @@ import javax.xml.namespace.QName;
  * groups.  Factory methods for each of these are
  * provided in this class.
  * @author Shawn McKinney
- * @created December 17, 2012
  *
  */
 @XmlRegistry

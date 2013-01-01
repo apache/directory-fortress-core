@@ -1,7 +1,7 @@
 package com.jts.fortress.rest;
 
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 import com.jts.fortress.GlobalErrIds;
@@ -24,7 +24,6 @@ import java.util.Properties;
  * <p/>
  *
  * @author Shawn McKinney
- * @created March 4, 2012
  */
 public class ConfigMgrRestImpl implements ConfigMgr
 {
@@ -40,6 +39,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event entry already present or other system error.
      */
+    @Override
     public Properties add(String name, Properties inProperties) throws com.jts.fortress.SecurityException
     {
         VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".add");
@@ -74,6 +74,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event entry not present or other system error.
      */
+    @Override
     public Properties update(String name, Properties inProperties) throws com.jts.fortress.SecurityException
     {
         VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".update");
@@ -110,6 +111,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
      * @throws com.jts.fortress.SecurityException
      *          in the event of system error.
      */
+    @Override
     public void delete(String name) throws com.jts.fortress.SecurityException
     {
         VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".deleteProp");
@@ -130,9 +132,9 @@ public class ConfigMgrRestImpl implements ConfigMgr
      * a {@link com.jts.fortress.SecurityException} with error {@link com.jts.fortress.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      *
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @return {@link Properties} containing the collection of name/value pairs to remove from existing node.
      * @throws com.jts.fortress.SecurityException in the event entry not present or other system error.
      */
+    @Override
     public void delete(String name, Properties inProperties) throws SecurityException
     {
         VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".delete");
@@ -159,6 +161,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
      * @return {@link Properties} containing the collection of name/value pairs just added. Maps to 'ftProps' attribute in 'ftProperties' object class.
      * @throws SecurityException in the event entry doesn't exist or other system error.
      */
+    @Override
     public Properties read(String name) throws com.jts.fortress.SecurityException
     {
         VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".readRole");

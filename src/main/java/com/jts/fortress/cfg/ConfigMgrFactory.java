@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.cfg;
@@ -18,7 +18,6 @@ import com.jts.fortress.rest.ConfigMgrRestImpl;
 
  *
  * @author Shawn McKinney
- * @created February 5, 2011
  */
 public class ConfigMgrFactory
 {

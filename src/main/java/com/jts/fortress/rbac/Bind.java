@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -37,7 +37,6 @@ import java.io.Serializable;
 
  *
  * @author Shawn McKinney
- * @created April 1, 2010
  */
 @XmlRootElement(name = "fortBind")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -301,7 +300,6 @@ public class Bind extends FortEntity implements Serializable
      * may be altered in various circumstances.
      * For Fortress bind operations this will map to {@link com.jts.fortress.rbac.User#userId}
      *
-     * @return value that maps to 'reqAuthzID' on 'auditBind' object class.
      */
     public void setReqAuthzID(String reqAuthzID)
     {

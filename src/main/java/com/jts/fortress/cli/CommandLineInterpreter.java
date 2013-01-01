@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 package com.jts.fortress.cli;
 
@@ -28,7 +28,6 @@ import org.apache.log4j.Logger;
  * Main program for Fortress Command Line Interpreter..
  *
  * @author Shawn McKinney
- * @created December 1, 2011
  */
 public class CommandLineInterpreter
 {
@@ -845,7 +844,7 @@ public class CommandLineInterpreter
 
     /**
      * @param parser
-     * @return
+     * @return entity containing user options
      */
     private Options loadOptions(CmdLineParser parser)
     {
@@ -856,7 +855,7 @@ public class CommandLineInterpreter
     /**
      *
      * @param input
-     * @return
+     * @return array of strings
      */
     private String[] parseUserInput(String input)
     {
@@ -929,7 +928,6 @@ public class CommandLineInterpreter
 
     /**
      * @param otherArgs
-     * @return
      */
     private Set<String> loadCommandSet(String[] otherArgs)
     {
@@ -1213,7 +1211,6 @@ public class CommandLineInterpreter
     }
 
     /**
-     * @return
      */
     private boolean constructManagers()
     {

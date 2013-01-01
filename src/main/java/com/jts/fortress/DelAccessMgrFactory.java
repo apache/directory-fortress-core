@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -17,10 +17,8 @@ import com.jts.fortress.util.attr.VUtil;
  * The default implementation class is specified as {@link DelAccessMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#DELEGATED_ACCESS_IMPLEMENTATION} config property.
  * <p/>
-
  *
  * @author Shawn McKinney
- * @created December 3, 2010
  */
 public class DelAccessMgrFactory
 {

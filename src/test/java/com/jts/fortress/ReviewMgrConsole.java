@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -24,7 +24,6 @@ import java.util.Set;
  * Test class for driving Fortress RBAC review API within a console.
  *
  * @author Shawn McKinney
- * @created August 30, 2009
  */
 public class ReviewMgrConsole
 {

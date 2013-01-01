@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.util.crypto;
@@ -11,7 +11,6 @@ import org.jasypt.util.text.BasicTextEncryptor;
  * Contains a simple wrapper for Jasypt open source encryption APIs, see <a href="http://www.jasypt.org/">Jasypt</a>.
  *
  * @author Shawn McKinney
- * @created August 13, 2011
  */
 public class EncryptUtil
 {
@@ -42,7 +41,7 @@ public class EncryptUtil
      * Returns 'true' if the property {@code crypto.prop} has a value set in fortress cfg.  If this value
      * is 'false', Fortress will assume LDAP password in cfg file are clear text.
      *
-     * @return
+     * @return boolean
      */
     public static boolean isEnabled()
     {

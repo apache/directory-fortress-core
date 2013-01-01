@@ -1,5 +1,5 @@
 /*
- * Copyright © Joshua Tree Software, LLC, 2009-2012 All Rights Reserved.
+ * Copyright © 2009-2013, JoshuaTree.  All Rights Reserved.
  */
 
 /*

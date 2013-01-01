@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ant;
@@ -9,7 +9,6 @@ package com.jts.fortress.ant;
  * This entity contains the list of name/value pairs targeted for updating on server.
  *
  * @author Shawn McKinney
- * @created February 1, 2011
  */
 public class ConfigAnt
 {
@@ -18,7 +17,6 @@ public class ConfigAnt
     /**
      * Default constructor required for all Ant entities.
      *
-     * @return
      */
     public ConfigAnt()
     {
@@ -28,7 +26,7 @@ public class ConfigAnt
     /**
      * Get the properties as a String.
      *
-     * @return
+     * @return String containing property name/values.
      */
     public String getProps()
     {

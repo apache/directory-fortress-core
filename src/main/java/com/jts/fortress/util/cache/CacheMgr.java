@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ */
 package com.jts.fortress.util.cache;
 
 import com.jts.fortress.CfgException;
@@ -14,7 +17,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * cache implementation that is in use.
  *
  * @author Shawn McKinney
- * @created March 9, 2012
  */
 public class CacheMgr
 {

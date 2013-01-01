@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -31,7 +31,6 @@ import com.jts.fortress.util.attr.VUtil;
 
  *
  * @author Kevin McKinney
- * @created October 29, 2009
  */
 final class RoleP
 {

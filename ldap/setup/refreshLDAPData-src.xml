@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+  ~ Copyright (c) 2009-2013. Joshua Tree Software, LLC.  All Rights Reserved.
   -->
 <project basedir="." default="all" name="Fortress Sample Data">
 <!--    <property name="version" value="1.0-RC18"/>-->
@@ -34,6 +34,7 @@
             <addcontainer>
                 <container name="Client123" description="Client 123 test context"/>
                 <container name="Client456" description="Client 456 test context"/>
+                <container name="Client789" description="Client 789 test context"/>
                 <container name="Config" description="Fortress Configuration Realms"/>
                 <container name="People" description="Fortress People"/>
                 <container name="Policies" description="Fortress Policies"/>

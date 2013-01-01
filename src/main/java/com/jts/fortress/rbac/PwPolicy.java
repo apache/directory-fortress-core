@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  * <h4>Password Policies</h4>
  * <a href="http://www.openldap.org/">OpenLDAP</a> supports the IETF draft <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies for LDAP directories</a></li>.  Policies may be applied at the user, group or global level.
  * <p/>
- * <img src="../../../../images/PasswordPolicy.png">
+ * <img src="../doc-files/PasswordPolicy.png">
  * <p/>
  * Password enforcement options include:
  * <ol>
@@ -81,10 +81,8 @@ import javax.xml.bind.annotation.XmlType;
  * </ul>
  * <p/>
  *
-
  *
  * @author Shawn McKinney
- * @created October 17, 2009
  */
 @XmlRootElement(name = "fortPolicy")
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ldap.suffix;
@@ -44,7 +44,6 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
  * This class is thread safe.
  *
  * @author Shawn McKinney
- * @created January 21, 2010
  */
 final class SuffixDAO extends DataProvider
 {

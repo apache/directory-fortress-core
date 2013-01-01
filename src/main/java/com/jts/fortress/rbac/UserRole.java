@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -33,7 +33,6 @@ import java.util.StringTokenizer;
  * <p/>
  *
  * @author Shawn McKinney
- * @created August 23, 2009
  */
 @XmlRootElement(name = "fortUserRole")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -168,6 +167,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return String that maps to 'ftRA' attribute on the 'ftUserAttrs' object class.
      */
+    @Override
     public String getRawData()
     {
         String szRole;
@@ -203,7 +203,6 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
     /**
      * Used to retrieve UserRole Role name attribute.  The Fortress UserRole name maps to 'ftRA' attribute on 'ftUserAttrs' object class.
      *
-     * @return
      */
     public String toString()
     {
@@ -235,6 +234,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @param name maps to 'ftRC' and 'ftRA' attributes on 'ftUserAttrs' object class.
      */
+    @Override
     public void setName(String name)
     {
         this.name = name;
@@ -245,6 +245,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return attribute maps to 'ftRC' and 'ftRA' attributes on 'ftUserAttrs' object class.
      */
+    @Override
     public String getName()
     {
         return name;
@@ -255,6 +256,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return boolean indicating if temporal constraints are placed on UserRole.
      */
+    @Override
     public boolean isTemporalSet()
     {
         return (beginTime != null && endTime != null && beginDate != null && endDate != null && beginLockDate != null && endLockDate != null && dayMask != null);
@@ -266,6 +268,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @param timeout maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public void setTimeout(Integer timeout)
     {
         this.timeout = timeout;
@@ -278,6 +281,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @param beginTime maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public void setBeginTime(String beginTime)
     {
         this.beginTime = beginTime;
@@ -290,6 +294,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @param endTime maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public void setEndTime(String endTime)
     {
         this.endTime = endTime;
@@ -302,6 +307,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @param beginDate maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public void setBeginDate(String beginDate)
     {
         this.beginDate = beginDate;
@@ -314,6 +320,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @param endDate maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public void setEndDate(String endDate)
     {
         this.endDate = endDate;
@@ -326,6 +333,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @param dayMask maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public void setDayMask(String dayMask)
     {
         this.dayMask = dayMask;
@@ -338,6 +346,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @param beginLockDate maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public void setBeginLockDate(String beginLockDate)
     {
         this.beginLockDate = beginLockDate;
@@ -350,6 +359,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @param endLockDate maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public void setEndLockDate(String endLockDate)
     {
         this.endLockDate = endLockDate;
@@ -362,6 +372,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return int that maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public Integer getTimeout()
     {
         return this.timeout;
@@ -374,6 +385,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return String that maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public String getBeginTime()
     {
         return this.beginTime;
@@ -386,6 +398,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return String that maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public String getEndTime()
     {
         return this.endTime;
@@ -398,6 +411,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return String that maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public String getBeginDate()
     {
         return this.beginDate;
@@ -410,6 +424,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return String that maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public String getEndDate()
     {
         return this.endDate;
@@ -422,6 +437,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return String that maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public String getBeginLockDate()
     {
         return beginLockDate;
@@ -434,6 +450,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return String that maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public String getEndLockDate()
     {
         return endLockDate;
@@ -445,6 +462,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
      *
      * @return String that maps to 'ftRC', attribute on 'ftUserAttrs' object class.
      */
+    @Override
     public String getDayMask()
     {
         return this.dayMask;

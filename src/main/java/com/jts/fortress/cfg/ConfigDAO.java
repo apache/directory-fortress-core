@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.cfg;
@@ -56,7 +56,6 @@ import java.util.Properties;
  * This class is thread safe.
  *
  * @author Shawn McKinney
- * @created February 4, 2011
  */
 final class ConfigDAO extends DataProvider
 

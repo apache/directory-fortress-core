@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -45,7 +45,6 @@ import java.util.List;
 
  *
  * @author Shawn McKinney
- * @created April 1, 2010
  */
 @XmlRootElement(name = "fortMod")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -188,7 +187,6 @@ public class Mod extends FortEntity implements Serializable
      * may be altered in various circumstances.
      * For Fortress bind operations this will map to {@link com.jts.fortress.rbac.User#userId}
      *
-     * @return value that maps to 'reqAuthzID' on 'auditModify' object class.
      */
     public void setReqAuthzID(String reqAuthzID)
     {

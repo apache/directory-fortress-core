@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -27,24 +27,23 @@ import java.util.Set;
  * <h4>RBAC0 - Core</h4>
  * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions.  API to add, update, delete identity data and perform identity and access control decisions during runtime operations.
  * <p/>
- * <img src="../../../images/RbacCore.png">
+ * <img src="./doc-files/RbacCore.png">
  * <h4>RBAC1 - General Hierarchical Roles</h4>
  * Simplifies role engineering tasks using inheritance of one or more parent roles.
  * <p/>
- * <img src="../../../images/RbacHier.png">
+ * <img src="./doc-files/RbacHier.png">
  * <h4>RBAC2 - Static Separation of Duty (SSD) Relations</h4>
  * Enforce mutual membership exclusions across role assignments.  Facilitate dual control policies by restricting which roles may be assigned to users in combination.  SSD provide added granularity for authorization limits which help enterprises meet strict compliance regulations.
  * <p/>
- * <img src="../../../images/RbacSSD.png">
+ * <img src="./doc-files/RbacSSD.png">
  * <h4>RBAC3 - Dynamic Separation of Duty (DSD) Relations</h4>
  * Control allowed role combinations to be activated within an RBAC session.  DSD policies fine tune role policies that facilitate authorization dual control and two man policy restrictions during runtime security checks.
  * <p/>
- * <img src="../../../images/RbacDSD.png">
+ * <img src="./doc-files/RbacDSD.png">
  * <p/>
  * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(com.jts.fortress.rbac.Session)}) are set.
  *
  * @author Shawn McKinney
- * @created August 23, 2009
  */
 public interface ReviewMgr extends Manageable
 {
@@ -162,7 +161,7 @@ public interface ReviewMgr extends Manageable
      *
      * @param searchVal contains all or some leading chars that correspond to roles stored in the role container in the directory.
      * @param limit     integer value specifies the max records that may be returned in the result set.
-     * @return
+     * @return List of type String containing matching Role names.
      * @throws com.jts.fortress.SecurityException
      *          in the event of system error.
      */

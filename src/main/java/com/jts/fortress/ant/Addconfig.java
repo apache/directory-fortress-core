@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ant;
@@ -24,7 +24,6 @@ import java.util.List;
  * </pre>
  *
  * @author Shawn McKinney
- * @created February 5, 2011
  */
 public class Addconfig
 {

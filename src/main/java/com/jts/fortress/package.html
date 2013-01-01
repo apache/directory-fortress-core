@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © Joshua Tree Software, LLC, 2009-2012 All Rights Reserved.
+  ~ Copyright © 2009-2013, JoshuaTree.  All Rights Reserved.
   -->
 <html>
    <head>
@@ -49,26 +49,26 @@
       <h4>RBAC0 - Core</h4>
       Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions.  API to add, update, delete identity data and perform identity and access control decisions during runtime operations.
       <p/>
-      <img src="../../../images/RbacCore.png">
+      <img src="./doc-files/RbacCore.png">
       <h4>RBAC1 - General Hierarchical Roles</h4>
       Simplifies role engineering tasks using inheritance of one or more parent roles.
       <p/>
-      <img src="../../../images/RbacHier.png">
+      <img src="./doc-files/RbacHier.png">
       <h4>RBAC2 - Static Separation of Duty (SSD) Relations</h4>
       Enforce mutual membership exclusions across role assignments.  Facilitate dual control policies by restricting which roles may be assigned to users in combination.  SSD provide added granularity for authorization limits which help enterprises meet strict compliance regulations.
       <p/>
-      <img src="../../../images/RbacSSD.png">
+      <img src="./doc-files/RbacSSD.png">
       <h4>RBAC3 - Dynamic Separation of Duty (DSD) Relations</h4>
       Control allowed role combinations to be activated within an RBAC session.  DSD policies fine tune role policies that facilitate authorization dual control and two man policy restrictions during runtime security checks.
       <p/>
-      <img src="../../../images/RbacDSD.png">
+      <img src="./doc-files/RbacDSD.png">
       <p/>
       <h3>2. Administrative Role Based Access Control (ARBAC) description</h3>
       These APIs map directly to similar named APIs specified by ARBAC02 functions.  The ARBAC Functional specification describes delegated administrative
       operations for the creation and maintenance of ARBAC element sets and relations.  Delegated administrative review functions for performing administrative queries
       and system functions for creating and managing ARBAC attributes on user sessions and making delegated administrative access control decisions.
       <h4>ARBAC02 Diagram</h4>
-      <img src="../../../images/ARbac.png">
+      <img src="./doc-files/ARbac.png">
       <p/>
       Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
       Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
@@ -94,7 +94,7 @@
       <h4>Password Policy diagram</h4>
       The following is an example of policies that can be configured. There is no limit to the number of different policies that can be created and enforced.
       <p/>
-      <img src="../../../images/PasswordPolicy.png">
+      <img src="./doc-files/PasswordPolicy.png">
       <p/>
       <h3>4. History and Audit trail using OpenLDAP</h3>
       Provides an OpenLDAP access log retrieval mechanism that enables security event monitoring.
@@ -106,9 +106,9 @@
       </li>
       </ol>
       <h4>Diagram of Audit Events</h4>
-      <img src="../../../images/Audit.png">
+      <img src="./doc-files/Audit.png">
       <p/>
-      All events include Fortress context, see {@link FortEntity}.
+      All events include Fortress context, see {@code FortEntity}.
       <p/>
       <h4>
       The following APIs generate events subsequently stored in this access log:
@@ -121,25 +121,7 @@
       <li> {@link com.jts.fortress.cfg.ConfigMgr}
       <li> {@link com.jts.fortress.PwPolicyMgr}
       </ul>
-      <h4>
-          The following reports are supported using search input: {@link com.jts.fortress.rbac.audit.UserAudit}
-      </h4>
-      <ul>
-      <li>User Authentications:     <code>List&amp;lt;{@licom.jts.fortress.rbac.auditdit.Bind}&amp;gt; {@link
-          AuditMgr#searchBinds(com.jts.fortress.rbac.UserAudit)}</code>
-      <li>Invalid Users AuthN:      <code>List&amp;lt;{@link com.jts.fortress.rbac.Bind}&amp;gt; {@link
-          AuditMgr#searchAucom.jts.fortress.rbac.audittress.audit.UserAudit)} </code>
-      <li>User Authorizations 1:    <code>List&amp;lt;{@link com.jts.fortress.rbac.AuthZ}&amp;gt; {@link
-          AuditMgrcom.jts.fortress.rbac.audittress.audit.UserAudit)} </code>
-      <li>User Authorizations 2:    <code>List&amp;lt;{@link com.jts.fortress.rbac.AuthZ}&amp;gt; {@link
-          AuditMgr#secom.jts.fortress.rbac.audittress.audit.UserAudit)} </code>
-      <li>User Session Activations: <code>List&amp;lt;{@link com.jts.fortress.rbac.Mod}&amp;gt; {@link
-          AuditMgr#com.jts.fortress.rbac.audittress.audit.UserAudit)} </code>
-      <li>Entity Modifications:     <code>List&amp;lt;{@link com.jts.fortress.rbac.Mod}&amp;gt; {@link
-          AuditMgr#searccom.jts.fortress.rbac.UserAudit)} </code>
-      </ul>
-      <p/>
-
       </p>
    </body>
 </html>
+

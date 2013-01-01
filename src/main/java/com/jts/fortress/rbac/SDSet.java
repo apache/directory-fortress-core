@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -35,9 +35,9 @@ import java.util.UUID;
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
- * 2. The RBAC Separation of Duties includes:
+ * 2. The RBAC Separation of14:14 Duties includes:
 * <p/> Static Separation of Duties
- * <img src="../../../../images/RbacSSD.png">
+ * <img src="../doc-files/RbacSSD.png">
  * <ul>
  * <li>  ---Static Separation of Duties Set-------
  * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.4</code>
@@ -52,7 +52,7 @@ import java.util.UUID;
  * <p/>
  * OR
  * <p/> Dynamic Separation of Duties
- * <img src="../../../../images/RbacDSD.png">
+ * <img src="../doc-files/RbacDSD.png">
  * <ul>
  * <li>  ---Dynamic Separation of Duties Set-----
  * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.5</code>
@@ -81,7 +81,6 @@ import java.util.UUID;
  * <p/>
  *
  * @author Shawn McKinney
- * @created September 11, 2010
  */
 @XmlRootElement(name = "fortSet")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -257,7 +256,6 @@ public class SDSet extends FortEntity
      * in set can be assigned to a single User (SSD) or activated within a single Session (DSD).  A value of '4' indicates
      * no more than three Roles may be used at a time, etc...
      *
-     * @return attribute maps to 'ftSetCardinality' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.
      */
     public void setCardinality(Integer cardinality)
     {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.util.time;
@@ -23,7 +23,6 @@ import org.apache.log4j.Logger;
  * </p>
  *
  * @author Shawn McKinney
- * @created February 13, 2010
  */
 public class Day
     implements Validator
@@ -39,6 +38,7 @@ public class Day
      * @param time       contains the current time stamp.
      * @return '0' if validation succeeds else {@link com.jts.fortress.GlobalErrIds#ACTV_FAILED_DAY} if failed.
      */
+    @Override
     public int validate(Session session, Constraint constraint, Time time)
     {
         int rc = GlobalErrIds.ACTV_FAILED_DAY;

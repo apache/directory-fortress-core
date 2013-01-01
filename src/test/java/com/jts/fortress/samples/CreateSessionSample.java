@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.samples;
@@ -24,7 +24,6 @@ import java.util.List;
  *
  *
  * @author Shawn McKinney
- * @created March 1, 2011
  */
 public class CreateSessionSample extends TestCase
 {
@@ -38,7 +37,7 @@ public class CreateSessionSample extends TestCase
 
     /**
      * Run several Use cases that demonstrate RBAC Session creation attempts using common scenarios.
-     * @return
+     * @return Test
      */
     public static Test suite()
     {

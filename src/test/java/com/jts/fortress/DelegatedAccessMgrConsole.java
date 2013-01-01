@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 /*
@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
  *  This class is used to test drive the Fortress Delegated Access Control APIs.
  *
  *@author     Shawn McKinney
- *@created    December 4, 2010
  */
 public class DelegatedAccessMgrConsole
 {

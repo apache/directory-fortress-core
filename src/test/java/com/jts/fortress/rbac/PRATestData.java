@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -15,7 +15,6 @@ import java.util.Map;
  * Description of the Class
  *
  * @author Shawn McKinney
- * @created December 5, 2010
  */
 class PRATestData extends TestCase
 {

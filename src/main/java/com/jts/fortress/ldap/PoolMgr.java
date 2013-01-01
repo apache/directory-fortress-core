@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ldap;
@@ -14,7 +14,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConstraints;
 
 /**
- * This class uses {@link ConnectionPool} to manage pools of {@link com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection}
+ * This class uses {@link ConnectionPool} to manage pools of {@code com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection}
  * to supply resource connections to Fortress DAO utilities.  The methods in the class are used by internal Fortress functions
  * and are not intended for used by external clients.  This class maintains 3 pools of connections.
  * <ol>
@@ -34,7 +34,6 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConstraints;
  * <p/>
  *
  * @author Shawn McKinney
- * @created August 30, 2009
  */
 public class PoolMgr
 {

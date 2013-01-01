@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -139,7 +139,6 @@ import java.util.*;
  * </ul>
  *
  * @author Shawn McKinney
- * @created August 23, 2009
  */
 
 @XmlRootElement(name = "fortUser")
@@ -299,7 +298,7 @@ public class User extends FortEntity implements Constraint, Serializable
     /**
      * Used to retrieve User's valid userId attribute.  The Fortress userId maps to 'uid' for InetOrgPerson object class.
      *
-     * @return
+     * @return String containing the userId.
      */
     public String toString()
     {
@@ -309,7 +308,7 @@ public class User extends FortEntity implements Constraint, Serializable
     /**
      * Required by Constraint Interface but not needed for user entity. Not intended for external use.
      *
-     * @return
+     * @return String containing constraint data ready for ldap.
      * @throws UnsupportedOperationException
      */
     public String getRawData()
@@ -679,6 +678,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return boolean indicating if temporal constraints are placed on user.
      */
+    @Override
     public boolean isTemporalSet()
     {
         return (beginTime != null && endTime != null && beginDate != null && endDate != null && beginLockDate != null && endLockDate != null && dayMask != null);
@@ -690,6 +690,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public String getBeginTime()
     {
         return this.beginTime;
@@ -701,6 +702,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param beginTime maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public void setBeginTime(String beginTime)
     {
         this.beginTime = beginTime;
@@ -712,6 +714,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public String getEndTime()
     {
         return this.endTime;
@@ -723,6 +726,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param endTime maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public void setEndTime(String endTime)
     {
         this.endTime = endTime;
@@ -734,6 +738,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public String getBeginDate()
     {
         return this.beginDate;
@@ -745,6 +750,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param beginDate maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public void setBeginDate(String beginDate)
     {
         this.beginDate = beginDate;
@@ -756,6 +762,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public String getEndDate()
     {
         return this.endDate;
@@ -767,6 +774,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param endDate maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public void setEndDate(String endDate)
     {
         this.endDate = endDate;
@@ -778,6 +786,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public String getBeginLockDate()
     {
         return this.beginLockDate;
@@ -789,6 +798,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param beginLockDate maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public void setBeginLockDate(String beginLockDate)
     {
         this.beginLockDate = beginLockDate;
@@ -800,6 +810,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public String getEndLockDate()
     {
         return this.endLockDate;
@@ -811,6 +822,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param endLockDate maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public void setEndLockDate(String endLockDate)
     {
         this.endLockDate = endLockDate;
@@ -822,6 +834,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public String getDayMask()
     {
         return this.dayMask;
@@ -833,6 +846,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param dayMask maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public void setDayMask(String dayMask)
     {
         this.dayMask = dayMask;
@@ -844,6 +858,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public Integer getTimeout()
     {
         return this.timeout;
@@ -855,6 +870,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param timeout maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
+    @Override
     public void setTimeout(Integer timeout)
     {
         this.timeout = timeout;
@@ -1049,7 +1065,7 @@ public class User extends FortEntity implements Constraint, Serializable
      * <li>  ------------------------------------------
      * </ul>
      *
-     * @param {@link Address}
+     * @param address
      */
     public void setAddress(Address address)
     {
@@ -1183,7 +1199,7 @@ public class User extends FortEntity implements Constraint, Serializable
     /**
      * Override hashcode so User compare operations work in case insensitive manner in collection classes.
      *
-     * @return
+     * @return int
      */
     public int hashCode()
     {

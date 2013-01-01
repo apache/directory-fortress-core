@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress;
@@ -15,7 +15,6 @@ import java.util.List;
  * Description of the Class
  *
  * @author Shawn McKinney
- * @created November 14, 2010
  */
 public class DelegatedReviewMgrConsole
 {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 package com.jts.fortress.rbac;
 
@@ -28,7 +28,6 @@ import java.util.List;
  * </ul>
  *
  * @author Shawn McKinney
- * @created February 25, 2012
  */
 @XmlRootElement(name = "fortAddress")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -195,7 +194,7 @@ public class Address implements Serializable
      * Override the standard equals on object to use the attributes of this class.
      *
      * @param o
-     * @return
+     * @return boolean value
      */
     @Override
     public boolean equals(Object o)
@@ -219,7 +218,7 @@ public class Address implements Serializable
     /**
      * Override the standard hashCode on object to use attributes of class.
      *
-     * @return
+     * @return int
      */
     @Override
     public int hashCode()

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ant;
@@ -15,7 +15,6 @@ import java.util.StringTokenizer;
  * Ant parser cannot deal with complex data attribute types.  The class extends a base entity.
  *
  * @author Shawn McKinney
- * @created November 20, 2010
  */
 public class UserAnt extends User
 {

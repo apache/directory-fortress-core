@@ -18,7 +18,6 @@ import java.util.List;
  * Description of the Class
  *
  * @author Shawn McKinney
- * @created September 18, 2010
  */
 public class TestRoleRelationship
 {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.samples;
@@ -31,7 +31,6 @@ import java.util.List;
  * are common to enterprise data center runtime environments.
  *
  * @author Shawn McKinney
- * @created March 6, 2011
  */
 public class AccessMgrSample extends TestCase
 {

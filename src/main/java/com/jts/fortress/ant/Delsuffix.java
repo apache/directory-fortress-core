@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.ant;
@@ -27,7 +27,6 @@ import java.util.List;
  * <p/>
  *
  * @author Shawn McKinney
- * @created January 21, 2010
  */
 public class Delsuffix
 {

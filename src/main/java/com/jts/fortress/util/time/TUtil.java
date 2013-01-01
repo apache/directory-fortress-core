@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.util.time;
@@ -7,11 +7,10 @@ package com.jts.fortress.util.time;
 import java.util.GregorianCalendar;
 
 /**
- * Utility class to convert current time/date into internal format, {@link Time}, used for {@link Constraint} checks {@link CUtil#validateConstraints(com.jts.fortress.rbac.Session, CUtil.ConstraintType)}.
+ * Utility class to convert current time/date into internal format, {@link Time}, used for {@link Constraint} checks {@link CUtil#validateConstraints(com.jts.fortress.rbac.Session, com.jts.fortress.util.time.CUtil.ConstraintType, boolean)}.
  * This utility processes custom date formats and should not be used by external programs.
  *
  * @author Shawn McKinney
- * @created February 13, 2010
  */
 public class TUtil
 {
@@ -19,7 +18,7 @@ public class TUtil
     /**
      * Get the curent timestamp from Java and convert to {@link Time} format.
      *
-     * @return
+     * @return Time
      */
     public static Time getCurrentTime()
     {

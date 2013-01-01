@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -23,8 +23,6 @@ import java.util.Set;
  * AccessMgrImpl Tester.
  *
  * @author Shawn McKinney
- * @version 1.0
- * @since <pre>01/24/2010</pre>
  */
 public class AccessMgrImplTest extends TestCase
 {

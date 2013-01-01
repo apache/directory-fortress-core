@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2012. Joshua Tree Software, LLC.  All Rights Reserved.
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
 package com.jts.fortress.rbac;
@@ -48,7 +48,7 @@ import java.util.UUID;
  * There is a many-to-many relationship between User's, RBAC Roles and Permissions.
  * <h3>{@link User}*<->*{@link Role}*<->*{@link com.jts.fortress.rbac.Permission}</h3>
  * <p/>
- * <img src="../../../../images/RbacCore.png">
+ * <img src="../doc-files/RbacCore.png">
  * <p/>
  * Example to create new RBAC Role:
  * <pre>
@@ -128,7 +128,6 @@ import java.util.UUID;
  * <p/>
  *
  * @author Shawn McKinney
- * @created October 3, 2009
  */
 @XmlRootElement(name = "fortRole")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -234,7 +233,6 @@ public class Role extends FortEntity
     /**
      * Sets the required name attribute on the Role object
      *
-     * @return name maps to 'cn' attribute on 'organizationalrole' object class.
      */
     public void setName(String name)
     {
@@ -331,6 +329,7 @@ public class Role extends FortEntity
      *
      * @return boolean indicating if temporal constraints are placed on Role.
      */
+    @Override
     public boolean isTemporalSet()
     {
         return (beginTime != null && endTime != null && beginDate != null && endDate != null && beginLockDate != null && endLockDate != null && dayMask != null);
@@ -343,6 +342,7 @@ public class Role extends FortEntity
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public String getBeginTime()
     {
         return this.beginTime;
@@ -354,6 +354,7 @@ public class Role extends FortEntity
      *
      * @param beginTime maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public void setBeginTime(String beginTime)
     {
         this.beginTime = beginTime;
@@ -365,6 +366,7 @@ public class Role extends FortEntity
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public String getEndTime()
     {
         return this.endTime;
@@ -376,6 +378,7 @@ public class Role extends FortEntity
      *
      * @param endTime maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public void setEndTime(String endTime)
     {
         this.endTime = endTime;
@@ -387,6 +390,7 @@ public class Role extends FortEntity
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public String getBeginDate()
     {
         return this.beginDate;
@@ -398,6 +402,7 @@ public class Role extends FortEntity
      *
      * @param beginDate maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public void setBeginDate(String beginDate)
     {
         this.beginDate = beginDate;
@@ -409,6 +414,7 @@ public class Role extends FortEntity
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public String getEndDate()
     {
         return this.endDate;
@@ -420,6 +426,7 @@ public class Role extends FortEntity
      *
      * @param endDate maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public void setEndDate(String endDate)
     {
         this.endDate = endDate;
@@ -431,6 +438,7 @@ public class Role extends FortEntity
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public String getBeginLockDate()
     {
         return this.beginLockDate;
@@ -442,6 +450,7 @@ public class Role extends FortEntity
      *
      * @param beginLockDate maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public void setBeginLockDate(String beginLockDate)
     {
         this.beginLockDate = beginLockDate;
@@ -453,6 +462,7 @@ public class Role extends FortEntity
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public String getEndLockDate()
     {
         return this.endLockDate;
@@ -464,6 +474,7 @@ public class Role extends FortEntity
      *
      * @param endLockDate maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public void setEndLockDate(String endLockDate)
     {
         this.endLockDate = endLockDate;
@@ -475,6 +486,7 @@ public class Role extends FortEntity
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public String getDayMask()
     {
         return this.dayMask;
@@ -486,6 +498,7 @@ public class Role extends FortEntity
      *
      * @param dayMask maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public void setDayMask(String dayMask)
     {
         this.dayMask = dayMask;
@@ -497,6 +510,7 @@ public class Role extends FortEntity
      *
      * @return int maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public Integer getTimeout()
     {
         return this.timeout;
@@ -508,6 +522,7 @@ public class Role extends FortEntity
      *
      * @param timeout maps to 'ftCstr' attribute in 'ftRls' object class.
      */
+    @Override
     public void setTimeout(Integer timeout)
     {
         this.timeout = timeout;
@@ -517,6 +532,7 @@ public class Role extends FortEntity
      * Get the names of roles that are parents (direct ascendants) of this role.
      * @return Set of parent role names assigned to this role.
      */
+    @Override
     public Set<String> getParents()
     {
         return parents;
@@ -526,6 +542,7 @@ public class Role extends FortEntity
      * Set the names of roles names that are parents (direct ascendants) of this role.
      * @param parents contains the Set of parent role names assigned to this role.
      */
+    @Override
     public void setParents(Set<String> parents)
     {
         this.parents = parents;
@@ -535,6 +552,7 @@ public class Role extends FortEntity
      * Set the occupant attribute with the contents of the User dn.
      * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
      */
+    @Override
     public void setParent(String parent)
     {
         if (this.parents == null)
@@ -548,6 +566,7 @@ public class Role extends FortEntity
      * Set the occupant attribute with the contents of the User dn.
      * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
      */
+    @Override
     public void delParent(String parent)
     {
         if (this.parents != null)
