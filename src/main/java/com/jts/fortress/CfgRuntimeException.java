@@ -5,7 +5,7 @@
 package com.jts.fortress;
 
 /**
- * This exception extends {@code BaseRuntimeException} and is thrown when Fortress config startup failed.
+ * This exception extends {@link BaseRuntimeException} and is thrown when Fortress config startup failed.
  * This is critical runtime exception and means system is inoperable due to a cfg error.
  * See the {@link GlobalErrIds} javadoc for list of error ids.
  *
@@ -14,7 +14,7 @@ package com.jts.fortress;
 public class CfgRuntimeException extends BaseRuntimeException
 {
     private int subsystem;
-    private Exception m_Exception;
+    private Exception exception;
     private Object moreInfo;
 
     /**
@@ -26,7 +26,7 @@ public class CfgRuntimeException extends BaseRuntimeException
     public CfgRuntimeException(int errorId, String newMsgText, Exception newException)
     {
         super(errorId, newMsgText, newException);
-        this.m_Exception = newException;
+        this.exception = newException;
     }
 
     /**

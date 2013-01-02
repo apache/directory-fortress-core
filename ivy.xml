@@ -19,7 +19,7 @@
 
     <dependencies>
 
-        <!-- Fortress core libs: -->
+        <!-- Fortress core is dependent on these libs: -->
         <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>
         <dependency org="commons-configuration" name="commons-configuration" rev="1.6" conf="default->master"/>
         <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>
@@ -43,12 +43,11 @@
         <dependency org="org.slf4j" name="slf4j-api" rev="1.6.1" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.6.1" conf="default->master"/>
 
-        <!-- Fortress is not dependent on these source bundles.  They are used to create a QUICKSTART distribution package to demo capabilities: -->
-        <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC20"  conf="default->master"/>
-        <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC20"  conf="default->master">
+        <!-- The Fortress core is not dependent on sentry or enmasse artifacts, they're required for the QUICKSTART demo package: -->
+        <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC21"  conf="default->master"/>
+        <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC21"  conf="default->master">
             <artifact name="enmasse" type="jar"/>
         </dependency>
-
 
     </dependencies>
 </ivy-module>
