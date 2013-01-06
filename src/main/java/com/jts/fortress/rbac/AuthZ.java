@@ -5,8 +5,6 @@
 package com.jts.fortress.rbac;
 
 
-import com.jts.fortress.rbac.FortEntity;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,38 +12,24 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
- * This entity class contains OpenLDAP slapd access log records that correspond to authorization attempts made to the directory.
+ * This entity class contains OpenLDAP slapo-accesslog records that correspond to authorization attempts made to the directory.
  * <p/>
- * The auditSearch Structural object class is used to store authorization events that can later be queried via ldap API.<br />
+ * The auditCompare Structural object class is used by the slapo-accesslog overlay to store record of fortress authorization events.
+ * These events can later be pulled as audit trail using ldap protocol.  The data pertaining to authZ events are stored in this entity record.<br/>
  * <p/>
- * <code>For  the  Search class the reqScope attribute contains the scope of the</code><br />
- * <code>original search request, using the values specified for  the  LDAP  URL</code><br />
- * <code>format. I.e.  base, one, sub, or subord.  The reqDerefAliases attribute</code><br />
- * <code>is one of never, finding, searching, or always,  denoting  how  aliases</code><br />
- * <code>will  be  processed during the search.  The reqAttrsOnly attribute is a</code><br />
- * <code>Boolean value showing TRUE if only attribute names were  requested,  or</code><br />
- * <code>FALSE  if  attributes  and  their values were requested.  The reqFilter</code><br />
- * <code>attribute carries the filter used in the search request.   The  reqAttr</code><br />
- * <code>attribute  lists  the  requested attributes if specific attributes were</code><br />
- * <code>requested.  The reqEntries attribute is the integer count of  how  many</code><br />
- * <code>entries  were  returned  by  this search request.  The reqSizeLimit and</code><br />
- * <code>reqTimeLimit attributes indicate what  limits  were  requested  on  the</code><br />
- * <code>search operation.</code><br />
  * <ul>
  * <li>  ------------------------------------------
- * <li> <code>objectclass  (  1.3.6.1.4.1.4203.666.11.5.2.11</code>
- * <li> <code>NAME 'auditSearch'</code>
- * <li> <code>DESC 'Search operation'</code>
- * <li> <code>SUP auditReadObject STRUCTURAL</code>
- * <li> <code>MUST ( reqScope $ reqDerefAliases $ reqAttrsOnly )</code>
- * <li> <code>MAY ( reqFilter $ reqAttr $ reqEntries $ reqSizeLimit $</code>
- * <li> <code>reqTimeLimit ) )</code>
+ * <li> <code>objectclass (  1.3.6.1.4.1.4203.666.11.5.2.7</code>
+ * <li> <code>NAME 'auditCompare'</code>
+ * <li> <code>DESC 'Compare operation'</code>
+ * <li> <code>SUP auditObject STRUCTURAL</code>
+ * <li> <code>MUST reqAssertion )</code>
  * <li> ------------------------------------------
  * </ul>
+ * <code>For the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request</code>
  * <p/>
- * Note this class uses descriptions pulled from man pages on slapd access log.
+ * Note this class uses descriptions pulled from man pages on slapo-accesslog.
  * <p/>
-
  *
  * @author Shawn McKinney
  */
@@ -134,7 +118,6 @@ public class AuthZ extends FortEntity implements Serializable
         this.createTimestamp = createTimestamp;
     }
 
-
     /**
      * Return the user dn containing the identity of log user who added the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
@@ -158,7 +141,6 @@ public class AuthZ extends FortEntity implements Serializable
     {
         this.creatorsName = creatorsName;
     }
-
 
     /**
      * Return the Change Sequence Number (CSN) containing sequence number that is used for OpenLDAP synch replication functionality.
@@ -199,7 +181,6 @@ public class AuthZ extends FortEntity implements Serializable
     {
         this.entryDN = entryDN;
     }
-
 
     /**
      * Get the attribute that contains the Universally Unique ID (UUID) of the corresponding 'auditSearch' record.

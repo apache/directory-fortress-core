@@ -1457,6 +1457,15 @@ public class GlobalErrIds
      */
     public final static int REST_UNKNOWN_ERR = 10107;
 
+    /**
+     *
+     */
+    public final static int REST_FORBIDDEN_ERR = 10108;
+
+    /**
+     *
+     */
+    public final static int REST_UNAUTHORIZED_ERR = 10109;
 
 }
 

@@ -49,6 +49,8 @@ public class RestUtils
     private static final String SERVICE = "enmasse-" + VERSION;
     private static final String URI = "http://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
     private static final int HTTP_OK = 200;
+    private static final int HTTP_401_UNAUTHORIZED = 401;
+    private static final int HTTP_403_FORBIDDEN = 403;
     private static final int HTTP_404_NOT_FOUND = 404;
 
     /**
@@ -239,6 +241,18 @@ public class RestUtils
             {
                 szResponse = IOUtils.toString(post.getResponseBodyAsStream(), "UTF-8");
                 log.debug(CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], response=" + szResponse);
+            }
+            else if(result == HTTP_401_UNAUTHORIZED)
+            {
+                String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], 401 function unauthorized on host";
+                log.error(error);
+                throw new RestException(GlobalErrIds.REST_UNAUTHORIZED_ERR, error);
+            }
+            else if(result == HTTP_403_FORBIDDEN)
+            {
+                String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], 403 function forbidden on host";
+                log.error(error);
+                throw new RestException(GlobalErrIds.REST_FORBIDDEN_ERR, error);
             }
             else if(result == HTTP_404_NOT_FOUND)
             {

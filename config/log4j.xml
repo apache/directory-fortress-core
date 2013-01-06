@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
+  ~ Copyright © 2009-2013. Joshua Tree Software, LLC.  All Rights Reserved.
   -->
-
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 
     <appender name="file" class="org.apache.log4j.FileAppender">
-        <param name="File" value="/home/smckinn/tmp/oamTest.log"/>
+        <param name="File" value="fortress.log"/>
         <param name="Append" value="true"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%t %-5p %c{2} - %m%n"/>
@@ -21,22 +20,12 @@
         </layout>
     </appender>
 
-    <category name="com.jts.fortress.security.admin.ant" class="org.apache.log4j.Logger" additivity="false">
+    <category name="com.jts.fortress.rest.RestUtils" class="org.apache.log4j.Logger" additivity="false">
         <priority value="INFO" class="org.apache.log4j.Level"/>
-        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
     </category>
 
-    <category name="com.jts.fortress.security.rbac" class="org.apache.log4j.Logger" additivity="false">
-        <priority value="INFO" class="org.apache.log4j.Level"/>
-        <appender-ref ref="console"/>
-    </category>
-
-    <category name="com.jts.fortress" class="org.apache.log4j.Logger" additivity="false">
-        <priority value="INFO" class="org.apache.log4j.Level"/>
-        <appender-ref ref="console"/>
-    </category>
-
-    <category name="com.jts.fortress.security.example" class="org.apache.log4j.Logger" additivity="false">
+    <category name="com.jts.fortress.example" class="org.apache.log4j.Logger" additivity="false">
         <priority value="DEBUG" class="org.apache.log4j.Level"/>
         <appender-ref ref="console"/>
     </category>
@@ -47,3 +36,5 @@
     </root>
 
 </log4j:configuration>
+
+

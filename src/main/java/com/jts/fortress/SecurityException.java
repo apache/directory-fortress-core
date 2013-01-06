@@ -378,8 +378,10 @@ package com.jts.fortress;
  * <li> <code>{@link GlobalErrIds#REST_MARSHALL_ERR} = 10103;</code>
  * <li> <code>{@link GlobalErrIds#REST_UNMARSHALL_ERR} = 10104;</code>
  * <li> <code>{@link GlobalErrIds#REST_GET_FAILED} = 10105;</code>
- * <li> <code>{@link GlobalErrIds#REST_NOT_FOUND_ERR} = 10105;</code>
- * <li> <code>{@link GlobalErrIds#REST_UNKNOWN_ERR} = 10105;</code>
+ * <li> <code>{@link GlobalErrIds#REST_NOT_FOUND_ERR} = 10106;</code>
+ * <li> <code>{@link GlobalErrIds#REST_UNKNOWN_ERR} = 10107;</code>
+ * <li> <code>{@link GlobalErrIds#REST_FORBIDDEN_ERR} = 10108;</code>
+ * <li> <code>{@link GlobalErrIds#REST_UNAUTHORIZED_ERR} = 10109;</code>
  * </ul>
  * <p/>
  *
