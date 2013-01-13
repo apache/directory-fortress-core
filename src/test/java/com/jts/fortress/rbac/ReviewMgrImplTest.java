@@ -57,18 +57,6 @@ public class ReviewMgrImplTest extends TestCase
         suite.addTest(new ReviewMgrImplTest("testAuthorizedPermissionRoles"));
         suite.addTest(new ReviewMgrImplTest("testPermissionUsers"));
         suite.addTest(new ReviewMgrImplTest("testAuthorizedPermissionUsers"));
-
-        /*
-
-        suite.addTest(new ReviewMgrImplTest(""));
-        suite.addTest(new ReviewMgrImplTest(""));
-        suite.addTest(new ReviewMgrImplTest(""));
-        suite.addTest(new ReviewMgrImplTest(""));
-        suite.addTest(new ReviewMgrImplTest(""));
-        suite.addTest(new ReviewMgrImplTest(""));
-        suite.addTest(new ReviewMgrImplTest(""));
-        suite.addTest(new ReviewMgrImplTest(""));
-        */
         return suite;
     }
 

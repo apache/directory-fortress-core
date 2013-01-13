@@ -1214,16 +1214,23 @@ public class CommandLineInterpreter
      */
     private boolean constructManagers()
     {
+        String contextId = GlobalIds.HOME;
         boolean success = false;
+        // This property can be overriden with system property:
+        String tenant = System.getProperty(GlobalIds.TENANT);
+        if(VUtil.isNotNullOrEmpty(tenant) && !tenant.equals("${tenant}"))
+        {
+            contextId = tenant;
+        }
         try
         {
-            adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
-            reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
-            accessMgr = AccessMgrFactory.createInstance(GlobalIds.HOME);
-            delAdminMgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
-            delReviewMgr = DelReviewMgrFactory.createInstance(GlobalIds.HOME);
-            delAccessMgr = DelAccessMgrFactory.createInstance(GlobalIds.HOME);
-            PwPolicyMgr pwPolicyMgr = PwPolicyMgrFactory.createInstance(GlobalIds.HOME);
+            adminMgr = AdminMgrFactory.createInstance(contextId);
+            reviewMgr = ReviewMgrFactory.createInstance(contextId);
+            accessMgr = AccessMgrFactory.createInstance(contextId);
+            delAdminMgr = DelAdminMgrFactory.createInstance(contextId);
+            delReviewMgr = DelReviewMgrFactory.createInstance(contextId);
+            delAccessMgr = DelAccessMgrFactory.createInstance(contextId);
+            PwPolicyMgr pwPolicyMgr = PwPolicyMgrFactory.createInstance(contextId);
             success = true;
         }
         catch (com.jts.fortress.SecurityException se)

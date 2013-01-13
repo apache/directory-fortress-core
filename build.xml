@@ -425,6 +425,7 @@
         <echo message="Run the Fortress programming sample JUnit tests..."/>
         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="tenant" value="${tenant}"/>
+            <sysproperty key="version" value="${version}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
             <test name="${test.sample.entry}"/>
