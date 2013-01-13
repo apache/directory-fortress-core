@@ -7,6 +7,7 @@ package com.jts.fortress.samples;
 import com.jts.fortress.*;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.rbac.OrgUnit;
+import com.jts.fortress.rbac.TestUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -96,7 +97,7 @@ public class CreateUserOrgHierarchySample extends TestCase
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.
-            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
+            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
             for (int i = 1; i < TEST_NUMBER; i++)
             {
                 // The key that must be set to locate any OrgUnit is simply the name and type.
@@ -133,7 +134,7 @@ public class CreateUserOrgHierarchySample extends TestCase
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.
-            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
+            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
 
             // Instantiate the root OrgUnit entity.  OrgUnit requires name and type before addition.
             OrgUnit baseOrgUnit = new OrgUnit(TEST_HIER_BASE_USERORG, OrgUnit.Type.USER);
@@ -185,7 +186,7 @@ public class CreateUserOrgHierarchySample extends TestCase
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.
-            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
+            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
 
             // This parent has many children.  They must be deleted before parent itself can.
             OrgUnit parentOrgUnit = new OrgUnit(TEST_HIER_DESC_USERORG_PREFIX + 1, OrgUnit.Type.USER);
@@ -225,7 +226,7 @@ public class CreateUserOrgHierarchySample extends TestCase
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.
-            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
+            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
 
             // Instantiate the parent User OrgUnit entity.  This needs a name and type before it can be added to ldap.
             OrgUnit parentOrgUnit = new OrgUnit(TEST_HIER_DESC_USERORG_PREFIX + 1, OrgUnit.Type.USER);
@@ -270,7 +271,7 @@ public class CreateUserOrgHierarchySample extends TestCase
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.
-            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
+            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
 
             // This child OrgUnit has many parents:
             OrgUnit childOrgUnit = new OrgUnit(TEST_HIER_ASC_USERORG_PREFIX + 1, OrgUnit.Type.USER);
@@ -309,7 +310,7 @@ public class CreateUserOrgHierarchySample extends TestCase
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.
-            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
+            DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
 
             // Instantiate the child OrgUnit.  This needs a name and type.
             OrgUnit childOrgUnit = new OrgUnit(TEST_HIER_ASC_USERORG_PREFIX + 1, OrgUnit.Type.USER);

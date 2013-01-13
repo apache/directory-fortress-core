@@ -11,7 +11,9 @@ import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
+import com.jts.fortress.rbac.TestUtils;
 import com.jts.fortress.rbac.User;
+import com.jts.fortress.util.LogUtil;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -57,6 +59,29 @@ public class CreateUserSample extends TestCase
         return suite;
     }
 
+    /**
+     * Determines if teardown needs to occur on sample data.
+     *
+     * @return true if teardown is required
+     */
+    static boolean teardownRequired()
+    {
+        boolean tearDown = true;
+         try
+        {
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
+            User inUser = new User(TEST_USERID, TEST_PASSWORD.toCharArray());
+            User outUser2 = reviewMgr.readUser(inUser);
+            log.debug(CLS_NM + ".teardownRequired");
+        }
+        catch (com.jts.fortress.SecurityException ex)
+        {
+            tearDown = false;
+        }
+        log.info(CLS_NM + ".teardownRequired:" + tearDown);
+        return tearDown;
+    }
+
    /**
      * The deleteUser will completely remove the User data from the LDAP directory.  There is also a 'softDelete' that
      * can be used to disable the User if hard delete is not the aim.
@@ -74,13 +99,13 @@ public class CreateUserSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             User inUser = new User(TEST_USERID);
             adminMgr.deleteUser(inUser);
 
             // now read it back:
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
             try
             {
                 // this should fail because User was deleted above:
@@ -112,7 +137,7 @@ public class CreateUserSample extends TestCase
         {
             // Instantiate the AdminMgr implementation.  All AdminMgr APIs can throw a SecurityException in the event
             // of rule violation or system error.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             // You do not have to assign a Role to User when calling 'addUser'.  Role assignment may be done using the 'assignUser' API.
             /**
              * Create new User entity:
@@ -126,11 +151,12 @@ public class CreateUserSample extends TestCase
             User inUser = new User(TEST_USERID, TEST_PASSWORD.toCharArray());
             inUser.setOu(CreateUserOrgSample.TEST_USER_OU_NM);
             // Now call the add API.  The API will return User entity with associated LDAP dn if creation was successful.
+
             User outUser = adminMgr.addUser(inUser);
             assertNotNull(outUser);
 
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
 
             // now read the newly created User entity back:
             User outUser2 = reviewMgr.readUser(inUser);

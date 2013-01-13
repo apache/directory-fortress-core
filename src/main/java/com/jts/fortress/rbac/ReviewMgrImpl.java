@@ -550,7 +550,16 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OBJECT_NULL);
         checkAccess(CLS_NM, methodName);
         Permission pe = permP.read(perm);
-        return new ArrayList<String>(pe.getRoles());
+        List<String> retVals;
+        if(pe != null && VUtil.isNotNullOrEmpty(pe.getRoles()))
+        {
+            retVals = new ArrayList<String>(pe.getRoles());
+        }
+        else
+        {
+            retVals =  new ArrayList<String>();
+        }
+        return retVals;
     }
 
     /**
@@ -603,7 +612,16 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL);
         checkAccess(CLS_NM, methodName);
         Permission pe = permP.read(perm);
-        return new ArrayList<String>(pe.getUsers());
+        List<String> retVals;
+        if(pe != null && VUtil.isNotNullOrEmpty(pe.getUsers()))
+        {
+            retVals = new ArrayList<String>(pe.getUsers());
+        }
+        else
+        {
+            retVals =  new ArrayList<String>();
+        }
+        return retVals;
     }
 
     /**

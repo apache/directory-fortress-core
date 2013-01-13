@@ -419,12 +419,11 @@
      </target>
 
     <!-- =================================
-          target: test-samples - runs junit samples tests
+          target: test-samples - runs junit programming samples tests
          ================================= -->
     <target name="test-samples" depends="compile-test,init-fortress-config" description="--> runs (junit) sample unit tests">
-        <echo message="Run the Fortress sample JUnit tests..."/>
+        <echo message="Run the Fortress programming sample JUnit tests..."/>
         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
-            <sysproperty key="isFirstJUnitRun" value="false" />
             <sysproperty key="tenant" value="${tenant}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
@@ -433,38 +432,9 @@
     </target>
 
     <!-- =================================
-          target: test-samples-init - runs junit samples tests
+          target: test-full - runs junit regression tests
          ================================= -->
-     <target name="test-samples-init" depends="compile-test,init-fortress-config" description="--> runs (junit) sample unit tests without teardown">
-         <echo message="Run the Fortress sample JUnit tests..."/>
-         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
-             <sysproperty key="isFirstJUnitRun" value="true" />
-             <sysproperty key="tenant" value="${tenant}"/>
-             <classpath refid="test.class.path"/>
-             <formatter type="plain" usefile="false"/>
-             <test name="${test.sample.entry}"/>
-         </junit>
-     </target>
-
-    <!-- =================================
-          target: test-full-init - runs before 'test-full' and performs junit regression tests without teardown operations
-         ================================= -->
-     <target name="test-full-init" depends="build-jar,compile-test,init-fortress-config" description="--> run junit regression tests without teardown">
-         <echo message="Run the Fortress regression JUnit tests without teardown.  Be patient this can take a while to complete."/>
-          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
-             <sysproperty key="isFirstJUnitRun" value="true" />
-             <sysproperty key="version" value="${version}"/>
-             <sysproperty key="tenant" value="${tenant}"/>
-             <classpath refid="test.class.path"/>
-             <formatter type="plain" usefile="false"/>
-             <test name="${test.regression.entry}"/>
-         </junit>
-     </target>
-
-    <!-- =================================
-          target: test-full - runs after 'test-full-init' and performs junit regression tests with teardown operations
-         ================================= -->
-    <target name="test-full" depends="build-jar,compile-test,init-fortress-config" description="--> run junit FULL regression tests with teardown">
+    <target name="test-full" depends="build-jar,compile-test,init-fortress-config" description="--> run junit FULL regression tests">
         <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
@@ -542,6 +512,7 @@
                  <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
              </classpath>
              <sysproperty key="version" value="${version}"/>
+             <sysproperty key="tenant" value="${tenant}"/>
              <arg value="-buildfile"/>
              <arg file="${param1}"/>
              <arg value="-Dbasedir=${ldap.setup.dir}"/>

@@ -4,6 +4,8 @@
 
 package com.jts.fortress.samples;
 
+import com.jts.fortress.*;
+import com.jts.fortress.util.LogUtil;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;
@@ -16,12 +18,27 @@ import junit.framework.TestCase;
 public class AllSamplesJUnitTest extends TestCase
 {
 
+/*
     private static boolean isFirstRun = false;
 
     public static boolean isFirstRun() {
         return isFirstRun;
     }
+*/
 
+    private static boolean isFirstRun = getFirstRun();
+    private static boolean getFirstRun()
+    {
+        isFirstRun = !CreateUserSample.teardownRequired();
+        return isFirstRun;
+    }
+
+    public static boolean isFirstRun()
+    {
+        return isFirstRun;
+    }
+
+    @Deprecated
     public static void setFirstRun(boolean firstRun) {
         isFirstRun = firstRun;
     }
@@ -38,9 +55,10 @@ public class AllSamplesJUnitTest extends TestCase
     {
         TestSuite suite = new TestSuite();
 
-        String szRunProp = "isFirstJUnitRun";
-        String szFirstRun = System.getProperty(szRunProp);
-        setFirstRun(szFirstRun != null && szFirstRun.equalsIgnoreCase("true"));
+        //String szRunProp = "isFirstJUnitRun";
+        //String szFirstRun = System.getProperty(szRunProp);
+        //setFirstRun(szFirstRun != null && szFirstRun.equalsIgnoreCase("true"));
+
         suite.addTest(new TestSuite(CreateUserOrgSample.class));
         suite.addTest(new TestSuite(CreatePermOrgSample.class));
         suite.addTest(new TestSuite(CreateRoleSample.class));

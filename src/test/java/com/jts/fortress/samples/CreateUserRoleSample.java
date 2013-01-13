@@ -10,6 +10,7 @@ import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
 import com.jts.fortress.SecurityException;
+import com.jts.fortress.rbac.TestUtils;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.UserRole;
 import junit.framework.Test;
@@ -71,7 +72,7 @@ public class CreateUserRoleSample extends TestCase
         try
         {
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
 
             // This should return null because all Roles assigned to User were removed above:
             List<UserRole> assignedRoles = reviewMgr.assignedRoles(inUser);
@@ -79,7 +80,7 @@ public class CreateUserRoleSample extends TestCase
             if(assignedRoles != null)
             {
                 // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-                AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+                AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
                 for(UserRole uRole : assignedRoles)
                 {
                     // Call the API to deassign the Role from the User entity.  This will remove 'oamRA' and 'oamRC' attributes from the 'oamUserAttrs' object class.
@@ -89,7 +90,7 @@ public class CreateUserRoleSample extends TestCase
 
             // This should return null because all Roles assigned to User were removed above:
             assignedRoles = reviewMgr.assignedRoles(inUser);
-            assertTrue(szLocation + " failed deassign test", assignedRoles == null);
+            assertTrue(szLocation + " failed deassign test", assignedRoles.size() == 0);
         }
         catch (SecurityException ex)
         {
@@ -111,7 +112,7 @@ public class CreateUserRoleSample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
 
             // Create roles, sampleRole1 - sampleRole10
             for(int i = 1; i < 11; i++)
@@ -138,7 +139,7 @@ public class CreateUserRoleSample extends TestCase
             }
 
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(GlobalIds.HOME);
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
 
             // Return the list of Roles assigned to User.  The User - Role assignments are loaded into the UserRole entity:
             List<UserRole> assignedRoles = reviewMgr.assignedRoles(inUser);

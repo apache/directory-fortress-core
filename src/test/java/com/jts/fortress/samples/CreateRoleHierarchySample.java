@@ -7,6 +7,7 @@ package com.jts.fortress.samples;
 import com.jts.fortress.*;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.rbac.Role;
+import com.jts.fortress.rbac.TestUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -91,7 +92,7 @@ public class CreateRoleHierarchySample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             for (int i = 1; i < TEST_NUMBER; i++)
             {
                 // The key that must be set to locate any Role is simply the name.
@@ -127,7 +128,7 @@ public class CreateRoleHierarchySample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
 
             // Instantiate the Role entity.
             Role baseRole = new Role(TEST_HIER_BASE_ROLE);
@@ -176,7 +177,7 @@ public class CreateRoleHierarchySample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
 
             // This parent has many children.  They must be deleted before parent itself can.
             Role parentRole = new Role(TEST_HIER_DESC_ROLE_PREFIX + 1);
@@ -213,7 +214,7 @@ public class CreateRoleHierarchySample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
 
             // Instantiate the Role entity.
             Role parentRole = new Role(TEST_HIER_DESC_ROLE_PREFIX + 1);
@@ -255,7 +256,7 @@ public class CreateRoleHierarchySample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
 
             // This child has many parents:
             Role childRole = new Role(TEST_HIER_ASC_ROLE_PREFIX + 1);
@@ -291,7 +292,7 @@ public class CreateRoleHierarchySample extends TestCase
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-            AdminMgr adminMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
+            AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
 
             // Instantiate the Role entity.
             Role childRole = new Role(TEST_HIER_ASC_ROLE_PREFIX + 1);
