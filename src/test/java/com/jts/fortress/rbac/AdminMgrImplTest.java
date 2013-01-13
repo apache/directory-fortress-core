@@ -30,7 +30,6 @@ public class AdminMgrImplTest extends TestCase
     private static final String CLS_NM = AdminMgrImplTest.class.getName();
     final protected static Logger log = Logger.getLogger(CLS_NM);
     static Session adminSess = null;
-    private static final String contextId = FortressJUnitTest.getContext();
 
     public AdminMgrImplTest(String name)
     {
@@ -108,7 +107,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance(contextId);
+                adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] usr : uArray)
             {
@@ -169,7 +168,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance(contextId);
+                adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] usr : uArray)
             {
@@ -1606,7 +1605,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance(contextId);
+                adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] obj : objArray)
             {
@@ -1655,7 +1654,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance(contextId);
+                adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] obj : objArray)
             {
@@ -1708,7 +1707,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance(contextId);
+                adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] obj : objArray)
             {
@@ -1757,7 +1756,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance(contextId);
+                adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] obj : objArray)
             {
@@ -1795,7 +1794,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance(contextId);
+                adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] obj : objArray)
             {
@@ -1835,7 +1834,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance(contextId);
+                adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] obj : objArray)
             {
@@ -1890,7 +1889,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance(contextId);
+                adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] rle : rArray)
             {
@@ -2035,7 +2034,7 @@ public class AdminMgrImplTest extends TestCase
             }
             else
             {
-                adminMgr = AdminMgrFactory.createInstance(contextId);
+                adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] rle : rArray)
             {
@@ -2234,7 +2233,7 @@ public class AdminMgrImplTest extends TestCase
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        AdminMgr adminMgr = AdminMgrFactory.createInstance(contextId, adminSess);
+        AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext(), adminSess);
         return adminMgr;
     }
 }

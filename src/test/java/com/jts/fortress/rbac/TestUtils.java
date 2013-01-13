@@ -4,6 +4,7 @@
 
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.GlobalIds;
 import com.jts.fortress.util.LogUtil;
 import com.jts.fortress.util.attr.VUtil;
 import junit.framework.TestCase;
@@ -25,6 +26,17 @@ public class TestUtils extends TestCase
 {
     final protected static Logger log = Logger.getLogger(TestUtils.class.getName());
 
+    private static String contextId = GlobalIds.HOME;
+    public static String getContext()
+    {
+        // This property can be overriden with system property:
+        String tenant = System.getProperty(GlobalIds.TENANT);
+        if(VUtil.isNotNullOrEmpty(tenant) && !tenant.equals("${tenant}"))
+        {
+            contextId = tenant;
+        }
+        return contextId;
+    }
 
     /**
      * 

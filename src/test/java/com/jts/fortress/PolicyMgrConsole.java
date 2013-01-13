@@ -8,6 +8,8 @@
 package com.jts.fortress;
 
 import com.jts.fortress.rbac.PwPolicy;
+import com.jts.fortress.rbac.TestUtils;
+import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 
 public class PolicyMgrConsole
@@ -39,8 +41,7 @@ public class PolicyMgrConsole
 	{
 		try
 		{
-			//pm = PwPolicyMgrFactory.createInstance(GlobalIds.HOME);
-			pm = PwPolicyMgrFactory.createInstance("client123");
+			pm = PwPolicyMgrFactory.createInstance(TestUtils.getContext());
 		}
 		catch (SecurityException e)
 		{

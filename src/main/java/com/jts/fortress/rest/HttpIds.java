@@ -4,7 +4,7 @@
 package com.jts.fortress.rest;
 
 /**
- * Contains global HttpIds that map to the Fortress REST server En Masse.
+ * Contains global HttpIds that map to the Fortress REST server EnMasse.
  *
  * @author Shawn McKinney
  */

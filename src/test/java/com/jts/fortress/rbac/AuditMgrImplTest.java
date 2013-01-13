@@ -25,7 +25,6 @@ import java.util.Map;
 public class AuditMgrImplTest extends TestCase
 {
     private static final String CLS_NM = AuditMgrImplTest.class.getName();
-    private static final String contextId = FortressJUnitTest.getContext();
     private static Session adminSess = null;
     final protected static Logger log = Logger.getLogger(CLS_NM);
 
@@ -388,7 +387,7 @@ public class AuditMgrImplTest extends TestCase
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        AuditMgr auditMgr = AuditMgrFactory.createInstance(contextId, adminSess);
+        AuditMgr auditMgr = AuditMgrFactory.createInstance(TestUtils.getContext(), adminSess);
         return auditMgr;
     }
 }

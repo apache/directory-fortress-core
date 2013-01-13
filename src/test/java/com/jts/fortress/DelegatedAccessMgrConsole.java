@@ -9,6 +9,7 @@ package com.jts.fortress;
 
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
+import com.jts.fortress.rbac.TestUtils;
 import com.jts.fortress.rbac.User;
 import com.jts.fortress.rbac.Session;
 
@@ -34,7 +35,7 @@ public class DelegatedAccessMgrConsole
 	{
 		try
 		{
-			dAmgr = DelAccessMgrFactory.createInstance(GlobalIds.HOME);
+			dAmgr = DelAccessMgrFactory.createInstance(TestUtils.getContext());
 		}
 		catch (SecurityException e)
 		{

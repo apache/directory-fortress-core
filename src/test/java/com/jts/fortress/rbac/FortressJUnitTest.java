@@ -5,6 +5,7 @@
 package com.jts.fortress.rbac;
 
 import com.jts.fortress.GlobalIds;
+import com.jts.fortress.util.attr.VUtil;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;
@@ -30,22 +31,6 @@ import junit.framework.TestCase;
  */
 public class FortressJUnitTest extends TestCase
 {
-    public static String getContext()
-    {
-        return context;
-    }
-
-    public static void setContext(String context)
-    {
-        FortressJUnitTest.context = context;
-    }
-    //private static String context = "";
-
-    private static String context = GlobalIds.HOME;
-    //private static String context = "Client123";
-    //private static String context = "Client456";
-    //private static String context = "Client789";
-
     private static boolean adminEnabled;
     public static boolean isAdminEnabled()
     {

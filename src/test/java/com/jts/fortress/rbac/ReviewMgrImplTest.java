@@ -28,7 +28,6 @@ import java.util.Set;
 public class ReviewMgrImplTest extends TestCase
 {
     private static final String CLS_NM = ReviewMgrImplTest.class.getName();
-    private static final String contextId = FortressJUnitTest.getContext();
     final protected static Logger log = Logger.getLogger(CLS_NM);
     static Session adminSess = null;
 
@@ -1239,7 +1238,7 @@ public class ReviewMgrImplTest extends TestCase
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(contextId, adminSess);
+        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext(), adminSess);
         return reviewMgr;
     }
 }

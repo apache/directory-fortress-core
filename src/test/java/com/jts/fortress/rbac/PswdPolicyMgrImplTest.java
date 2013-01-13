@@ -29,7 +29,6 @@ import java.util.List;
 public class PswdPolicyMgrImplTest extends TestCase
 {
     private static final String CLS_NM = PswdPolicyMgrImplTest.class.getName();
-    private static final String contextId = FortressJUnitTest.getContext();
     final protected static Logger log = Logger.getLogger(CLS_NM);
 
     public PswdPolicyMgrImplTest(String name)
@@ -210,7 +209,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         try
         {
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User oldUser = UserTestData.getUser(oldusr);
             User newUser = UserTestData.getUser(newusr);
             oldUser.setPwPolicy(PolicyTestData.getName(plcy));
@@ -400,7 +399,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         try
         {
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User user = UserTestData.getUser(usr);
             long expireSecs = PolicyTestData.getExpireWarning(plcy);
             long maxSecs = PolicyTestData.getMaxAge(plcy);
@@ -464,7 +463,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         try
         {
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User user = UserTestData.getUser(usr);
             user.setPwPolicy(PolicyTestData.getName(plcy));
             adminMgr.updateUser(user);
@@ -534,7 +533,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User user = UserTestData.getUser(usr);
             policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
             Session s1 = null;
@@ -604,7 +603,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User user = UserTestData.getUser(usr);
             policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
             Session s1 = null;
@@ -682,7 +681,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User user = UserTestData.getUser(usr);
 
             policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
@@ -743,7 +742,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User user = UserTestData.getUser(usr);
 
             policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
@@ -828,7 +827,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User user = UserTestData.getUser(usr);
             policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
             boolean mustChange = PolicyTestData.getMustChange(plcy);
@@ -1128,7 +1127,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance(contextId);
+            PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance(TestUtils.getContext());
             for (String[] plcy : pArray)
             {
                 PwPolicy entity = policyMgr.read(PolicyTestData.getName(plcy));
@@ -1158,7 +1157,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance(contextId);
+            PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance(TestUtils.getContext());
             List<PwPolicy> policies = policyMgr.search(srchValue);
             assertNotNull(policies);
             assertTrue(CLS_NM + "search list size check", pArray.length == policies.size());
@@ -1255,7 +1254,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance(contextId, adminSess);
+        PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance(TestUtils.getContext(), adminSess);
         return policyMgr;
     }
 }

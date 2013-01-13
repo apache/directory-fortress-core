@@ -9,10 +9,12 @@ package com.jts.fortress;
 
 import com.jts.fortress.rbac.AdminRole;
 import com.jts.fortress.rbac.OrgUnit;
+import com.jts.fortress.rbac.TestUtils;
 import com.jts.fortress.rbac.UserAdminRole;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.User;
+import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,7 +29,6 @@ public class DelegatedAdminMgrConsole
     private static final String CLS_NM = DelegatedAdminMgrConsole.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
 
-
     /**
      * put your documentation comment here
      */
@@ -35,10 +36,8 @@ public class DelegatedAdminMgrConsole
     {
         try
         {
-            dAmgr = DelAdminMgrFactory.createInstance(GlobalIds.HOME);
-            dAmgr.setContextId("client123");
-            aMgr = AdminMgrFactory.createInstance(GlobalIds.HOME);
-            aMgr.setContextId("client123");
+            dAmgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
+            aMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
         }
         catch (SecurityException e)
         {

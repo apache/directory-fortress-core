@@ -5,6 +5,7 @@
 package com.jts.fortress;
 
 import com.jts.fortress.rbac.OrgUnit;
+import com.jts.fortress.rbac.TestUtils;
 import com.jts.fortress.rbac.UserAdminRole;
 import com.jts.fortress.rbac.Address;
 import com.jts.fortress.rbac.Permission;
@@ -38,7 +39,7 @@ public class ReviewMgrConsole
     {
         try
         {
-            rm = ReviewMgrFactory.createInstance(GlobalIds.HOME);
+            rm = ReviewMgrFactory.createInstance(TestUtils.getContext());
         }
         catch (SecurityException e)
         {

@@ -49,8 +49,6 @@ public class AdminMgrConsole
     private AdminMgr am = null;
     private static final String CLS_NM = AdminMgrConsole.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
-    private static String contextId = GlobalIds.HOME;
-    //    private static String contextId = "client123";
 
     /**
      * put your documentation comment here
@@ -59,8 +57,7 @@ public class AdminMgrConsole
     {
         try
         {
-            am = AdminMgrFactory.createInstance(contextId);
-            //am.setContextId("client123");
+            am = AdminMgrFactory.createInstance(TestUtils.getContext());
         }
         catch (SecurityException e)
         {

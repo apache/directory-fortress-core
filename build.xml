@@ -425,6 +425,7 @@
         <echo message="Run the Fortress sample JUnit tests..."/>
         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
+            <sysproperty key="tenant" value="${tenant}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
             <test name="${test.sample.entry}"/>
@@ -438,6 +439,7 @@
          <echo message="Run the Fortress sample JUnit tests..."/>
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
+             <sysproperty key="tenant" value="${tenant}"/>
              <classpath refid="test.class.path"/>
              <formatter type="plain" usefile="false"/>
              <test name="${test.sample.entry}"/>
@@ -452,6 +454,7 @@
           <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
              <sysproperty key="isFirstJUnitRun" value="true" />
              <sysproperty key="version" value="${version}"/>
+             <sysproperty key="tenant" value="${tenant}"/>
              <classpath refid="test.class.path"/>
              <formatter type="plain" usefile="false"/>
              <test name="${test.regression.entry}"/>
@@ -466,6 +469,7 @@
          <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
             <sysproperty key="isFirstJUnitRun" value="false" />
             <sysproperty key="version" value="${version}"/>
+            <sysproperty key="tenant" value="${tenant}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
             <test name="${test.regression.entry}"/>
@@ -485,6 +489,7 @@
                  >
              <classpath refid="test.class.path"/>
              <sysproperty key="version" value="${version}"/>
+             <sysproperty key="tenant" value="${tenant}"/>
          </java>
      </target>
 
@@ -501,6 +506,7 @@
                  >
              <classpath refid="test.class.path"/>
              <sysproperty key="version" value="${version}"/>
+             <sysproperty key="tenant" value="${tenant}"/>
          </java>
      </target>
 

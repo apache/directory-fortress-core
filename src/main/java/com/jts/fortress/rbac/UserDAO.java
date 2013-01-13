@@ -774,7 +774,7 @@ final class UserDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String warning = CLS_NM + ".findUsers caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String warning = CLS_NM + ".findUsers userRoot [" + userRoot + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.USER_SEARCH_FAILED, warning, e);
         }
         finally

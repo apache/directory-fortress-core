@@ -33,7 +33,6 @@ import java.util.Set;
 public class DelegatedMgrImplTest extends TestCase
 {
     private static final String CLS_NM = DelegatedMgrImplTest.class.getName();
-    private static final String contextId = FortressJUnitTest.getContext();
     final protected static Logger log = Logger.getLogger(CLS_NM);
 
     public DelegatedMgrImplTest(String name)
@@ -168,8 +167,8 @@ public class DelegatedMgrImplTest extends TestCase
             }
             else
             {
-                dAdminMgr = DelAdminMgrFactory.createInstance(contextId);
-                dReviewMgr = DelReviewMgrFactory.createInstance(contextId);
+                dAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
+                dReviewMgr = DelReviewMgrFactory.createInstance(TestUtils.getContext());
             }
 
             int i = 0;
@@ -224,8 +223,8 @@ public class DelegatedMgrImplTest extends TestCase
             }
             else
             {
-                dAdminMgr = DelAdminMgrFactory.createInstance(contextId);
-                dReviewMgr = DelReviewMgrFactory.createInstance(contextId);
+                dAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
+                dReviewMgr = DelReviewMgrFactory.createInstance(TestUtils.getContext());
             }
             int i = 0;
             for (String[] usr : uArray)
@@ -272,7 +271,7 @@ public class DelegatedMgrImplTest extends TestCase
             }
             else
             {
-                dAdminMgr = DelAdminMgrFactory.createInstance(contextId);
+                dAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
             }
             int i = 0;
             for (String[] usr : uArray)
@@ -303,7 +302,7 @@ public class DelegatedMgrImplTest extends TestCase
             }
             else
             {
-                dAdminMgr = DelAdminMgrFactory.createInstance(contextId);
+                dAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
             }
             int i = 0;
             for (String[] usr : uArray)
@@ -387,7 +386,7 @@ public class DelegatedMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            DelAccessMgr dAccessMgr = DelAccessMgrFactory.createInstance(contextId);
+            DelAccessMgr dAccessMgr = DelAccessMgrFactory.createInstance(TestUtils.getContext());
             AccessMgr accessMgr = (AccessMgr)dAccessMgr;
             for (String[] usr : uArray)
             {
@@ -461,7 +460,7 @@ public class DelegatedMgrImplTest extends TestCase
             }
             else
             {
-                dAdminMgr = DelAdminMgrFactory.createInstance(contextId);
+                dAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] rle : rArray)
             {
@@ -506,7 +505,7 @@ public class DelegatedMgrImplTest extends TestCase
             }
             else
             {
-                dAdminMgr = DelAdminMgrFactory.createInstance(contextId);
+                dAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] rle : rArray)
             {
@@ -547,7 +546,7 @@ public class DelegatedMgrImplTest extends TestCase
             }
             else
             {
-                dAdminMgr = DelAdminMgrFactory.createInstance(contextId);
+                dAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
             }
             for (String[] rle : rArray)
             {
@@ -596,7 +595,7 @@ public class DelegatedMgrImplTest extends TestCase
 
         try
         {
-            DelAccessMgr delAccessMgr = DelAccessMgrFactory.createInstance(contextId);
+            DelAccessMgr delAccessMgr = DelAccessMgrFactory.createInstance(TestUtils.getContext());
             AccessMgr accessMgr = (AccessMgr)delAccessMgr;
             int i = 0;
             for (String[] aUsr : uaArray)
@@ -677,7 +676,7 @@ public class DelegatedMgrImplTest extends TestCase
         try
         {
             int ctr;
-            DelAccessMgr delAccessMgr = DelAccessMgrFactory.createInstance(contextId);
+            DelAccessMgr delAccessMgr = DelAccessMgrFactory.createInstance(TestUtils.getContext());
             AccessMgr accessMgr = (AccessMgr)delAccessMgr;
             int i = 0;
             for (String[] aUsr : uaArray)
@@ -748,7 +747,7 @@ public class DelegatedMgrImplTest extends TestCase
         LogUtil.logIt(msg);
         try
         {
-            DelAdminMgr dAdminMgr = DelAdminMgrFactory.createInstance(contextId);
+            DelAdminMgr dAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext());
             OrgUnit ou = OrgUnitTestData.getOrgUnit(org);
             OrgUnit entity = dAdminMgr.add(ou);
             log.debug(CLS_NM + ".addOrgUnit ou [" + entity.getName() + "] successful");
@@ -1744,7 +1743,7 @@ public class DelegatedMgrImplTest extends TestCase
      */
     public static DelReviewMgr getManagedDelegatedReviewMgr() throws SecurityException
     {
-        DelReviewMgr dReviewMgr = DelReviewMgrFactory.createInstance(contextId);
+        DelReviewMgr dReviewMgr = DelReviewMgrFactory.createInstance(TestUtils.getContext());
         if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
@@ -1764,7 +1763,7 @@ public class DelegatedMgrImplTest extends TestCase
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        DelAdminMgr dAdminMgr = DelAdminMgrFactory.createInstance(contextId, adminSess);
+        DelAdminMgr dAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext(), adminSess);
         return dAdminMgr;
     }
 
@@ -1777,7 +1776,7 @@ public class DelegatedMgrImplTest extends TestCase
         boolean result = true;
         try
         {
-            ReviewMgr rMgr = ReviewMgrFactory.createInstance(contextId);
+            ReviewMgr rMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
             User admin = UserTestData.getUser(UserTestData.USERS_TU0[0]);
             rMgr.readUser(admin);
             result = false;
@@ -1797,7 +1796,7 @@ public class DelegatedMgrImplTest extends TestCase
         Session adminSess = null;
         try
         {
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(contextId);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User admin = UserTestData.getUser(UserTestData.USERS_TU0[0]);
             adminSess = accessMgr.createSession(admin, false);
         }

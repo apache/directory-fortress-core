@@ -100,7 +100,6 @@ import java.util.List;
  * @author Shawn McKinney
  */
 final class AuditDAO extends DataProvider
-
 {
     private static final String CLS_NM = AuditDAO.class.getName();
     private static final String CREATETIMESTAMP = "createTimestamp";

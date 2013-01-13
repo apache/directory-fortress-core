@@ -5,8 +5,10 @@
 package com.jts.fortress;
 
 import com.jts.fortress.rbac.AdminRole;
+import com.jts.fortress.rbac.TestUtils;
 import com.jts.fortress.rbac.UserAdminRole;
 import com.jts.fortress.rbac.User;
+import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -21,7 +23,6 @@ public class DelegatedReviewMgrConsole
     private DelReviewMgr rm;
     private static final String CLS_NM = DelegatedReviewMgrConsole.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
-
     /**
      * Constructor for the ReviewMgrConsole object
      */
@@ -29,7 +30,7 @@ public class DelegatedReviewMgrConsole
     {
         try
         {
-            rm = DelReviewMgrFactory.createInstance(GlobalIds.HOME);
+            rm = DelReviewMgrFactory.createInstance(TestUtils.getContext());
         }
         catch (SecurityException e)
         {

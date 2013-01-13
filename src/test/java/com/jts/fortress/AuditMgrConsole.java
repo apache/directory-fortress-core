@@ -10,6 +10,7 @@ package com.jts.fortress;
 import com.jts.fortress.rbac.Bind;
 import com.jts.fortress.rbac.AuthZ;
 import com.jts.fortress.rbac.Mod;
+import com.jts.fortress.rbac.TestUtils;
 import com.jts.fortress.rbac.UserAudit;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.util.attr.AttrHelper;
@@ -25,12 +26,12 @@ public class AuditMgrConsole
     private AuditMgr am = null;
     private static final String CLS_NM = AuditMgrConsole.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
-    
+
     public AuditMgrConsole()
     {
         try
         {
-            am = AuditMgrFactory.createInstance(GlobalIds.HOME);
+            am = AuditMgrFactory.createInstance(TestUtils.getContext());
         }
         catch (SecurityException e)
         {

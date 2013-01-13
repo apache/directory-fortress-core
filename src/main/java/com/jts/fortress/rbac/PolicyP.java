@@ -61,7 +61,6 @@ final class PolicyP
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
         PolicyP.policyCache = cacheMgr.getCache(FORTRESS_POLICIES);
-        //loadPolicySet();
     }
 
     /**
@@ -169,7 +168,6 @@ final class PolicyP
     final List<PwPolicy> search(PwPolicy policy)
         throws SecurityException
     {
-
         return olDao.findPolicy(policy);
     }
 

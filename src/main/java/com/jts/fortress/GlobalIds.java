@@ -40,6 +40,7 @@ import com.jts.fortress.rest.ReviewMgrRestImpl;
 public class GlobalIds
 {
     public static final String HOME = "HOME";
+    public static final String TENANT = "tenant";
     public static final String ENABLE_AUDIT = "enable.audit";
     public static final boolean IS_AUDIT = ((Config.getProperty(ENABLE_AUDIT) != null) && (Config.getProperty(ENABLE_AUDIT).equalsIgnoreCase("true")));
     public static final String ENABLE_REST = "enable.mgr.impl.rest";
