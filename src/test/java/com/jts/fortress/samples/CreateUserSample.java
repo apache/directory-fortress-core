@@ -5,7 +5,6 @@
 package com.jts.fortress.samples;
 
 import com.jts.fortress.GlobalErrIds;
-import com.jts.fortress.GlobalIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
@@ -13,7 +12,6 @@ import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
 import com.jts.fortress.rbac.TestUtils;
 import com.jts.fortress.rbac.User;
-import com.jts.fortress.util.LogUtil;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -66,19 +64,30 @@ public class CreateUserSample extends TestCase
      */
     static boolean teardownRequired()
     {
+        // The default for this check is 'true'
         boolean tearDown = true;
+        String methodName = CLS_NM + ".teardownRequired";
          try
         {
             ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
             User inUser = new User(TEST_USERID, TEST_PASSWORD.toCharArray());
-            User outUser2 = reviewMgr.readUser(inUser);
-            log.debug(CLS_NM + ".teardownRequired");
+            reviewMgr.readUser(inUser);
+            // If we get here, the sample data needs to be removed:
         }
         catch (com.jts.fortress.SecurityException ex)
         {
-            tearDown = false;
+            if(ex.getErrorId() == GlobalErrIds.USER_NOT_FOUND)
+            {
+                // If we get here the sample data does not need to be removed:
+                tearDown = false;
+            }
+            else
+            {
+                String warning = methodName + " caught SecurityException=" + ex.getMessage();
+                log.warn(warning);
+            }
         }
-        log.info(CLS_NM + ".teardownRequired:" + tearDown);
+        log.info(methodName + ":" + tearDown);
         return tearDown;
     }
 

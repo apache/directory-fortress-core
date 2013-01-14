@@ -8,7 +8,6 @@ import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
 import com.jts.fortress.FinderException;
 import com.jts.fortress.GlobalErrIds;
-import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
 import com.jts.fortress.rbac.Role;

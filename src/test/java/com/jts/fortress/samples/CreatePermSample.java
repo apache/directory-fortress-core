@@ -7,7 +7,6 @@ package com.jts.fortress.samples;
 import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
 import com.jts.fortress.GlobalErrIds;
-import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
 import com.jts.fortress.rbac.PermObj;
@@ -20,8 +19,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.apache.log4j.Logger;
-
-import javax.xml.bind.annotation.XmlElementDecl;
 import java.util.List;
 
 /**

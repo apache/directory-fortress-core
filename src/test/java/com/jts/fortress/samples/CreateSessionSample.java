@@ -4,7 +4,9 @@
 
 package com.jts.fortress.samples;
 
-import com.jts.fortress.*;
+import com.jts.fortress.AccessMgr;
+import com.jts.fortress.AccessMgrFactory;
+import com.jts.fortress.PasswordException;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.rbac.TestUtils;

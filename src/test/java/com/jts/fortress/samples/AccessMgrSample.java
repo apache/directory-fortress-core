@@ -6,7 +6,6 @@ package com.jts.fortress.samples;
 
 import com.jts.fortress.AccessMgr;
 import com.jts.fortress.AccessMgrFactory;
-import com.jts.fortress.GlobalIds;
 import com.jts.fortress.rbac.TestUtils;
 import com.jts.fortress.rbac.UserAdminRole;
 import com.jts.fortress.rbac.Permission;

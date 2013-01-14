@@ -4,8 +4,6 @@
 
 package com.jts.fortress.samples;
 
-import com.jts.fortress.*;
-import com.jts.fortress.util.LogUtil;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;

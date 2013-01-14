@@ -14,7 +14,6 @@ import com.jts.fortress.rbac.UserAdminRole;
 import com.jts.fortress.rbac.Permission;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.User;
-import com.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 
 /**

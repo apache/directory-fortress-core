@@ -4,7 +4,8 @@
 
 package com.jts.fortress.samples;
 
-import com.jts.fortress.*;
+import com.jts.fortress.DelAdminMgr;
+import com.jts.fortress.DelAdminMgrFactory;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.rbac.OrgUnit;
 import com.jts.fortress.rbac.TestUtils;

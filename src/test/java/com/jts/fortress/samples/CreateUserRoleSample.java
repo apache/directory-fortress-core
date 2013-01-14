@@ -6,7 +6,6 @@ package com.jts.fortress.samples;
 
 import com.jts.fortress.AdminMgr;
 import com.jts.fortress.AdminMgrFactory;
-import com.jts.fortress.GlobalIds;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
 import com.jts.fortress.SecurityException;

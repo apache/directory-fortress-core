@@ -4,7 +4,8 @@
 
 package com.jts.fortress.samples;
 
-import com.jts.fortress.*;
+import com.jts.fortress.AdminMgr;
+import com.jts.fortress.AdminMgrFactory;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.rbac.Role;
 import com.jts.fortress.rbac.TestUtils;
@@ -60,16 +61,6 @@ public class CreateRoleHierarchySample extends TestCase
         suite.addTest(new CreateRoleHierarchySample("testCreateHierRoles"));
         suite.addTest(new CreateRoleHierarchySample("testCreateDescendantRoles"));
         suite.addTest(new CreateRoleHierarchySample("testCreateAscendantRoles"));
-
-        /*
-        suite.addTest(new CreateRoleHierarchySample("testCreateHierRoles"));
-
-        suite.addTest(new CreateRoleHierarchySample("testDeleteDescendantRoles"));
-        suite.addTest(new CreateRoleHierarchySample("testCreateDescendantRoles"));
-
-        suite.addTest(new CreateRoleHierarchySample("testDeleteAscendantRoles"));
-        suite.addTest(new CreateRoleHierarchySample("testCreateAscendantRoles"));
-        */
         return suite;
     }
 

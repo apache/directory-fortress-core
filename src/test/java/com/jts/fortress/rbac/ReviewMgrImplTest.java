@@ -4,6 +4,7 @@
 
 package com.jts.fortress.rbac;
 
+import com.jts.fortress.GlobalErrIds;
 import com.jts.fortress.SecurityException;
 import com.jts.fortress.ReviewMgr;
 import com.jts.fortress.ReviewMgrFactory;
@@ -268,13 +269,16 @@ public class ReviewMgrImplTest extends TestCase
     }
 
     /**
+     * Determine if old fortress regression test cases are loaded in this directory and must be torn down.
      *
      * @param msg
      * @param rArray
      */
     public static boolean teardownRequired(String msg, String[][] rArray)
     {
+        // default return is 'true':
         boolean tearDown = true;
+        String methodName = CLS_NM + ".teardownRequired";
         LogUtil.logIt(msg);
         try
         {
@@ -283,14 +287,26 @@ public class ReviewMgrImplTest extends TestCase
             {
                 Role entity = reviewMgr.readRole(new Role(RoleTestData.getName(rle)));
                 RoleTestData.assertEquals(entity, rle);
-                log.debug(CLS_NM + ".teardownRequired [" + entity.getName() + "] successful");
             }
+            // if we get to here it means that old test data must be removed from directory.
         }
         catch (SecurityException ex)
         {
-            tearDown = false;
+            // This is the expected when teardown is not required:
+            if(ex.getErrorId() == GlobalErrIds.ROLE_NOT_FOUND)
+            {
+                // did not find old test data no need to teardown
+                tearDown = false;
+            }
+            else
+            {
+                // Something unexpected occurred here, Report as warning to the logger:
+                String warning = methodName + " caught SecurityException=" + ex.getMessage();
+                log.warn(warning);
+                // TODO: Determine if it would be better to throw a SecurityException here.
+            }
         }
-        log.info(CLS_NM + ".teardownRequired:" + tearDown);
+        log.info(methodName + ":" + tearDown);
         return tearDown;
     }
 
