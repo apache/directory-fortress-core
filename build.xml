@@ -6,7 +6,7 @@
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
-       https://joshuatreesoftware.us/
+       http://jts.us/License
 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,8 +35,8 @@
        <property name="title" value="Fortress Identity and Access Management SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
        <property name="vendor" value="Joshua Tree Software"/>
-       <property name="package" value="com.jts.fortress.*"/>
-       <property name="package.samples" value="com.jts.fortress.samples"/>
+       <property name="package" value="us.jts.fortress.*"/>
+       <property name="package.samples" value="us.jts.fortress.samples"/>
        <property name="images.dir" value="${basedir}/images"/>
 
        <!-- ########### Env specific properties ########################### -->
@@ -118,13 +118,13 @@
        <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
        <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
        <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2013, JoshuaTree. All Rights Reserved. Generated ${TODAY}&lt;/small&gt;"/>
-       <property name="javadoc.overview" value="${src.java.dir}/com/jts/fortress/overview.html" />
+       <property name="javadoc.overview" value="${src.java.dir}/us/jts/fortress/overview.html" />
        <property name="javadoc.dist.zip" value="${dist.dir}/${name}-${version}-javadoc.jar"/>
-       <property name="javadoc.stylesheet" value="${src.java.dir}/com/jts/fortress/fortress-javadoc.css" />
+       <property name="javadoc.stylesheet" value="${src.java.dir}/us/jts/fortress/fortress-javadoc.css" />
        <property name="javadoc.samples.dir" value="${dist.dir}/docs/samples"/>
        <property name="javadoc.samples.images.dir" value="${javadoc.samples.dir}/images"/>
        <property name="javadoc.samples.dist.zip" value="${dist.dir}/${name}-${version}-javadocsamples.jar"/>
-       <property name="javadoc.samples.overview" value="${src.test.dir}/com/jts/fortress/samples/overview.html" />
+       <property name="javadoc.samples.overview" value="${src.test.dir}/us/jts/fortress/samples/overview.html" />
 
        <!-- ########### Fortress Package Dependencies ########################### -->
        <property name="commons-config.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
@@ -218,13 +218,13 @@
        </path>
 
        <!-- ########### Test properties ########################### -->
-       <property name="test.sample.entry" value="com.jts.fortress.samples.AllSamplesJUnitTest"/>
-       <property name="test.regression.entry"  value="com.jts.fortress.rbac.FortressJUnitTest"/>
+       <property name="test.sample.entry" value="us.jts.fortress.samples.AllSamplesJUnitTest"/>
+       <property name="test.regression.entry"  value="us.jts.fortress.rbac.FortressJUnitTest"/>
        <property name="test.failonerror" value="false" />
        <property name="test.showoutput" value="yes" />
 
        <!-- define Maven coordinates (publishing only) -->
-       <property name="groupId" value="us.joshuatreesoftware" />
+       <property name="groupId" value="us.jts" />
        <property name="artifactId" value="fortress" />
 
        <!-- defined maven snapshots and staging repository id and url (publishing only) -->
@@ -453,7 +453,7 @@
      <target name="console" depends="build-jar,compile-test,init-fortress-config" description="--> start Fortress Console app">
          <echo message="Run the Fortress console app"/>
          <java
-                 classname="com.jts.fortress.FortressConsole"
+                 classname="us.jts.fortress.FortressConsole"
                  fork="false"
                  failonerror="true"
                  timeout="4000000"
@@ -470,7 +470,7 @@
      <target name="cli" depends="build-jar,compile,init-fortress-config" description="--> start Fortress Command Line Interpreter">
          <echo message="Run the Fortress Command Line Interpreter"/>
          <java
-                 classname="com.jts.fortress.cli.CommandLineInterpreter"
+                 classname="us.jts.fortress.cli.CommandLineInterpreter"
                  fork="false"
                  failonerror="true"
                  timeout="4000000"
@@ -487,7 +487,7 @@
      <target name="encrypt" depends="compile" description="--> convert from a clear text to encrypted cypher string that is hex encoded">
          <echo message="Encrypt a value"/>
          <java
-                 classname="com.jts.fortress.util.crypto.EncryptUtil"
+                 classname="us.jts.fortress.util.crypto.EncryptUtil"
                  fork="false"
                  failonerror="true"
                  timeout="4000000"
@@ -968,34 +968,33 @@
     <target name="generate-schema" depends="init-jaxb,compile" description="--> generates JAXB schema based on Fortress entity classes">
         <echo message="Generating schemas..."/>
         <mkdir dir="${generated.schema.dir}"/>
-
-        <schemagen srcdir="${src.java.dir}" destdir="${generated.schema.dir}">
+        <schemagen srcdir="${src.java.dir}/us/jts/fortress" destdir="${generated.schema.dir}">
             <classpath refid="build.class.path"/>
-             <include name="com/jts/fortress/FortEntity.java"/>
-             <include name="com/jts/fortress/rest/FortRequest.java"/>
-             <include name="com/jts/fortress/rest/FortResponse.java"/>
-             <include name="com/jts/fortress/rbac/User.java"/>
-             <include name="com/jts/fortress/rbac/Role.java"/>
-             <include name="com/jts/fortress/rbac/UserRole.java"/>
-             <include name="com/jts/fortress/util/time/Constraint.java"/>
-             <include name="com/jts/fortress/rbac/SDSet.java"/>
-             <include name="com/jts/fortress/rbac/Permission.java"/>
-             <include name="com/jts/fortress/rbac/PermObj.java"/>
-             <include name="com/jts/fortress/rbac/RoleRelationship.java"/>
-             <include name="com/jts/fortress/rbac/PermGrant.java"/>
-             <include name="com/jts/fortress/rbac/Session.java"/>
-             <include name="com/jts/fortress/rbac/RolePerm.java"/>
-             <include name="com/jts/fortress/rbac/Permission.java"/>
-             <include name="com/jts/fortress/rbac/Props.java"/>
-             <include name="com/jts/fortress/arbac/OrgUnit.java"/>
-             <include name="com/jts/fortress/arbac/UserAdminRole.java"/>
-             <include name="com/jts/fortress/arbac/AdminRoleRelationship.java"/>
-             <include name="com/jts/fortress/arbac/OrgUnitRelationship.java"/>
-             <include name="com/jts/fortress/audit/UserAudit.java"/>
-             <include name="com/jts/fortress/audit/AuthZ.java"/>
-             <include name="com/jts/fortress/audit/Bind.java"/>
-             <include name="com/jts/fortress/audit/Mod.java"/>
-             <include name="com/jts/fortress/pwpolicy/PswdPolicy.java"/>
+            <include name="FortEntity.java"/>
+            <include name="arbac/OrgUnit.java"/>
+            <include name="arbac/UserAdminRole.java"/>
+            <include name="arbac/AdminRoleRelationship.java"/>
+            <include name="arbac/OrgUnitRelationship.java"/>
+            <include name="audit/UserAudit.java"/>
+            <include name="audit/AuthZ.java"/>
+            <include name="audit/Bind.java"/>
+            <include name="audit/Mod.java"/>
+            <include name="pwpolicy/PswdPolicy.java"/>
+            <include name="rbac/User.java"/>
+            <include name="rbac/Role.java"/>
+            <include name="rbac/UserRole.java"/>
+            <include name="rbac/SDSet.java"/>
+            <include name="rbac/Permission.java"/>
+            <include name="rbac/PermObj.java"/>
+            <include name="rbac/RoleRelationship.java"/>
+            <include name="rbac/PermGrant.java"/>
+            <include name="rbac/Session.java"/>
+            <include name="rbac/RolePerm.java"/>
+            <include name="rbac/Permission.java"/>
+            <include name="rbac/Props.java"/>
+            <include name="rest/FortRequest.java"/>
+            <include name="rest/FortResponse.java"/>
+            <include name="util/time/Constraint.java"/>
         </schemagen>
     </target>
 
@@ -1005,7 +1004,7 @@
     <target name="compile-schema" depends="init-jaxb,generate-schema" description="--> generates Java classes based on Fortress schema">
         <echo message="Compiling the schema..."/>
         <mkdir dir="${generated.classes.dir}"/>
-        <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="com.jts.fortress.model" removeOldOutput="yes"/>
+        <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="us.jts.fortress.model" removeOldOutput="yes"/>
     </target>
 
     <!-- =================================

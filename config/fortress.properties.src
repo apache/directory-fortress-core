@@ -41,12 +41,12 @@ http.host=@REST_HTTP_HOST@
 http.port=@REST_HTTP_PORT@
 
 # These may be used to override default LDAP or REST with OTHER implementations:
-#reviewmgr.implementation=com.jts.fortress.rest.ReviewMgrOtherImpl
-#adminmgr.implementation=com.jts.fortress.rest.AdminMgrOtherImpl
-#accessmgr.implementation=com.jts.fortress.rest.AccessMgrOtherImpl
-#delegated.adminmgr.implementation=com.jts.fortress.rest.DelAdminMgrOtherImpl
-#delegated.reviewmgr.implementation=com.jts.fortress.rest.DelReviewMgrOtherImpl
-#policymgr.implementation=com.jts.fortress.rest.PwPolicyMgrOtherImpl
-#delegated.accessmgr.implementation=com.jts.fortress.rest.DelAccessMgrOtherImpl
-#auditmgr.implementation=com.jts.fortress.rest.AuditMgrOtherImpl
-#configmgr.implementation=com.jts.fortress.rest.ConfigMgrOtherImpl
+#reviewmgr.implementation=us.jts.fortress.rest.ReviewMgrOtherImpl
+#adminmgr.implementation=us.jts.fortress.rest.AdminMgrOtherImpl
+#accessmgr.implementation=us.jts.fortress.rest.AccessMgrOtherImpl
+#delegated.adminmgr.implementation=us.jts.fortress.rest.DelAdminMgrOtherImpl
+#delegated.reviewmgr.implementation=us.jts.fortress.rest.DelReviewMgrOtherImpl
+#policymgr.implementation=us.jts.fortress.rest.PwPolicyMgrOtherImpl
+#delegated.accessmgr.implementation=us.jts.fortress.rest.DelAccessMgrOtherImpl
+#auditmgr.implementation=us.jts.fortress.rest.AuditMgrOtherImpl
+#configmgr.implementation=us.jts.fortress.rest.ConfigMgrOtherImpl

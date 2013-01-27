@@ -3,7 +3,8 @@
   ~ Copyright (c) 2009-2011. Joshua Tree Software, LLC.  All Rights Reserved.
   -->
 <project basedir="." default="all" name="Fortress Sample Data">
-    <property name="version" value="1.0.0-rc11"/>
+    <!--<property name="version" value="1.0.0-rc11"/>-->
+    <property name="version" value="${version}"/>
     <property name="home.dir" value = "../../" />
     <property name="lib.dir" value = "${home.dir}/lib" />
     <property name="dist.dir" value = "${home.dir}/dist" />
@@ -17,8 +18,10 @@
     <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
     <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
     <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
-    <taskdef classname="com.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
-    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}"/>
+    <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.5.1.jar"/>
+    <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
+    <taskdef classname="us.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${ehcache-core.jar}:${slf4j-api.jar}"/>
     </taskdef>
 
     <target name="all">

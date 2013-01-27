@@ -6,7 +6,7 @@
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
-       https://joshuatreesoftware.us/
+       http://jts.us/License
 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,13 +20,13 @@
   <artifactId>fortress</artifactId>
   <packaging>jar</packaging>
   <name>Fortress Core</name>
-  <version>1.0-RC21</version>
+  <version>1.0-RC22</version>
   <description>Fortress is a standards-based Identity and Access Management SDK.  It communicates LDAPv3 protocol to directory servers or Representational state transfer over the Web.</description>
-  <url>https://joshuatreesoftware.us</url>
+  <url>http://jts.us</url>
   <licenses>
     <license>
       <name>BSD</name>
-      <url>https://www.joshuatreesoftware.us/License</url>
+      <url>http://jts.us/License</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -38,7 +38,7 @@
     <developer>
       <id>smckinney</id>
       <name>Shawn McKinney</name>
-      <email>shawn.mckinney@joshuatreesoftware.us</email>
+      <email>shawn.mckinney@jts.us</email>
     </developer>
   </developers>
 
@@ -60,7 +60,7 @@
 	</dependency>
 	<dependency>
 	  <groupId>commons-pool</groupId>
-	  <artifactId> commons-pool</artifactId>
+	  <artifactId>commons-pool</artifactId>
 	  <version>1.5.2</version>
 	</dependency>
 	<dependency>

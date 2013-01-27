@@ -1,0 +1,37 @@
+<!--
+  ~ Copyright © 2009-2013, JoshuaTree.  All Rights Reserved.
+  -->
+
+<html>
+   <head>
+      <title>Package Documentation for us.jts.fortress.rbac</title>
+   </head>
+   <body>
+      <p>
+      <ol>
+      <li>This package provides data entities and apis that adhere to standards like <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a></li>
+      <li>This package provides data entities and APIs that adhere to <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> model to provide delegated administration capabilities.</li>
+      <li>This package provides data entities and APIs to interrogate <a href="http://openldap.org/">OpenLDAP</a>'s slapd access log to obtain fortress audit trail and historical events.</li>
+      <li>This package uses <a href="http://www.jgrapht.org/">JGraphT</a> to provide hierarchical functionality that is reused within several other packages in the fortress system.</li>
+      </ol>
+      </p>
+      <p>
+         The <b>us.jts.fortress.rbac</b> package data entities may be manipulated by outside
+          programs but the apis contained within this package are for fortress use only.
+          The entities include {@link us.jts.fortress.rbac.User User},{@link us.jts.fortress.rbac.Role Role}, {@link us.jts.fortress.rbac.PermObj PermObj}, {@link us.jts.fortress.rbac.Permission Permission}, and more.
+          See the corresponding javadoc contained with this package for more info.
+      </p>
+      <h3>Fortress Manager APIs implemented in this package</h3>
+       <ol>
+       <li><a href="AccessMgrImpl.html">AccessMgrImpl</a> - This implements using LDAP the runtime access control operations on objects that are provisioned <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities that reside in LDAP directory.</li>
+       <li><a href="AdminMgrImpl.html">AdminMgrImpl</a> - This implements using LDAP the administrative functions to provision Fortress <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities into the LDAP directory.</li>
+       <li><a href="ReviewMgrImpl.html">ReviewMgrImpl</a> - This implements using LDAP the administrative review functions on already provisioned Fortress <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities that reside in LDAP directory.</li>
+       <li><a href="DelegatedAccessMgrImpl.html">DelegatedAccessMgrImpl</a> - This implements using LDAP the APIs for performing runtime delegated access control operations on objects that are provisioned Fortress <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> entities that reside in LDAP directory.</li>
+       <li><a href="DelegatedAdminMgrImpl.html">DelegatedAdminMgrImpl</a> - This implements using LDAP the <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> DelegatedAdminMgr interface for performing policy administration of Fortress ARBAC entities that reside in LDAP directory.</li>
+       <li><a href="DelegatedReviewMgrImpl.html">DelegatedReviewMgrImpl</a> - This implements using LDAP the <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> DelegatedReviewMgr interface for performing policy interrogation of provisioned Fortress ARBAC02 entities that reside in LDAP directory.</li>
+       <li><a href="PwPolicyMgrImpl.html">PwPolicyMgrImpl</a> - Performs CRUD on OpenLDAP password policies stored in directory.</li>
+       <li><a href="AuditMgrImpl.html">AuditMgrImpl</a> - Interrogates Fortress audit data stored in OpenLDAP.</li>
+       </ol>
+   </body>
+</html>
+

@@ -1,0 +1,27 @@
+<!--
+  ~ Copyright © 2009-2013, JoshuaTree.  All Rights Reserved.
+  -->
+<html>
+   <head>
+      <title>Package Documentation for us.jts.fortress.rest</title>
+   </head>
+   <body>
+      <p>
+         This package uses <a href="http://hc.apache.org/">Commons HTTP</a> to provide HTTP functionality that is reused across several components in this package.
+      </p>
+      <p>
+         The <b>us.jts.fortress.rest</b> package implements HTTP REST access to En Masse server for Fortress APIs
+      </p>
+      <h3>Fortress Manager APIs implemented in this package</h3>
+       <ol>
+       <li><a href="AccessMgrRestImpl.html">AccessMgrRestImpl</a> - This implements using REST runtime access control operations on objects that are provisioned <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities that reside in LDAP directory.</li>
+       <li><a href="AdminMgrRestImpl.html">AdminMgrRestImpl</a> - This implements using REST administrative functions to provision Fortress <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities into the LDAP directory.</li>
+       <li><a href="AuditMgrRestImpl.html">AuditMgrRestImpl</a> - This implements using REST methods used to search OpenLDAP's slapd access log.</li>
+       <li><a href="DelegatedAccessMgrRestImpl.html">DelegatedAccessMgrRestImpl</a> - This implements using REST APIs for performing runtime delegated access control operations on objects that are provisioned Fortress <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> entities that reside in LDAP directory.</li>
+       <li><a href="DelegatedAdminMgrRestImpl.html">DelegatedAdminMgrRestImpl</a> - This implements using REST the <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> DelegatedAdminMgr interface for performing policy administration of Fortress ARBAC entities that reside in LDAP directory.</li>
+       <li><a href="DelegatedReviewMgrRestImpl.html">DelegatedReviewMgrRestImpl</a> - This implements using REST the <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> DelegatedReviewMgr interface for performing policy interrogation of provisioned Fortress ARBAC02 entities that reside in LDAP directory.</li>
+       <li><a href="PswdPolicyMgr.html">PswdPolicyMgrRestImpl</a> - This implements using REST <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">IETF PW policy draft</a> and is used to perform administrative and review functions on the <a href="us/jts/fortress/pwpolicy/PswdPolicy.html">PWPOLICIES</a> and <a href="us/jts/fortress/rbac/User.html">USERS</a> data sets within Fortress.</li>
+       <li><a href="ReviewMgr.html">ReviewMgrRestImpl</a> - This implements using REST the administrative review functions on already provisioned Fortress <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities that reside in LDAP directory.</li>
+       </ol>
+   </body>
+</html>

@@ -6,7 +6,7 @@
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
-       https://joshuatreesoftware.us/
+       http://jts.us/License
 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
@@ -44,10 +44,12 @@
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.6.1" conf="default->master"/>
 
         <!-- The Fortress core is not dependent on sentry or enmasse artifacts, they're required for the QUICKSTART demo package: -->
-        <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC21"  conf="default->master"/>
-        <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC21"  conf="default->master">
+<!--
+        <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC22"  conf="default->master"/>
+        <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC22"  conf="default->master">
             <artifact name="enmasse" type="jar"/>
         </dependency>
+-->
 
     </dependencies>
 </ivy-module>

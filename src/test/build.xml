@@ -11,7 +11,7 @@
       <property name="version" value="1.0.0-rc1"/>
       <property name="title" value="Fortress Identity and Access Management Samples LDAP SDK for Java ${version}"/>
       <property name="vendor" value="Joshua Tree Software, LLC"/>
-      <property name="package.samples" value="com.jts.fortress.*"/>
+      <property name="package.samples" value="us.jts.fortress.*"/>
       <property name="project.name" value="Fortress Identity Access Management SDK"/>
 
       <!-- ########### Env specific properties ########################### -->
@@ -34,11 +34,11 @@
       <property name="commons-beanutils.jar" value="${lib.dir}/commons-beanutils-1.8.0.jar"/>
       <property name="unboundsdk.jar" value="${lib.dir}/unboundid-ldapsdk-se.jar"/>
       <property name="jgraph.jar" value="${lib.dir}/jgrapht-jdk1.6.jar"/>
-      <property name="log4j.jar" value="${lPROJECT_NAMEib.dir}/log4j-1.2.8.jar"/>
+      <property name="log4j.jar" value="${lib.dir}/log4j-1.2.8.jar"/>
       <property name="junit.jar" value="${lib.dir}/junit-4.4.jar"/>
 
       <!-- ########### Test properties ########################### -->
-      <property name="test.sample.entry" value="com.jts.fortress.samples.AllSamplesJUnitTest"/>
+      <property name="test.sample.entry" value="us.jts.fortress.samples.AllSamplesJUnitTest"/>
       <property name="test.failonerror" value="false" />
       <property name="test.showoutput" value="yes" />
 

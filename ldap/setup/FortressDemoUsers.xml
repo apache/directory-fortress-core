@@ -20,7 +20,7 @@
     <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
     <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.5.1.jar"/>
     <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
-    <taskdef classname="com.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    <taskdef classname="us.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
     	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${ehcache-core.jar}:${slf4j-api.jar}"/>
     </taskdef>
 
@@ -207,7 +207,7 @@
                          type="Ant"/>
 
                 <permobj admin="true"
-                         objectName="com.jts.fortress.audit.AuditMgrImpl"
+                         objectName="us.jts.fortress.audit.AuditMgrImpl"
                          description="AuditMgr Object"
                          ou="demoapps1" type="Ant"/>
 
@@ -227,12 +227,12 @@
                 <permop opName="5pm" objectName="/cal/cal2.jsp" type="Ant"/>
                 <permop opName="6pm" objectName="/cal/cal2.jsp" type="Ant"/>
 
-                <permop admin="true" opName="searchBinds" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
-                <permop admin="true" opName="searchAuthZs" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
-                <permop admin="true" opName="getUserAuthZs" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
-                <permop admin="true" opName="searchUserSessions" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
-                <permop admin="true" opName="searchAdminMods" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
-                <permop admin="true" opName="searchInvalidUsers" objectName="com.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchBinds" objectName="us.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchAuthZs" objectName="us.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="getUserAuthZs" objectName="us.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchUserSessions" objectName="us.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchAdminMods" objectName="us.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchInvalidUsers" objectName="us.jts.fortress.audit.AuditMgrImpl" type="Ant"/>
             </addpermop>
 
             <addpermgrant>
@@ -244,12 +244,12 @@
                 <permgrant objName="/cal/cal2.jsp" opName="4pm" roleNm="role1"/>
                 <permgrant objName="/cal/cal2.jsp" opName="6pm" roleNm="role1"/>
 
-                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="searchBinds" roleNm="DemoAdminUsers"/>
-                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="searchAuthZs" roleNm="DemoAdminUsers"/>
-                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="getUserAuthZs" roleNm="DemoAdminUsers"/>
-                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="searchUserSessions" roleNm="DemoAdminUsers"/>
-                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="searchAdminMods" roleNm="DemoAdminUsers"/>
-                <permgrant admin="true" objName="com.jts.fortress.audit.AuditMgrImpl" opName="searchInvalidUsers" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="us.jts.fortress.audit.AuditMgrImpl" opName="searchBinds" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="us.jts.fortress.audit.AuditMgrImpl" opName="searchAuthZs" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="us.jts.fortress.audit.AuditMgrImpl" opName="getUserAuthZs" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="us.jts.fortress.audit.AuditMgrImpl" opName="searchUserSessions" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="us.jts.fortress.audit.AuditMgrImpl" opName="searchAdminMods" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="us.jts.fortress.audit.AuditMgrImpl" opName="searchInvalidUsers" roleNm="DemoAdminUsers"/>
             </addpermgrant>
 
             <!-- Begin ARBAC Delegated Admin Data: -->
