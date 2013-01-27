@@ -153,6 +153,8 @@ import java.util.*;
     "sn",
     "cn",
     "dn",
+    "employeeType",
+    "title",
     "address",
     "phones",
     "mobiles",
@@ -200,6 +202,8 @@ public class User extends FortEntity implements Constraint, Serializable
     private String endLockDate;
     private String dayMask;
     private String name;
+    private String employeeType;
+    private String title;
     private int timeout;
     private boolean reset;
     private boolean locked;
@@ -334,6 +338,50 @@ public class User extends FortEntity implements Constraint, Serializable
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    /**
+     * Used to identify the employer to employee relationship.  Typical values used will be "Contractor", "Employee", "Intern", "Temp",
+     * "External", and "Unknown" but any value may be used.
+     *
+     * @return  attribute maps to 'employeeType' attribute in 'inetOrgPerson' object class.
+     */
+    public String getEmployeeType()
+    {
+        return employeeType;
+    }
+
+    /**
+     * Used to identify the employer to employee relationship.  Typical values used will be "Contractor", "Employee", "Intern", "Temp",
+     * "External", and "Unknown" but any value may be used.
+     *
+     * @param employeeType maps to 'employeeType' attribute in 'inetOrgPerson' object class.
+     */
+    public void setEmployeeType(String employeeType)
+    {
+        this.employeeType = employeeType;
+    }
+
+    /**
+     * The honorific prefix(es) of the User, or "Title" in most Western languages (e.g.  Ms. given the full name Ms.
+     * Barbara Jane Jensen, III.).
+     *
+     * @return maps to 'title' attribute in 'inetOrgPerson' objectclass.
+     */
+    public String getTitle()
+    {
+        return title;
+    }
+
+    /**
+     * The honorific prefix(es) of the User, or "Title" in most Western languages (e.g.  Ms. given the full name Ms.
+     * Barbara Jane Jensen, III.).
+     *
+     * @param title maps to 'title' attribute in 'inetOrgPerson' objectclass.
+     */
+    public void setTitle(String title)
+    {
+        this.title = title;
     }
 
     /**

@@ -44,8 +44,10 @@ public class UserTestData extends TestCase
             "",                           /* ASSGND_ROLES_COL */
             "",                           /* AUTHZ_ROLES_COL */
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "888-888-8888,777-777-7777",  /* PHONES_COL */
+            "555-555-5555,444-444-4444",  /* MOBILES_COL */
+            "Admin",                      /* TITLE_COL */
+            "Permanent",                  /* EMPLOYEE_TYPE_COL */
         },
     };
 
@@ -76,6 +78,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "Tester",               /* TITLE_COL */
+            "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
             "oamUser2",             /* USERID_COL */
@@ -100,6 +104,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "Tester",               /* TITLE_COL */
+            "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
             "oamUser3",            /* USERID_COL */
@@ -124,6 +130,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "Tester",               /* TITLE_COL */
+            "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
             "oamUser4",           /* USERID_COL */
@@ -148,6 +156,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "Tester",               /* TITLE_COL */
+            "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
             "oamUser5",           /* USERID_COL */
@@ -172,6 +182,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "Tester",               /* TITLE_COL */
+            "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
             "oamUser6",           /* USERID_COL */
@@ -196,6 +208,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "Tester",               /* TITLE_COL */
+            "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
             "oamUser7",           /* USERID_COL */
@@ -220,6 +234,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "Tester",               /* TITLE_COL */
+            "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
             "oamUser8",           /* USERID_COL */
@@ -244,6 +260,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "Tester",               /* TITLE_COL */
+            "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
             "oamUser9",           /* USERID_COL */
@@ -268,6 +286,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "Tester",               /* TITLE_COL */
+            "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
             "oamUser10",          /* USERID_COL */
@@ -292,6 +312,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "Tester",               /* TITLE_COL */
+            "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
     };
 
@@ -2669,6 +2691,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "",                     /* TITLE_COL */
+            "",                     /* EMPLOYEE_TYPE_COL */
             "TRUE",                 /* SYSTEM USER */
         },
         {
@@ -2694,6 +2718,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "",                     /* TITLE_COL */
+            "",                     /* EMPLOYEE_TYPE_COL */
             "TRUE",                 /* SYSTEM USER */
         },
         {
@@ -2719,6 +2745,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "",                     /* TITLE_COL */
+            "",                     /* EMPLOYEE_TYPE_COL */
             "TRUE",                 /* SYSTEM USER */
         },
         {
@@ -2744,6 +2772,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "",                     /* TITLE_COL */
+            "",                     /* EMPLOYEE_TYPE_COL */
             "TRUE",                 /* SYSTEM USER */
         },
         {
@@ -2769,6 +2799,8 @@ public class UserTestData extends TestCase
             "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
             "888-888-8888,777-777-7777",/* PHONES_COL */
             "555-555-5555,444-444-4444",/* MOBILES_COL */
+            "",                     /* TITLE_COL */
+            "",                     /* EMPLOYEE_TYPE_COL */
             "TRUE",                 /* SYSTEM USER */
         }
     };
@@ -5449,7 +5481,9 @@ public class UserTestData extends TestCase
     private final static int ADDRESS_COL = 19;
     private final static int PHONES_COL = 20;
     private final static int MOBILES_COL = 21;
-    private static int SYSTEM_COL = 22;
+    private final static int TITLE_COL = 22;
+    private final static int EMPLOYEE_TYPE_COL = 23;
+    private final static int SYSTEM_COL = 24;
 
 
     /**
@@ -5615,6 +5649,45 @@ public class UserTestData extends TestCase
     }
 
     /**
+     *
+     * @param usr
+     * @return
+     */
+    public static String getTitle(String[] usr)
+    {
+        String value = null;
+        try
+         {
+             value = usr[TITLE_COL];
+         }
+         catch(java.lang.ArrayIndexOutOfBoundsException ae)
+         {
+            // attribute is optional, do nothing here
+         }
+        return value;
+    }
+
+    /**
+     *
+     * @param usr
+     * @return
+     */
+    public static String getEmployeeType(String[] usr)
+    {
+        String value = null;
+        try
+         {
+             value = usr[EMPLOYEE_TYPE_COL];
+         }
+         catch(java.lang.ArrayIndexOutOfBoundsException ae)
+         {
+            // attribute is optional, do nothing here
+         }
+
+        return value;
+    }
+
+    /**
      * @param usr
      * @return
      */
@@ -5658,6 +5731,8 @@ public class UserTestData extends TestCase
         user.setAddress(getAddress(usr));
         user.setPhones(getPhones(usr));
         user.setMobiles(getMobiles(usr));
+        user.setTitle(getTitle(usr));
+        user.setEmployeeType(getEmployeeType(usr));
         user.setSystem(isSystem(usr));
         return user;
     }

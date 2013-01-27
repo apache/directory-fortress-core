@@ -79,6 +79,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link User#cn} - maps to INetOrgPerson common name attribute</li>
      * <li>{@link User#sn} - maps to INetOrgPerson surname attribute</li>
      * <li>{@link User#description} - maps to INetOrgPerson description attribute</li>
+     * <li>{@link User#title} - maps to INetOrgPerson title attribute</li>
+     * <li>{@link User#employeeType} - maps to INetOrgPerson employeeType attribute</li>
      * <li>{@link User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber  attribute</li>
      * <li>{@link User#mobiles} * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
      * <li>{@link User#emails} * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>

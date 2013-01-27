@@ -28,6 +28,8 @@ public class Options implements java.io.Serializable
     CmdLineParser.Option cn;
     CmdLineParser.Option sn;
     CmdLineParser.Option description;
+    CmdLineParser.Option title;
+    CmdLineParser.Option employeeType;
     CmdLineParser.Option beginTime;
     CmdLineParser.Option endTime;
     CmdLineParser.Option beginDate;
@@ -107,6 +109,8 @@ public class Options implements java.io.Serializable
         this.city = parser.addStringOption('3', "city");
         this.postalCode = parser.addStringOption('z', "postalCode");
         this.postalOfficeBox = parser.addStringOption('2', "postalOfficeBox");
+        this.title = parser.addStringOption('3', "title");
+        this.employeeType = parser.addStringOption('4', "employeeType");
     }
 
     /**
@@ -214,6 +218,8 @@ public class Options implements java.io.Serializable
         user.setCn(getCn());
         user.setSn(getSn());
         user.setDescription(getDescription());
+        user.setTitle(getTitle());
+        user.setEmployeeType(getEmployeeType());
         updateTemporal(user);
         updateProperties(user);
         updateRoleAssigns(user);
@@ -502,6 +508,16 @@ public class Options implements java.io.Serializable
     String getDescription()
     {
         return (String) parser.getOptionValue(description);
+    }
+
+    String getTitle()
+    {
+        return (String) parser.getOptionValue(title);
+    }
+
+    String getEmployeeType()
+    {
+        return (String) parser.getOptionValue(employeeType);
     }
 
     String getBeginTime()

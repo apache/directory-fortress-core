@@ -178,6 +178,9 @@ final class UserDAO extends DataProvider
      */
     private static final String MAIL = "mail";
     private static final String DISPLAY_NAME = "displayName";
+    private static final String TITLE = "title";
+    private static final String EMPLOYEE_TYPE = "employeeType";
+
     private static final String OPENLDAP_POLICY_SUBENTRY = "pwdPolicySubentry";
     private static final String OPENLDAP_PW_RESET = "pwdReset";
     private static final String OPENLDAP_PW_LOCKED_TIME = "pwdAccountLockedTime";
@@ -198,7 +201,7 @@ final class UserDAO extends DataProvider
         GlobalIds.FT_IID, GlobalIds.UID, PW, GlobalIds.DESC, GlobalIds.OU, GlobalIds.CN, SN,
         GlobalIds.USER_ROLE_DATA, GlobalIds.CONSTRAINT, GlobalIds.USER_ROLE_ASSIGN, OPENLDAP_PW_RESET,
         OPENLDAP_PW_LOCKED_TIME, GlobalIds.PROPS, GlobalIds.USER_ADMINROLE_ASSIGN, GlobalIds.USER_ADMINROLE_DATA,
-        POSTAL_ADDRESS, L, POSTAL_CODE, POST_OFFICE_BOX, STATE, TELEPHONE_NUMBER, MOBILE, MAIL, SYSTEM_USER
+        POSTAL_ADDRESS, L, POSTAL_CODE, POST_OFFICE_BOX, STATE, TELEPHONE_NUMBER, MOBILE, MAIL, EMPLOYEE_TYPE, TITLE, SYSTEM_USER
     };
 
     private static final String[] ROLE_ATR = {
@@ -248,6 +251,14 @@ final class UserDAO extends DataProvider
             attrs.add(createAttribute(SN, entity.getSn()));
             attrs.add(createAttribute(PW, new String(entity.getPassword())));
             attrs.add(createAttribute(DISPLAY_NAME, entity.getCn()));
+            if (VUtil.isNotNullOrEmpty(entity.getTitle()))
+            {
+                attrs.add(createAttribute(TITLE, entity.getTitle()));
+            }
+            if (VUtil.isNotNullOrEmpty(entity.getEmployeeType()))
+            {
+                attrs.add(createAttribute(EMPLOYEE_TYPE, entity.getEmployeeType()));
+            }
 
             // These are multi-valued attributes, use the util function to load:
             // These items are optional.  The utility function will return quietly if no items are loaded into collection:
@@ -341,6 +352,16 @@ final class UserDAO extends DataProvider
                 LDAPAttribute desc = new LDAPAttribute(GlobalIds.DESC,
                     entity.getDescription());
                 mods.add(LDAPModification.REPLACE, desc);
+            }
+            if (VUtil.isNotNullOrEmpty(entity.getEmployeeType()))
+            {
+                LDAPAttribute employeeType = new LDAPAttribute(EMPLOYEE_TYPE, entity.getSn());
+                mods.add(LDAPModification.REPLACE, employeeType);
+            }
+            if (VUtil.isNotNullOrEmpty(entity.getTitle()))
+            {
+                LDAPAttribute title = new LDAPAttribute(TITLE, entity.getTitle());
+                mods.add(LDAPModification.REPLACE, title);
             }
             if (VUtil.isNotNullOrEmpty(entity.getPwPolicy()))
             {
@@ -1487,6 +1508,8 @@ final class UserDAO extends DataProvider
         entity.setSn(getAttribute(le, SN));
         entity.setOu(getAttribute(le, GlobalIds.OU));
         entity.setDn(le.getDN());
+        entity.setTitle(getAttribute(le, TITLE));
+        entity.setEmployeeType(getAttribute(le, EMPLOYEE_TYPE));
         unloadTemporal(le, entity);
         entity.setRoles(unloadUserRoles(le, entity.getUserId(), contextId));
         entity.setAdminRoles(unloadUserAdminRoles(le, entity.getUserId(), contextId));
