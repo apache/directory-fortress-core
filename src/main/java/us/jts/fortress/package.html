@@ -29,6 +29,7 @@
           {@link us.jts.fortress.rbac.User} or {@link us.jts.fortress.rbac.UserRole} entity can be activated within a {@link us.jts.fortress.rbac.Session}.
           There is also a lockout mechanism to temporarily bar entities from activating.  AuditMgr may be used to interrogate OpenLDAP audit and historical information.
       </p>
+      <hr>
       <h2>Description of Package Contents</h2>
       This package contains APIs to do the following
       <ol>
@@ -38,6 +39,7 @@
       <li>Audit Trail</li>
       </ol>
       The following sections provides more info on each.
+      <hr>
       <h3>1. Role Based Access Control description</h3>
       <p>
       Many of the method names and signatures within this package were taken directly from ANSI INCITS 359-2004.
@@ -63,6 +65,7 @@
       <p/>
       <img src="./doc-files/RbacDSD.png">
       <p/>
+      <hr>
       <h3>2. Administrative Role Based Access Control (ARBAC) description</h3>
       These APIs map directly to similar named APIs specified by ARBAC02 functions.  The ARBAC Functional specification describes delegated administrative
       operations for the creation and maintenance of ARBAC element sets and relations.  Delegated administrative review functions for performing administrative queries
@@ -73,6 +76,7 @@
       Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
       Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
       <p/>
+      <hr>
       <h3>3. Password Policy description</h3>
       Fortress APIs store and interrogate policies on <a href="http://www.openldap.org/">OpenLDAP</a> which supports the IETF <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies LDAP directories</a></li> draft.  Policies may be applied at the user, group or global level.
       Password enforcement options include:
@@ -96,6 +100,7 @@
       <p/>
       <img src="./doc-files/PasswordPolicy.png">
       <p/>
+      <hr>
       <h3>4. History and Audit trail using OpenLDAP</h3>
       Provides an OpenLDAP access log retrieval mechanism that enables security event monitoring.
       <ol>

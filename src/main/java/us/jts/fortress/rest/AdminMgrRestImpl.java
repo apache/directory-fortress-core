@@ -20,22 +20,27 @@ import us.jts.fortress.util.attr.VUtil;
  * performing administrative queries; and system functions for creating and managing
  * RBAC attributes on user sessions and making access control decisions.
  * <p/>
+ * <hr>
  * <h4>RBAC0 - Core</h4>
  * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions.  API to add, update, delete identity data and perform identity and access control decisions during runtime operations.
  * <p/>
  * <img src="../doc-files/RbacCore.png">
+ * <hr>
  * <h4>RBAC1 - General Hierarchical Roles</h4>
  * Simplifies role engineering tasks using inheritance of one or more parent roles.
  * <p/>
  * <img src="../doc-files/RbacHier.png">
+ * <hr>
  * <h4>RBAC2 - Static Separation of Duty (SSD) Relations</h4>
  * Enforce mutual membership exclusions across role assignments.  Facilitate dual control policies by restricting which roles may be assigned to users in combination.  SSD provide added granularity for authorization limits which help enterprises meet strict compliance regulations.
  * <p/>
  * <img src="../doc-files/RbacSSD.png">
+ * <hr>
  * <h4>RBAC3 - Dynamic Separation of Duty (DSD) Relations</h4>
  * Control allowed role combinations to be activated within an RBAC session.  DSD policies fine tune role policies that facilitate authorization dual control and two man policy restrictions during runtime security checks.
  * <p/>
  * <img src="../doc-files/RbacDSD.png">
+ * <hr>
  * <p/>
  * This class is NOT thread safe as it contains instance variables.
  * <p/>

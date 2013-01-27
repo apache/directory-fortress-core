@@ -8,6 +8,7 @@
 These instructions are intended for new users who want to quickly learn how to use JoshuaTree Fortress and Symas OpenLDAP IAM software on Windows platform.
 <br><br>Follow them carefully and OpenLDAP will be installed, configured, loaded, and ready to use by <em>Section IV</em>
 </p>
+  <hr>
    <h2>System Prerequisites</h2>
    The following steps are required...
    <p>
@@ -22,7 +23,7 @@ These instructions are intended for new users who want to quickly learn how to u
     <li>The binary dependencies are already present in FORTRESS_HOME/lib folder</li>
     <li>Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties: local.mode=true</li>
     </ul>       
-
+  <hr>
    <h2>Guidelines and Tips for first-time users</h2>
     <ul>
     <li>In the document that follows, when you read <em>[version]</em> or <em>[platform]</em> substitute with current package info.  For example - if the downloaded package version is 1.0.0 and platform is 'Debian Silver i386', the instructions show fortressBuilder-<em>[platform]</em>-<em>[version]</em>.jar your file name would be fortressBuilder-Debian-Silver-i386-1.0.0.zip</li>
@@ -35,6 +36,7 @@ These instructions are intended for new users who want to quickly learn how to u
     </ul>       
 
 <ol type="I">
+    <hr>
     <li>
        <h3>Instructions to extract and configure Fortress Builder Package to Target System</h3>
         <ol type="A">	  
@@ -43,7 +45,8 @@ These instructions are intended for new users who want to quickly learn how to u
            <li>Extract the zip.  The location for archive can vary according to requirements.  The location of package will be referred to as <em>FORTRESS_HOME</em> later on.</li>
 <br>	   
         </ol>
-    </li>	
+    </li>
+    <hr>
     <li>
        <h3>Instructions to run the Fortress Ant Build</h3>
         <ol type="A">	  
@@ -71,7 +74,7 @@ Verify it ran correctly according to Ant:
 You may now view the project binaries and documentation located under FORTRESS_HOME/dist.
 	   <br><br><img src="./images/Screenshot5-dist-listing.png" /><br><br>
     </li>
-
+    <hr>
     <li>
        <h3>Instructions to run the Builder to Install Symas OpenLDAP, configure and load with seed data</h3>
         <strong><p style="color:blue;font-size:14px;">Important: This target reinstalls and reloads the OpenLDAP server program, configuration and data.
@@ -140,7 +143,7 @@ The log root pw will be encrypted before stored in slapd.conf
 	   </li>
         </ol>
     </li>
-	
+  <hr>
     <li>
        <h3>Instructions to regression test Fortress and Symas OpenLDAP on target machine</h3>
         <ol type="A">	  
@@ -168,7 +171,7 @@ Note 1: WARNING messages in test output are good as these are negative tests in 
 The 'init-slapd' target may be re-run after the 'test-full-init' and 'test-full' targets have completed.  This will delete the test data from the directory
 and restart directory with a clean slate.
     </li>
-
+  <hr>
     <li>
        <h3>Instructions to run the Fortress Command Line Interpreter (CLI) utility (optional)</h3>
 This command line tool provides an interactive session with the user based on a simple command line syntax.<br><br>
@@ -198,7 +201,8 @@ manual in the javadoc located here:
 Note: if javadocs are not found, go to Section VII
 	   </li>	   
         </ol>
-   </li>	   
+   </li>
+  <hr>
     <li>
        <h3>Instructions to run Fortress Console (optional)</h3>
 For tasks like one-time setup of new users, password resets, searches
@@ -250,7 +254,7 @@ Enter choice and follow the screen prompts to search through the AUDIT log:
 	   </li>
         </ol>
     </li>
-	   
+  <hr>
     <li>
        <h3>Instructions to generate and view Javadoc  (optional)</h3>
         <ol type="A">	  
@@ -278,7 +282,8 @@ Good places to start learning about Fortress:
     <li><a href="./dist/docs/api/com/jts/fortress/ant/FortressAntTask.html">FortressAntTask</a></li>
     </ul>
 	   </li>
-        </ol>    
+        </ol>
+        <hr>
     <li>
        <h3>More Utilities</h3>
 Other execution targets you may find useful:       
@@ -310,5 +315,6 @@ Note: for slapd commands sudo or elevated privileges may be required.
     </li>
         </ol>    
 </ol>
+  <hr>
 Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
 </body>

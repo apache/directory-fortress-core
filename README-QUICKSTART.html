@@ -8,6 +8,7 @@
 These instructions are intended for new users who want to quickly learn how to install and test JoshuaTree Fortress and Symas OpenLDAP IAM software.
 <br><br>Follow the steps and OpenLDAP will be installed, configured, loaded, and ready to use by <em>Section IV</em>.   EnMasse Policy Server demo starts in <em>Section VIII</em>
 </p>
+<hr>
    <h2>System Prerequisites</h2>
    <p>
     <ul>
@@ -24,7 +25,7 @@ These instructions are intended for new users who want to quickly learn how to i
     <li>The binary dependencies have previously been downloaded to FORTRESS_HOME/lib folder</li>
     <li>Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties: local.mode=true</li>
     </ul>       
-
+<hr>
    <h2>Guidelines and Tips for first-time users</h2>
     <ul>
     <li>In the document that follows, when you read <em>[version]</em> or <em>[platform]</em> substitute with current package info.  For example - if the downloaded package version is 1.0.0 and platform is 'Debian Silver i386', the instructions show fortressBuilder-<em>[platform]</em>-<em>[version]</em>.jar your file name would be fortressBuilder-Debian-Silver-i386-1.0.0.zip</li>
@@ -35,6 +36,7 @@ These instructions are intended for new users who want to quickly learn how to i
     </ul>       
 
 <ol type="I">
+<hr>
  <li>
        <h3>Instructions to extract and configure Fortress Builder Package to Target System</h3>
         <ol type="A">	  
@@ -58,10 +60,9 @@ note: For Redhat deployments leave this param's value empty, like below, otherwi
 	   <img src="./images/Screenshot2-edit-sudo.png" /><br>
         </ol>
     </li> 
-
  </li>
- 
-   <li>
+ <hr>
+    <li>
        <h3>Instructions to run the Fortress Ant Build</h3>
         <ol type="A">
            <li>
@@ -88,7 +89,7 @@ Verify it ran correctly according to Ant:
 You may now view the project binaries and documentation located under FORTRESS_HOME/dist.
 	   <br><br><img src="./images/Screenshot5-dist-listing.png" /><br><br>
     </li>
-
+    <hr>
     <li>
        <h3>Instructions to run the Builder to Install Symas OpenLDAP, configure and load with seed data</h3>
 <strong><p style="color:blue;font-size:14px;">Important: This target reinstalls and reloads the OpenLDAP server program, configuration and data.
@@ -154,7 +155,7 @@ The log root pw will be encrypted before stored in slapd.conf
 	   </li>
         </ol>
     </li>
-	
+    <hr>
     <li>
        <h3>Instructions to regression test Fortress and Symas OpenLDAP on target machine (optional)</h3>
         <ol type="A">	  
@@ -181,7 +182,7 @@ Note 1: WARNING messages in test output are good as these are negative tests in 
 <br><br>Note 3: These tests load tens of thousands of records into your newly installed directory.
 The 'init-slapd' and 'test-full' targets may be re-run as often as necessary.  After regressions testing has completed, you may run the 'init-slapd' target to remove all test data from the directory.
     </li>
-
+    <hr>
     <li>
        <h3>Instructions to run the Fortress Command Line Interpreter (CLI) utility (optional)</h3>
 This command line tool provides an interactive session with the user based on a simple command line syntax.<br><br>
@@ -211,7 +212,8 @@ manual in the javadoc located here:
 Note: if javadocs are not found, go to Section VII
 	   </li>	   
         </ol>
-   </li>	   
+   </li>
+    <hr>
     <li>
        <h3>Instructions to run Fortress Console (optional)</h3>
 For tasks like one-time setup of new users, password resets, searches
@@ -263,7 +265,7 @@ Enter choice and follow the screen prompts to search through the AUDIT log:
 	   </li>
         </ol>
     </li>
-	   
+    <hr>
     <li>
        <h3>Instructions to generate and view Javadoc  (optional)</h3>
         <ol type="A">	  
@@ -292,7 +294,7 @@ Good places to start learning about Fortress:
     </ul>
 	   </li>
         </ol>
-	
+    <hr>
     <li>
        <h3>Instructions to install EnMasse Policy Server Demo (optional)</h3>
         <ol type="A">	  
@@ -312,6 +314,7 @@ After above step completes, Fortress EnMasse will be installed
 <br><br>	   
 	   </li>
 	</ol>
+    <hr>
     <li>
        <h3>Instructions to regression test EnMasse Policy server on target machine (optional)</h3>
         <ol type="A">
@@ -352,10 +355,11 @@ Note 1: WARNING messages in test output are good as these are negative tests in 
 	   <br><img src="./images/Screenshot12-junit-warn.png" />	   	   
 <br><br>Note 2: If you made it this far without junit or ant ERRORS, EnMasse is installed and certified to run on your machine.
 <br><br>Note 3: These tests load tens of thousands of records into your directory.
-The 'test-full' target may be re-run as often as necessary.  After regressions testing have complet, you may run the 'init-slapd' target to remove all test data from the directory.
+The 'test-full' target may be re-run as often as necessary.  After regressions testing have completed, you may run the 'init-slapd' target to remove all test data from the directory.
     </li>
     </li>		  
-	</ol>			
+	</ol>
+  <hr>
     <li>
        <h3>More Utilities</h3>
 Other execution targets you may find useful:       
@@ -387,5 +391,6 @@ Note: for slapd commands sudo or elevated privileges may be required.
     </li>
         </ol>    
 </ol>
+  <hr>
 Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
 </body>

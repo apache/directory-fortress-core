@@ -1,4 +1,4 @@
-# Copyright © Joshua Tree Software, LLC, 2009-2012 All Rights Reserved.
+# Copyright © Joshua Tree Software, LLC, 2009-2013 All Rights Reserved.
 # Fortress slapd.conf default settings.
 # Note: Directives that begin with '@' are substitution parms for Fortress' build.xml 'init-slapd' target.
 include		@SCHEMA_PATH@/core.schema
