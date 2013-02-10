@@ -21,7 +21,7 @@ import java.util.TreeSet;
 /**
  * This utility wraps {@link HierUtil} methods to provide hierarchical functionality using the {@link us.jts.fortress.rbac.OrgUnit} data set
  * for Permissions, {@link us.jts.fortress.rbac.OrgUnit.Type#PERM}.
- * The {@code cn=Hierarchies, ou=OS-P} data contains Permission OU pools and within a data cache, {@link #m_psoCache}, contained within this class.  The parent-child edges are contained in LDAP,
+ * The {@code cn=Hierarchies, ou=OS-P} data contains Permission OU pools and within a data cache, {@link #psoCache}, contained within this class.  The parent-child edges are contained in LDAP,
  * in {@code ftParents} attribute.  The ldap data is retrieved {@link OrgUnitP#getAllDescendants(OrgUnit)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
@@ -42,7 +42,7 @@ import java.util.TreeSet;
  */
 final class PsoUtil
 {
-    private static Cache m_psoCache;
+    private static Cache psoCache;
     private static OrgUnitP orgUnitP = new OrgUnitP();
     private static final String FORTRESS_PSO = "fortress.pso";
     private static final String CLS_NM = PsoUtil.class.getName();
@@ -56,7 +56,7 @@ final class PsoUtil
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        PsoUtil.m_psoCache = cacheMgr.getCache(FORTRESS_PSO);
+        psoCache = cacheMgr.getCache(FORTRESS_PSO);
         //loadGraph();
     }
 
@@ -214,7 +214,7 @@ final class PsoUtil
         {
             graph = HierUtil.buildGraph(hier);
         }
-        m_psoCache.put(getKey(contextId), graph);
+        psoCache.put(getKey(contextId), graph);
         return graph;
     }
 
@@ -224,7 +224,7 @@ final class PsoUtil
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph(String contextId)
     {
-        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) m_psoCache.get(getKey(contextId));
+        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) psoCache.get(getKey(contextId));
         if (graph == null)
         {
             graph = loadGraph(contextId);

@@ -20,7 +20,7 @@ import java.util.TreeSet;
 
 /**
  * This utility wraps {@link HierUtil} methods to provide hierarchical functionality using the {@link us.jts.fortress.rbac.OrgUnit} data set for User type {@link us.jts.fortress.rbac.OrgUnit.Type#USER}.
- * The {@code cn=Hierarchies, ou=OS-U} data contains User OU pools is stored within a data cache, {@link #m_usoCache}, contained within this class.  The parent-child edges are contained in LDAP,
+ * The {@code cn=Hierarchies, ou=OS-U} data contains User OU pools is stored within a data cache, {@link #usoCache}, contained within this class.  The parent-child edges are contained in LDAP,
  * in {@code ftParents} attribute.  The ldap data is retrieved {@link OrgUnitP#getAllDescendants(OrgUnit)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
@@ -41,7 +41,7 @@ import java.util.TreeSet;
  */
 final class UsoUtil
 {
-    private static Cache m_usoCache;
+    private static Cache usoCache;
     private static OrgUnitP orgUnitP = new OrgUnitP();
     private static final String FORTRESS_USO = "fortress.uso";
     private static final String CLS_NM = UsoUtil.class.getName();
@@ -54,7 +54,7 @@ final class UsoUtil
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        UsoUtil.m_usoCache = cacheMgr.getCache(FORTRESS_USO);
+        usoCache = cacheMgr.getCache(FORTRESS_USO);
         //loadGraph();
     }
 
@@ -204,7 +204,7 @@ final class UsoUtil
         {
             graph = HierUtil.buildGraph(hier);
         }
-        m_usoCache.put(getKey(contextId), graph);
+        usoCache.put(getKey(contextId), graph);
         return graph;
     }
 
@@ -215,7 +215,7 @@ final class UsoUtil
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph(String contextId)
     {
-        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) m_usoCache.get(getKey(contextId));
+        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) usoCache.get(getKey(contextId));
         if (graph == null)
         {
             graph = loadGraph(contextId);

@@ -20,7 +20,7 @@ import java.util.TreeSet;
 
 /**
  * This utility wraps {@link HierUtil} methods to provide hierarchical functionality for the {@link us.jts.fortress.rbac.Role} data set.
- * The {@code cn=Hierarchies, ou=Roles} data is stored within a cache, {@link #m_roleCache}, contained within this class.  The parent-child edges are contained in LDAP,
+ * The {@code cn=Hierarchies, ou=Roles} data is stored within a cache, {@link #roleCache}, contained within this class.  The parent-child edges are contained in LDAP,
  * in {@code ftParents} attribute.  The ldap data is retrieved {@link RoleP#getAllDescendants(String)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
@@ -41,7 +41,7 @@ import java.util.TreeSet;
  */
 final class RoleUtil
 {
-    private static Cache m_roleCache;
+    private static Cache roleCache;
     private static final RoleP roleP = new RoleP();
     private static final String FORTRESS_ROLES = "fortress.roles";
     private static final String CLS_NM = RoleUtil.class.getName();
@@ -54,7 +54,7 @@ final class RoleUtil
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        RoleUtil.m_roleCache = cacheMgr.getCache(FORTRESS_ROLES);
+        roleCache = cacheMgr.getCache(FORTRESS_ROLES);
     }
 
     /**
@@ -289,7 +289,7 @@ final class RoleUtil
         {
             graph = HierUtil.buildGraph(hier);
         }
-        m_roleCache.put(getKey(contextId), graph);
+        roleCache.put(getKey(contextId), graph);
         return graph;
     }
 
@@ -315,7 +315,7 @@ final class RoleUtil
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph(String contextId)
     {
-        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) m_roleCache.get(getKey(contextId));
+        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) roleCache.get(getKey(contextId));
         if (graph == null)
         {
             graph = loadGraph(contextId);

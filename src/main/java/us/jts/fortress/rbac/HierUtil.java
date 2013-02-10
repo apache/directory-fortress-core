@@ -61,7 +61,7 @@ final class HierUtil
         PSO
     }
 
-    private static final Map<String,Object> synchMap = new HashMap<String, Object>();
+    private static final Map<String,Object> synchMap = new HashMap<>();
 
     /**
      *
@@ -160,7 +160,7 @@ final class HierUtil
     {
         log.debug(CLS_NM + ".toGraph");
         SimpleDirectedGraph<String, Relationship> graph =
-            new SimpleDirectedGraph<String, Relationship>(Relationship.class);
+            new SimpleDirectedGraph<>(Relationship.class);
         List<Relationship> edges = hier.getRelationships();
         if (edges != null && edges.size() > 0)
         {
@@ -224,7 +224,7 @@ final class HierUtil
      */
     static int numChildren(String name, SimpleDirectedGraph<String, Relationship> graph)
     {
-        Map vx = new HashMap();
+        Map<String, String> vx = new HashMap<>();
         vx.put(VERTEX, name.toUpperCase());
         return numChildren(vx, graph);
     }
@@ -248,16 +248,15 @@ final class HierUtil
      * @param graph  contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @return
      */
-    private static int numChildren(Map vertex, SimpleDirectedGraph<String, Relationship> graph)
+    private static int numChildren(Map<String,String> vertex, SimpleDirectedGraph<String, Relationship> graph)
     {
-        String v;
         int numChildren = 0;
         try
         {
-            v = (String) vertex.get(VERTEX);
+            String v = vertex.get(VERTEX);
             if (v == null)
             {
-                log.debug(CLS_NM + ".getDescendants vertex is null");
+                //log.debug(CLS_NM + ".getDescendants vertex is null");
                 return 0;
             }
             if (log.isDebugEnabled())
@@ -267,7 +266,7 @@ final class HierUtil
         }
         catch (java.lang.IllegalArgumentException e)
         {
-            log.debug(CLS_NM + ".getDescendants vertex not found");
+            // vertex is leaf.
         }
         return numChildren;
     }
@@ -281,10 +280,10 @@ final class HierUtil
      */
     static Set<String> getAscendants(String childName, SimpleDirectedGraph<String, Relationship> graph)
     {
-        Map vx = new HashMap();
+        Map<String,String> vx = new HashMap<>();
         // TreeSet will return in sorted order:
         // create Set with case insensitive comparator:
-        Set<String> parents = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> parents = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         vx.put(VERTEX, childName.toUpperCase());
         getAscendants(vx, graph, parents);
         return parents;
@@ -298,18 +297,15 @@ final class HierUtil
      * @param ascendants contains the result set of ascendant names.
      * @return value contains the vertex of current position.
      */
-    private static String getAscendants(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> ascendants)
+    private static String getAscendants(Map<String,String> vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> ascendants)
     {
-        String v;
-        v = (String) vertex.get(VERTEX);
+        String v = vertex.get(VERTEX);
         if (v == null)
         {
-            log.debug(CLS_NM + ".getAscendants vertex is null");
             return null;
         }
         else if (graph == null)
         {
-            log.debug(CLS_NM + ".getAscendants graph is null");
             return null;
         }
         if (log.isDebugEnabled())
@@ -320,13 +316,11 @@ final class HierUtil
         try
         {
             edges = graph.outgoingEdgesOf(v);
+
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            if (log.isDebugEnabled())
-            {
-                log.debug(CLS_NM + ".getAscendants no parent found");
-            }
+            // vertex is leaf.
             return null;
         }
         for (Relationship edge : edges)
@@ -347,11 +341,10 @@ final class HierUtil
      */
     static Set<String> getDescendants(String parentName, SimpleDirectedGraph<String, Relationship> graph)
     {
-        Map vx = new HashMap();
+        Map<String,String> vx = new HashMap<>();
         // TreeSet will return in sorted order:
         // create Set with case insensitive comparator:
-        Set<String> children = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-
+        Set<String> children = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         vx.put(VERTEX, parentName.toUpperCase());
         getDescendants(vx, graph, children);
         return children;
@@ -366,18 +359,17 @@ final class HierUtil
      * @param descendants contains the result set of names of all descendants of node.
      * @return value contains the vertex of current position.
      */
-    private static String getDescendants(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> descendants)
+    private static String getDescendants(Map<String,String> vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> descendants)
     {
-        String v;
-        v = (String) vertex.get(VERTEX);
+        String v = vertex.get(VERTEX);
         if (v == null)
         {
-            log.debug(CLS_NM + ".getDescendants vertex is null");
+            //log.debug(CLS_NM + ".getDescendants vertex is null");
             return null;
         }
         else if (graph == null)
         {
-            log.debug(CLS_NM + ".getDescendants graph is null");
+            //log.debug(CLS_NM + ".getDescendants graph is null");
             return null;
         }
         if (log.isDebugEnabled())
@@ -390,7 +382,7 @@ final class HierUtil
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            log.debug(CLS_NM + ".getDescendants no parent found");
+            // vertex is leaf.
             return null;
         }
         for (Relationship edge : edges)
@@ -411,10 +403,10 @@ final class HierUtil
      */
     static Set<String> getChildren(String vertex, SimpleDirectedGraph<String, Relationship> graph)
     {
-        Set<String> descendants = new HashSet<String>();
+        Set<String> descendants = new HashSet<>();
         if (graph == null)
         {
-            log.debug(CLS_NM + ".getChildren graph is null");
+            //log.debug(CLS_NM + ".getChildren graph is null");
             return null;
         }
         if (log.isDebugEnabled())
@@ -427,7 +419,7 @@ final class HierUtil
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            log.debug(CLS_NM + ".getChildren no parent found");
+            // vertex is leaf.
             return null;
         }
         for (Relationship edge : edges)
@@ -448,10 +440,10 @@ final class HierUtil
      */
     static Set<String> getAscendants(String childName, String parentName, boolean isInclusive, SimpleDirectedGraph<String, Relationship> graph)
     {
-        Map vx = new HashMap();
+        Map<String,String> vx = new HashMap<>();
         // TreeSet will return in sorted order:
         // create Set with case insensitive comparator:
-        Set<String> parents = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> parents = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
 
         vx.put(VERTEX, childName.toUpperCase());
         getAscendants(vx, graph, parents, parentName, isInclusive);
@@ -468,18 +460,17 @@ final class HierUtil
      * @param isInclusive if set to true will include the parentName in the result set. False will not return specified parentName.
      * @return Set of names that are parents of given child.
      */
-    private static String getAscendants(Map vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> parents, String stopName, boolean isInclusive)
+    private static String getAscendants(Map<String,String> vertex, SimpleDirectedGraph<String, Relationship> graph, Set<String> parents, String stopName, boolean isInclusive)
     {
-        String v;
-        v = (String) vertex.get(VERTEX);
+        String v = vertex.get(VERTEX);
         if (v == null)
         {
-            log.debug(CLS_NM + ".getAscendants vertex is null");
+            //log.debug(CLS_NM + ".getAscendants vertex is null");
             return null;
         }
         else if (graph == null)
         {
-            log.debug(CLS_NM + ".getAscendants graph is null");
+            //log.debug(CLS_NM + ".getAscendants graph is null");
             return null;
         }
         if (log.isDebugEnabled())
@@ -493,7 +484,7 @@ final class HierUtil
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            log.debug(CLS_NM + ".getAscendants no parent found");
+            // vertex is leaf.
             return null;
         }
         for (Relationship edge : edges)
@@ -525,10 +516,10 @@ final class HierUtil
      */
     static Set<String> getParents(String vertex, SimpleDirectedGraph<String, Relationship> graph)
     {
-        Set<String> parents = new HashSet<String>();
+        Set<String> parents = new HashSet<>();
         if (graph == null)
         {
-            log.debug(CLS_NM + ".getParents graph is null");
+            //log.debug(CLS_NM + ".getParents graph is null");
             return null;
         }
         if (log.isDebugEnabled())
@@ -542,7 +533,7 @@ final class HierUtil
         }
         catch (java.lang.IllegalArgumentException iae)
         {
-            log.debug(CLS_NM + ".getParents no parent found");
+            // vertex is leaf.
             return null;
         }
         for (Relationship edge : edges)

@@ -20,7 +20,7 @@ import java.util.TreeSet;
 
 /**
  * This utility wraps {@link HierUtil} methods to provide hierarchical functionality for the {@link us.jts.fortress.rbac.AdminRole} data set.
- * The child to parent relationships are stored within a data cache, {@link #m_adminRoleCache}, contained within this class.  The parent-child edges are contained in LDAP,
+ * The child to parent relationships are stored within a data cache, {@link #adminRoleCache}, contained within this class.  The parent-child edges are contained in LDAP,
  * in {@code ftParents} attribute.  The ldap data is retrieved {@link AdminRoleP#getAllDescendants(String)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
@@ -41,7 +41,7 @@ import java.util.TreeSet;
  */
 final class AdminRoleUtil
 {
-    private static Cache m_adminRoleCache;
+    private static Cache adminRoleCache;
     private static AdminRoleP adminRoleP = new AdminRoleP();
     private static final String FORTRESS_ADMIN_ROLES = "fortress.admin.roles";
     private static final String CLS_NM = AdminRoleUtil.class.getName();
@@ -54,7 +54,7 @@ final class AdminRoleUtil
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        AdminRoleUtil.m_adminRoleCache = cacheMgr.getCache(FORTRESS_ADMIN_ROLES);
+        adminRoleCache = cacheMgr.getCache(FORTRESS_ADMIN_ROLES);
     }
 
     /**
@@ -221,7 +221,7 @@ final class AdminRoleUtil
         {
             graph = HierUtil.buildGraph(hier);
         }
-        m_adminRoleCache.put(getKey(contextId), graph);
+        adminRoleCache.put(getKey(contextId), graph);
         return graph;
     }
 
@@ -234,7 +234,7 @@ final class AdminRoleUtil
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph(String contextId)
     {
-        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) m_adminRoleCache.get(getKey(contextId));
+        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) adminRoleCache.get(getKey(contextId));
         if (graph == null)
         {
             graph = loadGraph(contextId);
