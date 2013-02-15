@@ -270,7 +270,7 @@ public class AdminRole extends Role implements Administrator
         if (this.osPs == null)
         {
             // create Set with case insensitive comparator:
-            osPs = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+            osPs = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         }
         osPs.add(osP);
     }
@@ -308,7 +308,7 @@ public class AdminRole extends Role implements Administrator
         if (this.osUs == null)
         {
             // create Set with case insensitive comparator:
-            osUs = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+            osUs = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         }
         osUs.add(osU);
     }

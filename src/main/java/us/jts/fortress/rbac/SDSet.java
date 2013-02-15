@@ -152,7 +152,7 @@ public class SDSet extends FortEntity
      */
     public static Set<String> createMembers()
     {
-        return new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        return new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
     }
 
 
@@ -293,7 +293,7 @@ public class SDSet extends FortEntity
     {
         if(this.members == null)
         {
-            this.members = new HashSet<String>();
+            this.members = new HashSet<>();
         }
         this.members.add(member);
     }

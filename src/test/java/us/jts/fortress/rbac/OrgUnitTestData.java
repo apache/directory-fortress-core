@@ -810,7 +810,7 @@ public class OrgUnitTestData extends TestCase
         Set<String> parents = null;
         if(VUtil.isNotNullOrEmpty(ole[RELATIONSHIP_COL]))
         {
-            parents = new HashSet<String>();
+            parents = new HashSet<>();
             StringTokenizer charSetTkn = new StringTokenizer(ole[RELATIONSHIP_COL], ",");
             if (charSetTkn.countTokens() > 0)
             {
@@ -832,7 +832,7 @@ public class OrgUnitTestData extends TestCase
      */
     public static List<String> getRelationshipList(String[] ole)
     {
-        List<String> parents = new ArrayList<String>();
+        List<String> parents = new ArrayList<>();
         if(VUtil.isNotNullOrEmpty(ole[RELATIONSHIP_COL]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(ole[RELATIONSHIP_COL], ",");
@@ -856,7 +856,7 @@ public class OrgUnitTestData extends TestCase
      */
     public static Set<String> getInheritances(String[] ole)
     {
-        Set<String> rels = new HashSet<String>();
+        Set<String> rels = new HashSet<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(ole[INHERITANCE_COL]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(ole[INHERITANCE_COL], ",");

@@ -30,7 +30,7 @@ import us.jts.fortress.rbac.PermObj;
 public class AddpermObj
 {
 
-    final private List<PermObj> permObjs = new ArrayList<PermObj>();
+    final private List<PermObj> permObjs = new ArrayList<>();
 
 
     /**

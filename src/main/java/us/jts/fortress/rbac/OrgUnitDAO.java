@@ -318,7 +318,7 @@ final class OrgUnitDAO extends DataProvider
     final List<OrgUnit> findOrgs(OrgUnit orgUnit)
         throws FinderException
     {
-        List<OrgUnit> orgUnitList = new ArrayList<OrgUnit>();
+        List<OrgUnit> orgUnitList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String orgUnitRoot = getOrgRoot(orgUnit);
@@ -368,7 +368,7 @@ final class OrgUnitDAO extends DataProvider
     final Set<String> getOrgs(OrgUnit orgUnit)
         throws FinderException
     {
-        Set<String> ouSet = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> ouSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         LDAPConnection ld = null;
         String orgUnitRoot = getOrgRoot(orgUnit);
         try
@@ -414,7 +414,7 @@ final class OrgUnitDAO extends DataProvider
      {
          String orgUnitRoot = getOrgRoot(orgUnit);
          String[] DESC_ATRS = { GlobalIds.OU, GlobalIds.PARENT_NODES };
-         List<Graphable> descendants = new ArrayList<Graphable>();
+         List<Graphable> descendants = new ArrayList<>();
          LDAPConnection ld = null;
          LDAPSearchResults searchResults;
          String filter = null;

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Deluser
 {
-    final private List<UserAnt> users = new ArrayList<UserAnt>();
+    final private List<UserAnt> users = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

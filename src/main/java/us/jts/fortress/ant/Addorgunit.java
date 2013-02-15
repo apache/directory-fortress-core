@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Addorgunit
 {
-    final private List<OrgUnitAnt> ous = new ArrayList<OrgUnitAnt>();
+    final private List<OrgUnitAnt> ous = new ArrayList<>();
 
 
     /**

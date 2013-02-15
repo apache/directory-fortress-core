@@ -925,7 +925,7 @@ final class PermDAO extends DataProvider
     final List<Permission> findPermissions(Permission permission)
         throws FinderException
     {
-        List<Permission> permList = new ArrayList<Permission>();
+        List<Permission> permList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String permRoot = getRootDn(permission.isAdmin(), permission.getContextId());
@@ -968,7 +968,7 @@ final class PermDAO extends DataProvider
     final List<PermObj> findPermissions(PermObj permObj)
         throws FinderException
     {
-        List<PermObj> permList = new ArrayList<PermObj>();
+        List<PermObj> permList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String permRoot = getRootDn(permObj.isAdmin(), permObj.getContextId());
@@ -1007,7 +1007,7 @@ final class PermDAO extends DataProvider
     final List<PermObj> findPermissions(OrgUnit ou, boolean limitSize)
         throws FinderException
     {
-        List<PermObj> permList = new ArrayList<PermObj>();
+        List<PermObj> permList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String permRoot = getRootDn(ou.getContextId(), GlobalIds.PERM_ROOT);
@@ -1056,7 +1056,7 @@ final class PermDAO extends DataProvider
     final List<Permission> findPermissions(Role role)
         throws FinderException
     {
-        List<Permission> permList = new ArrayList<Permission>();
+        List<Permission> permList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String permRoot;
@@ -1126,7 +1126,7 @@ final class PermDAO extends DataProvider
     final List<Permission> findPermissions(User user)
         throws FinderException
     {
-        List<Permission> permList = new ArrayList<Permission>();
+        List<Permission> permList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String permRoot = getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
@@ -1173,7 +1173,7 @@ final class PermDAO extends DataProvider
     final List<Permission> findUserPermissions(User user)
         throws FinderException
     {
-        List<Permission> permList = new ArrayList<Permission>();
+        List<Permission> permList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String permRoot = getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
@@ -1211,7 +1211,7 @@ final class PermDAO extends DataProvider
     final List<Permission> findPermissions(Session session)
         throws FinderException
     {
-        List<Permission> permList = new ArrayList<Permission>();
+        List<Permission> permList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String permRoot = getRootDn(session.getContextId(), GlobalIds.PERM_ROOT);

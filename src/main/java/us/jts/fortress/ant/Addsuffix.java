@@ -30,7 +30,7 @@ import us.jts.fortress.ldap.suffix.Suffix;
 public class Addsuffix
 
 {
-    final private List<Suffix> suffixes = new ArrayList<Suffix>();
+    final private List<Suffix> suffixes = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

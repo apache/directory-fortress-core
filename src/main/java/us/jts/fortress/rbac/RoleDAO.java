@@ -340,7 +340,7 @@ final class RoleDAO extends DataProvider
     final List<Role> findRoles(Role role)
         throws FinderException
     {
-        List<Role> roleList = new ArrayList<Role>();
+        List<Role> roleList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String roleRoot = getRootDn(role.getContextId(), GlobalIds.ROLE_ROOT);
@@ -382,7 +382,7 @@ final class RoleDAO extends DataProvider
     final List<String> findRoles(Role role, int limit)
         throws FinderException
     {
-        List<String> roleList = new ArrayList<String>();
+        List<String> roleList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String roleRoot = getRootDn(role.getContextId(), GlobalIds.ROLE_ROOT);
@@ -424,7 +424,7 @@ final class RoleDAO extends DataProvider
     final List<String> findAssignedRoles(String userDn, String contextId)
         throws FinderException
     {
-        List<String> roleNameList = new ArrayList<String>();
+        List<String> roleNameList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String roleRoot = getRootDn(contextId, GlobalIds.ROLE_ROOT);
@@ -463,7 +463,7 @@ final class RoleDAO extends DataProvider
         throws FinderException
     {
         String[] DESC_ATRS = { ROLE_NM, GlobalIds.PARENT_NODES };
-        List<Graphable> descendants = new ArrayList<Graphable>();
+        List<Graphable> descendants = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String roleRoot = getRootDn(contextId, GlobalIds.ROLE_ROOT);

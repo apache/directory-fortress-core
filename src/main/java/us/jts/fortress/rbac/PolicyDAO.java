@@ -517,7 +517,7 @@ final class PolicyDAO extends DataProvider
     final List<PwPolicy> findPolicy(PwPolicy policy)
         throws FinderException
     {
-        List<PwPolicy> policyArrayList = new ArrayList<PwPolicy>();
+        List<PwPolicy> policyArrayList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String policyRoot = getPolicyRoot(policy.getContextId());
@@ -555,7 +555,7 @@ final class PolicyDAO extends DataProvider
     final Set<String> getPolicies(String contextId)
         throws FinderException
     {
-        Set<String> policySet = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> policySet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String policyRoot = getPolicyRoot(contextId);

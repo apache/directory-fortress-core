@@ -143,7 +143,7 @@ final class AdminRoleUtil
     static Set<String> getInheritedRoles(List<UserAdminRole> uRoles, String contextId)
     {
         // create Set with case insensitive comparator:
-        Set<String> iRoles = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> iRoles = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         if (VUtil.isNotNullOrEmpty(uRoles))
         {
             for (UserAdminRole uRole : uRoles)

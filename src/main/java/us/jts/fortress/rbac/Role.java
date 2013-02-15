@@ -247,7 +247,7 @@ public class Role extends FortEntity
     {
         if (this.occupants == null)
         {
-            this.occupants = new ArrayList<String>();
+            this.occupants = new ArrayList<>();
         }
         this.occupants.add(occupant);
     }
@@ -557,7 +557,7 @@ public class Role extends FortEntity
     {
         if (this.parents == null)
         {
-            this.parents = new HashSet<String>();
+            this.parents = new HashSet<>();
         }
         this.parents.add(parent);
     }

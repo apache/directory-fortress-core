@@ -19,7 +19,7 @@ public class SetAdapter extends XmlAdapter<ArrayList<String>, Set<String>>
         Set<String> members = null;
         if(val != null)
         {
-            members = new TreeSet<String>();
+            members = new TreeSet<>();
             for(String member : val)
             {
                 members.add(member);
@@ -33,7 +33,7 @@ public class SetAdapter extends XmlAdapter<ArrayList<String>, Set<String>>
         ArrayList<String> members = null;
         if(val != null)
         {
-            members = new ArrayList<String>();
+            members = new ArrayList<>();
             for(String member : val)
             {
                 members.add(member);

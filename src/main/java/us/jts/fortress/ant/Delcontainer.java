@@ -4,6 +4,8 @@
 
 package us.jts.fortress.ant;
 
+import us.jts.fortress.ldap.container.OrganizationalUnit;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ import java.util.List;
  */
 public class Delcontainer
 {
-    final private List<us.jts.fortress.ldap.container.OrganizationalUnit> containers = new ArrayList<us.jts.fortress.ldap.container.OrganizationalUnit>();
+    final private List<OrganizationalUnit> containers = new ArrayList<>();
 
 
     /**

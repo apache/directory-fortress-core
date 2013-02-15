@@ -40,19 +40,19 @@ import java.util.*;
  * Connection pool class is used by {@link PoolMgr} to manage live connections to the ldap server.  The connection pools
  * increase speed for data access by avoiding cost of recreating connections for every ldap request.
  * </p>
- *
+ * <p/>
  * The contents of this file were derived from the ConnectionPool in Mozilla Java LDAP SDK and are subject to the Netscape Public
  * License Version 1.1 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License at
  * <a href="http://www.mozilla.org/MPL/MPL-1.1.html/">Mozilla Public License Version 1.1</a> or see
  * <a href="http://www.mozilla.org/MPL/">Mozilla Public License</a> for more info.
- *
+ * <p/>
  * </p>
  * Software distributed under the License is distributed on an "AS
  * IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
  * implied. See the License for the specific language governing
  * rights and limitations under the License.
- *
+ * <p/>
  * </p>
  * Class to maintain a pool of individual connections to the
  * same server. Specify the initial size and the max size
@@ -62,29 +62,29 @@ import java.util.*;
  * getConnection() blocks until a connection has been returned
  * to the pool.<BR>
  * Call destroy() to release all connections.
- *<BR><BR>Example:<BR>
- *<PRE>
+ * <BR><BR>Example:<BR>
+ * <PRE>
  * ConnectionPool pool = null;
  * try {
- *     pool = new ConnectionPool( 10, 30,
- *                                "foo.acme.com",389,
- *                                "uid=me, o=acme.com",
- *                                "password" );
+ * pool = new ConnectionPool( 10, 30,
+ * "foo.acme.com",389,
+ * "uid=me, o=acme.com",
+ * "password" );
  * } catch ( LDAPException e ) {
- *    System.err.println( "Unable to create connection pool" );
- *    System.exit( 1 );
+ * System.err.println( "Unable to create connection pool" );
+ * System.exit( 1 );
  * }
  * while ( clientsKnocking ) {
- *     String filter = getSearchFilter();
- *     LDAPConnection ld = pool.getConnection();
- *     try {
- *         LDAPSearchResults res = ld.search( BASE, ld.SCOPE_SUB,
- *                                            filter, attrs,
- *                                            false );
- *         pool.close( ld );
- *         while( res.hasMoreElements() ) {
- *             ...
- *</PRE>
+ * String filter = getSearchFilter();
+ * LDAPConnection ld = pool.getConnection();
+ * try {
+ * LDAPSearchResults res = ld.search( BASE, ld.SCOPE_SUB,
+ * filter, attrs,
+ * false );
+ * pool.close( ld );
+ * while( res.hasMoreElements() ) {
+ * ...
+ * </PRE>
  */
 public class ConnectionPool
 {

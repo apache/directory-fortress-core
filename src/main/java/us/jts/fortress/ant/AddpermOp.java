@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class AddpermOp
 {
-    final private List<PermAnt> permissions = new ArrayList<PermAnt>();
+    final private List<PermAnt> permissions = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

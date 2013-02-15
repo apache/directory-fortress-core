@@ -58,7 +58,7 @@ public class Address implements Serializable
     {
         if (addresses == null)
         {
-            addresses = new ArrayList<String>();
+            addresses = new ArrayList<>();
         }
         addresses.add(address);
     }
@@ -73,7 +73,7 @@ public class Address implements Serializable
         if (addresses == null)
 
         {
-            addresses = new ArrayList<String>();
+            addresses = new ArrayList<>();
         }
         return addresses;
     }

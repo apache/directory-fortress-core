@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Delsdset
 {
-    final private List<SDSetAnt> sds = new ArrayList<SDSetAnt>();
+    final private List<SDSetAnt> sds = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

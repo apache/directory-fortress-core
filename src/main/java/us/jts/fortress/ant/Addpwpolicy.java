@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Addpwpolicy
 {
-    final private List<PwPolicy> policies = new ArrayList<PwPolicy>();
+    final private List<PwPolicy> policies = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

@@ -77,7 +77,7 @@ public class Props extends FortEntity implements Serializable
     {
         if (entry == null)
         {
-            entry = new ArrayList<Props.Entry>();
+            entry = new ArrayList<>();
         }
         return this.entry;
     }

@@ -300,7 +300,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         throws SecurityException
     {
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionRoles");
-        Set<String> retRoleNames = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> retRoleNames = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setSession(session);

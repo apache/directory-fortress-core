@@ -5854,7 +5854,7 @@ public class UserTestData extends TestCase
      */
     private static Set<String> getSets(String[] szInput, int col)
     {
-        Set<String> vSets = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> vSets = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         try
         {
             if (VUtil.isNotNullOrEmpty(szInput[col]))
@@ -5885,7 +5885,7 @@ public class UserTestData extends TestCase
      */
     private static List<String> getList(String[] szInput, int col)
     {
-        List<String> vList = new ArrayList<String>();
+        List<String> vList = new ArrayList<>();
         try
         {
             if (VUtil.isNotNullOrEmpty(szInput[col]))

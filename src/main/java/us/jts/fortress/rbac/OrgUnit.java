@@ -307,7 +307,7 @@ public class OrgUnit extends FortEntity
     {
         if (this.parents == null)
         {
-            this.parents = new HashSet<String>();
+            this.parents = new HashSet<>();
         }
         this.parents.add(parent);
     }

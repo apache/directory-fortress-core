@@ -31,7 +31,7 @@ import java.util.List;
 public class Addcontext
 
 {
-    final private List<Context> contexts = new ArrayList<Context>();
+    final private List<Context> contexts = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

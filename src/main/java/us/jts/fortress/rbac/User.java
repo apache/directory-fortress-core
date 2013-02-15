@@ -416,7 +416,7 @@ public class User extends FortEntity implements Constraint, Serializable
         // do not return a null List to caller:
         if (roles == null)
         {
-            roles = new ArrayList<UserRole>();
+            roles = new ArrayList<>();
         }
         return roles;
     }
@@ -441,7 +441,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (roles == null)
         {
-            roles = new ArrayList<UserRole>();
+            roles = new ArrayList<>();
         }
         roles.add(role);
     }
@@ -455,7 +455,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (roles == null)
         {
-            roles = new ArrayList<UserRole>();
+            roles = new ArrayList<>();
         }
         roles.add(new UserRole(roleName));
     }
@@ -483,7 +483,7 @@ public class User extends FortEntity implements Constraint, Serializable
         // do not return a null List to caller:
         if (adminRoles == null)
         {
-            adminRoles = new ArrayList<UserAdminRole>();
+            adminRoles = new ArrayList<>();
         }
         return adminRoles;
     }
@@ -507,7 +507,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (adminRoles == null)
         {
-            adminRoles = new ArrayList<UserAdminRole>();
+            adminRoles = new ArrayList<>();
         }
         adminRoles.add(role);
     }
@@ -521,7 +521,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (adminRoles == null)
         {
-            adminRoles = new ArrayList<UserAdminRole>();
+            adminRoles = new ArrayList<>();
         }
         adminRoles.add(new UserAdminRole(this.userId, roleName));
     }
@@ -1027,7 +1027,7 @@ public class User extends FortEntity implements Constraint, Serializable
         if(indx != -1)
         {
             Props.Entry entry = props.get(props.indexOf(keyObj));
-            value = (String) entry.getValue();
+            value = entry.getValue();
         }
 
         return value;
@@ -1070,8 +1070,8 @@ public class User extends FortEntity implements Constraint, Serializable
             for (int i = 0; i < size; i++)
             {
                 Props.Entry entry = props.get(i);
-                String key = (String) entry.getKey();
-                String val = (String) entry.getValue();
+                String key = entry.getKey();
+                String val = entry.getValue();
                 properties.setProperty(key, val);
             }
         }
@@ -1129,7 +1129,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (phones == null)
         {
-            phones = new ArrayList<String>();
+            phones = new ArrayList<>();
         }
         return phones;
     }
@@ -1153,7 +1153,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (phones == null)
         {
-            phones = new ArrayList<String>();
+            phones = new ArrayList<>();
         }
         this.phones.add(phone);
     }
@@ -1167,7 +1167,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (mobiles == null)
         {
-            mobiles = new ArrayList<String>();
+            mobiles = new ArrayList<>();
         }
         return mobiles;
     }
@@ -1191,7 +1191,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (mobiles == null)
         {
-            mobiles = new ArrayList<String>();
+            mobiles = new ArrayList<>();
         }
         this.mobiles.add(mobile);
     }
@@ -1205,7 +1205,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (emails == null)
         {
-            emails = new ArrayList<String>();
+            emails = new ArrayList<>();
         }
         return emails;
     }
@@ -1229,7 +1229,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         if (emails == null)
         {
-            emails = new ArrayList<String>();
+            emails = new ArrayList<>();
         }
         this.emails.add(email);
     }

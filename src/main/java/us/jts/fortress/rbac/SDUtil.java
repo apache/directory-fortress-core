@@ -270,7 +270,7 @@ final class SDUtil
         throws SecurityException
     {
         contextId = getContextId(contextId);
-        Set<SDSet> dsdRetSets = new HashSet<SDSet>();
+        Set<SDSet> dsdRetSets = new HashSet<>();
         // Need to proceed?
         if (!VUtil.isNotNullOrEmpty(authorizedRoleSet))
         {
@@ -296,7 +296,7 @@ final class SDUtil
             query.includeKeys();
             query.includeValues();
             // Add the passed in authorized Role names to this cache query:
-            Set<String> roles = new HashSet<String>(authorizedRoleSet);
+            Set<String> roles = new HashSet<>(authorizedRoleSet);
             query.addCriteria(member.in(roles).and(context.eq(contextId)));
             // Return all DSD cache entries that match roleName to the 'member' attribute in cache entry:
             Results results = query.execute();
@@ -333,7 +333,7 @@ final class SDUtil
         throws SecurityException
     {
         contextId = getContextId(contextId);
-        Set<SDSet> dsdSets = new HashSet<SDSet>();
+        Set<SDSet> dsdSets = new HashSet<>();
         // Search the DSD's iteratively to seed the DSD cache by Role name:
         for (String roleName : authorizedRoleSet)
         {
@@ -394,7 +394,7 @@ final class SDUtil
         Role role = new Role(roleName);
         role.setContextId(contextId);
         List<SDSet> dsdList = sp.search(role, SDSet.SDType.DYNAMIC);
-        Set<SDSet> finalSet = new HashSet<SDSet>(dsdList);
+        Set<SDSet> finalSet = new HashSet<>(dsdList);
         if (VUtil.isNotNullOrEmpty(dsdList))
         {
             for (SDSet dsd : dsdList)

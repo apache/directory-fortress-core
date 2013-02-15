@@ -130,7 +130,7 @@ final class PsoUtil
     static Set<String> getInherited(List<OrgUnit> ous, String contextId)
     {
         // create Set with case insensitive comparator:
-        Set<String> iOUs = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> iOUs = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         if (VUtil.isNotNullOrEmpty(ous))
         {
             for (OrgUnit ou : ous)

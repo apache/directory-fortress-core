@@ -859,7 +859,7 @@ public class CommandLineInterpreter
      */
     private String[] parseUserInput(String input)
     {
-        List<String> options = new ArrayList<String>();
+        List<String> options = new ArrayList<>();
         // Break into separate tokens Strings that are delimited by "", '', or white space:
         Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
         Matcher regexMatcher = regex.matcher(input);
@@ -934,7 +934,7 @@ public class CommandLineInterpreter
         Set<String> commands = null;
         if (VUtil.isNotNullOrEmpty(otherArgs))
         {
-            commands = new HashSet<String>();
+            commands = new HashSet<>();
             for (String value : otherArgs)
             {
                 commands.add(value);

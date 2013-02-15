@@ -756,7 +756,7 @@ final class UserDAO extends DataProvider
     final List<User> findUsers(User user)
         throws FinderException
     {
-        List<User> userList = new ArrayList<User>();
+        List<User> userList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String userRoot = getRootDn(user.getContextId(), GlobalIds.USER_ROOT);
@@ -816,7 +816,7 @@ final class UserDAO extends DataProvider
     final List<String> findUsers(User user, int limit)
         throws FinderException
     {
-        List<String> userList = new ArrayList<String>();
+        List<String> userList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String userRoot = getRootDn(user.getContextId(), GlobalIds.USER_ROOT);
@@ -856,7 +856,7 @@ final class UserDAO extends DataProvider
     final List<User> getAuthorizedUsers(Role role)
         throws FinderException
     {
-        List<User> userList = new ArrayList<User>();
+        List<User> userList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
@@ -909,7 +909,7 @@ final class UserDAO extends DataProvider
     final List<User> getAssignedUsers(Role role)
         throws FinderException
     {
-        List<User> userList = new ArrayList<User>();
+        List<User> userList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
@@ -949,7 +949,7 @@ final class UserDAO extends DataProvider
     final Set<String> getAssignedUsers(Set<String> roles, String contextId)
         throws FinderException
     {
-        Set<String> userSet = new HashSet<String>();
+        Set<String> userSet = new HashSet<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String userRoot = getRootDn(contextId, GlobalIds.USER_ROOT);
@@ -998,7 +998,7 @@ final class UserDAO extends DataProvider
     final List<User> getAssignedUsers(AdminRole role)
         throws FinderException
     {
-        List<User> userList = new ArrayList<User>();
+        List<User> userList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
@@ -1039,7 +1039,7 @@ final class UserDAO extends DataProvider
     final List<String> getAuthorizedUsers(Role role, int limit)
         throws FinderException
     {
-        List<String> userList = new ArrayList<String>();
+        List<String> userList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String userRoot = getRootDn(role.getContextId(), GlobalIds.USER_ROOT);
@@ -1078,7 +1078,7 @@ final class UserDAO extends DataProvider
     final List<String> findUsersList(String searchVal, String contextId)
         throws FinderException
     {
-        List<String> userList = new ArrayList<String>();
+        List<String> userList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String userRoot = getRootDn(contextId, GlobalIds.USER_ROOT);
@@ -1117,7 +1117,7 @@ final class UserDAO extends DataProvider
     final List<User> findUsers(OrgUnit ou, boolean limitSize)
         throws FinderException
     {
-        List<User> userList = new ArrayList<User>();
+        List<User> userList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String userRoot = getRootDn(ou.getContextId(), GlobalIds.USER_ROOT);

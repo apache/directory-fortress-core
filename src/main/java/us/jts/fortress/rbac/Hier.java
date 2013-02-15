@@ -239,7 +239,7 @@ public class Hier extends FortEntity
     {
         if (relationships == null)
         {
-            relationships = new ArrayList<Relationship>();
+            relationships = new ArrayList<>();
         }
 
         relationships.add(new Relationship(role.toUpperCase(), parent.toUpperCase()));
@@ -254,7 +254,7 @@ public class Hier extends FortEntity
     {
         if (relationships == null)
         {
-            relationships = new ArrayList<Relationship>();
+            relationships = new ArrayList<>();
         }
 
         relationships.add(rel);

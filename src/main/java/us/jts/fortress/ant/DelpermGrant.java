@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class DelpermGrant
 {
-    private List<PermGrant> permGrants = new ArrayList<PermGrant>();
+    private List<PermGrant> permGrants = new ArrayList<>();
 
 
     /**

@@ -363,8 +363,8 @@ public class PermObj extends FortEntity
              for (int i = 0; i < size; i++)
              {
                  Props.Entry entry = props.get(i);
-                 String key = (String) entry.getKey();
-                 String val = (String) entry.getValue();
+                 String key = entry.getKey();
+                 String val = entry.getValue();
                  properties.setProperty(key, val);
              }
          }

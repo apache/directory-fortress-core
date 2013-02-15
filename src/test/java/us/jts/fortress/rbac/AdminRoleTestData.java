@@ -876,7 +876,7 @@ class AdminRoleTestData extends TestCase
 
     public static Set<String> getOsU(String[] rle)
     {
-        Set<String> members = new HashSet<String>();
+        Set<String> members = new HashSet<>();
         if(VUtil.isNotNullOrEmpty(rle[OSU]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[OSU], ",");
@@ -894,7 +894,7 @@ class AdminRoleTestData extends TestCase
 
     public static Set<String> getOsP(String[] rle)
     {
-        Set<String> members = new HashSet<String>();
+        Set<String> members = new HashSet<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[OSP]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[OSP], ",");

@@ -149,7 +149,7 @@ final class RoleUtil
     static Set<String> getInheritedRoles(List<UserRole> uRoles, String contextId)
     {
         // create Set with case insensitive comparator:
-        Set<String> iRoles = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> iRoles = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         if (VUtil.isNotNullOrEmpty(uRoles))
         {
             for (UserRole uRole : uRoles)
@@ -173,7 +173,7 @@ final class RoleUtil
     static Set<String> getAscendantRoles(List<String> roles, String contextId)
     {
         // create Set with case insensitive comparator:
-        Set<String> iRoles = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> iRoles = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         if (VUtil.isNotNullOrEmpty(roles))
         {
             for (String role : roles)
@@ -196,7 +196,7 @@ final class RoleUtil
     static Set<String> getDescendantRoles(Set<String> roles, String contextId)
     {
         // create Set with case insensitive comparator:
-        Set<String> iRoles = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> iRoles = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         if (VUtil.isNotNullOrEmpty(roles))
         {
             for (String role : roles)

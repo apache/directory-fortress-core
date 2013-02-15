@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Adduseradminrole
 {
-    final private List<UserAdminRole> userroles = new ArrayList<UserAdminRole>();
+    final private List<UserAdminRole> userroles = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

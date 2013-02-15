@@ -4,6 +4,8 @@
 
 package us.jts.fortress.ant;
 
+import us.jts.fortress.ldap.suffix.Suffix;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ import java.util.List;
  */
 public class Delsuffix
 {
-    final private List<us.jts.fortress.ldap.suffix.Suffix> suffixes = new ArrayList<us.jts.fortress.ldap.suffix.Suffix>();
+    final private List<Suffix> suffixes = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

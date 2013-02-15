@@ -301,7 +301,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                 if(VUtil.isNotNullOrEmpty(osUs))
                 {
                     // create Set with case insensitive comparator:
-                    Set<String> osUsFinal = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+                    Set<String> osUsFinal = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
                     for(String osU : osUs)
                     {
                         // Add osU children to the set:
@@ -374,7 +374,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                 if(VUtil.isNotNullOrEmpty(osPs))
                 {
                     // create Set with case insensitive comparator:
-                    Set<String> osPsFinal = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+                    Set<String> osPsFinal = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
                     for(String osP : osPs)
                     {
                         // Add osU children to the set:

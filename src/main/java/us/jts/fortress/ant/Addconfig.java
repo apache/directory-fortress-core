@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Addconfig
 {
-    final private List<ConfigAnt> config = new ArrayList<ConfigAnt>();
+    final private List<ConfigAnt> config = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

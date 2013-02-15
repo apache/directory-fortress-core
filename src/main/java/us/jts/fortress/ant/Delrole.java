@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Delrole
 {
-    final private List<Role> roles = new ArrayList<Role>();
+    final private List<Role> roles = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

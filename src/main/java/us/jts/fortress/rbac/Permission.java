@@ -413,7 +413,7 @@ public class Permission extends FortEntity
     {
         if (roles == null)
         {
-            roles = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+            roles = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         }
 
         this.roles.add(role);
@@ -463,7 +463,7 @@ public class Permission extends FortEntity
     {
         if (users == null)
         {
-            users = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+            users = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         }
 
         this.users.add(user);
@@ -593,8 +593,8 @@ public class Permission extends FortEntity
              for (int i = 0; i < size; i++)
              {
                  Props.Entry entry = props.get(i);
-                 String key = (String) entry.getKey();
-                 String val = (String) entry.getValue();
+                 String key = entry.getKey();
+                 String val = entry.getValue();
                  properties.setProperty(key, val);
              }
          }

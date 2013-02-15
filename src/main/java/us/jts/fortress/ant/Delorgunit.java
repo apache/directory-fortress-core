@@ -30,7 +30,7 @@ import us.jts.fortress.rbac.OrgUnitAnt;
  */
 public class Delorgunit
 {
-    final private List<OrgUnitAnt> ous = new ArrayList<OrgUnitAnt>();
+    final private List<OrgUnitAnt> ous = new ArrayList<>();
 
 
     /**

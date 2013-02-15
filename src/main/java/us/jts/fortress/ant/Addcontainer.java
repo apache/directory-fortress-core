@@ -30,7 +30,7 @@ import java.util.List;
 public class Addcontainer
 
 {
-    final private List<us.jts.fortress.ldap.container.OrganizationalUnit> containers = new ArrayList<us.jts.fortress.ldap.container.OrganizationalUnit>();
+    final private List<us.jts.fortress.ldap.container.OrganizationalUnit> containers = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

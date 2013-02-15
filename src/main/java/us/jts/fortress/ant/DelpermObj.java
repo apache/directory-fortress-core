@@ -30,7 +30,7 @@ import us.jts.fortress.rbac.PermObj;
  */
 public class DelpermObj
 {
-    final private List<PermObj> permObjs = new ArrayList<PermObj>();
+    final private List<PermObj> permObjs = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

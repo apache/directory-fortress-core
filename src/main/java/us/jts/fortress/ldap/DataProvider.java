@@ -532,7 +532,7 @@ public abstract class DataProvider
     protected List<String> getAttributes(LDAPEntry entry, String attributeName)
         throws LDAPException
     {
-        List<String> attrValues = new ArrayList<String>();
+        List<String> attrValues = new ArrayList<>();
         LDAPAttribute attr;
         Enumeration values;
         attr = entry.getAttribute(attributeName);
@@ -567,7 +567,7 @@ public abstract class DataProvider
         throws LDAPException
     {
         // create Set with case insensitive comparator:
-        Set<String> attrValues = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> attrValues = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         LDAPAttribute attr;
         Enumeration values;
         attr = entry.getAttribute(attributeName);

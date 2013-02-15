@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Addsdset
 {
-    final private List<SDSetAnt> sds = new ArrayList<SDSetAnt>();
+    final private List<SDSetAnt> sds = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class DelpermOp
 {
-    final private List<PermAnt> permissions = new ArrayList<PermAnt>();
+    final private List<PermAnt> permissions = new ArrayList<>();
 
 
     /**

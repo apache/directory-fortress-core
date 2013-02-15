@@ -192,7 +192,7 @@ public class TestUtils extends TestCase
      */
     public static Set<String> getSets(String szInput)
     {
-        Set<String> vSets = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> vSets = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         try
         {
             if (VUtil.isNotNullOrEmpty(szInput))

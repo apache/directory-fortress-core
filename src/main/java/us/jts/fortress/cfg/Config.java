@@ -12,6 +12,7 @@ import us.jts.fortress.SecurityException;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.Logger;
+
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -23,10 +24,9 @@ import java.util.Properties;
  * the {@link us.jts.fortress.GlobalIds#CONFIG_REALM} switch.
  * <p>
  * The class will bootstrap itself during startup and must initialize correctly for the Fortress APIs to work correctly.
-* <p>
+ * <p>
  * This object is thread safe but stores a static reference to Apache Commons Configuration {@link #config} object.
  * </p>
-
  *
  * @author Shawn McKinney
  */
@@ -70,7 +70,7 @@ public class Config
                 Properties props = getRemoteConfig(realmName);
                 if (props != null)
                 {
-                    for (Enumeration e = props.propertyNames(); e.hasMoreElements();)
+                    for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
                     {
                         String key = (String) e.nextElement();
                         String val = props.getProperty(key);
@@ -95,13 +95,6 @@ public class Config
             log.fatal(error);
             throw new CfgRuntimeException(GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, se);
         }
-        //catch (Exception e)
-        //{
-        //    String error = CLS_NM + " static init: Error loading from cfg file: [" + propFile + "] Exception=" + e;
-        //    log.fatal(error);
-        //    e.printStackTrace();
-        //    throw new CfgRuntimeException(GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, e);
-        //}
     }
 
     /**
@@ -109,7 +102,8 @@ public class Config
      *
      * @param realmName required attribute contains the name of config node name on ldap.
      * @return {@link Properties} containing collection of name/value pairs found in directory.
-     * @throws us.jts.fortress.SecurityException in the event of system or validation error.
+     * @throws us.jts.fortress.SecurityException
+     *          in the event of system or validation error.
      */
     private static Properties getRemoteConfig(String realmName) throws SecurityException
     {
@@ -133,29 +127,6 @@ public class Config
         }
         return props;
     }
-    //private final static String CFG_NODE = config.getString("configNode");
-    //static
-    //{
-    //try
-    //{
-    // Load the Fortress config bootstrap xml file.  This file points to Fortress property file:
-    //	ConfigurationFactory factory = new ConfigurationFactory(propFile);
-    //	config = factory.getConfiguration();
-    //	log.info("Fortress Config - load file [" + propFile + ">");
-
-    // to load property file w/out commons xml utils:
-    //config = new PropertiesConfiguration("Fortress.properties");
-
-    // to auto load - can't set on Configuration object:
-    //config.setAutoSave(true);
-    //}
-    //catch (org.apache.commons.lang.exception.NestableException ne)
-    //{
-    //	String error = "Fortress Config - caught exception reading prop file=" + ne;
-    //	log.fatal(error);
-    //}
-    //}
-
 
     /**
      * Gets the prop attribute as String value from the apache commons cfg component.
@@ -179,7 +150,6 @@ public class Config
         }
         return value;
     }
-
 
     /**
      * Get the property value from the apache commons config but specify a default value if not found.
@@ -229,7 +199,6 @@ public class Config
         return value;
     }
 
-
     /**
      * Gets the int attribute of the Config class or default value if not found.
      *
@@ -252,7 +221,6 @@ public class Config
         return value;
     }
 
-
     /**
      * Gets the boolean attribute associated with the name or false if not found.
      *
@@ -273,7 +241,6 @@ public class Config
         }
         return value;
     }
-
 
     /**
      * Gets the boolean attribute associated with the name or false if not found.

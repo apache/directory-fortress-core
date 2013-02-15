@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Addadminroleinheritance
 {
-    final private List<Relationship> relationships = new ArrayList<Relationship>();
+    final private List<Relationship> relationships = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.

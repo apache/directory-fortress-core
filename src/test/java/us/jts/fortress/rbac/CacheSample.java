@@ -79,7 +79,7 @@ public class CacheSample
         Query query = cache.createQuery();
         query.includeKeys();
         query.includeValues();
-        Set<String> roles = new HashSet<String>();
+        Set<String> roles = new HashSet<>();
         roles.add("oamt17dsd1");
         roles.add("oamt17dsd4");
         roles.add("oamT13DSD6");

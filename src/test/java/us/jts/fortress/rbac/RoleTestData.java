@@ -1030,7 +1030,7 @@ public class RoleTestData extends TestCase
      };
 
 
-    public static final Map<String, String> TR6_AUTHORIZED_USERS = new HashMap<String, String>();
+    public static final Map<String, String> TR6_AUTHORIZED_USERS = new HashMap<>();
     static {
         TR6_AUTHORIZED_USERS.put("oamT6A1"       , "oamTU18User1,oamTU18User2,oamTU18User3,oamTU18User4,oamTU18User5,oamTU18User6,oamTU18User7,oamTU18User8,oamTU18User9,oamTU18User10,oamTU18User11,oamTU18User12,oamTU18User13,oamTU18User14,oamTU18User15");
         TR6_AUTHORIZED_USERS.put("oamT6B1A1"     , "oamTU18User2,oamTU18User4,oamTU18User5,oamTU18User8,oamTU18User9,oamTU18User10,oamTU18User11");
@@ -1265,7 +1265,7 @@ public class RoleTestData extends TestCase
      };
 
 
-    public static final Map<String, String> TR7_AUTHORIZED_USERS = new HashMap<String, String>();
+    public static final Map<String, String> TR7_AUTHORIZED_USERS = new HashMap<>();
     static {
         TR6_AUTHORIZED_USERS.put("oamT7A1"       , "oamTU19User1,oamTU19User2,oamTU19User3,oamTU19User4,oamTU19User5,oamTU19User6,oamTU19User7,oamTU19User8,oamTU19User9,oamTU19User10,oamTU19User11,oamTU19User12,oamTU19User13,oamTU19User14,oamTU19User15");
         TR6_AUTHORIZED_USERS.put("oamT7B1A1"     , "oamTU19User2,oamTU19User4,oamTU19User5,oamTU19User8,oamTU19User9,oamTU19User10,oamTU19User11");
@@ -3198,7 +3198,7 @@ public class RoleTestData extends TestCase
      */
     public static Set<String> getRelationships(String[] rle)
     {
-        Set<String> parents = new HashSet<String>();
+        Set<String> parents = new HashSet<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[RELATIONSHIP_COL]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[RELATIONSHIP_COL], ",");
@@ -3217,7 +3217,7 @@ public class RoleTestData extends TestCase
 
     public static List<String> getRelationshipList(String[] rle)
     {
-        List<String> parents = new ArrayList<String>();
+        List<String> parents = new ArrayList<>();
         if(VUtil.isNotNullOrEmpty(rle[RELATIONSHIP_COL]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[RELATIONSHIP_COL], ",");
@@ -3241,7 +3241,7 @@ public class RoleTestData extends TestCase
      */
     public static Set<String> getInheritances(String[] rle)
     {
-        Set<String> rels = new HashSet<String>();
+        Set<String> rels = new HashSet<>();
         if(VUtil.isNotNullOrEmpty(rle[INHERITANCE_COL]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[INHERITANCE_COL], ",");
@@ -3377,7 +3377,7 @@ public class RoleTestData extends TestCase
 
     public static Set<String> getMembers(String[] rle)
     {
-        Set<String> mems = new HashSet<String>();
+        Set<String> mems = new HashSet<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[MEMBERS]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[MEMBERS], ",");
@@ -3401,7 +3401,7 @@ public class RoleTestData extends TestCase
     /*
     public static Map<String, String> getMembers(String[] rle)
     {
-        Map<String, String> mems = new HashMap<String, String>();
+        Map<String, String> mems = new HashMap<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[MEMBERS]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[MEMBERS], ",");

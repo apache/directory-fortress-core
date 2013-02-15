@@ -206,7 +206,7 @@ final class AuditDAO extends DataProvider
     final List<AuthZ> searchInvalidAuthNs(UserAudit audit)
         throws FinderException
     {
-        List<AuthZ> auditList = new ArrayList<AuthZ>();
+        List<AuthZ> auditList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);
@@ -284,7 +284,7 @@ final class AuditDAO extends DataProvider
     final List<AuthZ> searchAuthZs(UserAudit audit)
         throws FinderException
     {
-        List<AuthZ> auditList = new ArrayList<AuthZ>();
+        List<AuthZ> auditList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);
@@ -352,7 +352,7 @@ final class AuditDAO extends DataProvider
     final List<AuthZ> getAllAuthZs(UserAudit audit)
         throws FinderException
     {
-        List<AuthZ> auditList = new ArrayList<AuthZ>();
+        List<AuthZ> auditList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);
@@ -416,7 +416,7 @@ final class AuditDAO extends DataProvider
     final List<Bind> searchBinds(UserAudit audit)
         throws FinderException
     {
-        List<Bind> auditList = new ArrayList<Bind>();
+        List<Bind> auditList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);
@@ -486,7 +486,7 @@ final class AuditDAO extends DataProvider
     final List<Mod> searchUserMods(UserAudit audit)
         throws FinderException
     {
-        List<Mod> modList = new ArrayList<Mod>();
+        List<Mod> modList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);
@@ -533,7 +533,7 @@ final class AuditDAO extends DataProvider
     final List<Mod> searchAdminMods(UserAudit audit)
         throws FinderException
     {
-        List<Mod> modList = new ArrayList<Mod>();
+        List<Mod> modList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String auditRoot = Config.getProperty(AUDIT_ROOT);

@@ -365,7 +365,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         // return empty list to caller:
         else if (users == null)
         {
-            users = new ArrayList<String>();
+            users = new ArrayList<>();
         }
         return users;
         // this one does a search across all users:
@@ -559,11 +559,11 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         List<String> retVals;
         if(pe != null && VUtil.isNotNullOrEmpty(pe.getRoles()))
         {
-            retVals = new ArrayList<String>(pe.getRoles());
+            retVals = new ArrayList<>(pe.getRoles());
         }
         else
         {
-            retVals =  new ArrayList<String>();
+            retVals =  new ArrayList<>();
         }
         return retVals;
     }
@@ -621,11 +621,11 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         List<String> retVals;
         if(pe != null && VUtil.isNotNullOrEmpty(pe.getUsers()))
         {
-            retVals = new ArrayList<String>(pe.getUsers());
+            retVals = new ArrayList<>(pe.getUsers());
         }
         else
         {
-            retVals =  new ArrayList<String>();
+            retVals =  new ArrayList<>();
         }
         return retVals;
     }
@@ -668,7 +668,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
             // It is possible this dataset has not yet been instantiated (if perm has no assigned roles):
             if (authorizedUsers == null)
             {
-                authorizedUsers = new HashSet<String>();
+                authorizedUsers = new HashSet<>();
             }
             authorizedUsers.addAll(assignedUsers);
         }

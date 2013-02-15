@@ -329,7 +329,7 @@ final class SdDAO extends DataProvider
     final List<SDSet> search(SDSet sdset)
         throws FinderException
     {
-        List<SDSet> sdList = new ArrayList<SDSet>();
+        List<SDSet> sdList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String ssdRoot = getSdRoot(sdset.getContextId());
@@ -380,7 +380,7 @@ final class SdDAO extends DataProvider
     final List<SDSet> search(Role role, SDSet.SDType type)
         throws FinderException
     {
-        List<SDSet> sdList = new ArrayList<SDSet>();
+        List<SDSet> sdList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String ssdRoot = getSdRoot(role.getContextId());
@@ -452,7 +452,7 @@ final class SdDAO extends DataProvider
     final Set<SDSet> search(Set<String> roles, SDSet sdSet)
         throws FinderException
     {
-        Set<SDSet> sdList = new HashSet<SDSet>();
+        Set<SDSet> sdList = new HashSet<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String ssdRoot = getSdRoot(sdSet.getContextId());
