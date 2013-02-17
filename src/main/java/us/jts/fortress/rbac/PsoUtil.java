@@ -7,7 +7,6 @@ package us.jts.fortress.rbac;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ValidationException;
 import us.jts.fortress.SecurityException;
-
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.cache.CacheMgr;
 import us.jts.fortress.util.cache.Cache;
@@ -44,7 +43,6 @@ final class PsoUtil
 {
     private static Cache psoCache;
     private static OrgUnitP orgUnitP = new OrgUnitP();
-    private static final String FORTRESS_PSO = "fortress.pso";
     private static final String CLS_NM = PsoUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
 
@@ -56,8 +54,7 @@ final class PsoUtil
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        psoCache = cacheMgr.getCache(FORTRESS_PSO);
-        //loadGraph();
+        psoCache = cacheMgr.getCache("fortress.pso");
     }
 
     /**

@@ -7,7 +7,6 @@ package us.jts.fortress.rbac;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ValidationException;
 import us.jts.fortress.SecurityException;
-
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.cache.CacheMgr;
 import us.jts.fortress.util.cache.Cache;
@@ -43,7 +42,6 @@ final class AdminRoleUtil
 {
     private static Cache adminRoleCache;
     private static AdminRoleP adminRoleP = new AdminRoleP();
-    private static final String FORTRESS_ADMIN_ROLES = "fortress.admin.roles";
     private static final String CLS_NM = AdminRoleUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
 
@@ -54,7 +52,7 @@ final class AdminRoleUtil
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        adminRoleCache = cacheMgr.getCache(FORTRESS_ADMIN_ROLES);
+        adminRoleCache = cacheMgr.getCache("fortress.admin.roles");
     }
 
     /**

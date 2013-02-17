@@ -11,8 +11,8 @@ import us.jts.fortress.rbac.Relationship;
 import us.jts.fortress.rbac.Hier;
 import us.jts.fortress.util.time.Constraint;
 import us.jts.fortress.util.time.CUtil;
-
 import us.jts.fortress.util.attr.VUtil;
+
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
@@ -77,7 +77,6 @@ public abstract class DataProvider
         return dn.toString();
     }
 
-
     /**
      * Given a contextId return the LDAP dn that includes the suffix.
      * @param contextId is to determine what sub-tree to use.
@@ -96,7 +95,6 @@ public abstract class DataProvider
         }
         return dn.toString();
     }
-
 
     /**
      * Read the ldap record from specified location.
@@ -128,7 +126,7 @@ public abstract class DataProvider
         throws LDAPException, UnsupportedEncodingException
     {
         LDAPControl proxyCtl = new LDAPControl(OPENLDAP_PROXY_CONTROL, true, (GlobalIds.DN + ": " + userDn).getBytes(GlobalIds.UTF8));
-        com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints opt = new com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints();
+        LDAPSearchConstraints opt = new LDAPSearchConstraints();
         opt.setServerControls(proxyCtl);
         return ld.read(dn, atrs, opt);
     }
@@ -410,7 +408,6 @@ public abstract class DataProvider
         return result;
     }
 
-
     /**
      * Perform normal ldap search specifying default batch size and max entries to return.
      *
@@ -468,7 +465,7 @@ public abstract class DataProvider
             filter, atrs, attrsOnly);
         if (result.getCount() > 1)
         {
-            throw new LDAPException(LDAPException.OPERATION_ERROR + "Fortress Search criteria failed to return unique record for LDAP search of base DN [" + baseDn + "] filter [" + filter + "]");
+            throw new LDAPException(CLS_NM + ".searchNode failed to return unique record for LDAP search of base DN [" + baseDn + "] filter [" + filter + "]");
         }
         return result.next();
     }
@@ -496,17 +493,27 @@ public abstract class DataProvider
         throws LDAPException, UnsupportedEncodingException
     {
         LDAPControl proxyCtl = new LDAPControl(OPENLDAP_PROXY_CONTROL, true, (GlobalIds.DN + ": " + userDn).getBytes(GlobalIds.UTF8));
-        com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints opt = new com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints();
+        LDAPSearchConstraints opt = new LDAPSearchConstraints();
         opt.setServerControls(proxyCtl);
         LDAPSearchResults result = ld.search(baseDn, scope, filter, atrs, attrsOnly, opt);
         if (result.getCount() > 1)
         {
-            throw new LDAPException(LDAPException.OPERATION_ERROR + "Fortress Search criteria failed to return unique record for LDAP search of base DN [" + baseDn + "] filter [" + filter + "]");
+            throw new LDAPException(CLS_NM + ".searchNode failed to return unique record for LDAP search of base DN [" + baseDn + "] filter [" + filter + "]");
         }
         return result.next();
     }
 
-
+    /**
+     * This method uses the compare ldap func to assert audit record into the directory server's configured audit logger.
+     *
+     * @param ld        is LDAPConnection object used for all communication with host.
+     * @param dn        contains address of distinguished name to begin ldap search
+     * @param userDn    dn for user node
+     * @param attribute attribute used for compare
+     * @return          true if compare operation succeeds
+     * @throws LDAPException thrown in the event of error in ldap client or server code.
+     * @throws UnsupportedEncodingException in the event the server cannot perform the operation.
+     */
     protected boolean compareNode(LDAPConnection ld,
                                        String dn,
                                        String userDn,
@@ -514,12 +521,10 @@ public abstract class DataProvider
         throws LDAPException, UnsupportedEncodingException
     {
         LDAPControl proxyCtl = new LDAPControl(OPENLDAP_PROXY_CONTROL, true, (GlobalIds.DN + ": " + userDn).getBytes(GlobalIds.UTF8));
-        com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints opt = new com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints();
+        LDAPSearchConstraints opt = new LDAPSearchConstraints();
         opt.setServerControls(proxyCtl);
-        boolean result = ld.compare(dn,attribute, opt);
-        return result;
+        return ld.compare(dn,attribute, opt);
     }
-
 
     /**
      * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns as a list of strings.
@@ -554,7 +559,6 @@ public abstract class DataProvider
         return attrValues;
     }
 
-
     /**
      * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns as a set of strings.
      *
@@ -588,7 +592,6 @@ public abstract class DataProvider
         }
         return attrValues;
     }
-
 
     /**
      * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and return as a list of type {@link us.jts.fortress.rbac.Relationship}.
@@ -641,7 +644,6 @@ public abstract class DataProvider
         return attrValues;
     }
 
-
     /**
      * Method wraps ldap client to return attribute value by name within a given entry and returns as a string.
      *
@@ -672,7 +674,6 @@ public abstract class DataProvider
         return attrValue;
     }
 
-
     /**
      * Method will retrieve the relative distinguished name from a distinguished name variable.
      *
@@ -687,7 +688,6 @@ public abstract class DataProvider
         dnList = LDAPDN.explodeDN(dn, true);
         return dnList[0];
     }
-
 
     /**
      * Create multi-occurring ldap attribute given array of strings and attribute name.
@@ -709,7 +709,6 @@ public abstract class DataProvider
         return attr;
     }
 
-
     /**
      * Create ldap attribute given an attribute name and value.
      *
@@ -727,7 +726,6 @@ public abstract class DataProvider
         return attr;
     }
 
-
     /**
      * Convert constraint from raw ldap format to application entity.
      *
@@ -738,14 +736,12 @@ public abstract class DataProvider
     protected void unloadTemporal(LDAPEntry le, Constraint ftDateTime)
         throws LDAPException
     {
-
         String szRawData = getAttribute(le, GlobalIds.CONSTRAINT);
         if (szRawData != null && szRawData.length() > 0)
         {
             CUtil.setConstraint(szRawData, ftDateTime);
         }
     }
-
 
     /**
      * Given an ldap attribute name and a list of attribute values, construct an ldap attribute set to be added to directory.
@@ -776,7 +772,6 @@ public abstract class DataProvider
             }
         }
     }
-
 
     /**
      * Given a collection of {@link us.jts.fortress.rbac.Relationship}, convert to raw data name-value format and load into ldap attribute set in preparation for ldap add.
@@ -809,7 +804,6 @@ public abstract class DataProvider
         }
     }
 
-
     /**
      * Given an ldap attribute name and a set of attribute values, construct an ldap attribute set to be added to directory.
      *
@@ -840,7 +834,6 @@ public abstract class DataProvider
         }
     }
 
-
     /**
      * Given an ldap attribute name and a list of attribute values, construct an ldap modification set to be updated in directory.
      *
@@ -861,7 +854,6 @@ public abstract class DataProvider
             }
         }
     }
-
 
     /**
      * Given a collection of {@link us.jts.fortress.rbac.Relationship}s, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
@@ -896,7 +888,6 @@ public abstract class DataProvider
         }
     }
 
-
     /**
      * Given an ldap attribute name and a set of attribute values, construct an ldap modification set to be updated in directory.
      *
@@ -917,7 +908,6 @@ public abstract class DataProvider
             }
         }
     }
-
 
     /**
      * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
@@ -946,7 +936,6 @@ public abstract class DataProvider
         }
     }
 
-
     /**
      * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
      *
@@ -969,7 +958,6 @@ public abstract class DataProvider
             }
         }
     }
-
 
     /**
      * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap add.
@@ -1005,7 +993,6 @@ public abstract class DataProvider
         }
     }
 
-
     /**
      *
      * @param value
@@ -1031,7 +1018,6 @@ public abstract class DataProvider
         }
         return value;
     }
-
 
     /**
      * Calls the PoolMgr to perform an LDAP bind for a user/password combination.  This function is valid
@@ -1079,7 +1065,6 @@ public abstract class DataProvider
     {
         PoolMgr.closeConnection(ld, PoolMgr.ConnType.LOG);
     }
-
 
     /**
      * Calls the PoolMgr to get a User connection to the LDAP server.

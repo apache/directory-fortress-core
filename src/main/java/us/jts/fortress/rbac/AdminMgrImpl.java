@@ -52,11 +52,11 @@ import java.util.List;
 public final class AdminMgrImpl extends Manageable implements AdminMgr
 {
     private static final String CLS_NM = AdminMgrImpl.class.getName();
-    private static final UserP userP = new UserP();
-    private static final RoleP roleP = new RoleP();
     private static final AdminRoleP adminP = new AdminRoleP();
     private static final PermP permP = new PermP();
+    private static final RoleP roleP = new RoleP();
     private static final SdP sdP = new SdP();
+    private static final UserP userP = new UserP();
     private static final Logger log = Logger.getLogger(CLS_NM);
 
     // package private constructor ensures outside classes cannot use:

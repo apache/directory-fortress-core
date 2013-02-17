@@ -7,7 +7,6 @@ package us.jts.fortress.rbac;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
-
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.cache.CacheMgr;
 import us.jts.fortress.util.cache.Cache;
@@ -43,7 +42,6 @@ final class RoleUtil
 {
     private static Cache roleCache;
     private static final RoleP roleP = new RoleP();
-    private static final String FORTRESS_ROLES = "fortress.roles";
     private static final String CLS_NM = RoleUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
 
@@ -54,7 +52,7 @@ final class RoleUtil
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        roleCache = cacheMgr.getCache(FORTRESS_ROLES);
+        roleCache = cacheMgr.getCache("fortress.roles");
     }
 
     /**
@@ -223,7 +221,6 @@ final class RoleUtil
     {
         return HierUtil.getAscendants(childName, parentName, isInclusive, getGraph(contextId));
     }
-
 
     /**
      * This api is used by {@link us.jts.fortress.rbac.AdminMgrImpl} to determine parentage for Hierarchical RBAC processing.

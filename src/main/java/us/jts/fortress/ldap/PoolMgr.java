@@ -138,14 +138,11 @@ class PoolMgr
         {
             String error = CLS_NM + " Static Initializer Block caught com.unboundid.ldap.sdk.migrate.ldapjdk.LdapException=" + le;
             log.fatal(error);
-            //throw new java.lang.RuntimeException(error, le);
         }
         catch (Exception e)
         {
             String error = CLS_NM + " Static Initializer Block caught java.lang.Exception=" + e;
             log.fatal(error);
-            e.printStackTrace();
-            //throw new java.lang.RuntimeException(error, e);
         }
     }
 

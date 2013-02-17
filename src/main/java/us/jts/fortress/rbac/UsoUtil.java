@@ -8,7 +8,6 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
 import us.jts.fortress.util.attr.VUtil;
-
 import us.jts.fortress.util.cache.CacheMgr;
 import us.jts.fortress.util.cache.Cache;
 import org.apache.log4j.Logger;
@@ -43,7 +42,6 @@ final class UsoUtil
 {
     private static Cache usoCache;
     private static OrgUnitP orgUnitP = new OrgUnitP();
-    private static final String FORTRESS_USO = "fortress.uso";
     private static final String CLS_NM = UsoUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
 
@@ -54,8 +52,7 @@ final class UsoUtil
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        usoCache = cacheMgr.getCache(FORTRESS_USO);
-        //loadGraph();
+        usoCache = cacheMgr.getCache("fortress.uso");
     }
 
     /**

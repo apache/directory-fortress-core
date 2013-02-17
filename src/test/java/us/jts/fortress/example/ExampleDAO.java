@@ -9,8 +9,8 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.cfg.Config;
-
 import us.jts.fortress.ldap.DataProvider;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;

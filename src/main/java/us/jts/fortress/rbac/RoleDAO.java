@@ -125,7 +125,7 @@ final class RoleDAO extends DataProvider
             attrs.add(createAttribute(GlobalIds.CN, entity.getName()));
             attrs.add(createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint(entity)));
 
-            // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
+            // These multi-valued attributes are optional.  The utility function will return quietly if items are not loaded into collection:
             loadAttrs(entity.getParents(), attrs, GlobalIds.PARENT_NODES);
 
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
