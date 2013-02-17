@@ -865,10 +865,16 @@ public class GlobalErrIds
      * The supplied Hierarchical type is required and cannot be null.
      */
     public final static int HIER_TYPE_NULL = 5062;
+
     /**
      * The supplied Hierarchical type is required and cannot be null.
      */
     public final static int HIER_CANNOT_PERFORM = 5063;
+
+    /**
+     * The specified relationship would cause a cyclic dependency in graph.
+     */
+    public final static int HIER_REL_CYCLIC = 5064;
 
 
     /**

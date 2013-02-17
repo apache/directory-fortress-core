@@ -112,21 +112,30 @@ final class HierUtil
     static void validateRelationship(SimpleDirectedGraph<String, Relationship> graph, String child, String parent, boolean mustExist)
         throws us.jts.fortress.ValidationException
     {
+        // Ensure the two nodes aren't the same:
         if (child.equalsIgnoreCase(parent))
         {
             String error = CLS_NM + ".validateRelationship child [" + child + "] same as parent [" + parent + "]";
             throw new ValidationException(GlobalErrIds.HIER_REL_INVLD, error);
         }
         Relationship rel = new Relationship(child.toUpperCase(), parent.toUpperCase());
+        // Ensure there is a valid child to parent relationship.
         if (mustExist && !isRelationship(graph, rel))
         {
             String error = CLS_NM + ".validateRelationship child [" + child + "] does not have parent [" + parent + "]";
-            throw new us.jts.fortress.ValidationException(GlobalErrIds.HIER_REL_NOT_EXIST, error);
+            throw new ValidationException(GlobalErrIds.HIER_REL_NOT_EXIST, error);
         }
-        else if (!mustExist && isRelationship(graph, rel))
+        // Ensure the child doesn't already have the parent as an ascendant.
+        else if (!mustExist && isAscendant(child, parent, graph))
         {
             String error = CLS_NM + ".validateRelationship child [" + child + "] already has parent [" + parent + "]";
-            throw new us.jts.fortress.ValidationException(GlobalErrIds.HIER_REL_EXIST, error);
+            throw new ValidationException(GlobalErrIds.HIER_REL_EXIST, error);
+        }
+        // Prevent cycles by making sure the child isn't an ascendant of parent.
+        else if (!mustExist && isDescedant(parent, child, graph))
+        {
+            String error = CLS_NM + ".validateRelationship child [" + child + "] is parent of [" + parent + "]";
+            throw new ValidationException(GlobalErrIds.HIER_REL_CYCLIC, error);
         }
     }
 
@@ -350,6 +359,43 @@ final class HierUtil
         return children;
     }
 
+    /**
+     * Recursively traverse the hierarchical graph and determine child node contains a given parent as one of its ascendants.
+     *
+     * @param childName maps to vertex to determine parentage.
+     * @param parentName maps to vertex to determine parentage.
+     * @param graph      contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @return Set of names that are children of given parent.
+     */
+    static boolean isAscendant(String childName, String parentName, SimpleDirectedGraph<String, Relationship> graph)
+    {
+        boolean isAscendant = false;
+        Set<String> ascendants = getAscendants(childName, graph);
+        if(ascendants.contains(parentName))
+        {
+            isAscendant = true;
+        }
+        return isAscendant;
+    }
+
+    /**
+     * Recursively traverse the hierarchical graph and determine if parent node contains a given child as one of its descendants.
+     *
+     * @param childName maps to vertex to determine parentage.
+     * @param parentName maps to vertex to determine parentage.
+     * @param graph      contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
+     * @return Set of names that are children of given parent.
+     */
+    static boolean isDescedant(String childName, String parentName, SimpleDirectedGraph<String, Relationship> graph)
+    {
+        boolean isDescendant = false;
+        Set<String> descendants = getDescendants(parentName, graph);
+        if(descendants.contains(childName))
+        {
+            isDescendant = true;
+        }
+        return isDescendant;
+    }
 
     /**
      * Utility function recursively traverses a given digraph to build a set of all descendants names.
