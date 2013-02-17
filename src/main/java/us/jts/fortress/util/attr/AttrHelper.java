@@ -62,10 +62,9 @@ public class AttrHelper
         {
             props = new Properties();
             int size = propList.size();
-            for (int i = 0; i < size; i++)
+            for (String raw : propList)
             {
 
-                String raw = propList.get(i);
                 int indx = raw.indexOf(GlobalIds.COLON);
                 if (indx >= 1)
                 {
@@ -193,7 +192,6 @@ public class AttrHelper
         // (ftRoles=ftt3role10)))>
 
         Permission pOp = new Permission();
-        String userId = null;
         if (authZ.getReqFilter() != null && authZ.getReqFilter().length() > 0)
         {
             StringTokenizer maxTkn = new StringTokenizer(authZ.getReqFilter(), "(");

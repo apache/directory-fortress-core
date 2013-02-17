@@ -83,8 +83,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         String methodName = "addRole";
         assertContext(CLS_NM, methodName, role, GlobalErrIds.ARLE_NULL);
         setEntitySession(CLS_NM, methodName, role);
-        AdminRole newRole = admRP.add(role);
-        return newRole;
+        return admRP.add(role);
     }
 
     /**

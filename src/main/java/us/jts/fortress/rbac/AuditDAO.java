@@ -635,7 +635,6 @@ final class AuditDAO extends DataProvider
      * @throws LDAPException
      */
     private Bind getBindEntityFromLdapEntry(LDAPEntry le, long sequence)
-        throws LDAPException
     {
 
         /*
@@ -694,7 +693,6 @@ final class AuditDAO extends DataProvider
      * @throws LDAPException
      */
     private AuthZ getAuthzEntityFromLdapEntry(LDAPEntry le, long sequence)
-        throws LDAPException
     {
 
         /*
@@ -764,7 +762,6 @@ final class AuditDAO extends DataProvider
 
 
     private Mod getModEntityFromLdapEntry(LDAPEntry le, long sequence)
-        throws LDAPException
     {
         /*
         public class Mod

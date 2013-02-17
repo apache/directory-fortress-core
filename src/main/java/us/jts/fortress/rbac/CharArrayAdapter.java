@@ -1,6 +1,7 @@
 package us.jts.fortress.rbac;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+import java.util.Arrays;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,6 +18,6 @@ public class CharArrayAdapter extends XmlAdapter<String, char[]>
 
     public String marshal(char[] val) throws Exception
     {
-        return val.toString();
+        return Arrays.toString(val);
     }
 }

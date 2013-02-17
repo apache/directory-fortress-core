@@ -14,7 +14,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
  */
 public class EncryptUtil
 {
-    private static BasicTextEncryptor textEncryptor;
+    private static final BasicTextEncryptor textEncryptor;
     private static String CRYPTO_PROP = "crypto.prop";
     static
     {

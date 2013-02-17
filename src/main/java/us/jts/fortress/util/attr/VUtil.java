@@ -38,7 +38,7 @@ public class VUtil
             if (lengthProp != null)
             {
                 Integer len = new Integer(lengthProp);
-                maximumFieldLen = len.intValue();
+                maximumFieldLen = len;
             }
         }
         catch (java.lang.NumberFormatException nfe)
@@ -89,7 +89,7 @@ public class VUtil
         if (length > GlobalIds.PASSWORD_LEN)
         {
             String error = CLS_NM + ".password invalid length [" + length + "]";
-            throw new us.jts.fortress.ValidationException(GlobalErrIds.USER_PW_INVLD_LEN, error);
+            throw new ValidationException(GlobalErrIds.USER_PW_INVLD_LEN, error);
         }
     }
 

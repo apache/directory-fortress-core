@@ -504,7 +504,6 @@ final class RoleDAO extends DataProvider
      * @throws LDAPException
      */
     private Graphable unloadDescendants(LDAPEntry le, long sequence, String contextId)
-        throws LDAPException
     {
         Role entity = new ObjectFactory().createRole();
         entity.setSequenceId(sequence);
@@ -522,7 +521,6 @@ final class RoleDAO extends DataProvider
      * @throws LDAPException
      */
     private Role unloadLdapEntry(LDAPEntry le, long sequence, String contextId)
-        throws LDAPException
     {
         Role entity = new ObjectFactory().createRole();
         entity.setSequenceId(sequence);

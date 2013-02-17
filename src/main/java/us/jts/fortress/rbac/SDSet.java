@@ -150,7 +150,7 @@ public class SDSet extends FortEntity
      *
      * @return Set that sorts members by alphabetical order.
      */
-    public static Set<String> createMembers()
+    private static Set<String> createMembers()
     {
         return new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
     }

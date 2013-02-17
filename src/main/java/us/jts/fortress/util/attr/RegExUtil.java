@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  *
  * @author     Shawn McKinney
  */
-public class RegExUtil
+class RegExUtil
 {
     private static final String CLS_NM = RegExUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);

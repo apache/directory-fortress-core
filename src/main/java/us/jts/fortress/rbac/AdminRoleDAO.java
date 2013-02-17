@@ -536,7 +536,6 @@ final class AdminRoleDAO extends DataProvider
      * @throws LDAPException
      */
     private Graphable unloadDescendants(LDAPEntry le, long sequence, String contextId)
-        throws LDAPException
     {
         Role entity = new ObjectFactory().createRole();
         entity.setSequenceId(sequence);
@@ -551,7 +550,6 @@ final class AdminRoleDAO extends DataProvider
      * @throws LDAPException
      */
     private AdminRole unloadLdapEntry(LDAPEntry le, long sequence, String contextId)
-        throws LDAPException
     {
         AdminRole entity = new ObjectFactory().createAdminRole();
         entity.setSequenceId(sequence);

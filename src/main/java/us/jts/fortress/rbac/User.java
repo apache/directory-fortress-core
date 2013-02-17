@@ -1067,9 +1067,8 @@ public class User extends FortEntity implements Constraint, Serializable
         {
             properties = new Properties();
             int size = props.size();
-            for (int i = 0; i < size; i++)
+            for (Props.Entry entry : props)
             {
-                Props.Entry entry = props.get(i);
                 String key = entry.getKey();
                 String val = entry.getValue();
                 properties.setProperty(key, val);

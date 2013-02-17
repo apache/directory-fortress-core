@@ -30,8 +30,8 @@ public class CreateRoleSample extends TestCase
 {
     private static final String CLS_NM = CreateRoleSample.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
-    public static final String TEST_SIMPLE_ROLE = "simpleRole";
-    public static final String TEST_SIMPLE_ROLE2[] = {"Customer", "Admin", "Supervisor"};
+    private static final String TEST_SIMPLE_ROLE = "simpleRole";
+    private static final String TEST_SIMPLE_ROLE2[] = {"Customer", "Admin", "Supervisor"};
 
     // This constant will be added to index for creation of multiple nodes in directory.
     public static final String TEST_ROLE_PREFIX = "sampleRole";
@@ -81,7 +81,7 @@ public class CreateRoleSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -114,7 +114,7 @@ public class CreateRoleSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             //fail(ex.getMessage());
         }
     }
@@ -163,7 +163,7 @@ public class CreateRoleSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -196,7 +196,7 @@ public class CreateRoleSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -227,7 +227,7 @@ public class CreateRoleSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -281,7 +281,7 @@ public class CreateRoleSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

@@ -22,7 +22,7 @@ import java.util.StringTokenizer;
 public class OrgUnitTestData extends TestCase
 {
     private static final String CLS_NM = OrgUnitTestData.class.getName();
-    final protected static Logger log = Logger.getLogger(CLS_NM);
+    final private static Logger log = Logger.getLogger(CLS_NM);
 
     public final static String[][] ORGS_USR_DEV0 = {
          {

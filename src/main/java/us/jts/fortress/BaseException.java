@@ -14,7 +14,7 @@ package us.jts.fortress;
  */
 public abstract class BaseException extends Exception implements StandardException
 {
-	private int errorId;
+	private final int errorId;
 
     /**
      * Create exception containing error code and message.
@@ -22,7 +22,7 @@ public abstract class BaseException extends Exception implements StandardExcepti
      * @param  errorId see {@link GlobalErrIds} for list of valid error codes that can be set.  Valid values between 0 & 100_000.
      * @param msg contains textual information including method of origin and description of the root cause.
      */
-	public BaseException(int errorId, String msg)
+	BaseException(int errorId, String msg)
 	{
 		super(msg);
 		this.errorId = errorId;
@@ -35,7 +35,7 @@ public abstract class BaseException extends Exception implements StandardExcepti
      * @param msg contains textual information including method of origin and description of the root cause.
      * @param previousException contains reference to related exception which usually is system related, i.e. ldap.
      */
-	public BaseException(int errorId, String msg, Throwable previousException)
+	BaseException(int errorId, String msg, Throwable previousException)
 	{
 		super(msg, previousException);
 		this.errorId = errorId;

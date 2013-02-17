@@ -40,7 +40,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -83,7 +83,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".updateRole caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".updateRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -131,7 +131,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".updateRole caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".updateRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -167,7 +167,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".assignUser caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".assignUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -192,7 +192,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".deassignUser caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".deassignUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -219,7 +219,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".add caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".add caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -258,7 +258,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".update caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".update caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -293,7 +293,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".delete caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".delete caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -333,7 +333,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".addInheritance caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".addInheritance caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -373,7 +373,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".removeInheritance caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".removeInheritance caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -416,7 +416,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".addAscendant caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".addAscendant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -458,7 +458,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".addDescendant caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".addDescendant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -499,7 +499,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".grantPermission caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".grantPermission caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -538,7 +538,7 @@ public class DelegatedAdminMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".revokePermission caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".revokePermission caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

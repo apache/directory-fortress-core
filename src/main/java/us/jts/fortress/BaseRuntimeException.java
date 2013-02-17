@@ -13,8 +13,8 @@ package us.jts.fortress;
 public abstract class BaseRuntimeException extends RuntimeException
 {
 
-	private int errorId;
-	private String[] msgParams;
+	private final int errorId;
+	private final String[] msgParams;
 
     /**
      *
@@ -22,7 +22,7 @@ public abstract class BaseRuntimeException extends RuntimeException
      * @param msgParam contains message pertaining to exception.
      * @param previousException contains reference to related exception which usually is system related, i.e. ldap.
      */
-	public BaseRuntimeException(int errorId, String msgParam, Throwable previousException)
+	protected BaseRuntimeException(int errorId, String msgParam, Throwable previousException)
 	{
 		super(msgParam + ", errCode=" + errorId, previousException);
 		this.errorId = errorId;
@@ -35,7 +35,7 @@ public abstract class BaseRuntimeException extends RuntimeException
      * @param errorId int contains the error id which is defined here {@link GlobalErrIds}.
      * @param msgParam contains message pertaining to exception.
      */
-	public BaseRuntimeException(int errorId, String msgParam)
+	protected BaseRuntimeException(int errorId, String msgParam)
 	{
 		super(msgParam + ", errCode=" + errorId);
 		this.errorId = errorId;

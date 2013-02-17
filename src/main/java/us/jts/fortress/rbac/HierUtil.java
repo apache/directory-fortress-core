@@ -165,8 +165,7 @@ final class HierUtil
      * @param hier contains parent-child relationship in preparation to storing in ldap {@code ftRels} attribute of {@code ftHier} object class.
      * @return {@code org.jgrapht.graph.SimpleDirectedGraph} containing the vertices of {@code String}, and edges, as {@link Relationship}s that correspond to relational data.
      */
-    static SimpleDirectedGraph<String, Relationship> toGraph(Hier hier)
-        throws us.jts.fortress.SecurityException
+    private static SimpleDirectedGraph<String, Relationship> toGraph(Hier hier)
     {
         log.debug(CLS_NM + ".toGraph");
         SimpleDirectedGraph<String, Relationship> graph =
@@ -196,8 +195,7 @@ final class HierUtil
      * @param relation contains parent-child relationship targeted for addition.
      * @return {@code org.jgrapht.graph.SimpleDirectedGraph} containing the vertices of {@code String}, and edges, as {@link Relationship}s that correspond to relational data.
      */
-    static void addEdge(SimpleDirectedGraph<String, Relationship> graph, Relationship relation)
-        throws us.jts.fortress.SecurityException
+    private static void addEdge(SimpleDirectedGraph<String, Relationship> graph, Relationship relation)
     {
         log.debug(CLS_NM + ".addEdge");
         synchronized (graph)
@@ -215,8 +213,7 @@ final class HierUtil
      * @param relation contains parent-child relationship targeted for removal.
      * @return {@code org.jgrapht.graph.SimpleDirectedGraph} containing the vertices of {@code String}, and edges, as {@link Relationship}s that correspond to relational data.
      */
-    static void removeEdge(SimpleDirectedGraph<String, Relationship> graph, Relationship relation)
-        throws us.jts.fortress.SecurityException
+    private static void removeEdge(SimpleDirectedGraph<String, Relationship> graph, Relationship relation)
     {
         log.debug(CLS_NM + ".removeEdge");
         synchronized (graph)
@@ -368,7 +365,7 @@ final class HierUtil
      * @param graph      contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @return Set of names that are children of given parent.
      */
-    static boolean isAscendant(String childName, String parentName, SimpleDirectedGraph<String, Relationship> graph)
+    private static boolean isAscendant(String childName, String parentName, SimpleDirectedGraph<String, Relationship> graph)
     {
         boolean isAscendant = false;
         Set<String> ascendants = getAscendants(childName, graph);
@@ -387,7 +384,7 @@ final class HierUtil
      * @param graph      contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @return Set of names that are children of given parent.
      */
-    static boolean isDescedant(String childName, String parentName, SimpleDirectedGraph<String, Relationship> graph)
+    private static boolean isDescedant(String childName, String parentName, SimpleDirectedGraph<String, Relationship> graph)
     {
         boolean isDescendant = false;
         Set<String> descendants = getDescendants(parentName, graph);
@@ -665,16 +662,8 @@ final class HierUtil
             log.error(error);
             return null;
         }
-        try
-        {
-            graph = toGraph(hier);
-            log.debug(CLS_NM + ".buildGraph success to toGraph");
-        }
-        catch (us.jts.fortress.SecurityException se)
-        {
-            String error = CLS_NM + ".buildGraph caught SecurityException=" + se;
-            log.error(error);
-        }
+        graph = toGraph(hier);
+        log.debug(CLS_NM + ".buildGraph success to toGraph");
         log.debug(CLS_NM + ".buildGraph is success");
         return graph;
     }

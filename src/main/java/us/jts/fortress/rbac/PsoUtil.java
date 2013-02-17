@@ -41,7 +41,7 @@ import java.util.TreeSet;
  */
 final class PsoUtil
 {
-    private static Cache psoCache;
+    private static final Cache psoCache;
     private static OrgUnitP orgUnitP = new OrgUnitP();
     private static final String CLS_NM = PsoUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);

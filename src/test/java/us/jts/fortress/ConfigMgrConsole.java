@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  *
  * @author Shawn McKinney
  */
-public class ConfigMgrConsole
+class ConfigMgrConsole
 {
     private ConfigMgr cm = null;
     private Session session = null;
@@ -39,7 +39,7 @@ public class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -47,7 +47,7 @@ public class ConfigMgrConsole
     /**
      * Description of the Method
      */
-    protected void addProp()
+    void addProp()
     {
         try
         {
@@ -66,12 +66,12 @@ public class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".addProp caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".addProp caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
-    protected void updateProp()
+    void updateProp()
     {
         try
         {
@@ -90,12 +90,12 @@ public class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".updateProp caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".updateProp caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
-    protected void readProps()
+    void readProps()
     {
         try
         {
@@ -116,7 +116,7 @@ public class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".readProps caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".readProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -125,7 +125,7 @@ public class ConfigMgrConsole
     /**
      *
      */
-    protected void deleteProps()
+    void deleteProps()
     {
         try
         {
@@ -138,7 +138,7 @@ public class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".deleteProps caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".deleteProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

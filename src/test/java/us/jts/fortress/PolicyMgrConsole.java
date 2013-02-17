@@ -11,7 +11,7 @@ import us.jts.fortress.rbac.PwPolicy;
 import us.jts.fortress.rbac.TestUtils;
 import org.apache.log4j.Logger;
 
-public class PolicyMgrConsole
+class PolicyMgrConsole
 {
 	private PwPolicyMgr pm = null;
 	final private static String PWDATTRIBUTE = "This attribute contains the name of the attribute to which the password policy is applied. For example, the password policy may be  applied  to the userPassword attribute. \n Note:  in this implementation, the only value accepted for pwdAttribute is  userPassword .";
@@ -44,12 +44,12 @@ public class PolicyMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            log.error(CLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 	}
 
 
-    protected void add()
+    void add()
 	{
 		PwPolicy policy = new PwPolicy();
 		try
@@ -143,7 +143,7 @@ public class PolicyMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            log.error(CLS_NM + ".add caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".add caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 		ReaderUtil.readChar();
 	}

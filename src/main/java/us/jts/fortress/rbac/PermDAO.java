@@ -474,12 +474,12 @@ final class PermDAO extends DataProvider
         {
             if (e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS)
             {
-                String warning = CLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] role [" + role.getName() + "] assignment already exists, Fortress errCode=" + GlobalErrIds.PERM_ROLE_EXIST;
+                String warning = CLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] role [" + role.getName() + "] assignment already exists, Fortress rc=" + GlobalErrIds.PERM_ROLE_EXIST;
                 throw new UpdateException(GlobalErrIds.PERM_ROLE_EXIST, warning);
             }
             else if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = CLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] role [" + role.getName() + "] perm not found, Fortress errCode=" + GlobalErrIds.PERM_OP_NOT_FOUND;
+                String warning = CLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] role [" + role.getName() + "] perm not found, Fortress rc=" + GlobalErrIds.PERM_OP_NOT_FOUND;
                 throw new UpdateException(GlobalErrIds.PERM_OP_NOT_FOUND, warning);
             }
             else
@@ -561,12 +561,12 @@ final class PermDAO extends DataProvider
         {
             if (e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS)
             {
-                String warning = CLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] userId [" + user.getUserId() + "] assignment already exists, Fortress errCode=" + GlobalErrIds.PERM_USER_EXIST;
+                String warning = CLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] userId [" + user.getUserId() + "] assignment already exists, Fortress rc=" + GlobalErrIds.PERM_USER_EXIST;
                 throw new UpdateException(GlobalErrIds.PERM_USER_EXIST, warning);
             }
             else if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = CLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] userId [" + user.getUserId() + "] perm not found, Fortress errCode=" + GlobalErrIds.PERM_OP_NOT_FOUND;
+                String warning = CLS_NM + ".grant perm object [" + pOp.getObjectName() + "] operation [" + pOp.getOpName() + "] userId [" + user.getUserId() + "] perm not found, Fortress rc=" + GlobalErrIds.PERM_OP_NOT_FOUND;
                 throw new UpdateException(GlobalErrIds.PERM_OP_NOT_FOUND, warning);
             }
             else
@@ -877,7 +877,6 @@ final class PermDAO extends DataProvider
      * @throws LDAPException
      */
     private Permission unloadPopLdapEntry(LDAPEntry le, long sequence)
-        throws LDAPException
     {
         Permission entity = new ObjectFactory().createPermission();
         entity.setSequenceId(sequence);
@@ -900,7 +899,6 @@ final class PermDAO extends DataProvider
      * @throws LDAPException
      */
     private PermObj unloadPobjLdapEntry(LDAPEntry le, long sequence)
-        throws LDAPException
     {
         PermObj entity = new ObjectFactory().createPermObj();
         entity.setSequenceId(sequence);
@@ -1253,7 +1251,7 @@ final class PermDAO extends DataProvider
      * @param objId
      * @return
      */
-    final static String getOpRdn(String opName, String objId)
+    static String getOpRdn(String opName, String objId)
     {
         String rDn;
         if (objId != null && objId.length() > 0)

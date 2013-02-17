@@ -29,8 +29,8 @@ import java.util.Set;
 public class ReviewMgrImplTest extends TestCase
 {
     private static final String CLS_NM = ReviewMgrImplTest.class.getName();
-    final protected static Logger log = Logger.getLogger(CLS_NM);
-    static Session adminSess = null;
+    final private static Logger log = Logger.getLogger(CLS_NM);
+    private static Session adminSess = null;
 
     public ReviewMgrImplTest(String name)
     {
@@ -90,7 +90,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param pObjArray
      * @param pOpArray
      */
-    public void readPermissionOps(String msg, String[][] pObjArray, String[][] pOpArray)
+    void readPermissionOps(String msg, String[][] pObjArray, String[][] pOpArray)
     {
         Permission pOp = new Permission();
         LogUtil.logIt(msg);
@@ -114,7 +114,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".readPermissionOps object name [" + pOp.getObjectName() + "] operation name [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage() + ex);
+            log.error(CLS_NM + ".readPermissionOps object name [" + pOp.getObjectName() + "] operation name [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage() + ex);
             fail(ex.getMessage());
         }
     }
@@ -132,7 +132,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param srchValue
      * @param pObjArray
      */
-    public void searchPermissionOps(String msg, String srchValue, String[][] pObjArray, String[][] pOpArray)
+    void searchPermissionOps(String msg, String srchValue, String[][] pObjArray, String[][] pOpArray)
     {
         LogUtil.logIt(msg);
         Permission pOp;
@@ -169,7 +169,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchPermissionOps srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchPermissionOps srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -187,7 +187,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param msg
      * @param pArray
      */
-    public void readPermissionObjs(String msg, String[][] pArray)
+    void readPermissionObjs(String msg, String[][] pArray)
     {
         PermObj pObj = new PermObj();
         LogUtil.logIt(msg);
@@ -206,7 +206,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".readPermissionOps object name [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage() + ex);
+            log.error(CLS_NM + ".readPermissionOps object name [" + pObj.getObjectName() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage() + ex);
             fail(ex.getMessage());
         }
     }
@@ -225,7 +225,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param srchValue
      * @param pArray
      */
-    public void searchPermissionObjs(String msg, String srchValue, String[][] pArray)
+    void searchPermissionObjs(String msg, String srchValue, String[][] pArray)
     {
         LogUtil.logIt(msg);
         try
@@ -254,7 +254,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchPermissionObjs srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchPermissionObjs srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -315,7 +315,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param msg
      * @param rArray
      */
-    public void readRoles(String msg, String[][] rArray)
+    void readRoles(String msg, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -355,7 +355,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param srchValue
      * @param rArray
      */
-    public void searchRoles(String msg, String srchValue, String[][] rArray)
+    void searchRoles(String msg, String srchValue, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -384,7 +384,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchRoles srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchRoles srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -411,7 +411,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public void readUsers(String msg, String[][] uArray)
+    void readUsers(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -427,7 +427,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".readUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".readUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -455,7 +455,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param srchValue
      * @param uArray
      */
-    public void searchUsers(String msg, String srchValue, String[][] uArray)
+    void searchUsers(String msg, String srchValue, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -484,7 +484,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchUsers srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchUsers srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -504,7 +504,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public void assignedRoles(String msg, String[][] uArray, String[][] rArray)
+    void assignedRoles(String msg, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -537,7 +537,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".assignedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignedRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -558,7 +558,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public void authorizedRoles(String msg, String[][] uArray)
+    void authorizedRoles(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -598,7 +598,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".assignedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignedRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -616,7 +616,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param rArray
      * @param uArray
      */
-    public void authorizedUsers(String msg, String[][] rArray, String[][] uArray)
+    void authorizedUsers(String msg, String[][] rArray, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -649,7 +649,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".authorizedUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authorizedUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -666,7 +666,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param msg
      * @param roleMap
      */
-    public void authorizedUsersHier(String msg, Map roleMap)
+    void authorizedUsersHier(String msg, Map roleMap)
     {
         LogUtil.logIt(msg);
         try
@@ -674,14 +674,13 @@ public class ReviewMgrImplTest extends TestCase
             ReviewMgr reviewMgr = getManagedReviewMgr();
 
             // create iterator based on rolemap:
-            Iterator itr = roleMap.entrySet().iterator();
 
             // iterate over every role entry found in map:
-            while(itr.hasNext())
+            for (Object o : roleMap.entrySet())
             {
-                Map.Entry pairs = (Map.Entry)itr.next();
-                String roleName = (String)pairs.getKey();
-                String szValidUsers = (String)pairs.getValue();
+                Map.Entry pairs = (Map.Entry) o;
+                String roleName = (String) pairs.getKey();
+                String szValidUsers = (String) pairs.getValue();
                 Set<String> userSet = TestUtils.getSets(szValidUsers);
                 assertNotNull(userSet);
                 assertTrue(userSet.size() > 0);
@@ -702,7 +701,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".authorizedUsersHier caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authorizedUsersHier caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -719,7 +718,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param pObjArray
      * @param pOpArray
      */
-    public void rolePermissions(String msg, String[][] rArray, String[][] pObjArray, String[][] pOpArray)
+    void rolePermissions(String msg, String[][] rArray, String[][] pObjArray, String[][] pOpArray)
     {
         LogUtil.logIt(msg);
         try
@@ -755,7 +754,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".rolePermissions caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".rolePermissions caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -772,7 +771,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param pOpArray
      * @param rArray
      */
-    public void permissionRoles(String msg, String[][] pObjArray, String[][] pOpArray, String[][] rArray)
+    void permissionRoles(String msg, String[][] pObjArray, String[][] pOpArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         Permission pOp;
@@ -811,7 +810,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".permissionRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".permissionRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -832,7 +831,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param pOpArray
      * @param rArray
      */
-    public void authorizedPermissionRoles(String msg, String[][] pObjArray, String[][] pOpArray, String[][] rArray)
+    void authorizedPermissionRoles(String msg, String[][] pObjArray, String[][] pOpArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         Permission pOp;
@@ -871,7 +870,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".authorizedPermissionRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authorizedPermissionRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -888,7 +887,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param pOpArray
      * @param uArray
      */
-    public void permissionUsers(String msg, String[][] pObjArray, String[][] pOpArray, String[][] uArray)
+    void permissionUsers(String msg, String[][] pObjArray, String[][] pOpArray, String[][] uArray)
     {
         LogUtil.logIt(msg);
         Permission pOp;
@@ -927,7 +926,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".permissionUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".permissionUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -948,7 +947,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param pOpArray
      * @param uArray
      */
-    public void authorizedPermissionUsers(String msg, String[][] pObjArray, String[][] pOpArray, String[][] uArray)
+    void authorizedPermissionUsers(String msg, String[][] pObjArray, String[][] pOpArray, String[][] uArray)
     {
         LogUtil.logIt(msg);
         Permission pOp;
@@ -987,7 +986,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".authorizedPermissionUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authorizedPermissionUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1006,7 +1005,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param pObjArray
      * @param pOpArray
      */
-    public void userPermissions(String msg, String[][] uArray, String[][] pObjArray, String[][] pOpArray)
+    void userPermissions(String msg, String[][] uArray, String[][] pObjArray, String[][] pOpArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1042,7 +1041,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".userPermissions caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".userPermissions caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1062,7 +1061,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param srchValue
      * @param rArray
      */
-    public void searchRolesNms(String msg, String srchValue, String[][] rArray)
+    void searchRolesNms(String msg, String srchValue, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1090,7 +1089,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchRolesNms srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchRolesNms srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1109,7 +1108,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param srchValue
      * @param uArray
      */
-    public void searchUserIds(String msg, String srchValue, String[][] uArray)
+    void searchUserIds(String msg, String srchValue, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1137,7 +1136,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchUserIds srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchUserIds srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1155,7 +1154,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param rArray
      * @param uArray
      */
-    public void assignedUserIds(String msg, String[][] rArray, String[][] uArray)
+    void assignedUserIds(String msg, String[][] rArray, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1175,7 +1174,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".assignedUserIds caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignedUserIds caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1195,7 +1194,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public void assignedRoleNms(String msg, String[][] uArray, String[][] rArray)
+    void assignedRoleNms(String msg, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1226,7 +1225,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".assignedRoleNms caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignedRoleNms caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1242,7 +1241,6 @@ public class ReviewMgrImplTest extends TestCase
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext(), adminSess);
-        return reviewMgr;
+        return ReviewMgrFactory.createInstance(TestUtils.getContext(), adminSess);
     }
 }

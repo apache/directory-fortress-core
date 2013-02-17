@@ -71,7 +71,7 @@ public class CmdLineParser
     public static class UnknownSuboptionException
         extends UnknownOptionException
     {
-        private char suboption;
+        private final char suboption;
 
         UnknownSuboptionException(String option, char suboption)
         {
@@ -95,7 +95,7 @@ public class CmdLineParser
      */
     public static class NotFlagException extends UnknownOptionException
     {
-        private char notflag;
+        private final char notflag;
 
         NotFlagException(String option, char unflaggish)
         {
@@ -146,8 +146,8 @@ public class CmdLineParser
             return this.value;
         }
 
-        private Option option;
-        private String value;
+        private final Option option;
+        private final String value;
     }
 
     /**
@@ -156,12 +156,12 @@ public class CmdLineParser
     public static abstract class Option
     {
 
-        protected Option(String longForm, boolean wantsValue)
+        Option(String longForm, boolean wantsValue)
         {
             this(null, longForm, wantsValue);
         }
 
-        protected Option(char shortForm, String longForm,
+        Option(char shortForm, String longForm,
                          boolean wantsValue)
         {
             this(new String(new char[]{shortForm}), longForm, wantsValue);
@@ -215,7 +215,7 @@ public class CmdLineParser
          * Override to extract and convert an option value passed on the
          * command-line
          */
-        protected Object parseValue(String arg, Locale locale)
+        Object parseValue(String arg, Locale locale)
             throws IllegalOptionValueException
         {
             return null;
@@ -317,8 +317,8 @@ public class CmdLineParser
                 try
                 {
                     NumberFormat format = NumberFormat.getNumberInstance(locale);
-                    Number num = (Number) format.parse(arg);
-                    return new Double(num.doubleValue());
+                    Number num = format.parse(arg);
+                    return num.doubleValue();
                 }
                 catch (ParseException e)
                 {
@@ -352,7 +352,7 @@ public class CmdLineParser
     /**
      * Add the specified Option to the list of accepted options
      */
-    public final Option addOption(Option opt)
+    final Option addOption(Option opt)
     {
         if (opt.shortForm() != null)
             this.options.put("-" + opt.shortForm(), opt);
@@ -474,7 +474,7 @@ public class CmdLineParser
      * @return the parsed value of the given Option, or null if the
      *         option was not set
      */
-    public final Object getOptionValue(Option o, Object def)
+    final Object getOptionValue(Option o, Object def)
     {
         Vector v = (Vector) values.get(o.longForm());
 
@@ -548,7 +548,7 @@ public class CmdLineParser
      * list of command-line arguments. The specified locale is used for
      * parsing options whose values might be locale-specific.
      */
-    public final void parse(String[] argv, Locale locale)
+    final void parse(String[] argv, Locale locale)
         throws IllegalOptionValueException, UnknownOptionException
     {
 
@@ -601,7 +601,7 @@ public class CmdLineParser
                 {
                     throw new UnknownOptionException(curArg);
                 }
-                Object value = null;
+                Object value;
                 if (opt.wantsValue())
                 {
                     if (valueArg == null)
@@ -656,6 +656,6 @@ public class CmdLineParser
 
 
     private String[] remainingArgs = null;
-    private Hashtable options = new Hashtable(10);
+    private final Hashtable options = new Hashtable(10);
     private Hashtable values = new Hashtable(10);
 }

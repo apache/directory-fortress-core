@@ -96,17 +96,17 @@ class PoolMgr
     private static final int LOG = 2;
 
     // Contains the adminUserId LDAP connections:
-    private static ConnectionPool connPoolAdmin = null;
-    private static ConnectionPool connPoolUser = null;
-    private static ConnectionPool connPoolLog = null;
-    private static ConnectionPool[] connPool = {connPoolAdmin, connPoolUser, connPoolLog};
+    private static final ConnectionPool connPoolAdmin = null;
+    private static final ConnectionPool connPoolUser = null;
+    private static final ConnectionPool connPoolLog = null;
+    private static final ConnectionPool[] connPool = {connPoolAdmin, connPoolUser, connPoolLog};
 
     // this modules uses openldap pw policies
-    private static LDAPControl pwPolicyControl = new LDAPControl(GlobalIds.OPENLDAP_PW_RESPONSE_CONTROL, false, null);
+    private static final LDAPControl pwPolicyControl = new LDAPControl(GlobalIds.OPENLDAP_PW_RESPONSE_CONTROL, false, null);
     private static String adminPw;
-    private static String adminUserId;
-    private static boolean isDebugEnabled = Config.getBoolean(LDAP_DEBUG_FLAG, false);
-    private static int connectionTimeout;
+    private static String adminUserId = null;
+    private static final boolean isDebugEnabled = Config.getBoolean(LDAP_DEBUG_FLAG, false);
+    private static int connectionTimeout ;
     private static String hostName;
     private static int portId;
     private static int ldapRevision;

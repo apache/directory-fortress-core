@@ -48,7 +48,7 @@ public class Day
         }
         else
         {
-            if (constraint.getDayMask().indexOf(time.day) != -1)
+            if (constraint.getDayMask().contains(time.day))
             {
                 rc = 0;
             }

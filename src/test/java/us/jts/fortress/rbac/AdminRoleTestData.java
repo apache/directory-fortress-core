@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
 class AdminRoleTestData extends TestCase
 {
     private static final String CLS_NM = AdminRoleTestData.class.getName();
-    final protected static Logger log = Logger.getLogger(CLS_NM);
+    final private static Logger log = Logger.getLogger(CLS_NM);
 
     final static String[][] AROLES_SUPER = {
         {
@@ -874,7 +874,7 @@ class AdminRoleTestData extends TestCase
     private final static int OSU = 17;
     private final static int OSP = 18;
 
-    public static Set<String> getOsU(String[] rle)
+    private static Set<String> getOsU(String[] rle)
     {
         Set<String> members = new HashSet<>();
         if(VUtil.isNotNullOrEmpty(rle[OSU]))
@@ -892,7 +892,7 @@ class AdminRoleTestData extends TestCase
         return members;
     }
 
-    public static Set<String> getOsP(String[] rle)
+    private static Set<String> getOsP(String[] rle)
     {
         Set<String> members = new HashSet<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[OSP]))
@@ -910,17 +910,17 @@ class AdminRoleTestData extends TestCase
         return members;
     }
 
-    public static String getBeginRange(String[] rle)
+    private static String getBeginRange(String[] rle)
     {
         return rle[BEGIN_RANGE_COL];
     }
 
-    public static String getEndRange(String[] rle)
+    private static String getEndRange(String[] rle)
     {
         return rle[END_RANGE_COL];
     }
 
-    public static boolean isBeginInclusive(String[] rle)
+    private static boolean isBeginInclusive(String[] rle)
     {
         boolean result = false;
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[IS_BEGIN_INCLUSIVE]) && rle[IS_BEGIN_INCLUSIVE].equalsIgnoreCase("T"))
@@ -931,7 +931,7 @@ class AdminRoleTestData extends TestCase
         return result;
     }
 
-    public static boolean isEndInclusive(String[] rle)
+    private static boolean isEndInclusive(String[] rle)
     {
         boolean result = false;
         if(VUtil.isNotNullOrEmpty(rle[IS_END_INCLUSIVE]) && rle[IS_END_INCLUSIVE].equalsIgnoreCase("T"))
@@ -956,7 +956,7 @@ class AdminRoleTestData extends TestCase
         return role;
     }
 
-    public static us.jts.fortress.util.time.Constraint getRoleConstraint(String[] rle)
+    private static us.jts.fortress.util.time.Constraint getRoleConstraint(String[] rle)
     {
         AdminRole role = new AdminRole();
         role.setBeginDate(RoleTestData.getBeginDate(rle));

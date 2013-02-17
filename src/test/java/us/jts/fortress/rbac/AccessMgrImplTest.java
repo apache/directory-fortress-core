@@ -27,7 +27,7 @@ import java.util.Set;
 public class AccessMgrImplTest extends TestCase
 {
     private static final String CLS_NM = AccessMgrImplTest.class.getName();
-    final protected static Logger log = Logger.getLogger(CLS_NM);
+    final private static Logger log = Logger.getLogger(CLS_NM);
 
     public static Test suite()
     {
@@ -92,7 +92,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".getUserIds: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".getUserIds: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -109,7 +109,7 @@ public class AccessMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public static void getUsers(String msg, String[][] uArray)
+    private static void getUsers(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -127,7 +127,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".getUsers: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".getUsers: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -146,7 +146,7 @@ public class AccessMgrImplTest extends TestCase
      * @param uArray
      * @param multiplier
      */
-    public static void authenticateUsers(String msg, String[][] uArray, int multiplier)
+    private static void authenticateUsers(String msg, String[][] uArray, int multiplier)
     {
         LogUtil.logIt(msg);
         try
@@ -174,7 +174,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".authenticateUsers: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authenticateUsers: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -194,7 +194,7 @@ public class AccessMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public static void authenticateLockedUsers(String msg, String[][] uArray)
+    private static void authenticateLockedUsers(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -220,7 +220,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".authenticateLockedUsers: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authenticateLockedUsers: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -238,7 +238,7 @@ public class AccessMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public static void authenticateResetUsers(String msg, String[][] uArray, String[] plcy)
+    private static void authenticateResetUsers(String msg, String[][] uArray, String[] plcy)
     {
         LogUtil.logIt(msg);
         try
@@ -266,7 +266,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".authenticateResetUsers: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".authenticateResetUsers: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -287,7 +287,7 @@ public class AccessMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public static void createSessions(String msg, String[][] uArray, String[][] rArray)
+    private static void createSessions(String msg, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -326,7 +326,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".createSessions: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".createSessions: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -347,7 +347,7 @@ public class AccessMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public static void createSessionsWithRoles(String msg, String[][] uArray, String[][] rArray)
+    private static void createSessionsWithRoles(String msg, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -356,7 +356,7 @@ public class AccessMgrImplTest extends TestCase
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
-                List<UserRole> rlsRequested = new ArrayList<UserRole>();
+                List<UserRole> rlsRequested = new ArrayList<>();
                 int cnt = 0;
                 for (String[] rle : rArray)
                 {
@@ -373,7 +373,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".createSessionsWithRoles: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".createSessionsWithRoles: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -394,7 +394,7 @@ public class AccessMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public static void createSessionsWithRolesTrusted(String msg, String[][] uArray, String[][] rArray)
+    private static void createSessionsWithRolesTrusted(String msg, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -403,7 +403,7 @@ public class AccessMgrImplTest extends TestCase
             for (String[] usr : uArray)
             {
                 User user = UserTestData.getUser(usr);
-                List<UserRole> rlsRequested = new ArrayList<UserRole>();
+                List<UserRole> rlsRequested = new ArrayList<>();
                 int cnt = 0;
                 for (String[] rle : rArray)
                 {
@@ -420,7 +420,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".createSessionsWithRolesTrusted: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".createSessionsWithRolesTrusted: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -441,7 +441,7 @@ public class AccessMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public static void createSessionsTrusted(String msg, String[][] uArray, String[][] rArray)
+    private static void createSessionsTrusted(String msg, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -480,7 +480,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".createSessionsTrusted: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".createSessionsTrusted: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -500,7 +500,7 @@ public class AccessMgrImplTest extends TestCase
      * @param uArray
      * @param dsdArray
      */
-    public static void createSessionsDSD(String msg, String[][] uArray, String[][] dsdArray)
+    private static void createSessionsDSD(String msg, String[][] uArray, String[][] dsdArray)
     {
         LogUtil.logIt(msg);
         try
@@ -525,14 +525,14 @@ public class AccessMgrImplTest extends TestCase
                 }
                 else
                 {
-                    assertEquals(CLS_NM + ".createSessionsDSD role cardinality check failed user-role list size user [" + user.getUserId() + "] dsd set [" + dsd.getName() + "] card [" + dsd.getCardinality() + "] listsize [" + uRoles.size() + "]", dsd.getCardinality().intValue()-1, uRoles.size());
+                    assertEquals(CLS_NM + ".createSessionsDSD role cardinality check failed user-role list size user [" + user.getUserId() + "] dsd set [" + dsd.getName() + "] card [" + dsd.getCardinality() + "] listsize [" + uRoles.size() + "]", dsd.getCardinality() -1, uRoles.size());
                 }
             }
             log.debug(CLS_NM + ".createSessionsDSD successful");
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".createSessionsDSD: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".createSessionsDSD: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -552,7 +552,7 @@ public class AccessMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public static void createSessionsHier(String msg, String[][] uArray)
+    private static void createSessionsHier(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -591,7 +591,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".createSessionsHier: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".createSessionsHier: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -615,7 +615,7 @@ public class AccessMgrImplTest extends TestCase
      * @param oArrayBad
      * @param opArrayBad
      */
-    public static void checkAccess(String msg, String[][] uArray, String[][] oArray, String[][] opArray, String[][] oArrayBad, String[][] opArrayBad)
+    private static void checkAccess(String msg, String[][] uArray, String[][] oArray, String[][] opArray, String[][] oArrayBad, String[][] opArrayBad)
     {
         LogUtil.logIt(msg);
         try
@@ -649,7 +649,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".checkAccess: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".checkAccess: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -671,7 +671,7 @@ public class AccessMgrImplTest extends TestCase
      * @param oArray
      * @param opArray
      */
-    public static void sessionPermissions(String msg, String[][] uArray, String[][] oArray, String[][] opArray)
+    private static void sessionPermissions(String msg, String[][] uArray, String[][] oArray, String[][] opArray)
     {
         LogUtil.logIt(msg);
         try
@@ -706,7 +706,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".sessionPermissions: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".sessionPermissions: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -718,7 +718,7 @@ public class AccessMgrImplTest extends TestCase
      * @param oArray
      * @param opArray
      */
-    public static void sessionPermissionsH(String msg, String[][] uArray, String[][] oArray, String[][] opArray)
+    private static void sessionPermissionsH(String msg, String[][] uArray, String[][] oArray, String[][] opArray)
     {
         LogUtil.logIt(msg);
         try
@@ -795,7 +795,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".sessionPermissionsH: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".sessionPermissionsH: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -816,7 +816,7 @@ public class AccessMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public static void sessionRoles(String msg, String[][] uArray, String[][] rArray)
+    private static void sessionRoles(String msg, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -842,7 +842,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".sessionRoles: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".sessionRoles: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -868,7 +868,7 @@ public class AccessMgrImplTest extends TestCase
      * @param rPosArray
      * @param rNegArray
      */
-    public static void addActiveRoles(String msg, String[][] uArray, String[][] rPosArray, String[][] rNegArray)
+    private static void addActiveRoles(String msg, String[][] uArray, String[][] rPosArray, String[][] rNegArray)
     {
         LogUtil.logIt(msg);
         try
@@ -952,7 +952,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addActiveRoles: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addActiveRoles: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -973,7 +973,7 @@ public class AccessMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public static void dropActiveRoles(String msg, String[][] uArray, String[][] rArray)
+    private static void dropActiveRoles(String msg, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1017,12 +1017,12 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".dropActiveRoles: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".dropActiveRoles: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
 
-    public void addActiveRolesDSD(String msg, String[][] uArray, String[][] sArray)
+    void addActiveRolesDSD(String msg, String[][] uArray, String[][] sArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1063,7 +1063,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addActiveRolesDSD caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addActiveRolesDSD caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

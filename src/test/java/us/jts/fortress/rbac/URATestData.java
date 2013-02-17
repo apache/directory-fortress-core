@@ -994,8 +994,7 @@ class URATestData extends TestCase
 
     public static URA getUra(String[] ura)
     {
-        URA entity = new URA(getArole(ura), getUou(ura), getUrole(ura), isCanAssign(ura));
-        return entity;
+        return new URA(getArole(ura), getUou(ura), getUrole(ura), isCanAssign(ura));
     }
 
 
@@ -1006,7 +1005,7 @@ class URATestData extends TestCase
      */
     public static Map<URA,URA> getURAs(String[][] uras)
     {
-        Map<URA,URA> listUras = new HashMap<URA,URA>();
+        Map<URA,URA> listUras = new HashMap<>();
         for(String[] szUra : uras)
         {
             URA ura = getUra(szUra);

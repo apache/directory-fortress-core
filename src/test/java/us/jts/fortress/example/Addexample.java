@@ -10,7 +10,7 @@ import java.util.List;
 public class Addexample
 
 {
-	final private List<Example> examples = new ArrayList<Example>();
+	final private List<Example> examples = new ArrayList<>();
 
 
 	public Addexample() { }

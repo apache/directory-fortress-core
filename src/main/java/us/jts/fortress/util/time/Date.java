@@ -58,21 +58,21 @@ public class Date
         {
             rc = 0;
         }
-        else if(noBegin && !noEnd)
+        else if(noBegin)
         {
             if (constraint.getEndDate().compareTo(time.date) >= 0)
             {
                 rc = 0;
             }
         }
-        else if(!noBegin && noEnd)
+        else if(noEnd)
         {
             if (constraint.getBeginDate().compareTo(time.date) <= 0)
             {
                 rc = 0;
             }
         }
-        else if(!noBegin && !noEnd)
+        else if(!noEnd)
         {
             if (constraint.getBeginDate().compareTo(time.date) <= 0
                 && constraint.getEndDate().compareTo(time.date) >= 0)

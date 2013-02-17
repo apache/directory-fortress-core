@@ -23,14 +23,13 @@ import java.util.Set;
 public class CacheSample
 {
     private static final String CLS_NM = CacheSample.class.getName();
-    final protected static Logger log = Logger.getLogger(CLS_NM);
+    final private static Logger log = Logger.getLogger(CLS_NM);
     private static final SdP sdP = new SdP();
-    private CacheMgr cacheManager;
     private Cache cache;
 
     private void initializeCache()
     {
-        cacheManager = CacheMgr.getInstance();
+        CacheMgr cacheManager = CacheMgr.getInstance();
         cache = cacheManager.getCache("fortress.dsd");
     }
 
@@ -72,7 +71,7 @@ public class CacheSample
     }
 
 
-    public void runTests() throws IOException
+    void runTests()
     {
         loadCache();
         Attribute<String> member = cache.getSearchAttribute("member");
@@ -88,12 +87,12 @@ public class CacheSample
         Results results = query.execute();
         System.out.println(" Size: " + results.size());
         System.out.println("----Results-----\n");
-        Set<SDSet> resultSet = new HashSet<SDSet>();
+        Set<SDSet> resultSet = new HashSet<>();
 
         for (Result result : results.all())
         {
             DsdCacheEntry entry = (DsdCacheEntry) result.getValue();
-            resultSet.add((SDSet) entry.getSdSet());
+            resultSet.add(entry.getSdSet());
         }
 
         for (SDSet sdSet : resultSet)
@@ -113,16 +112,7 @@ public class CacheSample
         log.info(CLS_NM + ".main Test #args=" + args.length);
         CacheSample sample = new CacheSample();
         sample.initializeCache();
-        try
-        {
-            sample.runTests();
-        }
-        catch (IOException ioe)
-        {
-            String error = CLS_NM + ".main caught IOException=" + ioe;
-            log.error(error);
-            ioe.printStackTrace();
-        }
+        sample.runTests();
     }
 
     public class DsdCacheEntry

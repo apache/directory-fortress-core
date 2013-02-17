@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
  *
  * @author     Shawn McKinney
  */
-public class ProcessMenuCommand
+class ProcessMenuCommand
 {
 	final private Logger log = Logger.getLogger(ProcessMenuCommand.class.getName());
 	final private AdminMgrConsole adminConsole = new AdminMgrConsole();
@@ -59,7 +59,7 @@ public class ProcessMenuCommand
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		boolean done = false;
-		int input = 0;
+		int input;
 
 		try
 		{
@@ -107,7 +107,6 @@ public class ProcessMenuCommand
 					default:
 						break;
 				}
-				input = 0;
 			}
 		}
 		catch (Exception e)
@@ -117,7 +116,7 @@ public class ProcessMenuCommand
 	}
 
 
-    public void processEncryptManagerFunction()
+    void processEncryptManagerFunction()
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         boolean done = false;
@@ -144,7 +143,6 @@ public class ProcessMenuCommand
                     default:
                         break;
                 }
-                input = 0;
             }
         }
         catch (Exception e)
@@ -161,7 +159,7 @@ public class ProcessMenuCommand
         System.out.println("2.  Decrypt text value");
     }
 
-    public void processConfigManagerFunction()
+    void processConfigManagerFunction()
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         boolean done = false;
@@ -194,7 +192,6 @@ public class ProcessMenuCommand
                     default:
                         break;
                 }
-                input = 0;
             }
         }
         catch (Exception e)
@@ -219,7 +216,7 @@ public class ProcessMenuCommand
     /**
      * 
      */
-    public void processAuditManagerFunction()
+    void processAuditManagerFunction()
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         boolean done = false;
@@ -264,7 +261,6 @@ public class ProcessMenuCommand
                     default:
                         break;
                 }
-                input = 0;
             }
         }
         catch (Exception e)
@@ -334,7 +330,7 @@ public class ProcessMenuCommand
     /**
      *
      */
-	public void processAdminFunction()
+	void processAdminFunction()
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		boolean done = false;
@@ -460,7 +456,6 @@ public class ProcessMenuCommand
 					default:
 						break;
 				}
-				input = 0;
 			}
 		}
 		catch (Exception e)
@@ -498,7 +493,7 @@ public class ProcessMenuCommand
     /**
      *
      */
-	public void processReviewFunction()
+	void processReviewFunction()
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		boolean done = false;
@@ -561,7 +556,6 @@ public class ProcessMenuCommand
 					default:
 						break;
 				}
-				input = 0;
 			}
 		}
 		catch (Exception e)
@@ -596,7 +590,7 @@ public class ProcessMenuCommand
     /**
      *
      */
-	public void processAccessFunction()
+	void processAccessFunction()
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		boolean done = false;
@@ -652,7 +646,6 @@ public class ProcessMenuCommand
 					default:
 						break;
 				}
-				input = 0;
 			}
 		}
 		catch (Exception e)
@@ -665,7 +658,7 @@ public class ProcessMenuCommand
     /**
      *
      */
-	public void processPasswordPolicyFunction()
+	void processPasswordPolicyFunction()
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		boolean done = false;
@@ -736,7 +729,6 @@ public class ProcessMenuCommand
 					default:
 						break;
 				}
-				input = 0;
 			}
 		}
 		catch (Exception e)
@@ -789,7 +781,7 @@ public class ProcessMenuCommand
     /**
      *
      */
-	public void processDelegatedAdminFunction()
+	void processDelegatedAdminFunction()
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		boolean done = false;
@@ -880,7 +872,6 @@ public class ProcessMenuCommand
 					default:
 						break;
 				}
-				input = 0;
 			}
 		}
 		catch (Exception e)
@@ -908,7 +899,7 @@ public class ProcessMenuCommand
     /**
      *
      */
-	public void processDelegatedReviewFunction()
+	void processDelegatedReviewFunction()
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		boolean done = false;
@@ -941,7 +932,6 @@ public class ProcessMenuCommand
 					default:
 						break;
 				}
-				input = 0;
 			}
 		}
 		catch (Exception e)
@@ -972,7 +962,7 @@ public class ProcessMenuCommand
     /**
      *
      */
-	public void processDelegatedAccessFunction()
+	void processDelegatedAccessFunction()
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		boolean done = false;
@@ -1014,7 +1004,6 @@ public class ProcessMenuCommand
 					default:
 						break;
 				}
-				input = 0;
 			}
 		}
 		catch (Exception e)

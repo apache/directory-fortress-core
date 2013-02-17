@@ -12,7 +12,7 @@ import net.sf.ehcache.constructs.blocking.BlockingCache;
  *
  * @author Shawn McKinney
  */
-public class CacheFactory
+class CacheFactory
 {
     private static final String CLS_NM = CacheFactory.class.getName();
 

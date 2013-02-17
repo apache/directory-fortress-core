@@ -562,12 +562,12 @@ class ConnectionPool
         private boolean inUse; // In use? (true = yes)
     }
 
-    private int poolSize; // Min pool size
+    private final int poolSize; // Min pool size
     private int poolMax; // Max pool size
-    private String host; // LDAP host
-    private int port;    // Port to connect at
-    private String authdn;  // Identity of connections
-    private String authpw;  // Password for authdn
+    private final String host; // LDAP host
+    private final int port;    // Port to connect at
+    private final String authdn;  // Identity of connections
+    private final String authpw;  // Password for authdn
     private LDAPConnection ldc = null; // Connection to clone
     private java.util.Vector pool;  // the actual pool
     private boolean debugMode;

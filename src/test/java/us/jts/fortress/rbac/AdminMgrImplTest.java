@@ -28,8 +28,8 @@ import java.util.Set;
 public class AdminMgrImplTest extends TestCase
 {
     private static final String CLS_NM = AdminMgrImplTest.class.getName();
-    final protected static Logger log = Logger.getLogger(CLS_NM);
-    static Session adminSess = null;
+    final private static Logger log = Logger.getLogger(CLS_NM);
+    private static Session adminSess = null;
 
     public AdminMgrImplTest(String name)
     {
@@ -127,7 +127,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addUsers: caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -192,7 +192,7 @@ public class AdminMgrImplTest extends TestCase
                     // don't fail test if user was a system user:
                     if (ex.getErrorId() != GlobalErrIds.USER_PW_PLCY_VIOLATION)
                     {
-                        log.error(CLS_NM + ".deleteUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                        log.error(CLS_NM + ".deleteUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                         fail(ex.getMessage());
                     }
                 }
@@ -200,7 +200,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -242,7 +242,7 @@ public class AdminMgrImplTest extends TestCase
     /**
      * @param uArray
      */
-    public void updateUsers(String msg, String[][] uArray)
+    void updateUsers(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -257,7 +257,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".updateUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".updateUsers: caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -274,7 +274,7 @@ public class AdminMgrImplTest extends TestCase
      * @param uOldArray
      * @param uNewArray
      */
-    public void changePasswords(String msg, String[][] uOldArray, String[][] uNewArray)
+    void changePasswords(String msg, String[][] uOldArray, String[][] uNewArray)
     {
         LogUtil.logIt(msg);
         try
@@ -290,7 +290,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".changePasswords: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".changePasswords: caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -308,7 +308,7 @@ public class AdminMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public void lockUsers(String msg, String[][] uArray)
+    void lockUsers(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -323,7 +323,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".lockUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".lockUsers: caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -341,7 +341,7 @@ public class AdminMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public void unlockUsers(String msg, String[][] uArray)
+    void unlockUsers(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -356,7 +356,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".unlockUsers: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".unlockUsers: caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -371,7 +371,7 @@ public class AdminMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public void resetPasswords(String msg, String[][] uArray)
+    void resetPasswords(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -386,7 +386,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".resetPasswords: caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".resetPasswords: caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -430,7 +430,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -474,7 +474,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -506,7 +506,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".updateRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".updateRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -585,7 +585,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -671,7 +671,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delRoleDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delRoleDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -727,7 +727,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -791,7 +791,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delRoleAscendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delRoleAscendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -832,7 +832,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addInheritedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addInheritedRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -872,7 +872,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteInheritedRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteInheritedRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -905,7 +905,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".createSsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".createSsdSet caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -939,7 +939,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".createDsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".createDsdSet caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -976,7 +976,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteSsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteSsdSet caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1010,7 +1010,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteDsdSet caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteDsdSet caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1055,7 +1055,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addSsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addSsdRoleMember caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1101,7 +1101,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addDsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addDsdRoleMember caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1149,7 +1149,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteSsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteSsdRoleMember caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1197,7 +1197,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteDsdRoleMember caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteDsdRoleMember caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1240,7 +1240,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".setSsdCardinality caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".setSsdCardinality caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1283,7 +1283,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".setDsdCardinality caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".setDsdCardinality caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1318,7 +1318,7 @@ public class AdminMgrImplTest extends TestCase
      * @param rArray
      * @param setTemporal
      */
-    public void assignUsers(String msg, String[][] uArray, String[][] rArray, boolean setTemporal)
+    void assignUsers(String msg, String[][] uArray, String[][] rArray, boolean setTemporal)
     {
         LogUtil.logIt(msg);
         try
@@ -1357,7 +1357,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".assignUsers user caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignUsers user caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1370,7 +1370,7 @@ public class AdminMgrImplTest extends TestCase
      * @param rArray
      * @param setTemporal
      */
-    public void assignUsersH(String msg, String[][] uArray, String[][] rArray, boolean setTemporal)
+    void assignUsersH(String msg, String[][] uArray, String[][] rArray, boolean setTemporal)
     {
         LogUtil.logIt(msg);
         try
@@ -1389,7 +1389,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".assignUsersH user caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignUsersH user caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1439,7 +1439,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".assignUsersSSD caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignUsersSSD caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1474,7 +1474,7 @@ public class AdminMgrImplTest extends TestCase
                     }
                     catch (SecurityException ex)
                     {
-                        log.error(CLS_NM + ".assignUsersDSD caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                        log.error(CLS_NM + ".assignUsersDSD caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                         fail(CLS_NM + ".assignUsersDSD user [" + user.getUserId() + "] role [" + role + "] dsd [" + dsd.getName() + "] failed");
                     }
                 }
@@ -1482,7 +1482,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".assignUsersDSD caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignUsersDSD caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1504,7 +1504,7 @@ public class AdminMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public void deassignUsers(String msg, String[][] uArray, String[][] rArray)
+    void deassignUsers(String msg, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1544,7 +1544,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deassignUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deassignUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1554,7 +1554,7 @@ public class AdminMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public void deassignUsersH(String msg, String[][] uArray, String[][] rArray)
+    void deassignUsersH(String msg, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         User user = null;
@@ -1573,7 +1573,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deassignUsersH user [" + user.getUserId() + "] role [" + role.getName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deassignUsersH user [" + (user != null ? user.getUserId() : null) + "] role [" + (role != null ? role.getName() : null) + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1621,7 +1621,7 @@ public class AdminMgrImplTest extends TestCase
         {
             if(!canFail)
             {
-                log.error(CLS_NM + ".addPermOp objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                log.error(CLS_NM + ".addPermOp objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                 fail(ex.getMessage());
             }
         }
@@ -1668,7 +1668,7 @@ public class AdminMgrImplTest extends TestCase
         {
             if(!canFail)
             {
-                log.error(CLS_NM + ".addPermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                log.error(CLS_NM + ".addPermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                 fail(ex.getMessage());
             }
         }
@@ -1723,7 +1723,7 @@ public class AdminMgrImplTest extends TestCase
         {
             if(!canFail)
             {
-                log.error(CLS_NM + ".delPermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                log.error(CLS_NM + ".delPermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                 fail(ex.getMessage());
             }
         }
@@ -1767,7 +1767,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delPermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delPermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1781,7 +1781,7 @@ public class AdminMgrImplTest extends TestCase
     /**
      * @param objArray
      */
-    public static void updatePermObjs(String msg, String[][] objArray, boolean isAdmin)
+    private static void updatePermObjs(String msg, String[][] objArray, boolean isAdmin)
     {
         LogUtil.logIt(msg);
         PermObj pObj = new PermObj();
@@ -1806,7 +1806,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".updatePermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".updatePermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1821,7 +1821,7 @@ public class AdminMgrImplTest extends TestCase
      * @param objArray
      * @param opArray
      */
-    public static void updatePermOps(String msg, String[][] objArray, String[][] opArray, boolean isAdmin)
+    private static void updatePermOps(String msg, String[][] objArray, String[][] opArray, boolean isAdmin)
     {
         LogUtil.logIt(msg);
         Permission pOp = new Permission();
@@ -1848,7 +1848,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".updatePermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".updatePermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1909,7 +1909,7 @@ public class AdminMgrImplTest extends TestCase
         {
             if(!canFail)
             {
-                log.error(CLS_NM + ".addRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                log.error(CLS_NM + ".addRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                 fail(ex.getMessage());
             }
         }
@@ -1945,7 +1945,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1993,7 +1993,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addRoleGrantsHB caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addRoleGrantsHB caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2052,7 +2052,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2086,7 +2086,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2133,7 +2133,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delRoleGrantsHB caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delRoleGrantsHB caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2175,7 +2175,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2217,7 +2217,7 @@ public class AdminMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -2233,7 +2233,6 @@ public class AdminMgrImplTest extends TestCase
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext(), adminSess);
-        return adminMgr;
+        return AdminMgrFactory.createInstance(TestUtils.getContext(), adminSess);
     }
 }

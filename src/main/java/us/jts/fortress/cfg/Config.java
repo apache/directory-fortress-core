@@ -34,9 +34,9 @@ public class Config
 {
     final private static String propFile = "fortress.properties";
     final private static String userPropFile = "fortress.user.properties";
-    private static PropertiesConfiguration config;
+    private static final PropertiesConfiguration config;
     private static final String CLS_NM = Config.class.getName();
-    final protected static Logger log = Logger.getLogger(CLS_NM);
+    final private static Logger log = Logger.getLogger(CLS_NM);
 
     static
     {

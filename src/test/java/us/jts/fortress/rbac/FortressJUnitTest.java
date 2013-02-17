@@ -35,7 +35,7 @@ public class FortressJUnitTest extends TestCase
         return adminEnabled;
     }
 
-    public static void setAdminEnabled(boolean adminVal)
+    private static void setAdminEnabled(boolean adminVal)
     {
         adminEnabled = adminVal;
     }

@@ -38,4 +38,14 @@ public class CfgRuntimeException extends BaseRuntimeException
     {
         super(errorId, newMsgText);
     }
+
+    /**
+     * Get the exception object.
+     *
+     * @return reference to Exception.
+     */
+    public Exception getException()
+    {
+        return exception;
+    }
 }

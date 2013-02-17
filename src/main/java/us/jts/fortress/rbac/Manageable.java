@@ -102,7 +102,7 @@ public abstract class Manageable implements us.jts.fortress.Manageable
      * @throws us.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
-    protected final void setAdminData(String className, String opName, FortEntity entity) throws us.jts.fortress.SecurityException
+    protected final void setAdminData(String className, String opName, FortEntity entity)
     {
         if (this.adminSess != null)
         {

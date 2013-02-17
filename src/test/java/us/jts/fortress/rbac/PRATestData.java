@@ -994,8 +994,7 @@ class PRATestData extends TestCase
 
     public static PRA getPra(String[] ura)
     {
-        PRA entity = new PRA(getArole(ura), getPou(ura), getUrole(ura), isCanGrant(ura));
-        return entity;
+        return new PRA(getArole(ura), getPou(ura), getUrole(ura), isCanGrant(ura));
     }
 
 
@@ -1006,7 +1005,7 @@ class PRATestData extends TestCase
      */
     public static Map<PRA,PRA> getPRAs(String[][] uras)
     {
-        Map<PRA,PRA> listUras = new HashMap<PRA,PRA>();
+        Map<PRA,PRA> listUras = new HashMap<>();
         for(String[] szUra : uras)
         {
             PRA ura = getPra(szUra);

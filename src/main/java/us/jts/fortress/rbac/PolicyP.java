@@ -319,7 +319,7 @@ final class PolicyP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return
      */
-    private static final Set<String> getPolicySet(String contextId)
+    private static Set<String> getPolicySet(String contextId)
     {
         Set<String> policySet = (Set<String>)policyCache.get(getKey(contextId));
         if (policySet == null)

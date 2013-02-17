@@ -83,19 +83,19 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortEntity")
     public JAXBElement<FortEntity> createFortEntity(FortEntity value)
     {
-        return new JAXBElement<FortEntity>(_FortEntity_QNAME, FortEntity.class, null, value);
+        return new JAXBElement<>(_FortEntity_QNAME, FortEntity.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortResponse")
     public JAXBElement<FortResponse> createFortResponse(FortResponse value)
     {
-        return new JAXBElement<FortResponse>(_FortResponse_QNAME, FortResponse.class, null, value);
+        return new JAXBElement<>(_FortResponse_QNAME, FortResponse.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortRequest")
     public JAXBElement<FortRequest> createFortRequest(FortRequest value)
     {
-        return new JAXBElement<FortRequest>(FortRequest_QNAME, FortRequest.class, null, value);
+        return new JAXBElement<>(FortRequest_QNAME, FortRequest.class, null, value);
     }
 
     /**
@@ -104,7 +104,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortSet")
     public JAXBElement<SDSet> createFortSet(SDSet value)
     {
-        return new JAXBElement<SDSet>(_FortSet_QNAME, SDSet.class, null, value);
+        return new JAXBElement<>(_FortSet_QNAME, SDSet.class, null, value);
     }
 
     /**
@@ -113,7 +113,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortPolicy")
     public JAXBElement<PwPolicy> createFortPolicy(PwPolicy value)
     {
-        return new JAXBElement<PwPolicy>(_FortPolicy_QNAME, PwPolicy.class, null, value);
+        return new JAXBElement<>(_FortPolicy_QNAME, PwPolicy.class, null, value);
     }
 
     /**
@@ -122,7 +122,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortSession")
     public JAXBElement<Session> createFortSession(Session value)
     {
-        return new JAXBElement<Session>(_FortSession_QNAME, Session.class, null, value);
+        return new JAXBElement<>(_FortSession_QNAME, Session.class, null, value);
     }
 
     /**
@@ -131,7 +131,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortUser")
     public JAXBElement<User> createFortUser(User value)
     {
-        return new JAXBElement<User>(_FortUser_QNAME, User.class, null, value);
+        return new JAXBElement<>(_FortUser_QNAME, User.class, null, value);
     }
 
     /**
@@ -140,13 +140,13 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortUserRole")
     public JAXBElement<UserRole> createFortUserRole(UserRole value)
     {
-        return new JAXBElement<UserRole>(_FortUserRole_QNAME, UserRole.class, null, value);
+        return new JAXBElement<>(_FortUserRole_QNAME, UserRole.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortOrgUnit")
     public JAXBElement<OrgUnit> createFortOrgUnit(OrgUnit value)
     {
-        return new JAXBElement<OrgUnit>(_FortOrgUnit_QNAME, OrgUnit.class, null, value);
+        return new JAXBElement<>(_FortOrgUnit_QNAME, OrgUnit.class, null, value);
     }
 
     /**
@@ -155,7 +155,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortRole")
     public JAXBElement<Role> createFortRole(Role value)
     {
-        return new JAXBElement<Role>(_FortRole_QNAME, Role.class, null, value);
+        return new JAXBElement<>(_FortRole_QNAME, Role.class, null, value);
     }
 
     /**
@@ -164,7 +164,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortGrant")
     public JAXBElement<PermGrant> createFortGrant(PermGrant value)
     {
-        return new JAXBElement<PermGrant>(_FortGrant_QNAME, PermGrant.class, null, value);
+        return new JAXBElement<>(_FortGrant_QNAME, PermGrant.class, null, value);
     }
 
     /**
@@ -173,7 +173,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortAdminRoleRelationship")
     public JAXBElement<AdminRoleRelationship> createFortAdminRoleRelationship(AdminRoleRelationship value)
     {
-        return new JAXBElement<AdminRoleRelationship>(_FortAdminRoleRelationship_QNAME, AdminRoleRelationship.class, null, value);
+        return new JAXBElement<>(_FortAdminRoleRelationship_QNAME, AdminRoleRelationship.class, null, value);
     }
 
     /**
@@ -182,7 +182,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortOrgUnitRelationship")
     public JAXBElement<OrgUnitRelationship> createFortOrgUnitRelationship(OrgUnitRelationship value)
     {
-        return new JAXBElement<OrgUnitRelationship>(_FortOrgUnitRelationship_QNAME, OrgUnitRelationship.class, null, value);
+        return new JAXBElement<>(_FortOrgUnitRelationship_QNAME, OrgUnitRelationship.class, null, value);
     }
 
     /**
@@ -191,7 +191,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortRoleRelationship")
     public JAXBElement<RoleRelationship> createFortRoleRelationship(RoleRelationship value)
     {
-        return new JAXBElement<RoleRelationship>(_FortRoleRelationship_QNAME, RoleRelationship.class, null, value);
+        return new JAXBElement<>(_FortRoleRelationship_QNAME, RoleRelationship.class, null, value);
     }
 
     /**
@@ -200,7 +200,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortAdminRole")
     public JAXBElement<AdminRole> createFortAdminRole(AdminRole value)
     {
-        return new JAXBElement<AdminRole>(_FortAdminRole_QNAME, AdminRole.class, null, value);
+        return new JAXBElement<>(_FortAdminRole_QNAME, AdminRole.class, null, value);
     }
 
     /**
@@ -209,7 +209,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortUserAdminRole")
     public JAXBElement<UserAdminRole> createFortUserRole(UserAdminRole value)
     {
-        return new JAXBElement<UserAdminRole>(_FortUserAdminRole_QNAME, UserAdminRole.class, null, value);
+        return new JAXBElement<>(_FortUserAdminRole_QNAME, UserAdminRole.class, null, value);
     }
 
     /**
@@ -218,7 +218,7 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortObject")
     public JAXBElement<PermObj> createFortObject(PermObj value)
     {
-        return new JAXBElement<PermObj>(_FortObject_QNAME, PermObj.class, null, value);
+        return new JAXBElement<>(_FortObject_QNAME, PermObj.class, null, value);
     }
 
     /**
@@ -227,49 +227,49 @@ public class ObjectFactory
     @XmlElementDecl(namespace = "", name = "fortPermission")
     public JAXBElement<Permission> createFortPermission(Permission value)
     {
-        return new JAXBElement<Permission>(_FortPermission_QNAME, Permission.class, null, value);
+        return new JAXBElement<>(_FortPermission_QNAME, Permission.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortBind")
     public JAXBElement<Bind> createFortEntity(Bind value)
     {
-        return new JAXBElement<Bind>(_FortBind_QNAME, Bind.class, null, value);
+        return new JAXBElement<>(_FortBind_QNAME, Bind.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortUserAudit")
     public JAXBElement<UserAudit> createFortUserAudit(UserAudit value)
     {
-        return new JAXBElement<UserAudit>(_FortUserAudit_QNAME, UserAudit.class, null, value);
+        return new JAXBElement<>(_FortUserAudit_QNAME, UserAudit.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortAuthZ")
     public JAXBElement<AuthZ> createFortAuthZ(AuthZ value)
     {
-        return new JAXBElement<AuthZ>(_FortAuthZ_QNAME, AuthZ.class, null, value);
+        return new JAXBElement<>(_FortAuthZ_QNAME, AuthZ.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortMod")
     public JAXBElement<Mod> createFortMod(Mod value)
     {
-        return new JAXBElement<Mod>(_FortMod_QNAME, Mod.class, null, value);
+        return new JAXBElement<>(_FortMod_QNAME, Mod.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortRolePerm")
     public JAXBElement<RolePerm> createFortRolePerm(RolePerm value)
     {
-        return new JAXBElement<RolePerm>(_FortRolePerm_QNAME, RolePerm.class, null, value);
+        return new JAXBElement<>(_FortRolePerm_QNAME, RolePerm.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortAddress")
     public JAXBElement<Address> createFortAddress(Address value)
     {
-        return new JAXBElement<Address>(FortAddress_QNAME, Address.class, null, value);
+        return new JAXBElement<>(FortAddress_QNAME, Address.class, null, value);
     }
 
     @XmlElementDecl(namespace = "", name = "fortProps")
     public JAXBElement<Props> createFortProps(Props value)
     {
-        return new JAXBElement<Props>(_FortProps_QNAME, Props.class, null, value);
+        return new JAXBElement<>(_FortProps_QNAME, Props.class, null, value);
     }
 
 

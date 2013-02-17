@@ -1186,7 +1186,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException
      */
     private void clearSSDCache(SDSet ssdSet)
-        throws SecurityException
     {
         if(ssdSet.getMembers() != null)
         {
@@ -1204,7 +1203,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException
      */
     private void clearSSDCache(Role role)
-        throws SecurityException
     {
         SDUtil.clearSsdCacheEntry(role.getName(), contextId);
     }
@@ -1424,7 +1422,6 @@ h     * This command sets the cardinality associated with a given DSD role set. 
      * @throws SecurityException
      */
     private void clearDSDCache(SDSet dsdSet)
-        throws SecurityException
     {
         SDUtil.clearDsdCacheEntry(dsdSet.getName(), contextId);
     }

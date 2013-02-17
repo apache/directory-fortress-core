@@ -53,21 +53,4 @@ public class AccessMgrFactory
         accessMgr.setContextId(contextId);
         return accessMgr;
     }
-
-
-    /**
-     * Create and return a reference to {@link us.jts.fortress.AccessMgr} object.
-     *
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @param adminSess contains a valid Fortress A/RBAC Session object.
-     * @return instance of {@link us.jts.fortress.AccessMgr}.
-     * @throws SecurityException in the event of failure during instantiation.
-     */
-    public static AccessMgr createInstance(String contextId, Session adminSess)
-        throws SecurityException
-    {
-        AccessMgr accessMgr = createInstance(contextId);
-        accessMgr.setAdmin(adminSess);
-        return accessMgr;
-    }
 }

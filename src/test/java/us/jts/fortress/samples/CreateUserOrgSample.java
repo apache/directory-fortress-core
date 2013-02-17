@@ -95,7 +95,7 @@ public class CreateUserOrgSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
  *
  * @author     Shawn McKinney
  */
-public class ReaderUtil
+class ReaderUtil
 {
 	final private static Logger log = Logger.getLogger(ReaderUtil.class.getName());
 
@@ -89,7 +89,7 @@ public class ReaderUtil
 		try
 		{
 			input = br.readLine();
-			retVal = (new Integer(input)).intValue();
+			retVal = new Integer(input);
 		}
 		catch (Exception e)
 		{

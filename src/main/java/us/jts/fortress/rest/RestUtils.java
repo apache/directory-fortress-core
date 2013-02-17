@@ -294,7 +294,7 @@ public class RestUtils
      * @param name
      * @param password
      */
-    public static void setMethodHeaders(HttpMethod httpMethod, String name, String password)
+    private static void setMethodHeaders(HttpMethod httpMethod, String name, String password)
     {
         if (httpMethod instanceof PostMethod || httpMethod instanceof PutMethod)
         {
@@ -313,7 +313,7 @@ public class RestUtils
      * @param value
      * @return String contains encoded data
      */
-    public static String base64Encode(String value)
+    private static String base64Encode(String value)
     {
         return Base64Utility.encode(value.getBytes());
     }
@@ -325,7 +325,7 @@ public class RestUtils
      * @return String containing response
      * @throws Exception
      */
-    public static String handleHttpMethod(HttpMethod httpMethod) throws RestException
+    private static String handleHttpMethod(HttpMethod httpMethod) throws RestException
     {
         HttpClient client = new HttpClient();
         String szResponse = null;
@@ -372,7 +372,7 @@ public class RestUtils
      * @param inProps
      * @return Properties
      */
-    public static final Properties getProperties(Props inProps)
+    public static Properties getProperties(Props inProps)
     {
         Properties properties = null;
         List<Props.Entry> props = inProps.getEntry();
@@ -380,11 +380,10 @@ public class RestUtils
         {
             properties = new Properties();
             int size = props.size();
-            for (int i = 0; i < size; i++)
+            for (Props.Entry entry : props)
             {
-                Props.Entry entry = props.get(i);
-                String key = (String) entry.getKey();
-                String val = (String) entry.getValue();
+                String key = entry.getKey();
+                String val = entry.getValue();
                 properties.setProperty(key, val);
             }
         }
@@ -397,7 +396,7 @@ public class RestUtils
      * @param properties
      * @return Prop contains name value pairs.
      */
-    public static final Props getProps(Properties properties)
+    public static Props getProps(Properties properties)
     {
         Props props = null;
         if (properties != null)

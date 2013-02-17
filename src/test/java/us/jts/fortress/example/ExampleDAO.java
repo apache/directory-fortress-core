@@ -23,6 +23,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ExampleDAO extends DataProvider
@@ -243,7 +244,7 @@ public class ExampleDAO extends DataProvider
     public List<Example> findExamples(String searchVal)
         throws us.jts.fortress.FinderException
     {
-        List<Example> exampleList = new ArrayList<Example>();
+        List<Example> exampleList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String exampleRoot = us.jts.fortress.cfg.Config.getProperty(EIds.EXAMPLE_ROOT);
@@ -256,7 +257,7 @@ public class ExampleDAO extends DataProvider
         {
             searchVal = encodeSafeText(searchVal, GlobalIds.ROLE_LEN);
             ld = getAdminConnection();
-            String filter = GlobalIds.FILTER_PREFIX + EIds.EXAMPLE_OBJ_CLASS.toString() + ")("
+            String filter = GlobalIds.FILTER_PREFIX + Arrays.toString(EIds.EXAMPLE_OBJ_CLASS) + ")("
                 + EIds.EXAMPLE_NM + "=" + searchVal + "*))";
             searchResults = search(ld, exampleRoot,
                 LDAPConnection.SCOPE_ONE, filter, EXAMPLE_ATRS, false, EIds.BATCH_SIZE);
@@ -285,7 +286,6 @@ public class ExampleDAO extends DataProvider
      * @throws LDAPException
      */
     private Example getEntityFromLdapEntry(LDAPEntry le)
-        throws LDAPException
     {
         /*
         public class Role

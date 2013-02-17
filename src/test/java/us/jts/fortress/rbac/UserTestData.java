@@ -5699,7 +5699,7 @@ public class UserTestData extends TestCase
             String szBoolean = usr[SYSTEM_COL];
             if(VUtil.isNotNullOrEmpty(szBoolean))
             {
-                isSystem = new Boolean(szBoolean);
+                isSystem = Boolean.valueOf(szBoolean);
             }
             else
             {

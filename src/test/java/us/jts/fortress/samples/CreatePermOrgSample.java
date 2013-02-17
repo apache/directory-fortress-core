@@ -33,7 +33,7 @@ public class CreatePermOrgSample extends TestCase
     private static final String CLS_NM = CreatePermOrgSample.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
     public static final String TEST_PERM_OU_NM = "samplePerms-OU.1";
-    public static final String TEST_PERM_OU_NM2 = "KillerBikes.com";
+    private static final String TEST_PERM_OU_NM2 = "KillerBikes.com";
 
     public CreatePermOrgSample(String name)
     {
@@ -94,7 +94,7 @@ public class CreatePermOrgSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -141,7 +141,7 @@ public class CreatePermOrgSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

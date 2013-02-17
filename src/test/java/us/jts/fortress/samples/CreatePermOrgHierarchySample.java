@@ -28,12 +28,12 @@ public class CreatePermOrgHierarchySample extends TestCase
     private static final Logger log = Logger.getLogger(CLS_NM);
 
     // This constant will be added to index for creation of multiple nodes in directory.
-    public static final String TEST_HIER_PERMORG_PREFIX = "sampleHierPermOrg";
-    public static final String TEST_HIER_BASE_PERMORG = "sampleHierPermOrg1";
-    public static int TEST_NUMBER = 6;
+    private static final String TEST_HIER_PERMORG_PREFIX = "sampleHierPermOrg";
+    private static final String TEST_HIER_BASE_PERMORG = "sampleHierPermOrg1";
+    private static int TEST_NUMBER = 6;
 
-    public static final String TEST_HIER_DESC_PERMORG_PREFIX = "sampleHierPermOrgD";
-    public static final String TEST_HIER_ASC_PERMORG_PREFIX = "sampleHierPermOrgA";
+    private static final String TEST_HIER_DESC_PERMORG_PREFIX = "sampleHierPermOrgD";
+    private static final String TEST_HIER_ASC_PERMORG_PREFIX = "sampleHierPermOrgA";
 
 
     /**
@@ -116,7 +116,7 @@ public class CreatePermOrgHierarchySample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -161,7 +161,7 @@ public class CreatePermOrgHierarchySample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -209,7 +209,7 @@ public class CreatePermOrgHierarchySample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -247,7 +247,7 @@ public class CreatePermOrgHierarchySample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -293,7 +293,7 @@ public class CreatePermOrgHierarchySample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -330,7 +330,7 @@ public class CreatePermOrgHierarchySample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

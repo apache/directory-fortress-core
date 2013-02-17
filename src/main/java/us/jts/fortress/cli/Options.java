@@ -19,49 +19,49 @@ import java.util.Vector;
  */
 public class Options implements java.io.Serializable
 {
-    CmdLineParser parser;
-    CmdLineParser.Option userId;
-    CmdLineParser.Option password;
-    CmdLineParser.Option newPassword;
-    CmdLineParser.Option ou;
-    CmdLineParser.Option pwPolicy;
-    CmdLineParser.Option cn;
-    CmdLineParser.Option sn;
-    CmdLineParser.Option description;
-    CmdLineParser.Option title;
-    CmdLineParser.Option employeeType;
-    CmdLineParser.Option beginTime;
-    CmdLineParser.Option endTime;
-    CmdLineParser.Option beginDate;
-    CmdLineParser.Option endDate;
-    CmdLineParser.Option beginLockDate;
-    CmdLineParser.Option endLockDate;
-    CmdLineParser.Option dayMask;
-    CmdLineParser.Option name;
-    CmdLineParser.Option timeout;
-    CmdLineParser.Option properties;
-    CmdLineParser.Option roleAssigns;
-    CmdLineParser.Option role;
-    CmdLineParser.Option adminRoleAssigns;
-    CmdLineParser.Option type;
-    CmdLineParser.Option opName;
-    CmdLineParser.Option ascendant;
-    CmdLineParser.Option descendant;
-    CmdLineParser.Option cardinality;
-    CmdLineParser.Option osPs;
-    CmdLineParser.Option osUs;
-    CmdLineParser.Option beginRange;
-    CmdLineParser.Option endRange;
-    CmdLineParser.Option beginInclusive;
-    CmdLineParser.Option endInclusive;
-    CmdLineParser.Option phones;
-    CmdLineParser.Option mobiles;
-    CmdLineParser.Option emails;
-    CmdLineParser.Option address;
-    CmdLineParser.Option state;
-    CmdLineParser.Option city;
-    CmdLineParser.Option postalCode;
-    CmdLineParser.Option postalOfficeBox;
+    final CmdLineParser parser;
+    final CmdLineParser.Option userId;
+    final CmdLineParser.Option password;
+    final CmdLineParser.Option newPassword;
+    final CmdLineParser.Option ou;
+    final CmdLineParser.Option pwPolicy;
+    final CmdLineParser.Option cn;
+    final CmdLineParser.Option sn;
+    final CmdLineParser.Option description;
+    final CmdLineParser.Option title;
+    final CmdLineParser.Option employeeType;
+    final CmdLineParser.Option beginTime;
+    final CmdLineParser.Option endTime;
+    final CmdLineParser.Option beginDate;
+    final CmdLineParser.Option endDate;
+    final CmdLineParser.Option beginLockDate;
+    final CmdLineParser.Option endLockDate;
+    final CmdLineParser.Option dayMask;
+    final CmdLineParser.Option name;
+    final CmdLineParser.Option timeout;
+    final CmdLineParser.Option properties;
+    final CmdLineParser.Option roleAssigns;
+    final CmdLineParser.Option role;
+    final CmdLineParser.Option adminRoleAssigns;
+    final CmdLineParser.Option type;
+    final CmdLineParser.Option opName;
+    final CmdLineParser.Option ascendant;
+    final CmdLineParser.Option descendant;
+    final CmdLineParser.Option cardinality;
+    final CmdLineParser.Option osPs;
+    final CmdLineParser.Option osUs;
+    final CmdLineParser.Option beginRange;
+    final CmdLineParser.Option endRange;
+    final CmdLineParser.Option beginInclusive;
+    final CmdLineParser.Option endInclusive;
+    final CmdLineParser.Option phones;
+    final CmdLineParser.Option mobiles;
+    final CmdLineParser.Option emails;
+    final CmdLineParser.Option address;
+    final CmdLineParser.Option state;
+    final CmdLineParser.Option city;
+    final CmdLineParser.Option postalCode;
+    final CmdLineParser.Option postalOfficeBox;
 
     /**
      * @param parser
@@ -129,7 +129,7 @@ public class Options implements java.io.Serializable
         catch (NumberFormatException ne)
         {
             // default is '2'.
-            sdSet.setCardinality(new Integer(2));
+            sdSet.setCardinality(2);
         }
         return sdSet;
     }
@@ -162,9 +162,9 @@ public class Options implements java.io.Serializable
         role.setDescription(getDescription());
         role.setBeginRange(getBeginRange());
         role.setEndRange(getEndRange());
-        Boolean bVal = new Boolean(getBeginInclusive());
+        Boolean bVal = Boolean.valueOf(getBeginInclusive());
         role.setBeginInclusive(bVal);
-        bVal = new Boolean(getEndInclusive());
+        bVal = Boolean.valueOf(getEndInclusive());
         role.setEndInclusive(bVal);
         updateOsPs(role);
         updateOsUs(role);
@@ -244,7 +244,7 @@ public class Options implements java.io.Serializable
         try
         {
             Integer to = new Integer(getTimeout());
-            constraint.setTimeout(to.intValue());
+            constraint.setTimeout(to);
         }
         catch (NumberFormatException ne)
         {

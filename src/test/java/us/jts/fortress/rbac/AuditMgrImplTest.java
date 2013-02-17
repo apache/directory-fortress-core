@@ -26,7 +26,7 @@ public class AuditMgrImplTest extends TestCase
 {
     private static final String CLS_NM = AuditMgrImplTest.class.getName();
     private static Session adminSess = null;
-    final protected static Logger log = Logger.getLogger(CLS_NM);
+    final private static Logger log = Logger.getLogger(CLS_NM);
 
     public AuditMgrImplTest(String name)
     {
@@ -68,7 +68,7 @@ public class AuditMgrImplTest extends TestCase
 
 
     private static Map disabled = loadAuditMap();
-    private static Map loadAuditMap()
+    private static Map<String, String> loadAuditMap()
     {
         disabled = new HashMap();
         //disabled.put("AdminMgrImpl.changePassword", null);
@@ -111,7 +111,7 @@ public class AuditMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public static void searchAdminMods(String msg, String[][] uArray, String[][] oArray, String[][] opArray)
+    private static void searchAdminMods(String msg, String[][] uArray, String[][] oArray, String[][] opArray)
     {
         LogUtil.logIt(msg);
         try
@@ -143,7 +143,7 @@ public class AuditMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchAdminMods: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchAdminMods: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -165,7 +165,7 @@ public class AuditMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public static void searchMods(String msg, String[][] uArray)
+    private static void searchMods(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -186,7 +186,7 @@ public class AuditMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchUserSessions: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchUserSessions: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -210,7 +210,7 @@ public class AuditMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public static void searchAuthZs(String msg, String[][] uArray, String[][] oArray, String[][] opArray, boolean failedOnly)
+    private static void searchAuthZs(String msg, String[][] uArray, String[][] oArray, String[][] opArray, boolean failedOnly)
     {
         LogUtil.logIt(msg);
         try
@@ -241,7 +241,7 @@ public class AuditMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchAuthZs: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchAuthZs: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -263,7 +263,7 @@ public class AuditMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public static void getAuthZs(String msg, String[][] uArray)
+    private static void getAuthZs(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -290,7 +290,7 @@ public class AuditMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".getUserAuthZs: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".getUserAuthZs: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -309,7 +309,7 @@ public class AuditMgrImplTest extends TestCase
      *
      * @param msg
      */
-    public static void searchAuthNInvalid(String msg)
+    private static void searchAuthNInvalid(String msg)
     {
         LogUtil.logIt(msg);
         try
@@ -323,7 +323,7 @@ public class AuditMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchInvalidUsers: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchInvalidUsers: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -344,7 +344,7 @@ public class AuditMgrImplTest extends TestCase
      * @param msg
      * @param uArray
      */
-    public static void searchBinds(String msg, String[][] uArray)
+    private static void searchBinds(String msg, String[][] uArray)
     {
         LogUtil.logIt(msg);
         try
@@ -371,7 +371,7 @@ public class AuditMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchBinds: failed with SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchBinds: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -381,13 +381,12 @@ public class AuditMgrImplTest extends TestCase
      * @return
      * @throws us.jts.fortress.SecurityException
      */
-    public static AuditMgr getManagedAuditMgr() throws SecurityException
+    private static AuditMgr getManagedAuditMgr() throws SecurityException
     {
         if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        AuditMgr auditMgr = AuditMgrFactory.createInstance(TestUtils.getContext(), adminSess);
-        return auditMgr;
+        return AuditMgrFactory.createInstance(TestUtils.getContext(), adminSess);
     }
 }

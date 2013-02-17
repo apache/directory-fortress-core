@@ -85,7 +85,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
-            retSession = (Session) response.getSession();
+            retSession = response.getSession();
         }
         else
         {
@@ -170,7 +170,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
-            retSession = (Session) response.getSession();
+            retSession = response.getSession();
         }
         else
         {
@@ -210,7 +210,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         if (response.getErrorCode() == 0)
         {
             result = response.getAuthorized();
-            Session outSession = (Session)response.getSession();
+            Session outSession = response.getSession();
             session.copy(outSession);
         }
         else
@@ -243,7 +243,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         if (response.getErrorCode() == 0)
         {
             retPerms = response.getEntities();
-            Session outSession = (Session)response.getSession();
+            Session outSession = response.getSession();
             session.copy(outSession);
         }
         else
@@ -277,7 +277,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         if (response.getErrorCode() == 0)
         {
             retRoles = response.getEntities();
-            Session outSession = (Session)response.getSession();
+            Session outSession = response.getSession();
             session.copy(outSession);
         }
         else
@@ -312,7 +312,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
             Set<String> tempNames = response.getValueSet();
             // This is done to use a case insensitive TreeSet for returned names.
             retRoleNames.addAll(tempNames);
-            Session outSession = (Session)response.getSession();
+            Session outSession = response.getSession();
             session.copy(outSession);
         }
         else
@@ -356,7 +356,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
-            Session outSession = (Session)response.getSession();
+            Session outSession = response.getSession();
             session.copy(outSession);
         }
         else
@@ -391,7 +391,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
-            Session outSession = (Session)response.getSession();
+            Session outSession = response.getSession();
             session.copy(outSession);
         }
         else

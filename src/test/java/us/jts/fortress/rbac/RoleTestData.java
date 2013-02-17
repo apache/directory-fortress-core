@@ -24,7 +24,7 @@ import java.util.StringTokenizer;
  */
 public class RoleTestData extends TestCase
 {
-    final protected static Logger log = Logger.getLogger(RoleTestData.class.getName());
+    final private static Logger log = Logger.getLogger(RoleTestData.class.getName());
 
     /**
       * Test Case TR1:

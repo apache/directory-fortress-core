@@ -6,6 +6,7 @@ package us.jts.fortress.cli;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
@@ -39,7 +40,7 @@ public class CommandLineInterpreter
     private DelAdminMgr delAdminMgr;
     private DelReviewMgr delReviewMgr;
     private DelAccessMgr delAccessMgr;
-    private PwPolicyMgr pswdPolicyMgr;
+    private PwPolicyMgr pwPolicyMgr;
 
     /* THESE ARE THE HIGH LEVEL COMMANDS: */
     private static final String ADMIN = "admin";
@@ -131,7 +132,7 @@ public class CommandLineInterpreter
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         boolean done = false;
         String input;
-        while (!done)
+        while (true)
         {
             try
             {
@@ -149,7 +150,6 @@ public class CommandLineInterpreter
                     String[] options = parseUserInput(input);
                     processUserInput(options);
                 }
-                input = "";
             }
             catch (Exception e)
             {
@@ -848,8 +848,7 @@ public class CommandLineInterpreter
      */
     private Options loadOptions(CmdLineParser parser)
     {
-        Options options = new Options(parser);
-        return options;
+        return new Options(parser);
     }
 
     /**
@@ -897,7 +896,7 @@ public class CommandLineInterpreter
                 isPassword = true;
             }
         }
-        return options.toArray(new String[0]);
+        return options.toArray(new String[options.size()]);
     }
 
     /**
@@ -935,10 +934,7 @@ public class CommandLineInterpreter
         if (VUtil.isNotNullOrEmpty(otherArgs))
         {
             commands = new HashSet<>();
-            for (String value : otherArgs)
-            {
-                commands.add(value);
-            }
+            Collections.addAll(commands, otherArgs);
         }
         return commands;
     }
@@ -981,7 +977,7 @@ public class CommandLineInterpreter
             printRow(type, "IID", perm.getInternalId());
             printRow(type, "TYPE", perm.getType());
         }
-        if (VUtil.isNotNullOrEmpty(perm.getRoles()))
+        if (VUtil.isNotNullOrEmpty(perm != null ? perm.getRoles() : null))
         {
             for (String roleName : perm.getRoles())
             {
@@ -1019,7 +1015,7 @@ public class CommandLineInterpreter
             printRow(type, "TYPE", permObj.getType());
             printRow(type, "OU  ", permObj.getOu());
         }
-        if (VUtil.isNotNullOrEmpty(permObj.getProperties()))
+        if (VUtil.isNotNullOrEmpty(permObj != null ? permObj.getProperties() : null))
         {
             printSeparator();
             int ctr = 0;
@@ -1230,7 +1226,7 @@ public class CommandLineInterpreter
             delAdminMgr = DelAdminMgrFactory.createInstance(contextId);
             delReviewMgr = DelReviewMgrFactory.createInstance(contextId);
             delAccessMgr = DelAccessMgrFactory.createInstance(contextId);
-            PwPolicyMgr pwPolicyMgr = PwPolicyMgrFactory.createInstance(contextId);
+            pwPolicyMgr = PwPolicyMgrFactory.createInstance(contextId);
             success = true;
         }
         catch (us.jts.fortress.SecurityException se)

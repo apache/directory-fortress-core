@@ -36,9 +36,9 @@ import java.util.Set;
 final class SDUtil
 {
     private static final String CLS_NM = SDUtil.class.getName();
-    private static Cache m_dsdCache;
+    private static final Cache m_dsdCache;
     private static final String FORTRESS_DSDS = "fortress.dsd";
-    private static Cache m_ssdCache;
+    private static final Cache m_ssdCache;
     private static final String FORTRESS_SSDS = "fortress.ssd";
     private static final SdP sp = new SdP();
     private static final String IS_DSD_CACHE_DISABLED_PARM = "enable.dsd.cache";
@@ -109,7 +109,7 @@ final class SDUtil
                     // does the match count exceed the cardinality allowed for this particular SSD set?
                     if (matchCount >= ssd.getCardinality() - 1)
                     {
-                        String error = CLS_NM + ".validateSSD new role [" + role.getName() + "] validates SSD Set Name:" + ssd.getName() + " Cardinality:" + ssd.getCardinality() + ", Count:" + matchCount;
+                        String error = CLS_NM + ".validateSSD new role [" + role.getName() + "] validates SSD Set Name:" + ssd.getName() + " Cardinality:" + ssd.getCardinality();
                         throw new SecurityException(GlobalErrIds.SSD_VALIDATION_FAILED, error);
                     }
                 }
@@ -162,7 +162,7 @@ final class SDUtil
                     if (matchCount >= dsd.getCardinality() - 1)
                     {
                         // Yes, the target role violates DSD cardinality rule.
-                        String error = CLS_NM + ".validateDSD failed for role [" + role.getName() + "] DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality() + ", Count:" + matchCount;
+                        String error = CLS_NM + ".validateDSD failed for role [" + role.getName() + "] DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality();
                         throw new SecurityException(GlobalErrIds.DSD_VALIDATION_FAILED, error);
                     }
                 }
@@ -179,7 +179,7 @@ final class SDUtil
                             matchCount++;
                             if (matchCount >= dsd.getCardinality() - 1) // Does the counter exceed max per cardinality on this DSD set?
                             {
-                                String error = CLS_NM + ".validateDSD failed for role [" + role.getName() + "] parent role [" + parentRole + "] DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality() + ", Count:" + matchCount;
+                                String error = CLS_NM + ".validateDSD failed for role [" + role.getName() + "] parent role [" + parentRole + "] DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality();
                                 throw new SecurityException(GlobalErrIds.DSD_VALIDATION_FAILED, error);
                             }
                             // Breaking out of the loop here means the DSD algorithm will only match one
@@ -200,7 +200,6 @@ final class SDUtil
      * @throws SecurityException in the event of system or rule violation.
      */
     static void clearDsdCacheEntry(String name, String contextId)
-        throws SecurityException
     {
         Attribute<String> context = m_dsdCache.getSearchAttribute(CONTEXT_ID);
         Attribute<String> dsdName = m_dsdCache.getSearchAttribute(DSD_NAME);
@@ -227,7 +226,7 @@ final class SDUtil
         throws SecurityException
     {
         contextId = getContextId(contextId);
-        Set<SDSet> finalSet = new HashSet<SDSet>();
+        Set<SDSet> finalSet = new HashSet<>();
         Attribute<String> context = m_dsdCache.getSearchAttribute(CONTEXT_ID);
         Attribute<String> member = m_dsdCache.getSearchAttribute(MEMBER);
         Query query = m_dsdCache.createQuery();
@@ -438,7 +437,6 @@ final class SDUtil
      * @throws SecurityException in the event of system or rule violation.
      */
     static void clearSsdCacheEntry(String name, String contextId)
-        throws SecurityException
     {
         contextId = getContextId(contextId);
         m_ssdCache.clear(getKey(name, contextId));
@@ -501,8 +499,7 @@ final class SDUtil
     private static String getKey(String name, String contextId)
     {
         contextId = getContextId(contextId);
-        String szKey = name += ":" + contextId;
-        return szKey;
+        return name += ":" + contextId;
     }
 
     /**

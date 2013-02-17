@@ -21,10 +21,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class CacheMgr
 {
     private static final String EHCACHE_CONFIG_FILE = "ehcache.config.file";
-    private CacheManager m_ehCacheImpl;
+    private final CacheManager m_ehCacheImpl;
     private static CacheMgr m_ftCacheImpl;
-    private static AtomicBoolean isFtCacheInitialized = new AtomicBoolean(false);
-    private static Object m_lock = new Object();
+    private static final AtomicBoolean isFtCacheInitialized = new AtomicBoolean(false);
+    private static final Object m_lock = new Object();
 
     /**
      * Private constructor.

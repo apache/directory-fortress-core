@@ -299,7 +299,7 @@ final class SdDAO extends DataProvider
             }
             String error = CLS_NM + ".getSSD dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
             int errCode;
-            if (entity.getType() == SDSet.SDType.DYNAMIC)
+            if (sdSet.getType() == SDSet.SDType.DYNAMIC)
             {
                 errCode = GlobalErrIds.DSD_READ_FAILED;
             }
@@ -506,7 +506,6 @@ final class SdDAO extends DataProvider
      * @throws LDAPException
      */
     private SDSet unloadLdapEntry(LDAPEntry le, long sequence)
-        throws LDAPException
     {
         SDSet entity = new ObjectFactory().createSDset();
         entity.setSequenceId(sequence);

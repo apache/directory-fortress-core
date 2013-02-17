@@ -104,7 +104,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             // do not return a null list to the caller:
             if (outRecords == null)
             {
-                outRecords = new ArrayList<AuthZ>();
+                outRecords = new ArrayList<>();
             }
         }
         else
@@ -156,7 +156,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             // do not return a null list to the caller:
             if (outRecords == null)
             {
-                outRecords = new ArrayList<AuthZ>();
+                outRecords = new ArrayList<>();
             }
         }
         else
@@ -204,7 +204,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             // do not return a null list to the caller:
             if (outRecords == null)
             {
-                outRecords = new ArrayList<Bind>();
+                outRecords = new ArrayList<>();
             }
         }
         else
@@ -253,7 +253,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             // do not return a null list to the caller:
             if (outRecords == null)
             {
-                outRecords = new ArrayList<Mod>();
+                outRecords = new ArrayList<>();
             }
         }
         else
@@ -305,7 +305,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             // do not return a null list to the caller:
             if (outRecords == null)
             {
-                outRecords = new ArrayList<Mod>();
+                outRecords = new ArrayList<>();
             }
         }
         else
@@ -357,7 +357,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             // do not return a null list to the caller:
             if (outRecords == null)
             {
-                outRecords = new ArrayList<AuthZ>();
+                outRecords = new ArrayList<>();
             }
         }
         else

@@ -10,13 +10,13 @@ package us.jts.fortress;
 import us.jts.fortress.util.crypto.EncryptUtil;
 import org.apache.log4j.Logger;
 
-public class EncryptMgrConsole
+class EncryptMgrConsole
 {
     private static final String CLS_NM = EncryptMgrConsole.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
 
 
-    protected void encrypt()
+    void encrypt()
     {
         ReaderUtil.clearScreen();
         System.out.println("Enter text to encrypt:");
@@ -27,7 +27,7 @@ public class EncryptMgrConsole
     }
 
 
-    protected void decrypt()
+    void decrypt()
     {
         ReaderUtil.clearScreen();
         System.out.println("Enter text to decrypt:");

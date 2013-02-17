@@ -40,7 +40,7 @@ import java.util.TreeSet;
  */
 final class RoleUtil
 {
-    private static Cache roleCache;
+    private static final Cache roleCache;
     private static final RoleP roleP = new RoleP();
     private static final String CLS_NM = RoleUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);

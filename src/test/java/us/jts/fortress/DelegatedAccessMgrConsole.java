@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  *
  *@author     Shawn McKinney
  */
-public class DelegatedAccessMgrConsole
+class DelegatedAccessMgrConsole
 {
 	private DelAccessMgr dAmgr = null;
     private Session session = null;
@@ -39,14 +39,14 @@ public class DelegatedAccessMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            log.error(CLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 	}
 
     /**
      *
      */
-    protected void canAssign()
+    void canAssign()
     {
         try
         {
@@ -61,13 +61,13 @@ public class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".canAssign caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".canAssign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
 
-    protected void canDeassign()
+    void canDeassign()
     {
         try
         {
@@ -82,13 +82,13 @@ public class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".canDeassign caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".canDeassign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
 
-    protected void canGrant()
+    void canGrant()
     {
         try
         {
@@ -103,13 +103,13 @@ public class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".canGrant caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".canGrant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
 
-    protected void canRevoke()
+    void canRevoke()
     {
         try
         {
@@ -124,7 +124,7 @@ public class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".canRevoke caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".canRevoke caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -133,7 +133,7 @@ public class DelegatedAccessMgrConsole
     /**
      *
      */
-    protected void createSession()
+    void createSession()
     {
         try
         {
@@ -151,13 +151,13 @@ public class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".createSession caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".createSession caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
 
-    protected void createSessionTrusted()
+    void createSessionTrusted()
     {
         try
         {
@@ -171,14 +171,14 @@ public class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".createSessionTrusted caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
 
 
-    protected void checkAccess()
+    void checkAccess()
     {
         try
         {
@@ -194,7 +194,7 @@ public class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".checkAccess caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

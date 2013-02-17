@@ -115,7 +115,6 @@ public class ConfigMgrRestImpl implements ConfigMgr
     public void delete(String name) throws us.jts.fortress.SecurityException
     {
         VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".deleteProp");
-        Properties retProperties;
         FortRequest request = new FortRequest();
         request.setValue(name);
         String szRequest = RestUtils.marshal(request);
@@ -139,7 +138,6 @@ public class ConfigMgrRestImpl implements ConfigMgr
     {
         VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".delete");
         VUtil.assertNotNull(inProperties, GlobalErrIds.FT_CONFIG_PROPS_NULL, CLS_NM + ".delete");
-        Properties retProperties;
         FortRequest request = new FortRequest();
         Props inProps = RestUtils.getProps(inProperties);
         request.setEntity(inProps);

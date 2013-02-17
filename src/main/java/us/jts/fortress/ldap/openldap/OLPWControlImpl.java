@@ -13,6 +13,8 @@ import org.apache.log4j.Logger;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
 
+import java.util.Arrays;
+
 /**
  * This class reads the OpenLDAP password policy control and translates into data entity for Fortress.  In order for these checks
  * to be successful the OpenLDAP server must have enabled the pw policy overlay.  Read the OpenLDAP man pages for how this overlay works.
@@ -94,9 +96,9 @@ public class OLPWControlImpl implements PwPolicyControl
                     {
                         log.debug(CLS_NM + methodName + " control value length=" + rB.length);
                         String bytes = "";
-                        for (int j = 0; j < rB.length; j++)
+                        for (byte aRB : rB)
                         {
-                            bytes = bytes + printRawData(rB[j]);
+                            bytes = bytes + printRawData(aRB);
                         }
                         log.debug(CLS_NM + methodName + " printRawData:");
                         log.debug(bytes);
@@ -106,10 +108,9 @@ public class OLPWControlImpl implements PwPolicyControl
                         log.debug(CLS_NM + methodName + " no password control found");
                         pwMsg.setWarningId(GlobalPwMsgIds.NO_CONTROLS_FOUND);
                     }
-
                     if (log.isDebugEnabled())
                     {
-                        log.debug(CLS_NM + methodName + " byte[]=" + rB.toString());
+                        log.debug(CLS_NM + methodName + " byte[]=" + Arrays.toString(rB));
                         log.debug("control.toString()=" + con.toString());
                     }
                     int indx = 0;
@@ -260,8 +261,7 @@ public class OLPWControlImpl implements PwPolicyControl
      */
     private static int getInt(byte bte)
     {
-        int val = bte & 0xff;
-        return val;
+        return bte & 0xff;
     }
 
     /**

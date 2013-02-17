@@ -13,10 +13,10 @@ import us.jts.fortress.BaseRuntimeException;
  *
  * @author Shawn McKinney
  */
-public class CacheException extends BaseRuntimeException
+class CacheException extends BaseRuntimeException
 {
     private int subsystem;
-    private Exception m_Exception;
+    private Exception exception;
     private Object moreInfo;
 
     /**
@@ -28,7 +28,7 @@ public class CacheException extends BaseRuntimeException
     public CacheException(int errorId, String newMsgText, Exception newException)
     {
         super(errorId, newMsgText, newException);
-        this.m_Exception = newException;
+        this.exception = newException;
     }
 
     /**
@@ -39,6 +39,16 @@ public class CacheException extends BaseRuntimeException
     public CacheException(int errorId, String newMsgText)
     {
         super(errorId, newMsgText);
+    }
+
+    /**
+     * Get the exception object.
+     *
+     * @return reference to Exception.
+     */
+    public Exception getException()
+    {
+        return exception;
     }
 }
 

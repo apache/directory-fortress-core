@@ -40,8 +40,8 @@ import java.util.TreeSet;
  */
 final class UsoUtil
 {
-    private static Cache usoCache;
-    private static OrgUnitP orgUnitP = new OrgUnitP();
+    private static final Cache usoCache;
+    private static final OrgUnitP orgUnitP = new OrgUnitP();
     private static final String CLS_NM = UsoUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
 

@@ -33,14 +33,14 @@ import java.util.Set;
 public class DelegatedMgrImplTest extends TestCase
 {
     private static final String CLS_NM = DelegatedMgrImplTest.class.getName();
-    final protected static Logger log = Logger.getLogger(CLS_NM);
+    final private static Logger log = Logger.getLogger(CLS_NM);
 
     public DelegatedMgrImplTest(String name)
     {
         super(name);
     }
 
-    static Session adminSess = null;
+    private static Session adminSess = null;
 
     public void setUp() throws Exception
     {
@@ -153,7 +153,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public void assignAdminUsers(String msg, String[][] uArray, String[][] rArray, boolean isAdmin)
+    void assignAdminUsers(String msg, String[][] uArray, String[][] rArray, boolean isAdmin)
     {
         LogUtil.logIt(msg);
         try
@@ -190,7 +190,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".assignAdminUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignAdminUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -209,7 +209,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public void deassignAdminUsers(String msg, String[][] uArray, String[][] rArray, boolean isAdmin)
+    void deassignAdminUsers(String msg, String[][] uArray, String[][] rArray, boolean isAdmin)
     {
         LogUtil.logIt(msg);
         try
@@ -254,12 +254,12 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deassignAdminUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deassignAdminUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
 
-    public void assignAdminUserRole(String msg, String[][] uArray, String[][] rArray, boolean isAdmin)
+    void assignAdminUserRole(String msg, String[][] uArray, String[][] rArray, boolean isAdmin)
     {
         LogUtil.logIt(msg);
         try
@@ -283,16 +283,15 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".assignAdminUsers caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".assignAdminUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
 
 
-    public void deassignAdminUserRole(String msg, String[][] uArray, String[][] rArray, boolean isAdmin)
+    void deassignAdminUserRole(String msg, String[][] uArray, String[][] rArray, boolean isAdmin)
     {
         LogUtil.logIt(msg);
-        AdminRole aRole = null;
         try
         {
             DelAdminMgr dAdminMgr;
@@ -314,7 +313,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deassignAdminUserRole role [" + aRole.getName() + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deassignAdminUserRole caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -381,7 +380,7 @@ public class DelegatedMgrImplTest extends TestCase
         checkAccess("CHCK-ACS TU1_UPD TO1 TOP1 ", UserTestData.USERS_TU17A_ARBAC, PermTestData.ARBAC_OBJS_1, PermTestData.ARBAC_OPS_1, PermTestData.ARBAC_OBJ2, PermTestData.ARBAC_OPS_2);
     }
 
-    public static void checkAccess(String msg, String[][] uArray, String[][] oArray, String[][] opArray, String[][] oArrayBad, String[][] opArrayBad)
+    private static void checkAccess(String msg, String[][] uArray, String[][] oArray, String[][] opArray, String[][] oArrayBad, String[][] opArrayBad)
     {
         LogUtil.logIt(msg);
         try
@@ -426,7 +425,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".checkAccess: caught SecurityException errCode=" + ex.getErrorId() + ", msg: " + ex.getMessage(), ex);
+            log.error(CLS_NM + ".checkAccess: caught SecurityException rc=" + ex.getErrorId() + ", msg: " + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -471,7 +470,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addAdminRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -517,7 +516,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteAdminRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -557,7 +556,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".updateAdminRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".updateAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -587,7 +586,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @param uArray
      * @param rArray
      */
-    public void canAssignUsers(String msg, ASSIGN_OP op, String[][] uraArray, String[][] uaArray, String[][] uArray, String[][] rArray)
+    void canAssignUsers(String msg, ASSIGN_OP op, String[][] uraArray, String[][] uaArray, String[][] uArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         Role role;
@@ -638,7 +637,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".canAssignUsers op [" + op + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".canAssignUsers op [" + op + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -667,7 +666,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @param pArray
      * @param rArray
      */
-    public void canGrantPerms(String msg, GRANT_OP op, String[][] uraArray, String[][] uaArray, String[][] pArray, String[][] rArray)
+    void canGrantPerms(String msg, GRANT_OP op, String[][] uraArray, String[][] uaArray, String[][] pArray, String[][] rArray)
     {
         LogUtil.logIt(msg);
         Role role;
@@ -718,7 +717,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".canGrantPerms op [" + op + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".canGrantPerms op [" + op + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -754,7 +753,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addOrgUnit caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addOrgUnit caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -840,7 +839,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteOrgUnits caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -872,7 +871,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".updateOrgUnits caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".updateOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -889,7 +888,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @param msg
      * @param oArray
      */
-    public void readOrgUnits(String msg, String[][] oArray)
+    void readOrgUnits(String msg, String[][] oArray)
     {
         LogUtil.logIt(msg);
         try
@@ -905,7 +904,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".readOrgUnits caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".readOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -922,7 +921,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @param srchValue
      * @param oArray
      */
-    public void searchOrgUnits(String msg, String srchValue, String[][] oArray)
+    void searchOrgUnits(String msg, String srchValue, String[][] oArray)
     {
         LogUtil.logIt(msg);
         try
@@ -953,7 +952,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchOrgUnits srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchOrgUnits srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -997,7 +996,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addInheritedOrgUnits caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addInheritedOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1042,7 +1041,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteInheritedOrgUnits caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteInheritedOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1061,7 +1060,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @param msg
      * @param rArray
      */
-    public void readAdminRoles(String msg, String[][] rArray)
+    void readAdminRoles(String msg, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1094,7 +1093,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @param srchValue
      * @param rArray
      */
-    public void searchAdminRoles(String msg, String srchValue, String[][] rArray)
+    void searchAdminRoles(String msg, String srchValue, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1123,7 +1122,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".searchAdminRoles srchValue [" + srchValue + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".searchAdminRoles srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1195,7 +1194,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addOrgUnitDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addOrgUnitDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1271,7 +1270,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delOrgUnitDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delOrgUnitDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1331,7 +1330,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addOrgUnitAscendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addOrgUnitAscendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1395,7 +1394,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delOrgUnitAscendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delOrgUnitAscendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1466,7 +1465,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addAdminRoleDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addAdminRoleDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1537,7 +1536,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delOrgUnitDescendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delOrgUnitDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1590,7 +1589,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addAdminRoleAscendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addAdminRoleAscendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1653,7 +1652,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".delAdminRoleAscendant caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".delAdminRoleAscendant caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1670,7 +1669,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @param msg
      * @param rArray
      */
-    public static void addInheritedAdminRoles(String msg, String[][] rArray)
+    private static void addInheritedAdminRoles(String msg, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1692,7 +1691,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".addInheritedAdminRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".addInheritedAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1709,7 +1708,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @param msg
      * @param rArray
      */
-    public static void deleteInheritedAdminRoles(String msg, String[][] rArray)
+    private static void deleteInheritedAdminRoles(String msg, String[][] rArray)
     {
         LogUtil.logIt(msg);
         try
@@ -1731,7 +1730,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(CLS_NM + ".deleteInheritedAdminRoles caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(CLS_NM + ".deleteInheritedAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -1741,7 +1740,7 @@ public class DelegatedMgrImplTest extends TestCase
      * @return
      * @throws SecurityException
      */
-    public static DelReviewMgr getManagedDelegatedReviewMgr() throws SecurityException
+    private static DelReviewMgr getManagedDelegatedReviewMgr() throws SecurityException
     {
         DelReviewMgr dReviewMgr = DelReviewMgrFactory.createInstance(TestUtils.getContext());
         if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
@@ -1757,14 +1756,13 @@ public class DelegatedMgrImplTest extends TestCase
      * @return
      * @throws SecurityException
      */
-    public static DelAdminMgr getManagedDelegatedMgr() throws SecurityException
+    private static DelAdminMgr getManagedDelegatedMgr() throws SecurityException
     {
         if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        DelAdminMgr dAdminMgr = DelAdminMgrFactory.createInstance(TestUtils.getContext(), adminSess);
-        return dAdminMgr;
+        return DelAdminMgrFactory.createInstance(TestUtils.getContext(), adminSess);
     }
 
     /**
@@ -1802,7 +1800,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch(SecurityException ex)
         {
-            String error = CLS_NM + " static initializer caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage();
+            String error = CLS_NM + " static initializer caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage();
             log.error(error);
         }
         return adminSess;

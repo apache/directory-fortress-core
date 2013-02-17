@@ -40,8 +40,8 @@ import java.util.TreeSet;
  */
 final class AdminRoleUtil
 {
-    private static Cache adminRoleCache;
-    private static AdminRoleP adminRoleP = new AdminRoleP();
+    private static final Cache adminRoleCache;
+    private static final AdminRoleP adminRoleP = new AdminRoleP();
     private static final String CLS_NM = AdminRoleUtil.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
 

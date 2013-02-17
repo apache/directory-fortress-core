@@ -48,7 +48,6 @@ public class ConfigMgrFactory
             }
         }
 
-        ConfigMgr configMgr = (ConfigMgr) ClassUtil.createInstance(configClassName);
-        return configMgr;
+        return (ConfigMgr) ClassUtil.createInstance(configClassName);
     }
 }

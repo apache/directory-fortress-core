@@ -135,7 +135,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
         throws SecurityException
     {
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".assignedRoles");
-        List<UserAdminRole> retUserRoles = null;
+        List<UserAdminRole> retUserRoles;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(user);
@@ -193,7 +193,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
             // do not return a null list to the caller:
             if (retUsers == null)
             {
-                retUsers = new ArrayList<User>();
+                retUsers = new ArrayList<>();
             }
         }
         else

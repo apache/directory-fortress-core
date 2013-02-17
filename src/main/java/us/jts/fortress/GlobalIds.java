@@ -23,9 +23,9 @@ public class GlobalIds
 {
     public static final String HOME = "HOME";
     public static final String TENANT = "tenant";
-    public static final String ENABLE_AUDIT = "enable.audit";
+    private static final String ENABLE_AUDIT = "enable.audit";
     public static final boolean IS_AUDIT = ((Config.getProperty(ENABLE_AUDIT) != null) && (Config.getProperty(ENABLE_AUDIT).equalsIgnoreCase("true")));
-    public static final String ENABLE_REST = "enable.mgr.impl.rest";
+    private static final String ENABLE_REST = "enable.mgr.impl.rest";
     public static final boolean IS_REST = ((Config.getProperty(ENABLE_REST) != null) && (Config.getProperty(ENABLE_REST).equalsIgnoreCase("true")));
 
     /**
@@ -403,9 +403,9 @@ public class GlobalIds
     public final static int PERM_LEN = 100;
 
     /**
-     * Fortress User passwords must have length of 30 or less..
+     * Fortress User passwords must have length of 50 or less..
      */
-    public final static int PASSWORD_LEN = 30;
+    public final static int PASSWORD_LEN = 50;
 
     /**
      * Fortress password policy names cannot exceed length of 40.
@@ -477,7 +477,7 @@ public class GlobalIds
             if (LDAP_FILTER_SIZE_FOUND)
             {
                 Integer len = new Integer(lenProp);
-                ldapFilterSize = len.intValue();
+                ldapFilterSize = len;
             }
         }
         catch (java.lang.NumberFormatException nfe)

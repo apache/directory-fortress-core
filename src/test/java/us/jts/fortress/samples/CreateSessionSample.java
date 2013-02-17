@@ -149,7 +149,7 @@ public class CreateSessionSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " userId [" + userId + "]  caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " userId [" + userId + "]  caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -187,7 +187,7 @@ public class CreateSessionSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " userId [" + userId + "]  caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " userId [" + userId + "]  caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -237,7 +237,7 @@ public class CreateSessionSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught userId [" + userId + "]  SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " caught userId [" + userId + "]  SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -267,7 +267,7 @@ public class CreateSessionSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " userId [" + userId + "] caught SecurityException errCode=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            log.error(szLocation + " userId [" + userId + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

@@ -426,7 +426,7 @@ public class Permission extends FortEntity
      */
     public void delRole(String role)
     {
-        if (roles == null)
+        if (this.roles != null)
         {
             this.roles.remove(role);
         }
@@ -550,7 +550,7 @@ public class Permission extends FortEntity
          if(indx != -1)
          {
              Props.Entry entry = props.get(props.indexOf(keyObj));
-             value = (String) entry.getValue();
+             value = entry.getValue();
          }
 
          return value;
@@ -590,9 +590,8 @@ public class Permission extends FortEntity
          {
              properties = new Properties();
              int size = props.size();
-             for (int i = 0; i < size; i++)
+             for (Props.Entry entry : props)
              {
-                 Props.Entry entry = props.get(i);
                  String key = entry.getKey();
                  String val = entry.getValue();
                  properties.setProperty(key, val);

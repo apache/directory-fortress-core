@@ -97,7 +97,7 @@ final class OrgUnitP
      * @param orgUnit
      * @return
      */
-    private static final Set<String> loadOrgSet(OrgUnit orgUnit)
+    private static Set<String> loadOrgSet(OrgUnit orgUnit)
     {
         Set<String> ouSet = null;
         try
@@ -127,7 +127,7 @@ final class OrgUnitP
      * @param orgUnit will either be a User or Perm OU.
      * @return Set containing the OU mapping to a particular type and tenant.
      */
-    private static final Set<String> getOrgSet(OrgUnit orgUnit)
+    private static Set<String> getOrgSet(OrgUnit orgUnit)
     {
         Set<String> orgSet;
         if(orgUnit.getType() == OrgUnit.Type.USER)

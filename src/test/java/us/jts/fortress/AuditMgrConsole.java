@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class AuditMgrConsole
+class AuditMgrConsole
 {
     private AuditMgr am = null;
     private static final String CLS_NM = AuditMgrConsole.class.getName();
@@ -35,14 +35,14 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + " constructor caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
     /**
      *
      */
-    protected void findBinds()
+    void findBinds()
     {
         ReaderUtil.clearScreen();
         try
@@ -57,7 +57,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".findBinds caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".findBinds caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -66,7 +66,7 @@ public class AuditMgrConsole
     /**
      *
      */
-    protected void getBindReport()
+    void getBindReport()
     {
         ReaderUtil.clearScreen();
         try
@@ -98,7 +98,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".getBindReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getBindReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -108,7 +108,7 @@ public class AuditMgrConsole
      *
      * @param list
      */
-    protected void printAuthNReport(List<Bind> list)
+    void printAuthNReport(List<Bind> list)
     {
         if (list != null && list.size() > 0)
         {
@@ -176,7 +176,7 @@ public class AuditMgrConsole
      * 
      * @param list
      */
-    protected void printAuthNs(List<Bind> list)
+    void printAuthNs(List<Bind> list)
     {
         if (list != null && list.size() > 0)
         {
@@ -240,7 +240,7 @@ public class AuditMgrConsole
     /**
      *
      */
-    protected void findAuthZs()
+    void findAuthZs()
     {
         ReaderUtil.clearScreen();
         try
@@ -277,7 +277,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".findAuthZs caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".findAuthZs caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -285,7 +285,7 @@ public class AuditMgrConsole
     /**
      *
      */
-    protected void getAuthZs()
+    void getAuthZs()
     {
         ReaderUtil.clearScreen();
         try
@@ -315,7 +315,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".getUserAuthZs caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getUserAuthZs caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -323,7 +323,7 @@ public class AuditMgrConsole
     /**
      *
      */
-    protected void getAuthReport()
+    void getAuthReport()
     {
         ReaderUtil.clearScreen();
         try
@@ -367,7 +367,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".getAuthReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getAuthReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -376,7 +376,7 @@ public class AuditMgrConsole
     /**
      * @param list
      */
-    protected void printAuthZReport(List<AuthZ> list)
+    void printAuthZReport(List<AuthZ> list)
     {
         ReaderUtil.clearScreen();
         if (list != null && list.size() > 0)
@@ -460,7 +460,7 @@ public class AuditMgrConsole
         }
     }
 
-    protected void printfailedAuthNReport(List<AuthZ> list)
+    void printfailedAuthNReport(List<AuthZ> list)
     {
         ReaderUtil.clearScreen();
         if (list != null && list.size() > 0)
@@ -533,7 +533,7 @@ public class AuditMgrConsole
     /**
      * @param list
      */
-    protected void printAuthZs(List<AuthZ> list)
+    void printAuthZs(List<AuthZ> list)
     {
         ReaderUtil.clearScreen();
         if (list != null && list.size() > 0)
@@ -613,7 +613,7 @@ public class AuditMgrConsole
     /**
      * 
      */
-    protected void getModReport()
+    void getModReport()
     {
         ReaderUtil.clearScreen();
         try
@@ -650,7 +650,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".getModReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getModReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -660,7 +660,7 @@ public class AuditMgrConsole
      * 
      * @param list
      */
-    protected void printMods(List<Mod> list)
+    void printMods(List<Mod> list)
     {
         ReaderUtil.clearScreen();
         if (list != null && list.size() > 0)
@@ -707,7 +707,7 @@ public class AuditMgrConsole
     }
 
 
-    protected void getAdminModReport()
+    void getAdminModReport()
     {
         ReaderUtil.clearScreen();
         try
@@ -774,13 +774,13 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".getAdminModReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getAdminModReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
 
-    protected void getAuthNInvalidReport()
+    void getAuthNInvalidReport()
     {
         ReaderUtil.clearScreen();
         try
@@ -824,7 +824,7 @@ public class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".getAuthNInvalidReport caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getAuthNInvalidReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

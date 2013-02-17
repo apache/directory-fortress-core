@@ -79,7 +79,7 @@ public class ClassUtil
      */
     public static InputStream resourceAsStream(String name) throws CfgException
     {
-        InputStream is = null;
+        InputStream is;
         is = ClassUtil.class.getClassLoader().getResourceAsStream(name);
         if (is == null)
         {

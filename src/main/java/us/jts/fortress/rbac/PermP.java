@@ -38,7 +38,7 @@ final class PermP
      */
     private static final String CLS_NM = PermP.class.getName();
     private static final PermDAO pDao = new PermDAO();
-    private OrgUnitP orgUnitP = new OrgUnitP();
+    private final OrgUnitP orgUnitP = new OrgUnitP();
 
     /**
      * Package private constructor

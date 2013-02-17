@@ -682,7 +682,6 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * @throws SecurityException
      */
     private Set<String> authorizeRoles(Set<String> assignedRoles)
-        throws SecurityException
     {
         Set<String> authorizedRoles = null;
         if (assignedRoles != null)

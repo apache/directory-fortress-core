@@ -330,7 +330,6 @@ public abstract class DataProvider
      * @throws LDAPException in the event of error with ldap client.
      */
     private void audit(LDAPModificationSet mods, FortEntity entity)
-        throws LDAPException
     {
         if (GlobalIds.IS_AUDIT && entity != null && entity.getAdminSession() != null)
         {
@@ -535,7 +534,6 @@ public abstract class DataProvider
      * @throws LDAPException in the event of ldap client error.
      */
     protected List<String> getAttributes(LDAPEntry entry, String attributeName)
-        throws LDAPException
     {
         List<String> attrValues = new ArrayList<>();
         LDAPAttribute attr;
@@ -568,7 +566,6 @@ public abstract class DataProvider
      * @throws LDAPException in the event of ldap client error.
      */
     protected Set<String> getAttributeSet(LDAPEntry entry, String attributeName)
-        throws LDAPException
     {
         // create Set with case insensitive comparator:
         Set<String> attrValues = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
@@ -602,9 +599,8 @@ public abstract class DataProvider
      * @throws LDAPException in the event of ldap client error.
      */
     protected List<Relationship> getRelationshipAttributes(LDAPEntry entry, String attributeName)
-        throws LDAPException
     {
-        List<Relationship> attrValues = new ArrayList<Relationship>();
+        List<Relationship> attrValues = new ArrayList<>();
         LDAPAttribute attr;
         Enumeration values;
 
@@ -653,7 +649,6 @@ public abstract class DataProvider
      * @throws LDAPException in the event of ldap client error.
      */
     protected String getAttribute(LDAPEntry entry, String attributeName)
-        throws LDAPException
     {
         String attrValue = null;
         LDAPAttribute attr;
@@ -682,7 +677,6 @@ public abstract class DataProvider
      * @throws LDAPException in the event of ldap client error.
      */
     protected String getRdn(String dn)
-        throws LDAPException
     {
         String[] dnList;
         dnList = LDAPDN.explodeDN(dn, true);
@@ -701,10 +695,10 @@ public abstract class DataProvider
         throws LDAPException
     {
         LDAPAttribute attr = new LDAPAttribute(name);
-        for (int i = 0; i < values.length; i++)
+        for (String value : values)
         {
-            encodeSafeText(values[i], values[i].length());
-            attr.addValue(values[i]);
+            encodeSafeText(value, value.length());
+            attr.addValue(value);
         }
         return attr;
     }
@@ -734,7 +728,6 @@ public abstract class DataProvider
      * @throws LDAPException in the event of ldap client error.
      */
     protected void unloadTemporal(LDAPEntry le, Constraint ftDateTime)
-        throws LDAPException
     {
         String szRawData = getAttribute(le, GlobalIds.CONSTRAINT);
         if (szRawData != null && szRawData.length() > 0)

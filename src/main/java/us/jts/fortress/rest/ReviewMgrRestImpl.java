@@ -637,7 +637,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".assignedRoles");
-        List<UserRole> retUserRoles = null;
+        List<UserRole> retUserRoles;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(user);
@@ -727,7 +727,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             retUsers = response.getEntities();
             if (retUsers == null)
             {
-                retUsers = new ArrayList<User>();
+                retUsers = new ArrayList<>();
             }
         }
         else
@@ -1055,7 +1055,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             retSsdRoleSets = response.getEntities();
             if (retSsdRoleSets == null)
             {
-                retSsdRoleSets = new ArrayList<SDSet>();
+                retSsdRoleSets = new ArrayList<>();
             }
         }
         else
@@ -1218,7 +1218,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             retDsdRoleSets = response.getEntities();
             if (retDsdRoleSets == null)
             {
-                retDsdRoleSets = new ArrayList<SDSet>();
+                retDsdRoleSets = new ArrayList<>();
             }
         }
         else

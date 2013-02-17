@@ -414,7 +414,6 @@ final class PolicyDAO extends DataProvider
      * @throws LDAPException
      */
     private PwPolicy unloadLdapEntry(LDAPEntry le, long sequence)
-        throws LDAPException
     {
         PwPolicy entity = new ObjectFactory().createPswdPolicy();
         entity.setSequenceId(sequence);

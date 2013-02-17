@@ -256,8 +256,7 @@ final class OrgUnitDAO extends DataProvider
         {
             ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, dn, ORGUNIT_ATRS);
-            oe = getEntityFromLdapEntry(findEntry, 0, entity.getContextId());
-            if (entity == null)
+            if (findEntry == null)
             {
                 String warning = CLS_NM + ".findByKey orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
                 int errCode;
@@ -271,6 +270,7 @@ final class OrgUnitDAO extends DataProvider
                 }
                 throw new FinderException(errCode, warning);
             }
+            oe = getEntityFromLdapEntry(findEntry, 0, entity.getContextId());
         }
         catch (LDAPException e)
         {
@@ -501,7 +501,6 @@ final class OrgUnitDAO extends DataProvider
     * @throws LDAPException
     */
    private Graphable unloadDescendants(LDAPEntry le, long sequence, String contextId)
-       throws LDAPException
    {
        OrgUnit entity = new ObjectFactory().createOrgUnit();
        entity.setSequenceId(sequence);
@@ -519,7 +518,6 @@ final class OrgUnitDAO extends DataProvider
      * @throws LDAPException
      */
     private OrgUnit getEntityFromLdapEntry(LDAPEntry le, long sequence, String contextId)
-        throws LDAPException
     {
         OrgUnit entity = new ObjectFactory().createOrgUnit();
         entity.setSequenceId(sequence);

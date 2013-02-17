@@ -448,7 +448,7 @@ final class UserDAO extends DataProvider
             {
                 loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, replace);
             }
-            if (mods != null && mods.size() > 0)
+            if (mods.size() > 0)
             {
                 modify(ld, userDn, mods, entity);
                 entity.setDn(userDn);
@@ -595,7 +595,7 @@ final class UserDAO extends DataProvider
             entity = unloadLdapEntry(findEntry, 0, user.getContextId());
             if (entity == null)
             {
-                String warning = CLS_NM + ".getUser userId [" + user.getUserId() + "] not found, Fortress errCode=" + GlobalErrIds.USER_NOT_FOUND;
+                String warning = CLS_NM + ".getUser userId [" + user.getUserId() + "] not found, Fortress rc=" + GlobalErrIds.USER_NOT_FOUND;
                 throw new FinderException(GlobalErrIds.USER_NOT_FOUND, warning);
             }
         }
@@ -672,7 +672,7 @@ final class UserDAO extends DataProvider
             LDAPEntry findEntry = read(ld, userDn, ROLES);
             if (findEntry == null)
             {
-                String warning = CLS_NM + ".getRoles userId [" + user.getUserId() + "] not found, Fortress errCode=" + GlobalErrIds.USER_NOT_FOUND;
+                String warning = CLS_NM + ".getRoles userId [" + user.getUserId() + "] not found, Fortress rc=" + GlobalErrIds.USER_NOT_FOUND;
                 throw new FinderException(GlobalErrIds.USER_NOT_FOUND, warning);
             }
             roles = getAttributes(findEntry, GlobalIds.USER_ROLE_ASSIGN);
@@ -1199,15 +1199,15 @@ final class UserDAO extends DataProvider
             String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
             if (e.getLDAPResultCode() == LDAPException.CONSTRAINT_VIOLATION)
             {
-                warning += " constraint violation, ldap errCode=" + e.getLDAPResultCode() + " ldap msg=" + e.getMessage() + " Fortress errCode=" + GlobalErrIds.PSWD_CONST_VIOLATION;
+                warning += " constraint violation, ldap rc=" + e.getLDAPResultCode() + " ldap msg=" + e.getMessage() + " Fortress rc=" + GlobalErrIds.PSWD_CONST_VIOLATION;
                 throw new PasswordException(GlobalErrIds.PSWD_CONST_VIOLATION, warning);
             }
             else if (e.getLDAPResultCode() == LDAPException.INSUFFICIENT_ACCESS_RIGHTS)
             {
-                warning += " user not authorized to change password, ldap errCode=" + e.getLDAPResultCode() + " ldap msg=" + e.getMessage() + " Fortress errCode=" + GlobalErrIds.USER_PW_MOD_NOT_ALLOWED;
+                warning += " user not authorized to change password, ldap rc=" + e.getLDAPResultCode() + " ldap msg=" + e.getMessage() + " Fortress rc=" + GlobalErrIds.USER_PW_MOD_NOT_ALLOWED;
                 throw new UpdateException(GlobalErrIds.USER_PW_MOD_NOT_ALLOWED, warning);
             }
-            warning += " caught LDAPException errCode=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            warning += " caught LDAPException rc=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.USER_PW_CHANGE_FAILED, warning, e);
         }
         finally
@@ -1500,7 +1500,6 @@ final class UserDAO extends DataProvider
      * @throws LDAPException
      */
     private User unloadLdapEntry(LDAPEntry le, long sequence, String contextId)
-        throws LDAPException
     {
         User entity = new ObjectFactory().createUser();
         entity.setSequenceId(sequence);
@@ -1534,7 +1533,7 @@ final class UserDAO extends DataProvider
         szBoolean = getAttribute(le, SYSTEM_USER);
         if (szBoolean != null)
         {
-            entity.setSystem(new Boolean(szBoolean));
+            entity.setSystem(Boolean.valueOf(szBoolean));
         }
         entity.addProperties(AttrHelper.getProperties(getAttributes(le, GlobalIds.PROPS)));
         return entity;
@@ -1920,7 +1919,6 @@ final class UserDAO extends DataProvider
      * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
      */
     private Address unloadAddress(LDAPEntry le)
-        throws LDAPException
     {
         Address addr = new ObjectFactory().createAddress();
         List<String> pAddrs = getAttributes(le, POSTAL_ADDRESS);
@@ -1953,14 +1951,13 @@ final class UserDAO extends DataProvider
      * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
      */
     private List<UserAdminRole> unloadUserAdminRoles(LDAPEntry le, String userId, String contextId)
-        throws LDAPException
     {
         List<UserAdminRole> uRoles = null;
         List<String> roles = getAttributes(le, GlobalIds.USER_ADMINROLE_DATA);
         if (roles != null)
         {
             long sequence = 0;
-            uRoles = new ArrayList<UserAdminRole>();
+            uRoles = new ArrayList<>();
             for (String raw : roles)
             {
                 UserAdminRole ure = new ObjectFactory().createUserAdminRole();
@@ -1995,14 +1992,13 @@ final class UserDAO extends DataProvider
      * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
      */
     private List<UserRole> unloadUserRoles(LDAPEntry le, String userId, String contextId)
-        throws LDAPException
     {
         List<UserRole> uRoles = null;
         List<String> roles = getAttributes(le, GlobalIds.USER_ROLE_DATA);
         if (roles != null)
         {
             long sequence = 0;
-            uRoles = new ArrayList<UserRole>();
+            uRoles = new ArrayList<>();
             for (String raw : roles)
             {
                 UserRole ure = new ObjectFactory().createUserRole();

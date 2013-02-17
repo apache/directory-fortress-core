@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
  *
  * @author Shawn McKinney
  */
-public class AccessMgrConsole
+class AccessMgrConsole
 {
     private AccessMgr am = null;
     private Session session = null;
@@ -43,12 +43,12 @@ public class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + "constructor caught SecurityException  errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + "constructor caught SecurityException  rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
 
-    protected void sessionPermissions()
+    void sessionPermissions()
     {
         try
         {
@@ -104,7 +104,7 @@ public class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".sessionPermissions caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".sessionPermissions caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -113,7 +113,7 @@ public class AccessMgrConsole
     /**
      * Description of the Method
      */
-    protected void authenticate()
+    void authenticate()
     {
         Session session;
 
@@ -137,7 +137,7 @@ public class AccessMgrConsole
     }
 
 
-    protected void createSession()
+    void createSession()
     {
         try
         {
@@ -153,12 +153,12 @@ public class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".createSession caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".createSession caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
-    protected void createSessionTrusted()
+    void createSessionTrusted()
     {
         try
         {
@@ -172,7 +172,7 @@ public class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".createSessionTrusted caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -180,7 +180,7 @@ public class AccessMgrConsole
     /**
      *
      */
-    protected void createSessionProps()
+    void createSessionProps()
     {
         try
         {
@@ -218,7 +218,7 @@ public class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".createSessionProps caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".createSessionProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -226,7 +226,7 @@ public class AccessMgrConsole
     /**
      *
      */
-    protected void checkAccess()
+    void checkAccess()
     {
         //Session session = null;
         try
@@ -243,12 +243,12 @@ public class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".checkAccess caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
-    protected void sessionRoles()
+    void sessionRoles()
     {
         try
         {
@@ -306,7 +306,7 @@ public class AccessMgrConsole
     }
 
 
-    protected void addActiveRole()
+    void addActiveRole()
     {
         try
         {
@@ -320,12 +320,12 @@ public class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".addActiveRole caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".addActiveRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
-    protected void dropActiveRole()
+    void dropActiveRole()
     {
         try
         {
@@ -339,7 +339,7 @@ public class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".dropActiveRole caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".dropActiveRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -400,7 +400,7 @@ public class AccessMgrConsole
      * time out <0><br />
      * <p/>
      */
-    protected void getUser()
+    void getUser()
     {
         try
         {
@@ -487,13 +487,13 @@ public class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".getUser caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
 
 
-    protected void getUserId()
+    void getUserId()
     {
         try
         {
@@ -505,7 +505,7 @@ public class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".getUserId caught SecurityException errCode=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            log.error(CLS_NM + ".getUserId caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

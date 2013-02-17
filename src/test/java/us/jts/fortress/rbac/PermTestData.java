@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
  */
 public class PermTestData extends TestCase
 {
-    final protected static Logger log = Logger.getLogger(PermTestData.class.getName());
+    final private static Logger log = Logger.getLogger(PermTestData.class.getName());
 
     // Fortress Test Objects:
     /**

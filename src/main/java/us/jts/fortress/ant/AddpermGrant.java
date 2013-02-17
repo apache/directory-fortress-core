@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class AddpermGrant
 {
-    private List<PermGrant> permGrants = new ArrayList<>();
+    private final List<PermGrant> permGrants = new ArrayList<>();
 
 
     /**

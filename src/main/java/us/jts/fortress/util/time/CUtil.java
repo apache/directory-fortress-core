@@ -440,7 +440,7 @@ public class CUtil
     private static List<Validator> getValidators()
         throws CfgException
     {
-        List<Validator> validators = new ArrayList<Validator>();
+        List<Validator> validators = new ArrayList<>();
         for (int i = 0; ; i++)
         {
             String prop = GlobalIds.VALIDATOR_PROPS + i;

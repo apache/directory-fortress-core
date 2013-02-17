@@ -19,7 +19,7 @@ public class EhCacheImpl implements Cache
 {
     private static final String CLS_NM = EhCacheImpl.class.getName();
     private BlockingCache cache;
-    private String name;
+    private final String name;
 
     /**
      * Create an instance of a wrapped, singleton cache instance using Ehcache.
@@ -108,7 +108,7 @@ public class EhCacheImpl implements Cache
     @Override
     public boolean clear(Object key) throws CacheException
     {
-        boolean result = false;
+        boolean result;
         if (cache == null)
         {
             String error = CLS_NM + ".clear detected null cache name [" + name + "]";

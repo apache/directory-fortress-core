@@ -897,7 +897,7 @@ public final class DelAdminMgrRestImpl extends us.jts.fortress.rbac.Manageable i
         throws SecurityException
     {
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".updatePermission");
-        Permission retPerm = null;
+        Permission retPerm;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         perm.setAdmin(true);
