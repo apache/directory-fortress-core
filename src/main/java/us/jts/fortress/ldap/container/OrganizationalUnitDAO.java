@@ -7,7 +7,6 @@ package us.jts.fortress.ldap.container;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ldap.DataProvider;
-import us.jts.fortress.ldap.PoolMgr;
 import us.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 
@@ -84,7 +83,7 @@ final class OrganizationalUnitDAO extends DataProvider
         try
         {
             log.info(CLS_NM + ".create container dn [" + nodeDn + "]");
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS,
                 ORGUNIT_OBJ_CLASS));
@@ -100,7 +99,7 @@ final class OrganizationalUnitDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -121,7 +120,7 @@ final class OrganizationalUnitDAO extends DataProvider
         log.info(CLS_NM + ".remove container dn [" + nodeDn + "]");
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             deleteRecursive(ld, nodeDn);
         }
         catch (LDAPException e)
@@ -131,7 +130,7 @@ final class OrganizationalUnitDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 }

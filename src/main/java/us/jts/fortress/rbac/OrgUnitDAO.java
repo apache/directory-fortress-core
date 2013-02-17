@@ -4,10 +4,12 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.*;
+import us.jts.fortress.CreateException;
+import us.jts.fortress.FinderException;
+import us.jts.fortress.ObjectFactory;
+import us.jts.fortress.RemoveException;
+import us.jts.fortress.UpdateException;
 import us.jts.fortress.ldap.DataProvider;
-
-import us.jts.fortress.ldap.PoolMgr;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 
@@ -111,7 +113,7 @@ final class OrgUnitDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS));
             entity.setId();
@@ -144,7 +146,7 @@ final class OrgUnitDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -163,7 +165,7 @@ final class OrgUnitDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
             {
@@ -193,7 +195,7 @@ final class OrgUnitDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -212,7 +214,7 @@ final class OrgUnitDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             delete(ld, dn, entity);
         }
         catch (LDAPException e)
@@ -232,7 +234,7 @@ final class OrgUnitDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -252,7 +254,7 @@ final class OrgUnitDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, dn, ORGUNIT_ATRS);
             oe = getEntityFromLdapEntry(findEntry, 0, entity.getContextId());
             if (entity == null)
@@ -303,7 +305,7 @@ final class OrgUnitDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return oe;
     }
@@ -325,7 +327,7 @@ final class OrgUnitDAO extends DataProvider
         try
         {
             String searchVal = encodeSafeText(orgUnit.getName(), GlobalIds.ROLE_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
                 + GlobalIds.OU + "=" + searchVal + "*))";
             searchResults = search(ld, orgUnitRoot,
@@ -353,7 +355,7 @@ final class OrgUnitDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return orgUnitList;
     }
@@ -373,7 +375,7 @@ final class OrgUnitDAO extends DataProvider
         String orgUnitRoot = getOrgRoot(orgUnit);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = "(objectclass=" + ORGUNIT_OBJECT_CLASS_NM + ")";
             LDAPSearchResults searchResults = search(ld, orgUnitRoot,
                 LDAPConnection.SCOPE_ONE, filter, ORGUNIT_ATR, false, GlobalIds.BATCH_SIZE);
@@ -398,7 +400,7 @@ final class OrgUnitDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return ouSet;
     }
@@ -420,7 +422,7 @@ final class OrgUnitDAO extends DataProvider
          String filter = null;
          try
          {
-             ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+             ld = getAdminConnection();
              filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
                  + GlobalIds.PARENT_NODES + "=*))";
              searchResults = search(ld, orgUnitRoot,
@@ -438,7 +440,7 @@ final class OrgUnitDAO extends DataProvider
          }
          finally
          {
-             PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+             closeAdminConnection(ld);
          }
          return descendants;
      }

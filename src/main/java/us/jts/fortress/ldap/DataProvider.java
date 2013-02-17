@@ -38,7 +38,7 @@ import java.util.TreeSet;
 /**
  * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
  * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.UserDAO}. {@link us.jts.fortress.rbac.RoleDAO}, {@link us.jts.fortress.rbac.PermDAO}, ....
- * These are low-level data utilities and no validations are performed.
+ * These are low-level data utilities, very little if any data validations are performed here.
  * <p/>
  * This class is thread safe.
  * <p/>
@@ -118,7 +118,7 @@ public abstract class DataProvider
      *
      * @param ld   handle to ldap connection.
      * @param dn   contains ldap distinguished name.
-     * @param atrs array contains array names to pull back.
+     * @param atrs array contains array names to pull back.                                        , PoolMgr.ConnType.USER
      * @param userDn    string value represents the identity of user on who's behalf the request was initiated.  The value will be stored in openldap auditsearch record AuthZID's attribute.
      * @return ldap entry.
      * @throws LDAPException in the event system error occurs.
@@ -1030,5 +1030,87 @@ public abstract class DataProvider
             }
         }
         return value;
+    }
+
+
+    /**
+     * Calls the PoolMgr to perform an LDAP bind for a user/password combination.  This function is valid
+     * if and only if the user entity is a member of the USERS data set.  The LDAP directory
+     * will return the OpenLDAP PW Policy control.
+     *
+     * @param ld       connection to ldap server.
+     * @param userId   contains the LDAP dn to the user entry.
+     * @param password contains the password in clear text.
+     * @return boolean value - true if bind successful, false otherwise.
+     * @throws LDAPException in the event of LDAP error.
+     */
+    protected boolean bind(LDAPConnection ld, String userId, char[] password)
+        throws LDAPException
+    {
+        return PoolMgr.bind(ld, userId, password);
+    }
+
+    /**
+     * Calls the PoolMgr to close the Admin LDAP connection.
+     *
+     * @param ld   handle to ldap connection object.
+     */
+    protected void closeAdminConnection(LDAPConnection ld)
+    {
+        PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+    }
+
+    /**
+     * Calls the PoolMgr to close the User LDAP connection.
+     *
+     * @param ld   handle to ldap connection object.
+     */
+    protected void closeUserConnection(LDAPConnection ld)
+    {
+        PoolMgr.closeConnection(ld, PoolMgr.ConnType.USER);
+    }
+
+    /**
+     * Calls the PoolMgr to close the Log LDAP connection.
+     *
+     * @param ld   handle to ldap connection object.
+     */
+    protected void closeLogConnection(LDAPConnection ld)
+    {
+        PoolMgr.closeConnection(ld, PoolMgr.ConnType.LOG);
+    }
+
+
+    /**
+     * Calls the PoolMgr to get a User connection to the LDAP server.
+     *
+     * @return ldap connection.
+     * @throws LDAPException
+     */
+    protected LDAPConnection getUserConnection() throws LDAPException
+    {
+        return PoolMgr.getConnection(PoolMgr.ConnType.USER);
+    }
+
+    /**
+     * Calls the PoolMgr to get an Admin connection to the LDAP server.
+     *
+     * @return ldap connection.
+     * @throws LDAPException
+     */
+    protected LDAPConnection getAdminConnection() throws LDAPException
+    {
+        return PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+    }
+
+    /**
+     * Calls the PoolMgr to get a Log connection to the LDAP server.
+     *
+     * @return ldap connection.
+     * @throws LDAPException
+     */
+    protected LDAPConnection getLogConnection() throws LDAPException
+    {
+        return PoolMgr.getConnection(PoolMgr.ConnType.LOG);
     }
 }

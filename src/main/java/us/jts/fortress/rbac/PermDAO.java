@@ -12,8 +12,6 @@ import us.jts.fortress.RemoveException;
 import us.jts.fortress.FinderException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.ldap.DataProvider;
-import us.jts.fortress.ldap.PoolMgr;
-
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
@@ -176,7 +174,7 @@ final class PermDAO extends DataProvider
         String dn = getDn(entity, entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, PERM_OBJ_OBJ_CLASS));
             attrs.add(createAttribute(GlobalIds.POBJ_NAME, entity.getObjectName()));
@@ -218,7 +216,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -237,7 +235,7 @@ final class PermDAO extends DataProvider
         String dn = getDn(entity, entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getOu()))
             {
@@ -272,7 +270,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -290,7 +288,7 @@ final class PermDAO extends DataProvider
         String dn = getDn(entity, entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             deleteRecursive(ld, dn, entity);
         }
         catch (LDAPException e)
@@ -300,7 +298,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -318,7 +316,7 @@ final class PermDAO extends DataProvider
         String dn = getDn(entity, entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS));
             attrs.add(createAttribute(GlobalIds.POP_NAME, entity.getOpName()));
@@ -367,7 +365,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -386,7 +384,7 @@ final class PermDAO extends DataProvider
         String dn = getDn(entity, entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getAbstractName()))
             {
@@ -418,7 +416,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -436,7 +434,7 @@ final class PermDAO extends DataProvider
         String dn = getOpRdn(entity.getOpName(), entity.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + entity.getObjectName() + "," + getRootDn(entity.isAdmin(), entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             deleteRecursive(ld, dn, entity);
         }
         catch (LDAPException e)
@@ -446,7 +444,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -466,7 +464,7 @@ final class PermDAO extends DataProvider
         String dn = getDn(pOp, pOp.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(ROLES, role.getName());
             mods.add(LDAPModification.ADD, attr);
@@ -492,7 +490,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -512,7 +510,7 @@ final class PermDAO extends DataProvider
         String dn = getDn(pOp, pOp.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(ROLES, role.getName());
             mods.add(LDAPModification.DELETE, attr);
@@ -533,7 +531,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -553,7 +551,7 @@ final class PermDAO extends DataProvider
         String dn = getDn(pOp, pOp.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(USERS, user.getUserId());
             mods.add(LDAPModification.ADD, attr);
@@ -579,7 +577,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -599,7 +597,7 @@ final class PermDAO extends DataProvider
         String dn = getDn(pOp, pOp.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(USERS, user.getUserId());
             mods.add(LDAPModification.DELETE, attr);
@@ -620,7 +618,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -639,7 +637,7 @@ final class PermDAO extends DataProvider
         String dn = getOpRdn(permission.getOpName(), permission.getObjectId()) + "," + GlobalIds.POBJ_NAME + "=" + permission.getObjectName() + "," + getRootDn(permission.isAdmin(), permission.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, dn, PERMISSION_OP_ATRS);
             entity = unloadPopLdapEntry(findEntry, 0);
             if (entity == null)
@@ -661,7 +659,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -681,7 +679,7 @@ final class PermDAO extends DataProvider
         String dn = GlobalIds.POBJ_NAME + "=" + permObj.getObjectName() + "," + getRootDn(permObj.isAdmin(), permObj.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, dn, PERMISION_OBJ_ATRS);
             entity = unloadPobjLdapEntry(findEntry, 0);
             if (entity == null)
@@ -702,7 +700,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -728,7 +726,7 @@ final class PermDAO extends DataProvider
         try
         {
             // Use unauthenticated connection because we want to assert the end user identity onto ldap hop:
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.USER);
+            ld = getUserConnection();
             // LDAP Operation #1: Read the targeted permission from ldap server
             LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS, session.getUser().getDn());
             // load the permission entity with data retrieved from the permission node:
@@ -776,7 +774,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.USER);
+            closeUserConnection(ld);
         }
         return isAuthZd;
     }
@@ -933,7 +931,7 @@ final class PermDAO extends DataProvider
         {
             String permObjVal = encodeSafeText(permission.getObjectName(), GlobalIds.PERM_LEN);
             String permOpVal = encodeSafeText(permission.getOpName(), GlobalIds.PERM_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*)("
                 + GlobalIds.POP_NAME + "=" + permOpVal + "*))";
@@ -953,7 +951,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return permList;
     }
@@ -975,7 +973,7 @@ final class PermDAO extends DataProvider
         try
         {
             String permObjVal = encodeSafeText(permObj.getObjectName(), GlobalIds.PERM_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*))";
             searchResults = search(ld, permRoot,
@@ -993,7 +991,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return permList;
     }
@@ -1014,7 +1012,7 @@ final class PermDAO extends DataProvider
         try
         {
             String ouVal = encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.OU + "=" + ouVal + "*))";
             int maxLimit;
@@ -1041,7 +1039,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return permList;
     }
@@ -1071,7 +1069,7 @@ final class PermDAO extends DataProvider
         try
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(";
             Set<String> roles;
             if (role.getClass().equals(AdminRole.class))
@@ -1112,7 +1110,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return permList;
     }
@@ -1132,7 +1130,7 @@ final class PermDAO extends DataProvider
         String permRoot = getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             Set<String> roles = RoleUtil.getInheritedRoles(user.getRoles(), user.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))
@@ -1158,7 +1156,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return permList;
     }
@@ -1179,7 +1177,7 @@ final class PermDAO extends DataProvider
         String permRoot = getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")";
             filter += "(" + USERS + "=" + user.getUserId() + "))";
             searchResults = search(ld, permRoot,
@@ -1197,7 +1195,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return permList;
     }
@@ -1217,7 +1215,7 @@ final class PermDAO extends DataProvider
         String permRoot = getRootDn(session.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             filter += "(" + USERS + "=" + session.getUserId() + ")";
             Set<String> roles = RoleUtil.getInheritedRoles(session.getRoles(), session.getContextId());
@@ -1244,7 +1242,7 @@ final class PermDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return permList;
     }

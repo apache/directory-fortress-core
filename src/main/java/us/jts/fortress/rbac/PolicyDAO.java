@@ -12,7 +12,6 @@ import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.ldap.DataProvider;
-import us.jts.fortress.ldap.PoolMgr;
 import us.jts.fortress.util.attr.VUtil;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
@@ -136,7 +135,7 @@ final class PolicyDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, OAM_PWPOLICY_OBJ_CLASS));
             attrs.add(createAttribute(GlobalIds.CN, entity.getName()));
@@ -220,7 +219,7 @@ final class PolicyDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -238,7 +237,7 @@ final class PolicyDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (entity.getMinAge() != null)
             {
@@ -334,7 +333,7 @@ final class PolicyDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -350,7 +349,7 @@ final class PolicyDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             delete(ld, dn, entity);
         }
         catch (LDAPException e)
@@ -360,7 +359,7 @@ final class PolicyDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -379,7 +378,7 @@ final class PolicyDAO extends DataProvider
         String dn = getDn(policy);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, dn, PASSWORD_POLICY_ATRS);
             entity = unloadLdapEntry(findEntry, 0);
         }
@@ -401,7 +400,7 @@ final class PolicyDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -524,7 +523,7 @@ final class PolicyDAO extends DataProvider
         String searchVal = null;
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             searchVal = encodeSafeText(policy.getName(), GlobalIds.PWPOLICY_NAME_LEN);
             String filter = GlobalIds.FILTER_PREFIX + OLPW_POLICY_CLASS + ")("
                 + GlobalIds.POLICY_NODE_TYPE + "=" + searchVal + "*))";
@@ -543,7 +542,7 @@ final class PolicyDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return policyArrayList;
     }
@@ -561,7 +560,7 @@ final class PolicyDAO extends DataProvider
         String policyRoot = getPolicyRoot(contextId);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = "(objectclass=" + OLPW_POLICY_CLASS + ")";
             searchResults = search(ld, policyRoot,
                 LDAPConnection.SCOPE_ONE, filter, PASSWORD_POLICY_NAME_ATR, false, GlobalIds.BATCH_SIZE);
@@ -577,7 +576,7 @@ final class PolicyDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return policySet;
     }

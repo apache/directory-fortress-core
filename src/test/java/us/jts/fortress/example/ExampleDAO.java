@@ -11,13 +11,11 @@ import us.jts.fortress.UpdateException;
 import us.jts.fortress.cfg.Config;
 
 import us.jts.fortress.ldap.DataProvider;
-import us.jts.fortress.ldap.PoolMgr;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-//import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPCompareAttrNames;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
@@ -72,7 +70,7 @@ public class ExampleDAO extends DataProvider
             private int timeout;        // this attribute is oamTimeOut
             */
 
-            ld = PoolMgr.getConnection(us.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, EIds.EXAMPLE_OBJ_CLASS));
             entity.setId();
@@ -98,7 +96,7 @@ public class ExampleDAO extends DataProvider
         }
         finally
         {
-            us.jts.fortress.ldap.PoolMgr.closeConnection(ld, us.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -121,7 +119,7 @@ public class ExampleDAO extends DataProvider
         }
         try
         {
-            ld = PoolMgr.getConnection(us.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
             {
@@ -147,7 +145,7 @@ public class ExampleDAO extends DataProvider
         }
         finally
         {
-            us.jts.fortress.ldap.PoolMgr.closeConnection(ld, us.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -169,7 +167,7 @@ public class ExampleDAO extends DataProvider
         }
         try
         {
-            ld = PoolMgr.getConnection(us.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             delete(ld, dn);
         }
         catch (LDAPException e)
@@ -180,7 +178,7 @@ public class ExampleDAO extends DataProvider
         }
         finally
         {
-            us.jts.fortress.ldap.PoolMgr.closeConnection(ld, us.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -203,7 +201,7 @@ public class ExampleDAO extends DataProvider
         }
         try
         {
-            ld = PoolMgr.getConnection(us.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, dn, EXAMPLE_ATRS);
             entity = getEntityFromLdapEntry(findEntry);
             if (entity == null)
@@ -230,7 +228,7 @@ public class ExampleDAO extends DataProvider
         }
         finally
         {
-            us.jts.fortress.ldap.PoolMgr.closeConnection(ld, us.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -257,7 +255,7 @@ public class ExampleDAO extends DataProvider
         try
         {
             searchVal = encodeSafeText(searchVal, GlobalIds.ROLE_LEN);
-            ld = PoolMgr.getConnection(us.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + EIds.EXAMPLE_OBJ_CLASS.toString() + ")("
                 + EIds.EXAMPLE_NM + "=" + searchVal + "*))";
             searchResults = search(ld, exampleRoot,
@@ -275,7 +273,7 @@ public class ExampleDAO extends DataProvider
         }
         finally
         {
-            us.jts.fortress.ldap.PoolMgr.closeConnection(ld, us.jts.fortress.ldap.PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return exampleList;
     }

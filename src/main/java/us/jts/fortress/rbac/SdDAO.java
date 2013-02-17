@@ -12,9 +12,8 @@ import us.jts.fortress.RemoveException;
 import us.jts.fortress.FinderException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.ldap.DataProvider;
-import us.jts.fortress.ldap.PoolMgr;
-
 import us.jts.fortress.util.attr.VUtil;
+
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
@@ -22,7 +21,6 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
-
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
 import java.util.ArrayList;
@@ -139,7 +137,7 @@ final class SdDAO extends DataProvider
         }
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, objectClass));
             entity.setId();
@@ -174,7 +172,7 @@ final class SdDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -192,7 +190,7 @@ final class SdDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getDescription()))
             {
@@ -227,7 +225,7 @@ final class SdDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -244,7 +242,7 @@ final class SdDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             delete(ld, dn, entity);
         }
         catch (LDAPException e)
@@ -264,7 +262,7 @@ final class SdDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -283,7 +281,7 @@ final class SdDAO extends DataProvider
         String dn = getDn(sdSet.getName(), sdSet.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, dn, SD_SET_ATRS);
             entity = unloadLdapEntry(findEntry, 0);
             if (entity == null)
@@ -314,7 +312,7 @@ final class SdDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -341,7 +339,7 @@ final class SdDAO extends DataProvider
         try
         {
             String searchVal = encodeSafeText(sdset.getName(), GlobalIds.ROLE_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(" + SD_SET_NM + "=" + searchVal + "*))";
             searchResults = search(ld, ssdRoot,
                 LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
@@ -367,7 +365,7 @@ final class SdDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return sdList;
     }
@@ -393,7 +391,7 @@ final class SdDAO extends DataProvider
         try
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             //String filter = GlobalIds.FILTER_PREFIX + SSD_OBJECT_CLASS_NM + ")(" + ROLES + "=" + roleVal + "))";
             String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(";
             // Include any parents target role may have:
@@ -438,7 +436,7 @@ final class SdDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return sdList;
     }
@@ -465,7 +463,7 @@ final class SdDAO extends DataProvider
         {
             if (VUtil.isNotNullOrEmpty(roles))
             {
-                ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+                ld = getAdminConnection();
                 String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(|";
                 for (String rle : roles)
                 {
@@ -497,7 +495,7 @@ final class SdDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return sdList;
     }

@@ -10,7 +10,6 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.ldap.DataProvider;
-import us.jts.fortress.ldap.PoolMgr;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
@@ -93,7 +92,7 @@ final class ConfigDAO extends DataProvider
         log.info(CLS_NM + ".create dn [" + dn + "]");
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, CONFIG_OBJ_CLASS));
             attrs.add(createAttribute(GlobalIds.CN, name));
@@ -118,7 +117,7 @@ final class ConfigDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return props;
     }
@@ -138,7 +137,7 @@ final class ConfigDAO extends DataProvider
         log.info(CLS_NM + "update dn [" + dn + "]");
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(props))
             {
@@ -156,7 +155,7 @@ final class ConfigDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return props;
     }
@@ -174,7 +173,7 @@ final class ConfigDAO extends DataProvider
         log.info(CLS_NM + ".remove dn [" + dn + "]");
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             delete(ld, dn);
         }
         catch (LDAPException e)
@@ -184,7 +183,7 @@ final class ConfigDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -203,7 +202,7 @@ final class ConfigDAO extends DataProvider
         log.info(CLS_NM + "remove props dn [" + dn + "]");
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(props))
             {
@@ -221,7 +220,7 @@ final class ConfigDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return props;
     }
@@ -241,7 +240,7 @@ final class ConfigDAO extends DataProvider
         log.info(CLS_NM + "getConfig dn [" + dn + "]");
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, dn, CONFIG_ATRS);
             props = AttrHelper.getProperties(getAttributes(findEntry, GlobalIds.PROPS));
         }
@@ -257,7 +256,7 @@ final class ConfigDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return props;
     }

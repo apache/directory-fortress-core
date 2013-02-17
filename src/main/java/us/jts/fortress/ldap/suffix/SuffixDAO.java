@@ -4,11 +4,11 @@
 
 package us.jts.fortress.ldap.suffix;
 
+import us.jts.fortress.CreateException;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.ldap.DataProvider;
-import us.jts.fortress.ldap.PoolMgr;
 import org.apache.log4j.Logger;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
@@ -74,7 +74,7 @@ final class SuffixDAO extends DataProvider
         try
         {
             log.info(CLS_NM + ".create suffix dn [" + nodeDn + "]");
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS));
             attrs.add(createAttribute(DC, se.getName()));
@@ -85,11 +85,11 @@ final class SuffixDAO extends DataProvider
         catch (LDAPException e)
         {
             String error = CLS_NM + ".create container node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new us.jts.fortress.CreateException(GlobalErrIds.SUFX_CREATE_FAILED, error, e);
+            throw new CreateException(GlobalErrIds.SUFX_CREATE_FAILED, error, e);
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -114,7 +114,7 @@ final class SuffixDAO extends DataProvider
         log.info(CLS_NM + ".remove suffix dn [" + nodeDn + "]");
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             deleteRecursive(ld, nodeDn);
         }
         catch (LDAPException e)
@@ -124,7 +124,7 @@ final class SuffixDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 

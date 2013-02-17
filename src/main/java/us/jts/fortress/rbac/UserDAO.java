@@ -4,11 +4,15 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.*;
+import us.jts.fortress.CreateException;
+import us.jts.fortress.FinderException;
+import us.jts.fortress.ObjectFactory;
+import us.jts.fortress.PasswordException;
+import us.jts.fortress.RemoveException;
 import us.jts.fortress.SecurityException;
+import us.jts.fortress.UpdateException;
 import us.jts.fortress.cfg.Config;
 import us.jts.fortress.ldap.DataProvider;
-import us.jts.fortress.ldap.PoolMgr;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.ldap.openldap.OLPWControlImpl;
@@ -230,7 +234,7 @@ final class UserDAO extends DataProvider
         LDAPConnection ld = null;
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, USER_OBJ_CLASS));
 
@@ -307,7 +311,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -325,7 +329,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(entity.getUserId(), entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getCn()))
             {
@@ -419,7 +423,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -438,7 +442,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(entity.getUserId(), entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getProperties()))
             {
@@ -458,7 +462,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -475,7 +479,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(user.getUserId(), user.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             delete(ld, userDn, user);
         }
         catch (LDAPException e)
@@ -485,7 +489,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userDn;
     }
@@ -503,7 +507,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(user.getUserId(), user.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute pwdAccoutLock = new LDAPAttribute(OPENLDAP_ACCOUNT_LOCKED_TIME, LOCK_VALUE);
             mods.add(LDAPModification.REPLACE, pwdAccoutLock);
@@ -516,7 +520,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -533,7 +537,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(user.getUserId(), user.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute pwdlockedTime = new LDAPAttribute(OPENLDAP_ACCOUNT_LOCKED_TIME);
             mods.add(LDAPModification.DELETE, pwdlockedTime);
@@ -553,7 +557,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -586,7 +590,7 @@ final class UserDAO extends DataProvider
                 uATTRS = AUTHN_ATRS;
             }
 
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, userDn, uATTRS);
             entity = unloadLdapEntry(findEntry, 0, user.getContextId());
             if (entity == null)
@@ -608,7 +612,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -627,7 +631,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(user.getUserId(), user.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, userDn, AROLE_ATR);
             roles = unloadUserAdminRoles(findEntry, user.getUserId(), user.getContextId());
         }
@@ -644,7 +648,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return roles;
     }
@@ -664,7 +668,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(user.getUserId(), user.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, userDn, ROLES);
             if (findEntry == null)
             {
@@ -685,7 +689,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return roles;
     }
@@ -707,8 +711,8 @@ final class UserDAO extends DataProvider
         {
             session = new ObjectFactory().createSession();
             session.setUserId(user.getUserId());
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.USER);
-            boolean result = PoolMgr.bind(ld, userDn, user.getPassword());
+            ld = getUserConnection();
+            boolean result = bind(ld, userDn, user.getPassword());
             if (result)
             {
                 // check openldap password policies here
@@ -742,7 +746,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.USER);
+            closeUserConnection(ld);
         }
         return session;
     }
@@ -763,7 +767,7 @@ final class UserDAO extends DataProvider
         try
         {
 
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter;
             if (VUtil.isNotNullOrEmpty(user.getUserId()))
             {
@@ -800,7 +804,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userList;
     }
@@ -823,7 +827,7 @@ final class UserDAO extends DataProvider
         try
         {
             String searchVal = encodeSafeText(user.getUserId(), GlobalIds.USERID_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
             searchResults = search(ld, userRoot,
@@ -841,7 +845,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userList;
     }
@@ -863,7 +867,7 @@ final class UserDAO extends DataProvider
         try
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")(";
             Set<String> roles = RoleUtil.getDescendants(role.getName(), role.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))
@@ -895,7 +899,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userList;
     }
@@ -916,7 +920,7 @@ final class UserDAO extends DataProvider
         try
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
             searchResults = search(ld, userRoot,
@@ -934,7 +938,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userList;
     }
@@ -969,7 +973,7 @@ final class UserDAO extends DataProvider
                 return null;
             }
             filter += "))";
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             searchResults = search(ld, userRoot,
                 LDAPConnection.SCOPE_ONE, filter, USERID_ATRS, false, GlobalIds.BATCH_SIZE);
             while (searchResults.hasMoreElements())
@@ -984,7 +988,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userSet;
     }
@@ -1005,7 +1009,7 @@ final class UserDAO extends DataProvider
         try
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ADMINROLE_ASSIGN + "=" + roleVal + "))";
             searchResults = search(ld, userRoot,
@@ -1023,7 +1027,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userList;
     }
@@ -1046,7 +1050,7 @@ final class UserDAO extends DataProvider
         try
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
             searchResults = search(ld, userRoot,
@@ -1064,7 +1068,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userList;
     }
@@ -1085,7 +1089,7 @@ final class UserDAO extends DataProvider
         try
         {
             searchVal = encodeSafeText(searchVal, GlobalIds.USERID_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
             searchResults = search(ld, userRoot,
@@ -1103,7 +1107,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userList;
     }
@@ -1124,7 +1128,7 @@ final class UserDAO extends DataProvider
         try
         {
             String szOu = encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.OU + "=" + szOu + "))";
             int maxLimit;
@@ -1151,7 +1155,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userList;
     }
@@ -1174,8 +1178,8 @@ final class UserDAO extends DataProvider
         String userDn = getDn(entity.getUserId(), entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.USER);
-            PoolMgr.bind(ld, userDn, entity.getPassword());
+            ld = getUserConnection();
+            bind(ld, userDn, entity.getPassword());
             mods = new LDAPModificationSet();
             LDAPAttribute pw = new LDAPAttribute(PW, new String(newPassword));
             mods.add(LDAPModification.REPLACE, pw);
@@ -1208,7 +1212,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.USER);
+            closeUserConnection(ld);
         }
         return rc;
     }
@@ -1226,7 +1230,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(user.getUserId(), user.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute pw = new LDAPAttribute(PW, new String(user.getPassword()));
             mods.add(LDAPModification.REPLACE, pw);
@@ -1241,7 +1245,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -1261,7 +1265,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(uRole.getUserId(), uRole.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             String szUserRole = uRole.getRawData();
             LDAPAttribute attr = new LDAPAttribute(GlobalIds.USER_ROLE_DATA, szUserRole);
@@ -1285,7 +1289,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userDn;
     }
@@ -1319,7 +1323,7 @@ final class UserDAO extends DataProvider
                 {
                     // Retrieve the targeted name:
                     UserRole fRole = roles.get(indx);
-                    ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+                    ld = getAdminConnection();
                     // delete the name assignment attribute using the raw name data:
                     LDAPModificationSet mods = new LDAPModificationSet();
                     LDAPAttribute rAttr = new LDAPAttribute(GlobalIds.USER_ROLE_DATA, fRole.getRawData());
@@ -1344,7 +1348,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userDn;
     }
@@ -1365,7 +1369,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(uRole.getUserId(), uRole.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             String szUserRole = uRole.getRawData();
             LDAPAttribute attr = new LDAPAttribute(GlobalIds.USER_ADMINROLE_DATA, szUserRole);
@@ -1389,7 +1393,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userDn;
     }
@@ -1427,7 +1431,7 @@ final class UserDAO extends DataProvider
                 {
                     // Retrieve the targeted name:
                     UserRole fRole = roles.get(indx);
-                    ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+                    ld = getAdminConnection();
                     // delete the name assignment attribute using the raw name data:
                     LDAPModificationSet mods = new LDAPModificationSet();
                     LDAPAttribute rAttr = new LDAPAttribute(GlobalIds.USER_ADMINROLE_DATA, fRole.getRawData());
@@ -1452,7 +1456,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userDn;
     }
@@ -1471,7 +1475,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(user.getUserId(), user.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute policy = new LDAPAttribute(OPENLDAP_POLICY_SUBENTRY);
             mods.add(LDAPModification.DELETE, policy);
@@ -1484,7 +1488,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return userDn;
     }
@@ -1550,7 +1554,7 @@ final class UserDAO extends DataProvider
         String userDn = getDn(userId, contextId);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, userDn, ROLE_ATR);
             roles = unloadUserRoles(findEntry, userId, contextId);
         }
@@ -1567,7 +1571,7 @@ final class UserDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return roles;
     }

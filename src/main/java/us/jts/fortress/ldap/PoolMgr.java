@@ -35,7 +35,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConstraints;
  *
  * @author Shawn McKinney
  */
-public class PoolMgr
+class PoolMgr
 {
     // Property names for ldap connection pools:
     private static final String LDAP_ADMIN_POOL_UID = "admin.user";
@@ -55,7 +55,7 @@ public class PoolMgr
     private static final String LDAP_PORT = "port";
 
     // 3 types of connection pools are managed by ths class:
-    public static enum ConnType
+    static enum ConnType
     {
         /**
          * Admin connections used for most of the Fortress internal operations.  Internal bind on connection
@@ -161,7 +161,7 @@ public class PoolMgr
      * @return boolean value - true if bind successful, false otherwise.
      * @throws LDAPException in the event of LDAP error.
      */
-    public static boolean bind(LDAPConnection ld, String userId, char[] password)
+    static boolean bind(LDAPConnection ld, String userId, char[] password)
         throws LDAPException
     {
         return bindUser(userId, password, ld);
@@ -173,7 +173,7 @@ public class PoolMgr
      * @param ld   handle to ldap connection object.
      * @param type specifies the type of connection - ADMIN, USER Or LOG.
      */
-    public static void closeConnection(LDAPConnection ld, ConnType type)
+    static void closeConnection(LDAPConnection ld, ConnType type)
     {
         switch (type)
         {
@@ -193,34 +193,6 @@ public class PoolMgr
 
             case LOG:
                 if (ld != null)
-                {
-                    connPool[LOG].close(ld);
-                }
-                break;
-        }
-    }
-
-    @Deprecated
-    private static void closeConnectionx(LDAPConnection ld, ConnType type)
-    {
-        switch (type)
-        {
-            case ADMIN:
-                if (ld != null && ld.isConnected())
-                {
-                    connPool[ADMIN].close(ld);
-                }
-                break;
-
-            case USER:
-                if (ld != null && ld.isConnected())
-                {
-                    connPool[USER].close(ld);
-                }
-                break;
-
-            case LOG:
-                if (ld != null && ld.isConnected())
                 {
                     connPool[LOG].close(ld);
                 }
@@ -235,7 +207,7 @@ public class PoolMgr
      * @return ldap connection.
      * @throws LDAPException
      */
-    public static LDAPConnection getConnection(ConnType type)
+    static LDAPConnection getConnection(ConnType type)
         throws LDAPException
     {
         LDAPConnection ld = null;

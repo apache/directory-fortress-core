@@ -13,7 +13,6 @@ import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.cfg.Config;
 import us.jts.fortress.FinderException;
 import us.jts.fortress.ldap.DataProvider;
-import us.jts.fortress.ldap.PoolMgr;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
@@ -249,7 +248,7 @@ final class AuditDAO extends DataProvider
             filter += ")";
 
             //log.warn("filter=" + filter);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
+            ld = getLogConnection();
             searchResults = search(ld, auditRoot,
                 LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -269,7 +268,7 @@ final class AuditDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.LOG);
+            closeLogConnection(ld);
         }
         return auditList;
     }
@@ -292,7 +291,7 @@ final class AuditDAO extends DataProvider
         String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
+            ld = getLogConnection();
             String reqDn = PermDAO.getOpRdn(audit.getOpName(), audit.getObjId()) + "," + GlobalIds.POBJ_NAME + "=" + audit.getObjName() + "," + permRoot;
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(" + REQDN + "=" +
                 reqDn + ")(" + REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
@@ -323,7 +322,7 @@ final class AuditDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.LOG);
+            closeLogConnection(ld);
         }
         return auditList;
     }
@@ -360,7 +359,7 @@ final class AuditDAO extends DataProvider
 
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
+            ld = getLogConnection();
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(";
             if (audit.getUserId() != null && audit.getUserId().length() > 0)
             {
@@ -401,7 +400,7 @@ final class AuditDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.LOG);
+            closeLogConnection(ld);
         }
         return auditList;
     }
@@ -424,7 +423,7 @@ final class AuditDAO extends DataProvider
 
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
+            ld = getLogConnection();
             String filter;
             if (audit.getUserId() != null && audit.getUserId().length() > 0)
             {
@@ -471,7 +470,7 @@ final class AuditDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.LOG);
+            closeLogConnection(ld);
         }
         return auditList;
     }
@@ -494,7 +493,7 @@ final class AuditDAO extends DataProvider
         String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
+            ld = getLogConnection();
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_MOD_CLASS_NM + ")(" +
                 REQDN + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
             if (audit.getBeginDate() != null)
@@ -519,7 +518,7 @@ final class AuditDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.LOG);
+            closeLogConnection(ld);
         }
         return modList;
     }
@@ -569,7 +568,7 @@ final class AuditDAO extends DataProvider
                 ldapsearch -x -D "cn=Manager,cn=log" -w secret -b 'cn=log' -s SUB -h localhost -p 389 '(&(objectclass=auditModify)(reqMod=ftModCode:= AdminMgrImpl.add*)(reqMod=ftModifier:= -6a20c261:12d92e15581:-7eb8))'
 
              */
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.LOG);
+            ld = getLogConnection();
             String filter = "(&(|(objectclass=" + ACCESS_MOD_CLASS_NM + ")";
             filter += "(objectclass=" + ACCESS_ADD_CLASS_NM + "))";
             if (VUtil.isNotNullOrEmpty(audit.getDn()))
@@ -624,7 +623,7 @@ final class AuditDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.LOG);
+            closeLogConnection(ld);
         }
         return modList;
     }

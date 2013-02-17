@@ -4,9 +4,12 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.*;
+import us.jts.fortress.CreateException;
+import us.jts.fortress.FinderException;
+import us.jts.fortress.ObjectFactory;
+import us.jts.fortress.RemoveException;
+import us.jts.fortress.UpdateException;
 import us.jts.fortress.ldap.DataProvider;
-import us.jts.fortress.ldap.PoolMgr;
 import us.jts.fortress.util.time.CUtil;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.GlobalErrIds;
@@ -15,7 +18,6 @@ import us.jts.fortress.GlobalIds;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-//import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPCompareAttrNames;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
@@ -108,7 +110,7 @@ final class RoleDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, GlobalIds.ROLE_OBJ_CLASS));
             entity.setId();
@@ -136,7 +138,7 @@ final class RoleDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -155,7 +157,7 @@ final class RoleDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getDescription()))
             {
@@ -192,7 +194,7 @@ final class RoleDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -212,7 +214,7 @@ final class RoleDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute occupant = new LDAPAttribute(ROLE_OCCUPANT, userDn);
             mods.add(LDAPModification.ADD, occupant);
@@ -225,7 +227,7 @@ final class RoleDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -245,7 +247,7 @@ final class RoleDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute occupant = new LDAPAttribute(ROLE_OCCUPANT, userDn);
             mods.add(LDAPModification.DELETE, occupant);
@@ -258,7 +260,7 @@ final class RoleDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -275,7 +277,7 @@ final class RoleDAO extends DataProvider
         String dn = getDn(role.getName(), role.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             delete(ld, dn, role);
         }
         catch (LDAPException e)
@@ -285,7 +287,7 @@ final class RoleDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
     }
 
@@ -304,7 +306,7 @@ final class RoleDAO extends DataProvider
         String dn = getDn(role.getName(), role.getContextId());
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             LDAPEntry findEntry = read(ld, dn, ROLE_ATRS);
             entity = unloadLdapEntry(findEntry, 0, role.getContextId());
             if (entity == null)
@@ -325,7 +327,7 @@ final class RoleDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return entity;
     }
@@ -348,7 +350,7 @@ final class RoleDAO extends DataProvider
         try
         {
             String searchVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             searchResults = search(ld, roleRoot,
@@ -366,7 +368,7 @@ final class RoleDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return roleList;
     }
@@ -390,7 +392,7 @@ final class RoleDAO extends DataProvider
         try
         {
             String searchVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             searchResults = search(ld, roleRoot,
@@ -408,7 +410,7 @@ final class RoleDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return roleList;
     }
@@ -430,7 +432,7 @@ final class RoleDAO extends DataProvider
         String roleRoot = getRootDn(contextId, GlobalIds.ROLE_ROOT);
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")";
             filter += "(" + ROLE_OCCUPANT + "=" + userDn + "))";
             searchResults = search(ld, roleRoot,
@@ -447,7 +449,7 @@ final class RoleDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return roleNameList;
     }
@@ -470,7 +472,7 @@ final class RoleDAO extends DataProvider
         String filter = null;
         try
         {
-            ld = PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+            ld = getAdminConnection();
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + GlobalIds.PARENT_NODES + "=*))";
             searchResults = search(ld, roleRoot,
@@ -488,7 +490,7 @@ final class RoleDAO extends DataProvider
         }
         finally
         {
-            PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+            closeAdminConnection(ld);
         }
         return descendants;
     }

@@ -86,7 +86,7 @@ import java.util.*;
  * ...
  * </PRE>
  */
-public class ConnectionPool
+class ConnectionPool
 {
 
     /**
@@ -101,7 +101,7 @@ public class ConnectionPool
      * @param authpw password for authentication
      * @throws LDAPException on failure to create connections
      */
-    public ConnectionPool(int min, int max,
+    ConnectionPool(int min, int max,
                           String host, int port,
                           String authdn, String authpw)
         throws LDAPException
@@ -142,7 +142,7 @@ public class ConnectionPool
     /**
      * Destroy the whole pool - called during a shutdown
      */
-    public void destroy()
+    void destroy()
     {
         for (int i = 0; i < pool.size(); i++)
         {
@@ -162,7 +162,7 @@ public class ConnectionPool
      *
      * @return an active connection.
      */
-    public LDAPConnection getConnection()
+    LDAPConnection getConnection()
     {
         LDAPConnection con;
 
@@ -194,7 +194,7 @@ public class ConnectionPool
      * @param timeout timeout in milliseconds
      * @return an active connection or <CODE>null</CODE> if timed out.
      */
-    public LDAPConnection getConnection(int timeout)
+    LDAPConnection getConnection(int timeout)
     {
         LDAPConnection con;
 
@@ -235,7 +235,7 @@ public class ConnectionPool
      *
      * @return an active connection or null.
      */
-    protected synchronized LDAPConnection getConnFromPool()
+    synchronized LDAPConnection getConnFromPool()
     {
         LDAPConnection con = null;
         LDAPConnectionObject ldapconnobj = null;
@@ -298,7 +298,7 @@ public class ConnectionPool
      *
      * @param ld a connection to return to the pool
      */
-    public synchronized void close(LDAPConnection ld)
+    synchronized void close(LDAPConnection ld)
     {
 
         int index = find(ld);
