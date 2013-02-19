@@ -971,31 +971,33 @@
         <mkdir dir="${generated.schema.dir}"/>
         <schemagen srcdir="${src.java.dir}/us/jts/fortress" destdir="${generated.schema.dir}">
             <classpath refid="build.class.path"/>
+            <include name="rbac/Address.java"/>
+            <include name="rbac/AdminRole.java"/>
+            <include name="rbac/AdminRoleRelationship.java"/>
+            <include name="rbac/AuthZ.java"/>
+            <include name="rbac/Bind.java"/>
+            <include name="util/time/Constraint.java"/>
             <include name="FortEntity.java"/>
-            <include name="arbac/OrgUnit.java"/>
-            <include name="arbac/UserAdminRole.java"/>
-            <include name="arbac/AdminRoleRelationship.java"/>
-            <include name="arbac/OrgUnitRelationship.java"/>
-            <include name="audit/UserAudit.java"/>
-            <include name="audit/AuthZ.java"/>
-            <include name="audit/Bind.java"/>
-            <include name="audit/Mod.java"/>
-            <include name="pwpolicy/PswdPolicy.java"/>
-            <include name="rbac/User.java"/>
-            <include name="rbac/Role.java"/>
-            <include name="rbac/UserRole.java"/>
-            <include name="rbac/SDSet.java"/>
-            <include name="rbac/Permission.java"/>
-            <include name="rbac/PermObj.java"/>
-            <include name="rbac/RoleRelationship.java"/>
-            <include name="rbac/PermGrant.java"/>
-            <include name="rbac/Session.java"/>
-            <include name="rbac/RolePerm.java"/>
-            <include name="rbac/Permission.java"/>
-            <include name="rbac/Props.java"/>
             <include name="rest/FortRequest.java"/>
             <include name="rest/FortResponse.java"/>
-            <include name="util/time/Constraint.java"/>
+            <include name="rbac/Mod.java"/>
+            <include name="rbac/OrgUnit.java"/>
+            <include name="rbac/OrgUnitRelationship.java"/>
+            <include name="rbac/Permission.java"/>
+            <include name="rbac/PermGrant.java"/>
+            <include name="rbac/Permission.java"/>
+            <include name="rbac/PermObj.java"/>
+            <include name="rbac/Props.java"/>
+            <include name="rbac/PwPolicy.java"/>
+            <include name="rbac/Role.java"/>
+            <include name="rbac/RolePerm.java"/>
+            <include name="rbac/RoleRelationship.java"/>
+            <include name="rbac/SDSet.java"/>
+            <include name="rbac/Session.java"/>
+            <include name="rbac/User.java"/>
+            <include name="rbac/UserAdminRole.java"/>
+            <include name="rbac/UserAudit.java"/>
+            <include name="rbac/UserRole.java"/>
         </schemagen>
     </target>
 
@@ -1033,17 +1035,22 @@
             </zipfileset>
 
             <zipfileset dir="${images.dir}" prefix="images">
-                <include name="*.png"/>
-                <include name="*.jpg"/>
+                <include name="Screenshot*.png"/>
+                <include name="fortresscommunitylogov3.jpg"/>
             </zipfileset>
 
             <zipfileset dir="${ldap.dir}" prefix="ldap">
                 <include name="*/**"/>
                 <exclude name="*.conf"/>
+                <exclude name="*.log"/>
+                <exclude name="*/*.log"/>
             </zipfileset>
 
             <zipfileset dir="${config.dir}" prefix="config">
                 <include name="*/**"/>
+                <exclude name="*.log"/>
+                <exclude name="*.properties"/>
+                <exclude name="*/*.properties"/>
             </zipfileset>
 
             <zipfileset dir="${install.image.dir}" prefix="symas-openldap">

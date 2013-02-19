@@ -18,7 +18,6 @@
     <info organisation="org.apache" module="openldap-fortress-core"/>
 
     <dependencies>
-
         <!-- Fortress core is dependent on these libs: -->
         <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>
         <dependency org="commons-configuration" name="commons-configuration" rev="1.6" conf="default->master"/>
@@ -30,7 +29,7 @@
         <dependency org="junit" name="junit" rev="4.9" conf="default->master"/>
         <dependency org="log4j" name="log4j" rev="1.2.16" conf="default->master"/>
         <dependency org="org.jasypt" name="jasypt" rev="1.8" conf="default->master"/>
-        <dependency org="jgrapht" name="jgrapht" rev="0.7.3" conf="default->master"/>
+        <dependency org="org.jgrapht" name="jgrapht-jdk1.5" rev="0.7.3" conf="default->master"/>
         <dependency org="com.sun.xml.bind" name="jaxb-xjc" rev="2.2.4-1" conf="default->master"/>
         <dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.2.4-1" conf="default->master"/>
         <dependency org="javax.xml.bind" name="jaxb-api" rev="2.2.6" conf="default->master"/>
@@ -44,12 +43,10 @@
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.6.1" conf="default->master"/>
 
         <!-- The Fortress core is not dependent on sentry or enmasse artifacts, they're required for the QUICKSTART demo package: -->
-<!--
         <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC23"  conf="default->master"/>
         <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC23"  conf="default->master">
             <artifact name="enmasse" type="jar"/>
         </dependency>
--->
 
     </dependencies>
 </ivy-module>
