@@ -589,7 +589,7 @@ public class Permission extends FortEntity
          if (props.size() > 0)
          {
              properties = new Properties();
-             int size = props.size();
+             //int size = props.size();
              for (Props.Entry entry : props)
              {
                  String key = entry.getKey();

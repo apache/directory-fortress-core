@@ -694,7 +694,6 @@ public class AdminMgrImplTest extends TestCase
         try
         {
             AdminMgr adminMgr = getManagedAdminMgr();
-            int ctr = 0;
             for (String[] rle : rArray)
             {
                 Role role = RoleTestData.getRole(rle);
@@ -970,7 +969,7 @@ public class AdminMgrImplTest extends TestCase
             for (String[] ssdle : sArray)
             {
                 SDSet ssd = RoleTestData.getSDSet(ssdle);
-                SDSet entity = adminMgr.deleteSsdSet(ssd);
+                adminMgr.deleteSsdSet(ssd);
                 log.debug(CLS_NM + ".deleteSsdSet role [" + ssd.getName() + "] successful");
             }
         }
@@ -1004,7 +1003,7 @@ public class AdminMgrImplTest extends TestCase
             for (String[] dsdle : sArray)
             {
                 SDSet dsd = RoleTestData.getSDSet(dsdle);
-                SDSet entity = adminMgr.deleteDsdSet(dsd);
+                adminMgr.deleteDsdSet(dsd);
                 log.debug(CLS_NM + ".deleteDsdSet role [" + dsd.getName() + "] successful");
             }
         }
@@ -1043,7 +1042,7 @@ public class AdminMgrImplTest extends TestCase
                 for (String[] rle : rArray)
                 {
                     Role role = RoleTestData.getRole(rle);
-                    entity = adminMgr.addSsdRoleMember(ssd, role);
+                    adminMgr.addSsdRoleMember(ssd, role);
                     List<SDSet> ssdSets = reviewMgr.ssdRoleSets(role);
                     assertNotNull(ssdSets);
                     assertTrue(CLS_NM + "addSsdRoleMember list size check", ssdSets.size() == 1);
@@ -1088,7 +1087,7 @@ public class AdminMgrImplTest extends TestCase
                 for (String[] rle : rArray)
                 {
                     Role role = RoleTestData.getRole(rle);
-                    entity = adminMgr.addDsdRoleMember(dsd, role);
+                    adminMgr.addDsdRoleMember(dsd, role);
                     List<SDSet> dsdSets = reviewMgr.dsdRoleSets(role);
                     assertNotNull(dsdSets);
                     assertTrue(CLS_NM + "addDsdRoleMember list size check", dsdSets.size() == 1);
@@ -1139,11 +1138,11 @@ public class AdminMgrImplTest extends TestCase
                 for (String[] rle : rArray)
                 {
                     Role role = RoleTestData.getRole(rle);
-                    SDSet entity = adminMgr.deleteSsdRoleMember(ssd, role);
+                    adminMgr.deleteSsdRoleMember(ssd, role);
                     List<SDSet> ssdSets = reviewMgr.ssdRoleSets(role);
                     assertTrue(CLS_NM + "deleteSsdRoleMember list size check ssdSets size [" + ssdSets.size() + "]", ssdSets.size() == 0);
                 }
-                SDSet entity = adminMgr.deleteSsdSet(ssd);
+                adminMgr.deleteSsdSet(ssd);
                 log.debug(CLS_NM + ".deleteSsdRoleMember SSD [" + ssd.getName() + "] successful");
             }
         }
@@ -1187,11 +1186,11 @@ public class AdminMgrImplTest extends TestCase
                 for (String[] rle : rArray)
                 {
                     Role role = RoleTestData.getRole(rle);
-                    SDSet entity = adminMgr.deleteDsdRoleMember(dsd, role);
+                    adminMgr.deleteDsdRoleMember(dsd, role);
                     List<SDSet> dsdSets = reviewMgr.dsdRoleSets(role);
                     assertTrue(CLS_NM + "deleteDsdRoleMember list size check", dsdSets.size() == 0);
                 }
-                SDSet entity = adminMgr.deleteDsdSet(dsd);
+                adminMgr.deleteDsdSet(dsd);
                 log.debug(CLS_NM + ".deletedsdRoleMember DSD [" + dsd.getName() + "] successful");
             }
         }
@@ -1231,8 +1230,8 @@ public class AdminMgrImplTest extends TestCase
                 for (String[] rle : rArray)
                 {
                     Role role = RoleTestData.getRole(rle);
-                    entity = adminMgr.addSsdRoleMember(ssd, role);
-                    entity = adminMgr.setSsdSetCardinality(ssd, cardinality);
+                    adminMgr.addSsdRoleMember(ssd, role);
+                    adminMgr.setSsdSetCardinality(ssd, cardinality);
                     int currentCardinality = reviewMgr.ssdRoleSetCardinality(ssd);
                     assertTrue(CLS_NM + "setSsdCardinality cardinality check", currentCardinality == cardinality++);
                 }
@@ -1274,8 +1273,8 @@ public class AdminMgrImplTest extends TestCase
                 for (String[] rle : rArray)
                 {
                     Role role = RoleTestData.getRole(rle);
-                    entity = adminMgr.addDsdRoleMember(dsd, role);
-                    entity = adminMgr.setDsdSetCardinality(dsd, cardinality);
+                    adminMgr.addDsdRoleMember(dsd, role);
+                    adminMgr.setDsdSetCardinality(dsd, cardinality);
                     int currentCardinality = reviewMgr.dsdRoleSetCardinality(dsd);
                     assertTrue(CLS_NM + "setDsdCardinality cardinality check", currentCardinality == cardinality++);
                 }

@@ -233,7 +233,7 @@ public class DelegatedMgrImplTest extends TestCase
                 for (String[] rle : rArray)
                 {
                     UserAdminRole uAdminRole = new UserAdminRole(UserTestData.getUserId(usr), AdminRoleTestData.getRole(rle).getName());
-                    AdminRole role = AdminRoleTestData.getRole(rle);
+                    AdminRoleTestData.getRole(rle);
                     dAdminMgr.deassignUser(uAdminRole);
                     log.debug(CLS_NM + ".deassignAdminUsers user [" + uAdminRole.getUserId() + "] role [" + uAdminRole.getName() + "] successful");
                     // Let's double check the number of users associated with role:
@@ -674,7 +674,6 @@ public class DelegatedMgrImplTest extends TestCase
 
         try
         {
-            int ctr;
             DelAccessMgr delAccessMgr = DelAccessMgrFactory.createInstance(TestUtils.getContext());
             AccessMgr accessMgr = (AccessMgr)delAccessMgr;
             int i = 0;
@@ -809,7 +808,7 @@ public class DelegatedMgrImplTest extends TestCase
         {
             DelAdminMgr dAdminMgr = getManagedDelegatedMgr();
             OrgUnit ou = OrgUnitTestData.getOrgUnit(org);
-            OrgUnit entity = dAdminMgr.delete(ou);
+            dAdminMgr.delete(ou);
             log.debug(CLS_NM + ".deleteOrgUnit ou [" + ou.getName() + "] successful");
         }
         catch (SecurityException ex)
@@ -833,7 +832,7 @@ public class DelegatedMgrImplTest extends TestCase
             for (String[] ole : oArray)
             {
                 OrgUnit ou = OrgUnitTestData.getOrgUnit(ole);
-                OrgUnit entity = dAdminMgr.delete(ou);
+                dAdminMgr.delete(ou);
                 log.debug(CLS_NM + ".deleteOrgUnits ou [" + ou.getName() + "] successful");
             }
         }
@@ -865,7 +864,7 @@ public class DelegatedMgrImplTest extends TestCase
             for (String[] ole : oArray)
             {
                 OrgUnit ou = OrgUnitTestData.getOrgUnit(ole);
-                OrgUnit entity = dAdminMgr.update(ou);
+                dAdminMgr.update(ou);
                 log.debug(CLS_NM + ".updateOrgUnits ou [" + ou.getName() + "] successful");
             }
         }
@@ -1297,7 +1296,6 @@ public class DelegatedMgrImplTest extends TestCase
         try
         {
             DelAdminMgr dAdminMgr = getManagedDelegatedMgr();
-            int ctr = 0;
             for (String[] ole : oArray)
             {
                 OrgUnit orgUnit = OrgUnitTestData.getOrgUnit(ole);

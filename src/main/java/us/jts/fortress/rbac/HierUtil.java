@@ -654,7 +654,7 @@ final class HierUtil
      */
     static SimpleDirectedGraph<String, Relationship> buildGraph(Hier hier)
     {
-        SimpleDirectedGraph<String, Relationship> graph = null;
+        SimpleDirectedGraph<String, Relationship> graph;
         log.debug(CLS_NM + ".buildGraph is initializing");
         if (hier == null)
         {

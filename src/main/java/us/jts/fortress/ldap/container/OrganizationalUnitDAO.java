@@ -47,9 +47,6 @@ final class OrganizationalUnitDAO extends DataProvider
 {
     private static final String CLS_NM = OrganizationalUnitDAO.class.getName();
     private static final Logger log = Logger.getLogger(CLS_NM);
-    private static final String[] ORG_UNIT_ATRS = {
-        GlobalIds.OU, GlobalIds.DESC
-    };
     private static final String ORGUNIT_CLASS = "organizationalunit";
     private static final String[] ORGUNIT_OBJ_CLASS = {
         ORGUNIT_CLASS

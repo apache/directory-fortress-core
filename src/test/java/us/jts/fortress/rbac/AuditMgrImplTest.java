@@ -135,6 +135,7 @@ public class AuditMgrImplTest extends TestCase
 
                         assertTrue(CLS_NM + "searchAdminMods failed search for successful authentication user [" + user.getUserId() + "] object [" + objectName + "] operation [" + PermTestData.getName(op) + "]", mods.size() > 0 || !isAudit(objectName, PermTestData.getName(op)));
                         boolean result = mods.size() > 0 || !isAudit(objectName, PermTestData.getName(op));
+                        log.debug(CLS_NM + "searchAdminMods search user [" + user.getUserId() + "] object [" + objectName + "] operation [" + PermTestData.getName(op) + "] result: " + result);
                         //System.out.println(CLS_NM + "searchAdminMods search user [" + user.getUserId() + "] object [" + objectName + "] operation [" + PermTestData.getName(op) + "] result: " + result);
                     }
                 }

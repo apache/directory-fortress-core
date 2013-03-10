@@ -69,7 +69,7 @@ public class CreateUserOrgSample extends TestCase
 
             try
             {
-                OrgUnit outOu = dRevAdminMgr.read(inOU);
+                dRevAdminMgr.read(inOU);
                 // if org is found, return.
                 return;
             }

@@ -194,7 +194,7 @@ public class RestUtils
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod(post);
             szResponse = IOUtils.toString(post.getResponseBodyAsStream(), "UTF-8");
-            log.debug(CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], response=" + szResponse);
+            log.debug(CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], response=" + szResponse + " result=" + result);
         }
         catch (IOException ioe)
         {
@@ -379,7 +379,7 @@ public class RestUtils
         if (props.size() > 0)
         {
             properties = new Properties();
-            int size = props.size();
+            //int size = props.size();
             for (Props.Entry entry : props)
             {
                 String key = entry.getKey();

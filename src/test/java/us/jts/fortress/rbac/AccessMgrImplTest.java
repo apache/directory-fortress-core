@@ -161,7 +161,7 @@ public class AccessMgrImplTest extends TestCase
                 // now try negative test case:
                 try
                 {
-                    session = accessMgr.authenticate(user.getUserId(), "wrongpw".toCharArray());
+                    accessMgr.authenticate(user.getUserId(), "wrongpw".toCharArray());
                     fail(CLS_NM + ".authenticateUsers failed negative test");
                 }
                 catch (SecurityException se)
@@ -206,7 +206,7 @@ public class AccessMgrImplTest extends TestCase
                 // now try negative test case:
                 try
                 {
-                    Session session = accessMgr.authenticate(user.getUserId(), user.getPassword());
+                    accessMgr.authenticate(user.getUserId(), user.getPassword());
                     fail(CLS_NM + ".authenticateLockedUsers failed test");
                 }
                 catch (SecurityException se)
@@ -253,7 +253,8 @@ public class AccessMgrImplTest extends TestCase
                 // now try negative test case:
                 try
                 {
-                    Session session = accessMgr.authenticate(user.getUserId(), user.getPassword());
+                    accessMgr.authenticate(user.getUserId(), user.getPassword());
+                    accessMgr.authenticate(user.getUserId(), user.getPassword());
                     fail(CLS_NM + ".authenticateResetUsers failed test");
                 }
                 catch (SecurityException se)
@@ -313,7 +314,7 @@ public class AccessMgrImplTest extends TestCase
                 try
                 {
                     User userBad = new User(user.getUserId(), "badpw".toCharArray());
-                    session = accessMgr.createSession(userBad, false);
+                    accessMgr.createSession(userBad, false);
                     fail(CLS_NM + ".createSessions failed negative test");
                 }
                 catch (SecurityException se)
@@ -467,7 +468,7 @@ public class AccessMgrImplTest extends TestCase
                 try
                 {
                     User badUser = new User(user.getUserId() + "wrong");
-                    session = accessMgr.createSession(badUser, true);
+                    accessMgr.createSession(badUser, true);
                     fail(CLS_NM + ".createSessionsTrusted failed negative test");
                 }
                 catch (SecurityException se)

@@ -1311,7 +1311,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".createSsdSet");
-        SDSet retSet = null;
+        SDSet retSet;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(ssdSet);
@@ -1356,7 +1356,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".addSsdRoleMember");
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addSsdRoleMember");
-        SDSet retSet = null;
+        SDSet retSet;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(ssdSet);

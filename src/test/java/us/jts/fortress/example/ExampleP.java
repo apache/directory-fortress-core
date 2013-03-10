@@ -59,9 +59,6 @@ public class ExampleP
     void validate(Example ee, boolean isUpdate)
         throws SecurityException
     {
-        int length;
-
-
         /*
     public class Example
             implements Constraint, java.io.Serializable

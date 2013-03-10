@@ -150,7 +150,7 @@ public class CreateRoleSample extends TestCase
                 try
                 {
                     // this should fail because the Role was deleted above:
-                    Role outRole = reviewMgr.readRole(inRole);
+                    reviewMgr.readRole(inRole);
                     fail(szLocation + " role [" + inRole.getName() + "] delete failed");
                 }
                 catch (FinderException se)

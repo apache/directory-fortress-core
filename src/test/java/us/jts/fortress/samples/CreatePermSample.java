@@ -141,7 +141,7 @@ public class CreatePermSample extends TestCase
             try
             {
                 // this should fail:
-                PermObj outObj = reviewMgr.readPermObj(new PermObj(TEST_PERM_OBJECT));
+                reviewMgr.readPermObj(new PermObj(TEST_PERM_OBJECT));
                 fail(szLocation + " permission object delete failed");
             }
             catch (SecurityException se)

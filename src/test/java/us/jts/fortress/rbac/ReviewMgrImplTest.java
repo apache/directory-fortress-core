@@ -1167,7 +1167,7 @@ public class ReviewMgrImplTest extends TestCase
                 assertTrue(CLS_NM + ".assignedUserIds list size check", uArray.length == users.size());
                 for (String[] usr : uArray)
                 {
-                    int indx = users.indexOf(UserTestData.getUserId(usr));
+                    users.indexOf(UserTestData.getUserId(usr));
                     // todo - figure out how to compare userid dns with userids:
                 }
             }

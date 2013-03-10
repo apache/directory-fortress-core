@@ -449,7 +449,7 @@ class AdminMgrConsole
             if (plcyNm != null && plcyNm.length() > 0)
                 ue.setPwPolicy(plcyNm);
 
-            User ue2 = am.updateUser(ue);
+            am.updateUser(ue);
             System.out.println("userId [" + ue.getUserId() + "]");
             System.out.println("internalId [" + ue.getInternalId() + "]");
             System.out.println("user description [" + ue.getDescription() + "]");

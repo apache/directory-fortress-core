@@ -118,7 +118,7 @@ public class CreateUserSample extends TestCase
             try
             {
                 // this should fail because User was deleted above:
-                User outUser = reviewMgr.readUser(inUser);
+                reviewMgr.readUser(inUser);
                 fail(szLocation + " user [" + inUser.getUserId() + "] delete failed");
             }
             catch (SecurityException se)

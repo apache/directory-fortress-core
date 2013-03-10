@@ -218,7 +218,6 @@ public class PswdPolicyMgrImplTest extends TestCase
             adminMgr.updateUser(oldUser);
             char[] newPassword = newUser.getPassword();
             adminMgr.changePassword(oldUser, newPassword);
-            Session s1 = null;
             oldUser.setPassword(newPassword);
             for (int i = 0; i < 3; i++)
             {
@@ -226,7 +225,7 @@ public class PswdPolicyMgrImplTest extends TestCase
                 TestUtils.sleep(1);
                 try
                 {
-                    s1 = accessMgr.createSession(oldUser, false);
+                    accessMgr.createSession(oldUser, false);
                     fail(CLS_NM + ".maxAge name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(oldusr) + "] failed age test");
                 }
                 catch (SecurityException ex)
@@ -239,7 +238,7 @@ public class PswdPolicyMgrImplTest extends TestCase
                 oldUser.setPassword(newPassword);
                 // since this password is now expired we have to call update rather than changePassword:
                 adminMgr.updateUser(oldUser);
-                s1 = accessMgr.createSession(oldUser, false);
+                accessMgr.createSession(oldUser, false);
             }
         }
         catch (SecurityException ex)
@@ -425,7 +424,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             TestUtils.sleep(elapsedWait);
             try
             {
-                s1 = accessMgr.createSession(user, false);
+                accessMgr.createSession(user, false);
                 fail(CLS_NM + ".expireWarning name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed expired pw test");
             }
             catch (SecurityException ex)
@@ -471,7 +470,6 @@ public class PswdPolicyMgrImplTest extends TestCase
             adminMgr.updateUser(user);
             String newPassword = Arrays.toString(user.getPassword()) + "a";
             adminMgr.changePassword(user, newPassword.toCharArray());
-            Session s1 = null;
             user.setPassword(newPassword.toCharArray());
             TestUtils.sleep(PolicyTestData.getMaxAge(plcy));
             TestUtils.sleep(1);                       
@@ -480,7 +478,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 try
                 {
-                    s1 = accessMgr.createSession(user, false);
+                    accessMgr.createSession(user, false);
                     TestUtils.sleep(1);                    
                 }
                 catch (SecurityException ex)
@@ -492,7 +490,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             }
             try
             {               
-                s1 = accessMgr.createSession(user, false);
+                accessMgr.createSession(user, false);
                 fail(CLS_NM + ".graceLoginLimit name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed grace test 2");
             }
             catch (SecurityException ex)
@@ -538,14 +536,13 @@ public class PswdPolicyMgrImplTest extends TestCase
             AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User user = UserTestData.getUser(usr);
             policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            Session s1 = null;
             int maxFailures = PolicyTestData.getMaxFailure(plcy);
             for (int i = 0; i < maxFailures; i++)
             {
                 try
                 {
                     User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
-                    s1 = accessMgr.createSession(badUser, false);
+                    accessMgr.createSession(badUser, false);
                     fail(CLS_NM + ".maxFailure name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed max failure test=" + maxFailures + " iteration=" + i);
                 }
                 catch (SecurityException ex)
@@ -558,7 +555,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             try
             {
                 // now try with valid password - better be locked out...
-                s1 = accessMgr.createSession(user, false);
+                accessMgr.createSession(user, false);
                 fail(CLS_NM + ".maxFailure name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed max failure test 2");
             }
             catch (SecurityException ex)
@@ -568,7 +565,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             }
             adminMgr.unlockUserAccount(user);
             // now try with valid password - better work this time...
-            s1 = accessMgr.createSession(user, false);
+            accessMgr.createSession(user, false);
         }
         catch (SecurityException ex)
         {
@@ -608,7 +605,6 @@ public class PswdPolicyMgrImplTest extends TestCase
             AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
             User user = UserTestData.getUser(usr);
             policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            Session s1 = null;
             int maxFailures = PolicyTestData.getMaxFailure(plcy);
             int lockoutDuration = PolicyTestData.getLockoutDuration(plcy);
             for (int i = 0; i < maxFailures; i++)
@@ -616,7 +612,7 @@ public class PswdPolicyMgrImplTest extends TestCase
                 try
                 {
                     User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
-                    s1 = accessMgr.createSession(badUser, false);
+                    accessMgr.createSession(badUser, false);
                     fail(CLS_NM + ".lockoutDuration name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed lockout duration test=" + maxFailures + " iteration=" + i);
                 }
                 catch (SecurityException ex)
@@ -629,7 +625,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             try
             {
                 // now try with valid password - better be locked out...
-                s1 = accessMgr.createSession(user, false);
+                accessMgr.createSession(user, false);
                 fail(CLS_NM + ".lockoutDuration name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed lockout duration test 2");
             }
             catch (SecurityException ex)
@@ -643,7 +639,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             // sleep one more second for good measure.
             TestUtils.sleep(1);
             // now try with valid password - better work this time...
-            s1 = accessMgr.createSession(user, false);
+            accessMgr.createSession(user, false);
         }
         catch (SecurityException ex)
         {
@@ -687,7 +683,6 @@ public class PswdPolicyMgrImplTest extends TestCase
             User user = UserTestData.getUser(usr);
 
             policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            Session s1 = null;
             for (int i = 0; i < 3; i++)
             {
                 // first lock it:
@@ -695,7 +690,7 @@ public class PswdPolicyMgrImplTest extends TestCase
                 try
                 {
                     // because account is locked, this better fail:
-                    s1 = accessMgr.createSession(user, false);
+                    accessMgr.createSession(user, false);
                     fail(CLS_NM + ".lockout name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed lockout test iteration=" + i);
                 }
                 catch (SecurityException ex)
@@ -707,7 +702,7 @@ public class PswdPolicyMgrImplTest extends TestCase
                 // now unlock it:
                 adminMgr.unlockUserAccount(user);
                 // this better work:
-                s1 = accessMgr.createSession(user, false);
+                accessMgr.createSession(user, false);
             }
         }
         catch (SecurityException ex)
@@ -748,7 +743,6 @@ public class PswdPolicyMgrImplTest extends TestCase
             User user = UserTestData.getUser(usr);
 
             policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            Session s1 = null;
             int maxFailures = PolicyTestData.getMaxFailure(plcy);
             int failureInterval = PolicyTestData.getFailureCountInterval(plcy);
             for (int i = 0; i < maxFailures-1; i++)
@@ -756,7 +750,7 @@ public class PswdPolicyMgrImplTest extends TestCase
                 try
                 {
                     User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
-                    s1 = accessMgr.createSession(badUser, false);
+                    accessMgr.createSession(badUser, false);
                     fail(CLS_NM + ".failureCountInterval name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed failure count interval test, maxfailures=" + maxFailures + " iteration=" + i);
                 }
                 catch (SecurityException ex)
@@ -776,7 +770,7 @@ public class PswdPolicyMgrImplTest extends TestCase
                 try
                 {
                     User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
-                    s1 = accessMgr.createSession(badUser, false);
+                    accessMgr.createSession(badUser, false);
                     fail(CLS_NM + ".failureCountInterval name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed failure count interval test 2, maxfailures=" + maxFailures + " iteration=" + i);
                 }
                 catch (SecurityException ex)
@@ -792,7 +786,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             TestUtils.sleep(1);
 
             // now try with valid password - it should work...
-            s1 = accessMgr.createSession(user, false);
+            accessMgr.createSession(user, false);
         }
         catch (SecurityException ex)
         {
@@ -834,14 +828,13 @@ public class PswdPolicyMgrImplTest extends TestCase
             policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
             boolean mustChange = PolicyTestData.getMustChange(plcy);
             adminMgr.resetPassword(user, "newpassword".toCharArray());
-            Session s1 = null;
             if(mustChange)
             {
                 try
                 {
                     // because mustchange flag is set, this better fail:
                     User badUser = new User(user.getUserId(), "newpassword".toCharArray());
-                    s1 = accessMgr.createSession(badUser, false);
+                    accessMgr.createSession(badUser, false);
                     fail(CLS_NM + ".mustChange name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed must change test flag=" + mustChange);
                 }
                 catch (SecurityException ex)
@@ -855,7 +848,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 // this better work:
                 User goodUser = new User(user.getUserId(), "newpassword".toCharArray());
-                s1 = accessMgr.createSession(goodUser, false);
+                accessMgr.createSession(goodUser, false);
             }
         }
         catch (SecurityException ex)

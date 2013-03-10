@@ -5,6 +5,7 @@
 package us.jts.fortress.util.time;
 
 
+import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.rbac.Session;
 
@@ -43,7 +44,7 @@ public class LockDate
     @Override
     public int validate(Session session, Constraint constraint, Time time)
     {
-        int rc;
+        int rc = GlobalErrIds.ACTV_FAILED_LOCK;
 
         // if either beginLockDate or endLockDate equal to null or 'none', validation will automatically pass.
         if ( constraint.getBeginLockDate() == null || constraint.getBeginLockDate().compareToIgnoreCase(GlobalIds.NONE) == 0
@@ -56,11 +57,11 @@ public class LockDate
             if (!(constraint.getBeginLockDate().compareTo(time.date) <= 0
                 && constraint.getEndLockDate().compareTo(time.date) >= 0))
 
-                if (!(constraint.getBeginLockDate().compareTo(time.date) <= 0
-                    && constraint.getEndLockDate().compareTo(time.date) >= 0))
-                {
-                    rc = 0;
-                }
+                //if (!(constraint.getBeginLockDate().compareTo(time.date) <= 0
+                //    && constraint.getEndLockDate().compareTo(time.date) >= 0))
+                //{
+                //    rc = 0;
+                //}
 
             {
                 rc = 0;

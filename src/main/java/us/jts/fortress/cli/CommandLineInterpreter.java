@@ -130,7 +130,6 @@ public class CommandLineInterpreter
 
         log.info("Startup to interactive mode success...");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        boolean done = false;
         String input;
         while (true)
         {

@@ -132,7 +132,7 @@ public class CreateSessionSample extends TestCase
                 User userBad = new User(user.getUserId(), "badpw".toCharArray());
 
                 // The API will authenticate the User password, evaluate password policies and perform Role activations.
-                session = accessMgr.createSession(userBad, false);
+                accessMgr.createSession(userBad, false);
                 fail(szLocation + " userId [" + userId + "]  failed negative test");
             }
             catch (PasswordException pe)

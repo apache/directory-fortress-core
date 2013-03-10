@@ -159,7 +159,8 @@ final class RoleP
     final Role deassign(Role entity, String userDn)
         throws SecurityException
     {
-        return entity = rDao.deassign(entity, userDn);
+        entity = rDao.deassign(entity, userDn);
+        return entity;
     }
 
 

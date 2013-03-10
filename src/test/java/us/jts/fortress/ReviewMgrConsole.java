@@ -328,8 +328,6 @@ class ReviewMgrConsole
             OrgUnit ou = new OrgUnit(szOu);
             ou.setType(OrgUnit.Type.USER);
             List<User> list = rm.findUsers(ou);
-            int size = list.size();
-
             int ctr = 0;
             for (User ue : list)
             {

@@ -61,7 +61,7 @@ public class AttrHelper
         if (propList != null && propList.size() > 0)
         {
             props = new Properties();
-            int size = propList.size();
+            propList.size();
             for (String raw : propList)
             {
 
@@ -170,7 +170,7 @@ public class AttrHelper
     public static Permission getAuthZPerm(AuthZ authZ)
     {
         int indx = 0;
-        final int objectClass = 1;
+        //final int objectClass = 1;
         final int oPNm = 2;
         final int oBjNm = 3;
         final int user = 4;
@@ -203,13 +203,13 @@ public class AttrHelper
                 //System.out.println("token[" + i + "]=" + val);
                 switch (i)
                 {
-                    case objectClass:
-                        indx = val.indexOf('=');
-                        if (indx >= 1)
-                        {
-                            String value = val.substring(indx + 1, val.length() - 1);
-                        }
-                        break;
+                    //case objectClass:
+                    //    indx = val.indexOf('=');
+                    //    if (indx >= 1)
+                    //    {
+                    //        String value = val.substring(indx + 1, val.length() - 1);
+                    //    }
+                    //    break;
 
                     case oPNm:
                         indx = val.indexOf('=');

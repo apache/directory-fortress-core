@@ -66,7 +66,7 @@ public class FortressJUnitTest extends TestCase
         TestSuite suite = new TestSuite();
         //setAdminEnabled(false);
         setAdminEnabled(true);
-        String szRunProp = "isFirstJUnitRun";
+        //String szRunProp = "isFirstJUnitRun";
         //String szFirstRun = System.getProperty(szRunProp);
         //setFirstRun(szFirstRun != null && szFirstRun.equalsIgnoreCase("true"));
 

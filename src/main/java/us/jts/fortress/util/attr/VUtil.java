@@ -336,7 +336,7 @@ public class VUtil
         format.setLenient(false);
         try
         {
-            Date parsed = format.parse(time);
+            format.parse(time);
         }
         catch (ParseException pe)
         {
@@ -361,7 +361,7 @@ public class VUtil
         format.setLenient(false);
         try
         {
-            Date parsed = format.parse(date);
+            format.parse(date);
         }
         catch (ParseException pe)
         {

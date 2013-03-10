@@ -158,7 +158,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         request.setContextId(this.contextId);
         request.setEntity(user);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = null;
+        String szResponse;
         if(isTrusted)
         {
             szResponse = RestUtils.post(szRequest, HttpIds.RBAC_CREATE_TRUSTED);

@@ -772,7 +772,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         assertContext(CLS_NM, methodName, childRole, GlobalErrIds.ARLE_CHILD_NULL);
         setEntitySession(CLS_NM, methodName, parentRole);
         // make sure the parent role is already there:
-        AdminRole pRole = admRP.read(parentRole);
+        admRP.read(parentRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
         // make sure the child role is already there:
         AdminRole cRole = new AdminRole(childRole.getName());
