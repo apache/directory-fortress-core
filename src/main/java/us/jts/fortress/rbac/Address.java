@@ -210,9 +210,8 @@ public class Address implements Serializable
         if (postOfficeBox != null ? !postOfficeBox.equals(address.postOfficeBox) : address.postOfficeBox != null)
             return false;
         if (postalCode != null ? !postalCode.equals(address.postalCode) : address.postalCode != null) return false;
-        if (state != null ? !state.equals(address.state) : address.state != null) return false;
+        return !(state != null ? !state.equals(address.state) : address.state != null);
 
-        return true;
     }
 
     /**

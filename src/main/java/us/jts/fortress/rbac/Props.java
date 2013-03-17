@@ -14,33 +14,31 @@ import java.util.List;
  * This class is thread safe.
  *
  * @author Shawn McKinney
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
- *
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="entry" maxOccurs="unbounded" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="key" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/>
- *                   &lt;element name="value" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- *
- *
+ *         <p/>
+ *         <p>The following schema fragment specifies the expected content contained within this class.
+ *         <p/>
+ *         <pre>
+ *                 &lt;complexType>
+ *                   &lt;complexContent>
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                       &lt;sequence>
+ *                         &lt;element name="entry" maxOccurs="unbounded" minOccurs="0">
+ *                           &lt;complexType>
+ *                             &lt;complexContent>
+ *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                                 &lt;sequence>
+ *                                   &lt;element name="key" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/>
+ *                                   &lt;element name="value" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/>
+ *                                 &lt;/sequence>
+ *                               &lt;/restriction>
+ *                             &lt;/complexContent>
+ *                           &lt;/complexType>
+ *                         &lt;/element>
+ *                       &lt;/sequence>
+ *                     &lt;/restriction>
+ *                   &lt;/complexContent>
+ *                 &lt;/complexType>
+ *                 </pre>
  */
 @XmlRootElement(name = "fortProps")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -163,6 +161,21 @@ public class Props extends FortEntity implements Serializable
         public void setValue(String value)
         {
             this.value = value;
+        }
+
+        /**
+         *
+         * @param obj
+         * @return
+         */
+        public boolean equals(Object obj)
+        {
+            if (obj != null && obj instanceof Props.Entry)
+            {
+                Props.Entry inObj = (Props.Entry) obj;
+                return key.equals(inObj.getKey());
+            }
+            return false;
         }
     }
 }

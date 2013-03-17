@@ -1032,21 +1032,21 @@ public class RoleTestData extends TestCase
 
     public static final Map<String, String> TR6_AUTHORIZED_USERS = new HashMap<>();
     static {
-        TR6_AUTHORIZED_USERS.put("oamT6A1"       , "oamTU18User1,oamTU18User2,oamTU18User3,oamTU18User4,oamTU18User5,oamTU18User6,oamTU18User7,oamTU18User8,oamTU18User9,oamTU18User10,oamTU18User11,oamTU18User12,oamTU18User13,oamTU18User14,oamTU18User15");
-        TR6_AUTHORIZED_USERS.put("oamT6B1A1"     , "oamTU18User2,oamTU18User4,oamTU18User5,oamTU18User8,oamTU18User9,oamTU18User10,oamTU18User11");
-        TR6_AUTHORIZED_USERS.put("oamT6B2A1"     , "oamTU18User3,oamTU18User5,oamTU18User6,oamTU18User7,oamTU18User9,oamTU18User10,oamTU18User11,oamTU18User12,oamTU18User13,oamTU18User14,oamTU18User15");
-        TR6_AUTHORIZED_USERS.put("oamT6C1B1A1"   , "oamTU18User4,oamTU18User8,oamTU18User9");
-        TR6_AUTHORIZED_USERS.put("oamT6C2B1A1"   , "oamTU18User5,oamTU18User9,oamTU18User10,oamTU18User11");
-        TR6_AUTHORIZED_USERS.put("oamT6C3B2A1"   , "oamTU18User6,oamTU18User12,oamTU18User13");
-        TR6_AUTHORIZED_USERS.put("oamT6C4B2A1"   , "oamTU18User7,oamTU18User13,oamTU18User14,oamTU18User15");
-        TR6_AUTHORIZED_USERS.put("oamT6D1C1B1A1" , "oamTU18User8");
-        TR6_AUTHORIZED_USERS.put("oamT6D2C1B1A1" , "oamTU18User9");
-        TR6_AUTHORIZED_USERS.put("oamT6D3C2B1A1" , "oamTU18User10");
-        TR6_AUTHORIZED_USERS.put("oamT6D4C2B1A1" , "oamTU18User11");
-        TR6_AUTHORIZED_USERS.put("oamT6D5C3B2A1" , "oamTU18User12");
-        TR6_AUTHORIZED_USERS.put("oamT6D6C3B2A1" , "oamTU18User13");
-        TR6_AUTHORIZED_USERS.put("oamT6D7C4B2A1" , "oamTU18User14");
-        TR6_AUTHORIZED_USERS.put("oamT6D8C4B2A1" , "oamTU18User15");
+        TR6_AUTHORIZED_USERS.put("oamT6A1"       , "jtsTU18User1,jtsTU18User2,jtsTU18User3,jtsTU18User4,jtsTU18User5,jtsTU18User6,jtsTU18User7,jtsTU18User8,jtsTU18User9,jtsTU18User10,jtsTU18User11,jtsTU18User12,jtsTU18User13,jtsTU18User14,jtsTU18User15");
+        TR6_AUTHORIZED_USERS.put("jtsT6B1A1"     , "jtsTU18User2,jtsTU18User4,jtsTU18User5,jtsTU18User8,jtsTU18User9,jtsTU18User10,jtsTU18User11");
+        TR6_AUTHORIZED_USERS.put("jtsT6B2A1"     , "jtsTU18User3,jtsTU18User5,jtsTU18User6,jtsTU18User7,jtsTU18User9,jtsTU18User10,jtsTU18User11,jtsTU18User12,jtsTU18User13,jtsTU18User14,jtsTU18User15");
+        TR6_AUTHORIZED_USERS.put("jtsT6C1B1A1"   , "jtsTU18User4,jtsTU18User8,jtsTU18User9");
+        TR6_AUTHORIZED_USERS.put("jtsT6C2B1A1"   , "jtsTU18User5,jtsTU18User9,jtsTU18User10,jtsTU18User11");
+        TR6_AUTHORIZED_USERS.put("jtsT6C3B2A1"   , "jtsTU18User6,jtsTU18User12,jtsTU18User13");
+        TR6_AUTHORIZED_USERS.put("jtsT6C4B2A1"   , "jtsTU18User7,jtsTU18User13,jtsTU18User14,jtsTU18User15");
+        TR6_AUTHORIZED_USERS.put("jtsT6D1C1B1A1" , "jtsTU18User8");
+        TR6_AUTHORIZED_USERS.put("jtsT6D2C1B1A1" , "jtsTU18User9");
+        TR6_AUTHORIZED_USERS.put("jtsT6D3C2B1A1" , "jtsTU18User10");
+        TR6_AUTHORIZED_USERS.put("jtsT6D4C2B1A1" , "jtsTU18User11");
+        TR6_AUTHORIZED_USERS.put("jtsT6D5C3B2A1" , "jtsTU18User12");
+        TR6_AUTHORIZED_USERS.put("jtsT6D6C3B2A1" , "jtsTU18User13");
+        TR6_AUTHORIZED_USERS.put("jtsT6D7C4B2A1" , "jtsTU18User14");
+        TR6_AUTHORIZED_USERS.put("jtsT6D8C4B2A1" , "jtsTU18User15");
     }
 
     public final static String[][] ROLES_TR7_ASC = {
@@ -1267,21 +1267,21 @@ public class RoleTestData extends TestCase
 
     public static final Map<String, String> TR7_AUTHORIZED_USERS = new HashMap<>();
     static {
-        TR6_AUTHORIZED_USERS.put("oamT7A1"       , "oamTU19User1,oamTU19User2,oamTU19User3,oamTU19User4,oamTU19User5,oamTU19User6,oamTU19User7,oamTU19User8,oamTU19User9,oamTU19User10,oamTU19User11,oamTU19User12,oamTU19User13,oamTU19User14,oamTU19User15");
-        TR6_AUTHORIZED_USERS.put("oamT7B1A1"     , "oamTU19User2,oamTU19User4,oamTU19User5,oamTU19User8,oamTU19User9,oamTU19User10,oamTU19User11");
-        TR6_AUTHORIZED_USERS.put("oamT7B2A1"     , "oamTU19User3,oamTU19User5,oamTU19User6,oamTU19User7,oamTU19User9,oamTU19User10,oamTU19User11,oamTU19User12,oamTU19User13,oamTU19User14,oamTU19User15");
-        TR6_AUTHORIZED_USERS.put("oamT7C1B1A1"   , "oamTU19User4,oamTU19User8,oamTU19User9");
-        TR6_AUTHORIZED_USERS.put("oamT7C2B1A1"   , "oamTU19User5,oamTU19User9,oamTU19User10,oamTU19User11");
-        TR6_AUTHORIZED_USERS.put("oamT7C3B2A1"   , "oamTU19User6,oamTU19User12,oamTU19User13");
-        TR6_AUTHORIZED_USERS.put("oamT7C4B2A1"   , "oamTU19User7,oamTU19User13,oamTU19User14,oamTU19User15");
-        TR6_AUTHORIZED_USERS.put("oamT7D1C1B1A1" , "oamTU19User8");
-        TR6_AUTHORIZED_USERS.put("oamT7D2C1B1A1" , "oamTU19User9");
-        TR6_AUTHORIZED_USERS.put("oamT7D3C2B1A1" , "oamTU19User10");
-        TR6_AUTHORIZED_USERS.put("oamT7D4C2B1A1" , "oamTU19User11");
-        TR6_AUTHORIZED_USERS.put("oamT7D5C3B2A1" , "oamTU19User12");
-        TR6_AUTHORIZED_USERS.put("oamT7D6C3B2A1" , "oamTU19User13");
-        TR6_AUTHORIZED_USERS.put("oamT7D7C4B2A1" , "oamTU19User14");
-        TR6_AUTHORIZED_USERS.put("oamT7D8C4B2A1" , "oamTU19User15");
+        TR6_AUTHORIZED_USERS.put("jtsT7A1"       , "jtsTU19User1,jtsTU19User2,jtsTU19User3,jtsTU19User4,jtsTU19User5,jtsTU19User6,jtsTU19User7,jtsTU19User8,jtsTU19User9,jtsTU19User10,jtsTU19User11,jtsTU19User12,jtsTU19User13,jtsTU19User14,jtsTU19User15");
+        TR6_AUTHORIZED_USERS.put("jtsT7B1A1"     , "jtsTU19User2,jtsTU19User4,jtsTU19User5,jtsTU19User8,jtsTU19User9,jtsTU19User10,jtsTU19User11");
+        TR6_AUTHORIZED_USERS.put("jtsT7B2A1"     , "jtsTU19User3,jtsTU19User5,jtsTU19User6,jtsTU19User7,jtsTU19User9,jtsTU19User10,jtsTU19User11,jtsTU19User12,jtsTU19User13,jtsTU19User14,jtsTU19User15");
+        TR6_AUTHORIZED_USERS.put("jtsT7C1B1A1"   , "jtsTU19User4,jtsTU19User8,jtsTU19User9");
+        TR6_AUTHORIZED_USERS.put("jtsT7C2B1A1"   , "jtsTU19User5,jtsTU19User9,jtsTU19User10,jtsTU19User11");
+        TR6_AUTHORIZED_USERS.put("jtsT7C3B2A1"   , "jtsTU19User6,jtsTU19User12,jtsTU19User13");
+        TR6_AUTHORIZED_USERS.put("jtsT7C4B2A1"   , "jtsTU19User7,jtsTU19User13,jtsTU19User14,jtsTU19User15");
+        TR6_AUTHORIZED_USERS.put("jtsT7D1C1B1A1" , "jtsTU19User8");
+        TR6_AUTHORIZED_USERS.put("jtsT7D2C1B1A1" , "jtsTU19User9");
+        TR6_AUTHORIZED_USERS.put("jtsT7D3C2B1A1" , "jtsTU19User10");
+        TR6_AUTHORIZED_USERS.put("jtsT7D4C2B1A1" , "jtsTU19User11");
+        TR6_AUTHORIZED_USERS.put("jtsT7D5C3B2A1" , "jtsTU19User12");
+        TR6_AUTHORIZED_USERS.put("jtsT7D6C3B2A1" , "jtsTU19User13");
+        TR6_AUTHORIZED_USERS.put("jtsT7D7C4B2A1" , "jtsTU19User14");
+        TR6_AUTHORIZED_USERS.put("jtsT7D8C4B2A1" , "jtsTU19User15");
     }
 
     final static String[][] ROLES_TR8_SSD = {

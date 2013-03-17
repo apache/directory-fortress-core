@@ -8,7 +8,9 @@ import us.jts.fortress.util.time.Constraint;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -24,14 +26,14 @@ public class UserTestData extends TestCase
 
     public final static String[][] USERS_TU0 = {
         {
-            "oamTestAdminUser",           /* USERID_COL */
+            "jtsTestAdminUser",           /* USERID_COL */
             "password1",                  /* PASSWORD_COL */
             "Test1",                      /* PW POLICY ATTR */
             "Test Case TU1",              /* DESC_COL */
             "fnameone",                   /* CN_COL */
             "lnameone",                   /* SN_COL */
-            "oamTestAdminUser@jts.com",   /* EMAIL_COL */
-            "501-555-1212",               /* PHONE_COL */
+            "jtsTestAdminUser@jts.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",          /* PROPS_COL */
             "0000",                       /* BTIME_COL */
             "0000",                       /* ETIME_COL */
             "20090101",                   /* BDATE_COL */
@@ -56,14 +58,14 @@ public class UserTestData extends TestCase
      */
     final static String[][] USERS_TU1 = {
         {
-            "oamUser1",             /* USERID_COL */
+            "jtsUser1",             /* USERID_COL */
             "password1",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU1",        /* DESC_COL */
             "fnameone",             /* CN_COL */
             "lnameone",             /* SN_COL */
-            "oamUser1@jts.com",     /* EMAIL_COL */
-            "501-555-1212",         /* PHONE_COL */
+            "jtsUser1@jts.us",      /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20090101",             /* BDATE_COL */
@@ -82,14 +84,14 @@ public class UserTestData extends TestCase
             "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
-            "oamUser2",             /* USERID_COL */
+            "jtsUser2",             /* USERID_COL */
             "password2",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU1",        /* DESC_COL */
             "fnametwo",             /* CN_COL */
             "lnametwo",             /* SN_COL */
-            "oamUser1@jts.com",     /* EMAIL_COL */
-            "501-555-1212",         /* PHONE_COL */
+            "jtsUser1@jts.us",      /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20090101",             /* BDATE_COL */
@@ -108,14 +110,14 @@ public class UserTestData extends TestCase
             "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
-            "oamUser3",            /* USERID_COL */
+            "jtsUser3",            /* USERID_COL */
             "password3",           /* PASSWORD_COL */
             "Test1",               /* PW POLICY ATTR */
             "Test Case TU1",       /* DESC_COL */
             "fnamethree",          /* CN_COL */
             "lnametree",           /* SN_COL */
-            "oamUser1@jts.com",    /* EMAIL_COL */
-            "501-555-1212",        /* PHONE_COL */
+            "jtsUser1@jts.us",     /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",   /* PROPS_COL */
             "0000",                /* BTIME_COL */
             "0000",                /* ETIME_COL */
             "20090101",            /* BDATE_COL */
@@ -134,14 +136,14 @@ public class UserTestData extends TestCase
             "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
-            "oamUser4",           /* USERID_COL */
+            "jtsUser4",           /* USERID_COL */
             "password4",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU1",      /* DESC_COL */
             "fnamefour",          /* CN_COL */
             "lnamefour",          /* SN_COL */
-            "oamUser1@jts.com",   /* EMAIL_COL */
-            "501-555-1212",       /* PHONE_COL */
+            "jtsUser1@jts.us",    /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20090101",           /* BDATE_COL */
@@ -160,14 +162,14 @@ public class UserTestData extends TestCase
             "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
-            "oamUser5",           /* USERID_COL */
+            "jtsUser5",           /* USERID_COL */
             "password5",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU1",      /* DESC_COL */
             "fnamefive",          /* CN_COL */
             "lnamefive",          /* SN_COL */
-            "oamUser1@jts.com",   /* EMAIL_COL */
-            "501-555-1212",       /* PHONE_COL */
+            "jtsUser1@jts.us",    /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20090101",           /* BDATE_COL */
@@ -186,14 +188,14 @@ public class UserTestData extends TestCase
             "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
-            "oamUser6",           /* USERID_COL */
+            "jtsUser6",           /* USERID_COL */
             "password6",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU1",      /* DESC_COL */
             "fnamesix",           /* CN_COL */
             "lnamesix",           /* SN_COL */
-            "oamUser1@jts.com",   /* EMAIL_COL */
-            "501-555-1212",       /* PHONE_COL */
+            "jtsUser1@jts.us",    /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20090101",           /* BDATE_COL */
@@ -212,14 +214,14 @@ public class UserTestData extends TestCase
             "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
-            "oamUser7",           /* USERID_COL */
+            "jtsUser7",           /* USERID_COL */
             "password7",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU1",      /* DESC_COL */
             "fnameseven",         /* CN_COL */
             "lnameseven",         /* SN_COL */
-            "oamUser1@jts.com",   /* EMAIL_COL */
-            "501-555-1212",       /* PHONE_COL */
+            "jtsUser1@jts.us",    /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20090101",           /* BDATE_COL */
@@ -238,14 +240,14 @@ public class UserTestData extends TestCase
             "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
-            "oamUser8",           /* USERID_COL */
+            "jtsUser8",           /* USERID_COL */
             "password8",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU1",      /* DESC_COL */
             "fnameeight",         /* CN_COL */
             "lnameeight",         /* SN_COL */
-            "oamUser1@jts.com",   /* EMAIL_COL */
-            "501-555-1212",       /* PHONE_COL */
+            "jtsUser1@jts.us",    /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20090101",           /* BDATE_COL */
@@ -264,14 +266,14 @@ public class UserTestData extends TestCase
             "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
-            "oamUser9",           /* USERID_COL */
+            "jtsUser9",           /* USERID_COL */
             "password9",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU1",      /* DESC_COL */
             "fnamenine",          /* CN_COL */
             "lnamenine",          /* SN_COL */
-            "oamUser1@jts.com",   /* EMAIL_COL */
-            "501-555-1212",       /* PHONE_COL */
+            "jtsUser1@jts.us",    /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20090101",           /* BDATE_COL */
@@ -290,14 +292,14 @@ public class UserTestData extends TestCase
             "Permanent",            /* EMPLOYEE_TYPE_COL */
         },
         {
-            "oamUser10",          /* USERID_COL */
+            "jtsUser10",          /* USERID_COL */
             "password10",         /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU1",      /* DESC_COL */
             "fnameten",           /* CN_COL */
             "lnameten",           /* SN_COL */
-            "oamUser1@jts.com",   /* EMAIL_COL */
-            "501-555-1212",       /* PHONE_COL */
+            "jtsUser1@jts.us",    /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20090101",           /* BDATE_COL */
@@ -322,14 +324,14 @@ public class UserTestData extends TestCase
      */
     public final static String[][] USERS_TU1_UPD = {
         {
-            "oamUser1",           /* USERID_COL */
+            "jtsUser1",           /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU2",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "oamUser1UPD@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "jtsUser1UPD@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -346,14 +348,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamUser2",           /* USERID_COL */
+            "jtsUser2",           /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU2",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "oamUser2UPD@jts.com",/* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "jtsUser2UPD@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -370,14 +372,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamUser3",           /* USERID_COL */
+            "jtsUser3",           /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU2",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "oamUser3UPD@jts.com",/* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "jtsUser3UPD@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -394,14 +396,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamUser4",           /* USERID_COL */
+            "jtsUser4",           /* USERID_COL */
             "passw0rd4",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU2",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "oamUser4UPD@jts.com",/* EMAIL_COL */
-            "501-111-4444",       /* PHONE_COL */
+            "jtsUser4UPD@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -418,14 +420,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamUser5",           /* USERID_COL */
+            "jtsUser5",           /* USERID_COL */
             "passw0rd5",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU2",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "oamUser5UPD@jts.com",/* EMAIL_COL */
-            "501-111-5555",       /* PHONE_COL */
+            "jtsUser5UPD@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -442,14 +444,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamUser6",           /* USERID_COL */
+            "jtsUser6",           /* USERID_COL */
             "passw0rd6",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU2",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "oamUser6UPD@jts.com",/* EMAIL_COL */
-            "501-111-6666",       /* PHONE_COL */
+            "jtsUser6UPD@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -466,14 +468,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamUser7",           /* USERID_COL */
+            "jtsUser7",           /* USERID_COL */
             "passw0rd7",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU2",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "oamUser7UPD@jts.com",/* EMAIL_COL */
-            "501-111-7777",       /* PHONE_COL */
+            "jtsUser7UPD@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -490,14 +492,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamUser8",           /* USERID_COL */
+            "jtsUser8",           /* USERID_COL */
             "passw0rd8",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU2",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "oamUser8UPD@jts.com",/* EMAIL_COL */
-            "501-111-8888",       /* PHONE_COL */
+            "jtsUser8UPD@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -514,14 +516,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamUser9",           /* USERID_COL */
+            "jtsUser9",           /* USERID_COL */
             "passw0rd9",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU2",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "oamUser9UPD@jts.com",/* EMAIL_COL */
-            "501-111-9999",       /* PHONE_COL */
+            "jtsUser9UPD@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -538,14 +540,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamUser10",           /* USERID_COL */
+            "jtsUser10",           /* USERID_COL */
             "passw0rd10",          /* PASSWORD_COL */
             "Test1",               /* PW POLICY ATTR */
             "Test Case TU2",       /* DESC_COL */
             "fnameoneupd",         /* CN_COL */
             "lnameoneupd",         /* SN_COL */
-            "oamUser10UPD@jts.com",/* EMAIL_COL */
-            "501-111-0000",        /* PHONE_COL */
+            "jtsUser10UPD@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",   /* PROPS_COL */
             "0000",                /* BTIME_COL */
             "0000",                /* ETIME_COL */
             "20091001",            /* BDATE_COL */
@@ -568,14 +570,14 @@ public class UserTestData extends TestCase
      */
     final static String[][] USERS_TU2 = {
         {
-            "oamTU2User1",          /* USERID_COL */
+            "jtsTU2User1",          /* USERID_COL */
             "password1",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userOne",              /* CN_COL */
             "lastOne",              /* SN_COL */
-            "mimsTest2UR1@jts.com", /* EMAIL_COL */
-            "501-222-1111",         /* PHONE_COL */
+            "fortTest2UR1@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -592,14 +594,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User2",          /* USERID_COL */
+            "jtsTU2User2",          /* USERID_COL */
             "password2",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userTwo",              /* CN_COL */
             "lastTwo",              /* SN_COL */
-            "mimsTest2UR2@jts.com", /* EMAIL_COL */
-            "501-222-2222",         /* PHONE_COL */
+            "fortTest2UR2@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -616,14 +618,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User3",          /* USERID_COL */
+            "jtsTU2User3",          /* USERID_COL */
             "password3",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userThree",            /* CN_COL */
             "lastThree",            /* SN_COL */
-            "mimsTest2UR3@jts.com", /* EMAIL_COL */
-            "501-222-3333",         /* PHONE_COL */
+            "fortTest2UR3@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -640,14 +642,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User4",          /* USERID_COL */
+            "jtsTU2User4",          /* USERID_COL */
             "password4",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userFour",             /* CN_COL */
             "lastFour",             /* SN_COL */
-            "mimsTest2UR4@jts.com", /* EMAIL_COL */
-            "501-222-4444",         /* PHONE_COL */
+            "fortTest2UR4@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -664,14 +666,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User5",          /* USERID_COL */
+            "jtsTU2User5",          /* USERID_COL */
             "password5",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userFive",             /* CN_COL */
             "lastFive",             /* SN_COL */
-            "mimsTest2UR5@jts.com", /* EMAIL_COL */
-            "501-222-5555",         /* PHONE_COL */
+            "fortTest2UR5@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -688,14 +690,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User6",          /* USERID_COL */
+            "jtsTU2User6",          /* USERID_COL */
             "password6",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userSix",              /* CN_COL */
             "lastSix",              /* SN_COL */
-            "mimsTest2UR6@jts.com", /* EMAIL_COL */
-            "501-222-6666",         /* PHONE_COL */
+            "fortTest2UR6@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -712,14 +714,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User7",          /* USERID_COL */
+            "jtsTU2User7",          /* USERID_COL */
             "password7",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userSeven",            /* CN_COL */
             "lastSeven",            /* SN_COL */
-            "mimsTest2UR7@jts.com", /* EMAIL_COL */
-            "501-222-7777",         /* PHONE_COL */
+            "fortTest2UR7@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -736,14 +738,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User8",          /* USERID_COL */
+            "jtsTU2User8",          /* USERID_COL */
             "password8",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userEight",            /* CN_COL */
             "lastEight",            /* SN_COL */
-            "mimsTest2UR8@jts.com", /* EMAIL_COL */
-            "501-222-8888",         /* PHONE_COL */
+            "fortTest2UR8@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -760,14 +762,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User9",          /* USERID_COL */
+            "jtsTU2User9",          /* USERID_COL */
             "password9",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userNine",             /* CN_COL */
             "lastNine",             /* SN_COL */
-            "mimsTest2UR9@jts.com", /* EMAIL_COL */
-            "501-222-9999",         /* PHONE_COL */
+            "fortTest2UR9@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -784,14 +786,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User10",         /* USERID_COL */
+            "jtsTU2User10",         /* USERID_COL */
             "password10",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userTen",              /* CN_COL */
             "lastTen",              /* SN_COL */
-            "mimsTest2UR10@jts.com",/* EMAIL_COL */
-            "501-222-0000",         /* PHONE_COL */
+            "fortTest2UR10@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -815,14 +817,14 @@ public class UserTestData extends TestCase
      */
     final static String[][] USERS_TU2_RST = {
         {
-            "oamTU2User1",          /* USERID_COL */
+            "jtsTU2User1",          /* USERID_COL */
             "newpasswd",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userOne",              /* CN_COL */
             "lastOne",              /* SN_COL */
-            "mimsTest2UR1@jts.com", /* EMAIL_COL */
-            "501-222-1111",         /* PHONE_COL */
+            "fortTest2UR1@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -839,14 +841,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User2",          /* USERID_COL */
+            "jtsTU2User2",          /* USERID_COL */
             "newpasswd",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userTwo",              /* CN_COL */
             "lastTwo",              /* SN_COL */
-            "mimsTest2UR2@jts.com", /* EMAIL_COL */
-            "501-222-2222",         /* PHONE_COL */
+            "fortTest2UR2@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -863,14 +865,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User3",          /* USERID_COL */
+            "jtsTU2User3",          /* USERID_COL */
             "newpasswd",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userThree",            /* CN_COL */
             "lastThree",            /* SN_COL */
-            "mimsTest2UR3@jts.com", /* EMAIL_COL */
-            "501-222-3333",         /* PHONE_COL */
+            "fortTest2UR3@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -887,14 +889,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User4",          /* USERID_COL */
+            "jtsTU2User4",          /* USERID_COL */
             "newpasswd",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userFour",             /* CN_COL */
             "lastFour",             /* SN_COL */
-            "mimsTest2UR4@jts.com", /* EMAIL_COL */
-            "501-222-4444",         /* PHONE_COL */
+            "fortTest2UR4@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -911,14 +913,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User5",          /* USERID_COL */
+            "jtsTU2User5",          /* USERID_COL */
             "newpasswd",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userFive",             /* CN_COL */
             "lastFive",             /* SN_COL */
-            "mimsTest2UR5@jts.com", /* EMAIL_COL */
-            "501-222-5555",         /* PHONE_COL */
+            "fortTest2UR5@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -935,14 +937,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User6",          /* USERID_COL */
+            "jtsTU2User6",          /* USERID_COL */
             "newpasswd",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userSix",              /* CN_COL */
             "lastSix",              /* SN_COL */
-            "mimsTest2UR6@jts.com", /* EMAIL_COL */
-            "501-222-6666",         /* PHONE_COL */
+            "fortTest2UR6@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -959,14 +961,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User7",          /* USERID_COL */
+            "jtsTU2User7",          /* USERID_COL */
             "newpasswd",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userSeven",            /* CN_COL */
             "lastSeven",            /* SN_COL */
-            "mimsTest2UR7@jts.com", /* EMAIL_COL */
-            "501-222-7777",         /* PHONE_COL */
+            "fortTest2UR7@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -983,14 +985,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User8",          /* USERID_COL */
+            "jtsTU2User8",          /* USERID_COL */
             "newpasswd",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userEight",            /* CN_COL */
             "lastEight",            /* SN_COL */
-            "mimsTest2UR8@jts.com", /* EMAIL_COL */
-            "501-222-8888",         /* PHONE_COL */
+            "fortTest2UR8@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1007,14 +1009,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User9",          /* USERID_COL */
+            "jtsTU2User9",          /* USERID_COL */
             "newpasswd",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userNine",             /* CN_COL */
             "lastNine",             /* SN_COL */
-            "mimsTest2UR9@jts.com", /* EMAIL_COL */
-            "501-222-9999",         /* PHONE_COL */
+            "fortTest2UR9@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1031,14 +1033,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User10",         /* USERID_COL */
+            "jtsTU2User10",         /* USERID_COL */
             "newpasswd",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userTen",              /* CN_COL */
             "lastTen",              /* SN_COL */
-            "mimsTest2UR10@jts.com",/* EMAIL_COL */
-            "501-222-0000",         /* PHONE_COL */
+            "fortTest2UR10@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1059,14 +1061,14 @@ public class UserTestData extends TestCase
 
     public final static String[][] USERS_TU2_CHG = {
         {
-            "oamTU2User1",          /* USERID_COL */
+            "jtsTU2User1",          /* USERID_COL */
             "passw0rd1",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userOne",              /* CN_COL */
             "lastOne",              /* SN_COL */
-            "mimsTest2UR1@jts.com", /* EMAIL_COL */
-            "501-222-1111",         /* PHONE_COL */
+            "fortTest2UR1@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1083,14 +1085,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User2",          /* USERID_COL */
+            "jtsTU2User2",          /* USERID_COL */
             "passw0rd2",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userTwo",              /* CN_COL */
             "lastTwo",              /* SN_COL */
-            "mimsTest2UR2@jts.com", /* EMAIL_COL */
-            "501-222-2222",         /* PHONE_COL */
+            "fortTest2UR2@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1107,14 +1109,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User3",          /* USERID_COL */
+            "jtsTU2User3",          /* USERID_COL */
             "passw0rd3",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userThree",            /* CN_COL */
             "lastThree",            /* SN_COL */
-            "mimsTest2UR3@jts.com", /* EMAIL_COL */
-            "501-222-3333",         /* PHONE_COL */
+            "fortTest2UR3@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1131,14 +1133,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User4",          /* USERID_COL */
+            "jtsTU2User4",          /* USERID_COL */
             "passw0rd4",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userFour",             /* CN_COL */
             "lastFour",             /* SN_COL */
-            "mimsTest2UR4@jts.com", /* EMAIL_COL */
-            "501-222-4444",         /* PHONE_COL */
+            "fortTest2UR4@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1155,14 +1157,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User5",          /* USERID_COL */
+            "jtsTU2User5",          /* USERID_COL */
             "passw0rd5",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userFive",             /* CN_COL */
             "lastFive",             /* SN_COL */
-            "mimsTest2UR5@jts.com", /* EMAIL_COL */
-            "501-222-5555",         /* PHONE_COL */
+            "fortTest2UR5@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1179,14 +1181,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User6",          /* USERID_COL */
+            "jtsTU2User6",          /* USERID_COL */
             "passw0rd6",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userSix",              /* CN_COL */
             "lastSix",              /* SN_COL */
-            "mimsTest2UR6@jts.com", /* EMAIL_COL */
-            "501-222-6666",         /* PHONE_COL */
+            "fortTest2UR6@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1203,14 +1205,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User7",          /* USERID_COL */
+            "jtsTU2User7",          /* USERID_COL */
             "passw0rd7",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userSeven",            /* CN_COL */
             "lastSeven",            /* SN_COL */
-            "mimsTest2UR7@jts.com", /* EMAIL_COL */
-            "501-222-7777",         /* PHONE_COL */
+            "fortTest2UR7@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1227,14 +1229,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User8",          /* USERID_COL */
+            "jtsTU2User8",          /* USERID_COL */
             "passw0rd8",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userEight",            /* CN_COL */
             "lastEight",            /* SN_COL */
-            "mimsTest2UR8@jts.com", /* EMAIL_COL */
-            "501-222-8888",         /* PHONE_COL */
+            "fortTest2UR8@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1251,14 +1253,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User9",          /* USERID_COL */
+            "jtsTU2User9",          /* USERID_COL */
             "passw0rd9",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userNine",             /* CN_COL */
             "lastNine",             /* SN_COL */
-            "mimsTest2UR9@jts.com", /* EMAIL_COL */
-            "501-222-9999",         /* PHONE_COL */
+            "fortTest2UR9@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1275,14 +1277,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU2User10",          /* USERID_COL */
+            "jtsTU2User10",          /* USERID_COL */
             "passw0rd1-",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU2",        /* DESC_COL */
             "userTen",              /* CN_COL */
             "lastTen",              /* SN_COL */
-            "mimsTest2UR10@jts.com",/* EMAIL_COL */
-            "501-222-0000",         /* PHONE_COL */
+            "fortTest2UR10@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1304,14 +1306,14 @@ public class UserTestData extends TestCase
     // Test Case TU3:
     public final static String[][] USERS_TU3 = {
         {
-            "oamTU3User1",          /* USERID_COL */
+            "jtsTU3User1",          /* USERID_COL */
             "password1",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU3",        /* DESC_COL */
             "userOne",              /* CN_COL */
             "lastOne",              /* SN_COL */
-            "mimsTest3UR1@jts.com", /* EMAIL_COL */
-            "501-555-1111",         /* PHONE_COL */
+            "fortTest3UR1@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1328,14 +1330,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU3User2",          /* USERID_COL */
+            "jtsTU3User2",          /* USERID_COL */
             "password2",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU3",        /* DESC_COL */
             "userTwo",              /* CN_COL */
             "lastTwo",              /* SN_COL */
-            "mimsTest3UR2@jts.com", /* EMAIL_COL */
-            "501-555-2222",         /* PHONE_COL */
+            "fortTest3UR2@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1352,14 +1354,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU3User3",          /* USERID_COL */
+            "jtsTU3User3",          /* USERID_COL */
             "password3",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU3",        /* DESC_COL */
             "userThree",            /* CN_COL */
             "lastThree",            /* SN_COL */
-            "mimsTest3UR3@jts.com", /* EMAIL_COL */
-            "501-555-3333",         /* PHONE_COL */
+            "fortTest3UR3@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1376,14 +1378,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU3User4",          /* USERID_COL */
+            "jtsTU3User4",          /* USERID_COL */
             "password4",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU3",        /* DESC_COL */
             "userFour",             /* CN_COL */
             "lastFour",             /* SN_COL */
-            "mimsTest3UR4@jts.com", /* EMAIL_COL */
-            "501-555-4444",         /* PHONE_COL */
+            "fortTest3UR4@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1400,14 +1402,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU3User5",          /* USERID_COL */
+            "jtsTU3User5",          /* USERID_COL */
             "password5",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU3",        /* DESC_COL */
             "userFive",             /* CN_COL */
             "lastFive",             /* SN_COL */
-            "mimsTest3UR5@jts.com", /* EMAIL_COL */
-            "501-555-5555",         /* PHONE_COL */
+            "fortTest3UR5@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1424,14 +1426,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU3User6",          /* USERID_COL */
+            "jtsTU3User6",          /* USERID_COL */
             "password6",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU3",        /* DESC_COL */
             "userSix",              /* CN_COL */
             "lastSix",              /* SN_COL */
-            "mimsTest3UR6@jts.com", /* EMAIL_COL */
-            "501-555-6666",         /* PHONE_COL */
+            "fortTest3UR6@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1448,14 +1450,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU3User7",          /* USERID_COL */
+            "jtsTU3User7",          /* USERID_COL */
             "password7",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU3",        /* DESC_COL */
             "userSeven",            /* CN_COL */
             "lastSeven",            /* SN_COL */
-            "mimsTest3UR7@jts.com", /* EMAIL_COL */
-            "501-555-7777",         /* PHONE_COL */
+            "fortTest3UR7@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1472,14 +1474,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU3User8",          /* USERID_COL */
+            "jtsTU3User8",          /* USERID_COL */
             "password8",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU3",        /* DESC_COL */
             "userEight",            /* CN_COL */
             "lastEight",            /* SN_COL */
-            "mimsTest3UR8@jts.com", /* EMAIL_COL */
-            "501-555-8888",         /* PHONE_COL */
+            "fortTest3UR8@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1496,14 +1498,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU3User9",          /* USERID_COL */
+            "jtsTU3User9",          /* USERID_COL */
             "password9",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU3",        /* DESC_COL */
             "userNine",             /* CN_COL */
             "lastNine",             /* SN_COL */
-            "mimsTest3UR9@jts.com", /* EMAIL_COL */
-            "501-555-9999",         /* PHONE_COL */
+            "fortTest3UR9@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1520,14 +1522,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU3User10",         /* USERID_COL */
+            "jtsTU3User10",         /* USERID_COL */
             "password10",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU3",        /* DESC_COL */
             "userTen",              /* CN_COL */
             "lastTen",              /* SN_COL */
-            "mimsTest3UR10@jts.com",/* EMAIL_COL */
-            "501-555-0000",         /* PHONE_COL */
+            "fortTest3UR10@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1549,14 +1551,14 @@ public class UserTestData extends TestCase
     // Test Case TU4:
     public final static String[][] USERS_TU4 = {
         {
-            "oamTU4User1",          /* USERID_COL */
+            "jtsTU4User1",          /* USERID_COL */
             "password1",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU4",        /* DESC_COL */
             "userOne",              /* CN_COL */
             "lastOne",              /* SN_COL */
-            "mimsTest4UR1@jts.com", /* EMAIL_COL */
-            "501-555-1111",         /* PHONE_COL */
+            "fortTest4UR1@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1573,14 +1575,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU4User2",          /* USERID_COL */
+            "jtsTU4User2",          /* USERID_COL */
             "password2",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU4",        /* DESC_COL */
             "userTwo",              /* CN_COL */
             "lastTwo",              /* SN_COL */
-            "mimsTest4UR2@jts.com", /* EMAIL_COL */
-            "501-555-2222",         /* PHONE_COL */
+            "fortTest4UR2@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1597,14 +1599,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU4User3",          /* USERID_COL */
+            "jtsTU4User3",          /* USERID_COL */
             "password3",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU4",        /* DESC_COL */
             "userThree",            /* CN_COL */
             "lastThree",            /* SN_COL */
-            "mimsTest4UR3@jts.com", /* EMAIL_COL */
-            "501-555-3333",         /* PHONE_COL */
+            "fortTest4UR3@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1621,14 +1623,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU4User4",          /* USERID_COL */
+            "jtsTU4User4",          /* USERID_COL */
             "password4",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU4",        /* DESC_COL */
             "userFour",             /* CN_COL */
             "lastFour",             /* SN_COL */
-            "mimsTest4UR4@jts.com", /* EMAIL_COL */
-            "501-555-4444",         /* PHONE_COL */
+            "fortTest4UR4@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1645,14 +1647,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU4User5",          /* USERID_COL */
+            "jtsTU4User5",          /* USERID_COL */
             "password5",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU4",        /* DESC_COL */
             "userFive",             /* CN_COL */
             "lastFive",             /* SN_COL */
-            "mimsTest4UR5@jts.com", /* EMAIL_COL */
-            "501-555-5555",         /* PHONE_COL */
+            "fortTest4UR5@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1669,14 +1671,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU4User6",          /* USERID_COL */
+            "jtsTU4User6",          /* USERID_COL */
             "password6",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU4",        /* DESC_COL */
             "userSix",              /* CN_COL */
             "lastSix",              /* SN_COL */
-            "mimsTest4UR6@jts.com", /* EMAIL_COL */
-            "501-555-6666",         /* PHONE_COL */
+            "fortTest4UR6@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1693,14 +1695,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU4User7",          /* USERID_COL */
+            "jtsTU4User7",          /* USERID_COL */
             "password7",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU4",        /* DESC_COL */
             "userSeven",            /* CN_COL */
             "lastSeven",            /* SN_COL */
-            "mimsTest4UR7@jts.com", /* EMAIL_COL */
-            "501-555-7777",         /* PHONE_COL */
+            "fortTest4UR7@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1717,14 +1719,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU4User8",          /* USERID_COL */
+            "jtsTU4User8",          /* USERID_COL */
             "password8",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU4",        /* DESC_COL */
             "userEight",            /* CN_COL */
             "lastEight",            /* SN_COL */
-            "mimsTest4UR8@jts.com", /* EMAIL_COL */
-            "501-555-8888",         /* PHONE_COL */
+            "fortTest4UR8@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1741,14 +1743,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU4User9",          /* USERID_COL */
+            "jtsTU4User9",          /* USERID_COL */
             "password9",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU4",        /* DESC_COL */
             "userNine",             /* CN_COL */
             "lastNine",             /* SN_COL */
-            "mimsTest4UR9@jts.com", /* EMAIL_COL */
-            "501-555-9999",         /* PHONE_COL */
+            "fortTest4UR9@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1765,14 +1767,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU4User10",         /* USERID_COL */
+            "jtsTU4User10",         /* USERID_COL */
             "password10",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU4",        /* DESC_COL */
             "userTen",              /* CN_COL */
             "lastTen",              /* SN_COL */
-            "mimsTest4UR10@jts.com",/* EMAIL_COL */
-            "501-555-0000",         /* PHONE_COL */
+            "fortTest4UR10@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1795,14 +1797,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU5", value = "USR TU5")
     final public static String[][] USERS_TU5 = {
         {
-            "oamTU5User1",          /* USERID_COL */
+            "jtsTU5User1",          /* USERID_COL */
             "password1",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userOne",              /* CN_COL */
             "lastOne",              /* SN_COL */
-            "mimsTest5UR1@jts.com", /* EMAIL_COL */
-            "501-555-1111",         /* PHONE_COL */
+            "fortTest5UR1@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1819,14 +1821,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User2",          /* USERID_COL */
+            "jtsTU5User2",          /* USERID_COL */
             "password2",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTwo",              /* CN_COL */
             "lastTwo",              /* SN_COL */
-            "mimsTest5UR2@jts.com", /* EMAIL_COL */
-            "501-555-2222",         /* PHONE_COL */
+            "fortTest5UR2@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1843,14 +1845,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User3",          /* USERID_COL */
+            "jtsTU5User3",          /* USERID_COL */
             "password3",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userThree",            /* CN_COL */
             "lastThree",            /* SN_COL */
-            "mimsTest5UR3@jts.com", /* EMAIL_COL */
-            "501-555-3333",         /* PHONE_COL */
+            "fortTest5UR3@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1867,14 +1869,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User4",          /* USERID_COL */
+            "jtsTU5User4",          /* USERID_COL */
             "password4",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userFour",             /* CN_COL */
             "lastFour",             /* SN_COL */
-            "mimsTest5UR4@jts.com", /* EMAIL_COL */
-            "501-555-4444",         /* PHONE_COL */
+            "fortTest5UR4@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1891,14 +1893,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User5",          /* USERID_COL */
+            "jtsTU5User5",          /* USERID_COL */
             "password5",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userFive",             /* CN_COL */
             "lastFive",             /* SN_COL */
-            "mimsTest5UR5@jts.com", /* EMAIL_COL */
-            "501-555-5555",         /* PHONE_COL */
+            "fortTest5UR5@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1915,14 +1917,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User6",          /* USERID_COL */
+            "jtsTU5User6",          /* USERID_COL */
             "password6",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userSix",              /* CN_COL */
             "lastSix",              /* SN_COL */
-            "mimsTest5UR6@jts.com", /* EMAIL_COL */
-            "501-555-6666",         /* PHONE_COL */
+            "fortTest5UR6@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1939,14 +1941,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User7",          /* USERID_COL */
+            "jtsTU5User7",          /* USERID_COL */
             "password7minlength",   /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userSeven",            /* CN_COL */
             "lastSeven",            /* SN_COL */
-            "mimsTest5UR7@jts.com", /* EMAIL_COL */
-            "501-555-7777",         /* PHONE_COL */
+            "fortTest5UR7@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1963,14 +1965,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User8",          /* USERID_COL */
+            "jtsTU5User8",          /* USERID_COL */
             "password8",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userEight",            /* CN_COL */
             "lastEight",            /* SN_COL */
-            "mimsTest5UR8@jts.com", /* EMAIL_COL */
-            "501-555-8888",         /* PHONE_COL */
+            "fortTest5UR8@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -1987,14 +1989,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User9",          /* USERID_COL */
+            "jtsTU5User9",          /* USERID_COL */
             "password9",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userNine",             /* CN_COL */
             "lastNine",             /* SN_COL */
-            "mimsTest5UR9@jts.com", /* EMAIL_COL */
-            "501-555-9999",         /* PHONE_COL */
+            "fortTest5UR9@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2011,14 +2013,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User10",         /* USERID_COL */
+            "jtsTU5User10",         /* USERID_COL */
             "password10",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTen",              /* CN_COL */
             "lastTen",              /* SN_COL */
-            "mimsTest5UR10@jts.com",/* EMAIL_COL */
-            "501-555-1010",         /* PHONE_COL */
+            "fortTest5UR10@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2035,14 +2037,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User11",         /* USERID_COL */
+            "jtsTU5User11",         /* USERID_COL */
             "password11",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userEleven",           /* CN_COL */
             "lastEleven",           /* SN_COL */
-            "mimsTest5UR11@jts.com",/* EMAIL_COL */
-            "501-555-1111",         /* PHONE_COL */
+            "fortTest5UR11@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2059,14 +2061,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User12",         /* USERID_COL */
+            "jtsTU5User12",         /* USERID_COL */
             "password12",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTwelve",           /* CN_COL */
             "lastTwelve",           /* SN_COL */
-            "mimsTest5UR12@jts.com",/* EMAIL_COL */
-            "501-555-1212",         /* PHONE_COL */
+            "fortTest5UR12@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2083,14 +2085,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User13",         /* USERID_COL */
+            "jtsTU5User13",         /* USERID_COL */
             "password13",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userThirteen",         /* CN_COL */
             "lastThirteen",         /* SN_COL */
-            "mimsTest5UR13@jts.com",/* EMAIL_COL */
-            "501-555-1313",         /* PHONE_COL */
+            "fortTest5UR13@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2107,14 +2109,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User14",         /* USERID_COL */
+            "jtsTU5User14",         /* USERID_COL */
             "password14",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userFourteen",         /* CN_COL */
             "lastFourteen",         /* SN_COL */
-            "mimsTest5UR14@jts.com",/* EMAIL_COL */
-            "501-555-1414",         /* PHONE_COL */
+            "fortTest5UR14@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2131,14 +2133,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User15",         /* USERID_COL */
+            "jtsTU5User15",         /* USERID_COL */
             "password15",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userFifteen",          /* CN_COL */
             "lastFifteen",          /* SN_COL */
-            "mimsTest5UR15@jts.com",/* EMAIL_COL */
-            "501-555-1515",         /* PHONE_COL */
+            "fortTest5UR15@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2155,14 +2157,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User16",         /* USERID_COL */
+            "jtsTU5User16",         /* USERID_COL */
             "password16",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userSixteen",          /* CN_COL */
             "lastSixteen",          /* SN_COL */
-            "mimsTest5UR16@jts.com",/* EMAIL_COL */
-            "501-555-1616",         /* PHONE_COL */
+            "fortTest5UR16@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2179,14 +2181,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User17",         /* USERID_COL */
+            "jtsTU5User17",         /* USERID_COL */
             "password17",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userSeventeen",        /* CN_COL */
             "lastSeventeen",        /* SN_COL */
-            "mimsTest5UR17@jts.com",/* EMAIL_COL */
-            "501-555-1717",         /* PHONE_COL */
+            "fortTest5UR17@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2203,14 +2205,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User18",         /* USERID_COL */
+            "jtsTU5User18",         /* USERID_COL */
             "password18",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userEighteen",         /* CN_COL */
             "lastEighteen",         /* SN_COL */
-            "mimsTest5UR18@jts.com",/* EMAIL_COL */
-            "501-555-1818",         /* PHONE_COL */
+            "fortTest5UR18@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2227,14 +2229,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User19",         /* USERID_COL */
+            "jtsTU5User19",         /* USERID_COL */
             "password19",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userNineteen",         /* CN_COL */
             "lastNineteen",         /* SN_COL */
-            "mimsTest5UR19@jts.com",/* EMAIL_COL */
-            "501-555-1919",         /* PHONE_COL */
+            "fortTest5UR19@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2251,14 +2253,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User20",         /* USERID_COL */
+            "jtsTU5User20",         /* USERID_COL */
             "password20",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTwenty",           /* CN_COL */
             "lastTwenty",           /* SN_COL */
-            "mimsTest5UR20@jts.com",/* EMAIL_COL */
-            "501-555-2020",         /* PHONE_COL */
+            "fortTest5UR20@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2275,14 +2277,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User21",         /* USERID_COL */
+            "jtsTU5User21",         /* USERID_COL */
             "password21",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTwentyone",        /* CN_COL */
             "lastTwentyone",        /* SN_COL */
-            "mimsTest5UR21@jts.com",/* EMAIL_COL */
-            "501-555-2121",         /* PHONE_COL */
+            "fortTest5UR21@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2299,14 +2301,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User22",         /* USERID_COL */
+            "jtsTU5User22",         /* USERID_COL */
             "password22",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTwentytwo",        /* CN_COL */
             "lastTwentytwo",        /* SN_COL */
-            "mimsTest5UR22@jts.com",/* EMAIL_COL */
-            "501-555-2222",         /* PHONE_COL */
+            "fortTest5UR22@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2323,14 +2325,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User23",         /* USERID_COL */
+            "jtsTU5User23",         /* USERID_COL */
             "password23",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTwentythree",      /* CN_COL */
             "lastTwentythree",      /* SN_COL */
-            "mimsTest5UR23@jts.com",/* EMAIL_COL */
-            "501-555-2323",         /* PHONE_COL */
+            "fortTest5UR23@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2347,14 +2349,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User24",         /* USERID_COL */
+            "jtsTU5User24",         /* USERID_COL */
             "password24",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTwentyfour",       /* CN_COL */
             "lastTwentyfour",       /* SN_COL */
-            "mimsTest5UR24@jts.com",/* EMAIL_COL */
-            "501-555-2424",         /* PHONE_COL */
+            "fortTest5UR24@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2371,14 +2373,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User25",         /* USERID_COL */
+            "jtsTU5User25",         /* USERID_COL */
             "password25",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTwentyfive",       /* CN_COL */
             "lastTwentyfive",       /* SN_COL */
-            "mimsTest5UR25@jts.com",/* EMAIL_COL */
-            "501-555-2525",         /* PHONE_COL */
+            "fortTest5UR25@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2395,14 +2397,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User26",         /* USERID_COL */
+            "jtsTU5User26",         /* USERID_COL */
             "password26",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTwentysix",        /* CN_COL */
             "lastTwentysix",        /* SN_COL */
-            "mimsTest5UR26@jts.com",/* EMAIL_COL */
-            "501-555-2626",         /* PHONE_COL */
+            "fortTest5UR26@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2424,14 +2426,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU5_UPD", value = "USR TU5_UPD")
     final public static String[][] USERS_TU5_UPD = {
         {
-            "oamTU5User1",          /* USERID_COL */
+            "jtsTU5User1",          /* USERID_COL */
             "passw0rd1",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userOne",              /* CN_COL */
             "lastOne",              /* SN_COL */
-            "mimsTest5UR1@jts.com", /* EMAIL_COL */
-            "501-555-1111",         /* PHONE_COL */
+            "fortTest5UR1@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2448,14 +2450,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User2",          /* USERID_COL */
+            "jtsTU5User2",          /* USERID_COL */
             "passw0rd2",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTwo",              /* CN_COL */
             "lastTwo",              /* SN_COL */
-            "mimsTest5UR2@jts.com", /* EMAIL_COL */
-            "501-555-2222",         /* PHONE_COL */
+            "fortTest5UR2@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2472,14 +2474,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User3",          /* USERID_COL */
+            "jtsTU5User3",          /* USERID_COL */
             "passw0rd3",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userThree",            /* CN_COL */
             "lastThree",            /* SN_COL */
-            "mimsTest5UR3@jts.com", /* EMAIL_COL */
-            "501-555-3333",         /* PHONE_COL */
+            "fortTest5UR3@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2496,14 +2498,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User4",          /* USERID_COL */
+            "jtsTU5User4",          /* USERID_COL */
             "passw0rd4",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userFour",             /* CN_COL */
             "lastFour",             /* SN_COL */
-            "mimsTest5UR4@jts.com", /* EMAIL_COL */
-            "501-555-4444",         /* PHONE_COL */
+            "fortTest5UR4@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2520,14 +2522,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User5",          /* USERID_COL */
+            "jtsTU5User5",          /* USERID_COL */
             "password5",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userFive",             /* CN_COL */
             "lastFive",             /* SN_COL */
-            "mimsTest5UR5@jts.com", /* EMAIL_COL */
-            "501-555-5555",         /* PHONE_COL */
+            "fortTest5UR5@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2544,14 +2546,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User6",          /* USERID_COL */
+            "jtsTU5User6",          /* USERID_COL */
             "password6",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userSix",              /* CN_COL */
             "lastSix",              /* SN_COL */
-            "mimsTest5UR6@jts.com", /* EMAIL_COL */
-            "501-555-6666",         /* PHONE_COL */
+            "fortTest5UR6@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2568,14 +2570,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User7",          /* USERID_COL */
+            "jtsTU5User7",          /* USERID_COL */
             "password7",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userSeven",            /* CN_COL */
             "lastSeven",            /* SN_COL */
-            "mimsTest5UR7@jts.com", /* EMAIL_COL */
-            "501-555-7777",         /* PHONE_COL */
+            "fortTest5UR7@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2592,14 +2594,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User8",          /* USERID_COL */
+            "jtsTU5User8",          /* USERID_COL */
             "password8",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userEight",            /* CN_COL */
             "lastEight",            /* SN_COL */
-            "mimsTest5UR8@jts.com", /* EMAIL_COL */
-            "501-555-8888",         /* PHONE_COL */
+            "fortTest5UR8@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2616,14 +2618,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User9",          /* USERID_COL */
+            "jtsTU5User9",          /* USERID_COL */
             "password9",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userNine",             /* CN_COL */
             "lastNine",             /* SN_COL */
-            "mimsTest5UR9@jts.com", /* EMAIL_COL */
-            "501-555-9999",         /* PHONE_COL */
+            "fortTest5UR9@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2640,14 +2642,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU5User10",         /* USERID_COL */
+            "jtsTU5User10",         /* USERID_COL */
             "password10",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU5",        /* DESC_COL */
             "userTen",              /* CN_COL */
             "lastTen",              /* SN_COL */
-            "mimsTest5UR10@jts.com",/* EMAIL_COL */
-            "501-555-0000",         /* PHONE_COL */
+            "fortTest5UR10@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2669,14 +2671,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU6_SYS", value = "USR TU6_SYS")
     final public static String[][] USERS_TU6 = {
         {
-            "oamTU6User1",          /* USERID_COL */
+            "jtsTU6User1",          /* USERID_COL */
             "password1",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU6",        /* DESC_COL */
             "userOne",              /* CN_COL */
             "lastOne",              /* SN_COL */
-            "mimsTest6UR1@jts.com", /* EMAIL_COL */
-            "501-555-1111",         /* PHONE_COL */
+            "fortTest6UR1@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2696,14 +2698,14 @@ public class UserTestData extends TestCase
             "TRUE",                 /* SYSTEM USER */
         },
         {
-            "oamTU6User2",          /* USERID_COL */
+            "jtsTU6User2",          /* USERID_COL */
             "password2",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU6",        /* DESC_COL */
             "userTwo",              /* CN_COL */
             "lastTwo",              /* SN_COL */
-            "mimsTest6UR2@jts.com", /* EMAIL_COL */
-            "501-555-2222",         /* PHONE_COL */
+            "fortTest6UR2@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2723,14 +2725,14 @@ public class UserTestData extends TestCase
             "TRUE",                 /* SYSTEM USER */
         },
         {
-            "oamTU6User3",          /* USERID_COL */
+            "jtsTU6User3",          /* USERID_COL */
             "password3",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU6",        /* DESC_COL */
             "userThree",            /* CN_COL */
             "lastThree",            /* SN_COL */
-            "mimsTest6UR3@jts.com", /* EMAIL_COL */
-            "501-555-3333",         /* PHONE_COL */
+            "fortTest6UR3@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2750,14 +2752,14 @@ public class UserTestData extends TestCase
             "TRUE",                 /* SYSTEM USER */
         },
         {
-            "oamTU6User4",          /* USERID_COL */
+            "jtsTU6User4",          /* USERID_COL */
             "password4",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU6",        /* DESC_COL */
             "userFour",             /* CN_COL */
             "lastFour",             /* SN_COL */
-            "mimsTest6UR4@jts.com", /* EMAIL_COL */
-            "501-555-4444",         /* PHONE_COL */
+            "fortTest6UR4@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2777,14 +2779,14 @@ public class UserTestData extends TestCase
             "TRUE",                 /* SYSTEM USER */
         },
         {
-            "oamTU6User5",          /* USERID_COL */
+            "jtsTU6User5",          /* USERID_COL */
             "password5",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU6",        /* DESC_COL */
             "userFive",             /* CN_COL */
             "lastFive",             /* SN_COL */
-            "mimsTest6UR5@jts.com", /* EMAIL_COL */
-            "501-555-5555",         /* PHONE_COL */
+            "fortTest6UR5@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2810,14 +2812,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU7_HIER", value = "USR TU7_HIER")
     final public static String[][] USERS_TU7_HIER = {
         {
-            "oamTU7User1",          /* USERID_COL */
+            "jtsTU7User1",          /* USERID_COL */
             "passw0rd1",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU7",        /* DESC_COL */
             "userOne",              /* CN_COL */
             "lastOne",              /* SN_COL */
-            "mimsTest7UR1@jts.com", /* EMAIL_COL */
-            "501-555-1111",         /* PHONE_COL */
+            "fortTest7UR1@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2834,14 +2836,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU7User2",          /* USERID_COL */
+            "jtsTU7User2",          /* USERID_COL */
             "passw0rd2",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU7",        /* DESC_COL */
             "userTwo",              /* CN_COL */
             "lastTwo",              /* SN_COL */
-            "mimsTest7UR2@jts.com", /* EMAIL_COL */
-            "501-555-2222",         /* PHONE_COL */
+            "fortTest7UR2@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2858,14 +2860,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU7User3",          /* USERID_COL */
+            "jtsTU7User3",          /* USERID_COL */
             "passw0rd3",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU7",        /* DESC_COL */
             "userThree",            /* CN_COL */
             "lastThree",            /* SN_COL */
-            "mimsTest7UR3@jts.com", /* EMAIL_COL */
-            "501-555-3333",         /* PHONE_COL */
+            "fortTest7UR3@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2882,14 +2884,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU7User4",          /* USERID_COL */
+            "jtsTU7User4",          /* USERID_COL */
             "passw0rd4",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU7",        /* DESC_COL */
             "userFour",             /* CN_COL */
             "lastFour",             /* SN_COL */
-            "mimsTest7UR4@jts.com", /* EMAIL_COL */
-            "501-555-4444",         /* PHONE_COL */
+            "fortTest7UR4@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2906,14 +2908,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU7User5",          /* USERID_COL */
+            "jtsTU7User5",          /* USERID_COL */
             "password5",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU7",        /* DESC_COL */
             "userFive",             /* CN_COL */
             "lastFive",             /* SN_COL */
-            "mimsTest7UR5@jts.com", /* EMAIL_COL */
-            "501-555-5555",         /* PHONE_COL */
+            "fortTest7UR5@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2930,14 +2932,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU7User6",          /* USERID_COL */
+            "jtsTU7User6",          /* USERID_COL */
             "password6",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU7",        /* DESC_COL */
             "userSix",              /* CN_COL */
             "lastSix",              /* SN_COL */
-            "mimsTest7UR6@jts.com", /* EMAIL_COL */
-            "501-555-6666",         /* PHONE_COL */
+            "fortTest7UR6@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2954,14 +2956,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU7User7",          /* USERID_COL */
+            "jtsTU7User7",          /* USERID_COL */
             "password7",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU7",        /* DESC_COL */
             "userSeven",            /* CN_COL */
             "lastSeven",            /* SN_COL */
-            "mimsTest7UR7@jts.com", /* EMAIL_COL */
-            "501-555-7777",         /* PHONE_COL */
+            "fortTest7UR7@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -2978,14 +2980,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU7User8",          /* USERID_COL */
+            "jtsTU7User8",          /* USERID_COL */
             "password8",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU7",        /* DESC_COL */
             "userEight",            /* CN_COL */
             "lastEight",            /* SN_COL */
-            "mimsTest7UR8@jts.com", /* EMAIL_COL */
-            "501-555-8888",         /* PHONE_COL */
+            "fortTest7UR8@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -3002,14 +3004,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU7User9",          /* USERID_COL */
+            "jtsTU7User9",          /* USERID_COL */
             "password9",            /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU7",        /* DESC_COL */
             "userNine",             /* CN_COL */
             "lastNine",             /* SN_COL */
-            "mimsTest7UR9@jts.com", /* EMAIL_COL */
-            "501-555-9999",         /* PHONE_COL */
+            "fortTest7UR9@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -3026,14 +3028,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU7User10",         /* USERID_COL */
+            "jtsTU7User10",         /* USERID_COL */
             "password10",           /* PASSWORD_COL */
             "Test1",                /* PW POLICY ATTR */
             "Test Case TU7",        /* DESC_COL */
             "userTen",              /* CN_COL */
             "lastTen",              /* SN_COL */
-            "mimsTest7UR10@jts.com",/* EMAIL_COL */
-            "501-555-0000",         /* PHONE_COL */
+            "fortTest7UR10@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
             "0000",                 /* BTIME_COL */
             "0000",                 /* ETIME_COL */
             "20100101",             /* BDATE_COL */
@@ -3055,14 +3057,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU8_SSD", value = "USR TU8_SSD")
     final static String[][] USERS_TU8_SSD = {
         {
-            "oamTU8User1",        /* USERID_COL */
+            "jtsTU8User1",        /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU8",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU8@jts.com",  /* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU8@jts.us",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3079,14 +3081,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU8User2",        /* USERID_COL */
+            "jtsTU8User2",        /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU8",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU2TU8@jts.com",  /* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "fortU2TU8@jts.us",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3103,14 +3105,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU8User3",        /* USERID_COL */
+            "jtsTU8User3",        /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU8",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU3TU8@jts.com",  /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU3TU8@jts.us",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3127,14 +3129,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU8User4",        /* USERID_COL */
+            "jtsTU8User4",        /* USERID_COL */
             "passw0rd4",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU8",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU4TU8@jts.com",  /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU4TU8@jts.us",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3156,14 +3158,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU9_SSD_HIER", value = "USR TU9_SSD_HIER")
     final static String[][] USERS_TU9_SSD_HIER = {
         {
-            "oamTU9User1",        /* USERID_COL */
+            "jtsTU9User1",        /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU9",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU9@jts.com",  /* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU9@jts.us",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3180,14 +3182,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU9User2",        /* USERID_COL */
+            "jtsTU9User2",        /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU9",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU2TU9@jts.com",  /* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "fortU2TU9@jts.us",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3204,14 +3206,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU9User3",        /* USERID_COL */
+            "jtsTU9User3",        /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU9",      /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU3TU8@jts.com",  /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU3TU8@jts.us",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3232,14 +3234,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU10_SSD_HIER", value = "USR TU10_SSD_HIER")
     final static String[][] USERS_TU10_SSD_HIER = {
         {
-            "oamTU10User1",       /* USERID_COL */
+            "jtsTU10User1",       /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU10",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU10@jts.com", /* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU10@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3256,14 +3258,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU10User2",       /* USERID_COL */
+            "jtsTU10User2",       /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU10",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU2TU10@jts.com", /* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "fortU2TU10@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3280,14 +3282,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU10User3",       /* USERID_COL */
+            "jtsTU10User3",       /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU10",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU3TU10@jts.com", /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU3TU10@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3308,14 +3310,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU11_SSD_HIER", value = "USR TU11_SSD_HIER")
     final static String[][] USERS_TU11_SSD_HIER = {
         {
-            "oamTU11User1",       /* USERID_COL */
+            "jtsTU11User1",       /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU11",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU11@jts.com", /* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU11@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3332,14 +3334,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU11User2",       /* USERID_COL */
+            "jtsTU11User2",       /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU11",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU2TU11@jts.com", /* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "fortU2TU11@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3356,14 +3358,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU11User3",       /* USERID_COL */
+            "jtsTU11User3",       /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU11",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU3TU11@jts.com", /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU3TU11@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3386,14 +3388,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU12_DSD", value = "USR TU12_DSD")
     final static String[][] USERS_TU12_DSD = {
         {
-            "oamTU12User1",       /* USERID_COL */
+            "jtsTU12User1",       /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU12",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU12@jts.com", /* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU12@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3410,14 +3412,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU12User2",       /* USERID_COL */
+            "jtsTU12User2",       /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU12",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU2TU12@jts.com", /* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "fortU2TU12@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3434,14 +3436,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU12User3",       /* USERID_COL */
+            "jtsTU12User3",       /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU12",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU3TU12@jts.com", /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU3TU12@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3458,14 +3460,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU12User4",       /* USERID_COL */
+            "jtsTU12User4",       /* USERID_COL */
             "passw0rd4",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU12",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU4TU12@jts.com", /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU4TU12@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3487,14 +3489,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU13_DSD_HIER", value = "USR TU13_DSD_HIER")
     final static String[][] USERS_TU13_DSD_HIER = {
         {
-            "oamTU13User1",       /* USERID_COL */
+            "jtsTU13User1",       /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU13",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU13@jts.com", /* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU13@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3511,14 +3513,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU13User2",       /* USERID_COL */
+            "jtsTU13User2",       /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU13",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU2TU13@jts.com", /* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "fortU2TU13@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3535,14 +3537,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU13User3",       /* USERID_COL */
+            "jtsTU13User3",       /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU13",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU3TU13@jts.com", /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU3TU13@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3563,14 +3565,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU14_DSD_HIER", value = "USR TU14_DSD_HIER")
     final static String[][] USERS_TU14_DSD_HIER = {
         {
-            "oamTU14User1",       /* USERID_COL */
+            "jtsTU14User1",       /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU14",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU14@jts.com", /* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU14@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3587,14 +3589,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU14User2",       /* USERID_COL */
+            "jtsTU14User2",       /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU14",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU2TU14@jts.com", /* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "fortU2TU14@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3611,14 +3613,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU14User3",       /* USERID_COL */
+            "jtsTU14User3",       /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU14",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU3TU14@jts.com", /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU3TU14@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3639,14 +3641,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU15_DSD_HIER", value = "USR TU15_DSD_HIER")
     final static String[][] USERS_TU15_DSD_HIER = {
         {
-            "oamTU15User1",       /* USERID_COL */
+            "jtsTU15User1",       /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU15",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU15@jts.com", /* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU15@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3663,14 +3665,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU15User2",       /* USERID_COL */
+            "jtsTU15User2",       /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU15",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU2TU15@jts.com", /* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "fortU2TU15@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3687,14 +3689,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU15User3",       /* USERID_COL */
+            "jtsTU15User3",       /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU15",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU3TU15@jts.com", /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU3TU15@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3716,14 +3718,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU16_ARBAC", value = "USR TU16_ARBAC")
     public final static String[][] USERS_TU16_ARBAC = {
         {
-            "oamTU16User1",       /* USERID_COL */
+            "jtsTU16User1",       /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU16@jts.com", /* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU16@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3740,14 +3742,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16User2",       /* USERID_COL */
+            "jtsTU16User2",       /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU2TU16@jts.com", /* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "fortU2TU16@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3764,14 +3766,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16User3",       /* USERID_COL */
+            "jtsTU16User3",       /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU3TU16@jts.com", /* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU3TU16@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3788,14 +3790,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16User4",       /* USERID_COL */
+            "jtsTU16User4",       /* USERID_COL */
             "passw0rd4",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU4TU16@jts.com", /* EMAIL_COL */
-            "501-111-4444",       /* PHONE_COL */
+            "fortU4TU16@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3812,14 +3814,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16User5",       /* USERID_COL */
+            "jtsTU16User5",       /* USERID_COL */
             "passw0rd5",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU5TU16@jts.com", /* EMAIL_COL */
-            "501-111-5555",       /* PHONE_COL */
+            "fortU5TU16@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3836,14 +3838,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16User6",       /* USERID_COL */
+            "jtsTU16User6",       /* USERID_COL */
             "passw0rd6",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU6TU16@jts.com", /* EMAIL_COL */
-            "501-111-6666",       /* PHONE_COL */
+            "fortU6TU16@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3860,14 +3862,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16User7",       /* USERID_COL */
+            "jtsTU16User7",       /* USERID_COL */
             "passw0rd7",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU7TU16@jts.com", /* EMAIL_COL */
-            "501-111-7777",       /* PHONE_COL */
+            "fortU7TU16@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3884,14 +3886,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16User8",       /* USERID_COL */
+            "jtsTU16User8",       /* USERID_COL */
             "passw0rd8",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU8TU16@jts.com", /* EMAIL_COL */
-            "501-111-8888",       /* PHONE_COL */
+            "fortU8TU16@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3908,14 +3910,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16User9",       /* USERID_COL */
+            "jtsTU16User9",       /* USERID_COL */
             "passw0rd9",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU9TU16@jts.com", /* EMAIL_COL */
-            "501-111-9999",       /* PHONE_COL */
+            "fortU9TU16@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3932,14 +3934,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16User10",      /* USERID_COL */
+            "jtsTU16User10",      /* USERID_COL */
             "passw0rd10",         /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU10TU16@jts.com",/* EMAIL_COL */
-            "501-111-0000",       /* PHONE_COL */
+            "fortU10TU16@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3961,14 +3963,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU16B_ARBAC", value = "USR TU16B_ARBAC")
     public final static String[][] USERS_TU16B_ARBAC = {
         {
-            "oamTU16BUser1",      /* USERID_COL */
+            "jtsTU16BUser1",      /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16B",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU16B@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU16B@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -3985,14 +3987,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16BUser2",      /* USERID_COL */
+            "jtsTU16BUser2",      /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16B",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU2TU16B@jts.com",/* EMAIL_COL */
-            "501-111-2222",       /* PHONE_COL */
+            "fortU2TU16B@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4009,14 +4011,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16BUser3",      /* USERID_COL */
+            "jtsTU16BUser3",      /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16B",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU3TU16B@jts.com",/* EMAIL_COL */
-            "501-111-3333",       /* PHONE_COL */
+            "fortU3TU16B@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4033,14 +4035,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16BUser4",      /* USERID_COL */
+            "jtsTU16BUser4",      /* USERID_COL */
             "passw0rd4",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16B",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU4TU16B@jts.com",/* EMAIL_COL */
-            "501-111-4444",       /* PHONE_COL */
+            "fortU4TU16B@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4057,14 +4059,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16BUser5",      /* USERID_COL */
+            "jtsTU16BUser5",      /* USERID_COL */
             "passw0rd5",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16B",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU5TU16B@jts.com",/* EMAIL_COL */
-            "501-111-5555",       /* PHONE_COL */
+            "fortU5TU16B@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4081,14 +4083,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16BUser6",      /* USERID_COL */
+            "jtsTU16BUser6",      /* USERID_COL */
             "passw0rd6",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16B",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU6TU16B@jts.com",/* EMAIL_COL */
-            "501-111-6666",       /* PHONE_COL */
+            "fortU6TU16B@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4105,14 +4107,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16BUser7",      /* USERID_COL */
+            "jtsTU16BUser7",      /* USERID_COL */
             "passw0rd7",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16B",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU7TU16B@jts.com",/* EMAIL_COL */
-            "501-111-7777",       /* PHONE_COL */
+            "fortU7TU16B@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4129,14 +4131,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16BUser8",      /* USERID_COL */
+            "jtsTU16BUser8",      /* USERID_COL */
             "passw0rd8",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16B",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU8TU16B@jts.com",/* EMAIL_COL */
-            "501-111-8888",       /* PHONE_COL */
+            "fortU8TU16B@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4153,14 +4155,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16BUser9",      /* USERID_COL */
+            "jtsTU16BUser9",      /* USERID_COL */
             "passw0rd9",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16B",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU9TU16B@jts.com",/* EMAIL_COL */
-            "501-111-9999",       /* PHONE_COL */
+            "fortU9TU16B@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4177,14 +4179,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU16BUser10",     /* USERID_COL */
+            "jtsTU16BUser10",     /* USERID_COL */
             "passw0rd10",         /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU16B",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU10TU16B@jts.com",/* EMAIL_COL */
-            "501-111-0000",       /* PHONE_COL */
+            "fortU10TU16B@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4206,14 +4208,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU17A_ARBAC", value = "USR TU17A_ARBAC")
     public final static String[][] USERS_TU17A_ARBAC = {
         {
-            "oamTU17AUser1",      /* USERID_COL */
+            "jtsTU17AUser1",      /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU17A",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU17A@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU17A@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4230,14 +4232,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU17AUser2",      /* USERID_COL */
+            "jtsTU17AUser2",      /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU17A",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU17A@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU17A@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4254,14 +4256,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU17AUser3",      /* USERID_COL */
+            "jtsTU17AUser3",      /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU17A",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU17A@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU17A@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4278,14 +4280,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU17AUser4",      /* USERID_COL */
+            "jtsTU17AUser4",      /* USERID_COL */
             "passw0rd4",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU17A",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU17A@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU17A@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4302,14 +4304,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU17AUser5",      /* USERID_COL */
+            "jtsTU17AUser5",      /* USERID_COL */
             "passw0rd5",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU17A",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU17A@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU17A@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4331,14 +4333,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU17U_ARBAC", value = "USR TU17U_ARBAC")
     public final static String[][] USERS_TU17U_ARBAC = {
         {
-            "oamTU17UUser1",      /* USERID_COL */
+            "jtsTU17UUser1",      /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU17U",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU17U@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU17U@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4355,14 +4357,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU17UUser2",      /* USERID_COL */
+            "jtsTU17UUser2",      /* USERID_COL */
             "passw0rd2",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU17U",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU17U@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU17U@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4379,14 +4381,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU17UUser3",      /* USERID_COL */
+            "jtsTU17UUser3",      /* USERID_COL */
             "passw0rd3",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU17U",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU17U@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU17U@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4403,14 +4405,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU17UUser4",      /* USERID_COL */
+            "jtsTU17UUser4",      /* USERID_COL */
             "passw0rd4",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU17U",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU17U@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU17U@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4427,14 +4429,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU17UUser5",      /* USERID_COL */
+            "jtsTU17UUser5",      /* USERID_COL */
             "passw0rd5",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU17U",    /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "mimsU1TU17U@jts.com",/* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "fortU1TU17U@jts.us", /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -4456,14 +4458,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU18U_TR6_DESC", value = "USR TU18U TR6 DESC")
     public final static String[][] USERS_TU18U_TR6_DESC = {
         {
-            "oamTU18User1",             /* USERID_COL */
+            "jtsTU18User1",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR1TU18U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR1TU18U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4480,14 +4482,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User2",             /* USERID_COL */
+            "jtsTU18User2",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR2TU18U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR2TU18U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4504,14 +4506,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User3",             /* USERID_COL */
+            "jtsTU18User3",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR3TU18U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR3TU18U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4528,14 +4530,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User4",             /* USERID_COL */
+            "jtsTU18User4",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR4TU18U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR4TU18U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4552,14 +4554,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User5",             /* USERID_COL */
+            "jtsTU18User5",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR5TU18U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR5TU18U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4576,14 +4578,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User6",             /* USERID_COL */
+            "jtsTU18User6",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR6TU18U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR6TU18U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4600,14 +4602,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User7",             /* USERID_COL */
+            "jtsTU18User7",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR7TU18U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR7TU18U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4624,14 +4626,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User8",             /* USERID_COL */
+            "jtsTU18User8",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR8TU18U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR8TU18U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4648,14 +4650,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User9",             /* USERID_COL */
+            "jtsTU18User9",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR9TU18U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR9TU18U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4672,14 +4674,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User10",            /* USERID_COL */
+            "jtsTU18User10",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR10TU18U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR10TU18U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4696,14 +4698,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User11",            /* USERID_COL */
+            "jtsTU18User11",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR11TU18U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR11TU18U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4720,14 +4722,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User12",            /* USERID_COL */
+            "jtsTU18User12",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR12TU18U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR12TU18U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4744,14 +4746,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User13",            /* USERID_COL */
+            "jtsTU18User13",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR13TU18U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR13TU18U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4768,14 +4770,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User14",            /* USERID_COL */
+            "jtsTU18User14",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR14TU18U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR14TU18U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4792,14 +4794,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU18User15",            /* USERID_COL */
+            "jtsTU18User15",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "mimsU15TU18U@jts.com",     /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "fortU15TU18U@jts.us",      /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4821,14 +4823,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU19U_TR7_ASC", value = "USR TU19U TR7 ASC")
     public final static String[][] USERS_TU19U_TR7_ASC = {
         {
-            "oamTU19User1",             /* USERID_COL */
+            "jtsTU19User1",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR1TU19U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR1TU19U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4845,14 +4847,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User2",             /* USERID_COL */
+            "jtsTU19User2",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR2TU19U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR2TU19U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4869,14 +4871,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User3",             /* USERID_COL */
+            "jtsTU19User3",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR3TU19U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR3TU19U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4893,14 +4895,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User4",             /* USERID_COL */
+            "jtsTU19User4",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR4TU19U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR4TU19U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4917,14 +4919,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User5",             /* USERID_COL */
+            "jtsTU19User5",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR5TU19U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR5TU19U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4941,14 +4943,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User6",             /* USERID_COL */
+            "jtsTU19User6",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR6TU19U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR6TU19U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4965,14 +4967,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User7",             /* USERID_COL */
+            "jtsTU19User7",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR7TU19U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR7TU19U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -4989,14 +4991,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User8",             /* USERID_COL */
+            "jtsTU19User8",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR8TU19U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR8TU19U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5013,14 +5015,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User9",             /* USERID_COL */
+            "jtsTU19User9",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR9TU19U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR9TU19U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5037,14 +5039,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User10",            /* USERID_COL */
+            "jtsTU19User10",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR10TU19U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR10TU19U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5061,14 +5063,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User11",            /* USERID_COL */
+            "jtsTU19User11",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR11TU19U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR11TU19U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5085,14 +5087,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User12",            /* USERID_COL */
+            "jtsTU19User12",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR12TU19U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR12TU19U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5109,14 +5111,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User13",            /* USERID_COL */
+            "jtsTU19User13",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR13TU19U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR13TU19U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5133,14 +5135,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User14",            /* USERID_COL */
+            "jtsTU19User14",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR14TU19U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR14TU19U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5157,14 +5159,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU19User15",            /* USERID_COL */
+            "jtsTU19User15",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "mimsU15TU19U@jts.com",     /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "fortU15TU19U@jts.us",      /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5186,14 +5188,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU20U_TR5B", value = "USR TU20U TR5B HIER")
     public final static String[][] USERS_TU20U_TR5B = {
         {
-            "oamTU20User1",             /* USERID_COL */
+            "jtsTU20User1",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR1TU20U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR1TU20U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5210,14 +5212,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU20User2",             /* USERID_COL */
+            "jtsTU20User2",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR2TU20U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR2TU20U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5234,14 +5236,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU20User3",             /* USERID_COL */
+            "jtsTU20User3",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR3TU20U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR3TU20U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5258,14 +5260,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU20User4",             /* USERID_COL */
+            "jtsTU20User4",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR4TU20U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR4TU20U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5282,14 +5284,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU20User5",             /* USERID_COL */
+            "jtsTU20User5",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR5TU20U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR5TU20U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5306,14 +5308,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU20User6",             /* USERID_COL */
+            "jtsTU20User6",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR6TU20U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR6TU20U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5330,14 +5332,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU20User7",             /* USERID_COL */
+            "jtsTU20User7",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR7TU20U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR7TU20U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5354,14 +5356,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU20User8",             /* USERID_COL */
+            "jtsTU20User8",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR8TU20U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR8TU20U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5378,14 +5380,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU20User9",             /* USERID_COL */
+            "jtsTU20User9",             /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR9TU20U@jtstools.com",   /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR9TU20U@jtstools.com",   /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5402,14 +5404,14 @@ public class UserTestData extends TestCase
             "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
         {
-            "oamTU20User10",            /* USERID_COL */
+            "jtsTU20User10",            /* USERID_COL */
             "passw0rd1",                /* PASSWORD_COL */
             "Test1",                    /* PW POLICY ATTR */
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR10TU20U@jtstools.com",  /* EMAIL_COL */
-            "501-111-1111",             /* PHONE_COL */
+            "USR10TU20U@jtstools.com",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
             "20091001",                 /* BDATE_COL */
@@ -5431,14 +5433,14 @@ public class UserTestData extends TestCase
     @MyAnnotation(name = "USERS_TU21_DSD_BRUNO", value = "USR TU21_DSD_BRUNO")
     final static String[][] USERS_TU21_DSD_BRUNO = {
         {
-            "oamTU21User1",       /* USERID_COL */
+            "jtsTU21User1",       /* USERID_COL */
             "passw0rd1",          /* PASSWORD_COL */
             "Test1",              /* PW POLICY ATTR */
             "Test Case TU21",     /* DESC_COL */
             "fnameoneupd",        /* CN_COL */
             "lnameoneupd",        /* SN_COL */
-            "jtsU1TU21@jts.com", /* EMAIL_COL */
-            "501-111-1111",       /* PHONE_COL */
+            "jtsU1TU21@jts.us",  /* EMAILS_COL */
+            "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
             "0000",               /* BTIME_COL */
             "0000",               /* ETIME_COL */
             "20091001",           /* BDATE_COL */
@@ -5465,8 +5467,8 @@ public class UserTestData extends TestCase
     private final static int DESC_COL = 3;
     private final static int CN_COL = 4;
     private final static int SN_COL = 5;
-    private final static int EMAIL_COL = 6;
-    private final static int PHONE_COL = 7;
+    private final static int EMAILS_COL = 6;
+    private final static int PROPS_COL = 7;
     private final static int BTIME_COL = 8;
     private final static int ETIME_COL = 9;
     private final static int BDATE_COL = 10;
@@ -5503,14 +5505,57 @@ public class UserTestData extends TestCase
         //assertAddress(usr, user.getAddress());
         assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user phones", getPhones(usr), user.getPhones());
         assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user mobiles", getMobiles(usr), user.getMobiles());
+        assertProps(usr, user.getProperties());
+        assertEmail(usr, user.getEmails());
         Constraint validConstraint = getUserConstraint(usr);
         TestUtils.assertTemporal(UserTestData.class.getName() + ".assertEquals", validConstraint, user);
+    }
+
+    /**
+     * Determine if a given User object contains its assigned email  values.
+     *
+     * @param usr expected user properties
+     * @param emails actual user emails
+     */
+    public static void assertEmail(String[] usr, List<String> emails)
+    {
+        List<String> expected = getEmails(usr);
+        if(VUtil.isNotNullOrEmpty(expected))
+        {
+            assertNotNull(UserTestData.class.getName() + ".assertEmail null for user: " + getUserId(usr), emails);
+            for(String email : expected)
+            {
+                assertTrue(UserTestData.class.getName() + ".assertEmail failed compare email for user: " + getUserId(usr) + ", expected value: " + expected, emails.contains(email));
+            }
+        }
     }
 
     public static void assertAddress(String[] usr, Address address)
     {
         Address expectedAddress = getAddress(usr);
         assertTrue(UserTestData.class.getName() + ".assertEquals failed compare user address", expectedAddress.equals(address));
+    }
+
+    /**
+     * Determine if a given User object contains its assigned properties values.
+     *
+     * @param usr expected user properties
+     * @param properties actual user properties
+     */
+    public static void assertProps(String[] usr, Properties properties)
+    {
+        Properties usrProps = getProps(usr);
+        if(usrProps != null)
+        {
+            assertNotNull(UserTestData.class.getName() + ".assertProps null for user: " + getUserId(usr), properties);
+            for (Enumeration e = properties.propertyNames(); e.hasMoreElements(); )
+            {
+                String key = (String) e.nextElement();
+                String val = usrProps.getProperty(key);
+                String uval = usrProps.getProperty(key);
+                assertEquals(UserTestData.class.getName() + ".assertProps failed compare props for user: " + getUserId(usr) + ", key: " + key + ", expected value: " + val + ", actual value: " + uval, val, uval);
+            }
+        }
     }
 
     /**
@@ -5734,6 +5779,8 @@ public class UserTestData extends TestCase
         user.setTitle(getTitle(usr));
         user.setEmployeeType(getEmployeeType(usr));
         user.setSystem(isSystem(usr));
+        user.addProperties(getProps(usr));
+        user.setEmails(getEmails(usr));
         return user;
     }
 
@@ -5755,6 +5802,29 @@ public class UserTestData extends TestCase
         return user;
     }
 
+    /**
+     *
+     * @param szInput
+     * @return
+     */
+    public static Properties getProps(String[] szInput)
+    {
+        Properties properties = null;
+        List<String> props = getList(szInput, PROPS_COL);
+        if(VUtil.isNotNullOrEmpty(props))
+        {
+            properties = new Properties();
+            for(String szRaw : props)
+            {
+                int indx = szRaw.indexOf(':');
+                if (indx >= 1)
+                {
+                    properties.setProperty(szRaw.substring(0, indx), szRaw.substring(indx + 1));
+                }
+            }
+        }
+        return properties;
+    }
 
     /**
      * @param szInput
@@ -5799,6 +5869,15 @@ public class UserTestData extends TestCase
     public static Address getAddress(String[] szInput)
     {
         return getAddress(szInput, ADDRESS_COL);
+    }
+
+    /**
+     * @param szInput
+     * @return
+     */
+    public static List<String> getEmails(String[] szInput)
+    {
+        return getList(szInput, EMAILS_COL);
     }
 
     /**

@@ -38,9 +38,9 @@ public class CommandLineInterpreter
     private ReviewMgr reviewMgr;
     private AccessMgr accessMgr;
     private DelAdminMgr delAdminMgr;
-    private DelReviewMgr delReviewMgr;
-    private DelAccessMgr delAccessMgr;
-    private PwPolicyMgr pwPolicyMgr;
+    //private DelReviewMgr delReviewMgr;
+    //private DelAccessMgr delAccessMgr;
+    //private PwPolicyMgr pwPolicyMgr;
 
     /* THESE ARE THE HIGH LEVEL COMMANDS: */
     private static final String ADMIN = "admin";
@@ -1223,9 +1223,9 @@ public class CommandLineInterpreter
             reviewMgr = ReviewMgrFactory.createInstance(contextId);
             accessMgr = AccessMgrFactory.createInstance(contextId);
             delAdminMgr = DelAdminMgrFactory.createInstance(contextId);
-            delReviewMgr = DelReviewMgrFactory.createInstance(contextId);
-            delAccessMgr = DelAccessMgrFactory.createInstance(contextId);
-            pwPolicyMgr = PwPolicyMgrFactory.createInstance(contextId);
+            //delReviewMgr = DelReviewMgrFactory.createInstance(contextId);
+            //delAccessMgr = DelAccessMgrFactory.createInstance(contextId);
+            //pwPolicyMgr = PwPolicyMgrFactory.createInstance(contextId);
             success = true;
         }
         catch (us.jts.fortress.SecurityException se)

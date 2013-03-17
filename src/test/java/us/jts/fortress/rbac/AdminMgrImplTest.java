@@ -236,6 +236,8 @@ public class AdminMgrImplTest extends TestCase
     {
         //     public User updateUser(User user)
         updateUsers("UPD USERS TU1_UPD", UserTestData.USERS_TU1_UPD);
+
+
     }
 
 

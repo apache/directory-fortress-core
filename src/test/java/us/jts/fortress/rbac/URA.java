@@ -54,8 +54,7 @@ public class URA
 
         if (!this.getUou().equalsIgnoreCase(that.getUou())) return false;
         if (!this.getUrole().equalsIgnoreCase(that.getUrole())) return false;
-        if (!this.getArole().equalsIgnoreCase(that.getArole())) return false;
-        return true;
+        return this.getArole().equalsIgnoreCase(that.getArole());
     }
 
     public String getUou()

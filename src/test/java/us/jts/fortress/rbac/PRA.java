@@ -54,8 +54,7 @@ public class PRA
 
         if (!this.getPou().equalsIgnoreCase(that.getPou())) return false;
         if (!this.getUrole().equalsIgnoreCase(that.getUrole())) return false;
-        if (!this.getArole().equalsIgnoreCase(that.getArole())) return false;
-        return true;
+        return this.getArole().equalsIgnoreCase(that.getArole());
     }
 
     public String getPou()

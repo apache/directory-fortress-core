@@ -21,7 +21,7 @@
   <packaging>jar</packaging>
   <name>Fortress Core</name>
   <version>1.0-RC23</version>
-  <description>Fortress is a standards-based Identity and Access Management SDK.  It communicates LDAPv3 protocol to directory servers or Representational state transfer over the Web.</description>
+  <description>Fortress is a standards-based Identity and Access Management SDK.</description>
   <url>http://jts.us</url>
   <licenses>
     <license>
@@ -41,7 +41,6 @@
       <email>shawn.mckinney@jts.us</email>
     </developer>
   </developers>
-
   <dependencies>
 	<dependency>
 	  <groupId>commons-lang</groupId>
@@ -83,11 +82,11 @@
 	   <artifactId>jasypt</artifactId>
 	   <version>1.8</version>
 	</dependency>
-	<dependency>
-	   <groupId>jgrapht</groupId>
-	   <artifactId>jgrapht</artifactId>
-	   <version>0.7.3</version>
-	</dependency>
+    <dependency>
+       <groupId>org.jgrapht</groupId>
+       <artifactId>jgrapht-jdk1.5</artifactId>
+       <version>0.7.3</version>
+    </dependency>
 	<dependency>
 		<groupId>net.sf.ehcache</groupId>
 		<artifactId>ehcache-core</artifactId>

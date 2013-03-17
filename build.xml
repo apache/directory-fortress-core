@@ -150,7 +150,6 @@
        <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
        <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.6.1.jar"/>
 
-
        <!-- ########### Define classpaths ########################### -->
        <path id="build.class.path">
            <pathelement location="${build.classes.dir}"/>
@@ -544,7 +543,6 @@
          <replace file="${target.slapd.conf}" token="@LOG_CHECKPOINT@" value="${log.checkpoint}"/>
          <replace file="${target.slapd.conf}" token="@DFLT_DBNOSYNCH@" value="${dflt.dbnosynch}"/>
          <replace file="${target.slapd.conf}" token="@DFLT_CHECKPOINT@" value="${dflt.checkpoint}"/>
-
          <replace file="${target.slapd.conf}" token="@DB_MODULE_NM@" value="back_${db.type}.la"/>
          <replace file="${target.slapd.conf}" token="@DB_TYPE@" value="${db.type}"/>
          <replace file="${target.slapd.conf}" token="@LOG_RDRS@" value="${log.rdrs}"/>

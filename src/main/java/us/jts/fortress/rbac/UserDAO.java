@@ -128,9 +128,16 @@ final class UserDAO extends DataProvider
     private static final String USERS_AUX_OBJECT_CLASS_NAME = "ftUserAttrs";
     private static final String ORGANIZATIONAL_PERSON_OBJECT_CLASS_NAME = "organizationalPerson";
     private static final String USER_OBJECT_CLASS = "user.objectclass";
+
+    // The Fortress User entity attributes are stored within standard LDAP object classes along with custom auxiliary object classes:
     private static final String USER_OBJ_CLASS[] = {
-       GlobalIds.TOP, Config.getProperty(USER_OBJECT_CLASS), USERS_AUX_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+       GlobalIds.TOP,
+        Config.getProperty(USER_OBJECT_CLASS),
+        USERS_AUX_OBJECT_CLASS_NAME,
+        GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
+        GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
+
     private static final String objectClassImpl = Config.getProperty(USER_OBJECT_CLASS);
     private static final String SN = "sn";
     private static final String PW = "userpassword";
@@ -197,15 +204,48 @@ final class UserDAO extends DataProvider
         GlobalIds.UID
     };
 
-    private static final String[] AUTHN_ATRS = {
-        GlobalIds.FT_IID, GlobalIds.UID, PW, GlobalIds.DESC, GlobalIds.OU, GlobalIds.CN, SN,
-        GlobalIds.CONSTRAINT, OPENLDAP_PW_RESET, OPENLDAP_PW_LOCKED_TIME, GlobalIds.PROPS
+    // This smaller result set of attributes are needed for user validation and authentication operations.
+    private static final String[] AUTHN_ATRS =
+    {
+        GlobalIds.FT_IID,
+        GlobalIds.UID, PW,
+        GlobalIds.DESC,
+        GlobalIds.OU, GlobalIds.CN,
+        SN,
+        GlobalIds.CONSTRAINT,
+        OPENLDAP_PW_RESET,
+        OPENLDAP_PW_LOCKED_TIME,
+        GlobalIds.PROPS
     };
-    private static final String[] DEFAULT_ATRS = {
-        GlobalIds.FT_IID, GlobalIds.UID, PW, GlobalIds.DESC, GlobalIds.OU, GlobalIds.CN, SN,
-        GlobalIds.USER_ROLE_DATA, GlobalIds.CONSTRAINT, GlobalIds.USER_ROLE_ASSIGN, OPENLDAP_PW_RESET,
-        OPENLDAP_PW_LOCKED_TIME, GlobalIds.PROPS, GlobalIds.USER_ADMINROLE_ASSIGN, GlobalIds.USER_ADMINROLE_DATA,
-        POSTAL_ADDRESS, L, POSTAL_CODE, POST_OFFICE_BOX, STATE, TELEPHONE_NUMBER, MOBILE, MAIL, EMPLOYEE_TYPE, TITLE, SYSTEM_USER
+
+    // This default set of attributes contains all and is used for search operations.
+    private static final String[] DEFAULT_ATRS =
+    {
+        GlobalIds.FT_IID,
+        GlobalIds.UID, PW,
+        GlobalIds.DESC,
+        GlobalIds.OU,
+        GlobalIds.CN,
+        SN,
+        GlobalIds.USER_ROLE_DATA,
+        GlobalIds.CONSTRAINT,
+        GlobalIds.USER_ROLE_ASSIGN,
+        OPENLDAP_PW_RESET,
+        OPENLDAP_PW_LOCKED_TIME,
+        GlobalIds.PROPS,
+        GlobalIds.USER_ADMINROLE_ASSIGN,
+        GlobalIds.USER_ADMINROLE_DATA,
+        POSTAL_ADDRESS,
+        L,
+        POSTAL_CODE,
+        POST_OFFICE_BOX,
+        STATE,
+        TELEPHONE_NUMBER,
+        MOBILE,
+        MAIL,
+        EMPLOYEE_TYPE,
+        TITLE,
+        SYSTEM_USER
     };
 
     private static final String[] ROLE_ATR = {
