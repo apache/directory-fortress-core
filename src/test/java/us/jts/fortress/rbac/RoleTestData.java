@@ -4,6 +4,7 @@
 
 package us.jts.fortress.rbac;
 
+import us.jts.fortress.GlobalIds;
 import us.jts.fortress.util.time.Constraint;
 import us.jts.fortress.util.attr.VUtil;
 import junit.framework.TestCase;
@@ -1033,20 +1034,20 @@ public class RoleTestData extends TestCase
     public static final Map<String, String> TR6_AUTHORIZED_USERS = new HashMap<>();
     static {
         TR6_AUTHORIZED_USERS.put("oamT6A1"       , "jtsTU18User1,jtsTU18User2,jtsTU18User3,jtsTU18User4,jtsTU18User5,jtsTU18User6,jtsTU18User7,jtsTU18User8,jtsTU18User9,jtsTU18User10,jtsTU18User11,jtsTU18User12,jtsTU18User13,jtsTU18User14,jtsTU18User15");
-        TR6_AUTHORIZED_USERS.put("jtsT6B1A1"     , "jtsTU18User2,jtsTU18User4,jtsTU18User5,jtsTU18User8,jtsTU18User9,jtsTU18User10,jtsTU18User11");
-        TR6_AUTHORIZED_USERS.put("jtsT6B2A1"     , "jtsTU18User3,jtsTU18User5,jtsTU18User6,jtsTU18User7,jtsTU18User9,jtsTU18User10,jtsTU18User11,jtsTU18User12,jtsTU18User13,jtsTU18User14,jtsTU18User15");
-        TR6_AUTHORIZED_USERS.put("jtsT6C1B1A1"   , "jtsTU18User4,jtsTU18User8,jtsTU18User9");
-        TR6_AUTHORIZED_USERS.put("jtsT6C2B1A1"   , "jtsTU18User5,jtsTU18User9,jtsTU18User10,jtsTU18User11");
-        TR6_AUTHORIZED_USERS.put("jtsT6C3B2A1"   , "jtsTU18User6,jtsTU18User12,jtsTU18User13");
-        TR6_AUTHORIZED_USERS.put("jtsT6C4B2A1"   , "jtsTU18User7,jtsTU18User13,jtsTU18User14,jtsTU18User15");
-        TR6_AUTHORIZED_USERS.put("jtsT6D1C1B1A1" , "jtsTU18User8");
-        TR6_AUTHORIZED_USERS.put("jtsT6D2C1B1A1" , "jtsTU18User9");
-        TR6_AUTHORIZED_USERS.put("jtsT6D3C2B1A1" , "jtsTU18User10");
-        TR6_AUTHORIZED_USERS.put("jtsT6D4C2B1A1" , "jtsTU18User11");
-        TR6_AUTHORIZED_USERS.put("jtsT6D5C3B2A1" , "jtsTU18User12");
-        TR6_AUTHORIZED_USERS.put("jtsT6D6C3B2A1" , "jtsTU18User13");
-        TR6_AUTHORIZED_USERS.put("jtsT6D7C4B2A1" , "jtsTU18User14");
-        TR6_AUTHORIZED_USERS.put("jtsT6D8C4B2A1" , "jtsTU18User15");
+        TR6_AUTHORIZED_USERS.put("oamT6B1A1"     , "jtsTU18User2,jtsTU18User4,jtsTU18User5,jtsTU18User8,jtsTU18User9,jtsTU18User10,jtsTU18User11");
+        TR6_AUTHORIZED_USERS.put("oamT6B2A1"     , "jtsTU18User3,jtsTU18User5,jtsTU18User6,jtsTU18User7,jtsTU18User9,jtsTU18User10,jtsTU18User11,jtsTU18User12,jtsTU18User13,jtsTU18User14,jtsTU18User15");
+        TR6_AUTHORIZED_USERS.put("oamT6C1B1A1"   , "jtsTU18User4,jtsTU18User8,jtsTU18User9");
+        TR6_AUTHORIZED_USERS.put("oamT6C2B1A1"   , "jtsTU18User5,jtsTU18User9,jtsTU18User10,jtsTU18User11");
+        TR6_AUTHORIZED_USERS.put("oamT6C3B2A1"   , "jtsTU18User6,jtsTU18User12,jtsTU18User13");
+        TR6_AUTHORIZED_USERS.put("oamT6C4B2A1"   , "jtsTU18User7,jtsTU18User13,jtsTU18User14,jtsTU18User15");
+        TR6_AUTHORIZED_USERS.put("oamT6D1C1B1A1" , "jtsTU18User8");
+        TR6_AUTHORIZED_USERS.put("oamT6D2C1B1A1" , "jtsTU18User9");
+        TR6_AUTHORIZED_USERS.put("oamT6D3C2B1A1" , "jtsTU18User10");
+        TR6_AUTHORIZED_USERS.put("oamT6D4C2B1A1" , "jtsTU18User11");
+        TR6_AUTHORIZED_USERS.put("oamT6D5C3B2A1" , "jtsTU18User12");
+        TR6_AUTHORIZED_USERS.put("oamT6D6C3B2A1" , "jtsTU18User13");
+        TR6_AUTHORIZED_USERS.put("oamT6D7C4B2A1" , "jtsTU18User14");
+        TR6_AUTHORIZED_USERS.put("oamT6D8C4B2A1" , "jtsTU18User15");
     }
 
     public final static String[][] ROLES_TR7_ASC = {
@@ -1267,21 +1268,21 @@ public class RoleTestData extends TestCase
 
     public static final Map<String, String> TR7_AUTHORIZED_USERS = new HashMap<>();
     static {
-        TR6_AUTHORIZED_USERS.put("jtsT7A1"       , "jtsTU19User1,jtsTU19User2,jtsTU19User3,jtsTU19User4,jtsTU19User5,jtsTU19User6,jtsTU19User7,jtsTU19User8,jtsTU19User9,jtsTU19User10,jtsTU19User11,jtsTU19User12,jtsTU19User13,jtsTU19User14,jtsTU19User15");
-        TR6_AUTHORIZED_USERS.put("jtsT7B1A1"     , "jtsTU19User2,jtsTU19User4,jtsTU19User5,jtsTU19User8,jtsTU19User9,jtsTU19User10,jtsTU19User11");
-        TR6_AUTHORIZED_USERS.put("jtsT7B2A1"     , "jtsTU19User3,jtsTU19User5,jtsTU19User6,jtsTU19User7,jtsTU19User9,jtsTU19User10,jtsTU19User11,jtsTU19User12,jtsTU19User13,jtsTU19User14,jtsTU19User15");
-        TR6_AUTHORIZED_USERS.put("jtsT7C1B1A1"   , "jtsTU19User4,jtsTU19User8,jtsTU19User9");
-        TR6_AUTHORIZED_USERS.put("jtsT7C2B1A1"   , "jtsTU19User5,jtsTU19User9,jtsTU19User10,jtsTU19User11");
-        TR6_AUTHORIZED_USERS.put("jtsT7C3B2A1"   , "jtsTU19User6,jtsTU19User12,jtsTU19User13");
-        TR6_AUTHORIZED_USERS.put("jtsT7C4B2A1"   , "jtsTU19User7,jtsTU19User13,jtsTU19User14,jtsTU19User15");
-        TR6_AUTHORIZED_USERS.put("jtsT7D1C1B1A1" , "jtsTU19User8");
-        TR6_AUTHORIZED_USERS.put("jtsT7D2C1B1A1" , "jtsTU19User9");
-        TR6_AUTHORIZED_USERS.put("jtsT7D3C2B1A1" , "jtsTU19User10");
-        TR6_AUTHORIZED_USERS.put("jtsT7D4C2B1A1" , "jtsTU19User11");
-        TR6_AUTHORIZED_USERS.put("jtsT7D5C3B2A1" , "jtsTU19User12");
-        TR6_AUTHORIZED_USERS.put("jtsT7D6C3B2A1" , "jtsTU19User13");
-        TR6_AUTHORIZED_USERS.put("jtsT7D7C4B2A1" , "jtsTU19User14");
-        TR6_AUTHORIZED_USERS.put("jtsT7D8C4B2A1" , "jtsTU19User15");
+        TR6_AUTHORIZED_USERS.put("oamT7A1"       , "jtsTU19User1,jtsTU19User2,jtsTU19User3,jtsTU19User4,jtsTU19User5,jtsTU19User6,jtsTU19User7,jtsTU19User8,jtsTU19User9,jtsTU19User10,jtsTU19User11,jtsTU19User12,jtsTU19User13,jtsTU19User14,jtsTU19User15");
+        TR6_AUTHORIZED_USERS.put("oamT7B1A1"     , "jtsTU19User2,jtsTU19User4,jtsTU19User5,jtsTU19User8,jtsTU19User9,jtsTU19User10,jtsTU19User11");
+        TR6_AUTHORIZED_USERS.put("oamT7B2A1"     , "jtsTU19User3,jtsTU19User5,jtsTU19User6,jtsTU19User7,jtsTU19User9,jtsTU19User10,jtsTU19User11,jtsTU19User12,jtsTU19User13,jtsTU19User14,jtsTU19User15");
+        TR6_AUTHORIZED_USERS.put("oamT7C1B1A1"   , "jtsTU19User4,jtsTU19User8,jtsTU19User9");
+        TR6_AUTHORIZED_USERS.put("oamT7C2B1A1"   , "jtsTU19User5,jtsTU19User9,jtsTU19User10,jtsTU19User11");
+        TR6_AUTHORIZED_USERS.put("oamT7C3B2A1"   , "jtsTU19User6,jtsTU19User12,jtsTU19User13");
+        TR6_AUTHORIZED_USERS.put("oamT7C4B2A1"   , "jtsTU19User7,jtsTU19User13,jtsTU19User14,jtsTU19User15");
+        TR6_AUTHORIZED_USERS.put("oamT7D1C1B1A1" , "jtsTU19User8");
+        TR6_AUTHORIZED_USERS.put("oamT7D2C1B1A1" , "jtsTU19User9");
+        TR6_AUTHORIZED_USERS.put("oamT7D3C2B1A1" , "jtsTU19User10");
+        TR6_AUTHORIZED_USERS.put("oamT7D4C2B1A1" , "jtsTU19User11");
+        TR6_AUTHORIZED_USERS.put("oamT7D5C3B2A1" , "jtsTU19User12");
+        TR6_AUTHORIZED_USERS.put("oamT7D6C3B2A1" , "jtsTU19User13");
+        TR6_AUTHORIZED_USERS.put("oamT7D7C4B2A1" , "jtsTU19User14");
+        TR6_AUTHORIZED_USERS.put("oamT7D8C4B2A1" , "jtsTU19User15");
     }
 
     final static String[][] ROLES_TR8_SSD = {
@@ -3201,7 +3202,7 @@ public class RoleTestData extends TestCase
         Set<String> parents = new HashSet<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[RELATIONSHIP_COL]))
         {
-            StringTokenizer charSetTkn = new StringTokenizer(rle[RELATIONSHIP_COL], ",");
+            StringTokenizer charSetTkn = new StringTokenizer(rle[RELATIONSHIP_COL], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)
             {
                 while (charSetTkn.hasMoreTokens())
@@ -3220,7 +3221,7 @@ public class RoleTestData extends TestCase
         List<String> parents = new ArrayList<>();
         if(VUtil.isNotNullOrEmpty(rle[RELATIONSHIP_COL]))
         {
-            StringTokenizer charSetTkn = new StringTokenizer(rle[RELATIONSHIP_COL], ",");
+            StringTokenizer charSetTkn = new StringTokenizer(rle[RELATIONSHIP_COL], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)
             {
                 while (charSetTkn.hasMoreTokens())
@@ -3244,7 +3245,7 @@ public class RoleTestData extends TestCase
         Set<String> rels = new HashSet<>();
         if(VUtil.isNotNullOrEmpty(rle[INHERITANCE_COL]))
         {
-            StringTokenizer charSetTkn = new StringTokenizer(rle[INHERITANCE_COL], ",");
+            StringTokenizer charSetTkn = new StringTokenizer(rle[INHERITANCE_COL], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)
             {
                 while (charSetTkn.hasMoreTokens())
@@ -3380,7 +3381,7 @@ public class RoleTestData extends TestCase
         Set<String> mems = new HashSet<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[MEMBERS]))
         {
-            StringTokenizer charSetTkn = new StringTokenizer(rle[MEMBERS], ",");
+            StringTokenizer charSetTkn = new StringTokenizer(rle[MEMBERS], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)
             {
                 while (charSetTkn.hasMoreTokens())
@@ -3404,7 +3405,7 @@ public class RoleTestData extends TestCase
         Map<String, String> mems = new HashMap<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[MEMBERS]))
         {
-            StringTokenizer charSetTkn = new StringTokenizer(rle[MEMBERS], ",");
+            StringTokenizer charSetTkn = new StringTokenizer(rle[MEMBERS], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)
             {
                 while (charSetTkn.hasMoreTokens())

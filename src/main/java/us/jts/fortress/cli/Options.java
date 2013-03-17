@@ -3,6 +3,7 @@
  */
 package us.jts.fortress.cli;
 
+import us.jts.fortress.GlobalIds;
 import us.jts.fortress.rbac.AdminRole;
 import us.jts.fortress.rbac.OrgUnit;
 import us.jts.fortress.rbac.Relationship;
@@ -287,7 +288,7 @@ public class Options implements java.io.Serializable
             for (Object raw : fractionValues)
             {
                 String szRaw = (String) raw;
-                int indx = szRaw.indexOf(':');
+                int indx = szRaw.indexOf(GlobalIds.PROP_SEP);
                 if (indx >= 1)
                 {
                     user.addProperty(szRaw.substring(0, indx), szRaw.substring(indx + 1));
@@ -304,7 +305,7 @@ public class Options implements java.io.Serializable
             for (Object raw : fractionValues)
             {
                 String szRaw = (String) raw;
-                int indx = szRaw.indexOf(':');
+                int indx = szRaw.indexOf(GlobalIds.PROP_SEP);
                 if (indx >= 1)
                 {
                     permObj.addProperty(szRaw.substring(0, indx), szRaw.substring(indx + 1));
@@ -321,7 +322,7 @@ public class Options implements java.io.Serializable
             for (Object raw : fractionValues)
             {
                 String szRaw = (String) raw;
-                int indx = szRaw.indexOf(':');
+                int indx = szRaw.indexOf(GlobalIds.PROP_SEP);
                 if (indx >= 1)
                 {
                     perm.addProperty(szRaw.substring(0, indx), szRaw.substring(indx + 1));

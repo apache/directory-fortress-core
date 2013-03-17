@@ -499,9 +499,15 @@ public class GlobalIds
 
     /**
      * Fortress stores name-value pairs within multi-occurring attributes in ldap.  Usually a separator of ':' is used
-     * format: {@code name:value}
+     * format: {@code name:value},
      */
     public final static char PROP_SEP = ':';
+
+    /**
+     * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
+     * format: {@code part1$part2$part3....  Stored in fortress.properties as 'attr.delimiter=$'
+     */
+    public static final String DELIMITER = Config.getProperty("attr.delimiter", "$");
 
     /**
      * Maximum number of records for ldap client to wait on while processing results sets from ldap server.
@@ -518,8 +524,6 @@ public class GlobalIds
      * Attribute is used in Fortress day mask constraints as default which will always pass.  i.e. values stored as dayMask=all will always pass the day of week constraint.
      */
     public static final String ALL = "all";
-    public static final String COMMA = ",";
-    public static final char COLON = ':';
     public static final String NULL = "null";
     public static final String POP_NAME = "ftOpNm";
 }

@@ -1047,7 +1047,7 @@ class AdminMgrConsole
                 v = edge.toString();
                 //Max : Super
                 //getAscendants V <Super)>
-                int indx = v.indexOf(':');
+                int indx = v.indexOf(GlobalIds.PROP_SEP);
                 int indx2 = v.indexOf(')');
                 if (indx >= 0)
                 {

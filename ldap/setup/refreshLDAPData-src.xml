@@ -73,6 +73,8 @@
                 <config props="adminrole.root:ou=AdminRoles,ou=ARBAC,@SUFFIX@"/>
                 <config props="adminperm.root:ou=AdminPerms,ou=ARBAC,@SUFFIX@"/>
                 <config props="example.root:ou=Examples,@SUFFIX@"/>
+                <!--config props="accessmgr.implementation:us.jts.fortress.rbac.AccessMgrImpl"/-->
+                <!--config props="auditmgr.implementation:us.jts.fortress.audit.AuditMgrImpl"/-->
                 <config props="audit.root:cn=log"/>
                 <config props="superadmin.role:oamSuperAdmin"/>
                 <config props="temporal.validator.0:us.jts.fortress.util.time.Date"/>
@@ -82,10 +84,8 @@
                 <config props="temporal.validator.4:us.jts.fortress.util.time.Day"/>
                 <config props="temporal.validator.dsd:us.jts.fortress.rbac.DSDChecker"/>
                 <config props="user.objectclass:inetOrgPerson"/>
-                <!--config props="accessmgr.implementation:us.jts.fortress.rbac.AccessMgrImpl"/-->
-                <!--config props="auditmgr.implementation:us.jts.fortress.audit.AuditMgrImpl"/-->
+                <config props="attr.delimiter:$"/>
                 <config props="field.length:130"/>
-
                 <config props="ldap.filter.size:15"/>
                 <config props="ldap.filter.1:!"/>
                 <config props="ldap.sub.1:21"/>
@@ -147,8 +147,8 @@
                 <config props="accessmgr.implementation:us.jts.fortress.rbac.AccessMgrImpl"/>
                 <config props="auditmgr.implementation:us.jts.fortress.rbac.AuditMgrImpl"/>
                 <config props="user.objectclass:inetOrgPerson"/>
+                <config props="attr.delimiter:$"/>
                 <config props="field.length:130"/>
-
                 <config props="ldap.filter.size:15"/>
                 <config props="ldap.filter.1:!"/>
                 <config props="ldap.sub.1:21"/>

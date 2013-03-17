@@ -1830,7 +1830,7 @@ public class FortressAntTask extends Task implements InputHandler
                 {
                     log.info(CLS_NM + ".addConfig");
                     String val = cfg.getProps();
-                    int indx = val.indexOf(':');
+                    int indx = val.indexOf(GlobalIds.PROP_SEP);
                     if (indx >= 1)
                     {
                         String name = val.substring(0, indx);
@@ -1887,7 +1887,7 @@ public class FortressAntTask extends Task implements InputHandler
                 for (ConfigAnt cfg : cfgs)
                 {
                     String val = cfg.getProps();
-                    int indx = val.indexOf(':');
+                    int indx = val.indexOf(GlobalIds.PROP_SEP);
                     if (indx >= 1)
                     {
                         String name = val.substring(0, indx);
@@ -1919,7 +1919,7 @@ public class FortressAntTask extends Task implements InputHandler
                 while (maxTkn.hasMoreTokens())
                 {
                     String val = maxTkn.nextToken();
-                    int indx = val.indexOf(GlobalIds.COLON);
+                    int indx = val.indexOf(GlobalIds.PROP_SEP);
                     if (indx >= 1)
                     {
                         String name = val.substring(0, indx);

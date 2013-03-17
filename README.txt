@@ -1,8 +1,8 @@
 ___________________________________________________________________________________
 ###################################################################################
 README for Fortress Identity and Access Management SDK
-Version 1.0.0.rc9
-last updated: April 22, 2012
+Version 1.0.0.rc24
+last updated: March 17, 2013
 
 This document contains instructions to download, compile, test and use the
 Fortress Identity and Access Management system.
@@ -19,7 +19,7 @@ NOTE: The Fortress build.xml may run without connection to Internet iff:
 - Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties:
 local.mode=true
 
-2. Java SDK Version 6 or beyond installed to target environment
+2. Java SDK Version 7 or beyond installed to target environment
 3. Apache Ant 1.8 or beyond installed to target environment
 4. OpenLDAP installed to target system.  (options follow in section 1)
 5. GIT installed to target environment. (Fortress developers only)

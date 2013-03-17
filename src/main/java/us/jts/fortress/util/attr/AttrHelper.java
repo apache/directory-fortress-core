@@ -65,7 +65,7 @@ public class AttrHelper
             for (String raw : propList)
             {
 
-                int indx = raw.indexOf(GlobalIds.COLON);
+                int indx = raw.indexOf(GlobalIds.PROP_SEP);
                 if (indx >= 1)
                 {
                     props.setProperty(raw.substring(0, indx), raw.substring(indx + 1));
@@ -86,13 +86,13 @@ public class AttrHelper
         Properties props = new Properties();
         if (inputString != null && inputString.length() > 0)
         {
-            StringTokenizer maxTkn = new StringTokenizer(inputString, GlobalIds.COMMA);
+            StringTokenizer maxTkn = new StringTokenizer(inputString, GlobalIds.DELIMITER);
             if (maxTkn.countTokens() > 0)
             {
                 while (maxTkn.hasMoreTokens())
                 {
                     String val = maxTkn.nextToken();
-                    int indx = val.indexOf(GlobalIds.COLON);
+                    int indx = val.indexOf(GlobalIds.PROP_SEP);
                     if (indx >= 1)
                     {
                         String name = val.substring(0, indx);

@@ -25,6 +25,12 @@ import org.apache.log4j.Logger;
 public class TestUtils extends TestCase
 {
     final protected static Logger log = Logger.getLogger(TestUtils.class.getName());
+    /**
+     * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of ',' is used for string tokenization.
+     * format: {@code name:value}
+     */
+    public static final String DELIMITER_TEST_DATA = ",";
+
 
     private static String contextId = GlobalIds.HOME;
     public static String getContext()
@@ -197,7 +203,7 @@ public class TestUtils extends TestCase
         {
             if (VUtil.isNotNullOrEmpty(szInput))
             {
-                StringTokenizer charSetTkn = new StringTokenizer(szInput, ",");
+                StringTokenizer charSetTkn = new StringTokenizer(szInput, TestUtils.DELIMITER_TEST_DATA);
                 if (charSetTkn.countTokens() > 0)
                 {
                     while (charSetTkn.hasMoreTokens())

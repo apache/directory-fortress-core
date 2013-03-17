@@ -120,7 +120,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
     {
         if (szRawData != null && szRawData.length() > 0)
         {
-            StringTokenizer tkn = new StringTokenizer(szRawData, GlobalIds.COMMA);
+            StringTokenizer tkn = new StringTokenizer(szRawData, GlobalIds.DELIMITER);
             if (tkn.countTokens() > 0)
             {
                 int count = tkn.countTokens();
@@ -173,27 +173,27 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
         String szRole;
         StringBuilder sb = new StringBuilder();
         sb.append(this.getName());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         sb.append(this.getTimeout());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getBeginTime() != null)
             sb.append(this.getBeginTime());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getEndTime() != null)
             sb.append(this.getEndTime());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getBeginDate() != null)
             sb.append(this.getBeginDate());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getEndDate() != null)
             sb.append(this.getEndDate());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getBeginLockDate() != null)
             sb.append(this.getBeginLockDate());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getEndLockDate() != null)
             sb.append(this.getEndLockDate());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getDayMask() != null)
             sb.append(this.getDayMask());
         szRole = sb.toString();

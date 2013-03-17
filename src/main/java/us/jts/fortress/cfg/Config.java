@@ -179,6 +179,56 @@ public class Config
 
 
     /**
+     * Gets the prop attribute as char value from the apache commons cfg component.
+     *
+     * @param name contains the name of the property.
+     * @return contains the value associated with the property or 0 if not not found.
+     */
+    public static char getChar(String name)
+    {
+        char value = 0;
+        if (config != null)
+        {
+            value = (char) config.getProperty(name);
+            if (log.isDebugEnabled())
+                log.debug(CLS_NM + ".getChar name [" + name + "] value [" + value + "]");
+        }
+        else
+        {
+            String error = CLS_NM + ".getChar invalid config, can't read prop [" + name + "]";
+            log.fatal(error);
+        }
+        return value;
+    }
+
+    /**
+     * Get the property value from the apache commons config but specify a default value if not found.
+     *
+     * @param name         contains the name of the property.
+     * @param defaultValue specified by client will be returned if property value is not found.
+     * @return contains the value for the property as a char.
+     */
+    public static char getChar(String name, char defaultValue)
+    {
+        char value = 0;
+        if (config != null)
+        {
+            value = (char) config.getProperty(name);
+        }
+        else
+        {
+            String warn = CLS_NM + ".getChar invalid config, can't read prop [" + name + "]";
+            log.warn(warn);
+        }
+        if (value == 0)
+        {
+            value = defaultValue;
+        }
+        return value;
+    }
+
+
+    /**
      * Gets the int attribute of the Config class, or 0 if not found.
      *
      * @param key name of the property name.

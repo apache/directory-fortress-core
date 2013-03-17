@@ -74,6 +74,15 @@ public class UserAdminRole extends UserRole implements Administrator
     @XmlElement(nillable = true)
     private Set<String> parents;
 
+    // Used for formatting raw data:
+    private static String P = "P";
+    private static String U = "U";
+    private static String R = "R";
+    private static String LEFT_PAREN = "(";
+    private static String RIGHT_PAREN = ")";
+    private static String LEFT_BRACKET = "[";
+    private static String RIGHT_BRACKET = "]";
+
     /**
      * Default constructor is used by internal Fortress classes.
      */
@@ -116,7 +125,7 @@ public class UserAdminRole extends UserRole implements Administrator
     {
         if (szRawData != null && szRawData.length() > 0)
         {
-            StringTokenizer tkn = new StringTokenizer(szRawData, GlobalIds.COMMA);
+            StringTokenizer tkn = new StringTokenizer(szRawData, GlobalIds.DELIMITER);
             if (tkn.countTokens() > 0)
             {
                 int count = tkn.countTokens();
@@ -154,19 +163,19 @@ public class UserAdminRole extends UserRole implements Administrator
                             break;
                         default:
                             String szValue = tkn.nextToken();
-                            int indx = szValue.indexOf("P:");
+                            int indx = szValue.indexOf(P + GlobalIds.PROP_SEP);
                             if (indx >= 0)
                             {
                                 String szOsP = szValue.substring(indx + 2);
                                 this.setOsP(szOsP);
                             }
-                            indx = szValue.indexOf("U:");
+                            indx = szValue.indexOf(U + GlobalIds.PROP_SEP);
                             if (indx >= 0)
                             {
                                 String szOsU = szValue.substring(indx + 2);
                                 this.setOsU(szOsU);
                             }
-                            indx = szValue.indexOf("R:");
+                            indx = szValue.indexOf(R + GlobalIds.PROP_SEP);
                             if (indx >= 0)
                             {
                                 String szRangeRaw = szValue.substring(indx + 2);
@@ -194,34 +203,36 @@ public class UserAdminRole extends UserRole implements Administrator
         String szRole;
         StringBuilder sb = new StringBuilder();
         sb.append(this.getName());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         sb.append(this.getTimeout());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getBeginTime() != null)
             sb.append(this.getBeginTime());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getEndTime() != null)
             sb.append(this.getEndTime());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getBeginDate() != null)
             sb.append(this.getBeginDate());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getEndDate() != null)
             sb.append(this.getEndDate());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getBeginLockDate() != null)
             sb.append(this.getBeginLockDate());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getEndLockDate() != null)
             sb.append(this.getEndLockDate());
-        sb.append(GlobalIds.COMMA);
+        sb.append(GlobalIds.DELIMITER);
         if (this.getDayMask() != null)
             sb.append(this.getDayMask());
         if (this.getOsU() != null)
         {
             for (String org : this.getOsU())
             {
-                sb.append(",U:");
+                sb.append(GlobalIds.DELIMITER);
+                sb.append(U);
+                sb.append(GlobalIds.PROP_SEP);
                 sb.append(org);
             }
         }
@@ -229,13 +240,17 @@ public class UserAdminRole extends UserRole implements Administrator
         {
             for (String org : this.getOsP())
             {
-                sb.append(",P:");
+                sb.append(GlobalIds.DELIMITER);
+                sb.append(P);
+                sb.append(GlobalIds.PROP_SEP);
                 sb.append(org);
             }
         }
         if (this.getRoleRangeRaw() != null)
         {
-            sb.append(",R:");
+            sb.append(GlobalIds.DELIMITER);
+            sb.append(R);
+            sb.append(GlobalIds.PROP_SEP);
             sb.append(this.getRoleRangeRaw());
         }
 
@@ -255,27 +270,27 @@ public class UserAdminRole extends UserRole implements Administrator
     {
         if (us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(szRaw))
         {
-            int bindx = szRaw.indexOf("(");
+            int bindx = szRaw.indexOf(LEFT_PAREN);
             if (bindx > -1)
             {
                 this.setBeginInclusive(false);
             }
             else
             {
-                bindx = szRaw.indexOf("[");
+                bindx = szRaw.indexOf(LEFT_BRACKET);
                 this.setBeginInclusive(true);
             }
-            int eindx = szRaw.indexOf(")");
+            int eindx = szRaw.indexOf(RIGHT_PAREN);
             if (eindx > -1)
             {
                 this.setEndInclusive(false);
             }
             else
             {
-                eindx = szRaw.indexOf("]");
+                eindx = szRaw.indexOf(RIGHT_BRACKET);
                 this.setEndInclusive(true);
             }
-            int cindx = szRaw.indexOf(":");
+            int cindx = szRaw.indexOf(GlobalIds.PROP_SEP);
             if (cindx > -1)
             {
                 String szBeginRange = szRaw.substring(bindx + 1, cindx);
@@ -300,16 +315,16 @@ public class UserAdminRole extends UserRole implements Administrator
         if (this.beginRange != null)
         {
             if (this.isBeginInclusive())
-                szRaw += "[";
+                szRaw += LEFT_BRACKET;
             else
-                szRaw += "(";
+                szRaw += LEFT_PAREN;
             szRaw += this.getBeginRange();
-            szRaw += ":";
+            szRaw += GlobalIds.PROP_SEP;
             szRaw += this.getEndRange();
             if (this.isEndInclusive())
-                szRaw += "]";
+                szRaw += RIGHT_BRACKET;
             else
-                szRaw += ")";
+                szRaw += RIGHT_PAREN;
         }
         return szRaw;
     }

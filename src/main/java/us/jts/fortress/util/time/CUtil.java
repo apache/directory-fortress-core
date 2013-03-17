@@ -55,7 +55,7 @@ public class CUtil
     {
         if(VUtil.isNotNullOrEmpty(inputString))
         {
-            StringTokenizer tkn = new StringTokenizer(inputString, GlobalIds.COMMA);
+            StringTokenizer tkn = new StringTokenizer(inputString, GlobalIds.DELIMITER);
             if (tkn.countTokens() > 0)
             {
                 int count = tkn.countTokens();
@@ -112,28 +112,28 @@ public class CUtil
         {
             StringBuilder sb = new StringBuilder();
             sb.append(constraint.getName());
-            sb.append(GlobalIds.COMMA);
+            sb.append(GlobalIds.DELIMITER);
             if(constraint.getTimeout() != null)
                 sb.append(constraint.getTimeout());
-            sb.append(",");
+            sb.append(GlobalIds.DELIMITER);
             if (constraint.getBeginTime() != null)
                 sb.append(constraint.getBeginTime());
-            sb.append(",");
+            sb.append(GlobalIds.DELIMITER);
             if (constraint.getEndTime() != null)
                 sb.append(constraint.getEndTime());
-            sb.append(",");
+            sb.append(GlobalIds.DELIMITER);
             if (constraint.getBeginDate() != null)
                 sb.append(constraint.getBeginDate());
-            sb.append(",");
+            sb.append(GlobalIds.DELIMITER);
             if (constraint.getEndDate() != null)
                 sb.append(constraint.getEndDate());
-            sb.append(",");
+            sb.append(GlobalIds.DELIMITER);
             if (constraint.getBeginLockDate() != null)
                 sb.append(constraint.getBeginLockDate());
-            sb.append(",");
+            sb.append(GlobalIds.DELIMITER);
             if (constraint.getEndLockDate() != null)
                 sb.append(constraint.getEndLockDate());
-            sb.append(",");
+            sb.append(GlobalIds.DELIMITER);
             if (constraint.getDayMask() != null)
                 sb.append(constraint.getDayMask());
             szConstraint = sb.toString();

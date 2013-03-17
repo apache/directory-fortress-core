@@ -651,6 +651,7 @@ class ProcessMenuCommand
 		catch (Exception e)
 		{
 			log.fatal("Exception caught in processAccessFunction = " + e);
+            e.printStackTrace();
 		}
 	}
 

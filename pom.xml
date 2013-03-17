@@ -20,7 +20,7 @@
   <artifactId>fortress</artifactId>
   <packaging>jar</packaging>
   <name>Fortress Core</name>
-  <version>1.0-RC23</version>
+  <version>1.0-RC24</version>
   <description>Fortress is a standards-based Identity and Access Management SDK.</description>
   <url>http://jts.us</url>
   <licenses>
@@ -90,7 +90,7 @@
 	<dependency>
 		<groupId>net.sf.ehcache</groupId>
 		<artifactId>ehcache-core</artifactId>
-		<version>2.5.1</version>
+		<version>2.6.5</version>
 	</dependency>
 	<dependency>
 		<groupId>org.slf4j</groupId>

@@ -23,19 +23,13 @@ max.admin.conn=@ADM_MAX_CONN@
 # This min/max settings for read/write access to LDAP slapd access log entries:
 min.log.conn=@LOG_MIN_CONN@
 max.log.conn=@LOG_MAX_CONN@
-
 # enable this to see trace statements when connection pool allocates new connections:
 debug.ldap.pool=true
-
 # Default for pool reconnect flag is false:
 enable.pool.reconnect=true
-
 authn.type=default
 #authNType=realm
-
 password.policy=openldap
-
-clientside.sorting=true
 
 # Define the high-level structure of LDAP DIT:
 suffix=@SUFFIX@
@@ -137,5 +131,6 @@ ldap.sub.15=7e
 
 user.objectclass=inetOrgPerson
 crypto.prop=@CFG_CRYPTO_PROP@
-
 enable.audit=true
+clientside.sorting=true
+attr.delimiter=$

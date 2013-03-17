@@ -3,6 +3,7 @@
  */
 package us.jts.fortress.rbac;
 
+import us.jts.fortress.GlobalIds;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.Constraint;
 import junit.framework.TestCase;
@@ -5816,7 +5817,7 @@ public class UserTestData extends TestCase
             properties = new Properties();
             for(String szRaw : props)
             {
-                int indx = szRaw.indexOf(':');
+                int indx = szRaw.indexOf(GlobalIds.PROP_SEP);
                 if (indx >= 1)
                 {
                     properties.setProperty(szRaw.substring(0, indx), szRaw.substring(indx + 1));
@@ -5893,7 +5894,7 @@ public class UserTestData extends TestCase
             if (VUtil.isNotNullOrEmpty(szInput[col]))
             {
                 address = new Address();
-                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], ",");
+                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], TestUtils.DELIMITER_TEST_DATA);
                 if (charSetTkn.countTokens() > 0)
                 {
                     int count = 0;
@@ -5938,7 +5939,7 @@ public class UserTestData extends TestCase
         {
             if (VUtil.isNotNullOrEmpty(szInput[col]))
             {
-                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], ",");
+                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], TestUtils.DELIMITER_TEST_DATA);
                 if (charSetTkn.countTokens() > 0)
                 {
                     while (charSetTkn.hasMoreTokens())
@@ -5969,7 +5970,7 @@ public class UserTestData extends TestCase
         {
             if (VUtil.isNotNullOrEmpty(szInput[col]))
             {
-                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], ",");
+                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], TestUtils.DELIMITER_TEST_DATA);
                 if (charSetTkn.countTokens() > 0)
                 {
                     while (charSetTkn.hasMoreTokens())

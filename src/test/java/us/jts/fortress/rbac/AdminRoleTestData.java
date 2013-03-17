@@ -4,6 +4,7 @@
 
 package us.jts.fortress.rbac;
 
+import us.jts.fortress.GlobalIds;
 import us.jts.fortress.util.attr.VUtil;
 import junit.framework.TestCase;
 import org.apache.log4j.Logger;
@@ -879,7 +880,7 @@ class AdminRoleTestData extends TestCase
         Set<String> members = new HashSet<>();
         if(VUtil.isNotNullOrEmpty(rle[OSU]))
         {
-            StringTokenizer charSetTkn = new StringTokenizer(rle[OSU], ",");
+            StringTokenizer charSetTkn = new StringTokenizer(rle[OSU], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)
             {
                 while (charSetTkn.hasMoreTokens())
@@ -897,7 +898,7 @@ class AdminRoleTestData extends TestCase
         Set<String> members = new HashSet<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[OSP]))
         {
-            StringTokenizer charSetTkn = new StringTokenizer(rle[OSP], ",");
+            StringTokenizer charSetTkn = new StringTokenizer(rle[OSP], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)
             {
                 while (charSetTkn.hasMoreTokens())

@@ -4,6 +4,7 @@
 
 package us.jts.fortress.rbac;
 
+import us.jts.fortress.GlobalIds;
 import us.jts.fortress.util.attr.VUtil;
 import junit.framework.TestCase;
 import org.apache.log4j.Logger;
@@ -811,7 +812,7 @@ public class OrgUnitTestData extends TestCase
         if(VUtil.isNotNullOrEmpty(ole[RELATIONSHIP_COL]))
         {
             parents = new HashSet<>();
-            StringTokenizer charSetTkn = new StringTokenizer(ole[RELATIONSHIP_COL], ",");
+            StringTokenizer charSetTkn = new StringTokenizer(ole[RELATIONSHIP_COL], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)
             {
                 while (charSetTkn.hasMoreTokens())
@@ -835,7 +836,7 @@ public class OrgUnitTestData extends TestCase
         List<String> parents = new ArrayList<>();
         if(VUtil.isNotNullOrEmpty(ole[RELATIONSHIP_COL]))
         {
-            StringTokenizer charSetTkn = new StringTokenizer(ole[RELATIONSHIP_COL], ",");
+            StringTokenizer charSetTkn = new StringTokenizer(ole[RELATIONSHIP_COL], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)
             {
                 while (charSetTkn.hasMoreTokens())
@@ -859,7 +860,7 @@ public class OrgUnitTestData extends TestCase
         Set<String> rels = new HashSet<>();
         if(us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(ole[INHERITANCE_COL]))
         {
-            StringTokenizer charSetTkn = new StringTokenizer(ole[INHERITANCE_COL], ",");
+            StringTokenizer charSetTkn = new StringTokenizer(ole[INHERITANCE_COL], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)
             {
                 while (charSetTkn.hasMoreTokens())
