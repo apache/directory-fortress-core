@@ -14,7 +14,7 @@
     <property name="ldapjdk.jar" value="${lib.dir}/unboundid-ldapsdk-2.1.0.jar"/>
     <property name="jgrapht.jar" value="${lib.dir}/jgrapht-jdk1.5-0.7.3.jar"/>
     <property name="jasypt.jar" value="${lib.dir}/jasypt-1.8.jar"/>
-    <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.5.1.jar"/>
+    <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.5.jar"/>
     <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
     <property name="commons-configuration.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
     <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>

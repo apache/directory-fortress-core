@@ -17,7 +17,7 @@
     <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
     <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
     <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
-    <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.5.1.jar"/>
+    <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.5.jar"/>
     <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
     <taskdef classname="us.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
     	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${ehcache-core.jar}:${slf4j-api.jar}"/>

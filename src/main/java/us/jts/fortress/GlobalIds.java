@@ -505,7 +505,7 @@ public class GlobalIds
 
     /**
      * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
-     * format: {@code part1$part2$part3....  Stored in fortress.properties as 'attr.delimiter=$'
+     * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
      */
     public static final String DELIMITER = Config.getProperty("attr.delimiter", "$");
 
