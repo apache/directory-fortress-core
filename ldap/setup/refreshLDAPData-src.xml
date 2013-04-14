@@ -2,7 +2,7 @@
 <!--
   ~ Copyright (c) 2009-2013. Joshua Tree Software, LLC.  All Rights Reserved.
   -->
-<project basedir="." default="all" name="Fortress Sample Data">
+<project basedir="." default="all" name="Fortress Properties">
 <!--    <property name="version" value="1.0-RC18"/>-->
     <property name="version" value="${version}"/>
     <property name="home.dir" value = "../../" />

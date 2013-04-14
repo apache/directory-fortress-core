@@ -484,7 +484,7 @@
     <!-- =================================
           target: encrypt - allows users to encrypt values which are displayed to the standard output
          ================================= -->
-     <target name="encrypt" depends="compile" description="--> convert from a clear text to encrypted cypher string that is hex encoded">
+     <target name="encrypt" depends="compile" description="--> encrypt -Dparam1=value : encrypts value from clear text to encrypted cypher string that is hex encoded">
          <echo message="Encrypt a value"/>
          <java
                  classname="us.jts.fortress.util.crypto.EncryptUtil"
@@ -500,7 +500,7 @@
     <!-- =================================
           target: admin - runs the Ant demo load scripts
          ================================= -->
-     <target name="admin" depends="init-fortress-config" description="--> run Fortress admin script">
+     <target name="admin" depends="init-fortress-config" description="--> admin -Dparam1=path/to/FileName.xml : to run fortress admin scripts at specified location">
          <echo message="###############  Run Fortress Ant script ${param1}  ###############"/>
          <java
                  classname="org.apache.tools.ant.launch.Launcher"
@@ -658,7 +658,7 @@
     <!-- =================================
           target: load-slapd - seeds openldap and base loads for test/use.
          ================================= -->
-    <target name="load-slapd" depends="build-jar" description="--> task is destructive and must be run as elevated priv's to teardown/create slapd files and folders">
+    <target name="load-slapd" depends="build-jar" description="--> task runs ant admin scripts to refresh fortress boostrap data">
         <echo message="###############  Initialize OpenLDAP  ###############"/>
 
         <echo message="Load the Fortress boostrap config and demo users"/>
@@ -675,7 +675,7 @@
     <!-- =================================
           target: use-slapd - configures fortress to work with an existing OpenLDAP system.
          ================================= -->
-    <target name="use-slapd" depends="build-jar" description="--> task is destructive and must be run as elevated priv's to teardown/create slapd files and folders">
+    <target name="use-slapd" depends="build-jar" description="--> task refreshes fortress config and reloads slapd data">
         <echo message="###############  Use OpenLDAP  ###############"/>
         <antcall target="init-fortress-config"></antcall>
         <antcall target="load-slapd"></antcall>
@@ -690,7 +690,7 @@
 
           Never run this Ant target on a production system.
          ================================= -->
-    <target name="init-slapd" depends="build-jar" description="--> task is destructive and must be run as elevated priv's to teardown/create slapd files and folders">
+    <target name="init-slapd" depends="build-jar" description="--> task recreates openldap system and must be run as elevated priv's to teardown/create slapd files and folders">
         <echo message="###############  Initialize OpenLDAP  ###############"/>
 
         <echo message="###############  Stop slapd process  ###############"/>

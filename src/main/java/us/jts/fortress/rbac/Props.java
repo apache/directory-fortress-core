@@ -105,7 +105,7 @@ public class Props extends FortEntity implements Serializable
         "key",
         "value"
     })
-    public static class Entry
+    public static class Entry implements Serializable
     {
 
         protected String key;

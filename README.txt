@@ -1,8 +1,8 @@
 ___________________________________________________________________________________
 ###################################################################################
 README for Fortress Identity and Access Management SDK
-Version 1.0.0.rc24
-last updated: March 17, 2013
+Version 1.0.0.RC24
+last updated: April 10, 2013
 
 This document contains instructions to download, compile, test and use the
 Fortress Identity and Access Management system.
@@ -32,7 +32,7 @@ ________________________________________________________________________________
 This document includes three options for installing OpenLDAP server:
 
 -------------------------------------------------------------------------------
-- INSTALL OPTION 1 - JOSHUATREE SOFTWARE Fortress Builder installation packages for OpenLDAP server
+- INSTALL OPTION 1 - JOSHUATREE SOFTWARE Fortress Quickstart installation packages for OpenLDAP server
 -------------------------------------------------------------------------------
 - Required Sections to follow:
     2, 3, 4
@@ -56,24 +56,22 @@ ________________________________________________________________________________
 
 # If Fortress User
 
-Pull down latest snapshot from OpenLDAP GIT Software Repo:
+RELEASES from Maven website:
+http://search.maven.org/#browse%7C-1179527181
+
+SNAPSHOTs from OpenLDAP's GIT Software Repo:
 http://www.openldap.org/devel/gitweb.cgi?p=openldap-fortress-core.git;a=summary
-
-Note: When Fortress 1.0 is released (very soon) there will be a website to pull source packages down by version.  Until that
-announcement has been made, pull the latest GIT snapshot.
-
-# If Fortress Developer and have access to GIT repo:
-
-committers: Open a terminal session within preferred folder name/location and enter the following command:
-
->git clone ssh://git-master.openldap.org/~git/git/openldap-fortress-core.git
 
 read-only:
 >git clone git://git.openldap.org/openldap-fortress-core.git
 
-Assuming network is good this will pull down source code from GIT and load into
-the directory from which it ran, hereafter called 'FORTRESS_HOME'.
+# If Fortress Developer and have access to GIT repo:
 
+committers: Open a terminal session within preferred folder name/location and enter the following command:
+>git clone ssh://git-master.openldap.org/~git/git/openldap-fortress-core.git
+
+This will pull down source code from GIT and load into
+the directory from which it ran, hereafter called 'FORTRESS_HOME'.
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 3. Instructions to build openldap-fortress-core software distribution packages
@@ -119,7 +117,6 @@ builder.home=/path to $FORTRESS_BUILDER_HOME/fortressBuilder-[platform]-[version
 e.g.:
 
 builder.home=/home/user/dev/fortressBuilder-Debian-Silver-i386-1.0.0
-
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 5. Instructions to configure openldap-fortress-core SDK for target system
@@ -394,7 +391,7 @@ Total time: 1 second
 b. Copy the Encrypted value and paste it into the corresponding build.properties setting, e.g.:
 
 # This OpenLDAP admin root pass is bound for fortress.properties and was encrypted using 'encrypt' target in build.xml:
-cfg.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
+cfg.log.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
 
 ___________________________________________________________________________________
 ###################################################################################
@@ -406,7 +403,7 @@ a. Problem with javac under sudo
 If you see this error:
 
 BUILD FAILED
-/home/smckinn/tmp/fortress/13/openldap-fortress-core-302f201/build.xml:233: Unable to find a javac compiler;
+/home/user/tmp/fortress/13/openldap-fortress-core-302f201/build.xml:233: Unable to find a javac compiler;
 com.sun.tools.javac.Main is not on the classpath.
 Perhaps JAVA_HOME does not point to the JDK.
 It is currently set to "/usr/lib/jvm/java-6-openjdk/jre"
