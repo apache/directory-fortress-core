@@ -52,7 +52,7 @@ public class DelegatedMgrImplTest extends TestCase
         super.tearDown();
     }
 
-    public static Test suite()
+    public static Test suitex()
     {
         TestSuite suite = new TestSuite();
         suite.addTest(new DelegatedMgrImplTest("testRevokePermissionRole"));
@@ -79,6 +79,14 @@ public class DelegatedMgrImplTest extends TestCase
         suite.addTest(new DelegatedMgrImplTest("testCanDeassignUser"));
         suite.addTest(new DelegatedMgrImplTest("testCanGrantPerm"));
         suite.addTest(new DelegatedMgrImplTest("testCanRevokePerm"));
+
+        return suite;
+    }
+
+    public static Test suite()
+    {
+        TestSuite suite = new TestSuite();
+        suite.addTest(new DelegatedMgrImplTest("testAddAdminUser"));
 
         return suite;
     }

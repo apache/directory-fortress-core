@@ -395,7 +395,7 @@ public class GlobalIds
     /**
      * Fortress description text cannot exceed length of 80.
      */
-    public final static int DESC_LEN = 80;
+    public final static int DESC_LEN = 180;
 
     /**
      * Fortress permission names cannot exceed length of 100.

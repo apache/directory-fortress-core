@@ -1316,14 +1316,15 @@ final class UserDAO extends DataProvider
         }
         catch (LDAPException e)
         {
+            String warning = CLS_NM + ".assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] ";
             if (e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS)
             {
-                String warning = CLS_NM + ".assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] assignment already exists.";
+                warning += "assignment already exists.";
                 throw new FinderException(GlobalErrIds.URLE_ASSIGN_EXIST, warning);
             }
             else
             {
-                String warning = CLS_NM + ".assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                warning += "caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException(GlobalErrIds.URLE_ASSIGN_FAILED, warning, e);
             }
         }

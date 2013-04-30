@@ -775,6 +775,10 @@ class ProcessMenuCommand
         System.out.println("H.  Update Admin Role");
         System.out.println("I.  Grant Admin Perm to Admin Role");
         System.out.println("J.  Revoke Admin Perm from Admin Role");
+        System.out.println("K.  Add Admin Role Inheritance");
+        System.out.println("L.  Remove Admin Role Inheritance");
+        System.out.println("M.  Add Admin Role Ascendant");
+        System.out.println("N.  Add Admin Role Descendant");
         System.out.println("Enter q or Q to return to previous menu");
     }
 
@@ -866,6 +870,22 @@ class ProcessMenuCommand
                     case 'J':
 						delAdminConsole.revokePermission(true);
 						break;
+                    case 'k':
+                    case 'K':
+                        delAdminConsole.addRoleInheritance();
+                        break;
+                    case 'l':
+                    case 'L':
+                        delAdminConsole.removeRoleInheritance();
+                        break;
+                    case 'm':
+                    case 'M':
+                        delAdminConsole.addRoleAscendant();
+                        break;
+                    case 'n':
+                    case 'N':
+                        delAdminConsole.addRoleDescendant();
+                        break;
 					case 'q':
 					case 'Q':
 						done = true;

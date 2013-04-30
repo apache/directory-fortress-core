@@ -740,9 +740,14 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         AdminRole newChild = admRP.read(childRole);
         AdminRoleUtil.validateRelationship(childRole, parentRole, false);
         admRP.add(parentRole);
-        newChild.setParent(parentRole.getName());
-        newChild.setContextId(this.contextId);
-        admRP.update(newChild);
+
+        // Use cRole2 to update ONLY the parents attribute on the child role and nothing else:
+        AdminRole cRole2 = new AdminRole(childRole.getName());
+        cRole2.setParents(newChild.getParents());
+        cRole2.setParent(parentRole.getName());
+        cRole2.setContextId(this.contextId);
+        setAdminData(CLS_NM, methodName, cRole2);
+        admRP.update(cRole2);
         AdminRoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
     }
 
@@ -778,11 +783,14 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         AdminRole cRole = new AdminRole(childRole.getName());
         cRole.setContextId(this.contextId);
         cRole = admRP.read(cRole);
+        // Use cRole2 to update ONLY the parents attribute on the child role and nothing else:
+        AdminRole cRole2 = new AdminRole(childRole.getName());
+        cRole2.setParents(cRole.getParents());
+        cRole2.setParent(parentRole.getName());
+        cRole2.setContextId(this.contextId);
+        setAdminData(CLS_NM, methodName, cRole2);
         AdminRoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
-        cRole.setParent(parentRole.getName());
-        cRole.setContextId(this.contextId);
-        setAdminData(CLS_NM, methodName, cRole);
-        admRP.update(cRole);
+        admRP.update(cRole2);
     }
 
 
@@ -816,10 +824,13 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         AdminRole cRole = new AdminRole(childRole.getName());
         cRole.setContextId(this.contextId);
         cRole = admRP.read(cRole);
-        cRole.setContextId(this.contextId);
-        cRole.delParent(parentRole.getName());
-        setAdminData(CLS_NM, methodName, cRole);
-        admRP.update(cRole);
+        // Use cRole2 to update ONLY the parents attribute on the child role and nothing else:
+        AdminRole cRole2 = new AdminRole(childRole.getName());
+        cRole2.setParents(cRole.getParents());
+        cRole2.delParent(parentRole.getName());
+        cRole2.setContextId(this.contextId);
+        setAdminData(CLS_NM, methodName, cRole2);
+        admRP.update(cRole2);
     }
 
     /**

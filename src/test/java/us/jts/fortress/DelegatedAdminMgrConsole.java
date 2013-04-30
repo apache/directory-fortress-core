@@ -544,6 +544,125 @@ public class DelegatedAdminMgrConsole
     }
 
 
+
+
+    /**
+     *
+     */
+    void addRoleInheritance()
+    {
+        try
+        {
+            AdminRole cre = new AdminRole();
+            AdminRole pre = new AdminRole();
+            ReaderUtil.clearScreen();
+            System.out.println("Enter child adminRole name:");
+            cre.setName(ReaderUtil.readLn());
+            System.out.println("Enter parent adminRole name:");
+            pre.setName(ReaderUtil.readLn());
+
+            dAmgr.addInheritance(pre, cre);
+            System.out.println("child adminRole [" + cre.getName() + "]");
+            System.out.println("parent adminRole [" + pre.getName() + "]");
+            System.out.println("inheritance relationship has been added");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            log.error(CLS_NM + ".addRoleInheritance caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
+
+    /**
+     *
+     */
+    void removeRoleInheritance()
+    {
+        try
+        {
+            AdminRole cre = new AdminRole();
+            AdminRole pre = new AdminRole();
+            ReaderUtil.clearScreen();
+            System.out.println("Enter child adminRole name:");
+            cre.setName(ReaderUtil.readLn());
+            System.out.println("Enter parent adminRole name:");
+            pre.setName(ReaderUtil.readLn());
+            dAmgr.deleteInheritance(pre, cre);
+            System.out.println("child adminRole [" + cre.getName() + "]");
+            System.out.println("parent adminRole [" + pre.getName() + "]");
+            System.out.println("inheritance relationship has been removed");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            log.error(CLS_NM + ".removeRoleInheritance caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
+
+    /**
+     *
+     */
+    void addRoleAscendant()
+    {
+        try
+        {
+            AdminRole cre = new AdminRole();
+            AdminRole pre = new AdminRole();
+            ReaderUtil.clearScreen();
+            System.out.println("Enter child adminRole name:");
+            cre.setName(ReaderUtil.readLn());
+            System.out.println("Enter parent adminRole name to add to repo:");
+            pre.setName(ReaderUtil.readLn());
+            System.out.println("Enter parent adminRole description:");
+            pre.setDescription(ReaderUtil.readLn());
+
+            dAmgr.addAscendant(cre, pre);
+            System.out.println("child adminRole [" + cre.getName() + "]");
+            System.out.println("parent adminRole [" + pre.getName() + "]");
+            System.out.println("parent adminRole and inheritance relationship has been added");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            log.error(CLS_NM + ".addRoleAscendant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
+
+    /**
+     *
+     */
+    void addRoleDescendant()
+    {
+        try
+        {
+            AdminRole cre = new AdminRole();
+            AdminRole pre = new AdminRole();
+            ReaderUtil.clearScreen();
+            System.out.println("Enter child adminRole name to add to repo:");
+            cre.setName(ReaderUtil.readLn());
+            System.out.println("Enter child adminRole description:");
+            cre.setDescription(ReaderUtil.readLn());
+            System.out.println("Enter parent adminRole name:");
+            pre.setName(ReaderUtil.readLn());
+            dAmgr.addDescendant(pre, cre);
+            System.out.println("child adminRole [" + cre.getName() + "]");
+            System.out.println("parent adminRole [" + pre.getName() + "]");
+            System.out.println("child adminRole and inheritance relationship has been added");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            log.error(CLS_NM + ".addRoleDescendant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
 }
 
 
