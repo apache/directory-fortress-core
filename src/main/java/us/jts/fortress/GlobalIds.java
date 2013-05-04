@@ -239,20 +239,23 @@ public class GlobalIds
     *  ************************************************************************
     */
 
+    public static final String SERVER_TYPE = "ldap.server.type";
+    public static final boolean IS_OPENLDAP = ((Config.getProperty(SERVER_TYPE) != null) && (Config.getProperty(SERVER_TYPE).equalsIgnoreCase("openldap")));
+
     /**
      * OpenLDAP uses this object class to store policy definitions that are processed by the pw policy overlay.
      */
-    private final static String OPENLDAP_PW_POLICY_IMPL = "password.policy";
+    //private final static String OPENLDAP_PW_POLICY_IMPL = "password.policy";
 
     /**
      * When openldap password policy is in effect the openldap pw policy response control is interrogated subsequent to bind operations.
      */
-    private final static String OPENLDAP_PW_POLICY = "openldap";
+    //private final static String OPENLDAP_SERVER = "openldap";
 
     /**
      * When set to true the pw policy control is interrogated.
      */
-    public final static boolean OPENLDAP_IS_PW_POLICY_ENABLED = (us.jts.fortress.cfg.Config.getProperty(GlobalIds.OPENLDAP_PW_POLICY_IMPL) != null && (Config.getProperty(GlobalIds.OPENLDAP_PW_POLICY_IMPL)).equalsIgnoreCase(GlobalIds.OPENLDAP_PW_POLICY));
+    //public final static boolean OPENLDAP_IS_PW_POLICY_ENABLED = (us.jts.fortress.cfg.Config.getProperty(GlobalIds.OPENLDAP_PW_POLICY_IMPL) != null && (Config.getProperty(GlobalIds.OPENLDAP_PW_POLICY_IMPL)).equalsIgnoreCase(GlobalIds.OPENLDAP_SERVER));
 
     /**
      * This is control id openldap uses to communicate password messages to the ldap client subsequent to bind operations:

@@ -29,7 +29,7 @@ debug.ldap.pool=true
 enable.pool.reconnect=true
 authn.type=default
 #authNType=realm
-password.policy=openldap
+ldap.server.type=@SERVER_TYPE@
 
 # Define the high-level structure of LDAP DIT:
 suffix=@SUFFIX@

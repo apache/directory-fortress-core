@@ -114,7 +114,7 @@ final class UserDAO extends DataProvider
      */
     static
     {
-        if (GlobalIds.OPENLDAP_IS_PW_POLICY_ENABLED)
+        if (GlobalIds.IS_OPENLDAP)
         {
             pwControl = new OLPWControlImpl();
         }
@@ -1627,7 +1627,7 @@ final class UserDAO extends DataProvider
         String msgHdr = "checkPwPolicies for userId [" + pwMsg.getUserId() + "] ";
         if (ld != null)
         {
-            if (!GlobalIds.OPENLDAP_IS_PW_POLICY_ENABLED)
+            if (!GlobalIds.IS_OPENLDAP)
             {
                 pwMsg.setWarningId(GlobalPwMsgIds.NO_CONTROLS_FOUND);
                 pwMsg.setErrorId(GlobalPwMsgIds.GOOD);

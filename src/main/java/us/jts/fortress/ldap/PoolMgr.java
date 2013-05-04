@@ -472,7 +472,7 @@ class PoolMgr
             log.fatal(error);
             throw new LDAPException(error, LDAPException.CONNECT_ERROR);
         }
-        if (GlobalIds.OPENLDAP_IS_PW_POLICY_ENABLED)
+        if (GlobalIds.IS_OPENLDAP)
         {
             LDAPConstraints lCon = new LDAPConstraints();
             lCon.setServerControls(pwPolicyControl);

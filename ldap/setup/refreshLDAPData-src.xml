@@ -60,7 +60,7 @@
                 <config props="max.log.conn:@LOG_MAX_CONN@"/>
                 <config props="user.session.props.enabled:false"/>
                 <config props="authn.type:default"/>
-                <config props="password.policy:openldap"/>
+                <config props="ldap.server.type:@SERVER_TYPE@"/>
                 <config props="clientside.sorting:true"/>
                 <config props="suffix:@SUFFIX@"/>
                 <config props="user.root:ou=People,@SUFFIX@"/>
@@ -128,7 +128,7 @@
                 <config props="config.realm:TOMCAT"/>
                 <config props="enable.audit:true"/>
                 <config props="authn.type:realm"/>
-                <config props="password.policy:openldap"/>
+                <config props="ldap.server.type:@SERVER_TYPE@"/>
                 <config props="clientside.sorting:true"/>
                 <config props="suffix:@SUFFIX@"/>
                 <config props="user.root:ou=People,@SUFFIX@"/>

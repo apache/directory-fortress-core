@@ -7,6 +7,7 @@ package us.jts.fortress.rbac;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;
+import us.jts.fortress.GlobalIds;
 
 /**
  * This JUnit test class drives all of the Fortress Administration APIs contained within {@link AdminMgrImplTest}, {@link DelegatedMgrImplTest}, {@link PwPolicyMgrImpl} and {@link AuditMgrImpl}.
@@ -85,7 +86,8 @@ public class FortressJUnitTest extends TestCase
         if(!isFirstRun())
         {
             // PwPolicyMgr PW Policy Teardown:
-            suite.addTest(new PswdPolicyMgrImplTest("testDeletePasswordPolicy"));
+            if(GlobalIds.IS_OPENLDAP)
+                suite.addTest(new PswdPolicyMgrImplTest("testDeletePasswordPolicy"));
 
             // AdminMgrImplTest RBAC Teardown APIs:
             suite.addTest(new AdminMgrImplTest("testRevokePermissionUser"));
@@ -103,7 +105,8 @@ public class FortressJUnitTest extends TestCase
             suite.addTest(new AdminMgrImplTest("testDelRoleDescendant"));
             suite.addTest(new AdminMgrImplTest("testDelRoleAscendant"));
             suite.addTest(new AdminMgrImplTest("testDeleteRole"));
-            suite.addTest(new PswdPolicyMgrImplTest("testDelete"));
+            if(GlobalIds.IS_OPENLDAP)
+                suite.addTest(new PswdPolicyMgrImplTest("testDelete"));
 
             // DelAdminMgr ARBAC Teardown APIs
             suite.addTest(new DelegatedMgrImplTest("testRevokePermissionRole"));
@@ -118,7 +121,6 @@ public class FortressJUnitTest extends TestCase
             suite.addTest(new DelegatedMgrImplTest("testDelOrgUnitDescendant"));
             suite.addTest(new DelegatedMgrImplTest("testDelOrgUnitAscendant"));
             suite.addTest(new DelegatedMgrImplTest("testDeleteOrgUnit"));
-
             //suite.addTest(new DelegatedMgrImplTest("testDeleteAdminUser"));
         }
 
@@ -127,8 +129,11 @@ public class FortressJUnitTest extends TestCase
         /***********************************************************/
 
         // PW PolicyMgr APIs:
-        suite.addTest(new PswdPolicyMgrImplTest("testAdd"));
-        suite.addTest(new PswdPolicyMgrImplTest("testUpdate"));
+        if(GlobalIds.IS_OPENLDAP)
+        {
+            suite.addTest(new PswdPolicyMgrImplTest("testAdd"));
+            suite.addTest(new PswdPolicyMgrImplTest("testUpdate"));
+        }
 
         // DelegatedAdminMgrImplTest ARBAC Buildup APIs:
         suite.addTest(new DelegatedMgrImplTest("testAddOrgUnit"));
@@ -161,7 +166,8 @@ public class FortressJUnitTest extends TestCase
         suite.addTest(new AdminMgrImplTest("testUpdateRole"));
         suite.addTest(new AdminMgrImplTest("testAddUser"));
         suite.addTest(new AdminMgrImplTest("testUpdateUser"));
-        suite.addTest(new PswdPolicyMgrImplTest("testUpdatePasswordPolicy"));
+        if(GlobalIds.IS_OPENLDAP)
+            suite.addTest(new PswdPolicyMgrImplTest("testUpdatePasswordPolicy"));
         suite.addTest(new AdminMgrImplTest("testAssignUser"));
         suite.addTest(new AdminMgrImplTest("testAddPermissionObj"));
         suite.addTest(new AdminMgrImplTest("testUpdatePermissionObj"));
@@ -181,8 +187,12 @@ public class FortressJUnitTest extends TestCase
         suite.addTest(new DelegatedMgrImplTest("testSearchAdminRole"));
 
         // ReviewMgr RBAC:
-        suite.addTest(new PswdPolicyMgrImplTest("testRead"));
-        suite.addTest(new PswdPolicyMgrImplTest("testSearch"));
+        if(GlobalIds.IS_OPENLDAP)
+        {
+            suite.addTest(new PswdPolicyMgrImplTest("testRead"));
+            suite.addTest(new PswdPolicyMgrImplTest("testSearch"));
+        }
+
         suite.addTest(new ReviewMgrImplTest("testReadRole"));
         suite.addTest(new ReviewMgrImplTest("testFindRoles"));
         suite.addTest(new ReviewMgrImplTest("testFindRoleNms"));
@@ -242,32 +252,35 @@ public class FortressJUnitTest extends TestCase
         suite.addTest(new AccessMgrImplTest("testCreateSessionWithRolesTrusted"));
 
         // PwPolicyMgr PW Policy checks:
-        suite.addTest(new PswdPolicyMgrImplTest("testMinAge"));
-        suite.addTest(new PswdPolicyMgrImplTest("testMaxAge"));
-        suite.addTest(new PswdPolicyMgrImplTest("testInHistory"));
-        suite.addTest(new PswdPolicyMgrImplTest("testMinLength"));
-        suite.addTest(new PswdPolicyMgrImplTest("testExpireWarning"));
-        suite.addTest(new PswdPolicyMgrImplTest("testGraceLoginLimit"));
-        suite.addTest(new PswdPolicyMgrImplTest("testMaxFailure"));        
-        suite.addTest(new PswdPolicyMgrImplTest("testLockoutDuration"));        
-        suite.addTest(new PswdPolicyMgrImplTest("testLockout"));
-        suite.addTest(new PswdPolicyMgrImplTest("testFailureCountInterval"));
-        suite.addTest(new PswdPolicyMgrImplTest("testMustChange"));
-        suite.addTest(new PswdPolicyMgrImplTest("testAllowUserChange"));
-        suite.addTest(new PswdPolicyMgrImplTest("testSafeModify"));
+        if(GlobalIds.IS_OPENLDAP)
+        {
+            suite.addTest(new PswdPolicyMgrImplTest("testMinAge"));
+            suite.addTest(new PswdPolicyMgrImplTest("testMaxAge"));
+            suite.addTest(new PswdPolicyMgrImplTest("testInHistory"));
+            suite.addTest(new PswdPolicyMgrImplTest("testMinLength"));
+            suite.addTest(new PswdPolicyMgrImplTest("testExpireWarning"));
+            suite.addTest(new PswdPolicyMgrImplTest("testGraceLoginLimit"));
+            suite.addTest(new PswdPolicyMgrImplTest("testMaxFailure"));
+            suite.addTest(new PswdPolicyMgrImplTest("testLockoutDuration"));
+            suite.addTest(new PswdPolicyMgrImplTest("testLockout"));
+            suite.addTest(new PswdPolicyMgrImplTest("testFailureCountInterval"));
+            suite.addTest(new PswdPolicyMgrImplTest("testMustChange"));
+            suite.addTest(new PswdPolicyMgrImplTest("testAllowUserChange"));
+            suite.addTest(new PswdPolicyMgrImplTest("testSafeModify"));
+        }
 
         /***********************************************************/
         /* 5. Audit Checks                                         */
         /***********************************************************/
-
         //suite.addTest(new AuditMgrImplTest("testSearchAuthNInvalid"));
-
-        suite.addTest(new AuditMgrImplTest("testSearchBinds"));
-        suite.addTest(new AuditMgrImplTest("testGetAuthZs"));
-        suite.addTest(new AuditMgrImplTest("testSearchAuthZs"));
-        suite.addTest(new AuditMgrImplTest("testSearchMods"));
-        suite.addTest(new AuditMgrImplTest("testSearchAdminMods"));
-
+        if(GlobalIds.IS_OPENLDAP)
+        {
+            suite.addTest(new AuditMgrImplTest("testSearchBinds"));
+            suite.addTest(new AuditMgrImplTest("testGetAuthZs"));
+            suite.addTest(new AuditMgrImplTest("testSearchAuthZs"));
+            suite.addTest(new AuditMgrImplTest("testSearchMods"));
+            suite.addTest(new AuditMgrImplTest("testSearchAdminMods"));
+        }
 		return suite;
 	}
 

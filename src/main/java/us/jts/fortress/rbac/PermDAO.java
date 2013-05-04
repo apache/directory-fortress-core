@@ -728,7 +728,8 @@ final class PermDAO extends DataProvider
             // Use unauthenticated connection because we want to assert the end user identity onto ldap hop:
             ld = getUserConnection();
             // LDAP Operation #1: Read the targeted permission from ldap server
-            LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS, session.getUser().getDn());
+            //LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS, session.getUser().getDn());
+            LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS);
             // load the permission entity with data retrieved from the permission node:
             Permission outPerm = unloadPopLdapEntry(entry, 0);
             // The admin flag will be set to 'true' if this is an administrative permission:
@@ -757,11 +758,11 @@ final class PermDAO extends DataProvider
             // LDAP Operation #2: Compare.
             addAuthZAudit(ld, dn, session.getUser().getDn(), attributeValue);
         }
-        catch (UnsupportedEncodingException ee)
-        {
-            String error = CLS_NM + ".checkPermission caught UnsupportedEncodingException=" + ee.getMessage();
-            throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, ee);
-        }
+        //catch (UnsupportedEncodingException ee)
+        //{
+        //    String error = CLS_NM + ".checkPermission caught UnsupportedEncodingException=" + ee.getMessage();
+        //    throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, ee);
+        //}
         catch (LDAPException e)
         {
             if (e.getLDAPResultCode() != LDAPException.NO_RESULTS_RETURNED && e.getLDAPResultCode() != LDAPException.NO_SUCH_OBJECT)
@@ -792,7 +793,7 @@ final class PermDAO extends DataProvider
         throws FinderException
     {
         // Audit can be turned off here with fortress config param: 'enable.audit=false'
-        if (GlobalIds.IS_AUDIT)
+        if (GlobalIds.IS_AUDIT && GlobalIds.IS_OPENLDAP)
         {
             try
             {

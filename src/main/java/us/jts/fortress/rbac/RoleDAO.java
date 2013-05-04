@@ -169,7 +169,7 @@ final class RoleDAO extends DataProvider
                 for (String name : entity.getOccupants())
                 {
                     LDAPAttribute occupant = new LDAPAttribute(ROLE_OCCUPANT, name);
-                    mods.add(LDAPModification.ADD, occupant);
+                    mods.add(LDAPModification.REPLACE, occupant);
                 }
             }
             if (entity.isTemporalSet())

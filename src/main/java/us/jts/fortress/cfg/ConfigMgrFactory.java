@@ -34,7 +34,7 @@ public class ConfigMgrFactory
     public static ConfigMgr createInstance()
         throws SecurityException
     {
-        // TODO: Don't reuse {@link VUtil#isNotNullOrEmpty} here until it is determined why it forces different execution path through GlobalIds.OPENLDAP_IS_PW_POLICY_ENABLED:
+        // TODO: Don't reuse {@link VUtil#isNotNullOrEmpty} here until it is determined why it forces different execution path through GlobalIds.IS_OPENLDAP:
         //if (!VUtil.isNotNullOrEmpty(configClassName))
         if (configClassName == null || configClassName.compareTo("") == 0)
         {

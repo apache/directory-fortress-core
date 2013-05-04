@@ -610,6 +610,7 @@
          <replace file="${dst.bootstrap.conf}" token="@USR_MIN_CONN@" value="${user.min.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@USR_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
+         <replace file="${dst.bootstrap.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
 
 	     <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
          <replace file="${dst.remote.conf}" token="@SUFFIX@" value="${suffix}"/>
@@ -638,6 +639,7 @@
          <replace file="${dst.load.bootstrap.script}" token="@LOG_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@USR_MIN_CONN@" value="${log.min.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@USR_MAX_CONN@" value="${log.max.conn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
 
          <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
          <delete file="${bootstrap.ehcache.conf}"/>
