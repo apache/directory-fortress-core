@@ -85,7 +85,7 @@ final class RoleUtil
      */
     static Set<String> getDescendants(String roleName, String contextId)
     {
-        return HierUtil.getDescendants(roleName, getGraph(contextId));
+        return HierUtil.getDescendants(roleName.toUpperCase(), getGraph(contextId));
     }
 
     /**
@@ -97,7 +97,7 @@ final class RoleUtil
      */
     static Set<String> getChildren(String roleName, String contextId)
     {
-        return HierUtil.getChildren(roleName, getGraph(contextId));
+        return HierUtil.getChildren(roleName.toUpperCase(), getGraph(contextId));
     }
 
     /**
@@ -109,7 +109,7 @@ final class RoleUtil
      */
     static Set<String> getAscendants(String roleName, String contextId)
     {
-        return HierUtil.getAscendants(roleName, getGraph(contextId));
+        return HierUtil.getAscendants(roleName.toUpperCase(), getGraph(contextId));
     }
 
     /**
@@ -121,7 +121,7 @@ final class RoleUtil
      */
     static Set<String> getParents(String roleName, String contextId)
     {
-        return HierUtil.getParents(roleName, getGraph(contextId));
+        return HierUtil.getParents(roleName.toUpperCase(), getGraph(contextId));
     }
 
     /**
@@ -133,7 +133,7 @@ final class RoleUtil
      */
     static int numChildren(String roleName, String contextId)
     {
-        return HierUtil.numChildren(roleName, getGraph(contextId));
+        return HierUtil.numChildren(roleName.toUpperCase(), getGraph(contextId));
     }
 
     /**

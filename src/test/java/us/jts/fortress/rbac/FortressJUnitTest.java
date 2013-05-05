@@ -67,10 +67,6 @@ public class FortressJUnitTest extends TestCase
         TestSuite suite = new TestSuite();
         //setAdminEnabled(false);
         setAdminEnabled(true);
-        //String szRunProp = "isFirstJUnitRun";
-        //String szFirstRun = System.getProperty(szRunProp);
-        //setFirstRun(szFirstRun != null && szFirstRun.equalsIgnoreCase("true"));
-
         /***********************************************************/
         /* 0. Load the base Admin Policy if need be:
         /***********************************************************/
@@ -127,7 +123,6 @@ public class FortressJUnitTest extends TestCase
         /***********************************************************/
         /* 2. Build Up                                             */
         /***********************************************************/
-
         // PW PolicyMgr APIs:
         if(GlobalIds.IS_OPENLDAP)
         {
@@ -179,7 +174,6 @@ public class FortressJUnitTest extends TestCase
         /***********************************************************/
         /* 3. Interrogation                                        */
         /***********************************************************/
-
         // DelReviewMgr ARBAC:
         suite.addTest(new DelegatedMgrImplTest("testReadOrgUnit"));
         suite.addTest(new DelegatedMgrImplTest("testSearchOrgUnits"));
@@ -192,7 +186,6 @@ public class FortressJUnitTest extends TestCase
             suite.addTest(new PswdPolicyMgrImplTest("testRead"));
             suite.addTest(new PswdPolicyMgrImplTest("testSearch"));
         }
-
         suite.addTest(new ReviewMgrImplTest("testReadRole"));
         suite.addTest(new ReviewMgrImplTest("testFindRoles"));
         suite.addTest(new ReviewMgrImplTest("testFindRoleNms"));
@@ -219,7 +212,6 @@ public class FortressJUnitTest extends TestCase
         /***********************************************************/
         /* 4. Security Checks                                      */
         /***********************************************************/
-
         // DelAccessMgr ARABC:
         suite.addTest(new DelegatedMgrImplTest("testCheckAccess"));
         suite.addTest(new DelegatedMgrImplTest("testCanAssignUser"));
@@ -230,13 +222,17 @@ public class FortressJUnitTest extends TestCase
         // AccessMgr RBAC:
         suite.addTest(new AccessMgrImplTest("testGetUserId"));
         suite.addTest(new AccessMgrImplTest("testGetUser"));
-        suite.addTest(new AdminMgrImplTest("testResetPassword"));
-        suite.addTest(new AccessMgrImplTest("testAuthenticateReset"));
-        suite.addTest(new AdminMgrImplTest("testChangePassword"));        
-        suite.addTest(new AccessMgrImplTest("testAuthenticate"));
-        suite.addTest(new AdminMgrImplTest("testLockUserAccount"));
-        suite.addTest(new AccessMgrImplTest("testAuthenticateLocked"));
-        suite.addTest(new AdminMgrImplTest("testUnlockUserAccount"));
+        if(GlobalIds.IS_OPENLDAP)
+        {
+            // These tests are reliant on OpenLDAP's pwpolicy overlay:
+            suite.addTest(new AdminMgrImplTest("testResetPassword"));
+            suite.addTest(new AccessMgrImplTest("testAuthenticateReset"));
+            suite.addTest(new AdminMgrImplTest("testChangePassword"));
+            suite.addTest(new AccessMgrImplTest("testAuthenticate"));
+            suite.addTest(new AdminMgrImplTest("testLockUserAccount"));
+            suite.addTest(new AccessMgrImplTest("testAuthenticateLocked"));
+            suite.addTest(new AdminMgrImplTest("testUnlockUserAccount"));
+        }
         suite.addTest(new AccessMgrImplTest("testCreateSession"));
         suite.addTest(new AccessMgrImplTest("testCreateSessionTrusted"));
         suite.addTest(new AccessMgrImplTest("testCreateSessionHier"));
@@ -254,6 +250,7 @@ public class FortressJUnitTest extends TestCase
         // PwPolicyMgr PW Policy checks:
         if(GlobalIds.IS_OPENLDAP)
         {
+            // These tests are reliant on OpenLDAP's pwpolicy overlay:
             suite.addTest(new PswdPolicyMgrImplTest("testMinAge"));
             suite.addTest(new PswdPolicyMgrImplTest("testMaxAge"));
             suite.addTest(new PswdPolicyMgrImplTest("testInHistory"));
@@ -275,6 +272,7 @@ public class FortressJUnitTest extends TestCase
         //suite.addTest(new AuditMgrImplTest("testSearchAuthNInvalid"));
         if(GlobalIds.IS_OPENLDAP)
         {
+            // These tests reliant on OpenLDAP's slapo access log overlay:
             suite.addTest(new AuditMgrImplTest("testSearchBinds"));
             suite.addTest(new AuditMgrImplTest("testGetAuthZs"));
             suite.addTest(new AuditMgrImplTest("testSearchAuthZs"));

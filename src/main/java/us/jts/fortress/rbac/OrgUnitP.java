@@ -233,6 +233,22 @@ final class OrgUnitP
 
 
     /**
+     * Remove the parent attribute from the OrgUnit entry in directory. The OrgUnit type enum will determine which data set insertion will
+     * occur - User or Perm.  The OrgUnit entity input will be validated to ensure that:
+     * orgUnit name is present.
+     *
+     * @param entity OrgUnit contains data targeted for updating.  Null attributes ignored.
+     * @throws SecurityException in the event of data validation or DAO system error.
+     */
+    final void deleteParent(OrgUnit entity)
+        throws SecurityException
+    {
+        validate(entity, false);
+        oDao.deleteParent(entity);
+    }
+
+
+    /**
      * This method performs a "hard" delete.  It completely the OrgUnit node from the ldap directory.
      * The OrgUnit type enum will determine where deletion will occur - User or Perm OU data sets.
      * OrgUnit entity must exist in directory prior to making this call else exception will be thrown.

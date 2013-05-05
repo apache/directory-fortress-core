@@ -13,6 +13,7 @@ import us.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class performs administrative functions to provision Fortress RBAC entities into the LDAP directory.  These APIs
@@ -421,6 +422,15 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
             }
         }
         permP.remove(role);
+        // remove all parent relationships from the role graph:
+        Set<String> parents = RoleUtil.getParents(role.getName(), this.contextId);
+        if(parents != null)
+        {
+            for(String parent : parents)
+            {
+                RoleUtil.updateHier(this.contextId, new Relationship(role.getName().toUpperCase(), parent.toUpperCase()), Hier.Op.REM);
+            }
+        }
         roleP.delete(role);
     }
 
@@ -1045,7 +1055,17 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         cRole2.delParent(parentRole.getName());
         cRole2.setContextId(this.contextId);
         setAdminData(CLS_NM, methodName, cRole2);
-        roleP.update(cRole2);
+        // are there any parents left?
+        if(!VUtil.isNotNullOrEmpty(cRole2.getParents()))
+        {
+            // The updates only update non-empty multi-occurring attributes
+            // so if last parent assigned, so must remove the attribute completely:
+            roleP.deleteParent(cRole2);
+        }
+        else
+        {
+            roleP.update(cRole2);
+        }
     }
 
     /**

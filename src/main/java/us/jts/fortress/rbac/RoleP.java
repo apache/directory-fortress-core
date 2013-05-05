@@ -134,6 +134,21 @@ final class RoleP
 
 
     /**
+     * Removes parent role assignments from Role entity in directory.
+     * updated.
+     *
+     * @param entity Role entity contains data targeted for updating.
+     * @throws SecurityException in the event of data validation or DAO system error.
+     */
+    final void deleteParent(Role entity)
+        throws SecurityException
+    {
+        validate(entity);
+        rDao.deleteParent(entity);
+    }
+
+
+    /**
      * Method will add the "roleOccupant" attribute on OpenLDAP entry which represents an RBAC Role assignment in Fortress.
      *
      * @param entity contains the role name targeted.

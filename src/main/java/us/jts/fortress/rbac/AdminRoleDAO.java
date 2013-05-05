@@ -227,6 +227,36 @@ final class AdminRoleDAO extends DataProvider
 
 
     /**
+     *
+     * @param entity
+     * @throws UpdateException
+     */
+    final void deleteParent(AdminRole entity)
+        throws UpdateException
+    {
+        LDAPConnection ld = null;
+        String dn = getDn(entity);
+        try
+        {
+            ld = getAdminConnection();
+            LDAPModificationSet mods = new LDAPModificationSet();
+            LDAPAttribute occupant = new LDAPAttribute(GlobalIds.PARENT_NODES);
+            mods.add(LDAPModification.DELETE, occupant);
+            modify(ld, dn, mods, entity);
+        }
+        catch (LDAPException e)
+        {
+            String error = CLS_NM + ".deleteParent name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            throw new UpdateException(GlobalErrIds.ARLE_REMOVE_PARENT_FAILED, error, e);
+        }
+        finally
+        {
+            closeAdminConnection(ld);
+        }
+    }
+
+
+    /**
      * This method will add the supplied DN as a role occupant to the target record.
      * This data will be stored in the {@link GlobalIds#ADMIN_ROLE_ROOT} container.
      *

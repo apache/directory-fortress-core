@@ -5,8 +5,8 @@
   <img src="./images/fortresscommunitylogov3.jpg" />  
 <br>
 <p>
-These instructions are intended for new users who want to quickly learn how to install and test JoshuaTree Fortress and Symas OpenLDAP IAM software.
-<br><br>Follow the steps and OpenLDAP will be installed, configured, loaded, and ready to use by <em>Section IV</em>.   EnMasse Policy Server demo starts in <em>Section VIII</em>
+These instructions are intended for new users who want to quickly learn how to install and test JoshuaTree Fortress and ApacheDS IAM software.
+<br><br>Follow the steps and ApacheDS will be installed, configured, loaded, and ready to use by <em>Section IV</em>.   EnMasse Policy Server demo starts in <em>Section VIII</em>
 </p>
 <hr>
    <h2>System Prerequisites</h2>
@@ -17,6 +17,7 @@ These instructions are intended for new users who want to quickly learn how to i
     <li>Redhat or Ubuntu server machine (for window environments use <em>README-QUICKSTART-WINDOWS.html</em>)</li>    
     <li>1GB RAM</li>
     <li>20GB HD</li>
+    <li>ApacheDS Pre-installed</li>    
     </ul>
    </p>
 
@@ -50,14 +51,33 @@ These instructions are intended for new users who want to quickly learn how to i
          <img src="./images/Screenshot1-chmod.png" />
            </li>
 
-         <li>if debian platform and using sudo, edit file named 'build.properties' and insert sudo password here:
-<br><pre><p style="font-family:monospace;color:blue;font-size:14px;">sudo.pw=your pw here
-</p></pre>
-note: For Redhat deployments leave this param's value empty, like below, otherwise the 'stop-slapd' target may not work.
-<pre><p style="font-family:monospace;color:blue;font-size:14px;">sudo.pw=
+         <li>Edit file named 'build.properties' and insert LDAP configuration parameters:
+<br><pre><p style="font-family:monospace;color:blue;font-size:14px;">
+ldap.server.type=apacheds
+
+# These parameters point fortress to LDAP host:
+ldap.host=localhost
+ldap.port=10389
+
+# These are used to construct suffix for DIT, i.e. dc=example,dc=com.
+suffix.name=example
+suffix.dc=com
+
+# These are the connection parameters used for LDAP service account:
+root.dn=uid=admin,ou=system
+
+# Used to load OpenLDAP admin root password in slapd.conf and was encrypted using 'slappasswd' command:
+# This ApacheDS admin root password's value is 'secret', is bound for fortress.properties and was encrypted using 'encrypt' target in build.xml:
+cfg.root.pw=W7T0G9hylKZQ4K+DF8gfgA==
+
+# If encryption of LDAP &/or HTTP service account passwords (e.g. cfg.root.pw, cfg.log.root.pw and http.pw params) is required, this field must be set.
+# If encryption of service accounts not needed, leave this value blank, and set the password values for cfg.root.pw, cfg.log.root.pw and http.pw to be their clear text value.
+# Use any arbitrary value here but must be same as key used to encrypt.
+crypto.prop=abcd12345
+
 </p></pre>
 	 </li>
-	   <img src="./images/Screenshot2-edit-sudo.png" /><br>
+	 
         </ol>
     </li> 
  </li>
@@ -91,15 +111,22 @@ You may now view the project binaries and documentation located under FORTRESS_H
     </li>
     <hr>
     <li>
-       <h3>Instructions to run the Builder to Install Symas OpenLDAP, configure and load with seed data</h3>
-<strong><p style="color:blue;font-size:14px;">Important: This target reinstalls and reloads the OpenLDAP server program, configuration and data.
+       <h3>Instructions to configure ApacheDS and load with seed data</h3>
+<strong><p style="color:blue;font-size:14px;">Important: This target reloads the ApacheDS configuration and data.
 </p>
   
 </strong>       
         <ol type="A">
 <br>
+	 <li>
+	  Import Fortress ApacheDS schema into ApacheDS server using preferred ldif import tool.  Fortress ApacheDS schema located here: FORTRESS_HOME/ldap/schema/apacheds-fortress.ldif
+
+	  <br><br>Screenshot of Apache Directory Studio import of Fortress schema file into ApacheDS:	  	  
+	 </li>
+	   <img src="./images/Screenshot-Studio-Schema-Import.png" /><br><br>
+  
 	   <li>
-The fortress 'init-slapd' uses LDAPv3 to perform initial operations.
+The fortress 'init-apacheds' uses LDAPv3 to perform initial operations.
 <br>edit build.properties, ensure the following line has been commented out:
 	   <br><br><img src="./images/Screenshot43-edit-disable-rest.png" /><br><br>
 Note: The default for this setting is 'false' or disabled.<br><br>
@@ -107,16 +134,7 @@ Note: The default for this setting is 'false' or disabled.<br><br>
   
 	   <li>
 From FORTRESS_HOME root folder, enter the following command from a system prompt:
-<br>if sudo:
-<pre><p style="font-family:monospace;color:blue;font-size:14px;">sudo ./b.sh init-slapd
-</p></pre>
-	   <img src="./images/Screenshot6-init-slapd.png" /><br><br>	   
-if not sudo you must run as user that has priv to modify folders in /var and /opt folders:
-<pre><p style="font-family:monospace;color:blue;font-size:14px;">su
-</p></pre>
-[enter your pw]
-<br><br>before running the command to kick off the install
-<pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh init-slapd	    
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh init-apacheds	    
 </p></pre>  
 	   </li>
            <li>
@@ -125,7 +143,7 @@ Verify it ran correctly according to Ant.
 </p></pre>
 	   <img src="./images/Screenshot7-init-slapd-success.png" /><br><br>
            <li>
-After above step completes, Symas OpenLDAP will be installed, configured and loaded with fortress bootstrap config.  This
+After above step completes, Symas ApacheDS will be installed, configured and loaded with fortress bootstrap config.  This
 step also runs provisioning scripts which may be tailored according to requirements.  Check out the xml load scripts
 in FORTRESS_HOME/ldap/setup folder.
 <br><br>	   
@@ -137,27 +155,19 @@ Point your preferred LDAP browser, ours is <a href="http://directory.apache.org/
 The configuration parameters you'll need to browse can be found in the generated 'slapd.conf' file.
 <br><br>
     To view data stored in default database:
-<pre><p style="font-family:monospace;color:blue;font-size:14px;">suffix	    "dc=jts,dc=us"
-rootdn      "cn=Manager,dc=jts,dc=us"
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">suffix	    "dc=example,dc=com"
+rootdn      "uid=admin,ou=system"
 rootpw      "secret"</p></pre>
 The root pw will be encrypted before stored in slapd.conf
 
 	   <br><br><img src="./images/Screenshot8-ldap-browser.png" /><br><br>
-	       
-To view data stored in audit log database:
-<pre><p style="font-family:monospace;color:blue;font-size:14px;">suffix      "cn=log"
-rootdn      "cn=Manager,cn=log"
-rootpw      "secret"</p></pre>  
-The log root pw will be encrypted before stored in slapd.conf
-
-	   <br><br><img src="./images/Screenshot9-ldap-browser-log.png" /><br><br>
-	   
+	       	   
 	   </li>
         </ol>
     </li>
     <hr>
     <li>
-       <h3>Instructions to regression test Fortress and Symas OpenLDAP on target machine (optional)</h3>
+       <h3>Instructions to regression test Fortress and ApacheDS on target machine (optional)</h3>
         <ol type="A">	  
            <li>From FORTRESS_HOME root folder, enter the following command from a system prompt:
 <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh test-full
@@ -178,9 +188,9 @@ To re-run these tests:
         </ol>
 Note 1: WARNING messages in test output are good as these are negative tests in action:
 	   <br><img src="./images/Screenshot12-junit-warn.png" />	   	   
-<br><br>Note 2: If you made it this far without junit or ant ERRORS, the Fortress and Symas OpenLDAP IAM system are certified to run on your machine.
+<br><br>Note 2: If you made it this far without junit or ant ERRORS, the Fortress and ApacheDS IAM system are certified to run on your machine.
 <br><br>Note 3: These tests load tens of thousands of records into your newly installed directory.
-The 'init-slapd' and 'test-full' targets may be re-run as often as necessary.  After regressions testing has completed, you may run the 'init-slapd' target to remove all test data from the directory.
+The 'init-apacheds' and 'test-full' targets may be re-run as often as necessary.  After regressions testing has completed, you may run the 'init-apacheds' target to remove all test data from the directory.
     </li>
     <hr>
     <li>
@@ -355,7 +365,7 @@ Note 1: WARNING messages in test output are good as these are negative tests in 
 	   <br><img src="./images/Screenshot12-junit-warn.png" />	   	   
 <br><br>Note 2: If you made it this far without junit or ant ERRORS, EnMasse is installed and certified to run on your machine.
 <br><br>Note 3: These tests load tens of thousands of records into your directory.
-The 'test-full' target may be re-run as often as necessary.  After regressions testing have completed, you may run the 'init-slapd' target to remove all test data from the directory.
+The 'test-full' target may be re-run as often as necessary.  After regressions testing have completed, you may run the 'init-apacheds' target to remove all test data from the directory.
     </li>
     </li>		  
 	</ol>
@@ -379,11 +389,6 @@ check out the following javadoc for more info on this utility:
 	  <br>	   	   
            <li>'encrypt' - interface to jacypt encryption utility</li>
 	  <br>	   	   
-           <li>'start-slapd' - Starts OpenLDAP on target machine.</li>
-	  <br>	   	   
-           <li>'stop-slapd' - Stops OpenLDAP on target machine.</li>
-Note: for slapd commands sudo or elevated privileges may be required.
-	  <br><br>	   
            <li>display all ant targets available:
 <br><img src="./images/Screenshot27-ant-p.png" /><br><br>	   
 	   </li>	   	   	   

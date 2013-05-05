@@ -203,6 +203,45 @@ final class OrgUnitDAO extends DataProvider
 
     /**
      * @param entity
+     * @throws us.jts.fortress.UpdateException
+     *
+     */
+    final void deleteParent(OrgUnit entity)
+        throws UpdateException
+    {
+        LDAPConnection ld = null;
+        String dn = getDn(entity);
+        try
+        {
+            ld = getAdminConnection();
+            LDAPModificationSet mods = new LDAPModificationSet();
+            LDAPAttribute occupant = new LDAPAttribute(GlobalIds.PARENT_NODES);
+            mods.add(LDAPModification.DELETE, occupant);
+        }
+        catch (LDAPException e)
+        {
+            String error = CLS_NM + ".deleteParent orgUnit name [" + entity.getName() + "] type [" + entity.getType() + "] root [" + dn + "] caught LDAPException=" + e;
+            int errCode;
+            if(entity.getType() == OrgUnit.Type.PERM)
+            {
+                errCode = GlobalErrIds.ORG_REMOVE_PARENT_FAILED_PERM;
+            }
+            else
+            {
+                errCode = GlobalErrIds.ORG_REMOVE_PARENT_FAILED_USER;
+            }
+
+            throw new UpdateException(errCode, error, e);
+        }
+        finally
+        {
+            closeAdminConnection(ld);
+        }
+    }
+
+
+    /**
+     * @param entity
      * @return
      * @throws us.jts.fortress.RemoveException
      *

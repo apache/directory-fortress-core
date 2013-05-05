@@ -137,6 +137,21 @@ final class AdminRoleP
 
 
     /**
+     * Removes parent role assignments from Role entity in directory.
+     * updated.
+     *
+     * @param entity Admin Role entity contains data targeted for updating.
+     * @throws SecurityException in the event of data validation or DAO system error.
+     */
+    final void deleteParent(AdminRole entity)
+        throws SecurityException
+    {
+        validate(entity);
+        rDao.deleteParent(entity);
+    }
+
+
+    /**
      * This command assigns a user to an admin role.
      * Successful completion of this op, the following occurs:
      * </p>

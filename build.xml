@@ -944,6 +944,16 @@
      </target>
 
     <!-- =================================
+          target: init-apacheds - initializes the fortress to use ApacheDS LDAP
+         ================================= -->
+    <target name="init-apacheds" depends="build-jar" description="--> task configures fortress to use an existing ApacheDS LDAP server">
+        <echo message="###############  Setup meta config and base load scripts for openldap and fortress  ###############"/>
+        <antcall target="init-fortress-config"></antcall>
+        <antcall target="load-slapd"></antcall>
+        <echo message="Target init-apacheds complete."/>
+    </target>
+
+    <!-- =================================
           target: init-jaxb - initializes properties and taskdefs used for schema generation and compilation.
          ================================= -->
     <target name="init-jaxb" depends="resolve" description="--> initializes properties and taskdefs used for schema generation and compilation">
@@ -1088,6 +1098,10 @@
          ================================= -->
    <target name="install-sentry" depends="init"  description="--> install sentry">
        <unzip src="${sentry.zip}" dest="${basedir}"/>
+       <!-- copy the build.properties file to sentry -->
+       <copy todir="${sentry.dir}" file="${basedir}/build.properties"/>
+       <!-- Sentry should use LDAPv3 for the demo install -->
+       <replace file="${sentry.dir}/build.properties" token="enable.mgr.impl.rest=true" value="enable.mgr.impl.rest=false"/>
        <antcall target="sentry-ant-dist"></antcall>
        <chmod dir="${basedir}" perm="a+x" includes="**/*.sh"/>
    </target>
@@ -1175,6 +1189,10 @@
          ================================= -->
     <target name="install-enmasse" depends="init"  description="--> install sentry">
        <unzip src="${enmasse.zip}" dest="${basedir}"/>
+        <!-- copy the fortress.properties file to enmasse -->
+       <copy todir="${enmasse.dir}/src/main/resources" file="${dst.remote.conf}"/>
+        <!-- For demo Enmasse should use LDAPv3 for backend connections -->
+       <replace file="${enmasse.dir}/src/main/resources/fortress.properties" token="enable.mgr.impl.rest=true" value="enable.mgr.impl.rest=false"/>
        <antcall target="enmasse-maven-install"></antcall>
        <antcall target="enmasse-maven-deploy"></antcall>
     </target>

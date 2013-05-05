@@ -569,8 +569,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
     }
 
-
-    private enum ASSIGN_OP{
+    enum ASSIGN_OP{
         ASSIGN, DEASSIGN
     }
 
@@ -661,7 +660,7 @@ public class DelegatedMgrImplTest extends TestCase
         canGrantPerms("CAN-RVKE-PRMS PRA_T1 TU17A TOB5 TR15", GRANT_OP.REVOKE, PRATestData.PRA_T1, UserTestData.USERS_TU17A_ARBAC, PermTestData.OBJS_TOB5, RoleTestData.ROLES_TR15_ARBAC);
     }
 
-    private enum GRANT_OP{
+    enum GRANT_OP{
         GRANT, REVOKE
     }
 

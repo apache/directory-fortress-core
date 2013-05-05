@@ -217,6 +217,7 @@ package us.jts.fortress;
  * <li> <code>{@link GlobalErrIds#ROLE_REMOVE_OCCUPANT_FAILED} = 5012;</code>
  * <li> <code>{@link GlobalErrIds#PARENT_ROLE_NULL} = 5013;</code>
  * <li> <code>{@link GlobalErrIds#CHILD_ROLE_NULL} = 5014;</code>
+ * <li> <code>{@link GlobalErrIds#ROLE_REMOVE_PARENT_FAILED} = 5015;</code>
  * </ul>
  * <h4>
  * <p/> Hierarchical Constraints
@@ -301,6 +302,7 @@ package us.jts.fortress;
  * <li> <code>{@link GlobalErrIds#ORG_NULL_USER} = 0818;</code>
  * <li> <code>{@link GlobalErrIds#ORG_TYPE_NULL_USER} = 8019;</code>
  * <li> <code>{@link GlobalErrIds#ORG_DEL_FAILED_USER} = 8020;</code>
+ * <li> <code>{@link GlobalErrIds#ORG_REMOVE_PARENT_FAILED_USER} = 8021;</code>
  * <li> <code>{@link GlobalErrIds#ORG_READ_FAILED_PERM} = 8061;</code>
  * <li> <code>{@link GlobalErrIds#ORG_ADD_FAILED_PERM} = 8062;</code>
  * <li> <code>{@link GlobalErrIds#ORG_UPDATE_FAILED_PERM} = 8063;</code>
@@ -314,6 +316,7 @@ package us.jts.fortress;
  * <li> <code>{@link GlobalErrIds#ORG_LEN_INVLD} = 8071;</code>
  * <li> <code>{@link GlobalErrIds#ORG_PARENT_NULL} = 8072;</code>
  * <li> <code>{@link GlobalErrIds#ORG_CHILD_NULL} = 8073;</code>
+ * <li> <code>{@link GlobalErrIds#ORG_REMOVE_PARENT_FAILED_PERM} = 8074;</code>
  * </ul>
  * <h3>
  * <p/>9000's Administrative RBAC
@@ -348,7 +351,9 @@ package us.jts.fortress;
  * <li> <code>{@link GlobalErrIds#ARLE_DEASSIGN_FAILED} = 9025;</code>
  * <li> <code>{@link GlobalErrIds#ARLE_OCCUPANT_SEARCH_FAILED} = 9026;</code>
  * <li> <code>{@link GlobalErrIds#ARLE_REMOVE_OCCUPANT_FAILED} = 9027;</code>
+ * <li> <code>{@link GlobalErrIds#ARLE_REMOVE_PARENT_FAILED} = 9028;</code>
  * </ul>
+ *
  * <h3>
  * <p/>10000's - Temporal Constraint Validation Error Ids
  * </h3>

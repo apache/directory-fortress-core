@@ -808,6 +808,10 @@ public class GlobalErrIds
     public final static int CHILD_ROLE_NULL = 5014;
 
     /**
+     * The operation to remove parent attribute to Role failed..
+     */
+    public final static int ROLE_REMOVE_PARENT_FAILED = 5015;
+    /**
      * Hierarchical Constraints
      */
 
@@ -1137,6 +1141,11 @@ public class GlobalErrIds
     public final static int ORG_DEL_FAILED_USER = 8020;
 
     /**
+     * The supplied Perm OU entity parent attribute could not be updated due to ldap error.
+     */
+    public final static int ORG_REMOVE_PARENT_FAILED_USER = 8021;
+
+    /**
      * The supplied Perm OU entity could not be read due to ldap error.
      */
     public final static int ORG_READ_FAILED_PERM = 8061;
@@ -1200,6 +1209,11 @@ public class GlobalErrIds
      * The supplied Parent OU is required for this operation and cannot be null.
      */
     public final static int ORG_CHILD_NULL = 8073;
+
+    /**
+     * The supplied Perm OU parent attribute could not be removed due to ldap error.
+     */
+    public final static int ORG_REMOVE_PARENT_FAILED_PERM = 8074;
 
     /**
      * 9000's Administrative RBAC
@@ -1349,6 +1363,10 @@ public class GlobalErrIds
      */
     public final static int ARLE_REMOVE_OCCUPANT_FAILED = 9027;
 
+    /**
+     * The supplied Administrative Role parent attribute could not be removed on ldap server.
+     */
+    public final static int ARLE_REMOVE_PARENT_FAILED = 9028;
     /**
      * 10000's - Temporal Constraint Validation Error Ids
      */

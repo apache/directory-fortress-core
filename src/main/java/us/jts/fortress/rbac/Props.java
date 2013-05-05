@@ -166,7 +166,7 @@ public class Props extends FortEntity implements Serializable
         /**
          *
          * @param obj
-         * @return
+         * @return boolean value
          */
         public boolean equals(Object obj)
         {

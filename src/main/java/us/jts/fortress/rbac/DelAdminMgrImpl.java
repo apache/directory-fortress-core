@@ -14,6 +14,7 @@ import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class implements the ARBAC02 DelAdminMgr interface for performing policy administration of Fortress ARBAC entities
@@ -127,6 +128,15 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
             }
         }
         permP.remove(role);
+        // remove all parent relationships from the role graph:
+        Set<String> parents = AdminRoleUtil.getParents(role.getName(), this.contextId);
+        if(parents != null)
+        {
+            for(String parent : parents)
+            {
+                AdminRoleUtil.updateHier(this.contextId, new Relationship(role.getName().toUpperCase(), parent.toUpperCase()), Hier.Op.REM);
+            }
+        }
         admRP.delete(role);
     }
 
@@ -406,6 +416,30 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_PERM, error, null);
             }
         }
+        // remove all parent relationships from this org graph:
+        Set<String> parents;
+        if (entity.getType() == OrgUnit.Type.USER)
+        {
+            parents = UsoUtil.getParents(entity.getName(), this.contextId);
+        }
+        else
+        {
+            parents = PsoUtil.getParents(entity.getName(), this.contextId);
+        }
+        if(parents != null)
+        {
+            for(String parent : parents)
+            {
+                if (entity.getType() == OrgUnit.Type.USER)
+                {
+                    UsoUtil.updateHier(this.contextId, new Relationship(entity.getName().toUpperCase(), parent.toUpperCase()), Hier.Op.REM);
+                }
+                else
+                {
+                    PsoUtil.updateHier(this.contextId, new Relationship(entity.getName().toUpperCase(), parent.toUpperCase()), Hier.Op.REM);
+                }
+            }
+        }
         // everything checked out good - remove the org unit from the OrgUnit data set:
         return ouP.delete(entity);
     }
@@ -648,7 +682,17 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         cOrg.setContextId(this.contextId);
         cOrg.delParent(parent.getName());
         setAdminData(CLS_NM, methodName, cOrg);
-        ouP.update(cOrg);
+        // are there any parents left?
+        if(!VUtil.isNotNullOrEmpty(cOrg.getParents()))
+        {
+            // The updates only update non-empty multi-occurring attributes
+            // so if last parent assigned, so must remove the attribute completely:
+            ouP.deleteParent(cOrg);
+        }
+        else
+        {
+            ouP.update(cOrg);
+        }
     }
 
 
@@ -830,7 +874,17 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         cRole2.delParent(parentRole.getName());
         cRole2.setContextId(this.contextId);
         setAdminData(CLS_NM, methodName, cRole2);
-        admRP.update(cRole2);
+        // are there any parents left?
+        if(!VUtil.isNotNullOrEmpty(cRole2.getParents()))
+        {
+            // The updates only update non-empty multi-occurring attributes
+            // so if last parent assigned, so must remove the attribute completely:
+            admRP.deleteParent(cRole2);
+        }
+        else
+        {
+            admRP.update(cRole2);
+        }
     }
 
     /**

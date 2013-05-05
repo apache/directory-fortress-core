@@ -201,6 +201,36 @@ final class RoleDAO extends DataProvider
 
 
     /**
+     *
+     * @param entity
+     * @throws UpdateException
+     */
+    final void deleteParent(Role entity)
+        throws UpdateException
+    {
+        LDAPConnection ld = null;
+        String dn = getDn(entity.getName(), entity.getContextId());
+        try
+        {
+            ld = getAdminConnection();
+            LDAPModificationSet mods = new LDAPModificationSet();
+            LDAPAttribute occupant = new LDAPAttribute(GlobalIds.PARENT_NODES);
+            mods.add(LDAPModification.DELETE, occupant);
+            modify(ld, dn, mods, entity);
+        }
+        catch (LDAPException e)
+        {
+            String error = CLS_NM + ".deleteParent name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            throw new UpdateException(GlobalErrIds.ROLE_REMOVE_PARENT_FAILED, error, e);
+        }
+        finally
+        {
+            closeAdminConnection(ld);
+        }
+    }
+
+
+    /**
      * @param entity
      * @param userDn
      * @return
