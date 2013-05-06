@@ -1099,7 +1099,7 @@
    <target name="install-sentry" depends="init"  description="--> install sentry">
        <unzip src="${sentry.zip}" dest="${basedir}"/>
        <!-- copy the build.properties file to sentry -->
-       <copy todir="${sentry.dir}" file="${basedir}/build.properties"/>
+       <copy todir="${sentry.dir}" file="${basedir}/build.properties" overwrite="true" />
        <!-- Sentry should use LDAPv3 for the demo install -->
        <replace file="${sentry.dir}/build.properties" token="enable.mgr.impl.rest=true" value="enable.mgr.impl.rest=false"/>
        <antcall target="sentry-ant-dist"></antcall>
@@ -1188,13 +1188,14 @@
           Install EnMasse
          ================================= -->
     <target name="install-enmasse" depends="init"  description="--> install sentry">
-       <unzip src="${enmasse.zip}" dest="${basedir}"/>
+        <unzip src="${enmasse.zip}" dest="${basedir}"/>
         <!-- copy the fortress.properties file to enmasse -->
-       <copy todir="${enmasse.dir}/src/main/resources" file="${dst.remote.conf}"/>
+        <copy todir="${enmasse.dir}/src/main/resources" file="${dst.remote.conf}"/>
         <!-- For demo Enmasse should use LDAPv3 for backend connections -->
-       <replace file="${enmasse.dir}/src/main/resources/fortress.properties" token="enable.mgr.impl.rest=true" value="enable.mgr.impl.rest=false"/>
-       <antcall target="enmasse-maven-install"></antcall>
-       <antcall target="enmasse-maven-deploy"></antcall>
+        <copy todir="${enmasse.dir}/src/main/resources" file="${dst.remote.conf}" overwrite="true" />
+        <replace file="${enmasse.dir}/src/main/resources/fortress.properties" token="enable.mgr.impl.rest=true" value="enable.mgr.impl.rest=false"/>
+        <antcall target="enmasse-maven-install"></antcall>
+        <antcall target="enmasse-maven-deploy"></antcall>
     </target>
 
     <!-- =================================
