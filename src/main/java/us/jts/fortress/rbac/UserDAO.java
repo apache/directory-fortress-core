@@ -293,7 +293,8 @@ final class UserDAO extends DataProvider
                 entity.setSn(entity.getUserId());
             }
             attrs.add(createAttribute(SN, entity.getSn()));
-            attrs.add(createAttribute(PW, new String(entity.getPassword())));
+            // guard against npe
+            attrs.add(createAttribute(PW, VUtil.isNotNullOrEmpty(entity.getPassword()) ? new String(entity.getPassword()) : new String(new char[]{})));
             attrs.add(createAttribute(DISPLAY_NAME, entity.getCn()));
             if (VUtil.isNotNullOrEmpty(entity.getTitle()))
             {
