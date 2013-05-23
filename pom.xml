@@ -23,6 +23,7 @@
   <version>1.0-RC25</version>
   <description>Fortress is a standards-based Identity and Access Management SDK.</description>
   <url>http://jts.us</url>
+
   <licenses>
     <license>
       <name>BSD</name>
@@ -30,10 +31,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
   <scm>
     <url>http://www.openldap.org/software/repo/openldap-fortress-core.git</url>
     <connection>git://git.openldap.org/openldap-fortress-core.git</connection>
   </scm>
+
   <developers>
     <developer>
       <id>smckinney</id>
@@ -41,66 +44,129 @@
       <email>shawn.mckinney@jts.us</email>
     </developer>
   </developers>
+
   <dependencies>
-	<dependency>
-	  <groupId>commons-lang</groupId>
-	  <artifactId>commons-lang</artifactId>
-	  <version>2.4</version>
-	</dependency>
-	<dependency>
-	  <groupId>commons-configuration</groupId>
-	  <artifactId>commons-configuration</artifactId>
-	  <version>1.6</version>
-	</dependency>
-	<dependency>
-	  <groupId>commons-collections</groupId>
-	  <artifactId>commons-collections</artifactId>
-	  <version>3.2.1</version>
-	</dependency>
-	<dependency>
-	  <groupId>commons-pool</groupId>
-	  <artifactId>commons-pool</artifactId>
-	  <version>1.5.2</version>
-	</dependency>
-	<dependency>
-	  <groupId>commons-logging</groupId>
-	  <artifactId>commons-logging</artifactId>
-	  <version>1.1.1</version>
-	</dependency>
-	<dependency>
-	   <groupId>com.unboundid</groupId>
-	   <artifactId>unboundid-ldapsdk</artifactId>
-	   <version>2.1.0</version>
-	</dependency>
-	<dependency>
-	   <groupId>log4j</groupId>
-	   <artifactId>log4j</artifactId>
-	   <version>1.2.16</version>
-	</dependency>
-	<dependency>
-	   <groupId>org.jasypt</groupId>
-	   <artifactId>jasypt</artifactId>
-	   <version>1.8</version>
-	</dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>1.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <version>1.5.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>3.1</version>
+    </dependency>
+
+    <dependency>
+       <groupId>com.unboundid</groupId>
+       <artifactId>unboundid-ldapsdk</artifactId>
+       <version>2.1.0</version>
+    </dependency>
+
+    <dependency>
+       <groupId>log4j</groupId>
+       <artifactId>log4j</artifactId>
+       <version>1.2.16</version>
+    </dependency>
+
+    <dependency>
+       <groupId>org.jasypt</groupId>
+       <artifactId>jasypt</artifactId>
+       <version>1.8</version>
+    </dependency>
+
     <dependency>
        <groupId>org.jgrapht</groupId>
        <artifactId>jgrapht-jdk1.5</artifactId>
        <version>0.7.3</version>
     </dependency>
-	<dependency>
-		<groupId>net.sf.ehcache</groupId>
-		<artifactId>ehcache-core</artifactId>
-		<version>2.6.5</version>
-	</dependency>
-	<dependency>
-		<groupId>org.slf4j</groupId>
-		<artifactId>slf4j-api</artifactId>
-		<version>1.6.1</version>
-	</dependency>
-	<dependency>
-	   <groupId>org.slf4j</groupId>
-	   <artifactId>slf4j-jcl</artifactId>
-	   <version>1.6.1</version>
-	</dependency>
+
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache-core</artifactId>
+      <version>2.6.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jcl</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>1.9.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-common-utilities</artifactId>
+      <version>2.5.10</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>jsr311-api</artifactId>
+      <version>1.1-ea</version>
+    </dependency>
+
+    <!-- Test dependencies -->
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+    </dependency>
   </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.5.1</version>
+          <configuration>
+            <source>1.7</source>
+            <target>1.7</target>
+            <optimize>true</optimize>
+            <showDeprecations>true</showDeprecations>
+            <encoding>ISO-8859-1</encoding>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
