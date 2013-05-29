@@ -47,7 +47,7 @@
 
             <!-- Begin RBAC Admin Data: -->
         	<adduser>
-                <!-- Bad User end time -->
+                <!-- User end time is very early - 8am so this user will fail AuthN if you login after that time. -->
         		<user userId="demoUser1"
                       password="password"
                       description="Demo Test User 1"
@@ -62,7 +62,20 @@
                       beginLockDate="none"
                       endLockDate="none"
                       dayMask="1234567"
-                      timeout="60"/>
+                      timeout="60"
+                      city="Lawrence"
+                      state="Kansas"
+                      country="US"
+                      addresses="1450 Jayhawk Blvd.,50 Strong Hall"
+                      postalCode="66045"
+                      postOfficeBox="321"
+                      building="50"
+                      departmentNumber="77"
+                      roomNumber="1"
+                      email="joe.user@ku.edu,joe.user@jts.us"
+                      phone="785 864-4700,785-864-4000"
+                      mobile="785 864-4701,785 864-2201"
+                        />
 
         		<user userId="demoUser2" password="password" description="Demo Test User 2" ou="demousrs1" cn="JoeUser2" sn="User2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
 

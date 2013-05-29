@@ -37,7 +37,10 @@ import java.util.List;
     "state",
     "country",
     "postalCode",
-    "postOfficeBox"
+    "postOfficeBox",
+    "building",
+    "departmentNumber",
+    "roomNumber"
 })
 public class Address implements Serializable
 {
@@ -48,6 +51,9 @@ public class Address implements Serializable
     private String country;
     private String postalCode;
     private String postOfficeBox;
+    private String building;
+    private String departmentNumber;
+    private String roomNumber;
 
     /**
      * This attribute is bound for {@code postalAddress} attribute on {@code organizationalPerson} object class.
@@ -190,6 +196,36 @@ public class Address implements Serializable
         this.postOfficeBox = postOfficeBox;
     }
 
+    public String getBuilding()
+    {
+        return building;
+    }
+
+    public void setBuilding(String building)
+    {
+        this.building = building;
+    }
+
+    public String getDepartmentNumber()
+    {
+        return departmentNumber;
+    }
+
+    public void setDepartmentNumber(String departmentNumber)
+    {
+        this.departmentNumber = departmentNumber;
+    }
+
+    public String getRoomNumber()
+    {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber)
+    {
+        this.roomNumber = roomNumber;
+    }
+
     /**
      * Override the standard equals on object to use the attributes of this class.
      *
@@ -205,13 +241,19 @@ public class Address implements Serializable
         Address address = (Address) o;
 
         if (addresses != null ? !addresses.equals(address.addresses) : address.addresses != null) return false;
+        if (building != null ? !building.equals(address.building) : address.building != null)
+            return false;
         if (city != null ? !city.equals(address.city) : address.city != null) return false;
         if (country != null ? !country.equals(address.country) : address.country != null) return false;
+        if (departmentNumber != null ? !departmentNumber.equals(address.departmentNumber) : address.departmentNumber != null)
+            return false;
         if (postOfficeBox != null ? !postOfficeBox.equals(address.postOfficeBox) : address.postOfficeBox != null)
             return false;
         if (postalCode != null ? !postalCode.equals(address.postalCode) : address.postalCode != null) return false;
-        return !(state != null ? !state.equals(address.state) : address.state != null);
+        if (roomNumber != null ? !roomNumber.equals(address.roomNumber) : address.roomNumber != null) return false;
+        if (state != null ? !state.equals(address.state) : address.state != null) return false;
 
+        return true;
     }
 
     /**
@@ -228,6 +270,9 @@ public class Address implements Serializable
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
         result = 31 * result + (postOfficeBox != null ? postOfficeBox.hashCode() : 0);
+        result = 31 * result + (building != null ? building.hashCode() : 0);
+        result = 31 * result + (departmentNumber != null ? departmentNumber.hashCode() : 0);
+        result = 31 * result + (roomNumber != null ? roomNumber.hashCode() : 0);
         return result;
     }
 }
