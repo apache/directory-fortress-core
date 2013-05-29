@@ -232,6 +232,7 @@ final class UserDAO extends DataProvider
         GlobalIds.USER_ROLE_ASSIGN,
         OPENLDAP_PW_RESET,
         OPENLDAP_PW_LOCKED_TIME,
+        OPENLDAP_POLICY_SUBENTRY,
         GlobalIds.PROPS,
         GlobalIds.USER_ADMINROLE_ASSIGN,
         GlobalIds.USER_ADMINROLE_DATA,
@@ -1552,6 +1553,7 @@ final class UserDAO extends DataProvider
         entity.setName(entity.getCn());
         entity.setSn(getAttribute(le, SN));
         entity.setOu(getAttribute(le, GlobalIds.OU));
+        entity.setPwPolicy(getAttribute(le, OPENLDAP_POLICY_SUBENTRY));
         entity.setDn(le.getDN());
         entity.setTitle(getAttribute(le, TITLE));
         entity.setEmployeeType(getAttribute(le, EMPLOYEE_TYPE));

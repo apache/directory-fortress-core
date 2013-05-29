@@ -146,6 +146,7 @@ class ReviewMgrConsole
                 System.out.println("    common name [" + ue.getCn() + "]");
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
+                System.out.println("    pwpolicy    [" + ue.getPwPolicy() + "]");
                 printTemporal(ue, "USER");
                 printAddress(ue.getAddress(), "ADDRESS");
                 printPhone(ue.getPhones(), "PHONES");
@@ -204,6 +205,7 @@ class ReviewMgrConsole
                 System.out.println("    common name [" + ue.getCn() + "]");
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
+                System.out.println("    pwpolicy    [" + ue.getPwPolicy() + "]");
                 System.out.println("    seqId       [" + ue.getSequenceId() + "]");
                 printTemporal(ue, "USER");
                 printAddress(ue.getAddress(), "ADDRESS");
@@ -270,6 +272,7 @@ class ReviewMgrConsole
                 System.out.println("    common name [" + ue.getCn() + "]");
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
+                System.out.println("    pwpolicy    [" + ue.getPwPolicy() + "]");
                 printTemporal(ue, "USER");
                 printAddress(ue.getAddress(), "ADDRESS");
                 printPhone(ue.getPhones(), "PHONES");
@@ -338,6 +341,7 @@ class ReviewMgrConsole
                 System.out.println("    common name [" + ue.getCn() + "]");
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
+                System.out.println("    pwpolicy    [" + ue.getPwPolicy() + "]");
                 printTemporal(ue, "USER");
                 printAddress(ue.getAddress(), "ADDRESS");
                 printPhone(ue.getPhones(), "PHONES");
@@ -499,6 +503,7 @@ class ReviewMgrConsole
                 System.out.println("    common name [" + ue.getCn() + "]");
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
+                System.out.println("    pwpolicy    [" + ue.getPwPolicy() + "]");
                 printTemporal(ue, "USER");
                 if (ue.getRoles() != null)
                 {
