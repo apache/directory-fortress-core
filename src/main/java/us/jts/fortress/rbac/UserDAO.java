@@ -227,8 +227,8 @@ final class UserDAO extends DataProvider
         GlobalIds.OU, GlobalIds.CN,
         SN,
         GlobalIds.CONSTRAINT,
-        OPENLDAP_PW_RESET,
-        OPENLDAP_PW_LOCKED_TIME,
+        GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : null,
+        GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_LOCKED_TIME : null,
         GlobalIds.PROPS
     };
 
@@ -244,9 +244,9 @@ final class UserDAO extends DataProvider
         GlobalIds.USER_ROLE_DATA,
         GlobalIds.CONSTRAINT,
         GlobalIds.USER_ROLE_ASSIGN,
-        OPENLDAP_PW_RESET,
-        OPENLDAP_PW_LOCKED_TIME,
-        OPENLDAP_POLICY_SUBENTRY,
+        GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : null,
+        GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_LOCKED_TIME : null,
+        GlobalIds.IS_OPENLDAP ? OPENLDAP_POLICY_SUBENTRY : null,
         GlobalIds.PROPS,
         GlobalIds.USER_ADMINROLE_ASSIGN,
         GlobalIds.USER_ADMINROLE_DATA,
@@ -334,7 +334,7 @@ final class UserDAO extends DataProvider
             {
                 attrs.add(createAttribute(SYSTEM_USER, entity.isSystem().toString().toUpperCase()));
             }
-            if (VUtil.isNotNullOrEmpty(entity.getPwPolicy()))
+            if (GlobalIds.IS_OPENLDAP && VUtil.isNotNullOrEmpty(entity.getPwPolicy()))
             {
                 String dn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn(entity.getContextId(), GlobalIds.PPOLICY_ROOT);
                 attrs.add(createAttribute(OPENLDAP_POLICY_SUBENTRY, dn));
@@ -426,7 +426,7 @@ final class UserDAO extends DataProvider
                 LDAPAttribute title = new LDAPAttribute(TITLE, entity.getTitle());
                 mods.add(LDAPModification.REPLACE, title);
             }
-            if (VUtil.isNotNullOrEmpty(entity.getPwPolicy()))
+            if (GlobalIds.IS_OPENLDAP && VUtil.isNotNullOrEmpty(entity.getPwPolicy()))
             {
                 String szDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn(entity.getContextId(), GlobalIds.PPOLICY_ROOT);
                 LDAPAttribute dn = new LDAPAttribute(OPENLDAP_POLICY_SUBENTRY, szDn);
@@ -1570,7 +1570,6 @@ final class UserDAO extends DataProvider
         entity.setName(entity.getCn());
         entity.setSn(getAttribute(le, SN));
         entity.setOu(getAttribute(le, GlobalIds.OU));
-        entity.setPwPolicy(getAttribute(le, OPENLDAP_POLICY_SUBENTRY));
         entity.setDn(le.getDN());
         entity.setTitle(getAttribute(le, TITLE));
         entity.setEmployeeType(getAttribute(le, EMPLOYEE_TYPE));
@@ -1581,22 +1580,26 @@ final class UserDAO extends DataProvider
         entity.setPhones(getAttributes(le, TELEPHONE_NUMBER));
         entity.setMobiles(getAttributes(le, MOBILE));
         entity.setEmails(getAttributes(le, MAIL));
-        String szBoolean = getAttribute(le, OPENLDAP_PW_RESET);
-        if (szBoolean != null && szBoolean.equalsIgnoreCase("true"))
-        {
-            entity.setReset(true);
-        }
-        szBoolean = getAttribute(le, OPENLDAP_PW_LOCKED_TIME);
-        if (szBoolean != null && szBoolean.equals(LOCK_VALUE))
-        {
-            entity.setLocked(true);
-        }
-        szBoolean = getAttribute(le, SYSTEM_USER);
+        String szBoolean = getAttribute(le, SYSTEM_USER);
         if (szBoolean != null)
         {
             entity.setSystem(Boolean.valueOf(szBoolean));
         }
         entity.addProperties(AttrHelper.getProperties(getAttributes(le, GlobalIds.PROPS)));
+        if(GlobalIds.IS_OPENLDAP)
+        {
+            szBoolean = getAttribute(le, OPENLDAP_PW_RESET);
+            if (szBoolean != null && szBoolean.equalsIgnoreCase("true"))
+            {
+                entity.setReset(true);
+            }
+            entity.setPwPolicy(getAttribute(le, OPENLDAP_POLICY_SUBENTRY));
+            szBoolean = getAttribute(le, OPENLDAP_PW_LOCKED_TIME);
+            if (szBoolean != null && szBoolean.equals(LOCK_VALUE))
+            {
+                entity.setLocked(true);
+            }
+        }
         return entity;
     }
 
