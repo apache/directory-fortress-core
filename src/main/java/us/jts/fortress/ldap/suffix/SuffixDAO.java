@@ -74,12 +74,12 @@ final class SuffixDAO extends DataProvider
         try
         {
             log.info(CLS_NM + ".create suffix dn [" + nodeDn + "]");
-            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS));
             attrs.add(createAttribute(DC, se.getName()));
             attrs.add(createAttribute(O, se.getDescription()));
             LDAPEntry myEntry = new LDAPEntry(nodeDn, attrs);
+            ld = getAdminConnection();
             add(ld, myEntry);
         }
         catch (LDAPException e)

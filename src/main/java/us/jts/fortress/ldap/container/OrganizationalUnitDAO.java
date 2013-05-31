@@ -80,13 +80,13 @@ final class OrganizationalUnitDAO extends DataProvider
         try
         {
             log.info(CLS_NM + ".create container dn [" + nodeDn + "]");
-            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS,
                 ORGUNIT_OBJ_CLASS));
             attrs.add(createAttribute(GlobalIds.OU, oe.getName()));
             attrs.add(createAttribute(GlobalIds.DESC, oe.getDescription()));
             LDAPEntry myEntry = new LDAPEntry(nodeDn, attrs);
+            ld = getAdminConnection();
             add(ld, myEntry);
         }
         catch (LDAPException e)

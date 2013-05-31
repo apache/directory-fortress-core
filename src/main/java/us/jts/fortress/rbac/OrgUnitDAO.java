@@ -113,7 +113,6 @@ final class OrgUnitDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS));
             entity.setId();
@@ -127,6 +126,7 @@ final class OrgUnitDAO extends DataProvider
             loadAttrs(entity.getParents(), attrs, GlobalIds.PARENT_NODES);
 
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
+            ld = getAdminConnection();
             add(ld, myEntry, entity);
         }
         catch (LDAPException e)
@@ -165,7 +165,6 @@ final class OrgUnitDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
             {
@@ -175,6 +174,7 @@ final class OrgUnitDAO extends DataProvider
             loadAttrs(entity.getParents(), mods, GlobalIds.PARENT_NODES);
             if (mods.size() > 0)
             {
+                ld = getAdminConnection();
                 modify(ld, dn, mods, entity);
             }
         }
@@ -213,10 +213,11 @@ final class OrgUnitDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute occupant = new LDAPAttribute(GlobalIds.PARENT_NODES);
             mods.add(LDAPModification.DELETE, occupant);
+            ld = getAdminConnection();
+            modify(ld, dn, mods, entity);
         }
         catch (LDAPException e)
         {
@@ -366,9 +367,9 @@ final class OrgUnitDAO extends DataProvider
         try
         {
             String searchVal = encodeSafeText(orgUnit.getName(), GlobalIds.ROLE_LEN);
-            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
                 + GlobalIds.OU + "=" + searchVal + "*))";
+            ld = getAdminConnection();
             searchResults = search(ld, orgUnitRoot,
                 LDAPConnection.SCOPE_ONE, filter, ORGUNIT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -414,8 +415,8 @@ final class OrgUnitDAO extends DataProvider
         String orgUnitRoot = getOrgRoot(orgUnit);
         try
         {
-            ld = getAdminConnection();
             String filter = "(objectclass=" + ORGUNIT_OBJECT_CLASS_NM + ")";
+            ld = getAdminConnection();
             LDAPSearchResults searchResults = search(ld, orgUnitRoot,
                 LDAPConnection.SCOPE_ONE, filter, ORGUNIT_ATR, false, GlobalIds.BATCH_SIZE);
             while (searchResults.hasMoreElements())
@@ -461,9 +462,9 @@ final class OrgUnitDAO extends DataProvider
          String filter = null;
          try
          {
-             ld = getAdminConnection();
              filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
                  + GlobalIds.PARENT_NODES + "=*))";
+             ld = getAdminConnection();
              searchResults = search(ld, orgUnitRoot,
                  LDAPConnection.SCOPE_ONE, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE);
              long sequence = 0;

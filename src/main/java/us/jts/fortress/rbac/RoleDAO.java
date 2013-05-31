@@ -110,7 +110,6 @@ final class RoleDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, GlobalIds.ROLE_OBJ_CLASS));
             entity.setId();
@@ -129,6 +128,7 @@ final class RoleDAO extends DataProvider
             loadAttrs(entity.getParents(), attrs, GlobalIds.PARENT_NODES);
 
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
+            ld = getAdminConnection();
             add(ld, myEntry, entity);
         }
         catch (LDAPException e)
@@ -157,7 +157,6 @@ final class RoleDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getDescription()))
             {
@@ -184,6 +183,7 @@ final class RoleDAO extends DataProvider
             loadAttrs(entity.getParents(), mods, GlobalIds.PARENT_NODES);
             if (mods.size() > 0)
             {
+                ld = getAdminConnection();
                 modify(ld, dn, mods, entity);
             }
         }
@@ -212,10 +212,10 @@ final class RoleDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute occupant = new LDAPAttribute(GlobalIds.PARENT_NODES);
             mods.add(LDAPModification.DELETE, occupant);
+            ld = getAdminConnection();
             modify(ld, dn, mods, entity);
         }
         catch (LDAPException e)
@@ -244,10 +244,11 @@ final class RoleDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = getAdminConnection();
+            //ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute occupant = new LDAPAttribute(ROLE_OCCUPANT, userDn);
             mods.add(LDAPModification.ADD, occupant);
+            ld = getAdminConnection();
             modify(ld, dn, mods, entity);
         }
         catch (LDAPException e)
@@ -277,10 +278,10 @@ final class RoleDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute occupant = new LDAPAttribute(ROLE_OCCUPANT, userDn);
             mods.add(LDAPModification.DELETE, occupant);
+            ld = getAdminConnection();
             modify(ld, dn, mods, entity);
         }
         catch (LDAPException e)
@@ -380,9 +381,9 @@ final class RoleDAO extends DataProvider
         try
         {
             String searchVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
-            ld = getAdminConnection();
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
+            ld = getAdminConnection();
             searchResults = search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, ROLE_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -422,9 +423,9 @@ final class RoleDAO extends DataProvider
         try
         {
             String searchVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
-            ld = getAdminConnection();
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
+            ld = getAdminConnection();
             searchResults = search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE, limit);
             while (searchResults.hasMoreElements())
@@ -462,9 +463,9 @@ final class RoleDAO extends DataProvider
         String roleRoot = getRootDn(contextId, GlobalIds.ROLE_ROOT);
         try
         {
-            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")";
             filter += "(" + ROLE_OCCUPANT + "=" + userDn + "))";
+            ld = getAdminConnection();
             searchResults = search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE);
             while (searchResults.hasMoreElements())
@@ -502,9 +503,9 @@ final class RoleDAO extends DataProvider
         String filter = null;
         try
         {
-            ld = getAdminConnection();
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + GlobalIds.PARENT_NODES + "=*))";
+            ld = getAdminConnection();
             searchResults = search(ld, roleRoot,
                 LDAPConnection.SCOPE_ONE, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;

@@ -174,7 +174,6 @@ final class PermDAO extends DataProvider
         String dn = getDn(entity, entity.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, PERM_OBJ_OBJ_CLASS));
             attrs.add(createAttribute(GlobalIds.POBJ_NAME, entity.getObjectName()));
@@ -207,6 +206,7 @@ final class PermDAO extends DataProvider
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
 
             // now add the new entry to directory:
+            ld = getAdminConnection();
             add(ld, myEntry, entity);
         }
         catch (LDAPException e)
@@ -235,7 +235,6 @@ final class PermDAO extends DataProvider
         String dn = getDn(entity, entity.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getOu()))
             {
@@ -260,6 +259,7 @@ final class PermDAO extends DataProvider
             }
             if (mods.size() > 0)
             {
+                ld = getAdminConnection();
                 modify(ld, dn, mods, entity);
             }
         }
@@ -316,7 +316,6 @@ final class PermDAO extends DataProvider
         String dn = getDn(entity, entity.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS));
             attrs.add(createAttribute(GlobalIds.POP_NAME, entity.getOpName()));
@@ -356,6 +355,7 @@ final class PermDAO extends DataProvider
             // create the new entry:
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
             // now add the new entry to directory:
+            ld = getAdminConnection();
             add(ld, myEntry, entity);
         }
         catch (LDAPException e)
@@ -384,7 +384,6 @@ final class PermDAO extends DataProvider
         String dn = getDn(entity, entity.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getAbstractName()))
             {
@@ -406,6 +405,7 @@ final class PermDAO extends DataProvider
             loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, true);
             if (mods.size() > 0)
             {
+                ld = getAdminConnection();
                 modify(ld, dn, mods, entity);
             }
         }
@@ -464,10 +464,10 @@ final class PermDAO extends DataProvider
         String dn = getDn(pOp, pOp.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(ROLES, role.getName());
             mods.add(LDAPModification.ADD, attr);
+            ld = getAdminConnection();
             modify(ld, dn, mods, pOp);
         }
         catch (LDAPException e)
@@ -510,10 +510,10 @@ final class PermDAO extends DataProvider
         String dn = getDn(pOp, pOp.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(ROLES, role.getName());
             mods.add(LDAPModification.DELETE, attr);
+            ld = getAdminConnection();
             modify(ld, dn, mods, pOp);
         }
         catch (LDAPException e)
@@ -551,10 +551,10 @@ final class PermDAO extends DataProvider
         String dn = getDn(pOp, pOp.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(USERS, user.getUserId());
             mods.add(LDAPModification.ADD, attr);
+            ld = getAdminConnection();
             modify(ld, dn, mods, pOp);
         }
         catch (LDAPException e)
@@ -597,10 +597,10 @@ final class PermDAO extends DataProvider
         String dn = getDn(pOp, pOp.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute attr = new LDAPAttribute(USERS, user.getUserId());
             mods.add(LDAPModification.DELETE, attr);
+            ld = getAdminConnection();
             modify(ld, dn, mods, pOp);
         }
         catch (LDAPException e)
@@ -930,11 +930,11 @@ final class PermDAO extends DataProvider
         {
             String permObjVal = encodeSafeText(permission.getObjectName(), GlobalIds.PERM_LEN);
             String permOpVal = encodeSafeText(permission.getOpName(), GlobalIds.PERM_LEN);
-            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*)("
                 + GlobalIds.POP_NAME + "=" + permOpVal + "*))";
 
+            ld = getAdminConnection();
             searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -972,9 +972,9 @@ final class PermDAO extends DataProvider
         try
         {
             String permObjVal = encodeSafeText(permObj.getObjectName(), GlobalIds.PERM_LEN);
-            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*))";
+            ld = getAdminConnection();
             searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -1011,7 +1011,6 @@ final class PermDAO extends DataProvider
         try
         {
             String ouVal = encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
-            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.OU + "=" + ouVal + "*))";
             int maxLimit;
@@ -1023,6 +1022,7 @@ final class PermDAO extends DataProvider
             {
                 maxLimit = 0;
             }
+            ld = getAdminConnection();
             searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit);
             long sequence = 0;
@@ -1068,7 +1068,6 @@ final class PermDAO extends DataProvider
         try
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
-            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(";
             Set<String> roles;
             if (role.getClass().equals(AdminRole.class))
@@ -1094,6 +1093,7 @@ final class PermDAO extends DataProvider
                 filter += ROLES + "=" + roleVal + ")";
             }
             filter += ")";
+            ld = getAdminConnection();
             searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -1129,7 +1129,6 @@ final class PermDAO extends DataProvider
         String permRoot = getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
-            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             Set<String> roles = RoleUtil.getInheritedRoles(user.getRoles(), user.getContextId());
             if (VUtil.isNotNullOrEmpty(roles))
@@ -1140,6 +1139,7 @@ final class PermDAO extends DataProvider
                 }
             }
             filter += "(" + USERS + "=" + user.getUserId() + ")))";
+            ld = getAdminConnection();
             searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -1176,9 +1176,9 @@ final class PermDAO extends DataProvider
         String permRoot = getRootDn(user.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
-            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")";
             filter += "(" + USERS + "=" + user.getUserId() + "))";
+            ld = getAdminConnection();
             searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -1214,7 +1214,6 @@ final class PermDAO extends DataProvider
         String permRoot = getRootDn(session.getContextId(), GlobalIds.PERM_ROOT);
         try
         {
-            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             filter += "(" + USERS + "=" + session.getUserId() + ")";
             Set<String> roles = RoleUtil.getInheritedRoles(session.getRoles(), session.getContextId());
@@ -1226,6 +1225,7 @@ final class PermDAO extends DataProvider
                 }
             }
             filter += "))";
+            ld = getAdminConnection();
             searchResults = search(ld, permRoot,
                 LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
