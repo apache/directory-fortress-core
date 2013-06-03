@@ -535,6 +535,10 @@ public class Role extends FortEntity
     @Override
     public Set<String> getParents()
     {
+        if (this.parents == null)
+        {
+            this.parents = new HashSet<>();
+        }
         return parents;
     }
 
