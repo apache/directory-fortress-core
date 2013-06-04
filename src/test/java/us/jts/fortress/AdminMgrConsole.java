@@ -23,6 +23,7 @@ import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rbac.TestUtils;
 import us.jts.fortress.rbac.Permission;
 import us.jts.fortress.rbac.User;
+import us.jts.fortress.rbac.UserAdminRole;
 import us.jts.fortress.rbac.UserRole;
 import us.jts.fortress.util.attr.VUtil;
 import org.apache.log4j.Logger;
@@ -353,13 +354,19 @@ class AdminMgrConsole
             ue.getAddress().setCountry("US");
             ue.getAddress().setPostalCode("72113");
             ue.getAddress().setState("AR");
-
             ue.setPhone("111-222-3333");
             ue.setPhone("222-222-3333");
             ue.setMobile("333-222-3333");
             ue.setMobile("444-222-3333");
 
             User ue2 = am.addUser(ue);
+            if(VUtil.isNotNullOrEmpty(ue.getRoles()))
+            {
+                for(UserRole uRole : ue.getRoles())
+                {
+                    am.assignUser(uRole);
+                }
+            }
             System.out.println("userId [" + ue2.getUserId() + "]");
             System.out.println("internalId [" + ue2.getInternalId() + "]");
             System.out.println("user description [" + ue2.getDescription() + "]");

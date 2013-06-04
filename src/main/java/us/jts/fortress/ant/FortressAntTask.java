@@ -43,6 +43,7 @@ import org.apache.tools.ant.Task;
 import org.apache.tools.ant.input.InputHandler;
 import org.apache.tools.ant.input.InputRequest;
 import org.apache.log4j.Logger;
+import us.jts.fortress.util.attr.VUtil;
 
 
 /**
@@ -798,6 +799,20 @@ public class FortressAntTask extends Task implements InputHandler
                     try
                     {
                         adminMgr.addUser(user);
+                        if(VUtil.isNotNullOrEmpty(user.getRoles()))
+                        {
+                            for(UserRole uRole : user.getRoles())
+                            {
+                                adminMgr.assignUser(uRole);
+                            }
+                        }
+                        if(VUtil.isNotNullOrEmpty(user.getAdminRoles()))
+                        {
+                            for(UserAdminRole uAdminRoleRole : user.getAdminRoles())
+                            {
+                                dAdminMgr.assignUser(uAdminRoleRole);
+                            }
+                        }
                     }
                     catch (SecurityException se)
                     {
@@ -805,6 +820,20 @@ public class FortressAntTask extends Task implements InputHandler
                         if (se.getErrorId() == GlobalErrIds.USER_ID_DUPLICATE)
                         {
                             adminMgr.updateUser(user);
+                            if(VUtil.isNotNullOrEmpty(user.getRoles()))
+                            {
+                                for(UserRole uRole : user.getRoles())
+                                {
+                                    adminMgr.assignUser(uRole);
+                                }
+                            }
+                            if(VUtil.isNotNullOrEmpty(user.getAdminRoles()))
+                            {
+                                for(UserAdminRole uAdminRoleRole : user.getAdminRoles())
+                                {
+                                    dAdminMgr.assignUser(uAdminRoleRole);
+                                }
+                            }
                             log.info(CLS_NM + ".addUsers - Update entity - userId=" + user.getUserId());
                         }
                         else
