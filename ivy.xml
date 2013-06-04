@@ -43,8 +43,8 @@
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.6.1" conf="default->master"/>
 
         <!-- The Fortress core is not dependent on sentry or enmasse artifacts, they're required for the QUICKSTART demo package: -->
-        <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC25"  conf="default->master"/>
-        <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC25"  conf="default->master">
+        <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC26"  conf="default->master"/>
+        <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC26"  conf="default->master">
             <artifact name="enmasse" type="jar"/>
         </dependency>
 
