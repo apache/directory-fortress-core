@@ -1596,7 +1596,13 @@ final class UserDAO extends DataProvider
             {
                 entity.setReset(true);
             }
-            entity.setPwPolicy(getAttribute(le, OPENLDAP_POLICY_SUBENTRY));
+            String szPolicy = getAttribute(le, OPENLDAP_POLICY_SUBENTRY);
+            if(VUtil.isNotNullOrEmpty(szPolicy))
+            {
+                entity.setPwPolicy(getRdn(szPolicy));
+            }
+
+
             szBoolean = getAttribute(le, OPENLDAP_PW_LOCKED_TIME);
             if (szBoolean != null && szBoolean.equals(LOCK_VALUE))
             {

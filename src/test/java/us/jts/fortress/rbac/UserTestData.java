@@ -5880,61 +5880,6 @@ public class UserTestData extends TestCase
         return getList(szInput, EMAILS_COL);
     }
 
-    /**
-     * @param szInput
-     * @param col
-     * @return
-     */
-    private static Address getAddressx(String[] szInput, int col)
-    {
-        Address address = null;
-        try
-        {
-            if (VUtil.isNotNullOrEmpty(szInput[col]))
-            {
-                address = new Address();
-                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], TestUtils.DELIMITER_TEST_DATA);
-                if (charSetTkn.countTokens() > 0)
-                {
-                    int count = 0;
-                    while (charSetTkn.hasMoreTokens())
-                    {
-                        String value = charSetTkn.nextToken();
-                        switch(count++)
-                        {
-                            case 0:
-                                address.setCity(value);
-                                break;
-                            case 1:
-                                address.setState(value);
-                                break;
-                            case 2:
-                                address.setPostalCode(value);
-                                break;
-                            case 3:
-                                address.setBuilding(value);
-                                break;
-                            case 4:
-                                address.setDepartmentNumber(value);
-                                break;
-                            case 5:
-                                address.setPostalCode(value);
-                                break;
-                            default:
-                                address.setAddress(value);
-                                break;
-                        }
-                    }
-                }
-            }
-        }
-        catch (java.lang.ArrayIndexOutOfBoundsException ae)
-        {
-            // ignore
-        }
-        return address;
-    }
-
     private static Address getAddress(String[] szInput, int col)
     {
         Address address = null;
@@ -5950,26 +5895,37 @@ public class UserTestData extends TestCase
                     while (charSetTkn.hasMoreTokens())
                     {
                         String value = charSetTkn.nextToken();
+                        /* ADDRESS_COL */
                         switch(count++)
                         {
+                            // "Twentynine Palms,CA,92252,2345,123,2525,Hiway 62",
+                            //
+                            // Twentynine Palms */
                             case 0:
                                 address.setCity(value);
                                 break;
+                            // CA */
                             case 1:
                                 address.setState(value);
                                 break;
+                            // 92252 */
                             case 2:
                                 address.setPostalCode(value);
                                 break;
+                            // 2345 */
                             case 3:
                                 //address.setBuilding(value);
                                 break;
+                            // 123 */
                             case 4:
                                 //address.setDepartmentNumber(value);
                                 break;
+                            // 2525 */
                             case 5:
-                                //address.setPostalCode(value);
+                                //address.setRoomNumber(value);
                                 break;
+                            // Hiway 62
+                            /* ADDRESS_COL */
                             default:
                                 address.setAddress(value);
                                 break;
