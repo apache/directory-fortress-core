@@ -353,8 +353,6 @@ final class UserDAO extends DataProvider
             // map the userid to the name field in constraint:
             entity.setName(entity.getUserId());
             attrs.add(createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint(entity)));
-            loadUserRoles(entity.getRoles(), attrs);
-            loadUserAdminRoles(entity.getAdminRoles(), attrs);
             loadAddress(entity.getAddress(), attrs);
             String dn = getDn(entity.getUserId(), entity.getContextId());
 
@@ -447,19 +445,10 @@ final class UserDAO extends DataProvider
                     mods.add(LDAPModification.REPLACE, constraint);
                 }
             }
-            if (VUtil.isNotNullOrEmpty(entity.getRoles()))
-            {
-                loadUserRoles(entity.getRoles(), mods);
-            }
-            if (VUtil.isNotNullOrEmpty(entity.getAdminRoles()))
-            {
-                loadUserAdminRoles(entity.getAdminRoles(), mods);
-            }
             if (VUtil.isNotNullOrEmpty(entity.getProperties()))
             {
                 loadProperties(entity.getProperties(), mods, GlobalIds.PROPS, true);
             }
-
             loadAddress(entity.getAddress(), mods);
             // These are multi-valued attributes, use the util function to load:
             loadAttrs(entity.getPhones(), mods, TELEPHONE_NUMBER);
