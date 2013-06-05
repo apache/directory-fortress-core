@@ -33,7 +33,7 @@ public class UserTestData extends TestCase
             "Test Case TU1",              /* DESC_COL */
             "fnameone",                   /* CN_COL */
             "lnameone",                   /* SN_COL */
-            "jtsTestAdminUser@jts.com",   /* EMAILS_COL */
+            "jtsTestAdminUser@jts.us",   /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",          /* PROPS_COL */
             "0000",                       /* BTIME_COL */
             "0000",                       /* ETIME_COL */
@@ -4465,7 +4465,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR1TU18U@jtstools.com",   /* EMAILS_COL */
+            "USR1TU18U@jts.us",            /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4489,7 +4489,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR2TU18U@jtstools.com",   /* EMAILS_COL */
+            "USR2TU18U@jts.us",           /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4513,7 +4513,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR3TU18U@jtstools.com",   /* EMAILS_COL */
+            "USR3TU18U@jts.us",          /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4537,7 +4537,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR4TU18U@jtstools.com",   /* EMAILS_COL */
+            "USR4TU18U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4561,7 +4561,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR5TU18U@jtstools.com",   /* EMAILS_COL */
+            "USR5TU18U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4585,7 +4585,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR6TU18U@jtstools.com",   /* EMAILS_COL */
+            "USR6TU18U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4609,7 +4609,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR7TU18U@jtstools.com",   /* EMAILS_COL */
+            "USR7TU18U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4633,7 +4633,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR8TU18U@jtstools.com",   /* EMAILS_COL */
+            "USR8TU18U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4657,7 +4657,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR9TU18U@jtstools.com",   /* EMAILS_COL */
+            "USR9TU18U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4681,7 +4681,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR10TU18U@jtstools.com",  /* EMAILS_COL */
+            "USR10TU18U@jts.us",        /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4705,7 +4705,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR11TU18U@jtstools.com",  /* EMAILS_COL */
+            "USR11TU18U@jts.us",        /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4729,7 +4729,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR12TU18U@jtstools.com",  /* EMAILS_COL */
+            "USR12TU18U@jts.us",        /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4753,7 +4753,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR13TU18U@jtstools.com",  /* EMAILS_COL */
+            "USR13TU18U@jts.us",        /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4777,7 +4777,7 @@ public class UserTestData extends TestCase
             "Test Case TU18U TR6_DESC", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR14TU18U@jtstools.com",  /* EMAILS_COL */
+            "USR14TU18U@jts.us",  /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4830,7 +4830,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR1TU19U@jtstools.com",   /* EMAILS_COL */
+            "USR1TU19U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4854,7 +4854,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR2TU19U@jtstools.com",   /* EMAILS_COL */
+            "USR2TU19U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4878,7 +4878,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR3TU19U@jtstools.com",   /* EMAILS_COL */
+            "USR3TU19U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4902,7 +4902,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR4TU19U@jtstools.com",   /* EMAILS_COL */
+            "USR4TU19U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4926,7 +4926,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR5TU19U@jtstools.com",   /* EMAILS_COL */
+            "USR5TU19U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4950,7 +4950,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR6TU19U@jtstools.com",   /* EMAILS_COL */
+            "USR6TU19U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4974,7 +4974,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR7TU19U@jtstools.com",   /* EMAILS_COL */
+            "USR7TU19U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -4998,7 +4998,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR8TU19U@jtstools.com",   /* EMAILS_COL */
+            "USR8TU19U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5022,7 +5022,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR9TU19U@jtstools.com",   /* EMAILS_COL */
+            "USR9TU19U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5046,7 +5046,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR10TU19U@jtstools.com",  /* EMAILS_COL */
+            "USR10TU19U@jts.us",        /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5070,7 +5070,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR11TU19U@jtstools.com",  /* EMAILS_COL */
+            "USR11TU19U@jts.us",        /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5094,7 +5094,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR12TU19U@jtstools.com",  /* EMAILS_COL */
+            "USR12TU19U@jts.us",        /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5118,7 +5118,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR13TU19U@jtstools.com",  /* EMAILS_COL */
+            "USR13TU19U@jts.us",        /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5142,7 +5142,7 @@ public class UserTestData extends TestCase
             "Test Case TU19U TR7_ASC",  /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR14TU19U@jtstools.com",  /* EMAILS_COL */
+            "USR14TU19U@jts.us",        /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5195,7 +5195,7 @@ public class UserTestData extends TestCase
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR1TU20U@jtstools.com",   /* EMAILS_COL */
+            "USR1TU20U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5219,7 +5219,7 @@ public class UserTestData extends TestCase
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR2TU20U@jtstools.com",   /* EMAILS_COL */
+            "USR2TU20U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5243,7 +5243,7 @@ public class UserTestData extends TestCase
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR3TU20U@jtstools.com",   /* EMAILS_COL */
+            "USR3TU20U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5267,7 +5267,7 @@ public class UserTestData extends TestCase
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR4TU20U@jtstools.com",   /* EMAILS_COL */
+            "USR4TU20U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5291,7 +5291,7 @@ public class UserTestData extends TestCase
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR5TU20U@jtstools.com",   /* EMAILS_COL */
+            "USR5TU20U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5315,7 +5315,7 @@ public class UserTestData extends TestCase
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR6TU20U@jtstools.com",   /* EMAILS_COL */
+            "USR6TU20U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5339,7 +5339,7 @@ public class UserTestData extends TestCase
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR7TU20U@jtstools.com",   /* EMAILS_COL */
+            "USR7TU20U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5363,7 +5363,7 @@ public class UserTestData extends TestCase
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR8TU20U@jtstools.com",   /* EMAILS_COL */
+            "USR8TU20U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5387,7 +5387,7 @@ public class UserTestData extends TestCase
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR9TU20U@jtstools.com",   /* EMAILS_COL */
+            "USR9TU20U@jts.us",         /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
@@ -5411,7 +5411,7 @@ public class UserTestData extends TestCase
             "Test Case TU20U TR5_HIER", /* DESC_COL */
             "fnameoneupd",              /* CN_COL */
             "lnameoneupd",              /* SN_COL */
-            "USR10TU20U@jtstools.com",  /* EMAILS_COL */
+            "USR10TU20U@jts.us",  /* EMAILS_COL */
             "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
             "0000",                     /* BTIME_COL */
             "0000",                     /* ETIME_COL */
