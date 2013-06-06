@@ -95,8 +95,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
      * <li>{@link User#timeout} - number in seconds of session inactivity time allowed</li>
      * <li>{@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
-     * <li>{@link User#roles} * - multi-occurring attribute contains the name of already existing role to assign to user</li>
-     * <li>{@link User#adminRoles} * - multi-occurring attribute contains the name of already existing adminRole to assign to user</li>
      * </ul>
      *
      * @param user User entity must contain {@link User#userId} and {@link User#ou} (required) and optional {@link User#description},{@link User#roles} and many others.
@@ -112,12 +110,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         setEntitySession(CLS_NM, methodName, user);
 
         // Add the User record to ldap.
-        User newUser = userP.add(user);
-
-        // This method will add the user dn as occupant attribute if assigned it has role assignments.
-        roleP.addOccupant(newUser.getRoles(), newUser.getDn(), user.getContextId());
-        adminP.addOccupant(newUser.getAdminRoles(), newUser.getDn(), user.getContextId());
-        return newUser;
+        return userP.add(user);
     }
 
     /**
@@ -215,8 +208,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
      * <li>{@link User#timeout} - number in seconds of session inactivity time allowed</li>
      * <li>{@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
-     * <li>{@link User#roles} * - multi-occurring attribute contains the name of already existing role to assign to user</li>
-     * <li>{@link User#adminRoles} * - multi-occurring attribute contains the name of already existing adminRole to assign to user</li>
      * </ul>
      *
      * @param user must contain {@link User#userId} and optional entity data to update i.e. desc, ou, properties, all attributes that are not set will be ignored.
