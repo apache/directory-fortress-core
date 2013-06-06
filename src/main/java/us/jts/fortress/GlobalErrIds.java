@@ -209,9 +209,9 @@ public class GlobalErrIds
     public final static int USER_PW_INVLD_LEN = 1010;
 
     /**
-     * The operation failed because of password policy violation.
+     * The operation failed because of policy violation due to being designated a 'system' user..
      */
-    public final static int USER_PW_PLCY_VIOLATION = 1011;
+    public final static int USER_PLCY_VIOLATION = 1011;
 
     /**
      * The PW Policy node could not be removed from ldap.

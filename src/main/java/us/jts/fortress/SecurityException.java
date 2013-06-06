@@ -72,7 +72,7 @@ package us.jts.fortress;
  * <li> <code>{@link GlobalErrIds#USER_NULL} = 1008;</code>
  * <li> <code>{@link GlobalErrIds#USER_PW_NULL} = 1009;</code>
  * <li> <code>{@link GlobalErrIds#USER_PW_INVLD_LEN} = 1010;</code>
- * <li> <code>{@link GlobalErrIds#USER_PW_PLCY_VIOLATION} = 1011;</code>
+ * <li> <code>{@link GlobalErrIds#USER_PLCY_VIOLATION} = 1011;</code>
  * <li> <code>{@link GlobalErrIds#USER_PW_PLCY_DEL_FAILED} = 1012;</code>
  * <li> <code>{@link GlobalErrIds#USER_PW_INVLD} = 1013;</code>
  * <li> <code>{@link GlobalErrIds#USER_PW_CHK_FAILED} = 1014;</code>
