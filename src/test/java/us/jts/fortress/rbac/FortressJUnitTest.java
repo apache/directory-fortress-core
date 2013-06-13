@@ -208,6 +208,8 @@ public class FortressJUnitTest extends TestCase
         suite.addTest(new ReviewMgrImplTest("testPermissionUsers"));
         suite.addTest(new ReviewMgrImplTest("testAuthorizedPermissionUsers"));
         suite.addTest(new ReviewMgrImplTest("testUserPermissions"));
+        suite.addTest(new ReviewMgrImplTest("testFindSsdSets"));
+        suite.addTest(new ReviewMgrImplTest("testFindDsdSets"));
 
         /***********************************************************/
         /* 4. Security Checks                                      */

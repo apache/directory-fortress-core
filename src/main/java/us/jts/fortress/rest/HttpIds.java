@@ -76,6 +76,7 @@ public class HttpIds
     public static final String ORG_ADDINHERIT = "orgAddinherit";
     public static final String ORG_DELINHERIT = "orgDelinherit";
     public static final String ORG_SEARCH = "orgSearch";
+    public static final String SSD_ROLE_SETS = "ssdRoleSets";
     public static final String SSD_SETS = "ssdSets";
     public static final String SSD_READ = "ssdRead";
     public static final String SSD_ROLES = "ssdRoles";
@@ -85,6 +86,7 @@ public class HttpIds
     public static final String SSD_ADD_MEMBER = "ssdAddMember";
     public static final String SSD_DEL_MEMBER = "ssdDelMember";
     public static final String SSD_CARD_UPDATE = "ssdCardUpdate";
+    public static final String DSD_ROLE_SETS = "dsdRoleSets";
     public static final String DSD_SETS = "dsdSets";
     public static final String DSD_READ = "dsdRead";
     public static final String DSD_ROLES = "dsdRoles";

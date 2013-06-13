@@ -1048,7 +1048,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_SETS);
+        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_ROLE_SETS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1102,6 +1102,47 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
         return retSet;
+    }
+
+    /**
+     * This function returns the list of SSDs that match a given ssd name value.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     * </ul>
+     *
+     * @param ssd contains the name for the SSD set targeted, {@link SDSet#name}.
+     * @return List containing all SSDSets that match a given SSDSet name.
+     * @throws SecurityException in the event of data or system error.
+     */
+    public List<SDSet> ssdSets(SDSet ssd)
+        throws SecurityException
+    {
+        VUtil.assertNotNull(ssd, GlobalErrIds.ROLE_NULL, CLS_NM + ".ssdSets");
+         List<SDSet> retSsdSets;
+         FortRequest request = new FortRequest();
+         request.setContextId(this.contextId);
+         request.setEntity(ssd);
+         if (this.adminSess != null)
+         {
+             request.setSession(adminSess);
+         }
+         String szRequest = RestUtils.marshal(request);
+         String szResponse = RestUtils.post(szRequest, HttpIds.SSD_SETS);
+         FortResponse response = RestUtils.unmarshall(szResponse);
+         if (response.getErrorCode() == 0)
+         {
+             retSsdSets = response.getEntities();
+             if (retSsdSets == null)
+             {
+                 retSsdSets = new ArrayList<>();
+             }
+         }
+         else
+         {
+             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+         }
+         return retSsdSets;
     }
 
     /**
@@ -1211,7 +1252,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_SETS);
+        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_ROLE_SETS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1265,6 +1306,47 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
         return retSet;
+    }
+
+    /**
+     * This function returns the list of DSDs that match a given dsd name value.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     * </ul>
+     *
+     * @param dsd contains the name for the DSD set targeted, {@link SDSet#name}.
+     * @return List containing all DSDSets that match a given DSDSet name.
+     * @throws SecurityException in the event of data or system error.
+     */
+    public List<SDSet> dsdSets(SDSet dsd)
+        throws SecurityException
+    {
+        VUtil.assertNotNull(dsd, GlobalErrIds.ROLE_NULL, CLS_NM + ".dsdSets");
+         List<SDSet> retDsdSets;
+         FortRequest request = new FortRequest();
+         request.setContextId(this.contextId);
+         request.setEntity(dsd);
+         if (this.adminSess != null)
+         {
+             request.setSession(adminSess);
+         }
+         String szRequest = RestUtils.marshal(request);
+         String szResponse = RestUtils.post(szRequest, HttpIds.DSD_SETS);
+         FortResponse response = RestUtils.unmarshall(szResponse);
+         if (response.getErrorCode() == 0)
+         {
+             retDsdSets = response.getEntities();
+             if (retDsdSets == null)
+             {
+                 retDsdSets = new ArrayList<>();
+             }
+         }
+         else
+         {
+             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+         }
+         return retDsdSets;
     }
 
     /**

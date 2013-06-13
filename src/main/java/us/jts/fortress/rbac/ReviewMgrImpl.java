@@ -716,6 +716,27 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
     }
 
     /**
+     * This function returns the list of SSDs that match a given ssd name value.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     * </ul>
+     *
+     * @param ssd contains the name for the SSD set targeted, {@link SDSet#name}.
+     * @return List containing all SSDSets that match a given SSDSet name.
+     * @throws SecurityException in the event of data or system error.
+     */
+    public List<SDSet> ssdSets(SDSet ssd)
+        throws SecurityException
+    {
+        String methodName = "ssdSets";
+        ssd.setType(SDSet.SDType.STATIC);
+        assertContext(CLS_NM, methodName, ssd, GlobalErrIds.SSD_NULL);
+        checkAccess(CLS_NM, methodName);
+        return ssdP.search(ssd);
+    }
+
+    /**
      * This function returns the SSD data set that matches a particular set name.
      * <h4>required parameters</h4>
      * <ul>
@@ -829,6 +850,27 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         checkAccess(CLS_NM, methodName);
         set.setType(SDSet.SDType.DYNAMIC);
         return ssdP.read(set);
+    }
+
+    /**
+     * This function returns the list of DSDs that match a given dsd name value.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     * </ul>
+     *
+     * @param ssd contains the name for the SSD set targeted, {@link SDSet#name}.
+     * @return List containing all DSDSets that match a given DSDSet name.
+     * @throws SecurityException in the event of data or system error.
+     */
+    public List<SDSet> dsdSets(SDSet ssd)
+        throws SecurityException
+    {
+        String methodName = "dsdSets";
+        ssd.setType(SDSet.SDType.DYNAMIC);
+        assertContext(CLS_NM, methodName, ssd, GlobalErrIds.DSD_NULL);
+        checkAccess(CLS_NM, methodName);
+        return ssdP.search(ssd);
     }
 
     /**

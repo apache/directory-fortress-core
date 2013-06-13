@@ -2515,6 +2515,17 @@ public class PermTestData extends TestCase
               "T"                      /* IS_ADMIN_COL */
           },
           {
+              "ssdSets",               /* NAME_COL */
+              "ReviewMgr Op",          /* DESC_COL */
+              "",                      /* OBJ_ID_COL */
+              "ADMIN",                 /* TYPE_COL */
+              "",                      /* PROPS_COL */
+              "",                      /* ROLES_COL */
+              "",                      /* USERS_COL */
+              "",                      /* GROUPS_COL */
+              "T"                      /* IS_ADMIN_COL */
+          },
+          {
               "dsdRoleSets",           /* NAME_COL */
               "ReviewMgr Op",          /* DESC_COL */
               "",                      /* OBJ_ID_COL */
@@ -2549,6 +2560,17 @@ public class PermTestData extends TestCase
           },
           {
               "dsdRoleSetCardinality", /* NAME_COL */
+              "ReviewMgr Op",          /* DESC_COL */
+              "",                      /* OBJ_ID_COL */
+              "ADMIN",                 /* TYPE_COL */
+              "",                      /* PROPS_COL */
+              "",                      /* ROLES_COL */
+              "",                      /* USERS_COL */
+              "",                      /* GROUPS_COL */
+              "T"                      /* IS_ADMIN_COL */
+          },
+          {
+              "dsdSets",               /* NAME_COL */
               "ReviewMgr Op",          /* DESC_COL */
               "",                      /* OBJ_ID_COL */
               "ADMIN",                 /* TYPE_COL */
