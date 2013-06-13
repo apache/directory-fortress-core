@@ -5,7 +5,7 @@ Fortress CacheManager Configuration
 ==========================
 This ehcache.xml corresponds to a single CacheManager.
 -->
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<ehcache name="fortress" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="ehcache.xsd"
          updateCheck="true" monitoring="autodetect"
          dynamicConfig="true"
