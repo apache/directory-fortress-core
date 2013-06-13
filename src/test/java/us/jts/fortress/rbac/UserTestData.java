@@ -3,10 +3,6 @@
  */
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.GlobalIds;
-import us.jts.fortress.util.attr.VUtil;
-import us.jts.fortress.util.time.Constraint;
-import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -15,6 +11,12 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
+
+import junit.framework.TestCase;
+import us.jts.fortress.GlobalIds;
+import us.jts.fortress.util.attr.VUtil;
+import us.jts.fortress.util.time.Constraint;
+
 
 /**
  * Description of the Class
@@ -25,5443 +27,5464 @@ import java.util.TreeSet;
 public class UserTestData extends TestCase
 {
 
-    public final static String[][] USERS_TU0 = {
+    public final static String[][] USERS_TU0 =
         {
-            "jtsTestAdminUser",           /* USERID_COL */
-            "password1",                  /* PASSWORD_COL */
-            "Test1",                      /* PW POLICY ATTR */
-            "Test Case TU1",              /* DESC_COL */
-            "fnameone",                   /* CN_COL */
-            "lnameone",                   /* SN_COL */
-            "jtsTestAdminUser@jts.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",          /* PROPS_COL */
-            "0000",                       /* BTIME_COL */
-            "0000",                       /* ETIME_COL */
-            "20090101",                   /* BDATE_COL */
-            "21000101",                   /* EDATE_COL */
-            "20500101",                   /* BLOCKDATE_COL */
-            "20500115",                   /* ELOCKDATE_COL */
-            "1234567",                    /* DAYMASK_COL */
-            "DEV0",                       /* ORG_COL */
-            "100",                        /* TIMEOUT_COL */
-            "",                           /* ASSGND_ROLES_COL */
-            "",                           /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",  /* PHONES_COL */
-            "555-555-5555,444-444-4444",  /* MOBILES_COL */
-            "Admin",                      /* TITLE_COL */
-            "Permanent",                  /* EMPLOYEE_TYPE_COL */
+            {
+                "jtsTestAdminUser", /* USERID_COL */
+                "password1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnameone", /* CN_COL */
+                "lnameone", /* SN_COL */
+                "jtsTestAdminUser@jts.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV0", /* ORG_COL */
+                "100", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777", /* PHONES_COL */
+                "555-555-5555,444-444-4444", /* MOBILES_COL */
+                "Admin", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
         },
     };
 
     /**
      * Test Case TU1:
      */
-    final static String[][] USERS_TU1 = {
+    public final static String[][] USERS_TU1 =
         {
-            "jtsUser1",             /* USERID_COL */
-            "password1",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU1",        /* DESC_COL */
-            "fnameone",             /* CN_COL */
-            "lnameone",             /* SN_COL */
-            "jtsUser1@jts.us",      /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20090101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "20500101",             /* BLOCKDATE_COL */
-            "20500115",             /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "10",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "Tester",               /* TITLE_COL */
-            "Permanent",            /* EMPLOYEE_TYPE_COL */
+            {
+                "jtsUser1", /* USERID_COL */
+                "password1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnameone", /* CN_COL */
+                "lnameone", /* SN_COL */
+                "jtsUser1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "10", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
         },
-        {
-            "jtsUser2",             /* USERID_COL */
-            "password2",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU1",        /* DESC_COL */
-            "fnametwo",             /* CN_COL */
-            "lnametwo",             /* SN_COL */
-            "jtsUser1@jts.us",      /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20090101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "20500101",             /* BLOCKDATE_COL */
-            "20500115",             /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "10",                   /* TIMEOUT_privateCOL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "Tester",               /* TITLE_COL */
-            "Permanent",            /* EMPLOYEE_TYPE_COL */
-        },
-        {
-            "jtsUser3",            /* USERID_COL */
-            "password3",           /* PASSWORD_COL */
-            "Test1",               /* PW POLICY ATTR */
-            "Test Case TU1",       /* DESC_COL */
-            "fnamethree",          /* CN_COL */
-            "lnametree",           /* SN_COL */
-            "jtsUser1@jts.us",     /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",   /* PROPS_COL */
-            "0000",                /* BTIME_COL */
-            "0000",                /* ETIME_COL */
-            "20090101",            /* BDATE_COL */
-            "21000101",            /* EDATE_COL */
-            "20500101",            /* BLOCKDATE_COL */
-            "20500115",            /* ELOCKDATE_COL */
-            "1234567",             /* DAYMASK_COL */
-            "DEV1",                /* ORG_COL */
-            "10",                  /* TIMEOUT_COL */
-            "",                    /* ASSGND_ROLES_COL */
-            "",                    /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "Tester",               /* TITLE_COL */
-            "Permanent",            /* EMPLOYEE_TYPE_COL */
-        },
-        {
-            "jtsUser4",           /* USERID_COL */
-            "password4",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU1",      /* DESC_COL */
-            "fnamefour",          /* CN_COL */
-            "lnamefour",          /* SN_COL */
-            "jtsUser1@jts.us",    /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20090101",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20500101",           /* BLOCKDATE_COL */
-            "20500115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "10",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "Tester",               /* TITLE_COL */
-            "Permanent",            /* EMPLOYEE_TYPE_COL */
-        },
-        {
-            "jtsUser5",           /* USERID_COL */
-            "password5",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU1",      /* DESC_COL */
-            "fnamefive",          /* CN_COL */
-            "lnamefive",          /* SN_COL */
-            "jtsUser1@jts.us",    /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20090101",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20500101",           /* BLOCKDATE_COL */
-            "20500115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "10",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "Tester",               /* TITLE_COL */
-            "Permanent",            /* EMPLOYEE_TYPE_COL */
-        },
-        {
-            "jtsUser6",           /* USERID_COL */
-            "password6",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU1",      /* DESC_COL */
-            "fnamesix",           /* CN_COL */
-            "lnamesix",           /* SN_COL */
-            "jtsUser1@jts.us",    /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20090101",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20500101",           /* BLOCKDATE_COL */
-            "20500115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV2",               /* ORG_COL */
-            "10",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "Tester",               /* TITLE_COL */
-            "Permanent",            /* EMPLOYEE_TYPE_COL */
-        },
-        {
-            "jtsUser7",           /* USERID_COL */
-            "password7",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU1",      /* DESC_COL */
-            "fnameseven",         /* CN_COL */
-            "lnameseven",         /* SN_COL */
-            "jtsUser1@jts.us",    /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20090101",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20500101",           /* BLOCKDATE_COL */
-            "20500115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV2",               /* ORG_COL */
-            "10",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "Tester",               /* TITLE_COL */
-            "Permanent",            /* EMPLOYEE_TYPE_COL */
-        },
-        {
-            "jtsUser8",           /* USERID_COL */
-            "password8",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU1",      /* DESC_COL */
-            "fnameeight",         /* CN_COL */
-            "lnameeight",         /* SN_COL */
-            "jtsUser1@jts.us",    /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20090101",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20500101",           /* BLOCKDATE_COL */
-            "20500115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV2",               /* ORG_COL */
-            "10",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "Tester",               /* TITLE_COL */
-            "Permanent",            /* EMPLOYEE_TYPE_COL */
-        },
-        {
-            "jtsUser9",           /* USERID_COL */
-            "password9",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU1",      /* DESC_COL */
-            "fnamenine",          /* CN_COL */
-            "lnamenine",          /* SN_COL */
-            "jtsUser1@jts.us",    /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20090101",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20500101",           /* BLOCKDATE_COL */
-            "20500115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV2",               /* ORG_COL */
-            "10",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "Tester",               /* TITLE_COL */
-            "Permanent",            /* EMPLOYEE_TYPE_COL */
-        },
-        {
-            "jtsUser10",          /* USERID_COL */
-            "password10",         /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU1",      /* DESC_COL */
-            "fnameten",           /* CN_COL */
-            "lnameten",           /* SN_COL */
-            "jtsUser1@jts.us",    /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20090101",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20500101",           /* BLOCKDATE_COL */
-            "20500115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV2",               /* ORG_COL */
-            "10",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "Tester",               /* TITLE_COL */
-            "Permanent",            /* EMPLOYEE_TYPE_COL */
-        },
+            {
+                "jtsUser2", /* USERID_COL */
+                "password2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnametwo", /* CN_COL */
+                "lnametwo", /* SN_COL */
+                "jtsUser1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "10", /* TIMEOUT_privateCOL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+    },
+            {
+                "jtsUser3", /* USERID_COL */
+                "password3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnamethree", /* CN_COL */
+                "lnametree", /* SN_COL */
+                "jtsUser1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "10", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+},
+            {
+                "jtsUser4", /* USERID_COL */
+                "password4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnamefour", /* CN_COL */
+                "lnamefour", /* SN_COL */
+                "jtsUser1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "10", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+},
+            {
+                "jtsUser5", /* USERID_COL */
+                "password5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnamefive", /* CN_COL */
+                "lnamefive", /* SN_COL */
+                "jtsUser1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "10", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+},
+            {
+                "jtsUser6", /* USERID_COL */
+                "password6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnamesix", /* CN_COL */
+                "lnamesix", /* SN_COL */
+                "jtsUser1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "10", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+},
+            {
+                "jtsUser7", /* USERID_COL */
+                "password7", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnameseven", /* CN_COL */
+                "lnameseven", /* SN_COL */
+                "jtsUser1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "10", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+},
+            {
+                "jtsUser8", /* USERID_COL */
+                "password8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnameeight", /* CN_COL */
+                "lnameeight", /* SN_COL */
+                "jtsUser1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "10", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+},
+            {
+                "jtsUser9", /* USERID_COL */
+                "password9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnamenine", /* CN_COL */
+                "lnamenine", /* SN_COL */
+                "jtsUser1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "10", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+},
+            {
+                "jtsUser10", /* USERID_COL */
+                "password10", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU1", /* DESC_COL */
+                "fnameten", /* CN_COL */
+                "lnameten", /* SN_COL */
+                "jtsUser1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "10", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+},
     };
 
     /**
      * Test Case TU1 updated:
      */
-    public final static String[][] USERS_TU1_UPD = {
+    public final static String[][] USERS_TU1_UPD =
         {
-            "jtsUser1",           /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU2",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "jtsUser1UPD@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsUser1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsUser1UPD@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsUser2",           /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU2",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "jtsUser2UPD@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsUser3",           /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU2",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "jtsUser3UPD@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsUser4",           /* USERID_COL */
-            "passw0rd4",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU2",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "jtsUser4UPD@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsUser5",           /* USERID_COL */
-            "passw0rd5",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU2",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "jtsUser5UPD@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsUser6",           /* USERID_COL */
-            "passw0rd6",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU2",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "jtsUser6UPD@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV2",               /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsUser7",           /* USERID_COL */
-            "passw0rd7",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU2",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "jtsUser7UPD@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV2",               /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsUser8",           /* USERID_COL */
-            "passw0rd8",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU2",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "jtsUser8UPD@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV2",               /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsUser9",           /* USERID_COL */
-            "passw0rd9",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU2",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "jtsUser9UPD@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV2",               /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsUser10",           /* USERID_COL */
-            "passw0rd10",          /* PASSWORD_COL */
-            "Test1",               /* PW POLICY ATTR */
-            "Test Case TU2",       /* DESC_COL */
-            "fnameoneupd",         /* CN_COL */
-            "lnameoneupd",         /* SN_COL */
-            "jtsUser10UPD@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",   /* PROPS_COL */
-            "0000",                /* BTIME_COL */
-            "0000",                /* ETIME_COL */
-            "20091001",            /* BDATE_COL */
-            "21000101",            /* EDATE_COL */
-            "20300101",            /* BLOCKDATE_COL */
-            "20300115",            /* ELOCKDATE_COL */
-            "1234567",             /* DAYMASK_COL */
-            "DEV2",                /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "",                   /* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsUser2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsUser2UPD@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsUser3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsUser3UPD@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsUser4", /* USERID_COL */
+                "passw0rd4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsUser4UPD@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsUser5", /* USERID_COL */
+                "passw0rd5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsUser5UPD@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsUser6", /* USERID_COL */
+                "passw0rd6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsUser6UPD@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsUser7", /* USERID_COL */
+                "passw0rd7", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsUser7UPD@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsUser8", /* USERID_COL */
+                "passw0rd8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsUser8UPD@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsUser9", /* USERID_COL */
+                "passw0rd9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsUser9UPD@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsUser10", /* USERID_COL */
+                "passw0rd10", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsUser10UPD@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     /**
      * Test Case TU2:
      */
-    final static String[][] USERS_TU2 = {
+    public final static String[][] USERS_TU2 =
         {
-            "jtsTU2User1",          /* USERID_COL */
-            "password1",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userOne",              /* CN_COL */
-            "lastOne",              /* SN_COL */
-            "fortTest2UR1@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU2User1", /* USERID_COL */
+                "password1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userOne", /* CN_COL */
+                "lastOne", /* SN_COL */
+                "fortTest2UR1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU2User2",          /* USERID_COL */
-            "password2",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userTwo",              /* CN_COL */
-            "lastTwo",              /* SN_COL */
-            "fortTest2UR2@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV2",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User3",          /* USERID_COL */
-            "password3",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userThree",            /* CN_COL */
-            "lastThree",            /* SN_COL */
-            "fortTest2UR3@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV3",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User4",          /* USERID_COL */
-            "password4",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userFour",             /* CN_COL */
-            "lastFour",             /* SN_COL */
-            "fortTest2UR4@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV4",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User5",          /* USERID_COL */
-            "password5",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userFive",             /* CN_COL */
-            "lastFive",             /* SN_COL */
-            "fortTest2UR5@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV5",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User6",          /* USERID_COL */
-            "password6",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userSix",              /* CN_COL */
-            "lastSix",              /* SN_COL */
-            "fortTest2UR6@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV6",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User7",          /* USERID_COL */
-            "password7",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userSeven",            /* CN_COL */
-            "lastSeven",            /* SN_COL */
-            "fortTest2UR7@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV7",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User8",          /* USERID_COL */
-            "password8",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userEight",            /* CN_COL */
-            "lastEight",            /* SN_COL */
-            "fortTest2UR8@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV8",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User9",          /* USERID_COL */
-            "password9",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userNine",             /* CN_COL */
-            "lastNine",             /* SN_COL */
-            "fortTest2UR9@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV9",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User10",         /* USERID_COL */
-            "password10",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userTen",              /* CN_COL */
-            "lastTen",              /* SN_COL */
-            "fortTest2UR10@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
+            {
+                "jtsTU2User2", /* USERID_COL */
+                "password2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userTwo", /* CN_COL */
+                "lastTwo", /* SN_COL */
+                "fortTest2UR2@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU2User3", /* USERID_COL */
+                "password3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userThree", /* CN_COL */
+                "lastThree", /* SN_COL */
+                "fortTest2UR3@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV3", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User4", /* USERID_COL */
+                "password4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userFour", /* CN_COL */
+                "lastFour", /* SN_COL */
+                "fortTest2UR4@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV4", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User5", /* USERID_COL */
+                "password5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userFive", /* CN_COL */
+                "lastFive", /* SN_COL */
+                "fortTest2UR5@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV5", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User6", /* USERID_COL */
+                "password6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userSix", /* CN_COL */
+                "lastSix", /* SN_COL */
+                "fortTest2UR6@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV6", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User7", /* USERID_COL */
+                "password7", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userSeven", /* CN_COL */
+                "lastSeven", /* SN_COL */
+                "fortTest2UR7@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV7", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User8", /* USERID_COL */
+                "password8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userEight", /* CN_COL */
+                "lastEight", /* SN_COL */
+                "fortTest2UR8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV8", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User9", /* USERID_COL */
+                "password9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userNine", /* CN_COL */
+                "lastNine", /* SN_COL */
+                "fortTest2UR9@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV9", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User10", /* USERID_COL */
+                "password10", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userTen", /* CN_COL */
+                "lastTen", /* SN_COL */
+                "fortTest2UR10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
     };
-
 
     /**
      * Test Case TU2:
      */
-    final static String[][] USERS_TU2_RST = {
+    public final static String[][] USERS_TU2_RST =
         {
-            "jtsTU2User1",          /* USERID_COL */
-            "newpasswd",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userOne",              /* CN_COL */
-            "lastOne",              /* SN_COL */
-            "fortTest2UR1@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU2User1", /* USERID_COL */
+                "newpasswd", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userOne", /* CN_COL */
+                "lastOne", /* SN_COL */
+                "fortTest2UR1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU2User2",          /* USERID_COL */
-            "newpasswd",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userTwo",              /* CN_COL */
-            "lastTwo",              /* SN_COL */
-            "fortTest2UR2@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV2",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User3",          /* USERID_COL */
-            "newpasswd",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userThree",            /* CN_COL */
-            "lastThree",            /* SN_COL */
-            "fortTest2UR3@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV3",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User4",          /* USERID_COL */
-            "newpasswd",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userFour",             /* CN_COL */
-            "lastFour",             /* SN_COL */
-            "fortTest2UR4@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV4",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User5",          /* USERID_COL */
-            "newpasswd",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userFive",             /* CN_COL */
-            "lastFive",             /* SN_COL */
-            "fortTest2UR5@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV5",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User6",          /* USERID_COL */
-            "newpasswd",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userSix",              /* CN_COL */
-            "lastSix",              /* SN_COL */
-            "fortTest2UR6@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV6",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User7",          /* USERID_COL */
-            "newpasswd",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userSeven",            /* CN_COL */
-            "lastSeven",            /* SN_COL */
-            "fortTest2UR7@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV7",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User8",          /* USERID_COL */
-            "newpasswd",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userEight",            /* CN_COL */
-            "lastEight",            /* SN_COL */
-            "fortTest2UR8@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV8",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User9",          /* USERID_COL */
-            "newpasswd",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userNine",             /* CN_COL */
-            "lastNine",             /* SN_COL */
-            "fortTest2UR9@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV9",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User10",         /* USERID_COL */
-            "newpasswd",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userTen",              /* CN_COL */
-            "lastTen",              /* SN_COL */
-            "fortTest2UR10@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
+            {
+                "jtsTU2User2", /* USERID_COL */
+                "newpasswd", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userTwo", /* CN_COL */
+                "lastTwo", /* SN_COL */
+                "fortTest2UR2@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU2User3", /* USERID_COL */
+                "newpasswd", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userThree", /* CN_COL */
+                "lastThree", /* SN_COL */
+                "fortTest2UR3@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV3", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User4", /* USERID_COL */
+                "newpasswd", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userFour", /* CN_COL */
+                "lastFour", /* SN_COL */
+                "fortTest2UR4@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV4", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User5", /* USERID_COL */
+                "newpasswd", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userFive", /* CN_COL */
+                "lastFive", /* SN_COL */
+                "fortTest2UR5@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV5", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User6", /* USERID_COL */
+                "newpasswd", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userSix", /* CN_COL */
+                "lastSix", /* SN_COL */
+                "fortTest2UR6@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV6", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User7", /* USERID_COL */
+                "newpasswd", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userSeven", /* CN_COL */
+                "lastSeven", /* SN_COL */
+                "fortTest2UR7@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV7", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User8", /* USERID_COL */
+                "newpasswd", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userEight", /* CN_COL */
+                "lastEight", /* SN_COL */
+                "fortTest2UR8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV8", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User9", /* USERID_COL */
+                "newpasswd", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userNine", /* CN_COL */
+                "lastNine", /* SN_COL */
+                "fortTest2UR9@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV9", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User10", /* USERID_COL */
+                "newpasswd", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userTen", /* CN_COL */
+                "lastTen", /* SN_COL */
+                "fortTest2UR10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
     };
 
-
-    public final static String[][] USERS_TU2_CHG = {
+    public final static String[][] USERS_TU2_CHG =
         {
-            "jtsTU2User1",          /* USERID_COL */
-            "passw0rd1",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userOne",              /* CN_COL */
-            "lastOne",              /* SN_COL */
-            "fortTest2UR1@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU2User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userOne", /* CN_COL */
+                "lastOne", /* SN_COL */
+                "fortTest2UR1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU2User2",          /* USERID_COL */
-            "passw0rd2",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userTwo",              /* CN_COL */
-            "lastTwo",              /* SN_COL */
-            "fortTest2UR2@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV2",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User3",          /* USERID_COL */
-            "passw0rd3",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userThree",            /* CN_COL */
-            "lastThree",            /* SN_COL */
-            "fortTest2UR3@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV3",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User4",          /* USERID_COL */
-            "passw0rd4",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userFour",             /* CN_COL */
-            "lastFour",             /* SN_COL */
-            "fortTest2UR4@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV4",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User5",          /* USERID_COL */
-            "passw0rd5",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userFive",             /* CN_COL */
-            "lastFive",             /* SN_COL */
-            "fortTest2UR5@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV5",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User6",          /* USERID_COL */
-            "passw0rd6",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userSix",              /* CN_COL */
-            "lastSix",              /* SN_COL */
-            "fortTest2UR6@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV6",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User7",          /* USERID_COL */
-            "passw0rd7",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userSeven",            /* CN_COL */
-            "lastSeven",            /* SN_COL */
-            "fortTest2UR7@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV7",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User8",          /* USERID_COL */
-            "passw0rd8",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userEight",            /* CN_COL */
-            "lastEight",            /* SN_COL */
-            "fortTest2UR8@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV8",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User9",          /* USERID_COL */
-            "passw0rd9",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userNine",             /* CN_COL */
-            "lastNine",             /* SN_COL */
-            "fortTest2UR9@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV9",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU2User10",          /* USERID_COL */
-            "passw0rd1-",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU2",        /* DESC_COL */
-            "userTen",              /* CN_COL */
-            "lastTen",              /* SN_COL */
-            "fortTest2UR10@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
+            {
+                "jtsTU2User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userTwo", /* CN_COL */
+                "lastTwo", /* SN_COL */
+                "fortTest2UR2@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU2User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userThree", /* CN_COL */
+                "lastThree", /* SN_COL */
+                "fortTest2UR3@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV3", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User4", /* USERID_COL */
+                "passw0rd4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userFour", /* CN_COL */
+                "lastFour", /* SN_COL */
+                "fortTest2UR4@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV4", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User5", /* USERID_COL */
+                "passw0rd5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userFive", /* CN_COL */
+                "lastFive", /* SN_COL */
+                "fortTest2UR5@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV5", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User6", /* USERID_COL */
+                "passw0rd6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userSix", /* CN_COL */
+                "lastSix", /* SN_COL */
+                "fortTest2UR6@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV6", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User7", /* USERID_COL */
+                "passw0rd7", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userSeven", /* CN_COL */
+                "lastSeven", /* SN_COL */
+                "fortTest2UR7@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV7", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User8", /* USERID_COL */
+                "passw0rd8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userEight", /* CN_COL */
+                "lastEight", /* SN_COL */
+                "fortTest2UR8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV8", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User9", /* USERID_COL */
+                "passw0rd9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userNine", /* CN_COL */
+                "lastNine", /* SN_COL */
+                "fortTest2UR9@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV9", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU2User10", /* USERID_COL */
+                "passw0rd1-", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU2", /* DESC_COL */
+                "userTen", /* CN_COL */
+                "lastTen", /* SN_COL */
+                "fortTest2UR10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
     };
-
 
     // Test Case TU3:
-    public final static String[][] USERS_TU3 = {
+    public final static String[][] USERS_TU3 =
         {
-            "jtsTU3User1",          /* USERID_COL */
-            "password1",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU3",        /* DESC_COL */
-            "userOne",              /* CN_COL */
-            "lastOne",              /* SN_COL */
-            "fortTest3UR1@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU3User1", /* USERID_COL */
+                "password1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU3", /* DESC_COL */
+                "userOne", /* CN_COL */
+                "lastOne", /* SN_COL */
+                "fortTest3UR1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU3User2",          /* USERID_COL */
-            "password2",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU3",        /* DESC_COL */
-            "userTwo",              /* CN_COL */
-            "lastTwo",              /* SN_COL */
-            "fortTest3UR2@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV2",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU3User3",          /* USERID_COL */
-            "password3",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU3",        /* DESC_COL */
-            "userThree",            /* CN_COL */
-            "lastThree",            /* SN_COL */
-            "fortTest3UR3@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV3",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU3User4",          /* USERID_COL */
-            "password4",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU3",        /* DESC_COL */
-            "userFour",             /* CN_COL */
-            "lastFour",             /* SN_COL */
-            "fortTest3UR4@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV4",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU3User5",          /* USERID_COL */
-            "password5",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU3",        /* DESC_COL */
-            "userFive",             /* CN_COL */
-            "lastFive",             /* SN_COL */
-            "fortTest3UR5@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV5",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU3User6",          /* USERID_COL */
-            "password6",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU3",        /* DESC_COL */
-            "userSix",              /* CN_COL */
-            "lastSix",              /* SN_COL */
-            "fortTest3UR6@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV6",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU3User7",          /* USERID_COL */
-            "password7",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU3",        /* DESC_COL */
-            "userSeven",            /* CN_COL */
-            "lastSeven",            /* SN_COL */
-            "fortTest3UR7@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV7",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU3User8",          /* USERID_COL */
-            "password8",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU3",        /* DESC_COL */
-            "userEight",            /* CN_COL */
-            "lastEight",            /* SN_COL */
-            "fortTest3UR8@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV8",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU3User9",          /* USERID_COL */
-            "password9",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU3",        /* DESC_COL */
-            "userNine",             /* CN_COL */
-            "lastNine",             /* SN_COL */
-            "fortTest3UR9@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV9",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU3User10",         /* USERID_COL */
-            "password10",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU3",        /* DESC_COL */
-            "userTen",              /* CN_COL */
-            "lastTen",              /* SN_COL */
-            "fortTest3UR10@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
+            {
+                "jtsTU3User2", /* USERID_COL */
+                "password2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU3", /* DESC_COL */
+                "userTwo", /* CN_COL */
+                "lastTwo", /* SN_COL */
+                "fortTest3UR2@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU3User3", /* USERID_COL */
+                "password3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU3", /* DESC_COL */
+                "userThree", /* CN_COL */
+                "lastThree", /* SN_COL */
+                "fortTest3UR3@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV3", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU3User4", /* USERID_COL */
+                "password4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU3", /* DESC_COL */
+                "userFour", /* CN_COL */
+                "lastFour", /* SN_COL */
+                "fortTest3UR4@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV4", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU3User5", /* USERID_COL */
+                "password5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU3", /* DESC_COL */
+                "userFive", /* CN_COL */
+                "lastFive", /* SN_COL */
+                "fortTest3UR5@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV5", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU3User6", /* USERID_COL */
+                "password6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU3", /* DESC_COL */
+                "userSix", /* CN_COL */
+                "lastSix", /* SN_COL */
+                "fortTest3UR6@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV6", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU3User7", /* USERID_COL */
+                "password7", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU3", /* DESC_COL */
+                "userSeven", /* CN_COL */
+                "lastSeven", /* SN_COL */
+                "fortTest3UR7@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV7", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU3User8", /* USERID_COL */
+                "password8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU3", /* DESC_COL */
+                "userEight", /* CN_COL */
+                "lastEight", /* SN_COL */
+                "fortTest3UR8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV8", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU3User9", /* USERID_COL */
+                "password9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU3", /* DESC_COL */
+                "userNine", /* CN_COL */
+                "lastNine", /* SN_COL */
+                "fortTest3UR9@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV9", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU3User10", /* USERID_COL */
+                "password10", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU3", /* DESC_COL */
+                "userTen", /* CN_COL */
+                "lastTen", /* SN_COL */
+                "fortTest3UR10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
     };
-
 
     // Test Case TU4:
-    public final static String[][] USERS_TU4 = {
+    public final static String[][] USERS_TU4 =
         {
-            "jtsTU4User1",          /* USERID_COL */
-            "password1",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU4",        /* DESC_COL */
-            "userOne",              /* CN_COL */
-            "lastOne",              /* SN_COL */
-            "fortTest4UR1@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU4User1", /* USERID_COL */
+                "password1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU4", /* DESC_COL */
+                "userOne", /* CN_COL */
+                "lastOne", /* SN_COL */
+                "fortTest4UR1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU4User2",          /* USERID_COL */
-            "password2",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU4",        /* DESC_COL */
-            "userTwo",              /* CN_COL */
-            "lastTwo",              /* SN_COL */
-            "fortTest4UR2@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV2",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU4User3",          /* USERID_COL */
-            "password3",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU4",        /* DESC_COL */
-            "userThree",            /* CN_COL */
-            "lastThree",            /* SN_COL */
-            "fortTest4UR3@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV3",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU4User4",          /* USERID_COL */
-            "password4",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU4",        /* DESC_COL */
-            "userFour",             /* CN_COL */
-            "lastFour",             /* SN_COL */
-            "fortTest4UR4@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV4",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU4User5",          /* USERID_COL */
-            "password5",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU4",        /* DESC_COL */
-            "userFive",             /* CN_COL */
-            "lastFive",             /* SN_COL */
-            "fortTest4UR5@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV5",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU4User6",          /* USERID_COL */
-            "password6",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU4",        /* DESC_COL */
-            "userSix",              /* CN_COL */
-            "lastSix",              /* SN_COL */
-            "fortTest4UR6@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV6",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU4User7",          /* USERID_COL */
-            "password7",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU4",        /* DESC_COL */
-            "userSeven",            /* CN_COL */
-            "lastSeven",            /* SN_COL */
-            "fortTest4UR7@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV7",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU4User8",          /* USERID_COL */
-            "password8",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU4",        /* DESC_COL */
-            "userEight",            /* CN_COL */
-            "lastEight",            /* SN_COL */
-            "fortTest4UR8@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV8",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU4User9",          /* USERID_COL */
-            "password9",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU4",        /* DESC_COL */
-            "userNine",             /* CN_COL */
-            "lastNine",             /* SN_COL */
-            "fortTest4UR9@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV9",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU4User10",         /* USERID_COL */
-            "password10",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU4",        /* DESC_COL */
-            "userTen",              /* CN_COL */
-            "lastTen",              /* SN_COL */
-            "fortTest4UR10@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
+            {
+                "jtsTU4User2", /* USERID_COL */
+                "password2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU4", /* DESC_COL */
+                "userTwo", /* CN_COL */
+                "lastTwo", /* SN_COL */
+                "fortTest4UR2@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU4User3", /* USERID_COL */
+                "password3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU4", /* DESC_COL */
+                "userThree", /* CN_COL */
+                "lastThree", /* SN_COL */
+                "fortTest4UR3@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV3", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU4User4", /* USERID_COL */
+                "password4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU4", /* DESC_COL */
+                "userFour", /* CN_COL */
+                "lastFour", /* SN_COL */
+                "fortTest4UR4@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV4", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU4User5", /* USERID_COL */
+                "password5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU4", /* DESC_COL */
+                "userFive", /* CN_COL */
+                "lastFive", /* SN_COL */
+                "fortTest4UR5@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV5", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU4User6", /* USERID_COL */
+                "password6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU4", /* DESC_COL */
+                "userSix", /* CN_COL */
+                "lastSix", /* SN_COL */
+                "fortTest4UR6@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV6", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU4User7", /* USERID_COL */
+                "password7", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU4", /* DESC_COL */
+                "userSeven", /* CN_COL */
+                "lastSeven", /* SN_COL */
+                "fortTest4UR7@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV7", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU4User8", /* USERID_COL */
+                "password8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU4", /* DESC_COL */
+                "userEight", /* CN_COL */
+                "lastEight", /* SN_COL */
+                "fortTest4UR8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV8", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU4User9", /* USERID_COL */
+                "password9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU4", /* DESC_COL */
+                "userNine", /* CN_COL */
+                "lastNine", /* SN_COL */
+                "fortTest4UR9@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV9", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU4User10", /* USERID_COL */
+                "password10", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU4", /* DESC_COL */
+                "userTen", /* CN_COL */
+                "lastTen", /* SN_COL */
+                "fortTest4UR10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
     };
-
 
     // Test Case TU5:
     @MyAnnotation(name = "USERS_TU5", value = "USR TU5")
-    final public static String[][] USERS_TU5 = {
+    final public static String[][] USERS_TU5 =
         {
-            "jtsTU5User1",          /* USERID_COL */
-            "password1",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userOne",              /* CN_COL */
-            "lastOne",              /* SN_COL */
-            "fortTest5UR1@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU5User1", /* USERID_COL */
+                "password1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userOne", /* CN_COL */
+                "lastOne", /* SN_COL */
+                "fortTest5UR1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU5User2",          /* USERID_COL */
-            "password2",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTwo",              /* CN_COL */
-            "lastTwo",              /* SN_COL */
-            "fortTest5UR2@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV2",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User3",          /* USERID_COL */
-            "password3",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userThree",            /* CN_COL */
-            "lastThree",            /* SN_COL */
-            "fortTest5UR3@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV3",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User4",          /* USERID_COL */
-            "password4",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userFour",             /* CN_COL */
-            "lastFour",             /* SN_COL */
-            "fortTest5UR4@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV4",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User5",          /* USERID_COL */
-            "password5",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userFive",             /* CN_COL */
-            "lastFive",             /* SN_COL */
-            "fortTest5UR5@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV5",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User6",          /* USERID_COL */
-            "password6",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userSix",              /* CN_COL */
-            "lastSix",              /* SN_COL */
-            "fortTest5UR6@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV6",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User7",          /* USERID_COL */
-            "password7minlength",   /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userSeven",            /* CN_COL */
-            "lastSeven",            /* SN_COL */
-            "fortTest5UR7@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV7",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User8",          /* USERID_COL */
-            "password8",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userEight",            /* CN_COL */
-            "lastEight",            /* SN_COL */
-            "fortTest5UR8@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV8",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User9",          /* USERID_COL */
-            "password9",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userNine",             /* CN_COL */
-            "lastNine",             /* SN_COL */
-            "fortTest5UR9@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV9",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User10",         /* USERID_COL */
-            "password10",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTen",              /* CN_COL */
-            "lastTen",              /* SN_COL */
-            "fortTest5UR10@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User11",         /* USERID_COL */
-            "password11",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userEleven",           /* CN_COL */
-            "lastEleven",           /* SN_COL */
-            "fortTest5UR11@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User12",         /* USERID_COL */
-            "password12",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTwelve",           /* CN_COL */
-            "lastTwelve",           /* SN_COL */
-            "fortTest5UR12@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User13",         /* USERID_COL */
-            "password13",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userThirteen",         /* CN_COL */
-            "lastThirteen",         /* SN_COL */
-            "fortTest5UR13@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User14",         /* USERID_COL */
-            "password14",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userFourteen",         /* CN_COL */
-            "lastFourteen",         /* SN_COL */
-            "fortTest5UR14@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User15",         /* USERID_COL */
-            "password15",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userFifteen",          /* CN_COL */
-            "lastFifteen",          /* SN_COL */
-            "fortTest5UR15@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User16",         /* USERID_COL */
-            "password16",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userSixteen",          /* CN_COL */
-            "lastSixteen",          /* SN_COL */
-            "fortTest5UR16@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User17",         /* USERID_COL */
-            "password17",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userSeventeen",        /* CN_COL */
-            "lastSeventeen",        /* SN_COL */
-            "fortTest5UR17@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User18",         /* USERID_COL */
-            "password18",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userEighteen",         /* CN_COL */
-            "lastEighteen",         /* SN_COL */
-            "fortTest5UR18@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User19",         /* USERID_COL */
-            "password19",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userNineteen",         /* CN_COL */
-            "lastNineteen",         /* SN_COL */
-            "fortTest5UR19@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User20",         /* USERID_COL */
-            "password20",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTwenty",           /* CN_COL */
-            "lastTwenty",           /* SN_COL */
-            "fortTest5UR20@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User21",         /* USERID_COL */
-            "password21",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTwentyone",        /* CN_COL */
-            "lastTwentyone",        /* SN_COL */
-            "fortTest5UR21@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User22",         /* USERID_COL */
-            "password22",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTwentytwo",        /* CN_COL */
-            "lastTwentytwo",        /* SN_COL */
-            "fortTest5UR22@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User23",         /* USERID_COL */
-            "password23",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTwentythree",      /* CN_COL */
-            "lastTwentythree",      /* SN_COL */
-            "fortTest5UR23@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User24",         /* USERID_COL */
-            "password24",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTwentyfour",       /* CN_COL */
-            "lastTwentyfour",       /* SN_COL */
-            "fortTest5UR24@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User25",         /* USERID_COL */
-            "password25",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTwentyfive",       /* CN_COL */
-            "lastTwentyfive",       /* SN_COL */
-            "fortTest5UR25@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User26",         /* USERID_COL */
-            "password26",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTwentysix",        /* CN_COL */
-            "lastTwentysix",        /* SN_COL */
-            "fortTest5UR26@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU5User2", /* USERID_COL */
+                "password2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTwo", /* CN_COL */
+                "lastTwo", /* SN_COL */
+                "fortTest5UR2@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU5User3", /* USERID_COL */
+                "password3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userThree", /* CN_COL */
+                "lastThree", /* SN_COL */
+                "fortTest5UR3@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV3", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User4", /* USERID_COL */
+                "password4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userFour", /* CN_COL */
+                "lastFour", /* SN_COL */
+                "fortTest5UR4@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV4", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User5", /* USERID_COL */
+                "password5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userFive", /* CN_COL */
+                "lastFive", /* SN_COL */
+                "fortTest5UR5@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV5", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User6", /* USERID_COL */
+                "password6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userSix", /* CN_COL */
+                "lastSix", /* SN_COL */
+                "fortTest5UR6@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV6", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User7", /* USERID_COL */
+                "password7minlength", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userSeven", /* CN_COL */
+                "lastSeven", /* SN_COL */
+                "fortTest5UR7@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV7", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User8", /* USERID_COL */
+                "password8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userEight", /* CN_COL */
+                "lastEight", /* SN_COL */
+                "fortTest5UR8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV8", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User9", /* USERID_COL */
+                "password9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userNine", /* CN_COL */
+                "lastNine", /* SN_COL */
+                "fortTest5UR9@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV9", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User10", /* USERID_COL */
+                "password10", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTen", /* CN_COL */
+                "lastTen", /* SN_COL */
+                "fortTest5UR10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User11", /* USERID_COL */
+                "password11", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userEleven", /* CN_COL */
+                "lastEleven", /* SN_COL */
+                "fortTest5UR11@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User12", /* USERID_COL */
+                "password12", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTwelve", /* CN_COL */
+                "lastTwelve", /* SN_COL */
+                "fortTest5UR12@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User13", /* USERID_COL */
+                "password13", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userThirteen", /* CN_COL */
+                "lastThirteen", /* SN_COL */
+                "fortTest5UR13@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User14", /* USERID_COL */
+                "password14", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userFourteen", /* CN_COL */
+                "lastFourteen", /* SN_COL */
+                "fortTest5UR14@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User15", /* USERID_COL */
+                "password15", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userFifteen", /* CN_COL */
+                "lastFifteen", /* SN_COL */
+                "fortTest5UR15@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User16", /* USERID_COL */
+                "password16", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userSixteen", /* CN_COL */
+                "lastSixteen", /* SN_COL */
+                "fortTest5UR16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User17", /* USERID_COL */
+                "password17", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userSeventeen", /* CN_COL */
+                "lastSeventeen", /* SN_COL */
+                "fortTest5UR17@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User18", /* USERID_COL */
+                "password18", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userEighteen", /* CN_COL */
+                "lastEighteen", /* SN_COL */
+                "fortTest5UR18@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User19", /* USERID_COL */
+                "password19", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userNineteen", /* CN_COL */
+                "lastNineteen", /* SN_COL */
+                "fortTest5UR19@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User20", /* USERID_COL */
+                "password20", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTwenty", /* CN_COL */
+                "lastTwenty", /* SN_COL */
+                "fortTest5UR20@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User21", /* USERID_COL */
+                "password21", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTwentyone", /* CN_COL */
+                "lastTwentyone", /* SN_COL */
+                "fortTest5UR21@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User22", /* USERID_COL */
+                "password22", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTwentytwo", /* CN_COL */
+                "lastTwentytwo", /* SN_COL */
+                "fortTest5UR22@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User23", /* USERID_COL */
+                "password23", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTwentythree", /* CN_COL */
+                "lastTwentythree", /* SN_COL */
+                "fortTest5UR23@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User24", /* USERID_COL */
+                "password24", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTwentyfour", /* CN_COL */
+                "lastTwentyfour", /* SN_COL */
+                "fortTest5UR24@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User25", /* USERID_COL */
+                "password25", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTwentyfive", /* CN_COL */
+                "lastTwentyfive", /* SN_COL */
+                "fortTest5UR25@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User26", /* USERID_COL */
+                "password26", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTwentysix", /* CN_COL */
+                "lastTwentysix", /* SN_COL */
+                "fortTest5UR26@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     // Test Case TU5:
     @MyAnnotation(name = "USERS_TU5_UPD", value = "USR TU5_UPD")
-    final public static String[][] USERS_TU5_UPD = {
+    final public static String[][] USERS_TU5_UPD =
         {
-            "jtsTU5User1",          /* USERID_COL */
-            "passw0rd1",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userOne",              /* CN_COL */
-            "lastOne",              /* SN_COL */
-            "fortTest5UR1@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU5User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userOne", /* CN_COL */
+                "lastOne", /* SN_COL */
+                "fortTest5UR1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU5User2",          /* USERID_COL */
-            "passw0rd2",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTwo",              /* CN_COL */
-            "lastTwo",              /* SN_COL */
-            "fortTest5UR2@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV2",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User3",          /* USERID_COL */
-            "passw0rd3",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userThree",            /* CN_COL */
-            "lastThree",            /* SN_COL */
-            "fortTest5UR3@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV3",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User4",          /* USERID_COL */
-            "passw0rd4",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userFour",             /* CN_COL */
-            "lastFour",             /* SN_COL */
-            "fortTest5UR4@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV4",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User5",          /* USERID_COL */
-            "password5",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userFive",             /* CN_COL */
-            "lastFive",             /* SN_COL */
-            "fortTest5UR5@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV5",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User6",          /* USERID_COL */
-            "password6",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userSix",              /* CN_COL */
-            "lastSix",              /* SN_COL */
-            "fortTest5UR6@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV6",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User7",          /* USERID_COL */
-            "password7",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userSeven",            /* CN_COL */
-            "lastSeven",            /* SN_COL */
-            "fortTest5UR7@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV7",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User8",          /* USERID_COL */
-            "password8",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userEight",            /* CN_COL */
-            "lastEight",            /* SN_COL */
-            "fortTest5UR8@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV8",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User9",          /* USERID_COL */
-            "password9",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userNine",             /* CN_COL */
-            "lastNine",             /* SN_COL */
-            "fortTest5UR9@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV9",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU5User10",         /* USERID_COL */
-            "password10",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU5",        /* DESC_COL */
-            "userTen",              /* CN_COL */
-            "lastTen",              /* SN_COL */
-            "fortTest5UR10@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
+            {
+                "jtsTU5User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTwo", /* CN_COL */
+                "lastTwo", /* SN_COL */
+                "fortTest5UR2@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU5User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userThree", /* CN_COL */
+                "lastThree", /* SN_COL */
+                "fortTest5UR3@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV3", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User4", /* USERID_COL */
+                "passw0rd4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userFour", /* CN_COL */
+                "lastFour", /* SN_COL */
+                "fortTest5UR4@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV4", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User5", /* USERID_COL */
+                "password5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userFive", /* CN_COL */
+                "lastFive", /* SN_COL */
+                "fortTest5UR5@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV5", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User6", /* USERID_COL */
+                "password6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userSix", /* CN_COL */
+                "lastSix", /* SN_COL */
+                "fortTest5UR6@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV6", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User7", /* USERID_COL */
+                "password7", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userSeven", /* CN_COL */
+                "lastSeven", /* SN_COL */
+                "fortTest5UR7@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV7", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User8", /* USERID_COL */
+                "password8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userEight", /* CN_COL */
+                "lastEight", /* SN_COL */
+                "fortTest5UR8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV8", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User9", /* USERID_COL */
+                "password9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userNine", /* CN_COL */
+                "lastNine", /* SN_COL */
+                "fortTest5UR9@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV9", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU5User10", /* USERID_COL */
+                "password10", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU5", /* DESC_COL */
+                "userTen", /* CN_COL */
+                "lastTen", /* SN_COL */
+                "fortTest5UR10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
     };
 
     // Test Case TU6, these are system users setup in Fortress properties to disallow deletion:
     @MyAnnotation(name = "USERS_TU6_SYS", value = "USR TU6_SYS")
-    final public static String[][] USERS_TU6 = {
+    final public static String[][] USERS_TU6 =
         {
-            "jtsTU6User1",          /* USERID_COL */
-            "password1",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU6",        /* DESC_COL */
-            "userOne",              /* CN_COL */
-            "lastOne",              /* SN_COL */
-            "fortTest6UR1@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "",                     /* TITLE_COL */
-            "",                     /* EMPLOYEE_TYPE_COL */
-            "TRUE",                 /* SYSTEM USER */
+            {
+                "jtsTU6User1", /* USERID_COL */
+                "password1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU6", /* DESC_COL */
+                "userOne", /* CN_COL */
+                "lastOne", /* SN_COL */
+                "fortTest6UR1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "", /* TITLE_COL */
+                "", /* EMPLOYEE_TYPE_COL */
+                "TRUE", /* SYSTEM USER */
         },
-        {
-            "jtsTU6User2",          /* USERID_COL */
-            "password2",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU6",        /* DESC_COL */
-            "userTwo",              /* CN_COL */
-            "lastTwo",              /* SN_COL */
-            "fortTest6UR2@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "",                     /* TITLE_COL */
-            "",                     /* EMPLOYEE_TYPE_COL */
-            "TRUE",                 /* SYSTEM USER */
-        },
-        {
-            "jtsTU6User3",          /* USERID_COL */
-            "password3",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU6",        /* DESC_COL */
-            "userThree",            /* CN_COL */
-            "lastThree",            /* SN_COL */
-            "fortTest6UR3@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "",                     /* TITLE_COL */
-            "",                     /* EMPLOYEE_TYPE_COL */
-            "TRUE",                 /* SYSTEM USER */
-        },
-        {
-            "jtsTU6User4",          /* USERID_COL */
-            "password4",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU6",        /* DESC_COL */
-            "userFour",             /* CN_COL */
-            "lastFour",             /* SN_COL */
-            "fortTest6UR4@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "",                     /* TITLE_COL */
-            "",                     /* EMPLOYEE_TYPE_COL */
-            "TRUE",                 /* SYSTEM USER */
-        },
-        {
-            "jtsTU6User5",          /* USERID_COL */
-            "password5",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU6",        /* DESC_COL */
-            "userFive",             /* CN_COL */
-            "lastFive",             /* SN_COL */
-            "fortTest6UR5@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-            "",                     /* TITLE_COL */
-            "",                     /* EMPLOYEE_TYPE_COL */
-            "TRUE",                 /* SYSTEM USER */
-        }
+            {
+                "jtsTU6User2", /* USERID_COL */
+                "password2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU6", /* DESC_COL */
+                "userTwo", /* CN_COL */
+                "lastTwo", /* SN_COL */
+                "fortTest6UR2@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "", /* TITLE_COL */
+                "", /* EMPLOYEE_TYPE_COL */
+                "TRUE", /* SYSTEM USER */
+    },
+            {
+                "jtsTU6User3", /* USERID_COL */
+                "password3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU6", /* DESC_COL */
+                "userThree", /* CN_COL */
+                "lastThree", /* SN_COL */
+                "fortTest6UR3@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "", /* TITLE_COL */
+                "", /* EMPLOYEE_TYPE_COL */
+                "TRUE", /* SYSTEM USER */
+},
+            {
+                "jtsTU6User4", /* USERID_COL */
+                "password4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU6", /* DESC_COL */
+                "userFour", /* CN_COL */
+                "lastFour", /* SN_COL */
+                "fortTest6UR4@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "", /* TITLE_COL */
+                "", /* EMPLOYEE_TYPE_COL */
+                "TRUE", /* SYSTEM USER */
+},
+            {
+                "jtsTU6User5", /* USERID_COL */
+                "password5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU6", /* DESC_COL */
+                "userFive", /* CN_COL */
+                "lastFive", /* SN_COL */
+                "fortTest6UR5@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "", /* TITLE_COL */
+                "", /* EMPLOYEE_TYPE_COL */
+                "TRUE", /* SYSTEM USER */
+}
     };
-
 
     // Test Case TU7:
     @MyAnnotation(name = "USERS_TU7_HIER", value = "USR TU7_HIER")
-    final public static String[][] USERS_TU7_HIER = {
+    final public static String[][] USERS_TU7_HIER =
         {
-            "jtsTU7User1",          /* USERID_COL */
-            "passw0rd1",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU7",        /* DESC_COL */
-            "userOne",              /* CN_COL */
-            "lastOne",              /* SN_COL */
-            "fortTest7UR1@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV1",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU7User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU7", /* DESC_COL */
+                "userOne", /* CN_COL */
+                "lastOne", /* SN_COL */
+                "fortTest7UR1@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU7User2",          /* USERID_COL */
-            "passw0rd2",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU7",        /* DESC_COL */
-            "userTwo",              /* CN_COL */
-            "lastTwo",              /* SN_COL */
-            "fortTest7UR2@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV2",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU7User3",          /* USERID_COL */
-            "passw0rd3",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU7",        /* DESC_COL */
-            "userThree",            /* CN_COL */
-            "lastThree",            /* SN_COL */
-            "fortTest7UR3@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV3",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU7User4",          /* USERID_COL */
-            "passw0rd4",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU7",        /* DESC_COL */
-            "userFour",             /* CN_COL */
-            "lastFour",             /* SN_COL */
-            "fortTest7UR4@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV4",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU7User5",          /* USERID_COL */
-            "password5",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU7",        /* DESC_COL */
-            "userFive",             /* CN_COL */
-            "lastFive",             /* SN_COL */
-            "fortTest7UR5@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV5",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU7User6",          /* USERID_COL */
-            "password6",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU7",        /* DESC_COL */
-            "userSix",              /* CN_COL */
-            "lastSix",              /* SN_COL */
-            "fortTest7UR6@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV6",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU7User7",          /* USERID_COL */
-            "password7",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU7",        /* DESC_COL */
-            "userSeven",            /* CN_COL */
-            "lastSeven",            /* SN_COL */
-            "fortTest7UR7@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV7",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU7User8",          /* USERID_COL */
-            "password8",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU7",        /* DESC_COL */
-            "userEight",            /* CN_COL */
-            "lastEight",            /* SN_COL */
-            "fortTest7UR8@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV8",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU7User9",          /* USERID_COL */
-            "password9",            /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU7",        /* DESC_COL */
-            "userNine",             /* CN_COL */
-            "lastNine",             /* SN_COL */
-            "fortTest7UR9@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV9",                 /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU7User10",         /* USERID_COL */
-            "password10",           /* PASSWORD_COL */
-            "Test1",                /* PW POLICY ATTR */
-            "Test Case TU7",        /* DESC_COL */
-            "userTen",              /* CN_COL */
-            "lastTen",              /* SN_COL */
-            "fortTest7UR10@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",    /* PROPS_COL */
-            "0000",                 /* BTIME_COL */
-            "0000",                 /* ETIME_COL */
-            "20100101",             /* BDATE_COL */
-            "21000101",             /* EDATE_COL */
-            "none",                 /* BLOCKDATE_COL */
-            "none",                 /* ELOCKDATE_COL */
-            "1234567",              /* DAYMASK_COL */
-            "DEV10",                /* ORG_COL */
-            "30",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
+            {
+                "jtsTU7User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU7", /* DESC_COL */
+                "userTwo", /* CN_COL */
+                "lastTwo", /* SN_COL */
+                "fortTest7UR2@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV2", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU7User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU7", /* DESC_COL */
+                "userThree", /* CN_COL */
+                "lastThree", /* SN_COL */
+                "fortTest7UR3@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV3", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU7User4", /* USERID_COL */
+                "passw0rd4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU7", /* DESC_COL */
+                "userFour", /* CN_COL */
+                "lastFour", /* SN_COL */
+                "fortTest7UR4@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV4", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU7User5", /* USERID_COL */
+                "password5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU7", /* DESC_COL */
+                "userFive", /* CN_COL */
+                "lastFive", /* SN_COL */
+                "fortTest7UR5@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV5", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU7User6", /* USERID_COL */
+                "password6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU7", /* DESC_COL */
+                "userSix", /* CN_COL */
+                "lastSix", /* SN_COL */
+                "fortTest7UR6@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV6", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU7User7", /* USERID_COL */
+                "password7", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU7", /* DESC_COL */
+                "userSeven", /* CN_COL */
+                "lastSeven", /* SN_COL */
+                "fortTest7UR7@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV7", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU7User8", /* USERID_COL */
+                "password8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU7", /* DESC_COL */
+                "userEight", /* CN_COL */
+                "lastEight", /* SN_COL */
+                "fortTest7UR8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV8", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU7User9", /* USERID_COL */
+                "password9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU7", /* DESC_COL */
+                "userNine", /* CN_COL */
+                "lastNine", /* SN_COL */
+                "fortTest7UR9@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV9", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU7User10", /* USERID_COL */
+                "password10", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU7", /* DESC_COL */
+                "userTen", /* CN_COL */
+                "lastTen", /* SN_COL */
+                "fortTest7UR10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20100101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "none", /* BLOCKDATE_COL */
+                "none", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV10", /* ORG_COL */
+                "30", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
     };
 
     // Test Case TU8:
     @MyAnnotation(name = "USERS_TU8_SSD", value = "USR TU8_SSD")
-    final static String[][] USERS_TU8_SSD = {
+    public final static String[][] USERS_TU8_SSD =
         {
-            "jtsTU8User1",        /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU8",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU8@jts.us",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU8User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU8", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU8User2",        /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU8",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU2TU8@jts.us",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU8User3",        /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU8",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU3TU8@jts.us",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU8User4",        /* USERID_COL */
-            "passw0rd4",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU8",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU4TU8@jts.us",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU8User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU8", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU2TU8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU8User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU8", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU3TU8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU8User4", /* USERID_COL */
+                "passw0rd4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU8", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU4TU8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     // Test Case TU8:
     @MyAnnotation(name = "USERS_TU9_SSD_HIER", value = "USR TU9_SSD_HIER")
-    final static String[][] USERS_TU9_SSD_HIER = {
+    public final static String[][] USERS_TU9_SSD_HIER =
         {
-            "jtsTU9User1",        /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU9",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU9@jts.us",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU9User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU9", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU9@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU9User2",        /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU9",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU2TU9@jts.us",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU9User3",        /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU9",      /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU3TU8@jts.us",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU9User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU9", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU2TU9@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU9User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU9", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU3TU8@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
     // Test Case TU10:
     @MyAnnotation(name = "USERS_TU10_SSD_HIER", value = "USR TU10_SSD_HIER")
-    final static String[][] USERS_TU10_SSD_HIER = {
+    public final static String[][] USERS_TU10_SSD_HIER =
         {
-            "jtsTU10User1",       /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU10",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU10@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU10User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU10", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU10User2",       /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU10",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU2TU10@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU10User3",       /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU10",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU3TU10@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU10User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU10", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU2TU10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU10User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU10", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU3TU10@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
     // Test Case TU11:
     @MyAnnotation(name = "USERS_TU11_SSD_HIER", value = "USR TU11_SSD_HIER")
-    final static String[][] USERS_TU11_SSD_HIER = {
+    public final static String[][] USERS_TU11_SSD_HIER =
         {
-            "jtsTU11User1",       /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU11",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU11@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU11User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU11", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU11@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU11User2",       /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU11",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU2TU11@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU11User3",       /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU11",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU3TU11@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU11User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU11", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU2TU11@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU11User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU11", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU3TU11@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
-
 
     // Test Case TU12:
     @MyAnnotation(name = "USERS_TU12_DSD", value = "USR TU12_DSD")
-    final static String[][] USERS_TU12_DSD = {
+    public final static String[][] USERS_TU12_DSD =
         {
-            "jtsTU12User1",       /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU12",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU12@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU12User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU12", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU12@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU12User2",       /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU12",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU2TU12@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU12User3",       /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU12",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU3TU12@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU12User4",       /* USERID_COL */
-            "passw0rd4",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU12",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU4TU12@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU12User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU12", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU2TU12@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU12User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU12", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU3TU12@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU12User4", /* USERID_COL */
+                "passw0rd4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU12", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU4TU12@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     // Test Case TU13:
     @MyAnnotation(name = "USERS_TU13_DSD_HIER", value = "USR TU13_DSD_HIER")
-    final static String[][] USERS_TU13_DSD_HIER = {
+    public final static String[][] USERS_TU13_DSD_HIER =
         {
-            "jtsTU13User1",       /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU13",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU13@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU13User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU13", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU13@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU13User2",       /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU13",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU2TU13@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU13User3",       /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU13",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU3TU13@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU13User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU13", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU2TU13@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU13User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU13", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU3TU13@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
     // Test Case TU14:
     @MyAnnotation(name = "USERS_TU14_DSD_HIER", value = "USR TU14_DSD_HIER")
-    final static String[][] USERS_TU14_DSD_HIER = {
+    public final static String[][] USERS_TU14_DSD_HIER =
         {
-            "jtsTU14User1",       /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU14",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU14@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU14User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU14", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU14@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU14User2",       /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU14",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU2TU14@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU14User3",       /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU14",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU3TU14@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU14User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU14", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU2TU14@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU14User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU14", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU3TU14@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
     // Test Case TU15:
     @MyAnnotation(name = "USERS_TU15_DSD_HIER", value = "USR TU15_DSD_HIER")
-    final static String[][] USERS_TU15_DSD_HIER = {
+    public final static String[][] USERS_TU15_DSD_HIER =
         {
-            "jtsTU15User1",       /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU15",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU15@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU15User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU15", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU15@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU15User2",       /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU15",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU2TU15@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU15User3",       /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU15",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU3TU15@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU15User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU15", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU2TU15@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU15User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU15", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU3TU15@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     // Test Case TU16:
     @MyAnnotation(name = "USERS_TU16_ARBAC", value = "USR TU16_ARBAC")
-    public final static String[][] USERS_TU16_ARBAC = {
+    public final static String[][] USERS_TU16_ARBAC =
         {
-            "jtsTU16User1",       /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU16@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU16User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU16User2",       /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU2TU16@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16User3",       /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU3TU16@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16User4",       /* USERID_COL */
-            "passw0rd4",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU4TU16@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16User5",       /* USERID_COL */
-            "passw0rd5",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU5TU16@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16User6",       /* USERID_COL */
-            "passw0rd6",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU6TU16@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16User7",       /* USERID_COL */
-            "passw0rd7",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU7TU16@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16User8",       /* USERID_COL */
-            "passw0rd8",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU8TU16@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16User9",       /* USERID_COL */
-            "passw0rd9",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU9TU16@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16User10",      /* USERID_COL */
-            "passw0rd10",         /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU10TU16@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU16User2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU2TU16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU16User3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU3TU16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16User4", /* USERID_COL */
+                "passw0rd4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU4TU16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16User5", /* USERID_COL */
+                "passw0rd5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU5TU16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16User6", /* USERID_COL */
+                "passw0rd6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU6TU16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16User7", /* USERID_COL */
+                "passw0rd7", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU7TU16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16User8", /* USERID_COL */
+                "passw0rd8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU8TU16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16User9", /* USERID_COL */
+                "passw0rd9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU9TU16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16User10", /* USERID_COL */
+                "passw0rd10", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU10TU16@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     // Test Case TU16B:
     @MyAnnotation(name = "USERS_TU16B_ARBAC", value = "USR TU16B_ARBAC")
-    public final static String[][] USERS_TU16B_ARBAC = {
+    public final static String[][] USERS_TU16B_ARBAC =
         {
-            "jtsTU16BUser1",      /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16B",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU16B@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "oamT1UOrg1",         /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU16BUser1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16B", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU16B@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "oamT1UOrg1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU16BUser2",      /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16B",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU2TU16B@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "oamT1UOrg2",         /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16BUser3",      /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16B",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU3TU16B@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "oamT1UOrg3",         /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16BUser4",      /* USERID_COL */
-            "passw0rd4",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16B",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU4TU16B@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "oamT1UOrg4",         /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16BUser5",      /* USERID_COL */
-            "passw0rd5",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16B",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU5TU16B@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "oamT1UOrg5",         /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16BUser6",      /* USERID_COL */
-            "passw0rd6",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16B",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU6TU16B@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "oamT1UOrg6",         /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16BUser7",      /* USERID_COL */
-            "passw0rd7",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16B",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU7TU16B@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "oamT1UOrg7",         /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16BUser8",      /* USERID_COL */
-            "passw0rd8",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16B",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU8TU16B@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "oamT1UOrg8",         /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16BUser9",      /* USERID_COL */
-            "passw0rd9",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16B",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU9TU16B@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "oamT1UOrg9",         /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU16BUser10",     /* USERID_COL */
-            "passw0rd10",         /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU16B",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU10TU16B@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "oamT1UOrg10",        /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU16BUser2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16B", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU2TU16B@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "oamT1UOrg2", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU16BUser3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16B", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU3TU16B@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "oamT1UOrg3", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16BUser4", /* USERID_COL */
+                "passw0rd4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16B", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU4TU16B@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "oamT1UOrg4", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16BUser5", /* USERID_COL */
+                "passw0rd5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16B", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU5TU16B@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "oamT1UOrg5", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16BUser6", /* USERID_COL */
+                "passw0rd6", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16B", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU6TU16B@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "oamT1UOrg6", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16BUser7", /* USERID_COL */
+                "passw0rd7", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16B", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU7TU16B@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "oamT1UOrg7", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16BUser8", /* USERID_COL */
+                "passw0rd8", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16B", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU8TU16B@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "oamT1UOrg8", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16BUser9", /* USERID_COL */
+                "passw0rd9", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16B", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU9TU16B@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "oamT1UOrg9", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU16BUser10", /* USERID_COL */
+                "passw0rd10", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU16B", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU10TU16B@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "oamT1UOrg10", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     // Test Case TU17A:
     @MyAnnotation(name = "USERS_TU17A_ARBAC", value = "USR TU17A_ARBAC")
-    public final static String[][] USERS_TU17A_ARBAC = {
+    public final static String[][] USERS_TU17A_ARBAC =
         {
-            "jtsTU17AUser1",      /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU17A",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU17A@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU17AUser1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU17A", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU17A@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU17AUser2",      /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU17A",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU17A@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU17AUser3",      /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU17A",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU17A@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU17AUser4",      /* USERID_COL */
-            "passw0rd4",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU17A",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU17A@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU17AUser5",      /* USERID_COL */
-            "passw0rd5",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU17A",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU17A@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU17AUser2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU17A", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU17A@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU17AUser3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU17A", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU17A@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU17AUser4", /* USERID_COL */
+                "passw0rd4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU17A", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU17A@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU17AUser5", /* USERID_COL */
+                "passw0rd5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU17A", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU17A@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     // Test Case TU17U:
     @MyAnnotation(name = "USERS_TU17U_ARBAC", value = "USR TU17U_ARBAC")
-    public final static String[][] USERS_TU17U_ARBAC = {
+    public final static String[][] USERS_TU17U_ARBAC =
         {
-            "jtsTU17UUser1",      /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU17U",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU17U@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            OrgUnitTestData.getName(OrgUnitTestData.ORGS_USR_TO5[0]),
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU17UUser1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU17U", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU17U@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                OrgUnitTestData.getName( OrgUnitTestData.ORGS_USR_TO5[0] ),
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU17UUser2",      /* USERID_COL */
-            "passw0rd2",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU17U",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU17U@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            OrgUnitTestData.getName(OrgUnitTestData.ORGS_USR_TO5[1]),
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU17UUser3",      /* USERID_COL */
-            "passw0rd3",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU17U",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU17U@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            OrgUnitTestData.getName(OrgUnitTestData.ORGS_USR_TO5[2]),
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU17UUser4",      /* USERID_COL */
-            "passw0rd4",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU17U",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU17U@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            OrgUnitTestData.getName(OrgUnitTestData.ORGS_USR_TO5[3]),
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU17UUser5",      /* USERID_COL */
-            "passw0rd5",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU17U",    /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "fortU1TU17U@jts.us", /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",  /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            OrgUnitTestData.getName(OrgUnitTestData.ORGS_USR_TO5[4]),
-            "15",                   /* TIMEOUT_COL */
-            "",                     /* ASSGND_ROLES_COL */
-            "",                     /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU17UUser2", /* USERID_COL */
+                "passw0rd2", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU17U", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU17U@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                OrgUnitTestData.getName( OrgUnitTestData.ORGS_USR_TO5[1] ),
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU17UUser3", /* USERID_COL */
+                "passw0rd3", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU17U", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU17U@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                OrgUnitTestData.getName( OrgUnitTestData.ORGS_USR_TO5[2] ),
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU17UUser4", /* USERID_COL */
+                "passw0rd4", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU17U", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU17U@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                OrgUnitTestData.getName( OrgUnitTestData.ORGS_USR_TO5[3] ),
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU17UUser5", /* USERID_COL */
+                "passw0rd5", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU17U", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU1TU17U@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                OrgUnitTestData.getName( OrgUnitTestData.ORGS_USR_TO5[4] ),
+                "15", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     // Test Case TU18U:
     @MyAnnotation(name = "USERS_TU18U_TR6_DESC", value = "USR TU18U TR6 DESC")
-    public final static String[][] USERS_TU18U_TR6_DESC = {
+    public final static String[][] USERS_TU18U_TR6_DESC =
         {
-            "jtsTU18User1",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR1TU18U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6A1",                  /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU18User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR1TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6A1", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU18User2",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR2TU18U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6B1A1",                /* ASSGND_ROLES_COL */
-            "oamT6A1,",                 /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User3",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR3TU18U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6B2A1",                /* ASSGND_ROLES_COL */
-            "oamT6A1,",                 /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User4",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR4TU18U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6C1B1A1",              /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1",        /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User5",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR5TU18U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6C2B1A1",              /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1,oamT6B2A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User6",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR6TU18U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6C3B2A1",              /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1",        /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User7",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR7TU18U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6C4B2A1",              /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1",        /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User8",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR8TU18U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6D1C1B1A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1,oamT6C1B1A1", /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User9",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR9TU18U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6D2C1B1A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C1B1A1,oamT6C2B1A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User10",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR10TU18U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6D3C2B1A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C2B1A1",  /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User11",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR11TU18U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6D4C2B1A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C2B1A1", /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User12",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR12TU18U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6D5C3B2A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1,oamT6C3B2A1", /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User13",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR13TU18U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6D6C3B2A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1,oamT6C3B2A1,oamT6C4B2A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User14",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR14TU18U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6D7C4B2A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1,oamT6C4B2A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU18User15",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU18U TR6_DESC", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "fortU15TU18U@jts.us",      /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT6D8C4B2A1",            /* ASSGND_ROLES_COL */
-            "oamT6A1,oamT6B2A1,oamT6C4B2A1", /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU18User2", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR2TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6B1A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU18User3", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR3TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6B2A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User4", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR4TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6C1B1A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B1A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User5", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR5TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6C2B1A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B1A1,oamT6B2A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User6", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR6TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6C3B2A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B2A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User7", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR7TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6C4B2A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B2A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User8", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR8TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6D1C1B1A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B1A1,oamT6C1B1A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User9", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR9TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6D2C1B1A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C1B1A1,oamT6C2B1A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User10", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR10TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6D3C2B1A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C2B1A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User11", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR11TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6D4C2B1A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B1A1,oamT6B2A1,oamT6C2B1A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User12", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR12TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6D5C3B2A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B2A1,oamT6C3B2A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User13", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR13TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6D6C3B2A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B2A1,oamT6C3B2A1,oamT6C4B2A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User14", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR14TU18U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6D7C4B2A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B2A1,oamT6C4B2A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU18User15", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU18U TR6_DESC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU15TU18U@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT6D8C4B2A1", /* ASSGND_ROLES_COL */
+                "oamT6A1,oamT6B2A1,oamT6C4B2A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     // Test Case TU18U:
     @MyAnnotation(name = "USERS_TU19U_TR7_ASC", value = "USR TU19U TR7 ASC")
-    public final static String[][] USERS_TU19U_TR7_ASC = {
+    public final static String[][] USERS_TU19U_TR7_ASC =
         {
-            "jtsTU19User1",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR1TU19U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7A1",                  /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU19User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR1TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7A1", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU19User2",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR2TU19U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7B1A1",                /* ASSGND_ROLES_COL */
-            "oamT7A1,",                 /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User3",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR3TU19U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7B2A1",                /* ASSGND_ROLES_COL */
-            "oamT7A1,",                 /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User4",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR4TU19U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7C1B1A1",              /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1",        /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User5",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR5TU19U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7C2B1A1",              /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1,oamT7B2A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User6",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR6TU19U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7C3B2A1",              /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1",        /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User7",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR7TU19U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7C4B2A1",              /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1",        /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User8",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR8TU19U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7D1C1B1A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1,oamT7C1B1A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User9",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR9TU19U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7D2C1B1A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C1B1A1,oamT7C2B1A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User10",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR10TU19U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7D3C2B1A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C2B1A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User11",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR11TU19U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7D4C2B1A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C2B1A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User12",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR12TU19U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7D5C3B2A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1,oamT7C3B2A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User13",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR13TU19U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7D6C3B2A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1,oamT7C3B2A1,oamT7C4B2A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User14",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR14TU19U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7D7C4B2A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1,oamT7C4B2A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU19User15",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU19U TR7_ASC",  /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "fortU15TU19U@jts.us",      /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "oamT7D8C4B2A1",            /* ASSGND_ROLES_COL */
-            "oamT7A1,oamT7B2A1,oamT7C4B2A1",/* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        }
+            {
+                "jtsTU19User2", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR2TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7B1A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU19User3", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR3TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7B2A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User4", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR4TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7C1B1A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B1A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User5", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR5TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7C2B1A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B1A1,oamT7B2A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User6", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR6TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7C3B2A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B2A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User7", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR7TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7C4B2A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B2A1", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User8", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR8TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7D1C1B1A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B1A1,oamT7C1B1A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User9", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR9TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7D2C1B1A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C1B1A1,oamT7C2B1A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User10", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR10TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7D3C2B1A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C2B1A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User11", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR11TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7D4C2B1A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B1A1,oamT7B2A1,oamT7C2B1A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User12", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR12TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7D5C3B2A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B2A1,oamT7C3B2A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User13", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR13TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7D6C3B2A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B2A1,oamT7C3B2A1,oamT7C4B2A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User14", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR14TU19U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7D7C4B2A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B2A1,oamT7C4B2A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU19User15", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU19U TR7_ASC", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "fortU15TU19U@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "oamT7D8C4B2A1", /* ASSGND_ROLES_COL */
+                "oamT7A1,oamT7B2A1,oamT7C4B2A1",/* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+}
     };
 
     // Test Case TU20U:
     @MyAnnotation(name = "USERS_TU20U_TR5B", value = "USR TU20U TR5B HIER")
-    public final static String[][] USERS_TU20U_TR5B = {
+    public final static String[][] USERS_TU20U_TR5B =
         {
-            "jtsTU20User1",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU20U TR5_HIER", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR1TU20U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "" ,                        /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU20User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU20U TR5_HIER", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR1TU20U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         },
-        {
-            "jtsTU20User2",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU20U TR5_HIER", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR2TU20U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU20User3",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU20U TR5_HIER", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR3TU20U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU20User4",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU20U TR5_HIER", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR4TU20U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU20User5",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU20U TR5_HIER", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR5TU20U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU20User6",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU20U TR5_HIER", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR6TU20U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU20User7",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU20U TR5_HIER", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR7TU20U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU20User8",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU20U TR5_HIER", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR8TU20U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU20User9",             /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU20U TR5_HIER", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR9TU20U@jtstools.com",   /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Maumelle,AR,72113,9 Vantage Point,2 floor,MBR",  /* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
-        {
-            "jtsTU20User10",            /* USERID_COL */
-            "passw0rd1",                /* PASSWORD_COL */
-            "Test1",                    /* PW POLICY ATTR */
-            "Test Case TU20U TR5_HIER", /* DESC_COL */
-            "fnameoneupd",              /* CN_COL */
-            "lnameoneupd",              /* SN_COL */
-            "USR10TU20U@jtstools.com",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3",        /* PROPS_COL */
-            "0000",                     /* BTIME_COL */
-            "0000",                     /* ETIME_COL */
-            "20091001",                 /* BDATE_COL */
-            "21000101",                 /* EDATE_COL */
-            "20300101",                 /* BLOCKDATE_COL */
-            "20300115",                 /* ELOCKDATE_COL */
-            "1234567",                  /* DAYMASK_COL */
-            "DEV1",                     /* ORG_COL */
-            "0",                        /* TIMEOUT_COL */
-            "",                         /* ASSGND_ROLES_COL */
-            "",                         /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
-        },
+            {
+                "jtsTU20User2", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU20U TR5_HIER", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR2TU20U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+    },
+            {
+                "jtsTU20User3", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU20U TR5_HIER", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR3TU20U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU20User4", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU20U TR5_HIER", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR4TU20U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU20User5", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU20U TR5_HIER", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR5TU20U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU20User6", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU20U TR5_HIER", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR6TU20U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU20User7", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU20U TR5_HIER", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR7TU20U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU20User8", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU20U TR5_HIER", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR8TU20U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU20User9", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU20U TR5_HIER", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR9TU20U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Maumelle,AR,72113,9 Vantage Point,2 floor,MBR", /* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
+            {
+                "jtsTU20User10", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU20U TR5_HIER", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "USR10TU20U@jtstools.com", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+},
     };
 
-   // Test Case TU12:
+    // Test Case TU12:
     @MyAnnotation(name = "USERS_TU21_DSD_BRUNO", value = "USR TU21_DSD_BRUNO")
-    final static String[][] USERS_TU21_DSD_BRUNO = {
+    public final static String[][] USERS_TU21_DSD_BRUNO =
         {
-            "jtsTU21User1",       /* USERID_COL */
-            "passw0rd1",          /* PASSWORD_COL */
-            "Test1",              /* PW POLICY ATTR */
-            "Test Case TU21",     /* DESC_COL */
-            "fnameoneupd",        /* CN_COL */
-            "lnameoneupd",        /* SN_COL */
-            "jtsU1TU21@jts.us",  /* EMAILS_COL */
-            "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
-            "0000",               /* BTIME_COL */
-            "0000",               /* ETIME_COL */
-            "20091001",           /* BDATE_COL */
-            "21000101",           /* EDATE_COL */
-            "20300101",           /* BLOCKDATE_COL */
-            "20300115",           /* ELOCKDATE_COL */
-            "1234567",            /* DAYMASK_COL */
-            "DEV1",               /* ORG_COL */
-            "15",                 /* TIMEOUT_COL */
-            "oamT17DSD1,oamT17DSD3",/* ASSGND_ROLES_COL */
-            "",                   /* AUTHZ_ROLES_COL */
-            "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
-            "888-888-8888,777-777-7777",/* PHONES_COL */
-            "555-555-5555,444-444-4444",/* MOBILES_COL */
+            {
+                "jtsTU21User1", /* USERID_COL */
+                "passw0rd1", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Test Case TU21", /* DESC_COL */
+                "fnameoneupd", /* CN_COL */
+                "lnameoneupd", /* SN_COL */
+                "jtsU1TU21@jts.us", /* EMAILS_COL */
+                "p1:v1,p2:v2,p3:v3", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "15", /* TIMEOUT_COL */
+                "oamT17DSD1,oamT17DSD3",/* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Twentynine Palms,CA,92252,Hiway 62",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
         }
     };
 
-     /**
-     * The Fortress test data for junit uses 2-dimensional arrays.
-     */
+    /**
+    * The Fortress test data for junit uses 2-dimensional arrays.
+    */
     private final static int USERID_COL = 0;
     private final static int PASSWORD_COL = 1;
     private final static int PW_POLICY_COL = 2;
@@ -5493,24 +5516,33 @@ public class UserTestData extends TestCase
      * @param user
      * @param usr
      */
-    public static void assertEquals(User user, String[] usr)
+    public static void assertEquals( User user, String[] usr )
     {
-        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user userId", getUserId(usr).toUpperCase(), user.getUserId().toUpperCase());
-        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user desc", getDescription(usr), user.getDescription());
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user userId", getUserId( usr )
+            .toUpperCase(), user.getUserId().toUpperCase() );
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user desc", getDescription( usr ),
+            user.getDescription() );
         //assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user pw policy", getPwPolicy(usr), user.getPwPolicy());
-        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user name", (getFName(usr) + " " + getLName(usr)), user.getName());
-        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user cn", (getFName(usr) + " " + getLName(usr)), user.getCn());
-        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user sn", getLName(usr), user.getSn());
-        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user ou", getOu(usr), user.getOu());
-        assertTrue(UserTestData.class.getName() + ".assertEquals failed compare user address", getAddress(usr).equals(user.getAddress()));
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user name",
+            ( getFName( usr ) + " " + getLName( usr ) ), user.getName() );
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user cn",
+            ( getFName( usr ) + " " + getLName( usr ) ), user.getCn() );
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user sn", getLName( usr ),
+            user.getSn() );
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user ou", getOu( usr ), user.getOu() );
+        assertTrue( UserTestData.class.getName() + ".assertEquals failed compare user address", getAddress( usr )
+            .equals( user.getAddress() ) );
         //assertAddress(usr, user.getAddress());
-        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user phones", getPhones(usr), user.getPhones());
-        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user mobiles", getMobiles(usr), user.getMobiles());
-        assertProps(usr, user.getProperties());
-        assertEmail(usr, user.getEmails());
-        Constraint validConstraint = getUserConstraint(usr);
-        TestUtils.assertTemporal(UserTestData.class.getName() + ".assertEquals", validConstraint, user);
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user phones", getPhones( usr ),
+            user.getPhones() );
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user mobiles", getMobiles( usr ),
+            user.getMobiles() );
+        assertProps( usr, user.getProperties() );
+        assertEmail( usr, user.getEmails() );
+        Constraint validConstraint = getUserConstraint( usr );
+        TestUtils.assertTemporal( UserTestData.class.getName() + ".assertEquals", validConstraint, user );
     }
+
 
     /**
      * Determine if a given User object contains its assigned email  values.
@@ -5518,24 +5550,28 @@ public class UserTestData extends TestCase
      * @param usr expected user properties
      * @param emails actual user emails
      */
-    public static void assertEmail(String[] usr, List<String> emails)
+    public static void assertEmail( String[] usr, List<String> emails )
     {
-        List<String> expected = getEmails(usr);
-        if(VUtil.isNotNullOrEmpty(expected))
+        List<String> expected = getEmails( usr );
+        if ( VUtil.isNotNullOrEmpty( expected ) )
         {
-            assertNotNull(UserTestData.class.getName() + ".assertEmail null for user: " + getUserId(usr), emails);
-            for(String email : expected)
+            assertNotNull( UserTestData.class.getName() + ".assertEmail null for user: " + getUserId( usr ), emails );
+            for ( String email : expected )
             {
-                assertTrue(UserTestData.class.getName() + ".assertEmail failed compare email for user: " + getUserId(usr) + ", expected value: " + expected, emails.contains(email));
+                assertTrue( UserTestData.class.getName() + ".assertEmail failed compare email for user: "
+                    + getUserId( usr ) + ", expected value: " + expected, emails.contains( email ) );
             }
         }
     }
 
-    public static void assertAddress(String[] usr, Address address)
+
+    public static void assertAddress( String[] usr, Address address )
     {
-        Address expectedAddress = getAddress(usr);
-        assertTrue(UserTestData.class.getName() + ".assertEquals failed compare user address", expectedAddress.equals(address));
+        Address expectedAddress = getAddress( usr );
+        assertTrue( UserTestData.class.getName() + ".assertEquals failed compare user address",
+            expectedAddress.equals( address ) );
     }
+
 
     /**
      * Determine if a given User object contains its assigned properties values.
@@ -5543,414 +5579,445 @@ public class UserTestData extends TestCase
      * @param usr expected user properties
      * @param properties actual user properties
      */
-    public static void assertProps(String[] usr, Properties properties)
+    public static void assertProps( String[] usr, Properties properties )
     {
-        Properties usrProps = getProps(usr);
-        if(usrProps != null)
+        Properties usrProps = getProps( usr );
+        if ( usrProps != null )
         {
-            assertNotNull(UserTestData.class.getName() + ".assertProps null for user: " + getUserId(usr), properties);
-            for (Enumeration e = properties.propertyNames(); e.hasMoreElements(); )
+            assertNotNull( UserTestData.class.getName() + ".assertProps null for user: " + getUserId( usr ), properties );
+            for ( Enumeration e = properties.propertyNames(); e.hasMoreElements(); )
             {
-                String key = (String) e.nextElement();
-                String val = usrProps.getProperty(key);
-                String uval = usrProps.getProperty(key);
-                assertEquals(UserTestData.class.getName() + ".assertProps failed compare props for user: " + getUserId(usr) + ", key: " + key + ", expected value: " + val + ", actual value: " + uval, val, uval);
+                String key = ( String ) e.nextElement();
+                String val = usrProps.getProperty( key );
+                String uval = usrProps.getProperty( key );
+                assertEquals( UserTestData.class.getName() + ".assertProps failed compare props for user: "
+                    + getUserId( usr ) + ", key: " + key + ", expected value: " + val + ", actual value: " + uval, val,
+                    uval );
             }
         }
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getUserId(String[] usr)
+    public static String getUserId( String[] usr )
     {
         return usr[USERID_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static char[] getPassword(String[] usr)
+    public static char[] getPassword( String[] usr )
     {
         return usr[PASSWORD_COL].toCharArray();
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getPwPolicy(String[] usr)
+    public static String getPwPolicy( String[] usr )
     {
         return usr[PW_POLICY_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getDescription(String[] usr)
+    public static String getDescription( String[] usr )
     {
         return usr[DESC_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getOu(String[] usr)
+    public static String getOu( String[] usr )
     {
         return usr[ORG_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getFName(String[] usr)
+    public static String getFName( String[] usr )
     {
         return usr[CN_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getLName(String[] usr)
+    public static String getLName( String[] usr )
     {
         return usr[SN_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getBeginTime(String[] usr)
+    public static String getBeginTime( String[] usr )
     {
         return usr[BTIME_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getEndTime(String[] usr)
+    public static String getEndTime( String[] usr )
     {
         return usr[ETIME_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getBeginDate(String[] usr)
+    public static String getBeginDate( String[] usr )
     {
         return usr[BDATE_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getEndDate(String[] usr)
+    public static String getEndDate( String[] usr )
     {
         return usr[EDATE_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getBeginLockDate(String[] usr)
+    public static String getBeginLockDate( String[] usr )
     {
         return usr[BLOCKDATE_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getEndLockDate(String[] usr)
+    public static String getEndLockDate( String[] usr )
     {
         return usr[ELOCKDATE_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static String getDayMask(String[] usr)
+    public static String getDayMask( String[] usr )
     {
         return usr[DAYMASK_COL];
     }
 
+
     /**
      * @param usr
      * @return
      */
-    public static int getTimeOut(String[] usr)
+    public static int getTimeOut( String[] usr )
     {
-        return Integer.parseInt(usr[TIMEOUT_COL]);
+        return Integer.parseInt( usr[TIMEOUT_COL] );
     }
+
 
     /**
      *
      * @param usr
      * @return
      */
-    public static String getTitle(String[] usr)
+    public static String getTitle( String[] usr )
     {
         String value = null;
         try
-         {
-             value = usr[TITLE_COL];
-         }
-         catch(java.lang.ArrayIndexOutOfBoundsException ae)
-         {
+        {
+            value = usr[TITLE_COL];
+        }
+        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
+        {
             // attribute is optional, do nothing here
-         }
+        }
         return value;
     }
+
 
     /**
      *
      * @param usr
      * @return
      */
-    public static String getEmployeeType(String[] usr)
+    public static String getEmployeeType( String[] usr )
     {
         String value = null;
         try
-         {
-             value = usr[EMPLOYEE_TYPE_COL];
-         }
-         catch(java.lang.ArrayIndexOutOfBoundsException ae)
-         {
+        {
+            value = usr[EMPLOYEE_TYPE_COL];
+        }
+        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
+        {
             // attribute is optional, do nothing here
-         }
+        }
 
         return value;
     }
+
 
     /**
      * @param usr
      * @return
      */
-    public static Boolean isSystem(String[] usr)
+    public static Boolean isSystem( String[] usr )
     {
         Boolean isSystem;
         try
         {
             String szBoolean = usr[SYSTEM_COL];
-            if(VUtil.isNotNullOrEmpty(szBoolean))
+            if ( VUtil.isNotNullOrEmpty( szBoolean ) )
             {
-                isSystem = Boolean.valueOf(szBoolean);
+                isSystem = Boolean.valueOf( szBoolean );
             }
             else
             {
                 isSystem = false;
             }
         }
-        catch(java.lang.ArrayIndexOutOfBoundsException ae)
+        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
         {
-                isSystem = false;
+            isSystem = false;
         }
         return isSystem;
     }
 
-    /**
-     * @param usr
-     * @return
-     */
-    public static User getUser(String[] usr)
-    {
-        User user = (User) getUserConstraint(usr);
-        user.setUserId(getUserId(usr));
-        user.setPassword(getPassword(usr));
-        user.setPwPolicy(getPwPolicy(usr));
-        user.setDescription(getDescription(usr));
-        user.setName(getFName(usr) + " " + getLName(usr));
-        user.setCn(user.getName());
-        user.setSn(getLName(usr));
-        user.setOu(getOu(usr));
-        user.setAddress(getAddress(usr));
-        user.setPhones(getPhones(usr));
-        user.setMobiles(getMobiles(usr));
-        user.setTitle(getTitle(usr));
-        user.setEmployeeType(getEmployeeType(usr));
-        user.setSystem(isSystem(usr));
-        user.addProperties(getProps(usr));
-        user.setEmails(getEmails(usr));
-        return user;
-    }
 
     /**
      * @param usr
      * @return
      */
-    private static us.jts.fortress.util.time.Constraint getUserConstraint(String[] usr)
+    public static User getUser( String[] usr )
     {
-        User user = new User();
-        user.setBeginDate(getBeginDate(usr));
-        user.setEndDate(getEndDate(usr));
-        user.setBeginLockDate(getBeginLockDate(usr));
-        user.setEndLockDate(getEndLockDate(usr));
-        user.setBeginTime(getBeginTime(usr));
-        user.setEndTime(getEndTime(usr));
-        user.setDayMask(getDayMask(usr));
-        user.setTimeout(getTimeOut(usr));
+        User user = ( User ) getUserConstraint( usr );
+        user.setUserId( getUserId( usr ) );
+        user.setPassword( getPassword( usr ) );
+        user.setPwPolicy( getPwPolicy( usr ) );
+        user.setDescription( getDescription( usr ) );
+        user.setName( getFName( usr ) + " " + getLName( usr ) );
+        user.setCn( user.getName() );
+        user.setSn( getLName( usr ) );
+        user.setOu( getOu( usr ) );
+        user.setAddress( getAddress( usr ) );
+        user.setPhones( getPhones( usr ) );
+        user.setMobiles( getMobiles( usr ) );
+        user.setTitle( getTitle( usr ) );
+        user.setEmployeeType( getEmployeeType( usr ) );
+        user.setSystem( isSystem( usr ) );
+        user.addProperties( getProps( usr ) );
+        user.setEmails( getEmails( usr ) );
         return user;
     }
+
+
+    /**
+     * @param usr
+     * @return
+     */
+    private static us.jts.fortress.util.time.Constraint getUserConstraint( String[] usr )
+    {
+        User user = new User();
+        user.setBeginDate( getBeginDate( usr ) );
+        user.setEndDate( getEndDate( usr ) );
+        user.setBeginLockDate( getBeginLockDate( usr ) );
+        user.setEndLockDate( getEndLockDate( usr ) );
+        user.setBeginTime( getBeginTime( usr ) );
+        user.setEndTime( getEndTime( usr ) );
+        user.setDayMask( getDayMask( usr ) );
+        user.setTimeout( getTimeOut( usr ) );
+        return user;
+    }
+
 
     /**
      *
      * @param szInput
      * @return
      */
-    public static Properties getProps(String[] szInput)
+    public static Properties getProps( String[] szInput )
     {
         Properties properties = null;
-        List<String> props = getList(szInput, PROPS_COL);
-        if(VUtil.isNotNullOrEmpty(props))
+        List<String> props = getList( szInput, PROPS_COL );
+        if ( VUtil.isNotNullOrEmpty( props ) )
         {
             properties = new Properties();
-            for(String szRaw : props)
+            for ( String szRaw : props )
             {
-                int indx = szRaw.indexOf(GlobalIds.PROP_SEP);
-                if (indx >= 1)
+                int indx = szRaw.indexOf( GlobalIds.PROP_SEP );
+                if ( indx >= 1 )
                 {
-                    properties.setProperty(szRaw.substring(0, indx), szRaw.substring(indx + 1));
+                    properties.setProperty( szRaw.substring( 0, indx ), szRaw.substring( indx + 1 ) );
                 }
             }
         }
         return properties;
     }
 
-    /**
-     * @param szInput
-     * @return
-     */
-    public static Set<String> getAssignedRoles(String[] szInput)
-    {
-        return getSets(szInput, ASSGND_ROLES_COL);
-    }
 
     /**
      * @param szInput
      * @return
      */
-    public static Set<String> getAuthorizedRoles(String[] szInput)
+    public static Set<String> getAssignedRoles( String[] szInput )
     {
-        return getSets(szInput, AUTHZ_ROLES_COL);
+        return getSets( szInput, ASSGND_ROLES_COL );
     }
+
 
     /**
      * @param szInput
      * @return
      */
-    public static List<String> getPhones(String[] szInput)
+    public static Set<String> getAuthorizedRoles( String[] szInput )
     {
-        return getList(szInput, PHONES_COL);
+        return getSets( szInput, AUTHZ_ROLES_COL );
     }
+
 
     /**
      * @param szInput
      * @return
      */
-    public static List<String> getMobiles(String[] szInput)
+    public static List<String> getPhones( String[] szInput )
     {
-        return getList(szInput, MOBILES_COL);
+        return getList( szInput, PHONES_COL );
     }
+
 
     /**
      * @param szInput
      * @return
      */
-    public static Address getAddress(String[] szInput)
+    public static List<String> getMobiles( String[] szInput )
     {
-        return getAddress(szInput, ADDRESS_COL);
+        return getList( szInput, MOBILES_COL );
     }
+
 
     /**
      * @param szInput
      * @return
      */
-    public static List<String> getEmails(String[] szInput)
+    public static Address getAddress( String[] szInput )
     {
-        return getList(szInput, EMAILS_COL);
+        return getAddress( szInput, ADDRESS_COL );
     }
+
+
+    /**
+     * @param szInput
+     * @return
+     */
+    public static List<String> getEmails( String[] szInput )
+    {
+        return getList( szInput, EMAILS_COL );
+    }
+
 
     /**
      * @param szInput
      * @param col
      * @return
      */
-    private static Address getAddress(String[] szInput, int col)
+    private static Address getAddress( String[] szInput, int col )
     {
         Address address = null;
         try
         {
-            if (VUtil.isNotNullOrEmpty(szInput[col]))
+            if ( VUtil.isNotNullOrEmpty( szInput[col] ) )
             {
                 address = new Address();
-                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], TestUtils.DELIMITER_TEST_DATA);
-                if (charSetTkn.countTokens() > 0)
+                StringTokenizer charSetTkn = new StringTokenizer( szInput[col], TestUtils.DELIMITER_TEST_DATA );
+                if ( charSetTkn.countTokens() > 0 )
                 {
                     int count = 0;
-                    while (charSetTkn.hasMoreTokens())
+                    while ( charSetTkn.hasMoreTokens() )
                     {
                         String value = charSetTkn.nextToken();
-                        switch(count++)
+                        switch ( count++ )
                         {
                             case 0:
-                                address.setCity(value);
+                                address.setCity( value );
                                 break;
                             case 1:
-                                address.setState(value);
+                                address.setState( value );
                                 break;
                             case 2:
-                                address.setPostalCode(value);
+                                address.setPostalCode( value );
                                 break;
                             default:
-                                address.setAddress(value);
+                                address.setAddress( value );
                                 break;
                         }
                     }
                 }
             }
         }
-        catch (java.lang.ArrayIndexOutOfBoundsException ae)
+        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
         {
             // ignore
         }
         return address;
     }
 
+
     /**
      * @param szInput
      * @param col
      * @return
      */
-    private static Set<String> getSets(String[] szInput, int col)
+    private static Set<String> getSets( String[] szInput, int col )
     {
-        Set<String> vSets = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> vSets = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         try
         {
-            if (VUtil.isNotNullOrEmpty(szInput[col]))
+            if ( VUtil.isNotNullOrEmpty( szInput[col] ) )
             {
-                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], TestUtils.DELIMITER_TEST_DATA);
-                if (charSetTkn.countTokens() > 0)
+                StringTokenizer charSetTkn = new StringTokenizer( szInput[col], TestUtils.DELIMITER_TEST_DATA );
+                if ( charSetTkn.countTokens() > 0 )
                 {
-                    while (charSetTkn.hasMoreTokens())
+                    while ( charSetTkn.hasMoreTokens() )
                     {
                         String value = charSetTkn.nextToken();
-                        vSets.add(value);
+                        vSets.add( value );
                     }
                 }
             }
         }
-        catch (java.lang.ArrayIndexOutOfBoundsException ae)
+        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
         {
             // ignore
         }
@@ -5963,25 +6030,25 @@ public class UserTestData extends TestCase
      * @param col
      * @return
      */
-    private static List<String> getList(String[] szInput, int col)
+    private static List<String> getList( String[] szInput, int col )
     {
         List<String> vList = new ArrayList<>();
         try
         {
-            if (VUtil.isNotNullOrEmpty(szInput[col]))
+            if ( VUtil.isNotNullOrEmpty( szInput[col] ) )
             {
-                StringTokenizer charSetTkn = new StringTokenizer(szInput[col], TestUtils.DELIMITER_TEST_DATA);
-                if (charSetTkn.countTokens() > 0)
+                StringTokenizer charSetTkn = new StringTokenizer( szInput[col], TestUtils.DELIMITER_TEST_DATA );
+                if ( charSetTkn.countTokens() > 0 )
                 {
-                    while (charSetTkn.hasMoreTokens())
+                    while ( charSetTkn.hasMoreTokens() )
                     {
                         String value = charSetTkn.nextToken();
-                        vList.add(value);
+                        vList.add( value );
                     }
                 }
             }
         }
-        catch (java.lang.ArrayIndexOutOfBoundsException ae)
+        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
         {
             // ignore
         }
