@@ -38,15 +38,18 @@ public class OrganizationalUnit
     private String description;
     private String contextId = "";
 
+
     public String getContextId()
     {
         return this.contextId;
     }
 
-    public void setContextId(String contextId)
+
+    public void setContextId( String contextId )
     {
         this.contextId = contextId;
     }
+
 
     /**
      * Generate instance of organizational unit object to be loaded as container node.
@@ -54,11 +57,12 @@ public class OrganizationalUnit
      * @param name        required attribute must be unique for rDn level and maps to 'ou' attribute in 'organizationalUnit' object class.
      * @param description maps optional attribute maps to name in 'organizationalUnit' object class.
      */
-    public OrganizationalUnit(String name, String description)
+    public OrganizationalUnit( String name, String description )
     {
         this.name = name;
         this.description = description;
     }
+
 
     /**
      * Default constructor generates instance of organizational unit object to be loaded as container node.
@@ -67,6 +71,7 @@ public class OrganizationalUnit
     public OrganizationalUnit()
     {
     }
+
 
     /**
      * Get the required name attribute from the entity.  This attribute must be unique for the level of tree it is
@@ -79,16 +84,18 @@ public class OrganizationalUnit
         return name;
     }
 
+
     /**
      * Set the required name attribute in the entity.  This attribute must be unique for the level of tree it is
      * set.
      *
      * @param name is required attribute and must be unique for rDn level and maps to 'ou' attribute in 'organizationalUnit' object class.
      */
-    public void setName(String name)
+    public void setName( String name )
     {
         this.name = name;
     }
+
 
     /**
      * Get the description for the organizational unit object.  This value is not required or constrained
@@ -101,16 +108,18 @@ public class OrganizationalUnit
         return description;
     }
 
+
     /**
      * Set the description for the organizational unit object.  This value is not required or constrained
      * but is validated on reasonability.
      *
      * @param description field maps to same name attribute on 'organizationalUnit'.
      */
-    public void setDescription(String description)
+    public void setDescription( String description )
     {
         this.description = description;
     }
+
 
     /**
      * Get the optional parent attribute allows nesting of container nodes two levels below suffix.  For example, if parent
@@ -123,6 +132,7 @@ public class OrganizationalUnit
         return parent;
     }
 
+
     /**
      * Set the optional parent attribute allows nesting of container nodes two levels below suffix.  For example, if parent
      * node is created it may be used to subdivide collections of related nodes, dn=ou=Roles, ou=RBAC, dc=companyName, dc=com.
@@ -130,9 +140,25 @@ public class OrganizationalUnit
      * @param parent attribute that contains name of parent node that is used to construct the dn.  This maps to 'ou'
      *               attribute in parent node's 'organizationalUnit' object class.
      */
-    public void setParent(String parent)
+    public void setParent( String parent )
     {
         this.parent = parent;
     }
-}
 
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "OrganizationalUnit[" );
+        sb.append( name ).append( ", " );
+        sb.append( description ).append( ", " );
+        sb.append( parent ).append( ", " );
+        sb.append( contextId ).append( ']' );
+
+        return sb.toString();
+    }
+}
