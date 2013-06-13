@@ -14,7 +14,7 @@ import us.jts.fortress.util.attr.VUtil;
 /**
  * Creates an instance of the AccessMgr object.
  * <p/>
- * The default implementation class is specified as {@link AccessMgrRestImpl} but can be overridden by
+ * The default implementation class is specified as {@link AccessMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#ACCESS_IMPLEMENTATION} config property.
  * <p/>
 
