@@ -3,14 +3,16 @@
  */
 package us.jts.fortress.util.cache;
 
+
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import net.sf.ehcache.CacheManager;
 import us.jts.fortress.CfgException;
 import us.jts.fortress.CfgRuntimeException;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.cfg.Config;
 import us.jts.fortress.rbac.ClassUtil;
-import net.sf.ehcache.CacheManager;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * This class is a facade and shields internal Fortress objects from specifics of the actual
@@ -23,18 +25,20 @@ public class CacheMgr
     private static final String EHCACHE_CONFIG_FILE = "ehcache.config.file";
     private final CacheManager m_ehCacheImpl;
     private static CacheMgr m_ftCacheImpl;
-    private static final AtomicBoolean isFtCacheInitialized = new AtomicBoolean(false);
+    private static final AtomicBoolean isFtCacheInitialized = new AtomicBoolean( false );
     private static final Object m_lock = new Object();
+
 
     /**
      * Private constructor.
      *
      * @param cacheMangerImpl contains a reference to cache implementation manager.
      */
-    private CacheMgr(CacheManager cacheMangerImpl)
+    private CacheMgr( CacheManager cacheMangerImpl )
     {
         m_ehCacheImpl = cacheMangerImpl;
     }
+
 
     /**
      * Create or return the fortress cache manager reference.
@@ -42,25 +46,26 @@ public class CacheMgr
      */
     public static CacheMgr getInstance()
     {
-        if (!isFtCacheInitialized.get())
+        if ( !isFtCacheInitialized.get() )
         {
-            synchronized (m_lock)
+            synchronized ( m_lock )
             {
                 String cacheConfig = null;
                 try
                 {
-                    cacheConfig = Config.getProperty(EHCACHE_CONFIG_FILE);
-                    m_ftCacheImpl = new CacheMgr(CacheManager.create(ClassUtil.resourceAsStream(cacheConfig)));
-                    isFtCacheInitialized.set(true);
+                    cacheConfig = Config.getProperty( EHCACHE_CONFIG_FILE );
+                    m_ftCacheImpl = new CacheMgr( CacheManager.create( ClassUtil.resourceAsStream( cacheConfig ) ) );
+                    isFtCacheInitialized.set( true );
                 }
-                catch (CfgException ce)
+                catch ( CfgException ce )
                 {
-                    throw new CfgRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, cacheConfig);
+                    throw new CfgRuntimeException( GlobalErrIds.FT_CACHE_NOT_CONFIGURED, cacheConfig );
                 }
             }
         }
         return m_ftCacheImpl;
     }
+
 
     /**
      * Create a new reference to the ehcache cache implementation.
@@ -68,8 +73,14 @@ public class CacheMgr
      * @param cacheName contains the name of the cache to retrieve
      * @return reference to cache for specified object.
      */
-    public Cache getCache(String cacheName)
+    public Cache getCache( String cacheName )
     {
-        return CacheFactory.createInstance(cacheName, m_ehCacheImpl);
+        return CacheFactory.createInstance( cacheName, m_ehCacheImpl );
+    }
+
+
+    public void clearAll()
+    {
+        m_ehCacheImpl.clearAll();
     }
 }
