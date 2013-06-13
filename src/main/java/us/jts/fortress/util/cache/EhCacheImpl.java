@@ -3,12 +3,14 @@
  */
 package us.jts.fortress.util.cache;
 
-import us.jts.fortress.CfgRuntimeException;
-import us.jts.fortress.GlobalErrIds;
+
 import net.sf.ehcache.Element;
 import net.sf.ehcache.constructs.blocking.BlockingCache;
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
+import us.jts.fortress.CfgRuntimeException;
+import us.jts.fortress.GlobalErrIds;
+
 
 /**
  * This class provides cache functionality from <a href="http://ehcache.org//">Ehcache</a> provider.
@@ -21,22 +23,24 @@ public class EhCacheImpl implements Cache
     private BlockingCache cache;
     private final String name;
 
+
     /**
      * Create an instance of a wrapped, singleton cache instance using Ehcache.
      *
      * @param name name for the cache instance.
      * @param blockingCache that is being wrapped.
      */
-    EhCacheImpl(String name, BlockingCache blockingCache)
+    EhCacheImpl( String name, BlockingCache blockingCache )
     {
         this.name = name;
-        if(blockingCache == null)
+        if ( blockingCache == null )
         {
             String error = CLS_NM + " constructor cache: " + name + " is null";
-            throw new CfgRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error);
+            throw new CfgRuntimeException( GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error );
         }
         this.cache = blockingCache;
     }
+
 
     /**
      * Given a key name, return the corresponding value.
@@ -46,17 +50,17 @@ public class EhCacheImpl implements Cache
      * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
     @Override
-    public Object get(Object key) throws CacheException
+    public Object get( Object key ) throws CacheException
     {
-        if (cache == null)
+        if ( cache == null )
         {
             String error = CLS_NM + ".get detected null cache name [" + name + "]";
-            throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
+            throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         try
         {
-            Element element = cache.get(key);
-            if (element != null)
+            Element element = cache.get( key );
+            if ( element != null )
             {
                 return element.getObjectValue();
             }
@@ -65,12 +69,14 @@ public class EhCacheImpl implements Cache
                 return null;
             }
         }
-        catch (net.sf.ehcache.CacheException ce)
+        catch ( net.sf.ehcache.CacheException ce )
         {
-            String error = CLS_NM + ".get cache name [" + name + "] key [" + key + "] caught CacheException=" + ce.getMessage();
-            throw new CacheException(GlobalErrIds.FT_CACHE_GET_ERR, error, ce);
+            String error = CLS_NM + ".get cache name [" + name + "] key [" + key + "] caught CacheException="
+                + ce.getMessage();
+            throw new CacheException( GlobalErrIds.FT_CACHE_GET_ERR, error, ce );
         }
     }
+
 
     /**
      * Add a new entry to the cache.
@@ -80,23 +86,25 @@ public class EhCacheImpl implements Cache
      * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
     @Override
-    public void put(Object key, Object value) throws CacheException
+    public void put( Object key, Object value ) throws CacheException
     {
-        if (cache == null)
+        if ( cache == null )
         {
             String error = CLS_NM + ".put detected null cache name [" + name + "]";
-            throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
+            throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         try
         {
-            cache.put(new Element(key, value));
+            cache.put( new Element( key, value ) );
         }
-        catch (net.sf.ehcache.CacheException ce)
+        catch ( net.sf.ehcache.CacheException ce )
         {
-            String error = CLS_NM + ".put cache name [" + name + "] key [" + key + "] caught CacheException=" + ce.getMessage();
-            throw new CacheException(GlobalErrIds.FT_CACHE_PUT_ERR, error, ce);
+            String error = CLS_NM + ".put cache name [" + name + "] key [" + key + "] caught CacheException="
+                + ce.getMessage();
+            throw new CacheException( GlobalErrIds.FT_CACHE_PUT_ERR, error, ce );
         }
     }
+
 
     /**
      * Clear a cache entry for a given name.
@@ -106,25 +114,27 @@ public class EhCacheImpl implements Cache
      * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
     @Override
-    public boolean clear(Object key) throws CacheException
+    public boolean clear( Object key ) throws CacheException
     {
         boolean result;
-        if (cache == null)
+        if ( cache == null )
         {
             String error = CLS_NM + ".clear detected null cache name [" + name + "]";
-            throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
+            throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         try
         {
-            result = cache.remove(key);
+            result = cache.remove( key );
         }
-        catch (net.sf.ehcache.CacheException ce)
+        catch ( net.sf.ehcache.CacheException ce )
         {
-            String error = CLS_NM + ".clear cache name [" + name + "] key [" + key + "] caught CacheException=" + ce.getMessage();
-            throw new CacheException(GlobalErrIds.FT_CACHE_CLEAR_ERR, error, ce);
+            String error = CLS_NM + ".clear cache name [" + name + "] key [" + key + "] caught CacheException="
+                + ce.getMessage();
+            throw new CacheException( GlobalErrIds.FT_CACHE_CLEAR_ERR, error, ce );
         }
         return result;
     }
+
 
     /**
      * Remove all entries from this cache.
@@ -134,22 +144,23 @@ public class EhCacheImpl implements Cache
     @Override
     public void flush() throws CacheException
     {
-        if (cache == null)
+        if ( cache == null )
         {
             String error = CLS_NM + ".flush detected null cache name [" + name + "]";
-            throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
+            throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         try
         {
             cache.removeAll();
         }
-        catch (net.sf.ehcache.CacheException ce)
+        catch ( net.sf.ehcache.CacheException ce )
         {
             String error = CLS_NM + ".flush cache name [" + name + "] caught CacheException=" + ce.getMessage();
-            throw new CacheException(GlobalErrIds.FT_CACHE_FLUSH_ERR, error, ce);
+            throw new CacheException( GlobalErrIds.FT_CACHE_FLUSH_ERR, error, ce );
 
         }
     }
+
 
     /**
      * Retrieve the Cache attribute
@@ -160,15 +171,16 @@ public class EhCacheImpl implements Cache
      * @throws CacheException in the event ehcache throws an exception it will be wrapped.
      */
     @Override
-    public <T> Attribute<T> getSearchAttribute(String attributeName) throws CacheException
+    public <T> Attribute<T> getSearchAttribute( String attributeName ) throws CacheException
     {
-        if (cache == null)
+        if ( cache == null )
         {
             String error = CLS_NM + ".getSearchAttribute detected null cache name [" + name + "]";
-            throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
+            throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
-        return this.cache.getSearchAttribute(attributeName);
+        return this.cache.getSearchAttribute( attributeName );
     }
+
 
     /**
      * Create a search query builder for the cache.
@@ -178,11 +190,17 @@ public class EhCacheImpl implements Cache
     @Override
     public Query createQuery()
     {
-        if (cache == null)
+        if ( cache == null )
         {
             String error = CLS_NM + ".createQuery detected null cache name [" + name + "]";
-            throw new CacheException(GlobalErrIds.FT_NULL_CACHE, error);
+            throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         return this.cache.createQuery();
+    }
+
+
+    public void clear()
+    {
+        cache.flush();
     }
 }
