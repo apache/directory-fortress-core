@@ -259,7 +259,7 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
     @Override
     public boolean isTemporalSet()
     {
-        return (beginTime != null && endTime != null && beginDate != null && endDate != null && beginLockDate != null && endLockDate != null && dayMask != null);
+        return (beginTime != null || endTime != null || beginDate != null || endDate != null || beginLockDate != null || endLockDate != null || dayMask != null);
     }
 
     /**
