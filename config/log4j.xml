@@ -33,7 +33,7 @@
     </category>
 
     <root>
-        <priority value="INFO" class="org.apache.log4j.Level"/>
+        <priority value="WARN" class="org.apache.log4j.Level"/>
         <appender-ref ref="console"/>
     </root>
 
