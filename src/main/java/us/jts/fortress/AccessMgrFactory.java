@@ -7,7 +7,6 @@ package us.jts.fortress;
 import us.jts.fortress.cfg.Config;
 import us.jts.fortress.rbac.AccessMgrImpl;
 import us.jts.fortress.rbac.ClassUtil;
-import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rest.AccessMgrRestImpl;
 import us.jts.fortress.util.attr.VUtil;
 
