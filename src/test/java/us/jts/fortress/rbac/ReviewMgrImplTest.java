@@ -1453,7 +1453,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param srchValue
      * @param sArray
      */
-    void searchSsdSets( String msg, String srchValue, String[][] sArray )
+    public static void searchSsdSets( String msg, String srchValue, String[][] sArray )
     {
         LogUtil.logIt( msg );
         try
@@ -1501,7 +1501,7 @@ public class ReviewMgrImplTest extends TestCase
      * @param srchValue
      * @param sArray
      */
-    void searchDsdSets( String msg, String srchValue, String[][] sArray )
+    public static void searchDsdSets( String msg, String srchValue, String[][] sArray )
     {
         LogUtil.logIt( msg );
         try
