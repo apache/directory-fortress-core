@@ -472,6 +472,19 @@ public interface ReviewMgr extends Manageable
     public SDSet ssdRoleSet(SDSet set)
         throws SecurityException;
 
+    /**
+     * This function returns the list of SSDs that match a given ssd name value.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     * </ul>
+     *
+     * @param ssd contains the name for the SSD set targeted, {@link SDSet#name}.
+     * @return List containing all SSDSets that match a given SSDSet name.
+     * @throws SecurityException in the event of data or system error.
+     */
+    public List<SDSet> ssdSets(SDSet ssd)
+        throws SecurityException;
 
     /**
      * This function returns the set of roles of a SSD role set. The function is valid if and only if the
@@ -535,6 +548,20 @@ public interface ReviewMgr extends Manageable
     public SDSet dsdRoleSet(SDSet set)
         throws SecurityException;
 
+
+    /**
+     * This function returns the list of DSDs that match a given dsd name value.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     * </ul>
+     *
+     * @param dsd contains the name for the DSD set targeted, {@link SDSet#name}.
+     * @return List containing all DSDSets that match a given DSDSet name.
+     * @throws SecurityException in the event of data or system error.
+     */
+    public List<SDSet> dsdSets(SDSet dsd)
+        throws SecurityException;
 
     /**
      * This function returns the set of roles of a DSD role set. The function is valid if and only if the

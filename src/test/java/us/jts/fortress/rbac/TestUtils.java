@@ -173,6 +173,12 @@ public class TestUtils extends TestCase
         return srchVal;
     }
 
+    public static String getSrchValue(String srchVal, int length)
+    {
+        srchVal = srchVal.substring(0,length);
+        return srchVal;
+    }
+
     /**
      * @param msg
      * @param c1

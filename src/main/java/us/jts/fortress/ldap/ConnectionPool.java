@@ -33,6 +33,7 @@ package us.jts.fortress.ldap;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
@@ -88,6 +89,10 @@ import java.util.*;
  */
 class ConnectionPool
 {
+    // Logging
+    private static final String CLS_NM = ConnectionPool.class.getName();
+    private static final Logger log = Logger.getLogger(CLS_NM);
+
 
     /**
      * Create a new instance of connection pool with specified parameters.  These connections will be used by the Fortress DAO
@@ -176,6 +181,7 @@ class ConnectionPool
                 }
                 catch (InterruptedException e)
                 {
+                    log.warn(CLS_NM + ".getConnection caught InterruptedException");
                 }
             }
         }
@@ -215,6 +221,7 @@ class ConnectionPool
                 }
                 catch (InterruptedException e)
                 {
+                    log.warn(CLS_NM + ".getConnection caught InterruptedException for timeout: " + timeout);
                     return null;
                 }
             }
@@ -333,6 +340,7 @@ class ConnectionPool
                     {
                         debug("unable to reauth during close as " + authdn);
                         debug(e.toString());
+                        log.warn(CLS_NM + ".close caught LDAPException: " + e.getMessage());
                     }
                 }
             }
@@ -355,7 +363,8 @@ class ConnectionPool
         {
             LDAPConnectionObject co =
                 (LDAPConnectionObject) pool.elementAt(i);
-            System.out.println("" + i + "=" + co);
+            String msg = "" + i + "=" + co;
+            log.info(CLS_NM + ".printPool: " + msg);
         }
     }
 
@@ -376,6 +385,7 @@ class ConnectionPool
                     catch (LDAPException e)
                     {
                         debug("disconnect: " + e.toString());
+                        log.warn(CLS_NM + ".disconnect caught LDAPException: " + e.getMessage());
                     }
                 }
                 ldapconnObject.setLDAPConn(null); // Clear conn
@@ -426,6 +436,7 @@ class ConnectionPool
         catch (Exception ex)
         {
             debug("Adding a connection: " + ex.toString());
+            log.warn(CLS_NM + ".addConnection caught Exception: " + ex.getMessage());
         }
         return index;
     }

@@ -62,6 +62,9 @@ public class ReviewMgrImplTest extends TestCase
         suite.addTest( new ReviewMgrImplTest( "testAuthorizedPermissionRoles" ) );
         suite.addTest( new ReviewMgrImplTest( "testPermissionUsers" ) );
         suite.addTest( new ReviewMgrImplTest( "testAuthorizedPermissionUsers" ) );
+        suite.addTest( new ReviewMgrImplTest( "testFindSsdSets" ) );
+        suite.addTest( new ReviewMgrImplTest( "testFindDsdSets" ) );
+
         return suite;
     }
 
@@ -1418,6 +1421,102 @@ public class ReviewMgrImplTest extends TestCase
             log.error(
                 CLS_NM + ".assignedRoleNms caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
+            fail( ex.getMessage() );
+        }
+    }
+
+
+    public void testFindSsdSets()
+    {
+        searchSsdSets(
+            "SRCH-SSD T1",
+            TestUtils.getSrchValue( RoleTestData.getName( RoleTestData.SSD_T1[0] ),
+                RoleTestData.getName( RoleTestData.SSD_T1[0] ).length() - 1 ), RoleTestData.SSD_T1 );
+        searchSsdSets(
+            "SRCH-SSD T4",
+            TestUtils.getSrchValue( RoleTestData.getName( RoleTestData.SSD_T4[0] ),
+                RoleTestData.getName( RoleTestData.SSD_T4[0] ).length() - 1 ), RoleTestData.SSD_T4 );
+        searchSsdSets(
+            "SRCH-SSD T5",
+            TestUtils.getSrchValue( RoleTestData.getName( RoleTestData.SSD_T5[0] ),
+                RoleTestData.getName( RoleTestData.SSD_T5[0] ).length() - 1 ), RoleTestData.SSD_T5 );
+        searchSsdSets(
+            "SRCH-SSD T6",
+            TestUtils.getSrchValue( RoleTestData.getName( RoleTestData.SSD_T6[0] ),
+                RoleTestData.getName( RoleTestData.SSD_T6[0] ).length() - 1 ), RoleTestData.SSD_T6 );
+    }
+
+
+    /**
+     *
+     * @param msg
+     * @param srchValue
+     * @param sArray
+     */
+    void searchSsdSets( String msg, String srchValue, String[][] sArray )
+    {
+        LogUtil.logIt( msg );
+        try
+        {
+            ReviewMgr reviewMgr = getManagedReviewMgr();
+            SDSet sdSet = new SDSet();
+            sdSet.setName( srchValue );
+            List<SDSet> sdSetList = reviewMgr.ssdSets( sdSet );
+            assertNotNull( sdSetList );
+        }
+        catch ( SecurityException ex )
+        {
+            log.error(
+                CLS_NM + ".searchRoles searchSsdSets [" + srchValue + "] caught SecurityException rc="
+                    + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+
+
+    public void testFindDsdSets()
+    {
+        searchDsdSets(
+            "SRCH-DSD T1",
+            TestUtils.getSrchValue( RoleTestData.getName( RoleTestData.DSD_T1[0] ),
+                RoleTestData.getName( RoleTestData.DSD_T1[0] ).length() - 1 ), RoleTestData.DSD_T1 );
+        searchDsdSets(
+            "SRCH-DSD T4",
+            TestUtils.getSrchValue( RoleTestData.getName( RoleTestData.DSD_T4[0] ),
+                RoleTestData.getName( RoleTestData.DSD_T4[0] ).length() - 1 ), RoleTestData.DSD_T4 );
+        searchDsdSets(
+            "SRCH-DSD T5",
+            TestUtils.getSrchValue( RoleTestData.getName( RoleTestData.DSD_T5[0] ),
+                RoleTestData.getName( RoleTestData.DSD_T5[0] ).length() - 1 ), RoleTestData.DSD_T5 );
+        searchDsdSets(
+            "SRCH-DSD T6",
+            TestUtils.getSrchValue( RoleTestData.getName( RoleTestData.DSD_T6[0] ),
+                RoleTestData.getName( RoleTestData.DSD_T6[0] ).length() - 1 ), RoleTestData.DSD_T6 );
+    }
+
+
+    /**
+     *
+     * @param msg
+     * @param srchValue
+     * @param sArray
+     */
+    void searchDsdSets( String msg, String srchValue, String[][] sArray )
+    {
+        LogUtil.logIt( msg );
+        try
+        {
+            ReviewMgr reviewMgr = getManagedReviewMgr();
+            SDSet sdSet = new SDSet();
+            sdSet.setName( srchValue );
+            List<SDSet> sdSetList = reviewMgr.ssdSets( sdSet );
+            assertNotNull( sdSetList );
+        }
+        catch ( SecurityException ex )
+        {
+            log.error(
+                CLS_NM + ".searchRoles searchDsdSets [" + srchValue + "] caught SecurityException rc="
+                    + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
