@@ -45,6 +45,12 @@ import us.jts.fortress.rbac.SDSet;
 import us.jts.fortress.rbac.User;
 import us.jts.fortress.rbac.UserAdminRole;
 import us.jts.fortress.rbac.UserRole;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
+import org.apache.tools.ant.input.InputHandler;
+import org.apache.tools.ant.input.InputRequest;
+import org.apache.log4j.Logger;
+import us.jts.fortress.util.attr.VUtil;
 
 
 /**
@@ -875,15 +881,43 @@ public class FortressAntTask extends Task implements InputHandler
                 {
                     try
                     {
-                        adminMgr.addUser( user );
+                        adminMgr.addUser(user);
+                        if(VUtil.isNotNullOrEmpty(user.getRoles()))
+                        {
+                            for(UserRole uRole : user.getRoles())
+                            {
+                                adminMgr.assignUser(uRole);
+                            }
+                        }
+                        if(VUtil.isNotNullOrEmpty(user.getAdminRoles()))
+                        {
+                            for(UserAdminRole uAdminRoleRole : user.getAdminRoles())
+                            {
+                                dAdminMgr.assignUser(uAdminRoleRole);
+                            }
+                        }
                     }
                     catch ( SecurityException se )
                     {
                         // If User entity already there then call the udpate method.
                         if ( se.getErrorId() == GlobalErrIds.USER_ID_DUPLICATE )
                         {
-                            adminMgr.updateUser( user );
-                            log.info( CLS_NM + ".addUsers - Update entity - userId=" + user.getUserId() );
+                            adminMgr.updateUser(user);
+                            if(VUtil.isNotNullOrEmpty(user.getRoles()))
+                            {
+                                for(UserRole uRole : user.getRoles())
+                                {
+                                    adminMgr.assignUser(uRole);
+                                }
+                            }
+                            if(VUtil.isNotNullOrEmpty(user.getAdminRoles()))
+                            {
+                                for(UserAdminRole uAdminRoleRole : user.getAdminRoles())
+                                {
+                                    dAdminMgr.assignUser(uAdminRoleRole);
+                                }
+                            }
+                            log.info(CLS_NM + ".addUsers - Update entity - userId=" + user.getUserId());
                         }
                         else
                         {
