@@ -83,9 +83,14 @@ database	@DB_TYPE@
 suffix		"@SUFFIX@"
 rootdn      "@ROOT_DN@"
 rootpw      "@ROOT_PW@"
-index ou,uid,uidNumber,gidNumber,objectclass eq,pres
-index cn,sn eq,sub
-index ftId,ftPermName,ftObjNm,ftOpNm,ftRoles,ftUsers,ftRA,ftARA,ftRoleName eq
+#index ou,uid,uidNumber,gidNumber,objectclass eq,pres
+#index cn,sn eq,sub
+#index ftId,ftPermName,ftObjNm,ftOpNm,ftRoles,ftUsers,ftRA,ftARA,ftRoleName eq
+
+index uidNumber,gidNumber,objectclass eq,pres
+index cn,sn,ftObjNm,ftOpNm,ftRoleName,uid,ou eq,sub
+index ftId,ftPermName,ftRoles,ftUsers,ftRA,ftARA eq
+
 directory	@DEFAULT_DB_PATH@
 overlay accesslog
 logdb   "@LOG_SUFFIX@"
