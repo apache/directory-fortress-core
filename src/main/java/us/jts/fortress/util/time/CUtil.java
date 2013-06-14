@@ -55,44 +55,59 @@ public class CUtil
     {
         if(VUtil.isNotNullOrEmpty(inputString))
         {
-            StringTokenizer tkn = new StringTokenizer(inputString, GlobalIds.DELIMITER);
+            StringTokenizer tkn = new StringTokenizer(inputString, GlobalIds.DELIMITER, true);
             if (tkn.countTokens() > 0)
             {
                 int count = tkn.countTokens();
+                int index = 0;
+                boolean previousTokenWasDelimiter = false;
                 for (int i = 0; i < count; i++)
                 {
-                    switch (i)
+                    String szValue = tkn.nextToken();
+                    if(szValue.equals(GlobalIds.DELIMITER) && !previousTokenWasDelimiter)
                     {
-                        case 0:
-                            String name = tkn.nextToken();
-                            // only set the name attr if it isn't already set:
-                            if (constraint.getName() == null || constraint.getName().length() == 0)
-                                constraint.setName(name);
-                            break;
-                        case 1:
-                            constraint.setTimeout(Integer.parseInt(tkn.nextToken()));
-                            break;
-                        case 2:
-                            constraint.setBeginTime(tkn.nextToken());
-                            break;
-                        case 3:
-                            constraint.setEndTime(tkn.nextToken());
-                            break;
-                        case 4:
-                            constraint.setBeginDate(tkn.nextToken());
-                            break;
-                        case 5:
-                            constraint.setEndDate(tkn.nextToken());
-                            break;
-                        case 6:
-                            constraint.setBeginLockDate(tkn.nextToken());
-                            break;
-                        case 7:
-                            constraint.setEndLockDate(tkn.nextToken());
-                            break;
-                        case 8:
-                            constraint.setDayMask(tkn.nextToken());
-                            break;
+                        previousTokenWasDelimiter = true;
+                    }
+                    else if(szValue.equals(GlobalIds.DELIMITER))
+                    {
+                        previousTokenWasDelimiter = true;
+                        index++;
+                    }
+                    else
+                    {
+                        previousTokenWasDelimiter = false;
+                        switch (index++)
+                        {
+                            case 0:
+                                // only set the name attr if it isn't already set:
+                                if (constraint.getName() == null || constraint.getName().length() == 0)
+                                    constraint.setName(szValue);
+                                break;
+                            case 1:
+                                constraint.setTimeout(Integer.parseInt(szValue));
+                                break;
+                            case 2:
+                                constraint.setBeginTime(szValue);
+                                break;
+                            case 3:
+                                constraint.setEndTime(szValue);
+                                break;
+                            case 4:
+                                constraint.setBeginDate(szValue);
+                                break;
+                            case 5:
+                                constraint.setEndDate(szValue);
+                                break;
+                            case 6:
+                                constraint.setBeginLockDate(szValue);
+                                break;
+                            case 7:
+                                constraint.setEndLockDate(szValue);
+                                break;
+                            case 8:
+                                constraint.setDayMask(szValue);
+                                break;
+                        }
                     }
                 }
             }
