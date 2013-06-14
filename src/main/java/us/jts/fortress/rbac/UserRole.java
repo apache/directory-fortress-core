@@ -202,8 +202,8 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
 
     /**
      * Used to retrieve UserRole Role name attribute.  The Fortress UserRole name maps to 'ftRA' attribute on 'ftUserAttrs' object class.
-     *
      */
+    @Override
     public String toString()
     {
         return name;
