@@ -1,0 +1,888 @@
+dn: dc=example,dc=com
+objectclass: dcObject
+objectclass: organization
+dc: example
+o: JoshuaTree Software
+
+dn: ou=Client123,dc=example,dc=com
+objectclass: organizationalunit
+ou: Client123
+description: Client 123 test context
+
+dn: ou=Client456,dc=example,dc=com
+objectclass: organizationalunit
+ou: Client456
+description: Client 456 test context
+
+dn: ou=Client789,dc=example,dc=com
+objectclass: organizationalunit
+ou: Client789
+description: Client 789 test context
+
+dn: ou=Config,dc=example,dc=com
+objectclass: organizationalunit
+ou: Config
+description: Fortress Configuration Realms
+
+dn: ou=People,dc=example,dc=com
+objectclass: organizationalunit
+ou: People
+description: Fortress People
+
+dn: ou=Policies,dc=example,dc=com
+objectclass: organizationalunit
+ou: Policies
+description: Fortress Policies
+
+dn: ou=RBAC,dc=example,dc=com
+objectclass: organizationalunit
+ou: RBAC
+description: Fortress RBAC Policies
+
+dn: ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: organizationalunit
+ou: Roles
+description: Fortress Roles
+
+dn: ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: organizationalunit
+ou: Permissions
+description: Fortress Permissions
+
+dn: ou=Constraints,ou=RBAC,dc=example,dc=com
+objectclass: organizationalunit
+ou: Constraints
+description: Fortress Separation of Duty Constraints
+
+dn: ou=ARBAC,dc=example,dc=com
+objectclass: organizationalunit
+ou: ARBAC
+description: Fortress Administrative RBAC Policies
+
+dn: ou=OS-U,ou=ARBAC,dc=example,dc=com
+objectclass: organizationalunit
+ou: OS-U
+description: Fortress User Organizational Units
+
+dn: ou=OS-P,ou=ARBAC,dc=example,dc=com
+objectclass: organizationalunit
+ou: OS-P
+description: Fortress Perm Organizational Units
+
+dn: ou=AdminRoles,ou=ARBAC,dc=example,dc=com
+objectclass: organizationalunit
+ou: AdminRoles
+description: Fortress AdminRoles
+
+dn: ou=AdminPerms,ou=ARBAC,dc=example,dc=com
+objectclass: organizationalunit
+ou: AdminPerms
+description: Fortress Admin Permissions
+
+dn: cn=DEFAULT,ou=Config,dc=example,dc=com
+objectclass: device
+objectclass: ftProperties
+cn: DEFAULT
+ftProps: min.log.conn:1
+ftProps: log.admin.pw:W7T0G9hylKZQ4K+DF8gfgA==
+ftProps: perm.root:ou=Permissions,ou=RBAC,dc=example,dc=com
+ftProps: ldap.filter.size:15
+ftProps: field.length:130
+ftProps: user.session.props.enabled:false
+ftProps: temporal.validator.dsd:us.jts.fortress.rbac.DSDChecker
+ftProps: enable.audit:true
+ftProps: ldap.sub.9:2f
+ftProps: ldap.sub.8:2d
+ftProps: ldap.sub.7:2b
+ftProps: ldap.sub.6:2a
+ftProps: sdconstraint.root:ou=Constraints,ou=RBAC,dc=example,dc=com
+ftProps: ldap.sub.5:29
+ftProps: ldap.sub.4:28
+ftProps: ldap.sub.3:2maxUserConn6
+ftProps: ldap.sub.2:25
+ftProps: ldap.sub.1:21
+ftProps: temporal.validator.4:us.jts.fortress.util.time.Day
+ftProps: temporal.validator.3:us.jts.fortress.util.time.ClockTime
+ftProps: temporal.validator.2:us.jts.fortress.util.time.Timeout
+ftProps: adminperm.root:ou=AdminPerms,ou=ARBAC,dc=example,dc=com
+ftProps: temporal.validator.1:us.jts.fortress.util.time.LockDate
+ftProps: temporal.validator.0:us.jts.fortress.util.time.Date
+ftProps: user.objectclass:inetOrgPerson
+ftProps: pwpolicy.root:ou=Policies,dc=example,dc=com
+ftProps: log.admin.user:cn=Manager,cn=log
+ftProps: example.root:ou=Examples,dc=example,dc=com
+ftProps: ldap.server.type:apacheds
+ftProps: userou.root:ou=OS-U,ou=ARBAC,dc=example,dc=com
+ftProps: authn.type:default
+ftProps: attr.delimiter:$
+ftProps: permou.root:ou=OS-P,ou=ARBAC,dc=example,dc=com
+ftProps: role.root:ou=Roles,ou=RBAC,dc=example,dc=com
+ftProps: max.log.conn:10
+ftProps: min.user.conn:1
+ftProps: ldap.filter.9:/
+ftProps: ldap.filter.8:-
+ftProps: ldap.filter.7:+
+ftProps: ldap.filter.15:~
+ftProps: max.user.conn:3
+ftProps: ldap.filter.6:*
+ftProps: ldap.filter.14:~
+ftProps: ldap.filter.5:)
+ftProps: ldap.filter.13:|
+ftProps: ldap.filter.4:(
+ftProps: ldap.filter.12:\\
+ftProps: superadmin.role:oamSuperAdmin
+ftProps: ldap.filter.3:&
+ftProps: ldap.filter.11:>
+ftProps: ldap.filter.2:%
+ftProps: ldap.filter.10:=
+ftProps: ldap.filter.1:!
+ftProps: clientside.sorting:true
+ftProps: ldap.sub.15:7e
+ftProps: adminrole.root:ou=AdminRoles,ou=ARBAC,dc=example,dc=com
+ftProps: ldap.sub.14:7c
+ftProps: audit.root:cn=log
+ftProps: ldap.sub.13:5c
+ftProps: suffix:dc=example,dc=com
+ftProps: user.root:ou=People,dc=example,dc=com
+ftProps: ldap.sub.12:3e
+ftProps: ldap.sub.11:3d
+ftProps: ldap.sub.10:3c
+ftProps: config.realm:DEFAULT
+
+dn: cn=TOMCAT,ou=Config,dc=example,dc=com
+objectclass: device
+objectclass: ftProperties
+cn: TOMCAT
+ftProps: min.log.conn:1
+ftProps: log.admin.pw:W7T0G9hylKZQ4K+DF8gfgA==
+ftProps: perm.root:ou=Permissions,ou=RBAC,dc=example,dc=com
+ftProps: ldap.filter.size:15
+ftProps: field.length:130
+ftProps: user.session.props.enabled:false
+ftProps: temporal.validator.dsd:us.jts.fortress.rbac.DSDChecker
+ftProps: enable.audit:true
+ftProps: ldap.sub.9:2f
+ftProps: ldap.sub.8:2d
+ftProps: ldap.sub.7:2b
+ftProps: ldap.sub.6:2a
+ftProps: sdconstraint.root:ou=Constraints,ou=RBAC,dc=example,dc=com
+ftProps: ldap.sub.5:29
+ftProps: ldap.sub.4:28
+ftProps: ldap.sub.3:26
+ftProps: ldap.sub.2:25
+ftProps: ldap.sub.1:21
+ftProps: temporal.validator.4:us.jts.fortress.util.time.Day
+ftProps: temporal.validator.3:us.jts.fortress.util.time.ClockTime
+ftProps: temporal.validator.2:us.jts.fortress.util.time.Timeout
+ftProps: adminperm.root:ou=AdminPerms,ou=ARBAC,dc=example,dc=com
+ftProps: temporal.validator.1:us.jts.fortress.util.time.LockDate
+ftProps: temporal.validator.0:us.jts.fortress.util.time.Date
+ftProps: user.objectclass:inetOrgPerson
+ftProps: pwpolicy.root:ou=Policies,dc=example,dc=com
+ftProps: log.admin.user:cn=Manager,cn=log
+ftProps: example.root:ou=Examples,dc=example,dc=com
+ftProps: ldap.server.type:apacheds
+ftProps: userou.root:ou=OS-U,ou=ARBAC,dc=example,dc=com
+ftProps: authn.type:realm
+ftProps: attr.delimiter:$
+ftProps: permou.root:ou=OS-P,ou=ARBAC,dc=example,dc=com
+ftProps: role.root:ou=Roles,ou=RBAC,dc=example,dc=com
+ftProps: max.log.conn:10
+ftProps: min.user.conn:1
+ftProps: ldap.filter.9:/
+ftProps: ldap.filter.8:-
+ftProps: ldap.filter.7:+
+ftProps: ldap.filter.15:~
+ftProps: max.user.conn:3
+ftProps: ldap.filter.6:*
+ftProps: ldap.filter.14:~
+ftProps: ldap.filter.5:)
+ftProps: ldap.filter.13:|
+ftProps: ldap.filter.4:(
+ftProps: ldap.filter.12:\\
+ftProps: superadmin.role:oamSuperAdmin
+ftProps: ldap.filter.3:&
+ftProps: ldap.filter.11:>
+ftProps: auditmgr.implementation:us.jts.fortress.rbac.AuditMgrImpl
+ftProps: ldap.filter.2:%
+ftProps: ldap.filter.10:=
+ftProps: ldap.filter.1:!
+ftProps: clientside.sorting:true
+ftProps: ldap.sub.15:7e
+ftProps: adminrole.root:ou=AdminRoles,ou=ARBAC,dc=example,dc=com
+ftProps: ldap.sub.14:7c
+ftProps: accessmgr.implementation:us.jts.fortress.rbac.AccessMgrImpl
+ftProps: audit.root:cn=log
+ftProps: ldap.sub.13:5c
+ftProps: suffix:dc=example,dc=com
+ftProps: user.root:ou=People,dc=example,dc=com
+ftProps: ldap.sub.12:3e
+ftProps: ldap.sub.11:3d
+ftProps: ldap.sub.10:3c
+ftProps: config.realm:TOMCAT
+
+dn: ou=demousrs1,ou=OS-U,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftOrgUnit
+objectclass: ftMods
+ftId: b5765b8b-31ff-4155-8c5f-5a6ef7d14734
+description: Test User Org 1 for User on Tomcat Calendar App
+ou: demousrs1
+
+dn: ou=demousrs2,ou=OS-U,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftOrgUnit
+objectclass: ftMods
+ftId: 1a45dd88-0044-4441-8ec5-4fae1807abce
+description: Test User Org 2 for User on Tomcat Calendar App
+ou: demousrs2
+
+dn: ou=demoapps1,ou=OS-P,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftOrgUnit
+objectclass: ftMods
+ftId: d0105fec-6d75-45fd-ab7c-ee5e120d07cf
+description: Test Perm Org 1 for Permission on Tomcat Calendar App
+ou: demoapps1
+
+dn: ou=demoapps2,ou=OS-P,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftOrgUnit
+objectclass: ftMods
+ftId: fb82497a-6cbb-4676-ba19-f5538132001c
+description: Test Perm Org 2 for Permission on Tomcat Calendar App
+ou: demoapps2
+
+dn: cn=DemoAdminUsers,ou=AdminRoles,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftPools
+objectclass: ftMods
+ftId: b12f9787-f2ad-4cb8-a2c6-af96c928ba0e
+ftRoleName: DemoAdminUsers
+description: Test Admin Role for Demo
+cn: DemoAdminUsers
+ftCstr: DemoAdminUsers$0$$$$$$$
+ftOSP: demoapps1
+ftOSP: demoapps2
+ftOSU: demousrs1
+ftOSU: demousrs2
+ftRange: [role1:role1]
+
+dn: cn=role1,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 9801843e-fe56-43f9-9914-6fabb9bfe341
+ftRoleName: role1
+description: Tomcat Role 1 for Calendar App
+cn: role1
+ftCstr: role1$0$$$$$$$
+
+dn: cn=role2,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: aa7304ab-8a5f-4e3b-9bca-230efd4d0c9d
+ftRoleName: role2
+description: Tomcat Role 2 for Calendar App
+cn: role2
+ftCstr: role2$0$$$$$$$
+
+dn: cn=manager-gui,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 906a79de-7822-4857-b0de-76daaafa94a8
+ftRoleName: manager-gui
+description: Tomcat 7 Manager Role
+cn: manager-gui
+ftCstr: manager-gui$0$$$$$$$
+
+dn: cn=manager,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 386cf50a-68dd-42b7-b9c1-b1f4641c10b5
+ftRoleName: manager
+description: Tomcat Manager Role
+cn: manager
+ftCstr: manager$0$$$$$$$
+
+dn: cn=manager-jmx,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 53d6b28f-53ad-4ce4-94ba-dc3500211c22
+ftRoleName: manager-jmx
+description: Tomcat Manager Role
+cn: manager-jmx
+ftCstr: manager-jmx$0$$$$$$$
+
+dn: cn=EnmasseSuperUser,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 15ef4edd-a030-4869-be70-23ddd164d841
+ftRoleName: EnmasseSuperUser
+description: Role to access En Masse services
+cn: EnmasseSuperUser
+ftCstr: EnmasseSuperUser$0$$$$$$$
+
+dn: cn=DemoSSD1,ou=Constraints,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftSSDSet
+objectclass: ftMods
+ftId: a705508c-e364-44ac-b654-bea84b635330
+ftSetName: DemoSSD1
+description: Demo static separation of duties
+cn: DemoSSD1
+ftRoles: role1
+ftRoles: role2
+ftSetCardinality: 2
+
+dn: ftObjNm=/cal/cal1.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalunit
+objectclass: ftObject
+objectclass: ftProperties
+objectclass: ftMods
+ftObjNm: /cal/cal1.jsp
+ftId: 4d9eee15-e9af-47f4-a0d5-2174842ba620
+ou: demoapps1
+description: Fortress Web Demo App Object 1
+ftType: Ant
+
+dn: ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalunit
+objectclass: ftObject
+objectclass: ftProperties
+objectclass: ftMods
+ftObjNm: /cal/cal2.jsp
+ftId: 34790a46-4d95-403c-ac87-17a5a3bcaa01
+ou: demoapps1
+description: Fortress Web Demo App Object 2
+ftType: Ant
+
+dn: ftObjNm=us.jts.fortress.audit.AuditMgrImpl,ou=AdminPerms,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalunit
+objectclass: ftObject
+objectclass: ftProperties
+objectclass: ftMods
+ftObjNm: us.jts.fortress.audit.AuditMgrImpl
+ftId: 2ccbf398-86a1-4407-af65-93ad40b50a29
+ou: demoapps1
+description: AuditMgr Object
+ftType: Ant
+
+dn: ftOpNm=main,ftObjNm=/cal/cal1.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: main
+ftObjNm: /cal/cal1.jsp
+ftId: b29d11af-9953-4c7b-bf2e-854715d54ae1
+ftPermName: /cal/cal1.jsp.main
+cn: /cal/cal1.jsp.main
+ftType: Ant
+
+dn: ftOpNm=8am,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 8am
+ftObjNm: /cal/cal2.jsp
+ftId: 9f364282-aa68-442d-a1cc-d1403b8ae6a3
+ftPermName: /cal/cal2.jsp.8am
+cn: /cal/cal2.jsp.8am
+ftType: Ant
+
+dn: ftOpNm=9am,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 9am
+ftObjNm: /cal/cal2.jsp
+ftId: 78cc36de-bc31-4023-a4ec-c8c3b2ab282e
+ftPermName: /cal/cal2.jsp.9am
+cn: /cal/cal2.jsp.9am
+ftType: Ant
+
+dn: ftOpNm=10am,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 10am
+ftObjNm: /cal/cal2.jsp
+ftId: 85615b6e-f5f2-45d6-a882-80b38b285e9d
+ftPermName: /cal/cal2.jsp.10am
+cn: /cal/cal2.jsp.10am
+ftType: Ant
+
+dn: ftOpNm=11am,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 11am
+ftObjNm: /cal/cal2.jsp
+ftId: 03501a96-1cad-49d8-b812-cf4a332bd0d4
+ftPermName: /cal/cal2.jsp.11am
+cn: /cal/cal2.jsp.11am
+ftType: Ant
+
+dn: ftOpNm=12pm,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 12pm
+ftObjNm: /cal/cal2.jsp
+ftId: 02494348-a061-4906-a069-c6c3af6c3b41
+ftPermName: /cal/cal2.jsp.12pm
+cn: /cal/cal2.jsp.12pm
+ftType: Ant
+
+dn: ftOpNm=1pm,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 1pm
+ftObjNm: /cal/cal2.jsp
+ftId: 98002181-e809-4533-a1f5-9f446cd09b35
+ftPermName: /cal/cal2.jsp.1pm
+cn: /cal/cal2.jsp.1pm
+ftType: Ant
+
+dn: ftOpNm=2pm,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 2pm
+ftObjNm: /cal/cal2.jsp
+ftId: efd6516b-da4d-42a4-af15-9d6033617c71
+ftPermName: /cal/cal2.jsp.2pm
+cn: /cal/cal2.jsp.2pm
+ftType: Ant
+
+dn: ftOpNm=3pm,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 3pm
+ftObjNm: /cal/cal2.jsp
+ftId: 9a4a9d44-7c3c-4068-92ad-bc0a48e22264
+ftPermName: /cal/cal2.jsp.3pm
+cn: /cal/cal2.jsp.3pm
+ftType: Ant
+
+dn: ftOpNm=4pm,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 4pm
+ftObjNm: /cal/cal2.jsp
+ftId: d5f84421-aa43-4901-8d1c-407b1ce40241
+ftPermName: /cal/cal2.jsp.4pm
+cn: /cal/cal2.jsp.4pm
+ftType: Ant
+
+dn: ftOpNm=5pm,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 5pm
+ftObjNm: /cal/cal2.jsp
+ftId: 2915225f-f549-468b-aff7-a493875680f6
+ftPermName: /cal/cal2.jsp.5pm
+cn: /cal/cal2.jsp.5pm
+ftType: Ant
+
+dn: ftOpNm=6pm,ftObjNm=/cal/cal2.jsp,ou=Permissions,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: 6pm
+ftObjNm: /cal/cal2.jsp
+ftId: d97db713-2939-4144-a482-db755a9c86d2
+ftPermName: /cal/cal2.jsp.6pm
+cn: /cal/cal2.jsp.6pm
+ftType: Ant
+
+dn: ftOpNm=searchBinds,ftObjNm=us.jts.fortress.audit.AuditMgrImpl,ou=AdminPerms,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: searchBinds
+ftObjNm: us.jts.fortress.audit.AuditMgrImpl
+ftId: 0a3460f9-b3cb-410e-8480-ee69eba173f7
+ftPermName: us.jts.fortress.audit.AuditMgrImpl.searchBinds
+cn: us.jts.fortress.audit.AuditMgrImpl.searchBinds
+ftType: Ant
+
+dn: ftOpNm=searchAuthZs,ftObjNm=us.jts.fortress.audit.AuditMgrImpl,ou=AdminPerms,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: searchAuthZs
+ftObjNm: us.jts.fortress.audit.AuditMgrImpl
+ftId: 3274a1f8-d260-4d4c-882a-900b40f4a140
+ftPermName: us.jts.fortress.audit.AuditMgrImpl.searchAuthZs
+cn: us.jts.fortress.audit.AuditMgrImpl.searchAuthZs
+ftType: Ant
+
+dn: ftOpNm=getUserAuthZs,ftObjNm=us.jts.fortress.audit.AuditMgrImpl,ou=AdminPerms,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: getUserAuthZs
+ftObjNm: us.jts.fortress.audit.AuditMgrImpl
+ftId: d7c671ea-54d3-4bd8-b0da-b6c1d6116182
+ftPermName: us.jts.fortress.audit.AuditMgrImpl.getUserAuthZs
+cn: us.jts.fortress.audit.AuditMgrImpl.getUserAuthZs
+ftType: Ant
+
+dn: ftOpNm=searchUserSessions,ftObjNm=us.jts.fortress.audit.AuditMgrImpl,ou=AdminPerms,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: searchUserSessions
+ftObjNm: us.jts.fortress.audit.AuditMgrImpl
+ftId: 8c1729e8-ced4-44fe-8074-7df9920fb333
+ftPermName: us.jts.fortress.audit.AuditMgrImpl.searchUserSessions
+cn: us.jts.fortress.audit.AuditMgrImpl.searchUserSessions
+ftType: Ant
+
+dn: ftOpNm=searchAdminMods,ftObjNm=us.jts.fortress.audit.AuditMgrImpl,ou=AdminPerms,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: searchAdminMods
+ftObjNm: us.jts.fortress.audit.AuditMgrImpl
+ftId: 7eac1e69-a09b-4092-9655-759109f2faf0
+ftPermName: us.jts.fortress.audit.AuditMgrImpl.searchAdminMods
+cn: us.jts.fortress.audit.AuditMgrImpl.searchAdminMods
+ftType: Ant
+
+dn: ftOpNm=searchInvalidUsers,ftObjNm=us.jts.fortress.audit.AuditMgrImpl,ou=AdminPerms,ou=ARBAC,dc=example,dc=com
+objectclass: top
+objectclass: organizationalrole
+objectclass: ftOperation
+objectclass: ftProperties
+objectclass: ftMods
+ftOpNm: searchInvalidUsers
+ftObjNm: us.jts.fortress.audit.AuditMgrImpl
+ftId: 7a94db81-cd57-40ae-bc54-80551c97448d
+ftPermName: us.jts.fortress.audit.AuditMgrImpl.searchInvalidUsers
+cn: us.jts.fortress.audit.AuditMgrImpl.searchInvalidUsers
+ftType: Ant
+
+dn: cn=Test1,ou=Policies,dc=example,dc=com
+objectclass: top
+objectclass: device
+objectclass: pwdPolicy
+objectclass: ftMods
+cn: Test1
+pwdAttribute: 2.5.4.35
+pwdMinAge: 0
+pwdMaxAge: 2000000
+pwdInHistory: 5
+pwdCheckQuality: 2
+pwdMinLength: 4
+pwdExpireWarning: 1000000
+pwdGraceAuthNLimit: 3
+pwdLockout: TRUE
+pwdLockoutDuration: 0
+pwdMaxFailure: 3
+pwdFailureCountInterval: 0
+pwdMustChange: TRUE
+pwdAllowUserChange: TRUE
+pwdSafeModify: FALSE
+
+dn: uid=demoUser1,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: d39432d0-4e68-4d23-a1c5-4e0599e02868
+uid: demoUser1
+cn: JoeUser1
+sn: User1
+userpassword: password
+displayName: JoeUser1
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test User 1
+ftProps: init:
+ftCstr: demoUser1$60$0000$0800$20090101$20990101$none$none$1234567
+
+dn: uid=demoUser2,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: 04726206-5977-47d9-a9a8-3e60e42a82b7
+uid: demoUser2
+cn: JoeUser2
+sn: User2
+userpassword: password
+displayName: JoeUser2
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test User 2
+ftProps: init:
+ftCstr: demoUser2$60$0000$0000$20090101$20990101$none$none$1234567
+
+dn: uid=demoUser3,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: 20fa77a7-0205-4e21-b5f8-90fc23505c66
+uid: demoUser3
+cn: JoeUser3
+sn: User3
+userpassword: password
+displayName: JoeUser3
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test User 3
+ftProps: init:
+ftCstr: demoUser3$60$0000$0000$20090101$20990101$none$none$17
+
+dn: uid=demoUser4,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: 01af6d99-275f-4f00-8332-675aa114d026
+uid: demoUser4
+cn: JoeUser4
+sn: User4
+userpassword: password
+displayName: JoeUser4
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test User 4
+ftProps: init:
+ftCstr: demoUser4$60$0000$0000$20090101$20990101$none$none$1234567
+
+dn: uid=demoUser5,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: 27fc93a0-7593-46c6-bc86-348501cbb060
+uid: demoUser5
+cn: JoeUser5
+sn: User5
+userpassword: password
+displayName: JoeUser5
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test User 5
+ftProps: init:
+ftCstr: demoUser5$60$0000$0000$20090101$20990101$none$none$1234567
+
+dn: uid=demoUser6,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: eb784075-9625-4f6f-867d-7e705d25770b
+uid: demoUser6
+cn: JoeUser6
+sn: User6
+userpassword: password
+displayName: JoeUser6
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test User 6
+ftProps: init:
+ftCstr: demoUser6$60$0000$0000$20090101$20990101$none$none$1234567
+
+dn: uid=demoUser7,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: 58e93d5d-f696-49b9-b179-0d8076959c24
+uid: demoUser7
+cn: JoeUser7
+sn: User7
+userpassword: password
+displayName: JoeUser7
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test User 7
+ftProps: init:
+ftCstr: demoUser7$60$0000$0000$20090101$20990101$none$none$1234567
+
+dn: uid=demoUser8,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: 5a273bbf-e29c-48cf-b9c3-89e9a41a6665
+uid: demoUser8
+cn: JoeUser8
+sn: User8
+userpassword: password
+displayName: JoeUser8
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test User 8
+ftProps: init:
+ftCstr: demoUser8$60$0000$0000$20090101$20990101$none$none$1234567
+
+dn: uid=demoUser9,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: 47d0622a-939f-488d-9cd1-604c4f133a6f
+uid: demoUser9
+cn: JoeUser9
+sn: User9
+userpassword: password
+displayName: JoeUser9
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test User 9
+ftProps: init:
+ftCstr: demoUser9$60$0000$0000$20090101$20990101$none$none$1234567
+
+dn: uid=demoUser10,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: 81209e1f-aa8b-4401-85d5-82ea3a32864b
+uid: demoUser10
+cn: JoeUser10
+sn: User10
+userpassword: password
+displayName: JoeUser10
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test User 10
+ftProps: init:
+ftCstr: demoUser10$60$0000$0000$20090101$20990101$none$none$1234567
+
+dn: uid=tcmanager,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: 6eeb5d22-02f6-4b8c-9b3a-8b4f3bb718ff
+uid: tcmanager
+cn: tcmanager
+sn: manager
+userpassword: m@nager123
+displayName: tcmanager
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Tomcat Manager User
+ftProps: init:
+ftCstr: tcmanager$0$0000$0000$20090101$20990101$none$none$1234567
+
+dn: uid=wasadmin,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: bbcf8058-9c7e-4ede-8893-52956708c12a
+uid: wasadmin
+cn: wasadmin
+sn: admin
+userpassword: @dmin123
+displayName: wasadmin
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Websphere Console Admin
+ftProps: init:
+ftCstr: wasadmin$0$0000$0000$20090101$20990101$none$none$1234567
+
+dn: uid=demoAdminUser1,ou=People,dc=example,dc=com
+objectclass: top
+objectclass: inetOrgPerson
+objectclass: ftUserAttrs
+objectclass: ftProperties
+objectclass: ftMods
+objectclass: extensibleObject
+ftId: 0b21acd0-628a-4f30-8041-c0ae560a30e3
+uid: demoAdminUser1
+cn: adminUser1
+sn: adminUser1
+userpassword: password
+displayName: adminUser1
+pwdPolicySubentry: cn=Test1,ou=Policies,dc=example,dc=com
+ou: demousrs1
+description: Demo Test Admin User 1
+ftProps: init:
+ftCstr: demoAdminUser1$60$0000$0000$20090101$20990101$none$none$1234567

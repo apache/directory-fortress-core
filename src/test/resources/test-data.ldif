@@ -1,0 +1,1693 @@
+#dn: cn=oamROLE1,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 99e92b2d-40f7-447c-a938-660a83bdfb0f
+#ftRoleName: oamROLE1
+#description: Test Case TR1
+#cn: oamROLE1
+#ftCstr: oamROLE1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamROLE2,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 74042022-8744-4093-82cd-7a0be814ee73
+#ftRoleName: oamROLE2
+#description: Test Case TR1
+#cn: oamROLE2
+#ftCstr: oamROLE2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamROLE3,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: c627a96b-ccd1-4fd8-9f00-cb5efac89302
+#ftRoleName: oamROLE3
+#description: Test Case TR1
+#cn: oamROLE3
+#ftCstr: oamROLE3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamROLE4,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 9a90eaad-95f7-4824-b4c5-c534adcab853
+#ftRoleName: oamROLE4
+#description: Test Case TR1
+#cn: oamROLE4
+#ftCstr: oamROLE4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamROLE5,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 2d8f1bee-341f-49a5-9ea6-527f92a44786
+#ftRoleName: oamROLE5
+#description: Test Case TR1
+#cn: oamROLE5
+#ftCstr: oamROLE5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamROLE6,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: d4178487-989d-4c20-824f-69b5d42dc801
+#ftRoleName: oamROLE6
+#description: Test Case TR1
+#cn: oamROLE6
+#ftCstr: oamROLE6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamROLE7,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: af190b24-fa85-41af-b1aa-f89e552f3069
+#ftRoleName: oamROLE7
+#description: Test Case TR1
+#cn: oamROLE7
+#ftCstr: oamROLE7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamROLE8,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 598f43f3-4bdf-42d2-b698-7f8fc5d6cb5e
+#ftRoleName: oamROLE8
+#description: Test Case TR1
+#cn: oamROLE8
+#ftCstr: oamROLE8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamROLE9,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 5a712aaf-c8d8-4150-bab9-83a7902af129
+#ftRoleName: oamROLE9
+#description: Test Case TR1
+#cn: oamROLE9
+#ftCstr: oamROLE9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamROLE10,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 077945d2-2a8d-4694-b67d-4179339d5aab
+#ftRoleName: oamROLE10
+#description: Test Case TR1
+#cn: oamROLE10
+#ftCstr: oamROLE10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT2ROLE1,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 707f193d-2e43-41f5-abd2-707fda06450e
+#ftRoleName: oamT2ROLE1
+#description: Test Case R2
+#cn: oamT2ROLE1
+#ftCstr: oamT2ROLE1$0$0000$0000$none$21000101$none$none$all
+
+#dn: cn=oamT2ROLE2,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 5d0d49a8-0936-4c28-a17e-ea440a94dff9
+#ftRoleName: oamT2ROLE2
+#description: Test Case R2
+#cn: oamT2ROLE2
+#ftCstr: oamT2ROLE2$0$0000$0000$none$21000101$none$none$all
+
+#dn: cn=oamT2ROLE3,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: f810c32d-f086-4101-a3c8-bc44b9b0e013
+#ftRoleName: oamT2ROLE3
+#description: Test Case R2
+#cn: oamT2ROLE3
+#ftCstr: oamT2ROLE3$0$0000$0000$none$21000101$none$none$all
+
+#dn: cn=oamT2ROLE4,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 58e2c8af-4d23-449b-b3a4-7aa6443b287f
+#ftRoleName: oamT2ROLE4
+#description: Test Case R2
+#cn: oamT2ROLE4
+#ftCstr: oamT2ROLE4$0$0000$0000$none$21000101$none$none$all
+
+#dn: cn=oamT2ROLE5,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: dc6e4e1f-d83d-49a2-868e-519e6bdfe020
+#ftRoleName: oamT2ROLE5
+#description: Test Case R2
+#cn: oamT2ROLE5
+#ftCstr: oamT2ROLE5$0$0000$0000$none$21000101$none$none$all
+
+#dn: cn=oamT2ROLE6,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: aeeac8d2-aa7d-4e37-b8f0-73a822d84270
+#ftRoleName: oamT2ROLE6
+#description: Test Case R2
+#cn: oamT2ROLE6
+#ftCstr: oamT2ROLE6$0$0000$0000$none$21000101$none$none$all
+
+#dn: cn=oamT2ROLE7,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: f72bc6d4-a95c-4ace-bae0-952c0b2f8a37
+#ftRoleName: oamT2ROLE7
+#description: Test Case R2
+#cn: oamT2ROLE7
+#ftCstr: oamT2ROLE7$0$0000$0000$none$21000101$none$none$all
+
+#dn: cn=oamT2ROLE8,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: efe1360d-6d58-456a-8caa-2ddd4e945cad
+#ftRoleName: oamT2ROLE8
+#description: Test Case R2
+#cn: oamT2ROLE8
+#ftCstr: oamT2ROLE8$0$0000$0000$none$21000101$none$none$all
+
+#dn: cn=oamT2ROLE9,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 4d5fede0-5837-4a7d-8fe1-8f5f8813b427
+#ftRoleName: oamT2ROLE9
+#description: Test Case R2
+#cn: oamT2ROLE9
+#ftCstr: oamT2ROLE9$0$0000$0000$none$21000101$none$none$all
+
+#dn: cn=oamT2ROLE10,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: b79410cc-38f0-4f4b-9a14-1d1a47ec556c
+#ftRoleName: oamT2ROLE10
+#description: Test Case R2
+#cn: oamT2ROLE10
+#ftCstr: oamT2ROLE10$0$0000$0000$none$21000101$none$none$all
+
+#dn: cn=oamT3ROLE1,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 6ba63c5d-e55e-4a3e-bab1-ec51a998a92f
+#ftRoleName: oamT3ROLE1
+#description: Test Case TR3
+#cn: oamT3ROLE1
+#ftCstr: oamT3ROLE1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT3ROLE2,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: c5726615-1987-41e0-9844-d6b45b337354
+#ftRoleName: oamT3ROLE2
+#description: Test Case TR3
+#cn: oamT3ROLE2
+#ftCstr: oamT3ROLE2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT3ROLE3,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 43b3922d-05d4-4750-a13e-ebd7c8870c21
+#ftRoleName: oamT3ROLE3
+#description: Test Case TR3
+#cn: oamT3ROLE3
+#ftCstr: oamT3ROLE3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT3ROLE4,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: db7ce930-7bf2-4e7d-835f-4e037cab63a7
+#ftRoleName: oamT3ROLE4
+#description: Test Case TR3
+#cn: oamT3ROLE4
+#ftCstr: oamT3ROLE4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT3ROLE5,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: c2038667-9425-4d47-b84f-cd3854b39242
+#ftRoleName: oamT3ROLE5
+#description: Test Case TR3
+#cn: oamT3ROLE5
+#ftCstr: oamT3ROLE5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT3ROLE6,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: d2011ff9-2204-49b6-867f-ca2786d00798
+#ftRoleName: oamT3ROLE6
+#description: Test Case TR3
+#cn: oamT3ROLE6
+#ftCstr: oamT3ROLE6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT3ROLE7,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 4a22b07f-eb41-47c6-ac4a-33948a15c6a7
+##ftRoleName: oamT3ROLE7
+#description: Test Case TR3
+#cn: oamT3ROLE7
+#ftCstr: oamT3ROLE7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT3ROLE8,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 5214cc89-5f98-4b86-a2b5-cba727293014
+#ftRoleName: oamT3ROLE8
+#description: Test Case TR3
+#cn: oamT3ROLE8
+#ftCstr: oamT3ROLE8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT3ROLE9,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 4116e595-4f0a-48aa-8114-4bdd2f83a79e
+#ftRoleName: oamT3ROLE9
+#description: Test Case TR3
+#cn: oamT3ROLE9
+#ftCstr: oamT3ROLE9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT3ROLE10,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 6b662ef0-0e15-4ae3-85a4-2f8d49cdab51
+#ftRoleName: oamT3ROLE10
+#description: Test Case TR3
+#cn: oamT3ROLE10
+#ftCstr: oamT3ROLE10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT4ROLE1,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: fd04bdb4-a657-4ac6-b560-7895920faaf4
+#ftRoleName: oamT4ROLE1
+#description: Test Case TR4
+#cn: oamT4ROLE1
+#ftCstr: oamT4ROLE1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT4ROLE2,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 0819fd28-db36-4f12-b3d1-906986cb7c76
+#ftRoleName: oamT4ROLE2
+#description: Test Case TR4
+#cn: oamT4ROLE2
+#ftCstr: oamT4ROLE2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT4ROLE3,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 4c0976e7-107f-46df-9bb2-0bec5f5e1467
+#ftRoleName: oamT4ROLE3
+#description: Test Case TR4
+#cn: oamT4ROLE3
+#ftCstr: oamT4ROLE3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT4ROLE4,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 3b2aed32-92e5-49f4-a690-793991f92190
+#ftRoleName: oamT4ROLE4
+#description: Test Case TR4
+#cn: oamT4ROLE4
+#ftCstr: oamT4ROLE4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT4ROLE5,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: aaaf4121-164f-44fd-accf-82feb9c2d41a
+#ftRoleName: oamT4ROLE5
+#description: Test Case TR4
+#cn: oamT4ROLE5
+#ftCstr: oamT4ROLE5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT4ROLE6,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 845b8a73-33ee-4035-b2fc-05056ddf5340
+#ftRoleName: oamT4ROLE6
+#description: Test Case TR4
+#cn: oamT4ROLE6
+#ftCstr: oamT4ROLE6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT4ROLE7,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: ecea17d3-000b-44f8-8ebf-428153821b16
+#ftRoleName: oamT4ROLE7
+#description: Test Case TR4
+#cn: oamT4ROLE7
+#ftCstr: oamT4ROLE7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT4ROLE8,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 44d8735e-2aa6-4618-87e6-67ef83a44fd1
+#ftRoleName: oamT4ROLE8
+#description: Test Case TR4
+#cn: oamT4ROLE8
+#ftCstr: oamT4ROLE8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT4ROLE9,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: de9d621a-be98-4f18-91e4-b0a87c4b0713
+#ftRoleName: oamT4ROLE9
+#description: Test Case TR4
+#cn: oamT4ROLE9
+#ftCstr: oamT4ROLE9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT4ROLE10,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 1a789388-7a80-4d2f-adf1-2698a316ece9
+#ftRoleName: oamT4ROLE10
+#description: Test Case TR4
+#cn: oamT4ROLE10
+#ftCstr: oamT4ROLE10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5ROLE1,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 5d2fd403-18d5-456b-a0cd-8ae0a050b9a5
+#ftRoleName: oamT5ROLE1
+#description: Test Case TR5
+#cn: oamT5ROLE1
+#ftCstr: oamT5ROLE1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5ROLE2,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 6fe3383e-1e0b-4c9e-bbf8-dba2b77cec47
+#ftRoleName: oamT5ROLE2
+#description: Test Case TR5
+#cn: oamT5ROLE2
+#ftCstr: oamT5ROLE2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5ROLE3,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 20690e4d-b0db-4356-9500-e6458fa1729c
+#ftRoleName: oamT5ROLE3
+#description: Test Case TR5
+#cn: oamT5ROLE3
+#ftCstr: oamT5ROLE3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5ROLE4,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 45fa9987-d527-4954-a644-f07e3bf41080
+#ftRoleName: oamT5ROLE4
+#description: Test Case TR5
+#cn: oamT5ROLE4
+#ftCstr: oamT5ROLE4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5ROLE5,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 56b9a1ff-3c19-4924-94f2-10145282555e
+#ftRoleName: oamT5ROLE5
+#description: Test Case TR5
+#cn: oamT5ROLE5
+#ftCstr: oamT5ROLE5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5ROLE6,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 1ee8723d-4868-4e52-b8d7-c977cf5fb2d0
+#ftRoleName: oamT5ROLE6
+#description: Test Case TR5
+#cn: oamT5ROLE6
+#ftCstr: oamT5ROLE6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5ROLE7,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 890ac7dd-b0b5-438a-ac4a-b66d74716612
+#ftRoleName: oamT5ROLE7
+#description: Test Case TR5
+#cn: oamT5ROLE7
+#ftCstr: oamT5ROLE7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5ROLE8,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 61e26f8c-7971-4e50-b69c-e05ea2f80989
+#ftRoleName: oamT5ROLE8
+#description: Test Case TR5
+#cn: oamT5ROLE8
+#ftCstr: oamT5ROLE8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5ROLE9,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 132bb409-8fca-47c9-b30a-fbe02b074f11
+#ftRoleName: oamT5ROLE9
+#description: Test Case TR5
+#cn: oamT5ROLE9
+#ftCstr: oamT5ROLE9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5ROLE10,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 73a7ddaf-f8ff-4d3a-8203-44713e2dbefd
+#ftRoleName: oamT5ROLE10
+#description: Test Case TR5
+#cn: oamT5ROLE10
+#ftCstr: oamT5ROLE10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5BROLE1,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: d3702672-657c-4692-a83d-c057c91f3827
+#ftRoleName: oamT5BROLE1
+#description: Test Case TR5B
+#cn: oamT5BROLE1
+#ftCstr: oamT5BROLE1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5BROLE2,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: c03695ed-1860-4183-a03c-3572e638d668
+#ftRoleName: oamT5BROLE2
+#description: Test Case TR5B
+#cn: oamT5BROLE2
+#ftCstr: oamT5BROLE2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5BROLE3,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 92b0b935-aeaf-4d76-a016-14a919bfead8
+#ftRoleName: oamT5BROLE3
+#description: Test Case TR5B
+#cn: oamT5BROLE3
+#ftCstr: oamT5BROLE3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5BROLE4,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 56f8fadd-032b-490b-97a6-2a8ff902edfc
+#ftRoleName: oamT5BROLE4
+#description: Test Case TR5B
+#cn: oamT5BROLE4
+#ftCstr: oamT5BROLE4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5BROLE5,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: e71a95ea-d056-476a-810f-0ccd80e33f96
+#ftRoleName: oamT5BROLE5
+#description: Test Case TR5B
+#cn: oamT5BROLE5
+#ftCstr: oamT5BROLE5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5BROLE6,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 105c3cf5-a217-4fce-ab56-c6abead16816
+#ftRoleName: oamT5BROLE6
+#description: Test Case TR5B
+#cn: oamT5BROLE6
+#ftCstr: oamT5BROLE6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5BROLE7,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 26335533-27b9-44da-b5ae-d514193c6683
+#ftRoleName: oamT5BROLE7
+#description: Test Case TR5B
+#cn: oamT5BROLE7
+#ftCstr: oamT5BROLE7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5BROLE8,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: dccc4e52-88c6-4be7-bea4-b1a6552b1071
+#ftRoleName: oamT5BROLE8
+#description: Test Case TR5B
+#cn: oamT5BROLE8
+#ftCstr: oamT5BROLE8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5BROLE9,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 571c37d7-bda8-4164-a68d-1619c48edf60
+#ftRoleName: oamT5BROLE9
+#description: Test Case TR5B
+#cn: oamT5BROLE9
+#ftCstr: oamT5BROLE9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamT5BROLE10,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: b8c04a46-8524-471d-9c8b-64ff9f83b319
+#ftRoleName: oamT5BROLE10
+#description: Test Case TR5B
+#cn: oamT5BROLE10
+#ftCstr: oamT5BROLE10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR1,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 95ee4c7f-9507-4ae6-b93d-a617814bb478
+#ftRoleName: oamSSDR1
+#description: Test Case TR8
+#cn: oamSSDR1
+#ftCstr: oamSSDR1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR2,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: b54460a2-5193-49e0-b32f-104c7cd51091
+#ftRoleName: oamSSDR2
+#description: Test Case TR8
+#cn: oamSSDR2
+#ftCstr: oamSSDR2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR3,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 20723891-fa27-4ff7-aeef-397aa12f9822
+#ftRoleName: oamSSDR3
+#description: Test Case TR8
+#cn: oamSSDR3
+#ftCstr: oamSSDR3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR4,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 2aa95237-47d4-46a7-887e-d06473bc369f
+#ftRoleName: oamSSDR4
+#description: Test Case TR8
+#cn: oamSSDR4
+#ftCstr: oamSSDR4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR5,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: f6962497-ba6f-4374-b514-cf86776a15ea
+#ftRoleName: oamSSDR5
+#description: Test Case TR8
+#cn: oamSSDR5
+#ftCstr: oamSSDR5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR6,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 6c47c187-6eea-44de-a1cc-9508dd88287c
+#ftRoleName: oamSSDR6
+#description: Test Case TR8
+#cn: oamSSDR6
+#ftCstr: oamSSDR6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR7,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: f2712eb4-41b1-4fb5-bdf9-70ca7ebcb502
+#ftRoleName: oamSSDR7
+#description: Test Case TR8
+#cn: oamSSDR7
+#ftCstr: oamSSDR7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR8,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: f9dfdd40-d0a7-4aa0-a245-2cc6087ad623
+#ftRoleName: oamSSDR8
+#description: Test Case TR8
+#cn: oamSSDR8
+#ftCstr: oamSSDR8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR9,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: b38d8e1f-9c79-4a97-acb9-73ef0fb1a4ae
+#ftRoleName: oamSSDR9
+#description: Test Case TR8
+#cn: oamSSDR9
+#ftCstr: oamSSDR9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR10,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 5fb891ed-16e4-40f8-9564-aef57901fc96
+#ftRoleName: oamSSDR10
+#description: Test Case TR8
+#cn: oamSSDR10
+#ftCstr: oamSSDR10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR11,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: e349744c-e270-477e-a379-ee11495f1c66
+#ftRoleName: oamSSDR11
+#description: Test Case TR8
+#cn: oamSSDR11
+#ftCstr: oamSSDR11$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR12,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: b62a89a3-9d4c-40d7-a59f-4597128d5d5d
+#ftRoleName: oamSSDR12
+#description: Test Case TR8
+#cn: oamSSDR12
+#ftCstr: oamSSDR12$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR13,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 7a4b6501-6260-4669-953f-9624e9035023
+#ftRoleName: oamSSDR13
+#description: Test Case TR8
+#cn: oamSSDR13
+#ftCstr: oamSSDR13$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR14,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: cf7fffdc-eaf8-491e-ae0d-d6477fe4eef8
+#ftRoleName: oamSSDR14
+#description: Test Case TR8
+#cn: oamSSDR14
+#ftCstr: oamSSDR14$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR15,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 5d73c551-c47f-4480-90b6-5d09e055918e
+#ftRoleName: oamSSDR15
+#description: Test Case TR8
+#cn: oamSSDR15
+#ftCstr: oamSSDR15$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR16,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 90d953a7-3512-490c-a289-97d6e961ac06
+#ftRoleName: oamSSDR16
+#description: Test Case TR8
+#cn: oamSSDR16
+#ftCstr: oamSSDR16$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR17,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: c8fb6120-b1f7-4048-b948-d3fe68636558
+#ftRoleName: oamSSDR17
+#description: Test Case TR8
+#cn: oamSSDR17
+#ftCstr: oamSSDR17$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR18,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 36b2cb2a-9ea2-417e-af51-04a1c4f7f4a4
+#ftRoleName: oamSSDR18
+#description: Test Case TR8
+#cn: oamSSDR18
+#ftCstr: oamSSDR18$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR19,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: a34d64f6-cacc-4cd9-ba7f-f78c2ea0168f
+#ftRoleName: oamSSDR19
+#description: Test Case TR8
+#cn: oamSSDR19
+#ftCstr: oamSSDR19$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+#dn: cn=oamSSDR20,ou=Roles,ou=RBAC,dc=example,dc=com
+#objectclass: top
+#objectclass: ftRls
+#objectclass: ftProperties
+#objectclass: ftMods
+#ftId: 581c3c39-bd66-4020-a704-a28b007cb161
+#ftRoleName: oamSSDR20
+#description: Test Case TR8
+#cn: oamSSDR20
+#ftCstr: oamSSDR20$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9SSDR1,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 05346b25-cf0f-4516-9313-9e6f852c02b8
+ftRoleName: oamT9SSDR1
+description: Test Case TR9
+cn: oamT9SSDR1
+ftCstr: oamT9SSDR1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9SSDR2,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: d5fc7d94-1299-4a6f-a43a-50b468347076
+ftRoleName: oamT9SSDR2
+description: Test Case TR9
+cn: oamT9SSDR2
+ftCstr: oamT9SSDR2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9SSDR3,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 23cf7343-a319-453d-a665-c6c255e37bc0
+ftRoleName: oamT9SSDR3
+description: Test Case TR9
+cn: oamT9SSDR3
+ftCstr: oamT9SSDR3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9SSDR4,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 8cc3e6ab-39ae-4ca4-a4f4-0d7113d06a36
+ftRoleName: oamT9SSDR4
+description: Test Case TR9
+cn: oamT9SSDR4
+ftCstr: oamT9SSDR4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9SSDR5,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: a20babe9-e876-49f0-bfe6-cadd62312ef5
+ftRoleName: oamT9SSDR5
+description: Test Case TR9
+cn: oamT9SSDR5
+ftCstr: oamT9SSDR5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9SSDR6,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: b4f5cb60-2c6a-4ac5-9373-4cdd5436cbe7
+ftRoleName: oamT9SSDR6
+description: Test Case TR9
+cn: oamT9SSDR6
+ftCstr: oamT9SSDR6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9SSDR7,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: c3d943ec-3fb4-4063-8d22-da4cdee193b9
+ftRoleName: oamT9SSDR7
+description: Test Case TR9
+cn: oamT9SSDR7
+ftCstr: oamT9SSDR7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9SSDR8,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 887a3884-7559-4bfd-a73f-583e9b1cbfb6
+ftRoleName: oamT9SSDR8
+description: Test Case TR9
+cn: oamT9SSDR8
+ftCstr: oamT9SSDR8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9SSDR9,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 4670299b-21b5-4d6b-9ed3-066f74a7df67
+ftRoleName: oamT9SSDR9
+description: Test Case TR9
+cn: oamT9SSDR9
+ftCstr: oamT9SSDR9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9SSDR10,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 9ab17eac-7978-4ab9-8857-0d76d29754ed
+ftRoleName: oamT9SSDR10
+description: Test Case TR9
+cn: oamT9SSDR10
+ftCstr: oamT9SSDR10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10SSDR1,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 063c4e2c-3ebb-4f0a-a693-aed1b31e91cc
+ftRoleName: oamT10SSDR1
+description: Test Case TR10
+cn: oamT10SSDR1
+ftCstr: oamT10SSDR1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10SSDR2,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: aeda6e92-7a11-4bca-b473-9a95fd257325
+ftRoleName: oamT10SSDR2
+description: Test Case TR10
+cn: oamT10SSDR2
+ftCstr: oamT10SSDR2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10SSDR3,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 1f7018af-3a75-4a20-9b46-a272b0a38363
+ftRoleName: oamT10SSDR3
+description: Test Case TR10
+cn: oamT10SSDR3
+ftCstr: oamT10SSDR3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10SSDR4,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: b6f8b457-780a-49fd-a81d-412ba588aba3
+ftRoleName: oamT10SSDR4
+description: Test Case TR10
+cn: oamT10SSDR4
+ftCstr: oamT10SSDR4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10SSDR5,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: ec5ce822-4f16-4bc4-8861-73085fe72be3
+ftRoleName: oamT10SSDR5
+description: Test Case TR10
+cn: oamT10SSDR5
+ftCstr: oamT10SSDR5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10SSDR6,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 721e5b73-8ecf-4fa3-a8d3-7ef3185f5623
+ftRoleName: oamT10SSDR6
+description: Test Case TR10
+cn: oamT10SSDR6
+ftCstr: oamT10SSDR6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10SSDR7,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 51832dee-196c-47ba-a8dd-fdb75cef3a43
+ftRoleName: oamT10SSDR7
+description: Test Case TR10
+cn: oamT10SSDR7
+ftCstr: oamT10SSDR7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10SSDR8,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: ae9f4eed-1562-4582-a773-52c67100bbaf
+ftRoleName: oamT10SSDR8
+description: Test Case TR10
+cn: oamT10SSDR8
+ftCstr: oamT10SSDR8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10SSDR9,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 617d34cb-0bbe-479d-9157-1683d577b999
+ftRoleName: oamT10SSDR9
+description: Test Case TR10
+cn: oamT10SSDR9
+ftCstr: oamT10SSDR9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10SSDR10,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: f4417ab8-d709-4b0a-83f7-aa142d901ca1
+ftRoleName: oamT10SSDR10
+description: Test Case TR10
+cn: oamT10SSDR10
+ftCstr: oamT10SSDR10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR1,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: f42a0da4-c0f2-412e-824f-daf96dd6f85e
+ftRoleName: oamDSDR1
+description: Test Case TR8
+cn: oamDSDR1
+ftCstr: oamDSDR1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR2,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: bb3bae85-a93d-4888-bca5-77a7baf7e52b
+ftRoleName: oamDSDR2
+description: Test Case TR8
+cn: oamDSDR2
+ftCstr: oamDSDR2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR3,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: a8fb549a-b503-49f3-a8db-5945d8225024
+ftRoleName: oamDSDR3
+description: Test Case TR8
+cn: oamDSDR3
+ftCstr: oamDSDR3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR4,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: f2c84abd-d667-467e-9a13-e6fbf3ab3bf6
+ftRoleName: oamDSDR4
+description: Test Case TR8
+cn: oamDSDR4
+ftCstr: oamDSDR4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR5,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: b1378301-4980-4bd9-abf5-f61db3eec8c7
+ftRoleName: oamDSDR5
+description: Test Case TR8
+cn: oamDSDR5
+ftCstr: oamDSDR5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR6,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: be6615cc-3acd-4435-a361-f36dd5825d8e
+ftRoleName: oamDSDR6
+description: Test Case TR8
+cn: oamDSDR6
+ftCstr: oamDSDR6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR7,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 4ce5d750-2581-49b7-bc9b-4a7a13cda48d
+ftRoleName: oamDSDR7
+description: Test Case TR8
+cn: oamDSDR7
+ftCstr: oamDSDR7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR8,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 7cdc8ce6-2a3e-4644-b417-e5024578434c
+ftRoleName: oamDSDR8
+description: Test Case TR8
+cn: oamDSDR8
+ftCstr: oamDSDR8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR9,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 91fb415c-1ac5-4579-b3ae-053e7f6a0f89
+ftRoleName: oamDSDR9
+description: Test Case TR8
+cn: oamDSDR9
+ftCstr: oamDSDR9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR10,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: dc0ebd8f-01c9-412b-bd77-336c4cf4c27f
+ftRoleName: oamDSDR10
+description: Test Case TR8
+cn: oamDSDR10
+ftCstr: oamDSDR10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR11,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: f0907a37-83f4-4b82-83a7-2525c1049054
+ftRoleName: oamDSDR11
+description: Test Case TR8
+cn: oamDSDR11
+ftCstr: oamDSDR11$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR12,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: f6a20d94-cb0b-40c2-8beb-4f2e2a6c3afe
+ftRoleName: oamDSDR12
+description: Test Case TR8
+cn: oamDSDR12
+ftCstr: oamDSDR12$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR13,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 05d27317-240d-42cf-b855-7fbf9da24807
+ftRoleName: oamDSDR13
+description: Test Case TR8
+cn: oamDSDR13
+ftCstr: oamDSDR13$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR14,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 332afb56-cf26-438f-a19e-0fd0448f2fc3
+ftRoleName: oamDSDR14
+description: Test Case TR8
+cn: oamDSDR14
+ftCstr: oamDSDR14$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR15,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: eb1301e6-f074-4e2d-9fc3-3dfc10c620d3
+ftRoleName: oamDSDR15
+description: Test Case TR8
+cn: oamDSDR15
+ftCstr: oamDSDR15$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR16,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: a44a1297-e114-48db-8494-575544bc3203
+ftRoleName: oamDSDR16
+description: Test Case TR8
+cn: oamDSDR16
+ftCstr: oamDSDR16$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR17,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: bfc4fecd-1306-41d0-88af-2662ed2ac22f
+ftRoleName: oamDSDR17
+description: Test Case TR8
+cn: oamDSDR17
+ftCstr: oamDSDR17$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR18,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: e35aeafe-f601-4747-bb51-aca3bba25c72
+ftRoleName: oamDSDR18
+description: Test Case TR8
+cn: oamDSDR18
+ftCstr: oamDSDR18$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR19,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 5c162a75-1c6b-46ad-810f-30fa050cc55e
+ftRoleName: oamDSDR19
+description: Test Case TR8
+cn: oamDSDR19
+ftCstr: oamDSDR19$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamDSDR20,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 123dff6a-f73c-46b3-ae26-b9b37b483b67
+ftRoleName: oamDSDR20
+description: Test Case TR8
+cn: oamDSDR20
+ftCstr: oamDSDR20$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9DSDR1,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: ebd5422a-c8a0-4693-9d45-6614cc6de73d
+ftRoleName: oamT9DSDR1
+description: Test Case TR9
+cn: oamT9DSDR1
+ftCstr: oamT9DSDR1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9DSDR2,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 46dcd1d3-e9f3-4056-b95d-e4ed22e17931
+ftRoleName: oamT9DSDR2
+description: Test Case TR9
+cn: oamT9DSDR2
+ftCstr: oamT9DSDR2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9DSDR3,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 9d516762-8463-41ac-9621-d7617b55e5dd
+ftRoleName: oamT9DSDR3
+description: Test Case TR9
+cn: oamT9DSDR3
+ftCstr: oamT9DSDR3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9DSDR4,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: ea5eb9e4-e8e6-43db-b5c7-2758014951ff
+ftRoleName: oamT9DSDR4
+description: Test Case TR9
+cn: oamT9DSDR4
+ftCstr: oamT9DSDR4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9DSDR5,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: a1e15c8b-c6bb-4e8e-af0c-577f66a354f2
+ftRoleName: oamT9DSDR5
+description: Test Case TR9
+cn: oamT9DSDR5
+ftCstr: oamT9DSDR5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9DSDR6,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: f91ca4b2-5b16-414d-8fb1-5e7799d741b8
+ftRoleName: oamT9DSDR6
+description: Test Case TR9
+cn: oamT9DSDR6
+ftCstr: oamT9DSDR6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9DSDR7,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 7bb1aef2-1722-44e7-9a18-a8e950a8e6ec
+ftRoleName: oamT9DSDR7
+description: Test Case TR9
+cn: oamT9DSDR7
+ftCstr: oamT9DSDR7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9DSDR8,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 1f2da1c3-a06c-45eb-a481-1166b8903ff2
+ftRoleName: oamT9DSDR8
+description: Test Case TR9
+cn: oamT9DSDR8
+ftCstr: oamT9DSDR8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9DSDR9,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: e5f39fbf-0877-49f5-9c0c-2b49659ac777
+ftRoleName: oamT9DSDR9
+description: Test Case TR9
+cn: oamT9DSDR9
+ftCstr: oamT9DSDR9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT9DSDR10,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 6ad9124b-2200-4177-b610-0aa6fe9a8981
+ftRoleName: oamT9DSDR10
+description: Test Case TR9
+cn: oamT9DSDR10
+ftCstr: oamT9DSDR10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10DSDR1,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 7fcd9797-febc-4706-be50-51d071902497
+ftRoleName: oamT10DSDR1
+description: Test Case TR10
+cn: oamT10DSDR1
+ftCstr: oamT10DSDR1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10DSDR2,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 162691db-e0ad-4ebf-a8a9-2b46686fa07f
+ftRoleName: oamT10DSDR2
+description: Test Case TR10
+cn: oamT10DSDR2
+ftCstr: oamT10DSDR2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10DSDR3,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: d5f4dee6-742f-4f14-993e-fc9fefce398a
+ftRoleName: oamT10DSDR3
+description: Test Case TR10
+cn: oamT10DSDR3
+ftCstr: oamT10DSDR3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10DSDR4,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 3883680f-18c3-47b7-8cb8-3d9eeb20767c
+ftRoleName: oamT10DSDR4
+description: Test Case TR10
+cn: oamT10DSDR4
+ftCstr: oamT10DSDR4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10DSDR5,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: a2538137-0514-4587-aae0-96834423d068
+ftRoleName: oamT10DSDR5
+description: Test Case TR10
+cn: oamT10DSDR5
+ftCstr: oamT10DSDR5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10DSDR6,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: c1a76bd1-6970-4bd4-9ad1-f39459d502fb
+ftRoleName: oamT10DSDR6
+description: Test Case TR10
+cn: oamT10DSDR6
+ftCstr: oamT10DSDR6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10DSDR7,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: eb49ed3f-ad43-4675-965a-a51ede54e7ea
+ftRoleName: oamT10DSDR7
+description: Test Case TR10
+cn: oamT10DSDR7
+ftCstr: oamT10DSDR7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10DSDR8,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: de3ff060-577f-4b15-97bb-65c8875e3967
+ftRoleName: oamT10DSDR8
+description: Test Case TR10
+cn: oamT10DSDR8
+ftCstr: oamT10DSDR8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10DSDR9,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: d92bf1c7-2375-4d55-96c8-7753d304b38b
+ftRoleName: oamT10DSDR9
+description: Test Case TR10
+cn: oamT10DSDR9
+ftCstr: oamT10DSDR9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT10DSDR10,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 0e320218-0a10-4e43-b616-08543072d8e3
+ftRoleName: oamT10DSDR10
+description: Test Case TR10
+cn: oamT10DSDR10
+ftCstr: oamT10DSDR10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT16SDR1,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 7367f226-f35e-4082-8aee-6072c55692b3
+ftRoleName: oamT16SDR1
+description: Test Case TR16
+cn: oamT16SDR1
+ftCstr: oamT16SDR1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT16SDR2,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 7919853b-9951-465f-9e2a-233b6fea5e71
+ftRoleName: oamT16SDR2
+description: Test Case TR16
+cn: oamT16SDR2
+ftCstr: oamT16SDR2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT16SDR3,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: d0dc5e14-e8ce-4942-937d-effecd1c54cb
+ftRoleName: oamT16SDR3
+description: Test Case TR16
+cn: oamT16SDR3
+ftCstr: oamT16SDR3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT16SDR4,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 823f6c37-2727-49d7-9b4e-6caf34af0489
+ftRoleName: oamT16SDR4
+description: Test Case TR16
+cn: oamT16SDR4
+ftCstr: oamT16SDR4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT16SDR5,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: a3550016-6c8d-46f5-855d-9aa3b6ee6f6a
+ftRoleName: oamT16SDR5
+description: Test Case TR16
+cn: oamT16SDR5
+ftCstr: oamT16SDR5$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT16SDR6,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: b21b4701-265f-4f5c-a130-b6fb497b2fe7
+ftRoleName: oamT16SDR6
+description: Test Case TR16
+cn: oamT16SDR6
+ftCstr: oamT16SDR6$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT16SDR7,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: a1105be7-68d3-4590-8ff0-dd0c13a3b49c
+ftRoleName: oamT16SDR7
+description: Test Case TR16
+cn: oamT16SDR7
+ftCstr: oamT16SDR7$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT16SDR8,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: f8afdabd-f9f9-4f3a-9453-92e7c8a44ac8
+ftRoleName: oamT16SDR8
+description: Test Case TR16
+cn: oamT16SDR8
+ftCstr: oamT16SDR8$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT16SDR9,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: ffe6c2c2-d4ea-4dac-9082-d78e74d6a6f3
+ftRoleName: oamT16SDR9
+description: Test Case TR16
+cn: oamT16SDR9
+ftCstr: oamT16SDR9$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT16SDR10,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 96291f33-abee-4fe6-ae8c-2fcf08b8098c
+ftRoleName: oamT16SDR10
+description: Test Case TR16
+cn: oamT16SDR10
+ftCstr: oamT16SDR10$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT17DSD1,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: f1283822-85dc-4f03-aaa1-6f900774f7c4
+ftRoleName: oamT17DSD1
+description: Test Case TR17
+cn: oamT17DSD1
+ftCstr: oamT17DSD1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT17DSD2,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 38d60b16-74eb-4cc5-be39-72f23166f553
+ftRoleName: oamT17DSD2
+description: Test Case TR17
+cn: oamT17DSD2
+ftCstr: oamT17DSD2$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT17DSD3,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: beac3ba4-3ccb-423c-8db3-5f477c7e70e1
+ftRoleName: oamT17DSD3
+description: Test Case TR17
+cn: oamT17DSD3
+ftCstr: oamT17DSD3$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+
+dn: cn=oamT17DSD4,ou=Roles,ou=RBAC,dc=example,dc=com
+objectclass: top
+objectclass: ftRls
+objectclass: ftProperties
+objectclass: ftMods
+ftId: 412072f1-af0e-463b-990e-98cb28862607
+ftRoleName: oamT17DSD4
+description: Test Case TR17
+cn: oamT17DSD4
+ftCstr: oamT17DSD4$30$0000$0000$20090101$21000101$20500101$20500115$1234567
