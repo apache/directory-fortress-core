@@ -342,8 +342,8 @@ final class UserP
         User checkUser = read(user, true);
         if (VUtil.isNotNullOrEmpty(checkUser.isSystem()) && checkUser.isSystem())
         {
-            String warning = CLS_NM + ".softDelete userId [" + user.getUserId() + "] can't be removed due to policy violation, rc=" + GlobalErrIds.USER_PW_PLCY_VIOLATION;
-            throw new SecurityException(GlobalErrIds.USER_PW_PLCY_VIOLATION, warning);
+            String warning = CLS_NM + ".softDelete userId [" + user.getUserId() + "] can't be removed due to policy violation, rc=" + GlobalErrIds.USER_PLCY_VIOLATION;
+            throw new SecurityException(GlobalErrIds.USER_PLCY_VIOLATION, warning);
         }
         user.setDescription("DELETED");
         User outUser = uDao.update(user);
@@ -366,8 +366,8 @@ final class UserP
         User checkUser = read(user, true);
         if (VUtil.isNotNullOrEmpty(checkUser.isSystem()) && checkUser.isSystem())
         {
-            String warning = CLS_NM + ".delete userId [" + user.getUserId() + "] can't be removed due to policy violation, rc=" + GlobalErrIds.USER_PW_PLCY_VIOLATION;
-            throw new SecurityException(GlobalErrIds.USER_PW_PLCY_VIOLATION, warning);
+            String warning = CLS_NM + ".delete userId [" + user.getUserId() + "] can't be removed due to policy violation, rc=" + GlobalErrIds.USER_PLCY_VIOLATION;
+            throw new SecurityException(GlobalErrIds.USER_PLCY_VIOLATION, warning);
         }
         return uDao.remove(user);
     }

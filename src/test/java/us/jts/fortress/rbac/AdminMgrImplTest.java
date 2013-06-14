@@ -202,7 +202,7 @@ public class AdminMgrImplTest extends TestCase
                 catch ( SecurityException ex )
                 {
                     // don't fail test if user was a system user:
-                    if ( ex.getErrorId() != GlobalErrIds.USER_PW_PLCY_VIOLATION )
+                    if ( ex.getErrorId() != GlobalErrIds.USER_PLCY_VIOLATION )
                     {
                         log.error( CLS_NM + ".deleteUsers caught SecurityException rc=" + ex.getErrorId() + ", msg="
                             + ex.getMessage(), ex );
