@@ -180,6 +180,21 @@ final class UserDAO extends DataProvider
     private static final String COUNTRY = "c";
 
     /**
+     * Constant contains the  attribute name used within inetorgperson ldap object classes.
+     */
+    private static final String PHYSICAL_DELIVERY_OFFICE_NAME = "physicalDeliveryOfficeName";
+
+    /**
+     * Constant contains the  attribute name used within inetorgperson ldap object classes.
+     */
+    private static final String DEPARTMENT_NUMBER = "departmentNumber";
+
+    /**
+     * Constant contains the  attribute name used within inetorgperson ldap object classes.
+     */
+    private static final String ROOM_NUMBER = "roomNumber";
+
+    /**
      * Constant contains the mobile attribute values used within iNetOrgPerson ldap object classes.
      */
     private static final String MOBILE = "mobile";
@@ -249,6 +264,9 @@ final class UserDAO extends DataProvider
             POSTAL_CODE,
             POST_OFFICE_BOX,
             STATE,
+            PHYSICAL_DELIVERY_OFFICE_NAME,
+            DEPARTMENT_NUMBER,
+            ROOM_NUMBER,
             TELEPHONE_NUMBER,
             MOBILE,
             MAIL,
@@ -1976,6 +1994,21 @@ final class UserDAO extends DataProvider
                 attr = new LDAPAttribute( STATE, address.getState() );
                 attrs.add( attr );
             }
+            if ( VUtil.isNotNullOrEmpty( address.getBuilding() ) )
+            {
+                attr = new LDAPAttribute( PHYSICAL_DELIVERY_OFFICE_NAME, address.getBuilding() );
+                attrs.add( attr );
+            }
+            if ( VUtil.isNotNullOrEmpty( address.getDepartmentNumber() ) )
+            {
+                attr = new LDAPAttribute( DEPARTMENT_NUMBER, address.getDepartmentNumber() );
+                attrs.add( attr );
+            }
+            if ( VUtil.isNotNullOrEmpty( address.getRoomNumber() ) )
+            {
+                attr = new LDAPAttribute( ROOM_NUMBER, address.getRoomNumber() );
+                attrs.add( attr );
+            }
         }
     }
 
@@ -2021,6 +2054,21 @@ final class UserDAO extends DataProvider
                 attr = new LDAPAttribute( STATE, address.getState() );
                 mods.add( LDAPModification.REPLACE, attr );
             }
+            if ( VUtil.isNotNullOrEmpty( address.getBuilding() ) )
+            {
+                attr = new LDAPAttribute( PHYSICAL_DELIVERY_OFFICE_NAME, address.getBuilding() );
+                mods.add( LDAPModification.REPLACE, attr );
+            }
+            if ( VUtil.isNotNullOrEmpty( address.getDepartmentNumber() ) )
+            {
+                attr = new LDAPAttribute( DEPARTMENT_NUMBER, address.getDepartmentNumber() );
+                mods.add( LDAPModification.REPLACE, attr );
+            }
+            if ( VUtil.isNotNullOrEmpty( address.getRoomNumber() ) )
+            {
+                attr = new LDAPAttribute( ROOM_NUMBER, address.getRoomNumber() );
+                mods.add( LDAPModification.REPLACE, attr );
+            }
         }
     }
 
@@ -2047,7 +2095,9 @@ final class UserDAO extends DataProvider
         addr.setState( getAttribute( le, STATE ) );
         addr.setPostalCode( getAttribute( le, POSTAL_CODE ) );
         addr.setPostOfficeBox( getAttribute( le, POST_OFFICE_BOX ) );
-
+        addr.setBuilding( getAttribute( le, PHYSICAL_DELIVERY_OFFICE_NAME ) );
+        addr.setDepartmentNumber( getAttribute( le, DEPARTMENT_NUMBER ) );
+        addr.setRoomNumber( getAttribute( le, ROOM_NUMBER ) );
         // todo: add support for country attribute
         //addr.setCountry(getAttribute(le, GlobalIds.COUNTRY));
 
