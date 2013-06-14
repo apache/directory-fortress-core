@@ -21,7 +21,7 @@
     <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.5.jar"/>
     <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
     <taskdef classname="us.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
-    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${ehcache-core.jar}:${slf4j-api.jar}"/>
+        <classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${ehcache-core.jar}:${slf4j-api.jar}"/>
     </taskdef>
 
     <target name="all">
@@ -46,9 +46,9 @@
             </addcontainer>
 
             <!-- Begin RBAC Admin Data: -->
-        	<adduser>
+            <adduser>
                 <!-- Bad User end time -->
-        		<user userId="demoUser1"
+                <user userId="demoUser1"
                       password="password"
                       description="Demo Test User 1"
                       ou="demousrs1"
@@ -64,27 +64,27 @@
                       dayMask="1234567"
                       timeout="60"/>
 
-        		<user userId="demoUser2" password="password" description="Demo Test User 2" ou="demousrs1" cn="JoeUser2" sn="User2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+                <user userId="demoUser2" password="password" description="Demo Test User 2" ou="demousrs1" cn="JoeUser2" sn="User2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
 
                 <!-- Bad User day mask -->
-        		<user userId="demoUser3" password="password" description="Demo Test User 3" ou="demousrs1" cn="JoeUser3" sn="User3"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="17" timeout="60"/>
-        		<user userId="demoUser4" password="password" description="Demo Test User 4" ou="demousrs1" cn="JoeUser4" sn="User4"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+                <user userId="demoUser3" password="password" description="Demo Test User 3" ou="demousrs1" cn="JoeUser3" sn="User3"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="17" timeout="60"/>
+                <user userId="demoUser4" password="password" description="Demo Test User 4" ou="demousrs1" cn="JoeUser4" sn="User4"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
 
                 <!-- Bad Role end time -->
-        		<user userId="demoUser5" password="password" description="Demo Test User 5" ou="demousrs1" cn="JoeUser5" sn="User5"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
-        		<user userId="demoUser6" password="password" description="Demo Test User 6" ou="demousrs1" cn="JoeUser6" sn="User6"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+                <user userId="demoUser5" password="password" description="Demo Test User 5" ou="demousrs1" cn="JoeUser5" sn="User5"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+                <user userId="demoUser6" password="password" description="Demo Test User 6" ou="demousrs1" cn="JoeUser6" sn="User6"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
 
                 <!-- Bad Role  begin date -->
-        		<user userId="demoUser7" password="password" description="Demo Test User 7" ou="demousrs1" cn="JoeUser7" sn="User7"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
-        		<user userId="demoUser8" password="password" description="Demo Test User 8" ou="demousrs1" cn="JoeUser8" sn="User8"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+                <user userId="demoUser7" password="password" description="Demo Test User 7" ou="demousrs1" cn="JoeUser7" sn="User7"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+                <user userId="demoUser8" password="password" description="Demo Test User 8" ou="demousrs1" cn="JoeUser8" sn="User8"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
 
                 <!-- Bad Role end date -->
-        		<user userId="demoUser9" password="password" description="Demo Test User 9" ou="demousrs1" cn="JoeUser9" sn="User9"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
-        		<user userId="demoUser10" password="password" description="Demo Test User 10" ou="demousrs1" cn="JoeUser10" sn="User10"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+                <user userId="demoUser9" password="password" description="Demo Test User 9" ou="demousrs1" cn="JoeUser9" sn="User9"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
+                <user userId="demoUser10" password="password" description="Demo Test User 10" ou="demousrs1" cn="JoeUser10" sn="User10"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="60"/>
 
-        		<user userId="tcmanager" password="m@nager123" description="Tomcat Manager User" ou="demousrs1" cn="tcmanager" sn="manager"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="tcmanager" password="m@nager123" description="Tomcat Manager User" ou="demousrs1" cn="tcmanager" sn="manager"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
 
-        		<user userId="wasadmin" password="@dmin123" description="Websphere Console Admin" ou="demousrs1" cn="wasadmin" sn="admin"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="wasadmin" password="@dmin123" description="Websphere Console Admin" ou="demousrs1" cn="wasadmin" sn="admin"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
 
                 <user userId="demoAdminUser1"
                       password="password"
@@ -101,7 +101,7 @@
                       endLockDate="none"
                       dayMask="1234567"
                       timeout="60"/>
-        	</adduser>
+            </adduser>
 
             <adduserrole>
                 <userrole userId="demoUser1"
