@@ -306,7 +306,6 @@ final class UserDAO extends DataProvider
         LDAPConnection ld = null;
         try
         {
-            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, USER_OBJ_CLASS ) );
 
@@ -384,9 +383,10 @@ final class UserDAO extends DataProvider
             loadAddress( entity.getAddress(), attrs );
             String dn = getDn( entity.getUserId(), entity.getContextId() );
 
-            LDAPEntry myEntry = new LDAPEntry( dn, attrs );
-            add( ld, myEntry, entity );
-            entity.setDn( dn );
+            LDAPEntry myEntry = new LDAPEntry(dn, attrs);
+            ld = getAdminConnection();
+            add(ld, myEntry, entity);
+            entity.setDn(dn);
         }
         catch ( LDAPException e )
         {
@@ -414,7 +414,6 @@ final class UserDAO extends DataProvider
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if ( VUtil.isNotNullOrEmpty( entity.getCn() ) )
             {
@@ -496,8 +495,9 @@ final class UserDAO extends DataProvider
 
             if ( mods.size() > 0 )
             {
-                modify( ld, userDn, mods, entity );
-                entity.setDn( userDn );
+                ld = getAdminConnection();
+                modify(ld, userDn, mods, entity);
+                entity.setDn(userDn);
             }
 
             entity.setDn( userDn );
@@ -529,7 +529,6 @@ final class UserDAO extends DataProvider
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if ( VUtil.isNotNullOrEmpty( entity.getProperties() ) )
             {
@@ -537,8 +536,9 @@ final class UserDAO extends DataProvider
             }
             if ( mods.size() > 0 )
             {
-                modify( ld, userDn, mods, entity );
-                entity.setDn( userDn );
+                ld = getAdminConnection();
+                modify(ld, userDn, mods, entity);
+                entity.setDn(userDn);
             }
             entity.setDn( userDn );
         }
@@ -596,11 +596,11 @@ final class UserDAO extends DataProvider
         String userDn = getDn( user.getUserId(), user.getContextId() );
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute pwdAccoutLock = new LDAPAttribute( OPENLDAP_ACCOUNT_LOCKED_TIME, LOCK_VALUE );
-            mods.add( LDAPModification.REPLACE, pwdAccoutLock );
-            modify( ld, userDn, mods, user );
+            LDAPAttribute pwdAccoutLock = new LDAPAttribute(OPENLDAP_ACCOUNT_LOCKED_TIME, LOCK_VALUE);
+            mods.add(LDAPModification.REPLACE, pwdAccoutLock);
+            ld = getAdminConnection();
+            modify(ld, userDn, mods, user);
         }
         catch ( LDAPException e )
         {
@@ -627,11 +627,12 @@ final class UserDAO extends DataProvider
         String userDn = getDn( user.getUserId(), user.getContextId() );
         try
         {
-            ld = getAdminConnection();
+            //ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute pwdlockedTime = new LDAPAttribute( OPENLDAP_ACCOUNT_LOCKED_TIME );
-            mods.add( LDAPModification.DELETE, pwdlockedTime );
-            modify( ld, userDn, mods, user );
+            LDAPAttribute pwdlockedTime = new LDAPAttribute(OPENLDAP_ACCOUNT_LOCKED_TIME);
+            mods.add(LDAPModification.DELETE, pwdlockedTime);
+            ld = getAdminConnection();
+            modify(ld, userDn, mods, user);
         }
         catch ( LDAPException e )
         {
@@ -864,8 +865,6 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn( user.getContextId(), GlobalIds.USER_ROOT );
         try
         {
-
-            ld = getAdminConnection();
             String filter;
             if ( VUtil.isNotNullOrEmpty( user.getUserId() ) )
             {
@@ -887,8 +886,9 @@ final class UserDAO extends DataProvider
                 // Beware - returns ALL users!!:"
                 filter = "(objectclass=" + objectClassImpl + ")";
             }
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
+            ld = getAdminConnection();
+            searchResults = search(ld, userRoot,
+                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
@@ -925,13 +925,13 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn( user.getContextId(), GlobalIds.USER_ROOT );
         try
         {
-            String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
-            ld = getAdminConnection();
+            String searchVal = encodeSafeText(user.getUserId(), GlobalIds.USERID_LEN);
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, USERID, false, GlobalIds.BATCH_SIZE, limit );
-            while ( searchResults.hasMoreElements() )
+            ld = getAdminConnection();
+            searchResults = search(ld, userRoot,
+                LDAPConnection.SCOPE_ONE, filter, USERID, false, GlobalIds.BATCH_SIZE, limit);
+            while (searchResults.hasMoreElements())
             {
                 LDAPEntry entry = searchResults.next();
                 userList.add( getAttribute( entry, GlobalIds.UID ) );
@@ -966,8 +966,7 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn( role.getContextId(), GlobalIds.USER_ROOT );
         try
         {
-            String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            ld = getAdminConnection();
+            String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")(";
             Set<String> roles = RoleUtil.getDescendants( role.getName(), role.getContextId() );
             if ( VUtil.isNotNullOrEmpty( roles ) )
@@ -984,8 +983,9 @@ final class UserDAO extends DataProvider
                 filter += GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + ")";
             }
             filter += ")";
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
+            ld = getAdminConnection();
+            searchResults = search(ld, userRoot,
+                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
@@ -1020,12 +1020,12 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn( role.getContextId(), GlobalIds.USER_ROOT );
         try
         {
-            String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            ld = getAdminConnection();
+            String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
+            ld = getAdminConnection();
+            searchResults = search(ld, userRoot,
+                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
@@ -1111,12 +1111,12 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn( role.getContextId(), GlobalIds.USER_ROOT );
         try
         {
-            String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            ld = getAdminConnection();
+            String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ADMINROLE_ASSIGN + "=" + roleVal + "))";
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
+            ld = getAdminConnection();
+            searchResults = search(ld, userRoot,
+                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
@@ -1153,13 +1153,13 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn( role.getContextId(), GlobalIds.USER_ROOT );
         try
         {
-            String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            ld = getAdminConnection();
+            String roleVal = encodeSafeText(role.getName(), GlobalIds.USERID_LEN);
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, USERID, false, GlobalIds.BATCH_SIZE, limit );
-            while ( searchResults.hasMoreElements() )
+            ld = getAdminConnection();
+            searchResults = search(ld, userRoot,
+                LDAPConnection.SCOPE_ONE, filter, USERID, false, GlobalIds.BATCH_SIZE, limit);
+            while (searchResults.hasMoreElements())
             {
                 LDAPEntry entry = searchResults.next();
                 userList.add( getAttribute( entry, GlobalIds.UID ) );
@@ -1193,12 +1193,13 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn( contextId, GlobalIds.USER_ROOT );
         try
         {
-            searchVal = encodeSafeText( searchVal, GlobalIds.USERID_LEN );
-            ld = getAdminConnection();
+            searchVal = encodeSafeText(searchVal, GlobalIds.USERID_LEN);
+            //ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
+            ld = getAdminConnection();
+            searchResults = search(ld, userRoot,
+                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
@@ -1233,8 +1234,7 @@ final class UserDAO extends DataProvider
         String userRoot = getRootDn( ou.getContextId(), GlobalIds.USER_ROOT );
         try
         {
-            String szOu = encodeSafeText( ou.getName(), GlobalIds.OU_LEN );
-            ld = getAdminConnection();
+            String szOu = encodeSafeText(ou.getName(), GlobalIds.OU_LEN);
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.OU + "=" + szOu + "))";
             int maxLimit;
@@ -1246,8 +1246,9 @@ final class UserDAO extends DataProvider
             {
                 maxLimit = 0;
             }
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit );
+            ld = getAdminConnection();
+            searchResults = search(ld, userRoot,
+                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit);
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
@@ -1339,13 +1340,13 @@ final class UserDAO extends DataProvider
         String userDn = getDn( user.getUserId(), user.getContextId() );
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute pw = new LDAPAttribute( PW, new String( user.getPassword() ) );
-            mods.add( LDAPModification.REPLACE, pw );
-            LDAPAttribute pwdReset = new LDAPAttribute( OPENLDAP_PW_RESET, "TRUE" );
-            mods.add( LDAPModification.REPLACE, pwdReset );
-            modify( ld, userDn, mods, user );
+            LDAPAttribute pw = new LDAPAttribute(PW, new String(user.getPassword()));
+            mods.add(LDAPModification.REPLACE, pw);
+            LDAPAttribute pwdReset = new LDAPAttribute(OPENLDAP_PW_RESET, "TRUE");
+            mods.add(LDAPModification.REPLACE, pwdReset);
+            ld = getAdminConnection();
+            modify(ld, userDn, mods, user);
         }
         catch ( LDAPException e )
         {
@@ -1375,14 +1376,15 @@ final class UserDAO extends DataProvider
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
         try
         {
-            ld = getAdminConnection();
+            //ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             String szUserRole = uRole.getRawData();
-            LDAPAttribute attr = new LDAPAttribute( GlobalIds.USER_ROLE_DATA, szUserRole );
-            mods.add( LDAPModification.ADD, attr );
-            attr = new LDAPAttribute( GlobalIds.USER_ROLE_ASSIGN, uRole.getName() );
-            mods.add( LDAPModification.ADD, attr );
-            modify( ld, userDn, mods, uRole );
+            LDAPAttribute attr = new LDAPAttribute(GlobalIds.USER_ROLE_DATA, szUserRole);
+            mods.add(LDAPModification.ADD, attr);
+            attr = new LDAPAttribute(GlobalIds.USER_ROLE_ASSIGN, uRole.getName());
+            mods.add(LDAPModification.ADD, attr);
+            ld = getAdminConnection();
+            modify(ld, userDn, mods, uRole);
         }
         catch ( LDAPException e )
         {
@@ -1433,15 +1435,15 @@ final class UserDAO extends DataProvider
                 if ( indx > -1 )
                 {
                     // Retrieve the targeted name:
-                    UserRole fRole = roles.get( indx );
-                    ld = getAdminConnection();
+                    UserRole fRole = roles.get(indx);
                     // delete the name assignment attribute using the raw name data:
                     LDAPModificationSet mods = new LDAPModificationSet();
-                    LDAPAttribute rAttr = new LDAPAttribute( GlobalIds.USER_ROLE_DATA, fRole.getRawData() );
-                    mods.add( LDAPModification.DELETE, rAttr );
-                    rAttr = new LDAPAttribute( GlobalIds.USER_ROLE_ASSIGN, fRole.getName() );
-                    mods.add( LDAPModification.DELETE, rAttr );
-                    modify( ld, userDn, mods, uRole );
+                    LDAPAttribute rAttr = new LDAPAttribute(GlobalIds.USER_ROLE_DATA, fRole.getRawData());
+                    mods.add(LDAPModification.DELETE, rAttr);
+                    rAttr = new LDAPAttribute(GlobalIds.USER_ROLE_ASSIGN, fRole.getName());
+                    mods.add(LDAPModification.DELETE, rAttr);
+                    ld = getAdminConnection();
+                    modify(ld, userDn, mods, uRole);
                 }
             }
             // target name not found:
@@ -1482,14 +1484,14 @@ final class UserDAO extends DataProvider
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             String szUserRole = uRole.getRawData();
-            LDAPAttribute attr = new LDAPAttribute( GlobalIds.USER_ADMINROLE_DATA, szUserRole );
-            mods.add( LDAPModification.ADD, attr );
-            attr = new LDAPAttribute( GlobalIds.USER_ADMINROLE_ASSIGN, uRole.getName() );
-            mods.add( LDAPModification.ADD, attr );
-            modify( ld, userDn, mods, uRole );
+            LDAPAttribute attr = new LDAPAttribute(GlobalIds.USER_ADMINROLE_DATA, szUserRole);
+            mods.add(LDAPModification.ADD, attr);
+            attr = new LDAPAttribute(GlobalIds.USER_ADMINROLE_ASSIGN, uRole.getName());
+            mods.add(LDAPModification.ADD, attr);
+            ld = getAdminConnection();
+            modify(ld, userDn, mods, uRole);
         }
         catch ( LDAPException e )
         {
@@ -1545,15 +1547,15 @@ final class UserDAO extends DataProvider
                 if ( indx > -1 )
                 {
                     // Retrieve the targeted name:
-                    UserRole fRole = roles.get( indx );
-                    ld = getAdminConnection();
+                    UserRole fRole = roles.get(indx);
                     // delete the name assignment attribute using the raw name data:
                     LDAPModificationSet mods = new LDAPModificationSet();
-                    LDAPAttribute rAttr = new LDAPAttribute( GlobalIds.USER_ADMINROLE_DATA, fRole.getRawData() );
-                    mods.add( LDAPModification.DELETE, rAttr );
-                    rAttr = new LDAPAttribute( GlobalIds.USER_ADMINROLE_ASSIGN, fRole.getName() );
-                    mods.add( LDAPModification.DELETE, rAttr );
-                    modify( ld, userDn, mods, uRole );
+                    LDAPAttribute rAttr = new LDAPAttribute(GlobalIds.USER_ADMINROLE_DATA, fRole.getRawData());
+                    mods.add(LDAPModification.DELETE, rAttr);
+                    rAttr = new LDAPAttribute(GlobalIds.USER_ADMINROLE_ASSIGN, fRole.getName());
+                    mods.add(LDAPModification.DELETE, rAttr);
+                    ld = getAdminConnection();
+                    modify(ld, userDn, mods, uRole);
                 }
             }
             // target name not found:
@@ -1592,11 +1594,11 @@ final class UserDAO extends DataProvider
         String userDn = getDn( user.getUserId(), user.getContextId() );
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute policy = new LDAPAttribute( OPENLDAP_POLICY_SUBENTRY );
-            mods.add( LDAPModification.DELETE, policy );
-            modify( ld, userDn, mods, user );
+            LDAPAttribute policy = new LDAPAttribute(OPENLDAP_POLICY_SUBENTRY);
+            mods.add(LDAPModification.DELETE, policy);
+            ld = getAdminConnection();
+            modify(ld, userDn, mods, user);
         }
         catch ( LDAPException e )
         {

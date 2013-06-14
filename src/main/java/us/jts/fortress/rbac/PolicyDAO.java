@@ -135,7 +135,6 @@ final class PolicyDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, OAM_PWPOLICY_OBJ_CLASS));
             attrs.add(createAttribute(GlobalIds.CN, entity.getName()));
@@ -210,6 +209,7 @@ final class PolicyDAO extends DataProvider
             }
 
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
+            ld = getAdminConnection();
             add(ld, myEntry, entity);
         }
         catch (LDAPException e)
@@ -237,7 +237,6 @@ final class PolicyDAO extends DataProvider
         String dn = getDn(entity);
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (entity.getMinAge() != null)
             {
@@ -323,6 +322,7 @@ final class PolicyDAO extends DataProvider
             }
             if (mods != null && mods.size() > 0)
             {
+                ld = getAdminConnection();
                 modify(ld, dn, mods, entity);
             }
         }
@@ -522,10 +522,10 @@ final class PolicyDAO extends DataProvider
         String searchVal = null;
         try
         {
-            ld = getAdminConnection();
             searchVal = encodeSafeText(policy.getName(), GlobalIds.PWPOLICY_NAME_LEN);
             String filter = GlobalIds.FILTER_PREFIX + OLPW_POLICY_CLASS + ")("
                 + GlobalIds.POLICY_NODE_TYPE + "=" + searchVal + "*))";
+            ld = getAdminConnection();
             searchResults = search(ld, policyRoot,
                 LDAPConnection.SCOPE_ONE, filter, PASSWORD_POLICY_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -559,8 +559,8 @@ final class PolicyDAO extends DataProvider
         String policyRoot = getPolicyRoot(contextId);
         try
         {
-            ld = getAdminConnection();
             String filter = "(objectclass=" + OLPW_POLICY_CLASS + ")";
+            ld = getAdminConnection();
             searchResults = search(ld, policyRoot,
                 LDAPConnection.SCOPE_ONE, filter, PASSWORD_POLICY_NAME_ATR, false, GlobalIds.BATCH_SIZE);
             while (searchResults.hasMoreElements())

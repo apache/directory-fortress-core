@@ -137,7 +137,6 @@ final class SdDAO extends DataProvider
         }
         try
         {
-            ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, objectClass));
             entity.setId();
@@ -153,6 +152,7 @@ final class SdDAO extends DataProvider
             loadAttrs(entity.getMembers(), attrs, ROLES);
             attrs.add(createAttribute(SD_SET_CARDINALITY, "" + entity.getCardinality()));
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
+            ld = getAdminConnection();
             add(ld, myEntry, entity);
         }
         catch (LDAPException e)
@@ -190,7 +190,6 @@ final class SdDAO extends DataProvider
         String dn = getDn(entity.getName(), entity.getContextId());
         try
         {
-            ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
             if (VUtil.isNotNullOrEmpty(entity.getDescription()))
             {
@@ -205,6 +204,7 @@ final class SdDAO extends DataProvider
             loadAttrs(entity.getMembers(), mods, ROLES);
             if (mods.size() > 0)
             {
+                ld = getAdminConnection();
                 modify(ld, dn, mods, entity);
             }
         }
@@ -339,8 +339,8 @@ final class SdDAO extends DataProvider
         try
         {
             String searchVal = encodeSafeText(sdset.getName(), GlobalIds.ROLE_LEN);
-            ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(" + SD_SET_NM + "=" + searchVal + "*))";
+            ld = getAdminConnection();
             searchResults = search(ld, ssdRoot,
                 LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
             long sequence = 0;
@@ -391,7 +391,6 @@ final class SdDAO extends DataProvider
         try
         {
             String roleVal = encodeSafeText(role.getName(), GlobalIds.ROLE_LEN);
-            ld = getAdminConnection();
             //String filter = GlobalIds.FILTER_PREFIX + SSD_OBJECT_CLASS_NM + ")(" + ROLES + "=" + roleVal + "))";
             String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(";
             // Include any parents target role may have:
@@ -410,6 +409,7 @@ final class SdDAO extends DataProvider
                 filter += ROLES + "=" + roleVal + ")";
             }
             filter += ")";
+            ld = getAdminConnection();
             searchResults = search(ld, ssdRoot,
                 LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
 
@@ -463,13 +463,13 @@ final class SdDAO extends DataProvider
         {
             if (VUtil.isNotNullOrEmpty(roles))
             {
-                ld = getAdminConnection();
                 String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(|";
                 for (String rle : roles)
                 {
                     filter += "(" + ROLES + "=" + rle + ")";
                 }
                 filter += "))";
+                ld = getAdminConnection();
                 searchResults = search(ld, ssdRoot,
                     LDAPConnection.SCOPE_SUB, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE);
                 long sequence = 0;
