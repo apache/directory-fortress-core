@@ -2407,89 +2407,15 @@ public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
     public void testFindDsdSets()
     {
         // from testAddOrgUnit
-        DelegatedMgrImplTest.addOrgUnits( "ADD ORGS_TO1", OrgUnitTestData.ORGS_TO1 );
-        DelegatedMgrImplTest.addOrgUnits( "ADD ORGS_USR_TO2", OrgUnitTestData.ORGS_USR_TO2 );
-        DelegatedMgrImplTest.addOrgUnits( "ADD ORGS_ORGS_PRM_TO3", OrgUnitTestData.ORGS_PRM_TO3 );
-        DelegatedMgrImplTest.addOrgUnits( "ADD ORGS_PRM_TO4", OrgUnitTestData.ORGS_PRM_TO4 );
-        DelegatedMgrImplTest.addOrgUnits( "ADD ORGS_USR_TO5", OrgUnitTestData.ORGS_USR_TO5 );
-        DelegatedMgrImplTest.addOrgUnits( "ADD ORGS_PRM_TO5", OrgUnitTestData.ORGS_PRM_TO5 );
         DelegatedMgrImplTest.addOrgUnits( "ADD ORGS_DEV1", OrgUnitTestData.ORGS_DEV1 );
-        DelegatedMgrImplTest.addOrgUnits( "ADD ORGS_APP1", OrgUnitTestData.ORGS_APP1 );
-
-        // from testUpdateOrgUnit
-        DelegatedMgrImplTest.updateOrgUnits( "UPD ORGS_TO1", OrgUnitTestData.ORGS_TO1 );
-        DelegatedMgrImplTest.updateOrgUnits( "UPD ORGS_PRM_TO3", OrgUnitTestData.ORGS_PRM_TO3 );
-
-        // from testAddOrgInheritance
-        DelegatedMgrImplTest.addInheritedOrgUnits( "ADD-INHERIT ORGS_USR_TO2", OrgUnitTestData.ORGS_USR_TO2 );
-        DelegatedMgrImplTest.addInheritedOrgUnits( "ADD-INHERIT ORGS_PRM_TO4", OrgUnitTestData.ORGS_PRM_TO4 );
-        DelegatedMgrImplTest.addInheritedOrgUnits( "ADD-INHERIT ORGS_USR_TO5", OrgUnitTestData.ORGS_USR_TO5 );
-        DelegatedMgrImplTest.addInheritedOrgUnits( "ADD-INHERIT ORGS_PRM_TO5", OrgUnitTestData.ORGS_PRM_TO5 );
-
-        // from testAddOrgUnitDescendant
-        DelegatedMgrImplTest.addOrgUnitDescendant( "ADD ORGS-USR-TO6-DESC", OrgUnitTestData.ORGS_USR_TO6_DSC,
-            OrgUnit.Type.USER );
-        DelegatedMgrImplTest.addOrgUnitDescendant( "ADD ORGS-PRM-TO6-DESC", OrgUnitTestData.ORGS_PRM_TO6_DSC,
-            OrgUnit.Type.PERM );
-
-        // from testAddOrgUnitAscendants
-        DelegatedMgrImplTest.addOrgUnitAscendant( "ADD-ORGS-USR-TR7-ASC", OrgUnitTestData.ORGS_USR_TO7_ASC,
-            OrgUnit.Type.USER );
-        DelegatedMgrImplTest.addOrgUnitAscendant( "ADD-ORGS-PRM-TR7-ASC", OrgUnitTestData.ORGS_PRM_TO7_ASC,
-            OrgUnit.Type.PERM );
 
         // from testAddRole
-        AdminMgrImplTest.addRoles( "ADD-RLS TR1", RoleTestData.ROLES_TR1 );
-        AdminMgrImplTest.addRoles( "ADD-RLS TR2", RoleTestData.ROLES_TR2 );
-        AdminMgrImplTest.addRoles( "ADD-RLS TR3", RoleTestData.ROLES_TR3 );
-        AdminMgrImplTest.addRoles( "ADD-RLS TR4", RoleTestData.ROLES_TR4 );
-        AdminMgrImplTest.addRoles( "ADD-RLS ROLES_TR5_HIER", RoleTestData.ROLES_TR5_HIER );
-        AdminMgrImplTest.addRoles( "ADD-RLS ROLES_TR5B", RoleTestData.ROLES_TR5B );
-        AdminMgrImplTest.addRoles( "ADD-RLS ROLES_TR8_SSD", RoleTestData.ROLES_TR8_SSD );
-        AdminMgrImplTest.addRoles( "ADD-RLS ROLES_TR9_SSD", RoleTestData.ROLES_TR9_SSD );
-        AdminMgrImplTest.addRoles( "ADD-RLS ROLES_TR10_SSD", RoleTestData.ROLES_TR10_SSD );
         AdminMgrImplTest.addRoles( "ADD-RLS ROLES_TR8_DSD", RoleTestData.ROLES_TR8_DSD );
-        AdminMgrImplTest.addRoles( "ADD-RLS ROLES_TR9_DSD", RoleTestData.ROLES_TR9_DSD );
-        AdminMgrImplTest.addRoles( "ADD-RLS ROLES_TR10_DSD", RoleTestData.ROLES_TR10_DSD );
-        AdminMgrImplTest.addRoles( "ADD-RLS ROLES_TR16_SD", RoleTestData.ROLES_TR16_SD );
-        AdminMgrImplTest.addRoles( "ADD-RLS ROLES_TR17_DSD_BRUNO", RoleTestData.ROLES_TR17_DSD_BRUNO );
-
-        // from testAdminMgrAddRoleInheritance
-        AdminMgrImplTest.addInheritedRoles( "ADD-INHERIT-RLS ROLES_TR5_HIER", RoleTestData.ROLES_TR5_HIER );
-        AdminMgrImplTest.addInheritedRoles( "ADD-INHERIT-RLS ROLES_TR5B", RoleTestData.ROLES_TR5B );
 
         // from testAdminMgrAddRoleDescendant
-        AdminMgrImplTest.addRoleDescendant( "ADD-RLS-TR6-DESC", RoleTestData.ROLES_TR6_DESC );
-        AdminMgrImplTest.addRoleDescendant( "ADD-RLS-TR11-DESC-SSD", RoleTestData.ROLES_TR11_DESC_SSD );
-        AdminMgrImplTest.addRoleDescendant( "ADD-RLS-TR12-DESC-SSD", RoleTestData.ROLES_TR12_DESC_SSD );
-        AdminMgrImplTest.addRoleDescendant( "ADD-RLS-TR13-DESC-SSD", RoleTestData.ROLES_TR13_DESC_SSD );
         AdminMgrImplTest.addRoleDescendant( "ADD-RLS-TR11-DESC-DSD", RoleTestData.ROLES_TR11_DESC_DSD );
         AdminMgrImplTest.addRoleDescendant( "ADD-RLS-TR12-DESC-DSD", RoleTestData.ROLES_TR12_DESC_DSD );
         AdminMgrImplTest.addRoleDescendant( "ADD-RLS-TR13-DESC-DSD", RoleTestData.ROLES_TR13_DESC_DSD );
-
-        // from testAdminMgrAddRoleAscendants
-        AdminMgrImplTest.addRoleAscendant( "ADD-RLS-TR7-ASC", RoleTestData.ROLES_TR7_ASC );
-
-        // from testAdminMgrCreateSsdSet
-        AdminMgrImplTest.createSsdSet( "ADD-SSD T1", RoleTestData.SSD_T1 );
-        AdminMgrImplTest.createSsdSet( "ADD-SSD T4", RoleTestData.SSD_T4 );
-        AdminMgrImplTest.createSsdSet( "ADD-SSD T5", RoleTestData.SSD_T5 );
-        AdminMgrImplTest.createSsdSet( "ADD-SSD T6", RoleTestData.SSD_T6 );
-
-        // from testAdminMgrCreateDsdSet
-        AdminMgrImplTest.createDsdSet( "ADD-DSD T1", RoleTestData.DSD_T1 );
-        AdminMgrImplTest.createDsdSet( "ADD-DSD T4", RoleTestData.DSD_T4 );
-        AdminMgrImplTest.createDsdSet( "ADD-DSD T5", RoleTestData.DSD_T5 );
-        AdminMgrImplTest.createDsdSet( "ADD-DSD T6", RoleTestData.DSD_T6 );
-        AdminMgrImplTest.createDsdSet( "ADD-DSD T8 BRUNO", RoleTestData.DSD_T8_BRUNO );
-
-        // from testAdminMgrAddSsdRoleMember
-        AdminMgrImplTest.addSsdRoleMember( "ADD-MEM-SSD T2 TR9", RoleTestData.SSD_T2, RoleTestData.ROLES_TR9_SSD );
-        AdminMgrImplTest.addSsdRoleMember( "ADD-MEM-SSD T3 TR10", RoleTestData.SSD_T3, RoleTestData.ROLES_TR10_SSD );
-
-        // from testAdminMgrAddDsdRoleMember
-        AdminMgrImplTest.addDsdRoleMember( "ADD-MEM-DSD T2 TR9", RoleTestData.DSD_T2, RoleTestData.ROLES_TR9_DSD );
-        AdminMgrImplTest.addDsdRoleMember( "ADD-MEM-DSD T3 TR10", RoleTestData.DSD_T3, RoleTestData.ROLES_TR10_DSD );
 
         // from testAdminMgrAddUser
         AdminMgrImplTest.addUsers( "ADD-USRS TU8_SSD", UserTestData.USERS_TU8_SSD, true );
