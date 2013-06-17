@@ -9,8 +9,12 @@ import us.jts.fortress.util.LogUtil;
 import us.jts.fortress.util.attr.VUtil;
 import junit.framework.TestCase;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -25,6 +29,8 @@ import org.apache.log4j.Logger;
 public class TestUtils extends TestCase
 {
     final protected static Logger log = Logger.getLogger(TestUtils.class.getName());
+    private static final String CLS_NM = TestUtils.class.getName();
+
     /**
      * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of ',' is used for string tokenization.
      * format: {@code name:value}
@@ -42,6 +48,30 @@ public class TestUtils extends TestCase
             contextId = tenant;
         }
         return contextId;
+    }
+
+    public static byte[] readJpegFile(String fileName)
+    {
+        URL fUrl = TestUtils.class.getClassLoader().getResource(fileName);
+        byte[] image = null;
+        try
+        {
+            if(fUrl != null)
+            {
+                image = org.apache.commons.io.FileUtils.readFileToByteArray(new File(fUrl.toURI()));
+            }
+        }
+        catch(URISyntaxException se)
+        {
+            String error = CLS_NM + ".readJpegFile caught URISyntaxException=" + se;
+            log.error(error);
+        }
+        catch(IOException ioe)
+        {
+            String error = CLS_NM + ".readJpegFile caught IOException=" + ioe;
+            log.error(error);
+        }
+        return image;
     }
 
     /**

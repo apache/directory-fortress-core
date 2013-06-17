@@ -174,7 +174,8 @@ import java.util.*;
     "roles",
     "adminRoles",
     "password",
-    "newPassword"
+    "newPassword",
+    "jpegPhoto"
 })
 public class User extends FortEntity implements Constraint, Serializable
 {
@@ -218,6 +219,8 @@ public class User extends FortEntity implements Constraint, Serializable
     private List<String> mobiles;
     @XmlElement(nillable = true)
     private List<String> emails;
+    @XmlElement(nillable = true)
+    private byte[] jpegPhoto;
 
     /**
      * Default constructor not intended for external use and is typically used by internal Fortress classes.
@@ -1242,6 +1245,34 @@ public class User extends FortEntity implements Constraint, Serializable
     public void setSystem(Boolean system)
     {
         this.system = system;
+    }
+
+    /**
+     * Get one image of a person using the JPEG File Interchange Format [JFIF].
+     * ( 0.9.2342.19200300.100.1.60
+     * NAME 'jpegPhoto'
+     * DESC 'a JPEG image'
+     * SYNTAX 1.3.6.1.4.1.1466.115.121.1.28 )
+     *
+     * return byte array containing the jpeg image.
+     */
+    public byte[] getJpegPhoto()
+    {
+        return jpegPhoto;
+    }
+
+    /**
+     * Set one image of a person using the JPEG File Interchange Format [JFIF].
+     * ( 0.9.2342.19200300.100.1.60
+     * NAME 'jpegPhoto'
+     * DESC 'a JPEG image'
+     * SYNTAX 1.3.6.1.4.1.1466.115.121.1.28 )
+     *
+     * @param jpegPhoto contains the jpeg image stored as byte array.
+     */
+    public void setJpegPhoto(byte[] jpegPhoto)
+    {
+        this.jpegPhoto = jpegPhoto;
     }
 
     /**

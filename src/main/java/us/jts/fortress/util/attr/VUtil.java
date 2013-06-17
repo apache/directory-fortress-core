@@ -566,6 +566,21 @@ public class VUtil
     }
 
     /**
+     * Method will return true if byte array reference is not null or empty.
+     * @param value contains the reference to byte array.
+     * @return boolean if validation succeeds.
+     */
+    public static boolean isNotNullOrEmpty(byte[] value)
+     {
+        boolean result = false;
+        if (value != null && value.length > 0)
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    /**
      *
      */
     private static char[] loadLdapEscapeChars()

@@ -54,20 +54,21 @@ public abstract class DataProvider
 
     /**
      * Given a contextId and a fortress param name return the LDAP dn.
+     *
      * @param contextId is to determine what sub-tree to use.
-     * @param root contains the fortress parameter name that corresponds with a particular LDAP container.
+     * @param root      contains the fortress parameter name that corresponds with a particular LDAP container.
      * @return String contains the dn to use for operation.
      */
     protected String getRootDn(String contextId, String root)
     {
         String szDn = Config.getProperty(root);
         StringBuilder dn = new StringBuilder();
-        if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL) && !contextId.equals(GlobalIds.HOME))
+        if (VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL) && !contextId.equals(GlobalIds.HOME))
         {
             int idx = szDn.indexOf(Config.getProperty(GlobalIds.SUFFIX));
-            if(idx != -1)
+            if (idx != -1)
             {
-                dn.append(szDn.substring(0, idx-1)).append(",").append(GlobalIds.OU).append("=").append(contextId).append(",").append(szDn.substring(idx));
+                dn.append(szDn.substring(0, idx - 1)).append(",").append(GlobalIds.OU).append("=").append(contextId).append(",").append(szDn.substring(idx));
             }
         }
         else
@@ -79,13 +80,14 @@ public abstract class DataProvider
 
     /**
      * Given a contextId return the LDAP dn that includes the suffix.
+     *
      * @param contextId is to determine what sub-tree to use.
      * @return String contains the dn to use for operation.
      */
     protected String getRootDn(String contextId)
     {
         StringBuilder dn = new StringBuilder();
-        if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL) && !contextId.equals(GlobalIds.HOME))
+        if (VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL) && !contextId.equals(GlobalIds.HOME))
         {
             dn.append(GlobalIds.OU).append("=").append(contextId).append(",").append(Config.getProperty(GlobalIds.SUFFIX));
         }
@@ -114,12 +116,12 @@ public abstract class DataProvider
     /**
      * Read the ldap record from specified location with user assertion.
      *
-     * @param ld   handle to ldap connection.
-     * @param dn   contains ldap distinguished name.
-     * @param atrs array contains array names to pull back.                                        , PoolMgr.ConnType.USER
-     * @param userDn    string value represents the identity of user on who's behalf the request was initiated.  The value will be stored in openldap auditsearch record AuthZID's attribute.
+     * @param ld     handle to ldap connection.
+     * @param dn     contains ldap distinguished name.
+     * @param atrs   array contains array names to pull back.                                        , PoolMgr.ConnType.USER
+     * @param userDn string value represents the identity of user on who's behalf the request was initiated.  The value will be stored in openldap auditsearch record AuthZID's attribute.
      * @return ldap entry.
-     * @throws LDAPException in the event system error occurs.
+     * @throws LDAPException                in the event system error occurs.
      * @throws UnsupportedEncodingException for search control errors.
      */
     protected LDAPEntry read(LDAPConnection ld, String dn, String[] atrs, String userDn)
@@ -364,11 +366,11 @@ public abstract class DataProvider
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
     protected LDAPSearchResults search(LDAPConnection ld,
-                                           String baseDn,
-                                           int scope,
-                                           String filter,
-                                           String[] atrs,
-                                           boolean attrsOnly)
+                                       String baseDn,
+                                       int scope,
+                                       String filter,
+                                       String[] atrs,
+                                       boolean attrsOnly)
         throws LDAPException
     {
         LDAPSearchResults result;
@@ -390,12 +392,12 @@ public abstract class DataProvider
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
     protected LDAPSearchResults search(LDAPConnection ld,
-                                           String baseDn,
-                                           int scope,
-                                           String filter,
-                                           String[] atrs,
-                                           boolean attrsOnly,
-                                           int batchSize)
+                                       String baseDn,
+                                       int scope,
+                                       String filter,
+                                       String[] atrs,
+                                       boolean attrsOnly,
+                                       int batchSize)
         throws LDAPException
     {
         LDAPSearchResults result;
@@ -422,13 +424,13 @@ public abstract class DataProvider
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
     protected LDAPSearchResults search(LDAPConnection ld,
-                                           String baseDn,
-                                           int scope,
-                                           String filter,
-                                           String[] atrs,
-                                           boolean attrsOnly,
-                                           int batchSize,
-                                           int maxEntries)
+                                       String baseDn,
+                                       int scope,
+                                       String filter,
+                                       String[] atrs,
+                                       boolean attrsOnly,
+                                       int batchSize,
+                                       int maxEntries)
         throws LDAPException
     {
         LDAPSearchResults result;
@@ -454,10 +456,10 @@ public abstract class DataProvider
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
     protected LDAPEntry searchNode(LDAPConnection ld,
-                                       String baseDn,
-                                       int scope, String filter,
-                                       String[] atrs,
-                                       boolean attrsOnly)
+                                   String baseDn,
+                                   int scope, String filter,
+                                   String[] atrs,
+                                   boolean attrsOnly)
         throws LDAPException
     {
         LDAPSearchResults result = ld.search(baseDn, scope,
@@ -483,12 +485,12 @@ public abstract class DataProvider
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
     protected LDAPEntry searchNode(LDAPConnection ld,
-                                       String baseDn,
-                                       int scope,
-                                       String filter,
-                                       String[] atrs,
-                                       boolean attrsOnly,
-                                       String userDn)
+                                   String baseDn,
+                                   int scope,
+                                   String filter,
+                                   String[] atrs,
+                                   boolean attrsOnly,
+                                   String userDn)
         throws LDAPException, UnsupportedEncodingException
     {
         LDAPControl proxyCtl = new LDAPControl(OPENLDAP_PROXY_CONTROL, true, (GlobalIds.DN + ": " + userDn).getBytes(GlobalIds.UTF8));
@@ -509,20 +511,20 @@ public abstract class DataProvider
      * @param dn        contains address of distinguished name to begin ldap search
      * @param userDn    dn for user node
      * @param attribute attribute used for compare
-     * @return          true if compare operation succeeds
-     * @throws LDAPException thrown in the event of error in ldap client or server code.
+     * @return true if compare operation succeeds
+     * @throws LDAPException                thrown in the event of error in ldap client or server code.
      * @throws UnsupportedEncodingException in the event the server cannot perform the operation.
      */
     protected boolean compareNode(LDAPConnection ld,
-                                       String dn,
-                                       String userDn,
-                                       LDAPAttribute attribute)
+                                  String dn,
+                                  String userDn,
+                                  LDAPAttribute attribute)
         throws LDAPException, UnsupportedEncodingException
     {
         LDAPControl proxyCtl = new LDAPControl(OPENLDAP_PROXY_CONTROL, true, (GlobalIds.DN + ": " + userDn).getBytes(GlobalIds.UTF8));
         LDAPSearchConstraints opt = new LDAPSearchConstraints();
         opt.setServerControls(proxyCtl);
-        return ld.compare(dn,attribute, opt);
+        return ld.compare(dn, attribute, opt);
     }
 
     /**
@@ -555,6 +557,26 @@ public abstract class DataProvider
             }
         }
         return attrValues;
+    }
+
+    protected byte[] getPhoto(LDAPEntry entry, String attributeName)
+    {
+        byte[] photo = null;
+        LDAPAttribute attr = entry.getAttribute(attributeName);
+        if (attr != null)
+        {
+            // Get the values as byte arrays
+            Enumeration enumVals =
+                attr.getByteValues();
+            // Get the first value - if there's more
+            // than one
+            if (enumVals.hasMoreElements())
+            {
+                photo =
+                    (byte[]) enumVals.nextElement();
+            }
+        }
+        return photo;
     }
 
     /**
@@ -648,6 +670,7 @@ public abstract class DataProvider
      * @return value contained in a string variable.
      * @throws LDAPException in the event of ldap client error.
      */
+
     protected String getAttribute(LDAPEntry entry, String attributeName)
     {
         String attrValue = null;
@@ -723,7 +746,7 @@ public abstract class DataProvider
     /**
      * Convert constraint from raw ldap format to application entity.
      *
-     * @param le          ldap entry containing constraint.
+     * @param le         ldap entry containing constraint.
      * @param ftDateTime reference to {@link us.jts.fortress.util.time.Constraint} containing formatted data.
      * @throws LDAPException in the event of ldap client error.
      */
@@ -918,7 +941,7 @@ public abstract class DataProvider
             if (replace)
                 mods.add(LDAPModification.REPLACE, prop);
 
-            for (Enumeration e = props.propertyNames(); e.hasMoreElements();)
+            for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
             {
                 String key = (String) e.nextElement();
                 String val = props.getProperty(key);
@@ -941,7 +964,7 @@ public abstract class DataProvider
         if (props != null && props.size() > 0)
         {
             LDAPAttribute prop;
-            for (Enumeration e = props.propertyNames(); e.hasMoreElements();)
+            for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
             {
                 String key = (String) e.nextElement();
                 String val = props.getProperty(key);
@@ -964,7 +987,7 @@ public abstract class DataProvider
         if (props != null && props.size() > 0)
         {
             LDAPAttribute attr = null;
-            for (Enumeration e = props.propertyNames(); e.hasMoreElements();)
+            for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 String key = (String) e.nextElement();
@@ -987,7 +1010,6 @@ public abstract class DataProvider
     }
 
     /**
-     *
      * @param value
      * @param validLen
      * @return String containing encoded data.
@@ -1032,7 +1054,7 @@ public abstract class DataProvider
     /**
      * Calls the PoolMgr to close the Admin LDAP connection.
      *
-     * @param ld   handle to ldap connection object.
+     * @param ld handle to ldap connection object.
      */
     protected void closeAdminConnection(LDAPConnection ld)
     {
@@ -1042,7 +1064,7 @@ public abstract class DataProvider
     /**
      * Calls the PoolMgr to close the User LDAP connection.
      *
-     * @param ld   handle to ldap connection object.
+     * @param ld handle to ldap connection object.
      */
     protected void closeUserConnection(LDAPConnection ld)
     {
@@ -1052,7 +1074,7 @@ public abstract class DataProvider
     /**
      * Calls the PoolMgr to close the Log LDAP connection.
      *
-     * @param ld   handle to ldap connection object.
+     * @param ld handle to ldap connection object.
      */
     protected void closeLogConnection(LDAPConnection ld)
     {
