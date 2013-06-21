@@ -4,28 +4,6 @@
 
 package us.jts.fortress.ldap;
 
-import us.jts.fortress.GlobalIds;
-import us.jts.fortress.cfg.Config;
-import us.jts.fortress.rbac.FortEntity;
-import us.jts.fortress.rbac.Relationship;
-import us.jts.fortress.rbac.Hier;
-import us.jts.fortress.util.time.Constraint;
-import us.jts.fortress.util.time.CUtil;
-import us.jts.fortress.util.attr.VUtil;
-
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPDN;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPReferralException;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
-import org.apache.log4j.Logger;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -34,6 +12,31 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.apache.log4j.Logger;
+
+import us.jts.fortress.GlobalIds;
+import us.jts.fortress.cfg.Config;
+import us.jts.fortress.rbac.FortEntity;
+import us.jts.fortress.rbac.Hier;
+import us.jts.fortress.rbac.Relationship;
+import us.jts.fortress.util.attr.VUtil;
+import us.jts.fortress.util.time.CUtil;
+import us.jts.fortress.util.time.Constraint;
+
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPDN;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPReferralException;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchConstraints;
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
+
 
 /**
  * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
@@ -50,7 +53,8 @@ public abstract class DataProvider
     private static final String OPENLDAP_PROXY_CONTROL = "2.16.840.1.113730.3.4.18";
     private static final int MAX_DEPTH = 100;
     private static final String CLS_NM = DataProvider.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger log = Logger.getLogger( CLS_NM );
+
 
     /**
      * Given a contextId and a fortress param name return the LDAP dn.
@@ -58,43 +62,54 @@ public abstract class DataProvider
      * @param root contains the fortress parameter name that corresponds with a particular LDAP container.
      * @return String contains the dn to use for operation.
      */
-    protected String getRootDn(String contextId, String root)
+    protected String getRootDn( String contextId, String root )
     {
-        String szDn = Config.getProperty(root);
+        String szDn = Config.getProperty( root );
         StringBuilder dn = new StringBuilder();
-        if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL) && !contextId.equals(GlobalIds.HOME))
+
+        // The contextId must not be null, or "HOME" or "null"
+        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL )
+            && !contextId.equals( GlobalIds.HOME ) )
         {
-            int idx = szDn.indexOf(Config.getProperty(GlobalIds.SUFFIX));
-            if(idx != -1)
+            int idx = szDn.indexOf( Config.getProperty( GlobalIds.SUFFIX ) );
+
+            if ( idx != -1 )
             {
-                dn.append(szDn.substring(0, idx-1)).append(",").append(GlobalIds.OU).append("=").append(contextId).append(",").append(szDn.substring(idx));
+                // Found. The DN is ,ou=<contextId>,  
+                dn.append( szDn.substring( 0, idx - 1 ) ).append( "," ).append( GlobalIds.OU ).append( "=" )
+                    .append( contextId ).append( "," ).append( szDn.substring( idx ) );
             }
         }
         else
         {
-            dn.append(szDn);
+            dn.append( szDn );
         }
+
         return dn.toString();
     }
+
 
     /**
      * Given a contextId return the LDAP dn that includes the suffix.
      * @param contextId is to determine what sub-tree to use.
      * @return String contains the dn to use for operation.
      */
-    protected String getRootDn(String contextId)
+    protected String getRootDn( String contextId )
     {
         StringBuilder dn = new StringBuilder();
-        if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL) && !contextId.equals(GlobalIds.HOME))
+        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL )
+            && !contextId.equals( GlobalIds.HOME ) )
         {
-            dn.append(GlobalIds.OU).append("=").append(contextId).append(",").append(Config.getProperty(GlobalIds.SUFFIX));
+            dn.append( GlobalIds.OU ).append( "=" ).append( contextId ).append( "," )
+                .append( Config.getProperty( GlobalIds.SUFFIX ) );
         }
         else
         {
-            dn.append(Config.getProperty(GlobalIds.SUFFIX));
+            dn.append( Config.getProperty( GlobalIds.SUFFIX ) );
         }
         return dn.toString();
     }
+
 
     /**
      * Read the ldap record from specified location.
@@ -105,11 +120,12 @@ public abstract class DataProvider
      * @return ldap entry.
      * @throws LDAPException in the event system error occurs.
      */
-    protected LDAPEntry read(LDAPConnection ld, String dn, String[] atrs)
+    protected LDAPEntry read( LDAPConnection ld, String dn, String[] atrs )
         throws LDAPException
     {
-        return ld.read(dn, atrs);
+        return ld.read( dn, atrs );
     }
+
 
     /**
      * Read the ldap record from specified location with user assertion.
@@ -122,14 +138,16 @@ public abstract class DataProvider
      * @throws LDAPException in the event system error occurs.
      * @throws UnsupportedEncodingException for search control errors.
      */
-    protected LDAPEntry read(LDAPConnection ld, String dn, String[] atrs, String userDn)
+    protected LDAPEntry read( LDAPConnection ld, String dn, String[] atrs, String userDn )
         throws LDAPException, UnsupportedEncodingException
     {
-        LDAPControl proxyCtl = new LDAPControl(OPENLDAP_PROXY_CONTROL, true, (GlobalIds.DN + ": " + userDn).getBytes(GlobalIds.UTF8));
+        LDAPControl proxyCtl = new LDAPControl( OPENLDAP_PROXY_CONTROL, true,
+            ( GlobalIds.DN + ": " + userDn ).getBytes( GlobalIds.UTF8 ) );
         LDAPSearchConstraints opt = new LDAPSearchConstraints();
-        opt.setServerControls(proxyCtl);
-        return ld.read(dn, atrs, opt);
+        opt.setServerControls( proxyCtl );
+        return ld.read( dn, atrs, opt );
     }
+
 
     /**
      * Add a new ldap entry to the directory.  Do not add audit context.
@@ -138,11 +156,12 @@ public abstract class DataProvider
      * @param entry contains data to add..
      * @throws LDAPException in the event system error occurs.
      */
-    protected void add(LDAPConnection ld, LDAPEntry entry)
+    protected void add( LDAPConnection ld, LDAPEntry entry )
         throws LDAPException
     {
-        ld.add(entry);
+        ld.add( entry );
     }
+
 
     /**
      * Add a new ldap entry to the directory.  Add audit context.
@@ -152,27 +171,28 @@ public abstract class DataProvider
      * @param entity contains audit context.
      * @throws LDAPException in the event system error occurs.
      */
-    protected void add(LDAPConnection ld, LDAPEntry entry, FortEntity entity)
+    protected void add( LDAPConnection ld, LDAPEntry entry, FortEntity entity )
         throws LDAPException
     {
-        if (GlobalIds.IS_AUDIT && entity != null && entity.getAdminSession() != null)
+        if ( GlobalIds.IS_AUDIT && entity != null && entity.getAdminSession() != null )
         {
             LDAPAttributeSet attrs = entry.getAttributeSet();
-            if (VUtil.isNotNullOrEmpty(entity.getAdminSession().getInternalUserId()))
+            if ( VUtil.isNotNullOrEmpty( entity.getAdminSession().getInternalUserId() ) )
             {
-                attrs.add(new LDAPAttribute(GlobalIds.FT_MODIFIER, entity.getAdminSession().getInternalUserId()));
+                attrs.add( new LDAPAttribute( GlobalIds.FT_MODIFIER, entity.getAdminSession().getInternalUserId() ) );
             }
-            if (VUtil.isNotNullOrEmpty(entity.getModCode()))
+            if ( VUtil.isNotNullOrEmpty( entity.getModCode() ) )
             {
-                attrs.add(new LDAPAttribute(GlobalIds.FT_MODIFIER_CODE, entity.getModCode()));
+                attrs.add( new LDAPAttribute( GlobalIds.FT_MODIFIER_CODE, entity.getModCode() ) );
             }
-            if (VUtil.isNotNullOrEmpty(entity.getModId()))
+            if ( VUtil.isNotNullOrEmpty( entity.getModId() ) )
             {
-                attrs.add(new LDAPAttribute(GlobalIds.FT_MODIFIER_ID, entity.getModId()));
+                attrs.add( new LDAPAttribute( GlobalIds.FT_MODIFIER_ID, entity.getModId() ) );
             }
         }
-        ld.add(entry);
+        ld.add( entry );
     }
+
 
     /**
      * Update exiting ldap entry to the directory.  Do not add audit context.
@@ -182,11 +202,12 @@ public abstract class DataProvider
      * @param mods contains data to modify.
      * @throws LDAPException in the event system error occurs.
      */
-    protected void modify(LDAPConnection ld, String dn, LDAPModificationSet mods)
+    protected void modify( LDAPConnection ld, String dn, LDAPModificationSet mods )
         throws LDAPException
     {
-        ld.modify(dn, mods);
+        ld.modify( dn, mods );
     }
+
 
     /**
      * Update exiting ldap entry to the directory.  Add audit context.
@@ -197,12 +218,13 @@ public abstract class DataProvider
      * @param entity contains audit context.
      * @throws LDAPException in the event system error occurs.
      */
-    protected void modify(LDAPConnection ld, String dn, LDAPModificationSet mods, FortEntity entity)
+    protected void modify( LDAPConnection ld, String dn, LDAPModificationSet mods, FortEntity entity )
         throws LDAPException
     {
-        audit(mods, entity);
-        ld.modify(dn, mods);
+        audit( mods, entity );
+        ld.modify( dn, mods );
     }
+
 
     /**
      * Delete exiting ldap entry from the directory.  Do not add audit context.
@@ -211,11 +233,12 @@ public abstract class DataProvider
      * @param dn contains distinguished node of entry targeted for removal..
      * @throws LDAPException in the event system error occurs.
      */
-    protected void delete(LDAPConnection ld, String dn)
+    protected void delete( LDAPConnection ld, String dn )
         throws LDAPException
     {
-        ld.delete(dn);
+        ld.delete( dn );
     }
+
 
     /**
      * Delete exiting ldap entry from the directory.  Add audit context.  This method will call modify prior to delete which will
@@ -226,15 +249,16 @@ public abstract class DataProvider
      * @param entity contains audit context.
      * @throws LDAPException in the event system error occurs.
      */
-    protected void delete(LDAPConnection ld, String dn, FortEntity entity)
+    protected void delete( LDAPConnection ld, String dn, FortEntity entity )
         throws LDAPException
     {
         LDAPModificationSet mods = new LDAPModificationSet();
-        audit(mods, entity);
-        if (mods.size() > 0)
-            modify(ld, dn, mods);
-        ld.delete(dn);
+        audit( mods, entity );
+        if ( mods.size() > 0 )
+            modify( ld, dn, mods );
+        ld.delete( dn );
     }
+
 
     /**
      * Delete exiting ldap entry and all descendants from the directory.  Do not add audit context.
@@ -243,12 +267,13 @@ public abstract class DataProvider
      * @param dn contains distinguished node of entry targeted for removal..
      * @throws LDAPException in the event system error occurs.
      */
-    protected void deleteRecursive(LDAPConnection ld, String dn)
+    protected void deleteRecursive( LDAPConnection ld, String dn )
         throws LDAPException
     {
         int recursiveCount = 0;
-        deleteRecursive(dn, ld, recursiveCount);
+        deleteRecursive( dn, ld, recursiveCount );
     }
+
 
     /**
      * Delete exiting ldap entry and all descendants from the directory.  Add audit context.  This method will call modify prior to delete which will
@@ -259,15 +284,16 @@ public abstract class DataProvider
      * @param entity contains audit context.
      * @throws LDAPException in the event system error occurs.
      */
-    protected void deleteRecursive(LDAPConnection ld, String dn, FortEntity entity)
+    protected void deleteRecursive( LDAPConnection ld, String dn, FortEntity entity )
         throws LDAPException
     {
         LDAPModificationSet mods = new LDAPModificationSet();
-        audit(mods, entity);
-        if (mods.size() > 0)
-            modify(ld, dn, mods);
-        deleteRecursive(ld, dn);
+        audit( mods, entity );
+        if ( mods.size() > 0 )
+            modify( ld, dn, mods );
+        deleteRecursive( ld, dn );
     }
+
 
     /**
      * Used to recursively remove all nodes up to record pointed to by dn attribute.
@@ -277,24 +303,24 @@ public abstract class DataProvider
      * @param recursiveCount keeps track of how many iterations have been performed.
      * @throws LDAPException in the event system error occurs.
      */
-    private void deleteRecursive(String dn, LDAPConnection ld, int recursiveCount)
+    private void deleteRecursive( String dn, LDAPConnection ld, int recursiveCount )
         throws LDAPException
     {
         String method = "deleteRecursive";
         // Sanity check - only allow max tree depth of 100
-        if (recursiveCount++ > MAX_DEPTH)
+        if ( recursiveCount++ > MAX_DEPTH )
         {
             // too deep inside of a recursive sequence;
             String error = CLS_NM + "." + method + " dn [" + dn + "] depth error in recursive";
-            throw new LDAPException(error, LDAPException.OPERATION_ERROR);
+            throw new LDAPException( error, LDAPException.OPERATION_ERROR );
         }
 
         String theDN;
         // Find child nodes
-        LDAPSearchResults res = search(ld, dn, LDAPConnection.SCOPE_ONE, "objectclass=*", GlobalIds.NO_ATRS, false, 0);
+        LDAPSearchResults res = search( ld, dn, LDAPConnection.SCOPE_ONE, "objectclass=*", GlobalIds.NO_ATRS, false, 0 );
 
         // Iterate over all entries under this entry
-        while (res.hasMoreElements())
+        while ( res.hasMoreElements() )
         {
             try
             {
@@ -302,25 +328,28 @@ public abstract class DataProvider
                 LDAPEntry entry = res.next();
                 theDN = entry.getDN();
                 // continue down:
-                deleteRecursive(theDN, ld, recursiveCount);
+                deleteRecursive( theDN, ld, recursiveCount );
                 recursiveCount--;
             }
-            catch (LDAPReferralException lre)
+            catch ( LDAPReferralException lre )
             {
                 // cannot continue;
-                String error = CLS_NM + "." + method + " dn [" + dn + "] caught LDAPReferralException=" + lre.errorCodeToString() + "=" + lre.getLDAPErrorMessage();
-                throw new LDAPException(error, lre.getLDAPResultCode());
+                String error = CLS_NM + "." + method + " dn [" + dn + "] caught LDAPReferralException="
+                    + lre.errorCodeToString() + "=" + lre.getLDAPErrorMessage();
+                throw new LDAPException( error, lre.getLDAPResultCode() );
             }
-            catch (LDAPException ldape)
+            catch ( LDAPException ldape )
             {
                 // cannot continue;
-                String error = CLS_NM + "." + method + " dn [" + dn + "] caught LDAPException=" + ldape.errorCodeToString() + "=" + ldape.getLDAPErrorMessage();
-                throw new LDAPException(error, ldape.getLDAPResultCode());
+                String error = CLS_NM + "." + method + " dn [" + dn + "] caught LDAPException="
+                    + ldape.errorCodeToString() + "=" + ldape.getLDAPErrorMessage();
+                throw new LDAPException( error, ldape.getLDAPResultCode() );
             }
         }
         // delete the node:
-        delete(ld, dn);
+        delete( ld, dn );
     }
+
 
     /**
      * Add the audit context variables to the modfication set.
@@ -329,27 +358,29 @@ public abstract class DataProvider
      * @param entity contains audit context.
      * @throws LDAPException in the event of error with ldap client.
      */
-    private void audit(LDAPModificationSet mods, FortEntity entity)
+    private void audit( LDAPModificationSet mods, FortEntity entity )
     {
-        if (GlobalIds.IS_AUDIT && entity != null && entity.getAdminSession() != null)
+        if ( GlobalIds.IS_AUDIT && entity != null && entity.getAdminSession() != null )
         {
-            if (VUtil.isNotNullOrEmpty(entity.getAdminSession().getInternalUserId()))
+            if ( VUtil.isNotNullOrEmpty( entity.getAdminSession().getInternalUserId() ) )
             {
-                LDAPAttribute modifier = new LDAPAttribute(GlobalIds.FT_MODIFIER, entity.getAdminSession().getInternalUserId());
-                mods.add(LDAPModification.REPLACE, modifier);
+                LDAPAttribute modifier = new LDAPAttribute( GlobalIds.FT_MODIFIER, entity.getAdminSession()
+                    .getInternalUserId() );
+                mods.add( LDAPModification.REPLACE, modifier );
             }
-            if (VUtil.isNotNullOrEmpty(entity.getModCode()))
+            if ( VUtil.isNotNullOrEmpty( entity.getModCode() ) )
             {
-                LDAPAttribute modCode = new LDAPAttribute(GlobalIds.FT_MODIFIER_CODE, entity.getModCode());
-                mods.add(LDAPModification.REPLACE, modCode);
+                LDAPAttribute modCode = new LDAPAttribute( GlobalIds.FT_MODIFIER_CODE, entity.getModCode() );
+                mods.add( LDAPModification.REPLACE, modCode );
             }
-            if (VUtil.isNotNullOrEmpty(entity.getModId()))
+            if ( VUtil.isNotNullOrEmpty( entity.getModId() ) )
             {
-                LDAPAttribute modId = new LDAPAttribute(GlobalIds.FT_MODIFIER_ID, entity.getModId());
-                mods.add(LDAPModification.REPLACE, modId);
+                LDAPAttribute modId = new LDAPAttribute( GlobalIds.FT_MODIFIER_ID, entity.getModId() );
+                mods.add( LDAPModification.REPLACE, modId );
             }
         }
     }
+
 
     /**
      * Perform normal ldap search accepting default batch size.
@@ -363,18 +394,19 @@ public abstract class DataProvider
      * @return result set containing ldap entries returned from directory.
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
-    protected LDAPSearchResults search(LDAPConnection ld,
-                                           String baseDn,
-                                           int scope,
-                                           String filter,
-                                           String[] atrs,
-                                           boolean attrsOnly)
+    protected LDAPSearchResults search( LDAPConnection ld,
+        String baseDn,
+        int scope,
+        String filter,
+        String[] atrs,
+        boolean attrsOnly )
         throws LDAPException
     {
         LDAPSearchResults result;
-        result = ld.search(baseDn, scope, filter, atrs, attrsOnly);
+        result = ld.search( baseDn, scope, filter, atrs, attrsOnly );
         return result;
     }
+
 
     /**
      * Perform normal ldap search specifying default batch size.
@@ -389,23 +421,24 @@ public abstract class DataProvider
      * @return result set containing ldap entries returned from directory.
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
-    protected LDAPSearchResults search(LDAPConnection ld,
-                                           String baseDn,
-                                           int scope,
-                                           String filter,
-                                           String[] atrs,
-                                           boolean attrsOnly,
-                                           int batchSize)
+    protected LDAPSearchResults search( LDAPConnection ld,
+        String baseDn,
+        int scope,
+        String filter,
+        String[] atrs,
+        boolean attrsOnly,
+        int batchSize )
         throws LDAPException
     {
         LDAPSearchResults result;
         LDAPSearchConstraints ldCons = new LDAPSearchConstraints();
         // Returns the maximum number of search results that are to be returned; 0 means there is no limit.
-        ldCons.setMaxResults(0);
-        ldCons.setBatchSize(batchSize);
-        result = ld.search(baseDn, scope, filter, atrs, attrsOnly, ldCons);
+        ldCons.setMaxResults( 0 );
+        ldCons.setBatchSize( batchSize );
+        result = ld.search( baseDn, scope, filter, atrs, attrsOnly, ldCons );
         return result;
     }
+
 
     /**
      * Perform normal ldap search specifying default batch size and max entries to return.
@@ -421,24 +454,25 @@ public abstract class DataProvider
      * @return result set containing ldap entries returned from directory.
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
-    protected LDAPSearchResults search(LDAPConnection ld,
-                                           String baseDn,
-                                           int scope,
-                                           String filter,
-                                           String[] atrs,
-                                           boolean attrsOnly,
-                                           int batchSize,
-                                           int maxEntries)
+    protected LDAPSearchResults search( LDAPConnection ld,
+        String baseDn,
+        int scope,
+        String filter,
+        String[] atrs,
+        boolean attrsOnly,
+        int batchSize,
+        int maxEntries )
         throws LDAPException
     {
         LDAPSearchResults result;
         LDAPSearchConstraints ldCons = new LDAPSearchConstraints();
         // Returns the maximum number of search results that are to be returned;
-        ldCons.setMaxResults(maxEntries);
-        ldCons.setBatchSize(batchSize);
-        result = ld.search(baseDn, scope, filter, atrs, attrsOnly, ldCons);
+        ldCons.setMaxResults( maxEntries );
+        ldCons.setBatchSize( batchSize );
+        result = ld.search( baseDn, scope, filter, atrs, attrsOnly, ldCons );
         return result;
     }
+
 
     /**
      * This method will search the directory and return at most one record.  If more than one record is found
@@ -453,21 +487,23 @@ public abstract class DataProvider
      * @return entry   containing target ldap node.
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
-    protected LDAPEntry searchNode(LDAPConnection ld,
-                                       String baseDn,
-                                       int scope, String filter,
-                                       String[] atrs,
-                                       boolean attrsOnly)
+    protected LDAPEntry searchNode( LDAPConnection ld,
+        String baseDn,
+        int scope, String filter,
+        String[] atrs,
+        boolean attrsOnly )
         throws LDAPException
     {
-        LDAPSearchResults result = ld.search(baseDn, scope,
-            filter, atrs, attrsOnly);
-        if (result.getCount() > 1)
+        LDAPSearchResults result = ld.search( baseDn, scope,
+            filter, atrs, attrsOnly );
+        if ( result.getCount() > 1 )
         {
-            throw new LDAPException(CLS_NM + ".searchNode failed to return unique record for LDAP search of base DN [" + baseDn + "] filter [" + filter + "]");
+            throw new LDAPException( CLS_NM + ".searchNode failed to return unique record for LDAP search of base DN ["
+                + baseDn + "] filter [" + filter + "]" );
         }
         return result.next();
     }
+
 
     /**
      * This search method uses OpenLDAP Proxy Authorization Control to assert arbitrary user identity onto connection.
@@ -482,25 +518,28 @@ public abstract class DataProvider
      * @return entry   containing target ldap node.
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      */
-    protected LDAPEntry searchNode(LDAPConnection ld,
-                                       String baseDn,
-                                       int scope,
-                                       String filter,
-                                       String[] atrs,
-                                       boolean attrsOnly,
-                                       String userDn)
+    protected LDAPEntry searchNode( LDAPConnection ld,
+        String baseDn,
+        int scope,
+        String filter,
+        String[] atrs,
+        boolean attrsOnly,
+        String userDn )
         throws LDAPException, UnsupportedEncodingException
     {
-        LDAPControl proxyCtl = new LDAPControl(OPENLDAP_PROXY_CONTROL, true, (GlobalIds.DN + ": " + userDn).getBytes(GlobalIds.UTF8));
+        LDAPControl proxyCtl = new LDAPControl( OPENLDAP_PROXY_CONTROL, true,
+            ( GlobalIds.DN + ": " + userDn ).getBytes( GlobalIds.UTF8 ) );
         LDAPSearchConstraints opt = new LDAPSearchConstraints();
-        opt.setServerControls(proxyCtl);
-        LDAPSearchResults result = ld.search(baseDn, scope, filter, atrs, attrsOnly, opt);
-        if (result.getCount() > 1)
+        opt.setServerControls( proxyCtl );
+        LDAPSearchResults result = ld.search( baseDn, scope, filter, atrs, attrsOnly, opt );
+        if ( result.getCount() > 1 )
         {
-            throw new LDAPException(CLS_NM + ".searchNode failed to return unique record for LDAP search of base DN [" + baseDn + "] filter [" + filter + "]");
+            throw new LDAPException( CLS_NM + ".searchNode failed to return unique record for LDAP search of base DN ["
+                + baseDn + "] filter [" + filter + "]" );
         }
         return result.next();
     }
+
 
     /**
      * This method uses the compare ldap func to assert audit record into the directory server's configured audit logger.
@@ -513,17 +552,19 @@ public abstract class DataProvider
      * @throws LDAPException thrown in the event of error in ldap client or server code.
      * @throws UnsupportedEncodingException in the event the server cannot perform the operation.
      */
-    protected boolean compareNode(LDAPConnection ld,
-                                       String dn,
-                                       String userDn,
-                                       LDAPAttribute attribute)
+    protected boolean compareNode( LDAPConnection ld,
+        String dn,
+        String userDn,
+        LDAPAttribute attribute )
         throws LDAPException, UnsupportedEncodingException
     {
-        LDAPControl proxyCtl = new LDAPControl(OPENLDAP_PROXY_CONTROL, true, (GlobalIds.DN + ": " + userDn).getBytes(GlobalIds.UTF8));
+        LDAPControl proxyCtl = new LDAPControl( OPENLDAP_PROXY_CONTROL, true,
+            ( GlobalIds.DN + ": " + userDn ).getBytes( GlobalIds.UTF8 ) );
         LDAPSearchConstraints opt = new LDAPSearchConstraints();
-        opt.setServerControls(proxyCtl);
-        return ld.compare(dn,attribute, opt);
+        opt.setServerControls( proxyCtl );
+        return ld.compare( dn, attribute, opt );
     }
+
 
     /**
      * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns as a list of strings.
@@ -533,13 +574,13 @@ public abstract class DataProvider
      * @return List of type string containing attribute values.
      * @throws LDAPException in the event of ldap client error.
      */
-    protected List<String> getAttributes(LDAPEntry entry, String attributeName)
+    protected List<String> getAttributes( LDAPEntry entry, String attributeName )
     {
         List<String> attrValues = new ArrayList<>();
         LDAPAttribute attr;
         Enumeration values;
-        attr = entry.getAttribute(attributeName);
-        if (attr != null)
+        attr = entry.getAttribute( attributeName );
+        if ( attr != null )
         {
             values = attr.getStringValues();
         }
@@ -547,15 +588,16 @@ public abstract class DataProvider
         {
             return null;
         }
-        if (values != null)
+        if ( values != null )
         {
-            while (values.hasMoreElements())
+            while ( values.hasMoreElements() )
             {
-                attrValues.add((String) values.nextElement());
+                attrValues.add( ( String ) values.nextElement() );
             }
         }
         return attrValues;
     }
+
 
     /**
      * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns as a set of strings.
@@ -565,14 +607,14 @@ public abstract class DataProvider
      * @return List of type string containing attribute values.
      * @throws LDAPException in the event of ldap client error.
      */
-    protected Set<String> getAttributeSet(LDAPEntry entry, String attributeName)
+    protected Set<String> getAttributeSet( LDAPEntry entry, String attributeName )
     {
         // create Set with case insensitive comparator:
-        Set<String> attrValues = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> attrValues = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         LDAPAttribute attr;
         Enumeration values;
-        attr = entry.getAttribute(attributeName);
-        if (attr != null)
+        attr = entry.getAttribute( attributeName );
+        if ( attr != null )
         {
             values = attr.getStringValues();
         }
@@ -580,15 +622,16 @@ public abstract class DataProvider
         {
             return null;
         }
-        if (values != null)
+        if ( values != null )
         {
-            while (values.hasMoreElements())
+            while ( values.hasMoreElements() )
             {
-                attrValues.add((String) values.nextElement());
+                attrValues.add( ( String ) values.nextElement() );
             }
         }
         return attrValues;
     }
+
 
     /**
      * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and return as a list of type {@link us.jts.fortress.rbac.Relationship}.
@@ -598,14 +641,14 @@ public abstract class DataProvider
      * @return List of type {@link us.jts.fortress.rbac.Relationship} containing parent-child relationships.
      * @throws LDAPException in the event of ldap client error.
      */
-    protected List<Relationship> getRelationshipAttributes(LDAPEntry entry, String attributeName)
+    protected List<Relationship> getRelationshipAttributes( LDAPEntry entry, String attributeName )
     {
         List<Relationship> attrValues = new ArrayList<>();
         LDAPAttribute attr;
         Enumeration values;
 
-        attr = entry.getAttribute(attributeName);
-        if (attr != null)
+        attr = entry.getAttribute( attributeName );
+        if ( attr != null )
         {
             values = attr.getStringValues();
         }
@@ -613,32 +656,34 @@ public abstract class DataProvider
         {
             return null;
         }
-        if (values != null)
+        if ( values != null )
         {
-            while (values.hasMoreElements())
+            while ( values.hasMoreElements() )
             {
-                String edge = (String) values.nextElement();
-                int indx = edge.indexOf(GlobalIds.PROP_SEP);
-                if (indx >= 1)
+                String edge = ( String ) values.nextElement();
+                int indx = edge.indexOf( GlobalIds.PROP_SEP );
+                if ( indx >= 1 )
                 {
                     // This LDAP attr is stored as a name-value pair separated by a ':'.
                     // Separate the parent from the child:
-                    String child = edge.substring(0, indx);
-                    String parent = edge.substring(indx + 1);
+                    String child = edge.substring( 0, indx );
+                    String parent = edge.substring( indx + 1 );
 
                     // Load the parent/child relationship values into a helper class:
-                    Relationship rel = new Relationship(child, parent);
-                    attrValues.add(rel);
+                    Relationship rel = new Relationship( child, parent );
+                    attrValues.add( rel );
                 }
                 else
                 {
-                    String warning = CLS_NM + ".getRelAttributes detected incorrect data in role relationship field: " + edge;
-                    log.warn(warning);
+                    String warning = CLS_NM + ".getRelAttributes detected incorrect data in role relationship field: "
+                        + edge;
+                    log.warn( warning );
                 }
             }
         }
         return attrValues;
     }
+
 
     /**
      * Method wraps ldap client to return attribute value by name within a given entry and returns as a string.
@@ -648,13 +693,13 @@ public abstract class DataProvider
      * @return value contained in a string variable.
      * @throws LDAPException in the event of ldap client error.
      */
-    protected String getAttribute(LDAPEntry entry, String attributeName)
+    protected String getAttribute( LDAPEntry entry, String attributeName )
     {
         String attrValue = null;
         LDAPAttribute attr;
         Enumeration values;
-        attr = entry.getAttribute(attributeName);
-        if (attr != null)
+        attr = entry.getAttribute( attributeName );
+        if ( attr != null )
         {
             values = attr.getStringValues();
         }
@@ -662,12 +707,13 @@ public abstract class DataProvider
         {
             return null;
         }
-        if (values != null)
+        if ( values != null )
         {
-            attrValue = (String) values.nextElement();
+            attrValue = ( String ) values.nextElement();
         }
         return attrValue;
     }
+
 
     /**
      * Method will retrieve the relative distinguished name from a distinguished name variable.
@@ -676,12 +722,13 @@ public abstract class DataProvider
      * @return rDn as string.
      * @throws LDAPException in the event of ldap client error.
      */
-    protected String getRdn(String dn)
+    protected String getRdn( String dn )
     {
         String[] dnList;
-        dnList = LDAPDN.explodeDN(dn, true);
+        dnList = LDAPDN.explodeDN( dn, true );
         return dnList[0];
     }
+
 
     /**
      * Create multi-occurring ldap attribute given array of strings and attribute name.
@@ -691,17 +738,18 @@ public abstract class DataProvider
      * @return LDAPAttribute containing multi-occurring attribute set.
      * @throws LDAPException in the event of ldap client error.
      */
-    protected LDAPAttribute createAttributes(String name, String values[])
+    protected LDAPAttribute createAttributes( String name, String values[] )
         throws LDAPException
     {
-        LDAPAttribute attr = new LDAPAttribute(name);
-        for (String value : values)
+        LDAPAttribute attr = new LDAPAttribute( name );
+        for ( String value : values )
         {
-            encodeSafeText(value, value.length());
-            attr.addValue(value);
+            encodeSafeText( value, value.length() );
+            attr.addValue( value );
         }
         return attr;
     }
+
 
     /**
      * Create ldap attribute given an attribute name and value.
@@ -711,14 +759,15 @@ public abstract class DataProvider
      * @return LDAPAttribute containing new ldap attribute.
      * @throws LDAPException in the event of ldap client error.
      */
-    protected LDAPAttribute createAttribute(String name, String value)
+    protected LDAPAttribute createAttribute( String name, String value )
         throws LDAPException
     {
-        LDAPAttribute attr = new LDAPAttribute(name);
-        encodeSafeText(value, value.length());
-        attr.addValue(value);
+        LDAPAttribute attr = new LDAPAttribute( name );
+        encodeSafeText( value, value.length() );
+        attr.addValue( value );
         return attr;
     }
+
 
     /**
      * Convert constraint from raw ldap format to application entity.
@@ -727,14 +776,15 @@ public abstract class DataProvider
      * @param ftDateTime reference to {@link us.jts.fortress.util.time.Constraint} containing formatted data.
      * @throws LDAPException in the event of ldap client error.
      */
-    protected void unloadTemporal(LDAPEntry le, Constraint ftDateTime)
+    protected void unloadTemporal( LDAPEntry le, Constraint ftDateTime )
     {
-        String szRawData = getAttribute(le, GlobalIds.CONSTRAINT);
-        if (szRawData != null && szRawData.length() > 0)
+        String szRawData = getAttribute( le, GlobalIds.CONSTRAINT );
+        if ( szRawData != null && szRawData.length() > 0 )
         {
-            CUtil.setConstraint(szRawData, ftDateTime);
+            CUtil.setConstraint( szRawData, ftDateTime );
         }
     }
+
 
     /**
      * Given an ldap attribute name and a list of attribute values, construct an ldap attribute set to be added to directory.
@@ -743,28 +793,29 @@ public abstract class DataProvider
      * @param attrs    contains ldap attribute set targeted for adding.
      * @param attrName name of ldap attribute being added.
      */
-    protected void loadAttrs(List<String> list, LDAPAttributeSet attrs, String attrName)
+    protected void loadAttrs( List<String> list, LDAPAttributeSet attrs, String attrName )
     {
-        if (list != null && list.size() > 0)
+        if ( list != null && list.size() > 0 )
         {
             LDAPAttribute attr = null;
-            for (String val : list)
+            for ( String val : list )
             {
-                if (attr == null)
+                if ( attr == null )
                 {
-                    attr = new LDAPAttribute(attrName, val);
+                    attr = new LDAPAttribute( attrName, val );
                 }
                 else
                 {
-                    attr.addValue(val);
+                    attr.addValue( val );
                 }
             }
-            if (attr != null)
+            if ( attr != null )
             {
-                attrs.add(attr);
+                attrs.add( attr );
             }
         }
     }
+
 
     /**
      * Given a collection of {@link us.jts.fortress.rbac.Relationship}, convert to raw data name-value format and load into ldap attribute set in preparation for ldap add.
@@ -773,29 +824,30 @@ public abstract class DataProvider
      * @param attrs    collection of ldap attributes containing parent-child relationships in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be added.
      */
-    protected void loadRelationshipAttrs(List<Relationship> list, LDAPAttributeSet attrs, String attrName)
+    protected void loadRelationshipAttrs( List<Relationship> list, LDAPAttributeSet attrs, String attrName )
     {
-        if (list != null)
+        if ( list != null )
         {
             LDAPAttribute attr = null;
-            for (Relationship rel : list)
+            for ( Relationship rel : list )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                if (attr == null)
+                if ( attr == null )
                 {
-                    attr = new LDAPAttribute(attrName, rel.getChild() + GlobalIds.PROP_SEP + rel.getParent());
+                    attr = new LDAPAttribute( attrName, rel.getChild() + GlobalIds.PROP_SEP + rel.getParent() );
                 }
                 else
                 {
-                    attr.addValue(rel.getChild() + GlobalIds.PROP_SEP + rel.getParent());
+                    attr.addValue( rel.getChild() + GlobalIds.PROP_SEP + rel.getParent() );
                 }
             }
-            if (attr != null)
+            if ( attr != null )
             {
-                attrs.add(attr);
+                attrs.add( attr );
             }
         }
     }
+
 
     /**
      * Given an ldap attribute name and a set of attribute values, construct an ldap attribute set to be added to directory.
@@ -804,28 +856,29 @@ public abstract class DataProvider
      * @param attrs    contains ldap attribute set targeted for adding.
      * @param attrName name of ldap attribute being added.
      */
-    protected void loadAttrs(Set<String> values, LDAPAttributeSet attrs, String attrName)
+    protected void loadAttrs( Set<String> values, LDAPAttributeSet attrs, String attrName )
     {
-        if (values != null && values.size() > 0)
+        if ( values != null && values.size() > 0 )
         {
             LDAPAttribute attr = null;
-            for (String value : values)
+            for ( String value : values )
             {
-                if (attr == null)
+                if ( attr == null )
                 {
-                    attr = new LDAPAttribute(attrName, value);
+                    attr = new LDAPAttribute( attrName, value );
                 }
                 else
                 {
-                    attr.addValue(value);
+                    attr.addValue( value );
                 }
             }
-            if (attr != null)
+            if ( attr != null )
             {
-                attrs.add(attr);
+                attrs.add( attr );
             }
         }
     }
+
 
     /**
      * Given an ldap attribute name and a list of attribute values, construct an ldap modification set to be updated in directory.
@@ -834,19 +887,20 @@ public abstract class DataProvider
      * @param mods     contains ldap modification set targeted for updating.
      * @param attrName name of ldap attribute being modified.
      */
-    protected void loadAttrs(List<String> list, LDAPModificationSet mods, String attrName)
+    protected void loadAttrs( List<String> list, LDAPModificationSet mods, String attrName )
     {
-        if (list != null && list.size() > 0)
+        if ( list != null && list.size() > 0 )
         {
-            LDAPAttribute attr = new LDAPAttribute(attrName);
-            mods.add(LDAPModification.REPLACE, attr);
-            for (String val : list)
+            LDAPAttribute attr = new LDAPAttribute( attrName );
+            mods.add( LDAPModification.REPLACE, attr );
+            for ( String val : list )
             {
-                attr = new LDAPAttribute(attrName, val);
-                mods.add(LDAPModification.ADD, attr);
+                attr = new LDAPAttribute( attrName, val );
+                mods.add( LDAPModification.ADD, attr );
             }
         }
     }
+
 
     /**
      * Given a collection of {@link us.jts.fortress.rbac.Relationship}s, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
@@ -856,30 +910,31 @@ public abstract class DataProvider
      * @param attrName contains the name of the ldap attribute to be updated.
      * @param op       specifies type of mod: {@link Hier.Op#ADD}, {@link us.jts.fortress.rbac.Hier.Op#MOD}, {@link Hier.Op#REM}
      */
-    protected void loadRelationshipAttrs(List<Relationship> list, LDAPModificationSet mods, String attrName, Hier.Op op)
+    protected void loadRelationshipAttrs( List<Relationship> list, LDAPModificationSet mods, String attrName, Hier.Op op )
     {
-        if (list != null)
+        if ( list != null )
         {
             LDAPAttribute attr;
-            for (Relationship rel : list)
+            for ( Relationship rel : list )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                attr = new LDAPAttribute(attrName, rel.getChild() + GlobalIds.PROP_SEP + rel.getParent());
-                switch (op)
+                attr = new LDAPAttribute( attrName, rel.getChild() + GlobalIds.PROP_SEP + rel.getParent() );
+                switch ( op )
                 {
                     case ADD:
-                        mods.add(LDAPModification.ADD, attr);
+                        mods.add( LDAPModification.ADD, attr );
                         break;
                     case MOD:
-                        mods.add(LDAPModification.REPLACE, attr);
+                        mods.add( LDAPModification.REPLACE, attr );
                         break;
                     case REM:
-                        mods.add(LDAPModification.DELETE, attr);
+                        mods.add( LDAPModification.DELETE, attr );
                         break;
                 }
             }
         }
     }
+
 
     /**
      * Given an ldap attribute name and a set of attribute values, construct an ldap modification set to be updated in directory.
@@ -888,19 +943,20 @@ public abstract class DataProvider
      * @param mods     contains ldap modification set targeted for updating.
      * @param attrName name of ldap attribute being updated.
      */
-    protected void loadAttrs(Set<String> values, LDAPModificationSet mods, String attrName)
+    protected void loadAttrs( Set<String> values, LDAPModificationSet mods, String attrName )
     {
-        if (values != null && values.size() > 0)
+        if ( values != null && values.size() > 0 )
         {
-            LDAPAttribute attr = new LDAPAttribute(attrName);
-            mods.add(LDAPModification.REPLACE, attr);
-            for (String value : values)
+            LDAPAttribute attr = new LDAPAttribute( attrName );
+            mods.add( LDAPModification.REPLACE, attr );
+            for ( String value : values )
             {
-                attr = new LDAPAttribute(attrName, value);
-                mods.add(LDAPModification.ADD, attr);
+                attr = new LDAPAttribute( attrName, value );
+                mods.add( LDAPModification.ADD, attr );
             }
         }
     }
+
 
     /**
      * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
@@ -910,24 +966,25 @@ public abstract class DataProvider
      * @param attrName contains the name of the ldap attribute to be updated.
      * @param replace  boolean variable, if set to true use {@link LDAPModification#REPLACE} else {@link LDAPModification#ADD}.
      */
-    protected void loadProperties(Properties props, LDAPModificationSet mods, String attrName, boolean replace)
+    protected void loadProperties( Properties props, LDAPModificationSet mods, String attrName, boolean replace )
     {
-        if (props != null && props.size() > 0)
+        if ( props != null && props.size() > 0 )
         {
-            LDAPAttribute prop = new LDAPAttribute(attrName);
-            if (replace)
-                mods.add(LDAPModification.REPLACE, prop);
+            LDAPAttribute prop = new LDAPAttribute( attrName );
+            if ( replace )
+                mods.add( LDAPModification.REPLACE, prop );
 
-            for (Enumeration e = props.propertyNames(); e.hasMoreElements();)
+            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
             {
-                String key = (String) e.nextElement();
-                String val = props.getProperty(key);
+                String key = ( String ) e.nextElement();
+                String val = props.getProperty( key );
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                prop = new LDAPAttribute(attrName, key + GlobalIds.PROP_SEP + val);
-                mods.add(LDAPModification.ADD, prop);
+                prop = new LDAPAttribute( attrName, key + GlobalIds.PROP_SEP + val );
+                mods.add( LDAPModification.ADD, prop );
             }
         }
     }
+
 
     /**
      * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
@@ -936,21 +993,22 @@ public abstract class DataProvider
      * @param mods     ldap modification set containing name-value pairs in raw ldap format to be removed.
      * @param attrName contains the name of the ldap attribute to be removed.
      */
-    protected void removeProperties(Properties props, LDAPModificationSet mods, String attrName)
+    protected void removeProperties( Properties props, LDAPModificationSet mods, String attrName )
     {
-        if (props != null && props.size() > 0)
+        if ( props != null && props.size() > 0 )
         {
             LDAPAttribute prop;
-            for (Enumeration e = props.propertyNames(); e.hasMoreElements();)
+            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
             {
-                String key = (String) e.nextElement();
-                String val = props.getProperty(key);
+                String key = ( String ) e.nextElement();
+                String val = props.getProperty( key );
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                prop = new LDAPAttribute(attrName, key + GlobalIds.PROP_SEP + val);
-                mods.add(LDAPModification.DELETE, prop);
+                prop = new LDAPAttribute( attrName, key + GlobalIds.PROP_SEP + val );
+                mods.add( LDAPModification.DELETE, prop );
             }
         }
     }
+
 
     /**
      * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap add.
@@ -959,32 +1017,33 @@ public abstract class DataProvider
      * @param attrs    ldap attribute set containing name-value pairs in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be added.
      */
-    protected void loadProperties(Properties props, LDAPAttributeSet attrs, String attrName)
+    protected void loadProperties( Properties props, LDAPAttributeSet attrs, String attrName )
     {
-        if (props != null && props.size() > 0)
+        if ( props != null && props.size() > 0 )
         {
             LDAPAttribute attr = null;
-            for (Enumeration e = props.propertyNames(); e.hasMoreElements();)
+            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                String key = (String) e.nextElement();
-                String val = props.getProperty(key);
+                String key = ( String ) e.nextElement();
+                String val = props.getProperty( key );
                 String prop = key + GlobalIds.PROP_SEP + val;
-                if (attr == null)
+                if ( attr == null )
                 {
-                    attr = new LDAPAttribute(attrName, prop);
+                    attr = new LDAPAttribute( attrName, prop );
                 }
                 else
                 {
-                    attr.addValue(prop);
+                    attr.addValue( prop );
                 }
             }
-            if (attr != null)
+            if ( attr != null )
             {
-                attrs.add(attr);
+                attrs.add( attr );
             }
         }
     }
+
 
     /**
      *
@@ -993,24 +1052,25 @@ public abstract class DataProvider
      * @return String containing encoded data.
      * @throws LDAPException
      */
-    protected String encodeSafeText(String value, int validLen)
+    protected String encodeSafeText( String value, int validLen )
         throws LDAPException
     {
-        if (VUtil.isNotNullOrEmpty(value))
+        if ( VUtil.isNotNullOrEmpty( value ) )
         {
             int length = value.length();
-            if (length > validLen)
+            if ( length > validLen )
             {
                 String error = CLS_NM + ".encodeSafeText value [" + value + "] invalid length [" + length + "]";
-                throw new LDAPException(error, LDAPException.PARAM_ERROR);
+                throw new LDAPException( error, LDAPException.PARAM_ERROR );
             }
-            if (GlobalIds.LDAP_FILTER_SIZE_FOUND)
+            if ( GlobalIds.LDAP_FILTER_SIZE_FOUND )
             {
-                value = VUtil.escapeLDAPSearchFilter(value);
+                value = VUtil.escapeLDAPSearchFilter( value );
             }
         }
         return value;
     }
+
 
     /**
      * Calls the PoolMgr to perform an LDAP bind for a user/password combination.  This function is valid
@@ -1023,41 +1083,45 @@ public abstract class DataProvider
      * @return boolean value - true if bind successful, false otherwise.
      * @throws LDAPException in the event of LDAP error.
      */
-    protected boolean bind(LDAPConnection ld, String userId, char[] password)
+    protected boolean bind( LDAPConnection ld, String userId, char[] password )
         throws LDAPException
     {
-        return PoolMgr.bind(ld, userId, password);
+        return PoolMgr.bind( ld, userId, password );
     }
+
 
     /**
      * Calls the PoolMgr to close the Admin LDAP connection.
      *
      * @param ld   handle to ldap connection object.
      */
-    protected void closeAdminConnection(LDAPConnection ld)
+    protected void closeAdminConnection( LDAPConnection ld )
     {
-        PoolMgr.closeConnection(ld, PoolMgr.ConnType.ADMIN);
+        PoolMgr.closeConnection( ld, PoolMgr.ConnType.ADMIN );
     }
+
 
     /**
      * Calls the PoolMgr to close the User LDAP connection.
      *
      * @param ld   handle to ldap connection object.
      */
-    protected void closeUserConnection(LDAPConnection ld)
+    protected void closeUserConnection( LDAPConnection ld )
     {
-        PoolMgr.closeConnection(ld, PoolMgr.ConnType.USER);
+        PoolMgr.closeConnection( ld, PoolMgr.ConnType.USER );
     }
+
 
     /**
      * Calls the PoolMgr to close the Log LDAP connection.
      *
      * @param ld   handle to ldap connection object.
      */
-    protected void closeLogConnection(LDAPConnection ld)
+    protected void closeLogConnection( LDAPConnection ld )
     {
-        PoolMgr.closeConnection(ld, PoolMgr.ConnType.LOG);
+        PoolMgr.closeConnection( ld, PoolMgr.ConnType.LOG );
     }
+
 
     /**
      * Calls the PoolMgr to get a User connection to the LDAP server.
@@ -1067,8 +1131,9 @@ public abstract class DataProvider
      */
     protected LDAPConnection getUserConnection() throws LDAPException
     {
-        return PoolMgr.getConnection(PoolMgr.ConnType.USER);
+        return PoolMgr.getConnection( PoolMgr.ConnType.USER );
     }
+
 
     /**
      * Calls the PoolMgr to get an Admin connection to the LDAP server.
@@ -1078,8 +1143,9 @@ public abstract class DataProvider
      */
     protected LDAPConnection getAdminConnection() throws LDAPException
     {
-        return PoolMgr.getConnection(PoolMgr.ConnType.ADMIN);
+        return PoolMgr.getConnection( PoolMgr.ConnType.ADMIN );
     }
+
 
     /**
      * Calls the PoolMgr to get a Log connection to the LDAP server.
@@ -1089,6 +1155,6 @@ public abstract class DataProvider
      */
     protected LDAPConnection getLogConnection() throws LDAPException
     {
-        return PoolMgr.getConnection(PoolMgr.ConnType.LOG);
+        return PoolMgr.getConnection( PoolMgr.ConnType.LOG );
     }
 }
