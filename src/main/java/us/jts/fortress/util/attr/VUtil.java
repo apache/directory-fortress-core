@@ -423,7 +423,7 @@ public class VUtil
     public static void assertNotNullOrEmpty( String value, int errorCode, String method )
         throws ValidationException
     {
-        if ( isNotNullOrEmpty( value ) )
+        if ( !isNotNullOrEmpty( value ) )
         {
             String error = CLS_NM + ".assertContext detected null entity for method [" + method + "], error code ["
                 + errorCode + "]";
@@ -442,7 +442,7 @@ public class VUtil
     public static void assertNotNullOrEmpty( char[] value, int errorCode, String method )
         throws ValidationException
     {
-        if ( isNotNullOrEmpty( value ) )
+        if ( !isNotNullOrEmpty( value ) )
         {
             String error = CLS_NM + ".assertContext detected null entity for method [" + method + "], error code ["
                 + errorCode + "]";
@@ -525,6 +525,22 @@ public class VUtil
     public static boolean isNotNullOrEmpty( Boolean bVal )
     {
         return ( bVal != null );
+    }
+
+
+    /**
+     * Method will return true if byte array reference is not null or empty.
+     * @param value contains the reference to byte array.
+     * @return boolean if validation succeeds.
+     */
+    public static boolean isNotNullOrEmpty( byte[] value )
+    {
+        boolean result = false;
+        if ( value != null && value.length > 0 )
+        {
+            result = true;
+        }
+        return result;
     }
 
 

@@ -205,6 +205,11 @@ final class UserDAO extends DataProvider
     private static final String TELEPHONE_NUMBER = "telephoneNumber";
 
     /**
+     * Constant contains the  attribute name for jpeg images to be stored within inetorgperson ldap object classes.
+     */
+    private static final String JPEGPHOTO = "jpegPhoto";
+
+    /**
      * Constant contains the email attribute values used within iNetOrgPerson ldap object classes.
      */
     private static final String MAIL = "mail";
@@ -272,7 +277,8 @@ final class UserDAO extends DataProvider
         MAIL,
         EMPLOYEE_TYPE,
         TITLE,
-        SYSTEM_USER
+        SYSTEM_USER,
+        JPEGPHOTO
     };
 
     private static final String[] ROLE_ATR =
@@ -379,6 +385,12 @@ final class UserDAO extends DataProvider
             entity.setName(entity.getUserId());
             attrs.add(createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint(entity)));
             loadAddress(entity.getAddress(), attrs);
+
+            if(VUtil.isNotNullOrEmpty(entity.getJpegPhoto()))
+            {
+                attrs.add(new LDAPAttribute(JPEGPHOTO,entity.getJpegPhoto()));
+            }
+
             String dn = getDn(entity.getUserId(), entity.getContextId());
 
             LDAPEntry myEntry = new LDAPEntry(dn, attrs);
@@ -1647,14 +1659,13 @@ final class UserDAO extends DataProvider
             {
                 entity.setPwPolicy(getRdn(szPolicy));
             }
-
-
             szBoolean = getAttribute(le, OPENLDAP_PW_LOCKED_TIME);
             if (szBoolean != null && szBoolean.equals(LOCK_VALUE))
             {
                 entity.setLocked(true);
             }
         }
+        entity.setJpegPhoto(getPhoto(le, JPEGPHOTO));
         return entity;
     }
 

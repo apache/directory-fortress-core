@@ -133,6 +133,9 @@
        <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
        <property name="commons-pool.jar" value="${lib.dir}/commons-pool-1.5.2.jar"/>
        <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
+       <property name="commons-io.jar" value="${lib.dir}/commons-io-2.4.jar"/>
+       <property name="cxf-common-utilities.jar" value="${lib.dir}/cxf-common-utilities-2.5.0.jar"/>
+       <property name="commons-codec.jar" value="${lib.dir}/commons-codec-1.2.jar"/>
        <property name="unboundsdk.jar" value="${lib.dir}/unboundid-ldapsdk-2.1.0.jar"/>
        <property name="jgraph.jar" value="${lib.dir}/jgrapht-jdk1.5-0.7.3.jar"/>
        <property name="log4j.jar" value="${lib.dir}/log4j-1.2.16.jar"/>
@@ -144,8 +147,6 @@
        <property name="jackson-jaxrs.jar" value="${lib.dir}/jackson-jaxrs-1.9.0.jar"/>
        <property name="commons-httpclient.jar" value="${lib.dir}/commons-httpclient-3.1.jar"/>
        <property name="jsr311-api.jar" value="${lib.dir}/jsr311-api-1.1.1.jar"/>
-       <property name="cxf-common-utilities.jar" value="${lib.dir}/cxf-common-utilities-2.5.0.jar"/>
-       <property name="commons-codec.jar" value="${lib.dir}/commons-codec-1.2.jar"/>
        <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.5.jar"/>
        <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
        <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.6.1.jar"/>
@@ -160,6 +161,7 @@
            <pathelement location="${commons-config.jar}"/>
            <pathelement location="${commons-lang.jar}"/>
            <pathelement location="${commons-pool.jar}"/>
+           <pathelement location="${commons-io.jar}"/>
            <pathelement location="${jasypt.jar}"/>
            <pathelement location="${jaxb-api.jar}"/>
            <pathelement location="${jaxb-impl.jar}"/>
@@ -185,12 +187,13 @@
            <pathelement location="${commons-pool.jar}"/>
            <pathelement location="${commons-logging.jar}"/>
            <pathelement location="${commons-collections.jar}"/>
+           <pathelement location="${commons-codec.jar}"/>
+           <pathelement location="${commons-io.jar}"/>
            <pathelement location="${jasypt.jar}"/>
            <pathelement location="${jackson-jaxrs.jar}"/>
            <pathelement location="${commons-httpclient.jar}"/>
            <pathelement location="${jsr311-api.jar}"/>
            <pathelement location="${cxf-common-utilities.jar}"/>
-           <pathelement location="${commons-codec.jar}"/>
            <pathelement location="${jaxb-api.jar}"/>
            <pathelement location="${jaxb-impl.jar}"/>
            <pathelement location="${jaxb-xjc.jar}"/>
@@ -198,6 +201,7 @@
            <pathelement location="${slf4j-api.jar}"/>
            <pathelement location="${slf4j-jcl.jar}"/>
            <pathelement location="${ant.home}/lib/ant.jar"/>
+           <pathelement location="${images.dir}"/>
        </path>
 
        <!-- This is used before the initial loads have stored properties on the ldap server. -->

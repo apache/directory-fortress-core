@@ -4,18 +4,26 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.GlobalIds;
-import us.jts.fortress.util.LogUtil;
-import us.jts.fortress.util.attr.VUtil;
-import junit.framework.TestCase;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
+import junit.framework.TestCase;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+
+import us.jts.fortress.GlobalIds;
+import us.jts.fortress.util.LogUtil;
+import us.jts.fortress.util.attr.VUtil;
+
 
 /**
  * Description of the Class
@@ -24,80 +32,112 @@ import org.apache.log4j.Logger;
  */
 public class TestUtils extends TestCase
 {
-    final protected static Logger log = Logger.getLogger(TestUtils.class.getName());
+    final protected static Logger log = Logger.getLogger( TestUtils.class.getName() );
+    private static final String CLS_NM = TestUtils.class.getName();
+
     /**
      * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of ',' is used for string tokenization.
      * format: {@code name:value}
      */
     public static final String DELIMITER_TEST_DATA = ",";
 
-
     private static String contextId = GlobalIds.HOME;
+
+
     public static String getContext()
     {
         // This property can be overriden with system property:
-        String tenant = System.getProperty(GlobalIds.TENANT);
-        if(VUtil.isNotNullOrEmpty(tenant) && !tenant.equals("${tenant}"))
+        String tenant = System.getProperty( GlobalIds.TENANT );
+        if ( VUtil.isNotNullOrEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
         {
             contextId = tenant;
         }
         return contextId;
     }
 
+
+    public static byte[] readJpegFile( String fileName )
+    {
+        URL fUrl = TestUtils.class.getClassLoader().getResource( fileName );
+        byte[] image = null;
+        try
+        {
+            if ( fUrl != null )
+            {
+                image = FileUtils.readFileToByteArray( new File( fUrl.toURI() ) );
+            }
+        }
+        catch ( URISyntaxException se )
+        {
+            String error = CLS_NM + ".readJpegFile caught URISyntaxException=" + se;
+            log.error( error );
+        }
+        catch ( IOException ioe )
+        {
+            String error = CLS_NM + ".readJpegFile caught IOException=" + ioe;
+            log.error( error );
+        }
+        return image;
+    }
+
+
     /**
      * 
      * @param len
      */
-    public static void sleep(String len)
+    public static void sleep( String len )
     {
         try
         {
-            Integer iSleep = (Integer.parseInt(len) * 1000);
+            Integer iSleep = ( Integer.parseInt( len ) * 1000 );
             //log.info(TestUtils.class.getName() + ".sleep for len=" + iSleep);
-            LogUtil.logIt(TestUtils.class.getName() + ".sleep for len=" + iSleep);
-            Thread.currentThread().sleep(iSleep);
+            LogUtil.logIt( TestUtils.class.getName() + ".sleep for len=" + iSleep );
+            Thread.currentThread().sleep( iSleep );
         }
-        catch (InterruptedException ie)
+        catch ( InterruptedException ie )
         {
-            log.warn(TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie);
+            log.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
         }
     }
+
 
     /**
      *
      * @param len
      */
-    public static void sleep(int len)
+    public static void sleep( int len )
     {
         try
         {
             int iSleep = len * 1000;
-            us.jts.fortress.util.LogUtil.logIt(TestUtils.class.getName() + ".sleep for len=" + iSleep);
-            Thread.currentThread().sleep(iSleep);
+            us.jts.fortress.util.LogUtil.logIt( TestUtils.class.getName() + ".sleep for len=" + iSleep );
+            Thread.currentThread().sleep( iSleep );
         }
-        catch (InterruptedException ie)
+        catch ( InterruptedException ie )
         {
-            log.warn(TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie);
+            log.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
         }
     }
+
 
     /**
      *
      * @param len
      */
-    public static void sleep(long len)
+    public static void sleep( long len )
     {
         try
         {
             long iSleep = len * 1000;
-            us.jts.fortress.util.LogUtil.logIt(TestUtils.class.getName() + ".sleep for len=" + iSleep);
-            Thread.currentThread().sleep(iSleep);
+            us.jts.fortress.util.LogUtil.logIt( TestUtils.class.getName() + ".sleep for len=" + iSleep );
+            Thread.currentThread().sleep( iSleep );
         }
-        catch (InterruptedException ie)
+        catch ( InterruptedException ie )
         {
-            log.warn(TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie);
+            log.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
         }
     }
+
 
     /**
      *
@@ -105,22 +145,22 @@ public class TestUtils extends TestCase
      * @param fieldLabel
      * @return
      */
-    public static String getDataLabel(Class inClass, String fieldLabel)
+    public static String getDataLabel( Class inClass, String fieldLabel )
     {
         String labelValue = null;
         try
         {
-            Field field = inClass.getField(fieldLabel);
-            Annotation annotation = field.getAnnotation(MyAnnotation.class);
-            if (annotation instanceof MyAnnotation)
+            Field field = inClass.getField( fieldLabel );
+            Annotation annotation = field.getAnnotation( MyAnnotation.class );
+            if ( annotation instanceof MyAnnotation )
             {
-                MyAnnotation myAnnotation = (MyAnnotation) annotation;
+                MyAnnotation myAnnotation = ( MyAnnotation ) annotation;
                 labelValue = myAnnotation.value();
             }
         }
-        catch (NoSuchFieldException e)
+        catch ( NoSuchFieldException e )
         {
-            System.out.println("annotation excep=" + e);
+            System.out.println( "annotation excep=" + e );
         }
 
         return labelValue;
@@ -133,29 +173,29 @@ public class TestUtils extends TestCase
      * @param fieldLabel
      * @return
      */
-    public static String getTestDataLabels(Class inClass, String fieldLabel)
+    public static String getTestDataLabels( Class inClass, String fieldLabel )
     {
         String fieldName = null;
         try
         {
             //Field field = inClass.getField(fieldLabel);
-            Field field = inClass.getField("POLICIES_TP1");
+            Field field = inClass.getField( "POLICIES_TP1" );
 
-            Annotation annotation = field.getAnnotation(MyAnnotation.class);
+            Annotation annotation = field.getAnnotation( MyAnnotation.class );
             //Annotation[] annotations = field.getDeclaredAnnotations();
-            if (annotation instanceof MyAnnotation)
+            if ( annotation instanceof MyAnnotation )
             {
-                MyAnnotation myAnnotation = (MyAnnotation) annotation;
+                MyAnnotation myAnnotation = ( MyAnnotation ) annotation;
 
                 //System.out.println("name: " + "dd");
-                System.out.println("*************** name: " + myAnnotation.name());
-                System.out.println("*************** value: " + myAnnotation.value());
+                System.out.println( "*************** name: " + myAnnotation.name() );
+                System.out.println( "*************** value: " + myAnnotation.value() );
                 fieldName = myAnnotation.name();
             }
         }
-        catch (NoSuchFieldException e)
+        catch ( NoSuchFieldException e )
         {
-            System.out.println("annotation excep=" + e);
+            System.out.println( "annotation excep=" + e );
         }
 
         return fieldName;
@@ -167,33 +207,36 @@ public class TestUtils extends TestCase
      * @param srchVal
      * @return
      */
-    public static String getSrchValue(String srchVal)
+    public static String getSrchValue( String srchVal )
     {
-        srchVal = srchVal.substring(0,srchVal.length()-2);
+        srchVal = srchVal.substring( 0, srchVal.length() - 2 );
         return srchVal;
     }
 
-    public static String getSrchValue(String srchVal, int length)
+
+    public static String getSrchValue( String srchVal, int length )
     {
-        srchVal = srchVal.substring(0,length);
+        srchVal = srchVal.substring( 0, length );
         return srchVal;
     }
+
 
     /**
      * @param msg
      * @param c1
      * @param c2
      */
-    public static void assertTemporal(String msg, us.jts.fortress.util.time.Constraint c1, us.jts.fortress.util.time.Constraint c2)
+    public static void assertTemporal( String msg, us.jts.fortress.util.time.Constraint c1,
+        us.jts.fortress.util.time.Constraint c2 )
     {
-        assertEquals(msg, c1.getBeginDate(), c2.getBeginDate());
-        assertEquals(msg, c1.getEndDate(), c2.getEndDate());
-        assertEquals(msg, c1.getBeginLockDate(), c2.getBeginLockDate());
-        assertEquals(msg, c1.getEndLockDate(), c2.getEndLockDate());
-        assertEquals(msg, c1.getBeginTime(), c2.getBeginTime());
-        assertEquals(msg, c1.getEndTime(), c2.getEndTime());
-        assertEquals(msg, c1.getDayMask(), c2.getDayMask());
-        assertEquals(msg, c1.getTimeout(), c2.getTimeout());
+        assertEquals( msg, c1.getBeginDate(), c2.getBeginDate() );
+        assertEquals( msg, c1.getEndDate(), c2.getEndDate() );
+        assertEquals( msg, c1.getBeginLockDate(), c2.getBeginLockDate() );
+        assertEquals( msg, c1.getEndLockDate(), c2.getEndLockDate() );
+        assertEquals( msg, c1.getBeginTime(), c2.getBeginTime() );
+        assertEquals( msg, c1.getEndTime(), c2.getEndTime() );
+        assertEquals( msg, c1.getDayMask(), c2.getDayMask() );
+        assertEquals( msg, c1.getTimeout(), c2.getTimeout() );
     }
 
 
@@ -202,25 +245,25 @@ public class TestUtils extends TestCase
      * @param szInput
      * @return
      */
-    public static Set<String> getSets(String szInput)
+    public static Set<String> getSets( String szInput )
     {
-        Set<String> vSets = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> vSets = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         try
         {
-            if (VUtil.isNotNullOrEmpty(szInput))
+            if ( VUtil.isNotNullOrEmpty( szInput ) )
             {
-                StringTokenizer charSetTkn = new StringTokenizer(szInput, TestUtils.DELIMITER_TEST_DATA);
-                if (charSetTkn.countTokens() > 0)
+                StringTokenizer charSetTkn = new StringTokenizer( szInput, TestUtils.DELIMITER_TEST_DATA );
+                if ( charSetTkn.countTokens() > 0 )
                 {
-                    while (charSetTkn.hasMoreTokens())
+                    while ( charSetTkn.hasMoreTokens() )
                     {
                         String value = charSetTkn.nextToken();
-                        vSets.add(value);
+                        vSets.add( value );
                     }
                 }
             }
         }
-        catch (java.lang.ArrayIndexOutOfBoundsException ae)
+        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
         {
             // ignore
         }
