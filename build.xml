@@ -150,6 +150,7 @@
        <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.5.jar"/>
        <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
        <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.6.1.jar"/>
+       <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M12.jar"/>
 
        <!-- ########### Define classpaths ########################### -->
        <path id="build.class.path">
@@ -171,6 +172,7 @@
            <pathelement location="${jsr311-api.jar}"/>
            <pathelement location="${cxf-common-utilities.jar}"/>
            <pathelement location="${ehcache-core.jar}"/>
+           <pathelement location="${apacheds-all.jar}"/>
        </path>
 
        <!-- This is used for the JUnit Tests -->
@@ -202,6 +204,7 @@
            <pathelement location="${slf4j-jcl.jar}"/>
            <pathelement location="${ant.home}/lib/ant.jar"/>
            <pathelement location="${images.dir}"/>
+           <pathelement location="${apacheds-all.jar}"/>
        </path>
 
        <!-- This is used before the initial loads have stored properties on the ldap server. -->
