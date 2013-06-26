@@ -530,6 +530,19 @@ public class User extends FortEntity implements Constraint, Serializable
     }
 
     /**
+     * Removes a user-adminRole object from the list of UserAdminRoles.
+     *
+     * @param adminRole UserAdminRole must contain userId and adminRole name.
+     */
+    public void delAdminRole(UserAdminRole adminRole)
+    {
+        if (adminRoles != null)
+        {
+            adminRoles.remove(adminRole);
+        }
+    }
+
+    /**
      * Return the userId that is associated with User.  UserId is required attribute and must be set on add, update, delete, createSession, authenticate, etc..
      *
      * @return attribute maps to 'uid' in 'inetOrgPerson' object class.

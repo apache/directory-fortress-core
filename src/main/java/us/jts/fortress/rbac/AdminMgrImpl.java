@@ -1287,7 +1287,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         String methodName = "createDsdSet";
-        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.SSD_NULL);
+        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL);
         setEntitySession(CLS_NM, methodName, dsdSet);
         dsdSet.setType(SDSet.SDType.DYNAMIC);
         if (dsdSet.getCardinality() == null)
@@ -1322,7 +1322,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         String methodName = "addDsdRoleMember";
-        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.SSD_NULL);
+        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL);
         assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         setEntitySession(CLS_NM, methodName, dsdSet);
         SDSet entity = sdP.read(dsdSet);
@@ -1360,7 +1360,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         String methodName = "deleteDsdRoleMember";
-        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.SSD_NULL);
+        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL);
         assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         setEntitySession(CLS_NM, methodName, dsdSet);
         SDSet entity = sdP.read(dsdSet);
@@ -1397,7 +1397,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         String methodName = "deleteDsdSet";
-        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.SSD_NULL);
+        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL);
         setEntitySession(CLS_NM, methodName, dsdSet);
         dsdSet.setType(SDSet.SDType.DYNAMIC);
         // remove any references to the old DSD from cache:
@@ -1428,7 +1428,7 @@ h     * This command sets the cardinality associated with a given DSD role set. 
         throws SecurityException
     {
         String methodName = "setDsdSetCardinality";
-        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.SSD_NULL);
+        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL);
         setEntitySession(CLS_NM, methodName, dsdSet);
         dsdSet.setType(SDSet.SDType.DYNAMIC);
         dsdSet.setCardinality(cardinality);

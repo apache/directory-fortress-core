@@ -360,7 +360,6 @@ final class UserDAO extends DataProvider
             entity.setName(entity.getUserId());
             attrs.add(createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint(entity)));
             loadAddress(entity.getAddress(), attrs);
-
             if(VUtil.isNotNullOrEmpty(entity.getJpegPhoto()))
             {
                 attrs.add(new LDAPAttribute(JPEGPHOTO,entity.getJpegPhoto()));
@@ -466,7 +465,10 @@ final class UserDAO extends DataProvider
             loadAttrs(entity.getPhones(), mods, TELEPHONE_NUMBER);
             loadAttrs(entity.getMobiles(), mods, MOBILE);
             loadAttrs(entity.getEmails(), mods, MAIL);
-
+            if(VUtil.isNotNullOrEmpty(entity.getJpegPhoto()))
+            {
+                mods.add(LDAPModification.REPLACE, new LDAPAttribute(JPEGPHOTO,entity.getJpegPhoto()));
+            }
             if (mods.size() > 0)
             {
                 ld = getAdminConnection();
