@@ -29,6 +29,24 @@ public class VUtil
     private final static Logger log = Logger.getLogger( CLS_NM );
     private static int maximumFieldLen = 130;
     private final static String VALIDATE_LENGTH = "field.length";
+
+    static
+    {
+        String lengthProp = Config.getProperty( VALIDATE_LENGTH );
+        try
+        {
+            if ( lengthProp != null )
+            {
+                Integer len = new Integer( lengthProp );
+                maximumFieldLen = len;
+            }
+        }
+        catch ( java.lang.NumberFormatException nfe )
+        {
+            //ignore
+        }
+    }
+
     private final static int MAXIMUM_FIELD_LEN = maximumFieldLen;
     private final static int maxFieldLength = MAXIMUM_FIELD_LEN;
     private final static char[] LDAP_META_CHARS = loadLdapEscapeChars();
@@ -59,9 +77,9 @@ public class VUtil
 
     /**
      * Simple length check on orgunit that uses {@link us.jts.fortress.GlobalIds#OU_LEN}.
+     *
      * @param orgUnitId contains the ou name.
      * @throws ValidationException in the event of failure, {@link us.jts.fortress.GlobalErrIds#ORG_LEN_INVLD}.
-     *
      */
     public static void orgUnit( String orgUnitId ) throws ValidationException
     {
@@ -79,7 +97,6 @@ public class VUtil
      * Simple length check on User password that uses {@link us.jts.fortress.GlobalIds#PASSWORD_LEN}.
      * @param password contains the User's password.
      * @throws ValidationException in the event of failure, {@link us.jts.fortress.GlobalErrIds#USER_PW_INVLD_LEN}.
-     *
      */
     public static void password( char[] password ) throws ValidationException
     {
@@ -98,6 +115,9 @@ public class VUtil
      * @param description contains the User's password.
      * @throws ValidationException in the event of failure, {@link us.jts.fortress.GlobalErrIds#CONST_DESC_LEN_INVLD}.
      *
+     * @param description contains the User's password.
+     * @throws us.jts.fortress.ValidationException
+     *          in the event of failure, {@link us.jts.fortress.GlobalErrIds#CONST_DESC_LEN_INVLD}.
      */
     public static void description( String description ) throws ValidationException
     {
@@ -119,6 +139,10 @@ public class VUtil
      * @param validLen contains the length to use.
      * @throws ValidationException in the event of length {@link us.jts.fortress.GlobalErrIds#CONST_INVLD_FIELD_LEN} or regex failure.
      *
+     * @param value    contains the attribute to check.
+     * @param validLen contains the length to use.
+     * @throws us.jts.fortress.ValidationException
+     *          in the event of length {@link us.jts.fortress.GlobalErrIds#CONST_INVLD_FIELD_LEN} or regex failure.
      */
     public static void safeText( String value, int validLen ) throws ValidationException
     {
@@ -145,6 +169,9 @@ public class VUtil
      * @param userId contains the userId, maps to {@link us.jts.fortress.rbac.User#userId}.
      * @throws ValidationException in the event of failure, {@link GlobalErrIds#CONST_INVLD_FIELD_LEN}.
      *
+     * @param userId contains the userId, maps to {@link us.jts.fortress.rbac.User#userId}.
+     * @throws us.jts.fortress.ValidationException
+     *          in the event of failure, {@link GlobalErrIds#CONST_INVLD_FIELD_LEN}.
      */
     public static void userId( String userId ) throws ValidationException
     {
@@ -190,6 +217,9 @@ public class VUtil
      * @param timeout must be greater than 0 and less than max value for {@link Integer#MAX_VALUE}
      * @throws ValidationException in the event value falls out of range.
      *
+     * @param timeout must be greater than 0 and less than max value for {@link Integer#MAX_VALUE}
+     * @throws us.jts.fortress.ValidationException
+     *          in the event value falls out of range.
      */
     public static void timeout( Integer timeout ) throws ValidationException
     {
@@ -206,6 +236,9 @@ public class VUtil
      * @param beginTime if set, must be equal to {@link #TIME_LEN}.
      * @throws ValidationException in the event value falls out of range.
      *
+     * @param beginTime if set, must be equal to {@link #TIME_LEN}.
+     * @throws us.jts.fortress.ValidationException
+     *          in the event value falls out of range.
      */
     public static void beginTime( String beginTime ) throws ValidationException
     {
@@ -229,7 +262,6 @@ public class VUtil
      * Perform simple reasonability check on contraint endTime value.
      * @param endTime if set, must be equal to {@link #TIME_LEN}.
      * @throws ValidationException in the event value falls out of range.
-     *
      */
     public static void endTime( String endTime ) throws ValidationException
     {
@@ -253,7 +285,6 @@ public class VUtil
      * Perform simple reasonability check on contraint beginDate value.
      * @param beginDate if set, must be equal to {@link #DATE_LEN}.
      * @throws ValidationException in the event value falls out of range.
-     *
      */
     public static void beginDate( String beginDate )
         throws ValidationException
@@ -279,17 +310,18 @@ public class VUtil
      * Perform simple reasonability check on contraint endDate value.
      * @param endDate if set, must be equal to {@link #DATE_LEN}.
      * @throws ValidationException in the event value falls out of range.
-     *
      */
     public static void endDate( String endDate ) throws ValidationException
     {
         if ( isNotNullOrEmpty( endDate ) )
         {
-            if ( ( endDate.compareToIgnoreCase( GlobalIds.NONE ) != 0 ) &&
-                ( endDate.length() != DATE_LEN || checkDate( endDate ) ) )
+            if ( endDate.compareToIgnoreCase( GlobalIds.NONE ) != 0 )
             {
-                String error = CLS_NM + ".endDate - invalid endDate value [" + endDate + "]";
-                throw new ValidationException( GlobalErrIds.CONST_ENDDATE_INVLD, error );
+                if ( endDate.length() != DATE_LEN || checkDate( endDate ) )
+                {
+                    String error = CLS_NM + ".endDate - invalid endDate value [" + endDate + "]";
+                    throw new ValidationException( GlobalErrIds.CONST_ENDDATE_INVLD, error );
+                }
             }
         }
         else
@@ -304,23 +336,24 @@ public class VUtil
      * Perform simple reasonability check on contraint dayMask value.
      * @param dayMask if set, will be validated.
      * @throws ValidationException in the event value falls out of range.
-     *
      */
     public static void dayMask( String dayMask ) throws ValidationException
     {
         if ( isNotNullOrEmpty( dayMask ) )
         {
-            if ( ( dayMask.compareToIgnoreCase( GlobalIds.ALL ) != 0 ) &&
-                ( dayMask.length() > DAYMASK_LEN || checkMask( dayMask ) ) )
+            if ( dayMask.compareToIgnoreCase( GlobalIds.ALL ) != 0 )
             {
-                String error = CLS_NM + ".dayMask - invalid dayMask value [" + dayMask + "]";
-                throw new ValidationException( GlobalErrIds.CONST_DAYMASK_INVLD, error );
+                if ( dayMask.length() > DAYMASK_LEN || checkMask( dayMask ) )
+                {
+                    String error = CLS_NM + ".dayMask - invalid dayMask value [" + dayMask + "]";
+                    throw new ValidationException( GlobalErrIds.CONST_DAYMASK_INVLD, error );
+                }
             }
         }
         else
         {
             String error = CLS_NM + ".dayMask - null or empty dayMask value";
-            throw new ValidationException( GlobalErrIds.CONST_DAYMASK_NULL, error );
+            throw new us.jts.fortress.ValidationException( GlobalErrIds.CONST_DAYMASK_NULL, error );
         }
     }
 
@@ -350,7 +383,6 @@ public class VUtil
 
 
     /**
-     *
      * @param date
      * @return boolean
      */
@@ -386,6 +418,7 @@ public class VUtil
             {
                 String error = CLS_NM + ".checkMask - mask [" + mask + "] failed validation";
                 log.warn( error );
+
                 return true;
             }
         }
@@ -396,7 +429,8 @@ public class VUtil
 
     /**
      * Method will throw exception with supplied error id and object.method name if object reference is null.
-     * @param obj contains the reference to check.
+     *
+     * @param obj       contains the reference to check.
      * @param errorCode contains the error id to use if null.
      * @param method contains the method name of caller.
      * @throws ValidationException in the event object is null.
@@ -415,7 +449,8 @@ public class VUtil
 
     /**
      * Method will throw exception with supplied error id and object.method name if string reference is null or empty.
-     * @param value contains the reference to check.
+     *
+     * @param value     contains the reference to check.
      * @param errorCode contains the error id to use if null.
      * @param method contains the method name of caller.
      * @throws ValidationException in the event supplied string is null or empty.
@@ -434,7 +469,8 @@ public class VUtil
 
     /**
      * Method will throw exception with supplied error id and object.method name if string reference is null or empty.
-     * @param value contains the reference to check.
+     *
+     * @param value     contains the reference to check.
      * @param errorCode contains the error id to use if null.
      * @param method contains the method name of caller.
      * @throws ValidationException in the event supplied string is null or empty.
@@ -453,6 +489,7 @@ public class VUtil
 
     /**
      * Method will return true if string array reference is not null or empty.
+     *
      * @param value contains the reference to string array.
      * @return boolean if validation succeeds.
      */
@@ -464,6 +501,7 @@ public class VUtil
 
     /**
      * Method will return true if string reference is not null or empty.
+     *
      * @param value contains the reference to string.
      * @return boolean if validation succeeds.
      */
@@ -475,6 +513,7 @@ public class VUtil
 
     /**
      * Method will return true if string reference is not null or empty.
+     *
      * @param value contains the reference to string.
      * @return boolean if validation succeeds.
      */
@@ -486,6 +525,7 @@ public class VUtil
 
     /**
      * Method will return true if list is not null or empty.
+     *
      * @param list contains the reference to list.
      * @return boolean if validation succeeds.
      */
@@ -497,6 +537,7 @@ public class VUtil
 
     /**
      * Method will return true if props is not null or empty.
+     *
      * @param props contains the reference to props.
      * @return boolean if validation succeeds.
      */
@@ -508,6 +549,7 @@ public class VUtil
 
     /**
      * Method will return true if input is not null or empty.
+     *
      * @param iVal contains the reference to Integer variable.
      * @return boolean if validation succeeds.
      */
@@ -519,6 +561,7 @@ public class VUtil
 
     /**
      * Method will return true if input is not null or empty.
+     *
      * @param bVal contains the reference to Boolean variable.
      * @return boolean if validation succeeds.
      */
@@ -530,6 +573,7 @@ public class VUtil
 
     /**
      * Method will return true if byte array reference is not null or empty.
+     *
      * @param value contains the reference to byte array.
      * @return boolean if validation succeeds.
      */
@@ -603,8 +647,10 @@ public class VUtil
 
 
     /**
-     * Perform encoding on supplied input string for certain unsafe ascii characters.  These chars may be unsafe because ldap reserves some
-     * characters as operands.  Safe encoding safeguards from malicious scripting input errors that are possible iff data filtering
+     * Perform encoding on supplied input string for certain unsafe ascii characters.  These chars may be unsafe
+     * because ldap reserves some
+     * characters as operands.  Safe encoding safeguards from malicious scripting input errors that are possible iff
+     * data filtering
      * did not get performed before being passed into dao layer.
      *
      * @param filter contains the data to filter.
