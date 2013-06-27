@@ -444,7 +444,7 @@
          ================================= -->
     <target name="test-full" depends="build-jar,compile-test,init-fortress-config" description="--> run junit FULL regression tests">
         <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
-         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
+         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}" maxmemory="1024m">
             <sysproperty key="isFirstJUnitRun" value="false" />
             <sysproperty key="version" value="${version}"/>
             <sysproperty key="tenant" value="${tenant}"/>
