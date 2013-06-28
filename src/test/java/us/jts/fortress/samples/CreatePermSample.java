@@ -71,7 +71,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testRevokePermissionRole()
     {
-        String szLocation = CLS_NM + ".testRevokePermissionRole";
+        String szLocation = ".testRevokePermissionRole";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -123,7 +123,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testDelPermObjects()
     {
-        String szLocation = CLS_NM + ".testDelPermObjects";
+        String szLocation = ".testDelPermObjects";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -163,7 +163,7 @@ public class CreatePermSample extends TestCase
 
     public static void testDeleteShoppingCartObjects()
     {
-        String szLocation = CLS_NM + ".testDeleteShoppingCartObjects";
+        String szLocation = ".testDeleteShoppingCartObjects";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -194,7 +194,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testAddPermObjects()
     {
-        String szLocation = CLS_NM + ".testAddPermObjects";
+        String szLocation = ".testAddPermObjects";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -226,7 +226,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testAddShoppingCartObjects()
     {
-        String szLocation = CLS_NM + ".testAddShoppingCartObjects";
+        String szLocation = ".testAddShoppingCartObjects";
         try
         {
             // Instantiate the AdminMgr first
@@ -272,7 +272,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testAddPermOperations()
     {
-        String szLocation = CLS_NM + ".testAddPermOperations";
+        String szLocation = ".testAddPermOperations";
         try
         {
             AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
@@ -310,7 +310,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testGrantPermissionRole()
     {
-        String szLocation = CLS_NM + ".testGrantPermissionRole";
+        String szLocation = ".testGrantPermissionRole";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -359,7 +359,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testGrantPermissionUser()
     {
-        String szLocation = CLS_NM + ".testGrantPermissionUser";
+        String szLocation = ".testGrantPermissionUser";
         User inUser = new User(CreateUserSample.TEST_USERID);
         try
         {
@@ -398,7 +398,7 @@ public class CreatePermSample extends TestCase
      */
     public static void testRevokePermissionUser()
     {
-        String szLocation = CLS_NM + ".testRevokePermissionUser";
+        String szLocation = ".testRevokePermissionUser";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {

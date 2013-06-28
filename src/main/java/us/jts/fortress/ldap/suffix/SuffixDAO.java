@@ -80,7 +80,7 @@ final class SuffixDAO extends DataProvider
         String nodeDn = getDn( se );
         try
         {
-            LOG.info( CLS_NM + ".create suffix dn [" + nodeDn + "]" );
+            LOG.info( "create suffix dn [" + nodeDn + "]" );
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS ) );
             attrs.add( createAttribute( DC, se.getName() ) );
@@ -91,7 +91,7 @@ final class SuffixDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".create container node dn [" + nodeDn + "] caught LDAPException="
+            String error = "create container node dn [" + nodeDn + "] caught LDAPException="
                 + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException( GlobalErrIds.SUFX_CREATE_FAILED, error, e );
         }
@@ -119,7 +119,7 @@ final class SuffixDAO extends DataProvider
     {
         LDAPConnection ld = null;
         String nodeDn = getDn( se );
-        LOG.info( CLS_NM + ".remove suffix dn [" + nodeDn + "]" );
+        LOG.info( "remove suffix dn [" + nodeDn + "]" );
         try
         {
             ld = getAdminConnection();
@@ -127,7 +127,7 @@ final class SuffixDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".remove suffix node dn [" + nodeDn + "] caught LDAPException="
+            String error = "remove suffix node dn [" + nodeDn + "] caught LDAPException="
                 + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException( GlobalErrIds.SUFX_DELETE_FAILED, error, e );
         }

@@ -124,26 +124,26 @@ final class HierUtil
         // Ensure the two nodes aren't the same:
         if ( child.equalsIgnoreCase( parent ) )
         {
-            String error = CLS_NM + ".validateRelationship child [" + child + "] same as parent [" + parent + "]";
+            String error = "validateRelationship child [" + child + "] same as parent [" + parent + "]";
             throw new ValidationException( GlobalErrIds.HIER_REL_INVLD, error );
         }
         Relationship rel = new Relationship( child.toUpperCase(), parent.toUpperCase() );
         // Ensure there is a valid child to parent relationship.
         if ( mustExist && !isRelationship( graph, rel ) )
         {
-            String error = CLS_NM + ".validateRelationship child [" + child + "] does not have parent [" + parent + "]";
+            String error = "validateRelationship child [" + child + "] does not have parent [" + parent + "]";
             throw new ValidationException( GlobalErrIds.HIER_REL_NOT_EXIST, error );
         }
         // Ensure the child doesn't already have the parent as an ascendant.
         else if ( !mustExist && isAscendant( child, parent, graph ) )
         {
-            String error = CLS_NM + ".validateRelationship child [" + child + "] already has parent [" + parent + "]";
+            String error = "validateRelationship child [" + child + "] already has parent [" + parent + "]";
             throw new ValidationException( GlobalErrIds.HIER_REL_EXIST, error );
         }
         // Prevent cycles by making sure the child isn't an ascendant of parent.
         else if ( !mustExist && isDescedant( parent, child, graph ) )
         {
-            String error = CLS_NM + ".validateRelationship child [" + child + "] is parent of [" + parent + "]";
+            String error = "validateRelationship child [" + child + "] is parent of [" + parent + "]";
             throw new ValidationException( GlobalErrIds.HIER_REL_CYCLIC, error );
         }
     }
@@ -177,7 +177,7 @@ final class HierUtil
      */
     private static SimpleDirectedGraph<String, Relationship> toGraph( Hier hier )
     {
-        LOG.debug( CLS_NM + ".toGraph" );
+        LOG.debug( "toGraph" );
         SimpleDirectedGraph<String, Relationship> graph =
             new SimpleDirectedGraph<>( Relationship.class );
         List<Relationship> edges = hier.getRelationships();
@@ -191,7 +191,7 @@ final class HierUtil
                 graph.addVertex( parent );
                 graph.addEdge( child, parent, edge );
                 if ( LOG.isDebugEnabled() )
-                    LOG.debug( CLS_NM + ".toGraph child=" + child + " parent=" + parent );
+                    LOG.debug( "toGraph child=" + child + " parent=" + parent );
             }
         }
         return graph;
@@ -207,7 +207,7 @@ final class HierUtil
      */
     private static void addEdge( SimpleDirectedGraph<String, Relationship> graph, Relationship relation )
     {
-        LOG.debug( CLS_NM + ".addEdge" );
+        LOG.debug( "addEdge" );
         synchronized ( graph )
         {
             graph.addVertex( relation.getChild().toUpperCase() );
@@ -226,7 +226,7 @@ final class HierUtil
      */
     private static void removeEdge( SimpleDirectedGraph<String, Relationship> graph, Relationship relation )
     {
-        LOG.debug( CLS_NM + ".removeEdge" );
+        LOG.debug( "removeEdge" );
         synchronized ( graph )
         {
             graph.removeEdge( relation );
@@ -277,11 +277,11 @@ final class HierUtil
             String v = vertex.get( VERTEX );
             if ( v == null )
             {
-                //log.debug(CLS_NM + ".getDescendants vertex is null");
+                //log.debug("getDescendants vertex is null");
                 return 0;
             }
             if ( LOG.isDebugEnabled() )
-                LOG.debug( CLS_NM + ".hasChildren [" + v + "]" );
+                LOG.debug( "hasChildren [" + v + "]" );
 
             numChildren = graph.inDegreeOf( v );
         }
@@ -334,7 +334,7 @@ final class HierUtil
         }
         if ( LOG.isDebugEnabled() )
         {
-            LOG.debug( CLS_NM + ".getAscendants [" + v + "]" );
+            LOG.debug( "getAscendants [" + v + "]" );
         }
         Set<Relationship> edges;
         try
@@ -432,16 +432,16 @@ final class HierUtil
         String v = vertex.get( VERTEX );
         if ( v == null )
         {
-            //log.debug(CLS_NM + ".getDescendants vertex is null");
+            //log.debug("getDescendants vertex is null");
             return null;
         }
         else if ( graph == null )
         {
-            //log.debug(CLS_NM + ".getDescendants graph is null");
+            //log.debug("getDescendants graph is null");
             return null;
         }
         if ( LOG.isDebugEnabled() )
-            LOG.debug( CLS_NM + ".getDescendants [" + v + "]" );
+            LOG.debug( "getDescendants [" + v + "]" );
 
         Set<Relationship> edges;
         try
@@ -475,11 +475,11 @@ final class HierUtil
         Set<String> descendants = new HashSet<>();
         if ( graph == null )
         {
-            //log.debug(CLS_NM + ".getChildren graph is null");
+            //log.debug("getChildren graph is null");
             return null;
         }
         if ( LOG.isDebugEnabled() )
-            LOG.debug( CLS_NM + ".getChildren [" + vertex + "]" );
+            LOG.debug( "getChildren [" + vertex + "]" );
 
         Set<Relationship> edges;
         try
@@ -538,17 +538,17 @@ final class HierUtil
         String v = vertex.get( VERTEX );
         if ( v == null )
         {
-            //log.debug(CLS_NM + ".getAscendants vertex is null");
+            //log.debug("getAscendants vertex is null");
             return null;
         }
         else if ( graph == null )
         {
-            //log.debug(CLS_NM + ".getAscendants graph is null");
+            //log.debug("getAscendants graph is null");
             return null;
         }
         if ( LOG.isDebugEnabled() )
         {
-            LOG.debug( CLS_NM + ".getAscendants [" + v + "]" );
+            LOG.debug( "getAscendants [" + v + "]" );
         }
         Set<Relationship> edges;
         try
@@ -593,12 +593,12 @@ final class HierUtil
         Set<String> parents = new HashSet<>();
         if ( graph == null )
         {
-            //log.debug(CLS_NM + ".getParents graph is null");
+            //log.debug("getParents graph is null");
             return null;
         }
         if ( LOG.isDebugEnabled() )
         {
-            LOG.debug( CLS_NM + ".getParents [" + vertex + "]" );
+            LOG.debug( "getParents [" + vertex + "]" );
         }
         Set<Relationship> edges;
         try
@@ -675,7 +675,7 @@ final class HierUtil
             HierUtil.removeEdge( graph, relationship );
         else
             throw new SecurityException( GlobalErrIds.HIER_CANNOT_PERFORM, CLS_NM
-                + ".updateHier Cannot perform hierarchical operation" );
+                + "updateHier Cannot perform hierarchical operation" );
     }
 
 
@@ -689,16 +689,16 @@ final class HierUtil
     static SimpleDirectedGraph<String, Relationship> buildGraph( Hier hier )
     {
         SimpleDirectedGraph<String, Relationship> graph;
-        LOG.debug( CLS_NM + ".buildGraph is initializing" );
+        LOG.debug( "buildGraph is initializing" );
         if ( hier == null )
         {
-            String error = CLS_NM + ".buildGraph detected null hier=";
+            String error = "buildGraph detected null hier=";
             LOG.error( error );
             return null;
         }
         graph = toGraph( hier );
-        LOG.debug( CLS_NM + ".buildGraph success to toGraph" );
-        LOG.debug( CLS_NM + ".buildGraph is success" );
+        LOG.debug( "buildGraph success to toGraph" );
+        LOG.debug( "buildGraph is success" );
         return graph;
     }
 }

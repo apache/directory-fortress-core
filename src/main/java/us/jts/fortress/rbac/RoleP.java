@@ -227,7 +227,7 @@ final class RoleP
         }
         catch (FinderException fe)
         {
-            String error = CLS_NM + ".removeOccupant userDn [" + userDn + "] caught FinderException=" + fe;
+            String error = "removeOccupant userDn [" + userDn + "] caught FinderException=" + fe;
             throw new SecurityException(GlobalErrIds.ROLE_REMOVE_OCCUPANT_FAILED, error, fe);
         }
     }

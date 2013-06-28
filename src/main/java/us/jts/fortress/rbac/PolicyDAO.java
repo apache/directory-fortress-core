@@ -214,7 +214,7 @@ final class PolicyDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".create name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "create name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException(GlobalErrIds.PSWD_CREATE_FAILED, error, e);
         }
         finally
@@ -328,7 +328,7 @@ final class PolicyDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".update name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "update name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.PSWD_UPDATE_FAILED, error, e);
         }
         finally
@@ -354,7 +354,7 @@ final class PolicyDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".remove name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "remove name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException(GlobalErrIds.PSWD_DELETE_FAILED, error, e);
         }
         finally
@@ -388,13 +388,13 @@ final class PolicyDAO extends DataProvider
             {
                 if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
                 {
-                    String warning = CLS_NM + ".getPolicy Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
+                    String warning = "getPolicy Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
                     throw new FinderException(GlobalErrIds.PSWD_NOT_FOUND, warning);
                 }
             }
             else
             {
-                String error = CLS_NM + ".getPolicy name [" + policy.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                String error = "getPolicy name [" + policy.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new FinderException(GlobalErrIds.PSWD_READ_FAILED, error, e);
             }
         }
@@ -536,7 +536,7 @@ final class PolicyDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".findPolicy name [" + searchVal + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "findPolicy name [" + searchVal + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.PSWD_SEARCH_FAILED, error, e);
         }
         finally
@@ -570,7 +570,7 @@ final class PolicyDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".getPolicies caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "getPolicies caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.PSWD_SEARCH_FAILED, error, e);
         }
         finally

@@ -98,26 +98,26 @@ public class SuffixP
         if ( entity.getName().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
-            String error = CLS_NM + ".validate name [" + name + "] invalid length [" + entity.getName().length() + "]";
+            String error = "validate name [" + name + "] invalid length [" + entity.getName().length() + "]";
             LOG.warn( error );
             throw new us.jts.fortress.ValidationException( GlobalErrIds.SUFX_NAME_INVLD, error );
         }
         if ( !VUtil.isNotNullOrEmpty( entity.getName() ) )
         {
-            String error = CLS_NM + ".validate name validation failed, null or empty value";
+            String error = "validate name validation failed, null or empty value";
             LOG.warn( error );
             throw new us.jts.fortress.ValidationException( GlobalErrIds.SUFX_NAME_NULL, error );
         }
         if ( entity.getDc().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
-            String error = CLS_NM + ".validate dc [" + name + "] invalid length [" + entity.getName().length() + "]";
+            String error = "validate dc [" + name + "] invalid length [" + entity.getName().length() + "]";
             LOG.warn( error );
             throw new us.jts.fortress.ValidationException( GlobalErrIds.SUFX_DCTOP_INVLD, error );
         }
         if ( !VUtil.isNotNullOrEmpty( entity.getDc() ) )
         {
-            String error = CLS_NM + ".validate dc validation failed, null or empty value";
+            String error = "validate dc validation failed, null or empty value";
             LOG.warn( error );
             throw new us.jts.fortress.ValidationException( GlobalErrIds.SUFX_DCTOP_NULL, error );
         }

@@ -197,7 +197,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".minAge caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+            LOG.error( "minAge caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
         }
@@ -273,7 +273,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".maxAge caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+            LOG.error( "maxAge caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
         }
@@ -344,7 +344,7 @@ public class PswdPolicyMgrImplTest extends TestCase
             }
             catch ( SecurityException ex )
             {
-                String error = CLS_NM + ".inHistory caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                String error = "inHistory caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage();
                 LOG.error( error );
                 fail( error );
@@ -353,7 +353,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".inHistory caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+                "inHistory caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
@@ -417,7 +417,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".minLength caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+                "minLength caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
@@ -498,7 +498,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".expireWarning caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                "expireWarning caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
         }
@@ -577,7 +577,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".graceLoginLimit caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                "graceLoginLimit caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
         }
@@ -660,7 +660,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".maxFailure caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+                "maxFailure caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
@@ -745,7 +745,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".lockoutDuration caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                "lockoutDuration caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
         }
@@ -819,7 +819,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".lockout caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+            LOG.error( "lockout caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
         }
@@ -917,7 +917,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".failureCountInterval caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                "failureCountInterval caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1058,7 +1058,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".allowUserChange policy [" + PolicyTestData.getName( plcy )
+            LOG.error( "allowUserChange policy [" + PolicyTestData.getName( plcy )
                 + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1125,7 +1125,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".safeModify policy [" + PolicyTestData.getName( plcy )
+            LOG.error( "safeModify policy [" + PolicyTestData.getName( plcy )
                 + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1158,13 +1158,13 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 PwPolicy policy = PolicyTestData.getPolicy( plcy );
                 policyMgr.add( policy );
-                LOG.debug( CLS_NM + ".checkQuality name [" + policy.getName() + "] successful" );
+                LOG.debug( "checkQuality name [" + policy.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".checkQuality caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                "checkQuality caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
         }
@@ -1195,12 +1195,12 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 PwPolicy policy = PolicyTestData.getPolicy( plcy );
                 policyMgr.add( policy );
-                LOG.debug( CLS_NM + ".add name [" + policy.getName() + "] successful" );
+                LOG.debug( "add name [" + policy.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".add caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            LOG.error( "add caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
@@ -1228,12 +1228,12 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 PwPolicy policy = PolicyTestData.getPolicy( plcy );
                 policyMgr.update( policy );
-                LOG.debug( CLS_NM + ".update name [" + policy.getName() + "] successful" );
+                LOG.debug( "update name [" + policy.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".update caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+            LOG.error( "update caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
         }
@@ -1263,13 +1263,13 @@ public class PswdPolicyMgrImplTest extends TestCase
             {
                 PwPolicy policy = PolicyTestData.getPolicy( plcy );
                 policyMgr.delete( policy );
-                LOG.debug( CLS_NM + ".deleteRecursive name [" + PolicyTestData.getName( plcy ) + "] successful" );
+                LOG.debug( "deleteRecursive name [" + PolicyTestData.getName( plcy ) + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".deleteRecursive caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                "deleteRecursive caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
         }
@@ -1302,7 +1302,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".read caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            LOG.error( "read caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
@@ -1342,7 +1342,7 @@ public class PswdPolicyMgrImplTest extends TestCase
                 }
                 else
                 {
-                    msg = CLS_NM + ".search srchValue [" + srchValue + "] failed list search";
+                    msg = "search srchValue [" + srchValue + "] failed list search";
                     LogUtil.logIt( msg );
                     fail( msg );
                 }
@@ -1350,7 +1350,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".search srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId()
+            LOG.error( "search srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId()
                 + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1387,7 +1387,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".updateUserPolicy caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                "updateUserPolicy caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1421,7 +1421,7 @@ public class PswdPolicyMgrImplTest extends TestCase
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".deletePasswordPolicy caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                "deletePasswordPolicy caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }

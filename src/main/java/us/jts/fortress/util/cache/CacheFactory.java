@@ -26,7 +26,7 @@ class CacheFactory
         net.sf.ehcache.Ehcache cache = cacheManager.getEhcache(name);
         if(cache == null)
         {
-            String error = CLS_NM + ".createInstance cache: " + name + " is null";
+            String error = "createInstance cache: " + name + " is null";
             throw new CfgRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error);
         }
         BlockingCache blockingCache = new BlockingCache(cache);

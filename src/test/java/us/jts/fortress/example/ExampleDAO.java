@@ -47,7 +47,7 @@ public class ExampleDAO extends DataProvider
         String dn = GlobalIds.CN + "=" + entity.getName() + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
-            LOG.debug(CLS_NM + ".create dn [" + dn + "]");
+            LOG.debug("create dn [" + dn + "]");
         }
         try
         {
@@ -90,7 +90,7 @@ public class ExampleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".create [" + entity.getName() + "] caught LDAPException=" + e;
+            String error = "create [" + entity.getName() + "] caught LDAPException=" + e;
             LOG.error(error);
             throw new CreateException(EErrIds.EXAMPLE_ADD_FAILED, error);
         }
@@ -115,7 +115,7 @@ public class ExampleDAO extends DataProvider
         String dn = GlobalIds.CN + "=" + entity.getName() + "," + us.jts.fortress.cfg.Config.getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
-            LOG.debug(CLS_NM + ".update dn [" + dn + "]");
+            LOG.debug("update dn [" + dn + "]");
         }
         try
         {
@@ -139,7 +139,7 @@ public class ExampleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".update [" + entity.getName() + "] caught LDAPException=" + e;
+            String error = "update [" + entity.getName() + "] caught LDAPException=" + e;
             LOG.error(error);
             throw new UpdateException(EErrIds.EXAMPLE_UPDATE_FAILED, error);
         }
@@ -163,7 +163,7 @@ public class ExampleDAO extends DataProvider
         String dn = GlobalIds.CN + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
-            LOG.debug(CLS_NM + ".remove dn [" + dn + "]");
+            LOG.debug("remove dn [" + dn + "]");
         }
         try
         {
@@ -172,7 +172,7 @@ public class ExampleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".remove [" + name + "] caught LDAPException=" + e;
+            String error = "remove [" + name + "] caught LDAPException=" + e;
             LOG.error(error);
             throw new RemoveException(EErrIds.EXAMPLE_DELETE_FAILED, error);
         }
@@ -197,7 +197,7 @@ public class ExampleDAO extends DataProvider
         String dn = GlobalIds.CN + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
-            LOG.debug(CLS_NM + ".findByKey dn [" + dn + "]");
+            LOG.debug("findByKey dn [" + dn + "]");
         }
         try
         {
@@ -206,7 +206,7 @@ public class ExampleDAO extends DataProvider
             entity = getEntityFromLdapEntry(findEntry);
             if (entity == null)
             {
-                String error = CLS_NM + ".findByKey could not find entry for example name [" + name + "]";
+                String error = "findByKey could not find entry for example name [" + name + "]";
                 LOG.error(error);
                 throw new us.jts.fortress.FinderException(EErrIds.EXAMPLE_NOT_FOUND, error);
             }
@@ -215,13 +215,13 @@ public class ExampleDAO extends DataProvider
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String error = CLS_NM + ".findByKey COULD NOT FIND ENTRY for example name [" + name + "]";
+                String error = "findByKey COULD NOT FIND ENTRY for example name [" + name + "]";
                 LOG.warn(error);
                 throw new us.jts.fortress.FinderException(EErrIds.EXAMPLE_NOT_FOUND, error);
             }
             else
             {
-                String error = CLS_NM + ".findByKey name [" + name + "] caught LDAPException=" + e;
+                String error = "findByKey name [" + name + "] caught LDAPException=" + e;
                 LOG.warn(error);
                 throw new us.jts.fortress.FinderException(EErrIds.EXAMPLE_READ_FAILED, error);
             }
@@ -250,7 +250,7 @@ public class ExampleDAO extends DataProvider
 
         if (LOG.isDebugEnabled())
         {
-            LOG.debug(CLS_NM + ".findExamples: " + EIds.EXAMPLE_ROOT + " [" + exampleRoot + "]");
+            LOG.debug("findExamples: " + EIds.EXAMPLE_ROOT + " [" + exampleRoot + "]");
         }
         try
         {
@@ -267,7 +267,7 @@ public class ExampleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".findExamples caught LDAPException=" + e;
+            String error = "findExamples caught LDAPException=" + e;
             LOG.warn(error);
             throw new us.jts.fortress.FinderException(EErrIds.EXAMPLE_SEARCH_FAILED, error);
         }

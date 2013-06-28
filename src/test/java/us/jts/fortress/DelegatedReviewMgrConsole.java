@@ -35,7 +35,7 @@ class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(" constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -69,7 +69,7 @@ class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".readRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("readRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -105,7 +105,7 @@ class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".findRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("findRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -138,7 +138,7 @@ class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".assignedUsers caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("assignedUsers caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -170,7 +170,7 @@ class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".assignedRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("assignedRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

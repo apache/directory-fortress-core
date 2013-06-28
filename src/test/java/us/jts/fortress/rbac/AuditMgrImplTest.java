@@ -86,7 +86,7 @@ public class AuditMgrImplTest extends TestCase
         disabled = new HashMap();
         //disabled.put("AdminMgrImpl.changePassword", null);
         //disabled.put("AdminMgrRestImpl.changePassword", null);
-        LOG.info( CLS_NM + ".loadAuditMap isFirstRun [" + FortressJUnitTest.isFirstRun() + "]" );
+        LOG.info( "loadAuditMap isFirstRun [" + FortressJUnitTest.isFirstRun() + "]" );
         if ( FortressJUnitTest.isFirstRun() )
         {
             disabled.put( "AdminMgrImpl.deleteRole", null );
@@ -155,18 +155,18 @@ public class AuditMgrImplTest extends TestCase
                                 + PermTestData.getName( op ) + "]",
                             mods.size() > 0 || !isAudit( objectName, PermTestData.getName( op ) ) );
                         boolean result = mods.size() > 0 || !isAudit( objectName, PermTestData.getName( op ) );
-                        LOG.debug( CLS_NM + "searchAdminMods search user [" + user.getUserId() + "] object ["
+                        LOG.debug( "searchAdminMods search user [" + user.getUserId() + "] object ["
                             + objectName + "] operation [" + PermTestData.getName( op ) + "] result: " + result );
-                        //System.out.println(CLS_NM + "searchAdminMods search user [" + user.getUserId() + "] object [" + objectName + "] operation [" + PermTestData.getName(op) + "] result: " + result);
+                        //System.out.println("searchAdminMods search user [" + user.getUserId() + "] object [" + objectName + "] operation [" + PermTestData.getName(op) + "] result: " + result);
                     }
                 }
             }
-            LOG.debug( CLS_NM + ".searchAdminMods successful" );
+            LOG.debug( "searchAdminMods successful" );
         }
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".searchAdminMods: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+                "searchAdminMods: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -208,11 +208,11 @@ public class AuditMgrImplTest extends TestCase
                     CLS_NM + "searchUserSessions failed search for successful authentication user [" + user.getUserId()
                         + "]", mods.size() > 0 );
             }
-            LOG.debug( CLS_NM + ".searchUserSessions successful" );
+            LOG.debug( "searchUserSessions successful" );
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".searchUserSessions: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( "searchUserSessions: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -269,12 +269,12 @@ public class AuditMgrImplTest extends TestCase
                     }
                 }
             }
-            LOG.debug( CLS_NM + ".searchAuthZs successful" );
+            LOG.debug( "searchAuthZs successful" );
         }
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".searchAuthZs: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+                "searchAuthZs: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -323,12 +323,12 @@ public class AuditMgrImplTest extends TestCase
                 assertTrue( CLS_NM + "getUserAuthZs failed search for failed authorization user [" + user.getUserId()
                     + "]", authZs.size() > 0 );
             }
-            LOG.debug( CLS_NM + ".getUserAuthZs successful" );
+            LOG.debug( "getUserAuthZs successful" );
         }
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".getUserAuthZs: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+                "getUserAuthZs: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -358,11 +358,11 @@ public class AuditMgrImplTest extends TestCase
             List<AuthZ> resultSet = auditMgr.searchInvalidUsers( uAudit );
             assertNotNull( resultSet );
             assertTrue( CLS_NM + "searchInvalidUsers failed search for invalid authentications", resultSet.size() > 0 );
-            LOG.debug( CLS_NM + ".searchInvalidUsers successful" );
+            LOG.debug( "searchInvalidUsers successful" );
         }
         catch ( SecurityException ex )
         {
-            LOG.error( CLS_NM + ".searchInvalidUsers: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( "searchInvalidUsers: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -412,12 +412,12 @@ public class AuditMgrImplTest extends TestCase
                 assertTrue( CLS_NM + "searchBinds failed search for failed authentication user [" + user.getUserId()
                     + "]", binds.size() > 0 );
             }
-            LOG.debug( CLS_NM + ".searchBinds successful" );
+            LOG.debug( "searchBinds successful" );
         }
         catch ( SecurityException ex )
         {
             LOG.error(
-                CLS_NM + ".searchBinds: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+                "searchBinds: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }

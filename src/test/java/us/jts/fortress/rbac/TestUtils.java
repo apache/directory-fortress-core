@@ -70,12 +70,12 @@ public class TestUtils extends TestCase
         }
         catch ( URISyntaxException se )
         {
-            String error = CLS_NM + ".readJpegFile caught URISyntaxException=" + se;
+            String error = "readJpegFile caught URISyntaxException=" + se;
             LOG.error( error );
         }
         catch ( IOException ioe )
         {
-            String error = CLS_NM + ".readJpegFile caught IOException=" + ioe;
+            String error = "readJpegFile caught IOException=" + ioe;
             LOG.error( error );
         }
         return image;

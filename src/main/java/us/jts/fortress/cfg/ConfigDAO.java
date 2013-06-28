@@ -100,7 +100,7 @@ final class ConfigDAO extends DataProvider
     {
         LDAPConnection ld = null;
         String dn = getDn( name );
-        LOG.info( CLS_NM + ".create dn [" + dn + "]" );
+        LOG.info( "create dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
@@ -116,13 +116,13 @@ final class ConfigDAO extends DataProvider
             String error;
             if ( e.getLDAPResultCode() == LDAPException.ENTRY_ALREADY_EXISTS )
             {
-                String warning = CLS_NM + ".create config dn [" + dn + "] caught LDAPException="
+                String warning = "create config dn [" + dn + "] caught LDAPException="
                     + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new us.jts.fortress.CreateException( GlobalErrIds.FT_CONFIG_ALREADY_EXISTS, warning );
             }
             else
             {
-                error = CLS_NM + ".create config dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode()
+                error = "create config dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode()
                     + " msg=" + e.getMessage();
             }
             LOG.error( error, e );
@@ -147,7 +147,7 @@ final class ConfigDAO extends DataProvider
     {
         LDAPConnection ld = null;
         String dn = getDn( name );
-        LOG.info( CLS_NM + "update dn [" + dn + "]" );
+        LOG.info( "update dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
@@ -163,7 +163,7 @@ final class ConfigDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".update dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg="
+            String error = "update dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg="
                 + e.getMessage();
             throw new us.jts.fortress.UpdateException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error );
         }
@@ -184,7 +184,7 @@ final class ConfigDAO extends DataProvider
     {
         LDAPConnection ld = null;
         String dn = getDn( name );
-        LOG.info( CLS_NM + ".remove dn [" + dn + "]" );
+        LOG.info( "remove dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
@@ -192,7 +192,7 @@ final class ConfigDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".remove dn [" + dn + "] LDAPException=" + e.getLDAPResultCode() + " msg="
+            String error = "remove dn [" + dn + "] LDAPException=" + e.getLDAPResultCode() + " msg="
                 + e.getMessage();
             throw new us.jts.fortress.RemoveException( GlobalErrIds.FT_CONFIG_DELETE_FAILED, error );
         }
@@ -214,7 +214,7 @@ final class ConfigDAO extends DataProvider
     {
         LDAPConnection ld = null;
         String dn = getDn( name );
-        LOG.info( CLS_NM + "remove props dn [" + dn + "]" );
+        LOG.info( "remove props dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
@@ -230,7 +230,7 @@ final class ConfigDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".remove props dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode()
+            String error = "remove props dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode()
                 + " msg=" + e.getMessage();
             throw new us.jts.fortress.UpdateException( GlobalErrIds.FT_CONFIG_DELETE_PROPS_FAILED, error );
         }
@@ -253,7 +253,7 @@ final class ConfigDAO extends DataProvider
         Properties props = null;
         LDAPConnection ld = null;
         String dn = getDn( name );
-        LOG.info( CLS_NM + "getConfig dn [" + dn + "]" );
+        LOG.info( "getConfig dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
@@ -264,10 +264,10 @@ final class ConfigDAO extends DataProvider
         {
             if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
             {
-                String warning = CLS_NM + ".getConfig COULD NOT FIND ENTRY for dn [" + dn + "]";
+                String warning = "getConfig COULD NOT FIND ENTRY for dn [" + dn + "]";
                 throw new us.jts.fortress.FinderException( GlobalErrIds.FT_CONFIG_NOT_FOUND, warning );
             }
-            String error = CLS_NM + ".getConfig dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
+            String error = "getConfig dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
             throw new FinderException( GlobalErrIds.FT_CONFIG_READ_FAILED, error );
         }
         finally

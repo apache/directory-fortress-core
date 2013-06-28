@@ -47,24 +47,24 @@ public class ClassUtil
         {
             if (className == null || className.length() == 0)
             {
-                String error = CLS_NM + ".createInstance() null or empty classname";
+                String error = "createInstance() null or empty classname";
                 throw new CfgException(GlobalErrIds.FT_MGR_CLASS_NAME_NULL, error);
             }
             target = Class.forName(className).newInstance();
         }
         catch (java.lang.ClassNotFoundException e)
         {
-            String error = CLS_NM + ".createInstance() className [" + className + "] caught java.lang.ClassNotFoundException=" + e;
+            String error = "createInstance() className [" + className + "] caught java.lang.ClassNotFoundException=" + e;
             throw new CfgException(GlobalErrIds.FT_MGR_CLASS_NOT_FOUND, error, e);
         }
         catch (java.lang.InstantiationException e)
         {
-            String error = CLS_NM + ".createInstance()  [" + className + "] caught java.lang.InstantiationException=" + e;
+            String error = "createInstance()  [" + className + "] caught java.lang.InstantiationException=" + e;
             throw new CfgException(GlobalErrIds.FT_MGR_INST_EXCEPTION, error, e);
         }
         catch (java.lang.IllegalAccessException e)
         {
-            String error = CLS_NM + ".createInstance()  [" + className + "] caught java.lang.IllegalAccessException=" + e;
+            String error = "createInstance()  [" + className + "] caught java.lang.IllegalAccessException=" + e;
             throw new CfgException(GlobalErrIds.FT_MGR_ILLEGAL_ACCESS, error, e);
         }
         return target;

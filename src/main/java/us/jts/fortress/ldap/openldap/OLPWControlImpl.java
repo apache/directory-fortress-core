@@ -74,7 +74,7 @@ public class OLPWControlImpl implements PwPolicyControl
     @Override
     public void checkPasswordPolicy( LDAPConnection ld, boolean isAuthenticated, PwMessage pwMsg )
     {
-        String methodName = ".checkPasswordPolicy";
+        String methodName = "checkPasswordPolicy";
         pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
         pwMsg.setWarningId( GlobalPwMsgIds.PP_NOWARNING );
         pwMsg.setAuthenticated( isAuthenticated );
@@ -83,7 +83,7 @@ public class OLPWControlImpl implements PwPolicyControl
         if ( controls == null )
         {
             pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
-            LOG.debug( CLS_NM + methodName + " controls is null" );
+            LOG.debug( methodName + " controls is null" );
 
         }
         else if ( controls.length >= 1 )
@@ -91,7 +91,7 @@ public class OLPWControlImpl implements PwPolicyControl
             for ( int i = 0; i < controls.length; i++ )
             {
                 if ( LOG.isDebugEnabled() )
-                    LOG.debug( CLS_NM + methodName + " controls[" + i + "]=" + controls[i] );
+                    LOG.debug( methodName + " controls[" + i + "]=" + controls[i] );
                 LDAPControl con = controls[i];
                 String id = con.getID();
                 if ( id.compareTo( GlobalIds.OPENLDAP_PW_RESPONSE_CONTROL ) == 0 )
@@ -99,30 +99,30 @@ public class OLPWControlImpl implements PwPolicyControl
                     byte[] rB = con.getValue();
                     if ( LOG.isDebugEnabled() )
                     {
-                        LOG.debug( CLS_NM + methodName + " control value length=" + rB.length );
+                        LOG.debug( methodName + " control value length=" + rB.length );
                         String bytes = "";
                         for ( byte aRB : rB )
                         {
                             bytes = bytes + printRawData( aRB );
                         }
-                        LOG.debug( CLS_NM + methodName + " printRawData:" );
+                        LOG.debug( methodName + " printRawData:" );
                         LOG.debug( bytes );
                     }
                     if ( rB == null || rB[1] == 0 )
                     {
-                        LOG.debug( CLS_NM + methodName + " no password control found" );
+                        LOG.debug( methodName + " no password control found" );
                         pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
                     }
                     if ( LOG.isDebugEnabled() )
                     {
-                        LOG.debug( CLS_NM + methodName + " byte[]=" + Arrays.toString( rB ) );
+                        LOG.debug( methodName + " byte[]=" + Arrays.toString( rB ) );
                         LOG.debug( "control.toString()=" + con.toString() );
                     }
                     int indx = 0;
                     int lBerObjType = getInt( rB[indx++] );
                     if ( LOG.isDebugEnabled() )
                     {
-                        LOG.debug( CLS_NM + methodName + " BER encoded object type=" + lBerObjType );
+                        LOG.debug( methodName + " BER encoded object type=" + lBerObjType );
                     }
                     int msgLen = getInt( rB[indx++] );
                     while ( indx < msgLen )
@@ -155,7 +155,7 @@ public class OLPWControlImpl implements PwPolicyControl
                                         pwMsg.setExpirationSeconds( expire );
                                         if ( LOG.isDebugEnabled() )
                                         {
-                                            LOG.debug( CLS_NM + methodName + " User:" + pwMsg.getUserId()
+                                            LOG.debug( methodName + " User:" + pwMsg.getUserId()
                                                 + " password expires in " + expire + " seconds." );
                                         }
                                         break;
@@ -177,7 +177,7 @@ public class OLPWControlImpl implements PwPolicyControl
                                         pwMsg.setGraceLogins( grace );
                                         if ( LOG.isDebugEnabled() )
                                         {
-                                            LOG.debug( CLS_NM + methodName + " UserId:" + pwMsg.getUserId()
+                                            LOG.debug( methodName + " UserId:" + pwMsg.getUserId()
                                                 + " # logins left=" + grace );
                                         }
                                         break;
@@ -185,7 +185,7 @@ public class OLPWControlImpl implements PwPolicyControl
                                         pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
                                         if ( LOG.isDebugEnabled() )
                                         {
-                                            LOG.debug( CLS_NM + methodName + " UserId:" + pwMsg.getUserId()
+                                            LOG.debug( methodName + " UserId:" + pwMsg.getUserId()
                                                 + " Invalid PPOlicy Type" );
                                         }
                                         break;
@@ -201,7 +201,7 @@ public class OLPWControlImpl implements PwPolicyControl
                                 int err = getInt( rB[indx++] );
                                 if ( LOG.isDebugEnabled() )
                                 {
-                                    LOG.debug( CLS_NM + methodName + " UserId:" + pwMsg.getUserId() + " PPOLICY_ERROR="
+                                    LOG.debug( methodName + " UserId:" + pwMsg.getUserId() + " PPOLICY_ERROR="
                                         + err );
                                 }
                                 switch ( err )
@@ -245,7 +245,7 @@ public class OLPWControlImpl implements PwPolicyControl
                                 pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
                                 if ( LOG.isDebugEnabled() )
                                 {
-                                    LOG.debug( CLS_NM + methodName + " userId: " + pwMsg.getUserId()
+                                    LOG.debug( methodName + " userId: " + pwMsg.getUserId()
                                         + " Invalid PPOlicy Message Type" );
                                 }
                                 break;
@@ -257,7 +257,7 @@ public class OLPWControlImpl implements PwPolicyControl
                     pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
                     if ( LOG.isDebugEnabled() )
                     {
-                        LOG.debug( CLS_NM + methodName + " UserId: " + pwMsg.getUserId()
+                        LOG.debug( methodName + " UserId: " + pwMsg.getUserId()
                             + " Can't process LDAP control..." );
                     }
                 }

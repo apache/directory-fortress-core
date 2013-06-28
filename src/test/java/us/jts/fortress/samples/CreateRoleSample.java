@@ -68,7 +68,7 @@ public class CreateRoleSample extends TestCase
             return;
         }
 
-        String szLocation = CLS_NM + ".testDeleteSimpleRole";
+        String szLocation = ".testDeleteSimpleRole";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -98,7 +98,7 @@ public class CreateRoleSample extends TestCase
             return;
         }
 
-        String szLocation = CLS_NM + ".testDeleteSimpleRole2";
+        String szLocation = ".testDeleteSimpleRole2";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -127,7 +127,7 @@ public class CreateRoleSample extends TestCase
      */
     public static void testDeleteRoles()
     {
-        String szLocation = CLS_NM + ".testDeleteRoles";
+        String szLocation = ".testDeleteRoles";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -175,7 +175,7 @@ public class CreateRoleSample extends TestCase
      */
     public static void testCreateSimpleRole()
     {
-        String szLocation = CLS_NM + ".testCreateSimpleRole";
+        String szLocation = ".testCreateSimpleRole";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -204,7 +204,7 @@ public class CreateRoleSample extends TestCase
 
     public static void testCreateSimpleRole2()
     {
-        String szLocation = CLS_NM + ".testCreateSimpleRole2";
+        String szLocation = ".testCreateSimpleRole2";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -241,7 +241,7 @@ public class CreateRoleSample extends TestCase
      */
     public static void testCreateComplexRole()
     {
-        String szLocation = CLS_NM + ".testCreateComplexRole";
+        String szLocation = ".testCreateComplexRole";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.

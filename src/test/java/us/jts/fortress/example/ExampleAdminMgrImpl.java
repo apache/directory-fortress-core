@@ -25,7 +25,7 @@ public class ExampleAdminMgrImpl implements ExampleAdminMgr
     public Example addExample(Example example)
         throws SecurityException
     {
-        us.jts.fortress.util.attr.VUtil.assertNotNull(example, EErrIds.EXAMPLE_ID_NULL, CLS_NM + ".addExample");
+        us.jts.fortress.util.attr.VUtil.assertNotNull(example, EErrIds.EXAMPLE_ID_NULL, ".addExample");
         return examP.add(example);
     }
 
@@ -36,7 +36,7 @@ public class ExampleAdminMgrImpl implements ExampleAdminMgr
     public void delExample(Example example)
         throws us.jts.fortress.SecurityException
     {
-        us.jts.fortress.util.attr.VUtil.assertNotNull(example, EErrIds.EXAMPLE_ID_NULL, CLS_NM + ".addExample");
+        us.jts.fortress.util.attr.VUtil.assertNotNull(example, EErrIds.EXAMPLE_ID_NULL, ".addExample");
         examP.delete(example.getName());
     }
 }

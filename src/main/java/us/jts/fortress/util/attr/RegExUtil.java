@@ -35,7 +35,7 @@ class RegExUtil
 	{
 		if (safeTextPatternStr == null || safeTextPatternStr.compareTo("") == 0)
 		{
-			String warning = CLS_NM + ".safeText can't find safeText regular expression pattern.  Check your Fortress cfg";
+			String warning = "safeText can't find safeText regular expression pattern.  Check your Fortress cfg";
 			LOG.debug(warning);
 		}
 		else
@@ -44,7 +44,7 @@ class RegExUtil
 			Matcher safeTextMatcher = safeTextPattern.matcher(value);
 			if (!safeTextMatcher.find())
 			{
-				String error = CLS_NM + ".safeText has detected invalid value [" + value + "]";
+				String error = "safeText has detected invalid value [" + value + "]";
 				throw new us.jts.fortress.ValidationException(GlobalErrIds.CONST_INVLD_TEXT, error);
 			}
 		}

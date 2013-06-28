@@ -101,7 +101,7 @@ public class CreateSessionSample extends TestCase
      */
     public static void createSession(String userId, char[] password, int expectedRoles)
     {
-        String szLocation = CLS_NM + ".createSession";
+        String szLocation = ".createSession";
         try
         {
             // Instantiate the AccessMgr implementation which perform runtime RBAC operations.
@@ -165,7 +165,7 @@ public class CreateSessionSample extends TestCase
      */
     public static void createSessionsWithRole(String userId, char[] password, String role)
     {
-        String szLocation = CLS_NM + ".createSessionsWithRole";
+        String szLocation = ".createSessionsWithRole";
         try
         {
             // Instantiate the AccessMgr implementation which perform runtime RBAC operations.
@@ -203,7 +203,7 @@ public class CreateSessionSample extends TestCase
      */
     public static void createSessionsWithRolesTrusted(String userId, String[] roles, int expectedRoles)
     {
-        String szLocation = CLS_NM + ".createSessionsWithRolesTrusted";
+        String szLocation = ".createSessionsWithRolesTrusted";
         try
         {
             AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
@@ -250,7 +250,7 @@ public class CreateSessionSample extends TestCase
      */
     public static void createSessionTrusted(String userId)
     {
-        String szLocation = CLS_NM + ".createSessionTrusted";
+        String szLocation = ".createSessionTrusted";
         try
         {
             // Instantiate the AccessMgr implementation which perform runtime RBAC operations.

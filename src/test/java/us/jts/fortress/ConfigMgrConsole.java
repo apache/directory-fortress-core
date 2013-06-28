@@ -41,7 +41,7 @@ class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(" constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -68,7 +68,7 @@ class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addProp caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addProp caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -92,7 +92,7 @@ class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".updateProp caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("updateProp caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -118,7 +118,7 @@ class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".readProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("readProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -140,7 +140,7 @@ class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".deleteProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("deleteProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

@@ -86,7 +86,7 @@ public class RestUtils
         }
         catch ( JAXBException je )
         {
-            String error = CLS_NM + ".marshal caught JAXBException=" + je;
+            String error = "marshal caught JAXBException=" + je;
             throw new RestException( GlobalErrIds.REST_MARSHALL_ERR, error, je );
         }
         return szRetValue;
@@ -113,7 +113,7 @@ public class RestUtils
         }
         catch ( JAXBException je )
         {
-            String error = CLS_NM + ".unmarshall caught JAXBException=" + je;
+            String error = "unmarshall caught JAXBException=" + je;
             throw new RestException( GlobalErrIds.REST_UNMARSHALL_ERR, error, je );
         }
         return response;
@@ -144,7 +144,7 @@ public class RestUtils
         {
             url += "/" + id3;
         }
-        LOG.debug( CLS_NM + ".get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: "
+        LOG.debug( "get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: "
             + url );
         GetMethod get = new GetMethod( url );
         setMethodHeaders( get, userId, password );
@@ -173,7 +173,7 @@ public class RestUtils
         {
             url += "/" + id3;
         }
-        LOG.debug( CLS_NM + ".get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: "
+        LOG.debug( "get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: "
             + url );
         GetMethod get = new GetMethod( url );
         setMethodHeaders( get, HTTP_UID, HTTP_PW );
@@ -193,7 +193,7 @@ public class RestUtils
      */
     public static String post( String userId, String password, String szInput, String function ) throws RestException
     {
-        LOG.debug( CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], request=" + szInput );
+        LOG.debug( "post URI=[" + URI + "], function=[" + function + "], request=" + szInput );
         String szResponse = null;
         PostMethod post = new PostMethod( URI + function );
         post.addRequestHeader( "Accept", "text/xml" );
@@ -205,18 +205,18 @@ public class RestUtils
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod( post );
             szResponse = IOUtils.toString( post.getResponseBodyAsStream(), "UTF-8" );
-            LOG.debug( CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], response=" + szResponse
+            LOG.debug( "post URI=[" + URI + "], function=[" + function + "], response=" + szResponse
                 + " result=" + result );
         }
         catch ( IOException ioe )
         {
-            String error = CLS_NM + ".post URI=[" + URI + "], [" + function + "] caught IOException=" + ioe;
+            String error = "post URI=[" + URI + "], [" + function + "] caught IOException=" + ioe;
             LOG.error( error );
             throw new RestException( GlobalErrIds.REST_IO_ERR, error, ioe );
         }
         catch ( WebApplicationException we )
         {
-            String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function
+            String error = "post URI=[" + URI + "], function=[" + function
                 + "] caught WebApplicationException=" + we;
             LOG.error( error );
             throw new RestException( GlobalErrIds.REST_WEB_ERR, error, we );
@@ -240,7 +240,7 @@ public class RestUtils
      */
     public static String post( String szInput, String function ) throws RestException
     {
-        LOG.debug( CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], request=" + szInput );
+        LOG.debug( "post URI=[" + URI + "], function=[" + function + "], request=" + szInput );
         String szResponse = null;
         PostMethod post = new PostMethod( URI + function );
         post.addRequestHeader( "Accept", "text/xml" );
@@ -254,31 +254,31 @@ public class RestUtils
             if ( result == HTTP_OK )
             {
                 szResponse = IOUtils.toString( post.getResponseBodyAsStream(), "UTF-8" );
-                LOG.debug( CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], response=" + szResponse );
+                LOG.debug( "post URI=[" + URI + "], function=[" + function + "], response=" + szResponse );
             }
             else if ( result == HTTP_401_UNAUTHORIZED )
             {
-                String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function
+                String error = "post URI=[" + URI + "], function=[" + function
                     + "], 401 function unauthorized on host";
                 LOG.error( error );
                 throw new RestException( GlobalErrIds.REST_UNAUTHORIZED_ERR, error );
             }
             else if ( result == HTTP_403_FORBIDDEN )
             {
-                String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function
+                String error = "post URI=[" + URI + "], function=[" + function
                     + "], 403 function forbidden on host";
                 LOG.error( error );
                 throw new RestException( GlobalErrIds.REST_FORBIDDEN_ERR, error );
             }
             else if ( result == HTTP_404_NOT_FOUND )
             {
-                String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function + "], 404 not found from host";
+                String error = "post URI=[" + URI + "], function=[" + function + "], 404 not found from host";
                 LOG.error( error );
                 throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
             }
             else
             {
-                String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function
+                String error = "post URI=[" + URI + "], function=[" + function
                     + "], error received from host: " + result;
                 LOG.error( error );
                 throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error );
@@ -286,13 +286,13 @@ public class RestUtils
         }
         catch ( IOException ioe )
         {
-            String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function + "] caught IOException=" + ioe;
+            String error = "post URI=[" + URI + "], function=[" + function + "] caught IOException=" + ioe;
             LOG.error( error );
             throw new RestException( GlobalErrIds.REST_IO_ERR, error, ioe );
         }
         catch ( WebApplicationException we )
         {
-            String error = CLS_NM + ".post URI=[" + URI + "], function=[" + function
+            String error = "post URI=[" + URI + "], function=[" + function
                 + "] caught WebApplicationException=" + we;
             LOG.error( error );
             throw new RestException( GlobalErrIds.REST_WEB_ERR, error, we );
@@ -353,31 +353,31 @@ public class RestUtils
         try
         {
             int statusCode = client.executeMethod( httpMethod );
-            LOG.debug( CLS_NM + ".handleHttpMethod Response status : " + statusCode );
+            LOG.debug( "handleHttpMethod Response status : " + statusCode );
 
             Response.Status status = Response.Status.fromStatusCode( statusCode );
 
             if ( status == Response.Status.OK )
             {
                 szResponse = httpMethod.getResponseBodyAsString();
-                LOG.debug( CLS_NM + szResponse );
+                LOG.debug( szResponse );
             }
             else if ( status == Response.Status.FORBIDDEN )
             {
-                LOG.debug( CLS_NM + ".handleHttpMethod Authorization failure" );
+                LOG.debug( "handleHttpMethod Authorization failure" );
             }
             else if ( status == Response.Status.UNAUTHORIZED )
             {
-                LOG.debug( CLS_NM + ".handleHttpMethod Authentication failure" );
+                LOG.debug( "handleHttpMethod Authentication failure" );
             }
             else
             {
-                LOG.debug( CLS_NM + ".handleHttpMethod Unknown error" );
+                LOG.debug( "handleHttpMethod Unknown error" );
             }
         }
         catch ( IOException ioe )
         {
-            String error = CLS_NM + ".handleHttpMethod caught IOException=" + ioe;
+            String error = "handleHttpMethod caught IOException=" + ioe;
             LOG.error( error );
             throw new RestException( GlobalErrIds.REST_IO_ERR, error, ioe );
         }

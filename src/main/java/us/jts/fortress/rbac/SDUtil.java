@@ -109,7 +109,7 @@ final class SDUtil
                     // does the match count exceed the cardinality allowed for this particular SSD set?
                     if (matchCount >= ssd.getCardinality() - 1)
                     {
-                        String error = CLS_NM + ".validateSSD new role [" + role.getName() + "] validates SSD Set Name:" + ssd.getName() + " Cardinality:" + ssd.getCardinality();
+                        String error = "validateSSD new role [" + role.getName() + "] validates SSD Set Name:" + ssd.getName() + " Cardinality:" + ssd.getCardinality();
                         throw new SecurityException(GlobalErrIds.SSD_VALIDATION_FAILED, error);
                     }
                 }
@@ -162,7 +162,7 @@ final class SDUtil
                     if (matchCount >= dsd.getCardinality() - 1)
                     {
                         // Yes, the target role violates DSD cardinality rule.
-                        String error = CLS_NM + ".validateDSD failed for role [" + role.getName() + "] DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality();
+                        String error = "validateDSD failed for role [" + role.getName() + "] DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality();
                         throw new SecurityException(GlobalErrIds.DSD_VALIDATION_FAILED, error);
                     }
                 }
@@ -179,7 +179,7 @@ final class SDUtil
                             matchCount++;
                             if (matchCount >= dsd.getCardinality() - 1) // Does the counter exceed max per cardinality on this DSD set?
                             {
-                                String error = CLS_NM + ".validateDSD failed for role [" + role.getName() + "] parent role [" + parentRole + "] DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality();
+                                String error = "validateDSD failed for role [" + role.getName() + "] parent role [" + parentRole + "] DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality();
                                 throw new SecurityException(GlobalErrIds.DSD_VALIDATION_FAILED, error);
                             }
                             // Breaking out of the loop here means the DSD algorithm will only match one

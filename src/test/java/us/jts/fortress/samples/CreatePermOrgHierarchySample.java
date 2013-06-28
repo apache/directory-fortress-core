@@ -88,7 +88,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testDeleteHierPermOrgs()
     {
-        String szLocation = CLS_NM + ".testDeleteHierPermOrgs";
+        String szLocation = ".testDeleteHierPermOrgs";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -131,7 +131,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testCreateHierPermOrgs()
     {
-        String szLocation = CLS_NM + ".testCreateHierPermOrgs";
+        String szLocation = ".testCreateHierPermOrgs";
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.
@@ -177,7 +177,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testDeleteDescendantPermOrgs()
     {
-        String szLocation = CLS_NM + ".testDeleteDescendantPermOrgs";
+        String szLocation = ".testDeleteDescendantPermOrgs";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -223,7 +223,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testCreateDescendantPermOrgs()
     {
-        String szLocation = CLS_NM + ".testCreateDescendantPermOrgs";
+        String szLocation = ".testCreateDescendantPermOrgs";
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.
@@ -262,7 +262,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testDeleteAscendantPermOrgs()
     {
-        String szLocation = CLS_NM + ".testDeleteAscendantPermOrgs";
+        String szLocation = ".testDeleteAscendantPermOrgs";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -307,7 +307,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      */
     public static void testCreateAscendantPermOrgs()
     {
-        String szLocation = CLS_NM + ".testCreateAscendantPermOrgs";
+        String szLocation = ".testCreateAscendantPermOrgs";
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.

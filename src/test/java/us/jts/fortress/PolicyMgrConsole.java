@@ -45,7 +45,7 @@ class PolicyMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            LOG.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(" constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 	}
 
@@ -144,7 +144,7 @@ class PolicyMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            LOG.error(CLS_NM + ".add caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("add caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 		ReaderUtil.readChar();
 	}

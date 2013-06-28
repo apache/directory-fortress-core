@@ -74,7 +74,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testDeleteHierRoles()
     {
-        String szLocation = CLS_NM + ".testDeleteHierRoles";
+        String szLocation = ".testDeleteHierRoles";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -116,7 +116,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testCreateHierRoles()
     {
-        String szLocation = CLS_NM + ".testCreateHierRoles";
+        String szLocation = ".testCreateHierRoles";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -159,7 +159,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testDeleteDescendantRoles()
     {
-        String szLocation = CLS_NM + ".testDeleteDescendantRoles";
+        String szLocation = ".testDeleteDescendantRoles";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -202,7 +202,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testCreateDescendantRoles()
     {
-        String szLocation = CLS_NM + ".testCreateDescendantRoles";
+        String szLocation = ".testCreateDescendantRoles";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
@@ -238,7 +238,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testDeleteAscendantRoles()
     {
-        String szLocation = CLS_NM + ".testDeleteAscendantRoles";
+        String szLocation = ".testDeleteAscendantRoles";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -280,7 +280,7 @@ public class CreateRoleHierarchySample extends TestCase
      */
     public static void testCreateAscendantRoles()
     {
-        String szLocation = CLS_NM + ".testCreateAscendantRoles";
+        String szLocation = ".testCreateAscendantRoles";
         try
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.

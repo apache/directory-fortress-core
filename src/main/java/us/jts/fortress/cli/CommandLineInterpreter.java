@@ -152,7 +152,7 @@ public class CommandLineInterpreter
             }
             catch (Exception e)
             {
-                String error = CLS_NM + ".runInteractiveMode caught Exception=" + e.toString();
+                String error = "runInteractiveMode caught Exception=" + e.toString();
                 LOG.error(error);
                 e.printStackTrace();
             }
@@ -403,7 +403,7 @@ public class CommandLineInterpreter
         }
         catch (us.jts.fortress.SecurityException se)
         {
-            String error = CLS_NM + ".processDelegatedAdminCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
+            String error = "processDelegatedAdminCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
             LOG.error(error);
         }
     }
@@ -620,7 +620,7 @@ public class CommandLineInterpreter
         }
         catch (us.jts.fortress.SecurityException se)
         {
-            String error = CLS_NM + ".processAdminCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
+            String error = "processAdminCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
             LOG.error(error);
         }
     }
@@ -771,7 +771,7 @@ public class CommandLineInterpreter
         }
         catch (us.jts.fortress.SecurityException se)
         {
-            String error = CLS_NM + ".processReviewCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
+            String error = "processReviewCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
             LOG.error(error);
         }
     }
@@ -836,7 +836,7 @@ public class CommandLineInterpreter
         }
         catch (us.jts.fortress.SecurityException se)
         {
-            String error = CLS_NM + ".processSystemCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
+            String error = "processSystemCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
             LOG.error(error);
         }
     }
@@ -913,7 +913,7 @@ public class CommandLineInterpreter
         }
         catch (CmdLineParser.OptionException e)
         {
-            String error = CLS_NM + ".processUserInput caught OptionException=" + e.toString();
+            String error = "processUserInput caught OptionException=" + e.toString();
             LOG.error(error);
             printUsage();
             //System.exit(2);
@@ -1230,7 +1230,7 @@ public class CommandLineInterpreter
         }
         catch (us.jts.fortress.SecurityException se)
         {
-            String error = CLS_NM + ".constructManagers caught SecurityException=" + se;
+            String error = "constructManagers caught SecurityException=" + se;
             LOG.error(error);
         }
         return success;

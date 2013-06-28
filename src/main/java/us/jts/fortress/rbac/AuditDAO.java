@@ -513,7 +513,7 @@ final class AuditDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".searchUserMods caught LDAPException id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "searchUserMods caught LDAPException id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.AUDT_MOD_SEARCH_FAILED, error, e);
         }
         finally
@@ -618,7 +618,7 @@ final class AuditDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".searchAdminMods caught LDAPException id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "searchAdminMods caught LDAPException id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.AUDT_MOD_ADMIN_SEARCH_FAILED, error, e);
         }
         finally

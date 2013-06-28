@@ -288,7 +288,7 @@ final class RoleUtil
     {
         Hier inHier = new Hier( Hier.Type.ROLE );
         inHier.setContextId( contextId );
-        LOG.info( CLS_NM + ".loadGraph initializing ROLE context [" + inHier.getContextId() + "]" );
+        LOG.info( "loadGraph initializing ROLE context [" + inHier.getContextId() + "]" );
         List<Graphable> descendants = null;
         try
         {
@@ -296,7 +296,7 @@ final class RoleUtil
         }
         catch ( SecurityException se )
         {
-            LOG.info( CLS_NM + ".loadGraph caught SecurityException=" + se );
+            LOG.info( "loadGraph caught SecurityException=" + se );
         }
         Hier hier = HierUtil.loadHier( contextId, descendants );
         SimpleDirectedGraph<String, Relationship> graph;

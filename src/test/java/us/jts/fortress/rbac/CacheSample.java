@@ -71,7 +71,7 @@ public class CacheSample
         }
         catch ( us.jts.fortress.SecurityException se )
         {
-            String error = CLS_NM + " static initializer caught SecurityException=" + se.getMessage() + " rc="
+            String error = " static initializer caught SecurityException=" + se.getMessage() + " rc="
                 + se.getErrorId();
             LOG.error( error );
         }
@@ -116,7 +116,7 @@ public class CacheSample
      */
     public static void main( String[] args )
     {
-        LOG.info( CLS_NM + ".main Test #args=" + args.length );
+        LOG.info( "main Test #args=" + args.length );
         CacheSample sample = new CacheSample();
         sample.initializeCache();
         sample.runTests();

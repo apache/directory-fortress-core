@@ -60,7 +60,7 @@ public class CreateUserOrgSample extends TestCase
      */
     public static void testCreateUserOrg()
     {
-        String szLocation = CLS_NM + ".testCreateUserOrg";
+        String szLocation = ".testCreateUserOrg";
         try
         {
             DelReviewMgr dRevAdminMgr = DelReviewMgrFactory.createInstance(TestUtils.getContext());

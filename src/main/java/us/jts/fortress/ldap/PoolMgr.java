@@ -137,12 +137,12 @@ class PoolMgr
         // If we can't initialize the connection pools we're dead in the water.
         catch (com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException le)
         {
-            String error = CLS_NM + " Static Initializer Block caught com.unboundid.ldap.sdk.migrate.ldapjdk.LdapException=" + le;
+            String error = " Static Initializer Block caught com.unboundid.ldap.sdk.migrate.ldapjdk.LdapException=" + le;
             LOG.error( error );
         }
         catch (Exception e)
         {
-            String error = CLS_NM + " Static Initializer Block caught java.lang.Exception=" + e;
+            String error = " Static Initializer Block caught java.lang.Exception=" + e;
             LOG.error( error );
         }
     }
@@ -239,7 +239,7 @@ class PoolMgr
                 // check the connection pool reference
                 if (cp == null)
                 {
-                    String info = CLS_NM + ".getConnection " + szType + " initializing pool";
+                    String info = "getConnection " + szType + " initializing pool";
                     LOG.info( info );
                     cp = recoverPool(type);
                 }
@@ -254,7 +254,7 @@ class PoolMgr
                 // Did the pool object return a null value?
                 if (ld == null)
                 {
-                    String MSG_HDR = CLS_NM + ".getConnection " + szType;
+                    String MSG_HDR = "getConnection " + szType;
                     String warning = MSG_HDR + " detected null connection";
                     LOG.warn( warning );
                     // Is the canary is still alive?
@@ -285,7 +285,7 @@ class PoolMgr
                 // Did the pool object return a bad connection?
                 else if (!ld.isConnected())
                 {
-                    String MSG_HDR = CLS_NM + ".getConnection " + szType;
+                    String MSG_HDR = "getConnection " + szType;
                     String warning = MSG_HDR + " detected bad connection, retry";
                     LOG.warn( warning );
                     // attempt to reconnect:
@@ -317,7 +317,7 @@ class PoolMgr
         }
         catch (LDAPException e)
         {
-            String MSG_HDR = CLS_NM + ".getConnection " + szType;
+            String MSG_HDR = "getConnection " + szType;
             String warning = MSG_HDR + " detected bad connection, retry caught LDAPException=" + e;
             LOG.warn( warning );
             // Todo: Test these scenarios:
@@ -381,7 +381,7 @@ class PoolMgr
         int port = Config.getInt(LDAP_PORT, 389);
         int min = Config.getInt(LDAP_ADMIN_POOL_MIN, 1);
         int max = Config.getInt(LDAP_ADMIN_POOL_MAX, 10);
-        LOG.info( CLS_NM + ".createAdminPool min [" + min + "] max [" + max + "] host [" + host + "] port [" + port
+        LOG.info( "createAdminPool min [" + min + "] max [" + max + "] host [" + host + "] port [" + port
             + "]" );
         testAdminConn = new LDAPConnection();
         connPool[ADMIN] = new ConnectionPool(min, max, host, port, adminUserId, adminPw);
@@ -415,7 +415,7 @@ class PoolMgr
             adminPw = Config.getProperty(LDAP_ADMIN_POOL_PW);
         }
 
-        LOG.info( CLS_NM + ".createUserPool min [" + min + "] max [" + max + "] host [" + host + "] port [" + port + "]" );
+        LOG.info( "createUserPool min [" + min + "] max [" + max + "] host [" + host + "] port [" + port + "]" );
         connPool[USER] = new ConnectionPool(min, max, host, port, adminUserId, adminPw);
         if (isDebugEnabled)
         {
@@ -446,7 +446,7 @@ class PoolMgr
         int port = Config.getInt(LDAP_PORT, 389);
         int min = Config.getInt(LDAP_LOG_POOL_MIN, 1);
         int max = Config.getInt(LDAP_LOG_POOL_MAX, 5);
-        LOG.info( CLS_NM + ".createLogPool min [" + min + "] max [" + max + "] host [" + host + "] port [" + port + "]" );
+        LOG.info( "createLogPool min [" + min + "] max [" + max + "] host [" + host + "] port [" + port + "]" );
         connPool[AUDIT] = new ConnectionPool(min, max, host, port, logUserId, logUserPw);
         if (isDebugEnabled)
         {
@@ -470,7 +470,7 @@ class PoolMgr
         boolean result;
         if (ld == null)
         {
-            String error = CLS_NM + ".bindUser detected null ldap connection";
+            String error = "bindUser detected null ldap connection";
             LOG.error( error );
             throw new LDAPException(error, LDAPException.CONNECT_ERROR);
         }
@@ -510,7 +510,7 @@ class PoolMgr
                 createAdminPool();
                 if (connPool[ADMIN] == null)
                 {
-                    String error = CLS_NM + ".recoverPool LDAP_ADMIN_POOL_UID failed";
+                    String error = "recoverPool LDAP_ADMIN_POOL_UID failed";
                     LOG.error(error);
                     throw new LDAPException(error, LDAPException.CONNECT_ERROR);
                 }
@@ -525,7 +525,7 @@ class PoolMgr
                 createUserPool();
                 if (connPool[USER] == null)
                 {
-                    String error = CLS_NM + ".recoverPool USER failed";
+                    String error = "recoverPool USER failed";
                     LOG.error(error);
                     throw new LDAPException(error, LDAPException.CONNECT_ERROR);
                 }
@@ -539,7 +539,7 @@ class PoolMgr
                 createLogPool();
                 if (connPool[AUDIT] == null)
                 {
-                    String error = CLS_NM + ".recoverPool LOG failed";
+                    String error = "recoverPool LOG failed";
                     LOG.error(error);
                     throw new LDAPException(error, LDAPException.CONNECT_ERROR);
                 }
@@ -577,30 +577,30 @@ class PoolMgr
                 szType = "LOG";
                 break;
         }
-        String info = CLS_NM + ".checkConnection is checking " + szType + " Connection";
+        String info = "checkConnection is checking " + szType + " Connection";
         LOG.info( info );
         if (conn != null)
         {
             if (conn.isConnected())
             {
-                info = CLS_NM + ".checkConnection -  " + szType + " connection good";
+                info = "checkConnection -  " + szType + " connection good";
                 LOG.debug( info );
                 rc = true;
             }
             else
             {
-                info = CLS_NM + ".checkConnection -  " + szType + " connection bad";
+                info = "checkConnection -  " + szType + " connection bad";
                 LOG.info( info );
                 conn.reconnect();
                 if (conn.isConnected())
                 {
-                    info = CLS_NM + ".checkConnection -  " + szType + " connection reestablished";
+                    info = "checkConnection -  " + szType + " connection reestablished";
                     LOG.info( info );
                     rc = true;
                 }
             }
         }
-        info = CLS_NM + ".checkConnetion status code=" + rc;
+        info = "checkConnetion status code=" + rc;
         LOG.info( info );
         return rc;
     }

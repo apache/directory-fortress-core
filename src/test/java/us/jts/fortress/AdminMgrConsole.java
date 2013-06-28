@@ -63,7 +63,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage());
+            LOG.error(" constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage());
         }
     }
 
@@ -89,7 +89,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -116,7 +116,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".updateRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("updateRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -138,7 +138,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".deleteRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("deleteRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -167,7 +167,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addRoleInheritance caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addRoleInheritance caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -195,7 +195,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".removeRoleInheritance caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("removeRoleInheritance caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -226,7 +226,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addRoleAscendant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addRoleAscendant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -256,7 +256,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addRoleDescendant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addRoleDescendant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -379,7 +379,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -469,7 +469,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".updateUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("updateUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -505,7 +505,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".deleteUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("deleteUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -530,7 +530,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".forceDeleteUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("forceDeleteUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -567,7 +567,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".unlockUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("unlockUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -589,7 +589,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".lockUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("lockUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -614,7 +614,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".assignUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("assignUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -639,7 +639,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".deassignUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("deassignUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -677,7 +677,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".grantPermission caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("grantPermission caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -715,7 +715,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".revokePermission caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("revokePermission caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -742,7 +742,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".changePassword caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("changePassword caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -766,7 +766,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".resetPassword caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("resetPassword caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -792,7 +792,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".deletePermission caught SecurityException rc=" + e.getErrorId() + " msg=" + e.getMessage(), e);
+            LOG.error("deletePermission caught SecurityException rc=" + e.getErrorId() + " msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -834,7 +834,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addPermObject caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addPermObject caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -921,7 +921,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addPermOperation caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addPermOperation caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -968,7 +968,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addSsd caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addSsd caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -1015,7 +1015,7 @@ class AdminMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addDsd caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addDsd caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -1108,7 +1108,7 @@ class AdminMgrConsole
      */
     public static SimpleDirectedGraph<String, Relationship> toGraphNotUsed(Hier hier)
     {
-        LOG.info(CLS_NM + ".toGraphX");
+        LOG.info("toGraphX");
         SimpleDirectedGraph<String, Relationship> graph =
             new SimpleDirectedGraph<>(Relationship.class);
         //List<String> roles = hier.getRoles();
@@ -1131,7 +1131,7 @@ class AdminMgrConsole
                 graph.addVertex(parent);
                 graph.addEdge(child, parent, edge);
                 if (LOG.isDebugEnabled())
-                    LOG.debug(CLS_NM + ".toGraphX child=" + child + " parent=" + parent);
+                    LOG.debug("toGraphX child=" + child + " parent=" + parent);
             }
         }
         return graph;
@@ -1257,7 +1257,7 @@ class AdminMgrConsole
     {
         ReaderUtil.clearScreen();
         String label = getTestDataLabel2();
-        System.out.println(AdminMgrConsole.class.getName() + ".addAnnotation label2=" + label);
+        System.out.println(AdminMgrConsole.class.getName() + "addAnnotation label2=" + label);
         label = getTestDataLabel3();
         System.out.println(AdminMgrConsole.class.getName() + ".addAnnotation label3=" + label);
         label = getTestDataLabel4();
@@ -1290,7 +1290,7 @@ class AdminMgrConsole
         }
         catch (us.jts.fortress.SecurityException e)
         {
-            LOG.error(CLS_NM + ".addExample caught SecurityException=" + e, e);
+            LOG.error("addExample caught SecurityException=" + e, e);
         }
         ReaderUtil.readChar();
     }

@@ -351,7 +351,7 @@ final class UserP
         User checkUser = read( user, true );
         if ( VUtil.isNotNullOrEmpty( checkUser.isSystem() ) && checkUser.isSystem() )
         {
-            String warning = CLS_NM + ".softDelete userId [" + user.getUserId()
+            String warning = "softDelete userId [" + user.getUserId()
                 + "] can't be removed due to policy violation, rc=" + GlobalErrIds.USER_PLCY_VIOLATION;
             throw new SecurityException( GlobalErrIds.USER_PLCY_VIOLATION, warning );
         }
@@ -377,7 +377,7 @@ final class UserP
         User checkUser = read( user, true );
         if ( VUtil.isNotNullOrEmpty( checkUser.isSystem() ) && checkUser.isSystem() )
         {
-            String warning = CLS_NM + ".delete userId [" + user.getUserId()
+            String warning = "delete userId [" + user.getUserId()
                 + "] can't be removed due to policy violation, rc=" + GlobalErrIds.USER_PLCY_VIOLATION;
             throw new SecurityException( GlobalErrIds.USER_PLCY_VIOLATION, warning );
         }
@@ -553,7 +553,7 @@ final class UserP
         user.setContextId( inUser.getContextId() );
         if ( user.isLocked() )
         {
-            String warning = CLS_NM + ".createSession failed for userId [" + inUser.getUserId()
+            String warning = "createSession failed for userId [" + inUser.getUserId()
                 + "] reason user is locked";
             LOG.warn( warning );
             throw new SecurityException( GlobalErrIds.USER_LOCKED_BY_CONST, warning );
@@ -609,7 +609,7 @@ final class UserP
         boolean result = uDao.changePassword( entity, newPassword );
         if ( !result )
         {
-            LOG.warn( CLS_NM + ".changePassword failed for user [" + userId + "]" );
+            LOG.warn( "changePassword failed for user [" + userId + "]" );
         }
     }
 
@@ -786,7 +786,7 @@ final class UserP
             ou.setContextId( entity.getContextId() );
             if ( !orgUnitP.isValid( ou ) )
             {
-                String error = CLS_NM + ".validate detected invalid orgUnit name [" + entity.getOu()
+                String error = "validate detected invalid orgUnit name [" + entity.getOu()
                     + "] adding user with userId [" + entity.getUserId() + "]";
                 throw new ValidationException( GlobalErrIds.USER_OU_INVALID, error );
             }
@@ -820,7 +820,7 @@ final class UserP
                 ou.setContextId( entity.getContextId() );
                 if ( !orgUnitP.isValid( ou ) )
                 {
-                    String error = CLS_NM + ".validate detected invalid orgUnit name [" + entity.getOu()
+                    String error = "validate detected invalid orgUnit name [" + entity.getOu()
                         + "] updating user wth userId [" + entity.getUserId() + "]";
                     throw new ValidationException( GlobalErrIds.USER_OU_INVALID, error );
                 }
@@ -838,7 +838,7 @@ final class UserP
             policy.setContextId( entity.getContextId() );
             if ( !policyP.isValid( policy ) )
             {
-                String error = CLS_NM + ".validate detected invalid OpenLDAP policy name [" + entity.getPwPolicy()
+                String error = "validate detected invalid OpenLDAP policy name [" + entity.getPwPolicy()
                     + "] for userId [" + entity.getUserId()
                     + "]. Assignment is optional for User but must be valid if specified.";
                 throw new ValidationException( GlobalErrIds.USER_PW_PLCY_INVALID, error );

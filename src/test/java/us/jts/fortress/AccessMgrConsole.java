@@ -45,7 +45,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + "constructor caught SecurityException  rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("constructor caught SecurityException  rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -106,7 +106,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".sessionPermissions caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("sessionPermissions caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -133,7 +133,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".authenticate caught SecurityException=" + e, e);
+            LOG.error("authenticate caught SecurityException=" + e, e);
         }
         ReaderUtil.readChar();
     }
@@ -155,7 +155,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".createSession caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("createSession caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -174,7 +174,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -220,7 +220,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".createSessionProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("createSessionProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -245,7 +245,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -302,7 +302,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".sessionRoles caught SecurityException=" + e, e);
+            LOG.error("sessionRoles caught SecurityException=" + e, e);
         }
         ReaderUtil.readChar();
     }
@@ -322,7 +322,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".addActiveRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("addActiveRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -341,7 +341,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".dropActiveRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("dropActiveRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -489,7 +489,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".getUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("getUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -507,7 +507,7 @@ class AccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".getUserId caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("getUserId caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

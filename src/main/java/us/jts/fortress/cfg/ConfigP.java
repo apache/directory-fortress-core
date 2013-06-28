@@ -110,7 +110,7 @@ final class ConfigP
     {
         if ( !VUtil.isNotNullOrEmpty( name ) )
         {
-            String error = CLS_NM + ".delete detected null config realm name";
+            String error = "delete detected null config realm name";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.FT_CONFIG_NAME_NULL, error );
         }
@@ -166,19 +166,19 @@ final class ConfigP
     {
         if ( !VUtil.isNotNullOrEmpty( name ) )
         {
-            String error = CLS_NM + ".validate detected null config realm name";
+            String error = "validate detected null config realm name";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.FT_CONFIG_NAME_NULL, error );
         }
         if ( name.length() > GlobalIds.OU_LEN )
         {
-            String error = CLS_NM + ".validate name [" + name + "] invalid length [" + name.length() + "]";
+            String error = "validate name [" + name + "] invalid length [" + name.length() + "]";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.FT_CONFIG_NAME_INVLD, error );
         }
         if ( entity == null || entity.size() == 0 )
         {
-            String error = CLS_NM + ".validate name [" + name + "] config props null";
+            String error = "validate name [" + name + "] config props null";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.FT_CONFIG_PROPS_NULL, error );
         }

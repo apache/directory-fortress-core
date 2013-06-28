@@ -41,7 +41,7 @@ class DelegatedAccessMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            LOG.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(" constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 	}
 
@@ -63,7 +63,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".canAssign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("canAssign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -84,7 +84,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".canDeassign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("canDeassign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -105,7 +105,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".canGrant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("canGrant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -126,7 +126,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".canRevoke caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("canRevoke caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -153,7 +153,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".createSession caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("createSession caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -173,7 +173,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -184,7 +184,7 @@ class DelegatedAccessMgrConsole
     {
         try
         {
-            VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".checkAccess");
+            VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, ".checkAccess");
             ReaderUtil.clearScreen();
             System.out.println("Enter object name:");
             String objName = ReaderUtil.readLn();
@@ -196,7 +196,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

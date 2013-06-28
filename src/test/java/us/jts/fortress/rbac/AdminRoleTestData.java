@@ -998,6 +998,6 @@ public class AdminRoleTestData extends TestCase
     public static void assertEquals( AdminRole role, String[] rle )
     {
         RoleTestData.assertEquals( role, rle );
-        LOG.debug( CLS_NM + ".assertEquals [" + role.getName() + "] successful" );
+        LOG.debug( "assertEquals [" + role.getName() + "] successful" );
     }
 }

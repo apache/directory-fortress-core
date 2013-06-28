@@ -68,7 +68,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testCheckAccess()
     {
-        String szLocation = CLS_NM + ".testCheckAccess";
+        String szLocation = ".testCheckAccess";
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -104,7 +104,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testSessionPermissions()
     {
-        String szLocation = CLS_NM + ".testSessionPermissions";
+        String szLocation = ".testSessionPermissions";
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -142,7 +142,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testSessionRoles()
     {
-        String szLocation = CLS_NM + ".testSessionRoles";
+        String szLocation = ".testSessionRoles";
         User inUser = new User(CreateUserSample.TEST_USERID);
         try
         {
@@ -183,7 +183,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testAddActiveRoles()
     {
-        String szLocation = CLS_NM + ".testAddActiveRoles";
+        String szLocation = ".testAddActiveRoles";
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -214,7 +214,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testDropActiveRoles()
     {
-        String szLocation = CLS_NM + ".testDropActiveRoles";
+        String szLocation = ".testDropActiveRoles";
         User inUser = new User(CreateUserSample.TEST_USERID);
         try
         {
@@ -244,7 +244,7 @@ public class AccessMgrSample extends TestCase
      */
     public static void testDisplayUserSession()
     {
-        String szLocation = CLS_NM + ".testDisplayUserSession";
+        String szLocation = ".testDisplayUserSession";
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -359,7 +359,7 @@ public class AccessMgrSample extends TestCase
      */
     private static Session createSession(String userId, char[] password, AccessMgr accessMgr)
     {
-        String szLocation = CLS_NM + ".createSession";
+        String szLocation = ".createSession";
         Session session = null;
         try
         {
@@ -392,7 +392,7 @@ public class AccessMgrSample extends TestCase
      */
     private static Session createSession(String userId, char[] password, String[] activationRoles, AccessMgr accessMgr)
     {
-        String szLocation = CLS_NM + ".createSession";
+        String szLocation = ".createSession";
         Session session = null;
         try
         {
@@ -425,7 +425,7 @@ public class AccessMgrSample extends TestCase
      */
     private static Session authenticate(String userId, char[] password, AccessMgr accessMgr)
     {
-        String szLocation = CLS_NM + ".authenticate";
+        String szLocation = ".authenticate";
         Session session = null;
         try
         {

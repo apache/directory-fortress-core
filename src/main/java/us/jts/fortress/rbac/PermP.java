@@ -159,7 +159,7 @@ final class PermP
         }
         catch (FinderException fe)
         {
-            String error = CLS_NM + ".remove userId [" + user.getUserId() + "] caught FinderException=" + fe;
+            String error = "remove userId [" + user.getUserId() + "] caught FinderException=" + fe;
             throw new SecurityException(GlobalErrIds.PERM_BULK_USER_REVOKE_FAILED, error, fe);
         }
     }
@@ -186,7 +186,7 @@ final class PermP
         }
         catch (FinderException fe)
         {
-            String error = CLS_NM + ".remove role [" + role.getName() + "] caught FinderException=" + fe;
+            String error = "remove role [" + role.getName() + "] caught FinderException=" + fe;
             throw new SecurityException(GlobalErrIds.PERM_BULK_ROLE_REVOKE_FAILED, error, fe);
         }
     }
@@ -214,7 +214,7 @@ final class PermP
         }
         catch (FinderException fe)
         {
-            String error = CLS_NM + ".remove admin role [" + role.getName() + "] caught FinderException=" + fe;
+            String error = "remove admin role [" + role.getName() + "] caught FinderException=" + fe;
             throw new SecurityException(GlobalErrIds.PERM_BULK_ADMINROLE_REVOKE_FAILED, error, fe);
         }
     }
@@ -488,7 +488,7 @@ final class PermP
             ou.setContextId(pObj.getContextId());
             if (!orgUnitP.isValid(ou))
             {
-                String error = CLS_NM + ".validate detected invalid orgUnit name [" + pObj.getOu() + "] for object name [" + pObj.getObjectName() + "]";
+                String error = "validate detected invalid orgUnit name [" + pObj.getOu() + "] for object name [" + pObj.getObjectName() + "]";
                 //log.warn(error);
                 throw new ValidationException(GlobalErrIds.PERM_OU_INVALID, error);
             }
@@ -515,7 +515,7 @@ final class PermP
                 ou.setContextId(pObj.getContextId());
                 if (!orgUnitP.isValid(ou))
                 {
-                    String error = CLS_NM + ".validate detected invalid orgUnit name [" + pObj.getOu() + "] for object name [" + pObj.getObjectName() + "]";
+                    String error = "validate detected invalid orgUnit name [" + pObj.getOu() + "] for object name [" + pObj.getObjectName() + "]";
                     throw new ValidationException(GlobalErrIds.PERM_OU_INVALID, error);
                 }
             }

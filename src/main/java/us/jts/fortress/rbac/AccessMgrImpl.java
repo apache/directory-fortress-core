@@ -318,7 +318,7 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
         }
         else
         {
-            String info = CLS_NM + getFullMethodName(CLS_NM, methodName) + " Role [" + role.getName() + "] User [" + session.getUserId() + "], not previously activated";
+            String info = getFullMethodName(CLS_NM, methodName) + " Role [" + role.getName() + "] User [" + session.getUserId() + "], not previously activated";
             throw new SecurityException(GlobalErrIds.URLE_NOT_ACTIVE, info);
         }
     }

@@ -99,27 +99,27 @@ public class OrganizationalUnitP
         if ( entity.getName().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
-            String error = CLS_NM + ".validate name [" + name + "] invalid length [" + entity.getName().length() + "]";
+            String error = "validate name [" + name + "] invalid length [" + entity.getName().length() + "]";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.CNTR_NAME_INVLD, error );
         }
         if ( !VUtil.isNotNullOrEmpty( entity.getName() ) )
         {
-            String error = CLS_NM + ".validate name validation failed, null or empty value";
+            String error = "validate name validation failed, null or empty value";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.CNTR_NAME_NULL, error );
         }
         if ( entity.getParent().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
-            String error = CLS_NM + ".validate parent [" + name + "] invalid length [" + entity.getName().length()
+            String error = "validate parent [" + name + "] invalid length [" + entity.getName().length()
                 + "]";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.CNTR_PARENT_INVLD, error );
         }
         if ( !VUtil.isNotNullOrEmpty( entity.getParent() ) )
         {
-            String error = CLS_NM + ".validate parent validation failed, null or empty value";
+            String error = "validate parent validation failed, null or empty value";
             LOG.warn( error );
             throw new us.jts.fortress.ValidationException( GlobalErrIds.CNTR_PARENT_NULL, error );
         }

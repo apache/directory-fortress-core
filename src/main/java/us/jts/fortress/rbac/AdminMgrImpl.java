@@ -417,7 +417,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         int numChildren = RoleUtil.numChildren( role.getName(), role.getContextId() );
         if ( numChildren > 0 )
         {
-            String error = CLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren +
+            String error =  methodName + " role [" + role.getName() + "] must remove [" + numChildren +
                 "] descendants before deletion";
             LOG.error( error );
             throw new SecurityException( GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null );

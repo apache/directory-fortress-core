@@ -149,7 +149,7 @@ final class AdminRoleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".create role [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "create role [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException(GlobalErrIds.ARLE_ADD_FAILED, error, e);
         }
         finally
@@ -215,7 +215,7 @@ final class AdminRoleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".update name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "update name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.ARLE_UPDATE_FAILED, error, e);
         }
         finally
@@ -246,7 +246,7 @@ final class AdminRoleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".deleteParent name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "deleteParent name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.ARLE_REMOVE_PARENT_FAILED, error, e);
         }
         finally
@@ -280,7 +280,7 @@ final class AdminRoleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".assign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "assign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.ARLE_USER_ASSIGN_FAILED, error, e);
         }
         finally
@@ -315,7 +315,7 @@ final class AdminRoleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".deassign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "deassign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException(GlobalErrIds.ARLE_USER_DEASSIGN_FAILED, error, e);
         }
         finally
@@ -345,7 +345,7 @@ final class AdminRoleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".remove role name=" + role.getName() + " LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "remove role name=" + role.getName() + " LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException(GlobalErrIds.ARLE_DELETE_FAILED, error, e);
         }
         finally
@@ -375,7 +375,7 @@ final class AdminRoleDAO extends DataProvider
             entity = unloadLdapEntry(findEntry, 0, adminRole.getContextId());
             if (entity == null)
             {
-                String warning = CLS_NM + ".getRole name [" + adminRole.getName() + "] no entry found dn [" + dn + "]";
+                String warning = "getRole name [" + adminRole.getName() + "] no entry found dn [" + dn + "]";
                 throw new FinderException(GlobalErrIds.ARLE_NOT_FOUND, warning);
             }
         }
@@ -383,10 +383,10 @@ final class AdminRoleDAO extends DataProvider
         {
             if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
             {
-                String warning = CLS_NM + ".getRole name [" + adminRole.getName() + "] Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
+                String warning = "getRole name [" + adminRole.getName() + "] Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
                 throw new FinderException(GlobalErrIds.ARLE_NOT_FOUND, warning);
             }
-            String error = CLS_NM + ".getRole dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
+            String error = "getRole dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
             throw new FinderException(GlobalErrIds.ARLE_READ_FAILED, error, e);
         }
         finally
@@ -427,7 +427,7 @@ final class AdminRoleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".findRoles name [" + adminRole.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "findRoles name [" + adminRole.getName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.ARLE_SEARCH_FAILED, error, e);
         }
         finally
@@ -470,7 +470,7 @@ final class AdminRoleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".findRoles name [" + searchVal + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "findRoles name [" + searchVal + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.ARLE_SEARCH_FAILED, error, e);
         }
         finally
@@ -507,7 +507,7 @@ final class AdminRoleDAO extends DataProvider
         }
         catch (LDAPException e)
         {
-            String error = CLS_NM + ".findAssignedRoles userDn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "findAssignedRoles userDn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException(GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e);
         }
         finally
@@ -547,7 +547,7 @@ final class AdminRoleDAO extends DataProvider
          }
          catch (LDAPException e)
          {
-             String error = CLS_NM + ".getAllDescendants filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+             String error = "getAllDescendants filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
              throw new FinderException(GlobalErrIds.ARLE_SEARCH_FAILED, error, e);
          }
          finally

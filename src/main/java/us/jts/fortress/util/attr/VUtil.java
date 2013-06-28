@@ -86,7 +86,7 @@ public class VUtil
 
         if ( length > maxFieldLength )
         {
-            String error = CLS_NM + ".orgUnit value [" + orgUnitId + "] invalid length [" + length + "]";
+            String error = "orgUnit value [" + orgUnitId + "] invalid length [" + length + "]";
             throw new ValidationException( GlobalErrIds.ORG_LEN_INVLD, error );
         }
     }
@@ -103,7 +103,7 @@ public class VUtil
 
         if ( length > GlobalIds.PASSWORD_LEN )
         {
-            String error = CLS_NM + ".password invalid length [" + length + "]";
+            String error = "password invalid length [" + length + "]";
             throw new ValidationException( GlobalErrIds.USER_PW_INVLD_LEN, error );
         }
     }
@@ -124,7 +124,7 @@ public class VUtil
 
         if ( length > GlobalIds.DESC_LEN )
         {
-            String error = CLS_NM + ".description value [" + description + "] invalid length [" + length + "]";
+            String error = "description value [" + description + "] invalid length [" + length + "]";
             throw new ValidationException( GlobalErrIds.CONST_DESC_LEN_INVLD, error );
         }
 
@@ -147,7 +147,7 @@ public class VUtil
     {
         if ( !isNotNullOrEmpty( value ) )
         {
-            String error = CLS_NM + ".safeText null value";
+            String error = "safeText null value";
             throw new ValidationException( GlobalErrIds.CONST_NULL_TEXT, error );
         }
 
@@ -155,7 +155,7 @@ public class VUtil
 
         if ( length > validLen )
         {
-            String error = CLS_NM + ".safeText value [" + value + "] invalid length [" + length + "]";
+            String error = "safeText value [" + value + "] invalid length [" + length + "]";
             throw new ValidationException( GlobalErrIds.CONST_INVLD_FIELD_LEN, error );
         }
 
@@ -176,7 +176,7 @@ public class VUtil
     {
         if ( !isNotNullOrEmpty( userId ) )
         {
-            String error = CLS_NM + ".userId validation failed, null or empty value";
+            String error = "userId validation failed, null or empty value";
             throw new ValidationException( GlobalErrIds.USER_ID_NULL, error );
         }
 
@@ -184,7 +184,7 @@ public class VUtil
 
         if ( length > GlobalIds.USERID_LEN )
         {
-            String error = CLS_NM + ".safeText value [" + userId + "] invalid length [" + length + "]";
+            String error = "safeText value [" + userId + "] invalid length [" + length + "]";
             throw new ValidationException( GlobalErrIds.CONST_INVLD_FIELD_LEN, error );
         }
     }
@@ -224,7 +224,7 @@ public class VUtil
     {
         if ( ( timeout < 0 ) || ( timeout >= Integer.MAX_VALUE ) )
         {
-            String error = CLS_NM + ".timeout - invalid timeout value [" + timeout + "]";
+            String error = "timeout - invalid timeout value [" + timeout + "]";
             throw new ValidationException( GlobalErrIds.CONST_TIMEOUT_INVLD, error );
         }
     }
@@ -245,13 +245,13 @@ public class VUtil
         {
             if ( checkTime( beginTime ) )
             {
-                String error = CLS_NM + ".beginTime - invalid beginTime value [" + beginTime + "]";
+                String error = "beginTime - invalid beginTime value [" + beginTime + "]";
                 throw new ValidationException( GlobalErrIds.CONST_BEGINTIME_INVLD, error );
             }
         }
         else
         {
-            String error = CLS_NM + ".beginTime - null or invalid length (must be 4) for beginTime value";
+            String error = "beginTime - null or invalid length (must be 4) for beginTime value";
             throw new ValidationException( GlobalErrIds.CONST_BEGINTIME_LEN_ERR, error );
         }
     }
@@ -268,13 +268,13 @@ public class VUtil
         {
             if ( checkTime( endTime ) )
             {
-                String error = CLS_NM + ".endTime - invalid endTime value [" + endTime + "]";
+                String error = "endTime - invalid endTime value [" + endTime + "]";
                 throw new ValidationException( GlobalErrIds.CONST_ENDTIME_INVLD, error );
             }
         }
         else
         {
-            String error = CLS_NM + ".endTime - null or invalid length (must be 4) for endTime value";
+            String error = "endTime - null or invalid length (must be 4) for endTime value";
             throw new ValidationException( GlobalErrIds.CONST_ENDTIME_LEN_ERR, error );
         }
     }
@@ -293,13 +293,13 @@ public class VUtil
             if ( ( beginDate.compareToIgnoreCase( GlobalIds.NONE ) != 0 ) &&
                 ( ( beginDate.length() != DATE_LEN ) || checkDate( beginDate ) ) )
             {
-                String error = CLS_NM + ".beginDate - invalid beginDate value [" + beginDate + "]";
+                String error = "beginDate - invalid beginDate value [" + beginDate + "]";
                 throw new ValidationException( GlobalErrIds.CONST_BEGINDATE_INVLD, error );
             }
         }
         else
         {
-            String error = CLS_NM + ".beginDate - null or empty beginDate value";
+            String error = "beginDate - null or empty beginDate value";
             throw new ValidationException( GlobalErrIds.CONST_BEGINDATE_NULL, error );
         }
     }
@@ -318,14 +318,14 @@ public class VUtil
             {
                 if ( endDate.length() != DATE_LEN || checkDate( endDate ) )
                 {
-                    String error = CLS_NM + ".endDate - invalid endDate value [" + endDate + "]";
+                    String error = "endDate - invalid endDate value [" + endDate + "]";
                     throw new ValidationException( GlobalErrIds.CONST_ENDDATE_INVLD, error );
                 }
             }
         }
         else
         {
-            String error = CLS_NM + ".endDate - null or empty endDate value";
+            String error = "endDate - null or empty endDate value";
             throw new ValidationException( GlobalErrIds.CONST_ENDDATE_NULL, error );
         }
     }
@@ -344,14 +344,14 @@ public class VUtil
             {
                 if ( dayMask.length() > DAYMASK_LEN || checkMask( dayMask ) )
                 {
-                    String error = CLS_NM + ".dayMask - invalid dayMask value [" + dayMask + "]";
+                    String error = "dayMask - invalid dayMask value [" + dayMask + "]";
                     throw new ValidationException( GlobalErrIds.CONST_DAYMASK_INVLD, error );
                 }
             }
         }
         else
         {
-            String error = CLS_NM + ".dayMask - null or empty dayMask value";
+            String error = "dayMask - null or empty dayMask value";
             throw new us.jts.fortress.ValidationException( GlobalErrIds.CONST_DAYMASK_NULL, error );
         }
     }
@@ -373,7 +373,7 @@ public class VUtil
         }
         catch ( ParseException pe )
         {
-            String error = CLS_NM + ".checkTime - time [" + time + "] failed validation with ParseException=" + pe;
+            String error = "checkTime - time [" + time + "] failed validation with ParseException=" + pe;
             LOG.warn( error );
             return true;
         }
@@ -396,7 +396,7 @@ public class VUtil
         }
         catch ( ParseException pe )
         {
-            String error = CLS_NM + ".checkDate - date [" + date + "] failed validation with ParseException=" + pe;
+            String error = "checkDate - date [" + date + "] failed validation with ParseException=" + pe;
             LOG.warn( error );
 
             return true;
@@ -414,7 +414,7 @@ public class VUtil
         {
             if ( ( c < SUNDAY ) || ( c > SATURDAY ) )
             {
-                String error = CLS_NM + ".checkMask - mask [" + mask + "] failed validation";
+                String error = "checkMask - mask [" + mask + "] failed validation";
                 LOG.warn( error );
 
                 return true;
@@ -438,7 +438,7 @@ public class VUtil
     {
         if ( obj == null )
         {
-            String error = CLS_NM + ".assertContext detected null entity for method [" + method + "], error code ["
+            String error = "assertContext detected null entity for method [" + method + "], error code ["
                 + errorCode + "]";
             throw new ValidationException( errorCode, error );
         }
@@ -458,7 +458,7 @@ public class VUtil
     {
         if ( !isNotNullOrEmpty( value ) )
         {
-            String error = CLS_NM + ".assertContext detected null entity for method [" + method + "], error code ["
+            String error = "assertContext detected null entity for method [" + method + "], error code ["
                 + errorCode + "]";
             throw new ValidationException( errorCode, error );
         }
@@ -478,7 +478,7 @@ public class VUtil
     {
         if ( !isNotNullOrEmpty( value ) )
         {
-            String error = CLS_NM + ".assertContext detected null entity for method [" + method + "], error code ["
+            String error = "assertContext detected null entity for method [" + method + "], error code ["
                 + errorCode + "]";
             throw new ValidationException( errorCode, error );
         }

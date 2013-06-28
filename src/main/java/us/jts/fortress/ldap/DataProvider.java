@@ -323,7 +323,7 @@ public abstract class DataProvider
         if ( recursiveCount++ > MAX_DEPTH )
         {
             // too deep inside of a recursive sequence;
-            String error = CLS_NM + "." + method + " dn [" + dn + "] depth error in recursive";
+            String error = "." + method + " dn [" + dn + "] depth error in recursive";
             throw new LDAPException( error, LDAPException.OPERATION_ERROR );
         }
 
@@ -346,14 +346,14 @@ public abstract class DataProvider
             catch ( LDAPReferralException lre )
             {
                 // cannot continue;
-                String error = CLS_NM + "." + method + " dn [" + dn + "] caught LDAPReferralException="
+                String error = "." + method + " dn [" + dn + "] caught LDAPReferralException="
                     + lre.errorCodeToString() + "=" + lre.getLDAPErrorMessage();
                 throw new LDAPException( error, lre.getLDAPResultCode() );
             }
             catch ( LDAPException ldape )
             {
                 // cannot continue;
-                String error = CLS_NM + "." + method + " dn [" + dn + "] caught LDAPException="
+                String error = "." + method + " dn [" + dn + "] caught LDAPException="
                     + ldape.errorCodeToString() + "=" + ldape.getLDAPErrorMessage();
                 throw new LDAPException( error, ldape.getLDAPResultCode() );
             }
@@ -514,7 +514,7 @@ public abstract class DataProvider
             filter, atrs, attrsOnly );
         if ( result.getCount() > 1 )
         {
-            throw new LDAPException( CLS_NM + ".searchNode failed to return unique record for LDAP search of base DN ["
+            throw new LDAPException( "searchNode failed to return unique record for LDAP search of base DN ["
                 + baseDn + "] filter [" + filter + "]" );
         }
         return result.next();
@@ -551,7 +551,7 @@ public abstract class DataProvider
         LDAPSearchResults result = ld.search( baseDn, scope, filter, atrs, attrsOnly, opt );
         if ( result.getCount() > 1 )
         {
-            throw new LDAPException( CLS_NM + ".searchNode failed to return unique record for LDAP search of base DN ["
+            throw new LDAPException( "searchNode failed to return unique record for LDAP search of base DN ["
                 + baseDn + "] filter [" + filter + "]" );
         }
         return result.next();
@@ -714,7 +714,7 @@ public abstract class DataProvider
                 }
                 else
                 {
-                    String warning = CLS_NM + ".getRelAttributes detected incorrect data in role relationship field: "
+                    String warning = "getRelAttributes detected incorrect data in role relationship field: "
                         + edge;
                     LOG.warn( warning );
                 }
@@ -1098,7 +1098,7 @@ public abstract class DataProvider
             int length = value.length();
             if ( length > validLen )
             {
-                String error = CLS_NM + ".encodeSafeText value [" + value + "] invalid length [" + length + "]";
+                String error = "encodeSafeText value [" + value + "] invalid length [" + length + "]";
                 throw new LDAPException( error, LDAPException.PARAM_ERROR );
             }
             if ( GlobalIds.LDAP_FILTER_SIZE_FOUND )

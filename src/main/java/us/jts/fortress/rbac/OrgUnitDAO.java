@@ -141,7 +141,7 @@ final class OrgUnitDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".create orgUnit name [" + entity.getName() + "] type [" + entity.getType()
+            String error = "create orgUnit name [" + entity.getName() + "] type [" + entity.getType()
                 + "] root [" + dn + "] caught LDAPException=" + e;
             int errCode;
             if ( entity.getType() == OrgUnit.Type.PERM )
@@ -191,7 +191,7 @@ final class OrgUnitDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".update orgUnit name [" + entity.getName() + "] type [" + entity.getType()
+            String error = "update orgUnit name [" + entity.getName() + "] type [" + entity.getType()
                 + "] root [" + dn + "] caught LDAPException=" + e;
             int errCode;
             if ( entity.getType() == OrgUnit.Type.PERM )
@@ -233,7 +233,7 @@ final class OrgUnitDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".deleteParent orgUnit name [" + entity.getName() + "] type [" + entity.getType()
+            String error = "deleteParent orgUnit name [" + entity.getName() + "] type [" + entity.getType()
                 + "] root [" + dn + "] caught LDAPException=" + e;
             int errCode;
             if ( entity.getType() == OrgUnit.Type.PERM )
@@ -272,7 +272,7 @@ final class OrgUnitDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".remove orgUnit name [" + entity.getName() + "] type [" + entity.getType()
+            String error = "remove orgUnit name [" + entity.getName() + "] type [" + entity.getType()
                 + "] root [" + dn + "] caught LDAPException=" + e;
             int errCode;
             if ( entity.getType() == OrgUnit.Type.PERM )
@@ -312,7 +312,7 @@ final class OrgUnitDAO extends DataProvider
             LDAPEntry findEntry = read( ld, dn, ORGUNIT_ATRS );
             if ( findEntry == null )
             {
-                String warning = CLS_NM + ".findByKey orgUnit name [" + entity.getName() + "] type ["
+                String warning = "findByKey orgUnit name [" + entity.getName() + "] type ["
                     + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
                 int errCode;
                 if ( entity.getType() == OrgUnit.Type.PERM )
@@ -331,7 +331,7 @@ final class OrgUnitDAO extends DataProvider
         {
             if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
             {
-                String warning = CLS_NM + ".findByKey orgUnit name [" + entity.getName() + "] type ["
+                String warning = "findByKey orgUnit name [" + entity.getName() + "] type ["
                     + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
                 int errCode;
                 if ( entity.getType() == OrgUnit.Type.PERM )
@@ -346,7 +346,7 @@ final class OrgUnitDAO extends DataProvider
             }
             else
             {
-                String error = CLS_NM + ".findByKey orgUnitName [" + entity.getName() + "] type [" + entity.getType()
+                String error = "findByKey orgUnitName [" + entity.getName() + "] type [" + entity.getType()
                     + "] dn [" + dn + "] caught LDAPException=" + e;
                 int errCode;
                 if ( entity.getType() == OrgUnit.Type.PERM )
@@ -397,7 +397,7 @@ final class OrgUnitDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".findOrgs search val [" + orgUnit.getName() + "] type [" + orgUnit.getType()
+            String error = "findOrgs search val [" + orgUnit.getName() + "] type [" + orgUnit.getType()
                 + "] root [" + orgUnitRoot + "] caught LDAPException=" + e;
             int errCode;
             if ( orgUnit.getType() == OrgUnit.Type.PERM )
@@ -444,7 +444,7 @@ final class OrgUnitDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
+            String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
                 + "] caught LDAPException=" + e;
             int errCode;
             if ( orgUnit.getType() == OrgUnit.Type.PERM )
@@ -496,7 +496,7 @@ final class OrgUnitDAO extends DataProvider
         }
         catch ( LDAPException e )
         {
-            String error = CLS_NM + ".getAllDescendants filter [" + filter + "] caught LDAPException="
+            String error = "getAllDescendants filter [" + filter + "] caught LDAPException="
                 + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
@@ -526,7 +526,7 @@ final class OrgUnitDAO extends DataProvider
                     + getRootDn( orgUnit.getContextId(), GlobalIds.PSU_ROOT );
                 break;
             default:
-                String warning = CLS_NM + ".getDn invalid type";
+                String warning = "getDn invalid type";
                 LOG.warn( warning );
                 break;
         }
@@ -551,7 +551,7 @@ final class OrgUnitDAO extends DataProvider
                 dn = getRootDn( orgUnit.getContextId(), GlobalIds.PSU_ROOT );
                 break;
             default:
-                String warning = CLS_NM + ".getOrgRootDn invalid type";
+                String warning = "getOrgRootDn invalid type";
                 LOG.warn( warning );
                 break;
         }

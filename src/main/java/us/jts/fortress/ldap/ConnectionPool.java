@@ -186,7 +186,7 @@ class ConnectionPool
                 }
                 catch ( InterruptedException e )
                 {
-                    LOG.warn( CLS_NM + ".getConnection caught InterruptedException" );
+                    LOG.warn( "getConnection caught InterruptedException" );
                 }
             }
         }
@@ -227,7 +227,7 @@ class ConnectionPool
                 }
                 catch ( InterruptedException e )
                 {
-                    LOG.warn( CLS_NM + ".getConnection caught InterruptedException for timeout: " + timeout );
+                    LOG.warn( "getConnection caught InterruptedException for timeout: " + timeout );
                     return null;
                 }
             }
@@ -348,7 +348,7 @@ class ConnectionPool
                     {
                         debug( "unable to reauth during close as " + authdn );
                         debug( e.toString() );
-                        LOG.warn( CLS_NM + ".close caught LDAPException: " + e.getMessage() );
+                        LOG.warn( "close caught LDAPException: " + e.getMessage() );
                     }
                 }
             }
@@ -373,7 +373,7 @@ class ConnectionPool
             LDAPConnectionObject co =
                 ( LDAPConnectionObject ) pool.elementAt( i );
             String msg = "" + i + "=" + co;
-            LOG.info( CLS_NM + ".printPool: " + msg );
+            LOG.info( "printPool: " + msg );
         }
     }
 
@@ -395,7 +395,7 @@ class ConnectionPool
                     catch ( LDAPException e )
                     {
                         debug( "disconnect: " + e.toString() );
-                        LOG.warn( CLS_NM + ".disconnect caught LDAPException: " + e.getMessage() );
+                        LOG.warn( "disconnect caught LDAPException: " + e.getMessage() );
                     }
                 }
                 ldapconnObject.setLDAPConn( null ); // Clear conn
@@ -448,7 +448,7 @@ class ConnectionPool
         catch ( Exception ex )
         {
             debug( "Adding a connection: " + ex.toString() );
-            LOG.warn( CLS_NM + ".addConnection caught Exception: " + ex.getMessage() );
+            LOG.warn( "addConnection caught Exception: " + ex.getMessage() );
         }
         return index;
     }

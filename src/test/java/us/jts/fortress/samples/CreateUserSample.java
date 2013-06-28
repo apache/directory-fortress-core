@@ -67,7 +67,7 @@ public class CreateUserSample extends TestCase
     {
         // The default for this check is 'true'
         boolean tearDown = true;
-        String methodName = CLS_NM + ".teardownRequired";
+        String methodName = ".teardownRequired";
          try
         {
             ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
@@ -99,7 +99,7 @@ public class CreateUserSample extends TestCase
      */
     public static void testDeleteUser()
     {
-        String szLocation = CLS_NM + ".testDeleteUser";
+        String szLocation = ".testDeleteUser";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -142,7 +142,7 @@ public class CreateUserSample extends TestCase
      */
     public static void testCreateUser()
     {
-        String szLocation = CLS_NM + ".testCreateUser";
+        String szLocation = ".testCreateUser";
         try
         {
             // Instantiate the AdminMgr implementation.  All AdminMgr APIs can throw a SecurityException in the event

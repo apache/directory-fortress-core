@@ -111,7 +111,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         int numChildren = AdminRoleUtil.numChildren(role.getName(), role.getContextId());
         if (numChildren > 0)
         {
-            String error = CLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren + "] descendants before deletion";
+            String error =  methodName + " role [" + role.getName() + "] must remove [" + numChildren + "] descendants before deletion";
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
         // search for all users assigned this role and deassign:
@@ -392,7 +392,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         }
         if (numChildren > 0)
         {
-            String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must remove [" + numChildren + "] descendants before deletion";
+            String error =  methodName + " orgunit [" + entity.getName() + "] must remove [" + numChildren + "] descendants before deletion";
             throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
         }
         if (entity.getType() == OrgUnit.Type.USER)
@@ -401,7 +401,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
             List<User> assignedUsers = userP.search(entity, true);
             if (VUtil.isNotNullOrEmpty(assignedUsers))
             {
-                String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedUsers.size() + "] users before deletion";
+                String error =  methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedUsers.size() + "] users before deletion";
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_USER, error, null);
             }
         }
@@ -412,7 +412,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
             List<PermObj> assignedPerms = permP.search(entity, false);
             if (VUtil.isNotNullOrEmpty(assignedPerms))
             {
-                String error = CLS_NM + "." + methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedPerms.size() + "] perm objs before deletion";
+                String error =  methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedPerms.size() + "] perm objs before deletion";
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_PERM, error, null);
             }
         }

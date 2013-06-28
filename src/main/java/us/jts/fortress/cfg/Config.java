@@ -50,7 +50,7 @@ public class Config
 
             if ( fUrl == null )
             {
-                String error = CLS_NM + " static init: Error, null cfg file: " + propFile;
+                String error = "static init: Error, null cfg file: " + propFile;
                 LOG.error( error );
                 throw new java.lang.RuntimeException( error );
             }
@@ -87,19 +87,19 @@ public class Config
             }
             else
             {
-                LOG.info( " static init: config realm not setup" );
+                LOG.info( "static init: config realm not setup" );
             }
         }
         catch ( org.apache.commons.configuration.ConfigurationException ex )
         {
-            String error = CLS_NM + " static init: Error loading from cfg file: [" + propFile
+            String error = "static init: Error loading from cfg file: [" + propFile
                 + "] ConfigurationException=" + ex;
             LOG.error( error );
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_BOOTSTRAP_FAILED, error, ex );
         }
         catch ( SecurityException se )
         {
-            String error = CLS_NM + " static init: Error loading from cfg file: [" + propFile + "] SecurityException="
+            String error = "static init: Error loading from cfg file: [" + propFile + "] SecurityException="
                 + se;
             LOG.error( error );
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, se );
@@ -127,7 +127,7 @@ public class Config
         {
             if ( ce.getErrorId() == GlobalErrIds.FT_CONFIG_NOT_FOUND )
             {
-                String warning = CLS_NM + ".getRemoteConfig could not find cfg entry";
+                String warning = "getRemoteConfig could not find cfg entry";
                 LOG.warn( warning );
             }
             else
@@ -152,11 +152,11 @@ public class Config
         {
             value = ( String ) config.getProperty( name );
             if ( LOG.isDebugEnabled() )
-                LOG.debug( ".getProperty name [{}] value [{}]", name, value );
+                LOG.debug( "getProperty name [{}] value [{}]", name, value );
         }
         else
         {
-            String error = CLS_NM + ".getProperty invalid config, can't read prop [" + name + "]";
+            String error = "getProperty invalid config, can't read prop [" + name + "]";
             LOG.error( error );
         }
         return value;
@@ -179,7 +179,7 @@ public class Config
         }
         else
         {
-            String warn = CLS_NM + ".getProperty invalid config, can't read prop [" + name + "]";
+            String warn = "getProperty invalid config, can't read prop [" + name + "]";
             LOG.warn( warn );
         }
         if ( value == null || value.length() == 0 )
@@ -203,11 +203,11 @@ public class Config
         {
             value = ( char ) config.getProperty( name );
             if ( LOG.isDebugEnabled() )
-                LOG.debug( ".getChar name [{}] value [{}]", name, value );
+                LOG.debug( "getChar name [{}] value [{}]", name, value );
         }
         else
         {
-            String error = CLS_NM + ".getChar invalid config, can't read prop [" + name + "]";
+            String error = "getChar invalid config, can't read prop [" + name + "]";
             LOG.error( error );
         }
         return value;
@@ -230,7 +230,7 @@ public class Config
         }
         else
         {
-            String warn = CLS_NM + ".getChar invalid config, can't read prop [" + name + "]";
+            String warn = "getChar invalid config, can't read prop [" + name + "]";
             LOG.warn( warn );
         }
         if ( value == 0 )
@@ -256,7 +256,7 @@ public class Config
         }
         else
         {
-            String warn = CLS_NM + ".getInt invalid config, can't read prop [" + key + "]";
+            String warn = "getInt invalid config, can't read prop [" + key + "]";
             LOG.warn( warn );
         }
         return value;
@@ -279,7 +279,7 @@ public class Config
         }
         else
         {
-            String warn = CLS_NM + ".getInt invalid config, can't read prop [" + key + "]";
+            String warn = "getInt invalid config, can't read prop [" + key + "]";
             LOG.warn( warn );
         }
         return value;
@@ -301,7 +301,7 @@ public class Config
         }
         else
         {
-            String warn = CLS_NM + ".getBoolean - invalid config, can't read prop [" + key + "]";
+            String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
             LOG.warn( warn );
         }
         return value;
@@ -324,7 +324,7 @@ public class Config
         }
         else
         {
-            String warn = CLS_NM + ".getBoolean - invalid config, can't read prop [" + key + "]";
+            String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
             LOG.warn( warn );
         }
         return value;

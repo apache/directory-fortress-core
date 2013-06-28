@@ -305,7 +305,7 @@ public class CUtil
         }
         catch (us.jts.fortress.SecurityException ex)
         {
-            LOG.error(CLS_NM + ".static initialzier caught SecurityException=" + ex.getMessage(), ex);
+            LOG.error("static initialzier caught SecurityException=" + ex.getMessage(), ex);
         }
     }
 
@@ -367,7 +367,7 @@ public class CUtil
     public static void validateConstraints(Session session, ConstraintType type, boolean checkDsd)
         throws SecurityException
     {
-        String location = CLS_NM + ".validateConstraints";
+        String location = "validateConstraints";
         int rc;
         if (validators == null)
         {

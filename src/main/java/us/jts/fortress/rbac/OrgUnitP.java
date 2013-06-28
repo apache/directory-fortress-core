@@ -113,7 +113,7 @@ final class OrgUnitP
         }
         catch ( SecurityException se )
         {
-            String warning = CLS_NM + ".loadOrgSet static initializer caught SecurityException=" + se;
+            String warning = "loadOrgSet static initializer caught SecurityException=" + se;
             LOG.info( warning, se );
         }
         if ( orgUnit.getType() == OrgUnit.Type.USER )
@@ -325,7 +325,7 @@ final class OrgUnitP
         }
         if ( entity.getType() == null )
         {
-            String error = CLS_NM + ".validate null or empty org unit type";
+            String error = "validate null or empty org unit type";
             int errCode;
             if ( entity.getType() == OrgUnit.Type.PERM )
             {

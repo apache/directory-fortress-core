@@ -778,7 +778,7 @@ public class OrgUnitTestData extends TestCase
         assertEquals( CLS_NM + ".assertEquals failed compare ou name", getName( ole ), ou.getName() );
         assertEquals( CLS_NM + ".assertEquals failed compare ou desc", getDescription( ole ), ou.getDescription() );
         assertEquals( CLS_NM + ".assertEquals failed compare ou type", getType( ole ), ou.getType() );
-        LOG.debug( CLS_NM + ".assertEquals [" + ou.getName() + "] successful" );
+        LOG.debug( "assertEquals [" + ou.getName() + "] successful" );
     }
 
 

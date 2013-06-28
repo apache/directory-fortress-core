@@ -89,7 +89,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      */
     public static void testDeleteHierUserOrgs()
     {
-        String szLocation = CLS_NM + ".testDeleteHierUserOrgs";
+        String szLocation = ".testDeleteHierUserOrgs";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -132,7 +132,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      */
     public static void testCreateHierUserOrgs()
     {
-        String szLocation = CLS_NM + ".testCreateHierUserOrgs";
+        String szLocation = ".testCreateHierUserOrgs";
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.
@@ -178,7 +178,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      */
     public static void testDeleteDescendantUserOrgs()
     {
-        String szLocation = CLS_NM + ".testDeleteDescendantUserOrgs";
+        String szLocation = ".testDeleteDescendantUserOrgs";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -224,7 +224,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      */
     public static void testCreateDescendantUserOrgs()
     {
-        String szLocation = CLS_NM + ".testCreateDescendantUserOrgs";
+        String szLocation = ".testCreateDescendantUserOrgs";
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.
@@ -263,7 +263,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      */
     public static void testDeleteAscendantUserOrgs()
     {
-        String szLocation = CLS_NM + ".testDeleteAscendantUserOrgs";
+        String szLocation = ".testDeleteAscendantUserOrgs";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -308,7 +308,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      */
     public static void testCreateAscendantUserOrgs()
     {
-        String szLocation = CLS_NM + ".testCreateAscendantUserOrgs";
+        String szLocation = ".testCreateAscendantUserOrgs";
         try
         {
             // Instantiate the DelAdminMgr implementation which is used to provision ARBAC policies.

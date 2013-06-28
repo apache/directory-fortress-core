@@ -60,7 +60,7 @@ public class CreateUserRoleSample extends TestCase
      */
     public static void testDeassignRoles()
     {
-        String szLocation = CLS_NM + ".testDeassignRoles";
+        String szLocation = ".testDeassignRoles";
 
         if(AllSamplesJUnitTest.isFirstRun())
         {
@@ -105,7 +105,7 @@ public class CreateUserRoleSample extends TestCase
      */
     public static void testAssignComplexRole()
     {
-        String szLocation = CLS_NM + ".testAssignComplexRole";
+        String szLocation = ".testAssignComplexRole";
 
         // The key for User entity is the userId attribute.
         User inUser = new User(CreateUserSample.TEST_USERID);

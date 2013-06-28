@@ -35,7 +35,7 @@ public class EhCacheImpl implements Cache
         this.name = name;
         if ( blockingCache == null )
         {
-            String error = CLS_NM + " constructor cache: " + name + " is null";
+            String error = " constructor cache: " + name + " is null";
             throw new CfgRuntimeException( GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error );
         }
         this.cache = blockingCache;
@@ -54,7 +54,7 @@ public class EhCacheImpl implements Cache
     {
         if ( cache == null )
         {
-            String error = CLS_NM + ".get detected null cache name [" + name + "]";
+            String error = "get detected null cache name [" + name + "]";
             throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         try
@@ -71,7 +71,7 @@ public class EhCacheImpl implements Cache
         }
         catch ( net.sf.ehcache.CacheException ce )
         {
-            String error = CLS_NM + ".get cache name [" + name + "] key [" + key + "] caught CacheException="
+            String error = "get cache name [" + name + "] key [" + key + "] caught CacheException="
                 + ce.getMessage();
             throw new CacheException( GlobalErrIds.FT_CACHE_GET_ERR, error, ce );
         }
@@ -90,7 +90,7 @@ public class EhCacheImpl implements Cache
     {
         if ( cache == null )
         {
-            String error = CLS_NM + ".put detected null cache name [" + name + "]";
+            String error = "put detected null cache name [" + name + "]";
             throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         try
@@ -99,7 +99,7 @@ public class EhCacheImpl implements Cache
         }
         catch ( net.sf.ehcache.CacheException ce )
         {
-            String error = CLS_NM + ".put cache name [" + name + "] key [" + key + "] caught CacheException="
+            String error = "put cache name [" + name + "] key [" + key + "] caught CacheException="
                 + ce.getMessage();
             throw new CacheException( GlobalErrIds.FT_CACHE_PUT_ERR, error, ce );
         }
@@ -119,7 +119,7 @@ public class EhCacheImpl implements Cache
         boolean result;
         if ( cache == null )
         {
-            String error = CLS_NM + ".clear detected null cache name [" + name + "]";
+            String error = "clear detected null cache name [" + name + "]";
             throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         try
@@ -128,7 +128,7 @@ public class EhCacheImpl implements Cache
         }
         catch ( net.sf.ehcache.CacheException ce )
         {
-            String error = CLS_NM + ".clear cache name [" + name + "] key [" + key + "] caught CacheException="
+            String error = "clear cache name [" + name + "] key [" + key + "] caught CacheException="
                 + ce.getMessage();
             throw new CacheException( GlobalErrIds.FT_CACHE_CLEAR_ERR, error, ce );
         }
@@ -146,7 +146,7 @@ public class EhCacheImpl implements Cache
     {
         if ( cache == null )
         {
-            String error = CLS_NM + ".flush detected null cache name [" + name + "]";
+            String error = "flush detected null cache name [" + name + "]";
             throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         try
@@ -155,7 +155,7 @@ public class EhCacheImpl implements Cache
         }
         catch ( net.sf.ehcache.CacheException ce )
         {
-            String error = CLS_NM + ".flush cache name [" + name + "] caught CacheException=" + ce.getMessage();
+            String error = "flush cache name [" + name + "] caught CacheException=" + ce.getMessage();
             throw new CacheException( GlobalErrIds.FT_CACHE_FLUSH_ERR, error, ce );
 
         }
@@ -175,7 +175,7 @@ public class EhCacheImpl implements Cache
     {
         if ( cache == null )
         {
-            String error = CLS_NM + ".getSearchAttribute detected null cache name [" + name + "]";
+            String error = "getSearchAttribute detected null cache name [" + name + "]";
             throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         return this.cache.getSearchAttribute( attributeName );
@@ -192,7 +192,7 @@ public class EhCacheImpl implements Cache
     {
         if ( cache == null )
         {
-            String error = CLS_NM + ".createQuery detected null cache name [" + name + "]";
+            String error = "createQuery detected null cache name [" + name + "]";
             throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         return this.cache.createQuery();

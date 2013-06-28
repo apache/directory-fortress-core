@@ -39,7 +39,7 @@ final class AdminUtil
             boolean result = dAccessMgr.canAssign(session, user, role);
             if (!result)
             {
-                String warning = CLS_NM + ".canAssign Role [" + role.getName() + "] User [" + user.getUserId() + "] Admin [" + session.getUserId() + "] failed check.";
+                String warning = "canAssign Role [" + role.getName() + "] User [" + user.getUserId() + "] Admin [" + session.getUserId() + "] failed check.";
                 throw new SecurityException(GlobalErrIds.URLE_ADMIN_CANNOT_ASSIGN, warning);
             }
         }
@@ -63,7 +63,7 @@ final class AdminUtil
             boolean result = dAccessMgr.canDeassign(session, user, role);
             if (!result)
             {
-                String warning = CLS_NM + ".canDeassign Role [" + role.getName() + "] User [" + user.getUserId() + "] Admin [" + session.getUserId() + "] failed check.";
+                String warning = "canDeassign Role [" + role.getName() + "] User [" + user.getUserId() + "] Admin [" + session.getUserId() + "] failed check.";
                 throw new us.jts.fortress.SecurityException(GlobalErrIds.URLE_ADMIN_CANNOT_DEASSIGN, warning);
 
             }
@@ -90,7 +90,7 @@ final class AdminUtil
             boolean result = dAccessMgr.canGrant(session, role, perm);
             if (!result)
             {
-                String warning = CLS_NM + ".canGrant Role [" + role.getName() + "] Perm object [" + perm.getObjectName() + "] Perm Operation [" + perm.getOpName() + "] Admin [" + session.getUserId() + "] failed check.";
+                String warning = "canGrant Role [" + role.getName() + "] Perm object [" + perm.getObjectName() + "] Perm Operation [" + perm.getOpName() + "] Admin [" + session.getUserId() + "] failed check.";
                 throw new us.jts.fortress.SecurityException(GlobalErrIds.URLE_ADMIN_CANNOT_GRANT, warning);
             }
         }
@@ -115,7 +115,7 @@ final class AdminUtil
             boolean result = dAccessMgr.canRevoke(session, role, perm);
             if (!result)
             {
-                String warning = CLS_NM + ".canRevoke Role [" + role.getName() + "] Perm object [" + perm.getObjectName() + "] Perm Operation [" + perm.getOpName() + "] Admin [" + session.getUserId() + "] failed check.";
+                String warning = "canRevoke Role [" + role.getName() + "] Perm object [" + perm.getObjectName() + "] Perm Operation [" + perm.getOpName() + "] Admin [" + session.getUserId() + "] failed check.";
                 throw new SecurityException(GlobalErrIds.URLE_ADMIN_CANNOT_REVOKE, warning);
             }
         }
@@ -170,7 +170,7 @@ final class AdminUtil
             boolean result = dAccessMgr.checkAccess(session, perm);
             if (!result)
             {
-                String info = CLS_NM + ".checkAccess failed for user [" + session.getUserId() + "] object [" + perm.getObjectName() + "] operation [" + perm.getOpName() + "]";
+                String info = "checkAccess failed for user [" + session.getUserId() + "] object [" + perm.getObjectName() + "] operation [" + perm.getOpName() + "]";
                 throw new us.jts.fortress.AuthorizationException(GlobalErrIds.USER_ADMIN_NOT_AUTHORIZED, info);
             }
         }

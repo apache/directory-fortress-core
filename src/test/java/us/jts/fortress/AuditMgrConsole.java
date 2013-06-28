@@ -36,7 +36,7 @@ class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(" constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -58,7 +58,7 @@ class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".findBinds caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("findBinds caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -99,7 +99,7 @@ class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".getBindReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("getBindReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -278,7 +278,7 @@ class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".findAuthZs caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("findAuthZs caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -316,7 +316,7 @@ class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".getUserAuthZs caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("getUserAuthZs caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -368,7 +368,7 @@ class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".getAuthReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("getAuthReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -652,7 +652,7 @@ class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".getModReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("getModReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -776,7 +776,7 @@ class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".getAdminModReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("getAdminModReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -826,7 +826,7 @@ class AuditMgrConsole
         }
         catch (SecurityException e)
         {
-            LOG.error(CLS_NM + ".getAuthNInvalidReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error("getAuthNInvalidReport caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

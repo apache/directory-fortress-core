@@ -59,7 +59,7 @@ public class CreatePermOrgSample extends TestCase
      */
     public static void testCreatePermOrg()
     {
-        String szLocation = CLS_NM + ".testCreatePermOrg";
+        String szLocation = ".testCreatePermOrg";
         try
         {
             DelReviewMgr dRevAdminMgr = DelReviewMgrFactory.createInstance(TestUtils.getContext());
@@ -106,7 +106,7 @@ public class CreatePermOrgSample extends TestCase
      */
     public static void testCreatePermOrg2()
     {
-        String szLocation = CLS_NM + ".testCreatePermOrg2";
+        String szLocation = ".testCreatePermOrg2";
         try
         {
             DelReviewMgr dRevAdminMgr = DelReviewMgrFactory.createInstance(TestUtils.getContext());
