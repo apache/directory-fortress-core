@@ -4,17 +4,21 @@
 
 package us.jts.fortress.ldap.suffix;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.CreateException;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.ldap.DataProvider;
-import org.apache.log4j.Logger;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
+
 
 /**
  * This class contains the Suffix node for OpenLDAP Directory Information Tree.
@@ -48,12 +52,14 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 final class SuffixDAO extends DataProvider
 {
     private static final String CLS_NM = SuffixDAO.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String DC = "dc";
     private static final String O = "o";
-    private static final String[] SUFFIX_OBJ_CLASS = {
-        GlobalIds.SUFFIX_CLASS, GlobalIds.ORGANIZATION_CLASS
+    private static final String[] SUFFIX_OBJ_CLASS =
+        {
+            GlobalIds.SUFFIX_CLASS, GlobalIds.ORGANIZATION_CLASS
     };
+
 
     /**
      * Package private default constructor.
@@ -62,34 +68,36 @@ final class SuffixDAO extends DataProvider
     {
     }
 
+
     /**
      * @param se
      * @throws us.jts.fortress.CreateException
      */
-    final void create(Suffix se)
+    final void create( Suffix se )
         throws us.jts.fortress.CreateException
     {
         LDAPConnection ld = null;
-        String nodeDn = getDn(se);
+        String nodeDn = getDn( se );
         try
         {
-            log.info(CLS_NM + ".create suffix dn [" + nodeDn + "]");
+            LOG.info( CLS_NM + ".create suffix dn [" + nodeDn + "]" );
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS));
-            attrs.add(createAttribute(DC, se.getName()));
-            attrs.add(createAttribute(O, se.getDescription()));
-            LDAPEntry myEntry = new LDAPEntry(nodeDn, attrs);
+            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS ) );
+            attrs.add( createAttribute( DC, se.getName() ) );
+            attrs.add( createAttribute( O, se.getDescription() ) );
+            LDAPEntry myEntry = new LDAPEntry( nodeDn, attrs );
             ld = getAdminConnection();
-            add(ld, myEntry);
+            add( ld, myEntry );
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = CLS_NM + ".create container node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new CreateException(GlobalErrIds.SUFX_CREATE_FAILED, error, e);
+            String error = CLS_NM + ".create container node dn [" + nodeDn + "] caught LDAPException="
+                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            throw new CreateException( GlobalErrIds.SUFX_CREATE_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection(ld);
+            closeAdminConnection( ld );
         }
     }
 
@@ -106,36 +114,37 @@ final class SuffixDAO extends DataProvider
      * @param se
      * @throws us.jts.fortress.RemoveException
      */
-    final void remove(Suffix se)
+    final void remove( Suffix se )
         throws us.jts.fortress.RemoveException
     {
         LDAPConnection ld = null;
-        String nodeDn = getDn(se);
-        log.info(CLS_NM + ".remove suffix dn [" + nodeDn + "]");
+        String nodeDn = getDn( se );
+        LOG.info( CLS_NM + ".remove suffix dn [" + nodeDn + "]" );
         try
         {
             ld = getAdminConnection();
-            deleteRecursive(ld, nodeDn);
+            deleteRecursive( ld, nodeDn );
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = CLS_NM + ".remove suffix node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new RemoveException(GlobalErrIds.SUFX_DELETE_FAILED, error, e);
+            String error = CLS_NM + ".remove suffix node dn [" + nodeDn + "] caught LDAPException="
+                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            throw new RemoveException( GlobalErrIds.SUFX_DELETE_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection(ld);
+            closeAdminConnection( ld );
         }
     }
+
 
     /**
      *
      * @param se
      * @return
      */
-    private String getDn(Suffix se)
+    private String getDn( Suffix se )
     {
         return DC + "=" + se.getName() + "," + DC + "=" + se.getDc();
     }
 }
-

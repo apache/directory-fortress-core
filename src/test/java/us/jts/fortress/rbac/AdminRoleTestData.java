@@ -11,7 +11,8 @@ import java.util.StringTokenizer;
 
 import junit.framework.TestCase;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.util.attr.VUtil;
 
@@ -24,7 +25,7 @@ import us.jts.fortress.util.attr.VUtil;
 public class AdminRoleTestData extends TestCase
 {
     private static final String CLS_NM = AdminRoleTestData.class.getName();
-    final private static Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     public final static String[][] AROLES_SUPER =
         {
@@ -997,6 +998,6 @@ public class AdminRoleTestData extends TestCase
     public static void assertEquals( AdminRole role, String[] rle )
     {
         RoleTestData.assertEquals( role, rle );
-        log.debug( CLS_NM + ".assertEquals [" + role.getName() + "] successful" );
+        LOG.debug( CLS_NM + ".assertEquals [" + role.getName() + "] successful" );
     }
 }

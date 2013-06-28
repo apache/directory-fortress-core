@@ -4,22 +4,27 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.AccessMgrFactory;
-import us.jts.fortress.GlobalErrIds;
-import us.jts.fortress.PwPolicyMgr;
-import us.jts.fortress.SecurityException;
-import us.jts.fortress.AccessMgr;
-import us.jts.fortress.AdminMgr;
-import us.jts.fortress.PwPolicyMgrFactory;
-import us.jts.fortress.util.LogUtil;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.framework.TestCase;
-import org.apache.log4j.Logger;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import us.jts.fortress.AccessMgr;
+import us.jts.fortress.AccessMgrFactory;
+import us.jts.fortress.AdminMgr;
+import us.jts.fortress.GlobalErrIds;
+import us.jts.fortress.PwPolicyMgr;
+import us.jts.fortress.PwPolicyMgrFactory;
+import us.jts.fortress.SecurityException;
+import us.jts.fortress.util.LogUtil;
+
 
 /**
  * PwPolicyMgrImpl Tester.
@@ -30,55 +35,60 @@ import java.util.List;
 public class PswdPolicyMgrImplTest extends TestCase
 {
     private static final String CLS_NM = PswdPolicyMgrImplTest.class.getName();
-    final protected static Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-    public PswdPolicyMgrImplTest(String name)
+
+    public PswdPolicyMgrImplTest( String name )
     {
-        super(name);
+        super( name );
     }
 
     static Session adminSess = null;
+
 
     public void setUp() throws Exception
     {
         super.setUp();
     }
 
+
     public void tearDown() throws Exception
     {
         super.tearDown();
     }
 
+
     public static Test suiteX()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest(new PswdPolicyMgrImplTest("testDelete"));
-        suite.addTest(new AdminMgrImplTest("testDeleteUser"));
-        suite.addTest(new PswdPolicyMgrImplTest("testAdd"));
-        suite.addTest(new AdminMgrImplTest("testAddUser"));
-        suite.addTest(new PswdPolicyMgrImplTest("testMinAge"));
-        suite.addTest(new PswdPolicyMgrImplTest("testMaxAge"));
-        suite.addTest(new PswdPolicyMgrImplTest("testInHistory"));
-        suite.addTest(new PswdPolicyMgrImplTest("testMinLength"));
-        suite.addTest(new PswdPolicyMgrImplTest("testExpireWarning"));
-        suite.addTest(new PswdPolicyMgrImplTest("testGraceLoginLimit"));
-        suite.addTest(new PswdPolicyMgrImplTest("testMaxFailure"));
-        suite.addTest(new PswdPolicyMgrImplTest("testLockoutDuration"));
-        suite.addTest(new PswdPolicyMgrImplTest("testLockout"));
-        suite.addTest(new PswdPolicyMgrImplTest("testFailureCountInterval"));
-        suite.addTest(new PswdPolicyMgrImplTest("testMustChange"));
-        suite.addTest(new PswdPolicyMgrImplTest("testAllowUserChange"));
-        suite.addTest(new PswdPolicyMgrImplTest("testSafeModify"));        
+        suite.addTest( new PswdPolicyMgrImplTest( "testDelete" ) );
+        suite.addTest( new AdminMgrImplTest( "testDeleteUser" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testAdd" ) );
+        suite.addTest( new AdminMgrImplTest( "testAddUser" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testMinAge" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testMaxAge" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testInHistory" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testMinLength" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testExpireWarning" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testGraceLoginLimit" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testMaxFailure" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testLockoutDuration" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testLockout" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testFailureCountInterval" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testMustChange" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testAllowUserChange" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testSafeModify" ) );
         return suite;
     }
+
 
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest(new PswdPolicyMgrImplTest("testDelete"));
-        suite.addTest(new AdminMgrImplTest("testDeleteUser"));
-        suite.addTest(new PswdPolicyMgrImplTest("testAdd"));
-        suite.addTest(new AdminMgrImplTest("testAddUser"));
+        suite.addTest( new PswdPolicyMgrImplTest( "testDelete" ) );
+        suite.addTest( new AdminMgrImplTest( "testDeleteUser" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testAdd" ) );
+        suite.addTest( new AdminMgrImplTest( "testAddUser" ) );
         //suite.addTest(new PswdPolicyMgrImplTest("testMinAge"));
         //suite.addTest(new PswdPolicyMgrImplTest("testMaxAge"));
         //suite.addTest(new PswdPolicyMgrImplTest("testInHistory"));
@@ -91,46 +101,53 @@ public class PswdPolicyMgrImplTest extends TestCase
         //suite.addTest(new PswdPolicyMgrImplTest("testFailureCountInterval"));
         //suite.addTest(new PswdPolicyMgrImplTest("testMustChange"));
         //suite.addTest(new PswdPolicyMgrImplTest("testAllowUserChange"));
-        suite.addTest(new PswdPolicyMgrImplTest("testSafeModify"));
+        suite.addTest( new PswdPolicyMgrImplTest( "testSafeModify" ) );
         return suite;
     }
 
 
     @SafeVarargs
-    public static <T> T[] arrayMerge(T[]... arrays)
+    public static <T> T[] arrayMerge( T[]... arrays )
     {
         // Determine required size of new array
 
         int count = 0;
-        for (T[] array : arrays)
+        for ( T[] array : arrays )
         {
             count += array.length;
         }
 
         // create new array of required class
 
-        T[] mergedArray = (T[]) Array.newInstance(
-                arrays[0][0].getClass(), count);
+        T[] mergedArray = ( T[] ) Array.newInstance(
+            arrays[0][0].getClass(), count );
 
         // Merge each array into new array
 
         int start = 0;
-        for (T[] array : arrays)
+        for ( T[] array : arrays )
         {
-            System.arraycopy(array, 0,
-                             mergedArray, start, array.length);
+            System.arraycopy( array, 0,
+                mergedArray, start, array.length );
             start += array.length;
         }
         return mergedArray;
     }
+
 
     /**
      * @throws SecurityException
      */
     public void testMinAge()
     {
-        minAge("PWMIN1 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[0], UserTestData.USERS_TU5_UPD[0], PolicyTestData.POLICIES_TP1[0]);
-        minAge("PWMIN2 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[1], UserTestData.USERS_TU5_UPD[1], PolicyTestData.POLICIES_TP1[1]);
+        minAge(
+            "PWMIN1 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[0],
+            UserTestData.USERS_TU5_UPD[0], PolicyTestData.POLICIES_TP1[0] );
+        minAge(
+            "PWMIN2 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[1],
+            UserTestData.USERS_TU5_UPD[1], PolicyTestData.POLICIES_TP1[1] );
         //minAge("PWMIN3 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[2], UserTestData.USERS_TU5_UPD[2], PolicyTestData.POLICIES_TP1[2]);
         //minAge("PWMIN4 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[3], UserTestData.USERS_TU5_UPD[3], PolicyTestData.POLICIES_TP1[3]);
     }
@@ -150,44 +167,55 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param oldusr *
      * @param plcy
      */
-    public void minAge(String msg, String[] oldusr, String[] newusr, String[] plcy)
+    public void minAge( String msg, String[] oldusr, String[] newusr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            User oldUser = UserTestData.getUser(oldusr);
-            oldUser.setPwPolicy(PolicyTestData.getName(plcy));
-            adminMgr.updateUser(oldUser);
-            TestUtils.sleep(PolicyTestData.getMinAge(plcy));
-            adminMgr.changePassword(UserTestData.getUser(oldusr), UserTestData.getPassword(newusr));
-            User newUser = UserTestData.getUser(newusr);
+            User oldUser = UserTestData.getUser( oldusr );
+            oldUser.setPwPolicy( PolicyTestData.getName( plcy ) );
+            adminMgr.updateUser( oldUser );
+            TestUtils.sleep( PolicyTestData.getMinAge( plcy ) );
+            adminMgr.changePassword( UserTestData.getUser( oldusr ), UserTestData.getPassword( newusr ) );
+            User newUser = UserTestData.getUser( newusr );
             try
             {
-                newUser.setPassword("changed".toCharArray());
-                adminMgr.changePassword(UserTestData.getUser(newusr), newUser.getPassword());
-                fail(CLS_NM + ".minAge name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(oldusr) + "] failed min age test");
+                newUser.setPassword( "changed".toCharArray() );
+                adminMgr.changePassword( UserTestData.getUser( newusr ), newUser.getPassword() );
+                fail( CLS_NM + ".minAge name [" + PolicyTestData.getName( plcy ) + "] user ["
+                    + UserTestData.getUserId( oldusr ) + "] failed min age test" );
             }
-            catch (SecurityException ex)
+            catch ( SecurityException ex )
             {
-                assertTrue(CLS_NM + ".minAge invalid error message userId [" + UserTestData.getUserId(oldusr) + "]", ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION);
+                assertTrue( CLS_NM + ".minAge invalid error message userId [" + UserTestData.getUserId( oldusr ) + "]",
+                    ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION );
                 // still good
-                TestUtils.sleep(PolicyTestData.getMinAge(plcy));
-                adminMgr.changePassword(UserTestData.getUser(newusr), newUser.getPassword());
+                TestUtils.sleep( PolicyTestData.getMinAge( plcy ) );
+                adminMgr.changePassword( UserTestData.getUser( newusr ), newUser.getPassword() );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".minAge caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( CLS_NM + ".minAge caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                ex );
+            fail( ex.getMessage() );
         }
     }
 
+
     public void testMaxAge()
     {
-        maxAge("PWMAX3 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[2], UserTestData.USERS_TU5_UPD[2], PolicyTestData.POLICIES_TP1[2]);
-        maxAge("PWMAX4 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[3], UserTestData.USERS_TU5_UPD[3], PolicyTestData.POLICIES_TP1[3]);
+        maxAge(
+            "PWMAX3 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[2],
+            UserTestData.USERS_TU5_UPD[2], PolicyTestData.POLICIES_TP1[2] );
+        maxAge(
+            "PWMAX4 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[3],
+            UserTestData.USERS_TU5_UPD[3], PolicyTestData.POLICIES_TP1[3] );
     }
+
 
     /**
      * PT2
@@ -205,55 +233,65 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param newusr
      * @param plcy
      */
-    public void maxAge(String msg, String[] oldusr, String[] newusr, String[] plcy)
+    public void maxAge( String msg, String[] oldusr, String[] newusr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
-            User oldUser = UserTestData.getUser(oldusr);
-            User newUser = UserTestData.getUser(newusr);
-            oldUser.setPwPolicy(PolicyTestData.getName(plcy));
-            adminMgr.updateUser(oldUser);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            User oldUser = UserTestData.getUser( oldusr );
+            User newUser = UserTestData.getUser( newusr );
+            oldUser.setPwPolicy( PolicyTestData.getName( plcy ) );
+            adminMgr.updateUser( oldUser );
             char[] newPassword = newUser.getPassword();
-            adminMgr.changePassword(oldUser, newPassword);
-            oldUser.setPassword(newPassword);
-            for (int i = 0; i < 3; i++)
+            adminMgr.changePassword( oldUser, newPassword );
+            oldUser.setPassword( newPassword );
+            for ( int i = 0; i < 3; i++ )
             {
-                TestUtils.sleep(PolicyTestData.getMaxAge(plcy));
-                TestUtils.sleep(1);
+                TestUtils.sleep( PolicyTestData.getMaxAge( plcy ) );
+                TestUtils.sleep( 1 );
                 try
                 {
-                    accessMgr.createSession(oldUser, false);
-                    fail(CLS_NM + ".maxAge name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(oldusr) + "] failed age test");
+                    accessMgr.createSession( oldUser, false );
+                    fail( CLS_NM + ".maxAge name [" + PolicyTestData.getName( plcy ) + "] user ["
+                        + UserTestData.getUserId( oldusr ) + "] failed age test" );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    assertTrue(CLS_NM + ".maxAge invalid error message userId [" + UserTestData.getUserId(oldusr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
+                    assertTrue( CLS_NM + ".maxAge invalid error message userId [" + UserTestData.getUserId( oldusr )
+                        + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED );
                     // still good
                 }
                 newPassword = "changedabc".toCharArray();
-                oldUser = new User(oldUser.getUserId());
-                oldUser.setPassword(newPassword);
+                oldUser = new User( oldUser.getUserId() );
+                oldUser.setPassword( newPassword );
                 // since this password is now expired we have to call update rather than changePassword:
-                adminMgr.updateUser(oldUser);
-                accessMgr.createSession(oldUser, false);
+                adminMgr.updateUser( oldUser );
+                accessMgr.createSession( oldUser, false );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".maxAge caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( CLS_NM + ".maxAge caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                ex );
+            fail( ex.getMessage() );
         }
     }
 
 
     public void testInHistory()
     {
-        inHistory("PWHIST5 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[4], PolicyTestData.POLICIES_TP1[4]);
-        inHistory("PWHIST6 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[5], PolicyTestData.POLICIES_TP1[5]);
+        inHistory(
+            "PWHIST5 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[4],
+            PolicyTestData.POLICIES_TP1[4] );
+        inHistory(
+            "PWHIST6 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[5],
+            PolicyTestData.POLICIES_TP1[5] );
     }
+
 
     /**
      * PT3
@@ -270,59 +308,69 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy     
      */
-    public void inHistory(String msg, String[] usr, String[] plcy)
+    public void inHistory( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
 
-            User user = UserTestData.getUser(usr);
-            policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            int numHistory = PolicyTestData.getInHistory(plcy);
-            for(int i = 0; i < numHistory + 1; i++)
+            User user = UserTestData.getUser( usr );
+            policyMgr.updateUserPolicy( user.getUserId(), PolicyTestData.getName( plcy ) );
+            int numHistory = PolicyTestData.getInHistory( plcy );
+            for ( int i = 0; i < numHistory + 1; i++ )
             {
-                String newPassword = Arrays.toString(UserTestData.getPassword(usr)) + Integer.toString(i);
-                log.debug("inHistory change pw="  + Arrays.toString(user.getPassword()));
-                adminMgr.changePassword(user, newPassword.toCharArray());
-                user.setPassword(newPassword.toCharArray());
+                String newPassword = Arrays.toString( UserTestData.getPassword( usr ) ) + Integer.toString( i );
+                LOG.debug( "inHistory change pw=" + Arrays.toString( user.getPassword() ) );
+                adminMgr.changePassword( user, newPassword.toCharArray() );
+                user.setPassword( newPassword.toCharArray() );
                 try
                 {
-                    log.debug("inHistory change pw2="  + Arrays.toString(user.getPassword()));
-                    adminMgr.changePassword(user, newPassword.toCharArray());
+                    LOG.debug( "inHistory change pw2=" + Arrays.toString( user.getPassword() ) );
+                    adminMgr.changePassword( user, newPassword.toCharArray() );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    assertTrue(CLS_NM + ".inHistory invalid error message userId [" + user.getUserId() + "]", ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION);
+                    assertTrue( CLS_NM + ".inHistory invalid error message userId [" + user.getUserId() + "]",
+                        ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION );
                     // still good
                 }
             }
             try
             {
                 // now try to change back to original password, this should pass
-                adminMgr.changePassword(user, UserTestData.getPassword(usr));
+                adminMgr.changePassword( user, UserTestData.getPassword( usr ) );
             }
-            catch (SecurityException ex)
+            catch ( SecurityException ex )
             {
-                String error = CLS_NM + ".inHistory caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage();
-                log.error(error);
-                fail(error);
+                String error = CLS_NM + ".inHistory caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage();
+                LOG.error( error );
+                fail( error );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".inHistory caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".inHistory caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
 
 
     public void testMinLength()
     {
-        minLength("PWLEN7 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[6], PolicyTestData.POLICIES_TP1[6]);
-        minLength("PWLEN8 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[7], PolicyTestData.POLICIES_TP1[7]);
+        minLength(
+            "PWLEN7 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[6],
+            PolicyTestData.POLICIES_TP1[6] );
+        minLength(
+            "PWLEN8 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[7],
+            PolicyTestData.POLICIES_TP1[7] );
     }
+
 
     /**
      * PT4
@@ -340,43 +388,53 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy
      */
-    public void minLength(String msg, String[] usr, String[] plcy)
+    public void minLength( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
 
-            User user = UserTestData.getUser(usr);
-            policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
+            User user = UserTestData.getUser( usr );
+            policyMgr.updateUserPolicy( user.getUserId(), PolicyTestData.getName( plcy ) );
             try
             {
-                int min = PolicyTestData.getMinLength(plcy);
-                log.debug("testMinLength min=" + min + " len pw=" + user.getPassword().length);
-                String newPassword = new String(user.getPassword()).substring(0, min-1);
-                adminMgr.changePassword(user, newPassword.toCharArray());
-                fail(CLS_NM + ".minLength name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed length test");
+                int min = PolicyTestData.getMinLength( plcy );
+                LOG.debug( "testMinLength min=" + min + " len pw=" + user.getPassword().length );
+                String newPassword = new String( user.getPassword() ).substring( 0, min - 1 );
+                adminMgr.changePassword( user, newPassword.toCharArray() );
+                fail( CLS_NM + ".minLength name [" + PolicyTestData.getName( plcy ) + "] user ["
+                    + UserTestData.getUserId( usr ) + "] failed length test" );
             }
-            catch (SecurityException ex)
+            catch ( SecurityException ex )
             {
-                assertTrue(CLS_NM + ".minLength invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION);
+                assertTrue( CLS_NM + ".minLength invalid error message userId [" + UserTestData.getUserId( usr ) + "]",
+                    ex.getErrorId() == GlobalErrIds.PSWD_CONST_VIOLATION );
                 // still good
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".minLength caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".minLength caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
 
 
     public void testExpireWarning()
     {
-        expireWarning("PWEXP7 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[8], PolicyTestData.POLICIES_TP1[8]);
-        expireWarning("PWEXP8 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[9], PolicyTestData.POLICIES_TP1[9]);
+        expireWarning(
+            "PWEXP7 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[8],
+            PolicyTestData.POLICIES_TP1[8] );
+        expireWarning(
+            "PWEXP8 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[9],
+            PolicyTestData.POLICIES_TP1[9] );
     }
+
 
     /**
      * PT5
@@ -394,58 +452,70 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy
      */
-    public void expireWarning(String msg, String[] usr, String[] plcy)
+    public void expireWarning( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
-            User user = UserTestData.getUser(usr);
-            long expireSecs = PolicyTestData.getExpireWarning(plcy);
-            long maxSecs = PolicyTestData.getMaxAge(plcy);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            User user = UserTestData.getUser( usr );
+            long expireSecs = PolicyTestData.getExpireWarning( plcy );
+            long maxSecs = PolicyTestData.getMaxAge( plcy );
             long elapsedWait = maxSecs - expireSecs;
-            String newPassword = Arrays.toString(UserTestData.getPassword(usr)) + "a";
-            user.setPassword(newPassword.toCharArray());
-            user.setPwPolicy(PolicyTestData.getName(plcy));
+            String newPassword = Arrays.toString( UserTestData.getPassword( usr ) ) + "a";
+            user.setPassword( newPassword.toCharArray() );
+            user.setPwPolicy( PolicyTestData.getName( plcy ) );
             // because the password max age is so short, need to set new password, otherwise it will have already expired:
-            adminMgr.updateUser(user);
+            adminMgr.updateUser( user );
             // now do the password change to start the clock ticking:
-            newPassword = Arrays.toString(UserTestData.getPassword(usr)) + "b";
-            adminMgr.changePassword(user, newPassword.toCharArray());
-            user.setPassword(newPassword.toCharArray());
-            Session s1 = accessMgr.createSession(user, false);
-            assertTrue(CLS_NM + ".expireWarning invalid error message userId [" + UserTestData.getUserId(usr) + "]", s1.getExpirationSeconds() == 0);
-            TestUtils.sleep(elapsedWait);
+            newPassword = Arrays.toString( UserTestData.getPassword( usr ) ) + "b";
+            adminMgr.changePassword( user, newPassword.toCharArray() );
+            user.setPassword( newPassword.toCharArray() );
+            Session s1 = accessMgr.createSession( user, false );
+            assertTrue( CLS_NM + ".expireWarning invalid error message userId [" + UserTestData.getUserId( usr ) + "]",
+                s1.getExpirationSeconds() == 0 );
+            TestUtils.sleep( elapsedWait );
             // add one second for good measure:
-            TestUtils.sleep(1);
-            s1 = accessMgr.createSession(user, false);
-            assertTrue(CLS_NM + ".expireWarning invalid error message 2 userId [" + UserTestData.getUserId(usr) + "]", (0 < s1.getExpirationSeconds()) && (s1.getExpirationSeconds() < maxSecs));
-            TestUtils.sleep(elapsedWait);
+            TestUtils.sleep( 1 );
+            s1 = accessMgr.createSession( user, false );
+            assertTrue( CLS_NM + ".expireWarning invalid error message 2 userId [" + UserTestData.getUserId( usr )
+                + "]", ( 0 < s1.getExpirationSeconds() ) && ( s1.getExpirationSeconds() < maxSecs ) );
+            TestUtils.sleep( elapsedWait );
             try
             {
-                accessMgr.createSession(user, false);
-                fail(CLS_NM + ".expireWarning name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed expired pw test");
+                accessMgr.createSession( user, false );
+                fail( CLS_NM + ".expireWarning name [" + PolicyTestData.getName( plcy ) + "] user ["
+                    + UserTestData.getUserId( usr ) + "] failed expired pw test" );
             }
-            catch (SecurityException ex)
+            catch ( SecurityException ex )
             {
-                assertTrue(CLS_NM + ".expireWarning invalid error message 3 userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
+                assertTrue( CLS_NM + ".expireWarning invalid error message 3 userId [" + UserTestData.getUserId( usr )
+                    + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED );
                 // still good
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".expireWarning caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".expireWarning caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                ex );
+            fail( ex.getMessage() );
         }
     }
 
 
     public void testGraceLoginLimit()
     {
-        graceLoginLimit("PWGRACE9 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[10], PolicyTestData.POLICIES_TP1[10]);
-        graceLoginLimit("PWGRACE10 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[11], PolicyTestData.POLICIES_TP1[11]);
+        graceLoginLimit(
+            "PWGRACE9 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[10],
+            PolicyTestData.POLICIES_TP1[10] );
+        graceLoginLimit( "PWGRACE10 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+            + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[11],
+            PolicyTestData.POLICIES_TP1[11] );
     }
+
 
     /**
      * PT6
@@ -458,60 +528,74 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy
      */
-    public void graceLoginLimit(String msg, String[] usr, String[] plcy)
+    public void graceLoginLimit( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
-            User user = UserTestData.getUser(usr);
-            user.setPwPolicy(PolicyTestData.getName(plcy));
-            adminMgr.updateUser(user);
-            String newPassword = Arrays.toString(user.getPassword()) + "a";
-            adminMgr.changePassword(user, newPassword.toCharArray());
-            user.setPassword(newPassword.toCharArray());
-            TestUtils.sleep(PolicyTestData.getMaxAge(plcy));
-            TestUtils.sleep(1);                       
-            int numGrace = PolicyTestData.getGraceLoginLimit(plcy);
-            for (int i = 0; i < numGrace; i++)
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            User user = UserTestData.getUser( usr );
+            user.setPwPolicy( PolicyTestData.getName( plcy ) );
+            adminMgr.updateUser( user );
+            String newPassword = Arrays.toString( user.getPassword() ) + "a";
+            adminMgr.changePassword( user, newPassword.toCharArray() );
+            user.setPassword( newPassword.toCharArray() );
+            TestUtils.sleep( PolicyTestData.getMaxAge( plcy ) );
+            TestUtils.sleep( 1 );
+            int numGrace = PolicyTestData.getGraceLoginLimit( plcy );
+            for ( int i = 0; i < numGrace; i++ )
             {
                 try
                 {
-                    accessMgr.createSession(user, false);
-                    TestUtils.sleep(1);                    
+                    accessMgr.createSession( user, false );
+                    TestUtils.sleep( 1 );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    fail(CLS_NM + ".graceLoginLimit name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed grace allowed=" + numGrace + " iteration=" + i);
-                    assertTrue(CLS_NM + ".graceLoginLimit invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
+                    fail( CLS_NM + ".graceLoginLimit name [" + PolicyTestData.getName( plcy ) + "] user ["
+                        + UserTestData.getUserId( usr ) + "] failed grace allowed=" + numGrace + " iteration=" + i );
+                    assertTrue(
+                        CLS_NM + ".graceLoginLimit invalid error message userId [" + UserTestData.getUserId( usr )
+                            + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED );
                     // still good
                 }
             }
             try
-            {               
-                accessMgr.createSession(user, false);
-                fail(CLS_NM + ".graceLoginLimit name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed grace test 2");
-            }
-            catch (SecurityException ex)
             {
-                assertTrue(CLS_NM + ".graceLoginLimit invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED);
+                accessMgr.createSession( user, false );
+                fail( CLS_NM + ".graceLoginLimit name [" + PolicyTestData.getName( plcy ) + "] user ["
+                    + UserTestData.getUserId( usr ) + "] failed grace test 2" );
+            }
+            catch ( SecurityException ex )
+            {
+                assertTrue( CLS_NM + ".graceLoginLimit invalid error message userId [" + UserTestData.getUserId( usr )
+                    + "]", ex.getErrorId() == GlobalErrIds.USER_PW_EXPIRED );
                 // still good
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".graceLoginLimit caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".graceLoginLimit caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                ex );
+            fail( ex.getMessage() );
         }
     }
 
 
     public void testMaxFailure()
     {
-        maxFailure("PWMAXFAILK11 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[12], PolicyTestData.POLICIES_TP1[12]);
-        maxFailure("PWMAXFAIL12 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[13], PolicyTestData.POLICIES_TP1[13]);
+        maxFailure(
+            "PWMAXFAILK11 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[12],
+            PolicyTestData.POLICIES_TP1[12] );
+        maxFailure(
+            "PWMAXFAIL12 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[13],
+            PolicyTestData.POLICIES_TP1[13] );
     }
+
 
     /**
      * PT7
@@ -526,61 +610,72 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy
      */
-    public void maxFailure(String msg, String[] usr, String[] plcy)
+    public void maxFailure( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
-            User user = UserTestData.getUser(usr);
-            policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            int maxFailures = PolicyTestData.getMaxFailure(plcy);
-            for (int i = 0; i < maxFailures; i++)
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            User user = UserTestData.getUser( usr );
+            policyMgr.updateUserPolicy( user.getUserId(), PolicyTestData.getName( plcy ) );
+            int maxFailures = PolicyTestData.getMaxFailure( plcy );
+            for ( int i = 0; i < maxFailures; i++ )
             {
                 try
                 {
-                    User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
-                    accessMgr.createSession(badUser, false);
-                    fail(CLS_NM + ".maxFailure name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed max failure test=" + maxFailures + " iteration=" + i);
+                    User badUser = new User( user.getUserId(), "wrongpw".toCharArray() );
+                    accessMgr.createSession( badUser, false );
+                    fail( CLS_NM + ".maxFailure name [" + PolicyTestData.getName( plcy ) + "] user ["
+                        + UserTestData.getUserId( usr ) + "] failed max failure test=" + maxFailures + " iteration="
+                        + i );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    assertTrue(CLS_NM + ".maxFailure invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
+                    assertTrue( CLS_NM + ".maxFailure invalid error message userId [" + UserTestData.getUserId( usr )
+                        + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD );
                     // still good
-                    TestUtils.sleep(1);
+                    TestUtils.sleep( 1 );
                 }
             }
             try
             {
                 // now try with valid password - better be locked out...
-                accessMgr.createSession(user, false);
-                fail(CLS_NM + ".maxFailure name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed max failure test 2");
+                accessMgr.createSession( user, false );
+                fail( CLS_NM + ".maxFailure name [" + PolicyTestData.getName( plcy ) + "] user ["
+                    + UserTestData.getUserId( usr ) + "] failed max failure test 2" );
             }
-            catch (SecurityException ex)
+            catch ( SecurityException ex )
             {
-                assertTrue(CLS_NM + ".maxFailure invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED);
+                assertTrue(
+                    CLS_NM + ".maxFailure invalid error message userId [" + UserTestData.getUserId( usr ) + "]",
+                    ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED );
                 // still good
             }
-            adminMgr.unlockUserAccount(user);
+            adminMgr.unlockUserAccount( user );
             // now try with valid password - better work this time...
-            accessMgr.createSession(user, false);
+            accessMgr.createSession( user, false );
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".maxFailure caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".maxFailure caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
-
 
 
     public void testLockoutDuration() throws us.jts.fortress.SecurityException
     {
-        lockoutDuration("PWDURATION13 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[14], PolicyTestData.POLICIES_TP1[14]);
-        lockoutDuration("PWDURATION14 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[15], PolicyTestData.POLICIES_TP1[15]);
+        lockoutDuration( "PWDURATION13 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+            + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[14],
+            PolicyTestData.POLICIES_TP1[14] );
+        lockoutDuration( "PWDURATION14 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+            + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[15],
+            PolicyTestData.POLICIES_TP1[15] );
     }
+
 
     /**
      * PT8
@@ -596,64 +691,79 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy
      */
-    public void lockoutDuration(String msg, String[] usr, String[] plcy)
+    public void lockoutDuration( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
-            User user = UserTestData.getUser(usr);
-            policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            int maxFailures = PolicyTestData.getMaxFailure(plcy);
-            int lockoutDuration = PolicyTestData.getLockoutDuration(plcy);
-            for (int i = 0; i < maxFailures; i++)
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            User user = UserTestData.getUser( usr );
+            policyMgr.updateUserPolicy( user.getUserId(), PolicyTestData.getName( plcy ) );
+            int maxFailures = PolicyTestData.getMaxFailure( plcy );
+            int lockoutDuration = PolicyTestData.getLockoutDuration( plcy );
+            for ( int i = 0; i < maxFailures; i++ )
             {
                 try
                 {
-                    User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
-                    accessMgr.createSession(badUser, false);
-                    fail(CLS_NM + ".lockoutDuration name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed lockout duration test=" + maxFailures + " iteration=" + i);
+                    User badUser = new User( user.getUserId(), "wrongpw".toCharArray() );
+                    accessMgr.createSession( badUser, false );
+                    fail( CLS_NM + ".lockoutDuration name [" + PolicyTestData.getName( plcy ) + "] user ["
+                        + UserTestData.getUserId( usr ) + "] failed lockout duration test=" + maxFailures
+                        + " iteration=" + i );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    assertTrue(CLS_NM + ".lockoutDuration invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
+                    assertTrue(
+                        CLS_NM + ".lockoutDuration invalid error message userId [" + UserTestData.getUserId( usr )
+                            + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD );
                     // still good
-                    TestUtils.sleep(1);
+                    TestUtils.sleep( 1 );
                 }
             }
             try
             {
                 // now try with valid password - better be locked out...
-                accessMgr.createSession(user, false);
-                fail(CLS_NM + ".lockoutDuration name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed lockout duration test 2");
+                accessMgr.createSession( user, false );
+                fail( CLS_NM + ".lockoutDuration name [" + PolicyTestData.getName( plcy ) + "] user ["
+                    + UserTestData.getUserId( usr ) + "] failed lockout duration test 2" );
             }
-            catch (SecurityException ex)
+            catch ( SecurityException ex )
             {
-                assertTrue(CLS_NM + ".lockoutDuration invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED);
+                assertTrue( CLS_NM + ".lockoutDuration invalid error message userId [" + UserTestData.getUserId( usr )
+                    + "]", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED );
                 // still good
             }
 
             // now sleep for lockout duration - password should unlock automatically:
-            TestUtils.sleep(lockoutDuration);
+            TestUtils.sleep( lockoutDuration );
             // sleep one more second for good measure.
-            TestUtils.sleep(1);
+            TestUtils.sleep( 1 );
             // now try with valid password - better work this time...
-            accessMgr.createSession(user, false);
+            accessMgr.createSession( user, false );
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".lockoutDuration caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".lockoutDuration caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                ex );
+            fail( ex.getMessage() );
         }
     }
 
 
     public void testLockout()
     {
-        lockout("PWLOCK15 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[16], PolicyTestData.POLICIES_TP1[16]);
-        lockout("PWLOCK16 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[17], PolicyTestData.POLICIES_TP1[17]);
+        lockout(
+            "PWLOCK15 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[16],
+            PolicyTestData.POLICIES_TP1[16] );
+        lockout(
+            "PWLOCK16 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[17],
+            PolicyTestData.POLICIES_TP1[17] );
     }
+
 
     /**
      * PT9
@@ -672,52 +782,60 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy
      */
-    public void lockout(String msg, String[] usr, String[] plcy)
+    public void lockout( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
-            User user = UserTestData.getUser(usr);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            User user = UserTestData.getUser( usr );
 
-            policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            for (int i = 0; i < 3; i++)
+            policyMgr.updateUserPolicy( user.getUserId(), PolicyTestData.getName( plcy ) );
+            for ( int i = 0; i < 3; i++ )
             {
                 // first lock it:
-                adminMgr.lockUserAccount(user);
+                adminMgr.lockUserAccount( user );
                 try
                 {
                     // because account is locked, this better fail:
-                    accessMgr.createSession(user, false);
-                    fail(CLS_NM + ".lockout name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed lockout test iteration=" + i);
+                    accessMgr.createSession( user, false );
+                    fail( CLS_NM + ".lockout name [" + PolicyTestData.getName( plcy ) + "] user ["
+                        + UserTestData.getUserId( usr ) + "] failed lockout test iteration=" + i );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    assertTrue(CLS_NM + ".lockout invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED);
+                    assertTrue( CLS_NM + ".lockout invalid error message userId [" + UserTestData.getUserId( usr )
+                        + "]", ex.getErrorId() == GlobalErrIds.USER_PW_LOCKED );
                     // still good
-                    TestUtils.sleep(1);
+                    TestUtils.sleep( 1 );
                 }
                 // now unlock it:
-                adminMgr.unlockUserAccount(user);
+                adminMgr.unlockUserAccount( user );
                 // this better work:
-                accessMgr.createSession(user, false);
+                accessMgr.createSession( user, false );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".lockout caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( CLS_NM + ".lockout caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                ex );
+            fail( ex.getMessage() );
         }
     }
 
 
     public void testFailureCountInterval()
     {
-        failureCountInterval("PWINTERVAL17 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[18], PolicyTestData.POLICIES_TP1[18]);
-        failureCountInterval("PWINTERVAL18 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[19], PolicyTestData.POLICIES_TP1[19]);
+        failureCountInterval( "PWINTERVAL17 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+            + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[18],
+            PolicyTestData.POLICIES_TP1[18] );
+        failureCountInterval( "PWINTERVAL18 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+            + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[19],
+            PolicyTestData.POLICIES_TP1[19] );
     }
+
 
     /**
      * PT10
@@ -733,73 +851,91 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy
      */
-    public void failureCountInterval(String msg, String[] usr, String[] plcy)
+    public void failureCountInterval( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
-            User user = UserTestData.getUser(usr);
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            User user = UserTestData.getUser( usr );
 
-            policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            int maxFailures = PolicyTestData.getMaxFailure(plcy);
-            int failureInterval = PolicyTestData.getFailureCountInterval(plcy);
-            for (int i = 0; i < maxFailures-1; i++)
+            policyMgr.updateUserPolicy( user.getUserId(), PolicyTestData.getName( plcy ) );
+            int maxFailures = PolicyTestData.getMaxFailure( plcy );
+            int failureInterval = PolicyTestData.getFailureCountInterval( plcy );
+            for ( int i = 0; i < maxFailures - 1; i++ )
             {
                 try
                 {
-                    User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
-                    accessMgr.createSession(badUser, false);
-                    fail(CLS_NM + ".failureCountInterval name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed failure count interval test, maxfailures=" + maxFailures + " iteration=" + i);
+                    User badUser = new User( user.getUserId(), "wrongpw".toCharArray() );
+                    accessMgr.createSession( badUser, false );
+                    fail( CLS_NM + ".failureCountInterval name [" + PolicyTestData.getName( plcy ) + "] user ["
+                        + UserTestData.getUserId( usr ) + "] failed failure count interval test, maxfailures="
+                        + maxFailures + " iteration=" + i );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    assertTrue(CLS_NM + ".failureCountInterval invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
+                    assertTrue(
+                        CLS_NM + ".failureCountInterval invalid error message userId [" + UserTestData.getUserId( usr )
+                            + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD );
                     // still good
-                    TestUtils.sleep(1);
+                    TestUtils.sleep( 1 );
                 }
             }
             // now sleep for failure count interval - password failure count should reset automatically:
-            TestUtils.sleep(failureInterval);
+            TestUtils.sleep( failureInterval );
             // sleep one more second for good measure.
-            TestUtils.sleep(1);
+            TestUtils.sleep( 1 );
             // now loop thru another set of bad pw tries:
-            for (int i = 0; i < maxFailures-1; i++)
+            for ( int i = 0; i < maxFailures - 1; i++ )
             {
                 try
                 {
-                    User badUser = new User(user.getUserId(), "wrongpw".toCharArray());
-                    accessMgr.createSession(badUser, false);
-                    fail(CLS_NM + ".failureCountInterval name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed failure count interval test 2, maxfailures=" + maxFailures + " iteration=" + i);
+                    User badUser = new User( user.getUserId(), "wrongpw".toCharArray() );
+                    accessMgr.createSession( badUser, false );
+                    fail( CLS_NM + ".failureCountInterval name [" + PolicyTestData.getName( plcy ) + "] user ["
+                        + UserTestData.getUserId( usr ) + "] failed failure count interval test 2, maxfailures="
+                        + maxFailures + " iteration=" + i );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    assertTrue(CLS_NM + ".failureCountInterval invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD);
+                    assertTrue(
+                        CLS_NM + ".failureCountInterval invalid error message userId [" + UserTestData.getUserId( usr )
+                            + "]", ex.getErrorId() == GlobalErrIds.USER_PW_INVLD );
                     // still good
-                    TestUtils.sleep(1);
+                    TestUtils.sleep( 1 );
                 }
             }
             // now sleep for failure count interval - password failure count should reset automatically:
-            TestUtils.sleep(failureInterval);
+            TestUtils.sleep( failureInterval );
             // sleep one more second for good measure.
-            TestUtils.sleep(1);
+            TestUtils.sleep( 1 );
 
             // now try with valid password - it should work...
-            accessMgr.createSession(user, false);
+            accessMgr.createSession( user, false );
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".failureCountInterval caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".failureCountInterval caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     public void testMustChange()
     {
-        mustChange("PWMUST19 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[20], PolicyTestData.POLICIES_TP1[20]);
-        mustChange("PWMUST20 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[21], PolicyTestData.POLICIES_TP1[21]);
+        mustChange(
+            "PWMUST19 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[20],
+            PolicyTestData.POLICIES_TP1[20] );
+        mustChange(
+            "PWMUST20 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[21],
+            PolicyTestData.POLICIES_TP1[21] );
     }
+
 
     /**
      * PT11
@@ -816,54 +952,62 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy
      */
-    public void mustChange(String msg, String[] usr, String[] plcy)
+    public void mustChange( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
-            User user = UserTestData.getUser(usr);
-            policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            boolean mustChange = PolicyTestData.getMustChange(plcy);
-            adminMgr.resetPassword(user, "newpassword".toCharArray());
-            if(mustChange)
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            User user = UserTestData.getUser( usr );
+            policyMgr.updateUserPolicy( user.getUserId(), PolicyTestData.getName( plcy ) );
+            boolean mustChange = PolicyTestData.getMustChange( plcy );
+            adminMgr.resetPassword( user, "newpassword".toCharArray() );
+            if ( mustChange )
             {
                 try
                 {
                     // because mustchange flag is set, this better fail:
-                    User badUser = new User(user.getUserId(), "newpassword".toCharArray());
-                    accessMgr.createSession(badUser, false);
-                    fail(CLS_NM + ".mustChange name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed must change test flag=" + mustChange);
+                    User badUser = new User( user.getUserId(), "newpassword".toCharArray() );
+                    accessMgr.createSession( badUser, false );
+                    fail( CLS_NM + ".mustChange name [" + PolicyTestData.getName( plcy ) + "] user ["
+                        + UserTestData.getUserId( usr ) + "] failed must change test flag=" + mustChange );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    assertTrue(CLS_NM + ".mustChange invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_RESET);
+                    assertTrue( CLS_NM + ".mustChange invalid error message userId [" + UserTestData.getUserId( usr )
+                        + "]", ex.getErrorId() == GlobalErrIds.USER_PW_RESET );
                     // still good
-                    TestUtils.sleep(1);
+                    TestUtils.sleep( 1 );
                 }
             }
             else
             {
                 // this better work:
-                User goodUser = new User(user.getUserId(), "newpassword".toCharArray());
-                accessMgr.createSession(goodUser, false);
+                User goodUser = new User( user.getUserId(), "newpassword".toCharArray() );
+                accessMgr.createSession( goodUser, false );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".mustChange policy [" + PolicyTestData.getName(plcy) + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( CLS_NM + ".mustChange policy [" + PolicyTestData.getName( plcy )
+                + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
 
 
     public void testAllowUserChange()
     {
-        allowUserChange("PWALLOW21 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[22], PolicyTestData.POLICIES_TP1[22]);
-        allowUserChange("PWALLOW22 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[23], PolicyTestData.POLICIES_TP1[23]);
+        allowUserChange( "PWALLOW21 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+            + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[22],
+            PolicyTestData.POLICIES_TP1[22] );
+        allowUserChange( "PWALLOW22 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+            + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[23],
+            PolicyTestData.POLICIES_TP1[23] );
     }
+
 
     /**
      * PT12
@@ -877,51 +1021,62 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy
      */
-    public void allowUserChange(String msg, String[] usr, String[] plcy)
+    public void allowUserChange( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            User user = UserTestData.getUser(usr);
+            User user = UserTestData.getUser( usr );
 
-            policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            boolean allowChange = PolicyTestData.getAllowUserChange(plcy);
-            if(!allowChange)
+            policyMgr.updateUserPolicy( user.getUserId(), PolicyTestData.getName( plcy ) );
+            boolean allowChange = PolicyTestData.getAllowUserChange( plcy );
+            if ( !allowChange )
             {
                 try
                 {
                     // because allowchange flag is false, this better fail:
-                    adminMgr.changePassword(user, "newPassword".toCharArray());
-                    fail(CLS_NM + ".allowUserChange name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed allow change test flag=" + allowChange);
+                    adminMgr.changePassword( user, "newPassword".toCharArray() );
+                    fail( CLS_NM + ".allowUserChange name [" + PolicyTestData.getName( plcy ) + "] user ["
+                        + UserTestData.getUserId( usr ) + "] failed allow change test flag=" + allowChange );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    assertTrue(CLS_NM + ".allowUserChange invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_MOD_NOT_ALLOWED);
+                    assertTrue(
+                        CLS_NM + ".allowUserChange invalid error message userId [" + UserTestData.getUserId( usr )
+                            + "]", ex.getErrorId() == GlobalErrIds.USER_PW_MOD_NOT_ALLOWED );
                     // still good
-                    TestUtils.sleep(1);
+                    TestUtils.sleep( 1 );
                 }
             }
             else
             {
                 // this better work:
-                adminMgr.changePassword(user, "newPassword".toCharArray());
+                adminMgr.changePassword( user, "newPassword".toCharArray() );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".allowUserChange policy [" + PolicyTestData.getName(plcy) + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( CLS_NM + ".allowUserChange policy [" + PolicyTestData.getName( plcy )
+                + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
 
 
     public void testSafeModify()
     {
-        safeModify("PWSAFEW23 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[24], PolicyTestData.POLICIES_TP1[24]);
-        safeModify("PWSAFE24 " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1") + " " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5"), UserTestData.USERS_TU5[25], PolicyTestData.POLICIES_TP1[25]);
+        safeModify(
+            "PWSAFEW23 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[24],
+            PolicyTestData.POLICIES_TP1[24] );
+        safeModify(
+            "PWSAFE24 " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ) + " "
+                + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ), UserTestData.USERS_TU5[25],
+            PolicyTestData.POLICIES_TP1[25] );
     }
+
 
     /**
      * PT13
@@ -935,41 +1090,44 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param usr
      * @param plcy
      */
-    public void safeModify(String msg, String[] usr, String[] plcy)
+    public void safeModify( String msg, String[] usr, String[] plcy )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
-            User user = UserTestData.getUser(usr);
-            policyMgr.updateUserPolicy(user.getUserId(), PolicyTestData.getName(plcy));
-            boolean safeModify = PolicyTestData.getSafeModify(plcy);
-            if(safeModify)
+            User user = UserTestData.getUser( usr );
+            policyMgr.updateUserPolicy( user.getUserId(), PolicyTestData.getName( plcy ) );
+            boolean safeModify = PolicyTestData.getSafeModify( plcy );
+            if ( safeModify )
             {
                 try
                 {
                     // because safe modify flag is true, this better fail:
-                    adminMgr.changePassword(user, "newPassword".toCharArray());
-                    fail(CLS_NM + ".safeModify name [" + PolicyTestData.getName(plcy) + "] user [" + UserTestData.getUserId(usr) + "] failed safe modify test flag=" + safeModify);
+                    adminMgr.changePassword( user, "newPassword".toCharArray() );
+                    fail( CLS_NM + ".safeModify name [" + PolicyTestData.getName( plcy ) + "] user ["
+                        + UserTestData.getUserId( usr ) + "] failed safe modify test flag=" + safeModify );
                 }
-                catch (SecurityException ex)
+                catch ( SecurityException ex )
                 {
-                    assertTrue(CLS_NM + ".safeModify invalid error message userId [" + UserTestData.getUserId(usr) + "]", ex.getErrorId() == GlobalErrIds.USER_PW_MOD_NOT_ALLOWED);
+                    assertTrue( CLS_NM + ".safeModify invalid error message userId [" + UserTestData.getUserId( usr )
+                        + "]", ex.getErrorId() == GlobalErrIds.USER_PW_MOD_NOT_ALLOWED );
                     // still good
-                    TestUtils.sleep(1);
+                    TestUtils.sleep( 1 );
                 }
             }
             else
             {
                 // this better work:
-                adminMgr.changePassword(user, "newPassword".toCharArray());
+                adminMgr.changePassword( user, "newPassword".toCharArray() );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".safeModify policy [" + PolicyTestData.getName(plcy) + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( CLS_NM + ".safeModify policy [" + PolicyTestData.getName( plcy )
+                + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
 
@@ -990,253 +1148,285 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param msg
      * @param pArray
      */
-    public void checkQuality(String msg, String[][] pArray)
+    public void checkQuality( String msg, String[][] pArray )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
-            for (String[] plcy : pArray)
+            for ( String[] plcy : pArray )
             {
-                PwPolicy policy = PolicyTestData.getPolicy(plcy);
-                policyMgr.add(policy);
-                log.debug(CLS_NM + ".checkQuality name [" + policy.getName() + "] successful");
+                PwPolicy policy = PolicyTestData.getPolicy( plcy );
+                policyMgr.add( policy );
+                LOG.debug( CLS_NM + ".checkQuality name [" + policy.getName() + "] successful" );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".checkQuality caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".checkQuality caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     public void testAdd()
     {
         // todo: use annotations to pass names of input tables for logging:
         //     public void add(PwPolicy policy)
         //add("POLICIES_TP1", PolicyTestData.POLICIES_TP1);
-        add("ADD " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1"), PolicyTestData.POLICIES_TP1);
-        add("ADD " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP2"), PolicyTestData.POLICIES_TP2);
+        add( "ADD " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ), PolicyTestData.POLICIES_TP1 );
+        add( "ADD " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP2" ), PolicyTestData.POLICIES_TP2 );
     }
+
 
     /**
      * @param msg
      * @param pArray
      */
-    public void add(String msg, String[][] pArray)
+    public void add( String msg, String[][] pArray )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
-            for (String[] plcy : pArray)
+            for ( String[] plcy : pArray )
             {
-                PwPolicy policy = PolicyTestData.getPolicy(plcy);
-                policyMgr.add(policy);
-                log.debug(CLS_NM + ".add name [" + policy.getName() + "] successful");
+                PwPolicy policy = PolicyTestData.getPolicy( plcy );
+                policyMgr.add( policy );
+                LOG.debug( CLS_NM + ".add name [" + policy.getName() + "] successful" );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".add caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( CLS_NM + ".add caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     public void testUpdate()
     {
         // todo: use annotations to pass names of input tables for logging:
         //     public void update(PwPolicy policy)
-        update("UPD " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1"), PolicyTestData.POLICIES_TP1);
+        update( "UPD " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ), PolicyTestData.POLICIES_TP1 );
     }
+
 
     /**
      * @param msg
      * @param pArray
      */
-    public void update(String msg, String[][] pArray)
+    public void update( String msg, String[][] pArray )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
-            for (String[] plcy : pArray)
+            for ( String[] plcy : pArray )
             {
-                PwPolicy policy = PolicyTestData.getPolicy(plcy);
-                policyMgr.update(policy);
-                log.debug(CLS_NM + ".update name [" + policy.getName() + "] successful");
+                PwPolicy policy = PolicyTestData.getPolicy( plcy );
+                policyMgr.update( policy );
+                LOG.debug( CLS_NM + ".update name [" + policy.getName() + "] successful" );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".update caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( CLS_NM + ".update caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     public void testDelete()
     {
         // todo: use annotations to pass names of input tables for logging:
         // public void deleteRecursive(String name)
-        delete("DEL " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1"), PolicyTestData.POLICIES_TP1);
-        delete("DEL " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP2"), PolicyTestData.POLICIES_TP2);
+        delete( "DEL " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ), PolicyTestData.POLICIES_TP1 );
+        delete( "DEL " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP2" ), PolicyTestData.POLICIES_TP2 );
     }
+
 
     /**
      * @param msg
      * @param pArray
      */
-    public void delete(String msg, String[][] pArray)
+    public void delete( String msg, String[][] pArray )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
-            for (String[] plcy : pArray)
+            for ( String[] plcy : pArray )
             {
-                PwPolicy policy = PolicyTestData.getPolicy(plcy);
-                policyMgr.delete(policy);
-                log.debug(CLS_NM + ".deleteRecursive name [" + PolicyTestData.getName(plcy) + "] successful");
+                PwPolicy policy = PolicyTestData.getPolicy( plcy );
+                policyMgr.delete( policy );
+                LOG.debug( CLS_NM + ".deleteRecursive name [" + PolicyTestData.getName( plcy ) + "] successful" );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".deleteRecursive caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".deleteRecursive caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     public void testRead()
     {
         // todo: use annotations to pass names of input tables for logging:
         // public PwPolicy read(String name)
-        read("READ " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1"), PolicyTestData.POLICIES_TP1);
+        read( "READ " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ), PolicyTestData.POLICIES_TP1 );
     }
+
 
     /**
      * @param msg
      * @param pArray
      */
-    public void read(String msg, String[][] pArray)
+    public void read( String msg, String[][] pArray )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
-            PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance(TestUtils.getContext());
-            for (String[] plcy : pArray)
+            PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance( TestUtils.getContext() );
+            for ( String[] plcy : pArray )
             {
-                PwPolicy entity = policyMgr.read(PolicyTestData.getName(plcy));
-                PolicyTestData.assertEquals(entity, plcy);
+                PwPolicy entity = policyMgr.read( PolicyTestData.getName( plcy ) );
+                PolicyTestData.assertEquals( entity, plcy );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".read caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( CLS_NM + ".read caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     public void testSearch()
     {
         // todo: use annotations to pass names of input tables for logging:
         //public List<PwPolicy> search(String searchVal)
-        search("SRCH " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1"), TestUtils.getSrchValue(PolicyTestData.getName(PolicyTestData.POLICIES_TP1[0])), PolicyTestData.POLICIES_TP1);
+        search( "SRCH " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ),
+            TestUtils.getSrchValue( PolicyTestData.getName( PolicyTestData.POLICIES_TP1[0] ) ),
+            PolicyTestData.POLICIES_TP1 );
     }
+
 
     /**
      * @param msg
      * @param pArray
      */
-    public void search(String msg, String srchValue, String[][] pArray)
+    public void search( String msg, String srchValue, String[][] pArray )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
-            PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance(TestUtils.getContext());
-            List<PwPolicy> policies = policyMgr.search(srchValue);
-            assertNotNull(policies);
-            assertTrue(CLS_NM + "search list size check", pArray.length == policies.size());
-            for (String[] plcy : pArray)
+            PwPolicyMgr policyMgr = PwPolicyMgrFactory.createInstance( TestUtils.getContext() );
+            List<PwPolicy> policies = policyMgr.search( srchValue );
+            assertNotNull( policies );
+            assertTrue( CLS_NM + "search list size check", pArray.length == policies.size() );
+            for ( String[] plcy : pArray )
             {
-                int indx = policies.indexOf(new PwPolicy(PolicyTestData.getName(plcy)));
-                if (indx != -1)
+                int indx = policies.indexOf( new PwPolicy( PolicyTestData.getName( plcy ) ) );
+                if ( indx != -1 )
                 {
-                    PwPolicy entity = policies.get(indx);
-                    assertNotNull(entity);
-                    PolicyTestData.assertEquals(entity, plcy);
+                    PwPolicy entity = policies.get( indx );
+                    assertNotNull( entity );
+                    PolicyTestData.assertEquals( entity, plcy );
                 }
                 else
                 {
                     msg = CLS_NM + ".search srchValue [" + srchValue + "] failed list search";
-                    LogUtil.logIt(msg);
-                    fail(msg);
+                    LogUtil.logIt( msg );
+                    fail( msg );
                 }
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".search srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( CLS_NM + ".search srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId()
+                + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     public void testUpdatePasswordPolicy()
     {
         //public void updateUserPolicy(String userId, String policyName)
-        updatePasswordPolicy("UPD " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5") + " " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1"), UserTestData.USERS_TU5, PolicyTestData.POLICIES_TP1);
+        updatePasswordPolicy(
+            "UPD " + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ) + " "
+                + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ), UserTestData.USERS_TU5,
+            PolicyTestData.POLICIES_TP1 );
     }
+
 
     /**
      * @param msg
      * @param uArray
      * @param pArray
      */
-    public void updatePasswordPolicy(String msg, String[][] uArray, String[][] pArray)
+    public void updatePasswordPolicy( String msg, String[][] uArray, String[][] pArray )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
             int i = 0;
-            for (String[] plcy : pArray)
+            for ( String[] plcy : pArray )
             {
-                policyMgr.updateUserPolicy(UserTestData.getUserId(uArray[i++]), PolicyTestData.getName(plcy));
+                policyMgr.updateUserPolicy( UserTestData.getUserId( uArray[i++] ), PolicyTestData.getName( plcy ) );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".updateUserPolicy caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".updateUserPolicy caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     public void testDeletePasswordPolicy()
     {
         //public void deletePasswordPolicy(String userId)
-        deletePasswordPolicy("DEL " + TestUtils.getDataLabel(UserTestData.class, "USERS_TU5") + " " + TestUtils.getDataLabel(PolicyTestData.class, "POLICIES_TP1"), UserTestData.USERS_TU5);
+        deletePasswordPolicy(
+            "DEL " + TestUtils.getDataLabel( UserTestData.class, "USERS_TU5" ) + " "
+                + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ), UserTestData.USERS_TU5 );
     }
+
 
     /**
      * @param msg
      * @param uArray
      */
-    public void deletePasswordPolicy(String msg, String[][] uArray)
+    public void deletePasswordPolicy( String msg, String[][] uArray )
     {
-        LogUtil.logIt(msg);
+        LogUtil.logIt( msg );
         try
         {
             PwPolicyMgr policyMgr = getManagedPswdMgr();
-            for (String[] usr : uArray)
+            for ( String[] usr : uArray )
             {
-                policyMgr.deletePasswordPolicy(UserTestData.getUserId(usr));
+                policyMgr.deletePasswordPolicy( UserTestData.getUserId( usr ) );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            log.error(CLS_NM + ".deletePasswordPolicy caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                CLS_NM + ".deletePasswordPolicy caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     /**
      *
@@ -1245,10 +1435,10 @@ public class PswdPolicyMgrImplTest extends TestCase
      */
     public static PwPolicyMgr getManagedPswdMgr() throws SecurityException
     {
-        if(FortressJUnitTest.isAdminEnabled() && adminSess == null)
+        if ( FortressJUnitTest.isAdminEnabled() && adminSess == null )
         {
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
-        return PwPolicyMgrFactory.createInstance(TestUtils.getContext(), adminSess);
+        return PwPolicyMgrFactory.createInstance( TestUtils.getContext(), adminSess );
     }
 }

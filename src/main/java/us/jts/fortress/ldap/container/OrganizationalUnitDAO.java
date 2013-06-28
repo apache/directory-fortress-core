@@ -4,16 +4,20 @@
 
 package us.jts.fortress.ldap.container;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ldap.DataProvider;
 import us.jts.fortress.util.attr.VUtil;
-import org.apache.log4j.Logger;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
+
 
 /**
  * This class provides data access for the standard ldap object class Organizational Unit.  This
@@ -46,11 +50,13 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 final class OrganizationalUnitDAO extends DataProvider
 {
     private static final String CLS_NM = OrganizationalUnitDAO.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String ORGUNIT_CLASS = "organizationalunit";
-    private static final String[] ORGUNIT_OBJ_CLASS = {
-        ORGUNIT_CLASS
+    private static final String[] ORGUNIT_OBJ_CLASS =
+        {
+            ORGUNIT_CLASS
     };
+
 
     /**
      * Package private default constructor.
@@ -60,43 +66,45 @@ final class OrganizationalUnitDAO extends DataProvider
     }
 
 
-    private String getSdRoot(String contextId)
+    private String getSdRoot( String contextId )
     {
-        return getRootDn(contextId, GlobalIds.SUFFIX);
+        return getRootDn( contextId, GlobalIds.SUFFIX );
     }
+
 
     /**
      * @param oe
      * @throws us.jts.fortress.CreateException
      */
-    final void create(OrganizationalUnit oe)
+    final void create( OrganizationalUnit oe )
         throws us.jts.fortress.CreateException
     {
         LDAPConnection ld = null;
         String nodeDn = GlobalIds.OU + "=" + oe.getName() + ",";
-        if (VUtil.isNotNullOrEmpty(oe.getParent()))
+        if ( VUtil.isNotNullOrEmpty( oe.getParent() ) )
             nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
-        nodeDn += getRootDn(oe.getContextId());
+        nodeDn += getRootDn( oe.getContextId() );
         try
         {
-            log.info(CLS_NM + ".create container dn [" + nodeDn + "]");
+            LOG.info( CLS_NM + ".create container dn [" + nodeDn + "]" );
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS,
-                ORGUNIT_OBJ_CLASS));
-            attrs.add(createAttribute(GlobalIds.OU, oe.getName()));
-            attrs.add(createAttribute(GlobalIds.DESC, oe.getDescription()));
-            LDAPEntry myEntry = new LDAPEntry(nodeDn, attrs);
+            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS,
+                ORGUNIT_OBJ_CLASS ) );
+            attrs.add( createAttribute( GlobalIds.OU, oe.getName() ) );
+            attrs.add( createAttribute( GlobalIds.DESC, oe.getDescription() ) );
+            LDAPEntry myEntry = new LDAPEntry( nodeDn, attrs );
             ld = getAdminConnection();
-            add(ld, myEntry);
+            add( ld, myEntry );
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = CLS_NM + ".create container node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new us.jts.fortress.CreateException(GlobalErrIds.CNTR_CREATE_FAILED, error, e);
+            String error = CLS_NM + ".create container node dn [" + nodeDn + "] caught LDAPException="
+                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            throw new us.jts.fortress.CreateException( GlobalErrIds.CNTR_CREATE_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection(ld);
+            closeAdminConnection( ld );
         }
     }
 
@@ -105,29 +113,30 @@ final class OrganizationalUnitDAO extends DataProvider
      * @param oe
      * @throws us.jts.fortress.RemoveException
      */
-    final void remove(OrganizationalUnit oe)
+    final void remove( OrganizationalUnit oe )
         throws us.jts.fortress.RemoveException
     {
         LDAPConnection ld = null;
         String nodeDn = GlobalIds.OU + "=" + oe.getName() + ",";
-        if (VUtil.isNotNullOrEmpty(oe.getParent()))
+        if ( VUtil.isNotNullOrEmpty( oe.getParent() ) )
             nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
-        nodeDn += getRootDn(oe.getContextId(), GlobalIds.SUFFIX);
+        nodeDn += getRootDn( oe.getContextId(), GlobalIds.SUFFIX );
 
-        log.info(CLS_NM + ".remove container dn [" + nodeDn + "]");
+        LOG.info( CLS_NM + ".remove container dn [" + nodeDn + "]" );
         try
         {
             ld = getAdminConnection();
-            deleteRecursive(ld, nodeDn);
+            deleteRecursive( ld, nodeDn );
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = CLS_NM + ".remove container node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new us.jts.fortress.RemoveException(GlobalErrIds.CNTR_DELETE_FAILED, error, e);
+            String error = CLS_NM + ".remove container node dn [" + nodeDn + "] caught LDAPException="
+                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            throw new us.jts.fortress.RemoveException( GlobalErrIds.CNTR_DELETE_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection(ld);
+            closeAdminConnection( ld );
         }
     }
 }

@@ -31,11 +31,14 @@
 package us.jts.fortress.ldap;
 
 
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
-import org.apache.log4j.Logger;
 
-import java.util.*;
 
 /**
  * Connection pool class is used by {@link PoolMgr} to manage live connections to the ldap server.  The connection pools
@@ -91,7 +94,7 @@ class ConnectionPool
 {
     // Logging
     private static final String CLS_NM = ConnectionPool.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 
     /**
@@ -106,13 +109,14 @@ class ConnectionPool
      * @param authpw password for authentication
      * @throws LDAPException on failure to create connections
      */
-    ConnectionPool(int min, int max,
-                          String host, int port,
-                          String authdn, String authpw)
+    ConnectionPool( int min, int max,
+        String host, int port,
+        String authdn, String authpw )
         throws LDAPException
     {
-        this(min, max, host, port, authdn, authpw, null);
+        this( min, max, host, port, authdn, authpw, null );
     }
+
 
     /*
      * Constructor for using an existing connection to clone
@@ -127,10 +131,10 @@ class ConnectionPool
      * @param ldc connection to clone 
      * @exception LDAPException on failure to create connections 
      */
-    private ConnectionPool(int min, int max,
-                           String host, int port,
-                           String authdn, String authpw,
-                           LDAPConnection ldc)
+    private ConnectionPool( int min, int max,
+        String host, int port,
+        String authdn, String authpw,
+        LDAPConnection ldc )
         throws LDAPException
     {
         this.poolSize = min;
@@ -144,18 +148,19 @@ class ConnectionPool
         createPool();
     }
 
+
     /**
      * Destroy the whole pool - called during a shutdown
      */
     void destroy()
     {
-        for (int i = 0; i < pool.size(); i++)
+        for ( int i = 0; i < pool.size(); i++ )
         {
-            disconnect(
-                (LDAPConnectionObject) pool.elementAt(i));
+            disconnect( ( LDAPConnectionObject ) pool.elementAt( i ) );
         }
         pool.removeAllElements();
     }
+
 
     /**
      * Gets a connection from the pool
@@ -171,22 +176,23 @@ class ConnectionPool
     {
         LDAPConnection con;
 
-        while ((con = getConnFromPool()) == null)
+        while ( ( con = getConnFromPool() ) == null )
         {
-            synchronized (pool)
+            synchronized ( pool )
             {
                 try
                 {
                     pool.wait();
                 }
-                catch (InterruptedException e)
+                catch ( InterruptedException e )
                 {
-                    log.warn(CLS_NM + ".getConnection caught InterruptedException");
+                    LOG.warn( CLS_NM + ".getConnection caught InterruptedException" );
                 }
             }
         }
         return con;
     }
+
 
     /**
      * Gets a connection from the pool within a time limit.
@@ -200,37 +206,38 @@ class ConnectionPool
      * @param timeout timeout in milliseconds
      * @return an active connection or <CODE>null</CODE> if timed out.
      */
-    LDAPConnection getConnection(int timeout)
+    LDAPConnection getConnection( int timeout )
     {
         LDAPConnection con;
 
-        while ((con = getConnFromPool()) == null)
+        while ( ( con = getConnFromPool() ) == null )
         {
             long t1, t0 = System.currentTimeMillis();
 
-            if (timeout <= 0)
+            if ( timeout <= 0 )
             {
                 return con;
             }
 
-            synchronized (pool)
+            synchronized ( pool )
             {
                 try
                 {
-                    pool.wait(timeout);
+                    pool.wait( timeout );
                 }
-                catch (InterruptedException e)
+                catch ( InterruptedException e )
                 {
-                    log.warn(CLS_NM + ".getConnection caught InterruptedException for timeout: " + timeout);
+                    LOG.warn( CLS_NM + ".getConnection caught InterruptedException for timeout: " + timeout );
                     return null;
                 }
             }
 
             t1 = System.currentTimeMillis();
-            timeout -= (t1 - t0);
+            timeout -= ( t1 - t0 );
         }
         return con;
     }
+
 
     /**
      * Gets a connection from the pool
@@ -250,52 +257,53 @@ class ConnectionPool
         int pSize = pool.size();
 
         // Get an available connection
-        for (int i = 0; i < pSize; i++)
+        for ( int i = 0; i < pSize; i++ )
         {
 
             // Get the ConnectionObject from the pool
             LDAPConnectionObject co =
-                (LDAPConnectionObject) pool.elementAt(i);
+                ( LDAPConnectionObject ) pool.elementAt( i );
 
-            if (co.isAvailable())
-            {  // Conn available?
+            if ( co.isAvailable() )
+            { // Conn available?
                 ldapconnobj = co;
                 break;
             }
         }
 
-        if (ldapconnobj == null)
+        if ( ldapconnobj == null )
         {
             // If there there were no conns in pool, can we grow
             // the pool?
-            if ((poolMax < 0) ||
-                ((poolMax > 0) &&
-                    (pSize < poolMax)))
+            if ( ( poolMax < 0 ) ||
+                ( ( poolMax > 0 ) &&
+                ( pSize < poolMax ) ) )
             {
 
                 // Yes we can grow it
                 int i = addConnection();
 
                 // If a new connection was created, use it
-                if (i >= 0)
+                if ( i >= 0 )
                 {
                     ldapconnobj =
-                        (LDAPConnectionObject) pool.elementAt(i);
+                        ( LDAPConnectionObject ) pool.elementAt( i );
                 }
             }
             else
             {
-                debug("All pool connections in use");
+                debug( "All pool connections in use" );
             }
         }
 
-        if (ldapconnobj != null)
+        if ( ldapconnobj != null )
         {
-            ldapconnobj.setInUse(true);  // Mark as in use
+            ldapconnobj.setInUse( true ); // Mark as in use
             con = ldapconnobj.getLDAPConn();
         }
         return con;
     }
+
 
     /**
      * This is our soft close - all we do is mark
@@ -305,169 +313,175 @@ class ConnectionPool
      *
      * @param ld a connection to return to the pool
      */
-    synchronized void close(LDAPConnection ld)
+    synchronized void close( LDAPConnection ld )
     {
 
-        int index = find(ld);
-        if (index != -1)
+        int index = find( ld );
+        if ( index != -1 )
         {
             LDAPConnectionObject co =
-                (LDAPConnectionObject) pool.elementAt(index);
+                ( LDAPConnectionObject ) pool.elementAt( index );
 
             // Reset the auth if necessary
             //if (ldc == null || !ldc.getAuthenticationMethod().equals("sasl")) {
-            if (ldc == null)
+            if ( ldc == null )
             {
 
                 boolean reauth = false;
                 //if user bound anon then getAuthenticationDN is null
-                if (ld.getAuthenticationDN() == null)
+                if ( ld.getAuthenticationDN() == null )
                 {
-                    reauth = (authdn != null);
+                    reauth = ( authdn != null );
                 }
-                else if (!ld.getAuthenticationDN().equalsIgnoreCase(authdn))
+                else if ( !ld.getAuthenticationDN().equalsIgnoreCase( authdn ) )
                 {
                     reauth = true;
                 }
-                if (reauth)
+                if ( reauth )
                 {
                     try
                     {
                         //debug("user changed credentials-resetting");
-                        ld.bind(authdn, authpw);  //reauth as proper user
+                        ld.bind( authdn, authpw ); //reauth as proper user
                     }
-                    catch (LDAPException e)
+                    catch ( LDAPException e )
                     {
-                        debug("unable to reauth during close as " + authdn);
-                        debug(e.toString());
-                        log.warn(CLS_NM + ".close caught LDAPException: " + e.getMessage());
+                        debug( "unable to reauth during close as " + authdn );
+                        debug( e.toString() );
+                        LOG.warn( CLS_NM + ".close caught LDAPException: " + e.getMessage() );
                     }
                 }
             }
 
-            co.setInUse(false);  // Mark as available
-            synchronized (pool)
+            co.setInUse( false ); // Mark as available
+            synchronized ( pool )
             {
                 pool.notifyAll();
             }
         }
     }
 
+
     /**
      * Debug method to print the contents of the pool
      */
     public void printPool()
     {
-        System.out.println("--ConnectionPool--");
-        for (int i = 0; i < pool.size(); i++)
+        System.out.println( "--ConnectionPool--" );
+        for ( int i = 0; i < pool.size(); i++ )
         {
             LDAPConnectionObject co =
-                (LDAPConnectionObject) pool.elementAt(i);
+                ( LDAPConnectionObject ) pool.elementAt( i );
             String msg = "" + i + "=" + co;
-            log.info(CLS_NM + ".printPool: " + msg);
+            LOG.info( CLS_NM + ".printPool: " + msg );
         }
     }
 
+
     private void disconnect(
-        LDAPConnectionObject ldapconnObject)
+        LDAPConnectionObject ldapconnObject )
     {
-        if (ldapconnObject != null)
+        if ( ldapconnObject != null )
         {
-            if (ldapconnObject.isAvailable())
+            if ( ldapconnObject.isAvailable() )
             {
                 LDAPConnection ld = ldapconnObject.getLDAPConn();
-                if ((ld != null) && (ld.isConnected()))
+                if ( ( ld != null ) && ( ld.isConnected() ) )
                 {
                     try
                     {
                         ld.disconnect();
                     }
-                    catch (LDAPException e)
+                    catch ( LDAPException e )
                     {
-                        debug("disconnect: " + e.toString());
-                        log.warn(CLS_NM + ".disconnect caught LDAPException: " + e.getMessage());
+                        debug( "disconnect: " + e.toString() );
+                        LOG.warn( CLS_NM + ".disconnect caught LDAPException: " + e.getMessage() );
                     }
                 }
-                ldapconnObject.setLDAPConn(null); // Clear conn
+                ldapconnObject.setLDAPConn( null ); // Clear conn
             }
         }
     }
 
+
     private void createPool() throws LDAPException
     {
         // Called by the constructors
-        if (poolSize <= 0)
+        if ( poolSize <= 0 )
         {
-            throw new LDAPException("ConnectionPoolSize invalid");
+            throw new LDAPException( "ConnectionPoolSize invalid" );
         }
-        if (poolMax < poolSize)
+        if ( poolMax < poolSize )
         {
-            debug("ConnectionPoolMax is invalid, set to " +
-                poolSize);
+            debug( "ConnectionPoolMax is invalid, set to " +
+                poolSize );
             poolMax = poolSize;
         }
 
-        debug("****Initializing LDAP Pool****");
-        debug("LDAP host = " + host + " on port " + port);
-        debug("Number of connections=" + poolSize);
-        debug("Maximum number of connections=" + poolMax);
-        debug("******");
+        debug( "****Initializing LDAP Pool****" );
+        debug( "LDAP host = " + host + " on port " + port );
+        debug( "Number of connections=" + poolSize );
+        debug( "Maximum number of connections=" + poolMax );
+        debug( "******" );
 
         pool = new java.util.Vector(); // Create pool vector
-        setUpPool(poolSize); // Initialize it
+        setUpPool( poolSize ); // Initialize it
     }
+
 
     private int addConnection()
     {
         int index = -1;
 
-        debug("adding a connection to pool...");
+        debug( "adding a connection to pool..." );
         try
         {
             int size = pool.size() + 1; // Add one connection
-            setUpPool(size);
+            setUpPool( size );
 
-            if (size == pool.size())
+            if ( size == pool.size() )
             {
                 // New size is size requested?
                 index = size - 1;
             }
         }
-        catch (Exception ex)
+        catch ( Exception ex )
         {
-            debug("Adding a connection: " + ex.toString());
-            log.warn(CLS_NM + ".addConnection caught Exception: " + ex.getMessage());
+            debug( "Adding a connection: " + ex.toString() );
+            LOG.warn( CLS_NM + ".addConnection caught Exception: " + ex.getMessage() );
         }
         return index;
     }
 
-    private synchronized void setUpPool(int size)
+
+    private synchronized void setUpPool( int size )
         throws LDAPException
     {
         // Loop on creating connections
-        while (pool.size() < size)
+        while ( pool.size() < size )
         {
             LDAPConnectionObject co =
                 new LDAPConnectionObject();
             // Make LDAP connection, using template if available
             LDAPConnection newConn = new LDAPConnection();
-            newConn.connect(host, port, authdn, authpw);
-            co.setLDAPConn(newConn);
-            co.setInUse(false); // Mark not in use
-            pool.addElement(co);
+            newConn.connect( host, port, authdn, authpw );
+            co.setLDAPConn( newConn );
+            co.setInUse( false ); // Mark not in use
+            pool.addElement( co );
         }
     }
 
-    private int find(LDAPConnection con)
+
+    private int find( LDAPConnection con )
     {
         // Find the matching Connection in the pool
-        if (con != null)
+        if ( con != null )
         {
-            for (int i = 0; i < pool.size(); i++)
+            for ( int i = 0; i < pool.size(); i++ )
             {
                 LDAPConnectionObject co =
-                    (LDAPConnectionObject) pool.elementAt(i);
-                if (co.getLDAPConn() == con)
+                    ( LDAPConnectionObject ) pool.elementAt( i );
+                if ( co.getLDAPConn() == con )
                 {
                     return i;
                 }
@@ -476,15 +490,17 @@ class ConnectionPool
         return -1;
     }
 
+
     /**
      * Sets the debug printout mode.
      *
      * @param mode debug mode to use
      */
-    public synchronized void setDebug(boolean mode)
+    public synchronized void setDebug( boolean mode )
     {
         debugMode = mode;
     }
+
 
     /**
      * Reports the debug printout mode.
@@ -496,19 +512,21 @@ class ConnectionPool
         return debugMode;
     }
 
-    private void debug(String s)
+
+    private void debug( String s )
     {
-        if (debugMode)
-            System.out.println("ConnectionPool (" +
-                new Date() + ") : " + s);
+        if ( debugMode )
+            System.out.println( "ConnectionPool (" +
+                new Date() + ") : " + s );
     }
 
-    private void debug(String s, boolean severe)
+
+    private void debug( String s, boolean severe )
     {
-        if (debugMode || severe)
+        if ( debugMode || severe )
         {
-            System.out.println("ConnectionPool (" +
-                new Date() + ") : " + s);
+            System.out.println( "ConnectionPool (" +
+                new Date() + ") : " + s );
         }
     }
 
@@ -528,25 +546,28 @@ class ConnectionPool
             return this.ld;
         }
 
+
         /**
          * Sets the associated LDAPConnection
          *
          * @param ld the LDAPConnection
          */
-        void setLDAPConn(LDAPConnection ld)
+        void setLDAPConn( LDAPConnection ld )
         {
             this.ld = ld;
         }
+
 
         /**
          * Marks a connection in use or available
          *
          * @param inUse <code>true</code> to mark in use, <code>false</code> if available
          */
-        void setInUse(boolean inUse)
+        void setInUse( boolean inUse )
         {
             this.inUse = inUse;
         }
+
 
         /**
          * Returns whether the connection is available
@@ -558,6 +579,7 @@ class ConnectionPool
         {
             return !inUse;
         }
+
 
         /**
          * Debug method
@@ -576,10 +598,10 @@ class ConnectionPool
     private final int poolSize; // Min pool size
     private int poolMax; // Max pool size
     private final String host; // LDAP host
-    private final int port;    // Port to connect at
-    private final String authdn;  // Identity of connections
-    private final String authpw;  // Password for authdn
+    private final int port; // Port to connect at
+    private final String authdn; // Identity of connections
+    private final String authpw; // Password for authdn
     private LDAPConnection ldc = null; // Connection to clone
-    private java.util.Vector pool;  // the actual pool
+    private java.util.Vector pool; // the actual pool
     private boolean debugMode;
 }

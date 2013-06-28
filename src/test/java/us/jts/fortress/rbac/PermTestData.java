@@ -7,7 +7,8 @@ package us.jts.fortress.rbac;
 
 import junit.framework.TestCase;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -17,7 +18,7 @@ import org.apache.log4j.Logger;
  */
 public class PermTestData extends TestCase
 {
-    final private static Logger log = Logger.getLogger( PermTestData.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( PermTestData.class.getName() );
 
     // Fortress Test Objects:
     /**
@@ -2755,7 +2756,7 @@ public class PermTestData extends TestCase
             ( objName + "." + getName( op ) ), ( pOp.getObjectName() + "." + pOp.getOpName() ) );
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm isAdmin", isOpAdmin( op ),
             pOp.isAdmin() );
-        log.debug( PermTestData.class.getName() + ".assertEquals perm objectName [" + objName + "] operation name ["
+        LOG.debug( PermTestData.class.getName() + ".assertEquals perm objectName [" + objName + "] operation name ["
             + pOp.getOpName() + "] successful" );
     }
 
@@ -2791,7 +2792,7 @@ public class PermTestData extends TestCase
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm ou", getOu( obj ), pObj.getOu() );
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm isAdmin", isAdmin( obj ),
             pObj.isAdmin() );
-        log.debug( PermTestData.class.getName() + ".assertEquals perm objectName [" + pObj.getObjectName()
+        LOG.debug( PermTestData.class.getName() + ".assertEquals perm objectName [" + pObj.getObjectName()
             + "] successful" );
     }
 

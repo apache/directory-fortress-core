@@ -10,7 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.CreateException;
 import us.jts.fortress.FinderException;
@@ -109,7 +110,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 final class UserDAO extends DataProvider
 {
     private static final String CLS_NM = UserDAO.class.getName();
-    private static final Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static PwPolicyControl pwControl;
 
     /**
@@ -644,7 +645,7 @@ final class UserDAO extends DataProvider
         {
             if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_ATTRIBUTE )
             {
-                log.info( CLS_NM + ".unlock user [" + user.getUserId() + "] no such attribute:"
+                LOG.info( CLS_NM + ".unlock user [" + user.getUserId() + "] no such attribute:"
                     + OPENLDAP_ACCOUNT_LOCKED_TIME );
             }
             else
@@ -1729,7 +1730,7 @@ final class UserDAO extends DataProvider
                 pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
                 String msg = msgHdr + "PW POLICY NOT ENABLED";
                 pwMsg.setMsg( msg );
-                log.debug( msg );
+                LOG.debug( msg );
                 return;
             }
             else if ( pwControl != null )
@@ -1798,7 +1799,7 @@ final class UserDAO extends DataProvider
                 pwMsg.setMsg( errMsg );
                 pwMsg.setErrorId( rc );
                 pwMsg.setAuthenticated( success );
-                log.debug( errMsg );
+                LOG.debug( errMsg );
             }
             else
             {
@@ -1807,7 +1808,7 @@ final class UserDAO extends DataProvider
                 pwMsg.setMsg( msg );
                 pwMsg.setErrorId( 0 );
                 pwMsg.setAuthenticated( true );
-                log.debug( msg );
+                LOG.debug( msg );
             }
         }
         else
@@ -1818,7 +1819,7 @@ final class UserDAO extends DataProvider
             pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
             String msg = msgHdr + "NO PASSWORD CONTROLS FOUND";
             pwMsg.setMsg( msg );
-            log.warn( CLS_NM + ".checkPwPolicies " + msg );
+            LOG.warn( CLS_NM + ".checkPwPolicies " + msg );
         }
     }
 

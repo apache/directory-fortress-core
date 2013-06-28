@@ -51,7 +51,7 @@ import us.jts.fortress.util.cache.CacheMgr;
 public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
 {
     private static final String CLS_NM = DelegatedMgrImplTest.class.getName();
-    final private static Logger LOG = LoggerFactory.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static Session adminSess = null;
 
 

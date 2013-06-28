@@ -4,17 +4,20 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.GlobalErrIds;
-import us.jts.fortress.GlobalIds;
-import us.jts.fortress.SecurityException;
 
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import us.jts.fortress.GlobalErrIds;
+import us.jts.fortress.GlobalIds;
+import us.jts.fortress.SecurityException;
 import us.jts.fortress.util.attr.VUtil;
-import us.jts.fortress.util.cache.CacheMgr;
 import us.jts.fortress.util.cache.Cache;
-import org.apache.log4j.Logger;
+import us.jts.fortress.util.cache.CacheMgr;
+
 
 /**
  * Process module for the OrgUnit entity. The Fortress OrgUnit data set can be associated with two entities:
@@ -41,7 +44,7 @@ final class OrgUnitP
 {
     // init the logger:
     private static final String CLS_NM = OrgUnitP.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     // these fields are used to synchronize access to the above static pools:
     private static final Object userPoolSynchLock = new Object();
@@ -57,91 +60,96 @@ final class OrgUnitP
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        OrgUnitP.ouCache = cacheMgr.getCache(FORTRESS_OUS);
+        OrgUnitP.ouCache = cacheMgr.getCache( FORTRESS_OUS );
     }
+
 
     /**
      * Package private constructor.
      */
     OrgUnitP()
-    {}
+    {
+    }
+
 
     /**
      * This function uses a case insensitive search.
      * @param entity
      * @return
      */
-    final boolean isValid(OrgUnit entity)
+    final boolean isValid( OrgUnit entity )
     {
         boolean result = false;
-        if(entity.type == OrgUnit.Type.USER)
+        if ( entity.type == OrgUnit.Type.USER )
         {
-            Set<String> userPool = getOrgSet(entity);
-            if (userPool != null && entity.getType() == OrgUnit.Type.USER)
+            Set<String> userPool = getOrgSet( entity );
+            if ( userPool != null && entity.getType() == OrgUnit.Type.USER )
             {
-                result = userPool.contains(entity.getName());
+                result = userPool.contains( entity.getName() );
             }
         }
         else
         {
-            Set<String> permPool = getOrgSet(entity);
-            if (permPool != null)
+            Set<String> permPool = getOrgSet( entity );
+            if ( permPool != null )
             {
-                result = permPool.contains(entity.getName());
+                result = permPool.contains( entity.getName() );
             }
         }
         return result;
     }
 
+
     /**
      * @param orgUnit
      * @return
      */
-    private static Set<String> loadOrgSet(OrgUnit orgUnit)
+    private static Set<String> loadOrgSet( OrgUnit orgUnit )
     {
         Set<String> ouSet = null;
         try
         {
-            ouSet = oDao.getOrgs(orgUnit);
+            ouSet = oDao.getOrgs( orgUnit );
         }
-        catch (SecurityException se)
+        catch ( SecurityException se )
         {
             String warning = CLS_NM + ".loadOrgSet static initializer caught SecurityException=" + se;
-            log.info(warning, se);
+            LOG.info( warning, se );
         }
-        if(orgUnit.getType() == OrgUnit.Type.USER)
+        if ( orgUnit.getType() == OrgUnit.Type.USER )
         {
             // TODO:  add context id to this cache
-            ouCache.put(getKey(USER_OUS, orgUnit.getContextId()), ouSet);
+            ouCache.put( getKey( USER_OUS, orgUnit.getContextId() ), ouSet );
         }
         else
         {
-            ouCache.put(getKey(PERM_OUS, orgUnit.getContextId()), ouSet);
+            ouCache.put( getKey( PERM_OUS, orgUnit.getContextId() ), ouSet );
         }
 
         return ouSet;
     }
+
 
     /**
      *
      * @param orgUnit will either be a User or Perm OU.
      * @return Set containing the OU mapping to a particular type and tenant.
      */
-    private static Set<String> getOrgSet(OrgUnit orgUnit)
+    private static Set<String> getOrgSet( OrgUnit orgUnit )
     {
         Set<String> orgSet;
-        if(orgUnit.getType() == OrgUnit.Type.USER)
+        if ( orgUnit.getType() == OrgUnit.Type.USER )
         {
-            orgSet = (Set<String>)ouCache.get(getKey(USER_OUS, orgUnit.getContextId()));
+            orgSet = ( Set<String> ) ouCache.get( getKey( USER_OUS, orgUnit.getContextId() ) );
         }
         else
         {
-            orgSet = (Set<String>)ouCache.get(getKey(PERM_OUS, orgUnit.getContextId()));
+            orgSet = ( Set<String> ) ouCache.get( getKey( PERM_OUS, orgUnit.getContextId() ) );
         }
 
-        if (orgSet == null)
+        if ( orgSet == null )
         {
-            orgSet = loadOrgSet(orgUnit);
+            orgSet = loadOrgSet( orgUnit );
         }
         return orgSet;
     }
@@ -155,12 +163,13 @@ final class OrgUnitP
      * @return OrgUnit entity containing all attributes associated with ou in directory.
      * @throws us.jts.fortress.SecurityException in the event OrgUnit not found or DAO search error.
      */
-    final OrgUnit read(OrgUnit entity)
+    final OrgUnit read( OrgUnit entity )
         throws SecurityException
     {
-        validate(entity, false);
-        return oDao.findByKey(entity);
+        validate( entity, false );
+        return oDao.findByKey( entity );
     }
+
 
     /**
      * Will search either User or Perm OrgUnit data sets depending on which type is passed.
@@ -170,11 +179,11 @@ final class OrgUnitP
      * @return List of type OrgUnit containing fully populated matching OU entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<OrgUnit> search(OrgUnit orgUnit)
+    final List<OrgUnit> search( OrgUnit orgUnit )
         throws SecurityException
     {
         // Call the finder.
-        return oDao.findOrgs(orgUnit);
+        return oDao.findOrgs( orgUnit );
     }
 
 
@@ -187,27 +196,27 @@ final class OrgUnitP
      * @return OrgUnit entity copy of input + additional attributes (internalId) that were added by op.
      * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    final OrgUnit add(OrgUnit entity)
+    final OrgUnit add( OrgUnit entity )
         throws SecurityException
     {
-        validate(entity, false);
-        OrgUnit oe = oDao.create(entity);
-        if (entity.getType() == OrgUnit.Type.USER)
+        validate( entity, false );
+        OrgUnit oe = oDao.create( entity );
+        if ( entity.getType() == OrgUnit.Type.USER )
         {
-            Set<String> userPool = getOrgSet(entity);
-            synchronized (userPoolSynchLock)
+            Set<String> userPool = getOrgSet( entity );
+            synchronized ( userPoolSynchLock )
             {
-                if(userPool != null)
-                    userPool.add(entity.getName());
+                if ( userPool != null )
+                    userPool.add( entity.getName() );
             }
         }
         else
         {
-            Set<String> permPool = getOrgSet(entity);
-            synchronized (permPoolSynchLock)
+            Set<String> permPool = getOrgSet( entity );
+            synchronized ( permPoolSynchLock )
             {
-                if(permPool != null)
-                    permPool.add(entity.getName());
+                if ( permPool != null )
+                    permPool.add( entity.getName() );
             }
         }
         return oe;
@@ -224,11 +233,11 @@ final class OrgUnitP
      * @return OrgUnit entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final OrgUnit update(OrgUnit entity)
+    final OrgUnit update( OrgUnit entity )
         throws SecurityException
     {
-        validate(entity, false);
-        return oDao.update(entity);
+        validate( entity, false );
+        return oDao.update( entity );
     }
 
 
@@ -240,11 +249,11 @@ final class OrgUnitP
      * @param entity OrgUnit contains data targeted for updating.  Null attributes ignored.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final void deleteParent(OrgUnit entity)
+    final void deleteParent( OrgUnit entity )
         throws SecurityException
     {
-        validate(entity, false);
-        oDao.deleteParent(entity);
+        validate( entity, false );
+        oDao.deleteParent( entity );
     }
 
 
@@ -257,26 +266,26 @@ final class OrgUnitP
      * @return OrgUnit entity copy of input.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final OrgUnit delete(OrgUnit entity)
+    final OrgUnit delete( OrgUnit entity )
         throws SecurityException
     {
-        oDao.remove(entity);
-        if (entity.getType() == OrgUnit.Type.USER)
+        oDao.remove( entity );
+        if ( entity.getType() == OrgUnit.Type.USER )
         {
-            Set<String> userPool = getOrgSet(entity);
-            synchronized (userPoolSynchLock)
+            Set<String> userPool = getOrgSet( entity );
+            synchronized ( userPoolSynchLock )
             {
-                if(userPool != null)
-                    userPool.remove(entity.getName());
+                if ( userPool != null )
+                    userPool.remove( entity.getName() );
             }
         }
         else
         {
-            Set<String> permPool = getOrgSet(entity);
-            synchronized (permPoolSynchLock)
+            Set<String> permPool = getOrgSet( entity );
+            synchronized ( permPoolSynchLock )
             {
-                if(permPool != null)
-                    permPool.remove(entity.getName());
+                if ( permPool != null )
+                    permPool.remove( entity.getName() );
             }
         }
         return entity;
@@ -290,10 +299,10 @@ final class OrgUnitP
      * @return List of type OrgUnit containing {@link OrgUnit#name} and {@link OrgUnit#parents} populated.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<Graphable> getAllDescendants(OrgUnit orgUnit)
+    final List<Graphable> getAllDescendants( OrgUnit orgUnit )
         throws SecurityException
     {
-        return oDao.getAllDescendants(orgUnit);
+        return oDao.getAllDescendants( orgUnit );
     }
 
 
@@ -306,19 +315,19 @@ final class OrgUnitP
      * @param isUpdate not used at this time.
      * @throws SecurityException thrown in the event the attribute is null.
      */
-    private void validate(OrgUnit entity, boolean isUpdate)
+    private void validate( OrgUnit entity, boolean isUpdate )
         throws SecurityException
     {
-        VUtil.safeText(entity.getName(), GlobalIds.OU_LEN);
-        if (VUtil.isNotNullOrEmpty(entity.getDescription()))
+        VUtil.safeText( entity.getName(), GlobalIds.OU_LEN );
+        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
-            VUtil.description(entity.getDescription());
+            VUtil.description( entity.getDescription() );
         }
-        if (entity.getType() == null)
+        if ( entity.getType() == null )
         {
             String error = CLS_NM + ".validate null or empty org unit type";
             int errCode;
-            if(entity.getType() == OrgUnit.Type.PERM)
+            if ( entity.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_TYPE_NULL_PERM;
             }
@@ -326,7 +335,7 @@ final class OrgUnitP
             {
                 errCode = GlobalErrIds.ORG_TYPE_NULL_USER;
             }
-            throw new SecurityException(errCode, error);
+            throw new SecurityException( errCode, error );
         }
     }
 
@@ -338,10 +347,10 @@ final class OrgUnitP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return
      */
-    private static String getKey(String type, String contextId)
+    private static String getKey( String type, String contextId )
     {
         String key = type;
-        if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL))
+        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )
         {
             key += ":" + contextId;
 

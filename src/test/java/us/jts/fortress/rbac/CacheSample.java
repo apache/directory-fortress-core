@@ -1,17 +1,21 @@
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.util.cache.Cache;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
 import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
-import us.jts.fortress.util.cache.CacheMgr;
-import org.apache.log4j.Logger;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import us.jts.fortress.util.cache.Cache;
+import us.jts.fortress.util.cache.CacheMgr;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,50 +27,53 @@ import java.util.Set;
 public class CacheSample
 {
     private static final String CLS_NM = CacheSample.class.getName();
-    final private static Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final SdP sdP = new SdP();
     private Cache cache;
+
 
     private void initializeCache()
     {
         CacheMgr cacheManager = CacheMgr.getInstance();
-        cache = cacheManager.getCache("fortress.dsd");
+        cache = cacheManager.getCache( "fortress.dsd" );
     }
+
 
     private void loadCache()
     {
         try
         {
             SDSet sdSet = new SDSet();
-            sdSet.setType(SDSet.SDType.DYNAMIC);
-            sdSet.setName("");
-            List<SDSet> dsds = sdP.search(sdSet);
-            if (dsds != null)
+            sdSet.setType( SDSet.SDType.DYNAMIC );
+            sdSet.setName( "" );
+            List<SDSet> dsds = sdP.search( sdSet );
+            if ( dsds != null )
             {
-                for (SDSet dsd : dsds)
+                for ( SDSet dsd : dsds )
                 {
                     Set<String> members = dsd.getMembers();
-                    if (members != null)
+                    if ( members != null )
                     {
-                        for (String member : members)
+                        for ( String member : members )
                         {
-                            DsdCacheEntry entry = new DsdCacheEntry(member, dsd);
+                            DsdCacheEntry entry = new DsdCacheEntry( member, dsd );
                             String key = dsd.getName() + ":" + member;
-                            cache.put(key, entry);
-                            log.info("Add DSD key: " + key + " members: " + dsd.getMembers() + " to the cache");
+                            cache.put( key, entry );
+                            LOG.info( "Add DSD key: " + key + " members: " + dsd.getMembers() + " to the cache" );
                         }
                     }
                 }
             }
             else
             {
-                log.info("No records found for loading into test cache");
+                LOG.info( "No records found for loading into test cache" );
             }
         }
-        catch (us.jts.fortress.SecurityException se)
+        catch ( us.jts.fortress.SecurityException se )
         {
-            String error = CLS_NM + " static initializer caught SecurityException=" + se.getMessage() + " rc=" + se.getErrorId();
-            log.error(error);
+            String error = CLS_NM + " static initializer caught SecurityException=" + se.getMessage() + " rc="
+                + se.getErrorId();
+            LOG.error( error );
         }
     }
 
@@ -74,30 +81,30 @@ public class CacheSample
     void runTests()
     {
         loadCache();
-        Attribute<String> member = cache.getSearchAttribute("member");
+        Attribute<String> member = cache.getSearchAttribute( "member" );
         Query query = cache.createQuery();
         query.includeKeys();
         query.includeValues();
         Set<String> roles = new HashSet<>();
-        roles.add("oamt17dsd1");
-        roles.add("oamt17dsd4");
-        roles.add("oamT13DSD6");
-        roles.add("oamT16SDR7");
-        query.addCriteria(member.in(roles));
+        roles.add( "oamt17dsd1" );
+        roles.add( "oamt17dsd4" );
+        roles.add( "oamT13DSD6" );
+        roles.add( "oamT16SDR7" );
+        query.addCriteria( member.in( roles ) );
         Results results = query.execute();
-        System.out.println(" Size: " + results.size());
-        System.out.println("----Results-----\n");
+        System.out.println( " Size: " + results.size() );
+        System.out.println( "----Results-----\n" );
         Set<SDSet> resultSet = new HashSet<>();
 
-        for (Result result : results.all())
+        for ( Result result : results.all() )
         {
-            DsdCacheEntry entry = (DsdCacheEntry) result.getValue();
-            resultSet.add(entry.getSdSet());
+            DsdCacheEntry entry = ( DsdCacheEntry ) result.getValue();
+            resultSet.add( entry.getSdSet() );
         }
 
-        for (SDSet sdSet : resultSet)
+        for ( SDSet sdSet : resultSet )
         {
-            log.info("Found SDSet: " + sdSet.getName());
+            LOG.info( "Found SDSet: " + sdSet.getName() );
         }
     }
 
@@ -107,9 +114,9 @@ public class CacheSample
      *
      * @param args
      */
-    public static void main(String[] args)
+    public static void main( String[] args )
     {
-        log.info(CLS_NM + ".main Test #args=" + args.length);
+        LOG.info( CLS_NM + ".main Test #args=" + args.length );
         CacheSample sample = new CacheSample();
         sample.initializeCache();
         sample.runTests();
@@ -120,28 +127,33 @@ public class CacheSample
         private String member;
         private SDSet sdSet;
 
-        public DsdCacheEntry(String member, SDSet sdSet)
+
+        public DsdCacheEntry( String member, SDSet sdSet )
         {
             this.sdSet = sdSet;
             this.member = member;
         }
+
 
         public String getMember()
         {
             return member;
         }
 
-        public void setMember(String member)
+
+        public void setMember( String member )
         {
             this.member = member;
         }
+
 
         public SDSet getSdSet()
         {
             return sdSet;
         }
 
-        public void setSdSet(SDSet sdSet)
+
+        public void setSdSet( SDSet sdSet )
         {
             this.sdSet = sdSet;
         }

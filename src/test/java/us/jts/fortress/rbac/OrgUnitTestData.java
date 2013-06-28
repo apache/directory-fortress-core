@@ -13,7 +13,8 @@ import java.util.StringTokenizer;
 
 import junit.framework.TestCase;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.util.attr.VUtil;
 
@@ -26,7 +27,7 @@ import us.jts.fortress.util.attr.VUtil;
 public class OrgUnitTestData extends TestCase
 {
     private static final String CLS_NM = OrgUnitTestData.class.getName();
-    final private static Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     public final static String[][] ORGS_USR_DEV0 =
         {
@@ -777,7 +778,7 @@ public class OrgUnitTestData extends TestCase
         assertEquals( CLS_NM + ".assertEquals failed compare ou name", getName( ole ), ou.getName() );
         assertEquals( CLS_NM + ".assertEquals failed compare ou desc", getDescription( ole ), ou.getDescription() );
         assertEquals( CLS_NM + ".assertEquals failed compare ou type", getType( ole ), ou.getType() );
-        log.debug( CLS_NM + ".assertEquals [" + ou.getName() + "] successful" );
+        LOG.debug( CLS_NM + ".assertEquals [" + ou.getName() + "] successful" );
     }
 
 

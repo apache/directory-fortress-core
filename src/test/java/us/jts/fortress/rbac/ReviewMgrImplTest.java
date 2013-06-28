@@ -13,7 +13,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.ReviewMgr;
@@ -31,7 +32,7 @@ import us.jts.fortress.util.LogUtil;
 public class ReviewMgrImplTest extends TestCase
 {
     private static final String CLS_NM = ReviewMgrImplTest.class.getName();
-    final private static Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static Session adminSess = null;
 
 
@@ -119,14 +120,14 @@ public class ReviewMgrImplTest extends TestCase
                     Permission entity = reviewMgr.readPermission( pOp );
                     assertNotNull( entity );
                     PermTestData.assertEquals( PermTestData.getName( objs ), entity, ops );
-                    log.debug( CLS_NM + ".readPermissionOps object name [" + pOp.getObjectName() + "] operation name ["
+                    LOG.debug( CLS_NM + ".readPermissionOps object name [" + pOp.getObjectName() + "] operation name ["
                         + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] successful" );
                 }
             }
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".readPermissionOps object name [" + pOp.getObjectName() + "] operation name ["
+            LOG.error( CLS_NM + ".readPermissionOps object name [" + pOp.getObjectName() + "] operation name ["
                 + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] caught SecurityException rc="
                 + ex.getErrorId() + ", msg=" + ex.getMessage() + ex );
             fail( ex.getMessage() );
@@ -179,7 +180,7 @@ public class ReviewMgrImplTest extends TestCase
                         Permission entity = ops.get( indx );
                         assertNotNull( entity );
                         PermTestData.assertEquals( PermTestData.getName( obj ), entity, op );
-                        log.debug( CLS_NM + ".searchPermissionOps objectName [" + entity.getObjectName()
+                        LOG.debug( CLS_NM + ".searchPermissionOps objectName [" + entity.getObjectName()
                             + "] operation name [" + entity.getOpName() + "] successful" );
                     }
                     else
@@ -193,7 +194,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".searchPermissionOps srchValue [" + srchValue + "] caught SecurityException rc="
                     + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -229,12 +230,12 @@ public class ReviewMgrImplTest extends TestCase
                 PermObj entity = reviewMgr.readPermObj( pObj );
                 assertNotNull( entity );
                 PermTestData.assertEquals( entity, objs );
-                log.debug( CLS_NM + ".readPermissionObjs object name [" + pObj.getObjectName() + "] successful" );
+                LOG.debug( CLS_NM + ".readPermissionObjs object name [" + pObj.getObjectName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".readPermissionOps object name [" + pObj.getObjectName()
+            LOG.error( CLS_NM + ".readPermissionOps object name [" + pObj.getObjectName()
                 + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage() + ex );
             fail( ex.getMessage() );
         }
@@ -278,7 +279,7 @@ public class ReviewMgrImplTest extends TestCase
                     PermObj entity = objs.get( indx );
                     assertNotNull( entity );
                     PermTestData.assertEquals( entity, obj );
-                    log.debug( CLS_NM + ".searchPermissionObjs [" + entity.getObjectName() + "] successful" );
+                    LOG.debug( CLS_NM + ".searchPermissionObjs [" + entity.getObjectName() + "] successful" );
                 }
                 else
                 {
@@ -290,7 +291,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".searchPermissionObjs srchValue [" + srchValue + "] caught SecurityException rc="
                     + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -342,11 +343,11 @@ public class ReviewMgrImplTest extends TestCase
             {
                 // Something unexpected occurred here, Report as warning to the logger:
                 String warning = methodName + " caught SecurityException=" + ex.getMessage();
-                log.warn( warning );
+                LOG.warn( warning );
                 // TODO: Determine if it would be better to throw a SecurityException here.
             }
         }
-        log.info( methodName + ":" + tearDown );
+        LOG.info( methodName + ":" + tearDown );
         return tearDown;
     }
 
@@ -366,12 +367,12 @@ public class ReviewMgrImplTest extends TestCase
             {
                 Role entity = reviewMgr.readRole( new Role( RoleTestData.getName( rle ) ) );
                 RoleTestData.assertEquals( entity, rle );
-                log.debug( CLS_NM + ".readRoles [" + entity.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".readRoles [" + entity.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".readRoles caught SecurityException=" + ex.getMessage(), ex );
+            LOG.error( CLS_NM + ".readRoles caught SecurityException=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
@@ -419,7 +420,7 @@ public class ReviewMgrImplTest extends TestCase
                     Role entity = roles.get( indx );
                     assertNotNull( entity );
                     RoleTestData.assertEquals( entity, rle );
-                    log.debug( CLS_NM + ".searchRoles [" + entity.getName() + "] successful" );
+                    LOG.debug( CLS_NM + ".searchRoles [" + entity.getName() + "] successful" );
                 }
                 else
                 {
@@ -431,7 +432,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".searchRoles srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId()
                     + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -473,12 +474,12 @@ public class ReviewMgrImplTest extends TestCase
                 User entity = reviewMgr.readUser( new User( UserTestData.getUserId( usr ) ) );
                 assertNotNull( entity );
                 UserTestData.assertEquals( entity, usr );
-                log.debug( CLS_NM + ".readUsers userId [" + entity.getUserId() + "] successful" );
+                LOG.debug( CLS_NM + ".readUsers userId [" + entity.getUserId() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".readUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -546,7 +547,7 @@ public class ReviewMgrImplTest extends TestCase
                     User entity = users.get( indx );
                     assertNotNull( entity );
                     UserTestData.assertEquals( entity, usr );
-                    log.debug( CLS_NM + ".searchUsers userId [" + entity.getUserId() + "] successful" );
+                    LOG.debug( CLS_NM + ".searchUsers userId [" + entity.getUserId() + "] successful" );
                 }
                 else
                 {
@@ -558,7 +559,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".searchUsers srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId()
                     + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -601,7 +602,7 @@ public class ReviewMgrImplTest extends TestCase
                         UserRole uRole = uRoles.get( indx );
                         assertNotNull( uRole );
                         RoleTestData.assertEquals( UserTestData.getUserId( usr ), uRole, url );
-                        log.debug( CLS_NM + ".assignedRoles userId [" + uRole.getUserId() + "] role ["
+                        LOG.debug( CLS_NM + ".assignedRoles userId [" + uRole.getUserId() + "] role ["
                             + uRole.getName() + "] successful" );
                     }
                     else
@@ -616,7 +617,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".assignedRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -681,7 +682,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".assignedRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -723,7 +724,7 @@ public class ReviewMgrImplTest extends TestCase
                         User user = users.get( indx );
                         assertNotNull( user );
                         UserTestData.assertEquals( user, usr );
-                        log.debug( CLS_NM + ".authorizedUsers role name [" + RoleTestData.getName( rle ) + "] userId ["
+                        LOG.debug( CLS_NM + ".authorizedUsers role name [" + RoleTestData.getName( rle ) + "] userId ["
                             + user.getUserId() + "] successful" );
                     }
                     else
@@ -738,7 +739,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".authorizedUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -797,7 +798,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".authorizedUsersHier caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -843,7 +844,7 @@ public class ReviewMgrImplTest extends TestCase
                             Permission pOp = perms.get( indx );
                             assertNotNull( pOp );
                             PermTestData.assertEquals( PermTestData.getName( obj ), pOp, op );
-                            log.debug( CLS_NM + ".rolePermissions role name [" + role.getName() + "] perm objectName ["
+                            LOG.debug( CLS_NM + ".rolePermissions role name [" + role.getName() + "] perm objectName ["
                                 + PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op )
                                 + "] successful" );
                         }
@@ -861,7 +862,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".rolePermissions caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -910,7 +911,7 @@ public class ReviewMgrImplTest extends TestCase
                             String roleNm = roles.get( indx );
                             assertEquals( CLS_NM + ".permissionRoles failed compare role name",
                                 RoleTestData.getName( rle ), roleNm );
-                            log.debug( CLS_NM + ".permissionRoles permission objectName [" + pOp.getObjectName()
+                            LOG.debug( CLS_NM + ".permissionRoles permission objectName [" + pOp.getObjectName()
                                 + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId()
                                 + "] roleNm [" + roleNm + "] successful" );
                         }
@@ -928,7 +929,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".permissionRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -1001,7 +1002,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".authorizedPermissionRoles caught SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".authorizedPermissionRoles caught SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1050,7 +1051,7 @@ public class ReviewMgrImplTest extends TestCase
                             String userId = users.get( indx );
                             assertEquals( CLS_NM + ".permissionUsers failed compare userId",
                                 UserTestData.getUserId( usr ), userId );
-                            log.debug( CLS_NM + ".permissionUsers permission objectName [" + pOp.getObjectName()
+                            LOG.debug( CLS_NM + ".permissionUsers permission objectName [" + pOp.getObjectName()
                                 + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId()
                                 + "] userId [" + userId + "] successful" );
                         }
@@ -1068,7 +1069,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".permissionUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -1141,7 +1142,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".authorizedPermissionUsers caught SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".authorizedPermissionUsers caught SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1190,7 +1191,7 @@ public class ReviewMgrImplTest extends TestCase
                             Permission pOp = perms.get( indx );
                             assertNotNull( pOp );
                             PermTestData.assertEquals( PermTestData.getName( obj ), pOp, op );
-                            log.debug( CLS_NM + ".userPermissions userId [" + user.getUserId() + "] perm objectName ["
+                            LOG.debug( CLS_NM + ".userPermissions userId [" + user.getUserId() + "] perm objectName ["
                                 + PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op )
                                 + "] successful" );
                         }
@@ -1208,7 +1209,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".userPermissions caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -1265,7 +1266,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".searchRolesNms srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId()
                     + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1320,7 +1321,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".searchUserIds srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId()
                     + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1362,7 +1363,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".assignedUserIds caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -1418,7 +1419,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".assignedRoleNms caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -1466,7 +1467,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".searchRoles searchSsdSets [" + srchValue + "] caught SecurityException rc="
                     + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1514,7 +1515,7 @@ public class ReviewMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".searchRoles searchDsdSets [" + srchValue + "] caught SecurityException rc="
                     + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );

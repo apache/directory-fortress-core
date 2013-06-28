@@ -4,14 +4,17 @@
 
 package us.jts.fortress.cfg;
 
+
+import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
 import us.jts.fortress.util.attr.VUtil;
-import org.apache.log4j.Logger;
-
-import java.util.Properties;
 
 
 /**
@@ -40,7 +43,8 @@ import java.util.Properties;
 final class ConfigP
 {
     private static final String CLS_NM = ConfigP.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
+
 
     /**
      * Package private constructor
@@ -48,6 +52,7 @@ final class ConfigP
     ConfigP()
     {
     }
+
 
     /**
      * Create a new cfg node with given name and properties.  The name is required.  If node already exists,
@@ -58,12 +63,12 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs just added.
      * @throws SecurityException in the event entry already present or other system error.
      */
-    final Properties add(String name, Properties inProps)
+    final Properties add( String name, Properties inProps )
         throws SecurityException
     {
-        validate(name, inProps);
+        validate( name, inProps );
         ConfigDAO cfgDao = new ConfigDAO();
-        return cfgDao.create(name, inProps);
+        return cfgDao.create( name, inProps );
     }
 
 
@@ -76,12 +81,12 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws us.jts.fortress.SecurityException in the event entry not present or other system error.
      */
-    final Properties update(String name, Properties inProps)
+    final Properties update( String name, Properties inProps )
         throws us.jts.fortress.SecurityException
     {
-        validate(name, inProps);
+        validate( name, inProps );
         ConfigDAO cfgDao = new ConfigDAO();
-        return cfgDao.update(name, inProps);
+        return cfgDao.update( name, inProps );
     }
 
 
@@ -100,18 +105,19 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws SecurityException in the event entry not present or other system error.
      */
-    final void delete(String name)
+    final void delete( String name )
         throws us.jts.fortress.SecurityException
     {
-        if (!VUtil.isNotNullOrEmpty(name))
+        if ( !VUtil.isNotNullOrEmpty( name ) )
         {
             String error = CLS_NM + ".delete detected null config realm name";
-            log.warn(error);
-            throw new ValidationException(GlobalErrIds.FT_CONFIG_NAME_NULL, error);
+            LOG.warn( error );
+            throw new ValidationException( GlobalErrIds.FT_CONFIG_NAME_NULL, error );
         }
         ConfigDAO cfgDao = new ConfigDAO();
-        cfgDao.remove(name);
+        cfgDao.remove( name );
     }
+
 
     /**
      * Delete existing cfg node with additional properties, or, replace existing properties.  The name is required.  If node does not exist,
@@ -120,13 +126,14 @@ final class ConfigP
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
      * @throws us.jts.fortress.SecurityException in the event entry not present or other system error.
      */
-    final void delete(String name, Properties inProps)
+    final void delete( String name, Properties inProps )
         throws SecurityException
     {
-        validate(name, inProps);
+        validate( name, inProps );
         ConfigDAO cfgDao = new ConfigDAO();
-        cfgDao.remove(name, inProps);
+        cfgDao.remove( name, inProps );
     }
+
 
     /**
      * Read an existing cfg node with given name and return to caller.  The name is required.  If node doesn't exist,
@@ -136,12 +143,12 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs just added. Maps to 'ftProps' attribute in 'ftProperties' object class.
      * @throws us.jts.fortress.SecurityException in the event entry doesn't exist or other system error.
      */
-    final Properties read(String name)
+    final Properties read( String name )
         throws SecurityException
     {
         Properties outProps;
         ConfigDAO cfgDao = new ConfigDAO();
-        outProps = cfgDao.getConfig(name);
+        outProps = cfgDao.getConfig( name );
         return outProps;
     }
 
@@ -154,28 +161,27 @@ final class ConfigP
      * @param entity contains the name/value properties targeted for operation.
      * @throws us.jts.fortress.ValidationException thrown in the event the validations fail.
      */
-    private void validate(String name, Properties entity)
+    private void validate( String name, Properties entity )
         throws us.jts.fortress.ValidationException
     {
-        if(!VUtil.isNotNullOrEmpty(name))
+        if ( !VUtil.isNotNullOrEmpty( name ) )
         {
             String error = CLS_NM + ".validate detected null config realm name";
-            log.warn(error);
-            throw new ValidationException(GlobalErrIds.FT_CONFIG_NAME_NULL, error);
+            LOG.warn( error );
+            throw new ValidationException( GlobalErrIds.FT_CONFIG_NAME_NULL, error );
         }
-        if (name.length() > GlobalIds.OU_LEN)
+        if ( name.length() > GlobalIds.OU_LEN )
         {
             String error = CLS_NM + ".validate name [" + name + "] invalid length [" + name.length() + "]";
-            log.warn(error);
-            throw new ValidationException(GlobalErrIds.FT_CONFIG_NAME_INVLD, error);
+            LOG.warn( error );
+            throw new ValidationException( GlobalErrIds.FT_CONFIG_NAME_INVLD, error );
         }
-        if (entity == null || entity.size() == 0)
+        if ( entity == null || entity.size() == 0 )
         {
             String error = CLS_NM + ".validate name [" + name + "] config props null";
-            log.warn(error);
-            throw new ValidationException(GlobalErrIds.FT_CONFIG_PROPS_NULL, error);
+            LOG.warn( error );
+            throw new ValidationException( GlobalErrIds.FT_CONFIG_PROPS_NULL, error );
         }
-        VUtil.properties(entity);
+        VUtil.properties( entity );
     }
 }
-

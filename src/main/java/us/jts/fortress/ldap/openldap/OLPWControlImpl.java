@@ -4,16 +4,20 @@
 
 package us.jts.fortress.ldap.openldap;
 
+
+import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.rbac.GlobalPwMsgIds;
 import us.jts.fortress.rbac.PwMessage;
 import us.jts.fortress.rbac.PwPolicyControl;
-import org.apache.log4j.Logger;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
 
-import java.util.Arrays;
 
 /**
  * This class reads the OpenLDAP password policy control and translates into data entity for Fortress.  In order for these checks
@@ -26,7 +30,8 @@ import java.util.Arrays;
 public class OLPWControlImpl implements PwPolicyControl
 {
     private static final String CLS_NM = OLPWControlImpl.class.getName();
-    private final static Logger log = Logger.getLogger(CLS_NM);
+    private final static Logger LOG = LoggerFactory.getLogger( CLS_NM );
+
 
     /**
      * Reads the OpenLDAP password policy control and sets the PwMessage with what it finds.
@@ -67,176 +72,181 @@ public class OLPWControlImpl implements PwPolicyControl
      * @param pwMsg describes the outcome of the policy checks.
      */
     @Override
-    public void checkPasswordPolicy(LDAPConnection ld, boolean isAuthenticated, PwMessage pwMsg)
+    public void checkPasswordPolicy( LDAPConnection ld, boolean isAuthenticated, PwMessage pwMsg )
     {
         String methodName = ".checkPasswordPolicy";
-        pwMsg.setErrorId(GlobalPwMsgIds.GOOD);
-        pwMsg.setWarningId(GlobalPwMsgIds.PP_NOWARNING);
-        pwMsg.setAuthenticated(isAuthenticated);
+        pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
+        pwMsg.setWarningId( GlobalPwMsgIds.PP_NOWARNING );
+        pwMsg.setAuthenticated( isAuthenticated );
 
         LDAPControl[] controls = ld.getResponseControls();
-        if (controls == null)
+        if ( controls == null )
         {
-            pwMsg.setWarningId(GlobalPwMsgIds.NO_CONTROLS_FOUND);
-            log.debug(CLS_NM + methodName + " controls is null");
+            pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
+            LOG.debug( CLS_NM + methodName + " controls is null" );
 
         }
-        else if (controls.length >= 1)
+        else if ( controls.length >= 1 )
         {
-            for (int i = 0; i < controls.length; i++)
+            for ( int i = 0; i < controls.length; i++ )
             {
-                if (log.isDebugEnabled())
-                    log.debug(CLS_NM + methodName + " controls[" + i + "]=" + controls[i]);
+                if ( LOG.isDebugEnabled() )
+                    LOG.debug( CLS_NM + methodName + " controls[" + i + "]=" + controls[i] );
                 LDAPControl con = controls[i];
                 String id = con.getID();
-                if (id.compareTo(GlobalIds.OPENLDAP_PW_RESPONSE_CONTROL) == 0)
+                if ( id.compareTo( GlobalIds.OPENLDAP_PW_RESPONSE_CONTROL ) == 0 )
                 {
                     byte[] rB = con.getValue();
-                    if (log.isDebugEnabled())
+                    if ( LOG.isDebugEnabled() )
                     {
-                        log.debug(CLS_NM + methodName + " control value length=" + rB.length);
+                        LOG.debug( CLS_NM + methodName + " control value length=" + rB.length );
                         String bytes = "";
-                        for (byte aRB : rB)
+                        for ( byte aRB : rB )
                         {
-                            bytes = bytes + printRawData(aRB);
+                            bytes = bytes + printRawData( aRB );
                         }
-                        log.debug(CLS_NM + methodName + " printRawData:");
-                        log.debug(bytes);
+                        LOG.debug( CLS_NM + methodName + " printRawData:" );
+                        LOG.debug( bytes );
                     }
-                    if (rB == null || rB[1] == 0)
+                    if ( rB == null || rB[1] == 0 )
                     {
-                        log.debug(CLS_NM + methodName + " no password control found");
-                        pwMsg.setWarningId(GlobalPwMsgIds.NO_CONTROLS_FOUND);
+                        LOG.debug( CLS_NM + methodName + " no password control found" );
+                        pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
                     }
-                    if (log.isDebugEnabled())
+                    if ( LOG.isDebugEnabled() )
                     {
-                        log.debug(CLS_NM + methodName + " byte[]=" + Arrays.toString(rB));
-                        log.debug("control.toString()=" + con.toString());
+                        LOG.debug( CLS_NM + methodName + " byte[]=" + Arrays.toString( rB ) );
+                        LOG.debug( "control.toString()=" + con.toString() );
                     }
                     int indx = 0;
-                    int lBerObjType = getInt(rB[indx++]);
-                    if (log.isDebugEnabled())
+                    int lBerObjType = getInt( rB[indx++] );
+                    if ( LOG.isDebugEnabled() )
                     {
-                        log.debug(CLS_NM + methodName + " BER encoded object type=" + lBerObjType);
+                        LOG.debug( CLS_NM + methodName + " BER encoded object type=" + lBerObjType );
                     }
-                    int msgLen = getInt(rB[indx++]);
-                    while (indx < msgLen)
+                    int msgLen = getInt( rB[indx++] );
+                    while ( indx < msgLen )
                     {
-                        switch (rB[indx++])
+                        switch ( rB[indx++] )
                         {
-                            case (byte) 0xa0:
+                            case ( byte ) 0xa0:
                                 // BER Encoded byte array:
                                 //client: 00110000 00000101 10100000
                                 //  			     		^
                                 //		PPOLICY_WARNING  0xa0
-                                int policyWarnLen = getInt(rB[indx++]);
-                                switch (rB[indx++])
+                                int policyWarnLen = getInt( rB[indx++] );
+                                switch ( rB[indx++] )
                                 {
-                                    case (byte) 0xa0:
-                                    case (byte) 0x80:
-                                        pwMsg.setWarningId(GlobalPwMsgIds.PASSWORD_EXPIRATION_WARNING);
+                                    case ( byte ) 0xa0:
+                                    case ( byte ) 0x80:
+                                        pwMsg.setWarningId( GlobalPwMsgIds.PASSWORD_EXPIRATION_WARNING );
                                         // BER Encoded byte array:
                                         // client: 00110000 00000110 10100000 00000100 10100000 00000010 00000010 00100100
                                         //							 ^                  ^                   ^
                                         //       PPOLICY_WARNING  0xa0 PPOLICY_EXPIRE 0xa0       EXP int==(decimal 548) 1000100100
-                                        int expLength = getInt(rB[indx++]);
-                                        int expire = getInt(rB[indx++]);
-                                        for (int k = 1; k < expLength; k++)
+                                        int expLength = getInt( rB[indx++] );
+                                        int expire = getInt( rB[indx++] );
+                                        for ( int k = 1; k < expLength; k++ )
                                         {
                                             expire = expire << 8;
-                                            int next = getInt(rB[indx++]);
+                                            int next = getInt( rB[indx++] );
                                             expire = expire | next;
                                         }
-                                        pwMsg.setExpirationSeconds(expire);
-                                        if (log.isDebugEnabled())
+                                        pwMsg.setExpirationSeconds( expire );
+                                        if ( LOG.isDebugEnabled() )
                                         {
-                                            log.debug(CLS_NM + methodName + " User:" + pwMsg.getUserId() + " password expires in " + expire + " seconds.");
+                                            LOG.debug( CLS_NM + methodName + " User:" + pwMsg.getUserId()
+                                                + " password expires in " + expire + " seconds." );
                                         }
                                         break;
-                                    case (byte) 0xa1:
-                                    case (byte) 0x81:
-                                        pwMsg.setWarningId(GlobalPwMsgIds.PASSWORD_GRACE_WARNING);
+                                    case ( byte ) 0xa1:
+                                    case ( byte ) 0x81:
+                                        pwMsg.setWarningId( GlobalPwMsgIds.PASSWORD_GRACE_WARNING );
                                         // BER Encoded byte array:
                                         //client: 00110000 00000101 10100000 00000011 10100001 00000001 01100100
                                         //  			     		^                 ^                 ^
                                         //			PPOLICY_WARNING  0xa0   PPOLICY_GRACE 0xa1       grace integer value
-                                        int graceLen = getInt(rB[indx++]);
-                                        int grace = getInt(rB[indx++]);
-                                        for (int k = 1; k < graceLen; k++)
+                                        int graceLen = getInt( rB[indx++] );
+                                        int grace = getInt( rB[indx++] );
+                                        for ( int k = 1; k < graceLen; k++ )
                                         {
                                             grace = grace << 8;
-                                            int next = getInt(rB[indx++]);
+                                            int next = getInt( rB[indx++] );
                                             grace = grace | next;
                                         }
-                                        pwMsg.setGraceLogins(grace);
-                                        if (log.isDebugEnabled())
+                                        pwMsg.setGraceLogins( grace );
+                                        if ( LOG.isDebugEnabled() )
                                         {
-                                            log.debug(CLS_NM + methodName + " UserId:" + pwMsg.getUserId() + " # logins left=" + grace);
+                                            LOG.debug( CLS_NM + methodName + " UserId:" + pwMsg.getUserId()
+                                                + " # logins left=" + grace );
                                         }
                                         break;
                                     default:
-                                        pwMsg.setWarningId(GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE);
-                                        if (log.isDebugEnabled())
+                                        pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
+                                        if ( LOG.isDebugEnabled() )
                                         {
-                                            log.debug(CLS_NM + methodName + " UserId:" + pwMsg.getUserId() + " Invalid PPOlicy Type");
+                                            LOG.debug( CLS_NM + methodName + " UserId:" + pwMsg.getUserId()
+                                                + " Invalid PPOlicy Type" );
                                         }
                                         break;
                                 }
                                 break;
-                            case (byte) 0xa1:
-                            case (byte) 0x81:
+                            case ( byte ) 0xa1:
+                            case ( byte ) 0x81:
                                 // BER Encoded byte array:
                                 //client: 00110000 00001011 10100000 00000110 10100000 00000100 00000001 11100001 00110011 01111101 10100001 00000001 00000010
                                 //							 ^                  ^                 ^                                   ^                     ^
                                 //		   PPOLICY_WARNING  0xa0 PPOLICY_EXPIRE 0xa0      expire int==(decimal 100)     PPOLICY_ERR 0xa1             ERR #==2
-                                int errLen = getInt(rB[indx++]);
-                                int err = getInt(rB[indx++]);
-                                if (log.isDebugEnabled())
+                                int errLen = getInt( rB[indx++] );
+                                int err = getInt( rB[indx++] );
+                                if ( LOG.isDebugEnabled() )
                                 {
-                                    log.debug(CLS_NM + methodName + " UserId:" + pwMsg.getUserId() + " PPOLICY_ERROR=" + err);
+                                    LOG.debug( CLS_NM + methodName + " UserId:" + pwMsg.getUserId() + " PPOLICY_ERROR="
+                                        + err );
                                 }
-                                switch (err)
+                                switch ( err )
                                 {
                                     case 0:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.PASSWORD_HAS_EXPIRED);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.PASSWORD_HAS_EXPIRED );
                                         break;
                                     case 1:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.ACCOUNT_LOCKED);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.ACCOUNT_LOCKED );
                                         break;
                                     case 2:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.CHANGE_AFTER_RESET);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.CHANGE_AFTER_RESET );
                                         break;
                                     case 3:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.NO_MODIFICATIONS);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.NO_MODIFICATIONS );
                                         break;
                                     case 4:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.MUST_SUPPLY_OLD);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.MUST_SUPPLY_OLD );
                                         break;
                                     case 5:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.INSUFFICIENT_QUALITY);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.INSUFFICIENT_QUALITY );
                                         break;
                                     case 6:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.PASSWORD_TOO_SHORT);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.PASSWORD_TOO_SHORT );
                                         break;
                                     case 7:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.PASSWORD_TOO_YOUNG);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.PASSWORD_TOO_YOUNG );
                                         break;
                                     case 8:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.HISTORY_VIOLATION);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.HISTORY_VIOLATION );
                                         break;
                                     case 65535:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.GOOD);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
                                         break;
                                     default:
-                                        pwMsg.setErrorId(GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE);
+                                        pwMsg.setErrorId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
                                         break;
                                 }
                                 break;
                             default:
-                                pwMsg.setWarningId(GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE);
-                                if (log.isDebugEnabled())
+                                pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
+                                if ( LOG.isDebugEnabled() )
                                 {
-                                    log.debug(CLS_NM + methodName + " userId: " + pwMsg.getUserId() + " Invalid PPOlicy Message Type");
+                                    LOG.debug( CLS_NM + methodName + " userId: " + pwMsg.getUserId()
+                                        + " Invalid PPOlicy Message Type" );
                                 }
                                 break;
                         }
@@ -244,10 +254,11 @@ public class OLPWControlImpl implements PwPolicyControl
                 }
                 else
                 {
-                    pwMsg.setWarningId(GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE);
-                    if (log.isDebugEnabled())
+                    pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
+                    if ( LOG.isDebugEnabled() )
                     {
-                        log.debug(CLS_NM + methodName + " UserId: " + pwMsg.getUserId() + " Can't process LDAP control...");
+                        LOG.debug( CLS_NM + methodName + " UserId: " + pwMsg.getUserId()
+                            + " Can't process LDAP control..." );
                     }
                 }
             }
@@ -259,10 +270,11 @@ public class OLPWControlImpl implements PwPolicyControl
      * @param bte
      * @return int
      */
-    private static int getInt(byte bte)
+    private static int getInt( byte bte )
     {
         return bte & 0xff;
     }
+
 
     /**
      * Description of the Method
@@ -270,7 +282,7 @@ public class OLPWControlImpl implements PwPolicyControl
      * @param ch Description of the Parameter
      * @return Description of the Return Value
      */
-    private static String printRawData(byte ch)
+    private static String printRawData( byte ch )
     {
         int B0 = 0x01;
         int B1 = 0x02;
@@ -282,7 +294,7 @@ public class OLPWControlImpl implements PwPolicyControl
         int B7 = 0x80;
 
         String byteString;
-        if ((ch & B7) != 0)
+        if ( ( ch & B7 ) != 0 )
         {
             byteString = "1";
         }
@@ -290,7 +302,7 @@ public class OLPWControlImpl implements PwPolicyControl
         {
             byteString = "0";
         }
-        if ((ch & B6) != 0)
+        if ( ( ch & B6 ) != 0 )
         {
             byteString += "1";
         }
@@ -298,7 +310,7 @@ public class OLPWControlImpl implements PwPolicyControl
         {
             byteString += "0";
         }
-        if ((ch & B5) != 0)
+        if ( ( ch & B5 ) != 0 )
         {
             byteString += "1";
         }
@@ -306,7 +318,7 @@ public class OLPWControlImpl implements PwPolicyControl
         {
             byteString += "0";
         }
-        if ((ch & B4) != 0)
+        if ( ( ch & B4 ) != 0 )
         {
             byteString += "1";
         }
@@ -314,7 +326,7 @@ public class OLPWControlImpl implements PwPolicyControl
         {
             byteString += "0";
         }
-        if ((ch & B3) != 0)
+        if ( ( ch & B3 ) != 0 )
         {
             byteString += "1";
         }
@@ -322,7 +334,7 @@ public class OLPWControlImpl implements PwPolicyControl
         {
             byteString += "0";
         }
-        if ((ch & B2) != 0)
+        if ( ( ch & B2 ) != 0 )
         {
             byteString += "1";
         }
@@ -330,7 +342,7 @@ public class OLPWControlImpl implements PwPolicyControl
         {
             byteString += "0";
         }
-        if ((ch & B1) != 0)
+        if ( ( ch & B1 ) != 0 )
         {
             byteString += "1";
         }
@@ -338,7 +350,7 @@ public class OLPWControlImpl implements PwPolicyControl
         {
             byteString += "0";
         }
-        if ((ch & B0) != 0)
+        if ( ( ch & B0 ) != 0 )
         {
             byteString += "1";
         }

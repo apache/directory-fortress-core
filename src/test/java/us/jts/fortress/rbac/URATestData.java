@@ -10,7 +10,8 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.util.attr.VUtil;
 
@@ -23,7 +24,7 @@ import us.jts.fortress.util.attr.VUtil;
 public class URATestData extends TestCase
 {
     private static final String CLS_NM = URATestData.class.getName();
-    final protected static Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     public final static String[][] URA_T1 =
         {

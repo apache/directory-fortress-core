@@ -4,18 +4,22 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.GlobalIds;
-import us.jts.fortress.ValidationException;
-import us.jts.fortress.SecurityException;
-import us.jts.fortress.util.attr.VUtil;
-import us.jts.fortress.util.cache.CacheMgr;
-import us.jts.fortress.util.cache.Cache;
-import org.apache.log4j.Logger;
-import org.jgrapht.graph.SimpleDirectedGraph;
 
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.jgrapht.graph.SimpleDirectedGraph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import us.jts.fortress.GlobalIds;
+import us.jts.fortress.SecurityException;
+import us.jts.fortress.ValidationException;
+import us.jts.fortress.util.attr.VUtil;
+import us.jts.fortress.util.cache.Cache;
+import us.jts.fortress.util.cache.CacheMgr;
+
 
 /**
  * This utility wraps {@link HierUtil} methods to provide hierarchical functionality for the {@link us.jts.fortress.rbac.AdminRole} data set.
@@ -43,7 +47,7 @@ final class AdminRoleUtil
     private static final Cache adminRoleCache;
     private static final AdminRoleP adminRoleP = new AdminRoleP();
     private static final String CLS_NM = AdminRoleUtil.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     /**
      * Initialize the AdminRole hierarchies.  This will read the {@link Hier} data set from ldap and load into
@@ -52,8 +56,9 @@ final class AdminRoleUtil
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        adminRoleCache = cacheMgr.getCache("fortress.admin.roles");
+        adminRoleCache = cacheMgr.getCache( "fortress.admin.roles" );
     }
+
 
     /**
      * Used to determine if one {@link us.jts.fortress.rbac.AdminRole} is the parent of another.  This method
@@ -65,16 +70,17 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return boolean result, 'true' indicates parent/child relationship exists.
      */
-    static boolean isParent(String child, String parent, String contextId)
+    static boolean isParent( String child, String parent, String contextId )
     {
         boolean result = false;
-        Set<String> parents = getAscendants(child, contextId);
-        if(parents != null && parents.size() > 0)
+        Set<String> parents = getAscendants( child, contextId );
+        if ( parents != null && parents.size() > 0 )
         {
-            result = parents.contains(parent.toUpperCase());
+            result = parents.contains( parent.toUpperCase() );
         }
         return result;
     }
+
 
     /**
      * Recursively traverse the {@link us.jts.fortress.rbac.AdminRole} graph and return all of the descendants of a given parent {@link us.jts.fortress.rbac.AdminRole#name}.
@@ -82,10 +88,11 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of AdminRole names are children {@link us.jts.fortress.rbac.AdminRole}s of given parent.
      */
-    static Set<String> getDescendants(String roleName, String contextId)
+    static Set<String> getDescendants( String roleName, String contextId )
     {
-        return HierUtil.getDescendants(roleName, getGraph(contextId));
+        return HierUtil.getDescendants( roleName, getGraph( contextId ) );
     }
+
 
     /**
      * Recursively traverse the hierarchical role graph and return all of the parents of a given child role.
@@ -93,10 +100,11 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of AdminRole names that are descendants of given node.
      */
-    static Set<String> getAscendants(String roleName, String contextId)
+    static Set<String> getAscendants( String roleName, String contextId )
     {
-        return HierUtil.getAscendants(roleName, getGraph(contextId));
+        return HierUtil.getAscendants( roleName, getGraph( contextId ) );
     }
+
 
     /**
      * Traverse one level of the {@link us.jts.fortress.rbac.AdminRole} graph and return all of the parents (direct ascendants) of a given parent {@link us.jts.fortress.rbac.AdminRole#name}.
@@ -104,10 +112,11 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of AdminRole names are parents {@link us.jts.fortress.rbac.AdminRole}s of given child.
      */
-    static Set<String> getParents(String roleName, String contextId)
+    static Set<String> getParents( String roleName, String contextId )
     {
-        return HierUtil.getParents(roleName, getGraph(contextId));
+        return HierUtil.getParents( roleName, getGraph( contextId ) );
     }
+
 
     /**
      * Traverse one level of the hierarchical role graph and return all of the children (direct descendants) of a given parent role.
@@ -115,10 +124,11 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of AdminRole names that are children of given parent.
      */
-    static Set<String> getChildren(String roleName, String contextId)
+    static Set<String> getChildren( String roleName, String contextId )
     {
-        return HierUtil.getChildren(roleName, getGraph(contextId));
+        return HierUtil.getChildren( roleName, getGraph( contextId ) );
     }
+
 
     /**
      * Return number of children (direct descendants) a given parent role has.
@@ -126,10 +136,11 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return int value contains the number of children of a given parent AdminRole.
      */
-    static int numChildren(String roleName, String contextId)
+    static int numChildren( String roleName, String contextId )
     {
-        return HierUtil.numChildren(roleName, getGraph(contextId));
+        return HierUtil.numChildren( roleName, getGraph( contextId ) );
     }
+
 
     /**
      * Return Set of {@link us.jts.fortress.rbac.AdminRole#name}s ascendants.  Used by {@link us.jts.fortress.rbac.PermDAO#checkPermission}
@@ -138,23 +149,24 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return contains Set of all authorized adminRoles for a given User.
      */
-    static Set<String> getInheritedRoles(List<UserAdminRole> uRoles, String contextId)
+    static Set<String> getInheritedRoles( List<UserAdminRole> uRoles, String contextId )
     {
         // create Set with case insensitive comparator:
-        Set<String> iRoles = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-        if (VUtil.isNotNullOrEmpty(uRoles))
+        Set<String> iRoles = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
+        if ( VUtil.isNotNullOrEmpty( uRoles ) )
         {
-            for (UserAdminRole uRole : uRoles)
+            for ( UserAdminRole uRole : uRoles )
             {
                 String rleName = uRole.getName();
-                iRoles.add(rleName);
-                Set<String> parents = HierUtil.getAscendants(rleName, getGraph(contextId));
-                if (VUtil.isNotNullOrEmpty(parents))
-                    iRoles.addAll(parents);
+                iRoles.add( rleName );
+                Set<String> parents = HierUtil.getAscendants( rleName, getGraph( contextId ) );
+                if ( VUtil.isNotNullOrEmpty( parents ) )
+                    iRoles.addAll( parents );
             }
         }
         return iRoles;
     }
+
 
     /**
      * This api is used by {@link DelAdminMgrImpl} to determine parentage for Hierarchical ARBAC processing.
@@ -172,11 +184,13 @@ final class AdminRoleUtil
      * @param mustExist boolean is used to specify if relationship must be true.
      * @throws us.jts.fortress.ValidationException in the event it fails one of the 3 checks.
      */
-    static void validateRelationship(AdminRole childRole, AdminRole parentRole, boolean mustExist)
+    static void validateRelationship( AdminRole childRole, AdminRole parentRole, boolean mustExist )
         throws ValidationException
     {
-        HierUtil.validateRelationship(getGraph(childRole.getContextId()), childRole.getName(), parentRole.getName(), mustExist);
+        HierUtil.validateRelationship( getGraph( childRole.getContextId() ), childRole.getName(), parentRole.getName(),
+            mustExist );
     }
+
 
     /**
      * This api allows synchronized access to allow updates to hierarchical relationships.
@@ -187,10 +201,11 @@ final class AdminRoleUtil
      * @param op   used to pass the ldap op {@link Hier.Op#ADD}, {@link Hier.Op#MOD}, {@link us.jts.fortress.rbac.Hier.Op#REM}
      * @throws us.jts.fortress.SecurityException in the event of a system error.
      */
-    static void updateHier(String contextId, Relationship relationship, Hier.Op op) throws SecurityException
+    static void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException
     {
-        HierUtil.updateHier(getGraph(contextId), relationship, op);
+        HierUtil.updateHier( getGraph( contextId ), relationship, op );
     }
+
 
     /**
      * Read this ldap record,{@code cn=Hierarchies, ou=OS-P} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
@@ -199,29 +214,30 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return
      */
-    private static SimpleDirectedGraph<String, Relationship> loadGraph(String contextId)
+    private static SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
     {
-        Hier inHier = new Hier(Hier.Type.ROLE);
-        inHier.setContextId(contextId);
-        log.info(CLS_NM + ".loadGraph initializing ADMIN ROLE context [" + inHier.getContextId() + "]");
+        Hier inHier = new Hier( Hier.Type.ROLE );
+        inHier.setContextId( contextId );
+        LOG.info( CLS_NM + ".loadGraph initializing ADMIN ROLE context [" + inHier.getContextId() + "]" );
         List<Graphable> descendants = null;
         try
         {
-            descendants = adminRoleP.getAllDescendants(inHier.getContextId());
+            descendants = adminRoleP.getAllDescendants( inHier.getContextId() );
         }
-        catch(SecurityException se)
+        catch ( SecurityException se )
         {
-            log.info(CLS_NM + ".loadGraph caught SecurityException=" + se);
+            LOG.info( CLS_NM + ".loadGraph caught SecurityException=" + se );
         }
-        Hier hier = HierUtil.loadHier(contextId, descendants);
+        Hier hier = HierUtil.loadHier( contextId, descendants );
         SimpleDirectedGraph<String, Relationship> graph;
-        synchronized (HierUtil.getLock(contextId, HierUtil.Type.ARLE))
+        synchronized ( HierUtil.getLock( contextId, HierUtil.Type.ARLE ) )
         {
-            graph = HierUtil.buildGraph(hier);
+            graph = HierUtil.buildGraph( hier );
         }
-        adminRoleCache.put(getKey(contextId), graph);
+        adminRoleCache.put( getKey( contextId ), graph );
         return graph;
     }
+
 
     /**
      * Read this ldap record,{@code cn=Hierarchies, ou=OS-P} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
@@ -230,25 +246,27 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return
      */
-    private static SimpleDirectedGraph<String, Relationship> getGraph(String contextId)
+    private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {
-        SimpleDirectedGraph<String, Relationship> graph = (SimpleDirectedGraph<String, Relationship>) adminRoleCache.get(getKey(contextId));
-        if (graph == null)
+        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) adminRoleCache
+            .get( getKey( contextId ) );
+        if ( graph == null )
         {
-            graph = loadGraph(contextId);
+            graph = loadGraph( contextId );
         }
         return graph;
     }
+
 
     /**
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return
      */
-    private static String getKey(String contextId)
+    private static String getKey( String contextId )
     {
         String key = HierUtil.Type.ARLE.toString();
-        if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL))
+        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )
         {
             key += ":" + contextId;
         }

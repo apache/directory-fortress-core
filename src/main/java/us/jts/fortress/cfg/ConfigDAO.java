@@ -4,6 +4,12 @@
 
 package us.jts.fortress.cfg;
 
+
+import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.FinderException;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
@@ -12,14 +18,13 @@ import us.jts.fortress.UpdateException;
 import us.jts.fortress.ldap.DataProvider;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
-import org.apache.log4j.Logger;
+
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
 
-import java.util.Properties;
 
 /**
  * This class provides data access for the standard ldap object device that has been extended to support name/value pairs.
@@ -60,23 +65,29 @@ final class ConfigDAO extends DataProvider
 
 {
     private static final String CLS_NM = ConfigDAO.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String CONFIG_ROOT_PARAM = "config.root";
-    private static final String CONFIG_ROOT_DN = Config.getProperty(CONFIG_ROOT_PARAM);
+    private static final String CONFIG_ROOT_DN = Config.getProperty( CONFIG_ROOT_PARAM );
     private static final String DEVICE_OBJECT_CLASS_NM = "device";
 
-    private static final String CONFIG_OBJ_CLASS[] = {
-        DEVICE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
+    private static final String CONFIG_OBJ_CLASS[] =
+        {
+            DEVICE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
     };
 
-    private static final String[] CONFIG_ATRS = {
-        GlobalIds.CN, GlobalIds.PROPS
+    private static final String[] CONFIG_ATRS =
+        {
+            GlobalIds.CN, GlobalIds.PROPS
     };
+
 
     /**
      * Package private default constructor.
      */
-    ConfigDAO(){}
+    ConfigDAO()
+    {
+    }
+
 
     /**
      * @param name
@@ -84,40 +95,42 @@ final class ConfigDAO extends DataProvider
      * @return
      * @throws us.jts.fortress.CreateException
      */
-    final Properties create(String name, Properties props)
+    final Properties create( String name, Properties props )
         throws us.jts.fortress.CreateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(name);
-        log.info(CLS_NM + ".create dn [" + dn + "]");
+        String dn = getDn( name );
+        LOG.info( CLS_NM + ".create dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
             LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, CONFIG_OBJ_CLASS));
-            attrs.add(createAttribute(GlobalIds.CN, name));
-            loadProperties(props, attrs, GlobalIds.PROPS);
-            LDAPEntry myEntry = new LDAPEntry(dn, attrs);
-            add(ld, myEntry);
+            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, CONFIG_OBJ_CLASS ) );
+            attrs.add( createAttribute( GlobalIds.CN, name ) );
+            loadProperties( props, attrs, GlobalIds.PROPS );
+            LDAPEntry myEntry = new LDAPEntry( dn, attrs );
+            add( ld, myEntry );
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
             String error;
-            if (e.getLDAPResultCode() == LDAPException.ENTRY_ALREADY_EXISTS)
+            if ( e.getLDAPResultCode() == LDAPException.ENTRY_ALREADY_EXISTS )
             {
-                String warning = CLS_NM + ".create config dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new us.jts.fortress.CreateException(GlobalErrIds.FT_CONFIG_ALREADY_EXISTS, warning);
+                String warning = CLS_NM + ".create config dn [" + dn + "] caught LDAPException="
+                    + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                throw new us.jts.fortress.CreateException( GlobalErrIds.FT_CONFIG_ALREADY_EXISTS, warning );
             }
             else
             {
-                error = CLS_NM + ".create config dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                error = CLS_NM + ".create config dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode()
+                    + " msg=" + e.getMessage();
             }
-            log.error(error, e);
-            throw new us.jts.fortress.CreateException(GlobalErrIds.FT_CONFIG_CREATE_FAILED, error);
+            LOG.error( error, e );
+            throw new us.jts.fortress.CreateException( GlobalErrIds.FT_CONFIG_CREATE_FAILED, error );
         }
         finally
         {
-            closeAdminConnection(ld);
+            closeAdminConnection( ld );
         }
         return props;
     }
@@ -129,33 +142,34 @@ final class ConfigDAO extends DataProvider
      * @return
      * @throws us.jts.fortress.UpdateException
      */
-    final Properties update(String name, Properties props)
+    final Properties update( String name, Properties props )
         throws us.jts.fortress.UpdateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(name);
-        log.info(CLS_NM + "update dn [" + dn + "]");
+        String dn = getDn( name );
+        LOG.info( CLS_NM + "update dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
-            if (us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(props))
+            if ( us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty( props ) )
             {
-                loadProperties(props, mods, GlobalIds.PROPS, true);
+                loadProperties( props, mods, GlobalIds.PROPS, true );
             }
-            if (mods.size() > 0)
+            if ( mods.size() > 0 )
             {
-                modify(ld, dn, mods);
+                modify( ld, dn, mods );
             }
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = CLS_NM + ".update dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new us.jts.fortress.UpdateException(GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error);
+            String error = CLS_NM + ".update dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg="
+                + e.getMessage();
+            throw new us.jts.fortress.UpdateException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error );
         }
         finally
         {
-            closeAdminConnection(ld);
+            closeAdminConnection( ld );
         }
         return props;
     }
@@ -165,25 +179,26 @@ final class ConfigDAO extends DataProvider
      * @param name
      * @throws us.jts.fortress.RemoveException
      */
-    final void remove(String name)
+    final void remove( String name )
         throws RemoveException
     {
         LDAPConnection ld = null;
-        String dn = getDn(name);
-        log.info(CLS_NM + ".remove dn [" + dn + "]");
+        String dn = getDn( name );
+        LOG.info( CLS_NM + ".remove dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
-            delete(ld, dn);
+            delete( ld, dn );
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = CLS_NM + ".remove dn [" + dn + "] LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new us.jts.fortress.RemoveException(GlobalErrIds.FT_CONFIG_DELETE_FAILED, error);
+            String error = CLS_NM + ".remove dn [" + dn + "] LDAPException=" + e.getLDAPResultCode() + " msg="
+                + e.getMessage();
+            throw new us.jts.fortress.RemoveException( GlobalErrIds.FT_CONFIG_DELETE_FAILED, error );
         }
         finally
         {
-            closeAdminConnection(ld);
+            closeAdminConnection( ld );
         }
     }
 
@@ -194,33 +209,34 @@ final class ConfigDAO extends DataProvider
      * @return
      * @throws us.jts.fortress.UpdateException
      */
-    final Properties remove(String name, Properties props)
+    final Properties remove( String name, Properties props )
         throws UpdateException
     {
         LDAPConnection ld = null;
-        String dn = getDn(name);
-        log.info(CLS_NM + "remove props dn [" + dn + "]");
+        String dn = getDn( name );
+        LOG.info( CLS_NM + "remove props dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
             LDAPModificationSet mods = new LDAPModificationSet();
-            if (VUtil.isNotNullOrEmpty(props))
+            if ( VUtil.isNotNullOrEmpty( props ) )
             {
-                removeProperties(props, mods, GlobalIds.PROPS);
+                removeProperties( props, mods, GlobalIds.PROPS );
             }
-            if (mods.size() > 0)
+            if ( mods.size() > 0 )
             {
-                modify(ld, dn, mods);
+                modify( ld, dn, mods );
             }
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = CLS_NM + ".remove props dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new us.jts.fortress.UpdateException(GlobalErrIds.FT_CONFIG_DELETE_PROPS_FAILED, error);
+            String error = CLS_NM + ".remove props dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode()
+                + " msg=" + e.getMessage();
+            throw new us.jts.fortress.UpdateException( GlobalErrIds.FT_CONFIG_DELETE_PROPS_FAILED, error );
         }
         finally
         {
-            closeAdminConnection(ld);
+            closeAdminConnection( ld );
         }
         return props;
     }
@@ -231,44 +247,44 @@ final class ConfigDAO extends DataProvider
      * @return
      * @throws us.jts.fortress.FinderException
      */
-    final Properties getConfig(String name)
+    final Properties getConfig( String name )
         throws FinderException
     {
         Properties props = null;
         LDAPConnection ld = null;
-        String dn = getDn(name);
-        log.info(CLS_NM + "getConfig dn [" + dn + "]");
+        String dn = getDn( name );
+        LOG.info( CLS_NM + "getConfig dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read(ld, dn, CONFIG_ATRS);
-            props = AttrHelper.getProperties(getAttributes(findEntry, GlobalIds.PROPS));
+            LDAPEntry findEntry = read( ld, dn, CONFIG_ATRS );
+            props = AttrHelper.getProperties( getAttributes( findEntry, GlobalIds.PROPS ) );
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
+            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
             {
                 String warning = CLS_NM + ".getConfig COULD NOT FIND ENTRY for dn [" + dn + "]";
-                throw new us.jts.fortress.FinderException(GlobalErrIds.FT_CONFIG_NOT_FOUND, warning);
+                throw new us.jts.fortress.FinderException( GlobalErrIds.FT_CONFIG_NOT_FOUND, warning );
             }
             String error = CLS_NM + ".getConfig dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
-            throw new FinderException(GlobalErrIds.FT_CONFIG_READ_FAILED, error);
+            throw new FinderException( GlobalErrIds.FT_CONFIG_READ_FAILED, error );
         }
         finally
         {
-            closeAdminConnection(ld);
+            closeAdminConnection( ld );
         }
         return props;
     }
+
 
     /**
      *
      * @param name
      * @return
      */
-    private String getDn(String name)
+    private String getDn( String name )
     {
         return GlobalIds.CN + "=" + name + "," + CONFIG_ROOT_DN;
     }
 }
-

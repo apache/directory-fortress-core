@@ -4,16 +4,20 @@
 
 package us.jts.fortress.rbac;
 
+
+import java.util.List;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.AdminMgr;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
-import us.jts.fortress.util.time.CUtil;
 import us.jts.fortress.util.attr.VUtil;
-import org.apache.log4j.Logger;
+import us.jts.fortress.util.time.CUtil;
 
-import java.util.List;
-import java.util.Set;
 
 /**
  * This class performs administrative functions to provision Fortress RBAC entities into the LDAP directory.  These APIs
@@ -62,12 +66,14 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
     private static final RoleP roleP = new RoleP();
     private static final SdP sdP = new SdP();
     private static final UserP userP = new UserP();
-    private static final Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
+
 
     // package private constructor ensures outside classes cannot use:
     AdminMgrImpl()
     {
     }
+
 
     /**
      * This command creates a new RBAC user. The command is valid only if the new user is
@@ -121,6 +127,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return userP.add( user );
     }
 
+
     /**
      * This command disables an existing user in the RBAC database. The command is valid
      * if and only if the user to be disabled is a member of the USERS data set. The USERS and
@@ -156,6 +163,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         adminP.removeOccupant( userDn, user.getContextId() );
     }
 
+
     /**
      * This command deletes an existing user from the RBAC database. The command is valid
      * if and only if the user to be deleted is a member of the USERS data set. The USERS and
@@ -186,6 +194,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         // remove the user dn occupant attribute from assigned ldap adminRole entities.
         adminP.removeOccupant( userDn, user.getContextId() );
     }
+
 
     /**
      * This method performs an update on User entity in directory.  Prior to making this call the entity must exist in
@@ -234,6 +243,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return userP.update( user );
     }
 
+
     /**
      * Method will change user's password.  This method will evaluate user's password policies.
      * <h4>required parameters</h4>
@@ -258,6 +268,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         userP.changePassword( user, newPassword );
     }
 
+
     /**
      * Method will lock user's password which will prevent the user from authenticating with directory.
      * <p/>
@@ -278,6 +289,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         userP.lock( user );
     }
 
+
     /**
      * Method will unlock user's password which will enable user to authenticate with directory.
      * <p/>
@@ -297,6 +309,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         setEntitySession( CLS_NM, methodName, user );
         userP.unlock( user );
     }
+
 
     /**
      * Method will reset user's password which will require user to change password before successful authentication
@@ -323,6 +336,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         userP.resetPassword( user );
     }
 
+
     /**
      * Method will delete user's password policy designation.
      * <h4>required parameters</h4>
@@ -342,6 +356,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         setEntitySession( CLS_NM, methodName, user );
         userP.deletePwPolicy( user );
     }
+
 
     /**
      * This command creates a new role. The command is valid if and only if the new role is not
@@ -378,6 +393,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return roleP.add( role );
     }
 
+
     /**
      * This command deletes an existing role from the RBAC database. The command is valid
      * if and only if the role to be deleted is a member of the ROLES data set.  This command will
@@ -403,7 +419,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         {
             String error = CLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren +
                 "] descendants before deletion";
-            log.error( error );
+            LOG.error( error );
             throw new SecurityException( GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null );
         }
         // search for all users assigned this role and deassign:
@@ -431,6 +447,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         }
         roleP.delete( role );
     }
+
 
     /**
      * Method will update a Role entity in the directory.  The role must exist prior to this call.
@@ -466,6 +483,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         setEntitySession( CLS_NM, methodName, role );
         return roleP.update( role );
     }
+
 
     /**
      * This command assigns a user to a role.
@@ -547,6 +565,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         roleP.assign( role, dn );
     }
 
+
     /**
      * This command deletes the assignment of the User from the Role entities. The command is
      * valid if and only if the user is a member of the USERS data set, the role is a member of
@@ -581,6 +600,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         // called "roleOccupant", from the node:
         roleP.deassign( role, dn );
     }
+
 
     /**
      * This method will add permission operation to an existing permission object which resides under {@code
@@ -620,6 +640,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return permP.add( perm );
     }
 
+
     /**
      * This method will update permission operation pre-existing in target directory under {@code ou=Permissions,
      * ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
@@ -658,6 +679,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return permP.update( perm );
     }
 
+
     /**
      * This method will remove permission operation entity from permission object. A Fortress permission is
      * (object->operation).
@@ -682,6 +704,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         setEntitySession( CLS_NM, methodName, perm );
         permP.delete( perm );
     }
+
 
     /**
      * This method will add permission object to perms container in directory. The perm object must not exist before
@@ -715,6 +738,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return permP.add( pObj );
     }
 
+
     /**
      * This method will update permission object in perms container in directory.  The perm object must exist before
      * making this call.
@@ -747,6 +771,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return permP.update( pObj );
     }
 
+
     /**
      * This method will remove permission object to perms container in directory.  This method will also remove
      * in associated permission objects that are attached to this object.
@@ -766,6 +791,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         setEntitySession( CLS_NM, methodName, pObj );
         permP.delete( pObj );
     }
+
 
     /**
      * This command grants a role the permission to perform an operation on an object to a role.
@@ -809,6 +835,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         permP.grant( perm, role );
     }
 
+
     /**
      * This command revokes the permission to perform an operation on an object from the set
      * of permissions assigned to a role. The command is implemented by setting the access control
@@ -841,6 +868,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         permP.revoke( perm, role );
     }
 
+
     /**
      * This command grants a user the permission to perform an operation on an object to a role.
      * The command is implemented by granting permission by setting the access control list of
@@ -872,6 +900,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         permP.grant( perm, user );
     }
 
+
     /**
      * This command revokes the permission to perform an operation on an object from the set
      * of permissions assigned to a user. The command is implemented by setting the access control
@@ -899,6 +928,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         permP.revoke( perm, user );
     }
+
 
     /**
      * This command creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
@@ -955,6 +985,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         RoleUtil.updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
             parentRole.getName().toUpperCase() ), Hier.Op.ADD );
     }
+
 
     /**
      * This command creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
@@ -1018,6 +1049,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
             parentRole.getName().toUpperCase() ), Hier.Op.ADD );
     }
 
+
     /**
      * This command establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
      * roles parentRole, childRole. The command is valid if and only if parentRole and childRole are members of the
@@ -1062,6 +1094,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         setAdminData( CLS_NM, methodName, cRole2 );
         roleP.update( cRole2 );
     }
+
 
     /**
      * This command deletes an existing immediate inheritance relationship parentRole <<-- childRole. The command is
@@ -1111,6 +1144,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         }
     }
 
+
     /**
      * This command creates a named SSD set of roles and sets the cardinality n of its subsets
      * that cannot have common users. The command is valid if and only if:
@@ -1153,6 +1187,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return sdP.add( ssdSet );
     }
 
+
     /**
      * This command updates existing SSD set of roles and sets the cardinality n of its subsets
      * that cannot have common users.
@@ -1191,6 +1226,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return sdP.update( ssdSet );
     }
 
+
     /**
      * This command adds a role to a named SSD set of roles. The cardinality associated with the role set remains
      * unchanged.
@@ -1226,6 +1262,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         clearSSDCache( role );
         return ssdOut;
     }
+
 
     /**
      * This command removes a role from a named SSD set of roles. The cardinality associated with the role set
@@ -1269,6 +1306,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return ssdOut;
     }
 
+
     /**
      * This command deletes a SSD role set completely. The command is valid if and only if the SSD role set exists.
      * <h4>required parameters</h4>
@@ -1292,6 +1330,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         return sdP.delete( ssdSet );
     }
 
+
     /**
      * Clear the SSD cache entries that correspond to this SSD
      *
@@ -1309,6 +1348,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         }
     }
 
+
     /**
      * Clear the SSD cache entries that correspond to this Role.
      *
@@ -1319,6 +1359,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
     {
         SDUtil.clearSsdCacheEntry( role.getName(), contextId );
     }
+
 
     /**
      * This command sets the cardinality associated with a given SSD role set. The command is valid if and only if:
@@ -1349,6 +1390,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         clearSSDCache( ssdSet );
         return sdP.update( ssdSet );
     }
+
 
     /**
      * This command creates a named DSD set of roles and sets an associated cardinality n.
@@ -1566,6 +1608,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         clearDSDCache( dsdSet );
         return sdP.update( dsdSet );
     }
+
 
     /**
      * Clear the DSD cache entries that correspond to this DSD

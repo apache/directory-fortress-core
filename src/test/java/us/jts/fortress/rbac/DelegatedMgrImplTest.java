@@ -13,7 +13,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.AccessMgr;
 import us.jts.fortress.AccessMgrFactory;
@@ -37,7 +38,7 @@ import us.jts.fortress.util.LogUtil;
 public class DelegatedMgrImplTest extends TestCase
 {
     private static final String CLS_NM = DelegatedMgrImplTest.class.getName();
-    final private static Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 
     public DelegatedMgrImplTest( String name )
@@ -227,7 +228,7 @@ public class DelegatedMgrImplTest extends TestCase
                     UserAdminRole uAdminRole = new UserAdminRole( UserTestData.getUserId( usr ), AdminRoleTestData
                         .getRole( rle ).getName() );
                     dAdminMgr.assignUser( uAdminRole );
-                    log.debug( CLS_NM + ".assignAdminUsers user [" + uAdminRole.getUserId() + "] role ["
+                    LOG.debug( CLS_NM + ".assignAdminUsers user [" + uAdminRole.getUserId() + "] role ["
                         + uAdminRole.getName() + "] successful" );
                     // Let's double check the number of users not associated with role:
                     // This one retrieves the collection of all "roleOccupant" attributes associated with the role node:
@@ -239,7 +240,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".assignAdminUsers caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -288,7 +289,7 @@ public class DelegatedMgrImplTest extends TestCase
                         .getRole( rle ).getName() );
                     AdminRoleTestData.getRole( rle );
                     dAdminMgr.deassignUser( uAdminRole );
-                    log.debug( CLS_NM + ".deassignAdminUsers user [" + uAdminRole.getUserId() + "] role ["
+                    LOG.debug( CLS_NM + ".deassignAdminUsers user [" + uAdminRole.getUserId() + "] role ["
                         + uAdminRole.getName() + "] successful" );
                     // Let's double check the number of users associated with role:
                     List<User> users = dReviewMgr.assignedUsers( AdminRoleTestData.getRole( rle ) );
@@ -309,7 +310,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".deassignAdminUsers caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -342,7 +343,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".assignAdminUsers caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -375,7 +376,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".deassignAdminUserRole caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -503,11 +504,11 @@ public class DelegatedMgrImplTest extends TestCase
                     i++;
                 }
             }
-            log.debug( CLS_NM + ".checkAccess successful" );
+            LOG.debug( CLS_NM + ".checkAccess successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".checkAccess: caught SecurityException rc=" + ex.getErrorId() + ", msg: " + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -550,12 +551,12 @@ public class DelegatedMgrImplTest extends TestCase
             {
                 AdminRole role = AdminRoleTestData.getRole( rle );
                 AdminRole entity = dAdminMgr.addRole( role );
-                log.debug( CLS_NM + ".addAdminRoles role [" + entity.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".addAdminRoles role [" + entity.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".addAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -599,12 +600,12 @@ public class DelegatedMgrImplTest extends TestCase
                 AdminRole role = new AdminRole();
                 role.setName( RoleTestData.getName( rle ) );
                 dAdminMgr.deleteRole( role );
-                log.debug( CLS_NM + ".deleteAdminRoles role [" + role.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".deleteAdminRoles role [" + role.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".deleteAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -641,12 +642,12 @@ public class DelegatedMgrImplTest extends TestCase
             {
                 AdminRole role = AdminRoleTestData.getRole( rle );
                 AdminRole entity = dAdminMgr.updateRole( role );
-                log.debug( CLS_NM + ".updateAdminRoles role [" + entity.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".updateAdminRoles role [" + entity.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".updateAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -731,7 +732,7 @@ public class DelegatedMgrImplTest extends TestCase
                         assertTrue( CLS_NM + methodName + " cannot find target URA admin role [" + sourceUra.getArole()
                             + " uou [" + sourceUra.getUou() + "] role [" + sourceUra.getUrole() + "] Result ["
                             + sourceUra.isCanAssign() + "] actual result [" + result + "]", targetUra != null );
-                        log.debug( CLS_NM + methodName + " User [" + user.getUserId()
+                        LOG.debug( CLS_NM + methodName + " User [" + user.getUserId()
                             + "] success URA using admin role [" + targetUra.getArole() + " uou [" + targetUra.getUou()
                             + "] role [" + targetUra.getUrole() + "] target result [" + targetUra.isCanAssign()
                             + "] actual result [" + result + "]" );
@@ -741,7 +742,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".canAssignUsers op [" + op + "] caught SecurityException rc=" + ex.getErrorId()
+            LOG.error( CLS_NM + ".canAssignUsers op [" + op + "] caught SecurityException rc=" + ex.getErrorId()
                 + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -823,7 +824,7 @@ public class DelegatedMgrImplTest extends TestCase
                         assertTrue( CLS_NM + methodName + " cannot find target PRA admin role [" + sourceUra.getArole()
                             + " pou [" + sourceUra.getPou() + "] role [" + sourceUra.getUrole() + "] Result ["
                             + sourceUra.isCanAssign() + "] actual result [" + result + "]", targetUra != null );
-                        log.debug( CLS_NM + methodName + " failed target PRA admin role [" + targetUra.getArole()
+                        LOG.debug( CLS_NM + methodName + " failed target PRA admin role [" + targetUra.getArole()
                             + " pou [" + targetUra.getPou() + "] role [" + targetUra.getUrole() + "] target result ["
                             + targetUra.isCanAssign() + "] actual result [" + result + "]" );
                     }
@@ -832,7 +833,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".canGrantPerms op [" + op + "] caught SecurityException rc=" + ex.getErrorId()
+            LOG.error( CLS_NM + ".canGrantPerms op [" + op + "] caught SecurityException rc=" + ex.getErrorId()
                 + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -865,11 +866,11 @@ public class DelegatedMgrImplTest extends TestCase
             DelAdminMgr dAdminMgr = DelAdminMgrFactory.createInstance( TestUtils.getContext() );
             OrgUnit ou = OrgUnitTestData.getOrgUnit( org );
             OrgUnit entity = dAdminMgr.add( ou );
-            log.debug( CLS_NM + ".addOrgUnit ou [" + entity.getName() + "] successful" );
+            LOG.debug( CLS_NM + ".addOrgUnit ou [" + entity.getName() + "] successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".addOrgUnit caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -891,12 +892,12 @@ public class DelegatedMgrImplTest extends TestCase
             {
                 OrgUnit ou = OrgUnitTestData.getOrgUnit( ole );
                 OrgUnit entity = dAdminMgr.add( ou );
-                log.debug( CLS_NM + ".addOrgUnits ou [" + entity.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".addOrgUnits ou [" + entity.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".addOrgUnits caught SecurityException=" + ex.getMessage(), ex );
+            LOG.error( CLS_NM + ".addOrgUnits caught SecurityException=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
@@ -930,11 +931,11 @@ public class DelegatedMgrImplTest extends TestCase
             DelAdminMgr dAdminMgr = getManagedDelegatedMgr();
             OrgUnit ou = OrgUnitTestData.getOrgUnit( org );
             dAdminMgr.delete( ou );
-            log.debug( CLS_NM + ".deleteOrgUnit ou [" + ou.getName() + "] successful" );
+            LOG.debug( CLS_NM + ".deleteOrgUnit ou [" + ou.getName() + "] successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".deleteOrgUnit caught SecurityException=" + ex.getMessage(), ex );
+            LOG.error( CLS_NM + ".deleteOrgUnit caught SecurityException=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
@@ -955,12 +956,12 @@ public class DelegatedMgrImplTest extends TestCase
             {
                 OrgUnit ou = OrgUnitTestData.getOrgUnit( ole );
                 dAdminMgr.delete( ou );
-                log.debug( CLS_NM + ".deleteOrgUnits ou [" + ou.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".deleteOrgUnits ou [" + ou.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".deleteOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -991,12 +992,12 @@ public class DelegatedMgrImplTest extends TestCase
             {
                 OrgUnit ou = OrgUnitTestData.getOrgUnit( ole );
                 dAdminMgr.update( ou );
-                log.debug( CLS_NM + ".updateOrgUnits ou [" + ou.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".updateOrgUnits ou [" + ou.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".updateOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -1028,12 +1029,12 @@ public class DelegatedMgrImplTest extends TestCase
                 OrgUnit ou = OrgUnitTestData.getOrgUnit( ole );
                 OrgUnit entity = dReviewMgr.read( ou );
                 OrgUnitTestData.assertEquals( entity, ole );
-                log.debug( CLS_NM + ".readOrgUnits [" + entity.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".readOrgUnits [" + entity.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".readOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -1076,7 +1077,7 @@ public class DelegatedMgrImplTest extends TestCase
                     OrgUnit entity = ous.get( indx );
                     assertNotNull( entity );
                     OrgUnitTestData.assertEquals( entity, ole );
-                    log.debug( CLS_NM + ".searchOrgUnits [" + entity.getName() + "] successful" );
+                    LOG.debug( CLS_NM + ".searchOrgUnits [" + entity.getName() + "] successful" );
                 }
                 else
                 {
@@ -1088,7 +1089,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".searchOrgUnits srchValue [" + srchValue + "] caught SecurityException rc=" + ex.getErrorId()
                     + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1127,7 +1128,7 @@ public class DelegatedMgrImplTest extends TestCase
                         OrgUnit parent = new OrgUnit( pOrg );
                         parent.setType( child.getType() );
                         dAdminMgr.addInheritance( parent, child );
-                        log.debug( CLS_NM + ".addInheritedOrgUnits child org [" + child.getName() + "] parent org ["
+                        LOG.debug( CLS_NM + ".addInheritedOrgUnits child org [" + child.getName() + "] parent org ["
                             + pOrg + "] successful" );
                     }
                 }
@@ -1135,7 +1136,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".addInheritedOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1175,7 +1176,7 @@ public class DelegatedMgrImplTest extends TestCase
                         parent.setType( child.getType() );
                         //public void deleteInheritance(OrgUnit parent, OrgUnit child)
                         dAdminMgr.deleteInheritance( parent, child );
-                        log.debug( CLS_NM + ".deleteInheritedOrgUnits child org [" + child.getName() + "] parent org ["
+                        LOG.debug( CLS_NM + ".deleteInheritedOrgUnits child org [" + child.getName() + "] parent org ["
                             + pOrg + "] successful" );
                     }
                 }
@@ -1183,7 +1184,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".deleteInheritedOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".deleteInheritedOrgUnits caught SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1214,12 +1215,12 @@ public class DelegatedMgrImplTest extends TestCase
             {
                 AdminRole entity = dReviewMgr.readRole( AdminRoleTestData.getRole( rle ) );
                 AdminRoleTestData.assertEquals( entity, rle );
-                log.debug( CLS_NM + ".readAdminRoles [" + entity.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".readAdminRoles [" + entity.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".readAdminRoles caught SecurityException=" + ex.getMessage(), ex );
+            LOG.error( CLS_NM + ".readAdminRoles caught SecurityException=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
@@ -1262,7 +1263,7 @@ public class DelegatedMgrImplTest extends TestCase
                     AdminRole entity = roles.get( indx );
                     assertNotNull( entity );
                     AdminRoleTestData.assertEquals( entity, rle );
-                    log.debug( CLS_NM + ".searchAdminRoles [" + entity.getName() + "] successful" );
+                    LOG.debug( CLS_NM + ".searchAdminRoles [" + entity.getName() + "] successful" );
                 }
                 else
                 {
@@ -1274,7 +1275,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".searchAdminRoles srchValue [" + srchValue + "] caught SecurityException rc="
                     + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1307,7 +1308,7 @@ public class DelegatedMgrImplTest extends TestCase
                 if ( ctr++ == 0 || OrgUnitTestData.isTree( ole ) )
                 {
                     dAdminMgr.add( orgUnit );
-                    log.debug( CLS_NM + ".addOrgUnitDescendant add orgUnit [" + orgUnit.getName() + "] successful" );
+                    LOG.debug( CLS_NM + ".addOrgUnitDescendant add orgUnit [" + orgUnit.getName() + "] successful" );
                 }
 
                 // use list because order is important for test structure:
@@ -1321,7 +1322,7 @@ public class DelegatedMgrImplTest extends TestCase
                         {
                             OrgUnit child = new OrgUnit( desc, type );
                             dAdminMgr.addDescendant( parent, new OrgUnit( desc, type ) );
-                            log.debug( CLS_NM + ".addOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
+                            LOG.debug( CLS_NM + ".addOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
                                 + "] desc orgUnit [" + desc + "] successful" );
                             parent = child;
                         }
@@ -1331,7 +1332,7 @@ public class DelegatedMgrImplTest extends TestCase
                         for ( String desc : descs )
                         {
                             dAdminMgr.addDescendant( orgUnit, new OrgUnit( desc, type ) );
-                            log.debug( CLS_NM + ".addOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
+                            LOG.debug( CLS_NM + ".addOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
                                 + "] desc orgUnit [" + desc + "] successful" );
                         }
                     }
@@ -1343,7 +1344,7 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String desc : inheritances )
                     {
                         dAdminMgr.addInheritance( orgUnit, new OrgUnit( desc, type ) );
-                        log.debug( CLS_NM + ".addOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
+                        LOG.debug( CLS_NM + ".addOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
                             + "] desc orgUnit [" + desc + "] successful" );
                     }
                 }
@@ -1351,7 +1352,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".addOrgUnitDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1390,7 +1391,7 @@ public class DelegatedMgrImplTest extends TestCase
                         {
                             OrgUnit child = new OrgUnit( desc );
                             dAdminMgr.deleteInheritance( parent, new OrgUnit( desc, type ) );
-                            log.debug( CLS_NM + ".delOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
+                            LOG.debug( CLS_NM + ".delOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
                                 + "] desc orgUnit [" + desc + "] successful" );
                             parent = child;
                         }
@@ -1400,7 +1401,7 @@ public class DelegatedMgrImplTest extends TestCase
                         for ( String desc : descs )
                         {
                             dAdminMgr.deleteInheritance( orgUnit, new OrgUnit( desc, type ) );
-                            log.debug( CLS_NM + ".delOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
+                            LOG.debug( CLS_NM + ".delOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
                                 + "] desc orgUnit [" + desc + "] successful" );
                         }
                     }
@@ -1412,12 +1413,12 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String desc : inheritances )
                     {
                         dAdminMgr.deleteInheritance( orgUnit, new OrgUnit( desc, type ) );
-                        log.debug( CLS_NM + ".delOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
+                        LOG.debug( CLS_NM + ".delOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
                             + "] desc orgUnit [" + desc + "] successful" );
                     }
                 }
                 dAdminMgr.delete( orgUnit );
-                log.debug( CLS_NM + ".delOrgUnitDescendant remove asc orgUnit [" + orgUnit.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".delOrgUnitDescendant remove asc orgUnit [" + orgUnit.getName() + "] successful" );
             }
 
             // cleanup the last row of descendants from orgUnit data set.
@@ -1427,12 +1428,12 @@ public class DelegatedMgrImplTest extends TestCase
             for ( OrgUnit oe : cleanup )
             {
                 dAdminMgr.delete( oe );
-                log.debug( CLS_NM + ".delOrgUnitDescendant cleanup orgUnit [" + oe.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".delOrgUnitDescendant cleanup orgUnit [" + oe.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".delOrgUnitDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1466,7 +1467,7 @@ public class DelegatedMgrImplTest extends TestCase
                 if ( OrgUnitTestData.isCreate( ole ) )
                 {
                     dAdminMgr.add( orgUnit );
-                    log.debug( CLS_NM + ".addOrgUnitAscendant add orgUnit [" + orgUnit.getName() + "] successful" );
+                    LOG.debug( CLS_NM + ".addOrgUnitAscendant add orgUnit [" + orgUnit.getName() + "] successful" );
                 }
 
                 Set<String> ascs = OrgUnitTestData.getRelationships( ole );
@@ -1475,7 +1476,7 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String asc : ascs )
                     {
                         dAdminMgr.addAscendant( orgUnit, new OrgUnit( asc, type ) );
-                        log.debug( CLS_NM + ".addOrgUnitAscendant desc role [" + orgUnit.getName() + "] asc role ["
+                        LOG.debug( CLS_NM + ".addOrgUnitAscendant desc role [" + orgUnit.getName() + "] asc role ["
                             + asc + "] successful" );
                     }
                 }
@@ -1486,7 +1487,7 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String asc : inheritances )
                     {
                         dAdminMgr.addInheritance( new OrgUnit( asc, type ), orgUnit );
-                        log.debug( CLS_NM + ".addOrgUnitAscendant desc role [" + orgUnit.getName() + "] asc role ["
+                        LOG.debug( CLS_NM + ".addOrgUnitAscendant desc role [" + orgUnit.getName() + "] asc role ["
                             + asc + "] successful" );
                     }
                 }
@@ -1494,7 +1495,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".addOrgUnitAscendant caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1529,7 +1530,7 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String asc : ascs )
                     {
                         dAdminMgr.deleteInheritance( new OrgUnit( asc, type ), orgUnit );
-                        log.debug( CLS_NM + ".delOrgUnitAscendant desc orgUnit [" + orgUnit.getName()
+                        LOG.debug( CLS_NM + ".delOrgUnitAscendant desc orgUnit [" + orgUnit.getName()
                             + "] asc orgUnit [" + asc + "] successful" );
                     }
                 }
@@ -1540,12 +1541,12 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String asc : inheritances )
                     {
                         dAdminMgr.deleteInheritance( new OrgUnit( asc, type ), orgUnit );
-                        log.debug( CLS_NM + ".delOrgUnitAscendant desc orgUnit [" + orgUnit.getName()
+                        LOG.debug( CLS_NM + ".delOrgUnitAscendant desc orgUnit [" + orgUnit.getName()
                             + "] asc orgUnit [" + asc + "] successful" );
                     }
                 }
                 dAdminMgr.delete( orgUnit );
-                log.debug( CLS_NM + ".delOrgUnitAscendant remove desc orgUnit [" + orgUnit.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".delOrgUnitAscendant remove desc orgUnit [" + orgUnit.getName() + "] successful" );
             }
 
             // cleanup the top ascendant from orgUnit data set.
@@ -1557,12 +1558,12 @@ public class DelegatedMgrImplTest extends TestCase
             for ( OrgUnit oe : cleanup )
             {
                 dAdminMgr.delete( oe );
-                log.debug( CLS_NM + ".delOrgUnitAscendant cleanup orgUnit [" + oe.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".delOrgUnitAscendant cleanup orgUnit [" + oe.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".delOrgUnitAscendant caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1594,7 +1595,7 @@ public class DelegatedMgrImplTest extends TestCase
                 if ( ctr++ == 0 || RoleTestData.isTree( rle ) )
                 {
                     dAdminMgr.addRole( adminRole );
-                    log.debug( CLS_NM + ".addAdminRoleDescendant add role [" + adminRole.getName() + "] successful" );
+                    LOG.debug( CLS_NM + ".addAdminRoleDescendant add role [" + adminRole.getName() + "] successful" );
                 }
 
                 // use list because order is important for test structure:
@@ -1608,7 +1609,7 @@ public class DelegatedMgrImplTest extends TestCase
                         {
                             AdminRole child = new AdminRole( desc );
                             dAdminMgr.addDescendant( parent, new AdminRole( desc ) );
-                            log.debug( CLS_NM + ".addAdminRoleDescendant asc role [" + adminRole.getName()
+                            LOG.debug( CLS_NM + ".addAdminRoleDescendant asc role [" + adminRole.getName()
                                 + "] desc role [" + desc + "] successful" );
                             parent = child;
                         }
@@ -1618,7 +1619,7 @@ public class DelegatedMgrImplTest extends TestCase
                         for ( String desc : descs )
                         {
                             dAdminMgr.addDescendant( adminRole, new AdminRole( desc ) );
-                            log.debug( CLS_NM + ".addAdminRoleDescendant asc role [" + adminRole.getName()
+                            LOG.debug( CLS_NM + ".addAdminRoleDescendant asc role [" + adminRole.getName()
                                 + "] desc role [" + desc + "] successful" );
                         }
                     }
@@ -1630,7 +1631,7 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String desc : inheritances )
                     {
                         dAdminMgr.addInheritance( adminRole, new AdminRole( desc ) );
-                        log.debug( CLS_NM + ".addAdminRoleDescendant asc role [" + adminRole.getName()
+                        LOG.debug( CLS_NM + ".addAdminRoleDescendant asc role [" + adminRole.getName()
                             + "] desc role [" + desc + "] successful" );
                     }
                 }
@@ -1638,7 +1639,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".addAdminRoleDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".addAdminRoleDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1671,7 +1672,7 @@ public class DelegatedMgrImplTest extends TestCase
                         {
                             AdminRole child = new AdminRole( desc );
                             dAdminMgr.deleteInheritance( parent, new AdminRole( desc ) );
-                            log.debug( CLS_NM + ".delAdminRoleDescendant asc adminRole [" + adminRole.getName()
+                            LOG.debug( CLS_NM + ".delAdminRoleDescendant asc adminRole [" + adminRole.getName()
                                 + "] desc adminRole [" + desc + "] successful" );
                             parent = child;
                         }
@@ -1681,7 +1682,7 @@ public class DelegatedMgrImplTest extends TestCase
                         for ( String desc : descs )
                         {
                             dAdminMgr.deleteInheritance( adminRole, new AdminRole( desc ) );
-                            log.debug( CLS_NM + ".delAdminRoleDescendant asc adminRole [" + adminRole.getName()
+                            LOG.debug( CLS_NM + ".delAdminRoleDescendant asc adminRole [" + adminRole.getName()
                                 + "] desc adminRole [" + desc + "] successful" );
                         }
                     }
@@ -1693,12 +1694,12 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String desc : inheritances )
                     {
                         dAdminMgr.deleteInheritance( adminRole, new AdminRole( desc ) );
-                        log.debug( CLS_NM + ".delAdminRoleDescendant asc adminRole [" + adminRole.getName()
+                        LOG.debug( CLS_NM + ".delAdminRoleDescendant asc adminRole [" + adminRole.getName()
                             + "] desc adminRole [" + desc + "] successful" );
                     }
                 }
                 dAdminMgr.deleteRole( adminRole );
-                log.debug( CLS_NM + ".delAdminRoleDescendant remove asc adminRole [" + adminRole.getName()
+                LOG.debug( CLS_NM + ".delAdminRoleDescendant remove asc adminRole [" + adminRole.getName()
                     + "] successful" );
             }
 
@@ -1709,12 +1710,12 @@ public class DelegatedMgrImplTest extends TestCase
             for ( AdminRole re : cleanup )
             {
                 dAdminMgr.deleteRole( re );
-                log.debug( CLS_NM + ".delAdminRoleDescendant cleanup adminRole [" + re.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".delAdminRoleDescendant cleanup adminRole [" + re.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".delOrgUnitDescendant caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1745,7 +1746,7 @@ public class DelegatedMgrImplTest extends TestCase
                 if ( RoleTestData.isCreate( rle ) )
                 {
                     dAdminMgr.addRole( adminRole );
-                    log.debug( CLS_NM + ".addAdminRoleAscendant add adminRole [" + adminRole.getName() + "] successful" );
+                    LOG.debug( CLS_NM + ".addAdminRoleAscendant add adminRole [" + adminRole.getName() + "] successful" );
                 }
                 Set<String> ascs = RoleTestData.getRelationships( rle );
                 if ( ascs != null )
@@ -1753,7 +1754,7 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String asc : ascs )
                     {
                         dAdminMgr.addAscendant( adminRole, new AdminRole( asc ) );
-                        log.debug( CLS_NM + ".addAdminRoleAscendant desc role [" + adminRole.getName() + "] asc role ["
+                        LOG.debug( CLS_NM + ".addAdminRoleAscendant desc role [" + adminRole.getName() + "] asc role ["
                             + asc + "] successful" );
                     }
                 }
@@ -1763,7 +1764,7 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String asc : inheritances )
                     {
                         dAdminMgr.addInheritance( new AdminRole( asc ), adminRole );
-                        log.debug( CLS_NM + ".addAdminRoleAscendant desc role [" + adminRole.getName() + "] asc role ["
+                        LOG.debug( CLS_NM + ".addAdminRoleAscendant desc role [" + adminRole.getName() + "] asc role ["
                             + asc + "] successful" );
                     }
                 }
@@ -1771,7 +1772,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".addAdminRoleAscendant caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1805,7 +1806,7 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String asc : ascs )
                     {
                         dAdminMgr.deleteInheritance( new AdminRole( asc ), adminRole );
-                        log.debug( CLS_NM + ".delAdminRoleAscendant desc adminRole [" + adminRole.getName()
+                        LOG.debug( CLS_NM + ".delAdminRoleAscendant desc adminRole [" + adminRole.getName()
                             + "] asc adminRole [" + asc + "] successful" );
                     }
                 }
@@ -1816,12 +1817,12 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String asc : inheritances )
                     {
                         dAdminMgr.deleteInheritance( new AdminRole( asc ), adminRole );
-                        log.debug( CLS_NM + ".delAdminRoleAscendant desc adminRole [" + adminRole.getName()
+                        LOG.debug( CLS_NM + ".delAdminRoleAscendant desc adminRole [" + adminRole.getName()
                             + "] asc orgUnit [" + asc + "] successful" );
                     }
                 }
                 dAdminMgr.deleteRole( adminRole );
-                log.debug( CLS_NM + ".delAdminRoleAscendant remove desc adminRole [" + adminRole.getName()
+                LOG.debug( CLS_NM + ".delAdminRoleAscendant remove desc adminRole [" + adminRole.getName()
                     + "] successful" );
             }
 
@@ -1834,12 +1835,12 @@ public class DelegatedMgrImplTest extends TestCase
             for ( AdminRole re : cleanup )
             {
                 dAdminMgr.deleteRole( re );
-                log.debug( CLS_NM + ".delAdminRoleAscendant cleanup adminRole [" + re.getName() + "] successful" );
+                LOG.debug( CLS_NM + ".delAdminRoleAscendant cleanup adminRole [" + re.getName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".delAdminRoleAscendant caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1873,7 +1874,7 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String pRole : parents )
                     {
                         dAdminMgr.addInheritance( new AdminRole( pRole ), role );
-                        log.debug( CLS_NM + ".addInheritedAdminRoles child role [" + role.getName() + "] parent role ["
+                        LOG.debug( CLS_NM + ".addInheritedAdminRoles child role [" + role.getName() + "] parent role ["
                             + pRole + "] successful" );
                     }
                 }
@@ -1881,7 +1882,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".addInheritedAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".addInheritedAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1914,7 +1915,7 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String pRole : parents )
                     {
                         dAdminMgr.deleteInheritance( new AdminRole( pRole ), role );
-                        log.debug( CLS_NM + ".deleteInheritedAdminRoles child role [" + role.getName()
+                        LOG.debug( CLS_NM + ".deleteInheritedAdminRoles child role [" + role.getName()
                             + "] parent role [" + pRole + "] successful" );
                     }
                 }
@@ -1922,7 +1923,7 @@ public class DelegatedMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".deleteInheritedAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".deleteInheritedAdminRoles caught SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1978,7 +1979,7 @@ public class DelegatedMgrImplTest extends TestCase
         catch ( SecurityException se )
         {
             String info = CLS_NM + " loadAdminPolicy detected admin policy not loaded";
-            log.debug( info );
+            LOG.debug( info );
         }
         return result;
     }
@@ -2000,7 +2001,7 @@ public class DelegatedMgrImplTest extends TestCase
         {
             String error = CLS_NM + " static initializer caught SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage();
-            log.error( error );
+            LOG.error( error );
         }
         return adminSess;
     }

@@ -13,7 +13,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.cfg.Config;
@@ -53,8 +54,9 @@ public abstract class DataProvider
     private static final String OPENLDAP_PROXY_CONTROL = "2.16.840.1.113730.3.4.18";
     private static final int MAX_DEPTH = 100;
     private static final String CLS_NM = DataProvider.class.getName();
-    private static final Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final LdapCounters counters = new LdapCounters();
+
 
     /**
      * Given a contextId and a fortress param name return the LDAP dn.
@@ -714,7 +716,7 @@ public abstract class DataProvider
                 {
                     String warning = CLS_NM + ".getRelAttributes detected incorrect data in role relationship field: "
                         + edge;
-                    log.warn( warning );
+                    LOG.warn( warning );
                 }
             }
         }
@@ -1194,6 +1196,7 @@ public abstract class DataProvider
     {
         return PoolMgr.getConnection( PoolMgr.ConnType.LOG );
     }
+
 
     /**
      * Return to call reference to dao counter object with running totals for ldap operations add, mod, delete, search, etc.

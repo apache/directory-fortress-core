@@ -4,12 +4,15 @@
 
 package us.jts.fortress.ldap.container;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
 import us.jts.fortress.util.attr.VUtil;
-import org.apache.log4j.Logger;
 
 
 /**
@@ -42,7 +45,8 @@ import org.apache.log4j.Logger;
 public class OrganizationalUnitP
 {
     private static final String CLS_NM = OrganizationalUnitP.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
+
 
     /**
      * Add a new container to the Directory Information Tree (DIT).  After added the
@@ -51,11 +55,11 @@ public class OrganizationalUnitP
      * @param orgUnit contains the ou name and description for target node.
      * @throws us.jts.fortress.SecurityException in the event node already present, {@link GlobalErrIds#CNTR_CREATE_FAILED}, validation, {@link GlobalErrIds#CNTR_NAME_NULL}, {@link us.jts.fortress.GlobalErrIds#CNTR_NAME_INVLD} or system error.
      */
-    public final void add(OrganizationalUnit orgUnit)
+    public final void add( OrganizationalUnit orgUnit )
         throws SecurityException
     {
         OrganizationalUnitDAO oDao = new OrganizationalUnitDAO();
-        oDao.create(orgUnit);
+        oDao.create( orgUnit );
     }
 
 
@@ -74,12 +78,13 @@ public class OrganizationalUnitP
      * @param orgUnit contains the ou name of container targeted for removal.
      * @throws us.jts.fortress.SecurityException in the event node not present, {@link us.jts.fortress.GlobalErrIds#CNTR_DELETE_FAILED}, validation, {@link us.jts.fortress.GlobalErrIds#CNTR_NAME_NULL}, {@link us.jts.fortress.GlobalErrIds#CNTR_NAME_INVLD} or system error.
      */
-    public final void delete(OrganizationalUnit orgUnit)
+    public final void delete( OrganizationalUnit orgUnit )
         throws SecurityException
     {
         OrganizationalUnitDAO oDao = new OrganizationalUnitDAO();
-        oDao.remove(orgUnit);
+        oDao.remove( orgUnit );
     }
+
 
     /**
      * Method will perform simple validations to ensure the integrity of the {@link OrganizationalUnit} entity targeted for insertion
@@ -88,40 +93,40 @@ public class OrganizationalUnitP
      * @param entity contains the enum type to validate
      * @throws SecurityException thrown in the event the attribute is null.
      */
-    private void validate(OrganizationalUnit entity)
+    private void validate( OrganizationalUnit entity )
         throws SecurityException
     {
-        if (entity.getName().length() > GlobalIds.OU_LEN)
+        if ( entity.getName().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
             String error = CLS_NM + ".validate name [" + name + "] invalid length [" + entity.getName().length() + "]";
-            log.warn(error);
-            throw new ValidationException(GlobalErrIds.CNTR_NAME_INVLD, error);
+            LOG.warn( error );
+            throw new ValidationException( GlobalErrIds.CNTR_NAME_INVLD, error );
         }
-        if (!VUtil.isNotNullOrEmpty(entity.getName()))
+        if ( !VUtil.isNotNullOrEmpty( entity.getName() ) )
         {
             String error = CLS_NM + ".validate name validation failed, null or empty value";
-            log.warn(error);
-            throw new ValidationException(GlobalErrIds.CNTR_NAME_NULL, error);
+            LOG.warn( error );
+            throw new ValidationException( GlobalErrIds.CNTR_NAME_NULL, error );
         }
-        if (entity.getParent().length() > GlobalIds.OU_LEN)
+        if ( entity.getParent().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
-            String error = CLS_NM + ".validate parent [" + name + "] invalid length [" + entity.getName().length() + "]";
-            log.warn(error);
-            throw new ValidationException(GlobalErrIds.CNTR_PARENT_INVLD, error);
+            String error = CLS_NM + ".validate parent [" + name + "] invalid length [" + entity.getName().length()
+                + "]";
+            LOG.warn( error );
+            throw new ValidationException( GlobalErrIds.CNTR_PARENT_INVLD, error );
         }
-        if (!VUtil.isNotNullOrEmpty(entity.getParent()))
+        if ( !VUtil.isNotNullOrEmpty( entity.getParent() ) )
         {
             String error = CLS_NM + ".validate parent validation failed, null or empty value";
-            log.warn(error);
-            throw new us.jts.fortress.ValidationException(GlobalErrIds.CNTR_PARENT_NULL, error);
+            LOG.warn( error );
+            throw new us.jts.fortress.ValidationException( GlobalErrIds.CNTR_PARENT_NULL, error );
         }
-        VUtil.safeText(entity.getDescription(), GlobalIds.DESC_LEN);
-        if (VUtil.isNotNullOrEmpty(entity.getDescription()))
+        VUtil.safeText( entity.getDescription(), GlobalIds.DESC_LEN );
+        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
-            VUtil.description(entity.getDescription());
+            VUtil.description( entity.getDescription() );
         }
     }
 }
-

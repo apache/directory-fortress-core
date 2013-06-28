@@ -18,7 +18,8 @@ import java.util.TreeSet;
 import junit.framework.TestCase;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.util.LogUtil;
@@ -32,8 +33,8 @@ import us.jts.fortress.util.attr.VUtil;
  */
 public class TestUtils extends TestCase
 {
-    final protected static Logger log = Logger.getLogger( TestUtils.class.getName() );
     private static final String CLS_NM = TestUtils.class.getName();
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     /**
      * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of ',' is used for string tokenization.
@@ -70,12 +71,12 @@ public class TestUtils extends TestCase
         catch ( URISyntaxException se )
         {
             String error = CLS_NM + ".readJpegFile caught URISyntaxException=" + se;
-            log.error( error );
+            LOG.error( error );
         }
         catch ( IOException ioe )
         {
             String error = CLS_NM + ".readJpegFile caught IOException=" + ioe;
-            log.error( error );
+            LOG.error( error );
         }
         return image;
     }
@@ -96,7 +97,7 @@ public class TestUtils extends TestCase
         }
         catch ( InterruptedException ie )
         {
-            log.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
+            LOG.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
         }
     }
 
@@ -115,7 +116,7 @@ public class TestUtils extends TestCase
         }
         catch ( InterruptedException ie )
         {
-            log.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
+            LOG.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
         }
     }
 
@@ -134,7 +135,7 @@ public class TestUtils extends TestCase
         }
         catch ( InterruptedException ie )
         {
-            log.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
+            LOG.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
         }
     }
 

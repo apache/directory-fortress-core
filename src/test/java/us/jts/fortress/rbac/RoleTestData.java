@@ -15,7 +15,8 @@ import java.util.StringTokenizer;
 
 import junit.framework.TestCase;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.Constraint;
@@ -28,7 +29,7 @@ import us.jts.fortress.util.time.Constraint;
  */
 public class RoleTestData extends TestCase
 {
-    final private static Logger log = Logger.getLogger( RoleTestData.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( RoleTestData.class.getName() );
 
     /**
       * Test Case TR1:
@@ -3099,7 +3100,7 @@ public class RoleTestData extends TestCase
         assertEquals( RoleTestData.class.getName() + ".assertEquals failed compare role desc", getDescription( rle ),
             role.getDescription() );
         TestUtils.assertTemporal( RoleTestData.class.getName() + ".assertEquals", validConstraint, role );
-        log.debug( RoleTestData.class.getName() + ".assertEquals [" + role.getName() + "] successful" );
+        LOG.debug( RoleTestData.class.getName() + ".assertEquals [" + role.getName() + "] successful" );
     }
 
 
@@ -3117,7 +3118,7 @@ public class RoleTestData extends TestCase
         assertEquals( RoleTestData.class.getName() + ".assertEquals failed compare userrole name", getName( urle ),
             uRole.getName() );
         TestUtils.assertTemporal( RoleTestData.class.getName() + ".assertEquals", validConstraint, uRole );
-        log.debug( RoleTestData.class.getName() + ".assertEquals userId [" + userId + "] role name [" + uRole.getName()
+        LOG.debug( RoleTestData.class.getName() + ".assertEquals userId [" + userId + "] role name [" + uRole.getName()
             + "] successful" );
     }
 

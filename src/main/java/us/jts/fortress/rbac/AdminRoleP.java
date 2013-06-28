@@ -4,16 +4,19 @@
 
 package us.jts.fortress.rbac;
 
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.FinderException;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.SecurityException;
-
-import java.util.List;
-
 import us.jts.fortress.util.attr.VUtil;
-import org.apache.log4j.Logger;
+
 
 /**
  * Process module for the AdminRole entity.  This class performs data validations and error mapping.  It is typically called
@@ -36,15 +39,18 @@ import org.apache.log4j.Logger;
 final class AdminRoleP
 {
     private static final String CLS_NM = AdminRoleP.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final AdminRoleDAO rDao = new AdminRoleDAO();
     private static final OrgUnitP op = new OrgUnitP();
+
 
     /**
      * Package private constructor.
      */
     AdminRoleP()
-    {}
+    {
+    }
+
 
     /**
      * Return a fully populated Admin Role entity for a given Admin Role name.  If matching record not found a
@@ -54,11 +60,12 @@ final class AdminRoleP
      * @return AdminRole entity containing all attributes associated with Administrative Role in directory.
      * @throws us.jts.fortress.SecurityException in the event AdminRole not found or DAO search error.
      */
-    final AdminRole read(AdminRole adminRole)
+    final AdminRole read( AdminRole adminRole )
         throws SecurityException
     {
-        return rDao.getRole(adminRole);
+        return rDao.getRole( adminRole );
     }
+
 
     /**
      * Takes a search string that contains full or partial Admin Role name in directory.
@@ -67,10 +74,10 @@ final class AdminRoleP
      * @return List of type Role containing fully populated matching Admin Role entities.  If no records found this will be empty.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<AdminRole> search(AdminRole adminRole)
+    final List<AdminRole> search( AdminRole adminRole )
         throws SecurityException
     {
-        return rDao.findRoles(adminRole);
+        return rDao.findRoles( adminRole );
     }
 
 
@@ -82,10 +89,10 @@ final class AdminRoleP
      * @return List of type String containing Admin Role name of all matching User entities.  If no records found this will be empty.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<String> search(AdminRole adminRole, int limit)
+    final List<String> search( AdminRole adminRole, int limit )
         throws SecurityException
     {
-        return rDao.findRoles(adminRole, limit);
+        return rDao.findRoles( adminRole, limit );
     }
 
 
@@ -96,10 +103,10 @@ final class AdminRoleP
      * @return List of type AdminRole containing {@link AdminRole#name} and {@link AdminRole#parents} populated.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<Graphable> getAllDescendants(String contextId)
+    final List<Graphable> getAllDescendants( String contextId )
         throws SecurityException
     {
-        return rDao.getAllDescendants(contextId);
+        return rDao.getAllDescendants( contextId );
     }
 
 
@@ -111,11 +118,11 @@ final class AdminRoleP
      * @return AdminRole entity copy of input + additional attributes (internalId) that were added by op.
      * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    final AdminRole add(AdminRole entity)
+    final AdminRole add( AdminRole entity )
         throws SecurityException
     {
-        validate(entity);
-        return rDao.create(entity);
+        validate( entity );
+        return rDao.create( entity );
     }
 
 
@@ -127,12 +134,12 @@ final class AdminRoleP
      * @return AdminRole entity contains fully populated updated entity.
      * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    final AdminRole update(AdminRole entity)
+    final AdminRole update( AdminRole entity )
         throws SecurityException
     {
-        validate(entity);
-        entity = rDao.update(entity);
-        return read(entity);
+        validate( entity );
+        entity = rDao.update( entity );
+        return read( entity );
     }
 
 
@@ -143,11 +150,11 @@ final class AdminRoleP
      * @param entity Admin Role entity contains data targeted for updating.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final void deleteParent(AdminRole entity)
+    final void deleteParent( AdminRole entity )
         throws SecurityException
     {
-        validate(entity);
-        rDao.deleteParent(entity);
+        validate( entity );
+        rDao.deleteParent( entity );
     }
 
 
@@ -176,10 +183,10 @@ final class AdminRoleP
      * @return AdminRole contains copy of input entity and additional data processed by request.
      * @throws us.jts.fortress.SecurityException in the event data error in user or role objects or system error.
      */
-    final AdminRole assign(AdminRole entity, String userDn)
+    final AdminRole assign( AdminRole entity, String userDn )
         throws SecurityException
     {
-        return rDao.assign(entity, userDn);
+        return rDao.assign( entity, userDn );
     }
 
 
@@ -192,16 +199,16 @@ final class AdminRoleP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final void addOccupant(List<UserAdminRole> uRoles, String userDn, String contextId)
+    final void addOccupant( List<UserAdminRole> uRoles, String userDn, String contextId )
         throws SecurityException
     {
-        if (VUtil.isNotNullOrEmpty(uRoles))
+        if ( VUtil.isNotNullOrEmpty( uRoles ) )
         {
-            for (UserAdminRole uRole : uRoles)
+            for ( UserAdminRole uRole : uRoles )
             {
-                AdminRole role = new AdminRole(uRole.getName());
-                role.setContextId(contextId);
-                assign(role, userDn);
+                AdminRole role = new AdminRole( uRole.getName() );
+                role.setContextId( contextId );
+                assign( role, userDn );
             }
         }
     }
@@ -215,22 +222,22 @@ final class AdminRoleP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final void removeOccupant(String userDn, String contextId)
+    final void removeOccupant( String userDn, String contextId )
         throws SecurityException
     {
         List<String> list;
         try
         {
-            list = rDao.findAssignedRoles(userDn, contextId);
-            for (String roleNm : list)
+            list = rDao.findAssignedRoles( userDn, contextId );
+            for ( String roleNm : list )
             {
-                deassign(new AdminRole(roleNm), userDn);
+                deassign( new AdminRole( roleNm ), userDn );
             }
         }
-        catch (FinderException fe)
+        catch ( FinderException fe )
         {
             String error = CLS_NM + ".removeOccupant userDn [" + userDn + "] caught FinderException=" + fe;
-            throw new SecurityException(GlobalErrIds.ARLE_REMOVE_OCCUPANT_FAILED, error, fe);
+            throw new SecurityException( GlobalErrIds.ARLE_REMOVE_OCCUPANT_FAILED, error, fe );
         }
     }
 
@@ -248,10 +255,10 @@ final class AdminRoleP
      * @return AdminRole contains copy of input entity and additional data processed by request.
      * @throws us.jts.fortress.SecurityException - in the event data error in user or role objects or system error.
      */
-    final AdminRole deassign(AdminRole entity, String userDn)
+    final AdminRole deassign( AdminRole entity, String userDn )
         throws SecurityException
     {
-        return rDao.deassign(entity, userDn);
+        return rDao.deassign( entity, userDn );
     }
 
 
@@ -262,18 +269,18 @@ final class AdminRoleP
      * @param entity Contains the name of the Admin Role targeted for deletion.
      * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    final void delete(AdminRole entity)
+    final void delete( AdminRole entity )
         throws SecurityException
     {
         try
         {
-            rDao.remove(entity);
+            rDao.remove( entity );
         }
-        catch (RemoveException re)
+        catch ( RemoveException re )
         {
             String error = CLS_NM + ".delete name [" + entity.getName() + "] caught RemoveException=" + re;
-            log.error(error);
-            throw new SecurityException(GlobalErrIds.ARLE_DELETE_FAILED, error, re);
+            LOG.error( error );
+            throw new SecurityException( GlobalErrIds.ARLE_DELETE_FAILED, error, re );
         }
     }
 
@@ -286,94 +293,99 @@ final class AdminRoleP
      * @param entity contains data targeted for insertion or update.
      * @throws us.jts.fortress.SecurityException in the event of data validation error or DAO error on Org validation.
      */
-    private void validate(AdminRole entity)
+    private void validate( AdminRole entity )
         throws SecurityException
     {
-        VUtil.safeText(entity.getName(), GlobalIds.ROLE_LEN);
-        if (VUtil.isNotNullOrEmpty(entity.getBeginRange()) && VUtil.isNotNullOrEmpty(entity.getEndRange()))
+        VUtil.safeText( entity.getName(), GlobalIds.ROLE_LEN );
+        if ( VUtil.isNotNullOrEmpty( entity.getBeginRange() ) && VUtil.isNotNullOrEmpty( entity.getEndRange() ) )
         {
-            VUtil.safeText(entity.getBeginRange(), GlobalIds.ROLE_LEN);
-            VUtil.safeText(entity.getEndRange(), GlobalIds.ROLE_LEN);
-            if (entity.getBeginRange().equalsIgnoreCase(entity.getEndRange()) && (!entity.isBeginInclusive() || !entity.isEndInclusive()))
+            VUtil.safeText( entity.getBeginRange(), GlobalIds.ROLE_LEN );
+            VUtil.safeText( entity.getEndRange(), GlobalIds.ROLE_LEN );
+            if ( entity.getBeginRange().equalsIgnoreCase( entity.getEndRange() )
+                && ( !entity.isBeginInclusive() || !entity.isEndInclusive() ) )
             {
-                String error = CLS_NM + ".validate invalid range detected for role name [" + entity.getName() + "] non inclusive endpoint for identical range [" + entity.getBeginRange() + "] begin inclusive [" + entity.isBeginInclusive() + "] end inclusive [" + entity.isEndInclusive() + "]";
-                log.warn(error);
-                throw new SecurityException(GlobalErrIds.ARLE_INVLD_RANGE_INCLUSIVE, error);
+                String error = CLS_NM + ".validate invalid range detected for role name [" + entity.getName()
+                    + "] non inclusive endpoint for identical range [" + entity.getBeginRange() + "] begin inclusive ["
+                    + entity.isBeginInclusive() + "] end inclusive [" + entity.isEndInclusive() + "]";
+                LOG.warn( error );
+                throw new SecurityException( GlobalErrIds.ARLE_INVLD_RANGE_INCLUSIVE, error );
             }
-            else if (!RoleUtil.isParent(entity.getBeginRange(), entity.getEndRange(), entity.getContextId()) && !entity.getBeginRange().equalsIgnoreCase(entity.getEndRange()))
+            else if ( !RoleUtil.isParent( entity.getBeginRange(), entity.getEndRange(), entity.getContextId() )
+                && !entity.getBeginRange().equalsIgnoreCase( entity.getEndRange() ) )
             //public static boolean isParent(String child, String parent)
             {
-                String error = CLS_NM + ".validate invalid range detected for role name [" + entity.getName() + "] begin range [" + entity.getBeginRange() + "] end range [" + entity.getEndRange() + "]";
-                log.warn(error);
-                throw new SecurityException(GlobalErrIds.ARLE_INVLD_RANGE, error);
+                String error = CLS_NM + ".validate invalid range detected for role name [" + entity.getName()
+                    + "] begin range [" + entity.getBeginRange() + "] end range [" + entity.getEndRange() + "]";
+                LOG.warn( error );
+                throw new SecurityException( GlobalErrIds.ARLE_INVLD_RANGE, error );
             }
         }
-        else if (!VUtil.isNotNullOrEmpty(entity.getBeginRange()) && VUtil.isNotNullOrEmpty(entity.getEndRange()))
+        else if ( !VUtil.isNotNullOrEmpty( entity.getBeginRange() ) && VUtil.isNotNullOrEmpty( entity.getEndRange() ) )
         {
             String error = CLS_NM + ".validate role name [" + entity.getName() + "] begin range value null or empty.";
-            log.warn(error);
-            throw new SecurityException(GlobalErrIds.ARLE_BEGIN_RANGE_NULL, error);
+            LOG.warn( error );
+            throw new SecurityException( GlobalErrIds.ARLE_BEGIN_RANGE_NULL, error );
         }
-        else if (VUtil.isNotNullOrEmpty(entity.getBeginRange()) && !VUtil.isNotNullOrEmpty(entity.getEndRange()))
+        else if ( VUtil.isNotNullOrEmpty( entity.getBeginRange() ) && !VUtil.isNotNullOrEmpty( entity.getEndRange() ) )
         {
             String error = CLS_NM + ".validate role name [" + entity.getName() + "] end range value null or empty.";
-            log.warn(error);
-            throw new SecurityException(GlobalErrIds.ARLE_END_RANGE_NULL, error);
+            LOG.warn( error );
+            throw new SecurityException( GlobalErrIds.ARLE_END_RANGE_NULL, error );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getDescription()))
+        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
-            VUtil.description(entity.getDescription());
+            VUtil.description( entity.getDescription() );
         }
-        if (entity.getTimeout() >= 0)
+        if ( entity.getTimeout() >= 0 )
         {
-            VUtil.timeout(entity.getTimeout());
+            VUtil.timeout( entity.getTimeout() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getBeginTime()))
+        if ( VUtil.isNotNullOrEmpty( entity.getBeginTime() ) )
         {
-            VUtil.beginTime(entity.getBeginTime());
+            VUtil.beginTime( entity.getBeginTime() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getEndTime()))
+        if ( VUtil.isNotNullOrEmpty( entity.getEndTime() ) )
         {
-            VUtil.endTime(entity.getEndTime());
+            VUtil.endTime( entity.getEndTime() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getBeginDate()))
+        if ( VUtil.isNotNullOrEmpty( entity.getBeginDate() ) )
         {
-            VUtil.beginDate(entity.getBeginDate());
+            VUtil.beginDate( entity.getBeginDate() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getEndDate()))
+        if ( VUtil.isNotNullOrEmpty( entity.getEndDate() ) )
         {
-            VUtil.endDate(entity.getEndDate());
+            VUtil.endDate( entity.getEndDate() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getDayMask()))
+        if ( VUtil.isNotNullOrEmpty( entity.getDayMask() ) )
         {
-            VUtil.dayMask(entity.getDayMask());
+            VUtil.dayMask( entity.getDayMask() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getBeginLockDate()))
+        if ( VUtil.isNotNullOrEmpty( entity.getBeginLockDate() ) )
         {
-            VUtil.beginDate(entity.getBeginDate());
+            VUtil.beginDate( entity.getBeginDate() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getEndLockDate()))
+        if ( VUtil.isNotNullOrEmpty( entity.getEndLockDate() ) )
         {
-            VUtil.endDate(entity.getEndLockDate());
+            VUtil.endDate( entity.getEndLockDate() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getOsU()))
+        if ( VUtil.isNotNullOrEmpty( entity.getOsU() ) )
         {
-            for (String ou : entity.getOsU())
+            for ( String ou : entity.getOsU() )
             {
-                OrgUnit inOe = new OrgUnit(ou);
-                inOe.setType(OrgUnit.Type.USER);
-                inOe.setContextId(entity.getContextId());
-                op.read(inOe);
+                OrgUnit inOe = new OrgUnit( ou );
+                inOe.setType( OrgUnit.Type.USER );
+                inOe.setContextId( entity.getContextId() );
+                op.read( inOe );
             }
         }
-        if (VUtil.isNotNullOrEmpty(entity.getOsP()))
+        if ( VUtil.isNotNullOrEmpty( entity.getOsP() ) )
         {
-            for (String ou : entity.getOsP())
+            for ( String ou : entity.getOsP() )
             {
-                OrgUnit inOe = new OrgUnit(ou);
-                inOe.setType(OrgUnit.Type.PERM);
-                inOe.setContextId(entity.getContextId());
-                op.read(inOe);
+                OrgUnit inOe = new OrgUnit( ou );
+                inOe.setType( OrgUnit.Type.PERM );
+                inOe.setContextId( entity.getContextId() );
+                op.read( inOe );
             }
         }
     }

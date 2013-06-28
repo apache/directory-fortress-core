@@ -4,11 +4,14 @@
 
 package us.jts.fortress.ldap.suffix;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.util.attr.VUtil;
-import org.apache.log4j.Logger;
 
 
 /**
@@ -40,7 +43,8 @@ import org.apache.log4j.Logger;
 public class SuffixP
 {
     private static final String CLS_NM = SuffixP.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
+
 
     /**
      * Add a new suffix to the Directory Information Tree (DIT).  After added the
@@ -49,12 +53,12 @@ public class SuffixP
      * @param suffix contains the dc name and top level dc for target node.
      * @throws us.jts.fortress.SecurityException in event of validation or system error.
      */
-    public final void add(Suffix suffix)
+    public final void add( Suffix suffix )
         throws us.jts.fortress.SecurityException
     {
-        validate(suffix);
+        validate( suffix );
         SuffixDAO sDao = new SuffixDAO();
-        sDao.create(suffix);
+        sDao.create( suffix );
     }
 
 
@@ -72,12 +76,12 @@ public class SuffixP
      * @param suffix contains the dc name and top level dc for target node.
      * @throws SecurityException in event of validation or system error.
      */
-    public final void delete(Suffix suffix)
+    public final void delete( Suffix suffix )
         throws us.jts.fortress.SecurityException
     {
-        validate(suffix);
+        validate( suffix );
         SuffixDAO sDao = new SuffixDAO();
-        sDao.remove(suffix);
+        sDao.remove( suffix );
     }
 
 
@@ -88,40 +92,39 @@ public class SuffixP
      * @param entity contains the enum type to validate
      * @throws us.jts.fortress.SecurityException thrown in the event the attribute is null.
      */
-    private void validate(Suffix entity)
+    private void validate( Suffix entity )
         throws SecurityException
     {
-        if (entity.getName().length() > GlobalIds.OU_LEN)
+        if ( entity.getName().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
             String error = CLS_NM + ".validate name [" + name + "] invalid length [" + entity.getName().length() + "]";
-            log.warn(error);
-            throw new us.jts.fortress.ValidationException(GlobalErrIds.SUFX_NAME_INVLD, error);
+            LOG.warn( error );
+            throw new us.jts.fortress.ValidationException( GlobalErrIds.SUFX_NAME_INVLD, error );
         }
-        if (!VUtil.isNotNullOrEmpty(entity.getName()))
+        if ( !VUtil.isNotNullOrEmpty( entity.getName() ) )
         {
             String error = CLS_NM + ".validate name validation failed, null or empty value";
-            log.warn(error);
-            throw new us.jts.fortress.ValidationException(GlobalErrIds.SUFX_NAME_NULL, error);
+            LOG.warn( error );
+            throw new us.jts.fortress.ValidationException( GlobalErrIds.SUFX_NAME_NULL, error );
         }
-        if (entity.getDc().length() > GlobalIds.OU_LEN)
+        if ( entity.getDc().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
             String error = CLS_NM + ".validate dc [" + name + "] invalid length [" + entity.getName().length() + "]";
-            log.warn(error);
-            throw new us.jts.fortress.ValidationException(GlobalErrIds.SUFX_DCTOP_INVLD, error);
+            LOG.warn( error );
+            throw new us.jts.fortress.ValidationException( GlobalErrIds.SUFX_DCTOP_INVLD, error );
         }
-        if (!VUtil.isNotNullOrEmpty(entity.getDc()))
+        if ( !VUtil.isNotNullOrEmpty( entity.getDc() ) )
         {
             String error = CLS_NM + ".validate dc validation failed, null or empty value";
-            log.warn(error);
-            throw new us.jts.fortress.ValidationException(GlobalErrIds.SUFX_DCTOP_NULL, error);
+            LOG.warn( error );
+            throw new us.jts.fortress.ValidationException( GlobalErrIds.SUFX_DCTOP_NULL, error );
         }
-        VUtil.safeText(entity.getDescription(), GlobalIds.DESC_LEN);
-        if (VUtil.isNotNullOrEmpty(entity.getDescription()))
+        VUtil.safeText( entity.getDescription(), GlobalIds.DESC_LEN );
+        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
-            VUtil.description(entity.getDescription());
+            VUtil.description( entity.getDescription() );
         }
     }
 }
-

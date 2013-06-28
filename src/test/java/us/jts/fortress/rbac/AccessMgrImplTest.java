@@ -13,7 +13,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.AccessMgr;
 import us.jts.fortress.AccessMgrFactory;
@@ -31,7 +32,7 @@ import us.jts.fortress.util.LogUtil;
 public class AccessMgrImplTest extends TestCase
 {
     private static final String CLS_NM = AccessMgrImplTest.class.getName();
-    final private static Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 
     public static Test suite()
@@ -101,11 +102,11 @@ public class AccessMgrImplTest extends TestCase
                 assertTrue( CLS_NM + ".getUserIds failed compare found userId [" + userId + "] valid userId ["
                     + UserTestData.getUserId( usr ) + "]", userId.equalsIgnoreCase( UserTestData.getUserId( usr ) ) );
             }
-            log.debug( CLS_NM + ".getUserIds successful" );
+            LOG.debug( CLS_NM + ".getUserIds successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".getUserIds: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -140,11 +141,11 @@ public class AccessMgrImplTest extends TestCase
                 user = accessMgr.getUser( session );
                 UserTestData.assertEquals( user, usr );
             }
-            log.debug( CLS_NM + ".getUsers successful" );
+            LOG.debug( CLS_NM + ".getUsers successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".getUsers: failed with SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
                 ex );
             fail( ex.getMessage() );
@@ -192,11 +193,11 @@ public class AccessMgrImplTest extends TestCase
                     // pass
                 }
             }
-            log.debug( CLS_NM + ".authenticateUsers successful" );
+            LOG.debug( CLS_NM + ".authenticateUsers successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".authenticateUsers: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".authenticateUsers: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -242,11 +243,11 @@ public class AccessMgrImplTest extends TestCase
                     //log.error("locked=" + se.getMsgid() + " msg=" + se.getMessage());
                 }
             }
-            log.debug( CLS_NM + ".authenticateLockedUsers successful" );
+            LOG.debug( CLS_NM + ".authenticateLockedUsers successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".authenticateLockedUsers: failed with SecurityException rc=" + ex.getErrorId()
+            LOG.error( CLS_NM + ".authenticateLockedUsers: failed with SecurityException rc=" + ex.getErrorId()
                 + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -293,11 +294,11 @@ public class AccessMgrImplTest extends TestCase
                     // pass
                 }
             }
-            log.debug( CLS_NM + ".authenticateResetUsers successful" );
+            LOG.debug( CLS_NM + ".authenticateResetUsers successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".authenticateResetUsers: failed with SecurityException rc=" + ex.getErrorId()
+            LOG.error( CLS_NM + ".authenticateResetUsers: failed with SecurityException rc=" + ex.getErrorId()
                 + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -360,11 +361,11 @@ public class AccessMgrImplTest extends TestCase
                     // pass
                 }
             }
-            log.debug( CLS_NM + ".createSessions successful" );
+            LOG.debug( CLS_NM + ".createSessions successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".createSessions: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -415,11 +416,11 @@ public class AccessMgrImplTest extends TestCase
                     UserTestData.assertEquals( user, usr );
                 }
             }
-            log.debug( CLS_NM + ".createSessionsWithRoles successful" );
+            LOG.debug( CLS_NM + ".createSessionsWithRoles successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".createSessionsWithRoles: failed with SecurityException rc=" + ex.getErrorId()
+            LOG.error( CLS_NM + ".createSessionsWithRoles: failed with SecurityException rc=" + ex.getErrorId()
                 + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -470,11 +471,11 @@ public class AccessMgrImplTest extends TestCase
                     UserTestData.assertEquals( user, usr );
                 }
             }
-            log.debug( CLS_NM + ".createSessionsWithRolesTrusted successful" );
+            LOG.debug( CLS_NM + ".createSessionsWithRolesTrusted successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".createSessionsWithRolesTrusted: failed with SecurityException rc=" + ex.getErrorId()
+            LOG.error( CLS_NM + ".createSessionsWithRolesTrusted: failed with SecurityException rc=" + ex.getErrorId()
                 + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -540,11 +541,11 @@ public class AccessMgrImplTest extends TestCase
                     // pass
                 }
             }
-            log.debug( CLS_NM + ".createSessionsTrusted successful" );
+            LOG.debug( CLS_NM + ".createSessionsTrusted successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".createSessionsTrusted: failed with SecurityException rc=" + ex.getErrorId()
+            LOG.error( CLS_NM + ".createSessionsTrusted: failed with SecurityException rc=" + ex.getErrorId()
                 + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -603,11 +604,11 @@ public class AccessMgrImplTest extends TestCase
                             + "] listsize [" + uRoles.size() + "]", dsd.getCardinality() - 1, uRoles.size() );
                 }
             }
-            log.debug( CLS_NM + ".createSessionsDSD successful" );
+            LOG.debug( CLS_NM + ".createSessionsDSD successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".createSessionsDSD: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".createSessionsDSD: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -669,11 +670,11 @@ public class AccessMgrImplTest extends TestCase
                         + user.getUserId() + "] expect role [" + name + "] nout found", actualRoles.contains( name ) );
                 }
             }
-            log.debug( CLS_NM + ".createSessionsHier successful" );
+            LOG.debug( CLS_NM + ".createSessionsHier successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".createSessionsHier: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".createSessionsHier: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -742,11 +743,11 @@ public class AccessMgrImplTest extends TestCase
                     i++;
                 }
             }
-            log.debug( CLS_NM + ".checkAccess successful" );
+            LOG.debug( CLS_NM + ".checkAccess successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".checkAccess: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -809,7 +810,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".sessionPermissions: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".sessionPermissions: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -902,7 +903,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error( CLS_NM + ".sessionPermissionsH: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( CLS_NM + ".sessionPermissionsH: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -953,11 +954,11 @@ public class AccessMgrImplTest extends TestCase
                         uRoles.contains( RoleTestData.getUserRole( UserTestData.getUserId( usr ), rle ) ) );
                 }
             }
-            log.debug( CLS_NM + ".sessionRoles successful" );
+            LOG.debug( CLS_NM + ".sessionRoles successful" );
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".sessionRoles: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1023,7 +1024,7 @@ public class AccessMgrImplTest extends TestCase
                         accessMgr.addActiveRole( session, new UserRole( RoleTestData.getName( badRle ) ) );
                         String error = CLS_NM + ".addActiveRoles failed negative test 1 User [" + user.getUserId()
                             + "] Role [" + RoleTestData.getName( badRle ) + "]";
-                        log.info( error );
+                        LOG.info( error );
                         fail( error );
                     }
                     catch ( SecurityException se )
@@ -1051,7 +1052,7 @@ public class AccessMgrImplTest extends TestCase
                         accessMgr.dropActiveRole( session, new UserRole( RoleTestData.getName( rle ) ) );
                         String error = CLS_NM + ".addActiveRoles failed negative test 2 User [" + user.getUserId()
                             + "] Role [" + RoleTestData.getName( rle ) + "]";
-                        log.info( error );
+                        LOG.info( error );
                         fail( error );
                     }
                     catch ( SecurityException se )
@@ -1078,7 +1079,7 @@ public class AccessMgrImplTest extends TestCase
                         accessMgr.addActiveRole( session, new UserRole( RoleTestData.getName( rle ) ) );
                         String error = CLS_NM + ".addActiveRoles failed test 3 User [" + user.getUserId() + "] Role ["
                             + RoleTestData.getName( rle ) + "]";
-                        log.info( error );
+                        LOG.info( error );
                         fail( error );
                     }
                     catch ( SecurityException se )
@@ -1092,7 +1093,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".addActiveRoles: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1156,7 +1157,7 @@ public class AccessMgrImplTest extends TestCase
                         accessMgr.dropActiveRole( session, new UserRole( RoleTestData.getName( rle ) ) );
                         String error = CLS_NM + ".dropActiveRoles failed negative test 2 User [" + user.getUserId()
                             + "] Role [" + RoleTestData.getName( rle ) + "]";
-                        log.info( error );
+                        LOG.info( error );
                         fail( error );
                     }
                     catch ( SecurityException se )
@@ -1169,7 +1170,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".dropActiveRoles: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
@@ -1224,7 +1225,7 @@ public class AccessMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            log.error(
+            LOG.error(
                 CLS_NM + ".addActiveRolesDSD caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
