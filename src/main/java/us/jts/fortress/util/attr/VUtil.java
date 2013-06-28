@@ -11,8 +11,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-
+import org.slf4j.LoggerFactory;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ValidationException;
@@ -26,7 +25,7 @@ import us.jts.fortress.cfg.Config;
 public class VUtil
 {
     private static final String CLS_NM = VUtil.class.getName();
-    private final static Logger log = Logger.getLogger( CLS_NM );
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static int maximumFieldLen = 130;
     private final static String VALIDATE_LENGTH = "field.length";
 
@@ -375,8 +374,7 @@ public class VUtil
         catch ( ParseException pe )
         {
             String error = CLS_NM + ".checkTime - time [" + time + "] failed validation with ParseException=" + pe;
-            log.warn( error );
-
+            LOG.warn( error );
             return true;
         }
     }
@@ -399,7 +397,7 @@ public class VUtil
         catch ( ParseException pe )
         {
             String error = CLS_NM + ".checkDate - date [" + date + "] failed validation with ParseException=" + pe;
-            log.warn( error );
+            LOG.warn( error );
 
             return true;
         }
@@ -417,7 +415,7 @@ public class VUtil
             if ( ( c < SUNDAY ) || ( c > SATURDAY ) )
             {
                 String error = CLS_NM + ".checkMask - mask [" + mask + "] failed validation";
-                log.warn( error );
+                LOG.warn( error );
 
                 return true;
             }

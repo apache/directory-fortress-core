@@ -12,7 +12,8 @@ import us.jts.fortress.rbac.TestUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * CreateUserOrgHierarchySample JUnit Test. This test program will show how to build a simple User OrgUnit hierarchy which are
@@ -25,7 +26,7 @@ import org.apache.log4j.Logger;
 public class CreateUserOrgHierarchySample extends TestCase
 {
     private static final String CLS_NM = CreateUserOrgHierarchySample.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     // This constant will be added to index for creation of multiple nodes in directory.
     public static final String TEST_HIER_USERORG_PREFIX = "sampleHierUserOrg";
@@ -113,11 +114,11 @@ public class CreateUserOrgHierarchySample extends TestCase
             }
             // Remove the child OrgUnit from directory:
             delAdminMgr.delete(new OrgUnit(TEST_HIER_USERORG_PREFIX + TEST_NUMBER, OrgUnit.Type.USER));
-            log.info(szLocation + " success");
+            LOG.info(szLocation + " success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -158,11 +159,11 @@ public class CreateUserOrgHierarchySample extends TestCase
                 // Add a relationship between the parent and child OrgUnits:
                 delAdminMgr.addInheritance(parentOrgUnit, childOrgUnit);
             }
-            log.info(szLocation + " success");
+            LOG.info(szLocation + " success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -206,11 +207,11 @@ public class CreateUserOrgHierarchySample extends TestCase
             }
             // Remove the parent OrgUnit from directory:
             delAdminMgr.delete(parentOrgUnit);
-            log.info(szLocation + " success");
+            LOG.info(szLocation + " success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -244,11 +245,11 @@ public class CreateUserOrgHierarchySample extends TestCase
                 // Now add child OrgUnit entity to directory and add relationship with existing parent OrgUnit.
                 delAdminMgr.addDescendant(parentOrgUnit, childOrgUnit);
             }
-            log.info(szLocation + " success");
+            LOG.info(szLocation + " success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -290,11 +291,11 @@ public class CreateUserOrgHierarchySample extends TestCase
             }
             // Remove the child OrgUnit from directory:
             delAdminMgr.delete(childOrgUnit);
-            log.info(szLocation + " success");
+            LOG.info(szLocation + " success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -331,7 +332,7 @@ public class CreateUserOrgHierarchySample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

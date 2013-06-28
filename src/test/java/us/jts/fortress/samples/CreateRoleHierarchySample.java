@@ -12,7 +12,8 @@ import us.jts.fortress.rbac.TestUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * CreateRoleHierarchySample JUnit Test. This test program will show how to build a simple Role hierarchy which are
@@ -26,7 +27,7 @@ import org.apache.log4j.Logger;
 public class CreateRoleHierarchySample extends TestCase
 {
     private static final String CLS_NM = CreateRoleHierarchySample.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     // This constant will be added to index for creation of multiple nodes in directory.
     private static final String TEST_HIER_ROLE_PREFIX = "sampleHierRole";
@@ -94,14 +95,14 @@ public class CreateRoleHierarchySample extends TestCase
 
                 // Remove the Role from directory along with associated assignments:
                 adminMgr.deleteRole(parentRole);
-                log.info(szLocation + " role [" + parentRole.getName() + "] success");
+                LOG.info(szLocation + " role [" + parentRole.getName() + "] success");
             }
             // Remove the Role from directory along with associated assignments:
             adminMgr.deleteRole(new Role(TEST_HIER_ROLE_PREFIX + TEST_NUMBER));
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -143,7 +144,7 @@ public class CreateRoleHierarchySample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -181,14 +182,14 @@ public class CreateRoleHierarchySample extends TestCase
 
                 // Remove the child Role from directory along with associated assignments:
                 adminMgr.deleteRole(childRole);
-                log.info(szLocation + " role [" + childRole.getName() + "] success");
+                LOG.info(szLocation + " role [" + childRole.getName() + "] success");
             }
             // Remove the parent Role from directory along with associated assignments:
             adminMgr.deleteRole(parentRole);
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -223,7 +224,7 @@ public class CreateRoleHierarchySample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -259,14 +260,14 @@ public class CreateRoleHierarchySample extends TestCase
 
                 // Remove the Role from directory along with associated assignments:
                 adminMgr.deleteRole(parentRole);
-                log.info(szLocation + " role [" + childRole.getName() + "] success");
+                LOG.info(szLocation + " role [" + childRole.getName() + "] success");
             }
             // Remove the Role from directory along with associated assignments:
             adminMgr.deleteRole(childRole);
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -301,7 +302,7 @@ public class CreateRoleHierarchySample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

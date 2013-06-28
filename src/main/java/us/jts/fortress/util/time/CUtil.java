@@ -11,9 +11,10 @@ import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
 import us.jts.fortress.rbac.ClassUtil;
 import us.jts.fortress.rbac.Session;
-
 import us.jts.fortress.util.attr.VUtil;
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ import java.util.StringTokenizer;
 public class CUtil
 {
     private static final String CLS_NM = CUtil.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static List<Validator> validators;
     private static final String DSDVALIDATOR = Config.getProperty(GlobalIds.DSD_VALIDATOR_PROP);
 
@@ -304,7 +305,7 @@ public class CUtil
         }
         catch (us.jts.fortress.SecurityException ex)
         {
-            log.fatal(CLS_NM + ".static initialzier caught SecurityException=" + ex.getMessage(), ex);
+            LOG.error(CLS_NM + ".static initialzier caught SecurityException=" + ex.getMessage(), ex);
         }
     }
 
@@ -370,18 +371,18 @@ public class CUtil
         int rc;
         if (validators == null)
         {
-            if(log.isDebugEnabled())
+            if(LOG.isDebugEnabled())
             {
-                log.debug(location + " userId [" + session.getUserId() + "]  no constraints enabled");
+                LOG.debug(location + " userId [" + session.getUserId() + "]  no constraints enabled");
             }
             return;
         }
         // no need to continue if the role list is empty and we're trying to check role constraints:
         else if (type == ConstraintType.ROLE && !VUtil.isNotNullOrEmpty(session.getRoles()) && !VUtil.isNotNullOrEmpty(session.getAdminRoles()))
         {
-            if(log.isDebugEnabled())
+            if(LOG.isDebugEnabled())
             {
-                log.debug(location + " userId [" + session.getUserId() + "] has no roles assigned");
+                LOG.debug(location + " userId [" + session.getUserId() + "] has no roles assigned");
             }
             return;
         }
@@ -411,7 +412,7 @@ public class CUtil
                         rc = val.validate(session, constraint, currTime);
                         if (rc > 0)
                         {
-                            log.info(location + " role [" + constraint.getName() + "] for user ["
+                            LOG.info(location + " role [" + constraint.getName() + "] for user ["
                                 + session.getUserId() + "] was deactivated reason code [" + rc + "]");
                             roleItems.remove();
                         }
@@ -427,7 +428,7 @@ public class CUtil
                         rc = val.validate(session, constraint, currTime);
                         if (rc > 0)
                         {
-                            log.info(location + " admin role [" + constraint.getName() + "] for user ["
+                            LOG.info(location + " admin role [" + constraint.getName() + "] for user ["
                                 + session.getUserId() + "] was deactivated reason code [" + rc + "]");
                             roleItems.remove();
                         }

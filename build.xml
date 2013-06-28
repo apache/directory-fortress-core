@@ -160,7 +160,6 @@
            <pathelement location="${jgraph.jar}"/>
            <pathelement location="${unboundsdk.jar}"/>
            <pathelement location="${junit.jar}"/>
-           <pathelement location="${log4j.jar}"/>
            <pathelement location="${commons-config.jar}"/>
            <pathelement location="${commons-lang.jar}"/>
            <pathelement location="${commons-pool.jar}"/>

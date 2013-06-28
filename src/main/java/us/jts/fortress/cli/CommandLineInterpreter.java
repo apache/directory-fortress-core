@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.LoggerFactory;
 import us.jts.fortress.*;
 import us.jts.fortress.rbac.AdminRole;
 import us.jts.fortress.rbac.OrgUnit;
@@ -22,7 +23,6 @@ import us.jts.fortress.rbac.Relationship;
 import us.jts.fortress.rbac.*;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.Constraint;
-import org.apache.log4j.Logger;
 
 
 /**
@@ -33,7 +33,7 @@ import org.apache.log4j.Logger;
 public class CommandLineInterpreter
 {
     private static final String CLS_NM = CommandLineInterpreter.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private AdminMgr adminMgr;
     private ReviewMgr reviewMgr;
     private AccessMgr accessMgr;
@@ -124,25 +124,25 @@ public class CommandLineInterpreter
         if (!constructManagers())
         {
             String error = "Startup to interactive mode failed, goodbye.";
-            log.error(error);
+            LOG.error(error);
             return;
         }
 
-        log.info("Startup to interactive mode success...");
+        LOG.info("Startup to interactive mode success...");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input;
         while (true)
         {
             try
             {
-                log.info("CLI function groups include " + ADMIN + ", " + REVIEW + ", " + SYSTEM + ", " + DELEGATED_ADMIN);
-                log.info("Enter one from above or 'q' to quit");
+                LOG.info("CLI function groups include " + ADMIN + ", " + REVIEW + ", " + SYSTEM + ", " + DELEGATED_ADMIN);
+                LOG.info("Enter one from above or 'q' to quit");
                 input = br.readLine();
                 if (VUtil.isNotNullOrEmpty(input))
                 {
                     if ("Q".equalsIgnoreCase(input))
                     {
-                        log.info("Goodbye");
+                        LOG.info("Goodbye");
                         break;
                     }
 
@@ -153,7 +153,7 @@ public class CommandLineInterpreter
             catch (Exception e)
             {
                 String error = CLS_NM + ".runInteractiveMode caught Exception=" + e.toString();
-                log.error(error);
+                LOG.error(error);
                 e.printStackTrace();
             }
         }
@@ -161,9 +161,9 @@ public class CommandLineInterpreter
 
     private static void printUsage()
     {
-        log.error("Usage: group function options");
-        log.error("where group is: admin, review, system or dadmin");
-        log.error("Check out the Command Line Reference manual for what the valid function and option combinations are.");
+        LOG.error("Usage: group function options");
+        LOG.error("where group is: admin, review, system or dadmin");
+        LOG.error("Check out the Command Line Reference manual for what the valid function and option combinations are.");
     }
 
     /**
@@ -198,7 +198,7 @@ public class CommandLineInterpreter
         }
         else
         {
-            log.warn("unknown admin operation detected");
+            LOG.warn("unknown admin operation detected");
         }
     }
 
@@ -210,28 +210,28 @@ public class CommandLineInterpreter
             if (commands.contains(ADD_ROLE))
             {
                 command = ADD_ROLE;
-                log.info(command);
+                LOG.info(command);
                 AdminRole role = options.getAdminRole();
                 delAdminMgr.addRole(role);
             }
             else if (commands.contains(UPDATE_ROLE))
             {
                 command = UPDATE_ROLE;
-                log.info(command);
+                LOG.info(command);
                 AdminRole role = options.getAdminRole();
                 delAdminMgr.updateRole(role);
             }
             else if (commands.contains(DELETE_ROLE))
             {
                 command = DELETE_ROLE;
-                log.info(command);
+                LOG.info(command);
                 AdminRole role = options.getAdminRole();
                 delAdminMgr.deleteRole(role);
             }
             else if (commands.contains(ASSIGN_ROLE))
             {
                 command = ASSIGN_ROLE;
-                log.info(command);
+                LOG.info(command);
                 Role role = options.getRole();
                 String userId = options.getUserId();
                 delAdminMgr.assignUser(new UserAdminRole(userId, role));
@@ -239,7 +239,7 @@ public class CommandLineInterpreter
             else if (commands.contains(DEASSIGN_ROLE))
             {
                 command = DEASSIGN_ROLE;
-                log.info(command);
+                LOG.info(command);
                 Role role = options.getRole();
                 String userId = options.getUserId();
                 delAdminMgr.deassignUser(new UserAdminRole(userId, role));
@@ -247,63 +247,63 @@ public class CommandLineInterpreter
             else if (commands.contains(ADD_ROLE_INHERITANCE))
             {
                 command = ADD_ROLE_INHERITANCE;
-                log.info(command);
+                LOG.info(command);
                 Relationship relationship = options.getRelationship();
                 delAdminMgr.addInheritance(new AdminRole(relationship.getParent()), new AdminRole(relationship.getChild()));
             }
             else if (commands.contains(DELETE_ROLE_INHERITANCE))
             {
                 command = DELETE_ROLE_INHERITANCE;
-                log.info(command);
+                LOG.info(command);
                 Relationship relationship = options.getRelationship();
                 delAdminMgr.deleteInheritance(new AdminRole(relationship.getParent()), new AdminRole(relationship.getChild()));
             }
             else if (commands.contains(ADD_POBJ))
             {
                 command = ADD_POBJ;
-                log.info(command);
+                LOG.info(command);
                 PermObj permObj = options.getPermObj();
                 delAdminMgr.addPermObj(permObj);
             }
             else if (commands.contains(UPDATE_POBJ))
             {
                 command = UPDATE_POBJ;
-                log.info(command);
+                LOG.info(command);
                 PermObj permObj = options.getPermObj();
                 delAdminMgr.updatePermObj(permObj);
             }
             else if (commands.contains(DELETE_POBJ))
             {
                 command = DELETE_POBJ;
-                log.info(command);
+                LOG.info(command);
                 PermObj permObj = options.getPermObj();
                 delAdminMgr.deletePermObj(permObj);
             }
             else if (commands.contains(ADD_PERM))
             {
                 command = ADD_PERM;
-                log.info(command);
+                LOG.info(command);
                 Permission perm = options.getPermission();
                 delAdminMgr.addPermission(perm);
             }
             else if (commands.contains(UPDATE_PERM))
             {
                 command = UPDATE_PERM;
-                log.info(command);
+                LOG.info(command);
                 Permission perm = options.getPermission();
                 delAdminMgr.updatePermission(perm);
             }
             else if (commands.contains(DELETE_PERM))
             {
                 command = DELETE_PERM;
-                log.info(command);
+                LOG.info(command);
                 Permission permObj = options.getPermission();
                 delAdminMgr.deletePermission(permObj);
             }
             else if (commands.contains(GRANT))
             {
                 command = GRANT;
-                log.info(command);
+                LOG.info(command);
                 Permission perm = options.getPermission();
                 AdminRole role = options.getAdminRole();
                 role.setName(options.getRoleNm());
@@ -312,7 +312,7 @@ public class CommandLineInterpreter
             else if (commands.contains(REVOKE))
             {
                 command = REVOKE;
-                log.info(command);
+                LOG.info(command);
                 Permission perm = options.getPermission();
                 AdminRole role = options.getAdminRole();
                 role.setName(options.getRoleNm());
@@ -321,7 +321,7 @@ public class CommandLineInterpreter
             else if (commands.contains(ADD_USERORG))
             {
                 command = ADD_USERORG;
-                log.info(command);
+                LOG.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.USER);
                 delAdminMgr.add(orgUnit);
@@ -329,7 +329,7 @@ public class CommandLineInterpreter
             else if (commands.contains(UPDATE_USERORG))
             {
                 command = UPDATE_USERORG;
-                log.info(command);
+                LOG.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.USER);
                 delAdminMgr.update(orgUnit);
@@ -337,7 +337,7 @@ public class CommandLineInterpreter
             else if (commands.contains(DELETE_USERORG))
             {
                 command = DELETE_USERORG;
-                log.info(command);
+                LOG.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.USER);
                 delAdminMgr.delete(orgUnit);
@@ -345,21 +345,21 @@ public class CommandLineInterpreter
             else if (commands.contains(ADD_USERORG_INHERITANCE))
             {
                 command = ADD_USERORG_INHERITANCE;
-                log.info(command);
+                LOG.info(command);
                 Relationship relationship = options.getRelationship();
                 delAdminMgr.addInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.USER), new OrgUnit(relationship.getChild(), OrgUnit.Type.USER));
             }
             else if (commands.contains(DELETE_USERORG_INHERITANCE))
             {
                 command = DELETE_USERORG_INHERITANCE;
-                log.info(command);
+                LOG.info(command);
                 Relationship relationship = options.getRelationship();
                 delAdminMgr.deleteInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.USER), new OrgUnit(relationship.getChild(), OrgUnit.Type.USER));
             }
             else if (commands.contains(ADD_PERMORG))
             {
                 command = ADD_PERMORG;
-                log.info(command);
+                LOG.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.PERM);
                 delAdminMgr.add(orgUnit);
@@ -367,7 +367,7 @@ public class CommandLineInterpreter
             else if (commands.contains(UPDATE_PERMORG))
             {
                 command = UPDATE_PERMORG;
-                log.info(command);
+                LOG.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.PERM);
                 delAdminMgr.update(orgUnit);
@@ -375,7 +375,7 @@ public class CommandLineInterpreter
             else if (commands.contains(DELETE_PERMORG))
             {
                 command = DELETE_PERMORG;
-                log.info(command);
+                LOG.info(command);
                 OrgUnit orgUnit = options.getOrgUnit();
                 orgUnit.setType(OrgUnit.Type.PERM);
                 delAdminMgr.delete(orgUnit);
@@ -383,28 +383,28 @@ public class CommandLineInterpreter
             else if (commands.contains(ADD_PERMORG_INHERITANCE))
             {
                 command = ADD_PERMORG_INHERITANCE;
-                log.info(command);
+                LOG.info(command);
                 Relationship relationship = options.getRelationship();
                 delAdminMgr.addInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.PERM), new OrgUnit(relationship.getChild(), OrgUnit.Type.PERM));
             }
             else if (commands.contains(DELETE_PERMORG_INHERITANCE))
             {
                 command = DELETE_PERMORG_INHERITANCE;
-                log.info(command);
+                LOG.info(command);
                 Relationship relationship = options.getRelationship();
                 delAdminMgr.deleteInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.PERM), new OrgUnit(relationship.getChild(), OrgUnit.Type.PERM));
             }
             else
             {
-                log.warn("unknown delegated admin operation detected");
+                LOG.warn("unknown delegated admin operation detected");
                 return;
             }
-            log.info("command:" + command + " was successful");
+            LOG.info("command:" + command + " was successful");
         }
         catch (us.jts.fortress.SecurityException se)
         {
             String error = CLS_NM + ".processDelegatedAdminCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
-            log.error(error);
+            LOG.error(error);
         }
     }
 
@@ -420,49 +420,49 @@ public class CommandLineInterpreter
             if (commands.contains(ADD_USER))
             {
                 command = ADD_USER;
-                log.info(command);
+                LOG.info(command);
                 User user = options.getUser();
                 adminMgr.addUser(user);
             }
             else if (commands.contains(UPDATE_USER))
             {
                 command = UPDATE_USER;
-                log.info(command);
+                LOG.info(command);
                 User user = options.getUser();
                 adminMgr.updateUser(user);
             }
             else if (commands.contains(DELETE_USER))
             {
                 command = DELETE_USER;
-                log.info(command);
+                LOG.info(command);
                 User user = options.getUser();
                 adminMgr.deleteUser(user);
             }
             else if (commands.contains(ADD_ROLE))
             {
                 command = ADD_ROLE;
-                log.info(command);
+                LOG.info(command);
                 Role role = options.getRole();
                 adminMgr.addRole(role);
             }
             else if (commands.contains(UPDATE_ROLE))
             {
                 command = UPDATE_ROLE;
-                log.info(command);
+                LOG.info(command);
                 Role role = options.getRole();
                 adminMgr.updateRole(role);
             }
             else if (commands.contains(DELETE_ROLE))
             {
                 command = DELETE_ROLE;
-                log.info(command);
+                LOG.info(command);
                 Role role = options.getRole();
                 adminMgr.deleteRole(role);
             }
             else if (commands.contains(ASSIGN_ROLE))
             {
                 command = ASSIGN_ROLE;
-                log.info(command);
+                LOG.info(command);
                 Role role = options.getRole();
                 String userId = options.getUserId();
                 adminMgr.assignUser(new UserRole(userId, role));
@@ -470,7 +470,7 @@ public class CommandLineInterpreter
             else if (commands.contains(DEASSIGN_ROLE))
             {
                 command = DEASSIGN_ROLE;
-                log.info(command);
+                LOG.info(command);
                 Role role = options.getRole();
                 String userId = options.getUserId();
                 adminMgr.deassignUser(new UserRole(userId, role));
@@ -478,63 +478,63 @@ public class CommandLineInterpreter
             else if (commands.contains(ADD_ROLE_INHERITANCE))
             {
                 command = ADD_ROLE_INHERITANCE;
-                log.info(command);
+                LOG.info(command);
                 Relationship relationship = options.getRelationship();
                 adminMgr.addInheritance(new Role(relationship.getParent()), new Role(relationship.getChild()));
             }
             else if (commands.contains(DELETE_ROLE_INHERITANCE))
             {
                 command = DELETE_ROLE_INHERITANCE;
-                log.info(command);
+                LOG.info(command);
                 Relationship relationship = options.getRelationship();
                 adminMgr.deleteInheritance(new Role(relationship.getParent()), new Role(relationship.getChild()));
             }
             else if (commands.contains(ADD_POBJ))
             {
                 command = ADD_POBJ;
-                log.info(command);
+                LOG.info(command);
                 PermObj permObj = options.getPermObj();
                 adminMgr.addPermObj(permObj);
             }
             else if (commands.contains(UPDATE_POBJ))
             {
                 command = UPDATE_POBJ;
-                log.info(command);
+                LOG.info(command);
                 PermObj permObj = options.getPermObj();
                 adminMgr.updatePermObj(permObj);
             }
             else if (commands.contains(DELETE_POBJ))
             {
                 command = DELETE_POBJ;
-                log.info(command);
+                LOG.info(command);
                 PermObj permObj = options.getPermObj();
                 adminMgr.deletePermObj(permObj);
             }
             else if (commands.contains(ADD_PERM))
             {
                 command = ADD_PERM;
-                log.info(command);
+                LOG.info(command);
                 Permission perm = options.getPermission();
                 adminMgr.addPermission(perm);
             }
             else if (commands.contains(UPDATE_PERM))
             {
                 command = UPDATE_PERM;
-                log.info(command);
+                LOG.info(command);
                 Permission perm = options.getPermission();
                 adminMgr.updatePermission(perm);
             }
             else if (commands.contains(DELETE_PERM))
             {
                 command = DELETE_PERM;
-                log.info(command);
+                LOG.info(command);
                 Permission permObj = options.getPermission();
                 adminMgr.deletePermission(permObj);
             }
             else if (commands.contains(GRANT))
             {
                 command = GRANT;
-                log.info(command);
+                LOG.info(command);
                 Permission perm = options.getPermission();
                 Role role = options.getRole();
                 role.setName(options.getRoleNm());
@@ -543,7 +543,7 @@ public class CommandLineInterpreter
             else if (commands.contains(REVOKE))
             {
                 command = REVOKE;
-                log.info(command);
+                LOG.info(command);
                 Permission perm = options.getPermission();
                 Role role = options.getRole();
                 role.setName(options.getRoleNm());
@@ -552,7 +552,7 @@ public class CommandLineInterpreter
             else if (commands.contains(CREATE_SSD_SET))
             {
                 command = CREATE_SSD_SET;
-                log.info(command);
+                LOG.info(command);
                 SDSet ssd = options.getSdSet();
                 ssd.setType(SDSet.SDType.STATIC);
                 adminMgr.createSsdSet(ssd);
@@ -560,7 +560,7 @@ public class CommandLineInterpreter
             else if (commands.contains(DELETE_SSD_SET))
             {
                 command = DELETE_SSD_SET;
-                log.info(command);
+                LOG.info(command);
                 SDSet ssd = options.getSdSet();
                 ssd.setType(SDSet.SDType.STATIC);
                 adminMgr.deleteSsdSet(ssd);
@@ -568,7 +568,7 @@ public class CommandLineInterpreter
             else if (commands.contains(CREATE_DSD_SET))
             {
                 command = CREATE_DSD_SET;
-                log.info(command);
+                LOG.info(command);
                 SDSet ssd = options.getSdSet();
                 ssd.setType(SDSet.SDType.DYNAMIC);
                 adminMgr.createDsdSet(ssd);
@@ -576,7 +576,7 @@ public class CommandLineInterpreter
             else if (commands.contains(DELETE_DSD_SET))
             {
                 command = DELETE_DSD_SET;
-                log.info(command);
+                LOG.info(command);
                 SDSet ssd = options.getSdSet();
                 ssd.setType(SDSet.SDType.DYNAMIC);
                 adminMgr.deleteDsdSet(ssd);
@@ -584,7 +584,7 @@ public class CommandLineInterpreter
             else if (commands.contains(CHANGE_PASSWORD))
             {
                 command = CHANGE_PASSWORD;
-                log.info(command);
+                LOG.info(command);
                 User user = options.getUser();
                 char[] newPassword = options.getNewPassword();
                 adminMgr.changePassword(user, newPassword);
@@ -592,7 +592,7 @@ public class CommandLineInterpreter
             else if (commands.contains(RESET_PASSWORD))
             {
                 command = RESET_PASSWORD;
-                log.info(command);
+                LOG.info(command);
                 User user = options.getUser();
                 char[] newPassword = options.getNewPassword();
                 adminMgr.resetPassword(user, newPassword);
@@ -600,28 +600,28 @@ public class CommandLineInterpreter
             else if (commands.contains(LOCK_USER_ACCOUNT))
             {
                 command = LOCK_USER_ACCOUNT;
-                log.info(command);
+                LOG.info(command);
                 User user = options.getUser();
                 adminMgr.lockUserAccount(user);
             }
             else if (commands.contains(UNLOCK_USER_ACCOUNT))
             {
                 command = UNLOCK_USER_ACCOUNT;
-                log.info(command);
+                LOG.info(command);
                 User user = options.getUser();
                 adminMgr.unlockUserAccount(user);
             }
             else
             {
-                log.warn("unknown admin operation detected");
+                LOG.warn("unknown admin operation detected");
                 return;
             }
-            log.info("command:" + command + " was successful");
+            LOG.info("command:" + command + " was successful");
         }
         catch (us.jts.fortress.SecurityException se)
         {
             String error = CLS_NM + ".processAdminCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
-            log.error(error);
+            LOG.error(error);
         }
     }
 
@@ -637,7 +637,7 @@ public class CommandLineInterpreter
             if (commands.contains(READ_USER))
             {
                 command = READ_USER;
-                log.info(READ_USER);
+                LOG.info(READ_USER);
                 User inUser = options.getUser();
                 User outUser = reviewMgr.readUser(inUser);
                 printUser(outUser);
@@ -645,7 +645,7 @@ public class CommandLineInterpreter
             else if (commands.contains(FIND_USERS))
             {
                 command = FIND_USERS;
-                log.info(command);
+                LOG.info(command);
                 User user = options.getUser();
                 List<User> outUsers = reviewMgr.findUsers(user);
                 if (VUtil.isNotNullOrEmpty(outUsers))
@@ -661,7 +661,7 @@ public class CommandLineInterpreter
             else if (commands.contains(ASSIGNED_USERS))
             {
                 command = ASSIGNED_USERS;
-                log.info(command);
+                LOG.info(command);
                 Role inRole = options.getRole();
                 List<User> outUsers = reviewMgr.assignedUsers(inRole);
                 if (VUtil.isNotNullOrEmpty(outUsers))
@@ -675,7 +675,7 @@ public class CommandLineInterpreter
             else if (commands.contains(READ_ROLE))
             {
                 command = READ_ROLE;
-                log.info(command);
+                LOG.info(command);
                 Role inRole = options.getRole();
                 Role outRole = reviewMgr.readRole(inRole);
                 printRole(outRole);
@@ -683,7 +683,7 @@ public class CommandLineInterpreter
             else if (commands.contains(FIND_ROLES))
             {
                 command = FIND_ROLES;
-                log.info(command);
+                LOG.info(command);
                 String inRoleNm = options.getName();
                 List<Role> outRoles = reviewMgr.findRoles(inRoleNm);
                 if (VUtil.isNotNullOrEmpty(outRoles))
@@ -700,7 +700,7 @@ public class CommandLineInterpreter
             else if (commands.contains(ASSIGNED_ROLES))
             {
                 command = ASSIGNED_ROLES;
-                log.info(command);
+                LOG.info(command);
                 String userId = options.getUserId();
                 List<UserRole> uRoles = reviewMgr.assignedRoles(new User(userId));
                 if (uRoles != null)
@@ -715,7 +715,7 @@ public class CommandLineInterpreter
             else if (commands.contains(READ_POBJ))
             {
                 command = READ_POBJ;
-                log.info(command);
+                LOG.info(command);
                 PermObj inPermObj = options.getPermObj();
                 PermObj outPermObj = reviewMgr.readPermObj(inPermObj);
                 printPermObj(outPermObj);
@@ -723,7 +723,7 @@ public class CommandLineInterpreter
             else if (commands.contains(FIND_POBJS))
             {
                 command = FIND_POBJS;
-                log.info(command);
+                LOG.info(command);
                 PermObj inPermObj = options.getPermObj();
                 List<PermObj> outPermObjs = reviewMgr.findPermObjs(inPermObj);
                 if (VUtil.isNotNullOrEmpty(outPermObjs))
@@ -740,7 +740,7 @@ public class CommandLineInterpreter
             else if (commands.contains(READ_PERM))
             {
                 command = READ_PERM;
-                log.info(command);
+                LOG.info(command);
                 Permission inPerm = options.getPermission();
                 Permission outPerm = reviewMgr.readPermission(inPerm);
                 printPermission(outPerm);
@@ -748,7 +748,7 @@ public class CommandLineInterpreter
             else if (commands.contains(FIND_PERMS))
             {
                 command = FIND_PERMS;
-                log.info(command);
+                LOG.info(command);
                 Permission inPerm = options.getPermission();
                 List<Permission> outPerms = reviewMgr.findPermissions(inPerm);
                 if (VUtil.isNotNullOrEmpty(outPerms))
@@ -764,15 +764,15 @@ public class CommandLineInterpreter
             }
             else
             {
-                log.warn("unknown review operation detected");
+                LOG.warn("unknown review operation detected");
                 return;
             }
-            log.info("command:" + command + " was successful");
+            LOG.info("command:" + command + " was successful");
         }
         catch (us.jts.fortress.SecurityException se)
         {
             String error = CLS_NM + ".processReviewCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
-            log.error(error);
+            LOG.error(error);
         }
     }
 
@@ -788,7 +788,7 @@ public class CommandLineInterpreter
             if (commands.contains(CREATE_SESSION))
             {
                 command = CREATE_SESSION;
-                log.info(READ_USER);
+                LOG.info(READ_USER);
                 User inUser = options.getUser();
                 Session session = accessMgr.createSession(inUser, false);
                 printSession(session);
@@ -796,7 +796,7 @@ public class CommandLineInterpreter
             else if (commands.contains(AUTHENTICATE))
             {
                 command = AUTHENTICATE;
-                log.info(command);
+                LOG.info(command);
                 User inUser = options.getUser();
                 Session session = accessMgr.authenticate(inUser.getUserId(), inUser.getPassword());
                 printSession(session);
@@ -804,7 +804,7 @@ public class CommandLineInterpreter
             else if (commands.contains(ASSIGNED_ROLES))
             {
                 command = ASSIGNED_ROLES;
-                log.info(command);
+                LOG.info(command);
                 User inUser = options.getUser();
                 Session session = accessMgr.createSession(inUser, true);
                 List<UserRole> uRoles = accessMgr.sessionRoles(session);
@@ -820,7 +820,7 @@ public class CommandLineInterpreter
             else if (commands.contains(CHECK_ACCESS))
             {
                 command = CHECK_ACCESS;
-                log.info(command);
+                LOG.info(command);
                 Permission inPerm = options.getPermission();
                 User inUser = options.getUser();
                 Session session = accessMgr.createSession(inUser, true);
@@ -829,15 +829,15 @@ public class CommandLineInterpreter
             }
             else
             {
-                log.warn("unknown system operation detected");
+                LOG.warn("unknown system operation detected");
                 return;
             }
-            log.info("command:" + command + " was successful");
+            LOG.info("command:" + command + " was successful");
         }
         catch (us.jts.fortress.SecurityException se)
         {
             String error = CLS_NM + ".processSystemCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
-            log.error(error);
+            LOG.error(error);
         }
     }
 
@@ -884,7 +884,7 @@ public class CommandLineInterpreter
             options.add(arg);
             if (!isPassword)
             {
-                log.info("arg:" + arg);
+                LOG.info("arg:" + arg);
             }
             else
             {
@@ -914,7 +914,7 @@ public class CommandLineInterpreter
         catch (CmdLineParser.OptionException e)
         {
             String error = CLS_NM + ".processUserInput caught OptionException=" + e.toString();
-            log.error(error);
+            LOG.error(error);
             printUsage();
             //System.exit(2);
         }
@@ -998,8 +998,8 @@ public class CommandLineInterpreter
             {
                 String key = (String) e.nextElement();
                 String val = perm.getProperty(key);
-                log.info(type + "   KEY" + ++ctr + " [" + key + "]");
-                log.info(type + "   VAL" + ctr + " [" + val + "]");
+                LOG.info(type + "   KEY" + ++ctr + " [" + key + "]");
+                LOG.info(type + "   VAL" + ctr + " [" + val + "]");
             }
         }
     }
@@ -1022,8 +1022,8 @@ public class CommandLineInterpreter
             {
                 String key = (String) e.nextElement();
                 String val = permObj.getProperty(key);
-                log.info(type + "   KEY" + ++ctr + " [" + key + "]");
-                log.info(type + "   VAL" + ctr + " [" + val + "]");
+                LOG.info(type + "   KEY" + ++ctr + " [" + key + "]");
+                LOG.info(type + "   VAL" + ctr + " [" + val + "]");
             }
         }
     }
@@ -1107,8 +1107,8 @@ public class CommandLineInterpreter
                 {
                     String key = (String) e.nextElement();
                     String val = user.getProperty(key);
-                    log.info(type + "   KEY" + ++ctr + " [" + key + "]");
-                    log.info(type + "   VAL" + ctr + " [" + val + "]");
+                    LOG.info(type + "   KEY" + ++ctr + " [" + key + "]");
+                    LOG.info(type + "   VAL" + ctr + " [" + val + "]");
                 }
             }
         }
@@ -1194,7 +1194,7 @@ public class CommandLineInterpreter
      */
     private void printRow(String type, String name, String value)
     {
-        log.info(type + "   " + name + " [" + value + "]");
+        LOG.info(type + "   " + name + " [" + value + "]");
     }
 
     /**
@@ -1202,7 +1202,7 @@ public class CommandLineInterpreter
      */
     private void printSeparator()
     {
-        log.info("------------------------------------------");
+        LOG.info("------------------------------------------");
     }
 
     /**
@@ -1231,7 +1231,7 @@ public class CommandLineInterpreter
         catch (us.jts.fortress.SecurityException se)
         {
             String error = CLS_NM + ".constructManagers caught SecurityException=" + se;
-            log.error(error);
+            LOG.error(error);
         }
         return success;
     }

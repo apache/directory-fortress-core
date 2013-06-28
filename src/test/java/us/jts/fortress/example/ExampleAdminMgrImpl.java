@@ -5,7 +5,6 @@
 package us.jts.fortress.example;
 
 import us.jts.fortress.SecurityException;
-import org.apache.log4j.Logger;
 
 /**
  * Object provides example of Fortress API.
@@ -17,8 +16,7 @@ public class ExampleAdminMgrImpl implements ExampleAdminMgr
 {
     private static final String CLS_NM = ExampleAdminMgrImpl.class.getName();
     private static final ExampleP examP = new ExampleP();
-    protected static final Logger log = Logger.getLogger(CLS_NM);
-    
+
     /**
      * @param example
      * @return

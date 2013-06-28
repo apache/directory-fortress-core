@@ -91,7 +91,7 @@ public class TestUtils extends TestCase
         try
         {
             Integer iSleep = ( Integer.parseInt( len ) * 1000 );
-            //log.info(TestUtils.class.getName() + ".sleep for len=" + iSleep);
+            //LOG.info(TestUtils.class.getName() + ".sleep for len=" + iSleep);
             LogUtil.logIt( TestUtils.class.getName() + ".sleep for len=" + iSleep );
             Thread.currentThread().sleep( iSleep );
         }

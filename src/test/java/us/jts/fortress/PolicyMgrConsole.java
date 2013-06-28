@@ -9,7 +9,8 @@ package us.jts.fortress;
 
 import us.jts.fortress.rbac.PwPolicy;
 import us.jts.fortress.rbac.TestUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class PolicyMgrConsole
 {
@@ -31,7 +32,7 @@ class PolicyMgrConsole
 	final private static String PWDSAFEMODIFY = "This attribute denotes whether the user's existing password must be sent along with their new password when changing a password. If pwd-SafeModify is set to TRUE, the existing password must be sent along with the new password.  If the attribute is not present, or its value is  FALSE,  the existing password need not be sent along with the new password.";
 
     private static final String CLS_NM = PolicyMgrConsole.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 	/**
 	 * put your documentation comment here
@@ -44,7 +45,7 @@ class PolicyMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            log.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 	}
 
@@ -143,7 +144,7 @@ class PolicyMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            log.error(CLS_NM + ".add caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".add caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 		ReaderUtil.readChar();
 	}

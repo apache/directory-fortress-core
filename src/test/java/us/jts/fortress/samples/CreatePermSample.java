@@ -18,7 +18,8 @@ import us.jts.fortress.rbac.User;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ import java.util.List;
 public class CreatePermSample extends TestCase
 {
     private static final String CLS_NM = CreatePermSample.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     public static final String TEST_PERM_OBJECT = "sampleObject1";
     public static final String TEST_PERM_OPERATION_PREFIX = "OPER";
 
@@ -106,12 +107,12 @@ public class CreatePermSample extends TestCase
                 // now retrieve the list of Roles that are still assigned to perm.  This should be a null list because of revocation performed above:
                 List<String> assignedRoles = reviewMgr.permissionRoles(inPerm);
                 assertTrue(assignedRoles.size() == 0);
-                log.info(szLocation + " permission roles revocation check for object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] revocation success");
+                LOG.info(szLocation + " permission roles revocation check for object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] revocation success");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -149,12 +150,12 @@ public class CreatePermSample extends TestCase
                 assertTrue(szLocation + " excep id check", se.getErrorId() == GlobalErrIds.PERM_OBJ_NOT_FOUND);
                 // pass
             }
-            log.info(szLocation + " permission object [" + TEST_PERM_OBJECT + "] success");
+            LOG.info(szLocation + " permission object [" + TEST_PERM_OBJECT + "] success");
 
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -182,7 +183,7 @@ public class CreatePermSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -211,11 +212,11 @@ public class CreatePermSample extends TestCase
             assertNotNull(outObj);
             assertTrue(szLocation + " failed obj name check", TEST_PERM_OBJECT.equals(outObj.getObjectName()));
             assertTrue(szLocation + " failed obj ou check", CreatePermOrgSample.TEST_PERM_OU_NM.equals(outObj.getOu()));
-            log.info(szLocation + " permission object [" + outObj.getObjectName() + "] success");
+            LOG.info(szLocation + " permission object [" + outObj.getObjectName() + "] success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -260,7 +261,7 @@ public class CreatePermSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -292,13 +293,13 @@ public class CreatePermSample extends TestCase
                 // Do some validations.
                 assertNotNull(outPerm);
                 assertTrue(szLocation + " failed permission check", outPerm.equals(inPerm));
-                log.info(szLocation + " permission object [" + outPerm.getObjectName() + "] operation name [" + outPerm.getOpName() + "] success");
+                LOG.info(szLocation + " permission object [" + outPerm.getObjectName() + "] operation name [" + outPerm.getOpName() + "] success");
 
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -326,7 +327,7 @@ public class CreatePermSample extends TestCase
 
                     // This API add a 'oamRoles' attribute associated with Role to the 'oamOperation' ldap object class:
                     adminMgr.grantPermission(inPerm, inRole);
-                    log.info(szLocation + " permission role [" + inRole.getName() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
+                    LOG.info(szLocation + " permission role [" + inRole.getName() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
                 }
             }
 
@@ -346,7 +347,7 @@ public class CreatePermSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -372,7 +373,7 @@ public class CreatePermSample extends TestCase
 
                 // This API add a 'oamUsers' attribute associated with User to the 'oamOperation' ldap object class:
                 adminMgr.grantPermission(inPerm, inUser);
-                log.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
+                LOG.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
             }
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
             ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
@@ -387,7 +388,7 @@ public class CreatePermSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -423,12 +424,12 @@ public class CreatePermSample extends TestCase
                 // now read the list of Users that are still granted.  This should be a null list because of revocation performed above:
                 List<String> assignedUsers = reviewMgr.permissionUsers(inPerm);
                 assertTrue(assignedUsers.size() == 0);
-                log.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
+                LOG.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

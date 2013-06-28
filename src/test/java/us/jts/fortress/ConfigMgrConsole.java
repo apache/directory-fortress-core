@@ -14,7 +14,9 @@ import us.jts.fortress.rbac.Session;
 import java.util.Enumeration;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * * Test class for driving Fortress RBAC runtime policy APIs within a console.
@@ -26,7 +28,7 @@ class ConfigMgrConsole
     private ConfigMgr cm = null;
     private Session session = null;
     private static final String CLS_NM = ConfigMgrConsole.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     /**
      * put your documentation comment here
@@ -39,7 +41,7 @@ class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -66,7 +68,7 @@ class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".addProp caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".addProp caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -90,7 +92,7 @@ class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".updateProp caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".updateProp caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -116,7 +118,7 @@ class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".readProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".readProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -138,7 +140,7 @@ class ConfigMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".deleteProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".deleteProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

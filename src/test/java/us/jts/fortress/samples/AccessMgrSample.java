@@ -16,7 +16,8 @@ import us.jts.fortress.rbac.UserRole;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Enumeration;
 import java.util.List;
@@ -35,7 +36,7 @@ import java.util.List;
 public class AccessMgrSample extends TestCase
 {
     private static final String CLS_NM = AccessMgrSample.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     public AccessMgrSample(String name)
     {
@@ -85,12 +86,12 @@ public class AccessMgrSample extends TestCase
                 // method will return a 'true' if authorized or 'false' if not.
                 boolean result = accessMgr.checkAccess(session, inPerm);
                 assertTrue(szLocation, result);
-                log.info(szLocation + " user [" + session.getUserId() + "] permission object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
+                LOG.info(szLocation + " user [" + session.getUserId() + "] permission object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -124,12 +125,12 @@ public class AccessMgrSample extends TestCase
                 Permission checkPerm = new Permission(CreatePermSample.TEST_PERM_OBJECT, CreatePermSample.TEST_PERM_OPERATION_PREFIX + i);
                 boolean result = accessMgr.checkAccess(session, checkPerm);
                 assertTrue(szLocation, result);
-                log.info(szLocation + " user [" + session.getUserId() + "] permission object [" + checkPerm.getObjectName() + "] operation name [" + checkPerm.getOpName() + "] success");
+                LOG.info(szLocation + " user [" + session.getUserId() + "] permission object [" + checkPerm.getObjectName() + "] operation name [" + checkPerm.getOpName() + "] success");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -165,12 +166,12 @@ public class AccessMgrSample extends TestCase
             {
                 UserRole inUserRole = new UserRole(inUser.getUserId(), CreateRoleSample.TEST_ROLE_PREFIX + i);
                 assertTrue(szLocation + " contains check userId [" + inUserRole.getUserId() + "] role [" + inUserRole.getName() + "]", uRoles.contains(inUserRole));
-                log.info(szLocation + " userId [" + inUserRole.getUserId() + "] activated role [" + inUserRole.getName() + "] found in session");
+                LOG.info(szLocation + " userId [" + inUserRole.getUserId() + "] activated role [" + inUserRole.getName() + "] found in session");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -195,12 +196,12 @@ public class AccessMgrSample extends TestCase
             {
                 UserRole addUserRole = new UserRole(CreateUserSample.TEST_USERID, CreateRoleSample.TEST_ROLE_PREFIX + i);
                 accessMgr.addActiveRole(session, addUserRole);
-                log.info(szLocation + " userId [" + addUserRole.getUserId() + "] activated role [" + addUserRole.getName() + "] added to session");
+                LOG.info(szLocation + " userId [" + addUserRole.getUserId() + "] activated role [" + addUserRole.getName() + "] added to session");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -227,12 +228,12 @@ public class AccessMgrSample extends TestCase
             {
                 UserRole dropUserRole = new UserRole(inUser.getUserId(), CreateRoleSample.TEST_ROLE_PREFIX + i);
                 accessMgr.dropActiveRole(session, dropUserRole);
-                log.info(szLocation + " userId [" + dropUserRole.getUserId() + "] deactivated role [" + dropUserRole.getName() + "] removed from session");
+                LOG.info(szLocation + " userId [" + dropUserRole.getUserId() + "] deactivated role [" + dropUserRole.getName() + "] removed from session");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -254,31 +255,31 @@ public class AccessMgrSample extends TestCase
             assertNotNull(session);
             User user = accessMgr.getUser(session);
             assertNotNull(user);
-            log.info(szLocation);
-            log.info("S   UID  [" + session.getUserId() + "]:");
-            log.info("S   IID  [" + session.getInternalUserId() + "]");
-            log.info("S   ERR  [" + session.getErrorId() + "]");
-            log.info("S   WARN [" + session.getWarningId() + "]");
-            log.info("S   MSG  [" + session.getMsg() + "]");
-            log.info("S   EXP  [" + session.getExpirationSeconds() + "]");
-            log.info("S   GRAC [" + session.getGraceLogins() + "]");
-            log.info("S   AUTH [" + session.isAuthenticated() + "]");
-            log.info("S   LAST [" + session.getLastAccess() + "]");
-            log.info("S   SID  [" + session.getSessionId() + "]");
-            log.info("------------------------------------------");
-            log.info("U   UID  [" + user.getUserId() + "]");
-            log.info("U   IID  [" + user.getInternalId() + "]");
-            log.info("U   CN   [" + user.getCn() + "]");
-            log.info("U   DESC [" + user.getDescription() + "]");
-            log.info("U   OU   [" + user.getOu() + "]");
-            log.info("U   SN   [" + user.getSn() + "]");
-            log.info("U   BDTE [" + user.getBeginDate() + "]");
-            log.info("U   EDTE [" + user.getEndDate() + "]");
-            log.info("U   BLDT [" + user.getBeginLockDate() + "]");
-            log.info("U   ELDT [" + user.getEndLockDate() + "]");
-            log.info("U   DMSK [" + user.getDayMask() + "]");
-            log.info("U   TO   [" + user.getTimeout() + "]");
-            log.info("U   REST [" + user.isReset() + "]");
+            LOG.info(szLocation);
+            LOG.info("S   UID  [" + session.getUserId() + "]:");
+            LOG.info("S   IID  [" + session.getInternalUserId() + "]");
+            LOG.info("S   ERR  [" + session.getErrorId() + "]");
+            LOG.info("S   WARN [" + session.getWarningId() + "]");
+            LOG.info("S   MSG  [" + session.getMsg() + "]");
+            LOG.info("S   EXP  [" + session.getExpirationSeconds() + "]");
+            LOG.info("S   GRAC [" + session.getGraceLogins() + "]");
+            LOG.info("S   AUTH [" + session.isAuthenticated() + "]");
+            LOG.info("S   LAST [" + session.getLastAccess() + "]");
+            LOG.info("S   SID  [" + session.getSessionId() + "]");
+            LOG.info("------------------------------------------");
+            LOG.info("U   UID  [" + user.getUserId() + "]");
+            LOG.info("U   IID  [" + user.getInternalId() + "]");
+            LOG.info("U   CN   [" + user.getCn() + "]");
+            LOG.info("U   DESC [" + user.getDescription() + "]");
+            LOG.info("U   OU   [" + user.getOu() + "]");
+            LOG.info("U   SN   [" + user.getSn() + "]");
+            LOG.info("U   BDTE [" + user.getBeginDate() + "]");
+            LOG.info("U   EDTE [" + user.getEndDate() + "]");
+            LOG.info("U   BLDT [" + user.getBeginLockDate() + "]");
+            LOG.info("U   ELDT [" + user.getEndLockDate() + "]");
+            LOG.info("U   DMSK [" + user.getDayMask() + "]");
+            LOG.info("U   TO   [" + user.getTimeout() + "]");
+            LOG.info("U   REST [" + user.isReset() + "]");
             if (user.getProperties() != null && user.getProperties().size() > 0)
             {
                 int ctr = 0;
@@ -286,7 +287,7 @@ public class AccessMgrSample extends TestCase
                 {
                     String key = (String) e.nextElement();
                     String val = user.getProperty(key);
-                    log.info("U   PROP[" + ctr++ + "]=" + key + " VAL=" + val);
+                    LOG.info("U   PROP[" + ctr++ + "]=" + key + " VAL=" + val);
                 }
             }
 
@@ -296,16 +297,16 @@ public class AccessMgrSample extends TestCase
                 for (int i = 0; i < roles.size(); i++)
                 {
                     UserRole ur = roles.get(i);
-                    log.info("    USER ROLE[" + i + "]:");
-                    log.info("        role name [" + ur.getName() + "]");
-                    log.info("        begin time [" + ur.getBeginTime() + "]");
-                    log.info("        end time [" + ur.getEndTime() + "]");
-                    log.info("        begin date [" + ur.getBeginDate() + "]");
-                    log.info("        end date [" + ur.getEndDate() + "]");
-                    log.info("        begin lock [" + ur.getBeginLockDate() + "]");
-                    log.info("        end lock [" + ur.getEndLockDate() + "]");
-                    log.info("        day mask [" + ur.getDayMask() + "]");
-                    log.info("        time out [" + ur.getTimeout() + "]");
+                    LOG.info("    USER ROLE[" + i + "]:");
+                    LOG.info("        role name [" + ur.getName() + "]");
+                    LOG.info("        begin time [" + ur.getBeginTime() + "]");
+                    LOG.info("        end time [" + ur.getEndTime() + "]");
+                    LOG.info("        begin date [" + ur.getBeginDate() + "]");
+                    LOG.info("        end date [" + ur.getEndDate() + "]");
+                    LOG.info("        begin lock [" + ur.getBeginLockDate() + "]");
+                    LOG.info("        end lock [" + ur.getEndLockDate() + "]");
+                    LOG.info("        day mask [" + ur.getDayMask() + "]");
+                    LOG.info("        time out [" + ur.getTimeout() + "]");
                 }
             }
 
@@ -315,20 +316,20 @@ public class AccessMgrSample extends TestCase
                 for (int i = 0; i < aRoles.size(); i++)
                 {
                     UserAdminRole ur = aRoles.get(i);
-                    log.info("    USER ADMIN ROLE[" + i + "]:");
-                    log.info("        admin role name [" + ur.getName() + "]");
-                    log.info("        OsU [" + ur.getOsU() + "]");
-                    log.info("        OsP [" + ur.getOsP() + "]");
-                    log.info("        begin range [" + ur.getBeginRange() + "]");
-                    log.info("        end range [" + ur.getEndRange() + "]");
-                    log.info("        begin time [" + ur.getBeginTime() + "]");
-                    log.info("        end time [" + ur.getEndTime() + "]");
-                    log.info("        begin date [" + ur.getBeginDate() + "]");
-                    log.info("        end date [" + ur.getEndDate() + "]");
-                    log.info("        begin lock [" + ur.getBeginLockDate() + "]");
-                    log.info("        end lock [" + ur.getEndLockDate() + "]");
-                    log.info("        day mask [" + ur.getDayMask() + "]");
-                    log.info("        time out [" + ur.getTimeout() + "]");
+                    LOG.info("    USER ADMIN ROLE[" + i + "]:");
+                    LOG.info("        admin role name [" + ur.getName() + "]");
+                    LOG.info("        OsU [" + ur.getOsU() + "]");
+                    LOG.info("        OsP [" + ur.getOsP() + "]");
+                    LOG.info("        begin range [" + ur.getBeginRange() + "]");
+                    LOG.info("        end range [" + ur.getEndRange() + "]");
+                    LOG.info("        begin time [" + ur.getBeginTime() + "]");
+                    LOG.info("        end time [" + ur.getEndTime() + "]");
+                    LOG.info("        begin date [" + ur.getBeginDate() + "]");
+                    LOG.info("        end date [" + ur.getEndDate() + "]");
+                    LOG.info("        begin lock [" + ur.getBeginLockDate() + "]");
+                    LOG.info("        end lock [" + ur.getEndLockDate() + "]");
+                    LOG.info("        day mask [" + ur.getDayMask() + "]");
+                    LOG.info("        time out [" + ur.getTimeout() + "]");
                 }
             }
 
@@ -340,13 +341,13 @@ public class AccessMgrSample extends TestCase
                 {
                     String key = (String) e.nextElement();
                     String val = jProps.getProperty(key);
-                    log.info("J   PROP[" + ctr++ + "]=" + key + " VAL=" + val);
+                    LOG.info("J   PROP[" + ctr++ + "]=" + key + " VAL=" + val);
                 }
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -371,11 +372,11 @@ public class AccessMgrSample extends TestCase
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
             session = accessMgr.createSession(user, false);
-            log.info(szLocation + " successful");
+            LOG.info(szLocation + " successful");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
         return session;
@@ -403,11 +404,11 @@ public class AccessMgrSample extends TestCase
             // Create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
             session = accessMgr.createSession(user, false);
-            log.info(szLocation + " with roles successful");
+            LOG.info(szLocation + " with roles successful");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " with roles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " with roles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
         return session;
@@ -430,11 +431,11 @@ public class AccessMgrSample extends TestCase
         {
             // authenticate will check the password but will not activated any roles into Session.
             session = accessMgr.authenticate(userId, password);
-            log.info(szLocation + " successful");
+            LOG.info(szLocation + " successful");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
         return session;

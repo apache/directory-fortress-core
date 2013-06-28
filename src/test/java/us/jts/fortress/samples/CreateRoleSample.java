@@ -16,7 +16,8 @@ import us.jts.fortress.rbac.TestUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * CreateRoleSample JUnit Test. This test program will demonstrate creation of Fortress Roles.
@@ -29,7 +30,7 @@ import org.apache.log4j.Logger;
 public class CreateRoleSample extends TestCase
 {
     private static final String CLS_NM = CreateRoleSample.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String TEST_SIMPLE_ROLE = "simpleRole";
     private static final String TEST_SIMPLE_ROLE2[] = {"Customer", "Admin", "Supervisor"};
 
@@ -81,7 +82,7 @@ public class CreateRoleSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -114,7 +115,7 @@ public class CreateRoleSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             //fail(ex.getMessage());
         }
     }
@@ -158,12 +159,12 @@ public class CreateRoleSample extends TestCase
                     assertTrue(szLocation + " excep id check", se.getErrorId() == GlobalErrIds.ROLE_NOT_FOUND);
                     // pass
                 }
-                log.info(szLocation + " role [" + inRole.getName() + "] success");
+                LOG.info(szLocation + " role [" + inRole.getName() + "] success");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -192,11 +193,11 @@ public class CreateRoleSample extends TestCase
             // now read the newly created Role entity back:
             Role outRole = reviewMgr.readRole(inRole);
             assertTrue(szLocation + " failed read", inRole.equals(outRole));
-            log.info(szLocation + " [" + outRole.getName() + "] success");
+            LOG.info(szLocation + " [" + outRole.getName() + "] success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -222,12 +223,12 @@ public class CreateRoleSample extends TestCase
                 // now read the newly created Role entity back:
                 Role outRole = reviewMgr.readRole(inRole);
                 assertTrue(szLocation + " failed read", inRole.equals(outRole));
-                log.info(szLocation + " [" + outRole.getName() + "] success");
+                LOG.info(szLocation + " [" + outRole.getName() + "] success");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -275,13 +276,13 @@ public class CreateRoleSample extends TestCase
                 // now read the newly created Role entity back:
                 Role outRole = reviewMgr.readRole(inRole);
                 assertTrue(szLocation + " failed read", inRole.equals(outRole));
-                log.info(szLocation + " role [" + outRole.getName() + "] success");
+                LOG.info(szLocation + " role [" + outRole.getName() + "] success");
             }
 
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

@@ -8,12 +8,13 @@
 package us.jts.fortress;
 
 import us.jts.fortress.util.crypto.EncryptUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class EncryptMgrConsole
 {
     private static final String CLS_NM = EncryptMgrConsole.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 
     void encrypt()

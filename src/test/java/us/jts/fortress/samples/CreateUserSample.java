@@ -15,7 +15,8 @@ import us.jts.fortress.rbac.User;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * CreateUserSample JUnit Test.  These samples demonstrate how to create and delete User entries in Fortress.
@@ -28,7 +29,7 @@ import org.apache.log4j.Logger;
 public class CreateUserSample extends TestCase
 {
     private static final String CLS_NM = CreateUserSample.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     public static final String TEST_USERID = "sampleUser1";
     public static final String TEST_PASSWORD = "password1";
 
@@ -84,10 +85,10 @@ public class CreateUserSample extends TestCase
             else
             {
                 String warning = methodName + " caught SecurityException=" + ex.getMessage();
-                log.warn(warning);
+                LOG.warn(warning);
             }
         }
-        log.info(methodName + ":" + tearDown);
+        LOG.info(methodName + ":" + tearDown);
         return tearDown;
     }
 
@@ -126,11 +127,11 @@ public class CreateUserSample extends TestCase
                 assertTrue(szLocation + " excep id check", se.getErrorId() == GlobalErrIds.USER_NOT_FOUND);
                 // pass
             }
-            log.info(szLocation + " user [" + inUser.getUserId() + "] success");
+            LOG.info(szLocation + " user [" + inUser.getUserId() + "] success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -170,11 +171,11 @@ public class CreateUserSample extends TestCase
             // now read the newly created User entity back:
             User outUser2 = reviewMgr.readUser(inUser);
             assertTrue(szLocation + " failed read", inUser.equals(outUser2));
-            log.info(szLocation + " user [" + outUser2.getUserId() + "] success");
+            LOG.info(szLocation + " user [" + outUser2.getUserId() + "] success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

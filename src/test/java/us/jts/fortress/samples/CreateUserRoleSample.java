@@ -15,7 +15,8 @@ import us.jts.fortress.rbac.UserRole;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ import java.util.List;
 public class CreateUserRoleSample extends TestCase
 {
     private static final String CLS_NM = CreateUserRoleSample.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     /**
      *
@@ -93,7 +94,7 @@ public class CreateUserRoleSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -146,12 +147,12 @@ public class CreateUserRoleSample extends TestCase
             // Iterate over list of Roles assigned to User.
             for(UserRole userRole : assignedRoles)
             {
-                log.info(szLocation + " userId [" + userRole.getUserId() + " roleNm [" + userRole.getName() + "]");
+                LOG.info(szLocation + " userId [" + userRole.getUserId() + " roleNm [" + userRole.getName() + "]");
             }
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }

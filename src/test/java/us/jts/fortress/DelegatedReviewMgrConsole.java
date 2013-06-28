@@ -8,7 +8,9 @@ import us.jts.fortress.rbac.AdminRole;
 import us.jts.fortress.rbac.TestUtils;
 import us.jts.fortress.rbac.UserAdminRole;
 import us.jts.fortress.rbac.User;
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ class DelegatedReviewMgrConsole
 {
     private DelReviewMgr rm;
     private static final String CLS_NM = DelegatedReviewMgrConsole.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     /**
      * Constructor for the ReviewMgrConsole object
      */
@@ -33,7 +35,7 @@ class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
     }
 
@@ -67,7 +69,7 @@ class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".readRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".readRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -103,7 +105,7 @@ class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".findRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".findRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -136,7 +138,7 @@ class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".assignedUsers caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".assignedUsers caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -168,7 +170,7 @@ class DelegatedReviewMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".assignedRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".assignedRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

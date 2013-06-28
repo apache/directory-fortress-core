@@ -4,20 +4,18 @@
 
 package us.jts.fortress.example;
 
+import org.slf4j.LoggerFactory;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.util.attr.VUtil;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 
 public class ExampleP
 {
-    final protected static Logger log = Logger.getLogger(ExampleP.class.getName());
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( ExampleP.class.getName() );
     final ExampleDAO el = new ExampleDAO();
-
 
     public Example read(String name)
         throws SecurityException
@@ -83,7 +81,7 @@ public class ExampleP
             if (ee.getDescription() == null || ee.getDescription().length() == 0)
             {
                 String warning = "RoleP.validate null or empty description";
-                log.warn(warning);
+                LOG.warn(warning);
             }
             else
             {

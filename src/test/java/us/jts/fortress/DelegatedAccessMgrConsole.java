@@ -12,9 +12,11 @@ import us.jts.fortress.rbac.Role;
 import us.jts.fortress.rbac.TestUtils;
 import us.jts.fortress.rbac.User;
 import us.jts.fortress.rbac.Session;
-
 import us.jts.fortress.util.attr.VUtil;
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  *  This class is used to test drive the Fortress Delegated Access Control APIs.
@@ -26,7 +28,7 @@ class DelegatedAccessMgrConsole
 	private DelAccessMgr dAmgr = null;
     private Session session = null;
     private static final String CLS_NM = DelegatedAccessMgrConsole.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 	/**
 	 * put your documentation comment here
@@ -39,7 +41,7 @@ class DelegatedAccessMgrConsole
 		}
 		catch (SecurityException e)
 		{
-            log.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
 		}
 	}
 
@@ -61,7 +63,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".canAssign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".canAssign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -82,7 +84,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".canDeassign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".canDeassign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -103,7 +105,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".canGrant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".canGrant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -124,7 +126,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".canRevoke caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".canRevoke caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -151,7 +153,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".createSession caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".createSession caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -171,7 +173,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
@@ -194,7 +196,7 @@ class DelegatedAccessMgrConsole
         }
         catch (SecurityException e)
         {
-            log.error(CLS_NM + ".checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(CLS_NM + ".checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

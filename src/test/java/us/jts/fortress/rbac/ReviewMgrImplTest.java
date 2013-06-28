@@ -714,7 +714,7 @@ public class ReviewMgrImplTest extends TestCase
             {
                 List<User> users = reviewMgr.authorizedUsers( new Role( RoleTestData.getName( rle ) ) );
                 assertNotNull( users );
-                //log.debug(CLS_NM + "authorizedUsers list source size=" + uArray.length + " ldap size="  + users.size());
+                //LOG.debug(CLS_NM + "authorizedUsers list source size=" + uArray.length + " ldap size="  + users.size());
                 assertTrue( CLS_NM + "authorizedUsers list size check", uArray.length == users.size() );
                 for ( String[] usr : uArray )
                 {

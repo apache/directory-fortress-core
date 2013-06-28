@@ -7,7 +7,6 @@ package us.jts.fortress.util.time;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.rbac.Session;
-import org.apache.log4j.Logger;
 
 /**
  * This class performs lock day of week validation for {@link us.jts.fortress.util.time.Constraint}.  This validator will ensure the current day is allowed for {@link us.jts.fortress.util.time.Constraint#getDayMask()}.
@@ -27,8 +26,6 @@ import org.apache.log4j.Logger;
 public class Day
     implements Validator
 {
-    private static Logger log = Logger.getLogger(Day.class.getName());
-
     /**
      * This method is called during entity activation, {@link us.jts.fortress.util.time.CUtil#validateConstraints} and ensures the current day falls
      * within {@link us.jts.fortress.util.time.Constraint#getDayMask()} range.

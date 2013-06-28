@@ -240,7 +240,7 @@ public class AccessMgrImplTest extends TestCase
                     assertTrue( CLS_NM + "authenticateLockedUsers reset excep id check",
                         se.getErrorId() == GlobalErrIds.USER_PW_LOCKED );
                     // pass
-                    //log.error("locked=" + se.getMsgid() + " msg=" + se.getMessage());
+                    //LOG.error("locked=" + se.getMsgid() + " msg=" + se.getMessage());
                 }
             }
             LOG.debug( CLS_NM + ".authenticateLockedUsers successful" );
@@ -839,7 +839,7 @@ public class AccessMgrImplTest extends TestCase
                 assertNotNull( session );
                 List<Permission> pOps = accessMgr.sessionPermissions( session );
                 assertNotNull( pOps );
-                //log.warn(CLS_NM + ".sessionPermissionsH list size user [" + user.getUserId() + "] expected len=" +
+                //LOG.warn(CLS_NM + ".sessionPermissionsH list size user [" + user.getUserId() + "] expected len=" +
                 //    (11 - i) * opArray.length + " actual len=" + pOps.size());
                 assertEquals( CLS_NM +
                     ".sessionPermissionsH failed list size user[" + user.getUserId() + "]",

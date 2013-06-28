@@ -16,7 +16,8 @@ import us.jts.fortress.rbac.TestUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -31,7 +32,7 @@ import org.apache.log4j.Logger;
 public class CreatePermOrgSample extends TestCase
 {
     private static final String CLS_NM = CreatePermOrgSample.class.getName();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     public static final String TEST_PERM_OU_NM = "samplePerms-OU.1";
     private static final String TEST_PERM_OU_NM2 = "KillerBikes.com";
 
@@ -90,11 +91,11 @@ public class CreatePermOrgSample extends TestCase
             // Now read the OrgUnit back to make sure it got added OK.
             OrgUnit outOU = dReviewMgr.read(inOU);
             assertTrue(szLocation + " failed read", inOU.equals(outOU));
-            log.info(szLocation + " [" + outOU.getName() + "] success");
+            LOG.info(szLocation + " [" + outOU.getName() + "] success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
@@ -137,11 +138,11 @@ public class CreatePermOrgSample extends TestCase
             // Now read the OrgUnit back to make sure it got added OK.
             OrgUnit outOU = dReviewMgr.read(inOU);
             assertTrue(szLocation + " failed read", inOU.equals(outOU));
-            log.info(szLocation + " [" + outOU.getName() + "] success");
+            LOG.info(szLocation + " [" + outOU.getName() + "] success");
         }
         catch (SecurityException ex)
         {
-            log.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
