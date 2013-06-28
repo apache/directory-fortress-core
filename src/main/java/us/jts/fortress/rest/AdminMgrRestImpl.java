@@ -1334,6 +1334,60 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     }
 
     /**
+     * This command updates existing SSD set of roles and sets the cardinality n of its subsets
+     * that cannot have common users.
+     * <p>
+     * The command is valid if and only if:
+     * <ul>
+     * <li>The name of the SSD set already exists.
+     * <li> All the roles in the SSD set are members of the ROLES data set.
+     * <li> n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the SSD role set.
+     * <li> The SSD constraint for the new role set is satisfied.
+     * </ul>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing SSD role set to be updated</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     * <li>{@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to User from a particular set</li>
+     * <li>{@link SDSet#description} - contains any safe text</li>
+     * </ul>
+     *
+     * @param ssdSet contains an instantiated reference to existing SSD set containing, name, members, and cardinality (default 2)
+     * @return reference to SSDSet object targeted for update.
+     * @throws SecurityException in the event of data validation or system error.
+     */
+    public SDSet updateSsdSet(SDSet ssdSet)
+        throws SecurityException
+    {
+        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".updateSsdSet");
+        SDSet retSet;
+        FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
+        request.setEntity(ssdSet);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_UPDATE);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retSet = (SDSet) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retSet;
+    }
+
+
+
+    /**
      * This command adds a role to a named SSD set of roles. The cardinality associated with the role set remains unchanged.
      * The command is valid if and only if:
      * 1 - the SSD role set exists, and
@@ -1546,6 +1600,59 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.post(szRequest, HttpIds.DSD_ADD);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retSet = (SDSet) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retSet;
+    }
+
+
+    /**
+     * This command updates existing DSD set of roles and sets the cardinality n of its subsets
+     * that cannot have common users.
+     * <p>
+     * The command is valid if and only if:
+     * <ul>
+     * <li>The name of the DSD set already exists.
+     * <li> All the roles in the DSD set are members of the ROLES data set.
+     * <li> n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the DSD role set.
+     * <li> The DSD constraint for the new role set is satisfied.
+     * </ul>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing DSD role set to be updated</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     * <li>{@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to User from a particular set</li>
+     * <li>{@link SDSet#description} - contains any safe text</li>
+     * </ul>
+     *
+     * @param dsdSet contains an instantiated reference to existing DSD set containing, name, members, and cardinality (default 2)
+     * @return reference to DSDSet object targeted for update.
+     * @throws SecurityException in the event of data validation or system error.
+     */
+    public SDSet updateDsdSet(SDSet dsdSet)
+        throws SecurityException
+    {
+        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".updateDsdSet");
+        SDSet retSet;
+        FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
+        request.setEntity(dsdSet);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {

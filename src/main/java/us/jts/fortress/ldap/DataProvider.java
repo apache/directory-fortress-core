@@ -54,7 +54,7 @@ public abstract class DataProvider
     private static final int MAX_DEPTH = 100;
     private static final String CLS_NM = DataProvider.class.getName();
     private static final Logger log = Logger.getLogger( CLS_NM );
-
+    private static final LdapCounters counters = new LdapCounters();
 
     /**
      * Given a contextId and a fortress param name return the LDAP dn.
@@ -125,6 +125,7 @@ public abstract class DataProvider
     protected LDAPEntry read( LDAPConnection ld, String dn, String[] atrs )
         throws LDAPException
     {
+        counters.incrementRead();
         return ld.read( dn, atrs );
     }
 
@@ -143,6 +144,7 @@ public abstract class DataProvider
     protected LDAPEntry read( LDAPConnection ld, String dn, String[] atrs, String userDn )
         throws LDAPException, UnsupportedEncodingException
     {
+        counters.incrementRead();
         LDAPControl proxyCtl = new LDAPControl( OPENLDAP_PROXY_CONTROL, true,
             ( GlobalIds.DN + ": " + userDn ).getBytes( GlobalIds.UTF8 ) );
         LDAPSearchConstraints opt = new LDAPSearchConstraints();
@@ -161,6 +163,7 @@ public abstract class DataProvider
     protected void add( LDAPConnection ld, LDAPEntry entry )
         throws LDAPException
     {
+        counters.incrementAdd();
         ld.add( entry );
     }
 
@@ -176,6 +179,7 @@ public abstract class DataProvider
     protected void add( LDAPConnection ld, LDAPEntry entry, FortEntity entity )
         throws LDAPException
     {
+        counters.incrementAdd();
         if ( GlobalIds.IS_AUDIT && entity != null && entity.getAdminSession() != null )
         {
             LDAPAttributeSet attrs = entry.getAttributeSet();
@@ -207,6 +211,7 @@ public abstract class DataProvider
     protected void modify( LDAPConnection ld, String dn, LDAPModificationSet mods )
         throws LDAPException
     {
+        counters.incrementMod();
         ld.modify( dn, mods );
     }
 
@@ -223,6 +228,7 @@ public abstract class DataProvider
     protected void modify( LDAPConnection ld, String dn, LDAPModificationSet mods, FortEntity entity )
         throws LDAPException
     {
+        counters.incrementMod();
         audit( mods, entity );
         ld.modify( dn, mods );
     }
@@ -238,6 +244,7 @@ public abstract class DataProvider
     protected void delete( LDAPConnection ld, String dn )
         throws LDAPException
     {
+        counters.incrementDelete();
         ld.delete( dn );
     }
 
@@ -254,6 +261,7 @@ public abstract class DataProvider
     protected void delete( LDAPConnection ld, String dn, FortEntity entity )
         throws LDAPException
     {
+        counters.incrementDelete();
         LDAPModificationSet mods = new LDAPModificationSet();
         audit( mods, entity );
         if ( mods.size() > 0 )
@@ -349,6 +357,7 @@ public abstract class DataProvider
             }
         }
         // delete the node:
+        counters.incrementDelete();
         delete( ld, dn );
     }
 
@@ -404,6 +413,7 @@ public abstract class DataProvider
         boolean attrsOnly )
         throws LDAPException
     {
+        counters.incrementSearch();
         LDAPSearchResults result;
         result = ld.search( baseDn, scope, filter, atrs, attrsOnly );
         return result;
@@ -432,6 +442,7 @@ public abstract class DataProvider
         int batchSize )
         throws LDAPException
     {
+        counters.incrementSearch();
         LDAPSearchResults result;
         LDAPSearchConstraints ldCons = new LDAPSearchConstraints();
         // Returns the maximum number of search results that are to be returned; 0 means there is no limit.
@@ -466,6 +477,7 @@ public abstract class DataProvider
         int maxEntries )
         throws LDAPException
     {
+        counters.incrementSearch();
         LDAPSearchResults result;
         LDAPSearchConstraints ldCons = new LDAPSearchConstraints();
         // Returns the maximum number of search results that are to be returned;
@@ -529,6 +541,7 @@ public abstract class DataProvider
         String userDn )
         throws LDAPException, UnsupportedEncodingException
     {
+        counters.incrementSearch();
         LDAPControl proxyCtl = new LDAPControl( OPENLDAP_PROXY_CONTROL, true,
             ( GlobalIds.DN + ": " + userDn ).getBytes( GlobalIds.UTF8 ) );
         LDAPSearchConstraints opt = new LDAPSearchConstraints();
@@ -560,6 +573,7 @@ public abstract class DataProvider
         LDAPAttribute attribute )
         throws LDAPException, UnsupportedEncodingException
     {
+        counters.incrementCompare();
         LDAPControl proxyCtl = new LDAPControl( OPENLDAP_PROXY_CONTROL, true,
             ( GlobalIds.DN + ": " + userDn ).getBytes( GlobalIds.UTF8 ) );
         LDAPSearchConstraints opt = new LDAPSearchConstraints();
@@ -1108,6 +1122,7 @@ public abstract class DataProvider
     protected boolean bind( LDAPConnection ld, String userId, char[] password )
         throws LDAPException
     {
+        counters.incrementBind();
         return PoolMgr.bind( ld, userId, password );
     }
 
@@ -1178,5 +1193,15 @@ public abstract class DataProvider
     protected LDAPConnection getLogConnection() throws LDAPException
     {
         return PoolMgr.getConnection( PoolMgr.ConnType.LOG );
+    }
+
+    /**
+     * Return to call reference to dao counter object with running totals for ldap operations add, mod, delete, search, etc.
+     *
+     * @return {@link LdapCounters} contains long values of atomic ldap operations for current running process.
+     */
+    public static LdapCounters getLdapCounters()
+    {
+        return counters;
     }
 }

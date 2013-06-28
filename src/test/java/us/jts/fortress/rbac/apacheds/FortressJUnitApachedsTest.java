@@ -8,6 +8,7 @@ import org.apache.directory.server.core.annotations.CreateDS;
 import org.apache.directory.server.core.annotations.CreatePartition;
 import org.apache.directory.server.core.integ.AbstractLdapTestUnit;
 import org.apache.directory.server.core.integ.FrameworkRunner;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.SecurityException;
+import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.LdapCounters;
 import us.jts.fortress.rbac.AccessMgrImplTest;
 import us.jts.fortress.rbac.AdminMgrImplTest;
 import us.jts.fortress.rbac.AdminRoleTestData;
@@ -56,6 +59,20 @@ public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
     public void init()
     {
         CacheMgr.getInstance().clearAll();
+    }
+
+
+    @After
+    public void displayCounters()
+    {
+        LdapCounters counters = DataProvider.getLdapCounters();
+        System.out.println( "NUMBER OF READS: " + counters.getRead() );
+        System.out.println( "NUMBER OF SEARCHES: " + counters.getSearch() );
+        System.out.println( "NUMBER OF COMPARES: " + counters.getCompare() );
+        System.out.println( "NUMBER OF BINDS: " + counters.getBind() );
+        System.out.println( "NUMBER OF ADDS: " + counters.getAdd() );
+        System.out.println( "NUMBER OF MODS: " + counters.getMod() );
+        System.out.println( "NUMBER OF DELETES: " + counters.getDelete() );
     }
 
 

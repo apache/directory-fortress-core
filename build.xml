@@ -83,6 +83,7 @@
        <property name="builder.load.bootstrap.script" value="${builder.home}/ldap/refreshLDAPData-src.xml"/>
        <property name="ehcache.conf" value="${config.dir}/ehcache.xml"/>
        <property name="bootstrap.ehcache.conf" value="${config.bootstrap.dir}/ehcache.xml"/>
+       <property name="apacheds-resource.dir" value="${basedir}/src/test/resources"/>
 
        <!-- ########### Slapd manage & config properties ########################### -->
        <property name="stop.slapd.script-win" value="${ldap.setup.dir}/stopSlapd.cmd"/>
@@ -178,6 +179,7 @@
        <!-- This is used for the JUnit Tests -->
        <path id="test.class.path">
            <path location="${config.dir}"/>
+           <path location="${apacheds-resource.dir}"/>
            <pathelement location="${build.test-classes.dir}"/>
            <pathelement location="${dist.jar}"/>
            <pathelement location="${jgraph.jar}"/>
@@ -444,13 +446,27 @@
          ================================= -->
     <target name="test-full" depends="build-jar,compile-test,init-fortress-config" description="--> run junit FULL regression tests">
         <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
-         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
+         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}" maxmemory="1024m">
             <sysproperty key="isFirstJUnitRun" value="false" />
             <sysproperty key="version" value="${version}"/>
             <sysproperty key="tenant" value="${tenant}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
             <test name="${test.regression.entry}"/>
+        </junit>
+    </target>
+
+    <!-- =================================
+          target: test-apacheds - runs junit regression tests
+         ================================= -->
+    <target name="test-apacheds" depends="build-jar,compile-test,init-fortress-config" description="--> run ApacheDS junit FULL regression tests">
+        <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
+         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}" maxmemory="1024m">
+            <sysproperty key="version" value="${version}"/>
+            <sysproperty key="tenant" value="${tenant}"/>
+            <classpath refid="test.class.path"/>
+            <formatter type="plain" usefile="false"/>
+            <test name="us.jts.fortress.rbac.apacheds.FortressJUnitApachedsTest"/>
         </junit>
     </target>
 
