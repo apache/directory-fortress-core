@@ -29,7 +29,7 @@
         <dependency org="commons-io" name="commons-io" rev="2.4" conf="default->master"/>
         <dependency org="com.unboundid" name="unboundid-ldapsdk" rev="2.1.0" conf="default->master"/>
         <dependency org="junit" name="junit" rev="4.9" conf="default->master"/>
-        <dependency org="log4j" name="log4j" rev="1.2.16" conf="default->master"/>
+        <dependency org="log4j" name="log4j" rev="1.2.17" conf="default->master"/>
         <dependency org="org.jasypt" name="jasypt" rev="1.8" conf="default->master"/>
         <dependency org="org.jgrapht" name="jgrapht-jdk1.5" rev="0.7.3" conf="default->master"/>
         <dependency org="com.sun.xml.bind" name="jaxb-xjc" rev="2.2.4-1" conf="default->master"/>
@@ -40,8 +40,9 @@
         <dependency org="javax.ws.rs" name="jsr311-api" rev="1.1.1" conf="default->master" />
         <dependency org="org.apache.cxf" name="cxf-common-utilities" rev="2.5.0" conf="default->master"/>
         <dependency org="net.sf.ehcache" name="ehcache-core" rev="2.6.5" conf="default->master"/>
-        <dependency org="org.slf4j" name="slf4j-api" rev="1.6.1" conf="default->master"/>
-        <dependency org="org.slf4j" name="slf4j-jcl" rev="1.6.1" conf="default->master"/>
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.7.5" conf="default->master"/>
+        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.5" conf="default->master"/>
+        <dependency org="org.slf4j" name="slf4j-jcl" rev="1.7.5" conf="default->master"/>
         <dependency org="org.apache.directory.server" name="apacheds-all" rev="2.0.0-M12" conf="default->master"/>
 
         <!-- The Fortress core is not dependent on sentry or enmasse artifacts, they're required for the QUICKSTART demo package: -->

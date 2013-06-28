@@ -10,7 +10,7 @@
     <property name="dist.dir" value = "${home.dir}/dist" />
     <property name="config" value="${home.dir}/config"/>
     <property name="Fortress.jar" value="${dist.dir}/fortress-${version}.jar"/>
-    <property name="log4j.jar" value="${lib.dir}/log4j-1.2.16.jar"/>
+    <property name="log4j.jar" value="${lib.dir}/log4j-1.2.17.jar"/>
     <property name="ldapjdk.jar" value="${lib.dir}/unboundid-ldapsdk-2.1.0.jar"/>
     <property name="jgrapht.jar" value="${lib.dir}/jgrapht-jdk1.5-0.7.3.jar"/>
     <property name="jasypt.jar" value="${lib.dir}/jasypt-1.8.jar"/>
@@ -19,9 +19,10 @@
     <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
     <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
     <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.5.jar"/>
-    <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.6.1.jar"/>
+    <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.7.5.jar"/>
+    <property name="slf4j-log4j.jar" value="${lib.dir}/slf4j-log4j12-1.7.5.jar"/>
     <taskdef classname="us.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
-    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${ehcache-core.jar}:${slf4j-api.jar}"/>
+    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${ehcache-core.jar}:${slf4j-api.jar}:${slf4j-log4j.jar}"/>
     </taskdef>
 
     <target name="all">
