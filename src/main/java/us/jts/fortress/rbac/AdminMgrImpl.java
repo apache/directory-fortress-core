@@ -26,7 +26,8 @@ import java.util.Set;
  * <p/>
  * <hr>
  * <h4>RBAC0 - Core</h4>
- * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions.  API to add, update, delete identity data and perform identity and access control decisions during runtime operations.
+ * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions.  API to
+ * add, update, delete identity data and perform identity and access control decisions during runtime operations.
  * <p/>
  * <img src="../doc-files/RbacCore.png">
  * <hr>
@@ -36,12 +37,15 @@ import java.util.Set;
  * <img src="../doc-files/RbacHier.png">
  * <hr>
  * <h4>RBAC2 - Static Separation of Duty (SSD) Relations</h4>
- * Enforce mutual membership exclusions across role assignments.  Facilitate dual control policies by restricting which roles may be assigned to users in combination.  SSD provide added granularity for authorization limits which help enterprises meet strict compliance regulations.
+ * Enforce mutual membership exclusions across role assignments.  Facilitate dual control policies by restricting
+ * which roles may be assigned to users in combination.  SSD provide added granularity for authorization limits which
+ * help enterprises meet strict compliance regulations.
  * <p/>
  * <img src="../doc-files/RbacSSD.png">
  * <hr>
  * <h4>RBAC3 - Dynamic Separation of Duty (DSD) Relations</h4>
- * Control allowed role combinations to be activated within an RBAC session.  DSD policies fine tune role policies that facilitate authorization dual control and two man policy restrictions during runtime security checks.
+ * Control allowed role combinations to be activated within an RBAC session.  DSD policies fine tune role policies
+ * that facilitate authorization dual control and two man policy restrictions during runtime security checks.
  * <p/>
  * <img src="../doc-files/RbacDSD.png">
  * <hr>
@@ -58,11 +62,12 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
     private static final RoleP roleP = new RoleP();
     private static final SdP sdP = new SdP();
     private static final UserP userP = new UserP();
-    private static final Logger log = Logger.getLogger(CLS_NM);
+    private static final Logger log = Logger.getLogger( CLS_NM );
 
     // package private constructor ensures outside classes cannot use:
     AdminMgrImpl()
-    {}
+    {
+    }
 
     /**
      * This command creates a new RBAC user. The command is valid only if the new user is
@@ -82,10 +87,12 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link User#description} - maps to INetOrgPerson description attribute</li>
      * <li>{@link User#title} - maps to INetOrgPerson title attribute</li>
      * <li>{@link User#employeeType} - maps to INetOrgPerson employeeType attribute</li>
-     * <li>{@link User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber  attribute</li>
+     * <li>{@link User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber
+     * attribute</li>
      * <li>{@link User#mobiles} * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
      * <li>{@link User#emails} * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
-     * <li>{@link User#address} * - multi-occurring attribute maps to organizationalPerson postalAddress, st, l, postalCode, postOfficeBox attributes</li>
+     * <li>{@link User#address} * - multi-occurring attribute maps to organizationalPerson postalAddress, st, l,
+     * postalCode, postOfficeBox attributes</li>
      * <li>{@link User#beginTime} - HHMM - determines begin hour user may activate session</li>
      * <li>{@link User#endTime} - HHMM - determines end hour user may activate session.</li>
      * <li>{@link User#beginDate} - YYYYMMDD - determines date when user may sign on</li>
@@ -94,23 +101,24 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link User#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
      * <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
      * <li>{@link User#timeout} - number in seconds of session inactivity time allowed</li>
-     * <li>{@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'
+     * .  e.g. mykey1:myvalue1</li>
      * </ul>
      *
-     * @param user User entity must contain {@link User#userId} and {@link User#ou} (required) and optional {@link User#description},{@link User#roles} and many others.
+     * @param user User entity must contain {@link User#userId} and {@link User#ou} (required) and optional {@link
+     * User#description},{@link User#roles} and many others.
      * @return Returns entity containing user data that was added.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
-    public User addUser(User user)
-        throws SecurityException
+    public User addUser( User user ) throws SecurityException
     {
         String methodName = "addUser";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        setEntitySession(CLS_NM, methodName, user);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        setEntitySession( CLS_NM, methodName, user );
 
         // Add the User record to ldap.
-        return userP.add(user);
+        return userP.add( user );
     }
 
     /**
@@ -131,29 +139,29 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
-    public void disableUser(User user)
-        throws SecurityException
+    public void disableUser( User user ) throws SecurityException
     {
         String methodName = "disableUser";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        setEntitySession(CLS_NM, methodName, user);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        setEntitySession( CLS_NM, methodName, user );
         // set the user's status to "deleted"
-        String userDn = userP.softDelete(user);
+        String userDn = userP.softDelete( user );
         // lock the user out of ldap.
-        userP.lock(user);
+        userP.lock( user );
         // remove the userId attribute from any granted permission operations (if applicable).
-        permP.remove(user);
+        permP.remove( user );
         // remove the user dn occupant attribute from assigned ldap role entities.
-        roleP.removeOccupant(userDn, this.contextId);
+        roleP.removeOccupant( userDn, this.contextId );
         // remove the user dn occupant attribute from assigned ldap adminRole entities.
-        adminP.removeOccupant(userDn, user.getContextId());
+        adminP.removeOccupant( userDn, user.getContextId() );
     }
 
     /**
      * This command deletes an existing user from the RBAC database. The command is valid
      * if and only if the user to be deleted is a member of the USERS data set. The USERS and
      * UA data sets and the assigned_users function are updated.
-     * This method performs a "hard" delete.  It completely removes all data associated with this user from the directory.
+     * This method performs a "hard" delete.  It completely removes all data associated with this user from the
+     * directory.
      * User entity must exist in directory prior to making this call else exception will be thrown.
      * <h4>required parameters</h4>
      * <ul>
@@ -164,20 +172,19 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
-    public void deleteUser(User user)
-        throws SecurityException
+    public void deleteUser( User user ) throws SecurityException
     {
         String methodName = "deleteUser";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        setEntitySession(CLS_NM, methodName, user);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        setEntitySession( CLS_NM, methodName, user );
         // remove the userId attribute from any granted permission operations (if applicable).
-        permP.remove(user);
+        permP.remove( user );
         // remove the user inetOrgPerson object from ldap.
-        String userDn = userP.delete(user);
+        String userDn = userP.delete( user );
         // remove the user dn occupant attribute from assigned ldap role entities.
-        roleP.removeOccupant(userDn, this.contextId);
+        roleP.removeOccupant( userDn, this.contextId );
         // remove the user dn occupant attribute from assigned ldap adminRole entities.
-        adminP.removeOccupant(userDn, user.getContextId());
+        adminP.removeOccupant( userDn, user.getContextId() );
     }
 
     /**
@@ -195,10 +202,12 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link User#cn} - maps to INetOrgPerson common name attribute</li>
      * <li>{@link User#sn} - maps to INetOrgPerson surname attribute</li>
      * <li>{@link User#description} - maps to INetOrgPerson description attribute</li>
-     * <li>{@link User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber  attribute</li>
+     * <li>{@link User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber
+     * attribute</li>
      * <li>{@link User#mobiles} * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
      * <li>{@link User#emails} * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
-     * <li>{@link User#address} * - multi-occurring attribute maps to organizationalPerson postalAddress, st, l, postalCode, postOfficeBox attributes</li>
+     * <li>{@link User#address} * - multi-occurring attribute maps to organizationalPerson postalAddress, st, l,
+     * postalCode, postOfficeBox attributes</li>
      * <li>{@link User#beginTime} - HHMM - determines begin hour user may activate session</li>
      * <li>{@link User#endTime} - HHMM - determines end hour user may activate session.</li>
      * <li>{@link User#beginDate} - YYYYMMDD - determines date when user may sign on</li>
@@ -207,21 +216,22 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link User#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
      * <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
      * <li>{@link User#timeout} - number in seconds of session inactivity time allowed</li>
-     * <li>{@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'
+     * .  e.g. mykey1:myvalue1</li>
      * </ul>
      *
-     * @param user must contain {@link User#userId} and optional entity data to update i.e. desc, ou, properties, all attributes that are not set will be ignored.
+     * @param user must contain {@link User#userId} and optional entity data to update i.e. desc, ou, properties,
+     *             all attributes that are not set will be ignored.
      * @return Updated user entity data.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     @Override
-    public User updateUser(User user)
-        throws SecurityException
+    public User updateUser( User user ) throws SecurityException
     {
         String methodName = "updateUser";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        setEntitySession(CLS_NM, methodName, user);
-        return userP.update(user);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        setEntitySession( CLS_NM, methodName, user );
+        return userP.update( user );
     }
 
     /**
@@ -239,14 +249,13 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      *          Will be thrown in the event of password policy violation or system error.
      */
     @Override
-    public void changePassword(User user, char[] newPassword)
-        throws SecurityException
+    public void changePassword( User user, char[] newPassword ) throws SecurityException
     {
         String methodName = "changePassword";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        setEntitySession(CLS_NM, methodName, user);
-        VUtil.assertNotNullOrEmpty(newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + methodName);
-        userP.changePassword(user, newPassword);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        setEntitySession( CLS_NM, methodName, user );
+        VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + methodName );
+        userP.changePassword( user, newPassword );
     }
 
     /**
@@ -261,13 +270,12 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
     @Override
-    public void lockUserAccount(User user)
-        throws SecurityException
+    public void lockUserAccount( User user ) throws SecurityException
     {
         String methodName = "lockUserAccount";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        setEntitySession(CLS_NM, methodName, user);
-        userP.lock(user);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        setEntitySession( CLS_NM, methodName, user );
+        userP.lock( user );
     }
 
     /**
@@ -282,17 +290,17 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
     @Override
-    public void unlockUserAccount(User user)
-        throws SecurityException
+    public void unlockUserAccount( User user ) throws SecurityException
     {
         String methodName = "unlockUserAccount";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        setEntitySession(CLS_NM, methodName, user);
-        userP.unlock(user);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        setEntitySession( CLS_NM, methodName, user );
+        userP.unlock( user );
     }
 
     /**
-     * Method will reset user's password which will require user to change password before successful authentication with directory.
+     * Method will reset user's password which will require user to change password before successful authentication
+     * with directory.
      * This method will not evaluate password policies on the new user password as it must be changed before use.
      * <p/>
      * <h4>required parameters</h4>
@@ -305,15 +313,14 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
     @Override
-    public void resetPassword(User user, char[] newPassword)
-        throws SecurityException
+    public void resetPassword( User user, char[] newPassword ) throws SecurityException
     {
         String methodName = "resetPassword";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        VUtil.assertNotNullOrEmpty(newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + "." + methodName);
-        setEntitySession(CLS_NM, methodName, user);
-        user.setPassword(newPassword);
-        userP.resetPassword(user);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + "." + methodName );
+        setEntitySession( CLS_NM, methodName, user );
+        user.setPassword( newPassword );
+        userP.resetPassword( user );
     }
 
     /**
@@ -324,17 +331,16 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>newPassword - contains the User's new password</li>
      * </ul>
      *
-     * @param user  contains {@link User#userId}.
+     * @param user contains {@link User#userId}.
      * @throws SecurityException will be thrown in the event of password policy violation or system error.
      */
     @Override
-    public void deletePasswordPolicy(User user)
-        throws SecurityException
+    public void deletePasswordPolicy( User user ) throws SecurityException
     {
         String methodName = "deletePasswordPolicy";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        setEntitySession(CLS_NM, methodName, user);
-        userP.deletePwPolicy(user);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        setEntitySession( CLS_NM, methodName, user );
+        userP.deletePwPolicy( user );
     }
 
     /**
@@ -355,7 +361,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
      * <li>{@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
      * <li>{@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     * <li>{@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
+     * <li>{@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated
+     * into user's RBAC session</li>
      * </ul>
      *
      * @param role must contains {@link Role#name} (required) and optional {@link Role#description}.
@@ -363,13 +370,12 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
-    public Role addRole(Role role)
-        throws SecurityException
+    public Role addRole( Role role ) throws SecurityException
     {
         String methodName = "addRole";
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, role);
-        return roleP.add(role);
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, role );
+        return roleP.add( role );
     }
 
     /**
@@ -387,42 +393,43 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      *          Thrown in the event of data validation or system error.
      */
     @Override
-    public void deleteRole(Role role)
-        throws SecurityException
+    public void deleteRole( Role role ) throws SecurityException
     {
         String methodName = "deleteRole";
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, role);
-        int numChildren = RoleUtil.numChildren(role.getName(), role.getContextId());
-        if (numChildren > 0)
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, role );
+        int numChildren = RoleUtil.numChildren( role.getName(), role.getContextId() );
+        if ( numChildren > 0 )
         {
-            String error = CLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren + "] descendants before deletion";
-            log.error(error);
-            throw new SecurityException(GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null);
+            String error = CLS_NM + "." + methodName + " role [" + role.getName() + "] must remove [" + numChildren +
+                "] descendants before deletion";
+            log.error( error );
+            throw new SecurityException( GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null );
         }
         // search for all users assigned this role and deassign:
         //role.setContextId(this.contextId);
-        List<User> users =  userP.getAssignedUsers(role);
-        if (users != null)
+        List<User> users = userP.getAssignedUsers( role );
+        if ( users != null )
         {
-            for (User ue : users)
+            for ( User ue : users )
             {
-                UserRole uRole = new UserRole(ue.getUserId(), role.getName());
-                setAdminData(CLS_NM, methodName, uRole);
-                deassignUser(uRole);
+                UserRole uRole = new UserRole( ue.getUserId(), role.getName() );
+                setAdminData( CLS_NM, methodName, uRole );
+                deassignUser( uRole );
             }
         }
-        permP.remove(role);
+        permP.remove( role );
         // remove all parent relationships from the role graph:
-        Set<String> parents = RoleUtil.getParents(role.getName(), this.contextId);
-        if(parents != null)
+        Set<String> parents = RoleUtil.getParents( role.getName(), this.contextId );
+        if ( parents != null )
         {
-            for(String parent : parents)
+            for ( String parent : parents )
             {
-                RoleUtil.updateHier(this.contextId, new Relationship(role.getName().toUpperCase(), parent.toUpperCase()), Hier.Op.REM);
+                RoleUtil.updateHier( this.contextId, new Relationship( role.getName().toUpperCase(),
+                    parent.toUpperCase() ), Hier.Op.REM );
             }
         }
-        roleP.delete(role);
+        roleP.delete( role );
     }
 
     /**
@@ -441,22 +448,23 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
      * <li>{@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
      * <li>{@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     * <li>{@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
+     * <li>{@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated
+     * into user's RBAC session</li>
      * </ul>
      *
-     * @param role must contains {@link Role#name} and may contain new description or {@link us.jts.fortress.util.time.Constraint}
+     * @param role must contains {@link Role#name} and may contain new description or {@link us.jts.fortress.util
+     * .time.Constraint}
      * @return Role contains reference to entity operated on.
      * @throws us.jts.fortress.SecurityException
      *          in the event of validation or system error.
      */
     @Override
-    public Role updateRole(Role role)
-        throws SecurityException
+    public Role updateRole( Role role ) throws SecurityException
     {
         String methodName = "updateRole";
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, role);
-        return roleP.update(role);
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, role );
+        return roleP.update( role );
     }
 
     /**
@@ -474,7 +482,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * Successful completion of this op, the following occurs:
      * </p>
      * <ul>
-     * <li> User entity (resides in people container) has role assignment added to aux object class attached to actual user record.
+     * <li> User entity (resides in people container) has role assignment added to aux object class attached to
+     * actual user record.
      * <li> Role entity (resides in role container) has userId added as role occupant.
      * <li> (optional) Temporal constraints may be associated with <code>ftUserAttrs</code> aux object class based on:
      * <ul>
@@ -497,11 +506,14 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <ul>
      * <li>{@link UserRole#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
      * <li>{@link UserRole#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
-     * <li>{@link UserRole#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
-     * <li>{@link UserRole#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
+     * <li>{@link UserRole#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC
+     * session</li>
+     * <li>{@link UserRole#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC
+     * session</li>
      * <li>{@link UserRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
      * <li>{@link UserRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     * <li>{@link UserRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
+     * <li>{@link UserRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be
+     * activated into user's RBAC session</li>
      * </ul>
      *
      * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name} and optional {@code Constraints}.
@@ -509,30 +521,30 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      *          in the event of validation or system error.
      */
     @Override
-    public void assignUser(UserRole uRole)
-        throws SecurityException
+    public void assignUser( UserRole uRole ) throws SecurityException
     {
         String methodName = "assignUser";
-        assertContext(CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL);
-        Role role = new Role(uRole.getName());
-        role.setContextId(contextId);
-        User user = new User(uRole.getUserId());
-        user.setContextId(contextId);
-        setEntitySession(CLS_NM, methodName, uRole);
-        AdminUtil.canAssign(uRole.getAdminSession(), user, role, contextId);
-        SDUtil.validateSSD(user, role);
+        assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        Role role = new Role( uRole.getName() );
+        role.setContextId( contextId );
+        User user = new User( uRole.getUserId() );
+        user.setContextId( contextId );
+        setEntitySession( CLS_NM, methodName, uRole );
+        AdminUtil.canAssign( uRole.getAdminSession(), user, role, contextId );
+        SDUtil.validateSSD( user, role );
 
         // Get the default constraints from role:
-        role.setContextId(this.contextId);
-        Role validRole = roleP.read(role);
+        role.setContextId( this.contextId );
+        Role validRole = roleP.read( role );
         // if the input role entity attribute doesn't have temporal constraints set, copy from the role declaration:
-        CUtil.validateOrCopy(validRole, uRole);
+        CUtil.validateOrCopy( validRole, uRole );
 
         // Assign the Role data to User:
-        String dn = userP.assign(uRole);
-        setAdminData(CLS_NM, methodName, role);
-        // Assign user dn attribute to the role, this will add a single, standard attribute value, called "roleOccupant", directly onto the role node:
-        roleP.assign(role, dn);
+        String dn = userP.assign( uRole );
+        setAdminData( CLS_NM, methodName, role );
+        // Assign user dn attribute to the role, this will add a single, standard attribute value,
+        // called "roleOccupant", directly onto the role node:
+        roleP.assign( role, dn );
     }
 
     /**
@@ -554,111 +566,128 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
     @Override
-    public void deassignUser(UserRole uRole)
-        throws SecurityException
+    public void deassignUser( UserRole uRole ) throws SecurityException
     {
         String methodName = "deassignUser";
-        assertContext(CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL);
-        Role role = new Role(uRole.getName());
-        role.setContextId(contextId);
-        User user = new User(uRole.getUserId());
-        setEntitySession(CLS_NM, methodName, uRole);
-        AdminUtil.canDeassign(user.getAdminSession(), user, role, contextId);
-        String dn = userP.deassign(uRole);
-        setAdminData(CLS_NM, methodName, role);
-        // Now "deassign" user dn attribute, this will remove a single, standard attribute value, called "roleOccupant", from the node:
-        roleP.deassign(role, dn);
+        assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        Role role = new Role( uRole.getName() );
+        role.setContextId( contextId );
+        User user = new User( uRole.getUserId() );
+        setEntitySession( CLS_NM, methodName, uRole );
+        AdminUtil.canDeassign( user.getAdminSession(), user, role, contextId );
+        String dn = userP.deassign( uRole );
+        setAdminData( CLS_NM, methodName, role );
+        // Now "deassign" user dn attribute, this will remove a single, standard attribute value,
+        // called "roleOccupant", from the node:
+        roleP.deassign( role, dn );
     }
 
     /**
-     * This method will add permission operation to an existing permission object which resides under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
-     * The perm operation entity may have {@link us.jts.fortress.rbac.Role} or {@link us.jts.fortress.rbac.User} associations.  The target {@link Permission} must not exist prior to calling.
-     * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     * This method will add permission operation to an existing permission object which resides under {@code
+     * ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
+     * The perm operation entity may have {@link us.jts.fortress.rbac.Role} or {@link us.jts.fortress.rbac.User}
+     * associations.  The target {@link Permission} must not exist prior to calling.
+     * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself
+     * as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission add</li>
+     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission
+     * add</li>
      * <li>{@link Permission#opName} - contains the name of new permission operation being added</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
-     * <li>{@link Permission#users} * - multi occurring attribute contains Users that permission operation is being granted to</li>
-     * <li>{@link Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is
+     * being granted to</li>
+     * <li>{@link Permission#users} * - multi occurring attribute contains Users that permission operation is being
+     * granted to</li>
+     * <li>{@link Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g.
+     * mykey1:myvalue1</li>
      * <li>{@link Permission#type} - any safe text</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objectName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
+     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objectName}, and operation,
+     * {@link Permission#opName}, that identifies target along with optional other attributes..
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     @Override
-    public Permission addPermission(Permission perm)
-        throws SecurityException
+    public Permission addPermission( Permission perm ) throws SecurityException
     {
         String methodName = "addPermission";
-        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL);
-        setEntitySession(CLS_NM, methodName, perm);
-        return permP.add(perm);
+        assertContext( CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL );
+        setEntitySession( CLS_NM, methodName, perm );
+        return permP.add( perm );
     }
 
     /**
-     * This method will update permission operation pre-existing in target directory under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
-     * The perm operation entity may also contain {@link us.jts.fortress.rbac.Role} or {@link us.jts.fortress.rbac.User} associations to add or remove using this function.
+     * This method will update permission operation pre-existing in target directory under {@code ou=Permissions,
+     * ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
+     * The perm operation entity may also contain {@link us.jts.fortress.rbac.Role} or {@link us.jts.fortress.rbac
+     * .User} associations to add or remove using this function.
      * The perm operation must exist before making this call.  Only non-null attributes will be updated.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission update</li>
+     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission
+     * update</li>
      * <li>{@link Permission#opName} - contains the name of existing permission operation being updated</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
-     * <li>{@link Permission#users} * - multi occurring attribute contains Users that permission operation is being granted to</li>
-     * <li>{@link Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is
+     * being granted to</li>
+     * <li>{@link Permission#users} * - multi occurring attribute contains Users that permission operation is being
+     * granted to</li>
+     * <li>{@link Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g.
+     * mykey1:myvalue1</li>
      * <li>{@link Permission#type} - any safe text</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName},
+     *             that identifies target and any optional data to update.  Null or empty attributes will be ignored.
      * @return copy of Permission entity.
      * @throws us.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
     @Override
-    public Permission updatePermission(Permission perm)
-        throws SecurityException
+    public Permission updatePermission( Permission perm ) throws SecurityException
     {
         String methodName = "updatePermission";
-        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL);
-        setEntitySession(CLS_NM, methodName, perm);
-        return permP.update(perm);
+        assertContext( CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL );
+        setEntitySession( CLS_NM, methodName, perm );
+        return permP.update( perm );
     }
 
     /**
-     * This method will remove permission operation entity from permission object. A Fortress permission is (object->operation).
+     * This method will remove permission operation entity from permission object. A Fortress permission is
+     * (object->operation).
      * The perm operation must exist before making this call.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission delete</li>
+     * <li>{@link Permission#objectName} - contains the name of existing object being targeted for the permission
+     * delete</li>
      * <li>{@link Permission#opName} - contains the name of existing permission operation being removed</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName},
+     *             that identifies target.
      * @throws us.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
     @Override
-    public void deletePermission(Permission perm)
-        throws SecurityException
+    public void deletePermission( Permission perm ) throws SecurityException
     {
         String methodName = "deletePermission";
-        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL);
-        setEntitySession(CLS_NM, methodName, perm);
-        permP.delete(perm);
+        assertContext( CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL );
+        setEntitySession( CLS_NM, methodName, perm );
+        permP.delete( perm );
     }
 
     /**
-     * This method will add permission object to perms container in directory. The perm object must not exist before making this call.
-     * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     * This method will add permission object to perms container in directory. The perm object must not exist before
+     * making this call.
+     * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as
+     * stored in ldap tree: ({@link PermObj}*->{@link Permission}).
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link PermObj#objectName} - contains the name of new object being added</li>
@@ -668,26 +697,29 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <ul>
      * <li>{@link PermObj#description} - any safe text</li>
      * <li>{@link PermObj#type} - contains any safe text</li>
-     * <li>{@link PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g.
+     * mykey1:myvalue1</li>
      * </ul>
      *
-     * @param pObj must contain the {@link PermObj#objectName} and {@link PermObj#ou}.  The other attributes are optional.
+     * @param pObj must contain the {@link PermObj#objectName} and {@link PermObj#ou}.  The other attributes are
+     *             optional.
      * @return copy of PermObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     @Override
-    public PermObj addPermObj(PermObj pObj)
-        throws SecurityException
+    public PermObj addPermObj( PermObj pObj ) throws SecurityException
     {
         String methodName = "addPermObj";
-        assertContext(CLS_NM, methodName, pObj, GlobalErrIds.PERM_OBJECT_NULL);
-        setEntitySession(CLS_NM, methodName, pObj);
-        return permP.add(pObj);
+        assertContext( CLS_NM, methodName, pObj, GlobalErrIds.PERM_OBJECT_NULL );
+        setEntitySession( CLS_NM, methodName, pObj );
+        return permP.add( pObj );
     }
 
     /**
-     * This method will update permission object in perms container in directory.  The perm object must exist before making this call.
-     * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
+     * This method will update permission object in perms container in directory.  The perm object must exist before
+     * making this call.
+     * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as
+     * stored in ldap tree: ({@link PermObj}*->{@link Permission}).
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link PermObj#objectName} - contains the name of existing object being updated</li>
@@ -697,7 +729,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
      * <li>{@link PermObj#description} - any safe text</li>
      * <li>{@link PermObj#type} - contains any safe text</li>
-     * <li>{@link PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g.
+     * mykey1:myvalue1</li>
      * </ul>
      *
      * @param pObj must contain the {@link PermObj#objectName}. Only non-null attributes will be updated.
@@ -706,13 +739,12 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      *          - thrown in the event of perm object data or system error.
      */
     @Override
-    public PermObj updatePermObj(PermObj pObj)
-        throws SecurityException
+    public PermObj updatePermObj( PermObj pObj ) throws SecurityException
     {
         String methodName = "updatePermObj";
-        assertContext(CLS_NM, methodName, pObj, GlobalErrIds.PERM_OBJECT_NULL);
-        setEntitySession(CLS_NM, methodName, pObj);
-        return permP.update(pObj);
+        assertContext( CLS_NM, methodName, pObj, GlobalErrIds.PERM_OBJECT_NULL );
+        setEntitySession( CLS_NM, methodName, pObj );
+        return permP.update( pObj );
     }
 
     /**
@@ -727,13 +759,12 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     @Override
-    public void deletePermObj(PermObj pObj)
-        throws SecurityException
+    public void deletePermObj( PermObj pObj ) throws SecurityException
     {
         String methodName = "deletePermObj";
-        assertContext(CLS_NM, methodName, pObj, GlobalErrIds.PERM_OBJECT_NULL);
-        setEntitySession(CLS_NM, methodName, pObj);
-        permP.delete(pObj);
+        assertContext( CLS_NM, methodName, pObj, GlobalErrIds.PERM_OBJECT_NULL );
+        setEntitySession( CLS_NM, methodName, pObj );
+        permP.delete( pObj );
     }
 
     /**
@@ -749,33 +780,33 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link Role#name} - contains the role name</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName},
+     *             that identifies target.
      * @param role must contains {@link Role#name}.
      * @throws us.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
      */
     @Override
-    public void grantPermission(Permission perm, Role role)
-        throws SecurityException
+    public void grantPermission( Permission perm, Role role ) throws SecurityException
     {
         String methodName = "grantPermission";
-        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL);
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, perm);
+        assertContext( CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL );
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, perm );
 
         // validate role
-        if (perm.isAdmin())
+        if ( perm.isAdmin() )
         {
-            AdminRole adminRole = new AdminRole(role.getName());
-            adminRole.setContextId(this.contextId);
-            adminP.read(adminRole);
+            AdminRole adminRole = new AdminRole( role.getName() );
+            adminRole.setContextId( this.contextId );
+            adminP.read( adminRole );
         }
         else
         {
-            AdminUtil.canGrant(perm.getAdminSession(), role, perm, contextId);
-            roleP.read(role);
+            AdminUtil.canGrant( perm.getAdminSession(), role, perm, contextId );
+            roleP.read( role );
         }
-        permP.grant(perm, role);
+        permP.grant( perm, role );
     }
 
     /**
@@ -791,23 +822,23 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link Role#name} - contains the role name</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName},
+     *             that identifies target.
      * @param role must contains {@link Role#name}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
-    public void revokePermission(Permission perm, Role role)
-        throws SecurityException
+    public void revokePermission( Permission perm, Role role ) throws SecurityException
     {
         String methodName = "revokePermission";
-        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL);
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, perm);
-        if (!perm.isAdmin())
+        assertContext( CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL );
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, perm );
+        if ( !perm.isAdmin() )
         {
-            AdminUtil.canRevoke(perm.getAdminSession(), role, perm, contextId);
+            AdminUtil.canRevoke( perm.getAdminSession(), role, perm, contextId );
         }
-        permP.revoke(perm, role);
+        permP.revoke( perm, role );
     }
 
     /**
@@ -823,22 +854,22 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link User#userId} - contains the userId</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName},
+     *             that identifies target.
      * @param user must contain {@link User#userId} of target User entity.
      * @throws us.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
      */
     @Override
-    public void grantPermission(Permission perm, User user)
-        throws SecurityException
+    public void grantPermission( Permission perm, User user ) throws SecurityException
     {
         String methodName = "grantPermissionUser";
-        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL);
-        setEntitySession(CLS_NM, methodName, perm);
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
+        assertContext( CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL );
+        setEntitySession( CLS_NM, methodName, perm );
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         // Ensure the user entity exists:
-        userP.read(user, false);
-        permP.grant(perm, user);
+        userP.read( user, false );
+        permP.grant( perm, user );
     }
 
     /**
@@ -854,24 +885,25 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <li>{@link User#userId} - contains the userId</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName},
+     *             that identifies target.
      * @param user must contain {@link User#userId} of target User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
-    public void revokePermission(Permission perm, User user)
-        throws SecurityException
+    public void revokePermission( Permission perm, User user ) throws SecurityException
     {
         String methodName = "revokePermissionUser";
-        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL);
-        setEntitySession(CLS_NM, methodName, perm);
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        permP.revoke(perm, user);
+        assertContext( CLS_NM, methodName, perm, GlobalErrIds.PERM_OPERATION_NULL );
+        setEntitySession( CLS_NM, methodName, perm );
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        permP.revoke( perm, user );
     }
 
     /**
      * This command creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
-     * the existing role parentRole. The command is valid if and only if childRole is not a member of the ROLES data set,
+     * the existing role parentRole. The command is valid if and only if childRole is not a member of the ROLES data
+     * set,
      * and parentRole is a member of the ROLES data set.
      * <h4>required parameters</h4>
      * <ul>
@@ -880,44 +912,54 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * </ul>
      * <h4>optional parameters childRole</h4>
      * <ul>
-     * <li>childRole - {@link Role#description} - maps to description attribute on organizationalRole object class for new child</li>
-     * <li>childRole - {@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session for new child</li>
-     * <li>childRole - {@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session for new child</li>
-     * <li>childRole - {@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session for new child</li>
-     * <li>childRole - {@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session for new child</li>
-     * <li>childRole - {@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for new child</li>
-     * <li>childRole - {@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new child</li>
-     * <li>childRole - {@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session for new child</li>
+     * <li>childRole - {@link Role#description} - maps to description attribute on organizationalRole object class
+     * for new child</li>
+     * <li>childRole - {@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC
+     * session for new child</li>
+     * <li>childRole - {@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC
+     * session for new child</li>
+     * <li>childRole - {@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's
+     * RBAC session for new child</li>
+     * <li>childRole - {@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC
+     * session for new child</li>
+     * <li>childRole - {@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for
+     * new child</li>
+     * <li>childRole - {@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new
+     * child</li>
+     * <li>childRole - {@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be
+     * activated into user's RBAC session for new child</li>
      * </ul>
      *
      * @param parentRole This entity must be present in ROLE data set.  Success will add role rel with childRole.
-     * @param childRole  This entity must not be present in ROLE data set.  Success will add the new role entity to ROLE data set.
+     * @param childRole  This entity must not be present in ROLE data set.  Success will add the new role entity to
+     *                   ROLE data set.
      *                   This method:
      *                   1 - Adds new role.
      *                   2 - Assigns role relationship between new childRole and pre-existing parentRole.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     @Override
-    public void addDescendant(Role parentRole, Role childRole)
-        throws SecurityException
+    public void addDescendant( Role parentRole, Role childRole ) throws SecurityException
     {
         String methodName = "addDescendant";
-        assertContext(CLS_NM, methodName, parentRole, GlobalErrIds.PARENT_ROLE_NULL);
-        assertContext(CLS_NM, methodName, childRole, GlobalErrIds.CHILD_ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, childRole);
+        assertContext( CLS_NM, methodName, parentRole, GlobalErrIds.PARENT_ROLE_NULL );
+        assertContext( CLS_NM, methodName, childRole, GlobalErrIds.CHILD_ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, childRole );
         // make sure the parent role is already there:
-        Role role = new Role(parentRole.getName());
-        role.setContextId(this.contextId);
-        roleP.read(role);
-        RoleUtil.validateRelationship(childRole, parentRole, false);
-        childRole.setParent(parentRole.getName());
-        roleP.add(childRole);
-        RoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
+        Role role = new Role( parentRole.getName() );
+        role.setContextId( this.contextId );
+        roleP.read( role );
+        RoleUtil.validateRelationship( childRole, parentRole, false );
+        childRole.setParent( parentRole.getName() );
+        roleP.add( childRole );
+        RoleUtil.updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
+            parentRole.getName().toUpperCase() ), Hier.Op.ADD );
     }
 
     /**
      * This command creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
-     * the existing role childRole. The command is valid if and only if parentRole is not a member of the ROLES data set,
+     * the existing role childRole. The command is valid if and only if parentRole is not a member of the ROLES data
+     * set,
      * and childRole is a member of the ROLES data set.
      * This method:
      * 1 - Adds new role.
@@ -929,14 +971,22 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * </ul>
      * <h4>optional parameters parentRole</h4>
      * <ul>
-     * <li>parentRole - {@link Role#description} - maps to description attribute on organizationalRole object class for new parent</li>
-     * <li>parentRole - {@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session for new parent</li>
-     * <li>parentRole - {@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session for new parent</li>
-     * <li>parentRole - {@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session for new parent</li>
-     * <li>parentRole - {@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session for new parent</li>
-     * <li>parentRole - {@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for new parent</li>
-     * <li>parentRole - {@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new parent</li>
-     * <li>parentRole - {@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session for new parent</li>
+     * <li>parentRole - {@link Role#description} - maps to description attribute on organizationalRole object class
+     * for new parent</li>
+     * <li>parentRole - {@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC
+     * session for new parent</li>
+     * <li>parentRole - {@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC
+     * session for new parent</li>
+     * <li>parentRole - {@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's
+     * RBAC session for new parent</li>
+     * <li>parentRole - {@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's
+     * RBAC session for new parent</li>
+     * <li>parentRole - {@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for
+     * new parent</li>
+     * <li>parentRole - {@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new
+     * parent</li>
+     * <li>parentRole - {@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be
+     * activated into user's RBAC session for new parent</li>
      * </ul>
      *
      * @param parentRole completion of op assigns new child relationship with childRole.
@@ -944,34 +994,36 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     @Override
-    public void addAscendant(Role childRole, Role parentRole)
-        throws SecurityException
+    public void addAscendant( Role childRole, Role parentRole ) throws SecurityException
     {
         String methodName = "addAscendant";
-        assertContext(CLS_NM, methodName, parentRole, GlobalErrIds.PARENT_ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, parentRole);
-        assertContext(CLS_NM, methodName, childRole, GlobalErrIds.CHILD_ROLE_NULL);
+        assertContext( CLS_NM, methodName, parentRole, GlobalErrIds.PARENT_ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, parentRole );
+        assertContext( CLS_NM, methodName, childRole, GlobalErrIds.CHILD_ROLE_NULL );
         // make sure the child role is already there:
-        Role role = new Role(childRole.getName());
-        role.setContextId(this.contextId);
-        role = roleP.read(role);
-        role.setContextId(this.contextId);
-        RoleUtil.validateRelationship(childRole, parentRole, false);
-        roleP.add(parentRole);
+        Role role = new Role( childRole.getName() );
+        role.setContextId( this.contextId );
+        role = roleP.read( role );
+        role.setContextId( this.contextId );
+        RoleUtil.validateRelationship( childRole, parentRole, false );
+        roleP.add( parentRole );
         // Use cRole2 to update ONLY the parents attribute on the child role and nothing else:
-        Role cRole2 = new Role(childRole.getName());
-        cRole2.setParents(role.getParents());
-        cRole2.setParent(parentRole.getName());
-        cRole2.setContextId(this.contextId);
-        setAdminData(CLS_NM, methodName, cRole2);
-        roleP.update(cRole2);
-        RoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
+        Role cRole2 = new Role( childRole.getName() );
+        cRole2.setParents( role.getParents() );
+        cRole2.setParent( parentRole.getName() );
+        cRole2.setContextId( this.contextId );
+        setAdminData( CLS_NM, methodName, cRole2 );
+        roleP.update( cRole2 );
+        RoleUtil.updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
+            parentRole.getName().toUpperCase() ), Hier.Op.ADD );
     }
 
     /**
      * This command establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
-     * roles parentRole, childRole. The command is valid if and only if parentRole and childRole are members of the ROLES data
-     * set, parentRole is not an immediate ascendant of childRole, and childRole does not properly inherit parentRole (in order to
+     * roles parentRole, childRole. The command is valid if and only if parentRole and childRole are members of the
+     * ROLES data
+     * set, parentRole is not an immediate ascendant of childRole, and childRole does not properly inherit parentRole
+     * (in order to
      * avoid cycle creation).
      * <h4>required parameters</h4>
      * <ul>
@@ -985,30 +1037,30 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      *          thrown in the event of data validation or system error.
      */
     @Override
-    public void addInheritance(Role parentRole, Role childRole)
-        throws SecurityException
+    public void addInheritance( Role parentRole, Role childRole ) throws SecurityException
     {
         String methodName = "addInheritance";
-        assertContext(CLS_NM, methodName, parentRole, GlobalErrIds.PARENT_ROLE_NULL);
-        assertContext(CLS_NM, methodName, childRole, GlobalErrIds.CHILD_ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, parentRole);
+        assertContext( CLS_NM, methodName, parentRole, GlobalErrIds.PARENT_ROLE_NULL );
+        assertContext( CLS_NM, methodName, childRole, GlobalErrIds.CHILD_ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, parentRole );
         // make sure the parent role is already there:
-        Role pRole = new Role(parentRole.getName());
-        pRole.setContextId(this.contextId);
-        roleP.read(pRole);
+        Role pRole = new Role( parentRole.getName() );
+        pRole.setContextId( this.contextId );
+        roleP.read( pRole );
         // make sure the child role is already there:
-        Role cRole = new Role(childRole.getName());
-        cRole.setContextId(this.contextId);
-        cRole = roleP.read(cRole);
-        RoleUtil.validateRelationship(childRole, parentRole, false);
-        RoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.ADD);
+        Role cRole = new Role( childRole.getName() );
+        cRole.setContextId( this.contextId );
+        cRole = roleP.read( cRole );
+        RoleUtil.validateRelationship( childRole, parentRole, false );
+        RoleUtil.updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
+            parentRole.getName().toUpperCase() ), Hier.Op.ADD );
         // Use cRole2 to update ONLY the parents attribute on the child role and nothing else:
-        Role cRole2 = new Role(childRole.getName());
-        cRole2.setParents(cRole.getParents());
-        cRole2.setParent(parentRole.getName());
-        cRole2.setContextId(this.contextId);
-        setAdminData(CLS_NM, methodName, cRole2);
-        roleP.update(cRole2);
+        Role cRole2 = new Role( childRole.getName() );
+        cRole2.setParents( cRole.getParents() );
+        cRole2.setParent( parentRole.getName() );
+        cRole2.setContextId( this.contextId );
+        setAdminData( CLS_NM, methodName, cRole2 );
+        roleP.update( cRole2 );
     }
 
     /**
@@ -1027,35 +1079,35 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     @Override
-    public void deleteInheritance(Role parentRole, Role childRole)
-        throws SecurityException
+    public void deleteInheritance( Role parentRole, Role childRole ) throws SecurityException
     {
         String methodName = "deleteInheritance";
-        assertContext(CLS_NM, methodName, parentRole, GlobalErrIds.PARENT_ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, parentRole);
-        assertContext(CLS_NM, methodName, childRole, GlobalErrIds.CHILD_ROLE_NULL);
-        RoleUtil.validateRelationship(childRole, parentRole, true);
-        RoleUtil.updateHier(this.contextId, new Relationship(childRole.getName().toUpperCase(), parentRole.getName().toUpperCase()), Hier.Op.REM);
+        assertContext( CLS_NM, methodName, parentRole, GlobalErrIds.PARENT_ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, parentRole );
+        assertContext( CLS_NM, methodName, childRole, GlobalErrIds.CHILD_ROLE_NULL );
+        RoleUtil.validateRelationship( childRole, parentRole, true );
+        RoleUtil.updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
+            parentRole.getName().toUpperCase() ), Hier.Op.REM );
         // need to remove the parent from the child role:
-        Role cRole = new Role(childRole.getName());
-        cRole.setContextId(this.contextId);
-        cRole = roleP.read(cRole);
+        Role cRole = new Role( childRole.getName() );
+        cRole.setContextId( this.contextId );
+        cRole = roleP.read( cRole );
         // Use cRole2 to update ONLY the parents attribute on the child role and nothing else:
-        Role cRole2 = new Role(childRole.getName());
-        cRole2.setParents(cRole.getParents());
-        cRole2.delParent(parentRole.getName());
-        cRole2.setContextId(this.contextId);
-        setAdminData(CLS_NM, methodName, cRole2);
+        Role cRole2 = new Role( childRole.getName() );
+        cRole2.setParents( cRole.getParents() );
+        cRole2.delParent( parentRole.getName() );
+        cRole2.setContextId( this.contextId );
+        setAdminData( CLS_NM, methodName, cRole2 );
         // are there any parents left?
-        if(!VUtil.isNotNullOrEmpty(cRole2.getParents()))
+        if ( !VUtil.isNotNullOrEmpty( cRole2.getParents() ) )
         {
             // The updates only update non-empty multi-occurring attributes
             // so if last parent assigned, so must remove the attribute completely:
-            roleP.deleteParent(cRole2);
+            roleP.deleteParent( cRole2 );
         }
         else
         {
-            roleP.update(cRole2);
+            roleP.update( cRole2 );
         }
     }
 
@@ -1064,7 +1116,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * that cannot have common users. The command is valid if and only if:
      * 1 - the name of the SSD set is not already in use
      * 2 - all the roles in the SSD set are members of the ROLES data set
-     * 3 - n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the SSD role set,
+     * 3 - n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the SSD role
+     * set,
      * 4 - the SSD constraint for the new role set is satisfied.
      * <h4>required parameters</h4>
      * <ul>
@@ -1073,34 +1126,74 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <h4>optional parameters</h4>
      * <ul>
      * <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
-     * <li>{@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to User from a particular set</li>
+     * <li>{@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be
+     * assigned to User from a particular set</li>
      * <li>{@link SDSet#description} - contains any safe text</li>
      * </ul>
      *
-     * @param ssdSet contains an instantiated reference to new SSD set containing, name, members, and cardinality (default 2)
+     * @param ssdSet contains an instantiated reference to new SSD set containing, name, members,
+     *               and cardinality (default 2)
      * @return reference to newly created SSDSet object.
      * @throws us.jts.fortress.SecurityException
      *          in the event of data validation or system error.
      */
     @Override
-    public SDSet createSsdSet(SDSet ssdSet)
-        throws SecurityException
+    public SDSet createSsdSet( SDSet ssdSet ) throws SecurityException
     {
         String methodName = "createSsdSet";
-        assertContext(CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL);
-        setEntitySession(CLS_NM, methodName, ssdSet);
-        ssdSet.setType(SDSet.SDType.STATIC);
-        if (ssdSet.getCardinality() == null)
+        assertContext( CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL );
+        setEntitySession( CLS_NM, methodName, ssdSet );
+        ssdSet.setType( SDSet.SDType.STATIC );
+        if ( ssdSet.getCardinality() == null )
         {
             // default cardinality == 2
-            ssdSet.setCardinality(2);
+            ssdSet.setCardinality( 2 );
         }
-        clearSSDCache(ssdSet);
-        return sdP.add(ssdSet);
+        clearSSDCache( ssdSet );
+        return sdP.add( ssdSet );
     }
 
     /**
-     * This command adds a role to a named SSD set of roles. The cardinality associated with the role set remains unchanged.
+     * This command updates existing SSD set of roles and sets the cardinality n of its subsets
+     * that cannot have common users.
+     * <p/>
+     * The command is valid if and only if:
+     * <ul>
+     * <li>The name of the SSD set already exists.
+     * <li> All the roles in the SSD set are members of the ROLES data set.
+     * <li> n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the SSD
+     * role set.
+     * <li> The SSD constraint for the new role set is satisfied.
+     * </ul>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing SSD role set to be updated</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     * <li>{@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be
+     * assigned to User from a particular set</li>
+     * <li>{@link SDSet#description} - contains any safe text</li>
+     * </ul>
+     *
+     * @param ssdSet contains an instantiated reference to existing SSD set containing, name, members,
+     *               and cardinality (default 2)
+     * @return reference to SSDSet object targeted for update.
+     * @throws SecurityException in the event of data validation or system error.
+     */
+    public SDSet updateSsdSet( SDSet ssdSet ) throws SecurityException
+    {
+        String methodName = "updateSsdSet";
+        assertContext( CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL );
+        setEntitySession( CLS_NM, methodName, ssdSet );
+        ssdSet.setType( SDSet.SDType.STATIC );
+        return sdP.update( ssdSet );
+    }
+
+    /**
+     * This command adds a role to a named SSD set of roles. The cardinality associated with the role set remains
+     * unchanged.
      * The command is valid if and only if:
      * 1 - the SSD role set exists, and
      * 2 - the role to be added is a member of the ROLES data set but not of a member of the SSD role set, and
@@ -1117,26 +1210,26 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet addSsdRoleMember(SDSet ssdSet, Role role)
-        throws SecurityException
+    public SDSet addSsdRoleMember( SDSet ssdSet, Role role ) throws SecurityException
     {
         String methodName = "addSsdRoleMember";
-        assertContext(CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL);
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, ssdSet);
-        SDSet entity = sdP.read(ssdSet);
-        entity.setContextId(this.contextId);
-        entity.setContextId(this.contextId);
-        entity.addMember(role.getName());
-        setAdminData(CLS_NM, methodName, entity);
-        SDSet ssdOut = sdP.update(entity);
+        assertContext( CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL );
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, ssdSet );
+        SDSet entity = sdP.read( ssdSet );
+        entity.setContextId( this.contextId );
+        entity.setContextId( this.contextId );
+        entity.addMember( role.getName() );
+        setAdminData( CLS_NM, methodName, entity );
+        SDSet ssdOut = sdP.update( entity );
         // remove any references to the old SSD from cache:
-        clearSSDCache(role);
+        clearSSDCache( role );
         return ssdOut;
     }
 
     /**
-     * This command removes a role from a named SSD set of roles. The cardinality associated with the role set remains unchanged.
+     * This command removes a role from a named SSD set of roles. The cardinality associated with the role set
+     * remains unchanged.
      * The command is valid if and only if:
      * 1 - the SSD role set exists, and
      * 2 - the role to be removed is a member of the SSD role set, and
@@ -1154,26 +1247,25 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet deleteSsdRoleMember(SDSet ssdSet, Role role)
-        throws SecurityException
+    public SDSet deleteSsdRoleMember( SDSet ssdSet, Role role ) throws SecurityException
     {
         String methodName = "deleteSsdRoleMember";
-        assertContext(CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL);
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, ssdSet);
-        SDSet entity = sdP.read(ssdSet);
-        entity.setContextId(this.contextId);
-        entity.delMember(role.getName());
+        assertContext( CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL );
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, ssdSet );
+        SDSet entity = sdP.read( ssdSet );
+        entity.setContextId( this.contextId );
+        entity.delMember( role.getName() );
 
         // when removing last role member a placeholder must be left in data set:
-        if (entity.getMembers().isEmpty())
+        if ( entity.getMembers().isEmpty() )
         {
-            entity.addMember(GlobalIds.NONE);
+            entity.addMember( GlobalIds.NONE );
         }
-        setAdminData(CLS_NM, methodName, entity);
-        SDSet ssdOut = sdP.update(entity);
+        setAdminData( CLS_NM, methodName, entity );
+        SDSet ssdOut = sdP.update( entity );
         // remove any references to the old SSD from cache:
-        clearSSDCache(role);
+        clearSSDCache( role );
         return ssdOut;
     }
 
@@ -1189,16 +1281,15 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet deleteSsdSet(SDSet ssdSet)
-        throws SecurityException
+    public SDSet deleteSsdSet( SDSet ssdSet ) throws SecurityException
     {
         String methodName = "deleteSsdSet";
-        assertContext(CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL);
-        setEntitySession(CLS_NM, methodName, ssdSet);
-        ssdSet.setType(SDSet.SDType.STATIC);
+        assertContext( CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL );
+        setEntitySession( CLS_NM, methodName, ssdSet );
+        ssdSet.setType( SDSet.SDType.STATIC );
         // remove any references to the old SSD from cache:
-        clearSSDCache(ssdSet);
-        return sdP.delete(ssdSet);
+        clearSSDCache( ssdSet );
+        return sdP.delete( ssdSet );
     }
 
     /**
@@ -1207,13 +1298,13 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param ssdSet
      * @throws SecurityException
      */
-    private void clearSSDCache(SDSet ssdSet)
+    private void clearSSDCache( SDSet ssdSet )
     {
-        if(ssdSet.getMembers() != null)
+        if ( ssdSet.getMembers() != null )
         {
-            for(String roleName : ssdSet.getMembers())
+            for ( String roleName : ssdSet.getMembers() )
             {
-                SDUtil.clearSsdCacheEntry(roleName, contextId);
+                SDUtil.clearSsdCacheEntry( roleName, contextId );
             }
         }
     }
@@ -1224,15 +1315,16 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @param role
      * @throws SecurityException
      */
-    private void clearSSDCache(Role role)
+    private void clearSSDCache( Role role )
     {
-        SDUtil.clearSsdCacheEntry(role.getName(), contextId);
+        SDUtil.clearSsdCacheEntry( role.getName(), contextId );
     }
 
     /**
      * This command sets the cardinality associated with a given SSD role set. The command is valid if and only if:
      * 1 - the SSD role set exists, and
-     * 2 - the new cardinality is a natural number greater than or equal to 2 and less than or equal to the number of elements of the SSD role set, and
+     * 2 - the new cardinality is a natural number greater than or equal to 2 and less than or equal to the number of
+     * elements of the SSD role set, and
      * 3 - the SSD constraint is satisfied after setting the new cardinality.
      * <h4>required parameters</h4>
      * <ul>
@@ -1246,17 +1338,16 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet setSsdSetCardinality(SDSet ssdSet, int cardinality)
-        throws SecurityException
+    public SDSet setSsdSetCardinality( SDSet ssdSet, int cardinality ) throws SecurityException
     {
         String methodName = "setSsdSetCardinality";
-        assertContext(CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL);
-        setEntitySession(CLS_NM, methodName, ssdSet);
-        ssdSet.setType(SDSet.SDType.STATIC);
-        ssdSet.setCardinality(cardinality);
+        assertContext( CLS_NM, methodName, ssdSet, GlobalErrIds.SSD_NULL );
+        setEntitySession( CLS_NM, methodName, ssdSet );
+        ssdSet.setType( SDSet.SDType.STATIC );
+        ssdSet.setCardinality( cardinality );
         // remove any references to the old SSD from cache:
-        clearSSDCache(ssdSet);
-        return sdP.update(ssdSet);
+        clearSSDCache( ssdSet );
+        return sdP.update( ssdSet );
     }
 
     /**
@@ -1265,7 +1356,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * simultaneously active in the same session.  The command is valid if and only if:
      * 1 - the name of the DSD set is not already in use
      * 2 - all the roles in the DSD set are members of the ROLES data set
-     * 3 - n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the DSD role set,
+     * 3 - n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the DSD role
+     * set,
      * 4 - the DSD constraint for the new role set is satisfied.
      * <h4>required parameters</h4>
      * <ul>
@@ -1274,28 +1366,68 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * <h4>optional parameters</h4>
      * <ul>
      * <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
-     * <li>{@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to User from a particular set</li>
+     * <li>{@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be
+     * assigned to User from a particular set</li>
      * <li>{@link SDSet#description} - contains any safe text</li>
      * </ul>
      *
-     * @param dsdSet contains an instantiated reference to new DSD set containing, name, members, and cardinality (default 2)
+     * @param dsdSet contains an instantiated reference to new DSD set containing, name, members,
+     *               and cardinality (default 2)
      * @return reference to newly created SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet createDsdSet(SDSet dsdSet)
-        throws SecurityException
+    public SDSet createDsdSet( SDSet dsdSet ) throws SecurityException
     {
         String methodName = "createDsdSet";
-        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL);
-        setEntitySession(CLS_NM, methodName, dsdSet);
-        dsdSet.setType(SDSet.SDType.DYNAMIC);
-        if (dsdSet.getCardinality() == null)
+        assertContext( CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL );
+        setEntitySession( CLS_NM, methodName, dsdSet );
+        dsdSet.setType( SDSet.SDType.DYNAMIC );
+        if ( dsdSet.getCardinality() == null )
         {
             // default cardinality == 2
-            dsdSet.setCardinality(2);
+            dsdSet.setCardinality( 2 );
         }
-        return sdP.add(dsdSet);
+        return sdP.add( dsdSet );
+    }
+
+
+    /**
+     * This command updates existing DSD set of roles and sets the cardinality n of its subsets
+     * that cannot have common users.
+     * <p/>
+     * The command is valid if and only if:
+     * <ul>
+     * <li>The name of the DSD set already exists.
+     * <li> All the roles in the DSD set are members of the ROLES data set.
+     * <li> n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the DSD
+     * role set.
+     * <li> The DSD constraint for the new role set is satisfied.
+     * </ul>
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#name} - contains the name of existing DSD role set to be updated</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     * <li>{@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be
+     * assigned to User from a particular set</li>
+     * <li>{@link SDSet#description} - contains any safe text</li>
+     * </ul>
+     *
+     * @param dsdSet contains an instantiated reference to existing DSD set containing, name, members,
+     *               and cardinality (default 2)
+     * @return reference to DSDSet object targeted for update.
+     * @throws SecurityException in the event of data validation or system error.
+     */
+    public SDSet updateDsdSet( SDSet dsdSet ) throws SecurityException
+    {
+        String methodName = "updateDsdSet";
+        assertContext( CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL );
+        setEntitySession( CLS_NM, methodName, dsdSet );
+        dsdSet.setType( SDSet.SDType.DYNAMIC );
+        return sdP.update( dsdSet );
     }
 
 
@@ -1318,21 +1450,20 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      *          in the event of data validation or system error.
      */
     @Override
-    public SDSet addDsdRoleMember(SDSet dsdSet, Role role)
-        throws SecurityException
+    public SDSet addDsdRoleMember( SDSet dsdSet, Role role ) throws SecurityException
     {
         String methodName = "addDsdRoleMember";
-        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL);
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, dsdSet);
-        SDSet entity = sdP.read(dsdSet);
-        entity.setContextId(this.contextId);
-        entity.addMember(role.getName());
-        setAdminData(CLS_NM, methodName, entity);
-        entity.setContextId(contextId);
-        SDSet dsdOut = sdP.update(entity);
+        assertContext( CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL );
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, dsdSet );
+        SDSet entity = sdP.read( dsdSet );
+        entity.setContextId( this.contextId );
+        entity.addMember( role.getName() );
+        setAdminData( CLS_NM, methodName, entity );
+        entity.setContextId( contextId );
+        SDSet dsdOut = sdP.update( entity );
         // remove any references to the old DSD from cache:
-        clearDSDCache(dsdSet);
+        clearDSDCache( dsdSet );
         return dsdOut;
     }
 
@@ -1356,26 +1487,25 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet deleteDsdRoleMember(SDSet dsdSet, Role role)
-        throws SecurityException
+    public SDSet deleteDsdRoleMember( SDSet dsdSet, Role role ) throws SecurityException
     {
         String methodName = "deleteDsdRoleMember";
-        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL);
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        setEntitySession(CLS_NM, methodName, dsdSet);
-        SDSet entity = sdP.read(dsdSet);
-        entity.setContextId(this.contextId);
-        entity.delMember(role.getName());
+        assertContext( CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL );
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        setEntitySession( CLS_NM, methodName, dsdSet );
+        SDSet entity = sdP.read( dsdSet );
+        entity.setContextId( this.contextId );
+        entity.delMember( role.getName() );
 
         // when removing last role member a placeholder must be left in data set:
-        if (entity.getMembers().isEmpty())
+        if ( entity.getMembers().isEmpty() )
         {
-            entity.addMember(GlobalIds.NONE);
+            entity.addMember( GlobalIds.NONE );
         }
-        setAdminData(CLS_NM, methodName, entity);
-        SDSet dsdOut = sdP.update(entity);
+        setAdminData( CLS_NM, methodName, entity );
+        SDSet dsdOut = sdP.update( entity );
         // remove any references to the old DSD from cache:
-        clearDSDCache(dsdSet);
+        clearDSDCache( dsdSet );
         return dsdOut;
     }
 
@@ -1393,23 +1523,24 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      *          in the event of data validation or system error.
      */
     @Override
-    public SDSet deleteDsdSet(SDSet dsdSet)
-        throws SecurityException
+    public SDSet deleteDsdSet( SDSet dsdSet ) throws SecurityException
     {
         String methodName = "deleteDsdSet";
-        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL);
-        setEntitySession(CLS_NM, methodName, dsdSet);
-        dsdSet.setType(SDSet.SDType.DYNAMIC);
+        assertContext( CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL );
+        setEntitySession( CLS_NM, methodName, dsdSet );
+        dsdSet.setType( SDSet.SDType.DYNAMIC );
         // remove any references to the old DSD from cache:
-        clearDSDCache(dsdSet);
-        return sdP.delete(dsdSet);
+        clearDSDCache( dsdSet );
+        return sdP.delete( dsdSet );
     }
 
 
     /**
-h     * This command sets the cardinality associated with a given DSD role set. The command is valid if and only if:
+     * h     * This command sets the cardinality associated with a given DSD role set. The command is valid if and
+     * only if:
      * 1 - the SSD role set exists, and
-     * 2 - the new cardinality is a natural number greater than or equal to 2 and less than or equal to the number of elements of the SSD role set, and
+     * 2 - the new cardinality is a natural number greater than or equal to 2 and less than or equal to the number of
+     * elements of the SSD role set, and
      * 3 - the SSD constraint is satisfied after setting the new cardinality.
      * <h4>required parameters</h4>
      * <ul>
@@ -1424,17 +1555,16 @@ h     * This command sets the cardinality associated with a given DSD role set. 
      *          in the event of data validation or system error.
      */
     @Override
-    public SDSet setDsdSetCardinality(SDSet dsdSet, int cardinality)
-        throws SecurityException
+    public SDSet setDsdSetCardinality( SDSet dsdSet, int cardinality ) throws SecurityException
     {
         String methodName = "setDsdSetCardinality";
-        assertContext(CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL);
-        setEntitySession(CLS_NM, methodName, dsdSet);
-        dsdSet.setType(SDSet.SDType.DYNAMIC);
-        dsdSet.setCardinality(cardinality);
+        assertContext( CLS_NM, methodName, dsdSet, GlobalErrIds.DSD_NULL );
+        setEntitySession( CLS_NM, methodName, dsdSet );
+        dsdSet.setType( SDSet.SDType.DYNAMIC );
+        dsdSet.setCardinality( cardinality );
         // remove any references to the old DSD from cache:
-        clearDSDCache(dsdSet);
-        return sdP.update(dsdSet);
+        clearDSDCache( dsdSet );
+        return sdP.update( dsdSet );
     }
 
     /**
@@ -1443,8 +1573,8 @@ h     * This command sets the cardinality associated with a given DSD role set. 
      * @param dsdSet
      * @throws SecurityException
      */
-    private void clearDSDCache(SDSet dsdSet)
+    private void clearDSDCache( SDSet dsdSet )
     {
-        SDUtil.clearDsdCacheEntry(dsdSet.getName(), contextId);
+        SDUtil.clearDsdCacheEntry( dsdSet.getName(), contextId );
     }
 }

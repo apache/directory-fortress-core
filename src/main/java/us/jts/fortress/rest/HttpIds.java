@@ -82,6 +82,7 @@ public class HttpIds
     public static final String SSD_ROLES = "ssdRoles";
     public static final String SSD_CARD = "ssdCard";
     public static final String SSD_ADD = "ssdAdd";
+    public static final String SSD_UPDATE = "ssdUpdate";
     public static final String SSD_DELETE = "ssdDelete";
     public static final String SSD_ADD_MEMBER = "ssdAddMember";
     public static final String SSD_DEL_MEMBER = "ssdDelMember";
@@ -92,6 +93,7 @@ public class HttpIds
     public static final String DSD_ROLES = "dsdRoles";
     public static final String DSD_CARD = "dsdCard";
     public static final String DSD_ADD = "dsdAdd";
+    public static final String DSD_UPDATE = "dsdUpdate";
     public static final String DSD_DELETE = "dsdDelete";
     public static final String DSD_ADD_MEMBER = "dsdAddMember";
     public static final String DSD_DEL_MEMBER = "dsdDelMember";
