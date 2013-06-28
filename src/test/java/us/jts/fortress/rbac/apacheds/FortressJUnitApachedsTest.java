@@ -8,10 +8,11 @@ import org.apache.directory.server.core.annotations.CreateDS;
 import org.apache.directory.server.core.annotations.CreatePartition;
 import org.apache.directory.server.core.integ.AbstractLdapTestUnit;
 import org.apache.directory.server.core.integ.FrameworkRunner;
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.rbac.AccessMgrImplTest;
@@ -47,7 +48,7 @@ import us.jts.fortress.util.cache.CacheMgr;
 public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
 {
     private static final String CLS_NM = DelegatedMgrImplTest.class.getName();
-    final private static Logger log = Logger.getLogger( CLS_NM );
+    final private static Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static Session adminSess = null;
 
 

@@ -4,18 +4,21 @@
 
 package us.jts.fortress.cfg;
 
+
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.Properties;
+
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.CfgException;
 import us.jts.fortress.CfgRuntimeException;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.log4j.Logger;
-
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.Properties;
 
 /**
  * This class wraps <a href="http://commons.apache.org/cfg/">Apache Commons Config</a> utility and is used by internal components to retrieve name-value
@@ -36,66 +39,73 @@ public class Config
     final private static String userPropFile = "fortress.user.properties";
     private static final PropertiesConfiguration config;
     private static final String CLS_NM = Config.class.getName();
-    final private static Logger log = Logger.getLogger(CLS_NM);
+    final private static Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     static
     {
         try
         {
             // Load the system config bootstrap xml file.
-            URL fUrl = Config.class.getClassLoader().getResource(propFile);
-            if (fUrl == null)
+            URL fUrl = Config.class.getClassLoader().getResource( propFile );
+
+            if ( fUrl == null )
             {
                 String error = CLS_NM + " static init: Error, null cfg file: " + propFile;
-                log.fatal(error);
-                throw new java.lang.RuntimeException(error);
+                LOG.error( error );
+                throw new java.lang.RuntimeException( error );
             }
-            log.info(CLS_NM + " static init: found from: " + propFile + " path:" + fUrl.getPath());
+
+            LOG.info( "static init: found from: {} path: {}", propFile, fUrl.getPath() );
+
             config = new PropertiesConfiguration();
-            config.setDelimiterParsingDisabled(true);
-            config.load(fUrl);
-            log.info(CLS_NM + " static init: loading from: " + propFile);
+            config.setDelimiterParsingDisabled( true );
+            config.load( fUrl );
+            LOG.info( "static init: loading from: {}", propFile );
 
-            URL fUserUrl = Config.class.getClassLoader().getResource(userPropFile);
-            if (fUserUrl != null)
+            URL fUserUrl = Config.class.getClassLoader().getResource( userPropFile );
+            if ( fUserUrl != null )
             {
-                log.info(CLS_NM + " static init: found user properties from: " + userPropFile + " path:" + fUserUrl.getPath());
-                config.load(fUserUrl);
+                LOG.info( "static init: found user properties from: {} path: {}",
+                    userPropFile, fUserUrl.getPath() );
+                config.load( fUserUrl );
             }
 
-            String realmName = config.getString(GlobalIds.CONFIG_REALM);
-            if (realmName != null && realmName.length() > 0)
+            String realmName = config.getString( GlobalIds.CONFIG_REALM );
+            if ( realmName != null && realmName.length() > 0 )
             {
-                log.info(CLS_NM + " static init: load config realm [" + realmName + "]");
-                Properties props = getRemoteConfig(realmName);
-                if (props != null)
+                LOG.info( "static init: load config realm [{}]", realmName );
+                Properties props = getRemoteConfig( realmName );
+                if ( props != null )
                 {
-                    for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+                    for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
                     {
-                        String key = (String) e.nextElement();
-                        String val = props.getProperty(key);
-                        config.addProperty(key, val);
+                        String key = ( String ) e.nextElement();
+                        String val = props.getProperty( key );
+                        config.addProperty( key, val );
                     }
                 }
             }
             else
             {
-                log.info(CLS_NM + " static init: config realm not setup");
+                LOG.info( " static init: config realm not setup" );
             }
         }
-        catch (org.apache.commons.configuration.ConfigurationException ex)
+        catch ( org.apache.commons.configuration.ConfigurationException ex )
         {
-            String error = CLS_NM + " static init: Error loading from cfg file: [" + propFile + "] ConfigurationException=" + ex;
-            log.fatal(error);
-            throw new CfgRuntimeException(GlobalErrIds.FT_CONFIG_BOOTSTRAP_FAILED, error, ex);
+            String error = CLS_NM + " static init: Error loading from cfg file: [" + propFile
+                + "] ConfigurationException=" + ex;
+            LOG.error( error );
+            throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_BOOTSTRAP_FAILED, error, ex );
         }
-        catch (SecurityException se)
+        catch ( SecurityException se )
         {
-            String error = CLS_NM + " static init: Error loading from cfg file: [" + propFile + "] SecurityException=" + se;
-            log.fatal(error);
-            throw new CfgRuntimeException(GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, se);
+            String error = CLS_NM + " static init: Error loading from cfg file: [" + propFile + "] SecurityException="
+                + se;
+            LOG.error( error );
+            throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, se );
         }
     }
+
 
     /**
      * Fetch the remote cfg params from ldap with given name.
@@ -105,20 +115,20 @@ public class Config
      * @throws us.jts.fortress.SecurityException
      *          in the event of system or validation error.
      */
-    private static Properties getRemoteConfig(String realmName) throws SecurityException
+    private static Properties getRemoteConfig( String realmName ) throws SecurityException
     {
         Properties props = null;
         try
         {
             ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
-            props = cfgMgr.read(realmName);
+            props = cfgMgr.read( realmName );
         }
-        catch (CfgException ce)
+        catch ( CfgException ce )
         {
-            if (ce.getErrorId() == GlobalErrIds.FT_CONFIG_NOT_FOUND)
+            if ( ce.getErrorId() == GlobalErrIds.FT_CONFIG_NOT_FOUND )
             {
                 String warning = CLS_NM + ".getRemoteConfig could not find cfg entry";
-                log.warn(warning);
+                LOG.warn( warning );
             }
             else
             {
@@ -128,28 +138,30 @@ public class Config
         return props;
     }
 
+
     /**
      * Gets the prop attribute as String value from the apache commons cfg component.
      *
      * @param name contains the name of the property.
      * @return contains the value associated with the property or null if not not found.
      */
-    public static String getProperty(String name)
+    public static String getProperty( String name )
     {
         String value = null;
-        if (config != null)
+        if ( config != null )
         {
-            value = (String) config.getProperty(name);
-            if (log.isDebugEnabled())
-                log.debug(CLS_NM + ".getProperty name [" + name + "] value [" + value + "]");
+            value = ( String ) config.getProperty( name );
+            if ( LOG.isDebugEnabled() )
+                LOG.debug( ".getProperty name [{}] value [{}]", name, value );
         }
         else
         {
             String error = CLS_NM + ".getProperty invalid config, can't read prop [" + name + "]";
-            log.fatal(error);
+            LOG.error( error );
         }
         return value;
     }
+
 
     /**
      * Get the property value from the apache commons config but specify a default value if not found.
@@ -158,19 +170,19 @@ public class Config
      * @param defaultValue specified by client will be returned if property value is not found.
      * @return contains the value for the property as a String.
      */
-    public static String getProperty(String name, String defaultValue)
+    public static String getProperty( String name, String defaultValue )
     {
         String value = null;
-        if (config != null)
+        if ( config != null )
         {
-            value = (String) config.getProperty(name);
+            value = ( String ) config.getProperty( name );
         }
         else
         {
             String warn = CLS_NM + ".getProperty invalid config, can't read prop [" + name + "]";
-            log.warn(warn);
+            LOG.warn( warn );
         }
-        if (value == null || value.length() == 0)
+        if ( value == null || value.length() == 0 )
         {
             value = defaultValue;
         }
@@ -184,22 +196,23 @@ public class Config
      * @param name contains the name of the property.
      * @return contains the value associated with the property or 0 if not not found.
      */
-    public static char getChar(String name)
+    public static char getChar( String name )
     {
         char value = 0;
-        if (config != null)
+        if ( config != null )
         {
-            value = (char) config.getProperty(name);
-            if (log.isDebugEnabled())
-                log.debug(CLS_NM + ".getChar name [" + name + "] value [" + value + "]");
+            value = ( char ) config.getProperty( name );
+            if ( LOG.isDebugEnabled() )
+                LOG.debug( ".getChar name [{}] value [{}]", name, value );
         }
         else
         {
             String error = CLS_NM + ".getChar invalid config, can't read prop [" + name + "]";
-            log.fatal(error);
+            LOG.error( error );
         }
         return value;
     }
+
 
     /**
      * Get the property value from the apache commons config but specify a default value if not found.
@@ -208,19 +221,19 @@ public class Config
      * @param defaultValue specified by client will be returned if property value is not found.
      * @return contains the value for the property as a char.
      */
-    public static char getChar(String name, char defaultValue)
+    public static char getChar( String name, char defaultValue )
     {
         char value = 0;
-        if (config != null)
+        if ( config != null )
         {
-            value = (char) config.getProperty(name);
+            value = ( char ) config.getProperty( name );
         }
         else
         {
             String warn = CLS_NM + ".getChar invalid config, can't read prop [" + name + "]";
-            log.warn(warn);
+            LOG.warn( warn );
         }
-        if (value == 0)
+        if ( value == 0 )
         {
             value = defaultValue;
         }
@@ -234,20 +247,21 @@ public class Config
      * @param key name of the property name.
      * @return The int value or 0 if not found.
      */
-    public static int getInt(String key)
+    public static int getInt( String key )
     {
         int value = 0;
-        if (config != null)
+        if ( config != null )
         {
-            value = config.getInt(key);
+            value = config.getInt( key );
         }
         else
         {
             String warn = CLS_NM + ".getInt invalid config, can't read prop [" + key + "]";
-            log.warn(warn);
+            LOG.warn( warn );
         }
         return value;
     }
+
 
     /**
      * Gets the int attribute of the Config class or default value if not found.
@@ -256,20 +270,21 @@ public class Config
      * @param defaultValue to use if property not found.
      * @return The int value or default value if not found.
      */
-    public static int getInt(String key, int defaultValue)
+    public static int getInt( String key, int defaultValue )
     {
         int value = 0;
-        if (config != null)
+        if ( config != null )
         {
-            value = config.getInt(key, defaultValue);
+            value = config.getInt( key, defaultValue );
         }
         else
         {
             String warn = CLS_NM + ".getInt invalid config, can't read prop [" + key + "]";
-            log.warn(warn);
+            LOG.warn( warn );
         }
         return value;
     }
+
 
     /**
      * Gets the boolean attribute associated with the name or false if not found.
@@ -277,20 +292,21 @@ public class Config
      * @param key name of the property name.
      * @return The boolean value or false if not found.
      */
-    public static boolean getBoolean(String key)
+    public static boolean getBoolean( String key )
     {
         boolean value = false;
-        if (config != null)
+        if ( config != null )
         {
-            value = config.getBoolean(key);
+            value = config.getBoolean( key );
         }
         else
         {
             String warn = CLS_NM + ".getBoolean - invalid config, can't read prop [" + key + "]";
-            log.warn(warn);
+            LOG.warn( warn );
         }
         return value;
     }
+
 
     /**
      * Gets the boolean attribute associated with the name or false if not found.
@@ -299,17 +315,17 @@ public class Config
      * @param defaultValue specified by client will be returned if property value is not found.
      * @return The boolean value or false if not found.
      */
-    public static boolean getBoolean(String key, boolean defaultValue)
+    public static boolean getBoolean( String key, boolean defaultValue )
     {
         boolean value = defaultValue;
-        if (config != null)
+        if ( config != null )
         {
-            value = config.getBoolean(key, defaultValue);
+            value = config.getBoolean( key, defaultValue );
         }
         else
         {
             String warn = CLS_NM + ".getBoolean - invalid config, can't read prop [" + key + "]";
-            log.warn(warn);
+            LOG.warn( warn );
         }
         return value;
     }
