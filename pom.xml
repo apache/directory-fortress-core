@@ -20,7 +20,7 @@
   <artifactId>fortress</artifactId>
   <packaging>jar</packaging>
   <name>Fortress Core</name>
-  <version>1.0-RC26</version>
+  <version>1.0-RC27</version>
   <description>Fortress is a standards-based Identity and Access Management SDK.</description>
   <url>http://jts.us</url>
 
@@ -70,7 +70,6 @@
       <version>1.5.2</version>
     </dependency>
 
-
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
@@ -88,7 +87,6 @@
        <artifactId>unboundid-ldapsdk</artifactId>
        <version>2.3.3</version>
     </dependency>
-
 
     <!-- Logging dependencies -->
 
@@ -126,18 +124,6 @@
       <groupId>net.sf.ehcache</groupId>
       <artifactId>ehcache-core</artifactId>
       <version>2.6.5</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.6.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-jcl</artifactId>
-      <version>1.6.1</version>
     </dependency>
 
     <dependency>

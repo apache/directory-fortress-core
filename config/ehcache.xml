@@ -22,7 +22,6 @@ This ehcache.xml corresponds to a single CacheManager.
     The defaultCache has an implicit name "default" which is a reserved cache name.
     -->
     <defaultCache
-           maxEntriesLocalHeap="10000"
            eternal="false"
            overflowToDisk="false"
            timeToIdleSeconds="120"

@@ -140,7 +140,7 @@
        <property name="unboundsdk.jar" value="${lib.dir}/unboundid-ldapsdk-2.1.0.jar"/>
        <property name="jgraph.jar" value="${lib.dir}/jgrapht-jdk1.5-0.7.3.jar"/>
        <property name="log4j.jar" value="${lib.dir}/log4j-1.2.17.jar"/>
-       <property name="junit.jar" value="${lib.dir}/junit-4.9.jar"/>
+       <property name="junit.jar" value="${lib.dir}/junit-4.11.jar"/>
        <property name="jasypt.jar" value="${lib.dir}/jasypt-1.8.jar"/>
        <property name="jaxb-api.jar" value="${lib.dir}/jaxb-api-2.2.6.jar"/>
        <property name="jaxb-impl.jar" value="${lib.dir}/jaxb-impl-2.2.4-1.jar"/>
@@ -1065,6 +1065,8 @@
                 <include name="NOTICE.txt"/>
                 <exclude name="*.log"/>
                 <exclude name="build.sh"/>
+                <exclude name="codetemplates.xml"/>
+                <exclude name="formatting.xml"/>
             </zipfileset>
 
             <zipfileset dir="${images.dir}" prefix="images">
