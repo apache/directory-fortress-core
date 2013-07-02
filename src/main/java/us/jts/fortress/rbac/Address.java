@@ -48,6 +48,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Address implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
     @XmlElement(nillable = true)
     private List<String> addresses;
     private String city;
@@ -226,6 +228,11 @@ public class Address implements Serializable
     }
 
 
+    /**
+     * Accept a String that contains a value {@code building} bound for {@code organizationalPerson} object class.
+     *
+     * @param postOfficeBox associated with the user.
+     */
     public void setBuilding( String building )
     {
         this.building = building;
