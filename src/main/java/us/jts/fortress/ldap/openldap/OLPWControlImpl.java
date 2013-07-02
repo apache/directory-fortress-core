@@ -80,6 +80,7 @@ public class OLPWControlImpl implements PwPolicyControl
         pwMsg.setAuthenticated( isAuthenticated );
 
         LDAPControl[] controls = ld.getResponseControls();
+
         if ( controls == null )
         {
             pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
@@ -91,40 +92,53 @@ public class OLPWControlImpl implements PwPolicyControl
             for ( int i = 0; i < controls.length; i++ )
             {
                 if ( LOG.isDebugEnabled() )
+                {
                     LOG.debug( methodName + " controls[" + i + "]=" + controls[i] );
+                }
+
                 LDAPControl con = controls[i];
                 String id = con.getID();
+
                 if ( id.compareTo( GlobalIds.OPENLDAP_PW_RESPONSE_CONTROL ) == 0 )
                 {
                     byte[] rB = con.getValue();
+
                     if ( LOG.isDebugEnabled() )
                     {
                         LOG.debug( methodName + " control value length=" + rB.length );
                         String bytes = "";
+
                         for ( byte aRB : rB )
                         {
                             bytes = bytes + printRawData( aRB );
                         }
+
                         LOG.debug( methodName + " printRawData:" );
                         LOG.debug( bytes );
                     }
+
                     if ( rB == null || rB[1] == 0 )
                     {
                         LOG.debug( methodName + " no password control found" );
                         pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
                     }
+
                     if ( LOG.isDebugEnabled() )
                     {
                         LOG.debug( methodName + " byte[]=" + Arrays.toString( rB ) );
                         LOG.debug( "control.toString()=" + con.toString() );
                     }
+
                     int indx = 0;
                     int lBerObjType = getInt( rB[indx++] );
+
                     if ( LOG.isDebugEnabled() )
                     {
                         LOG.debug( methodName + " BER encoded object type=" + lBerObjType );
                     }
+
                     int msgLen = getInt( rB[indx++] );
+
                     while ( indx < msgLen )
                     {
                         switch ( rB[indx++] )
@@ -135,6 +149,7 @@ public class OLPWControlImpl implements PwPolicyControl
                                 //  			     		^
                                 //		PPOLICY_WARNING  0xa0
                                 int policyWarnLen = getInt( rB[indx++] );
+
                                 switch ( rB[indx++] )
                                 {
                                     case ( byte ) 0xa0:
@@ -146,19 +161,24 @@ public class OLPWControlImpl implements PwPolicyControl
                                         //       PPOLICY_WARNING  0xa0 PPOLICY_EXPIRE 0xa0       EXP int==(decimal 548) 1000100100
                                         int expLength = getInt( rB[indx++] );
                                         int expire = getInt( rB[indx++] );
+
                                         for ( int k = 1; k < expLength; k++ )
                                         {
                                             expire = expire << 8;
                                             int next = getInt( rB[indx++] );
                                             expire = expire | next;
                                         }
+
                                         pwMsg.setExpirationSeconds( expire );
+
                                         if ( LOG.isDebugEnabled() )
                                         {
                                             LOG.debug( methodName + " User:" + pwMsg.getUserId()
                                                 + " password expires in " + expire + " seconds." );
                                         }
+
                                         break;
+
                                     case ( byte ) 0xa1:
                                     case ( byte ) 0x81:
                                         pwMsg.setWarningId( GlobalPwMsgIds.PASSWORD_GRACE_WARNING );
@@ -168,29 +188,38 @@ public class OLPWControlImpl implements PwPolicyControl
                                         //			PPOLICY_WARNING  0xa0   PPOLICY_GRACE 0xa1       grace integer value
                                         int graceLen = getInt( rB[indx++] );
                                         int grace = getInt( rB[indx++] );
+
                                         for ( int k = 1; k < graceLen; k++ )
                                         {
                                             grace = grace << 8;
                                             int next = getInt( rB[indx++] );
                                             grace = grace | next;
                                         }
+
                                         pwMsg.setGraceLogins( grace );
+
                                         if ( LOG.isDebugEnabled() )
                                         {
                                             LOG.debug( methodName + " UserId:" + pwMsg.getUserId()
                                                 + " # logins left=" + grace );
                                         }
+
                                         break;
+
                                     default:
                                         pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
+
                                         if ( LOG.isDebugEnabled() )
                                         {
                                             LOG.debug( methodName + " UserId:" + pwMsg.getUserId()
                                                 + " Invalid PPOlicy Type" );
                                         }
+
                                         break;
                                 }
+
                                 break;
+
                             case ( byte ) 0xa1:
                             case ( byte ) 0x81:
                                 // BER Encoded byte array:
@@ -199,55 +228,71 @@ public class OLPWControlImpl implements PwPolicyControl
                                 //		   PPOLICY_WARNING  0xa0 PPOLICY_EXPIRE 0xa0      expire int==(decimal 100)     PPOLICY_ERR 0xa1             ERR #==2
                                 int errLen = getInt( rB[indx++] );
                                 int err = getInt( rB[indx++] );
+
                                 if ( LOG.isDebugEnabled() )
                                 {
                                     LOG.debug( methodName + " UserId:" + pwMsg.getUserId() + " PPOLICY_ERROR="
                                         + err );
                                 }
+
                                 switch ( err )
                                 {
                                     case 0:
                                         pwMsg.setErrorId( GlobalPwMsgIds.PASSWORD_HAS_EXPIRED );
                                         break;
+
                                     case 1:
                                         pwMsg.setErrorId( GlobalPwMsgIds.ACCOUNT_LOCKED );
                                         break;
+
                                     case 2:
                                         pwMsg.setErrorId( GlobalPwMsgIds.CHANGE_AFTER_RESET );
                                         break;
+
                                     case 3:
                                         pwMsg.setErrorId( GlobalPwMsgIds.NO_MODIFICATIONS );
                                         break;
+
                                     case 4:
                                         pwMsg.setErrorId( GlobalPwMsgIds.MUST_SUPPLY_OLD );
                                         break;
+
                                     case 5:
                                         pwMsg.setErrorId( GlobalPwMsgIds.INSUFFICIENT_QUALITY );
                                         break;
+
                                     case 6:
                                         pwMsg.setErrorId( GlobalPwMsgIds.PASSWORD_TOO_SHORT );
                                         break;
+
                                     case 7:
                                         pwMsg.setErrorId( GlobalPwMsgIds.PASSWORD_TOO_YOUNG );
                                         break;
+
                                     case 8:
                                         pwMsg.setErrorId( GlobalPwMsgIds.HISTORY_VIOLATION );
                                         break;
+
                                     case 65535:
                                         pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
                                         break;
+
                                     default:
                                         pwMsg.setErrorId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
                                         break;
                                 }
+
                                 break;
+
                             default:
                                 pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
+
                                 if ( LOG.isDebugEnabled() )
                                 {
                                     LOG.debug( methodName + " userId: " + pwMsg.getUserId()
                                         + " Invalid PPOlicy Message Type" );
                                 }
+
                                 break;
                         }
                     }
@@ -255,6 +300,7 @@ public class OLPWControlImpl implements PwPolicyControl
                 else
                 {
                     pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
+
                     if ( LOG.isDebugEnabled() )
                     {
                         LOG.debug( methodName + " UserId: " + pwMsg.getUserId()
