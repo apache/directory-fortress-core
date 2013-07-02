@@ -4,11 +4,21 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.util.time.Constraint;
 
-import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Properties;
+import java.util.UUID;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import us.jts.fortress.util.time.Constraint;
 
 
 /**
@@ -143,42 +153,48 @@ import java.util.*;
 
 @XmlRootElement(name = "fortUser")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "user", propOrder = {
-    "userId",
-    "description",
-    "name",
-    "internalId",
-    "ou",
-    "pwPolicy",
-    "sn",
-    "cn",
-    "dn",
-    "employeeType",
-    "title",
-    "address",
-    "phones",
-    "mobiles",
-    "emails",
-    "props",
-    "locked",
-    "reset",
-    "system",
-    "beginTime",
-    "endTime",
-    "beginDate",
-    "endDate",
-    "beginLockDate",
-    "endLockDate",
-    "dayMask",
-    "timeout",
-    "roles",
-    "adminRoles",
-    "password",
-    "newPassword",
-    "jpegPhoto"
+@XmlType(name = "user", propOrder =
+    {
+        "userId",
+        "description",
+        "name",
+        "internalId",
+        "ou",
+        "pwPolicy",
+        "sn",
+        "cn",
+        "dn",
+        "employeeType",
+        "title",
+        "address",
+        "phones",
+        "mobiles",
+        "emails",
+        "props",
+        "locked",
+        "reset",
+        "system",
+        "beginTime",
+        "endTime",
+        "beginDate",
+        "endDate",
+        "beginLockDate",
+        "endLockDate",
+        "dayMask",
+        "timeout",
+        "roles",
+        "adminRoles",
+        "password",
+        "newPassword",
+        "jpegPhoto"
 })
 public class User extends FortEntity implements Constraint, Serializable
 {
+    /**
+     * The serialVersionUID needed for Serializable classes
+     */
+    private static final long serialVersionUID = 1L;
+
     private String userId;
     @XmlElement(nillable = true)
     private char[] password;
@@ -222,6 +238,7 @@ public class User extends FortEntity implements Constraint, Serializable
     @XmlElement(nillable = true)
     private byte[] jpegPhoto;
 
+
     /**
      * Default constructor not intended for external use and is typically used by internal Fortress classes.
      * User entity constructed in this manner cannot be used by other until additional attributes (i.e. userId) are set.
@@ -230,15 +247,17 @@ public class User extends FortEntity implements Constraint, Serializable
     {
     }
 
+
     /**
      * Construct User given userId.   Once loaded this entity can be passed to AccessMgr.createSession iff trusted == 'true'..
      *
      * @param userId String validated using simple length test and optional regular expression, i.e. safe text.
      */
-    public User(String userId)
+    public User( String userId )
     {
         this.userId = userId;
     }
+
 
     /**
      * Construct User given userId and password.  Once loaded this entity can be passed to AccessMgr.createSession.
@@ -246,11 +265,12 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param userId   String validated using simple length test and optional regular expression, i.e. safe text.
      * @param password validated using simple length test and OpenLDAP password policies.
      */
-    public User(String userId, char[] password)
+    public User( String userId, char[] password )
     {
         this.userId = userId;
         this.password = password;
     }
+
 
     /**
      * Construct User given userId and password.  Once loaded this entity can be passed to AccessMgr.createSession.
@@ -259,12 +279,13 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param password validated using simple length test and OpenLDAP password policies.
      * @param roleName contains role that caller is requesting activation.
      */
-    public User(String userId, char[] password, String roleName)
+    public User( String userId, char[] password, String roleName )
     {
         this.userId = userId;
         this.password = password;
-        setRole(new UserRole(roleName));
+        setRole( new UserRole( roleName ) );
     }
+
 
     /**
      * Construct User given userId and password.  Once loaded this entity can be passed to AccessMgr.createSession.
@@ -273,18 +294,20 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param password validated using simple length test and OpenLDAP password policies.
      * @param roleNames contains array of roleNames that caller is requesting activation.
      */
-    public User(String userId, char[] password, String[] roleNames)
+    public User( String userId, char[] password, String[] roleNames )
     {
         this.userId = userId;
         this.password = password;
-        if (roleNames != null)
+
+        if ( roleNames != null )
         {
-            for (String name : roleNames)
+            for ( String name : roleNames )
             {
-                setRole(new UserRole(name));
+                setRole( new UserRole( name ) );
             }
         }
     }
+
 
     /**
      * Construct User given userId and password.  Once loaded this entity can be passed to AccessMgr.createSession.
@@ -294,23 +317,14 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param roleName contains role that caller is requesting activation (see {@link us.jts.fortress.AccessMgr#createSession(User, boolean)}) or assignment (see {@link us.jts.fortress.AdminMgr#addUser(User)}).
      * @param ou org unit name that caller is requesting assigned to newly created User (see {@link us.jts.fortress.AdminMgr#addUser(User)}).
      */
-    public User(String userId, char[] password, String roleName, String ou)
+    public User( String userId, char[] password, String roleName, String ou )
     {
         this.userId = userId;
         this.password = password;
-        setRole(new UserRole(roleName));
+        setRole( new UserRole( roleName ) );
         this.ou = ou;
     }
 
-    /**
-     * Used to retrieve User's valid userId attribute.  The Fortress userId maps to 'uid' for InetOrgPerson object class.
-     *
-     * @return String containing the userId.
-     */
-    public String toString()
-    {
-        return userId;
-    }
 
     /**
      * Required by Constraint Interface but not needed for user entity. Not intended for external use.
@@ -320,8 +334,9 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public String getRawData()
     {
-        throw new UnsupportedOperationException("not allowed for user");
+        throw new UnsupportedOperationException( "not allowed for user" );
     }
+
 
     /**
      * This is used internally by Fortress for Constraint operations.
@@ -333,15 +348,17 @@ public class User extends FortEntity implements Constraint, Serializable
         return name;
     }
 
+
     /**
      * This is used internally by Fortress for Constraint operations.  Values set here by external caller will be ignored.
      *
      * @param name contains attribute used internally for constraint checking.
      */
-    public void setName(String name)
+    public void setName( String name )
     {
         this.name = name;
     }
+
 
     /**
      * Used to identify the employer to employee relationship.  Typical values used will be "Contractor", "Employee", "Intern", "Temp",
@@ -354,16 +371,18 @@ public class User extends FortEntity implements Constraint, Serializable
         return employeeType;
     }
 
+
     /**
      * Used to identify the employer to employee relationship.  Typical values used will be "Contractor", "Employee", "Intern", "Temp",
      * "External", and "Unknown" but any value may be used.
      *
      * @param employeeType maps to 'employeeType' attribute in 'inetOrgPerson' object class.
      */
-    public void setEmployeeType(String employeeType)
+    public void setEmployeeType( String employeeType )
     {
         this.employeeType = employeeType;
     }
+
 
     /**
      * The honorific prefix(es) of the User, or "Title" in most Western languages (e.g.  Ms. given the full name Ms.
@@ -376,16 +395,18 @@ public class User extends FortEntity implements Constraint, Serializable
         return title;
     }
 
+
     /**
      * The honorific prefix(es) of the User, or "Title" in most Western languages (e.g.  Ms. given the full name Ms.
      * Barbara Jane Jensen, III.).
      *
      * @param title maps to 'title' attribute in 'inetOrgPerson' objectclass.
      */
-    public void setTitle(String title)
+    public void setTitle( String title )
     {
         this.title = title;
     }
+
 
     /**
      * Return the name of the OpenLDAP password policy that is set for this user.  This attribute may be null.
@@ -398,16 +419,18 @@ public class User extends FortEntity implements Constraint, Serializable
         return pwPolicy;
     }
 
+
     /**
      * Sets the OpenLDAP password policy name to enable for User.  This attribute is optional but if set, will be validated to ensure
      * contains actual OpenLDAP password policy name.
      *
      * @param pwPolicy parameter must contain valid OpenLDAP policy name.
      */
-    public void setPwPolicy(String pwPolicy)
+    public void setPwPolicy( String pwPolicy )
     {
         this.pwPolicy = pwPolicy;
     }
+
 
     /**
      * Return a list of User's RBAC Roles.
@@ -417,12 +440,14 @@ public class User extends FortEntity implements Constraint, Serializable
     public List<UserRole> getRoles()
     {
         // do not return a null List to caller:
-        if (roles == null)
+        if ( roles == null )
         {
             roles = new ArrayList<>();
         }
+
         return roles;
     }
+
 
     /**
      * Add a list of RBAC Roles to this entity be considered for later processing:
@@ -430,51 +455,57 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param roles List of type UserRole that contains at minimum UserId and Role name.
      */
-    public void setRoles(List<UserRole> roles)
+    public void setRoles( List<UserRole> roles )
     {
         this.roles = roles;
     }
+
 
     /**
      * Add a single user-role object to the list of UserRoles for User.
      *
      * @param role UserRole contains {@link UserRole#name} to target for activation into {@link us.jts.fortress.rbac.Session}.
      */
-    public void setRole(UserRole role)
+    public void setRole( UserRole role )
     {
-        if (roles == null)
+        if ( roles == null )
         {
             roles = new ArrayList<>();
         }
-        roles.add(role);
+
+        roles.add( role );
     }
+
 
     /**
      * Add a single user-role object to the list of UserRoles for User.
      *
      * @param roleName contains role name to target for activation into {@link us.jts.fortress.rbac.Session}.
      */
-    public void setRole(String roleName)
+    public void setRole( String roleName )
     {
-        if (roles == null)
+        if ( roles == null )
         {
             roles = new ArrayList<>();
         }
-        roles.add(new UserRole(roleName));
+
+        roles.add( new UserRole( roleName ) );
     }
+
 
     /**
      * Removes a user-role object from the list of UserRoles.
      *
      * @param role UserRole must contain userId and role name.
      */
-    public void delRole(UserRole role)
+    public void delRole( UserRole role )
     {
-        if (roles != null)
+        if ( roles != null )
         {
-            roles.remove(role);
+            roles.remove( role );
         }
     }
+
 
     /**
      * Return a list of User's Admin Roles.
@@ -484,63 +515,71 @@ public class User extends FortEntity implements Constraint, Serializable
     public List<UserAdminRole> getAdminRoles()
     {
         // do not return a null List to caller:
-        if (adminRoles == null)
+        if ( adminRoles == null )
         {
             adminRoles = new ArrayList<>();
         }
+
         return adminRoles;
     }
+
 
     /**
      * Add a single user-adminRole object to the list of UserAdminRoles for User.
      *
      * @param roles UserAdminRole contains at least userId and admin role name (activation) and additional constraints (assignment)
      */
-    public void setAdminRoles(List<UserAdminRole> roles)
+    public void setAdminRoles( List<UserAdminRole> roles )
     {
         this.adminRoles = roles;
     }
+
 
     /**
      * Add a single user-adminRole object to the list of UserAdminRoles for User.
      *
      * @param role UserAdminRole contains at least userId and adminRole name (activation) and additional constraints (assignment)
      */
-    public void setAdminRole(UserAdminRole role)
+    public void setAdminRole( UserAdminRole role )
     {
-        if (adminRoles == null)
+        if ( adminRoles == null )
         {
             adminRoles = new ArrayList<>();
         }
-        adminRoles.add(role);
+
+        adminRoles.add( role );
     }
+
 
     /**
      * Add a single user-adminRole object to the list of UserAdminRoles for User.
      *
      * @param roleName contrains adminRole name.
      */
-    public void setAdminRole(String roleName)
+    public void setAdminRole( String roleName )
     {
-        if (adminRoles == null)
+        if ( adminRoles == null )
         {
             adminRoles = new ArrayList<>();
         }
-        adminRoles.add(new UserAdminRole(this.userId, roleName));
+
+        adminRoles.add( new UserAdminRole( userId, roleName ) );
     }
+
 
     /**
      * Removes a user-adminRole object from the list of UserAdminRoles.
      *
      * @param adminRole UserAdminRole must contain userId and adminRole name.
      */
-    public void delAdminRole(UserAdminRole adminRole)
+    public void delAdminRole( UserAdminRole adminRole )
     {
-        if (adminRoles != null)
+        if ( adminRoles != null )
         {
-            adminRoles.remove(adminRole);
+            adminRoles.remove( adminRole );
         }
     }
+
 
     /**
      * Return the userId that is associated with User.  UserId is required attribute and must be set on add, update, delete, createSession, authenticate, etc..
@@ -549,15 +588,16 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public String getUserId()
     {
-        return this.userId;
+        return userId;
     }
+
 
     /**
      * Set the userId that is associated with User.  UserId is required attribute and must be set on add, update, delete, createSession, authenticate, etc..
      *
      * @param userId maps to 'uid' attribute in 'inNetOrgPerson' object class.
      */
-    public void setUserId(String userId)
+    public void setUserId( String userId )
     {
         this.userId = userId;
     }
@@ -571,8 +611,9 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public String getInternalId()
     {
-        return this.internalId;
+        return internalId;
     }
+
 
     /**
      * Set the internal userId that is associated with User.  This method is used by DAO class and
@@ -581,10 +622,11 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param internalId maps to 'ftId' in 'ftUserAttrs' object class.
      */
-    public void setInternalId(String internalId)
+    public void setInternalId( String internalId )
     {
         this.internalId = internalId;
     }
+
 
     /**
      * Generate an internal userId that is associated with User.  This method is used by DAO class and
@@ -593,8 +635,9 @@ public class User extends FortEntity implements Constraint, Serializable
     void setInternalId()
     {
         UUID uuid = UUID.randomUUID();
-        this.internalId = uuid.toString();
+        internalId = uuid.toString();
     }
+
 
     /**
      * Returns optional description that is associated with User.  This attribute is validated but not constrained by Fortress.
@@ -603,18 +646,20 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public String getDescription()
     {
-        return this.description;
+        return description;
     }
+
 
     /**
      * Sets the optional description that is associated with User.  This attribute is validated but not constrained by Fortress.
      *
      * @param description that is mapped to same name in 'inetOrgPerson' object class.
      */
-    public void setDescription(String description)
+    public void setDescription( String description )
     {
         this.description = description;
     }
+
 
     /**
      * Return the optional password attribute for User.  Note this will only return values that were set by client
@@ -624,8 +669,9 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public char[] getPassword()
     {
-        return this.password;
+        return password;
     }
+
 
     /**
      * Set the optional password attribute associated for a User.  Note, this value is required before User will pass Fortress
@@ -634,20 +680,23 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param password maps to 'userPassword' attribute in 'inetOrgPerson' object class.
      */
-    public void setPassword(char[] password)
+    public void setPassword( char[] password )
     {
         this.password = password;
     }
+
 
     public char[] getNewPassword()
     {
         return newPassword;
     }
 
-    public void setNewPassword(char[] newPassword)
+
+    public void setNewPassword( char[] newPassword )
     {
         this.newPassword = newPassword;
     }
+
 
     /**
      * Returns common name associated with User.  This attribute is validated but not constrained by Fortress.
@@ -657,8 +706,9 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public String getCn()
     {
-        return this.cn;
+        return cn;
     }
+
 
     /**
      * Set the common name associated with User.  This attribute is validated but not constrained by Fortress.
@@ -666,10 +716,11 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param cn mapped to same name in 'inetOrgPerson' object class.
      */
-    public void setCn(String cn)
+    public void setCn( String cn )
     {
         this.cn = cn;
     }
+
 
     /**
      * Returns surname associated with User.  This attribute is validated but not constrained by Fortress.
@@ -679,8 +730,9 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public String getSn()
     {
-        return this.sn;
+        return sn;
     }
+
 
     /**
      * Set the surname associated with User.  This attribute is validated but not constrained by Fortress.
@@ -688,10 +740,11 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param sn mapped to same name in 'inetOrgPerson' object class.
      */
-    public void setSn(String sn)
+    public void setSn( String sn )
     {
         this.sn = sn;
     }
+
 
     /**
      * Returns distinguished name associated with User.  This attribute is generated by DAO and is not allowed for outside classes to modify.
@@ -701,8 +754,9 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public String getDn()
     {
-        return this.dn;
+        return dn;
     }
+
 
     /**
      * Set distinguished name associated with User.  This attribute is used by DAO and is not allowed for outside classes.
@@ -710,10 +764,11 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param dn that is mapped to same name in 'inetOrgPerson' object class.
      */
-    void setDn(String dn)
+    void setDn( String dn )
     {
         this.dn = dn;
     }
+
 
     /**
      * Returns orgUnit name for User.  This attribute is validated and constrained by Fortress and must contain name of existing User OU.
@@ -723,8 +778,9 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public String getOu()
     {
-        return this.ou;
+        return ou;
     }
+
 
     /**
      * Set the orgUnit name associated with User.  This attribute is validated and constrained by Fortress and must contain name of existing User OU.
@@ -732,10 +788,11 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param ou mapped to same name in 'inetOrgPerson' object class.
      */
-    public void setOu(String ou)
+    public void setOu( String ou )
     {
         this.ou = ou;
     }
+
 
     /**
      * temporal boolean flag is used by internal Fortress components.
@@ -746,8 +803,10 @@ public class User extends FortEntity implements Constraint, Serializable
     public boolean isTemporalSet()
     {
         //return (beginTime != null && endTime != null && beginDate != null && endDate != null && beginLockDate != null && endLockDate != null && dayMask != null);
-        return (beginTime != null || endTime != null || beginDate != null || endDate != null || beginLockDate != null || endLockDate != null || dayMask != null);
+        return ( beginTime != null || endTime != null || beginDate != null || endDate != null || beginLockDate != null
+            || endLockDate != null || dayMask != null );
     }
+
 
     /**
      * Contains the begin time of day user is allowed to signon to system.  The format is military time - HHMM, i.e. 0800 (8:00 am) or 1700 (5:00 p.m.).
@@ -758,8 +817,9 @@ public class User extends FortEntity implements Constraint, Serializable
     @Override
     public String getBeginTime()
     {
-        return this.beginTime;
+        return beginTime;
     }
+
 
     /**
      * Set the begin time of day user is allowed to signon to system.  The format is military time - HHMM, i.e. 0800 (8:00 am) or 1700 (5:00 p.m.).
@@ -768,10 +828,11 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param beginTime maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
     @Override
-    public void setBeginTime(String beginTime)
+    public void setBeginTime( String beginTime )
     {
         this.beginTime = beginTime;
     }
+
 
     /**
      * Contains the end time of day user is allowed to occupy system.  The format is military time - HHMM, i.e. 0000 (12:00 am) or 2359 (11:59 p.m.).
@@ -782,8 +843,9 @@ public class User extends FortEntity implements Constraint, Serializable
     @Override
     public String getEndTime()
     {
-        return this.endTime;
+        return endTime;
     }
+
 
     /**
      * Set the end time of day user is allowed to signon to system.  The format is military time - HHMM, i.e. 0000 (12:00 am) or 2359 (11:59 p.m.).
@@ -792,10 +854,11 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param endTime maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
     @Override
-    public void setEndTime(String endTime)
+    public void setEndTime( String endTime )
     {
         this.endTime = endTime;
     }
+
 
     /**
      * Contains the begin date when user is allowed to signon to system.  The format is - YYYYMMDD, i.e. 20100101 (January 1. 2010).
@@ -806,8 +869,9 @@ public class User extends FortEntity implements Constraint, Serializable
     @Override
     public String getBeginDate()
     {
-        return this.beginDate;
+        return beginDate;
     }
+
 
     /**
      * Set the beginDate when user is allowed to signon to system.  The format is - YYYYMMDD, i.e. 20100101 (January 1. 2010).
@@ -816,10 +880,11 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param beginDate maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
     @Override
-    public void setBeginDate(String beginDate)
+    public void setBeginDate( String beginDate )
     {
         this.beginDate = beginDate;
     }
+
 
     /**
      * Contains the end date when user is allowed to signon to system.  The format is - YYYYMMDD, i.e. 20101231 (December 31, 2010).
@@ -830,8 +895,9 @@ public class User extends FortEntity implements Constraint, Serializable
     @Override
     public String getEndDate()
     {
-        return this.endDate;
+        return endDate;
     }
+
 
     /**
      * Set the end date when user is not allowed to signon to system.  The format is - YYYYMMDD, i.e. 20100101 (January 1. 2010).
@@ -840,10 +906,11 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param endDate maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
     @Override
-    public void setEndDate(String endDate)
+    public void setEndDate( String endDate )
     {
         this.endDate = endDate;
     }
+
 
     /**
      * Contains the begin lock date when user is temporarily not allowed to signon to system.  The format is - YYYYMMDD, i.e. 20100101 (January 1. 2010).
@@ -854,8 +921,9 @@ public class User extends FortEntity implements Constraint, Serializable
     @Override
     public String getBeginLockDate()
     {
-        return this.beginLockDate;
+        return beginLockDate;
     }
+
 
     /**
      * Set the begin lock date when user is temporarily not allowed to signon to system.  The format is - YYYYMMDD, i.e. 20100101 (January 1. 2010).
@@ -864,10 +932,11 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param beginLockDate maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
     @Override
-    public void setBeginLockDate(String beginLockDate)
+    public void setBeginLockDate( String beginLockDate )
     {
         this.beginLockDate = beginLockDate;
     }
+
 
     /**
      * Contains the end lock date when user is allowed to signon to system once again.  The format is - YYYYMMDD, i.e. 20100101 (January 1. 2010).
@@ -878,8 +947,9 @@ public class User extends FortEntity implements Constraint, Serializable
     @Override
     public String getEndLockDate()
     {
-        return this.endLockDate;
+        return endLockDate;
     }
+
 
     /**
      * Set the end lock date when user is allowed to signon to system once again.  The format is - YYYYMMDD, i.e. 20100101 (January 1. 2010).
@@ -888,10 +958,11 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param endLockDate maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
     @Override
-    public void setEndLockDate(String endLockDate)
+    public void setEndLockDate( String endLockDate )
     {
         this.endLockDate = endLockDate;
     }
+
 
     /**
      * Get the daymask that indicates what days of week user is allowed to signon to system.  The format is 1234567, i.e. 23456 (Monday, Tuesday, Wednesday, Thursday, Friday).
@@ -902,8 +973,9 @@ public class User extends FortEntity implements Constraint, Serializable
     @Override
     public String getDayMask()
     {
-        return this.dayMask;
+        return dayMask;
     }
+
 
     /**
      * Set the daymask that specifies what days of week user is allowed to signon to system.  The format is 1234567, i.e. 23456 (Monday, Tuesday, Wednesday, Thursday, Friday).
@@ -912,10 +984,11 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param dayMask maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
     @Override
-    public void setDayMask(String dayMask)
+    public void setDayMask( String dayMask )
     {
         this.dayMask = dayMask;
     }
+
 
     /**
      * Return the integer timeout that contains total time (in seconds) that User's session may remain inactive.
@@ -926,8 +999,9 @@ public class User extends FortEntity implements Constraint, Serializable
     @Override
     public Integer getTimeout()
     {
-        return this.timeout;
+        return timeout;
     }
+
 
     /**
      * Set the integer timeout that contains max time (in seconds) that User's session may remain inactive.
@@ -936,10 +1010,11 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param timeout maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
      */
     @Override
-    public void setTimeout(Integer timeout)
+    public void setTimeout( Integer timeout )
     {
         this.timeout = timeout;
     }
+
 
     /**
      * If set to true User's password has been reset by administrator.
@@ -952,16 +1027,18 @@ public class User extends FortEntity implements Constraint, Serializable
         return reset;
     }
 
+
     /**
      * If set to true User's password has been reset by administrator.
      * This attribute will be ignored if set by external callers.
      *
      * @param reset contains boolean value which maps to 'pwdResetTime' in OpenLDAP's pwpolicy object class.
      */
-    public void setReset(boolean reset)
+    public void setReset( boolean reset )
     {
         this.reset = reset;
     }
+
 
     /**
      * If set to true User's password has been locked by administrator or directory itself due to password policy violations.
@@ -974,16 +1051,18 @@ public class User extends FortEntity implements Constraint, Serializable
         return locked;
     }
 
+
     /**
      * If set to true User's password has been locked by administrator or directory itself due to password policy violations.
      * This attribute will be ignored if set by external callers.
      *
      * @param locked contains boolean value which maps to 'pwdResetTime' in OpenLDAP's pwpolicy object class.
      */
-    public void setLocked(boolean locked)
+    public void setLocked( boolean locked )
     {
         this.locked = locked;
     }
+
 
     /**
      * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
@@ -998,6 +1077,7 @@ public class User extends FortEntity implements Constraint, Serializable
         return props;
     }
 
+
     /**
      * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
      *
@@ -1006,10 +1086,11 @@ public class User extends FortEntity implements Constraint, Serializable
      *     {@link Props }
      *
      */
-    public void setProps(Props value)
+    public void setProps( Props value )
     {
         this.props = value;
     }
+
 
     /**
      * Add name/value pair to list of properties associated with User.  These values are not constrained by Fortress.
@@ -1018,13 +1099,14 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      * @param value
      */
-    public void addProperty(String key, String value)
+    public void addProperty( String key, String value )
     {
         Props.Entry entry = new Props.Entry();
-        entry.setKey(key);
-        entry.setValue(value);
-        this.props.getEntry().add(entry);
+        entry.setKey( key );
+        entry.setValue( value );
+        props.getEntry().add( entry );
     }
+
 
     /**
      * Get a name/value pair attribute from list of properties associated with User.  These values are not constrained by Fortress.
@@ -1033,22 +1115,24 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
      */
-    public String getProperty(String key)
+    public String getProperty( String key )
     {
         List<Props.Entry> props = this.props.getEntry();
         Props.Entry keyObj = new Props.Entry();
-        keyObj.setKey(key);
+        keyObj.setKey( key );
 
         String value = null;
-        int indx = props.indexOf(keyObj);
-        if(indx != -1)
+        int indx = props.indexOf( keyObj );
+
+        if ( indx != -1 )
         {
-            Props.Entry entry = props.get(props.indexOf(keyObj));
+            Props.Entry entry = props.get( props.indexOf( keyObj ) );
             value = entry.getValue();
         }
 
         return value;
     }
+
 
     /**
      * Add new collection of name/value pairs to attributes associated with User.  These values are not constrained by Fortress.
@@ -1056,19 +1140,20 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      */
-    public void addProperties(Properties props)
+    public void addProperties( Properties props )
     {
-        if(props != null)
+        if ( props != null )
         {
-            for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                String key = (String) e.nextElement();
-                String val = props.getProperty(key);
-                addProperty(key, val);
+                String key = ( String ) e.nextElement();
+                String val = props.getProperty( key );
+                addProperty( key, val );
             }
         }
     }
+
 
     /**
      * Return the collection of name/value pairs to attributes associated with User.  These values are not constrained by Fortress.
@@ -1080,19 +1165,22 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         Properties properties = null;
         List<Props.Entry> props = this.props.getEntry();
-        if (props.size() > 0)
+
+        if ( props.size() > 0 )
         {
             properties = new Properties();
-            //int size = props.size();
-            for (Props.Entry entry : props)
+
+            for ( Props.Entry entry : props )
             {
                 String key = entry.getKey();
                 String val = entry.getValue();
-                properties.setProperty(key, val);
+                properties.setProperty( key, val );
             }
         }
+
         return properties;
     }
+
 
     /**
      * Get address data from entity that was persisted in directory as attributes defined by RFC 2798's LDAP inetOrgPerson Object Class:
@@ -1110,12 +1198,14 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public Address getAddress()
     {
-        if(address == null)
+        if ( address == null )
         {
             address = new Address();
         }
+
         return address;
     }
+
 
     /**
      * Set address data onto entity that stored in directory as attributes defined by RFC 2798's LDAP inetOrgPerson Object Class:
@@ -1131,10 +1221,11 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param address
      */
-    public void setAddress(Address address)
+    public void setAddress( Address address )
     {
         this.address = address;
     }
+
 
     /**
      * Retrieve multi-occurring {@code telephoneNumber} associated with {@code organizationalPerson} object class.
@@ -1143,36 +1234,41 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public List<String> getPhones()
     {
-        if (phones == null)
+        if ( phones == null )
         {
             phones = new ArrayList<>();
         }
+
         return phones;
     }
+
 
     /**
      * Set multi-occurring {@code telephoneNumber} number to associated with {@code organizationalPerson} object class.
      *
      * @param phones contains an ArrayList of type String with zero or more phone numbers associated with the user.
      */
-    public void setPhones(List<String> phones)
+    public void setPhones( List<String> phones )
     {
         this.phones = phones;
     }
+
 
     /**
      * Set phone number to stored in rfc822Mailbox format and associated with {@code inetOrgPerson} object class.
      *
      * @param phone contains String bound to {@code telephoneNumber} attribute on {@code organizationalPerson} object class.
      */
-    public void setPhone(String phone)
+    public void setPhone( String phone )
     {
-        if (phones == null)
+        if ( phones == null )
         {
             phones = new ArrayList<>();
         }
-        this.phones.add(phone);
+
+        phones.add( phone );
     }
+
 
     /**
      * Retrieve multi-occurring {@code mobile} associated with {@code inetOrgPerson} object class.
@@ -1181,36 +1277,41 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public List<String> getMobiles()
     {
-        if (mobiles == null)
+        if ( mobiles == null )
         {
             mobiles = new ArrayList<>();
         }
+
         return mobiles;
     }
+
 
     /**
      * Set multi-occurring {@code mobile} associated with {@code inetOrgPerson} object class.
      *
      * @param mobiles contains an ArrayList of type String with zero or more mobile phone numbers associated with the user.
      */
-    public void setMobiles(List<String> mobiles)
+    public void setMobiles( List<String> mobiles )
     {
         this.mobiles = mobiles;
     }
+
 
     /**
      * Set a single {@code mobile} associated with {@code inetOrgPerson} object class.
      *
      * @param mobile contains a String containing mobile phone numbers associated with the user.
      */
-    public void setMobile(String mobile)
+    public void setMobile( String mobile )
     {
-        if (mobiles == null)
+        if ( mobiles == null )
         {
             mobiles = new ArrayList<>();
         }
-        this.mobiles.add(mobile);
+
+        mobiles.add( mobile );
     }
+
 
     /**
      * Retrieve multi-occurring email address stored in rfc822Mailbox format associated with {@code inetOrgPerson} object class.
@@ -1219,46 +1320,53 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public List<String> getEmails()
     {
-        if (emails == null)
+        if ( emails == null )
         {
             emails = new ArrayList<>();
         }
+
         return emails;
     }
+
 
     /**
      * Set multi-occurring email address to stored in rfc822Mailbox format and associated with {@code inetOrgPerson} object class.
      *
      * @param emails contains an ArrayList of type String with zero or more email addresses associated with the user.
      */
-    public void setEmails(List<String> emails)
+    public void setEmails( List<String> emails )
     {
         this.emails = emails;
     }
+
 
     /**
      * Set a single email address in rfc822Mailbox format to be assoicated with {@code inetOrgPerson} object class.
      *
      * @param email contains a String to be stored as email address on user.
      */
-    public void setEmail(String email)
+    public void setEmail( String email )
     {
-        if (emails == null)
+        if ( emails == null )
         {
             emails = new ArrayList<>();
         }
-        this.emails.add(email);
+
+        emails.add( email );
     }
+
 
     public Boolean isSystem()
     {
         return system;
     }
 
-    public void setSystem(Boolean system)
+
+    public void setSystem( Boolean system )
     {
         this.system = system;
     }
+
 
     /**
      * Get one image of a person using the JPEG File Interchange Format [JFIF].
@@ -1274,6 +1382,7 @@ public class User extends FortEntity implements Constraint, Serializable
         return jpegPhoto;
     }
 
+
     /**
      * Set one image of a person using the JPEG File Interchange Format [JFIF].
      * ( 0.9.2342.19200300.100.1.60
@@ -1283,10 +1392,11 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param jpegPhoto contains the jpeg image stored as byte array.
      */
-    public void setJpegPhoto(byte[] jpegPhoto)
+    public void setJpegPhoto( byte[] jpegPhoto )
     {
         this.jpegPhoto = jpegPhoto;
     }
+
 
     /**
      * Override hashcode so User compare operations work in case insensitive manner in collection classes.
@@ -1295,8 +1405,9 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public int hashCode()
     {
-        return this.getUserId().toUpperCase().hashCode();
+        return userId.toUpperCase().hashCode();
     }
+
 
     /**
      * Matches the userId from two User entities.
@@ -1304,13 +1415,41 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param thatObj contains a User entity.
      * @return boolean indicating both objects contain matching userIds.
      */
-    public boolean equals(Object thatObj)
+    public boolean equals( Object thatObj )
     {
-        if (this == thatObj) return true;
-        if (this.getUserId() == null) return false;
-        if (!(thatObj instanceof User)) return false;
-        User thatUser = (User) thatObj;
-        if (thatUser.getUserId() == null) return false;
-        return thatUser.getUserId().equalsIgnoreCase(this.getUserId());
+        if ( this == thatObj )
+        {
+            return true;
+        }
+
+        if ( userId == null )
+        {
+            return false;
+        }
+
+        if ( !( thatObj instanceof User ) )
+        {
+            return false;
+        }
+
+        User thatUser = ( User ) thatObj;
+
+        if ( thatUser.getUserId() == null )
+        {
+            return false;
+        }
+
+        return thatUser.getUserId().equalsIgnoreCase( userId );
+    }
+
+
+    /**
+     * Used to retrieve User's valid userId attribute.  The Fortress userId maps to 'uid' for InetOrgPerson object class.
+     *
+     * @return String containing the userId.
+     */
+    public String toString()
+    {
+        return userId;
     }
 }
