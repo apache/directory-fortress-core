@@ -128,6 +128,7 @@ public abstract class DataProvider
         throws LDAPException
     {
         counters.incrementRead();
+
         return ld.read( dn, atrs );
     }
 
@@ -182,22 +183,27 @@ public abstract class DataProvider
         throws LDAPException
     {
         counters.incrementAdd();
+
         if ( GlobalIds.IS_AUDIT && entity != null && entity.getAdminSession() != null )
         {
             LDAPAttributeSet attrs = entry.getAttributeSet();
+
             if ( VUtil.isNotNullOrEmpty( entity.getAdminSession().getInternalUserId() ) )
             {
                 attrs.add( new LDAPAttribute( GlobalIds.FT_MODIFIER, entity.getAdminSession().getInternalUserId() ) );
             }
+
             if ( VUtil.isNotNullOrEmpty( entity.getModCode() ) )
             {
                 attrs.add( new LDAPAttribute( GlobalIds.FT_MODIFIER_CODE, entity.getModCode() ) );
             }
+
             if ( VUtil.isNotNullOrEmpty( entity.getModId() ) )
             {
                 attrs.add( new LDAPAttribute( GlobalIds.FT_MODIFIER_ID, entity.getModId() ) );
             }
         }
+
         ld.add( entry );
     }
 
@@ -818,6 +824,7 @@ public abstract class DataProvider
     protected void unloadTemporal( LDAPEntry le, Constraint ftDateTime )
     {
         String szRawData = getAttribute( le, GlobalIds.CONSTRAINT );
+
         if ( szRawData != null && szRawData.length() > 0 )
         {
             CUtil.setConstraint( szRawData, ftDateTime );
