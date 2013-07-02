@@ -407,11 +407,11 @@ final class UserP
      * @return Session object will be returned if authentication successful.  This will not contain user's roles.
      * @throws us.jts.fortress.SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    final Session authenticate( User user )
-        throws us.jts.fortress.SecurityException
+    final Session authenticate( User user ) throws SecurityException
     {
         Session session;
         session = uDao.checkPassword( user );
+
         if ( session == null )
         { // This should not happen, ever:
             String error = "UserP.authenticate failed - null session detected for userId [" + user.getUserId() + "]";
@@ -423,7 +423,9 @@ final class UserP
                 + session.getErrorId() + "] msg [" + session.getMsg() + "]";
             throw new PasswordException( session.getErrorId(), info );
         }
+
         CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
+
         return session;
     }
 
@@ -481,6 +483,7 @@ final class UserP
         throws SecurityException
     {
         Session session;
+
         if ( trusted )
         {
             session = createSessionTrusted( user );
@@ -551,6 +554,7 @@ final class UserP
     {
         User user = read( inUser, true );
         user.setContextId( inUser.getContextId() );
+
         if ( user.isLocked() )
         {
             String warning = "createSession failed for userId [" + inUser.getUserId()
@@ -558,6 +562,7 @@ final class UserP
             LOG.warn( warning );
             throw new SecurityException( GlobalErrIds.USER_LOCKED_BY_CONST, warning );
         }
+
         Session session = new ObjectFactory().createSession();
         session.setUserId( inUser.getUserId() );
         // Set this flag to false because user's password was not authenticated.
@@ -565,6 +570,7 @@ final class UserP
         session.setUser( user );
         CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
         CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, true );
+
         return session;
     }
 
