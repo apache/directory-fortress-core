@@ -4,16 +4,21 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.GlobalIds;
+
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.TreeSet;
+
+import us.jts.fortress.GlobalIds;
+import us.jts.fortress.util.time.CUtil;
+import us.jts.fortress.util.time.Constraint;
+
 
 /**
  * The UserAdminRole entity extends the UserRole and is used to store ARBAC User to AdminRole assignment along with temporal and
@@ -52,14 +57,15 @@ import java.util.TreeSet;
 */
 @XmlRootElement(name = "fortUserAdminRole")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "userAdminRole", propOrder = {
-    "osPs",
-    "osUs",
-    "beginInclusive",
-    "beginRange",
-    "endInclusive",
-    "endRange",
-    "parents"
+@XmlType(name = "userAdminRole", propOrder =
+    {
+        "osPs",
+        "osUs",
+        "beginInclusive",
+        "beginRange",
+        "endInclusive",
+        "endRange",
+        "parents"
 })
 public class UserAdminRole extends UserRole implements Administrator
 {
@@ -83,6 +89,7 @@ public class UserAdminRole extends UserRole implements Administrator
     private static String LEFT_BRACKET = "[";
     private static String RIGHT_BRACKET = "]";
 
+
     /**
      * Default constructor is used by internal Fortress classes.
      */
@@ -90,17 +97,19 @@ public class UserAdminRole extends UserRole implements Administrator
     {
     }
 
+
     /**
      * Construct a UserRole entity given the required attributes 'userId' and 'role' name.
      *
      * @param userId maps to the 'uid' attribute on the 'inetOrgPerson' object class.
      * @param name   maps to the 'ftARA' attribute on the 'ftUserAttrs' object class.
      */
-    public UserAdminRole(String userId, String name)
+    public UserAdminRole( String userId, String name )
     {
         this.userId = userId;
         this.name = name;
     }
+
 
     /**
      * Construct an ARBAC Role with required attribute 'userId' and optional temporal constraint.
@@ -108,11 +117,12 @@ public class UserAdminRole extends UserRole implements Administrator
      * @param userId maps to the 'uid' attribute on the 'inetOrgPerson' object class.
      * @param con    maps to 'ftARC' attribute in 'ftUserAttrs' object class.
      */
-    public UserAdminRole(String userId, us.jts.fortress.util.time.Constraint con)
+    public UserAdminRole( String userId, Constraint con )
     {
         this.userId = userId;
-        us.jts.fortress.util.time.CUtil.copy(con, this);
+        CUtil.copy( con, this );
     }
+
 
     /**
      * This method loads UserAdminRole entity temporal and ARBAC constraint instance variables with data that was retrieved from the
@@ -121,65 +131,65 @@ public class UserAdminRole extends UserRole implements Administrator
      *
      * @param szRawData contains a raw formatted String that maps to 'ftARC' attribute on 'ftUserAttrs' object class
      */
-    public void load(String szRawData, String contextId)
+    public void load( String szRawData, String contextId )
     {
-        if (szRawData != null && szRawData.length() > 0)
+        if ( szRawData != null && szRawData.length() > 0 )
         {
-            StringTokenizer tkn = new StringTokenizer(szRawData, GlobalIds.DELIMITER);
-            if (tkn.countTokens() > 0)
+            StringTokenizer tkn = new StringTokenizer( szRawData, GlobalIds.DELIMITER );
+            if ( tkn.countTokens() > 0 )
             {
                 int count = tkn.countTokens();
-                for (int i = 0; i < count; i++)
+                for ( int i = 0; i < count; i++ )
                 {
-                    switch (i)
+                    switch ( i )
                     {
                         case 0:
-                            this.setName(tkn.nextToken());
-                            this.setParents(AdminRoleUtil.getParents(this.name.toUpperCase(), contextId));
+                            this.setName( tkn.nextToken() );
+                            this.setParents( AdminRoleUtil.getParents( this.name.toUpperCase(), contextId ) );
                             break;
                         case 1:
-                            this.setTimeout(Integer.parseInt(tkn.nextToken()));
+                            this.setTimeout( Integer.parseInt( tkn.nextToken() ) );
                             break;
                         case 2:
-                            this.setBeginTime(tkn.nextToken());
+                            this.setBeginTime( tkn.nextToken() );
                             break;
                         case 3:
-                            this.setEndTime(tkn.nextToken());
+                            this.setEndTime( tkn.nextToken() );
                             break;
                         case 4:
-                            this.setBeginDate(tkn.nextToken());
+                            this.setBeginDate( tkn.nextToken() );
                             break;
                         case 5:
-                            this.setEndDate(tkn.nextToken());
+                            this.setEndDate( tkn.nextToken() );
                             break;
                         case 6:
-                            this.setBeginLockDate(tkn.nextToken());
+                            this.setBeginLockDate( tkn.nextToken() );
                             break;
                         case 7:
-                            this.setEndLockDate(tkn.nextToken());
+                            this.setEndLockDate( tkn.nextToken() );
                             break;
                         case 8:
-                            this.setDayMask(tkn.nextToken());
+                            this.setDayMask( tkn.nextToken() );
                             break;
                         default:
                             String szValue = tkn.nextToken();
-                            int indx = szValue.indexOf(P + GlobalIds.PROP_SEP);
-                            if (indx >= 0)
+                            int indx = szValue.indexOf( P + GlobalIds.PROP_SEP );
+                            if ( indx >= 0 )
                             {
-                                String szOsP = szValue.substring(indx + 2);
-                                this.setOsP(szOsP);
+                                String szOsP = szValue.substring( indx + 2 );
+                                this.setOsP( szOsP );
                             }
-                            indx = szValue.indexOf(U + GlobalIds.PROP_SEP);
-                            if (indx >= 0)
+                            indx = szValue.indexOf( U + GlobalIds.PROP_SEP );
+                            if ( indx >= 0 )
                             {
-                                String szOsU = szValue.substring(indx + 2);
-                                this.setOsU(szOsU);
+                                String szOsU = szValue.substring( indx + 2 );
+                                this.setOsU( szOsU );
                             }
-                            indx = szValue.indexOf(R + GlobalIds.PROP_SEP);
-                            if (indx >= 0)
+                            indx = szValue.indexOf( R + GlobalIds.PROP_SEP );
+                            if ( indx >= 0 )
                             {
-                                String szRangeRaw = szValue.substring(indx + 2);
-                                this.setRoleRangeRaw(szRangeRaw);
+                                String szRangeRaw = szValue.substring( indx + 2 );
+                                this.setRoleRangeRaw( szRangeRaw );
                             }
                             break;
                     }
@@ -202,61 +212,62 @@ public class UserAdminRole extends UserRole implements Administrator
     {
         String szRole;
         StringBuilder sb = new StringBuilder();
-        sb.append(this.getName());
-        sb.append(GlobalIds.DELIMITER);
-        sb.append(this.getTimeout());
-        sb.append(GlobalIds.DELIMITER);
-        if (this.getBeginTime() != null)
-            sb.append(this.getBeginTime());
-        sb.append(GlobalIds.DELIMITER);
-        if (this.getEndTime() != null)
-            sb.append(this.getEndTime());
-        sb.append(GlobalIds.DELIMITER);
-        if (this.getBeginDate() != null)
-            sb.append(this.getBeginDate());
-        sb.append(GlobalIds.DELIMITER);
-        if (this.getEndDate() != null)
-            sb.append(this.getEndDate());
-        sb.append(GlobalIds.DELIMITER);
-        if (this.getBeginLockDate() != null)
-            sb.append(this.getBeginLockDate());
-        sb.append(GlobalIds.DELIMITER);
-        if (this.getEndLockDate() != null)
-            sb.append(this.getEndLockDate());
-        sb.append(GlobalIds.DELIMITER);
-        if (this.getDayMask() != null)
-            sb.append(this.getDayMask());
-        if (this.getOsU() != null)
+        sb.append( name );
+        sb.append( GlobalIds.DELIMITER );
+        sb.append( this.getTimeout() );
+        sb.append( GlobalIds.DELIMITER );
+        if ( this.getBeginTime() != null )
+            sb.append( this.getBeginTime() );
+        sb.append( GlobalIds.DELIMITER );
+        if ( this.getEndTime() != null )
+            sb.append( this.getEndTime() );
+        sb.append( GlobalIds.DELIMITER );
+        if ( this.getBeginDate() != null )
+            sb.append( this.getBeginDate() );
+        sb.append( GlobalIds.DELIMITER );
+        if ( this.getEndDate() != null )
+            sb.append( this.getEndDate() );
+        sb.append( GlobalIds.DELIMITER );
+        if ( this.getBeginLockDate() != null )
+            sb.append( this.getBeginLockDate() );
+        sb.append( GlobalIds.DELIMITER );
+        if ( this.getEndLockDate() != null )
+            sb.append( this.getEndLockDate() );
+        sb.append( GlobalIds.DELIMITER );
+        if ( this.getDayMask() != null )
+            sb.append( this.getDayMask() );
+        if ( this.getOsU() != null )
         {
-            for (String org : this.getOsU())
+            for ( String org : this.getOsU() )
             {
-                sb.append(GlobalIds.DELIMITER);
-                sb.append(U);
-                sb.append(GlobalIds.PROP_SEP);
-                sb.append(org);
+                sb.append( GlobalIds.DELIMITER );
+                sb.append( U );
+                sb.append( GlobalIds.PROP_SEP );
+                sb.append( org );
             }
         }
-        if (this.getOsP() != null)
+        if ( this.getOsP() != null )
         {
-            for (String org : this.getOsP())
+            for ( String org : this.getOsP() )
             {
-                sb.append(GlobalIds.DELIMITER);
-                sb.append(P);
-                sb.append(GlobalIds.PROP_SEP);
-                sb.append(org);
+                sb.append( GlobalIds.DELIMITER );
+                sb.append( P );
+                sb.append( GlobalIds.PROP_SEP );
+                sb.append( org );
             }
         }
-        if (this.getRoleRangeRaw() != null)
+        if ( this.getRoleRangeRaw() != null )
         {
-            sb.append(GlobalIds.DELIMITER);
-            sb.append(R);
-            sb.append(GlobalIds.PROP_SEP);
-            sb.append(this.getRoleRangeRaw());
+            sb.append( GlobalIds.DELIMITER );
+            sb.append( R );
+            sb.append( GlobalIds.PROP_SEP );
+            sb.append( this.getRoleRangeRaw() );
         }
 
         szRole = sb.toString();
         return szRole;
     }
+
 
     /**
      * This method loads UserAdminRole entity Role range ARBAC constraint instance variables with data that was retrieved from the
@@ -266,40 +277,41 @@ public class UserAdminRole extends UserRole implements Administrator
      * @param szRaw contains a raw formatted String that maps to 'ftARC' attribute on 'ftUserAttrs' object class
      */
     @Override
-    public void setRoleRangeRaw(String szRaw)
+    public void setRoleRangeRaw( String szRaw )
     {
-        if (us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty(szRaw))
+        if ( us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty( szRaw ) )
         {
-            int bindx = szRaw.indexOf(LEFT_PAREN);
-            if (bindx > -1)
+            int bindx = szRaw.indexOf( LEFT_PAREN );
+            if ( bindx > -1 )
             {
-                this.setBeginInclusive(false);
+                this.setBeginInclusive( false );
             }
             else
             {
-                bindx = szRaw.indexOf(LEFT_BRACKET);
-                this.setBeginInclusive(true);
+                bindx = szRaw.indexOf( LEFT_BRACKET );
+                this.setBeginInclusive( true );
             }
-            int eindx = szRaw.indexOf(RIGHT_PAREN);
-            if (eindx > -1)
+            int eindx = szRaw.indexOf( RIGHT_PAREN );
+            if ( eindx > -1 )
             {
-                this.setEndInclusive(false);
+                this.setEndInclusive( false );
             }
             else
             {
-                eindx = szRaw.indexOf(RIGHT_BRACKET);
-                this.setEndInclusive(true);
+                eindx = szRaw.indexOf( RIGHT_BRACKET );
+                this.setEndInclusive( true );
             }
-            int cindx = szRaw.indexOf(GlobalIds.PROP_SEP);
-            if (cindx > -1)
+            int cindx = szRaw.indexOf( GlobalIds.PROP_SEP );
+            if ( cindx > -1 )
             {
-                String szBeginRange = szRaw.substring(bindx + 1, cindx);
-                String szEndRange = szRaw.substring(cindx + 1, eindx);
-                this.setBeginRange(szBeginRange);
-                this.setEndRange(szEndRange);
+                String szBeginRange = szRaw.substring( bindx + 1, cindx );
+                String szEndRange = szRaw.substring( cindx + 1, eindx );
+                this.setBeginRange( szBeginRange );
+                this.setEndRange( szEndRange );
             }
         }
     }
+
 
     /**
      * This method retrieves UserAdminRole instance variables and formats into raw data for ARBAC constraint storage for the
@@ -312,22 +324,23 @@ public class UserAdminRole extends UserRole implements Administrator
     public String getRoleRangeRaw()
     {
         String szRaw = "";
-        if (this.beginRange != null)
+        if ( this.beginRange != null )
         {
-            if (this.isBeginInclusive())
+            if ( this.isBeginInclusive() )
                 szRaw += LEFT_BRACKET;
             else
                 szRaw += LEFT_PAREN;
             szRaw += this.getBeginRange();
             szRaw += GlobalIds.PROP_SEP;
             szRaw += this.getEndRange();
-            if (this.isEndInclusive())
+            if ( this.isEndInclusive() )
                 szRaw += RIGHT_BRACKET;
             else
                 szRaw += RIGHT_PAREN;
         }
         return szRaw;
     }
+
 
     /**
      * Get a collection of optional Perm OU attributes that were stored on the AdminRole entity.
@@ -340,16 +353,18 @@ public class UserAdminRole extends UserRole implements Administrator
         return osPs;
     }
 
+
     /**
      * Set a collection of optional Perm OU attributes to be stored on the AdminRole entity.
      *
      * @param osPs is a List of type String containing Perm OU.  This maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public void setOsP(Set<String> osPs)
+    public void setOsP( Set<String> osPs )
     {
         this.osPs = osPs;
     }
+
 
     /**
      * Set a Perm OU attribute to be stored on the AdminRole entity.
@@ -357,15 +372,16 @@ public class UserAdminRole extends UserRole implements Administrator
      * @param osP is a Perm OU that maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public void setOsP(String osP)
+    public void setOsP( String osP )
     {
-        if (this.osPs == null)
+        if ( this.osPs == null )
         {
             // create Set with case insensitive comparator:
-            osPs = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+            osPs = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         }
-        osPs.add(osP);
+        osPs.add( osP );
     }
+
 
     /**
      * Get a collection of optional User OU attributes that were stored on the AdminRole entity.
@@ -378,16 +394,18 @@ public class UserAdminRole extends UserRole implements Administrator
         return osUs;
     }
 
+
     /**
      * Set a collection of optional User OU attributes to be stored on the AdminRole entity.
      *
      * @param osUs is a List of type String containing User OU.  This maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public void setOsU(Set<String> osUs)
+    public void setOsU( Set<String> osUs )
     {
         this.osUs = osUs;
     }
+
 
     /**
      * Set a User OU attribute to be stored on the AdminRole entity.
@@ -395,15 +413,16 @@ public class UserAdminRole extends UserRole implements Administrator
      * @param osU is a User OU that maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public void setOsU(String osU)
+    public void setOsU( String osU )
     {
-        if (this.osUs == null)
+        if ( this.osUs == null )
         {
             // create Set with case insensitive comparator:
-            osUs = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+            osUs = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         }
-        osUs.add(osU);
+        osUs.add( osU );
     }
+
 
     /**
      * Return the begin Role range attribute for AdminRole entity.
@@ -416,16 +435,18 @@ public class UserAdminRole extends UserRole implements Administrator
         return beginRange;
     }
 
+
     /**
      * Set the begin Role range attribute for AdminRole entity.
      *
      * @param beginRange maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public void setBeginRange(String beginRange)
+    public void setBeginRange( String beginRange )
     {
         this.beginRange = beginRange;
     }
+
 
     /**
      * Return the end Role range attribute for AdminRole entity.
@@ -438,16 +459,18 @@ public class UserAdminRole extends UserRole implements Administrator
         return endRange;
     }
 
+
     /**
      * Set the end Role range attribute for AdminRole entity.
      *
      * @param endRange maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public void setEndRange(String endRange)
+    public void setEndRange( String endRange )
     {
         this.endRange = endRange;
     }
+
 
     /**
      * Set the begin inclusive which specifies if role range includes or excludes the 'beginRange' attribute.
@@ -460,16 +483,18 @@ public class UserAdminRole extends UserRole implements Administrator
         return beginInclusive;
     }
 
+
     /**
      * Get the begin inclusive which specifies if role range includes or excludes the 'beginRange' attribute.
      *
      * @param beginInclusive maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public void setBeginInclusive(boolean beginInclusive)
+    public void setBeginInclusive( boolean beginInclusive )
     {
         this.beginInclusive = beginInclusive;
     }
+
 
     /**
      * Set the end inclusive which specifies if role range includes or excludes the 'endRange' attribute.
@@ -482,16 +507,18 @@ public class UserAdminRole extends UserRole implements Administrator
         return endInclusive;
     }
 
+
     /**
      * Get the end inclusive which specifies if role range includes or excludes the 'endRange' attribute.
      *
      * @param endInclusive maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public void setEndInclusive(boolean endInclusive)
+    public void setEndInclusive( boolean endInclusive )
     {
         this.endInclusive = endInclusive;
     }
+
 
     /**
      * Get the names of admin roles that are parents (direct ascendants) of this admin role.
@@ -503,15 +530,17 @@ public class UserAdminRole extends UserRole implements Administrator
         return parents;
     }
 
+
     /**
      * Set the names of parent admin roles.
      * @param parents Set of admin role names.
      */
     @Override
-    public void setParents(Set<String> parents)
+    public void setParents( Set<String> parents )
     {
         this.parents = parents;
     }
+
 
     /**
      * Matches the userId and admin role name from two UserAdminRole entities.
@@ -519,13 +548,31 @@ public class UserAdminRole extends UserRole implements Administrator
      * @param thatObj contains a UserAdminRole entity.
      * @return boolean indicating both objects contain matching userId and Admin Role names.
      */
-    public boolean equals(Object thatObj)
+    public boolean equals( Object thatObj )
     {
-        if (this == thatObj) return true;
-        if (this.getName() == null) return false;
-        if (!(thatObj instanceof UserAdminRole)) return false;
-        UserAdminRole thatRole = (UserAdminRole) thatObj;
-        if (thatRole.getName() == null) return false;
-        return ((thatRole.getName().equalsIgnoreCase(this.getName())) && (thatRole.getUserId().equalsIgnoreCase(this.getUserId())));
+        if ( this == thatObj )
+        {
+            return true;
+        }
+
+        if ( this.getName() == null )
+        {
+            return false;
+        }
+
+        if ( !( thatObj instanceof UserAdminRole ) )
+        {
+            return false;
+        }
+
+        UserAdminRole thatRole = ( UserAdminRole ) thatObj;
+
+        if ( thatRole.getName() == null )
+        {
+            return false;
+        }
+
+        return ( ( thatRole.getName().equalsIgnoreCase( this.getName() ) ) && ( thatRole.getUserId()
+            .equalsIgnoreCase( this.getUserId() ) ) );
     }
 }
