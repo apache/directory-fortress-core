@@ -4,14 +4,16 @@
 
 package us.jts.fortress.rbac;
 
+
+import java.util.List;
+import java.util.Set;
+
 import us.jts.fortress.AccessMgr;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
 
-import java.util.List;
-import java.util.Set;
 
 /**
  * Implementation class that performs runtime access control operations on data objects of type Fortress entities
@@ -51,15 +53,18 @@ import java.util.Set;
  *
  * @author Shawn McKinney
  */
-public class AccessMgrImpl  extends Manageable implements AccessMgr
+public class AccessMgrImpl extends Manageable implements AccessMgr
 {
     private static final String CLS_NM = AccessMgrImpl.class.getName();
     private static final UserP userP = new UserP();
     private static final PermP permP = new PermP();
 
+
     // package private constructor ensures outside classes cannot use:
-    AccessMgrImpl()
-    {}
+    public AccessMgrImpl()
+    {
+    }
+
 
     /**
      * Perform user authentication only.  It does not activate RBAC roles in session but will evaluate
@@ -71,22 +76,24 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
     @Override
-    public Session authenticate(String userId, char[] password)
+    public Session authenticate( String userId, char[] password )
         throws SecurityException
     {
         String methodName = "authenticate";
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_ID_NULL, getFullMethodName(CLS_NM, methodName));
-        VUtil.assertNotNullOrEmpty(password, GlobalErrIds.USER_PW_NULL, getFullMethodName(CLS_NM, methodName));
-        User inUser = new User(userId);
-        inUser.setContextId(this.contextId);
+        VUtil.assertNotNullOrEmpty( userId, GlobalErrIds.USER_ID_NULL, getFullMethodName( CLS_NM, methodName ) );
+        VUtil.assertNotNullOrEmpty( password, GlobalErrIds.USER_PW_NULL, getFullMethodName( CLS_NM, methodName ) );
+        User inUser = new User( userId );
+        inUser.setContextId( contextId );
         // false tells the User Read not to fetch roles.
-        User user = userP.read(inUser, false);
-        user.setPassword(password);
-        user.setContextId(this.contextId);
-        Session ftSess = userP.authenticate(user);
-        ftSess.setUser(user);
+        User user = userP.read( inUser, false );
+        user.setPassword( password );
+        user.setContextId( contextId );
+        Session ftSess = userP.authenticate( user );
+        ftSess.setUser( user );
+
         return ftSess;
     }
+
 
     /**
      * Perform user authentication {@link User#password} and role activations.<br />
@@ -143,13 +150,15 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
     @Override
-    public Session createSession(User user, boolean isTrusted)
+    public Session createSession( User user, boolean isTrusted )
         throws SecurityException
     {
         String methodName = "createSession";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        return userP.createSession(user, isTrusted);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+
+        return userP.createSession( user, isTrusted );
     }
+
 
     /**
      * Perform user rbac authorization.  This function returns a Boolean value meaning whether the subject of a given session is
@@ -166,18 +175,21 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
     @Override
-    public boolean checkAccess(Session session, Permission perm)
+    public boolean checkAccess( Session session, Permission perm )
         throws SecurityException
     {
         String methodName = "checkAccess";
-        assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_NULL);
-        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
-        VUtil.assertNotNullOrEmpty(perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL, getFullMethodName(CLS_NM, methodName));
-        VUtil.assertNotNullOrEmpty(perm.getObjectName(), GlobalErrIds.PERM_OBJECT_NULL, getFullMethodName(CLS_NM, methodName));
-        CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
-        return permP.checkPermission(session, perm);
+        assertContext( CLS_NM, methodName, perm, GlobalErrIds.PERM_NULL );
+        assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
+        VUtil.assertNotNullOrEmpty( perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL,
+            getFullMethodName( CLS_NM, methodName ) );
+        VUtil.assertNotNullOrEmpty( perm.getObjectName(), GlobalErrIds.PERM_OBJECT_NULL,
+            getFullMethodName( CLS_NM, methodName ) );
+        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
+        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
+        return permP.checkPermission( session, perm );
     }
+
 
     /**
      * This function returns the permissions of the session, i.e., the permissions assigned
@@ -188,15 +200,16 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
      * @throws SecurityException in the event runtime error occurs with system.
      */
     @Override
-    public List<Permission> sessionPermissions(Session session)
+    public List<Permission> sessionPermissions( Session session )
         throws SecurityException
     {
         String methodName = "sessionPermissions";
-        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
-        return permP.search(session);
+        assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
+        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
+        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
+        return permP.search( session );
     }
+
 
     /**
      * This function returns the active roles associated with a session. The function is valid if
@@ -208,15 +221,16 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
      *          is thrown if session invalid or system. error.
      */
     @Override
-    public List<UserRole> sessionRoles(Session session)
+    public List<UserRole> sessionRoles( Session session )
         throws SecurityException
     {
         String methodName = "sessionRoles";
-        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
+        assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
+        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
+        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
         return session.getRoles();
     }
+
 
     /**
      * This function returns the authorized roles associated with a session based on hierarchical relationships. The function is valid if
@@ -227,15 +241,15 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
      * @throws SecurityException is thrown if session invalid or system. error.
      */
     @Override
-    public Set<String> authorizedRoles(Session session)
+    public Set<String> authorizedRoles( Session session )
         throws SecurityException
     {
         String methodName = "authorizedRoles";
-        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
-        VUtil.assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles");
-        CUtil.validateConstraints(session, CUtil.ConstraintType.USER, false);
-        CUtil.validateConstraints(session, CUtil.ConstraintType.ROLE, false);
-        return RoleUtil.getInheritedRoles(session.getRoles(), this.contextId);
+        assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
+        VUtil.assertNotNull( session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles" );
+        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
+        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
+        return RoleUtil.getInheritedRoles( session.getRoles(), this.contextId );
     }
 
 
@@ -258,38 +272,41 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
      * @throws SecurityException is thrown if user is not allowed to activate or runtime error occurs with system.
      */
     @Override
-    public void addActiveRole(Session session, UserRole role)
+    public void addActiveRole( Session session, UserRole role )
         throws SecurityException
     {
         String methodName = "addActiveRole";
-        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        role.setUserId(session.getUserId());
+        assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        role.setUserId( session.getUserId() );
         List<UserRole> uRoles;
         List<UserRole> sRoles = session.getRoles();
         // If session already has role activated log an error and throw an exception:
-        if (sRoles != null && sRoles.contains(role))
+        if ( sRoles != null && sRoles.contains( role ) )
         {
-            String info = getFullMethodName(CLS_NM, methodName) + " User [" + session.getUserId() + "] Role [" + role.getName() + "] role already activated.";
-            throw new SecurityException(GlobalErrIds.URLE_ALREADY_ACTIVE, info);
+            String info = getFullMethodName( CLS_NM, methodName ) + " User [" + session.getUserId() + "] Role ["
+                + role.getName() + "] role already activated.";
+            throw new SecurityException( GlobalErrIds.URLE_ALREADY_ACTIVE, info );
         }
 
-        User inUser = new User(session.getUserId());
-        inUser.setContextId(this.contextId);
-        User ue = userP.read(inUser, true);
+        User inUser = new User( session.getUserId() );
+        inUser.setContextId( this.contextId );
+        User ue = userP.read( inUser, true );
         uRoles = ue.getRoles();
         int indx;
         // Is the role activation target valid for this user?
-        if (!VUtil.isNotNullOrEmpty(uRoles) || ((indx = uRoles.indexOf(role)) == -1))
+        if ( !VUtil.isNotNullOrEmpty( uRoles ) || ( ( indx = uRoles.indexOf( role ) ) == -1 ) )
         {
-            String info = getFullMethodName(CLS_NM, methodName) + " Role [" + role.getName() + "] User [" + session.getUserId() + "] role not authorized for user.";
-            throw new SecurityException(GlobalErrIds.URLE_ACTIVATE_FAILED, info);
+            String info = getFullMethodName( CLS_NM, methodName ) + " Role [" + role.getName() + "] User ["
+                + session.getUserId() + "] role not authorized for user.";
+            throw new SecurityException( GlobalErrIds.URLE_ACTIVATE_FAILED, info );
         }
         // validate Dynamic Separation of Duty Relations:
-        SDUtil.validateDSD(session, role);
+        SDUtil.validateDSD( session, role );
         // now activate the role to the session:
-        session.setRole(uRoles.get(indx));
+        session.setRole( uRoles.get( indx ) );
     }
+
 
     /**
      * This function deletes a role from the active role set of a session owned by a given user.
@@ -302,26 +319,29 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
      * @throws SecurityException is thrown if user is not allowed to deactivate or runtime error occurs with system.
      */
     @Override
-    public void dropActiveRole(Session session, UserRole role)
+    public void dropActiveRole( Session session, UserRole role )
         throws SecurityException
     {
         String methodName = "dropActiveRole";
-        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        role.setUserId(session.getUserId());
+        assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        role.setUserId( session.getUserId() );
         List<UserRole> roles = session.getRoles();
-        VUtil.assertNotNull(roles, GlobalErrIds.URLE_DEACTIVE_FAILED, CLS_NM + getFullMethodName(CLS_NM, methodName));
-        int indx = roles.indexOf(role);
-        if (indx != -1)
+        VUtil
+            .assertNotNull( roles, GlobalErrIds.URLE_DEACTIVE_FAILED, CLS_NM + getFullMethodName( CLS_NM, methodName ) );
+        int indx = roles.indexOf( role );
+        if ( indx != -1 )
         {
-            roles.remove(role);
+            roles.remove( role );
         }
         else
         {
-            String info = getFullMethodName(CLS_NM, methodName) + " Role [" + role.getName() + "] User [" + session.getUserId() + "], not previously activated";
-            throw new SecurityException(GlobalErrIds.URLE_NOT_ACTIVE, info);
+            String info = getFullMethodName( CLS_NM, methodName ) + " Role [" + role.getName() + "] User ["
+                + session.getUserId() + "], not previously activated";
+            throw new SecurityException( GlobalErrIds.URLE_NOT_ACTIVE, info );
         }
     }
+
 
     /**
      * This function returns the userId value that is contained within the session object.
@@ -332,12 +352,13 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
      * @throws SecurityException is thrown if user session not active or runtime error occurs with system.
      */
     @Override
-    public String getUserId(Session session)
+    public String getUserId( Session session )
         throws SecurityException
     {
-        assertContext(CLS_NM, "getUserId", session, GlobalErrIds.USER_SESS_NULL);
+        assertContext( CLS_NM, "getUserId", session, GlobalErrIds.USER_SESS_NULL );
         return session.getUserId();
     }
+
 
     /**
      * This function returns the user object that is contained within the session object.
@@ -388,10 +409,11 @@ public class AccessMgrImpl  extends Manageable implements AccessMgr
      * @throws SecurityException is thrown if user session not active or runtime error occurs with system.
      */
     @Override
-    public User getUser(Session session)
+    public User getUser( Session session )
         throws SecurityException
     {
-        assertContext(CLS_NM, "getUser", session, GlobalErrIds.USER_SESS_NULL);
+        assertContext( CLS_NM, "getUser", session, GlobalErrIds.USER_SESS_NULL );
+
         return session.getUser();
     }
 }
