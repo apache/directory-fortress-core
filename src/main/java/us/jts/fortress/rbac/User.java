@@ -307,9 +307,47 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @return String containing the userId.
      */
+/*
     public String toString()
     {
         return userId;
+    }
+*/
+
+    @Override
+    public String toString()
+    {
+        return "User{" +
+            "userId='" + userId + '\'' +
+            ", internalId='" + internalId + '\'' +
+            ", roles=" + roles +
+            ", adminRoles=" + adminRoles +
+            ", pwPolicy='" + pwPolicy + '\'' +
+            ", cn='" + cn + '\'' +
+            ", sn='" + sn + '\'' +
+            ", dn='" + dn + '\'' +
+            ", ou='" + ou + '\'' +
+            ", description='" + description + '\'' +
+            ", beginTime='" + beginTime + '\'' +
+            ", endTime='" + endTime + '\'' +
+            ", beginDate='" + beginDate + '\'' +
+            ", endDate='" + endDate + '\'' +
+            ", beginLockDate='" + beginLockDate + '\'' +
+            ", endLockDate='" + endLockDate + '\'' +
+            ", dayMask='" + dayMask + '\'' +
+            ", name='" + name + '\'' +
+            ", employeeType='" + employeeType + '\'' +
+            ", title='" + title + '\'' +
+            ", timeout=" + timeout +
+            ", reset=" + reset +
+            ", locked=" + locked +
+            ", system=" + system +
+            ", props=" + props +
+            ", address=" + address +
+            ", phones=" + phones +
+            ", mobiles=" + mobiles +
+            ", emails=" + emails +
+            '}';
     }
 
     /**
