@@ -17,7 +17,7 @@ import java.util.Properties;
 
 /**
  * Class contains static utilities for various conversions of ldap data to application entity and back.  These methods are called by the
- * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.UserDAO}.
+ * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.ApacheUserDAO}.
  * These are low-level data utilities and no validations are performed.  These apis should not be called by outside programs.
  * <p/>
  * This class is thread safe.

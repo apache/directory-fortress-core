@@ -4,7 +4,9 @@
 
 package us.jts.fortress.rbac;
 
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
+
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
+
 
 /**
  * Interface is used to allow pluggable password policy interrogation.
@@ -20,6 +22,5 @@ public interface PwPolicyControl
      * @param isAuthenticated set to 'true' if password checks pass.
      * @param pwMsg describes the outcome of the policy checks.
      */
-    public void checkPasswordPolicy(LDAPConnection ld, boolean isAuthenticated, PwMessage pwMsg);
+    public void checkPasswordPolicy( LDAPControl[] controls, boolean isAuthenticated, PwMessage pwMsg );
 }
-

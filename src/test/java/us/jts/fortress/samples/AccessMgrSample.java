@@ -4,23 +4,26 @@
 
 package us.jts.fortress.samples;
 
-import us.jts.fortress.AccessMgr;
-import us.jts.fortress.AccessMgrFactory;
-import us.jts.fortress.rbac.TestUtils;
-import us.jts.fortress.rbac.UserAdminRole;
-import us.jts.fortress.rbac.Permission;
-import us.jts.fortress.rbac.Session;
-import us.jts.fortress.rbac.User;
-import us.jts.fortress.SecurityException;
-import us.jts.fortress.rbac.UserRole;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Enumeration;
 import java.util.List;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import us.jts.fortress.AccessMgr;
+import us.jts.fortress.AccessMgrFactory;
+import us.jts.fortress.SecurityException;
+import us.jts.fortress.rbac.Permission;
+import us.jts.fortress.rbac.Session;
+import us.jts.fortress.rbac.TestUtils;
+import us.jts.fortress.rbac.User;
+import us.jts.fortress.rbac.UserAdminRole;
+import us.jts.fortress.rbac.UserRole;
 
 
 /**
@@ -38,10 +41,12 @@ public class AccessMgrSample extends TestCase
     private static final String CLS_NM = AccessMgrSample.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-    public AccessMgrSample(String name)
+
+    public AccessMgrSample( String name )
     {
-        super(name);
+        super( name );
     }
+
 
     /**
      * Run the Fortress AccessMgr samples.
@@ -49,15 +54,16 @@ public class AccessMgrSample extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest(new AccessMgrSample("testCheckAccess"));
-        suite.addTest(new AccessMgrSample("testSessionPermissions"));
-        suite.addTest(new AccessMgrSample("testSessionRoles"));
-        suite.addTest(new AccessMgrSample("testAddActiveRoles"));
-        suite.addTest(new AccessMgrSample("testDropActiveRoles"));
-        suite.addTest(new AccessMgrSample("testDisplayUserSession"));
+        suite.addTest( new AccessMgrSample( "testCheckAccess" ) );
+        suite.addTest( new AccessMgrSample( "testSessionPermissions" ) );
+        suite.addTest( new AccessMgrSample( "testSessionRoles" ) );
+        suite.addTest( new AccessMgrSample( "testAddActiveRoles" ) );
+        suite.addTest( new AccessMgrSample( "testDropActiveRoles" ) );
+        suite.addTest( new AccessMgrSample( "testDisplayUserSession" ) );
 
         return suite;
     }
+
 
     /**
      * The checkAccess API is used to perform authorization on User.  It will return a 'true' if User is authorized to
@@ -72,29 +78,34 @@ public class AccessMgrSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
 
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
-            Session session = createSession(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr);
-            assertNotNull(session);
-            for (int i = 1; i < 6; i++)
+            Session session = createSession( CreateUserSample.TEST_USERID,
+                CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr );
+            assertNotNull( session );
+
+            for ( int i = 1; i < 6; i++ )
             {
                 // Fortress Permissions have an Object name and Operation name.  There is a one to many relationship between
                 // objects and operations.  An example is object name "MyDataBaseTable" operations "READ", "WRITE", "DELETE". or object "MyFile" operations "R", "W", "C" or "MyClassName" "methodA", "methodB", "methodC", or "MyPageName.ControlName" "checkOut", "applyDiscount".
-                Permission inPerm = new Permission(CreatePermSample.TEST_PERM_OBJECT, CreatePermSample.TEST_PERM_OPERATION_PREFIX + i);
+                Permission inPerm = new Permission( CreatePermSample.TEST_PERM_OBJECT,
+                    CreatePermSample.TEST_PERM_OPERATION_PREFIX + i );
                 // method will return a 'true' if authorized or 'false' if not.
-                boolean result = accessMgr.checkAccess(session, inPerm);
-                assertTrue(szLocation, result);
-                LOG.info(szLocation + " user [" + session.getUserId() + "] permission object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
+                boolean result = accessMgr.checkAccess( session, inPerm );
+                assertTrue( szLocation, result );
+                LOG.info( szLocation + " user [" + session.getUserId() + "] permission object ["
+                    + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success" );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     /**
      * The sessionPermissions API is useful for GUI programs that need to cache all of the User's Permissions in the
@@ -108,32 +119,36 @@ public class AccessMgrSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
 
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
-            Session session = createSession(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr);
-            assertNotNull(session);
-            List<Permission> perms = accessMgr.sessionPermissions(session);
-            assertNotNull(perms);
-            assertTrue(szLocation + " list check, expected: 5, actual:" + perms.size(), perms.size() == 5);
+            Session session = createSession( CreateUserSample.TEST_USERID,
+                CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr );
+            assertNotNull( session );
+            List<Permission> perms = accessMgr.sessionPermissions( session );
+            assertNotNull( perms );
+            assertTrue( szLocation + " list check, expected: 5, actual:" + perms.size(), perms.size() == 5 );
 
             // iterate over expected permissions to make sure they are returned from sessionPermissions API.
-            for (int i = 1; i < 6; i++)
+            for ( int i = 1; i < 6; i++ )
             {
                 // A Permission consists of an object name and operation name.
-                Permission checkPerm = new Permission(CreatePermSample.TEST_PERM_OBJECT, CreatePermSample.TEST_PERM_OPERATION_PREFIX + i);
-                boolean result = accessMgr.checkAccess(session, checkPerm);
-                assertTrue(szLocation, result);
-                LOG.info(szLocation + " user [" + session.getUserId() + "] permission object [" + checkPerm.getObjectName() + "] operation name [" + checkPerm.getOpName() + "] success");
+                Permission checkPerm = new Permission( CreatePermSample.TEST_PERM_OBJECT,
+                    CreatePermSample.TEST_PERM_OPERATION_PREFIX + i );
+                boolean result = accessMgr.checkAccess( session, checkPerm );
+                assertTrue( szLocation, result );
+                LOG.info( szLocation + " user [" + session.getUserId() + "] permission object ["
+                    + checkPerm.getObjectName() + "] operation name [" + checkPerm.getOpName() + "] success" );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     /**
      * The RBAC Session can be interrogated to return the list of all activated Roles within a User's Session.  The API
@@ -143,38 +158,43 @@ public class AccessMgrSample extends TestCase
     public static void testSessionRoles()
     {
         String szLocation = ".testSessionRoles";
-        User inUser = new User(CreateUserSample.TEST_USERID);
+        User inUser = new User( CreateUserSample.TEST_USERID );
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
-            Session session = createSession(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr);
+            Session session = createSession( CreateUserSample.TEST_USERID,
+                CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr );
             // A null Session would be a bug and should never happen.  Fortress will throw a SecurityException if it cannot create.
-            assertNotNull(session);
+            assertNotNull( session );
             // Get the activated Roles from the Session.
-            List<UserRole> uRoles = accessMgr.sessionRoles(session);
+            List<UserRole> uRoles = accessMgr.sessionRoles( session );
             // The list of Roles could be null if User has not been assigned any or if all assigned failed activation checks.
-            assertNotNull(uRoles);
+            assertNotNull( uRoles );
             // Test to see that the list size is same as expected.
-            assertTrue(szLocation + " list check, expected: 10, actual:" + uRoles.size(), uRoles.size() == 10);
+            assertTrue( szLocation + " list check, expected: 10, actual:" + uRoles.size(), uRoles.size() == 10 );
 
             // Test to ensure that all of the roles activated are returned in the uRoles list.  In a real
             // program this would not be necessary.
-            for (int i = 1; i < 11; i++)
+            for ( int i = 1; i < 11; i++ )
             {
-                UserRole inUserRole = new UserRole(inUser.getUserId(), CreateRoleSample.TEST_ROLE_PREFIX + i);
-                assertTrue(szLocation + " contains check userId [" + inUserRole.getUserId() + "] role [" + inUserRole.getName() + "]", uRoles.contains(inUserRole));
-                LOG.info(szLocation + " userId [" + inUserRole.getUserId() + "] activated role [" + inUserRole.getName() + "] found in session");
+                UserRole inUserRole = new UserRole( inUser.getUserId(), CreateRoleSample.TEST_ROLE_PREFIX + i );
+                assertTrue(
+                    szLocation + " contains check userId [" + inUserRole.getUserId() + "] role ["
+                        + inUserRole.getName() + "]", uRoles.contains( inUserRole ) );
+                LOG.info( szLocation + " userId [" + inUserRole.getUserId() + "] activated role ["
+                    + inUserRole.getName() + "] found in session" );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     /**
      * The addActivateRole API allows only Roles that have been assigned to a given User to be activated in their
@@ -187,24 +207,28 @@ public class AccessMgrSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
             // authenticate will check the password but will not activated any roles into Session.
-            Session session = authenticate(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr);
-            assertNotNull(session);
+            Session session = authenticate( CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(),
+                accessMgr );
+            assertNotNull( session );
             // now, activate roles into User's Session one at a time:
-            for (int i = 1; i < 11; i++)
+            for ( int i = 1; i < 11; i++ )
             {
-                UserRole addUserRole = new UserRole(CreateUserSample.TEST_USERID, CreateRoleSample.TEST_ROLE_PREFIX + i);
-                accessMgr.addActiveRole(session, addUserRole);
-                LOG.info(szLocation + " userId [" + addUserRole.getUserId() + "] activated role [" + addUserRole.getName() + "] added to session");
+                UserRole addUserRole = new UserRole( CreateUserSample.TEST_USERID, CreateRoleSample.TEST_ROLE_PREFIX
+                    + i );
+                accessMgr.addActiveRole( session, addUserRole );
+                LOG.info( szLocation + " userId [" + addUserRole.getUserId() + "] activated role ["
+                    + addUserRole.getName() + "] added to session" );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     /**
      * RBAC compliant systems allow User Roles to be activated and deactivated from their Session.  This facilitates
@@ -215,28 +239,31 @@ public class AccessMgrSample extends TestCase
     public static void testDropActiveRoles()
     {
         String szLocation = ".testDropActiveRoles";
-        User inUser = new User(CreateUserSample.TEST_USERID);
+        User inUser = new User( CreateUserSample.TEST_USERID );
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
             // Calling createSession and not setting any roles on User beforehand will attempt to activate all assigned Roles:
-            Session session = createSession(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr);
-            assertNotNull(session);
+            Session session = createSession( CreateUserSample.TEST_USERID,
+                CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr );
+            assertNotNull( session );
             // now, drop roles from User's Session one at a time:
-            for (int i = 1; i < 11; i++)
+            for ( int i = 1; i < 11; i++ )
             {
-                UserRole dropUserRole = new UserRole(inUser.getUserId(), CreateRoleSample.TEST_ROLE_PREFIX + i);
-                accessMgr.dropActiveRole(session, dropUserRole);
-                LOG.info(szLocation + " userId [" + dropUserRole.getUserId() + "] deactivated role [" + dropUserRole.getName() + "] removed from session");
+                UserRole dropUserRole = new UserRole( inUser.getUserId(), CreateRoleSample.TEST_ROLE_PREFIX + i );
+                accessMgr.dropActiveRole( session, dropUserRole );
+                LOG.info( szLocation + " userId [" + dropUserRole.getUserId() + "] deactivated role ["
+                    + dropUserRole.getName() + "] removed from session" );
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     /**
      * This test will display all of the User Session attributes to the System out of test machine.  It is intended
@@ -248,139 +275,144 @@ public class AccessMgrSample extends TestCase
         try
         {
             // Instantiate the AccessMgr implementation.
-            AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
-            Session session = createSession(CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr);
-            assertNotNull(session);
-            User user = accessMgr.getUser(session);
-            assertNotNull(user);
-            LOG.info(szLocation);
-            LOG.info("S   UID  [" + session.getUserId() + "]:");
-            LOG.info("S   IID  [" + session.getInternalUserId() + "]");
-            LOG.info("S   ERR  [" + session.getErrorId() + "]");
-            LOG.info("S   WARN [" + session.getWarningId() + "]");
-            LOG.info("S   MSG  [" + session.getMsg() + "]");
-            LOG.info("S   EXP  [" + session.getExpirationSeconds() + "]");
-            LOG.info("S   GRAC [" + session.getGraceLogins() + "]");
-            LOG.info("S   AUTH [" + session.isAuthenticated() + "]");
-            LOG.info("S   LAST [" + session.getLastAccess() + "]");
-            LOG.info("S   SID  [" + session.getSessionId() + "]");
-            LOG.info("------------------------------------------");
-            LOG.info("U   UID  [" + user.getUserId() + "]");
-            LOG.info("U   IID  [" + user.getInternalId() + "]");
-            LOG.info("U   CN   [" + user.getCn() + "]");
-            LOG.info("U   DESC [" + user.getDescription() + "]");
-            LOG.info("U   OU   [" + user.getOu() + "]");
-            LOG.info("U   SN   [" + user.getSn() + "]");
-            LOG.info("U   BDTE [" + user.getBeginDate() + "]");
-            LOG.info("U   EDTE [" + user.getEndDate() + "]");
-            LOG.info("U   BLDT [" + user.getBeginLockDate() + "]");
-            LOG.info("U   ELDT [" + user.getEndLockDate() + "]");
-            LOG.info("U   DMSK [" + user.getDayMask() + "]");
-            LOG.info("U   TO   [" + user.getTimeout() + "]");
-            LOG.info("U   REST [" + user.isReset() + "]");
-            if (user.getProperties() != null && user.getProperties().size() > 0)
+            Session session = createSession( CreateUserSample.TEST_USERID,
+                CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr );
+            assertNotNull( session );
+            User user = accessMgr.getUser( session );
+            assertNotNull( user );
+            LOG.info( szLocation );
+            LOG.info( "S   UID  [" + session.getUserId() + "]:" );
+            LOG.info( "S   IID  [" + session.getInternalUserId() + "]" );
+            LOG.info( "S   ERR  [" + session.getErrorId() + "]" );
+            LOG.info( "S   WARN [" + session.getWarningId() + "]" );
+            LOG.info( "S   MSG  [" + session.getMsg() + "]" );
+            LOG.info( "S   EXP  [" + session.getExpirationSeconds() + "]" );
+            LOG.info( "S   GRAC [" + session.getGraceLogins() + "]" );
+            LOG.info( "S   AUTH [" + session.isAuthenticated() + "]" );
+            LOG.info( "S   LAST [" + session.getLastAccess() + "]" );
+            LOG.info( "S   SID  [" + session.getSessionId() + "]" );
+            LOG.info( "------------------------------------------" );
+            LOG.info( "U   UID  [" + user.getUserId() + "]" );
+            LOG.info( "U   IID  [" + user.getInternalId() + "]" );
+            LOG.info( "U   CN   [" + user.getCn() + "]" );
+            LOG.info( "U   DESC [" + user.getDescription() + "]" );
+            LOG.info( "U   OU   [" + user.getOu() + "]" );
+            LOG.info( "U   SN   [" + user.getSn() + "]" );
+            LOG.info( "U   BDTE [" + user.getBeginDate() + "]" );
+            LOG.info( "U   EDTE [" + user.getEndDate() + "]" );
+            LOG.info( "U   BLDT [" + user.getBeginLockDate() + "]" );
+            LOG.info( "U   ELDT [" + user.getEndLockDate() + "]" );
+            LOG.info( "U   DMSK [" + user.getDayMask() + "]" );
+            LOG.info( "U   TO   [" + user.getTimeout() + "]" );
+            LOG.info( "U   REST [" + user.isReset() + "]" );
+            if ( user.getProperties() != null && user.getProperties().size() > 0 )
             {
                 int ctr = 0;
-                for (Enumeration e = user.getProperties().propertyNames(); e.hasMoreElements();)
+                for ( Enumeration e = user.getProperties().propertyNames(); e.hasMoreElements(); )
                 {
-                    String key = (String) e.nextElement();
-                    String val = user.getProperty(key);
-                    LOG.info("U   PROP[" + ctr++ + "]=" + key + " VAL=" + val);
+                    String key = ( String ) e.nextElement();
+                    String val = user.getProperty( key );
+                    LOG.info( "U   PROP[" + ctr++ + "]=" + key + " VAL=" + val );
                 }
             }
 
             List<UserRole> roles = session.getRoles();
-            if (roles != null)
+            if ( roles != null )
             {
-                for (int i = 0; i < roles.size(); i++)
+                for ( int i = 0; i < roles.size(); i++ )
                 {
-                    UserRole ur = roles.get(i);
-                    LOG.info("    USER ROLE[" + i + "]:");
-                    LOG.info("        role name [" + ur.getName() + "]");
-                    LOG.info("        begin time [" + ur.getBeginTime() + "]");
-                    LOG.info("        end time [" + ur.getEndTime() + "]");
-                    LOG.info("        begin date [" + ur.getBeginDate() + "]");
-                    LOG.info("        end date [" + ur.getEndDate() + "]");
-                    LOG.info("        begin lock [" + ur.getBeginLockDate() + "]");
-                    LOG.info("        end lock [" + ur.getEndLockDate() + "]");
-                    LOG.info("        day mask [" + ur.getDayMask() + "]");
-                    LOG.info("        time out [" + ur.getTimeout() + "]");
+                    UserRole ur = roles.get( i );
+                    LOG.info( "    USER ROLE[" + i + "]:" );
+                    LOG.info( "        role name [" + ur.getName() + "]" );
+                    LOG.info( "        begin time [" + ur.getBeginTime() + "]" );
+                    LOG.info( "        end time [" + ur.getEndTime() + "]" );
+                    LOG.info( "        begin date [" + ur.getBeginDate() + "]" );
+                    LOG.info( "        end date [" + ur.getEndDate() + "]" );
+                    LOG.info( "        begin lock [" + ur.getBeginLockDate() + "]" );
+                    LOG.info( "        end lock [" + ur.getEndLockDate() + "]" );
+                    LOG.info( "        day mask [" + ur.getDayMask() + "]" );
+                    LOG.info( "        time out [" + ur.getTimeout() + "]" );
                 }
             }
 
             List<UserAdminRole> aRoles = session.getAdminRoles();
-            if (aRoles != null)
+            if ( aRoles != null )
             {
-                for (int i = 0; i < aRoles.size(); i++)
+                for ( int i = 0; i < aRoles.size(); i++ )
                 {
-                    UserAdminRole ur = aRoles.get(i);
-                    LOG.info("    USER ADMIN ROLE[" + i + "]:");
-                    LOG.info("        admin role name [" + ur.getName() + "]");
-                    LOG.info("        OsU [" + ur.getOsU() + "]");
-                    LOG.info("        OsP [" + ur.getOsP() + "]");
-                    LOG.info("        begin range [" + ur.getBeginRange() + "]");
-                    LOG.info("        end range [" + ur.getEndRange() + "]");
-                    LOG.info("        begin time [" + ur.getBeginTime() + "]");
-                    LOG.info("        end time [" + ur.getEndTime() + "]");
-                    LOG.info("        begin date [" + ur.getBeginDate() + "]");
-                    LOG.info("        end date [" + ur.getEndDate() + "]");
-                    LOG.info("        begin lock [" + ur.getBeginLockDate() + "]");
-                    LOG.info("        end lock [" + ur.getEndLockDate() + "]");
-                    LOG.info("        day mask [" + ur.getDayMask() + "]");
-                    LOG.info("        time out [" + ur.getTimeout() + "]");
+                    UserAdminRole ur = aRoles.get( i );
+                    LOG.info( "    USER ADMIN ROLE[" + i + "]:" );
+                    LOG.info( "        admin role name [" + ur.getName() + "]" );
+                    LOG.info( "        OsU [" + ur.getOsU() + "]" );
+                    LOG.info( "        OsP [" + ur.getOsP() + "]" );
+                    LOG.info( "        begin range [" + ur.getBeginRange() + "]" );
+                    LOG.info( "        end range [" + ur.getEndRange() + "]" );
+                    LOG.info( "        begin time [" + ur.getBeginTime() + "]" );
+                    LOG.info( "        end time [" + ur.getEndTime() + "]" );
+                    LOG.info( "        begin date [" + ur.getBeginDate() + "]" );
+                    LOG.info( "        end date [" + ur.getEndDate() + "]" );
+                    LOG.info( "        begin lock [" + ur.getBeginLockDate() + "]" );
+                    LOG.info( "        end lock [" + ur.getEndLockDate() + "]" );
+                    LOG.info( "        day mask [" + ur.getDayMask() + "]" );
+                    LOG.info( "        time out [" + ur.getTimeout() + "]" );
                 }
             }
 
             java.util.Properties jProps = System.getProperties();
-            if (jProps != null && jProps.size() > 0)
+            if ( jProps != null && jProps.size() > 0 )
             {
                 int ctr = 0;
-                for (Enumeration e = jProps.propertyNames(); e.hasMoreElements();)
+                for ( Enumeration e = jProps.propertyNames(); e.hasMoreElements(); )
                 {
-                    String key = (String) e.nextElement();
-                    String val = jProps.getProperty(key);
-                    LOG.info("J   PROP[" + ctr++ + "]=" + key + " VAL=" + val);
+                    String key = ( String ) e.nextElement();
+                    String val = jProps.getProperty( key );
+                    LOG.info( "J   PROP[" + ctr++ + "]=" + key + " VAL=" + val );
                 }
             }
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
     }
+
 
     /**
      * @param userId   String contains case insensitive userId field.
      * @param password String contains case sensitive, clear text password field.
      * @return User RBAC Session that is used for subsequent AccessMgr API calls.
      */
-    private static Session createSession(String userId, char[] password, AccessMgr accessMgr)
+    private static Session createSession( String userId, char[] password, AccessMgr accessMgr )
     {
         String szLocation = ".createSession";
         Session session = null;
+
         try
         {
-            User user = new User(userId, password);
+            User user = new User( userId, password );
             // These properties will be persisted within User's audit trail in OpenLDAP:
-            user.addProperty("system.user.name", System.getProperty("user.name"));
+            user.addProperty( "system.user.name", System.getProperty( "user.name" ) );
             //user.addProperty("system.timezone VAL", System.getProperty("user.timezone VAL"));
-            user.addProperty("system.country", System.getProperty("user.country"));
+            user.addProperty( "system.country", System.getProperty( "user.country" ) );
 
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
-            session = accessMgr.createSession(user, false);
-            LOG.info(szLocation + " successful");
+            session = accessMgr.createSession( user, false );
+            LOG.info( szLocation + " successful" );
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
+
         return session;
     }
+
 
     /**
      * Test Utility wraps OpenAcccessManager createSession API.
@@ -390,26 +422,28 @@ public class AccessMgrSample extends TestCase
      * @param activationRoles array of Role names targeted for activation into User's RBAC Session.
      * @return User RBAC Session that is used for subsequent AccessMgr API calls.
      */
-    private static Session createSession(String userId, char[] password, String[] activationRoles, AccessMgr accessMgr)
+    private static Session createSession( String userId, char[] password, String[] activationRoles, AccessMgr accessMgr )
     {
         String szLocation = ".createSession";
         Session session = null;
         try
         {
-            User user = new User(userId, password, activationRoles);
-            user.addProperty("system.user.name", System.getProperty("user.name"));
+            User user = new User( userId, password, activationRoles );
+            user.addProperty( "system.user.name", System.getProperty( "user.name" ) );
             //user.addProperty("system.timezone VAL", System.getProperty("user.timezone VAL"));
-            user.addProperty("system.country", System.getProperty("user.country"));
+            user.addProperty( "system.country", System.getProperty( "user.country" ) );
 
             // Create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
-            session = accessMgr.createSession(user, false);
-            LOG.info(szLocation + " with roles successful");
+            session = accessMgr.createSession( user, false );
+            LOG.info( szLocation + " with roles successful" );
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            LOG.error(szLocation + " with roles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error(
+                szLocation + " with roles caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(),
+                ex );
+            fail( ex.getMessage() );
         }
         return session;
     }
@@ -423,20 +457,20 @@ public class AccessMgrSample extends TestCase
      * @param password String contains case sensitive, clear text password field.
      * @return User Session that has no Roles activated thus will fail checkAccess and sessionPermission calls.
      */
-    private static Session authenticate(String userId, char[] password, AccessMgr accessMgr)
+    private static Session authenticate( String userId, char[] password, AccessMgr accessMgr )
     {
         String szLocation = ".authenticate";
         Session session = null;
         try
         {
             // authenticate will check the password but will not activated any roles into Session.
-            session = accessMgr.authenticate(userId, password);
-            LOG.info(szLocation + " successful");
+            session = accessMgr.authenticate( userId, password );
+            LOG.info( szLocation + " successful" );
         }
-        catch (SecurityException ex)
+        catch ( SecurityException ex )
         {
-            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            LOG.error( szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
         }
         return session;
     }

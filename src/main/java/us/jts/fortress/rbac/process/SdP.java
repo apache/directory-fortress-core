@@ -2,14 +2,19 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac;
+package us.jts.fortress.rbac.process;
 
-import us.jts.fortress.GlobalIds;
-import us.jts.fortress.SecurityException;
-import us.jts.fortress.util.attr.VUtil;
 
 import java.util.List;
 import java.util.Set;
+
+import us.jts.fortress.GlobalIds;
+import us.jts.fortress.SecurityException;
+import us.jts.fortress.rbac.Role;
+import us.jts.fortress.rbac.SDSet;
+import us.jts.fortress.rbac.dao.unboundid.SdDAO;
+import us.jts.fortress.util.attr.VUtil;
+
 
 /**
  * Process module for Separation of Duty Relation data sets. The Fortress SD data set can be of two types:
@@ -21,7 +26,7 @@ import java.util.Set;
  * This class performs data validations and error mapping in addition to calling DAO methods.  It is typically called
  * by internal Fortress Manager classes ({@link us.jts.fortress.AdminMgr}, {@link us.jts.fortress.ReviewMgr}) and also by internal SD utils.
  * This class is not intended to be called externally or outside of Fortress Core itself.  This class will accept {@link SDSet},
- * validate its contents and forward on to it's corresponding DAO {@link us.jts.fortress.rbac.SdDAO}.
+ * validate its contents and forward on to it's corresponding DAO {@link us.jts.fortress.rbac.dao.unboundid.SdDAO}.
  * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
@@ -36,18 +41,21 @@ import java.util.Set;
  * @author Shawn McKinney
  * @created September 11, 2010
  */
-final class SdP
+public final class SdP
 {
     /**
      * Get the DAO created:
      */
     private static final SdDAO sdDao = new SdDAO();
 
+
     /**
      * Package private constructor.
      */
-    SdP()
-    {}
+    public SdP()
+    {
+    }
+
 
     /**
      * Adds a new SDSet to directory. The OrgUnit SDType enum will determine which data set insertion will
@@ -58,11 +66,11 @@ final class SdP
      * @return SDSet entity copy of input + additional attributes (internalId) that were added by op.
      * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    final SDSet add(SDSet entity)
+    public final SDSet add( SDSet entity )
         throws SecurityException
     {
-        validate(entity);
-        return sdDao.create(entity);
+        validate( entity );
+        return sdDao.create( entity );
     }
 
 
@@ -76,11 +84,11 @@ final class SdP
      * @return SDSet entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final SDSet update(SDSet entity)
+    public final SDSet update( SDSet entity )
         throws SecurityException
     {
-        validate(entity);
-        return sdDao.update(entity);
+        validate( entity );
+        return sdDao.update( entity );
     }
 
 
@@ -93,10 +101,10 @@ final class SdP
      * @return SDSet is a copy of entity.
      * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    final SDSet delete(SDSet entity)
+    public final SDSet delete( SDSet entity )
         throws SecurityException
     {
-        return sdDao.remove(entity);
+        return sdDao.remove( entity );
     }
 
 
@@ -108,16 +116,16 @@ final class SdP
      * @return SDSet entity containing all attributes associated with ou in directory.
      * @throws SecurityException in the event SDSet not found or DAO search error.
      */
-    final SDSet read(SDSet entity)
+    public final SDSet read( SDSet entity )
         throws SecurityException
     {
         SDSet sde;
         // The assumption is this method is called from ReviewMgr.ssdRoleSetRoles or ReviewMgr.dsdRoleSetRoles.
         // If called from ReviewMgr, the object class type will be passed in:
         SDSet.SDType type = entity.getType();
-        sde = sdDao.getSD(entity);
+        sde = sdDao.getSD( entity );
         // Load the previously saved type onto the return entity:
-        sde.setType(type);
+        sde.setType( type );
         return sde;
     }
 
@@ -130,10 +138,10 @@ final class SdP
      * @return List of SDSet entities found.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<SDSet> search(SDSet sdSet)
+    public final List<SDSet> search( SDSet sdSet )
         throws SecurityException
     {
-        return sdDao.search(sdSet);
+        return sdDao.search( sdSet );
     }
 
 
@@ -146,10 +154,10 @@ final class SdP
      * @return List of SDSet entities found.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<SDSet> search(Role role, SDSet.SDType type)
+    public final List<SDSet> search( Role role, SDSet.SDType type )
         throws SecurityException
     {
-        return sdDao.search(role, type);
+        return sdDao.search( role, type );
     }
 
 
@@ -162,10 +170,10 @@ final class SdP
      * @return List of SDSet entities found.
      * @throws SecurityException in the event of DAO search error.
      */
-    final Set<SDSet> search(Set<String> rls, SDSet sdSet)
+    public final Set<SDSet> search( Set<String> rls, SDSet sdSet )
         throws SecurityException
     {
-        return sdDao.search(rls, sdSet);
+        return sdDao.search( rls, sdSet );
     }
 
 
@@ -178,31 +186,30 @@ final class SdP
      * @param entity contains the enum type to validate
      * @throws us.jts.fortress.SecurityException thrown in the event the attribute is null.
      */
-    private void validate(SDSet entity)
+    private void validate( SDSet entity )
         throws SecurityException
     {
         // TODO: Add more validations here:
-        VUtil.safeText(entity.getName(), GlobalIds.OU_LEN);
-        if (VUtil.isNotNullOrEmpty(entity.getDescription()))
+        VUtil.safeText( entity.getName(), GlobalIds.OU_LEN );
+        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
-            VUtil.description(entity.getDescription());
+            VUtil.description( entity.getDescription() );
         }
         Set<String> roles = entity.getMembers();
-        if (roles != null)
+        if ( roles != null )
         {
             RoleP rp = new RoleP();
-            for (String key : roles)
+            for ( String key : roles )
             {
                 // when removing last role member a placeholder must be left in data set:
-                if (!key.equalsIgnoreCase(GlobalIds.NONE))
+                if ( !key.equalsIgnoreCase( GlobalIds.NONE ) )
                 {
                     // Ensure the name exists:
-                    Role role = new Role(key);
-                    role.setContextId(entity.getContextId());
-                    rp.read(role);
+                    Role role = new Role( key );
+                    role.setContextId( entity.getContextId() );
+                    rp.read( role );
                 }
             }
         }
     }
 }
-

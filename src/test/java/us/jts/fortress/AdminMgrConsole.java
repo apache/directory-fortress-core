@@ -23,7 +23,6 @@ import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rbac.TestUtils;
 import us.jts.fortress.rbac.Permission;
 import us.jts.fortress.rbac.User;
-import us.jts.fortress.rbac.UserAdminRole;
 import us.jts.fortress.rbac.UserRole;
 import us.jts.fortress.util.attr.VUtil;
 import org.slf4j.Logger;

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
+import us.jts.fortress.rbac.process.RoleP;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.cache.Cache;
 import us.jts.fortress.util.cache.CacheMgr;
@@ -34,7 +35,7 @@ import us.jts.fortress.util.cache.CacheMgr;
  * </ol>
  * After update is performed to ldap, the singleton is refreshed with latest info.
  * <p/>
- * Static methods on this class are intended for use by other Fortress classes, i.e. {@link us.jts.fortress.rbac.UserDAO} and {@link us.jts.fortress.rbac.PermDAO}
+ * Static methods on this class are intended for use by other Fortress classes, i.e. {@link us.jts.fortress.rbac.dao.unboundid.UnboundIdUserDAO} and {@link us.jts.fortress.rbac.dao.unboundid.PermDAO}
  * and cannot be directly invoked by outside programs.
  * <p/>
  * This class contains singleton that can be updated but is thread safe.
@@ -42,7 +43,7 @@ import us.jts.fortress.util.cache.CacheMgr;
  *
  * @author Shawn McKinney
  */
-final class RoleUtil
+public final class RoleUtil
 {
     private static final Cache roleCache;
     private static final RoleP roleP = new RoleP();
@@ -70,7 +71,7 @@ final class RoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return boolean result, 'true' indicates parent/child relationship exists.
      */
-    static boolean isParent( String child, String parent, String contextId )
+    public static boolean isParent( String child, String parent, String contextId )
     {
         boolean result = false;
         Set<String> parents = getAscendants( child, contextId );
@@ -89,7 +90,7 @@ final class RoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names are descendants {@link us.jts.fortress.rbac.Role}s of given parent.
      */
-    static Set<String> getDescendants( String roleName, String contextId )
+    public static Set<String> getDescendants( String roleName, String contextId )
     {
         return HierUtil.getDescendants( roleName.toUpperCase(), getGraph( contextId ) );
     }
@@ -102,7 +103,7 @@ final class RoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names are children {@link us.jts.fortress.rbac.Role}s of given parent.
      */
-    static Set<String> getChildren( String roleName, String contextId )
+    public static Set<String> getChildren( String roleName, String contextId )
     {
         return HierUtil.getChildren( roleName.toUpperCase(), getGraph( contextId ) );
     }
@@ -115,7 +116,7 @@ final class RoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names that are ascendants of given child.
      */
-    static Set<String> getAscendants( String roleName, String contextId )
+    public static Set<String> getAscendants( String roleName, String contextId )
     {
         return HierUtil.getAscendants( roleName.toUpperCase(), getGraph( contextId ) );
     }
@@ -148,14 +149,14 @@ final class RoleUtil
 
 
     /**
-     * Return Set of RBAC {@link us.jts.fortress.rbac.Role#name}s ascendants.  Used by {@link us.jts.fortress.rbac.PermDAO#checkPermission}
+     * Return Set of RBAC {@link us.jts.fortress.rbac.Role#name}s ascendants.  Used by {@link us.jts.fortress.rbac.dao.unboundid.PermDAO#checkPermission}
      * for computing authorized {@link us.jts.fortress.rbac.UserRole#name}s.
      *
      * @param uRoles contains list of Roles activated within a {@link us.jts.fortress.rbac.User}'s {@link us.jts.fortress.rbac.Session}.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return contains Set of all authorized RBAC Roles for a given User.
      */
-    static Set<String> getInheritedRoles( List<UserRole> uRoles, String contextId )
+    public static Set<String> getInheritedRoles( List<UserRole> uRoles, String contextId )
     {
         // create Set with case insensitive comparator:
         Set<String> iRoles = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );

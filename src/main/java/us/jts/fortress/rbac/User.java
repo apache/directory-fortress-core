@@ -30,8 +30,8 @@ import us.jts.fortress.util.time.Constraint;
  * <h4>Fortress Processing Layers</h4>
  * <ol>
  * <li>Manager layer:  {@link us.jts.fortress.rbac.AdminMgrImpl}, {@link us.jts.fortress.rbac.AccessMgrImpl}, {@link us.jts.fortress.rbac.ReviewMgrImpl},...</li>
- * <li>Process layer:  {@link UserP}, {@link us.jts.fortress.rbac.RoleP}, {@link us.jts.fortress.rbac.PermP},...</li>
- * <li>DAO layer: {@link UserDAO}, {@link us.jts.fortress.rbac.RoleDAO}, {@link us.jts.fortress.rbac.PermDAO},...</li>
+ * <li>Process layer:  {@link UserP}, {@link us.jts.fortress.rbac.process.RoleP}, {@link us.jts.fortress.rbac.process.PermP},...</li>
+ * <li>DAO layer: {@link ApacheUserDAO}, {@link us.jts.fortress.rbac.dao.unboundid.UnboundIdRoleDAO}, {@link us.jts.fortress.rbac.dao.unboundid.PermDAO},...</li>
  * </ol>
  * Fortress clients must first instantiate the data entity before invoking one of the Manager APIs.  The caller must first
  * provide enough information to uniquely identity target record for the particular ldap operation performed.<br />
@@ -632,7 +632,7 @@ public class User extends FortEntity implements Constraint, Serializable
      * Generate an internal userId that is associated with User.  This method is used by DAO class and
      * is not available to outside classes.   The generated attribute maps to 'ftId' in 'ftUserAttrs' object class.
      */
-    void setInternalId()
+    public void setInternalId()
     {
         UUID uuid = UUID.randomUUID();
         internalId = uuid.toString();
@@ -764,7 +764,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param dn that is mapped to same name in 'inetOrgPerson' object class.
      */
-    void setDn( String dn )
+    public void setDn( String dn )
     {
         this.dn = dn;
     }

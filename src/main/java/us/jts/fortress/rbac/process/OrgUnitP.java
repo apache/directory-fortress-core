@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac;
+package us.jts.fortress.rbac.process;
 
 
 import java.util.List;
@@ -14,6 +14,11 @@ import org.slf4j.LoggerFactory;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
+import us.jts.fortress.rbac.DelAdminMgrImpl;
+import us.jts.fortress.rbac.DelReviewMgrImpl;
+import us.jts.fortress.rbac.Graphable;
+import us.jts.fortress.rbac.OrgUnit;
+import us.jts.fortress.rbac.dao.unboundid.OrgUnitDAO;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.cache.Cache;
 import us.jts.fortress.util.cache.CacheMgr;
@@ -24,7 +29,7 @@ import us.jts.fortress.util.cache.CacheMgr;
  * {@link us.jts.fortress.rbac.User} class or {@link us.jts.fortress.rbac.PermObj} class.  The OrgUnit entity itself is stored in two separate locations in the ldap tree one
  * for each entity listed above.  The type of OU entity is set via the enum attribute {@link OrgUnit.Type} which is equal to 'PERM' or 'USER'.
  * This class performs data validations.  The methods of this class are called by internal Fortress manager impl classes
- * {@link DelAdminMgrImpl} and {@link DelReviewMgrImpl} but is also called by {@link us.jts.fortress.rbac.PermP#validate} method and {@link UserP#validate} functions
+ * {@link DelAdminMgrImpl} and {@link DelReviewMgrImpl} but is also called by {@link us.jts.fortress.rbac.process.PermP#validate} method and {@link UserP#validate} functions
  * which ensure the entities are related to valid OU entries. This class is not intended to be called external
  * to Fortress Core itself.  This class will accept Fortress entity {@link OrgUnit}, validate its contents and forward on to it's
  * corresponding DAO class {@link OrgUnitDAO} for data access.
@@ -40,7 +45,7 @@ import us.jts.fortress.util.cache.CacheMgr;
 
  * @author Shawn McKinney
  */
-final class OrgUnitP
+public final class OrgUnitP
 {
     // init the logger:
     private static final String CLS_NM = OrgUnitP.class.getName();
@@ -67,7 +72,7 @@ final class OrgUnitP
     /**
      * Package private constructor.
      */
-    OrgUnitP()
+    public OrgUnitP()
     {
     }
 
@@ -163,7 +168,7 @@ final class OrgUnitP
      * @return OrgUnit entity containing all attributes associated with ou in directory.
      * @throws us.jts.fortress.SecurityException in the event OrgUnit not found or DAO search error.
      */
-    final OrgUnit read( OrgUnit entity )
+    public final OrgUnit read( OrgUnit entity )
         throws SecurityException
     {
         validate( entity, false );
@@ -179,7 +184,7 @@ final class OrgUnitP
      * @return List of type OrgUnit containing fully populated matching OU entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<OrgUnit> search( OrgUnit orgUnit )
+    public final List<OrgUnit> search( OrgUnit orgUnit )
         throws SecurityException
     {
         // Call the finder.
@@ -196,7 +201,7 @@ final class OrgUnitP
      * @return OrgUnit entity copy of input + additional attributes (internalId) that were added by op.
      * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    final OrgUnit add( OrgUnit entity )
+    public final OrgUnit add( OrgUnit entity )
         throws SecurityException
     {
         validate( entity, false );
@@ -233,7 +238,7 @@ final class OrgUnitP
      * @return OrgUnit entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final OrgUnit update( OrgUnit entity )
+    public final OrgUnit update( OrgUnit entity )
         throws SecurityException
     {
         validate( entity, false );
@@ -249,7 +254,7 @@ final class OrgUnitP
      * @param entity OrgUnit contains data targeted for updating.  Null attributes ignored.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final void deleteParent( OrgUnit entity )
+    public final void deleteParent( OrgUnit entity )
         throws SecurityException
     {
         validate( entity, false );
@@ -266,7 +271,7 @@ final class OrgUnitP
      * @return OrgUnit entity copy of input.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final OrgUnit delete( OrgUnit entity )
+    public final OrgUnit delete( OrgUnit entity )
         throws SecurityException
     {
         oDao.remove( entity );
@@ -299,7 +304,7 @@ final class OrgUnitP
      * @return List of type OrgUnit containing {@link OrgUnit#name} and {@link OrgUnit#parents} populated.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<Graphable> getAllDescendants( OrgUnit orgUnit )
+    public final List<Graphable> getAllDescendants( OrgUnit orgUnit )
         throws SecurityException
     {
         return oDao.getAllDescendants( orgUnit );

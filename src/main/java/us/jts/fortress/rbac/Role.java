@@ -4,6 +4,10 @@
 
 package us.jts.fortress.rbac;
 
+import us.jts.fortress.rbac.dao.unboundid.UnboundIdRoleDAO;
+import us.jts.fortress.rbac.dao.unboundid.UnboundIdUserDAO;
+import us.jts.fortress.rbac.process.RoleP;
+import us.jts.fortress.rbac.process.UserP;
 import us.jts.fortress.util.time.CUtil;
 import us.jts.fortress.util.time.Constraint;
 
@@ -13,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,8 +32,8 @@ import java.util.UUID;
  * <h4>Fortress Processing Layers</h4>
  * <ol>
  * <li>Manager layer:  {@link us.jts.fortress.rbac.AdminMgrImpl}, {@link us.jts.fortress.rbac.AccessMgrImpl}, {@link us.jts.fortress.rbac.ReviewMgrImpl},...</li>
- * <li>Process layer:  {@link UserP}, {@link RoleP}, {@link us.jts.fortress.rbac.PermP},...</li>
- * <li>DAO layer: {@link UserDAO}, {@link RoleDAO}, {@link us.jts.fortress.rbac.PermDAO},...</li>
+ * <li>Process layer:  {@link UserP}, {@link RoleP}, {@link us.jts.fortress.rbac.process.PermP},...</li>
+ * <li>DAO layer: {@link UnboundIdUserDAO}, {@link UnboundIdRoleDAO}, {@link us.jts.fortress.rbac.dao.unboundid.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />

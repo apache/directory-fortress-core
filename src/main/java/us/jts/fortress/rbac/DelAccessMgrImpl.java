@@ -7,6 +7,8 @@ package us.jts.fortress.rbac;
 import us.jts.fortress.DelAccessMgr;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.cfg.Config;
+import us.jts.fortress.rbac.process.PermP;
+import us.jts.fortress.rbac.process.UserP;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.SecurityException;
 

@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac;
+package us.jts.fortress.rbac.dao.unboundid;
 
 
 import java.io.UnsupportedEncodingException;
@@ -21,6 +21,15 @@ import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.rbac.AdminRole;
+import us.jts.fortress.rbac.AdminRoleUtil;
+import us.jts.fortress.rbac.OrgUnit;
+import us.jts.fortress.rbac.PermObj;
+import us.jts.fortress.rbac.Permission;
+import us.jts.fortress.rbac.Role;
+import us.jts.fortress.rbac.RoleUtil;
+import us.jts.fortress.rbac.Session;
+import us.jts.fortress.rbac.User;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 
@@ -124,7 +133,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-final class PermDAO extends DataProvider
+public final class PermDAO extends DataProvider
 {
     private static final String CLS_NM = PermDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
@@ -175,7 +184,7 @@ final class PermDAO extends DataProvider
     /**
      * Default constructor is used by internal Fortress classes.
      */
-    PermDAO()
+    public PermDAO()
     {
     }
 
@@ -186,7 +195,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.CreateException
      *
      */
-    final PermObj createObject( PermObj entity )
+    public final PermObj createObject( PermObj entity )
         throws CreateException
     {
         LDAPConnection ld = null;
@@ -248,7 +257,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.UpdateException
      *
      */
-    final PermObj updateObj( PermObj entity )
+    public final PermObj updateObj( PermObj entity )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -302,7 +311,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.RemoveException
      *
      */
-    final void deleteObj( PermObj entity )
+    public final void deleteObj( PermObj entity )
         throws RemoveException
     {
         LDAPConnection ld = null;
@@ -331,7 +340,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.CreateException
      *
      */
-    final Permission createOperation( Permission entity )
+    public final Permission createOperation( Permission entity )
         throws CreateException
     {
         LDAPConnection ld = null;
@@ -400,7 +409,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.UpdateException
      *
      */
-    final Permission updateOperation( Permission entity )
+    public final Permission updateOperation( Permission entity )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -451,7 +460,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.RemoveException
      *
      */
-    final void deleteOperation( Permission entity )
+    public final void deleteOperation( Permission entity )
         throws RemoveException
     {
         LDAPConnection ld = null;
@@ -483,7 +492,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final void grant( Permission pOp, Role role )
+    public final void grant( Permission pOp, Role role )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -535,7 +544,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final void revoke( Permission pOp, Role role )
+    public final void revoke( Permission pOp, Role role )
         throws UpdateException, FinderException
     {
         LDAPConnection ld = null;
@@ -579,7 +588,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final void grant( Permission pOp, User user )
+    public final void grant( Permission pOp, User user )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -631,7 +640,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final void revoke( Permission pOp, User user )
+    public final void revoke( Permission pOp, User user )
         throws UpdateException, FinderException
     {
         LDAPConnection ld = null;
@@ -673,7 +682,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final Permission getPerm( Permission permission )
+    public final Permission getPerm( Permission permission )
         throws FinderException
     {
         Permission entity = null;
@@ -717,7 +726,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final PermObj getPerm( PermObj permObj )
+    public final PermObj getPerm( PermObj permObj )
         throws FinderException
     {
         PermObj entity = null;
@@ -765,7 +774,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *          In the event system error occurs looking up data on ldap server.
      */
-    final boolean checkPermission( Session session, Permission inPerm )
+    public final boolean checkPermission( Session session, Permission inPerm )
         throws FinderException
     {
         boolean isAuthZd = false;
@@ -977,7 +986,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Permission> findPermissions( Permission permission )
+    public final List<Permission> findPermissions( Permission permission )
         throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
@@ -1021,7 +1030,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<PermObj> findPermissions( PermObj permObj )
+    public final List<PermObj> findPermissions( PermObj permObj )
         throws FinderException
     {
         List<PermObj> permList = new ArrayList<>();
@@ -1061,7 +1070,7 @@ final class PermDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<PermObj> findPermissions( OrgUnit ou, boolean limitSize )
+    public final List<PermObj> findPermissions( OrgUnit ou, boolean limitSize )
         throws FinderException
     {
         List<PermObj> permList = new ArrayList<>();
@@ -1111,7 +1120,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Permission> findPermissions( Role role )
+    public final List<Permission> findPermissions( Role role )
         throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
@@ -1183,7 +1192,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Permission> findPermissions( User user )
+    public final List<Permission> findPermissions( User user )
         throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
@@ -1232,7 +1241,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Permission> findUserPermissions( User user )
+    public final List<Permission> findUserPermissions( User user )
         throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
@@ -1273,7 +1282,7 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Permission> findPermissions( Session session )
+    public final List<Permission> findPermissions( Session session )
         throws FinderException
     {
         List<Permission> permList = new ArrayList<>();

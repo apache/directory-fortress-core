@@ -4,17 +4,26 @@
 
 package us.jts.fortress.rbac;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import us.jts.fortress.rbac.dao.unboundid.UnboundIdRoleDAO;
+import us.jts.fortress.rbac.dao.unboundid.UnboundIdUserDAO;
+import us.jts.fortress.rbac.process.PermP;
+import us.jts.fortress.rbac.process.RoleP;
+import us.jts.fortress.rbac.process.UserP;
+
 
 /**
  * All entities ({@link User}, {@link Role}, {@link Permission},
@@ -25,7 +34,7 @@ import java.util.UUID;
  * <ol>
  * <li>Manager layer:  {@link us.jts.fortress.rbac.AdminMgrImpl}, {@link us.jts.fortress.rbac.AccessMgrImpl}, {@link us.jts.fortress.rbac.ReviewMgrImpl},...</li>
  * <li>Process layer:  {@link UserP}, {@link RoleP}, {@link PermP},...</li>
- * <li>DAO layer: {@link UserDAO}, {@link RoleDAO}, {@link us.jts.fortress.rbac.PermDAO},...</li>
+ * <li>DAO layer: {@link UnboundIdUserDAO}, {@link UnboundIdRoleDAO}, {@link us.jts.fortress.rbac.dao.unboundid.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
@@ -156,17 +165,18 @@ import java.util.UUID;
  */
 @XmlRootElement(name = "fortPermission")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "permission", propOrder = {
-    "objectName",
-    "opName",
-    "objectId",
-    "abstractName",
-    "internalId",
-    "type",
-    "users",
-    "roles",
-    "props",
-    "admin"
+@XmlType(name = "permission", propOrder =
+    {
+        "objectName",
+        "opName",
+        "objectId",
+        "abstractName",
+        "internalId",
+        "type",
+        "users",
+        "roles",
+        "props",
+        "admin"
 })
 public class Permission extends FortEntity
     implements java.io.Serializable
@@ -186,17 +196,19 @@ public class Permission extends FortEntity
     @XmlElement(nillable = true)
     private Set<String> users;
 
+
     /**
      * This constructor is commonly used to create Permission that is a target for authorization API.
      *
      * @param objectName maps to 'ftObjNm' attribute in 'ftOperation' object class.
      * @param opName     maps to 'ftOpNm' attribute in 'ftOperation' object class.
      */
-    public Permission(String objectName, String opName)
+    public Permission( String objectName, String opName )
     {
         this.objectName = objectName;
         this.opName = opName;
     }
+
 
     /**
      * Default constructor is used by internal Fortress classes and not intended for external use.
@@ -205,15 +217,17 @@ public class Permission extends FortEntity
     {
     }
 
+
     /**
      * Constructor is used for APIs that do not require opName for example ARBAC canGrant/canRevoke.
      *
      * @param objectName maps to 'ftObjNm' attribute in 'ftOperation' object class.
      */
-    public Permission(String objectName)
+    public Permission( String objectName )
     {
         this.objectName = objectName;
     }
+
 
     /**
      * This constructor adds the objectId which is used for creating Permissions that have an identity.
@@ -222,12 +236,13 @@ public class Permission extends FortEntity
      * @param opName     maps to 'ftOpNm' attribute in 'ftOperation' object class.
      * @param objectId   maps to 'ftObjId' attribute in 'ftOperation' object class.
      */
-    public Permission(String objectName, String opName, String objectId)
+    public Permission( String objectName, String opName, String objectId )
     {
         this.objectName = objectName;
         this.opName = opName;
         this.objectId = objectId;
     }
+
 
     /**
      * This constructor adds the admin flag which is used to process as Administrative permission.
@@ -236,12 +251,13 @@ public class Permission extends FortEntity
      * @param opName     maps to 'ftOpNm' attribute in 'ftOperation' object class.
      * @param admin      attribute is used to specify the Permission is to be stored and processed in the Administrative RBAC data sets.
      */
-    public Permission(String objectName, String opName, boolean admin)
+    public Permission( String objectName, String opName, boolean admin )
     {
         this.objectName = objectName;
         this.opName = opName;
         this.admin = admin;
     }
+
 
     /**
      * Determine if this Permission is for RBAC or ARBAC processing.
@@ -253,12 +269,13 @@ public class Permission extends FortEntity
         return admin;
     }
 
+
     /**
      * Set will determine if this Permission is for RBAC or ARBAC processing.
      *
      * @param admin contains is 'true' if ARBAC permission..
      */
-    public void setAdmin(boolean admin)
+    public void setAdmin( boolean admin )
     {
         this.admin = admin;
     }
@@ -276,6 +293,7 @@ public class Permission extends FortEntity
         this.internalId = uuid.toString();
     }
 
+
     /**
      * Set the internal id that is associated with Permission.  This method is used by DAO class and
      * is generated automatically by Fortress.  Attribute stored in LDAP cannot be changed by external caller.
@@ -283,10 +301,11 @@ public class Permission extends FortEntity
      *
      * @param internalId maps to 'ftId' in 'ftObject' object class.
      */
-    public void setInternalId(String internalId)
+    public void setInternalId( String internalId )
     {
         this.internalId = internalId;
     }
+
 
     /**
      * Return the internal id that is associated with Permission.  This attribute is generated automatically
@@ -299,6 +318,7 @@ public class Permission extends FortEntity
         return internalId;
     }
 
+
     /**
      * Get the Permission operation name.  This is used to specify method name - i.e. Create, Read, Update, Delete, ...
      *
@@ -309,15 +329,17 @@ public class Permission extends FortEntity
         return opName;
     }
 
+
     /**
      * Set the Permission operation name.  This is used to specify method name - i.e. Create, Read, Update, Delete, ...
      *
      * @param opName maps to 'ftOpNm' attribute in 'ftOperation' object class.
      */
-    public void setOpName(String opName)
+    public void setOpName( String opName )
     {
         this.opName = opName;
     }
+
 
     /**
      * Get the authorization target's object name.  This is typically mapped to the class name for component
@@ -330,15 +352,17 @@ public class Permission extends FortEntity
         return this.objectName;
     }
 
+
     /**
      * This attribute is required and sets the authorization target object name.  This name is typically derived from the class name
      * for component that is the target for Fortress authorization check. For example 'CustomerCheckOutPage'.
      *
      */
-    public void setObjectName(String objectName)
+    public void setObjectName( String objectName )
     {
         this.objectName = objectName;
     }
+
 
     /**
      * Return the Permission's abstract name which is the value of objectName concatenated with OpName, i.e. 'Patient.checkin'
@@ -351,16 +375,18 @@ public class Permission extends FortEntity
         return abstractName;
     }
 
+
     /**
      * Set the Permission's abstract name which is the value of objectName concatenated with OpName, i.e. 'Patient.checkin'
      * This value is automatically generated by the Fortress DAO class and value will be ignored if set by external client.
      *
      * @param abstractName maps to 'ftPermName' attribute in 'ftOperation' object class.
      */
-    void setAbstractName(String abstractName)
+    public void setAbstractName( String abstractName )
     {
         this.abstractName = abstractName;
     }
+
 
     /**
      * Get the optional type name which is an unconstrained attribute on Permission entity.
@@ -372,15 +398,17 @@ public class Permission extends FortEntity
         return type;
     }
 
+
     /**
      * Set the optional type name which is an unconstrained attribute on Permission entity.
      *
      * @param type maps to 'ftType' attribute in 'ftOperation' object class.
      */
-    public void setType(String type)
+    public void setType( String type )
     {
         this.type = type;
     }
+
 
     /**
      * Get optional objectId attribute which can be used to tag a Permission object with an identity, i.e. objectName='Customer', objectId='12345'.
@@ -393,44 +421,48 @@ public class Permission extends FortEntity
         return objectId;
     }
 
+
     /**
      * Set optional objectId which can be used to tag a Permission object with an identity, i.e. objectName='Account', objectId='09876543'.
      * This value is not constrained by any other object.
      *
      * @param objectId maps to 'ftObjectId' attribute in 'ftOperation' object class.
      */
-    public void setObjectId(String objectId)
+    public void setObjectId( String objectId )
     {
         this.objectId = objectId;
     }
+
 
     /**
      * Add a Role name to list of Roles that are valid for this Permission.  This is optional attribute.
      *
      * @param role maps to 'ftRoles' attribute in 'ftOperation' object class.
      */
-    public void setRole(String role)
+    public void setRole( String role )
     {
-        if (roles == null)
+        if ( roles == null )
         {
-            roles = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+            roles = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         }
 
-        this.roles.add(role);
+        this.roles.add( role );
     }
+
 
     /**
      * Delete a Role name from list of Roles that are valid for this Permission.
      *
      * @param role maps to 'ftRoles' attribute in 'ftOperation' object class.
      */
-    public void delRole(String role)
+    public void delRole( String role )
     {
-        if (this.roles != null)
+        if ( this.roles != null )
         {
-            this.roles.remove(role);
+            this.roles.remove( role );
         }
     }
+
 
     /**
      * Return the collection of optional Roles that have been loaded into this entity.  This is stored as a multi-occurring
@@ -443,31 +475,34 @@ public class Permission extends FortEntity
         return this.roles;
     }
 
+
     /**
      * Set the collection of optional Roles that have been loaded into this entity.  This is stored as a multi-occurring
      * attribute of Role names on the 'ftOperation' object class.
      *
      * @param roles maps to 'ftRoles' attribute in 'ftOperation' object class.
      */
-    public void setRoles(Set<String> roles)
+    public void setRoles( Set<String> roles )
     {
         this.roles = roles;
     }
+
 
     /**
      * Add a UserId to list of Users that are valid for this Permission.  This is optional attribute.
      *
      * @param user maps to 'ftUsers' attribute in 'ftOperation' object class.
      */
-    public void setUser(String user)
+    public void setUser( String user )
     {
-        if (users == null)
+        if ( users == null )
         {
-            users = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+            users = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         }
 
-        this.users.add(user);
+        this.users.add( user );
     }
+
 
     /**
      * Return the collection of optional Users that have been loaded into this entity.  This is stored as a multi-occurring
@@ -480,16 +515,18 @@ public class Permission extends FortEntity
         return this.users;
     }
 
+
     /**
      * Set the collection of optional Users that have been loaded into this entity.  This is stored as a multi-occurring
      * attribute of userIds on the 'ftOperation' object class.
      *
      * @param users maps to 'ftUsers' attribute in 'ftOperation' object class.
      */
-    public void setUsers(Set<String> users)
+    public void setUsers( Set<String> users )
     {
         this.users = users;
     }
+
 
     /**
       * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
@@ -499,106 +536,112 @@ public class Permission extends FortEntity
       *     {@link Props }
       *
       */
-     public Props getProps()
-     {
-         return props;
-     }
+    public Props getProps()
+    {
+        return props;
+    }
 
-     /**
-      * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
-      *
-      * @param value
-      *     allowed object is
-      *     {@link Props }
-      *
-      */
-     public void setProps(Props value)
-     {
-         this.props = value;
-     }
 
-     /**
-      * Add name/value pair to list of properties associated with Permission.  These values are not constrained by Fortress.
-      * Properties are optional.
-      *
-      * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-      * @param value
-      */
-     public void addProperty(String key, String value)
-     {
-         Props.Entry entry = new Props.Entry();
-         entry.setKey(key);
-         entry.setValue(value);
-         this.props.getEntry().add(entry);
-     }
+    /**
+     * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link Props }
+     *
+     */
+    public void setProps( Props value )
+    {
+        this.props = value;
+    }
 
-     /**
-      * Get a name/value pair attribute from list of properties associated with Permission.  These values are not constrained by Fortress.
-      * Properties are optional.
-      *
-      * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-      * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
-      */
-     public String getProperty(String key)
-     {
-         List<Props.Entry> props = this.props.getEntry();
-         Props.Entry keyObj = new Props.Entry();
-         keyObj.setKey(key);
 
-         String value = null;
-         int indx = props.indexOf(keyObj);
-         if(indx != -1)
-         {
-             Props.Entry entry = props.get(props.indexOf(keyObj));
-             value = entry.getValue();
-         }
+    /**
+     * Add name/value pair to list of properties associated with Permission.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     * @param value
+     */
+    public void addProperty( String key, String value )
+    {
+        Props.Entry entry = new Props.Entry();
+        entry.setKey( key );
+        entry.setValue( value );
+        this.props.getEntry().add( entry );
+    }
 
-         return value;
-     }
 
-     /**
-      * Add new collection of name/value pairs to attributes associated with Permission.  These values are not constrained by Fortress.
-      * Properties are optional.
-      *
-      * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-      */
-     public void addProperties(Properties props)
-     {
-         if(props != null)
-         {
-             for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
-             {
-                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                 String key = (String) e.nextElement();
-                 String val = props.getProperty(key);
-                 addProperty(key, val);
-             }
-         }
-     }
+    /**
+     * Get a name/value pair attribute from list of properties associated with Permission.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     */
+    public String getProperty( String key )
+    {
+        List<Props.Entry> props = this.props.getEntry();
+        Props.Entry keyObj = new Props.Entry();
+        keyObj.setKey( key );
 
-     /**
-      * Return the collection of name/value pairs to attributes associated with Permission.  These values are not constrained by Fortress.
-      * Properties are optional.
-      *
-      * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-      */
-     public Properties getProperties()
-     {
-         Properties properties = null;
-         List<Props.Entry> props = this.props.getEntry();
-         if (props.size() > 0)
-         {
-             properties = new Properties();
-             //int size = props.size();
-             for (Props.Entry entry : props)
-             {
-                 String key = entry.getKey();
-                 String val = entry.getValue();
-                 properties.setProperty(key, val);
-             }
-         }
-         return properties;
-     }
+        String value = null;
+        int indx = props.indexOf( keyObj );
+        if ( indx != -1 )
+        {
+            Props.Entry entry = props.get( props.indexOf( keyObj ) );
+            value = entry.getValue();
+        }
+
+        return value;
+    }
+
+
+    /**
+     * Add new collection of name/value pairs to attributes associated with Permission.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     */
+    public void addProperties( Properties props )
+    {
+        if ( props != null )
+        {
+            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            {
+                // This LDAP attr is stored as a name-value pair separated by a ':'.
+                String key = ( String ) e.nextElement();
+                String val = props.getProperty( key );
+                addProperty( key, val );
+            }
+        }
+    }
+
+
+    /**
+     * Return the collection of name/value pairs to attributes associated with Permission.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     */
+    public Properties getProperties()
+    {
+        Properties properties = null;
+        List<Props.Entry> props = this.props.getEntry();
+        if ( props.size() > 0 )
+        {
+            properties = new Properties();
+            //int size = props.size();
+            for ( Props.Entry entry : props )
+            {
+                String key = entry.getKey();
+                String val = entry.getValue();
+                properties.setProperty( key, val );
+            }
+        }
+        return properties;
+    }
+
 
     /**
      * Matches the objName and opName from two Permission entities.
@@ -606,14 +649,18 @@ public class Permission extends FortEntity
      * @param thatOp contains a Permission entity.
      * @return boolean indicating both Permissions contain matching objName and opName attributes.
      */
-    public boolean equals(Object thatOp)
+    public boolean equals( Object thatOp )
     {
-        if (this == thatOp) return true;
-        if (this.getObjectName() == null) return false;
-        if (!(thatOp instanceof Permission)) return false;
-        Permission thatPermission = (Permission) thatOp;
-        if (thatPermission.getObjectName() == null) return false;
-        return ((thatPermission.getObjectName().equalsIgnoreCase(this.getObjectName())) && (thatPermission.getOpName().equalsIgnoreCase(this.getOpName())));
+        if ( this == thatOp )
+            return true;
+        if ( this.getObjectName() == null )
+            return false;
+        if ( !( thatOp instanceof Permission ) )
+            return false;
+        Permission thatPermission = ( Permission ) thatOp;
+        if ( thatPermission.getObjectName() == null )
+            return false;
+        return ( ( thatPermission.getObjectName().equalsIgnoreCase( this.getObjectName() ) ) && ( thatPermission
+            .getOpName().equalsIgnoreCase( this.getOpName() ) ) );
     }
 }
-

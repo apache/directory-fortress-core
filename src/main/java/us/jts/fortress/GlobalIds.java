@@ -4,6 +4,7 @@
 
 package us.jts.fortress;
 
+
 import us.jts.fortress.cfg.Config;
 
 
@@ -24,9 +25,11 @@ public class GlobalIds
     public static final String HOME = "HOME";
     public static final String TENANT = "tenant";
     private static final String ENABLE_AUDIT = "enable.audit";
-    public static final boolean IS_AUDIT = ((Config.getProperty(ENABLE_AUDIT) != null) && (Config.getProperty(ENABLE_AUDIT).equalsIgnoreCase("true")));
+    public static final boolean IS_AUDIT = ( ( Config.getProperty( ENABLE_AUDIT ) != null ) && ( Config
+        .getProperty( ENABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
     private static final String ENABLE_REST = "enable.mgr.impl.rest";
-    public static final boolean IS_REST = ((Config.getProperty(ENABLE_REST) != null) && (Config.getProperty(ENABLE_REST).equalsIgnoreCase("true")));
+    public static final boolean IS_REST = ( ( Config.getProperty( ENABLE_REST ) != null ) && ( Config
+        .getProperty( ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
 
     /**
      * The following constants are used within the factory classes:
@@ -41,6 +44,11 @@ public class GlobalIds
      * When this optional tag, {@code adminImplementation}, is placed in Fortress properties, its class name will be the default {@link us.jts.fortress.AdminMgr} instance used.
      */
     public final static String ADMIN_IMPLEMENTATION = "adminmgr.implementation";
+
+    /**
+     * When this optional tag, {@code daoConnector}, is placed in Fortress properties, its class name will be the default {@link us.jts.fortress.DAO} instance used.
+     */
+    public final static String DAO_CONNECTOR = "dao.connector";
 
     /**
      * When this optional tag, {@code reviewImplementation}, is placed in Fortress properties, its class name will be the default {@link us.jts.fortress.ReviewMgr} instance used.
@@ -103,13 +111,15 @@ public class GlobalIds
      * the authentication module will not throw SecurityException on password resets.  This is to enable the authentication
      * event to succeed allowing the application to prompt user to change their password.
      */
-    public final static boolean IS_REALM = GlobalIds.REALM_TYPE.equalsIgnoreCase(us.jts.fortress.cfg.Config.getProperty(GlobalIds.AUTHENTICATION_TYPE));
+    public final static boolean IS_REALM = GlobalIds.REALM_TYPE.equalsIgnoreCase( us.jts.fortress.cfg.Config
+        .getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
 
     /**
      * Constant is used to tell ldap server to return no attributes on search.
      */
-    public final static String[] NO_ATRS = {
-        "1.1"
+    public final static String[] NO_ATRS =
+        {
+            "1.1"
     };
 
     /**
@@ -240,7 +250,8 @@ public class GlobalIds
     */
 
     public static final String SERVER_TYPE = "ldap.server.type";
-    public static final boolean IS_OPENLDAP = ((Config.getProperty(SERVER_TYPE) != null) && (Config.getProperty(SERVER_TYPE).equalsIgnoreCase("openldap")));
+    public static final boolean IS_OPENLDAP = ( ( Config.getProperty( SERVER_TYPE ) != null ) && ( Config
+        .getProperty( SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
 
     /**
      * OpenLDAP uses this object class to store policy definitions that are processed by the pw policy overlay.
@@ -297,7 +308,6 @@ public class GlobalIds
      */
     public final static String FILTER_PREFIX = "(&(objectclass=";
 
-
     /*
       *  *************************************************************************
       *  **  OpenAccessMgr PROPERTIES are used by USER, PERM, CONFIG DAO'S.
@@ -328,8 +338,12 @@ public class GlobalIds
     /**
      * Defines the object class structure used within Fortress Role processing.
      */
-    public final static String ROLE_OBJ_CLASS[] = {
-        GlobalIds.TOP, ROLE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+    public final static String ROLE_OBJ_CLASS[] =
+        {
+            GlobalIds.TOP,
+            ROLE_OBJECT_CLASS_NM,
+            GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
+            GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
     /*
@@ -435,7 +449,6 @@ public class GlobalIds
      */
     public final static int PROP_LEN = 100;
 
-
     // Regular Expression Patterns stored in Fortress config file:
     public final static String REG_EX_SAFE_TEXT = "regXSafetext";
 
@@ -462,7 +475,8 @@ public class GlobalIds
     /**
      * Used during ldap filter processing.
      */
-    public final static boolean LDAP_FILTER_SIZE_FOUND = (us.jts.fortress.cfg.Config.getProperty(LDAP_FILTER_SIZE_PROP) != null);
+    public final static boolean LDAP_FILTER_SIZE_FOUND = ( us.jts.fortress.cfg.Config
+        .getProperty( LDAP_FILTER_SIZE_PROP ) != null );
 
     /**
      * maximum number of entries allowed for ldap filter replacements.
@@ -476,14 +490,14 @@ public class GlobalIds
     {
         try
         {
-            String lenProp = us.jts.fortress.cfg.Config.getProperty(LDAP_FILTER_SIZE_PROP);
-            if (LDAP_FILTER_SIZE_FOUND)
+            String lenProp = us.jts.fortress.cfg.Config.getProperty( LDAP_FILTER_SIZE_PROP );
+            if ( LDAP_FILTER_SIZE_FOUND )
             {
-                Integer len = new Integer(lenProp);
+                Integer len = new Integer( lenProp );
                 ldapFilterSize = len;
             }
         }
-        catch (java.lang.NumberFormatException nfe)
+        catch ( java.lang.NumberFormatException nfe )
         {
             //ignore
         }
@@ -510,7 +524,7 @@ public class GlobalIds
      * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
      * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
      */
-    public static final String DELIMITER = Config.getProperty("attr.delimiter", "$");
+    public static final String DELIMITER = Config.getProperty( "attr.delimiter", "$" );
 
     /**
      * Maximum number of records for ldap client to wait on while processing results sets from ldap server.

@@ -19,85 +19,101 @@
  */
 package us.jts.fortress.ldap;
 
+
 import java.util.concurrent.atomic.AtomicInteger;
+
 
 /**
  *
  */
 public class LdapCounters
 {
-    AtomicInteger readCtr =  new AtomicInteger( 0 );
-    AtomicInteger searchCtr =  new AtomicInteger( 0 );
-    AtomicInteger compareCtr =  new AtomicInteger( 0 );
-    AtomicInteger addCtr =  new AtomicInteger( 0 );
-    AtomicInteger modCtr =  new AtomicInteger( 0 );
-    AtomicInteger deleteCtr =  new AtomicInteger( 0 );
-    AtomicInteger bindCtr =  new AtomicInteger( 0 );
+    AtomicInteger readCtr = new AtomicInteger( 0 );
+    AtomicInteger searchCtr = new AtomicInteger( 0 );
+    AtomicInteger compareCtr = new AtomicInteger( 0 );
+    AtomicInteger addCtr = new AtomicInteger( 0 );
+    AtomicInteger modCtr = new AtomicInteger( 0 );
+    AtomicInteger deleteCtr = new AtomicInteger( 0 );
+    AtomicInteger bindCtr = new AtomicInteger( 0 );
 
-    void incrementSearch()
+
+    public void incrementSearch()
     {
         searchCtr.incrementAndGet();
     }
 
-    void incrementRead()
+
+    public void incrementRead()
     {
         readCtr.incrementAndGet();
     }
 
-    void incrementCompare()
+
+    public void incrementCompare()
     {
         compareCtr.incrementAndGet();
     }
 
-    void incrementAdd()
+
+    public void incrementAdd()
     {
         addCtr.incrementAndGet();
     }
 
-    void incrementMod()
+
+    public void incrementMod()
     {
         modCtr.incrementAndGet();
     }
 
-    void incrementDelete()
+
+    public void incrementDelete()
     {
         deleteCtr.incrementAndGet();
     }
 
-    void incrementBind()
+
+    public void incrementBind()
     {
         bindCtr.incrementAndGet();
     }
+
 
     public long getSearch()
     {
         return searchCtr.intValue();
     }
 
+
     public long getRead()
     {
         return readCtr.intValue();
     }
+
 
     public long getCompare()
     {
         return compareCtr.intValue();
     }
 
+
     public long getAdd()
     {
         return addCtr.intValue();
     }
+
 
     public long getMod()
     {
         return modCtr.intValue();
     }
 
+
     public long getDelete()
     {
         return deleteCtr.intValue();
     }
+
 
     public long getBind()
     {

@@ -2,11 +2,18 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac;
+package us.jts.fortress.rbac.process;
 
-import us.jts.fortress.SecurityException;
 
 import java.util.List;
+
+import us.jts.fortress.SecurityException;
+import us.jts.fortress.rbac.AuditMgrImpl;
+import us.jts.fortress.rbac.AuthZ;
+import us.jts.fortress.rbac.Bind;
+import us.jts.fortress.rbac.Mod;
+import us.jts.fortress.rbac.UserAudit;
+import us.jts.fortress.rbac.dao.unboundid.AuditDAO;
 
 
 /**
@@ -28,15 +35,18 @@ import java.util.List;
  *
  * @author Shawn McKinney
  */
-final class AuditP
+public final class AuditP
 {
     private static final AuditDAO aDao = new AuditDAO();
+
 
     /**
      * Package private constructor
      */
-    AuditP()
-    {}
+    public AuditP()
+    {
+    }
+
 
     /**
      * This method returns a list of authorization events for a particular user {@link UserAudit#userId}
@@ -47,10 +57,10 @@ final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws us.jts.fortress.SecurityException if a runtime system error occurs.
      */
-    final List<AuthZ> getAuthZs(UserAudit uAudit)
+    public final List<AuthZ> getAuthZs( UserAudit uAudit )
         throws SecurityException
     {
-        return aDao.getAllAuthZs(uAudit);
+        return aDao.getAllAuthZs( uAudit );
     }
 
 
@@ -63,10 +73,10 @@ final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws SecurityException if a runtime system error occurs.
      */
-    final List<AuthZ> searchAuthZs(UserAudit uAudit)
+    public final List<AuthZ> searchAuthZs( UserAudit uAudit )
         throws SecurityException
     {
-        return aDao.searchAuthZs(uAudit);
+        return aDao.searchAuthZs( uAudit );
     }
 
 
@@ -78,10 +88,10 @@ final class AuditP
      * @return a List of objects of type Bind.  Each Bind object contains one bind event.
      * @throws us.jts.fortress.SecurityException if a runtime system error occurs.
      */
-    final List<Bind> searchBinds(UserAudit uAudit)
+    public final List<Bind> searchBinds( UserAudit uAudit )
         throws SecurityException
     {
-        return aDao.searchBinds(uAudit);
+        return aDao.searchBinds( uAudit );
     }
 
 
@@ -93,10 +103,10 @@ final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws us.jts.fortress.SecurityException if a runtime system error occurs.
      */
-    final List<Mod> searchUserMods(UserAudit uAudit)
+    public final List<Mod> searchUserMods( UserAudit uAudit )
         throws SecurityException
     {
-        return aDao.searchUserMods(uAudit);
+        return aDao.searchUserMods( uAudit );
     }
 
 
@@ -109,10 +119,10 @@ final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws us.jts.fortress.SecurityException if a runtime system error occurs.
      */
-    final List<Mod> searchAdminMods(UserAudit uAudit)
+    public final List<Mod> searchAdminMods( UserAudit uAudit )
         throws SecurityException
     {
-        return aDao.searchAdminMods(uAudit);
+        return aDao.searchAdminMods( uAudit );
     }
 
 
@@ -128,10 +138,9 @@ final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one failed authentication event.
      * @throws us.jts.fortress.SecurityException if a runtime system error occurs.
      */
-    final List<AuthZ> searchInvalidAuthNs(UserAudit uAudit)
+    public final List<AuthZ> searchInvalidAuthNs( UserAudit uAudit )
         throws SecurityException
     {
-        return aDao.searchInvalidAuthNs(uAudit);
+        return aDao.searchInvalidAuthNs( uAudit );
     }
 }
-

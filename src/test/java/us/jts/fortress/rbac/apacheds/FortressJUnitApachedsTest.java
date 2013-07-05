@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ */
+
 package us.jts.fortress.rbac.apacheds;
 
 

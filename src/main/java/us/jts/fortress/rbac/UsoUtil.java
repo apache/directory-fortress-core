@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
+import us.jts.fortress.rbac.process.OrgUnitP;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.cache.Cache;
 import us.jts.fortress.util.cache.CacheMgr;
@@ -42,7 +43,7 @@ import us.jts.fortress.util.cache.CacheMgr;
  *
  * @author Shawn McKinney
  */
-final class UsoUtil
+public final class UsoUtil
 {
     private static final Cache usoCache;
     private static final OrgUnitP orgUnitP = new OrgUnitP();
@@ -90,7 +91,7 @@ final class UsoUtil
      * @param name {@link us.jts.fortress.rbac.OrgUnit#name} maps on 'ftOrgUnit' object class.
      * @return Set of names of children {@link us.jts.fortress.rbac.OrgUnit}s of given parent.
      */
-    static Set<String> getChildren( String name, String contextId )
+    public static Set<String> getChildren( String name, String contextId )
     {
         return HierUtil.getChildren( name, getGraph( contextId ) );
     }

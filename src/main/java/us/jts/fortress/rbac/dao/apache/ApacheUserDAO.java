@@ -2,14 +2,33 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac;
+package us.jts.fortress.rbac.dao.apache;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.api.ldap.model.cursor.CursorException;
+import org.apache.directory.api.ldap.model.cursor.SearchCursor;
+import org.apache.directory.api.ldap.model.entry.Attribute;
+import org.apache.directory.api.ldap.model.entry.DefaultAttribute;
+import org.apache.directory.api.ldap.model.entry.DefaultEntry;
+import org.apache.directory.api.ldap.model.entry.DefaultModification;
+import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.entry.Modification;
+import org.apache.directory.api.ldap.model.entry.ModificationOperation;
+import org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException;
+import org.apache.directory.api.ldap.model.exception.LdapAuthenticationException;
+import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
+import org.apache.directory.api.ldap.model.exception.LdapNoPermissionException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
+import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,20 +42,24 @@ import us.jts.fortress.RemoveException;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.cfg.Config;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.apacheds.ApacheDsDataProvider;
 import us.jts.fortress.ldap.openldap.OLPWControlImpl;
+import us.jts.fortress.rbac.Address;
+import us.jts.fortress.rbac.AdminRole;
+import us.jts.fortress.rbac.GlobalPwMsgIds;
+import us.jts.fortress.rbac.OrgUnit;
+import us.jts.fortress.rbac.PwMessage;
+import us.jts.fortress.rbac.PwPolicyControl;
+import us.jts.fortress.rbac.Role;
+import us.jts.fortress.rbac.RoleUtil;
+import us.jts.fortress.rbac.Session;
+import us.jts.fortress.rbac.User;
+import us.jts.fortress.rbac.UserAdminRole;
+import us.jts.fortress.rbac.UserRole;
+import us.jts.fortress.rbac.dao.UserDAO;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
-
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
 
 /**
@@ -107,9 +130,9 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  * @author Shawn McKinney
  * @created August 30, 2009
  */
-final class UserDAO extends DataProvider
+public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
 {
-    private static final String CLS_NM = UserDAO.class.getName();
+    private static final String CLS_NM = ApacheUserDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static PwPolicyControl pwControl;
 
@@ -296,7 +319,7 @@ final class UserDAO extends DataProvider
     /**
      * Don't let classes outside of this package construct this.
      */
-    UserDAO()
+    public ApacheUserDAO()
     {
     }
 
@@ -307,19 +330,21 @@ final class UserDAO extends DataProvider
      * @throws CreateException
      *
      */
-    final User create( User entity )
-        throws CreateException
+    public final User create( User entity ) throws CreateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
 
         try
         {
-            LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, USER_OBJ_CLASS ) );
-
             entity.setInternalId();
-            attrs.add( createAttribute( GlobalIds.FT_IID, entity.getInternalId() ) );
-            attrs.add( createAttribute( GlobalIds.UID, entity.getUserId() ) );
+
+            String dn = getDn( entity.getUserId(), entity.getContextId() );
+
+            Entry myEntry = new DefaultEntry( dn );
+
+            myEntry.add( GlobalIds.OBJECT_CLASS, USER_OBJ_CLASS );
+            myEntry.add( GlobalIds.FT_IID, entity.getInternalId() );
+            myEntry.add( GlobalIds.UID, entity.getUserId() );
 
             // CN is required on inetOrgPerson object class, if caller did not set, use the userId:
             if ( !VUtil.isNotNullOrEmpty( entity.getCn() ) )
@@ -327,7 +352,7 @@ final class UserDAO extends DataProvider
                 entity.setCn( entity.getUserId() );
             }
 
-            attrs.add( createAttribute( GlobalIds.CN, entity.getCn() ) );
+            myEntry.add( GlobalIds.CN, entity.getCn() );
 
             // SN is required on inetOrgPerson object class, if caller did not set, use the userId:
             if ( !VUtil.isNotNullOrEmpty( entity.getSn() ) )
@@ -335,83 +360,99 @@ final class UserDAO extends DataProvider
                 entity.setSn( entity.getUserId() );
             }
 
-            attrs.add( createAttribute( SN, entity.getSn() ) );
+            myEntry.add( SN, entity.getSn() );
 
             // guard against npe
-            attrs.add( createAttribute( PW,
+            myEntry.add( PW,
                 VUtil.isNotNullOrEmpty( entity.getPassword() ) ? new String( entity.getPassword() ) : new String(
                     new char[]
-                        {} ) ) );
-            attrs.add( createAttribute( DISPLAY_NAME, entity.getCn() ) );
+                        {} ) );
+            myEntry.add( DISPLAY_NAME, entity.getCn() );
 
             if ( VUtil.isNotNullOrEmpty( entity.getTitle() ) )
             {
-                attrs.add( createAttribute( TITLE, entity.getTitle() ) );
+                myEntry.add( TITLE, entity.getTitle() );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getEmployeeType() ) )
             {
-                attrs.add( createAttribute( EMPLOYEE_TYPE, entity.getEmployeeType() ) );
+                myEntry.add( EMPLOYEE_TYPE, entity.getEmployeeType() );
             }
 
             // These are multi-valued attributes, use the util function to load:
             // These items are optional.  The utility function will return quietly if no items are loaded into collection:
-            loadAttrs( entity.getPhones(), attrs, TELEPHONE_NUMBER );
-            loadAttrs( entity.getMobiles(), attrs, MOBILE );
-            loadAttrs( entity.getEmails(), attrs, MAIL );
+            myEntry.add( TELEPHONE_NUMBER, entity.getPhones().toArray( new String[]
+                {} ) );
+            myEntry.add( MOBILE, entity.getMobiles().toArray( new String[]
+                {} ) );
+            myEntry.add( MAIL, entity.getEmails().toArray( new String[]
+                {} ) );
 
             // The following attributes are optional:
             if ( VUtil.isNotNullOrEmpty( entity.isSystem() ) )
             {
-                attrs.add( createAttribute( SYSTEM_USER, entity.isSystem().toString().toUpperCase() ) );
+                myEntry.add( SYSTEM_USER, entity.isSystem().toString().toUpperCase() );
             }
+
             if ( GlobalIds.IS_OPENLDAP && VUtil.isNotNullOrEmpty( entity.getPwPolicy() ) )
             {
-                String dn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + ","
+                String pwdPolicyDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + ","
                     + getRootDn( entity.getContextId(), GlobalIds.PPOLICY_ROOT );
-                attrs.add( createAttribute( OPENLDAP_POLICY_SUBENTRY, dn ) );
+                myEntry.add( OPENLDAP_POLICY_SUBENTRY, pwdPolicyDn );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
             {
-                attrs.add( createAttribute( GlobalIds.OU, entity.getOu() ) );
+                myEntry.add( GlobalIds.OU, entity.getOu() );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                attrs.add( createAttribute( GlobalIds.DESC, entity.getDescription() ) );
+                myEntry.add( GlobalIds.DESC, entity.getDescription() );
             }
 
             // props are optional as well:
             // Add "initial" property here.
             entity.addProperty( "init", "" );
-            loadProperties( entity.getProperties(), attrs, GlobalIds.PROPS );
+            loadProperties( entity.getProperties(), myEntry, GlobalIds.PROPS );
             // map the userid to the name field in constraint:
             entity.setName( entity.getUserId() );
-            attrs.add( createAttribute( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) ) );
-            loadAddress( entity.getAddress(), attrs );
+            myEntry.add( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) );
+            loadAddress( entity.getAddress(), myEntry );
+
             if ( VUtil.isNotNullOrEmpty( entity.getJpegPhoto() ) )
             {
-                attrs.add( new LDAPAttribute( JPEGPHOTO, entity.getJpegPhoto() ) );
+                myEntry.add( JPEGPHOTO, entity.getJpegPhoto() );
             }
 
-            String dn = getDn( entity.getUserId(), entity.getContextId() );
-
-            LDAPEntry myEntry = new LDAPEntry( dn, attrs );
             ld = getAdminConnection();
             add( ld, myEntry, entity );
             entity.setDn( dn );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "create userId [" + entity.getUserId() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
+            throw new CreateException( GlobalErrIds.USER_ADD_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "create userId [" + entity.getUserId() + "] caught LDAPException="
+                + e.getMessage();
             throw new CreateException( GlobalErrIds.USER_ADD_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+
+            }
         }
+
         return entity;
     }
 
@@ -421,71 +462,70 @@ final class UserDAO extends DataProvider
      * @return
      * @throws UpdateException
      */
-    final User update( User entity )
+    public final User update( User entity )
         throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
 
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
 
             if ( VUtil.isNotNullOrEmpty( entity.getCn() ) )
             {
-                LDAPAttribute cn = new LDAPAttribute( GlobalIds.CN, entity.getCn() );
-                mods.add( LDAPModification.REPLACE, cn );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.CN, entity.getCn() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getSn() ) )
             {
-                LDAPAttribute sn = new LDAPAttribute( SN, entity.getSn() );
-                mods.add( LDAPModification.REPLACE, sn );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, SN, entity.getSn() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
             {
-                LDAPAttribute ou = new LDAPAttribute( GlobalIds.OU, entity.getOu() );
-                mods.add( LDAPModification.REPLACE, ou );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.OU, entity.getOu() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getPassword() ) )
             {
-                LDAPAttribute pw = new LDAPAttribute( PW, new String( entity.getPassword() ) );
-                mods.add( LDAPModification.REPLACE, pw );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, PW, new String( entity.getPassword() ) ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                LDAPAttribute desc = new LDAPAttribute( GlobalIds.DESC,
-                    entity.getDescription() );
-                mods.add( LDAPModification.REPLACE, desc );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getEmployeeType() ) )
             {
-                LDAPAttribute employeeType = new LDAPAttribute( EMPLOYEE_TYPE, entity.getSn() );
-                mods.add( LDAPModification.REPLACE, employeeType );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, EMPLOYEE_TYPE, entity.getEmployeeType() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getTitle() ) )
             {
-                LDAPAttribute title = new LDAPAttribute( TITLE, entity.getTitle() );
-                mods.add( LDAPModification.REPLACE, title );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, TITLE, entity.getTitle() ) );
             }
 
             if ( GlobalIds.IS_OPENLDAP && VUtil.isNotNullOrEmpty( entity.getPwPolicy() ) )
             {
                 String szDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + ","
                     + getRootDn( entity.getContextId(), GlobalIds.PPOLICY_ROOT );
-                LDAPAttribute dn = new LDAPAttribute( OPENLDAP_POLICY_SUBENTRY, szDn );
-                mods.add( LDAPModification.REPLACE, dn );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, OPENLDAP_POLICY_SUBENTRY, szDn ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.isSystem() ) )
             {
-                LDAPAttribute system = new LDAPAttribute( SYSTEM_USER, entity.isSystem().toString().toUpperCase() );
-                mods.add( LDAPModification.REPLACE, system );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, SYSTEM_USER, entity.isSystem().toString().toUpperCase() ) );
             }
 
             if ( entity.isTemporalSet() )
@@ -496,8 +536,8 @@ final class UserDAO extends DataProvider
 
                 if ( VUtil.isNotNullOrEmpty( szRawData ) )
                 {
-                    LDAPAttribute constraint = new LDAPAttribute( GlobalIds.CONSTRAINT, szRawData );
-                    mods.add( LDAPModification.REPLACE, constraint );
+                    mods.add( new DefaultModification(
+                        ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.CONSTRAINT, szRawData ) );
                 }
             }
 
@@ -507,13 +547,16 @@ final class UserDAO extends DataProvider
             }
 
             loadAddress( entity.getAddress(), mods );
+
             // These are multi-valued attributes, use the util function to load:
             loadAttrs( entity.getPhones(), mods, TELEPHONE_NUMBER );
             loadAttrs( entity.getMobiles(), mods, MOBILE );
             loadAttrs( entity.getEmails(), mods, MAIL );
+
             if ( VUtil.isNotNullOrEmpty( entity.getJpegPhoto() ) )
             {
-                mods.add( LDAPModification.REPLACE, new LDAPAttribute( JPEGPHOTO, entity.getJpegPhoto() ) );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, JPEGPHOTO, entity.getJpegPhoto() ) );
             }
 
             if ( mods.size() > 0 )
@@ -525,15 +568,30 @@ final class UserDAO extends DataProvider
 
             entity.setDn( userDn );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "update userId [" + entity.getUserId() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
+            throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "update userId [" + entity.getUserId() + "] caught LDAPException="
+                + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "update userId [" + entity.getUserId() + "] caught LDAPException="
+                    + e.getMessage();
+                throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
+            }
         }
 
         return entity;
@@ -546,15 +604,15 @@ final class UserDAO extends DataProvider
      * @return
      * @throws UpdateException
      */
-    final User updateProps( User entity, boolean replace )
+    public final User updateProps( User entity, boolean replace )
         throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
 
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
 
             if ( VUtil.isNotNullOrEmpty( entity.getProperties() ) )
             {
@@ -570,15 +628,30 @@ final class UserDAO extends DataProvider
 
             entity.setDn( userDn );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "updateProps userId [" + entity.getUserId() + "] isReplace [" + replace
-                + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + "] caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "updateProps userId [" + entity.getUserId() + "] isReplace [" + replace
+                + "] caught LDAPException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "updateProps userId [" + entity.getUserId() + "] isReplace [" + replace
+                    + "] caught LDAPException=" + e.getMessage();
+                throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
+            }
         }
 
         return entity;
@@ -589,10 +662,10 @@ final class UserDAO extends DataProvider
      * @param user
      * @throws RemoveException
      */
-    final String remove( User user )
+    public final String remove( User user )
         throws RemoveException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
 
         try
@@ -600,15 +673,30 @@ final class UserDAO extends DataProvider
             ld = getAdminConnection();
             delete( ld, userDn, user );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "remove userId [" + user.getUserId() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
+            throw new RemoveException( GlobalErrIds.USER_DELETE_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "remove userId [" + user.getUserId() + "] caught LDAPException="
+                + e.getMessage();
             throw new RemoveException( GlobalErrIds.USER_DELETE_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "remove userId [" + user.getUserId() + "] caught LDAPException="
+                    + e.getMessage();
+                throw new RemoveException( GlobalErrIds.USER_DELETE_FAILED, error, e );
+            }
         }
 
         return userDn;
@@ -620,29 +708,43 @@ final class UserDAO extends DataProvider
      * @throws us.jts.fortress.UpdateException
      *
      */
-    final void lock( User user )
-        throws UpdateException
+    public final void lock( User user ) throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
 
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute pwdAccoutLock = new LDAPAttribute( OPENLDAP_PW_LOCKED_TIME, LOCK_VALUE );
-            mods.add( LDAPModification.REPLACE, pwdAccoutLock );
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, OPENLDAP_PW_LOCKED_TIME,
+                LOCK_VALUE ) );
             ld = getAdminConnection();
             modify( ld, userDn, mods, user );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "lock user [" + user.getUserId() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
+            throw new UpdateException( GlobalErrIds.USER_PW_LOCK_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "lock user [" + user.getUserId() + "] caught Exception="
+                + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_PW_LOCK_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "lock user [" + user.getUserId() + "] caught Exception="
+                    + e.getMessage();
+                throw new UpdateException( GlobalErrIds.USER_PW_LOCK_FAILED, error, e );
+            }
         }
     }
 
@@ -652,38 +754,44 @@ final class UserDAO extends DataProvider
      * @throws UpdateException
      *
      */
-    final void unlock( User user )
+    public final void unlock( User user )
         throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
 
         try
         {
             //ld = getAdminConnection();
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute pwdlockedTime = new LDAPAttribute( OPENLDAP_PW_LOCKED_TIME );
-            mods.add( LDAPModification.DELETE, pwdlockedTime );
+            List<Modification> mods = new ArrayList<Modification>();
+
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, OPENLDAP_PW_LOCKED_TIME ) );
             ld = getAdminConnection();
             modify( ld, userDn, mods, user );
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchAttributeException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_ATTRIBUTE )
-            {
-                LOG.info( "unlock user [" + user.getUserId() + "] no such attribute:"
-                    + OPENLDAP_ACCOUNT_LOCKED_TIME );
-            }
-            else
-            {
-                String error = "unlock user [" + user.getUserId() + "] caught LDAPException= "
-                    + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.USER_PW_UNLOCK_FAILED, error, e );
-            }
+            LOG.info( "unlock user [" + user.getUserId() + "] no such attribute:"
+                + OPENLDAP_ACCOUNT_LOCKED_TIME );
+        }
+        catch ( Exception e )
+        {
+            String error = "unlock user [" + user.getUserId() + "] caught LDAPException= "
+                + e.getMessage();
+            throw new UpdateException( GlobalErrIds.USER_PW_UNLOCK_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "unlock user [" + user.getUserId() + "] caught LDAPException= "
+                    + e.getMessage();
+                throw new UpdateException( GlobalErrIds.USER_PW_UNLOCK_FAILED, error, e );
+            }
         }
     }
 
@@ -694,11 +802,11 @@ final class UserDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final User getUser( User user, boolean isRoles )
+    public final User getUser( User user, boolean isRoles )
         throws FinderException
     {
         User entity = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
 
         String[] uATTRS;
@@ -716,31 +824,44 @@ final class UserDAO extends DataProvider
             uATTRS = AUTHN_ATRS;
         }
 
-        LDAPEntry findEntry = null;
+        Entry findEntry = null;
 
         try
         {
             ld = getAdminConnection();
             findEntry = read( ld, userDn, uATTRS );
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchObjectException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                String warning = "getUser COULD NOT FIND ENTRY for user [" + user.getUserId() + "]";
-                throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
-            }
-
-            String error = "getUser [" + userDn + "]= caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String warning = "getUser COULD NOT FIND ENTRY for user [" + user.getUserId() + "]";
+            throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
+        }
+        catch ( Exception e )
+        {
+            String error = "getUser [" + userDn + "]= caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "getUser [" + userDn + "]= caught LDAPException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
+            }
         }
 
-        entity = unloadLdapEntry( findEntry, 0, user.getContextId() );
+        try
+        {
+            entity = unloadLdapEntry( findEntry, 0, user.getContextId() );
+        }
+        catch ( LdapInvalidAttributeValueException e )
+        {
+            entity = null;
+        }
 
         if ( entity == null )
         {
@@ -762,30 +883,38 @@ final class UserDAO extends DataProvider
         throws FinderException
     {
         List<UserAdminRole> roles = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
 
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read( ld, userDn, AROLE_ATR );
+            Entry findEntry = read( ld, userDn, AROLE_ATR );
             roles = unloadUserAdminRoles( findEntry, user.getUserId(), user.getContextId() );
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchObjectException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                String warning = "getUserAdminRoles COULD NOT FIND ENTRY for user [" + user.getUserId() + "]";
-                throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
-            }
-
+            String warning = "getUserAdminRoles COULD NOT FIND ENTRY for user [" + user.getUserId() + "]";
+            throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
+        }
+        catch ( Exception e )
+        {
             String error = "getUserAdminRoles [" + userDn + "]= caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "getUserAdminRoles [" + userDn + "]= caught LDAPException="
+                    + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
+            }
         }
 
         return roles;
@@ -798,17 +927,17 @@ final class UserDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<String> getRoles( User user )
+    public final List<String> getRoles( User user )
         throws FinderException
     {
         List<String> roles = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
 
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read( ld, userDn, ROLES );
+            Entry findEntry = read( ld, userDn, ROLES );
 
             if ( findEntry == null )
             {
@@ -819,21 +948,27 @@ final class UserDAO extends DataProvider
 
             roles = getAttributes( findEntry, GlobalIds.USER_ROLE_ASSIGN );
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchObjectException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                String warning = "getRoles COULD NOT FIND ENTRY for user [" + user.getUserId() + "]";
-                throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
-            }
-
-            String error = "getRoles [" + userDn + "]= caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String warning = "getRoles COULD NOT FIND ENTRY for user [" + user.getUserId() + "]";
+            throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
+        }
+        catch ( Exception e )
+        {
+            String error = "getRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "getRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, error, e );
+            }
         }
 
         return roles;
@@ -847,17 +982,17 @@ final class UserDAO extends DataProvider
      *
      * @throws us.jts.fortress.SecurityException
      */
-    final Session checkPassword( User user ) throws FinderException
+    public final Session checkPassword( User user ) throws FinderException
     {
         Session session = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
 
         try
         {
             session = new ObjectFactory().createSession();
             session.setUserId( user.getUserId() );
-            ld = getUserConnection();
+            ld = getAdminConnection();
             boolean result = bind( ld, userDn, user.getPassword() );
 
             if ( result )
@@ -871,31 +1006,43 @@ final class UserDAO extends DataProvider
                 }
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapAuthenticationException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.INVALID_CREDENTIALS )
+            // Check controls to see if password is locked, expired or out of grace:
+            checkPwPolicies( ld, session );
+            // if check pw control did not find problem the user entered invalid pw:
+            if ( session.getErrorId() == 0 )
             {
-                // Check controls to see if password is locked, expired or out of grace:
-                checkPwPolicies( ld, session );
-                // if check pw control did not find problem the user entered invalid pw:
-                if ( session.getErrorId() == 0 )
-                {
-                    String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "]";
-                    session.setMsg( info );
-                    session.setErrorId( GlobalErrIds.USER_PW_INVLD );
-                    session.setAuthenticated( false );
-                }
+                String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "]";
+                session.setMsg( info );
+                session.setErrorId( GlobalErrIds.USER_PW_INVLD );
+                session.setAuthenticated( false );
             }
-            else
-            {
-                String error = "checkPassword userId [" + user.getUserId() + "] caught LDAPException="
-                    + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
-            }
+        }
+        catch ( LdapException e )
+        {
+            String error = "checkPassword userId [" + user.getUserId() + "] caught LDAPException="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "checkPassword userId [" + user.getUserId() + "] caught LDAPException="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
         finally
         {
-            closeUserConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "checkPassword userId [" + user.getUserId() + "] caught LDAPException="
+                    + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
+            }
         }
 
         return session;
@@ -907,11 +1054,10 @@ final class UserDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> findUsers( User user ) throws FinderException
+    public final List<User> findUsers( User user ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String userRoot = getRootDn( user.getContextId(), GlobalIds.USER_ROOT );
 
         try
@@ -940,24 +1086,51 @@ final class UserDAO extends DataProvider
             }
 
             ld = getAdminConnection();
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, userRoot,
+                SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
-            while ( searchResults.hasMoreElements() )
+            while ( searchResults.next() )
             {
-                userList.add( unloadLdapEntry( searchResults.next(), sequence++, user.getContextId() ) );
+                userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, user.getContextId() ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+        }
+        catch ( CursorException e )
+        {
+            String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+        }
+        catch ( IOException e )
+        {
+            String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException="
+                + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException="
+                    + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+            }
         }
 
         return userList;
@@ -971,11 +1144,10 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final List<String> findUsers( User user, int limit ) throws FinderException
+    public final List<String> findUsers( User user, int limit ) throws FinderException
     {
         List<String> userList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String userRoot = getRootDn( user.getContextId(), GlobalIds.USER_ROOT );
 
         try
@@ -984,24 +1156,36 @@ final class UserDAO extends DataProvider
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, USERID, false, GlobalIds.BATCH_SIZE, limit );
+            SearchCursor searchResults = search( ld, userRoot,
+                SearchScope.ONELEVEL, filter, USERID, false, GlobalIds.BATCH_SIZE, limit );
 
-            while ( searchResults.hasMoreElements() )
+            while ( searchResults.next() )
             {
-                LDAPEntry entry = searchResults.next();
+                Entry entry = searchResults.getEntry();
                 userList.add( getAttribute( entry, GlobalIds.UID ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String warning = "findUsers caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String warning = "findUsers caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "findUsers caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "findUsers caught LDAPException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+            }
         }
 
         return userList;
@@ -1014,12 +1198,10 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final List<User> getAuthorizedUsers( Role role )
-        throws FinderException
+    public final List<User> getAuthorizedUsers( Role role ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String userRoot = getRootDn( role.getContextId(), GlobalIds.USER_ROOT );
 
         try
@@ -1046,24 +1228,40 @@ final class UserDAO extends DataProvider
 
             filter += ")";
             ld = getAdminConnection();
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, userRoot,
+                SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
-            while ( searchResults.hasMoreElements() )
+            while ( searchResults.next() )
             {
-                userList.add( unloadLdapEntry( searchResults.next(), sequence++, role.getContextId() ) );
+                userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException="
+                + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException="
+                    + e.getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+            }
+
         }
 
         return userList;
@@ -1075,12 +1273,11 @@ final class UserDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> getAssignedUsers( Role role )
+    public final List<User> getAssignedUsers( Role role )
         throws FinderException
     {
         List<User> userList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String userRoot = getRootDn( role.getContextId(), GlobalIds.USER_ROOT );
 
         try
@@ -1089,24 +1286,39 @@ final class UserDAO extends DataProvider
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
             ld = getAdminConnection();
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, userRoot,
+                SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
-            while ( searchResults.hasMoreElements() )
+            while ( searchResults.next() )
             {
-                userList.add( unloadLdapEntry( searchResults.next(), sequence++, role.getContextId() ) );
+                userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException="
+                + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException="
+                    + e.getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+            }
         }
 
         return userList;
@@ -1119,17 +1331,17 @@ final class UserDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final Set<String> getAssignedUsers( Set<String> roles, String contextId )
+    public final Set<String> getAssignedUsers( Set<String> roles, String contextId )
         throws FinderException
     {
         Set<String> userSet = new HashSet<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String userRoot = getRootDn( contextId, GlobalIds.USER_ROOT );
 
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")(|";
+
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
                 for ( String roleVal : roles )
@@ -1145,23 +1357,35 @@ final class UserDAO extends DataProvider
 
             filter += "))";
             ld = getAdminConnection();
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, USERID_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, userRoot,
+                SearchScope.ONELEVEL, filter, USERID_ATRS, false, GlobalIds.BATCH_SIZE );
 
-            while ( searchResults.hasMoreElements() )
+            while ( searchResults.next() )
             {
-                userSet.add( getAttribute( searchResults.next(), GlobalIds.UID ) );
+                userSet.add( getAttribute( searchResults.getEntry(), GlobalIds.UID ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String warning = "getAssignedUsers caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String warning = "getAssignedUsers caught LDAPException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "getAssignedUsers caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "getAssignedUsers caught LDAPException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+            }
         }
 
         return userSet;
@@ -1177,8 +1401,7 @@ final class UserDAO extends DataProvider
         throws FinderException
     {
         List<User> userList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String userRoot = getRootDn( role.getContextId(), GlobalIds.USER_ROOT );
 
         try
@@ -1187,24 +1410,39 @@ final class UserDAO extends DataProvider
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ADMINROLE_ASSIGN + "=" + roleVal + "))";
             ld = getAdminConnection();
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, userRoot,
+                SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
-            while ( searchResults.hasMoreElements() )
+            while ( searchResults.next() )
             {
-                userList.add( unloadLdapEntry( searchResults.next(), sequence++, role.getContextId() ) );
+                userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String warning = "getAssignedUsers admin role name [" + role.getName()
-                + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + "] caught LDAPException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ARLE_USER_SEARCH_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "getAssignedUsers admin role name [" + role.getName()
+                + "] caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_USER_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "getAssignedUsers admin role name [" + role.getName()
+                    + "] caught LDAPException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.ARLE_USER_SEARCH_FAILED, warning, e );
+            }
         }
 
         return userList;
@@ -1218,12 +1456,11 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final List<String> getAuthorizedUsers( Role role, int limit )
+    public final List<String> getAuthorizedUsers( Role role, int limit )
         throws FinderException
     {
         List<String> userList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String userRoot = getRootDn( role.getContextId(), GlobalIds.USER_ROOT );
 
         try
@@ -1232,24 +1469,39 @@ final class UserDAO extends DataProvider
             String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + "))";
             ld = getAdminConnection();
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, USERID, false, GlobalIds.BATCH_SIZE, limit );
+            SearchCursor searchResults = search( ld, userRoot,
+                SearchScope.ONELEVEL, filter, USERID, false, GlobalIds.BATCH_SIZE, limit );
 
-            while ( searchResults.hasMoreElements() )
+            while ( searchResults.next() )
             {
-                LDAPEntry entry = searchResults.next();
+                Entry entry = searchResults.getEntry();
                 userList.add( getAttribute( entry, GlobalIds.UID ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException="
+                + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException="
+                    + e.getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+            }
         }
 
         return userList;
@@ -1265,35 +1517,45 @@ final class UserDAO extends DataProvider
         throws FinderException
     {
         List<String> userList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String userRoot = getRootDn( contextId, GlobalIds.USER_ROOT );
 
         try
         {
             searchVal = encodeSafeText( searchVal, GlobalIds.USERID_LEN );
-            //ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
                 + GlobalIds.UID + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, userRoot,
+                SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
-            while ( searchResults.hasMoreElements() )
+            while ( searchResults.next() )
             {
-                userList.add( ( unloadLdapEntry( searchResults.next(), sequence++, contextId ) ).getUserId() );
+                userList.add( ( unloadLdapEntry( searchResults.getEntry(), sequence++, contextId ) ).getUserId() );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String warning = "findUsersList caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String warning = "findUsersList caught LDAPException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "findUsersList caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "findUsersList caught LDAPException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+            }
         }
 
         return userList;
@@ -1305,12 +1567,11 @@ final class UserDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> findUsers( OrgUnit ou, boolean limitSize )
+    public final List<User> findUsers( OrgUnit ou, boolean limitSize )
         throws FinderException
     {
         List<User> userList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String userRoot = getRootDn( ou.getContextId(), GlobalIds.USER_ROOT );
 
         try
@@ -1330,24 +1591,36 @@ final class UserDAO extends DataProvider
             }
 
             ld = getAdminConnection();
-            searchResults = search( ld, userRoot,
-                LDAPConnection.SCOPE_ONE, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit );
+            SearchCursor searchResults = search( ld, userRoot,
+                SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit );
             long sequence = 0;
 
-            while ( searchResults.hasMoreElements() )
+            while ( searchResults.next() )
             {
-                userList.add( unloadLdapEntry( searchResults.next(), sequence++, ou.getContextId() ) );
+                userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, ou.getContextId() ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String warning = "findUsers caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String warning = "findUsers caught LDAPException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "findUsers caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "findUsers caught LDAPException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+            }
         }
 
         return userList;
@@ -1361,56 +1634,75 @@ final class UserDAO extends DataProvider
      * @throws UpdateException
      *
      * @throws SecurityException
+     * @throws PasswordException 
      */
-    final boolean changePassword( User entity, char[] newPassword )
-        throws SecurityException
+    public final boolean changePassword( User entity, char[] newPassword ) throws SecurityException
     {
         boolean rc = true;
-        LDAPConnection ld = null;
-        LDAPModificationSet mods;
+        LdapConnection ld = null;
+        List<Modification> mods;
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
 
         try
         {
-            ld = getUserConnection();
+            ld = getAdminConnection();
             bind( ld, userDn, entity.getPassword() );
-            mods = new LDAPModificationSet();
-            LDAPAttribute pw = new LDAPAttribute( PW, new String( newPassword ) );
-            mods.add( LDAPModification.REPLACE, pw );
+            mods = new ArrayList<Modification>();
+
+            mods.add( new DefaultModification(
+                ModificationOperation.REPLACE_ATTRIBUTE, PW, new String( newPassword ) ) );
+
             modify( ld, userDn, mods );
 
             // The 2nd modify is to update audit attributes on the User entry:
-            if ( GlobalIds.IS_AUDIT && entity.getAdminSession() != null )
+            if ( GlobalIds.IS_AUDIT && ( entity.getAdminSession() != null ) )
             {
                 // Because the user modified their own password, set their userId here:
                 //(entity.getAdminSession()).setInternalUserId(entity.getUserId());
-                mods = new LDAPModificationSet();
+                mods = new ArrayList<Modification>();
                 modify( ld, userDn, mods, entity );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapInvalidAttributeValueException e )
         {
             String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
 
-            if ( e.getLDAPResultCode() == LDAPException.CONSTRAINT_VIOLATION )
-            {
-                warning += " constraint violation, ldap rc=" + e.getLDAPResultCode() + " ldap msg=" + e.getMessage()
-                    + " Fortress rc=" + GlobalErrIds.PSWD_CONST_VIOLATION;
-                throw new PasswordException( GlobalErrIds.PSWD_CONST_VIOLATION, warning );
-            }
-            else if ( e.getLDAPResultCode() == LDAPException.INSUFFICIENT_ACCESS_RIGHTS )
-            {
-                warning += " user not authorized to change password, ldap rc=" + e.getLDAPResultCode() + " ldap msg="
-                    + e.getMessage() + " Fortress rc=" + GlobalErrIds.USER_PW_MOD_NOT_ALLOWED;
-                throw new UpdateException( GlobalErrIds.USER_PW_MOD_NOT_ALLOWED, warning );
-            }
+            warning += " constraint violation, ldap rc=" + e.getMessage()
+                + " Fortress rc=" + GlobalErrIds.PSWD_CONST_VIOLATION;
 
-            warning += " caught LDAPException rc=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            throw new PasswordException( GlobalErrIds.PSWD_CONST_VIOLATION, warning );
+        }
+        catch ( LdapNoPermissionException e )
+        {
+            String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
+            warning += " user not authorized to change password, ldap rc=" + e.getMessage() + " Fortress rc="
+                + GlobalErrIds.USER_PW_MOD_NOT_ALLOWED;
+            throw new UpdateException( GlobalErrIds.USER_PW_MOD_NOT_ALLOWED, warning );
+        }
+        catch ( LdapException e )
+        {
+            String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
+            warning += " caught LDAPException rc=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.USER_PW_CHANGE_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
+            warning += " caught LDAPException rc=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_PW_CHANGE_FAILED, warning, e );
         }
         finally
         {
-            closeUserConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
+                warning += " caught LDAPException rc=" + e.getMessage();
+                throw new UpdateException( GlobalErrIds.USER_PW_CHANGE_FAILED, warning, e );
+            }
         }
 
         return rc;
@@ -1422,31 +1714,48 @@ final class UserDAO extends DataProvider
      * @throws UpdateException
      *
      */
-    final void resetUserPassword( User user )
-        throws UpdateException
+    public final void resetUserPassword( User user ) throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
 
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute pw = new LDAPAttribute( PW, new String( user.getPassword() ) );
-            mods.add( LDAPModification.REPLACE, pw );
-            LDAPAttribute pwdReset = new LDAPAttribute( OPENLDAP_PW_RESET, "TRUE" );
-            mods.add( LDAPModification.REPLACE, pwdReset );
+            List<Modification> mods = new ArrayList<Modification>();
+
+            mods.add( new DefaultModification(
+                ModificationOperation.REPLACE_ATTRIBUTE, PW, new String( user.getPassword() ) ) );
+
+            mods.add( new DefaultModification(
+                ModificationOperation.REPLACE_ATTRIBUTE, OPENLDAP_PW_RESET, "TRUE" ) );
+
             ld = getAdminConnection();
             modify( ld, userDn, mods, user );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String warning = "resetUserPassword userId [" + user.getUserId() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
+            throw new UpdateException( GlobalErrIds.USER_PW_RESET_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "resetUserPassword userId [" + user.getUserId() + "] caught LDAPException="
+                + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_PW_RESET_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "resetUserPassword userId [" + user.getUserId() + "] caught LDAPException="
+                    + e.getMessage();
+                throw new UpdateException( GlobalErrIds.USER_PW_RESET_FAILED, warning, e );
+            }
         }
     }
 
@@ -1459,42 +1768,59 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final String assign( UserRole uRole )
-        throws UpdateException, FinderException
+    public final String assign( UserRole uRole ) throws UpdateException, FinderException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
 
         try
         {
-            //ld = getAdminConnection();
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
             String szUserRole = uRole.getRawData();
-            LDAPAttribute attr = new LDAPAttribute( GlobalIds.USER_ROLE_DATA, szUserRole );
-            mods.add( LDAPModification.ADD, attr );
-            attr = new LDAPAttribute( GlobalIds.USER_ROLE_ASSIGN, uRole.getName() );
-            mods.add( LDAPModification.ADD, attr );
+
+            mods.add( new DefaultModification(
+                ModificationOperation.ADD_ATTRIBUTE, GlobalIds.USER_ROLE_DATA, szUserRole ) );
+
+            mods.add( new DefaultModification(
+                ModificationOperation.ADD_ATTRIBUTE, GlobalIds.USER_ROLE_ASSIGN, uRole.getName() ) );
+
             ld = getAdminConnection();
             modify( ld, userDn, mods, uRole );
         }
-        catch ( LDAPException e )
+        catch ( LdapAttributeInUseException e )
         {
             String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] ";
 
-            if ( e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS )
-            {
-                warning += "assignment already exists.";
-                throw new FinderException( GlobalErrIds.URLE_ASSIGN_EXIST, warning );
-            }
-            else
-            {
-                warning += "caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
-            }
+            warning += "assignment already exists.";
+            throw new FinderException( GlobalErrIds.URLE_ASSIGN_EXIST, warning );
+        }
+        catch ( LdapException e )
+        {
+            String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] ";
+
+            warning += "caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] ";
+
+            warning += "caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] ";
+
+                warning += "caught LDAPException=" + e.getMessage();
+                throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
+            }
         }
 
         return userDn;
@@ -1509,10 +1835,10 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final String deassign( UserRole uRole )
+    public final String deassign( UserRole uRole )
         throws UpdateException, FinderException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
 
         try
@@ -1533,11 +1859,15 @@ final class UserDAO extends DataProvider
                     // Retrieve the targeted name:
                     UserRole fRole = roles.get( indx );
                     // delete the name assignment attribute using the raw name data:
-                    LDAPModificationSet mods = new LDAPModificationSet();
-                    LDAPAttribute rAttr = new LDAPAttribute( GlobalIds.USER_ROLE_DATA, fRole.getRawData() );
-                    mods.add( LDAPModification.DELETE, rAttr );
-                    rAttr = new LDAPAttribute( GlobalIds.USER_ROLE_ASSIGN, fRole.getName() );
-                    mods.add( LDAPModification.DELETE, rAttr );
+                    List<Modification> mods = new ArrayList<Modification>();
+
+                    mods.add( new DefaultModification(
+                        ModificationOperation.REMOVE_ATTRIBUTE,
+                        GlobalIds.USER_ROLE_DATA, fRole.getRawData() ) );
+
+                    mods.add( new DefaultModification(
+                        ModificationOperation.REMOVE_ATTRIBUTE,
+                        GlobalIds.USER_ROLE_ASSIGN, fRole.getName() ) );
                     ld = getAdminConnection();
                     modify( ld, userDn, mods, uRole );
                 }
@@ -1551,15 +1881,30 @@ final class UserDAO extends DataProvider
                 throw new FinderException( GlobalErrIds.URLE_ASSIGN_NOT_EXIST, warning );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
-                + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + "] caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.URLE_DEASSIGN_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
+                + "] caught LDAPException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.URLE_DEASSIGN_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
+                    + "] caught LDAPException=" + e.getMessage();
+                throw new UpdateException( GlobalErrIds.URLE_DEASSIGN_FAILED, warning, e );
+            }
         }
 
         return userDn;
@@ -1574,41 +1919,56 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final String assign( UserAdminRole uRole )
-        throws UpdateException, FinderException
+    final String assign( UserAdminRole uRole ) throws UpdateException, FinderException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
 
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
             String szUserRole = uRole.getRawData();
-            LDAPAttribute attr = new LDAPAttribute( GlobalIds.USER_ADMINROLE_DATA, szUserRole );
-            mods.add( LDAPModification.ADD, attr );
-            attr = new LDAPAttribute( GlobalIds.USER_ADMINROLE_ASSIGN, uRole.getName() );
-            mods.add( LDAPModification.ADD, attr );
+            mods.add( new DefaultModification(
+                ModificationOperation.ADD_ATTRIBUTE,
+                GlobalIds.USER_ADMINROLE_DATA, szUserRole ) );
+
+            mods.add( new DefaultModification(
+                ModificationOperation.ADD_ATTRIBUTE,
+                GlobalIds.USER_ADMINROLE_ASSIGN, uRole.getName() ) );
+
             ld = getAdminConnection();
             modify( ld, userDn, mods, uRole );
         }
-        catch ( LDAPException e )
+        catch ( LdapAttributeInUseException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS )
-            {
-                String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
-                    + "] assignment already exists.";
-                throw new FinderException( GlobalErrIds.ARLE_ASSIGN_EXIST, warning );
-            }
-            else
-            {
-                String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
-                    + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.ARLE_ASSIGN_FAILED, warning, e );
-            }
+            String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
+                + "] assignment already exists.";
+            throw new FinderException( GlobalErrIds.ARLE_ASSIGN_EXIST, warning );
+        }
+        catch ( LdapException e )
+        {
+            String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
+                + "] caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.ARLE_ASSIGN_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
+                + "] caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.ARLE_ASSIGN_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
+                    + "] caught LDAPException=" + e.getMessage();
+                throw new UpdateException( GlobalErrIds.ARLE_ASSIGN_FAILED, warning, e );
+            }
         }
 
         return userDn;
@@ -1626,7 +1986,7 @@ final class UserDAO extends DataProvider
     final String deassign( UserAdminRole uRole )
         throws UpdateException, FinderException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
 
         try
@@ -1635,14 +1995,13 @@ final class UserDAO extends DataProvider
             User user = new User( uRole.getUserId() );
             user.setContextId( uRole.getContextId() );
             List<UserAdminRole> roles = getUserAdminRoles( user );
-            //User user = getUser(uRole.getUserId(), true);
-            //List<UserAdminRole> roles = user.getAdminRoles();
+
             int indx = -1;
 
             // Does the user have any roles assigned?
             if ( roles != null )
             {
-                // function call will set indx to -1 if name not found:
+                // function call will set index to -1 if name not found:
                 indx = roles.indexOf( uRole );
 
                 // Is the targeted name assigned to user?
@@ -1651,11 +2010,14 @@ final class UserDAO extends DataProvider
                     // Retrieve the targeted name:
                     UserRole fRole = roles.get( indx );
                     // delete the name assignment attribute using the raw name data:
-                    LDAPModificationSet mods = new LDAPModificationSet();
-                    LDAPAttribute rAttr = new LDAPAttribute( GlobalIds.USER_ADMINROLE_DATA, fRole.getRawData() );
-                    mods.add( LDAPModification.DELETE, rAttr );
-                    rAttr = new LDAPAttribute( GlobalIds.USER_ADMINROLE_ASSIGN, fRole.getName() );
-                    mods.add( LDAPModification.DELETE, rAttr );
+                    List<Modification> mods = new ArrayList<Modification>();
+
+                    mods.add( new DefaultModification(
+                        ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.USER_ADMINROLE_DATA, fRole.getRawData() ) );
+
+                    mods.add( new DefaultModification(
+                        ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.USER_ADMINROLE_ASSIGN, fRole.getName() ) );
+
                     ld = getAdminConnection();
                     modify( ld, userDn, mods, uRole );
                 }
@@ -1670,15 +2032,30 @@ final class UserDAO extends DataProvider
                 throw new FinderException( GlobalErrIds.ARLE_DEASSIGN_NOT_EXIST, warning );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
-                + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + "] caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.ARLE_DEASSIGN_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
+                + "] caught LDAPException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.ARLE_DEASSIGN_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
+                    + "] caught LDAPException=" + e.getMessage();
+                throw new UpdateException( GlobalErrIds.ARLE_DEASSIGN_FAILED, warning, e );
+            }
         }
 
         return userDn;
@@ -1688,32 +2065,47 @@ final class UserDAO extends DataProvider
     /**
      * @param user
      * @return
-     * @throws UpdateException
+     * @throws UpdateException 
+     * @throws Exception 
      *
      */
-    final String deletePwPolicy( User user )
-        throws UpdateException
+    public final String deletePwPolicy( User user ) throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
 
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute policy = new LDAPAttribute( OPENLDAP_POLICY_SUBENTRY );
-            mods.add( LDAPModification.DELETE, policy );
+            List<Modification> mods = new ArrayList<Modification>();
+
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, OPENLDAP_POLICY_SUBENTRY ) );
             ld = getAdminConnection();
             modify( ld, userDn, mods, user );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String warning = "deletePwPolicy userId [" + user.getUserId() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage() + " msg=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.USER_PW_PLCY_DEL_FAILED, warning, e );
+        }
+        catch ( Exception e )
+        {
+            String warning = "deletePwPolicy userId [" + user.getUserId() + "] caught LDAPException="
+                + e.getMessage() + " msg=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_PW_PLCY_DEL_FAILED, warning, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String warning = "deletePwPolicy userId [" + user.getUserId() + "] caught LDAPException="
+                    + e.getMessage() + " msg=" + e.getMessage();
+                throw new UpdateException( GlobalErrIds.USER_PW_PLCY_DEL_FAILED, warning, e );
+            }
         }
 
         return userDn;
@@ -1721,58 +2113,64 @@ final class UserDAO extends DataProvider
 
 
     /**
-     * @param le
+     * @param entry
      * @return
+     * @throws LdapInvalidAttributeValueException 
      * @throws LDAPException
      */
-    private User unloadLdapEntry( LDAPEntry le, long sequence, String contextId )
+    private User unloadLdapEntry( Entry entry, long sequence, String contextId )
+        throws LdapInvalidAttributeValueException
     {
         User entity = new ObjectFactory().createUser();
         entity.setSequenceId( sequence );
-        entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
-        entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
-        entity.setUserId( getAttribute( le, GlobalIds.UID ) );
-        entity.setCn( getAttribute( le, GlobalIds.CN ) );
+        entity.setInternalId( getAttribute( entry, GlobalIds.FT_IID ) );
+        entity.setDescription( getAttribute( entry, GlobalIds.DESC ) );
+        entity.setUserId( getAttribute( entry, GlobalIds.UID ) );
+        entity.setCn( getAttribute( entry, GlobalIds.CN ) );
         entity.setName( entity.getCn() );
-        entity.setSn( getAttribute( le, SN ) );
-        entity.setOu( getAttribute( le, GlobalIds.OU ) );
-        entity.setDn( le.getDN() );
-        entity.setTitle( getAttribute( le, TITLE ) );
-        entity.setEmployeeType( getAttribute( le, EMPLOYEE_TYPE ) );
-        unloadTemporal( le, entity );
-        entity.setRoles( unloadUserRoles( le, entity.getUserId(), contextId ) );
-        entity.setAdminRoles( unloadUserAdminRoles( le, entity.getUserId(), contextId ) );
-        entity.setAddress( unloadAddress( le ) );
-        entity.setPhones( getAttributes( le, TELEPHONE_NUMBER ) );
-        entity.setMobiles( getAttributes( le, MOBILE ) );
-        entity.setEmails( getAttributes( le, MAIL ) );
-        String szBoolean = getAttribute( le, SYSTEM_USER );
+        entity.setSn( getAttribute( entry, SN ) );
+        entity.setOu( getAttribute( entry, GlobalIds.OU ) );
+        entity.setDn( entry.getDn().getName() );
+        entity.setTitle( getAttribute( entry, TITLE ) );
+        entity.setEmployeeType( getAttribute( entry, EMPLOYEE_TYPE ) );
+        unloadTemporal( entry, entity );
+        entity.setRoles( unloadUserRoles( entry, entity.getUserId(), contextId ) );
+        entity.setAdminRoles( unloadUserAdminRoles( entry, entity.getUserId(), contextId ) );
+        entity.setAddress( unloadAddress( entry ) );
+        entity.setPhones( getAttributes( entry, TELEPHONE_NUMBER ) );
+        entity.setMobiles( getAttributes( entry, MOBILE ) );
+        entity.setEmails( getAttributes( entry, MAIL ) );
+        String szBoolean = getAttribute( entry, SYSTEM_USER );
         if ( szBoolean != null )
         {
             entity.setSystem( Boolean.valueOf( szBoolean ) );
         }
 
-        entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
+        entity.addProperties( AttrHelper.getProperties( getAttributes( entry, GlobalIds.PROPS ) ) );
 
         if ( GlobalIds.IS_OPENLDAP )
         {
-            szBoolean = getAttribute( le, OPENLDAP_PW_RESET );
+            szBoolean = getAttribute( entry, OPENLDAP_PW_RESET );
             if ( szBoolean != null && szBoolean.equalsIgnoreCase( "true" ) )
             {
                 entity.setReset( true );
             }
-            String szPolicy = getAttribute( le, OPENLDAP_POLICY_SUBENTRY );
+            String szPolicy = getAttribute( entry, OPENLDAP_POLICY_SUBENTRY );
             if ( VUtil.isNotNullOrEmpty( szPolicy ) )
             {
                 entity.setPwPolicy( getRdn( szPolicy ) );
             }
-            szBoolean = getAttribute( le, OPENLDAP_PW_LOCKED_TIME );
+
+            szBoolean = getAttribute( entry, OPENLDAP_PW_LOCKED_TIME );
+
             if ( szBoolean != null && szBoolean.equals( LOCK_VALUE ) )
             {
                 entity.setLocked( true );
             }
         }
-        entity.setJpegPhoto( getPhoto( le, JPEGPHOTO ) );
+
+        entity.setJpegPhoto( getPhoto( entry, JPEGPHOTO ) );
+
         return entity;
     }
 
@@ -1786,30 +2184,42 @@ final class UserDAO extends DataProvider
         throws FinderException
     {
         List<UserRole> roles = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String userDn = getDn( userId, contextId );
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read( ld, userDn, ROLE_ATR );
+            Entry findEntry = read( ld, userDn, ROLE_ATR );
             roles = unloadUserRoles( findEntry, userId, contextId );
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchObjectException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                String warning = "getUserRoles COULD NOT FIND ENTRY for user [" + userId + "]";
-                throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
-            }
-
-            String error = "getUserRoles [" + userDn + "]= caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String warning = "getUserRoles COULD NOT FIND ENTRY for user [" + userId + "]";
+            throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "getUserRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "getUserRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "getUserRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
+            }
         }
+
         return roles;
     }
 
@@ -1818,7 +2228,7 @@ final class UserDAO extends DataProvider
      * @param ld
      * @param pwMsg
      */
-    private void checkPwPolicies( LDAPConnection ld, PwMessage pwMsg )
+    private void checkPwPolicies( LdapConnection ld, PwMessage pwMsg )
     {
         int rc = 0;
         boolean success = false;
@@ -1837,7 +2247,7 @@ final class UserDAO extends DataProvider
             }
             else if ( pwControl != null )
             {
-                pwControl.checkPasswordPolicy( ld, success, pwMsg );
+                // ------------> pwControl.checkPasswordPolicy( ld, success, pwMsg );
             }
 
             // OpenLDAP has notified of password violation:
@@ -1943,35 +2353,26 @@ final class UserDAO extends DataProvider
      * Given a collection of ARBAC roles, {@link UserAdminRole}, convert to raw data format and load into ldap attribute set in preparation for ldap add.
      *
      * @param list  contains List of type {@link UserAdminRole} targeted for adding to ldap.
-     * @param attrs collection of ldap attributes containing ARBAC role assignments in raw ldap format.
+     * @param entry collection of ldap attributes containing ARBAC role assignments in raw ldap format.
+     * @throws LdapException 
      */
-    private void loadUserAdminRoles( List<UserAdminRole> list, LDAPAttributeSet attrs )
+    private void loadUserAdminRoles( List<UserAdminRole> list, Entry entry ) throws LdapException
     {
         if ( list != null )
         {
-            LDAPAttribute attr = null;
-            LDAPAttribute attrNm = null;
+            Attribute userAdminRoleData = new DefaultAttribute( GlobalIds.USER_ADMINROLE_DATA );
+            Attribute userAdminRoleAssign = new DefaultAttribute( GlobalIds.USER_ADMINROLE_ASSIGN );
 
             for ( UserAdminRole userRole : list )
             {
-                String szUserRole = userRole.getRawData();
-
-                if ( attr == null )
-                {
-                    attr = new LDAPAttribute( GlobalIds.USER_ADMINROLE_DATA, szUserRole );
-                    attrNm = new LDAPAttribute( GlobalIds.USER_ADMINROLE_ASSIGN, userRole.getName() );
-                }
-                else
-                {
-                    attr.addValue( szUserRole );
-                    attrNm.addValue( userRole.getName() );
-                }
+                userAdminRoleData.add( userRole.getRawData() );
+                userAdminRoleAssign.add( userRole.getName() );
             }
 
-            if ( attr != null )
+            if ( userAdminRoleData.size() != 0 )
             {
-                attrs.add( attr );
-                attrs.add( attrNm );
+                entry.add( userAdminRoleData );
+                entry.add( userAdminRoleAssign );
             }
         }
     }
@@ -1982,33 +2383,28 @@ final class UserDAO extends DataProvider
      *
      * @param list contains List of type {@link UserRole} targeted for updating into ldap.
      * @param mods contains ldap modification set containing RBAC role assignments in raw ldap format to be updated.
+     * @throws LdapInvalidAttributeValueException 
      */
-    private void loadUserRoles( List<UserRole> list, LDAPModificationSet mods )
+    private void loadUserRoles( List<UserRole> list, List<Modification> mods )
+        throws LdapInvalidAttributeValueException
     {
-        LDAPAttribute attr = null;
-        LDAPAttribute attrNm = null;
+        Attribute userRoleData = new DefaultAttribute( GlobalIds.USER_ROLE_DATA );
+        Attribute userRoleAssign = new DefaultAttribute( GlobalIds.USER_ROLE_ASSIGN );
 
         if ( list != null )
         {
             for ( UserRole userRole : list )
             {
-                String szUserRole = userRole.getRawData();
-
-                if ( attr == null )
-                {
-                    attr = new LDAPAttribute( GlobalIds.USER_ROLE_DATA, szUserRole );
-                    attrNm = new LDAPAttribute( GlobalIds.USER_ROLE_ASSIGN, userRole.getName() );
-                }
-                else
-                {
-                    attr.addValue( szUserRole );
-                }
+                userRoleData.add( userRole.getRawData() );
+                userRoleAssign.add( userRole.getName() );
             }
 
-            if ( attr != null )
+            if ( userRoleData.size() != 0 )
             {
-                mods.add( LDAPModification.REPLACE, attr );
-                mods.add( LDAPModification.REPLACE, attrNm );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, userRoleData ) );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, userRoleAssign ) );
             }
         }
     }
@@ -2019,33 +2415,35 @@ final class UserDAO extends DataProvider
      *
      * @param list contains List of type {@link UserAdminRole} targeted for updating to ldap.
      * @param mods contains ldap modification set containing ARBAC role assignments in raw ldap format to be updated.
+     * @throws LdapInvalidAttributeValueException 
      */
-    private void loadUserAdminRoles( List<UserAdminRole> list, LDAPModificationSet mods )
+    private void loadUserAdminRoles( List<UserAdminRole> list, List<Modification> mods )
+        throws LdapInvalidAttributeValueException
     {
-        LDAPAttribute attr = null;
-        LDAPAttribute attrNm = null;
+        Attribute userAdminRoleData = new DefaultAttribute( GlobalIds.USER_ADMINROLE_DATA );
+        Attribute userAdminRoleAssign = new DefaultAttribute( GlobalIds.USER_ADMINROLE_ASSIGN );
 
         if ( list != null )
         {
+            boolean nameSeen = false;
+
             for ( UserAdminRole userRole : list )
             {
-                String szUserRole = userRole.getRawData();
+                userAdminRoleData.add( userRole.getRawData() );
 
-                if ( attr == null )
+                if ( !nameSeen )
                 {
-                    attr = new LDAPAttribute( GlobalIds.USER_ADMINROLE_DATA, szUserRole );
-                    attrNm = new LDAPAttribute( GlobalIds.USER_ADMINROLE_ASSIGN, userRole.getName() );
-                }
-                else
-                {
-                    attr.addValue( szUserRole );
+                    userAdminRoleAssign.add( userRole.getName() );
+                    nameSeen = true;
                 }
             }
 
-            if ( attr != null )
+            if ( userAdminRoleData.size() != 0 )
             {
-                mods.add( LDAPModification.REPLACE, attr );
-                mods.add( LDAPModification.REPLACE, attrNm );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, userAdminRoleData ) );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, userAdminRoleAssign ) );
             }
         }
     }
@@ -2056,34 +2454,24 @@ final class UserDAO extends DataProvider
      *
      * @param list  contains List of type {@link UserRole} targeted for adding to ldap.
      * @param attrs collection of ldap attributes containing RBAC role assignments in raw ldap format.
+     * @throws LdapException 
      */
-    private void loadUserRoles( List<UserRole> list, LDAPAttributeSet attrs )
+    private void loadUserRoles( List<UserRole> list, Entry entry ) throws LdapException
     {
         if ( list != null )
         {
-            LDAPAttribute attr = null;
-            LDAPAttribute attrNm = null;
+            Attribute userRoleData = new DefaultAttribute( GlobalIds.USER_ROLE_DATA );
+            Attribute userRoleAssign = new DefaultAttribute( GlobalIds.USER_ROLE_ASSIGN );
 
             for ( UserRole userRole : list )
             {
-                String szUserRole = userRole.getRawData();
-
-                if ( attr == null )
-                {
-                    attr = new LDAPAttribute( GlobalIds.USER_ROLE_DATA, szUserRole );
-                    attrNm = new LDAPAttribute( GlobalIds.USER_ROLE_ASSIGN, userRole.getName() );
-                }
-                else
-                {
-                    attr.addValue( szUserRole );
-                    attrNm.addValue( userRole.getName() );
-                }
+                userRoleData.add( userRole.getRawData() );
+                userRoleAssign.add( userRole.getName() );
             }
 
-            if ( attr != null )
+            if ( userRoleData.size() != 0 )
             {
-                attrs.add( attr );
-                attrs.add( attrNm );
+                entry.add( userRoleData, userRoleAssign );
             }
         }
     }
@@ -2093,68 +2481,58 @@ final class UserDAO extends DataProvider
      * Given a User address, {@link Address}, load into ldap attribute set in preparation for ldap add.
      *
      * @param address  contains User address {@link Address} targeted for adding to ldap.
-     * @param attrs collection of ldap attributes containing RBAC role assignments in raw ldap format.
+     * @param entry collection of ldap attributes containing RBAC role assignments in raw ldap format.
      */
-    private void loadAddress( Address address, LDAPAttributeSet attrs )
+    private void loadAddress( Address address, Entry entry ) throws LdapException
     {
         if ( address != null )
         {
-            LDAPAttribute attr;
-
             if ( VUtil.isNotNullOrEmpty( address.getAddresses() ) )
             {
                 for ( String val : address.getAddresses() )
                 {
-                    attr = new LDAPAttribute( POSTAL_ADDRESS, val );
-                    attrs.add( attr );
+                    entry.add( POSTAL_ADDRESS, val );
                 }
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getCity() ) )
             {
-                attr = new LDAPAttribute( L, address.getCity() );
-                attrs.add( attr );
+                entry.add( L, address.getCity() );
             }
 
             //if(VUtil.isNotNullOrEmpty(address.getCountry()))
             //{
-            //    attr = new LDAPAttribute(GlobalIds.COUNTRY, address.getAddress1());
-            //    attrs.add(attr);
+            //    attrs.add(GlobalIds.COUNTRY, address.getAddress1());
             //}
+
             if ( VUtil.isNotNullOrEmpty( address.getPostalCode() ) )
             {
-                attr = new LDAPAttribute( POSTAL_CODE, address.getPostalCode() );
-                attrs.add( attr );
+                entry.add( POSTAL_CODE, address.getPostalCode() );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getPostOfficeBox() ) )
             {
-                attr = new LDAPAttribute( POST_OFFICE_BOX, address.getPostOfficeBox() );
-                attrs.add( attr );
+                entry.add( POST_OFFICE_BOX, address.getPostOfficeBox() );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getState() ) )
             {
-                attr = new LDAPAttribute( STATE, address.getState() );
-                attrs.add( attr );
+                entry.add( STATE, address.getState() );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getBuilding() ) )
             {
-                attr = new LDAPAttribute( PHYSICAL_DELIVERY_OFFICE_NAME, address.getBuilding() );
-                attrs.add( attr );
+                entry.add( PHYSICAL_DELIVERY_OFFICE_NAME, address.getBuilding() );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getDepartmentNumber() ) )
             {
-                attr = new LDAPAttribute( DEPARTMENT_NUMBER, address.getDepartmentNumber() );
-                attrs.add( attr );
+                entry.add( DEPARTMENT_NUMBER, address.getDepartmentNumber() );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getRoomNumber() ) )
             {
-                attr = new LDAPAttribute( ROOM_NUMBER, address.getRoomNumber() );
-                attrs.add( attr );
+                entry.add( ROOM_NUMBER, address.getRoomNumber() );
             }
         }
     }
@@ -2166,64 +2544,62 @@ final class UserDAO extends DataProvider
      * @param address contains entity of type {@link Address} targeted for updating into ldap.
      * @param mods contains ldap modification set contains attributes to be updated in ldap.
      */
-    private void loadAddress( Address address, LDAPModificationSet mods )
+    private void loadAddress( Address address, List<Modification> mods )
     {
-        LDAPAttribute attr;
-
         if ( address != null )
         {
             if ( VUtil.isNotNullOrEmpty( address.getAddresses() ) )
             {
-                attr = new LDAPAttribute( POSTAL_ADDRESS );
-                mods.add( LDAPModification.REPLACE, attr );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, POSTAL_ADDRESS ) );
 
                 for ( String val : address.getAddresses() )
                 {
-                    attr = new LDAPAttribute( POSTAL_ADDRESS, val );
-                    mods.add( LDAPModification.ADD, attr );
+                    mods.add( new DefaultModification(
+                        ModificationOperation.ADD_ATTRIBUTE, POSTAL_ADDRESS, val ) );
                 }
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getCity() ) )
             {
-                attr = new LDAPAttribute( L, address.getCity() );
-                mods.add( LDAPModification.REPLACE, attr );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, L, address.getCity() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getPostalCode() ) )
             {
-                attr = new LDAPAttribute( POSTAL_CODE, address.getPostalCode() );
-                mods.add( LDAPModification.REPLACE, attr );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, POSTAL_CODE, address.getPostalCode() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getPostOfficeBox() ) )
             {
-                attr = new LDAPAttribute( POST_OFFICE_BOX, address.getPostOfficeBox() );
-                mods.add( LDAPModification.REPLACE, attr );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, POST_OFFICE_BOX, address.getPostOfficeBox() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getState() ) )
             {
-                attr = new LDAPAttribute( STATE, address.getState() );
-                mods.add( LDAPModification.REPLACE, attr );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, STATE, address.getState() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getBuilding() ) )
             {
-                attr = new LDAPAttribute( PHYSICAL_DELIVERY_OFFICE_NAME, address.getBuilding() );
-                mods.add( LDAPModification.REPLACE, attr );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, PHYSICAL_DELIVERY_OFFICE_NAME, address.getBuilding() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getDepartmentNumber() ) )
             {
-                attr = new LDAPAttribute( DEPARTMENT_NUMBER, address.getDepartmentNumber() );
-                mods.add( LDAPModification.REPLACE, attr );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, DEPARTMENT_NUMBER, address.getDepartmentNumber() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getRoomNumber() ) )
             {
-                attr = new LDAPAttribute( ROOM_NUMBER, address.getRoomNumber() );
-                mods.add( LDAPModification.REPLACE, attr );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, ROOM_NUMBER, address.getRoomNumber() ) );
             }
         }
     }
@@ -2232,14 +2608,16 @@ final class UserDAO extends DataProvider
     /**
      * Given an ldap entry containing organzationalPerson address information, convert to {@link Address}
      *
-     * @param le     contains ldap entry to retrieve admin roles from.
+     * @param entry     contains ldap entry to retrieve admin roles from.
      * @return entity of type {@link Address}.
+     * @throws LdapInvalidAttributeValueException 
      * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
      */
-    private Address unloadAddress( LDAPEntry le )
+    private Address unloadAddress( Entry entry ) throws LdapInvalidAttributeValueException
     {
         Address addr = new ObjectFactory().createAddress();
-        List<String> pAddrs = getAttributes( le, POSTAL_ADDRESS );
+        List<String> pAddrs = getAttributes( entry, POSTAL_ADDRESS );
+
         if ( pAddrs != null )
         {
             for ( String pAddr : pAddrs )
@@ -2247,13 +2625,14 @@ final class UserDAO extends DataProvider
                 addr.setAddress( pAddr );
             }
         }
-        addr.setCity( getAttribute( le, L ) );
-        addr.setState( getAttribute( le, STATE ) );
-        addr.setPostalCode( getAttribute( le, POSTAL_CODE ) );
-        addr.setPostOfficeBox( getAttribute( le, POST_OFFICE_BOX ) );
-        addr.setBuilding( getAttribute( le, PHYSICAL_DELIVERY_OFFICE_NAME ) );
-        addr.setDepartmentNumber( getAttribute( le, DEPARTMENT_NUMBER ) );
-        addr.setRoomNumber( getAttribute( le, ROOM_NUMBER ) );
+
+        addr.setCity( getAttribute( entry, L ) );
+        addr.setState( getAttribute( entry, STATE ) );
+        addr.setPostalCode( getAttribute( entry, POSTAL_CODE ) );
+        addr.setPostOfficeBox( getAttribute( entry, POST_OFFICE_BOX ) );
+        addr.setBuilding( getAttribute( entry, PHYSICAL_DELIVERY_OFFICE_NAME ) );
+        addr.setDepartmentNumber( getAttribute( entry, DEPARTMENT_NUMBER ) );
+        addr.setRoomNumber( getAttribute( entry, ROOM_NUMBER ) );
         // todo: add support for country attribute
         //addr.setCountry(getAttribute(le, GlobalIds.COUNTRY));
 
@@ -2265,16 +2644,16 @@ final class UserDAO extends DataProvider
      * Given an ldap entry containing ARBAC roles assigned to user, retrieve the raw data and convert to a collection of {@link UserAdminRole}
      * including {@link us.jts.fortress.util.time.Constraint}.
      *
-     * @param le     contains ldap entry to retrieve admin roles from.
+     * @param entry     contains ldap entry to retrieve admin roles from.
      * @param userId attribute maps to {@link UserAdminRole#userId}.
      * @param contextId
      * @return List of type {@link UserAdminRole} containing admin roles assigned to a particular user.
      * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
      */
-    private List<UserAdminRole> unloadUserAdminRoles( LDAPEntry le, String userId, String contextId )
+    private List<UserAdminRole> unloadUserAdminRoles( Entry entry, String userId, String contextId )
     {
         List<UserAdminRole> uRoles = null;
-        List<String> roles = getAttributes( le, GlobalIds.USER_ADMINROLE_DATA );
+        List<String> roles = getAttributes( entry, GlobalIds.USER_ADMINROLE_DATA );
 
         if ( roles != null )
         {
@@ -2311,16 +2690,16 @@ final class UserDAO extends DataProvider
     * Given an ldap entry containing RBAC roles assigned to user, retrieve the raw data and convert to a collection of {@link UserRole}
     * including {@link us.jts.fortress.util.time.Constraint}.
     *
-    * @param le     contains ldap entry to retrieve roles from.
+    * @param entry     contains ldap entry to retrieve roles from.
     * @param userId attribute maps to {@link UserRole#userId}.
     * @param contextId
     * @return List of type {@link UserRole} containing RBAC roles assigned to a particular user.
     * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
     */
-    private List<UserRole> unloadUserRoles( LDAPEntry le, String userId, String contextId )
+    private List<UserRole> unloadUserRoles( Entry entry, String userId, String contextId )
     {
         List<UserRole> uRoles = null;
-        List<String> roles = getAttributes( le, GlobalIds.USER_ROLE_DATA );
+        List<String> roles = getAttributes( entry, GlobalIds.USER_ROLE_DATA );
 
         if ( roles != null )
         {

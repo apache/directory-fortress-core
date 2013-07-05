@@ -4,6 +4,12 @@
 package us.jts.fortress.rbac;
 
 import javax.xml.bind.annotation.*;
+
+import us.jts.fortress.rbac.dao.unboundid.AdminRoleDAO;
+import us.jts.fortress.rbac.dao.unboundid.OrgUnitDAO;
+import us.jts.fortress.rbac.process.AdminRoleP;
+import us.jts.fortress.rbac.process.OrgUnitP;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
