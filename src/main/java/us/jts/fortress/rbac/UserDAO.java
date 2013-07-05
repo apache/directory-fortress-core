@@ -1882,6 +1882,7 @@ final class UserDAO extends DataProvider
                 else
                 {
                     attr.addValue( szUserRole );
+                    attrNm.addValue( userRole.getName() );
                 }
             }
             if ( attr != null )
@@ -1916,6 +1917,7 @@ final class UserDAO extends DataProvider
                 else
                 {
                     attr.addValue( szUserRole );
+                    attrNm.addValue( userRole.getName() );
                 }
             }
             if ( attr != null )
