@@ -35,7 +35,7 @@ import us.jts.fortress.util.cache.CacheMgr;
  * </ol>
  * After update is performed to ldap, the singleton is refreshed with latest info.
  * <p/>
- * Static methods on this class are intended for use by other Fortress classes, i.e. {@link DelAdminMgrImpl} and {@link us.jts.fortress.rbac.dao.unboundid.PermDAO}
+ * Static methods on this class are intended for use by other Fortress classes, i.e. {@link DelAdminMgrImpl} and {@link us.jts.fortress.rbac.dao.PermDAO}
  * and cannot be directly invoked by outside programs.
  * <p/>
  * This class contains singleton that can be updated but is thread safe.
@@ -144,7 +144,7 @@ public final class AdminRoleUtil
 
 
     /**
-     * Return Set of {@link us.jts.fortress.rbac.AdminRole#name}s ascendants.  Used by {@link us.jts.fortress.rbac.dao.unboundid.PermDAO#checkPermission}
+     * Return Set of {@link us.jts.fortress.rbac.AdminRole#name}s ascendants.  Used by {@link us.jts.fortress.rbac.dao.PermDAO#checkPermission}
      * for computing authorized {@link us.jts.fortress.rbac.UserAdminRole#name}s.
      * @param uRoles contains list of adminRoles activated within a {@link us.jts.fortress.rbac.User}'s {@link us.jts.fortress.rbac.Session}.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.

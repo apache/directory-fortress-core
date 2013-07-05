@@ -17,8 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-import us.jts.fortress.rbac.dao.unboundid.UnboundIdRoleDAO;
-import us.jts.fortress.rbac.dao.unboundid.UnboundIdUserDAO;
+import us.jts.fortress.rbac.dao.RoleDAO;
+import us.jts.fortress.rbac.dao.UserDAO;
 import us.jts.fortress.rbac.process.PermP;
 import us.jts.fortress.rbac.process.RoleP;
 import us.jts.fortress.rbac.process.UserP;
@@ -33,7 +33,7 @@ import us.jts.fortress.rbac.process.UserP;
  * <ol>
  * <li>Manager layer:  {@link us.jts.fortress.rbac.AdminMgrImpl}, {@link us.jts.fortress.rbac.AccessMgrImpl}, {@link us.jts.fortress.rbac.ReviewMgrImpl},...</li>
  * <li>Process layer:  {@link UserP}, {@link RoleP}, {@link PermP},...</li>
- * <li>DAO layer: {@link UnboundIdUserDAO}, {@link UnboundIdRoleDAO}, {@link us.jts.fortress.rbac.dao.unboundid.PermDAO},...</li>
+ * <li>DAO layer: {@link UserDAO}, {@link RoleDAO}, {@link us.jts.fortress.rbac.dao.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />

@@ -12,6 +12,7 @@ import us.jts.fortress.rbac.dao.apache.ApacheRoleDAO;
 import us.jts.fortress.rbac.dao.apache.ApacheUserDAO;
 import us.jts.fortress.rbac.dao.unboundid.UnboundIdAdminRoleDAO;
 import us.jts.fortress.rbac.dao.unboundid.UnboundIdOrgUnitDAO;
+import us.jts.fortress.rbac.dao.unboundid.UnboundIdPermDAO;
 import us.jts.fortress.rbac.dao.unboundid.UnboundIdRoleDAO;
 import us.jts.fortress.rbac.dao.unboundid.UnboundIdUserDAO;
 
@@ -135,6 +136,36 @@ public class DaoFactory
 
             case APACHE_LDAP_API:
                 return new ApacheOrgUnitDAO();
+
+            default:
+                return null;
+        }
+    }
+
+
+    /**
+     * Create an instance of a PermDAO which depends of the used Backend
+     * 
+     * @return The created instance
+     */
+    public static PermDAO createPermDAO()
+    {
+        String daoConnector = Config.getProperty( GlobalIds.DAO_CONNECTOR );
+
+        DAOType daoType = DAOType.UNBOUNDID_API;
+
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        {
+            daoType = DAOType.APACHE_LDAP_API;
+        }
+
+        switch ( daoType )
+        {
+            case UNBOUNDID_API:
+                return new UnboundIdPermDAO();
+
+            case APACHE_LDAP_API:
+                return null;//new ApachePermDAO();
 
             default:
                 return null;

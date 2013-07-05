@@ -38,7 +38,7 @@ import us.jts.fortress.util.time.CUtil;
  * Process module for the User entity.  This class performs data validations and error mapping.  It is typically called
  * by internal Fortress manager classes ({@link us.jts.fortress.rbac.AdminMgrImpl}, {@link us.jts.fortress.rbac.AccessMgrImpl},
  * {@link us.jts.fortress.rbac.ReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
- * {@link User}, validate its contents and forward on to it's corresponding DAO class {@link us.jts.fortress.rbac.dao.unboundid.UnboundIdUserDAO}.
+ * {@link User}, validate its contents and forward on to it's corresponding DAO class {@link us.jts.fortress.rbac.dao.UserDAO}.
  * <p>
  * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},

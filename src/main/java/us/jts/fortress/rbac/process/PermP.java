@@ -20,7 +20,8 @@ import us.jts.fortress.rbac.Permission;
 import us.jts.fortress.rbac.Role;
 import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rbac.User;
-import us.jts.fortress.rbac.dao.unboundid.PermDAO;
+import us.jts.fortress.rbac.dao.DaoFactory;
+import us.jts.fortress.rbac.dao.PermDAO;
 import us.jts.fortress.util.attr.VUtil;
 
 
@@ -28,7 +29,7 @@ import us.jts.fortress.util.attr.VUtil;
  * Process module for the Permission entity.  This class performs data validations and error mapping.  It is typically called
  * by internal Fortress manager classes ({@link us.jts.fortress.rbac.AdminMgrImpl}, {@link us.jts.fortress.rbac.AccessMgrImpl},
  * {@link us.jts.fortress.rbac.ReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
- * {@link us.jts.fortress.rbac.PermObj} or {@link us.jts.fortress.rbac.Permission}, validate its contents and forward on to it's corresponding DAO class {@link us.jts.fortress.rbac.dao.unboundid.PermDAO}.
+ * {@link us.jts.fortress.rbac.PermObj} or {@link us.jts.fortress.rbac.Permission}, validate its contents and forward on to it's corresponding DAO class {@link us.jts.fortress.rbac.dao.PermDAO}.
  * <p>
  * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
@@ -48,7 +49,7 @@ public final class PermP
      * Description of the Field
      */
     private static final String CLS_NM = PermP.class.getName();
-    private static final PermDAO pDao = new PermDAO();
+    private static final PermDAO pDao = DaoFactory.createPermDAO();
     private final OrgUnitP orgUnitP = new OrgUnitP();
 
 

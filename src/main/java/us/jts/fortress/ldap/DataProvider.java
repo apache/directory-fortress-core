@@ -41,7 +41,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
 /**
  * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
- * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.ApacheUserDAO}. {@link us.jts.fortress.rbac.ApacheRoleDAO}, {@link us.jts.fortress.rbac.PermDAO}, ....
+ * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.ApacheUserDAO}. {@link us.jts.fortress.rbac.ApacheRoleDAO}, {@link us.jts.fortress.rbac.UnboundIdPermDAO}, ....
  * These are low-level data utilities, very little if any data validations are performed here.
  * <p/>
  * This class is thread safe.
