@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import us.jts.fortress.rbac.dao.apache.ApacheUserDAO;
+import us.jts.fortress.rbac.process.UserP;
 import us.jts.fortress.util.time.Constraint;
 
 
@@ -323,6 +325,48 @@ public class User extends FortEntity implements Constraint, Serializable
         this.password = password;
         setRole( new UserRole( roleName ) );
         this.ou = ou;
+    }
+
+
+    /**
+     * Used to retrieve User's valid userId attribute.  The Fortress userId maps to 'uid' for InetOrgPerson object class.
+     *
+     * @return String containing the userId.
+     */
+    @Override
+    public String toString()
+    {
+        return "User{" +
+            "userId='" + userId + '\'' +
+            ", internalId='" + internalId + '\'' +
+            ", roles=" + roles +
+            ", adminRoles=" + adminRoles +
+            ", pwPolicy='" + pwPolicy + '\'' +
+            ", cn='" + cn + '\'' +
+            ", sn='" + sn + '\'' +
+            ", dn='" + dn + '\'' +
+            ", ou='" + ou + '\'' +
+            ", description='" + description + '\'' +
+            ", beginTime='" + beginTime + '\'' +
+            ", endTime='" + endTime + '\'' +
+            ", beginDate='" + beginDate + '\'' +
+            ", endDate='" + endDate + '\'' +
+            ", beginLockDate='" + beginLockDate + '\'' +
+            ", endLockDate='" + endLockDate + '\'' +
+            ", dayMask='" + dayMask + '\'' +
+            ", name='" + name + '\'' +
+            ", employeeType='" + employeeType + '\'' +
+            ", title='" + title + '\'' +
+            ", timeout=" + timeout +
+            ", reset=" + reset +
+            ", locked=" + locked +
+            ", system=" + system +
+            ", props=" + props +
+            ", address=" + address +
+            ", phones=" + phones +
+            ", mobiles=" + mobiles +
+            ", emails=" + emails +
+            '}';
     }
 
 
@@ -1440,16 +1484,5 @@ public class User extends FortEntity implements Constraint, Serializable
         }
 
         return thatUser.getUserId().equalsIgnoreCase( userId );
-    }
-
-
-    /**
-     * Used to retrieve User's valid userId attribute.  The Fortress userId maps to 'uid' for InetOrgPerson object class.
-     *
-     * @return String containing the userId.
-     */
-    public String toString()
-    {
-        return userId;
     }
 }

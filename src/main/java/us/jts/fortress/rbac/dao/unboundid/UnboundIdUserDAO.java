@@ -2014,6 +2014,7 @@ public final class UnboundIdUserDAO extends DataProvider implements UserDAO
                 else
                 {
                     attr.addValue( szUserRole );
+                    attrNm.addValue( userRole.getName() );
                 }
             }
 
@@ -2051,6 +2052,7 @@ public final class UnboundIdUserDAO extends DataProvider implements UserDAO
                 else
                 {
                     attr.addValue( szUserRole );
+                    attrNm.addValue( userRole.getName() );
                 }
             }
 

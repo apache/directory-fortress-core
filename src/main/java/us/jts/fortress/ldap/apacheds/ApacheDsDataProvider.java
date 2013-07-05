@@ -1110,9 +1110,16 @@ public abstract class ApacheDsDataProvider
      * @param connection handle to ldap connection object.
      * @throws Exception 
      */
-    protected void closeAdminConnection( LdapConnection connection ) throws Exception
+    protected void closeAdminConnection( LdapConnection connection )
     {
-        adminPool.releaseConnection( connection );
+        try
+        {
+            adminPool.releaseConnection( connection );
+        }
+        catch ( Exception e )
+        {
+            throw new RuntimeException( e.getMessage() );
+        }
     }
 
 

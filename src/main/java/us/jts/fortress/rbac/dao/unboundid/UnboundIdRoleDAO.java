@@ -173,14 +173,6 @@ public final class UnboundIdRoleDAO extends DataProvider implements RoleDAO
                 LDAPAttribute desc = new LDAPAttribute( GlobalIds.DESC, entity.getDescription() );
                 mods.add( LDAPModification.REPLACE, desc );
             }
-            if ( VUtil.isNotNullOrEmpty( entity.getOccupants() ) )
-            {
-                for ( String name : entity.getOccupants() )
-                {
-                    LDAPAttribute occupant = new LDAPAttribute( ROLE_OCCUPANT, name );
-                    mods.add( LDAPModification.REPLACE, occupant );
-                }
-            }
             if ( entity.isTemporalSet() )
             {
                 String szRawData = CUtil.setConstraint( entity );
