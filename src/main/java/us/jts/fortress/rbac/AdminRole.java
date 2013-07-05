@@ -4,7 +4,6 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.rbac.dao.unboundid.AdminRoleDAO;
 import us.jts.fortress.rbac.dao.unboundid.OrgUnitDAO;
 import us.jts.fortress.rbac.process.AdminRoleP;
 import us.jts.fortress.rbac.process.OrgUnitP;

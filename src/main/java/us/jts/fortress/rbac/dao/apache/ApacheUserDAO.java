@@ -5,7 +5,6 @@
 package us.jts.fortress.rbac.dao.apache;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -435,22 +434,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage();
             throw new CreateException( GlobalErrIds.USER_ADD_FAILED, error, e );
         }
-        catch ( Exception e )
-        {
-            String error = "create userId [" + entity.getUserId() + "] caught LDAPException="
-                + e.getMessage();
-            throw new CreateException( GlobalErrIds.USER_ADD_FAILED, error, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-
-            }
+            closeAdminConnection( ld );
         }
 
         return entity;
@@ -574,24 +560,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
         }
-        catch ( Exception e )
-        {
-            String error = "update userId [" + entity.getUserId() + "] caught LDAPException="
-                + e.getMessage();
-            throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "update userId [" + entity.getUserId() + "] caught LDAPException="
-                    + e.getMessage();
-                throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return entity;
@@ -634,24 +605,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + "] caught LDAPException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
         }
-        catch ( Exception e )
-        {
-            String error = "updateProps userId [" + entity.getUserId() + "] isReplace [" + replace
-                + "] caught LDAPException=" + e.getMessage();
-            throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "updateProps userId [" + entity.getUserId() + "] isReplace [" + replace
-                    + "] caught LDAPException=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return entity;
@@ -679,24 +635,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage();
             throw new RemoveException( GlobalErrIds.USER_DELETE_FAILED, error, e );
         }
-        catch ( Exception e )
-        {
-            String error = "remove userId [" + user.getUserId() + "] caught LDAPException="
-                + e.getMessage();
-            throw new RemoveException( GlobalErrIds.USER_DELETE_FAILED, error, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "remove userId [" + user.getUserId() + "] caught LDAPException="
-                    + e.getMessage();
-                throw new RemoveException( GlobalErrIds.USER_DELETE_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userDn;
@@ -727,24 +668,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_PW_LOCK_FAILED, error, e );
         }
-        catch ( Exception e )
-        {
-            String error = "lock user [" + user.getUserId() + "] caught Exception="
-                + e.getMessage();
-            throw new UpdateException( GlobalErrIds.USER_PW_LOCK_FAILED, error, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "lock user [" + user.getUserId() + "] caught Exception="
-                    + e.getMessage();
-                throw new UpdateException( GlobalErrIds.USER_PW_LOCK_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
     }
 
@@ -774,7 +700,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             LOG.info( "unlock user [" + user.getUserId() + "] no such attribute:"
                 + OPENLDAP_ACCOUNT_LOCKED_TIME );
         }
-        catch ( Exception e )
+        catch ( LdapException e )
         {
             String error = "unlock user [" + user.getUserId() + "] caught LDAPException= "
                 + e.getMessage();
@@ -782,16 +708,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "unlock user [" + user.getUserId() + "] caught LDAPException= "
-                    + e.getMessage();
-                throw new UpdateException( GlobalErrIds.USER_PW_UNLOCK_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
     }
 
@@ -836,22 +753,14 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             String warning = "getUser COULD NOT FIND ENTRY for user [" + user.getUserId() + "]";
             throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
         }
-        catch ( Exception e )
+        catch ( LdapException e )
         {
             String error = "getUser [" + userDn + "]= caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "getUser [" + userDn + "]= caught LDAPException=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
 
         try
@@ -897,7 +806,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             String warning = "getUserAdminRoles COULD NOT FIND ENTRY for user [" + user.getUserId() + "]";
             throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
         }
-        catch ( Exception e )
+        catch ( LdapException e )
         {
             String error = "getUserAdminRoles [" + userDn + "]= caught LDAPException="
                 + e.getMessage();
@@ -905,16 +814,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "getUserAdminRoles [" + userDn + "]= caught LDAPException="
-                    + e.getMessage();
-                throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return roles;
@@ -953,22 +853,14 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             String warning = "getRoles COULD NOT FIND ENTRY for user [" + user.getUserId() + "]";
             throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
         }
-        catch ( Exception e )
+        catch ( LdapException e )
         {
             String error = "getRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, error, e );
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "getRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return roles;
@@ -1025,24 +917,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
-        catch ( Exception e )
-        {
-            String error = "checkPassword userId [" + user.getUserId() + "] caught LDAPException="
-                + e.getMessage();
-            throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "checkPassword userId [" + user.getUserId() + "] caught LDAPException="
-                    + e.getMessage();
-                throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return session;
@@ -1107,30 +984,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
-        catch ( IOException e )
-        {
-            String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException="
-                + e.getMessage();
-            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
-        }
-        catch ( Exception e )
-        {
-            String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException="
-                + e.getMessage();
-            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException="
-                    + e.getMessage();
-                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userList;
@@ -1170,22 +1026,14 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             String warning = "findUsers caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
-        catch ( Exception e )
+        catch ( CursorException e )
         {
             String warning = "findUsers caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "findUsers caught LDAPException=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userList;
@@ -1243,7 +1091,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
-        catch ( Exception e )
+        catch ( CursorException e )
         {
             String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException="
                 + e.getMessage();
@@ -1251,17 +1099,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException="
-                    + e.getMessage();
-                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
-            }
-
+            closeAdminConnection( ld );
         }
 
         return userList;
@@ -1301,7 +1139,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
-        catch ( Exception e )
+        catch ( CursorException e )
         {
             String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException="
                 + e.getMessage();
@@ -1309,16 +1147,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException="
-                    + e.getMessage();
-                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userList;
@@ -1370,22 +1199,14 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             String warning = "getAssignedUsers caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
-        catch ( Exception e )
+        catch ( CursorException e )
         {
             String warning = "getAssignedUsers caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "getAssignedUsers caught LDAPException=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userSet;
@@ -1425,7 +1246,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + "] caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_USER_SEARCH_FAILED, warning, e );
         }
-        catch ( Exception e )
+        catch ( CursorException e )
         {
             String warning = "getAssignedUsers admin role name [" + role.getName()
                 + "] caught LDAPException=" + e.getMessage();
@@ -1433,16 +1254,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "getAssignedUsers admin role name [" + role.getName()
-                    + "] caught LDAPException=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.ARLE_USER_SEARCH_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userList;
@@ -1484,7 +1296,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
-        catch ( Exception e )
+        catch ( CursorException e )
         {
             String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException="
                 + e.getMessage();
@@ -1492,16 +1304,7 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException="
-                    + e.getMessage();
-                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userList;
@@ -1540,22 +1343,14 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             String warning = "findUsersList caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
-        catch ( Exception e )
+        catch ( CursorException e )
         {
             String warning = "findUsersList caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "findUsersList caught LDAPException=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userList;
@@ -1605,22 +1400,14 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             String warning = "findUsers caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
-        catch ( Exception e )
+        catch ( CursorException e )
         {
             String warning = "findUsers caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "findUsers caught LDAPException=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userList;
@@ -1685,24 +1472,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             warning += " caught LDAPException rc=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_PW_CHANGE_FAILED, warning, e );
         }
-        catch ( Exception e )
-        {
-            String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
-            warning += " caught LDAPException rc=" + e.getMessage();
-            throw new UpdateException( GlobalErrIds.USER_PW_CHANGE_FAILED, warning, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
-                warning += " caught LDAPException rc=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.USER_PW_CHANGE_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return rc;
@@ -1738,24 +1510,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_PW_RESET_FAILED, warning, e );
         }
-        catch ( Exception e )
-        {
-            String warning = "resetUserPassword userId [" + user.getUserId() + "] caught LDAPException="
-                + e.getMessage();
-            throw new UpdateException( GlobalErrIds.USER_PW_RESET_FAILED, warning, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "resetUserPassword userId [" + user.getUserId() + "] caught LDAPException="
-                    + e.getMessage();
-                throw new UpdateException( GlobalErrIds.USER_PW_RESET_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
     }
 
@@ -1801,26 +1558,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             warning += "caught LDAPException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
         }
-        catch ( Exception e )
-        {
-            String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] ";
-
-            warning += "caught LDAPException=" + e.getMessage();
-            throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] ";
-
-                warning += "caught LDAPException=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userDn;
@@ -1887,24 +1627,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + "] caught LDAPException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.URLE_DEASSIGN_FAILED, warning, e );
         }
-        catch ( Exception e )
-        {
-            String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
-                + "] caught LDAPException=" + e.getMessage();
-            throw new UpdateException( GlobalErrIds.URLE_DEASSIGN_FAILED, warning, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
-                    + "] caught LDAPException=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.URLE_DEASSIGN_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userDn;
@@ -1951,24 +1676,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + "] caught LDAPException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.ARLE_ASSIGN_FAILED, warning, e );
         }
-        catch ( Exception e )
-        {
-            String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
-                + "] caught LDAPException=" + e.getMessage();
-            throw new UpdateException( GlobalErrIds.ARLE_ASSIGN_FAILED, warning, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
-                    + "] caught LDAPException=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.ARLE_ASSIGN_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userDn;
@@ -2038,24 +1748,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + "] caught LDAPException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.ARLE_DEASSIGN_FAILED, warning, e );
         }
-        catch ( Exception e )
-        {
-            String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
-                + "] caught LDAPException=" + e.getMessage();
-            throw new UpdateException( GlobalErrIds.ARLE_DEASSIGN_FAILED, warning, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName()
-                    + "] caught LDAPException=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.ARLE_DEASSIGN_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userDn;
@@ -2088,24 +1783,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
                 + e.getMessage() + " msg=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_PW_PLCY_DEL_FAILED, warning, e );
         }
-        catch ( Exception e )
-        {
-            String warning = "deletePwPolicy userId [" + user.getUserId() + "] caught LDAPException="
-                + e.getMessage() + " msg=" + e.getMessage();
-            throw new UpdateException( GlobalErrIds.USER_PW_PLCY_DEL_FAILED, warning, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String warning = "deletePwPolicy userId [" + user.getUserId() + "] caught LDAPException="
-                    + e.getMessage() + " msg=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.USER_PW_PLCY_DEL_FAILED, warning, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return userDn;
@@ -2202,22 +1882,9 @@ public final class ApacheUserDAO extends ApacheDsDataProvider implements UserDAO
             String error = "getUserRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
-        catch ( Exception e )
-        {
-            String error = "getUserRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
-        }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "getUserRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return roles;

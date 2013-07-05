@@ -1129,9 +1129,16 @@ public abstract class ApacheDsDataProvider
      * @return ldap connection.
      * @throws LdapException
      */
-    protected LdapConnection getAdminConnection() throws Exception
+    protected LdapConnection getAdminConnection() throws LdapException
     {
-        return adminPool.getConnection();
+        try
+        {
+            return adminPool.getConnection();
+        }
+        catch ( Exception e )
+        {
+            throw new LdapException( e.getMessage() );
+        }
     }
 
 

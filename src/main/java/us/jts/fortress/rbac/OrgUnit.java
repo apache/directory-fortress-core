@@ -3,16 +3,23 @@
  */
 package us.jts.fortress.rbac;
 
-import javax.xml.bind.annotation.*;
-
-import us.jts.fortress.rbac.dao.unboundid.AdminRoleDAO;
-import us.jts.fortress.rbac.dao.unboundid.OrgUnitDAO;
-import us.jts.fortress.rbac.process.AdminRoleP;
-import us.jts.fortress.rbac.process.OrgUnitP;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import us.jts.fortress.rbac.dao.AdminRoleDAO;
+import us.jts.fortress.rbac.dao.unboundid.OrgUnitDAO;
+import us.jts.fortress.rbac.process.AdminRoleP;
+import us.jts.fortress.rbac.process.OrgUnitP;
+
 
 /**
  * All entities ({@link AdminRole}, {@link OrgUnit},
@@ -124,13 +131,14 @@ import java.util.UUID;
  */
 @XmlRootElement(name = "fortOrgUnit")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "orgUnit", propOrder = {
-    "children",
-    "description",
-    "id",
-    "name",
-    "parents",
-    "type"
+@XmlType(name = "orgUnit", propOrder =
+    {
+        "children",
+        "description",
+        "id",
+        "name",
+        "parents",
+        "type"
 })
 public class OrgUnit extends FortEntity
     implements Graphable, java.io.Serializable
@@ -148,6 +156,7 @@ public class OrgUnit extends FortEntity
     @XmlElement(nillable = true)
     private Set<String> children;
 
+
     /**
      * Default constructor is used by internal Fortress classes.
      */
@@ -155,15 +164,17 @@ public class OrgUnit extends FortEntity
     {
     }
 
+
     /**
      * Construct a OrgUnit entity with a given ou name.
      *
      * @param ou maps to same name on on 'organizationalUnit' object class.
      */
-    public OrgUnit(String ou)
+    public OrgUnit( String ou )
     {
         this.name = ou;
     }
+
 
     /**
      * Construct a OrgUnit entity with a given ou name and specified type - 'USER' or 'PERM'.
@@ -171,11 +182,12 @@ public class OrgUnit extends FortEntity
      * @param ou   maps to same name on on 'organizationalUnit' object class.
      * @param type is used to determine which OrgUnit tree is being targeted - 'USER' or 'PERM'.
      */
-    public OrgUnit(String ou, Type type)
+    public OrgUnit( String ou, Type type )
     {
         this.name = ou;
         this.type = type;
     }
+
 
     /**
      * Get the name required attribute of the OrgUnit object
@@ -187,14 +199,16 @@ public class OrgUnit extends FortEntity
         return name;
     }
 
+
     /**
      * Sets the required name attribute on the OrgUnit object
      *
      */
-    public void setName(String name)
+    public void setName( String name )
     {
         this.name = name;
     }
+
 
     /**
      * Return the internal id that is associated with OrgUnit.  This attribute is generated automatically
@@ -207,6 +221,7 @@ public class OrgUnit extends FortEntity
         return id;
     }
 
+
     /**
      * Set the internal Id that is associated with OrgUnit.  This method is used by DAO class and
      * is generated automatically by Fortress.  Attribute stored in LDAP cannot be changed by external caller.
@@ -214,10 +229,11 @@ public class OrgUnit extends FortEntity
      *
      * @param id maps to 'ftId' in 'ftOrgUnit' object class.
      */
-    public void setId(String id)
+    public void setId( String id )
     {
         this.id = id;
     }
+
 
     /**
      * Generate an internal Id that is associated with OrgUnit.  This method is used by DAO class and
@@ -247,6 +263,7 @@ public class OrgUnit extends FortEntity
         PERM
     }
 
+
     /**
      * Return the type of OrgUnit for this entity.  This field is required for this entity.
      *
@@ -257,15 +274,17 @@ public class OrgUnit extends FortEntity
         return type;
     }
 
+
     /**
      * Get the type of OrgUnit for this entity.  This field is required for this entity.
      *
      * @param type contains 'PERM' or 'USER'.
      */
-    public void setType(Type type)
+    public void setType( Type type )
     {
         this.type = type;
     }
+
 
     /**
      * Returns optional description that is associated with OrgUnit.  This attribute is validated but not constrained by Fortress.
@@ -277,15 +296,17 @@ public class OrgUnit extends FortEntity
         return description;
     }
 
+
     /**
      * Sets the optional description that is associated with OrgUnit.  This attribute is validated but not constrained by Fortress.
      *
      * @param description that is mapped to same name in 'organizationalUnit' object class.
      */
-    public void setDescription(String description)
+    public void setDescription( String description )
     {
         this.description = description;
     }
+
 
     /**
      * Get the names of orgUnits that are parents (direct ascendants) of this orgUnit.
@@ -296,39 +317,43 @@ public class OrgUnit extends FortEntity
         return parents;
     }
 
+
     /**
      * Set the names of orgUnit names that are parents (direct ascendants) of this orgUnit.
      * @param parents contains the Set of parent orgUnit names assigned to this orgUnit.
      */
-    public void setParents(Set<String> parents)
+    public void setParents( Set<String> parents )
     {
         this.parents = parents;
     }
 
-    /**
-     * Set the occupant attribute with the contents of the User dn.
-     * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
-     */
-    public void setParent(String parent)
-    {
-        if (this.parents == null)
-        {
-            this.parents = new HashSet<>();
-        }
-        this.parents.add(parent);
-    }
 
     /**
      * Set the occupant attribute with the contents of the User dn.
      * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
      */
-    public void delParent(String parent)
+    public void setParent( String parent )
     {
-        if (this.parents != null)
+        if ( this.parents == null )
         {
-            this.parents.remove(parent);
+            this.parents = new HashSet<>();
+        }
+        this.parents.add( parent );
+    }
+
+
+    /**
+     * Set the occupant attribute with the contents of the User dn.
+     * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
+     */
+    public void delParent( String parent )
+    {
+        if ( this.parents != null )
+        {
+            this.parents.remove( parent );
         }
     }
+
 
     /**
      * Return the Set of child orgUnit names (direct descendants) of this orgUnit.
@@ -339,27 +364,32 @@ public class OrgUnit extends FortEntity
         return children;
     }
 
+
     /**
      * Set the Set of child orgUnit names (direct descendants) of this orgUnit
      * @param children contains the Set of child orgUnit names assigned to this orgUnit.
      */
-    public void setChildren(Set<String> children)
+    public void setChildren( Set<String> children )
     {
         this.children = children;
     }
+
 
     /**
      * @param thatObj
      * @return boolean value of 'true if objects match
      */
-    public boolean equals(Object thatObj)
+    public boolean equals( Object thatObj )
     {
-        if (this == thatObj) return true;
-        if (this.getName() == null) return false;
-        if (!(thatObj instanceof OrgUnit)) return false;
-        OrgUnit thatOrg = (OrgUnit) thatObj;
-        if (thatOrg.getName() == null) return false;
-        return thatOrg.getName().equalsIgnoreCase(this.getName());
+        if ( this == thatObj )
+            return true;
+        if ( this.getName() == null )
+            return false;
+        if ( !( thatObj instanceof OrgUnit ) )
+            return false;
+        OrgUnit thatOrg = ( OrgUnit ) thatObj;
+        if ( thatOrg.getName() == null )
+            return false;
+        return thatOrg.getName().equalsIgnoreCase( this.getName() );
     }
 }
-

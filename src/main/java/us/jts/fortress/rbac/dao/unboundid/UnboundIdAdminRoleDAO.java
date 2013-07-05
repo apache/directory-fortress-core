@@ -20,6 +20,7 @@ import us.jts.fortress.rbac.AdminRole;
 import us.jts.fortress.rbac.AdminRoleUtil;
 import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.Role;
+import us.jts.fortress.rbac.dao.AdminRoleDAO;
 import us.jts.fortress.rbac.process.AdminRoleP;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
@@ -89,9 +90,9 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-public final class AdminRoleDAO extends DataProvider
+public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRoleDAO
 {
-    private static final String CLS_NM = AdminRoleDAO.class.getName();
+    private static final String CLS_NM = UnboundIdAdminRoleDAO.class.getName();
     private static final String ROLE_OCCUPANT = "roleOccupant";
     private static final String ROLE_OSP = "ftOSP";
     private static final String ROLE_OSU = "ftOSU";
@@ -125,7 +126,7 @@ public final class AdminRoleDAO extends DataProvider
     };
 
 
-    public AdminRoleDAO()
+    public UnboundIdAdminRoleDAO()
     {
     }
 

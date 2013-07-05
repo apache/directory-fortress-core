@@ -55,7 +55,7 @@ public final class UserP
 {
     private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean( "user.session.props.enabled", false );
     private static final String CLS_NM = UserP.class.getName();
-    private static UserDAO uDao;
+    private static UserDAO uDao = DaoFactory.createUserDAO();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final PolicyP policyP = new PolicyP();
     private static final AdminRoleP admRoleP = new AdminRoleP();
@@ -67,7 +67,6 @@ public final class UserP
      */
     public UserP()
     {
-        uDao = DaoFactory.createUserDAO();
     }
 
 

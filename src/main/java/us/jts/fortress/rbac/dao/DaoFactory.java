@@ -6,8 +6,10 @@ package us.jts.fortress.rbac.dao;
 
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.cfg.Config;
+import us.jts.fortress.rbac.dao.apache.ApacheAdminRoleDAO;
 import us.jts.fortress.rbac.dao.apache.ApacheRoleDAO;
 import us.jts.fortress.rbac.dao.apache.ApacheUserDAO;
+import us.jts.fortress.rbac.dao.unboundid.UnboundIdAdminRoleDAO;
 import us.jts.fortress.rbac.dao.unboundid.UnboundIdRoleDAO;
 import us.jts.fortress.rbac.dao.unboundid.UnboundIdUserDAO;
 
@@ -71,6 +73,36 @@ public class DaoFactory
 
             case APACHE_LDAP_API:
                 return new ApacheRoleDAO();
+
+            default:
+                return null;
+        }
+    }
+
+
+    /**
+     * Create an instance of a AdminRoleDAO which depends of the used Backend
+     * 
+     * @return The created instance
+     */
+    public static AdminRoleDAO createAdminRoleDAO()
+    {
+        String daoConnector = Config.getProperty( GlobalIds.DAO_CONNECTOR );
+
+        DAOType daoType = DAOType.UNBOUNDID_API;
+
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        {
+            daoType = DAOType.APACHE_LDAP_API;
+        }
+
+        switch ( daoType )
+        {
+            case UNBOUNDID_API:
+                return new UnboundIdAdminRoleDAO();
+
+            case APACHE_LDAP_API:
+                return new ApacheAdminRoleDAO();
 
             default:
                 return null;

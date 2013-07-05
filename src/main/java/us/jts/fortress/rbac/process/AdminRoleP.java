@@ -23,7 +23,9 @@ import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.OrgUnit;
 import us.jts.fortress.rbac.RoleUtil;
 import us.jts.fortress.rbac.UserAdminRole;
-import us.jts.fortress.rbac.dao.unboundid.AdminRoleDAO;
+import us.jts.fortress.rbac.dao.AdminRoleDAO;
+import us.jts.fortress.rbac.dao.DaoFactory;
+import us.jts.fortress.rbac.dao.unboundid.UnboundIdAdminRoleDAO;
 import us.jts.fortress.util.attr.VUtil;
 
 
@@ -31,7 +33,7 @@ import us.jts.fortress.util.attr.VUtil;
  * Process module for the AdminRole entity.  This class performs data validations and error mapping.  It is typically called
  * by internal Fortress delegated manager classes ({@link DelAdminMgrImpl}, {@link DelAccessMgrImpl},
  * {@link DelReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
- * {@link AdminRole}, validate its contents and forward on to it's corresponding DAO class {@link AdminRoleDAO}.
+ * {@link AdminRole}, validate its contents and forward on to it's corresponding DAO class {@link UnboundIdAdminRoleDAO}.
  * <p>
  * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
@@ -49,7 +51,7 @@ public final class AdminRoleP
 {
     private static final String CLS_NM = AdminRoleP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final AdminRoleDAO rDao = new AdminRoleDAO();
+    private static final AdminRoleDAO rDao = DaoFactory.createAdminRoleDAO();
     private static final OrgUnitP op = new OrgUnitP();
 
 
