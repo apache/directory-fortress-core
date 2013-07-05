@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ */
 package us.jts.fortress.rbac.dao;
 
 
@@ -11,6 +14,51 @@ import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.Role;
 
 
+/**
+ * This class perform data access for Fortress Role entity.
+ * <p/>
+ * The Fortress Role entity is a composite of the following other Fortress structural and aux object classes:
+ * <h4>1. ftRls Structural objectclass is used to store the Role information like name and temporal constraint attributes</h4>
+ * <ul>
+ * <li>  ------------------------------------------
+ * <li> <code>objectclass   ( 1.3.6.1.4.1.38088.2.1</code>
+ * <li> <code>NAME 'ftRls'</code>
+ * <li> <code>DESC 'Fortress Role Object Class'</code>
+ * <li> <code>SUP organizationalrole</code>
+ * <li> <code>STRUCTURAL</code>
+ * <li> <code>MUST ( ftId $ ftRoleName )</code>
+ * <li> <code>MAY ( description $ ftCstr ) )</code>
+ * <li>  ------------------------------------------
+ * </ul>
+ * <h4>2. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity</h4>
+ * <code># This aux object class can be used to store custom attributes.</code><br />
+ * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
+ * <ul>
+ * <li>  ------------------------------------------
+ * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.2</code>
+ * <li> <code>NAME 'ftProperties'</code>
+ * <li> <code>DESC 'Fortress Properties AUX Object Class'</code>
+ * <li> <code>AUXILIARY</code>
+ * <li> <code>MAY ( ftProps ) ) </code>
+ * <li>  ------------------------------------------
+ * </ul>
+ * <h4>3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity</h4>
+ * <ul>
+ * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
+ * <li> <code>NAME 'ftMods'</code>
+ * <li> <code>DESC 'Fortress Modifiers AUX Object Class'</code>
+ * <li> <code>AUXILIARY</code>
+ * <li> <code>MAY (</code>
+ * <li> <code>ftModifier $</code>
+ * <li> <code>ftModCode $</code>
+ * <li> <code>ftModId ) )</code>
+ * <li>  ------------------------------------------
+ * </ul>
+ * <p/>
+ * This class is thread safe.
+ *
+ * @author Emmanuel Lecharny
+ */
 public interface RoleDAO
 {
     /**

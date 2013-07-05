@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac.dao.unboundid;
+package us.jts.fortress.rbac.dao.apache;
 
 
 import java.util.ArrayList;
@@ -10,6 +10,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.directory.api.ldap.model.cursor.CursorException;
+import org.apache.directory.api.ldap.model.cursor.SearchCursor;
+import org.apache.directory.api.ldap.model.entry.DefaultEntry;
+import org.apache.directory.api.ldap.model.entry.DefaultModification;
+import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.entry.Modification;
+import org.apache.directory.api.ldap.model.entry.ModificationOperation;
+import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
+import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,20 +32,12 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.apacheds.ApacheDsDataProvider;
 import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.OrgUnit;
 import us.jts.fortress.rbac.PsoUtil;
 import us.jts.fortress.rbac.UsoUtil;
-
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
+import us.jts.fortress.rbac.dao.OrgUnitDAO;
 
 
 /**
@@ -84,9 +88,9 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  * @author Shawn McKinney
  * @created September 18, 2010
  */
-public final class OrgUnitDAO extends DataProvider
+public final class ApacheOrgUnitDAO extends ApacheDsDataProvider implements OrgUnitDAO
 {
-    private static final String CLS_NM = OrgUnitDAO.class.getName();
+    private static final String CLS_NM = ApacheOrgUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String ORGUNIT_OBJECT_CLASS_NM = "ftOrgUnit";
 
@@ -108,7 +112,7 @@ public final class OrgUnitDAO extends DataProvider
     /**
      * Package private default constructor.
      */
-    public OrgUnitDAO()
+    public ApacheOrgUnitDAO()
     {
     }
 
@@ -119,34 +123,39 @@ public final class OrgUnitDAO extends DataProvider
      * @throws us.jts.fortress.CreateException
      *
      */
-    public final OrgUnit create( OrgUnit entity )
-        throws CreateException
+    public final OrgUnit create( OrgUnit entity ) throws CreateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
-            LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS ) );
+            Entry attrs = new DefaultEntry( dn );
+            attrs.add( GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS );
             entity.setId();
-            attrs.add( createAttribute( GlobalIds.FT_IID, entity.getId() ) );
+            attrs.add( GlobalIds.FT_IID, entity.getId() );
+
             if ( entity.getDescription() != null && entity.getDescription().length() > 0 )
-                attrs.add( createAttribute( GlobalIds.DESC, entity.getDescription() ) );
+            {
+                attrs.add( GlobalIds.DESC, entity.getDescription() );
+            }
+
             // organizational name requires OU attribute:
-            attrs.add( createAttribute( GlobalIds.OU, entity.getName() ) );
+            attrs.add( GlobalIds.OU, entity.getName() );
 
             // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
             loadAttrs( entity.getParents(), attrs, GlobalIds.PARENT_NODES );
 
-            LDAPEntry myEntry = new LDAPEntry( dn, attrs );
+            Entry myEntry = new DefaultEntry( dn, attrs );
             ld = getAdminConnection();
             add( ld, myEntry, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "create orgUnit name [" + entity.getName() + "] type [" + entity.getType()
-                + "] root [" + dn + "] caught LDAPException=" + e;
+                + "] root [" + dn + "] caught LdapException=" + e;
             int errCode;
+
             if ( entity.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_ADD_FAILED_PERM;
@@ -162,6 +171,7 @@ public final class OrgUnitDAO extends DataProvider
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -172,31 +182,35 @@ public final class OrgUnitDAO extends DataProvider
      * @throws us.jts.fortress.UpdateException
      *
      */
-    public final OrgUnit update( OrgUnit entity )
-        throws UpdateException
+    public final OrgUnit update( OrgUnit entity ) throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
+
             if ( entity.getDescription() != null && entity.getDescription().length() > 0 )
             {
-                LDAPAttribute desc = new LDAPAttribute( GlobalIds.DESC, entity.getDescription() );
-                mods.add( LDAPModification.REPLACE, desc );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
             }
+
             loadAttrs( entity.getParents(), mods, GlobalIds.PARENT_NODES );
+
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
                 modify( ld, dn, mods, entity );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "update orgUnit name [" + entity.getName() + "] type [" + entity.getType()
-                + "] root [" + dn + "] caught LDAPException=" + e;
+                + "] root [" + dn + "] caught LdapException=" + e;
             int errCode;
+
             if ( entity.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_UPDATE_FAILED_PERM;
@@ -212,6 +226,7 @@ public final class OrgUnitDAO extends DataProvider
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -221,24 +236,24 @@ public final class OrgUnitDAO extends DataProvider
      * @throws us.jts.fortress.UpdateException
      *
      */
-    public final void deleteParent( OrgUnit entity )
-        throws UpdateException
+    public final void deleteParent( OrgUnit entity ) throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute occupant = new LDAPAttribute( GlobalIds.PARENT_NODES );
-            mods.add( LDAPModification.DELETE, occupant );
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.PARENT_NODES ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "deleteParent orgUnit name [" + entity.getName() + "] type [" + entity.getType()
-                + "] root [" + dn + "] caught LDAPException=" + e;
+                + "] root [" + dn + "] caught LdapException=" + e;
             int errCode;
+
             if ( entity.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_REMOVE_PARENT_FAILED_PERM;
@@ -263,21 +278,22 @@ public final class OrgUnitDAO extends DataProvider
      * @throws us.jts.fortress.RemoveException
      *
      */
-    public final OrgUnit remove( OrgUnit entity )
-        throws RemoveException
+    public final OrgUnit remove( OrgUnit entity ) throws RemoveException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
             ld = getAdminConnection();
             delete( ld, dn, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "remove orgUnit name [" + entity.getName() + "] type [" + entity.getType()
-                + "] root [" + dn + "] caught LDAPException=" + e;
+                + "] root [" + dn + "] caught LdapException=" + e;
             int errCode;
+
             if ( entity.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_DELETE_FAILED_PERM;
@@ -293,6 +309,7 @@ public final class OrgUnitDAO extends DataProvider
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -303,21 +320,23 @@ public final class OrgUnitDAO extends DataProvider
      * @throws FinderException
      *
      */
-    public final OrgUnit findByKey( OrgUnit entity )
-        throws FinderException
+    public final OrgUnit findByKey( OrgUnit entity ) throws FinderException
     {
         OrgUnit oe = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read( ld, dn, ORGUNIT_ATRS );
+            Entry findEntry = read( ld, dn, ORGUNIT_ATRS );
+
             if ( findEntry == null )
             {
                 String warning = "findByKey orgUnit name [" + entity.getName() + "] type ["
                     + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
                 int errCode;
+
                 if ( entity.getType() == OrgUnit.Type.PERM )
                 {
                     errCode = GlobalErrIds.ORG_NOT_FOUND_PERM;
@@ -326,47 +345,50 @@ public final class OrgUnitDAO extends DataProvider
                 {
                     errCode = GlobalErrIds.ORG_NOT_FOUND_USER;
                 }
+
                 throw new FinderException( errCode, warning );
             }
+
             oe = getEntityFromLdapEntry( findEntry, 0, entity.getContextId() );
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchObjectException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
+            String warning = "findByKey orgUnit name [" + entity.getName() + "] type ["
+                + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
+            int errCode;
+
+            if ( entity.getType() == OrgUnit.Type.PERM )
             {
-                String warning = "findByKey orgUnit name [" + entity.getName() + "] type ["
-                    + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
-                int errCode;
-                if ( entity.getType() == OrgUnit.Type.PERM )
-                {
-                    errCode = GlobalErrIds.ORG_NOT_FOUND_PERM;
-                }
-                else
-                {
-                    errCode = GlobalErrIds.ORG_NOT_FOUND_USER;
-                }
-                throw new FinderException( errCode, warning );
+                errCode = GlobalErrIds.ORG_NOT_FOUND_PERM;
             }
             else
             {
-                String error = "findByKey orgUnitName [" + entity.getName() + "] type [" + entity.getType()
-                    + "] dn [" + dn + "] caught LDAPException=" + e;
-                int errCode;
-                if ( entity.getType() == OrgUnit.Type.PERM )
-                {
-                    errCode = GlobalErrIds.ORG_READ_FAILED_PERM;
-                }
-                else
-                {
-                    errCode = GlobalErrIds.ORG_READ_FAILED_USER;
-                }
-                throw new FinderException( errCode, error, e );
+                errCode = GlobalErrIds.ORG_NOT_FOUND_USER;
             }
+            throw new FinderException( errCode, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "findByKey orgUnitName [" + entity.getName() + "] type [" + entity.getType()
+                + "] dn [" + dn + "] caught LdapException=" + e;
+            int errCode;
+
+            if ( entity.getType() == OrgUnit.Type.PERM )
+            {
+                errCode = GlobalErrIds.ORG_READ_FAILED_PERM;
+            }
+            else
+            {
+                errCode = GlobalErrIds.ORG_READ_FAILED_USER;
+            }
+
+            throw new FinderException( errCode, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return oe;
     }
 
@@ -377,32 +399,51 @@ public final class OrgUnitDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    public final List<OrgUnit> findOrgs( OrgUnit orgUnit )
-        throws FinderException
+    public final List<OrgUnit> findOrgs( OrgUnit orgUnit ) throws FinderException
     {
         List<OrgUnit> orgUnitList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String orgUnitRoot = getOrgRoot( orgUnit );
+
         try
         {
             String searchVal = encodeSafeText( orgUnit.getName(), GlobalIds.ROLE_LEN );
             String filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
                 + GlobalIds.OU + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            searchResults = search( ld, orgUnitRoot,
-                LDAPConnection.SCOPE_ONE, filter, ORGUNIT_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, orgUnitRoot,
+                SearchScope.ONELEVEL, filter, ORGUNIT_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                orgUnitList.add( getEntityFromLdapEntry( searchResults.next(), sequence++, orgUnit.getContextId() ) );
+                orgUnitList
+                    .add( getEntityFromLdapEntry( searchResults.getEntry(), sequence++, orgUnit.getContextId() ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "findOrgs search val [" + orgUnit.getName() + "] type [" + orgUnit.getType()
-                + "] root [" + orgUnitRoot + "] caught LDAPException=" + e;
+                + "] root [" + orgUnitRoot + "] caught LdapException=" + e;
             int errCode;
+
+            if ( orgUnit.getType() == OrgUnit.Type.PERM )
+            {
+                errCode = GlobalErrIds.ORG_SEARCH_FAILED_PERM;
+            }
+            else
+            {
+                errCode = GlobalErrIds.ORG_SEARCH_FAILED_USER;
+            }
+
+            throw new FinderException( errCode, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findOrgs search val [" + orgUnit.getName() + "] type [" + orgUnit.getType()
+                + "] root [" + orgUnitRoot + "] caught LdapException=" + e;
+            int errCode;
+
             if ( orgUnit.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_SEARCH_FAILED_PERM;
@@ -418,6 +459,7 @@ public final class OrgUnitDAO extends DataProvider
         {
             closeAdminConnection( ld );
         }
+
         return orgUnitList;
     }
 
@@ -428,28 +470,30 @@ public final class OrgUnitDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    public final Set<String> getOrgs( OrgUnit orgUnit )
-        throws FinderException
+    public final Set<String> getOrgs( OrgUnit orgUnit ) throws FinderException
     {
         Set<String> ouSet = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String orgUnitRoot = getOrgRoot( orgUnit );
+
         try
         {
             String filter = "(objectclass=" + ORGUNIT_OBJECT_CLASS_NM + ")";
             ld = getAdminConnection();
-            LDAPSearchResults searchResults = search( ld, orgUnitRoot,
-                LDAPConnection.SCOPE_ONE, filter, ORGUNIT_ATR, false, GlobalIds.BATCH_SIZE );
-            while ( searchResults.hasMoreElements() )
+            SearchCursor searchResults = search( ld, orgUnitRoot,
+                SearchScope.ONELEVEL, filter, ORGUNIT_ATR, false, GlobalIds.BATCH_SIZE );
+
+            while ( searchResults.next() )
             {
-                ouSet.add( getAttribute( searchResults.next(), GlobalIds.OU ) );
+                ouSet.add( getAttribute( searchResults.getEntry(), GlobalIds.OU ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
-                + "] caught LDAPException=" + e;
+                + "] caught LdapException=" + e;
             int errCode;
+
             if ( orgUnit.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_GET_FAILED_PERM;
@@ -458,12 +502,31 @@ public final class OrgUnitDAO extends DataProvider
             {
                 errCode = GlobalErrIds.ORG_GET_FAILED_USER;
             }
+
+            throw new FinderException( errCode, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
+                + "] caught LdapException=" + e;
+            int errCode;
+
+            if ( orgUnit.getType() == OrgUnit.Type.PERM )
+            {
+                errCode = GlobalErrIds.ORG_GET_FAILED_PERM;
+            }
+            else
+            {
+                errCode = GlobalErrIds.ORG_GET_FAILED_USER;
+            }
+
             throw new FinderException( errCode, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return ouSet;
     }
 
@@ -474,39 +537,46 @@ public final class OrgUnitDAO extends DataProvider
       * @return
       * @throws FinderException
       */
-    public final List<Graphable> getAllDescendants( OrgUnit orgUnit )
-        throws FinderException
+    public final List<Graphable> getAllDescendants( OrgUnit orgUnit ) throws FinderException
     {
         String orgUnitRoot = getOrgRoot( orgUnit );
         String[] DESC_ATRS =
             { GlobalIds.OU, GlobalIds.PARENT_NODES };
         List<Graphable> descendants = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String filter = null;
+
         try
         {
             filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
                 + GlobalIds.PARENT_NODES + "=*))";
             ld = getAdminConnection();
-            searchResults = search( ld, orgUnitRoot,
-                LDAPConnection.SCOPE_ONE, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, orgUnitRoot,
+                SearchScope.ONELEVEL, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                descendants.add( unloadDescendants( searchResults.next(), sequence++, orgUnit.getContextId() ) );
+                descendants.add( unloadDescendants( searchResults.getEntry(), sequence++, orgUnit.getContextId() ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "getAllDescendants filter [" + filter + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "getAllDescendants filter [" + filter + "] caught LdapException="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "getAllDescendants filter [" + filter + "] caught LdapException="
+                + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return descendants;
     }
 
@@ -518,21 +588,25 @@ public final class OrgUnitDAO extends DataProvider
     private String getDn( OrgUnit orgUnit )
     {
         String dn = null;
+
         switch ( orgUnit.type )
         {
             case USER:
                 dn = GlobalIds.OU + "=" + orgUnit.getName() + ","
                     + getRootDn( orgUnit.getContextId(), GlobalIds.OSU_ROOT );
                 break;
+
             case PERM:
                 dn = GlobalIds.OU + "=" + orgUnit.getName() + ","
                     + getRootDn( orgUnit.getContextId(), GlobalIds.PSU_ROOT );
                 break;
+
             default:
                 String warning = "getDn invalid type";
                 LOG.warn( warning );
                 break;
         }
+
         return dn;
     }
 
@@ -545,19 +619,23 @@ public final class OrgUnitDAO extends DataProvider
     private String getOrgRoot( OrgUnit orgUnit )
     {
         String dn = null;
+
         switch ( orgUnit.type )
         {
             case USER:
                 dn = getRootDn( orgUnit.getContextId(), GlobalIds.OSU_ROOT );
                 break;
+
             case PERM:
                 dn = getRootDn( orgUnit.getContextId(), GlobalIds.PSU_ROOT );
                 break;
+
             default:
                 String warning = "getOrgRootDn invalid type";
                 LOG.warn( warning );
                 break;
         }
+
         return dn;
     }
 
@@ -568,14 +646,17 @@ public final class OrgUnitDAO extends DataProvider
     * @param sequence
     * @param contextId
     * @return
-    * @throws LDAPException
+     * @throws LdapInvalidAttributeValueException 
+    * @throws LdapException
     */
-    private Graphable unloadDescendants( LDAPEntry le, long sequence, String contextId )
+    private Graphable unloadDescendants( Entry le, long sequence, String contextId )
+        throws LdapInvalidAttributeValueException
     {
         OrgUnit entity = new ObjectFactory().createOrgUnit();
         entity.setSequenceId( sequence );
         entity.setName( getAttribute( le, GlobalIds.OU ) );
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
+
         return entity;
     }
 
@@ -586,16 +667,19 @@ public final class OrgUnitDAO extends DataProvider
      * @param sequence
      * @param contextId
      * @return
-     * @throws LDAPException
+     * @throws LdapInvalidAttributeValueException 
+     * @throws LdapException
      */
-    private OrgUnit getEntityFromLdapEntry( LDAPEntry le, long sequence, String contextId )
+    private OrgUnit getEntityFromLdapEntry( Entry le, long sequence, String contextId )
+        throws LdapInvalidAttributeValueException
     {
         OrgUnit entity = new ObjectFactory().createOrgUnit();
         entity.setSequenceId( sequence );
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName( getAttribute( le, GlobalIds.OU ) );
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
-        String dn = le.getDN();
+        String dn = le.getDn().getName();
+
         if ( dn.contains( getRootDn( contextId, GlobalIds.PSU_ROOT ) ) )
         {
             entity.setType( OrgUnit.Type.PERM );
@@ -608,7 +692,9 @@ public final class OrgUnitDAO extends DataProvider
             //entity.setParents(UsoUtil.getParents(entity.getName().toUpperCase(), contextId));
             entity.setChildren( UsoUtil.getChildren( entity.getName().toUpperCase(), contextId ) );
         }
+
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
+
         return entity;
     }
 }

@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ */
 package us.jts.fortress.rbac.dao;
 
 
@@ -16,6 +19,73 @@ import us.jts.fortress.rbac.User;
 import us.jts.fortress.rbac.UserRole;
 
 
+/**
+ * Data access class for LDAP User entity.
+ * <p/>
+ * <p/>
+ * The Fortress User LDAP schema follows:
+ * <p/>
+ * <h4>1. InetOrgPerson Structural Object Class </h4>
+ * <code># The inetOrgPerson represents people who are associated with an</code><br />
+ * <code># organization in some way.  It is a structural class and is derived</code><br />
+ * <code># from the organizationalPerson which is defined in X.521 [X521].</code><br />
+ * <ul>
+ * <li>  ------------------------------------------
+ * <li> <code>objectclass ( 2.16.840.1.113730.3.2.2</code>
+ * <li> <code>NAME 'inetOrgPerson'</code>
+ * <li> <code>DESC 'RFC2798: Internet Organizational Person'</code>
+ * <li> <code>SUP organizationalPerson</code>
+ * <li> <code>STRUCTURAL</code>
+ * <li> <code>MAY ( audio $ businessCategory $ carLicense $ departmentNumber $</code>
+ * <li> <code>displayName $ employeeNumber $ employeeType $ givenName $</code>
+ * <li> <code>homePhone $ homePostalAddress $ initials $ jpegPhoto $</code>
+ * <li> <code>labeledURI $ mail $ manager $ mobile $ o $ pager $ photo $</code>
+ * <li> <code>roomNumber $ secretary $ uid $ userCertificate $</code>
+ * <li> <code>x500uniqueIdentifier $ preferredLanguage $</code>
+ * <li> <code>userSMIMECertificate $ userPKCS12 ) )</code>
+ * <li>  ------------------------------------------
+ * </ul>
+ * <h4>2. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity</h4>
+ * <code># This aux object class can be used to store custom attributes.</code><br />
+ * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
+ * <ul>
+ * <li>  ------------------------------------------
+ * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.2</code>
+ * <li> <code>NAME 'ftProperties'</code>
+ * <li> <code>DESC 'Fortress Properties AUX Object Class'</code>
+ * <li> <code>AUXILIARY</code>
+ * <li> <code>MAY ( ftProps ) ) </code>
+ * <li>  ------------------------------------------
+ * </ul>
+ * <p/>
+ * <h4>3. ftUserAttrs is used to store user RBAC and Admin role assignment and other security attributes on User entity</h4>
+ * <ul>
+ * <li>  ------------------------------------------
+ * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.1</code>
+ * <li> <code>NAME 'ftUserAttrs'</code>
+ * <li> <code>DESC 'Fortress User Attribute AUX Object Class'</code>
+ * <li> <code>AUXILIARY</code>
+ * <li> <code>MUST ( ftId )</code>
+ * <li> <code>MAY ( ftRC $ ftRA $ ftARC $ ftARA $ ftCstr</code>
+ * <li>  ------------------------------------------
+ * </ul>
+ * <h4>4. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.</h4>
+ * <ul>
+ * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
+ * <li> <code>NAME 'ftMods'</code>
+ * <li> <code>DESC 'Fortress Modifiers AUX Object Class'</code>
+ * <li> <code>AUXILIARY</code>
+ * <li> <code>MAY (</code>
+ * <li> <code>ftModifier $</code>
+ * <li> <code>ftModCode $</code>
+ * <li> <code>ftModId ) )</code>
+ * <li>  ------------------------------------------
+ * </ul>
+ * <p/>
+ * This class is thread safe.
+ *
+ * @author Emmanuel Lecharny
+ */
 public interface UserDAO
 {
     List<User> findUsers( OrgUnit ou, boolean limitSize ) throws FinderException;

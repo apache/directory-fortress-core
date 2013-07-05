@@ -18,7 +18,8 @@ import us.jts.fortress.rbac.DelAdminMgrImpl;
 import us.jts.fortress.rbac.DelReviewMgrImpl;
 import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.OrgUnit;
-import us.jts.fortress.rbac.dao.unboundid.OrgUnitDAO;
+import us.jts.fortress.rbac.dao.DaoFactory;
+import us.jts.fortress.rbac.dao.OrgUnitDAO;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.cache.Cache;
 import us.jts.fortress.util.cache.CacheMgr;
@@ -57,7 +58,7 @@ public final class OrgUnitP
     private static Cache ouCache;
 
     // DAO class for OU data sets must be initializer before the other statics:
-    private static final OrgUnitDAO oDao = new OrgUnitDAO();
+    private static final OrgUnitDAO oDao = DaoFactory.createOrgUnitDAO();
     private static final String USER_OUS = "user.ous";
     private static final String PERM_OUS = "perm.ous";
     private static final String FORTRESS_OUS = "fortress.ous";

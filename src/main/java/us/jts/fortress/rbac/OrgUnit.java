@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import us.jts.fortress.rbac.dao.AdminRoleDAO;
-import us.jts.fortress.rbac.dao.unboundid.OrgUnitDAO;
+import us.jts.fortress.rbac.dao.OrgUnitDAO;
 import us.jts.fortress.rbac.process.AdminRoleP;
 import us.jts.fortress.rbac.process.OrgUnitP;
 
