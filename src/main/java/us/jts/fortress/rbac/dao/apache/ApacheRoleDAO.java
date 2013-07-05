@@ -8,12 +8,16 @@ package us.jts.fortress.rbac.dao.apache;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
 import org.apache.directory.api.ldap.model.entry.DefaultModification;
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.entry.Modification;
 import org.apache.directory.api.ldap.model.entry.ModificationOperation;
 import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
+import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 import us.jts.fortress.CreateException;
@@ -30,11 +34,6 @@ import us.jts.fortress.rbac.RoleUtil;
 import us.jts.fortress.rbac.dao.RoleDAO;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
-
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
 
 /**
@@ -157,15 +156,7 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "create role [" + entity.getName() + "] caught LdapException=" + e.getMessage();
-                throw new CreateException( GlobalErrIds.ROLE_ADD_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
 
         return entity;
@@ -278,15 +269,7 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "deleteParent name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.ROLE_REMOVE_PARENT_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
     }
 
@@ -325,18 +308,9 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
         }
         finally
         {
-            try
-            {
-                closeAdminConnection( ld );
-            }
-            catch ( Exception e )
-            {
-                String error = "assign role name [" + entity.getName() + "] user dn [" + userDn
-                    + "] caught LdapException="
-                    + e.getMessage();
-                throw new UpdateException( GlobalErrIds.ROLE_USER_ASSIGN_FAILED, error, e );
-            }
+            closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -355,21 +329,27 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            LDAPAttribute occupant = new LDAPAttribute( ROLE_OCCUPANT, userDn );
-            mods.add( LDAPModification.DELETE, occupant );
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, ROLE_OCCUPANT, userDn ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
         catch ( LdapException e )
         {
             String error = "deassign role name [" + entity.getName() + "] user dn [" + userDn
-                + "] caught LdapException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + "] caught LdapException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.ROLE_USER_DEASSIGN_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "deassign role name [" + entity.getName() + "] user dn [" + userDn
+                + "] caught LdapException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.ROLE_USER_DEASSIGN_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -383,6 +363,7 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
     {
         LdapConnection ld = null;
         String dn = getDn( role.getName(), role.getContextId() );
+
         try
         {
             ld = getAdminConnection();
@@ -390,8 +371,12 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
         }
         catch ( LdapException e )
         {
-            String error = "remove role name=" + role.getName() + " LdapException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "remove role name=" + role.getName() + " LdapException=" + e.getMessage();
+            throw new RemoveException( GlobalErrIds.ROLE_DELETE_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "remove role name=" + role.getName() + " LdapException=" + e.getMessage();
             throw new RemoveException( GlobalErrIds.ROLE_DELETE_FAILED, error, e );
         }
         finally
@@ -413,31 +398,39 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
         Role entity = null;
         LdapConnection ld = null;
         String dn = getDn( role.getName(), role.getContextId() );
+
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read( ld, dn, ROLE_ATRS );
+            Entry findEntry = read( ld, dn, ROLE_ATRS );
             entity = unloadLdapEntry( findEntry, 0, role.getContextId() );
+
             if ( entity == null )
             {
                 String warning = "getRole no entry found dn [" + dn + "]";
                 throw new FinderException( GlobalErrIds.ROLE_NOT_FOUND, warning );
             }
         }
+        catch ( LdapNoSuchObjectException e )
+        {
+            String warning = "getRole Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
+            throw new FinderException( GlobalErrIds.ROLE_NOT_FOUND, warning );
+        }
         catch ( LdapException e )
         {
-            if ( e.getLDAPResultCode() == LdapException.NO_SUCH_OBJECT )
-            {
-                String warning = "getRole Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
-                throw new FinderException( GlobalErrIds.ROLE_NOT_FOUND, warning );
-            }
-            String error = "getRole dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
+            String error = "getRole dn [" + dn + "] LEXCD=" + e;
+            throw new FinderException( GlobalErrIds.ROLE_READ_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "getRole dn [" + dn + "] LEXCD=" + e;
             throw new FinderException( GlobalErrIds.ROLE_READ_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -453,33 +446,39 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
     {
         List<Role> roleList = new ArrayList<>();
         LdapConnection ld = null;
-        LDAPSearchResults searchResults;
         String roleRoot = getRootDn( role.getContextId(), GlobalIds.ROLE_ROOT );
         String filter = null;
+
         try
         {
             String searchVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            searchResults = search( ld, roleRoot,
-                LdapConnection.SCOPE_ONE, filter, ROLE_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filter, ROLE_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                roleList.add( unloadLdapEntry( searchResults.next(), sequence++, role.getContextId() ) );
+                roleList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
             }
         }
         catch ( LdapException e )
         {
-            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return roleList;
     }
 
@@ -496,33 +495,39 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
     {
         List<String> roleList = new ArrayList<>();
         LdapConnection ld = null;
-        LDAPSearchResults searchResults;
         String roleRoot = getRootDn( role.getContextId(), GlobalIds.ROLE_ROOT );
         String filter = null;
+
         try
         {
             String searchVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            searchResults = search( ld, roleRoot,
-                LdapConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE, limit );
-            while ( searchResults.hasMoreElements() )
+            SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE, limit );
+
+            while ( searchResults.next() )
             {
-                LDAPEntry entry = searchResults.next();
+                Entry entry = searchResults.getEntry();
                 roleList.add( getAttribute( entry, ROLE_NM ) );
             }
         }
         catch ( LdapException e )
         {
-            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return roleList;
     }
 
@@ -539,30 +544,36 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
     {
         List<String> roleNameList = new ArrayList<>();
         LdapConnection ld = null;
-        LDAPSearchResults searchResults;
         String roleRoot = getRootDn( contextId, GlobalIds.ROLE_ROOT );
+
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")";
             filter += "(" + ROLE_OCCUPANT + "=" + userDn + "))";
             ld = getAdminConnection();
-            searchResults = search( ld, roleRoot,
-                LdapConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE );
-            while ( searchResults.hasMoreElements() )
+            SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE );
+
+            while ( searchResults.next() )
             {
-                roleNameList.add( getAttribute( searchResults.next(), ROLE_NM ) );
+                roleNameList.add( getAttribute( searchResults.getEntry(), ROLE_NM ) );
             }
         }
         catch ( LdapException e )
         {
-            String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ROLE_OCCUPANT_SEARCH_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_OCCUPANT_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return roleNameList;
     }
 
@@ -580,32 +591,38 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
             { ROLE_NM, GlobalIds.PARENT_NODES };
         List<Graphable> descendants = new ArrayList<>();
         LdapConnection ld = null;
-        LDAPSearchResults searchResults;
         String roleRoot = getRootDn( contextId, GlobalIds.ROLE_ROOT );
         String filter = null;
+
         try
         {
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + GlobalIds.PARENT_NODES + "=*))";
             ld = getAdminConnection();
-            searchResults = search( ld, roleRoot,
-                LdapConnection.SCOPE_ONE, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                descendants.add( unloadDescendants( searchResults.next(), sequence++, contextId ) );
+                descendants.add( unloadDescendants( searchResults.getEntry(), sequence++, contextId ) );
             }
         }
         catch ( LdapException e )
         {
-            String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return descendants;
     }
 
@@ -616,9 +633,11 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
      * @param sequence
      * @param contextId
      * @return
+     * @throws LdapInvalidAttributeValueException 
      * @throws LdapException
      */
-    private Graphable unloadDescendants( LDAPEntry le, long sequence, String contextId )
+    private Graphable unloadDescendants( Entry le, long sequence, String contextId )
+        throws LdapInvalidAttributeValueException
     {
         Role entity = new ObjectFactory().createRole();
         entity.setSequenceId( sequence );
@@ -634,9 +653,10 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
      * @param sequence
      * @param contextId
      * @return
+     * @throws LdapInvalidAttributeValueException 
      * @throws LdapException
      */
-    private Role unloadLdapEntry( LDAPEntry le, long sequence, String contextId )
+    private Role unloadLdapEntry( Entry le, long sequence, String contextId ) throws LdapInvalidAttributeValueException
     {
         Role entity = new ObjectFactory().createRole();
         entity.setSequenceId( sequence );
@@ -648,6 +668,7 @@ public final class ApacheRoleDAO extends ApacheDsDataProvider implements RoleDAO
         entity.setChildren( RoleUtil.getChildren( entity.getName().toUpperCase(), contextId ) );
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
         unloadTemporal( le, entity );
+
         return entity;
     }
 
