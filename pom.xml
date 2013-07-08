@@ -37,6 +37,11 @@
     <connection>git://git.openldap.org/openldap-fortress-core.git</connection>
   </scm>
 
+  <issueManagement>
+    <system>Fortress Core JIRA</system>
+    <url>https://fortress.atlassian.net/browse/FC/</url>
+  </issueManagement>
+
   <developers>
     <developer>
       <id>smckinney</id>
