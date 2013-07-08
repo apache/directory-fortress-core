@@ -30,7 +30,6 @@ import us.jts.fortress.rbac.Role;
 import us.jts.fortress.rbac.RoleUtil;
 import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rbac.User;
-import us.jts.fortress.rbac.dao.PermDAO;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 
@@ -134,9 +133,9 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-public final class UnboundIdPermDAO extends DataProvider implements PermDAO
+public final class PermDAO extends DataProvider implements us.jts.fortress.rbac.dao.PermDAO
 {
-    private static final String CLS_NM = UnboundIdPermDAO.class.getName();
+    private static final String CLS_NM = PermDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     /*
       *  *************************************************************************
@@ -185,7 +184,7 @@ public final class UnboundIdPermDAO extends DataProvider implements PermDAO
     /**
      * Default constructor is used by internal Fortress classes.
      */
-    public UnboundIdPermDAO()
+    public PermDAO()
     {
     }
 

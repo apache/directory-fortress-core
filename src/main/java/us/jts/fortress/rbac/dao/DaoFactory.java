@@ -6,16 +6,6 @@ package us.jts.fortress.rbac.dao;
 
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.cfg.Config;
-import us.jts.fortress.rbac.dao.apache.ApacheAdminRoleDAO;
-import us.jts.fortress.rbac.dao.apache.ApacheOrgUnitDAO;
-import us.jts.fortress.rbac.dao.apache.ApachePermDAO;
-import us.jts.fortress.rbac.dao.apache.ApacheRoleDAO;
-import us.jts.fortress.rbac.dao.apache.ApacheUserDAO;
-import us.jts.fortress.rbac.dao.unboundid.UnboundIdAdminRoleDAO;
-import us.jts.fortress.rbac.dao.unboundid.UnboundIdOrgUnitDAO;
-import us.jts.fortress.rbac.dao.unboundid.UnboundIdPermDAO;
-import us.jts.fortress.rbac.dao.unboundid.UnboundIdRoleDAO;
-import us.jts.fortress.rbac.dao.unboundid.UnboundIdUserDAO;
 
 
 /**
@@ -43,10 +33,10 @@ public class DaoFactory
         switch ( daoType )
         {
             case UNBOUNDID_API:
-                return new UnboundIdUserDAO();
+                return new us.jts.fortress.rbac.dao.unboundid.UserDAO();
 
             case APACHE_LDAP_API:
-                return new ApacheUserDAO();
+                return new us.jts.fortress.rbac.dao.apache.UserDAO();
 
             default:
                 return null;
@@ -73,10 +63,10 @@ public class DaoFactory
         switch ( daoType )
         {
             case UNBOUNDID_API:
-                return new UnboundIdRoleDAO();
+                return new us.jts.fortress.rbac.dao.unboundid.RoleDAO();
 
             case APACHE_LDAP_API:
-                return new ApacheRoleDAO();
+                return new us.jts.fortress.rbac.dao.apache.RoleDAO();
 
             default:
                 return null;
@@ -103,10 +93,10 @@ public class DaoFactory
         switch ( daoType )
         {
             case UNBOUNDID_API:
-                return new UnboundIdAdminRoleDAO();
+                return new us.jts.fortress.rbac.dao.unboundid.AdminRoleDAO();
 
             case APACHE_LDAP_API:
-                return new ApacheAdminRoleDAO();
+                return new us.jts.fortress.rbac.dao.apache.AdminRoleDAO();
 
             default:
                 return null;
@@ -133,10 +123,10 @@ public class DaoFactory
         switch ( daoType )
         {
             case UNBOUNDID_API:
-                return new UnboundIdOrgUnitDAO();
+                return new us.jts.fortress.rbac.dao.unboundid.OrgUnitDAO();
 
             case APACHE_LDAP_API:
-                return new ApacheOrgUnitDAO();
+                return new us.jts.fortress.rbac.dao.apache.OrgUnitDAO();
 
             default:
                 return null;
@@ -163,10 +153,10 @@ public class DaoFactory
         switch ( daoType )
         {
             case UNBOUNDID_API:
-                return new UnboundIdPermDAO();
+                return new us.jts.fortress.rbac.dao.unboundid.PermDAO();
 
             case APACHE_LDAP_API:
-                return new ApachePermDAO();
+                return new us.jts.fortress.rbac.dao.apache.PermDAO();
 
             default:
                 return null;

@@ -45,7 +45,6 @@ import us.jts.fortress.rbac.Role;
 import us.jts.fortress.rbac.RoleUtil;
 import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rbac.User;
-import us.jts.fortress.rbac.dao.PermDAO;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 
@@ -140,9 +139,9 @@ import us.jts.fortress.util.attr.VUtil;
  *
  * @author Shawn McKinney
  */
-public final class ApachePermDAO extends ApacheDsDataProvider implements PermDAO
+public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortress.rbac.dao.PermDAO
 {
-    private static final String CLS_NM = ApachePermDAO.class.getName();
+    private static final String CLS_NM = PermDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     /*
       *  *************************************************************************
@@ -191,7 +190,7 @@ public final class ApachePermDAO extends ApacheDsDataProvider implements PermDAO
     /**
      * Default constructor is used by internal Fortress classes.
      */
-    public ApachePermDAO()
+    public PermDAO()
     {
     }
 

@@ -37,7 +37,6 @@ import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.OrgUnit;
 import us.jts.fortress.rbac.PsoUtil;
 import us.jts.fortress.rbac.UsoUtil;
-import us.jts.fortress.rbac.dao.OrgUnitDAO;
 
 
 /**
@@ -88,9 +87,9 @@ import us.jts.fortress.rbac.dao.OrgUnitDAO;
  * @author Shawn McKinney
  * @created September 18, 2010
  */
-public final class ApacheOrgUnitDAO extends ApacheDsDataProvider implements OrgUnitDAO
+public final class OrgUnitDAO extends ApacheDsDataProvider implements us.jts.fortress.rbac.dao.OrgUnitDAO
 {
-    private static final String CLS_NM = ApacheOrgUnitDAO.class.getName();
+    private static final String CLS_NM = OrgUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String ORGUNIT_OBJECT_CLASS_NM = "ftOrgUnit";
 
@@ -112,7 +111,7 @@ public final class ApacheOrgUnitDAO extends ApacheDsDataProvider implements OrgU
     /**
      * Package private default constructor.
      */
-    public ApacheOrgUnitDAO()
+    public OrgUnitDAO()
     {
     }
 

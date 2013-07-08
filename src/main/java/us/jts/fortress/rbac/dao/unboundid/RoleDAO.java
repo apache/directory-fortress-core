@@ -19,7 +19,6 @@ import us.jts.fortress.ldap.DataProvider;
 import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.Role;
 import us.jts.fortress.rbac.RoleUtil;
-import us.jts.fortress.rbac.dao.RoleDAO;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
 
@@ -78,14 +77,14 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Kevin McKinney
  */
-public final class UnboundIdRoleDAO extends DataProvider implements RoleDAO
+public final class RoleDAO extends DataProvider implements us.jts.fortress.rbac.dao.RoleDAO
 {
     /*
       *  *************************************************************************
       *  **  OpenAccessMgr ROLE STATICS
       *  ************************************************************************
       */
-    private static final String CLS_NM = UnboundIdRoleDAO.class.getName();
+    private static final String CLS_NM = RoleDAO.class.getName();
     private static final String ROLE_OCCUPANT = "roleOccupant";
     private static final String ROLE_NM = "ftRoleName";
 
@@ -102,7 +101,7 @@ public final class UnboundIdRoleDAO extends DataProvider implements RoleDAO
     /**
      * Don't let any classes outside of this package construct instance of this class.
      */
-    public UnboundIdRoleDAO()
+    public RoleDAO()
     {
     }
 

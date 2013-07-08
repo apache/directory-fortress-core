@@ -25,7 +25,6 @@ import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.OrgUnit;
 import us.jts.fortress.rbac.PsoUtil;
 import us.jts.fortress.rbac.UsoUtil;
-import us.jts.fortress.rbac.dao.OrgUnitDAO;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
@@ -85,9 +84,9 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  * @author Shawn McKinney
  * @created September 18, 2010
  */
-public final class UnboundIdOrgUnitDAO extends DataProvider implements OrgUnitDAO
+public final class OrgUnitDAO extends DataProvider implements us.jts.fortress.rbac.dao.OrgUnitDAO
 {
-    private static final String CLS_NM = UnboundIdOrgUnitDAO.class.getName();
+    private static final String CLS_NM = OrgUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String ORGUNIT_OBJECT_CLASS_NM = "ftOrgUnit";
 
@@ -109,7 +108,7 @@ public final class UnboundIdOrgUnitDAO extends DataProvider implements OrgUnitDA
     /**
      * Package private default constructor.
      */
-    public UnboundIdOrgUnitDAO()
+    public OrgUnitDAO()
     {
     }
 

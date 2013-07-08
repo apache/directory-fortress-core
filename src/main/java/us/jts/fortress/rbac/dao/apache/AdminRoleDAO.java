@@ -2,11 +2,24 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac.dao.unboundid;
+package us.jts.fortress.rbac.dao.apache;
 
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.directory.api.ldap.model.cursor.CursorException;
+import org.apache.directory.api.ldap.model.cursor.SearchCursor;
+import org.apache.directory.api.ldap.model.entry.DefaultEntry;
+import org.apache.directory.api.ldap.model.entry.DefaultModification;
+import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.entry.Modification;
+import org.apache.directory.api.ldap.model.entry.ModificationOperation;
+import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
+import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.ldap.client.api.LdapConnection;
 
 import us.jts.fortress.CreateException;
 import us.jts.fortress.FinderException;
@@ -15,24 +28,14 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.apacheds.ApacheDsDataProvider;
 import us.jts.fortress.rbac.AdminRole;
 import us.jts.fortress.rbac.AdminRoleUtil;
 import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.Role;
-import us.jts.fortress.rbac.dao.AdminRoleDAO;
 import us.jts.fortress.rbac.process.AdminRoleP;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
-
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
 
 /**
@@ -90,9 +93,9 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRoleDAO
+public final class AdminRoleDAO extends ApacheDsDataProvider implements us.jts.fortress.rbac.dao.AdminRoleDAO
 {
-    private static final String CLS_NM = UnboundIdAdminRoleDAO.class.getName();
+    private static final String CLS_NM = AdminRoleDAO.class.getName();
     private static final String ROLE_OCCUPANT = "roleOccupant";
     private static final String ROLE_OSP = "ftOSP";
     private static final String ROLE_OSU = "ftOSU";
@@ -126,7 +129,7 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
     };
 
 
-    public UnboundIdAdminRoleDAO()
+    public AdminRoleDAO()
     {
     }
 
@@ -139,50 +142,55 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
      * @return input record back to client.
      * @throws us.jts.fortress.CreateException in the event LDAP errors occur.
      */
-    public final AdminRole create( AdminRole entity )
-        throws CreateException
+    public final AdminRole create( AdminRole entity ) throws CreateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
-            LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, ADMIN_ROLE_OBJ_CLASS ) );
+            Entry entry = new DefaultEntry( dn );
+
+            entry.add( GlobalIds.OBJECT_CLASS, ADMIN_ROLE_OBJ_CLASS );
             entity.setId();
-            attrs.add( createAttribute( GlobalIds.FT_IID, entity.getId() ) );
-            attrs.add( createAttribute( ROLE_NM, entity.getName() ) );
+            entry.add( GlobalIds.FT_IID, entity.getId() );
+            entry.add( ROLE_NM, entity.getName() );
+
             // description field is optional on this object class:
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                attrs.add( createAttribute( GlobalIds.DESC, entity.getDescription() ) );
+                entry.add( GlobalIds.DESC, entity.getDescription() );
             }
+
             // CN attribute is required for this object class:
-            attrs.add( createAttribute( GlobalIds.CN, entity.getName() ) );
-            attrs.add( createAttribute( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) ) );
-            loadAttrs( entity.getOsP(), attrs, ROLE_OSP );
-            loadAttrs( entity.getOsU(), attrs, ROLE_OSU );
+            entry.add( GlobalIds.CN, entity.getName() );
+            entry.add( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) );
+            loadAttrs( entity.getOsP(), entry, ROLE_OSP );
+            loadAttrs( entity.getOsU(), entry, ROLE_OSU );
             String szRaw = entity.getRoleRangeRaw();
+
             if ( VUtil.isNotNullOrEmpty( szRaw ) )
             {
-                attrs.add( createAttribute( ROLE_RANGE, szRaw ) );
+                entry.add( ROLE_RANGE, szRaw );
             }
-            // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
-            loadAttrs( entity.getParents(), attrs, GlobalIds.PARENT_NODES );
 
-            LDAPEntry myEntry = new LDAPEntry( dn, attrs );
+            // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
+            loadAttrs( entity.getParents(), entry, GlobalIds.PARENT_NODES );
+
+            Entry myEntry = new DefaultEntry( dn, entry );
             ld = getAdminConnection();
             add( ld, myEntry, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "create role [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "create role [" + entity.getName() + "] caught LdapException=" + e.getMessage();
             throw new CreateException( GlobalErrIds.ARLE_ADD_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -195,61 +203,69 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
      * @return input record back to client.
      * @throws UpdateException in the event LDAP errors occur.
      */
-    public final AdminRole update( AdminRole entity )
-        throws UpdateException
+    public final AdminRole update( AdminRole entity ) throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
+
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                LDAPAttribute desc = new LDAPAttribute( GlobalIds.DESC, entity.getDescription() );
-                mods.add( LDAPModification.REPLACE, desc );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    GlobalIds.DESC, entity.getDescription() ) );
             }
+
             if ( VUtil.isNotNullOrEmpty( entity.getOccupants() ) )
             {
                 for ( String name : entity.getOccupants() )
                 {
-                    LDAPAttribute occupant = new LDAPAttribute( ROLE_OCCUPANT, name );
-                    mods.add( LDAPModification.REPLACE, occupant );
+                    mods.add( new DefaultModification(
+                        ModificationOperation.REPLACE_ATTRIBUTE, ROLE_OCCUPANT, name ) );
                 }
             }
+
             if ( entity.isTemporalSet() )
             {
                 String szRawData = CUtil.setConstraint( entity );
                 if ( VUtil.isNotNullOrEmpty( szRawData ) )
                 {
-                    LDAPAttribute constraint = new LDAPAttribute( GlobalIds.CONSTRAINT, szRawData );
-                    mods.add( LDAPModification.REPLACE, constraint );
+                    mods.add( new DefaultModification(
+                        ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.CONSTRAINT, szRawData ) );
                 }
             }
+
             loadAttrs( entity.getOsU(), mods, ROLE_OSU );
             loadAttrs( entity.getOsP(), mods, ROLE_OSP );
             String szRaw = entity.getRoleRangeRaw();
+
             if ( VUtil.isNotNullOrEmpty( szRaw ) )
             {
-                LDAPAttribute raw = new LDAPAttribute( ROLE_RANGE, szRaw );
-                mods.add( LDAPModification.REPLACE, raw );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, ROLE_RANGE, szRaw ) );
             }
+
             loadAttrs( entity.getParents(), mods, GlobalIds.PARENT_NODES );
+
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
                 modify( ld, dn, mods, entity );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "update name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "update name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.ARLE_UPDATE_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -259,23 +275,21 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
      * @param entity
      * @throws UpdateException
      */
-    public final void deleteParent( AdminRole entity )
-        throws UpdateException
+    public final void deleteParent( AdminRole entity ) throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute occupant = new LDAPAttribute( GlobalIds.PARENT_NODES );
-            mods.add( LDAPModification.DELETE, occupant );
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.PARENT_NODES ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "deleteParent name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "deleteParent name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.ARLE_REMOVE_PARENT_FAILED, error, e );
         }
         finally
@@ -294,29 +308,29 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
      * @return input record back to client.
      * @throws UpdateException in the event LDAP errors occur.
      */
-    public final AdminRole assign( AdminRole entity, String userDn )
-        throws UpdateException
+    public final AdminRole assign( AdminRole entity, String userDn ) throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute occupant = new LDAPAttribute( ROLE_OCCUPANT, userDn );
-            mods.add( LDAPModification.ADD, occupant );
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, ROLE_OCCUPANT, userDn ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "assign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "assign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LdapException="
+                + e.getMessage();
             throw new UpdateException( GlobalErrIds.ARLE_USER_ASSIGN_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -330,23 +344,22 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
      * @return input record back to client.
      * @throws UpdateException in the event LDAP errors occur.
      */
-    public final AdminRole deassign( AdminRole entity, String userDn )
-        throws UpdateException
+    public final AdminRole deassign( AdminRole entity, String userDn ) throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute occupant = new LDAPAttribute( ROLE_OCCUPANT, userDn );
-            mods.add( LDAPModification.DELETE, occupant );
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification(
+                ModificationOperation.REMOVE_ATTRIBUTE, ROLE_OCCUPANT, userDn ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "deassign role name [" + entity.getName() + "] user dn [" + userDn
-                + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + "] caught LdapException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.ARLE_USER_DEASSIGN_FAILED, error, e );
         }
         finally
@@ -364,20 +377,19 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
      * @param role record contains {@link AdminRole#name}.
      * @throws RemoveException in the event LDAP errors occur.
      */
-    public final void remove( AdminRole role )
-        throws RemoveException
+    public final void remove( AdminRole role ) throws RemoveException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( role );
+
         try
         {
             ld = getAdminConnection();
             delete( ld, dn, role );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "remove role name=" + role.getName() + " LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "remove role name=" + role.getName() + " LdapException=" + e.getMessage();
             throw new RemoveException( GlobalErrIds.ARLE_DELETE_FAILED, error, e );
         }
         finally
@@ -394,38 +406,40 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
      * @return AdminRole back to client.
      * @throws FinderException in the event LDAP errors occur.
      */
-    public final AdminRole getRole( AdminRole adminRole )
-        throws FinderException
+    public final AdminRole getRole( AdminRole adminRole ) throws FinderException
     {
         AdminRole entity = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( adminRole );
+
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read( ld, dn, ROLE_ATRS );
+            Entry findEntry = read( ld, dn, ROLE_ATRS );
             entity = unloadLdapEntry( findEntry, 0, adminRole.getContextId() );
+
             if ( entity == null )
             {
                 String warning = "getRole name [" + adminRole.getName() + "] no entry found dn [" + dn + "]";
                 throw new FinderException( GlobalErrIds.ARLE_NOT_FOUND, warning );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchObjectException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                String warning = "getRole name [" + adminRole.getName() + "] Obj COULD NOT FIND ENTRY for dn [" + dn
-                    + "]";
-                throw new FinderException( GlobalErrIds.ARLE_NOT_FOUND, warning );
-            }
-            String error = "getRole dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
+            String warning = "getRole name [" + adminRole.getName() + "] Obj COULD NOT FIND ENTRY for dn [" + dn
+                + "]";
+            throw new FinderException( GlobalErrIds.ARLE_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "getRole dn [" + dn + "] LEXCD=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_READ_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -436,38 +450,43 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
      * @throws FinderException
      *
      */
-    public final List<AdminRole> findRoles( AdminRole adminRole )
-        throws FinderException
+    public final List<AdminRole> findRoles( AdminRole adminRole ) throws FinderException
     {
         List<AdminRole> roleList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String roleRoot = getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
         String filter;
+
         try
         {
             String searchVal = encodeSafeText( adminRole.getName(), GlobalIds.ROLE_LEN );
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            searchResults = search( ld, roleRoot,
-                LDAPConnection.SCOPE_ONE, filter, ROLE_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filter, ROLE_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                roleList.add( unloadLdapEntry( searchResults.next(), sequence++, adminRole.getContextId() ) );
+                roleList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, adminRole.getContextId() ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "findRoles name [" + adminRole.getName() + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "findRoles name [" + adminRole.getName() + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findRoles name [" + adminRole.getName() + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return roleList;
     }
 
@@ -479,39 +498,44 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
      * @throws FinderException
      *
      */
-    public final List<String> findRoles( AdminRole adminRole, int limit )
-        throws FinderException
+    public final List<String> findRoles( AdminRole adminRole, int limit ) throws FinderException
     {
         List<String> roleList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String roleRoot = getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
         String filter;
         String searchVal = null;
+
         try
         {
             searchVal = encodeSafeText( adminRole.getName(), GlobalIds.ROLE_LEN );
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            searchResults = search( ld, roleRoot,
-                LDAPConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE, limit );
-            while ( searchResults.hasMoreElements() )
+            SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE, limit );
+
+            while ( searchResults.next() )
             {
-                LDAPEntry entry = searchResults.next();
+                Entry entry = searchResults.getEntry();
                 roleList.add( getAttribute( entry, ROLE_NM ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "findRoles name [" + searchVal + "] caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "findRoles name [" + searchVal + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findRoles name [" + searchVal + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return roleList;
     }
 
@@ -521,35 +545,40 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
      * @return
      * @throws FinderException
      */
-    public final List<String> findAssignedRoles( String userDn, String contextId )
-        throws FinderException
+    public final List<String> findAssignedRoles( String userDn, String contextId ) throws FinderException
     {
         List<String> roleNameList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String roleRoot = getRootDn( contextId, GlobalIds.ADMIN_ROLE_ROOT );
+
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")";
             filter += "(" + ROLE_OCCUPANT + "=" + userDn + "))";
             ld = getAdminConnection();
-            searchResults = search( ld, roleRoot,
-                LDAPConnection.SCOPE_ONE, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE );
-            while ( searchResults.hasMoreElements() )
+            SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE );
+
+            while ( searchResults.next() )
             {
-                roleNameList.add( getAttribute( searchResults.next(), ROLE_NM ) );
+                roleNameList.add( getAttribute( searchResults.getEntry(), ROLE_NM ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "findAssignedRoles userDn [" + userDn + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return roleNameList;
     }
 
@@ -566,33 +595,39 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
         String[] DESC_ATRS =
             { ROLE_NM, GlobalIds.PARENT_NODES };
         List<Graphable> descendants = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String roleRoot = getRootDn( contextId, GlobalIds.ADMIN_ROLE_ROOT );
         String filter = null;
+
         try
         {
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + GlobalIds.PARENT_NODES + "=*))";
             ld = getAdminConnection();
-            searchResults = search( ld, roleRoot,
-                LDAPConnection.SCOPE_ONE, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                descendants.add( unloadDescendants( searchResults.next(), sequence++, contextId ) );
+                descendants.add( unloadDescendants( searchResults.getEntry(), sequence++, contextId ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "getAllDescendants filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return descendants;
     }
 
@@ -603,9 +638,11 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
     * @param sequence
     * @param contextId
     * @return
-    * @throws LDAPException
+     * @throws LdapInvalidAttributeValueException 
+    * @throws LdapException
     */
-    private Graphable unloadDescendants( LDAPEntry le, long sequence, String contextId )
+    private Graphable unloadDescendants( Entry le, long sequence, String contextId )
+        throws LdapInvalidAttributeValueException
     {
         Role entity = new ObjectFactory().createRole();
         entity.setSequenceId( sequence );
@@ -618,9 +655,11 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
     /**
      * @param le
      * @return
-     * @throws LDAPException
+     * @throws LdapInvalidAttributeValueException 
+     * @throws LdapException
      */
-    private AdminRole unloadLdapEntry( LDAPEntry le, long sequence, String contextId )
+    private AdminRole unloadLdapEntry( Entry le, long sequence, String contextId )
+        throws LdapInvalidAttributeValueException
     {
         AdminRole entity = new ObjectFactory().createAdminRole();
         entity.setSequenceId( sequence );
@@ -644,5 +683,4 @@ public final class UnboundIdAdminRoleDAO extends DataProvider implements AdminRo
         return GlobalIds.CN + "=" + adminRole.getName() + ","
             + getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
     }
-
 }

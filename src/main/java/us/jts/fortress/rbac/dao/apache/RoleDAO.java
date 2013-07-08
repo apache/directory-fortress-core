@@ -29,21 +29,18 @@ import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.ldap.apacheds.ApacheDsDataProvider;
-import us.jts.fortress.rbac.AdminRole;
-import us.jts.fortress.rbac.AdminRoleUtil;
 import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.Role;
-import us.jts.fortress.rbac.dao.AdminRoleDAO;
-import us.jts.fortress.rbac.process.AdminRoleP;
+import us.jts.fortress.rbac.RoleUtil;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
 
 
 /**
- * The AdminRoleDAO is called by {@link AdminRoleP} and processes data via its entity {@link AdminRole}.
+ * This class perform data access for Fortress Role entity.
  * <p/>
- * The Fortress AdminRoleDAO uses the following other Fortress structural and aux object classes:
- * <h4>1. ftRls Structural objectclass is used to store the AdminRole information like name, and temporal constraints</h4>
+ * The Fortress Role entity is a composite of the following other Fortress structural and aux object classes:
+ * <h4>1. ftRls Structural objectclass is used to store the Role information like name and temporal constraint attributes</h4>
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.1</code>
@@ -67,17 +64,7 @@ import us.jts.fortress.util.time.CUtil;
  * <li> <code>MAY ( ftProps ) ) </code>
  * <li>  ------------------------------------------
  * </ul>
- * <h4>3. ftPools Auxiliary object class store the ARBAC Perm and User OU assignments on AdminRole entity</h4>
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.3</code>
- * <li> <code>NAME 'ftPools'</code>
- * <li> <code>DESC 'Fortress Pools AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY ( ftOSU $ ftOSP ) )</code>
- * <li>  ------------------------------------------
- * </ul>
- * <h4>4. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity</h4>
+ * <h4>3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity</h4>
  * <ul>
  * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
  * <li> <code>NAME 'ftMods'</code>
@@ -92,25 +79,18 @@ import us.jts.fortress.util.time.CUtil;
  * <p/>
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author Kevin McKinney
  */
-public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements AdminRoleDAO
+public final class RoleDAO extends ApacheDsDataProvider implements us.jts.fortress.rbac.dao.RoleDAO
 {
-    private static final String CLS_NM = ApacheAdminRoleDAO.class.getName();
+    /*
+      *  *************************************************************************
+      *  **  OpenAccessMgr ROLE STATICS
+      *  ************************************************************************
+      */
     private static final String ROLE_OCCUPANT = "roleOccupant";
-    private static final String ROLE_OSP = "ftOSP";
-    private static final String ROLE_OSU = "ftOSU";
-    private static final String ROLE_RANGE = "ftRange";
-    private static final String POOLS_AUX_OBJECT_CLASS_NAME = "ftPools";
-    private static final String ADMIN_ROLE_OBJ_CLASS[] =
-        {
-            GlobalIds.TOP,
-            GlobalIds.ROLE_OBJECT_CLASS_NM,
-            GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
-            POOLS_AUX_OBJECT_CLASS_NAME,
-            GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
-    };
     private static final String ROLE_NM = "ftRoleName";
+
     private static final String[] ROLE_NM_ATR =
         {
             ROLE_NM
@@ -118,41 +98,32 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
     private static final String[] ROLE_ATRS =
         {
-            GlobalIds.FT_IID,
-            ROLE_NM,
-            GlobalIds.DESC,
-            GlobalIds.CONSTRAINT,
-            ROLE_OCCUPANT,
-            ROLE_OSP,
-            ROLE_OSU,
-            ROLE_RANGE,
-            GlobalIds.PARENT_NODES
+            GlobalIds.FT_IID, ROLE_NM, GlobalIds.DESC, GlobalIds.CONSTRAINT, ROLE_OCCUPANT, GlobalIds.PARENT_NODES
     };
 
 
-    public ApacheAdminRoleDAO()
+    /**
+     * Don't let any classes outside of this package construct instance of this class.
+     */
+    public RoleDAO()
     {
     }
 
 
     /**
-     * Create a new AdminRole entity using supplied data.  Required attribute is {@link AdminRole#name}.
-     * This data will be stored in the {@link GlobalIds#ADMIN_ROLE_ROOT} container.
-     *
-     * @param entity record contains AdminRole data.  Null attributes will be ignored.
-     * @return input record back to client.
-     * @throws us.jts.fortress.CreateException in the event LDAP errors occur.
+     * @param entity
+     * @return
+     * @throws CreateException
      */
-    public final AdminRole create( AdminRole entity ) throws CreateException
+    public final Role create( Role entity ) throws CreateException
     {
         LdapConnection ld = null;
-        String dn = getDn( entity );
+        String dn = getDn( entity.getName(), entity.getContextId() );
 
         try
         {
             Entry entry = new DefaultEntry( dn );
-
-            entry.add( GlobalIds.OBJECT_CLASS, ADMIN_ROLE_OBJ_CLASS );
+            entry.add( GlobalIds.OBJECT_CLASS, GlobalIds.ROLE_OBJ_CLASS );
             entity.setId();
             entry.add( GlobalIds.FT_IID, entity.getId() );
             entry.add( ROLE_NM, entity.getName() );
@@ -166,26 +137,17 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
             // CN attribute is required for this object class:
             entry.add( GlobalIds.CN, entity.getName() );
             entry.add( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) );
-            loadAttrs( entity.getOsP(), entry, ROLE_OSP );
-            loadAttrs( entity.getOsU(), entry, ROLE_OSU );
-            String szRaw = entity.getRoleRangeRaw();
 
-            if ( VUtil.isNotNullOrEmpty( szRaw ) )
-            {
-                entry.add( ROLE_RANGE, szRaw );
-            }
-
-            // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
+            // These multi-valued attributes are optional.  The utility function will return quietly if items are not loaded into collection:
             loadAttrs( entity.getParents(), entry, GlobalIds.PARENT_NODES );
 
-            Entry myEntry = new DefaultEntry( dn, entry );
             ld = getAdminConnection();
-            add( ld, myEntry, entity );
+            add( ld, entry, entity );
         }
         catch ( LdapException e )
         {
             String error = "create role [" + entity.getName() + "] caught LdapException=" + e.getMessage();
-            throw new CreateException( GlobalErrIds.ARLE_ADD_FAILED, error, e );
+            throw new CreateException( GlobalErrIds.ROLE_ADD_FAILED, error, e );
         }
         finally
         {
@@ -197,17 +159,15 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
 
     /**
-     * Update existing AdminRole entity using supplied data.  Required attribute is {@link AdminRole#name}.
-     * This data will be stored in the {@link GlobalIds#ADMIN_ROLE_ROOT} container.
+     * @param entity
+     * @return
+     * @throws us.jts.fortress.UpdateException
      *
-     * @param entity record contains AdminRole data.  Null attributes will be ignored.
-     * @return input record back to client.
-     * @throws UpdateException in the event LDAP errors occur.
      */
-    public final AdminRole update( AdminRole entity ) throws UpdateException
+    public final Role update( Role entity ) throws UpdateException
     {
         LdapConnection ld = null;
-        String dn = getDn( entity );
+        String dn = getDn( entity.getName(), entity.getContextId() );
 
         try
         {
@@ -215,8 +175,7 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE,
+                mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
                     GlobalIds.DESC, entity.getDescription() ) );
             }
 
@@ -224,29 +183,21 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
             {
                 for ( String name : entity.getOccupants() )
                 {
-                    mods.add( new DefaultModification(
-                        ModificationOperation.REPLACE_ATTRIBUTE, ROLE_OCCUPANT, name ) );
+                    mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
+                        ROLE_OCCUPANT, entity.getOccupants().toArray( new String[]
+                            {} ) ) );
                 }
             }
 
             if ( entity.isTemporalSet() )
             {
                 String szRawData = CUtil.setConstraint( entity );
+
                 if ( VUtil.isNotNullOrEmpty( szRawData ) )
                 {
-                    mods.add( new DefaultModification(
-                        ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.CONSTRAINT, szRawData ) );
+                    mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
+                        GlobalIds.CONSTRAINT, szRawData ) );
                 }
-            }
-
-            loadAttrs( entity.getOsU(), mods, ROLE_OSU );
-            loadAttrs( entity.getOsP(), mods, ROLE_OSP );
-            String szRaw = entity.getRoleRangeRaw();
-
-            if ( VUtil.isNotNullOrEmpty( szRaw ) )
-            {
-                mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, ROLE_RANGE, szRaw ) );
             }
 
             loadAttrs( entity.getParents(), mods, GlobalIds.PARENT_NODES );
@@ -260,11 +211,24 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
         catch ( LdapException e )
         {
             String error = "update name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
-            throw new UpdateException( GlobalErrIds.ARLE_UPDATE_FAILED, error, e );
+            throw new UpdateException( GlobalErrIds.ROLE_UPDATE_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "update name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.ROLE_UPDATE_FAILED, error, e );
         }
         finally
         {
-            closeAdminConnection( ld );
+            try
+            {
+                closeAdminConnection( ld );
+            }
+            catch ( Exception e )
+            {
+                String error = "update name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
+                throw new UpdateException( GlobalErrIds.ROLE_UPDATE_FAILED, error, e );
+            }
         }
 
         return entity;
@@ -276,22 +240,22 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
      * @param entity
      * @throws UpdateException
      */
-    public final void deleteParent( AdminRole entity ) throws UpdateException
+    public final void deleteParent( Role entity ) throws UpdateException
     {
         LdapConnection ld = null;
-        String dn = getDn( entity );
-
+        String dn = getDn( entity.getName(), entity.getContextId() );
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.PARENT_NODES ) );
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE,
+                GlobalIds.PARENT_NODES ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
         catch ( LdapException e )
         {
             String error = "deleteParent name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
-            throw new UpdateException( GlobalErrIds.ARLE_REMOVE_PARENT_FAILED, error, e );
+            throw new UpdateException( GlobalErrIds.ROLE_REMOVE_PARENT_FAILED, error, e );
         }
         finally
         {
@@ -301,21 +265,20 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
 
     /**
-     * This method will add the supplied DN as a role occupant to the target record.
-     * This data will be stored in the {@link GlobalIds#ADMIN_ROLE_ROOT} container.
+     * @param entity
+     * @param userDn
+     * @return
+     * @throws us.jts.fortress.UpdateException
      *
-     * @param entity record contains {@link AdminRole#name}.  Null attributes will be ignored.
-     * @param userDn contains the DN for userId who is being assigned.
-     * @return input record back to client.
-     * @throws UpdateException in the event LDAP errors occur.
      */
-    public final AdminRole assign( AdminRole entity, String userDn ) throws UpdateException
+    public final Role assign( Role entity, String userDn ) throws UpdateException
     {
         LdapConnection ld = null;
-        String dn = getDn( entity );
+        String dn = getDn( entity.getName(), entity.getContextId() );
 
         try
         {
+            //ld = getAdminConnection();
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, ROLE_OCCUPANT, userDn ) );
             ld = getAdminConnection();
@@ -325,7 +288,7 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
         {
             String error = "assign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LdapException="
                 + e.getMessage();
-            throw new UpdateException( GlobalErrIds.ARLE_USER_ASSIGN_FAILED, error, e );
+            throw new UpdateException( GlobalErrIds.ROLE_USER_ASSIGN_FAILED, error, e );
         }
         finally
         {
@@ -337,23 +300,20 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
 
     /**
-     * This method will remove the supplied DN as a role occupant to the target record.
-     * This data will be stored in the {@link GlobalIds#ADMIN_ROLE_ROOT} container.
+     * @param entity
+     * @param userDn
+     * @return
+     * @throws us.jts.fortress.UpdateException
      *
-     * @param entity record contains {@link AdminRole#name}.  Null attributes will be ignored.
-     * @param userDn contains the DN for userId who is being deassigned.
-     * @return input record back to client.
-     * @throws UpdateException in the event LDAP errors occur.
      */
-    public final AdminRole deassign( AdminRole entity, String userDn ) throws UpdateException
+    public final Role deassign( Role entity, String userDn ) throws UpdateException
     {
         LdapConnection ld = null;
-        String dn = getDn( entity );
+        String dn = getDn( entity.getName(), entity.getContextId() );
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            mods.add( new DefaultModification(
-                ModificationOperation.REMOVE_ATTRIBUTE, ROLE_OCCUPANT, userDn ) );
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, ROLE_OCCUPANT, userDn ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
@@ -361,27 +321,26 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
         {
             String error = "deassign role name [" + entity.getName() + "] user dn [" + userDn
                 + "] caught LdapException=" + e.getMessage();
-            throw new UpdateException( GlobalErrIds.ARLE_USER_DEASSIGN_FAILED, error, e );
+            throw new UpdateException( GlobalErrIds.ROLE_USER_DEASSIGN_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
 
     /**
-     * This method will completely remove the AdminRole from the directory.  It will use {@link AdminRole#name} as key.
-     * This operation is performed on the {@link GlobalIds#ADMIN_ROLE_ROOT} container.
-     *
-     * @param role record contains {@link AdminRole#name}.
-     * @throws RemoveException in the event LDAP errors occur.
+     * @param role
+     * @throws RemoveException
      */
-    public final void remove( AdminRole role ) throws RemoveException
+    public final void remove( Role role )
+        throws RemoveException
     {
         LdapConnection ld = null;
-        String dn = getDn( role );
+        String dn = getDn( role.getName(), role.getContextId() );
 
         try
         {
@@ -391,7 +350,7 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
         catch ( LdapException e )
         {
             String error = "remove role name=" + role.getName() + " LdapException=" + e.getMessage();
-            throw new RemoveException( GlobalErrIds.ARLE_DELETE_FAILED, error, e );
+            throw new RemoveException( GlobalErrIds.ROLE_DELETE_FAILED, error, e );
         }
         finally
         {
@@ -401,40 +360,44 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
 
     /**
-     * This method will retrieve the AdminRole from {@link GlobalIds#ADMIN_ROLE_ROOT} container by name.
+     * @param role
+     * @return
+     * @throws us.jts.fortress.FinderException
      *
-     * @param adminRole maps to {@link AdminRole#name}.
-     * @return AdminRole back to client.
-     * @throws FinderException in the event LDAP errors occur.
      */
-    public final AdminRole getRole( AdminRole adminRole ) throws FinderException
+    public final Role getRole( Role role )
+        throws FinderException
     {
-        AdminRole entity = null;
+        Role entity = null;
         LdapConnection ld = null;
-        String dn = getDn( adminRole );
+        String dn = getDn( role.getName(), role.getContextId() );
 
         try
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, ROLE_ATRS );
-            entity = unloadLdapEntry( findEntry, 0, adminRole.getContextId() );
+            entity = unloadLdapEntry( findEntry, 0, role.getContextId() );
 
             if ( entity == null )
             {
-                String warning = "getRole name [" + adminRole.getName() + "] no entry found dn [" + dn + "]";
-                throw new FinderException( GlobalErrIds.ARLE_NOT_FOUND, warning );
+                String warning = "getRole no entry found dn [" + dn + "]";
+                throw new FinderException( GlobalErrIds.ROLE_NOT_FOUND, warning );
             }
         }
         catch ( LdapNoSuchObjectException e )
         {
-            String warning = "getRole name [" + adminRole.getName() + "] Obj COULD NOT FIND ENTRY for dn [" + dn
-                + "]";
-            throw new FinderException( GlobalErrIds.ARLE_NOT_FOUND, warning );
+            String warning = "getRole Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
+            throw new FinderException( GlobalErrIds.ROLE_NOT_FOUND, warning );
         }
         catch ( LdapException e )
         {
-            String error = "getRole dn [" + dn + "] LEXCD=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_READ_FAILED, error, e );
+            String error = "getRole dn [" + dn + "] LEXCD=" + e;
+            throw new FinderException( GlobalErrIds.ROLE_READ_FAILED, error, e );
+        }
+        catch ( Exception e )
+        {
+            String error = "getRole dn [" + dn + "] LEXCD=" + e;
+            throw new FinderException( GlobalErrIds.ROLE_READ_FAILED, error, e );
         }
         finally
         {
@@ -446,21 +409,22 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
 
     /**
-     * @param adminRole
+     * @param role
      * @return
-     * @throws FinderException
+     * @throws us.jts.fortress.FinderException
      *
      */
-    public final List<AdminRole> findRoles( AdminRole adminRole ) throws FinderException
+    public final List<Role> findRoles( Role role )
+        throws FinderException
     {
-        List<AdminRole> roleList = new ArrayList<>();
+        List<Role> roleList = new ArrayList<>();
         LdapConnection ld = null;
-        String roleRoot = getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
-        String filter;
+        String roleRoot = getRootDn( role.getContextId(), GlobalIds.ROLE_ROOT );
+        String filter = null;
 
         try
         {
-            String searchVal = encodeSafeText( adminRole.getName(), GlobalIds.ROLE_LEN );
+            String searchVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
@@ -470,18 +434,18 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
             while ( searchResults.next() )
             {
-                roleList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, adminRole.getContextId() ) );
+                roleList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
             }
         }
         catch ( LdapException e )
         {
-            String error = "findRoles name [" + adminRole.getName() + "] caught LdapException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
+            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
         {
-            String error = "findRoles name [" + adminRole.getName() + "] caught LdapException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
+            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally
         {
@@ -493,23 +457,23 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
 
     /**
-     * @param adminRole
+     * @param role
      * @param limit
      * @return
-     * @throws FinderException
+     * @throws us.jts.fortress.FinderException
      *
      */
-    public final List<String> findRoles( AdminRole adminRole, int limit ) throws FinderException
+    public final List<String> findRoles( Role role, int limit )
+        throws FinderException
     {
         List<String> roleList = new ArrayList<>();
         LdapConnection ld = null;
-        String roleRoot = getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
-        String filter;
-        String searchVal = null;
+        String roleRoot = getRootDn( role.getContextId(), GlobalIds.ROLE_ROOT );
+        String filter = null;
 
         try
         {
-            searchVal = encodeSafeText( adminRole.getName(), GlobalIds.ROLE_LEN );
+            String searchVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
@@ -524,13 +488,13 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
         }
         catch ( LdapException e )
         {
-            String error = "findRoles name [" + searchVal + "] caught LdapException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
+            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
         {
-            String error = "findRoles name [" + searchVal + "] caught LdapException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
+            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally
         {
@@ -542,15 +506,18 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
 
     /**
+     *
      * @param userDn
+     * @param contextId
      * @return
      * @throws FinderException
      */
-    public final List<String> findAssignedRoles( String userDn, String contextId ) throws FinderException
+    public final List<String> findAssignedRoles( String userDn, String contextId )
+        throws FinderException
     {
         List<String> roleNameList = new ArrayList<>();
         LdapConnection ld = null;
-        String roleRoot = getRootDn( contextId, GlobalIds.ADMIN_ROLE_ROOT );
+        String roleRoot = getRootDn( contextId, GlobalIds.ROLE_ROOT );
 
         try
         {
@@ -568,12 +535,12 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
         catch ( LdapException e )
         {
             String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e );
+            throw new FinderException( GlobalErrIds.ROLE_OCCUPANT_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
         {
             String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e );
+            throw new FinderException( GlobalErrIds.ROLE_OCCUPANT_SEARCH_FAILED, error, e );
         }
         finally
         {
@@ -585,11 +552,11 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
 
     /**
-      *
-      * @param contextId
-      * @return
-      * @throws FinderException
-      */
+     *
+     * @param contextId
+     * @return
+     * @throws FinderException
+     */
     public final List<Graphable> getAllDescendants( String contextId )
         throws FinderException
     {
@@ -597,7 +564,7 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
             { ROLE_NM, GlobalIds.PARENT_NODES };
         List<Graphable> descendants = new ArrayList<>();
         LdapConnection ld = null;
-        String roleRoot = getRootDn( contextId, GlobalIds.ADMIN_ROLE_ROOT );
+        String roleRoot = getRootDn( contextId, GlobalIds.ROLE_ROOT );
         String filter = null;
 
         try
@@ -617,12 +584,12 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
         catch ( LdapException e )
         {
             String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
         {
             String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally
         {
@@ -634,14 +601,14 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
 
     /**
-    *
-    * @param le
-    * @param sequence
-    * @param contextId
-    * @return
+     *
+     * @param le
+     * @param sequence
+     * @param contextId
+     * @return
      * @throws LdapInvalidAttributeValueException 
-    * @throws LdapException
-    */
+     * @throws LdapException
+     */
     private Graphable unloadDescendants( Entry le, long sequence, String contextId )
         throws LdapInvalidAttributeValueException
     {
@@ -654,34 +621,33 @@ public final class ApacheAdminRoleDAO extends ApacheDsDataProvider implements Ad
 
 
     /**
+     *
      * @param le
+     * @param sequence
+     * @param contextId
      * @return
      * @throws LdapInvalidAttributeValueException 
      * @throws LdapException
      */
-    private AdminRole unloadLdapEntry( Entry le, long sequence, String contextId )
-        throws LdapInvalidAttributeValueException
+    private Role unloadLdapEntry( Entry le, long sequence, String contextId ) throws LdapInvalidAttributeValueException
     {
-        AdminRole entity = new ObjectFactory().createAdminRole();
+        Role entity = new ObjectFactory().createRole();
         entity.setSequenceId( sequence );
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName( getAttribute( le, ROLE_NM ) );
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
         entity.setOccupants( getAttributes( le, ROLE_OCCUPANT ) );
-        entity.setOsP( getAttributeSet( le, ROLE_OSP ) );
-        entity.setOsU( getAttributeSet( le, ROLE_OSU ) );
-        unloadTemporal( le, entity );
-        entity.setRoleRangeRaw( getAttribute( le, ROLE_RANGE ) );
-        //entity.setParents(AdminRoleUtil.getParents(entity.getName().toUpperCase(), contextId));
+        //entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
+        entity.setChildren( RoleUtil.getChildren( entity.getName().toUpperCase(), contextId ) );
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
-        entity.setChildren( AdminRoleUtil.getChildren( entity.getName().toUpperCase(), contextId ) );
+        unloadTemporal( le, entity );
+
         return entity;
     }
 
 
-    private String getDn( AdminRole adminRole )
+    private String getDn( String name, String contextId )
     {
-        return GlobalIds.CN + "=" + adminRole.getName() + ","
-            + getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
+        return GlobalIds.CN + "=" + name + "," + getRootDn( contextId, GlobalIds.ROLE_ROOT );
     }
 }

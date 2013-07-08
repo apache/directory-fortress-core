@@ -304,7 +304,7 @@ public final class AuditDAO extends DataProvider
         String userRoot = getRootDn( audit.getContextId(), GlobalIds.USER_ROOT );
         try
         {
-            String reqDn = UnboundIdPermDAO.getOpRdn( audit.getOpName(), audit.getObjId() ) + "," + GlobalIds.POBJ_NAME + "="
+            String reqDn = PermDAO.getOpRdn( audit.getOpName(), audit.getObjId() ) + "," + GlobalIds.POBJ_NAME + "="
                 + audit.getObjName() + "," + permRoot;
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(" + REQDN + "=" +
                 reqDn + ")(" + REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
