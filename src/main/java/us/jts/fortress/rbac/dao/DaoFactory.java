@@ -8,6 +8,7 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.cfg.Config;
 import us.jts.fortress.rbac.dao.apache.ApacheAdminRoleDAO;
 import us.jts.fortress.rbac.dao.apache.ApacheOrgUnitDAO;
+import us.jts.fortress.rbac.dao.apache.ApachePermDAO;
 import us.jts.fortress.rbac.dao.apache.ApacheRoleDAO;
 import us.jts.fortress.rbac.dao.apache.ApacheUserDAO;
 import us.jts.fortress.rbac.dao.unboundid.UnboundIdAdminRoleDAO;
@@ -165,7 +166,37 @@ public class DaoFactory
                 return new UnboundIdPermDAO();
 
             case APACHE_LDAP_API:
-                return null;//new ApachePermDAO();
+                return new ApachePermDAO();
+
+            default:
+                return null;
+        }
+    }
+
+
+    /**
+     * Create an instance of a SdDAO which depends of the used Backend
+     * 
+     * @return The created instance
+     */
+    public static SdDAO createSdDAO()
+    {
+        String daoConnector = Config.getProperty( GlobalIds.DAO_CONNECTOR );
+
+        DAOType daoType = DAOType.UNBOUNDID_API;
+
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        {
+            daoType = DAOType.APACHE_LDAP_API;
+        }
+
+        switch ( daoType )
+        {
+            case UNBOUNDID_API:
+                return new us.jts.fortress.rbac.dao.unboundid.SdDAO();
+
+            case APACHE_LDAP_API:
+                return new us.jts.fortress.rbac.dao.apache.SdDAO();
 
             default:
                 return null;
