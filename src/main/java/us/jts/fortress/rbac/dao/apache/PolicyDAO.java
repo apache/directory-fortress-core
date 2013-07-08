@@ -2,13 +2,26 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac.dao.unboundid;
+package us.jts.fortress.rbac.dao.apache;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.apache.directory.api.ldap.model.cursor.CursorException;
+import org.apache.directory.api.ldap.model.cursor.SearchCursor;
+import org.apache.directory.api.ldap.model.entry.DefaultEntry;
+import org.apache.directory.api.ldap.model.entry.DefaultModification;
+import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.entry.Modification;
+import org.apache.directory.api.ldap.model.entry.ModificationOperation;
+import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
+import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.ldap.client.api.LdapConnection;
 
 import us.jts.fortress.CreateException;
 import us.jts.fortress.FinderException;
@@ -17,18 +30,9 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.apacheds.ApacheDsDataProvider;
 import us.jts.fortress.rbac.PwPolicy;
 import us.jts.fortress.util.attr.VUtil;
-
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
 
 /**
@@ -76,7 +80,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-public final class PolicyDAO extends DataProvider implements us.jts.fortress.rbac.dao.PolicyDAO
+public final class PolicyDAO extends ApacheDsDataProvider implements us.jts.fortress.rbac.dao.PolicyDAO
 {
     /*
       *  *************************************************************************
@@ -140,98 +144,113 @@ public final class PolicyDAO extends DataProvider implements us.jts.fortress.rba
     public final PwPolicy create( PwPolicy entity )
         throws CreateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
-            LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, OAM_PWPOLICY_OBJ_CLASS ) );
-            attrs.add( createAttribute( GlobalIds.CN, entity.getName() ) );
-            attrs.add( createAttribute( OLPW_ATTRIBUTE, OLPW_POLICY_EXTENSION ) );
+            Entry attrs = new DefaultEntry( dn );
+            attrs.add( GlobalIds.OBJECT_CLASS, OAM_PWPOLICY_OBJ_CLASS );
+            attrs.add( GlobalIds.CN, entity.getName() );
+            attrs.add( OLPW_ATTRIBUTE, OLPW_POLICY_EXTENSION );
+
             if ( entity.getMinAge() != null )
             {
-                attrs.add( createAttribute( OLPW_MIN_AGE, entity.getMinAge().toString() ) );
+                attrs.add( OLPW_MIN_AGE, entity.getMinAge().toString() );
             }
+
             if ( entity.getMaxAge() != null )
             {
-                attrs.add( createAttribute( OLPW_MAX_AGE, entity.getMaxAge().toString() ) );
+                attrs.add( OLPW_MAX_AGE, entity.getMaxAge().toString() );
             }
+
             if ( entity.getInHistory() != null )
             {
-                attrs.add( createAttribute( OLPW_IN_HISTORY, entity.getInHistory().toString() ) );
+                attrs.add( OLPW_IN_HISTORY, entity.getInHistory().toString() );
             }
+
             if ( entity.getCheckQuality() != null )
             {
-                attrs.add( createAttribute( OLPW_CHECK_QUALITY, entity.getCheckQuality().toString() ) );
+                attrs.add( OLPW_CHECK_QUALITY, entity.getCheckQuality().toString() );
             }
+
             if ( entity.getMinLength() != null )
             {
-                attrs.add( createAttribute( OLPW_MIN_LENGTH, entity.getMinLength().toString() ) );
+                attrs.add( OLPW_MIN_LENGTH, entity.getMinLength().toString() );
             }
+
             if ( entity.getExpireWarning() != null )
             {
-                attrs.add( createAttribute( OLPW_EXPIRE_WARNING, entity.getExpireWarning().toString() ) );
+                attrs.add( OLPW_EXPIRE_WARNING, entity.getExpireWarning().toString() );
             }
+
             if ( entity.getGraceLoginLimit() != null )
             {
-                attrs.add( createAttribute( OLPW_GRACE_LOGIN_LIMIT, entity.getGraceLoginLimit().toString() ) );
+                attrs.add( OLPW_GRACE_LOGIN_LIMIT, entity.getGraceLoginLimit().toString() );
             }
+
             if ( entity.getLockout() != null )
             {
                 /**
                  * For some reason OpenLDAP requires the pwdLockout boolean value to be upper case:
                  */
-                attrs.add( createAttribute( OLPW_LOCKOUT, entity.getLockout().toString().toUpperCase() ) );
+                attrs.add( OLPW_LOCKOUT, entity.getLockout().toString().toUpperCase() );
             }
+
             if ( entity.getLockoutDuration() != null )
             {
-                attrs.add( createAttribute( OLPW_LOCKOUT_DURATION, entity.getLockoutDuration().toString() ) );
+                attrs.add( OLPW_LOCKOUT_DURATION, entity.getLockoutDuration().toString() );
             }
+
             if ( entity.getMaxFailure() != null )
             {
-                attrs.add( createAttribute( OLPW_MAX_FAILURE, entity.getMaxFailure().toString() ) );
+                attrs.add( OLPW_MAX_FAILURE, entity.getMaxFailure().toString() );
             }
+
             if ( entity.getFailureCountInterval() != null )
             {
-                attrs.add( createAttribute( OLPW_FAILURE_COUNT_INTERVAL, entity.getFailureCountInterval().toString() ) );
+                attrs.add( OLPW_FAILURE_COUNT_INTERVAL, entity.getFailureCountInterval().toString() );
             }
+
             if ( entity.getMustChange() != null )
             {
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                attrs.add( createAttribute( OLPW_MUST_CHANGE, entity.getMustChange().toString().toUpperCase() ) );
+                attrs.add( OLPW_MUST_CHANGE, entity.getMustChange().toString().toUpperCase() );
             }
+
             if ( entity.getAllowUserChange() != null )
             {
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                attrs.add( createAttribute( OLPW_ALLOW_USER_CHANGE, entity.getAllowUserChange().toString()
-                    .toUpperCase() ) );
+                attrs.add( OLPW_ALLOW_USER_CHANGE, entity.getAllowUserChange().toString()
+                    .toUpperCase() );
             }
+
             if ( entity.getSafeModify() != null )
             {
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                attrs.add( createAttribute( OLPW_SAFE_MODIFY, entity.getSafeModify().toString().toUpperCase() ) );
+                attrs.add( OLPW_SAFE_MODIFY, entity.getSafeModify().toString().toUpperCase() );
             }
 
-            LDAPEntry myEntry = new LDAPEntry( dn, attrs );
+            Entry myEntry = new DefaultEntry( dn, attrs );
             ld = getAdminConnection();
             add( ld, myEntry, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "create name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "create name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
             throw new CreateException( GlobalErrIds.PSWD_CREATE_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -241,113 +260,134 @@ public final class PolicyDAO extends DataProvider implements us.jts.fortress.rba
      * @throws us.jts.fortress.UpdateException
      *
      */
-    public final void update( PwPolicy entity )
-        throws UpdateException
+    public final void update( PwPolicy entity ) throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
+
             if ( entity.getMinAge() != null )
             {
-                LDAPAttribute minAge = new LDAPAttribute( OLPW_MIN_AGE, entity.getMinAge().toString() );
-                mods.add( LDAPModification.REPLACE, minAge );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_MIN_AGE, entity.getMinAge().toString() ) );
             }
+
             if ( entity.getMaxAge() != null )
             {
-                LDAPAttribute maxAge = new LDAPAttribute( OLPW_MAX_AGE, entity.getMaxAge().toString() );
-                mods.add( LDAPModification.REPLACE, maxAge );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_MAX_AGE, entity.getMaxAge().toString() ) );
             }
+
             if ( entity.getInHistory() != null )
             {
-                LDAPAttribute inHistory = new LDAPAttribute( OLPW_IN_HISTORY, entity.getInHistory().toString() );
-                mods.add( LDAPModification.REPLACE, inHistory );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_IN_HISTORY, entity.getInHistory().toString() ) );
             }
+
             if ( entity.getCheckQuality() != null )
             {
-                LDAPAttribute checkQuality = new LDAPAttribute( OLPW_CHECK_QUALITY, entity.getCheckQuality().toString() );
-                mods.add( LDAPModification.REPLACE, checkQuality );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_CHECK_QUALITY, entity.getCheckQuality().toString() ) );
             }
+
             if ( entity.getMinLength() != null )
             {
-                LDAPAttribute minLength = new LDAPAttribute( OLPW_MIN_LENGTH, entity.getMinLength().toString() );
-                mods.add( LDAPModification.REPLACE, minLength );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_MIN_LENGTH, entity.getMinLength().toString() ) );
             }
+
             if ( entity.getExpireWarning() != null )
             {
-                LDAPAttribute expireWarning = new LDAPAttribute( OLPW_EXPIRE_WARNING, entity.getExpireWarning()
-                    .toString() );
-                mods.add( LDAPModification.REPLACE, expireWarning );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_EXPIRE_WARNING, entity.getExpireWarning().toString() ) );
             }
+
             if ( entity.getGraceLoginLimit() != null )
             {
-                LDAPAttribute graceLoginLimit = new LDAPAttribute( OLPW_GRACE_LOGIN_LIMIT, entity.getGraceLoginLimit()
-                    .toString() );
-                mods.add( LDAPModification.REPLACE, graceLoginLimit );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_GRACE_LOGIN_LIMIT, entity.getGraceLoginLimit().toString() ) );
             }
+
             if ( entity.getLockout() != null )
             {
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                LDAPAttribute lockout = new LDAPAttribute( OLPW_LOCKOUT, entity.getLockout().toString().toUpperCase() );
-                mods.add( LDAPModification.REPLACE, lockout );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_LOCKOUT, entity.getLockout().toString().toUpperCase() ) );
             }
+
             if ( entity.getLockoutDuration() != null )
             {
-                LDAPAttribute lockoutDuration = new LDAPAttribute( OLPW_LOCKOUT_DURATION, entity.getLockoutDuration()
-                    .toString() );
-                mods.add( LDAPModification.REPLACE, lockoutDuration );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_LOCKOUT_DURATION, entity.getLockoutDuration().toString() ) );
             }
+
             if ( entity.getMaxFailure() != null )
             {
-                LDAPAttribute maxFailure = new LDAPAttribute( OLPW_MAX_FAILURE, entity.getMaxFailure().toString() );
-                mods.add( LDAPModification.REPLACE, maxFailure );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_MAX_FAILURE, entity.getMaxFailure().toString() ) );
             }
+
             if ( entity.getFailureCountInterval() != null )
             {
-                LDAPAttribute failureCountInterval = new LDAPAttribute( OLPW_FAILURE_COUNT_INTERVAL, entity
-                    .getFailureCountInterval().toString() );
-                mods.add( LDAPModification.REPLACE, failureCountInterval );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_FAILURE_COUNT_INTERVAL, entity.getFailureCountInterval().toString() ) );
             }
+
             if ( entity.getMustChange() != null )
             {
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                LDAPAttribute mustChange = new LDAPAttribute( OLPW_MUST_CHANGE, entity.getMustChange().toString()
-                    .toUpperCase() );
-                mods.add( LDAPModification.REPLACE, mustChange );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_MUST_CHANGE, entity.getMustChange().toString().toUpperCase() ) );
             }
+
             if ( entity.getAllowUserChange() != null )
             {
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                LDAPAttribute allowUserChange = new LDAPAttribute( OLPW_ALLOW_USER_CHANGE, entity.getAllowUserChange()
-                    .toString().toUpperCase() );
-                mods.add( LDAPModification.REPLACE, allowUserChange );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_ALLOW_USER_CHANGE, entity.getAllowUserChange().toString().toUpperCase() ) );
             }
+
             if ( entity.getSafeModify() != null )
             {
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                LDAPAttribute safeModify = new LDAPAttribute( OLPW_SAFE_MODIFY, entity.getSafeModify().toString()
-                    .toUpperCase() );
-                mods.add( LDAPModification.REPLACE, safeModify );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE,
+                    OLPW_SAFE_MODIFY, entity.getSafeModify().toString().toUpperCase() ) );
             }
+
             if ( mods != null && mods.size() > 0 )
             {
                 ld = getAdminConnection();
                 modify( ld, dn, mods, entity );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "update name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "update name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.PSWD_UPDATE_FAILED, error, e );
         }
         finally
@@ -361,20 +401,19 @@ public final class PolicyDAO extends DataProvider implements us.jts.fortress.rba
      * @param entity
      * @throws us.jts.fortress.RemoveException
      */
-    public final void remove( PwPolicy entity )
-        throws RemoveException
+    public final void remove( PwPolicy entity ) throws RemoveException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity );
+
         try
         {
             ld = getAdminConnection();
             delete( ld, dn, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "remove name [" + entity.getName() + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "remove name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
             throw new RemoveException( GlobalErrIds.PSWD_DELETE_FAILED, error, e );
         }
         finally
@@ -390,39 +429,34 @@ public final class PolicyDAO extends DataProvider implements us.jts.fortress.rba
      * @throws us.jts.fortress.FinderException
      *
      */
-    public final PwPolicy getPolicy( PwPolicy policy )
-        throws FinderException
+    public final PwPolicy getPolicy( PwPolicy policy ) throws FinderException
     {
         PwPolicy entity = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( policy );
+
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read( ld, dn, PASSWORD_POLICY_ATRS );
+            Entry findEntry = read( ld, dn, PASSWORD_POLICY_ATRS );
             entity = unloadLdapEntry( findEntry, 0 );
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchObjectException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-                {
-                    String warning = "getPolicy Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
-                    throw new FinderException( GlobalErrIds.PSWD_NOT_FOUND, warning );
-                }
-            }
-            else
-            {
-                String error = "getPolicy name [" + policy.getName() + "] caught LDAPException="
-                    + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.PSWD_READ_FAILED, error, e );
-            }
+            String warning = "getPolicy Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
+            throw new FinderException( GlobalErrIds.PSWD_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "getPolicy name [" + policy.getName() + "] caught LdapException="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.PSWD_READ_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -432,80 +466,94 @@ public final class PolicyDAO extends DataProvider implements us.jts.fortress.rba
      * @param le
      * @param sequence
      * @return
-     * @throws LDAPException
+     * @throws LdapInvalidAttributeValueException 
+     * @throws LdapException
      */
-    private PwPolicy unloadLdapEntry( LDAPEntry le, long sequence )
+    private PwPolicy unloadLdapEntry( Entry le, long sequence ) throws LdapInvalidAttributeValueException
     {
         PwPolicy entity = new ObjectFactory().createPswdPolicy();
         entity.setSequenceId( sequence );
-        entity.setName( getRdn( le.getDN() ) );
+        entity.setName( getRdn( le.getDn().getName() ) );
         //entity.setAttribute(getAttribute(le, OLPW_ATTRIBUTE));
         String val = getAttribute( le, OLPW_MIN_AGE );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setMinAge( new Integer( val ) );
         }
+
         val = getAttribute( le, OLPW_MAX_AGE );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setMaxAge( new Long( val ) );
         }
 
         val = getAttribute( le, OLPW_IN_HISTORY );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setInHistory( new Short( val ) );
         }
 
         val = getAttribute( le, OLPW_CHECK_QUALITY );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setCheckQuality( new Short( val ) );
         }
 
         val = getAttribute( le, OLPW_MIN_LENGTH );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setMinLength( new Short( val ) );
         }
 
         val = getAttribute( le, OLPW_EXPIRE_WARNING );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setExpireWarning( new Long( val ) );
         }
 
         val = getAttribute( le, OLPW_GRACE_LOGIN_LIMIT );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setGraceLoginLimit( new Short( val ) );
         }
 
         val = getAttribute( le, OLPW_LOCKOUT );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setLockout( Boolean.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_LOCKOUT_DURATION );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setLockoutDuration( new Integer( val ) );
         }
 
         val = getAttribute( le, OLPW_MAX_FAILURE );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setMaxFailure( new Short( val ) );
         }
 
         val = getAttribute( le, OLPW_FAILURE_COUNT_INTERVAL );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setFailureCountInterval( new Short( val ) );
         }
 
         val = getAttribute( le, OLPW_MUST_CHANGE );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             //noinspection BooleanConstructorCall
@@ -513,16 +561,19 @@ public final class PolicyDAO extends DataProvider implements us.jts.fortress.rba
         }
 
         val = getAttribute( le, OLPW_ALLOW_USER_CHANGE );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setAllowUserChange( Boolean.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_SAFE_MODIFY );
+
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
             entity.setSafeModify( Boolean.valueOf( val ) );
         }
+
         return entity;
     }
 
@@ -533,38 +584,43 @@ public final class PolicyDAO extends DataProvider implements us.jts.fortress.rba
      * @throws us.jts.fortress.FinderException
      *
      */
-    public final List<PwPolicy> findPolicy( PwPolicy policy )
-        throws FinderException
+    public final List<PwPolicy> findPolicy( PwPolicy policy ) throws FinderException
     {
         List<PwPolicy> policyArrayList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String policyRoot = getPolicyRoot( policy.getContextId() );
         String searchVal = null;
+
         try
         {
             searchVal = encodeSafeText( policy.getName(), GlobalIds.PWPOLICY_NAME_LEN );
             String filter = GlobalIds.FILTER_PREFIX + OLPW_POLICY_CLASS + ")("
                 + GlobalIds.POLICY_NODE_TYPE + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            searchResults = search( ld, policyRoot,
-                LDAPConnection.SCOPE_ONE, filter, PASSWORD_POLICY_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, policyRoot,
+                SearchScope.ONELEVEL, filter, PASSWORD_POLICY_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                policyArrayList.add( unloadLdapEntry( searchResults.next(), sequence++ ) );
+                policyArrayList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "findPolicy name [" + searchVal + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "findPolicy name [" + searchVal + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findPolicy name [" + searchVal + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return policyArrayList;
     }
 
@@ -577,29 +633,36 @@ public final class PolicyDAO extends DataProvider implements us.jts.fortress.rba
         throws FinderException
     {
         Set<String> policySet = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String policyRoot = getPolicyRoot( contextId );
+
         try
         {
             String filter = "(objectclass=" + OLPW_POLICY_CLASS + ")";
             ld = getAdminConnection();
-            searchResults = search( ld, policyRoot,
-                LDAPConnection.SCOPE_ONE, filter, PASSWORD_POLICY_NAME_ATR, false, GlobalIds.BATCH_SIZE );
-            while ( searchResults.hasMoreElements() )
+            SearchCursor searchResults = search( ld, policyRoot,
+                SearchScope.ONELEVEL, filter, PASSWORD_POLICY_NAME_ATR, false, GlobalIds.BATCH_SIZE );
+
+            while ( searchResults.next() )
             {
-                policySet.add( getAttribute( searchResults.next(), GlobalIds.CN ) );
+                policySet.add( getAttribute( searchResults.getEntry(), GlobalIds.CN ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "getPolicies caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "getPolicies caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "getPolicies caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return policySet;
     }
 

@@ -135,6 +135,36 @@ public class DaoFactory
 
 
     /**
+     * Create an instance of a SdDAO which depends of the used Backend
+     * 
+     * @return The created instance
+     */
+    public static SdDAO createSdDAO()
+    {
+        String daoConnector = Config.getProperty( GlobalIds.DAO_CONNECTOR );
+
+        DAOType daoType = DAOType.UNBOUNDID_API;
+
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        {
+            daoType = DAOType.APACHE_LDAP_API;
+        }
+
+        switch ( daoType )
+        {
+            case UNBOUNDID_API:
+                return new us.jts.fortress.rbac.dao.unboundid.SdDAO();
+
+            case APACHE_LDAP_API:
+                return new us.jts.fortress.rbac.dao.apache.SdDAO();
+
+            default:
+                return null;
+        }
+    }
+
+
+    /**
      * Create an instance of a PermDAO which depends of the used Backend
      * 
      * @return The created instance
@@ -165,11 +195,11 @@ public class DaoFactory
 
 
     /**
-     * Create an instance of a SdDAO which depends of the used Backend
+     * Create an instance of a PolicyDAO which depends of the used Backend
      * 
      * @return The created instance
      */
-    public static SdDAO createSdDAO()
+    public static PolicyDAO createPolicyDAO()
     {
         String daoConnector = Config.getProperty( GlobalIds.DAO_CONNECTOR );
 
@@ -183,10 +213,10 @@ public class DaoFactory
         switch ( daoType )
         {
             case UNBOUNDID_API:
-                return new us.jts.fortress.rbac.dao.unboundid.SdDAO();
+                return new us.jts.fortress.rbac.dao.unboundid.PolicyDAO();
 
             case APACHE_LDAP_API:
-                return new us.jts.fortress.rbac.dao.apache.SdDAO();
+                return new us.jts.fortress.rbac.dao.apache.PolicyDAO();
 
             default:
                 return null;
