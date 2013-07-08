@@ -60,7 +60,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
 
 /**
  * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
- * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.ApacheUserDAO}. {@link us.jts.fortress.rbac.ApacheRoleDAO}, {@link us.jts.fortress.rbac.UnboundIdPermDAO}, ....
+ * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.UserDAO}. {@link us.jts.fortress.rbac.RoleDAO}, {@link us.jts.fortress.rbac.PermDAO}, ....
  * These are low-level data utilities, very little if any data validations are performed here.
  * <p/>
  * This class is thread safe.
@@ -346,7 +346,7 @@ public abstract class ApacheDsDataProvider
      * @throws CursorException 
      */
     protected void deleteRecursive( LdapConnection connection, String dn )
-        throws LdapException, CursorException, IOException
+        throws LdapException, CursorException
     {
         int recursiveCount = 0;
         deleteRecursive( dn, connection, recursiveCount );
@@ -365,7 +365,7 @@ public abstract class ApacheDsDataProvider
      * @throws CursorException 
      */
     protected void deleteRecursive( LdapConnection connection, String dn, FortEntity entity )
-        throws LdapException, CursorException, IOException
+        throws LdapException, CursorException
     {
         List<Modification> mods = new ArrayList<Modification>();
         audit( mods, entity );
@@ -390,7 +390,7 @@ public abstract class ApacheDsDataProvider
      * @throws CursorException 
      */
     private void deleteRecursive( String dn, LdapConnection connection, int recursiveCount )
-        throws LdapException, CursorException, IOException
+        throws LdapException, CursorException
     {
         String method = "deleteRecursive";
 
