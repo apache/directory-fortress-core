@@ -24,7 +24,7 @@ import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.cfg.Config;
-import us.jts.fortress.ldap.apacheds.ApacheDsDataProvider;
+import us.jts.fortress.ldap.ApacheDsDataProvider;
 import us.jts.fortress.rbac.AuthZ;
 import us.jts.fortress.rbac.Bind;
 import us.jts.fortress.rbac.Mod;

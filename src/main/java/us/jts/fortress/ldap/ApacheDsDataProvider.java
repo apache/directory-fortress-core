@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.ldap.apacheds;
+package us.jts.fortress.ldap;
 
 
 import java.io.IOException;
@@ -46,7 +46,6 @@ import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.cfg.Config;
-import us.jts.fortress.ldap.LdapCounters;
 import us.jts.fortress.rbac.FortEntity;
 import us.jts.fortress.rbac.Hier;
 import us.jts.fortress.rbac.Relationship;

@@ -41,7 +41,7 @@ import us.jts.fortress.RemoveException;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.cfg.Config;
-import us.jts.fortress.ldap.apacheds.ApacheDsDataProvider;
+import us.jts.fortress.ldap.ApacheDsDataProvider;
 import us.jts.fortress.ldap.openldap.OLPWControlImpl;
 import us.jts.fortress.rbac.Address;
 import us.jts.fortress.rbac.AdminRole;

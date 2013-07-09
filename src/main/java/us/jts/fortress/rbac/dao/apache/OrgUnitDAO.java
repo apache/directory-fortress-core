@@ -32,7 +32,7 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.apacheds.ApacheDsDataProvider;
+import us.jts.fortress.ldap.ApacheDsDataProvider;
 import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.OrgUnit;
 import us.jts.fortress.rbac.PsoUtil;
