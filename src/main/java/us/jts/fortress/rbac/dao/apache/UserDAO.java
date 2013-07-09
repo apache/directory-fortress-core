@@ -883,7 +883,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
         {
             session = new ObjectFactory().createSession();
             session.setUserId( user.getUserId() );
-            ld = getAdminConnection();
+            ld = getUserConnection();
             boolean result = bind( ld, userDn, user.getPassword() );
 
             if ( result )
@@ -918,7 +918,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
         }
         finally
         {
-            closeAdminConnection( ld );
+            closeUserConnection( ld );
         }
 
         return session;
@@ -1431,7 +1431,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
 
         try
         {
-            ld = getAdminConnection();
+            ld = getUserConnection();
             bind( ld, userDn, entity.getPassword() );
             mods = new ArrayList<Modification>();
 
@@ -1473,7 +1473,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
         }
         finally
         {
-            closeAdminConnection( ld );
+            closeUserConnection( ld );
         }
 
         return rc;

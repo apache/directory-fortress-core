@@ -473,6 +473,7 @@ public final class AuditDAO extends ApacheDsDataProvider implements us.jts.fortr
             {
                 filter = GlobalIds.FILTER_PREFIX + ACCESS_BIND_CLASS_NM + ")(" +
                     REQDN + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
+
                 if ( audit.isFailedOnly() )
                 {
                     filter += "(" + REQRESULT + ">=" + 1 + ")";
@@ -494,6 +495,7 @@ public final class AuditDAO extends ApacheDsDataProvider implements us.jts.fortr
                 {
                     filter += "(" + REQRESULT + ">=" + 1 + ")";
                 }
+
                 if ( audit.getBeginDate() != null )
                 {
                     String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );

@@ -821,7 +821,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
         try
         {
             // Use unauthenticated connection because we want to assert the end user identity onto ldap hop:
-            ld = getAdminConnection();
+            ld = getUserConnection();
 
             // LDAP Operation #1: Read the targeted permission from ldap server
             //LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS, session.getUser().getDn());
@@ -874,7 +874,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
         }
         finally
         {
-            closeAdminConnection( ld );
+            closeUserConnection( ld );
         }
 
         return isAuthZd;
