@@ -129,25 +129,24 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements us.jts.for
 
         try
         {
-            Entry attrs = new DefaultEntry( dn );
-            attrs.add( GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS );
+            Entry entry = new DefaultEntry( dn );
+            entry.add( GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS );
             entity.setId();
-            attrs.add( GlobalIds.FT_IID, entity.getId() );
+            entry.add( GlobalIds.FT_IID, entity.getId() );
 
             if ( entity.getDescription() != null && entity.getDescription().length() > 0 )
             {
-                attrs.add( GlobalIds.DESC, entity.getDescription() );
+                entry.add( GlobalIds.DESC, entity.getDescription() );
             }
 
             // organizational name requires OU attribute:
-            attrs.add( GlobalIds.OU, entity.getName() );
+            entry.add( GlobalIds.OU, entity.getName() );
 
             // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
-            loadAttrs( entity.getParents(), attrs, GlobalIds.PARENT_NODES );
+            loadAttrs( entity.getParents(), entry, GlobalIds.PARENT_NODES );
 
-            Entry myEntry = new DefaultEntry( dn, attrs );
             ld = getAdminConnection();
-            add( ld, myEntry, entity );
+            add( ld, entry, entity );
         }
         catch ( LdapException e )
         {
@@ -164,6 +163,7 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements us.jts.for
                 errCode = GlobalErrIds.ORG_ADD_FAILED_USER;
 
             }
+
             throw new CreateException( errCode, error, e );
         }
         finally
