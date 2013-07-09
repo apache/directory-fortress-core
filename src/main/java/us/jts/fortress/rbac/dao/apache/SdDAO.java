@@ -168,9 +168,9 @@ public final class SdDAO extends ApacheDsDataProvider implements us.jts.fortress
             entry.add( GlobalIds.CN, entity.getName() );
             loadAttrs( entity.getMembers(), entry, ROLES );
             entry.add( SD_SET_CARDINALITY, "" + entity.getCardinality() );
-            Entry myEntry = new DefaultEntry( dn, entry );
+
             ld = getAdminConnection();
-            add( ld, myEntry, entity );
+            add( ld, entry, entity );
         }
         catch ( LdapException e )
         {

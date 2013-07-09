@@ -177,9 +177,8 @@ public final class AdminRoleDAO extends ApacheDsDataProvider implements us.jts.f
             // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
             loadAttrs( entity.getParents(), entry, GlobalIds.PARENT_NODES );
 
-            Entry myEntry = new DefaultEntry( dn, entry );
             ld = getAdminConnection();
-            add( ld, myEntry, entity );
+            add( ld, entry, entity );
         }
         catch ( LdapException e )
         {

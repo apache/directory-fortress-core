@@ -149,44 +149,44 @@ public final class PolicyDAO extends ApacheDsDataProvider implements us.jts.fort
 
         try
         {
-            Entry attrs = new DefaultEntry( dn );
-            attrs.add( GlobalIds.OBJECT_CLASS, OAM_PWPOLICY_OBJ_CLASS );
-            attrs.add( GlobalIds.CN, entity.getName() );
-            attrs.add( OLPW_ATTRIBUTE, OLPW_POLICY_EXTENSION );
+            Entry entry = new DefaultEntry( dn );
+            entry.add( GlobalIds.OBJECT_CLASS, OAM_PWPOLICY_OBJ_CLASS );
+            entry.add( GlobalIds.CN, entity.getName() );
+            entry.add( OLPW_ATTRIBUTE, OLPW_POLICY_EXTENSION );
 
             if ( entity.getMinAge() != null )
             {
-                attrs.add( OLPW_MIN_AGE, entity.getMinAge().toString() );
+                entry.add( OLPW_MIN_AGE, entity.getMinAge().toString() );
             }
 
             if ( entity.getMaxAge() != null )
             {
-                attrs.add( OLPW_MAX_AGE, entity.getMaxAge().toString() );
+                entry.add( OLPW_MAX_AGE, entity.getMaxAge().toString() );
             }
 
             if ( entity.getInHistory() != null )
             {
-                attrs.add( OLPW_IN_HISTORY, entity.getInHistory().toString() );
+                entry.add( OLPW_IN_HISTORY, entity.getInHistory().toString() );
             }
 
             if ( entity.getCheckQuality() != null )
             {
-                attrs.add( OLPW_CHECK_QUALITY, entity.getCheckQuality().toString() );
+                entry.add( OLPW_CHECK_QUALITY, entity.getCheckQuality().toString() );
             }
 
             if ( entity.getMinLength() != null )
             {
-                attrs.add( OLPW_MIN_LENGTH, entity.getMinLength().toString() );
+                entry.add( OLPW_MIN_LENGTH, entity.getMinLength().toString() );
             }
 
             if ( entity.getExpireWarning() != null )
             {
-                attrs.add( OLPW_EXPIRE_WARNING, entity.getExpireWarning().toString() );
+                entry.add( OLPW_EXPIRE_WARNING, entity.getExpireWarning().toString() );
             }
 
             if ( entity.getGraceLoginLimit() != null )
             {
-                attrs.add( OLPW_GRACE_LOGIN_LIMIT, entity.getGraceLoginLimit().toString() );
+                entry.add( OLPW_GRACE_LOGIN_LIMIT, entity.getGraceLoginLimit().toString() );
             }
 
             if ( entity.getLockout() != null )
@@ -194,22 +194,22 @@ public final class PolicyDAO extends ApacheDsDataProvider implements us.jts.fort
                 /**
                  * For some reason OpenLDAP requires the pwdLockout boolean value to be upper case:
                  */
-                attrs.add( OLPW_LOCKOUT, entity.getLockout().toString().toUpperCase() );
+                entry.add( OLPW_LOCKOUT, entity.getLockout().toString().toUpperCase() );
             }
 
             if ( entity.getLockoutDuration() != null )
             {
-                attrs.add( OLPW_LOCKOUT_DURATION, entity.getLockoutDuration().toString() );
+                entry.add( OLPW_LOCKOUT_DURATION, entity.getLockoutDuration().toString() );
             }
 
             if ( entity.getMaxFailure() != null )
             {
-                attrs.add( OLPW_MAX_FAILURE, entity.getMaxFailure().toString() );
+                entry.add( OLPW_MAX_FAILURE, entity.getMaxFailure().toString() );
             }
 
             if ( entity.getFailureCountInterval() != null )
             {
-                attrs.add( OLPW_FAILURE_COUNT_INTERVAL, entity.getFailureCountInterval().toString() );
+                entry.add( OLPW_FAILURE_COUNT_INTERVAL, entity.getFailureCountInterval().toString() );
             }
 
             if ( entity.getMustChange() != null )
@@ -217,7 +217,7 @@ public final class PolicyDAO extends ApacheDsDataProvider implements us.jts.fort
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                attrs.add( OLPW_MUST_CHANGE, entity.getMustChange().toString().toUpperCase() );
+                entry.add( OLPW_MUST_CHANGE, entity.getMustChange().toString().toUpperCase() );
             }
 
             if ( entity.getAllowUserChange() != null )
@@ -225,7 +225,7 @@ public final class PolicyDAO extends ApacheDsDataProvider implements us.jts.fort
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                attrs.add( OLPW_ALLOW_USER_CHANGE, entity.getAllowUserChange().toString()
+                entry.add( OLPW_ALLOW_USER_CHANGE, entity.getAllowUserChange().toString()
                     .toUpperCase() );
             }
 
@@ -234,12 +234,11 @@ public final class PolicyDAO extends ApacheDsDataProvider implements us.jts.fort
                 /**
                  * OpenLDAP requires the boolean values to be upper case:
                  */
-                attrs.add( OLPW_SAFE_MODIFY, entity.getSafeModify().toString().toUpperCase() );
+                entry.add( OLPW_SAFE_MODIFY, entity.getSafeModify().toString().toUpperCase() );
             }
 
-            Entry myEntry = new DefaultEntry( dn, attrs );
             ld = getAdminConnection();
-            add( ld, myEntry, entity );
+            add( ld, entry, entity );
         }
         catch ( LdapException e )
         {

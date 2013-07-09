@@ -240,12 +240,9 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
                 loadProperties( entity.getProperties(), entry, GlobalIds.PROPS );
             }
 
-            // create the new entry:
-            Entry myEntry = new DefaultEntry( dn, entry );
-
             // now add the new entry to directory:
             ld = getAdminConnection();
-            add( ld, myEntry, entity );
+            add( ld, entry, entity );
         }
         catch ( LdapException e )
         {
@@ -362,62 +359,59 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
      * @throws us.jts.fortress.CreateException
      *
      */
-    public final Permission createOperation( Permission entity )
-        throws CreateException
+    public final Permission createOperation( Permission entity ) throws CreateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity, entity.getContextId() );
+
         try
         {
-            Entry attrs = new DefaultEntry();
+            Entry entry = new DefaultEntry( dn );
 
-            attrs.add( GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS );
-            attrs.add( GlobalIds.POP_NAME, entity.getOpName() );
-            attrs.add( GlobalIds.POBJ_NAME, entity.getObjectName() );
+            entry.add( GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS );
+            entry.add( GlobalIds.POP_NAME, entity.getOpName() );
+            entry.add( GlobalIds.POBJ_NAME, entity.getObjectName() );
             entity.setAbstractName( entity.getObjectName() + "." + entity.getOpName() );
 
             // this will generate a new random, unique id on this entity:
             entity.setInternalId();
 
             // create the internal id:
-            attrs.add( GlobalIds.FT_IID, entity.getInternalId() );
+            entry.add( GlobalIds.FT_IID, entity.getInternalId() );
 
             // the abstract name is the human readable identifier:
-            attrs.add( PERM_NAME, entity.getAbstractName() );
+            entry.add( PERM_NAME, entity.getAbstractName() );
 
             // organizational name requires CN attribute:
-            attrs.add( GlobalIds.CN, entity.getAbstractName() );
+            entry.add( GlobalIds.CN, entity.getAbstractName() );
 
             // objectid is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getObjectId() ) )
             {
-                attrs.add( POBJ_ID, entity.getObjectId() );
+                entry.add( POBJ_ID, entity.getObjectId() );
             }
 
             // type is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
             {
-                attrs.add( TYPE, entity.getType() );
+                entry.add( TYPE, entity.getType() );
             }
 
             // These are multi-valued attributes, use the util function to load:
             // These items are optional as well.  The utility function will return quietly if no items are loaded into collection:
-            loadAttrs( entity.getRoles(), attrs, ROLES );
-            loadAttrs( entity.getUsers(), attrs, USERS );
+            loadAttrs( entity.getRoles(), entry, ROLES );
+            loadAttrs( entity.getUsers(), entry, USERS );
 
             // props are optional as well:
             //if the props is null don't try to load these attributes
             if ( VUtil.isNotNullOrEmpty( entity.getProperties() ) )
             {
-                loadProperties( entity.getProperties(), attrs, GlobalIds.PROPS );
+                loadProperties( entity.getProperties(), entry, GlobalIds.PROPS );
             }
-
-            // create the new entry:
-            Entry myEntry = new DefaultEntry( dn, attrs );
 
             // now add the new entry to directory:
             ld = getAdminConnection();
-            add( ld, myEntry, entity );
+            add( ld, entry, entity );
         }
         catch ( LdapException e )
         {
@@ -429,6 +423,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
