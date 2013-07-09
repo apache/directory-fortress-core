@@ -84,6 +84,12 @@ public abstract class ApacheDsDataProvider
     /** The Admin connection pool */
     private static LdapConnectionPool adminPool;
 
+    /** The Log connection pool */
+    private static LdapConnectionPool logPool;
+
+    /** The User connection pool */
+    private static LdapConnectionPool userPool;
+
     static
     {
         String host = Config.getProperty( LDAP_HOST, "localhost" );
@@ -109,11 +115,27 @@ public abstract class ApacheDsDataProvider
 
         config.setCredentials( adminPw );
         PoolableLdapConnectionFactory factory = new PoolableLdapConnectionFactory( config );
+
+        // Create the Admin pool
         adminPool = new LdapConnectionPool( factory );
         adminPool.setTestOnBorrow( true );
         adminPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
         adminPool.setMaxActive( max );
         adminPool.setMinIdle( min );
+
+        // Create the Log pool
+        logPool = new LdapConnectionPool( factory );
+        logPool.setTestOnBorrow( true );
+        logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
+        logPool.setMaxActive( max );
+        logPool.setMinIdle( min );
+
+        // Create the User pool
+        userPool = new LdapConnectionPool( factory );
+        userPool.setTestOnBorrow( true );
+        userPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
+        userPool.setMaxActive( max );
+        userPool.setMinIdle( min );
     }
 
 
@@ -1124,6 +1146,44 @@ public abstract class ApacheDsDataProvider
 
 
     /**
+     * Calls the PoolMgr to close the Log LDAP connection.
+     *
+     * @param connection handle to ldap connection object.
+     * @throws Exception 
+     */
+    protected void closeLogConnection( LdapConnection connection )
+    {
+        try
+        {
+            logPool.releaseConnection( connection );
+        }
+        catch ( Exception e )
+        {
+            throw new RuntimeException( e.getMessage() );
+        }
+    }
+
+
+    /**
+     * Calls the PoolMgr to close the User LDAP connection.
+     *
+     * @param connection handle to ldap connection object.
+     * @throws Exception 
+     */
+    protected void closeUserConnection( LdapConnection connection )
+    {
+        try
+        {
+            userPool.releaseConnection( connection );
+        }
+        catch ( Exception e )
+        {
+            throw new RuntimeException( e.getMessage() );
+        }
+    }
+
+
+    /**
      * Calls the PoolMgr to get an Admin connection to the LDAP server.
      *
      * @return ldap connection.
@@ -1134,6 +1194,44 @@ public abstract class ApacheDsDataProvider
         try
         {
             return adminPool.getConnection();
+        }
+        catch ( Exception e )
+        {
+            throw new LdapException( e.getMessage() );
+        }
+    }
+
+
+    /**
+     * Calls the PoolMgr to get an Log connection to the LDAP server.
+     *
+     * @return ldap connection.
+     * @throws LdapException
+     */
+    protected LdapConnection getLogConnection() throws LdapException
+    {
+        try
+        {
+            return logPool.getConnection();
+        }
+        catch ( Exception e )
+        {
+            throw new LdapException( e.getMessage() );
+        }
+    }
+
+
+    /**
+     * Calls the PoolMgr to get an User connection to the LDAP server.
+     *
+     * @return ldap connection.
+     * @throws LdapException
+     */
+    protected LdapConnection getUserConnection() throws LdapException
+    {
+        try
+        {
+            return userPool.getConnection();
         }
         catch ( Exception e )
         {
