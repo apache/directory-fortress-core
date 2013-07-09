@@ -105,7 +105,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-public final class AuditDAO extends DataProvider
+public final class AuditDAO extends DataProvider implements us.jts.fortress.rbac.dao.AuditDAO
 {
     private static final String CLS_NM = AuditDAO.class.getName();
     private static final String CREATETIMESTAMP = "createTimestamp";
