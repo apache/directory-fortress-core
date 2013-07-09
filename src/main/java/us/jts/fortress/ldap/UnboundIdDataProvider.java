@@ -49,11 +49,11 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-public abstract class DataProvider
+public abstract class UnboundIdDataProvider
 {
     private static final String OPENLDAP_PROXY_CONTROL = "2.16.840.1.113730.3.4.18";
     private static final int MAX_DEPTH = 100;
-    private static final String CLS_NM = DataProvider.class.getName();
+    private static final String CLS_NM = UnboundIdDataProvider.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final LdapCounters counters = new LdapCounters();
 

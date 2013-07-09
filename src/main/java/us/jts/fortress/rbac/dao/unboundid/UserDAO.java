@@ -23,7 +23,7 @@ import us.jts.fortress.RemoveException;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.cfg.Config;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.ldap.openldap.OLPWControlImpl;
 import us.jts.fortress.rbac.Address;
 import us.jts.fortress.rbac.AdminRole;
@@ -119,7 +119,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  * @author Shawn McKinney
  * @created August 30, 2009
  */
-public final class UserDAO extends DataProvider implements us.jts.fortress.rbac.dao.UserDAO
+public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.UserDAO
 {
     private static final String CLS_NM = UserDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );

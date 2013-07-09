@@ -17,7 +17,7 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.rbac.Role;
 import us.jts.fortress.rbac.RoleUtil;
 import us.jts.fortress.rbac.SDSet;
@@ -96,7 +96,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-public final class SdDAO extends DataProvider implements us.jts.fortress.rbac.dao.SdDAO
+public final class SdDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.SdDAO
 
 {
     private static final String CLS_NM = SdDAO.class.getName();

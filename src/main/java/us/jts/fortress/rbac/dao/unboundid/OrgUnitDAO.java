@@ -20,7 +20,7 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.OrgUnit;
 import us.jts.fortress.rbac.PsoUtil;
@@ -84,7 +84,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  * @author Shawn McKinney
  * @created September 18, 2010
  */
-public final class OrgUnitDAO extends DataProvider implements us.jts.fortress.rbac.dao.OrgUnitDAO
+public final class OrgUnitDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.OrgUnitDAO
 {
     private static final String CLS_NM = OrgUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );

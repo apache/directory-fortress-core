@@ -16,7 +16,7 @@ import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.cfg.Config;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.rbac.AuthZ;
 import us.jts.fortress.rbac.Bind;
 import us.jts.fortress.rbac.Mod;
@@ -105,7 +105,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-public final class AuditDAO extends DataProvider implements us.jts.fortress.rbac.dao.AuditDAO
+public final class AuditDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.AuditDAO
 {
     private static final String CLS_NM = AuditDAO.class.getName();
     private static final String CREATETIMESTAMP = "createTimestamp";

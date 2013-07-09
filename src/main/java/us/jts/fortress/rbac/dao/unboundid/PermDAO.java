@@ -20,7 +20,7 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.rbac.AdminRole;
 import us.jts.fortress.rbac.AdminRoleUtil;
 import us.jts.fortress.rbac.OrgUnit;
@@ -133,7 +133,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-public final class PermDAO extends DataProvider implements us.jts.fortress.rbac.dao.PermDAO
+public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.PermDAO
 {
     private static final String CLS_NM = PermDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );

@@ -17,7 +17,7 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.rbac.PwPolicy;
 import us.jts.fortress.util.attr.VUtil;
 
@@ -76,7 +76,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-public final class PolicyDAO extends DataProvider implements us.jts.fortress.rbac.dao.PolicyDAO
+public final class PolicyDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.PolicyDAO
 {
     /*
       *  *************************************************************************

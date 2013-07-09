@@ -15,7 +15,7 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.Role;
 import us.jts.fortress.rbac.RoleUtil;
@@ -77,7 +77,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Kevin McKinney
  */
-public final class RoleDAO extends DataProvider implements us.jts.fortress.rbac.dao.RoleDAO
+public final class RoleDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.RoleDAO
 {
     /*
       *  *************************************************************************
