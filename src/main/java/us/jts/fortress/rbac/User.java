@@ -325,6 +325,56 @@ public class User extends FortEntity implements Constraint, Serializable
         this.ou = ou;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Used to retrieve User's valid userId attribute.  The Fortress userId maps to 'uid' for InetOrgPerson object class.
+     *
+     * @return String containing the userId.
+     */
+/*
+    public String toString()
+    {
+        return userId;
+    }
+*/
+
+    @Override
+    public String toString()
+    {
+        return "User{" +
+            "userId='" + userId + '\'' +
+            ", internalId='" + internalId + '\'' +
+            ", roles=" + roles +
+            ", adminRoles=" + adminRoles +
+            ", pwPolicy='" + pwPolicy + '\'' +
+            ", cn='" + cn + '\'' +
+            ", sn='" + sn + '\'' +
+            ", dn='" + dn + '\'' +
+            ", ou='" + ou + '\'' +
+            ", description='" + description + '\'' +
+            ", beginTime='" + beginTime + '\'' +
+            ", endTime='" + endTime + '\'' +
+            ", beginDate='" + beginDate + '\'' +
+            ", endDate='" + endDate + '\'' +
+            ", beginLockDate='" + beginLockDate + '\'' +
+            ", endLockDate='" + endLockDate + '\'' +
+            ", dayMask='" + dayMask + '\'' +
+            ", name='" + name + '\'' +
+            ", employeeType='" + employeeType + '\'' +
+            ", title='" + title + '\'' +
+            ", timeout=" + timeout +
+            ", reset=" + reset +
+            ", locked=" + locked +
+            ", system=" + system +
+            ", props=" + props +
+            ", address=" + address +
+            ", phones=" + phones +
+            ", mobiles=" + mobiles +
+            ", emails=" + emails +
+            '}';
+    }
+>>>>>>> cedb68faf71307d2bbee7f82f963501a28016d54
 
     /**
      * Required by Constraint Interface but not needed for user entity. Not intended for external use.

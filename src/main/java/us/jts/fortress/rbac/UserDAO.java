@@ -464,7 +464,7 @@ final class UserDAO extends DataProvider
 
             if ( VUtil.isNotNullOrEmpty( entity.getEmployeeType() ) )
             {
-                LDAPAttribute employeeType = new LDAPAttribute( EMPLOYEE_TYPE, entity.getSn() );
+                LDAPAttribute employeeType = new LDAPAttribute( EMPLOYEE_TYPE, entity.getEmployeeType() );
                 mods.add( LDAPModification.REPLACE, employeeType );
             }
 
@@ -2002,6 +2002,7 @@ final class UserDAO extends DataProvider
                 else
                 {
                     attr.addValue( szUserRole );
+                    attrNm.addValue( userRole.getName() );
                 }
             }
 
@@ -2039,6 +2040,7 @@ final class UserDAO extends DataProvider
                 else
                 {
                     attr.addValue( szUserRole );
+                    attrNm.addValue( userRole.getName() );
                 }
             }
 
