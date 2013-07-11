@@ -242,7 +242,7 @@ private String rawData;
  */
 public String getName()
 {
-    return this.name;
+    return name;
 }
 
 
@@ -654,14 +654,113 @@ public void setChildren( Set<String> children )
 public boolean equals( Object thatObj )
 {
     if ( this == thatObj )
+    {
         return true;
-    if ( this.getName() == null )
+    }
+
+    if ( name == null )
+    {
         return false;
+    }
+
     if ( !( thatObj instanceof Role ) )
+    {
         return false;
+    }
+
     Role thatRole = ( Role ) thatObj;
+
     if ( thatRole.getName() == null )
+    {
         return false;
-    return thatRole.getName().equalsIgnoreCase( this.getName() );
+    }
+
+    return thatRole.getName().equalsIgnoreCase( name );
+}
+
+
+/**
+ * @see Object#toString()
+ */
+public String toString()
+{
+    StringBuilder sb = new StringBuilder();
+
+    sb.append( "Role[" );
+
+    // The name
+    sb.append( name ).append( ", " );
+
+    if ( ( description != null ) && ( description.length() > 0 ) )
+    {
+        sb.append( description ).append( ", " );
+    }
+
+    // the date
+    sb.append( "date : <" ).append( beginDate ).append( ", " ).append( endDate ).append( ">, " );
+
+    // The time
+    sb.append( "time : <" ).append( beginTime ).append( ", " ).append( endTime ).append( ">, " );
+
+    // The lock date
+    sb.append( "lock date : <" ).append( beginLockDate ).append( ", " ).append( endLockDate ).append( ">, " );
+
+    // The timeout
+    sb.append( "timeout : " ).append( timeout ).append( ", " );
+
+    // The day mask
+    sb.append( "daymask : " ).append( dayMask );
+
+    // The parents if any
+    if ( ( parents != null ) && ( parents.size() > 0 ) )
+    {
+        sb.append( ", parents : {" );
+
+        boolean isFirst = true;
+
+        for ( String parent : parents )
+        {
+            if ( isFirst )
+            {
+                isFirst = false;
+            }
+            else
+            {
+                sb.append( '|' );
+            }
+
+            sb.append( parent );
+        }
+
+        sb.append( '}' );
+    }
+
+    // The children if any
+    if ( ( children != null ) && ( children.size() > 0 ) )
+    {
+        sb.append( ", children : {" );
+
+        boolean isFirst = true;
+
+        for ( String child : children )
+        {
+            if ( isFirst )
+            {
+                isFirst = false;
+            }
+            else
+            {
+                sb.append( '|' );
+            }
+
+            sb.append( child );
+        }
+
+        sb.append( '}' );
+    }
+
+    sb.append( ']' );
+
+    return sb.toString();
 }
 }
