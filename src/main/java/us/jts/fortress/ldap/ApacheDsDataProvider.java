@@ -1113,15 +1113,8 @@ public abstract class ApacheDsDataProvider
     {
         counters.incrementBind();
 
-        try
-        {
-            connection.bind( userDn, new String( password ) );
-            return true;
-        }
-        catch ( LdapException le )
-        {
-            return false;
-        }
+        connection.bind( userDn, new String( password ) );
+        return true;
     }
 
 
