@@ -5,6 +5,8 @@
 package us.jts.fortress.rbac;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1120,17 +1122,16 @@ public class DelegatedMgrImplTest extends TestCase
             for ( String[] ole : oArray )
             {
                 OrgUnit child = OrgUnitTestData.getOrgUnit( ole );
-                Set<String> parents = OrgUnitTestData.getRelationships( ole );
-                if ( parents != null )
+                Set<String> parents = new HashSet<String>();
+                OrgUnitTestData.getRelationship( parents, ole );
+
+                for ( String pOrg : parents )
                 {
-                    for ( String pOrg : parents )
-                    {
-                        OrgUnit parent = new OrgUnit( pOrg );
-                        parent.setType( child.getType() );
-                        dAdminMgr.addInheritance( parent, child );
-                        LOG.debug( "addInheritedOrgUnits child org [" + child.getName() + "] parent org ["
-                            + pOrg + "] successful" );
-                    }
+                    OrgUnit parent = new OrgUnit( pOrg );
+                    parent.setType( child.getType() );
+                    dAdminMgr.addInheritance( parent, child );
+                    LOG.debug( "addInheritedOrgUnits child org [" + child.getName() + "] parent org ["
+                        + pOrg + "] successful" );
                 }
             }
         }
@@ -1167,18 +1168,17 @@ public class DelegatedMgrImplTest extends TestCase
             for ( String[] ole : oArray )
             {
                 OrgUnit child = OrgUnitTestData.getOrgUnit( ole );
-                Set<String> parents = OrgUnitTestData.getRelationships( ole );
-                if ( parents != null )
+                Set<String> parents = new HashSet<String>();
+                OrgUnitTestData.getRelationship( parents, ole );
+
+                for ( String pOrg : parents )
                 {
-                    for ( String pOrg : parents )
-                    {
-                        OrgUnit parent = new OrgUnit( pOrg );
-                        parent.setType( child.getType() );
-                        //public void deleteInheritance(OrgUnit parent, OrgUnit child)
-                        dAdminMgr.deleteInheritance( parent, child );
-                        LOG.debug( "deleteInheritedOrgUnits child org [" + child.getName() + "] parent org ["
-                            + pOrg + "] successful" );
-                    }
+                    OrgUnit parent = new OrgUnit( pOrg );
+                    parent.setType( child.getType() );
+                    //public void deleteInheritance(OrgUnit parent, OrgUnit child)
+                    dAdminMgr.deleteInheritance( parent, child );
+                    LOG.debug( "deleteInheritedOrgUnits child org [" + child.getName() + "] parent org ["
+                        + pOrg + "] successful" );
                 }
             }
         }
@@ -1312,29 +1312,28 @@ public class DelegatedMgrImplTest extends TestCase
                 }
 
                 // use list because order is important for test structure:
-                List<String> descs = OrgUnitTestData.getRelationshipList( ole );
-                if ( descs != null )
+                List<String> descs = new ArrayList<String>();
+                OrgUnitTestData.getRelationship( descs, ole );
+
+                if ( OrgUnitTestData.isTree( ole ) )
                 {
-                    if ( OrgUnitTestData.isTree( ole ) )
+                    OrgUnit parent = orgUnit;
+                    for ( String desc : descs )
                     {
-                        OrgUnit parent = orgUnit;
-                        for ( String desc : descs )
-                        {
-                            OrgUnit child = new OrgUnit( desc, type );
-                            dAdminMgr.addDescendant( parent, new OrgUnit( desc, type ) );
-                            LOG.debug( "addOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
-                                + "] desc orgUnit [" + desc + "] successful" );
-                            parent = child;
-                        }
+                        OrgUnit child = new OrgUnit( desc, type );
+                        dAdminMgr.addDescendant( parent, new OrgUnit( desc, type ) );
+                        LOG.debug( "addOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
+                            + "] desc orgUnit [" + desc + "] successful" );
+                        parent = child;
                     }
-                    else
+                }
+                else
+                {
+                    for ( String desc : descs )
                     {
-                        for ( String desc : descs )
-                        {
-                            dAdminMgr.addDescendant( orgUnit, new OrgUnit( desc, type ) );
-                            LOG.debug( "addOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
-                                + "] desc orgUnit [" + desc + "] successful" );
-                        }
+                        dAdminMgr.addDescendant( orgUnit, new OrgUnit( desc, type ) );
+                        LOG.debug( "addOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
+                            + "] desc orgUnit [" + desc + "] successful" );
                     }
                 }
 
@@ -1381,29 +1380,28 @@ public class DelegatedMgrImplTest extends TestCase
             {
                 OrgUnit orgUnit = OrgUnitTestData.getOrgUnit( ole );
                 // use list because order is important for test structure:
-                List<String> descs = OrgUnitTestData.getRelationshipList( ole );
-                if ( descs != null )
+                List<String> descs = new ArrayList<String>();
+                OrgUnitTestData.getRelationship( descs, ole );
+
+                if ( OrgUnitTestData.isTree( ole ) )
                 {
-                    if ( OrgUnitTestData.isTree( ole ) )
+                    OrgUnit parent = orgUnit;
+                    for ( String desc : descs )
                     {
-                        OrgUnit parent = orgUnit;
-                        for ( String desc : descs )
-                        {
-                            OrgUnit child = new OrgUnit( desc );
-                            dAdminMgr.deleteInheritance( parent, new OrgUnit( desc, type ) );
-                            LOG.debug( "delOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
-                                + "] desc orgUnit [" + desc + "] successful" );
-                            parent = child;
-                        }
+                        OrgUnit child = new OrgUnit( desc );
+                        dAdminMgr.deleteInheritance( parent, new OrgUnit( desc, type ) );
+                        LOG.debug( "delOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
+                            + "] desc orgUnit [" + desc + "] successful" );
+                        parent = child;
                     }
-                    else
+                }
+                else
+                {
+                    for ( String desc : descs )
                     {
-                        for ( String desc : descs )
-                        {
-                            dAdminMgr.deleteInheritance( orgUnit, new OrgUnit( desc, type ) );
-                            LOG.debug( "delOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
-                                + "] desc orgUnit [" + desc + "] successful" );
-                        }
+                        dAdminMgr.deleteInheritance( orgUnit, new OrgUnit( desc, type ) );
+                        LOG.debug( "delOrgUnitDescendant asc orgUnit [" + orgUnit.getName()
+                            + "] desc orgUnit [" + desc + "] successful" );
                     }
                 }
 
@@ -1470,15 +1468,14 @@ public class DelegatedMgrImplTest extends TestCase
                     LOG.debug( "addOrgUnitAscendant add orgUnit [" + orgUnit.getName() + "] successful" );
                 }
 
-                Set<String> ascs = OrgUnitTestData.getRelationships( ole );
-                if ( ascs != null )
+                Set<String> ascs = new HashSet<String>();
+                OrgUnitTestData.getRelationship( ascs, ole );
+
+                for ( String asc : ascs )
                 {
-                    for ( String asc : ascs )
-                    {
-                        dAdminMgr.addAscendant( orgUnit, new OrgUnit( asc, type ) );
-                        LOG.debug( "addOrgUnitAscendant desc role [" + orgUnit.getName() + "] asc role ["
-                            + asc + "] successful" );
-                    }
+                    dAdminMgr.addAscendant( orgUnit, new OrgUnit( asc, type ) );
+                    LOG.debug( "addOrgUnitAscendant desc role [" + orgUnit.getName() + "] asc role ["
+                        + asc + "] successful" );
                 }
 
                 Set<String> inheritances = OrgUnitTestData.getInheritances( ole );
@@ -1524,15 +1521,14 @@ public class DelegatedMgrImplTest extends TestCase
             for ( String[] ole : oArray )
             {
                 OrgUnit orgUnit = OrgUnitTestData.getOrgUnit( ole );
-                Set<String> ascs = OrgUnitTestData.getRelationships( ole );
-                if ( ascs != null )
+                Set<String> ascs = new HashSet<String>();
+                OrgUnitTestData.getRelationship( ascs, ole );
+
+                for ( String asc : ascs )
                 {
-                    for ( String asc : ascs )
-                    {
-                        dAdminMgr.deleteInheritance( new OrgUnit( asc, type ), orgUnit );
-                        LOG.debug( "delOrgUnitAscendant desc orgUnit [" + orgUnit.getName()
-                            + "] asc orgUnit [" + asc + "] successful" );
-                    }
+                    dAdminMgr.deleteInheritance( new OrgUnit( asc, type ), orgUnit );
+                    LOG.debug( "delOrgUnitAscendant desc orgUnit [" + orgUnit.getName()
+                        + "] asc orgUnit [" + asc + "] successful" );
                 }
 
                 Set<String> inheritances = OrgUnitTestData.getInheritances( ole );

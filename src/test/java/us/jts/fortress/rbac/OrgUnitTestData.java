@@ -5,9 +5,8 @@
 package us.jts.fortress.rbac;
 
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -811,36 +810,14 @@ public class OrgUnitTestData extends TestCase
      */
     public static OrgUnit.Type getType( String[] ole )
     {
-        OrgUnit.Type type = OrgUnit.Type.USER;
-        String szType = ole[TYPE_COL];
-        if ( szType.equalsIgnoreCase( "P" ) )
-            type = OrgUnit.Type.PERM;
-        return type;
-    }
-
-
-    /**
-     *
-     * @param ole
-     * @return
-     */
-    public static Set<String> getRelationships( String[] ole )
-    {
-        Set<String> parents = null;
-        if ( VUtil.isNotNullOrEmpty( ole[RELATIONSHIP_COL] ) )
+        if ( "P".equalsIgnoreCase( ole[TYPE_COL] ) )
         {
-            parents = new HashSet<>();
-            StringTokenizer charSetTkn = new StringTokenizer( ole[RELATIONSHIP_COL], TestUtils.DELIMITER_TEST_DATA );
-            if ( charSetTkn.countTokens() > 0 )
-            {
-                while ( charSetTkn.hasMoreTokens() )
-                {
-                    String pRole = charSetTkn.nextToken();
-                    parents.add( pRole );
-                }
-            }
+            return OrgUnit.Type.PERM;
         }
-        return parents;
+        else
+        {
+            return OrgUnit.Type.USER;
+        }
     }
 
 
@@ -849,12 +826,14 @@ public class OrgUnitTestData extends TestCase
      * @param ole
      * @return
      */
-    public static List<String> getRelationshipList( String[] ole )
+    public static Collection<String> getRelationship( Collection<String> parents, String[] ole )
     {
-        List<String> parents = new ArrayList<>();
-        if ( VUtil.isNotNullOrEmpty( ole[RELATIONSHIP_COL] ) )
+        String relationShip = ole[RELATIONSHIP_COL];
+
+        if ( VUtil.isNotNullOrEmpty( relationShip ) )
         {
-            StringTokenizer charSetTkn = new StringTokenizer( ole[RELATIONSHIP_COL], TestUtils.DELIMITER_TEST_DATA );
+            StringTokenizer charSetTkn = new StringTokenizer( relationShip, TestUtils.DELIMITER_TEST_DATA );
+
             if ( charSetTkn.countTokens() > 0 )
             {
                 while ( charSetTkn.hasMoreTokens() )
@@ -864,6 +843,7 @@ public class OrgUnitTestData extends TestCase
                 }
             }
         }
+
         return parents;
     }
 
@@ -876,9 +856,12 @@ public class OrgUnitTestData extends TestCase
     public static Set<String> getInheritances( String[] ole )
     {
         Set<String> rels = new HashSet<>();
-        if ( us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty( ole[INHERITANCE_COL] ) )
+        String inheritances = ole[INHERITANCE_COL];
+
+        if ( us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty( inheritances ) )
         {
-            StringTokenizer charSetTkn = new StringTokenizer( ole[INHERITANCE_COL], TestUtils.DELIMITER_TEST_DATA );
+            StringTokenizer charSetTkn = new StringTokenizer( inheritances, TestUtils.DELIMITER_TEST_DATA );
+
             if ( charSetTkn.countTokens() > 0 )
             {
                 while ( charSetTkn.hasMoreTokens() )
@@ -888,6 +871,7 @@ public class OrgUnitTestData extends TestCase
                 }
             }
         }
+
         return rels;
     }
 
@@ -899,13 +883,7 @@ public class OrgUnitTestData extends TestCase
      */
     public static boolean isCreate( String[] ole )
     {
-        boolean isCreate = false;
-        if ( VUtil.isNotNullOrEmpty( ole[INHERITANCE_FLAG_COL] ) && ole[INHERITANCE_FLAG_COL].equalsIgnoreCase( "C" ) )
-        {
-            isCreate = true;
-        }
-
-        return isCreate;
+        return "C".equalsIgnoreCase( ole[INHERITANCE_FLAG_COL] );
     }
 
 
@@ -916,13 +894,7 @@ public class OrgUnitTestData extends TestCase
      */
     public static boolean isTree( String[] ole )
     {
-        boolean isTree = false;
-        if ( VUtil.isNotNullOrEmpty( ole[INHERITANCE_FLAG_COL] ) && ole[INHERITANCE_FLAG_COL].equalsIgnoreCase( "T" ) )
-        {
-            isTree = true;
-        }
-
-        return isTree;
+        return "T".equalsIgnoreCase( ole[INHERITANCE_FLAG_COL] );
     }
 
 
@@ -932,6 +904,7 @@ public class OrgUnitTestData extends TestCase
         ou.setName( getName( ole ) );
         ou.setDescription( getDescription( ole ) );
         ou.setType( getType( ole ) );
+
         return ou;
     }
 }

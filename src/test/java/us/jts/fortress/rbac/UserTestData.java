@@ -5,6 +5,7 @@ package us.jts.fortress.rbac;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
@@ -6316,9 +6317,11 @@ public class UserTestData extends TestCase
     public static void assertEmail( String[] usr, List<String> emails )
     {
         List<String> expected = getEmails( usr );
+
         if ( VUtil.isNotNullOrEmpty( expected ) )
         {
             assertNotNull( UserTestData.class.getName() + ".assertEmail null for user: " + getUserId( usr ), emails );
+
             for ( String email : expected )
             {
                 assertTrue( UserTestData.class.getName() + ".assertEmail failed compare email for user: "
@@ -6345,10 +6348,12 @@ public class UserTestData extends TestCase
     public static void assertProps( String[] usr, Properties properties )
     {
         Properties usrProps = getProps( usr );
+
         if ( usrProps != null )
         {
             assertNotNull( UserTestData.class.getName() + ".assertProps null for user: " + getUserId( usr ), properties );
-            for ( Enumeration e = properties.propertyNames(); e.hasMoreElements(); )
+
+            for ( Enumeration<?> e = properties.propertyNames(); e.hasMoreElements(); )
             {
                 String key = ( String ) e.nextElement();
                 String val = usrProps.getProperty( key );
@@ -6519,14 +6524,16 @@ public class UserTestData extends TestCase
     public static String getTitle( String[] usr )
     {
         String value = null;
+
         try
         {
             value = usr[TITLE_COL];
         }
-        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
+        catch ( ArrayIndexOutOfBoundsException ae )
         {
             // attribute is optional, do nothing here
         }
+
         return value;
     }
 
@@ -6539,11 +6546,12 @@ public class UserTestData extends TestCase
     public static String getEmployeeType( String[] usr )
     {
         String value = null;
+
         try
         {
             value = usr[EMPLOYEE_TYPE_COL];
         }
-        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
+        catch ( ArrayIndexOutOfBoundsException ae )
         {
             // attribute is optional, do nothing here
         }
@@ -6555,12 +6563,13 @@ public class UserTestData extends TestCase
     public static byte[] getJpegPhoto( String[] usr )
     {
         byte[] value = null;
+
         try
         {
             String fileName = usr[JPEGPHOTO_COL];
             value = TestUtils.readJpegFile( fileName );
         }
-        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
+        catch ( ArrayIndexOutOfBoundsException ae )
         {
             // attribute is optional, do nothing here
         }
@@ -6575,24 +6584,14 @@ public class UserTestData extends TestCase
      */
     public static Boolean isSystem( String[] usr )
     {
-        Boolean isSystem;
-        try
+        if ( usr.length >= SYSTEM_COL )
         {
-            String szBoolean = usr[SYSTEM_COL];
-            if ( VUtil.isNotNullOrEmpty( szBoolean ) )
-            {
-                isSystem = Boolean.valueOf( szBoolean );
-            }
-            else
-            {
-                isSystem = false;
-            }
+            return Boolean.valueOf( usr[SYSTEM_COL] );
         }
-        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
+        else
         {
-            isSystem = false;
+            return Boolean.FALSE;
         }
-        return isSystem;
     }
 
 
@@ -6640,6 +6639,7 @@ public class UserTestData extends TestCase
         user.setEndTime( getEndTime( usr ) );
         user.setDayMask( getDayMask( usr ) );
         user.setTimeout( getTimeOut( usr ) );
+
         return user;
     }
 
@@ -6652,10 +6652,14 @@ public class UserTestData extends TestCase
     public static Properties getProps( String[] szInput )
     {
         Properties properties = null;
-        List<String> props = getList( szInput, PROPS_COL );
+        List<String> props = new ArrayList<String>();
+
+        getElements( props, szInput, PROPS_COL );
+
         if ( VUtil.isNotNullOrEmpty( props ) )
         {
             properties = new Properties();
+
             for ( String szRaw : props )
             {
                 int indx = szRaw.indexOf( GlobalIds.PROP_SEP );
@@ -6665,6 +6669,7 @@ public class UserTestData extends TestCase
                 }
             }
         }
+
         return properties;
     }
 
@@ -6675,7 +6680,10 @@ public class UserTestData extends TestCase
      */
     public static Set<String> getAssignedRoles( String[] szInput )
     {
-        return getSets( szInput, ASSGND_ROLES_COL );
+        Set<String> elements = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
+        getElements( elements, szInput, ASSGND_ROLES_COL );
+
+        return elements;
     }
 
 
@@ -6683,9 +6691,12 @@ public class UserTestData extends TestCase
      * @param szInput
      * @return
      */
-    public static Set<String> getAuthorizedRoles( String[] szInput )
+    public static Collection<String> getAuthorizedRoles( String[] szInput )
     {
-        return getSets( szInput, AUTHZ_ROLES_COL );
+        Set<String> elements = new TreeSet<String>( String.CASE_INSENSITIVE_ORDER );
+        getElements( elements, szInput, AUTHZ_ROLES_COL );
+
+        return elements;
     }
 
 
@@ -6695,7 +6706,11 @@ public class UserTestData extends TestCase
      */
     public static List<String> getPhones( String[] szInput )
     {
-        return getList( szInput, PHONES_COL );
+        List<String> phones = new ArrayList<String>();
+
+        getElements( phones, szInput, PHONES_COL );
+
+        return phones;
     }
 
 
@@ -6705,7 +6720,11 @@ public class UserTestData extends TestCase
      */
     public static List<String> getMobiles( String[] szInput )
     {
-        return getList( szInput, MOBILES_COL );
+        List<String> mobiles = new ArrayList<String>();
+
+        getElements( mobiles, szInput, MOBILES_COL );
+
+        return mobiles;
     }
 
 
@@ -6725,25 +6744,33 @@ public class UserTestData extends TestCase
      */
     public static List<String> getEmails( String[] szInput )
     {
-        return getList( szInput, EMAILS_COL );
+        List<String> emails = new ArrayList<String>();
+
+        getElements( emails, szInput, EMAILS_COL );
+
+        return emails;
     }
 
 
     private static Address getAddress( String[] szInput, int col )
     {
         Address address = null;
+
         try
         {
             if ( VUtil.isNotNullOrEmpty( szInput[col] ) )
             {
                 address = new Address();
                 StringTokenizer charSetTkn = new StringTokenizer( szInput[col], TestUtils.DELIMITER_TEST_DATA );
+
                 if ( charSetTkn.countTokens() > 0 )
                 {
                     int count = 0;
+
                     while ( charSetTkn.hasMoreTokens() )
                     {
                         String value = charSetTkn.nextToken();
+
                         /* ADDRESS_COL */
                         switch ( count++ )
                         {
@@ -6787,6 +6814,7 @@ public class UserTestData extends TestCase
         {
             // ignore
         }
+
         return address;
     }
 
@@ -6796,60 +6824,30 @@ public class UserTestData extends TestCase
      * @param col
      * @return
      */
-    private static Set<String> getSets( String[] szInput, int col )
+    private static void getElements( Collection<String> elements, String[] szInput, int col )
     {
-        Set<String> vSets = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         try
         {
-            if ( VUtil.isNotNullOrEmpty( szInput[col] ) )
+            String input = szInput[col];
+
+            if ( VUtil.isNotNullOrEmpty( input ) )
             {
-                StringTokenizer charSetTkn = new StringTokenizer( szInput[col], TestUtils.DELIMITER_TEST_DATA );
+                StringTokenizer charSetTkn = new StringTokenizer( input, TestUtils.DELIMITER_TEST_DATA );
+
                 if ( charSetTkn.countTokens() > 0 )
                 {
                     while ( charSetTkn.hasMoreTokens() )
                     {
                         String value = charSetTkn.nextToken();
-                        vSets.add( value );
+                        elements.add( value );
                     }
                 }
             }
         }
-        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
+        catch ( ArrayIndexOutOfBoundsException ae )
         {
             // ignore
         }
-        return vSets;
-    }
-
-
-    /**
-     * @param szInput
-     * @param col
-     * @return
-     */
-    private static List<String> getList( String[] szInput, int col )
-    {
-        List<String> vList = new ArrayList<>();
-        try
-        {
-            if ( VUtil.isNotNullOrEmpty( szInput[col] ) )
-            {
-                StringTokenizer charSetTkn = new StringTokenizer( szInput[col], TestUtils.DELIMITER_TEST_DATA );
-                if ( charSetTkn.countTokens() > 0 )
-                {
-                    while ( charSetTkn.hasMoreTokens() )
-                    {
-                        String value = charSetTkn.nextToken();
-                        vList.add( value );
-                    }
-                }
-            }
-        }
-        catch ( java.lang.ArrayIndexOutOfBoundsException ae )
-        {
-            // ignore
-        }
-        return vList;
     }
 
     /**
