@@ -770,7 +770,7 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
      * @return
      * @throws us.jts.fortress.FinderException
      */
-    final List<UserAdminRole> getUserAdminRoles( User user )
+    public final List<UserAdminRole> getUserAdminRoles( User user )
         throws FinderException
     {
         List<UserAdminRole> roles = null;
@@ -1185,7 +1185,7 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
      * @return
      * @throws FinderException
      */
-    final List<User> getAssignedUsers( AdminRole role )
+    public final List<User> getAssignedUsers( AdminRole role )
         throws FinderException
     {
         List<User> userList = new ArrayList<>();
@@ -1273,7 +1273,7 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
      * @return
      * @throws FinderException
      */
-    final List<String> findUsersList( String searchVal, String contextId )
+    public final List<String> findUsersList( String searchVal, String contextId )
         throws FinderException
     {
         List<String> userList = new ArrayList<>();
@@ -1585,7 +1585,7 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
      * @throws FinderException
      *
      */
-    final String assign( UserAdminRole uRole )
+    public final String assign( UserAdminRole uRole )
         throws UpdateException, FinderException
     {
         LDAPConnection ld = null;
@@ -1634,7 +1634,7 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
      * @throws FinderException
      *
      */
-    final String deassign( UserAdminRole uRole )
+    public final String deassign( UserAdminRole uRole )
         throws UpdateException, FinderException
     {
         LDAPConnection ld = null;

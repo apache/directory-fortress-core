@@ -12,10 +12,12 @@ import us.jts.fortress.FinderException;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.UpdateException;
+import us.jts.fortress.rbac.AdminRole;
 import us.jts.fortress.rbac.OrgUnit;
 import us.jts.fortress.rbac.Role;
 import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rbac.User;
+import us.jts.fortress.rbac.UserAdminRole;
 import us.jts.fortress.rbac.UserRole;
 
 
@@ -100,6 +102,17 @@ public interface UserDAO
     String assign( UserRole uRole ) throws UpdateException, FinderException;
 
 
+    /**
+     * @param uRole
+     * @return
+     * @throws UpdateException
+     *
+     * @throws FinderException
+     *
+     */
+    String assign( UserAdminRole uRole ) throws UpdateException, FinderException;
+
+
     boolean changePassword( User entity, char[] newPassword ) throws SecurityException;
 
 
@@ -121,6 +134,17 @@ public interface UserDAO
     User create( User entity ) throws CreateException;
 
 
+    /**
+     * @param uRole
+     * @return
+     * @throws UpdateException
+     *
+     * @throws FinderException
+     *
+     */
+    String deassign( UserAdminRole uRole ) throws UpdateException, FinderException;
+
+
     String deassign( UserRole uRole ) throws UpdateException, FinderException;
 
 
@@ -134,6 +158,14 @@ public interface UserDAO
 
 
     String deletePwPolicy( User user ) throws UpdateException;
+
+
+    /**
+     * @param role
+     * @return
+     * @throws FinderException
+     */
+    List<User> getAssignedUsers( AdminRole role ) throws FinderException;
 
 
     List<User> getAssignedUsers( Role role ) throws FinderException;

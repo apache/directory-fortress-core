@@ -787,7 +787,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
      * @return
      * @throws us.jts.fortress.FinderException
      */
-    final List<UserAdminRole> getUserAdminRoles( User user )
+    public final List<UserAdminRole> getUserAdminRoles( User user )
         throws FinderException
     {
         List<UserAdminRole> roles = null;
@@ -1217,7 +1217,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
      * @return
      * @throws FinderException
      */
-    final List<User> getAssignedUsers( AdminRole role )
+    public final List<User> getAssignedUsers( AdminRole role )
         throws FinderException
     {
         List<User> userList = new ArrayList<>();
@@ -1315,7 +1315,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
      * @return
      * @throws FinderException
      */
-    final List<String> findUsersList( String searchVal, String contextId )
+    public final List<String> findUsersList( String searchVal, String contextId )
         throws FinderException
     {
         List<String> userList = new ArrayList<>();
@@ -1643,7 +1643,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
      * @throws FinderException
      *
      */
-    final String assign( UserAdminRole uRole ) throws UpdateException, FinderException
+    public final String assign( UserAdminRole uRole ) throws UpdateException, FinderException
     {
         LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
@@ -1692,7 +1692,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
      * @throws FinderException
      *
      */
-    final String deassign( UserAdminRole uRole )
+    public final String deassign( UserAdminRole uRole )
         throws UpdateException, FinderException
     {
         LdapConnection ld = null;
