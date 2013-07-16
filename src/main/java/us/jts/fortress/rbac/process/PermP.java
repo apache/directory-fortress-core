@@ -217,7 +217,7 @@ public final class PermP
      * @param role contains the name of AdminRole targeted for attribute removal.
      * @throws SecurityException in the event of DAO search error.
      */
-    final void remove( AdminRole role )
+    public final void remove( AdminRole role )
         throws SecurityException
     {
         List<Permission> list;
@@ -494,7 +494,7 @@ public final class PermP
      * @param isUpdate if true update operation is being performed which specifies a different set of targeted attributes.
      * @throws us.jts.fortress.ValidationException in the event of data validation error.
      */
-    final void validate( PermObj pObj, boolean isUpdate )
+    public final void validate( PermObj pObj, boolean isUpdate )
         throws ValidationException
     {
         if ( !isUpdate )

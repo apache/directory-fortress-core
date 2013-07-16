@@ -176,7 +176,7 @@ public final class UserP
      * @return List of fully populated User entities matching target search.  If no records found this will be empty.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<User> getAssignedUsers( AdminRole role )
+    public final List<User> getAssignedUsers( AdminRole role )
         throws SecurityException
     {
         return uDao.getAssignedUsers( role );
@@ -238,7 +238,7 @@ public final class UserP
      * @return User entity copy of input + additional attributes (internalId)
      * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    final User add( User entity, boolean validate ) throws SecurityException
+    public final User add( User entity, boolean validate ) throws SecurityException
     {
         if ( validate )
         {
@@ -294,7 +294,7 @@ public final class UserP
      * @return User entity copy of input
      * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
      */
-    final User update( User entity, boolean validate )
+    public final User update( User entity, boolean validate )
         throws SecurityException
     {
         if ( validate )
@@ -732,7 +732,7 @@ public final class UserP
      * @return String containing the user's DN.  This value is used to update the "roleOccupant" attribute on associated Admin Role entity.
      * @throws us.jts.fortress.SecurityException in the event data error in user or role objects or system error.
      */
-    final String assign( UserAdminRole uRole )
+    public final String assign( UserAdminRole uRole )
         throws SecurityException
     {
         // Assign custom Fortress role data, i.e. temporal constraints, onto the user node:
@@ -752,7 +752,7 @@ public final class UserP
      * @return String containing the user's DN.  This value is used to remove the "roleOccupant" attribute on associated Admin Role entity.
      * @throws us.jts.fortress.SecurityException - in the event data error in user or role objects or system error.
      */
-    final String deassign( UserAdminRole uRole )
+    public final String deassign( UserAdminRole uRole )
         throws SecurityException
     {
         // Deassign custom Fortress role data from the user's node:

@@ -198,7 +198,7 @@ public final class RoleP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final void addOccupant( List<UserRole> uRoles, String userDn, String contextId )
+    public final void addOccupant( List<UserRole> uRoles, String userDn, String contextId )
         throws SecurityException
     {
         if ( VUtil.isNotNullOrEmpty( uRoles ) )

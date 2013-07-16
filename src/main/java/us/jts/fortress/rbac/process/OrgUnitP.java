@@ -83,7 +83,7 @@ public final class OrgUnitP
      * @param entity
      * @return
      */
-    final boolean isValid( OrgUnit entity )
+    public final boolean isValid( OrgUnit entity )
     {
         boolean result = false;
         if ( entity.type == OrgUnit.Type.USER )

@@ -99,7 +99,7 @@ public final class AdminRoleP
      * @return List of type String containing Admin Role name of all matching User entities.  If no records found this will be empty.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final List<String> search( AdminRole adminRole, int limit )
+    public final List<String> search( AdminRole adminRole, int limit )
         throws SecurityException
     {
         return rDao.findRoles( adminRole, limit );
@@ -209,7 +209,7 @@ public final class AdminRoleP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws us.jts.fortress.SecurityException in the event of DAO search error.
      */
-    final void addOccupant( List<UserAdminRole> uRoles, String userDn, String contextId )
+    public final void addOccupant( List<UserAdminRole> uRoles, String userDn, String contextId )
         throws SecurityException
     {
         if ( VUtil.isNotNullOrEmpty( uRoles ) )

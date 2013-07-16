@@ -84,7 +84,7 @@ public final class PolicyP
      * @param policy
      * @return
      */
-    final boolean isValid( PwPolicy policy )
+    public final boolean isValid( PwPolicy policy )
     {
         boolean result = false;
         Set<String> policySet = getPolicySet( policy.getContextId() );
