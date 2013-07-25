@@ -19,7 +19,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import us.jts.fortress.rbac.dao.apache.UserDAO;
-import us.jts.fortress.rbac.process.UserP;
 import us.jts.fortress.util.time.Constraint;
 
 
@@ -32,7 +31,7 @@ import us.jts.fortress.util.time.Constraint;
  * <h4>Fortress Processing Layers</h4>
  * <ol>
  * <li>Manager layer:  {@link us.jts.fortress.rbac.AdminMgrImpl}, {@link us.jts.fortress.rbac.AccessMgrImpl}, {@link us.jts.fortress.rbac.ReviewMgrImpl},...</li>
- * <li>Process layer:  {@link UserP}, {@link us.jts.fortress.rbac.process.RoleP}, {@link us.jts.fortress.rbac.process.PermP},...</li>
+ * <li>Process layer:  {@link UserP}, {@link us.jts.fortress.rbac.RoleP}, {@link us.jts.fortress.rbac.PermP},...</li>
  * <li>DAO layer: {@link UserDAO}, {@link us.jts.fortress.rbac.dao.RoleDAO}, {@link us.jts.fortress.rbac.dao.PermDAO},...</li>
  * </ol>
  * Fortress clients must first instantiate the data entity before invoking one of the Manager APIs.  The caller must first

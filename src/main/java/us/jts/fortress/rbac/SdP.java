@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac.process;
+package us.jts.fortress.rbac;
 
 
 import java.util.List;
@@ -10,8 +10,6 @@ import java.util.Set;
 
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
-import us.jts.fortress.rbac.Role;
-import us.jts.fortress.rbac.SDSet;
 import us.jts.fortress.rbac.dao.unboundid.SdDAO;
 import us.jts.fortress.util.attr.VUtil;
 

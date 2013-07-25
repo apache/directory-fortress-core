@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac.process;
+package us.jts.fortress.rbac;
 
 
 import java.util.List;
@@ -14,10 +14,6 @@ import org.slf4j.LoggerFactory;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
-import us.jts.fortress.rbac.DelAdminMgrImpl;
-import us.jts.fortress.rbac.DelReviewMgrImpl;
-import us.jts.fortress.rbac.Graphable;
-import us.jts.fortress.rbac.OrgUnit;
 import us.jts.fortress.rbac.dao.DaoFactory;
 import us.jts.fortress.rbac.dao.OrgUnitDAO;
 import us.jts.fortress.util.attr.VUtil;
@@ -30,7 +26,7 @@ import us.jts.fortress.util.cache.CacheMgr;
  * {@link us.jts.fortress.rbac.User} class or {@link us.jts.fortress.rbac.PermObj} class.  The OrgUnit entity itself is stored in two separate locations in the ldap tree one
  * for each entity listed above.  The type of OU entity is set via the enum attribute {@link OrgUnit.Type} which is equal to 'PERM' or 'USER'.
  * This class performs data validations.  The methods of this class are called by internal Fortress manager impl classes
- * {@link DelAdminMgrImpl} and {@link DelReviewMgrImpl} but is also called by {@link us.jts.fortress.rbac.process.PermP#validate} method and {@link UserP#validate} functions
+ * {@link DelAdminMgrImpl} and {@link DelReviewMgrImpl} but is also called by {@link us.jts.fortress.rbac.PermP#validate} method and {@link UserP#validate} functions
  * which ensure the entities are related to valid OU entries. This class is not intended to be called external
  * to Fortress Core itself.  This class will accept Fortress entity {@link OrgUnit}, validate its contents and forward on to it's
  * corresponding DAO class {@link OrgUnitDAO} for data access.

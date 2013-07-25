@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac.process;
+package us.jts.fortress.rbac;
 
 
 import java.util.List;
@@ -15,14 +15,6 @@ import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.SecurityException;
-import us.jts.fortress.rbac.AdminRole;
-import us.jts.fortress.rbac.DelAccessMgrImpl;
-import us.jts.fortress.rbac.DelAdminMgrImpl;
-import us.jts.fortress.rbac.DelReviewMgrImpl;
-import us.jts.fortress.rbac.Graphable;
-import us.jts.fortress.rbac.OrgUnit;
-import us.jts.fortress.rbac.RoleUtil;
-import us.jts.fortress.rbac.UserAdminRole;
 import us.jts.fortress.rbac.dao.AdminRoleDAO;
 import us.jts.fortress.rbac.dao.DaoFactory;
 import us.jts.fortress.util.attr.VUtil;

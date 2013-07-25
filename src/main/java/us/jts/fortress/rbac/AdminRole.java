@@ -15,8 +15,6 @@ import javax.xml.bind.annotation.XmlType;
 
 import us.jts.fortress.rbac.dao.AdminRoleDAO;
 import us.jts.fortress.rbac.dao.OrgUnitDAO;
-import us.jts.fortress.rbac.process.AdminRoleP;
-import us.jts.fortress.rbac.process.OrgUnitP;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
 import us.jts.fortress.util.time.Constraint;

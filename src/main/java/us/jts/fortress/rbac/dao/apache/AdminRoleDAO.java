@@ -30,10 +30,10 @@ import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.ldap.ApacheDsDataProvider;
 import us.jts.fortress.rbac.AdminRole;
+import us.jts.fortress.rbac.AdminRoleP;
 import us.jts.fortress.rbac.AdminRoleUtil;
 import us.jts.fortress.rbac.Graphable;
 import us.jts.fortress.rbac.Role;
-import us.jts.fortress.rbac.process.AdminRoleP;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
 

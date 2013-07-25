@@ -2,17 +2,12 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac.process;
+package us.jts.fortress.rbac;
 
 
 import java.util.List;
 
 import us.jts.fortress.SecurityException;
-import us.jts.fortress.rbac.AuditMgrImpl;
-import us.jts.fortress.rbac.AuthZ;
-import us.jts.fortress.rbac.Bind;
-import us.jts.fortress.rbac.Mod;
-import us.jts.fortress.rbac.UserAudit;
 import us.jts.fortress.rbac.dao.unboundid.AuditDAO;
 
 

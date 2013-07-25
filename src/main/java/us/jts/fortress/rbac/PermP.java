@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac.process;
+package us.jts.fortress.rbac;
 
 
 import java.util.List;
@@ -12,14 +12,6 @@ import us.jts.fortress.FinderException;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
-import us.jts.fortress.rbac.AccessMgrImpl;
-import us.jts.fortress.rbac.AdminRole;
-import us.jts.fortress.rbac.OrgUnit;
-import us.jts.fortress.rbac.PermObj;
-import us.jts.fortress.rbac.Permission;
-import us.jts.fortress.rbac.Role;
-import us.jts.fortress.rbac.Session;
-import us.jts.fortress.rbac.User;
 import us.jts.fortress.rbac.dao.DaoFactory;
 import us.jts.fortress.rbac.dao.PermDAO;
 import us.jts.fortress.util.attr.VUtil;

@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import us.jts.fortress.rbac.dao.unboundid.AuditDAO;
-import us.jts.fortress.rbac.process.AuditP;
 
 import java.util.Date;
 

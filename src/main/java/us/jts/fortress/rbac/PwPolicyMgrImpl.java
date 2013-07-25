@@ -7,8 +7,6 @@ package us.jts.fortress.rbac;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.PwPolicyMgr;
 import us.jts.fortress.SecurityException;
-import us.jts.fortress.rbac.process.PolicyP;
-import us.jts.fortress.rbac.process.UserP;
 import us.jts.fortress.util.attr.VUtil;
 
 import java.util.List;

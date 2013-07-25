@@ -20,9 +20,6 @@ import javax.xml.bind.annotation.XmlType;
 
 import us.jts.fortress.rbac.dao.RoleDAO;
 import us.jts.fortress.rbac.dao.UserDAO;
-import us.jts.fortress.rbac.process.PermP;
-import us.jts.fortress.rbac.process.RoleP;
-import us.jts.fortress.rbac.process.UserP;
 
 
 /**

@@ -13,7 +13,6 @@ import net.sf.ehcache.search.Results;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import us.jts.fortress.rbac.process.SdP;
 import us.jts.fortress.util.cache.Cache;
 import us.jts.fortress.util.cache.CacheMgr;
 

@@ -11,8 +11,6 @@ import java.util.Set;
 import us.jts.fortress.AccessMgr;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.SecurityException;
-import us.jts.fortress.rbac.process.PermP;
-import us.jts.fortress.rbac.process.UserP;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
 

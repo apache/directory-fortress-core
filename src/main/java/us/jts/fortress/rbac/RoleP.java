@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac.process;
+package us.jts.fortress.rbac;
 
 
 import java.util.List;
@@ -12,9 +12,6 @@ import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
-import us.jts.fortress.rbac.Graphable;
-import us.jts.fortress.rbac.Role;
-import us.jts.fortress.rbac.UserRole;
 import us.jts.fortress.rbac.dao.DaoFactory;
 import us.jts.fortress.rbac.dao.RoleDAO;
 import us.jts.fortress.util.attr.VUtil;

@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac.process;
+package us.jts.fortress.rbac;
 
 
 import java.util.List;
@@ -15,8 +15,6 @@ import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
-import us.jts.fortress.rbac.PwPolicy;
-import us.jts.fortress.rbac.PwPolicyMgrImpl;
 import us.jts.fortress.rbac.dao.unboundid.PolicyDAO;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.cache.Cache;
