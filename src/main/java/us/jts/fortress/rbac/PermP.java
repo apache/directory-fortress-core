@@ -23,10 +23,10 @@ import us.jts.fortress.util.attr.VUtil;
  * {@link us.jts.fortress.rbac.ReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
  * {@link us.jts.fortress.rbac.PermObj} or {@link us.jts.fortress.rbac.Permission}, validate its contents and forward on to it's corresponding DAO class {@link us.jts.fortress.rbac.dao.PermDAO}.
  * <p>
- * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
+ * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
  * {@link us.jts.fortress.CreateException},{@link us.jts.fortress.UpdateException},{@link us.jts.fortress.RemoveException}),
- *  or {@link us.jts.fortress.ValidationException} as {@link us.jts.fortress.SecurityException}s with appropriate
+ *  or {@link us.jts.fortress.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link us.jts.fortress.GlobalErrIds}.
  * <p>
  * This class is thread safe.
@@ -48,7 +48,7 @@ public final class PermP
     /**
      * Package private constructor
      */
-    public PermP()
+    PermP()
     {
     }
 
@@ -68,8 +68,7 @@ public final class PermP
      * @return True of user has access, false otherwise.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    public final boolean checkPermission( Session session, Permission permission )
-        throws SecurityException
+    final boolean checkPermission( Session session, Permission permission ) throws SecurityException
     {
         return pDao.checkPermission( session, permission );
     }
@@ -80,10 +79,9 @@ public final class PermP
      *
      * @param permission contains all or partial object name and/or all or partial operation name.
      * @return List of type Permission containing fully populated matching Permission entities.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<Permission> search( Permission permission )
-        throws SecurityException
+    final List<Permission> search( Permission permission ) throws SecurityException
     {
         return pDao.findPermissions( permission );
     }
@@ -96,8 +94,7 @@ public final class PermP
      * @return List of type Permission Objects containing fully populated matching entities.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final List<PermObj> search( PermObj permObj )
-        throws SecurityException
+    final List<PermObj> search( PermObj permObj ) throws SecurityException
     {
         return pDao.findPermissions( permObj );
     }
@@ -111,8 +108,7 @@ public final class PermP
      * @return List of type Permission Objects containing fully populated matching entities.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final List<PermObj> search( OrgUnit ou, boolean limitSize )
-        throws SecurityException
+    final List<PermObj> search( OrgUnit ou, boolean limitSize ) throws SecurityException
     {
         return pDao.findPermissions( ou, limitSize );
     }
@@ -126,8 +122,7 @@ public final class PermP
      * @return List of type Permission containing fully populated matching Permission entities.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final List<Permission> search( Role role )
-        throws SecurityException
+    final List<Permission> search( Role role ) throws SecurityException
     {
         return pDao.findPermissions( role );
     }
@@ -141,8 +136,7 @@ public final class PermP
      * @return List of type Permission containing fully populated matching Permission entities.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final List<Permission> search( User user )
-        throws SecurityException
+    final List<Permission> search( User user ) throws SecurityException
     {
         return pDao.findPermissions( user );
     }
@@ -155,8 +149,7 @@ public final class PermP
      * @param user contains the userId targeted for attribute removal.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final void remove( User user )
-        throws SecurityException
+    final void remove( User user ) throws SecurityException
     {
         List<Permission> list;
         try
@@ -182,8 +175,7 @@ public final class PermP
      * @param role contains the name of Role targeted for attribute removal.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final void remove( Role role )
-        throws SecurityException
+    final void remove( Role role ) throws SecurityException
     {
         List<Permission> list;
         try
@@ -209,8 +201,7 @@ public final class PermP
      * @param role contains the name of AdminRole targeted for attribute removal.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final void remove( AdminRole role )
-        throws SecurityException
+    final void remove( AdminRole role ) throws SecurityException
     {
         List<Permission> list;
         try
@@ -236,10 +227,9 @@ public final class PermP
      *
      * @param session This object must be instantiated by calling {@link AccessMgrImpl#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @return List<Permission> containing permissions (op, obj) active for user's session.
-     * @throws us.jts.fortress.SecurityException is thrown if runtime error occurs with system.
+     * @throws SecurityException is thrown if runtime error occurs with system.
      */
-    public final List<Permission> search( Session session )
-        throws SecurityException
+    final List<Permission> search( Session session ) throws SecurityException
     {
         return pDao.findPermissions( session );
     }
@@ -250,10 +240,9 @@ public final class PermP
      *
      * @param permission contains the full permission object and operation name.
      * @return Permission containing fully populated matching object.
-     * @throws us.jts.fortress.SecurityException is thrown if permission not found or runtime error occurs with system.
+     * @throws SecurityException is thrown if permission not found or runtime error occurs with system.
      */
-    public final Permission read( Permission permission )
-        throws SecurityException
+    final Permission read( Permission permission ) throws SecurityException
     {
         return pDao.getPerm( permission );
     }
@@ -264,10 +253,9 @@ public final class PermP
      *
      * @param permObj contains the full permission object name.
      * @return PermObj containing fully populated matching object.
-     * @throws us.jts.fortress.SecurityException is thrown if perm object not found or runtime error occurs with system.
+     * @throws SecurityException is thrown if perm object not found or runtime error occurs with system.
      */
-    public final PermObj read( PermObj permObj )
-        throws SecurityException
+    final PermObj read( PermObj permObj ) throws SecurityException
     {
         return pDao.getPerm( permObj );
     }
@@ -280,10 +268,9 @@ public final class PermP
      *
      * @param entity Permission object entity contains data targeted for insertion.
      * @return Permission entity copy of input + additional attributes (internalId) that were added by op.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final PermObj add( PermObj entity )
-        throws SecurityException
+    final PermObj add( PermObj entity ) throws SecurityException
     {
         validate( entity, false );
         return pDao.createObject( entity );
@@ -299,8 +286,7 @@ public final class PermP
      * @return Permission operation entity copy of input + additional attributes (internalId) that were added by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final Permission add( Permission entity )
-        throws SecurityException
+    final Permission add( Permission entity ) throws SecurityException
     {
         validate( entity, false );
         return pDao.createOperation( entity );
@@ -316,8 +302,7 @@ public final class PermP
      * @return Permission entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final PermObj update( PermObj entity )
-        throws SecurityException
+    final PermObj update( PermObj entity ) throws SecurityException
     {
         update( entity, true );
         return entity;
@@ -354,8 +339,7 @@ public final class PermP
      * @return Permission entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final Permission update( Permission entity )
-        throws SecurityException
+    final Permission update( Permission entity ) throws SecurityException
     {
         update( entity, true );
         return entity;
@@ -391,8 +375,7 @@ public final class PermP
      * @param entity Contains the Permission Object name targeted for deletion.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final void delete( PermObj entity )
-        throws SecurityException
+    final void delete( PermObj entity ) throws SecurityException
     {
         pDao.deleteObj( entity );
     }
@@ -405,8 +388,7 @@ public final class PermP
      * @param entity Contains the Permission Operation name targeted for deletion.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final void delete( Permission entity )
-        throws SecurityException
+    final void delete( Permission entity ) throws SecurityException
     {
         pDao.deleteOperation( entity );
     }
@@ -423,8 +405,7 @@ public final class PermP
      * @param role contains the role name
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
-    public final void grant( Permission pOp, Role role )
-        throws SecurityException
+    final void grant( Permission pOp, Role role ) throws SecurityException
     {
         // Now assign it to the perm op:
         pDao.grant( pOp, role );
@@ -440,10 +421,9 @@ public final class PermP
      *
      * @param pOp  contains object and operation name for resource.
      * @param role contains role name
-     * @throws us.jts.fortress.SecurityException Thrown in the event of data validation or system error.
+     * @throws SecurityException Thrown in the event of data validation or system error.
      */
-    public final void revoke( Permission pOp, Role role )
-        throws SecurityException
+    final void revoke( Permission pOp, Role role ) throws SecurityException
     {
         pDao.revoke( pOp, role );
     }
@@ -456,8 +436,7 @@ public final class PermP
      * @param user contains userid of User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
-    public final void grant( Permission pOp, User user )
-        throws SecurityException
+    final void grant( Permission pOp, User user ) throws SecurityException
     {
         // call dao to grant userId access to the perm op:
         pDao.grant( pOp, user );
@@ -469,10 +448,9 @@ public final class PermP
      *
      * @param pOp  contains object and operation name for resource.
      * @param user contains userid of User entity.
-     * @throws us.jts.fortress.SecurityException Thrown in the event of data validation or system error.
+     * @throws SecurityException Thrown in the event of data validation or system error.
      */
-    public final void revoke( Permission pOp, User user )
-        throws SecurityException
+    final void revoke( Permission pOp, User user ) throws SecurityException
     {
         pDao.revoke( pOp, user );
     }
@@ -486,8 +464,7 @@ public final class PermP
      * @param isUpdate if true update operation is being performed which specifies a different set of targeted attributes.
      * @throws us.jts.fortress.ValidationException in the event of data validation error.
      */
-    public final void validate( PermObj pObj, boolean isUpdate )
-        throws ValidationException
+    final void validate( PermObj pObj, boolean isUpdate ) throws ValidationException
     {
         if ( !isUpdate )
         {
@@ -545,7 +522,7 @@ public final class PermP
      *
      * @param pOp      Permission Operation entity contains data targeted for insertion or update.
      * @param isUpdate if true update operation is being performed which specifies a different set of targeted attributes.
-     * @throws us.jts.fortress.SecurityException in the event of data validation error or DAO error.
+     * @throws SecurityException in the event of data validation error or DAO error.
      */
     private void validate( Permission pOp, boolean isUpdate )
         throws SecurityException

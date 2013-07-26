@@ -23,10 +23,10 @@ import us.jts.fortress.util.attr.VUtil;
  * {@link us.jts.fortress.rbac.ReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
  * {@link Role}, validate its contents and forward on to it's corresponding DAO class {@link RoleDAO}.
  * <p>
- * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
+ * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
  * {@link us.jts.fortress.CreateException},{@link us.jts.fortress.UpdateException},{@link us.jts.fortress.RemoveException}),
- *  or {@link us.jts.fortress.ValidationException} as {@link us.jts.fortress.SecurityException}s with appropriate
+ *  or {@link us.jts.fortress.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link us.jts.fortress.GlobalErrIds}.
  * <p>
  * This class is thread safe.
@@ -44,7 +44,7 @@ public final class RoleP
     /**
      * Package private
      */
-    public RoleP()
+    RoleP()
     {
     }
 
@@ -57,8 +57,7 @@ public final class RoleP
      * @return Role entity containing all attributes associated with Role in directory.
      * @throws SecurityException in the event Role not found or DAO search error.
      */
-    public final Role read( Role role )
-        throws SecurityException
+    final Role read( Role role ) throws SecurityException
     {
         return rDao.getRole( role );
     }
@@ -69,10 +68,9 @@ public final class RoleP
      *
      * @param role contains full or partial RBAC role name.
      * @return List of type Role containing fully populated matching RBAC Role entities.  If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<Role> search( Role role )
-        throws SecurityException
+    final List<Role> search( Role role ) throws SecurityException
     {
         return rDao.findRoles( role );
     }
@@ -85,10 +83,9 @@ public final class RoleP
      * @param role contains full or partial RBAC role name.
      * @param limit     specify the max number of records to return in result set.
      * @return List of type String containing RBAC Role name of all matching User entities.  If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<String> search( Role role, int limit )
-        throws SecurityException
+    final List<String> search( Role role, int limit ) throws SecurityException
     {
         return rDao.findRoles( role, limit );
     }
@@ -99,10 +96,9 @@ public final class RoleP
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return List of type Role containing {@link Role#name} and {@link Role#parents} populated.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<Graphable> getAllDescendants( String contextId )
-        throws SecurityException
+    final List<Graphable> getAllDescendants( String contextId ) throws SecurityException
     {
         return rDao.getAllDescendants( contextId );
     }
@@ -114,10 +110,9 @@ public final class RoleP
      *
      * @param entity Role entity contains data targeted for insertion.
      * @return Role entity copy of input + additional attributes (internalId) that were added by op.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final Role add( Role entity )
-        throws SecurityException
+    final Role add( Role entity ) throws SecurityException
     {
         validate( entity );
         return rDao.create( entity );
@@ -132,8 +127,7 @@ public final class RoleP
      * @return Role entity contains fully populated updated entity.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final Role update( Role entity )
-        throws SecurityException
+    final Role update( Role entity ) throws SecurityException
     {
         validate( entity );
         return rDao.update( entity );
@@ -147,8 +141,7 @@ public final class RoleP
      * @param entity Role entity contains data targeted for updating.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final void deleteParent( Role entity )
-        throws SecurityException
+    final void deleteParent( Role entity ) throws SecurityException
     {
         validate( entity );
         rDao.deleteParent( entity );
@@ -161,10 +154,9 @@ public final class RoleP
      * @param entity contains the role name targeted.
      * @param userDn String contains the dn for the user entry that is being assigned the RBAC Role.
      * @return Role containing copy of input data.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final Role assign( Role entity, String userDn )
-        throws SecurityException
+    final Role assign( Role entity, String userDn ) throws SecurityException
     {
         return rDao.assign( entity, userDn );
     }
@@ -176,10 +168,9 @@ public final class RoleP
      * @param entity contains the role name targeted.
      * @param userDn String contains the dn for the user entry that is being assigned the RBAC Role.
      * @return Role containing copy of input data.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final Role deassign( Role entity, String userDn )
-        throws SecurityException
+    final Role deassign( Role entity, String userDn ) throws SecurityException
     {
         entity = rDao.deassign( entity, userDn );
         return entity;
@@ -193,10 +184,9 @@ public final class RoleP
      * @param uRoles contains a collection of UserRole being targeted for assignment.
      * @param userDn contains the userId targeted for addition.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final void addOccupant( List<UserRole> uRoles, String userDn, String contextId )
-        throws SecurityException
+    final void addOccupant( List<UserRole> uRoles, String userDn, String contextId ) throws SecurityException
     {
         if ( VUtil.isNotNullOrEmpty( uRoles ) )
         {
@@ -216,10 +206,9 @@ public final class RoleP
      *
      * @param userDn contains the userId targeted for attribute removal.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final void removeOccupant( String userDn, String contextId )
-        throws SecurityException
+    final void removeOccupant( String userDn, String contextId ) throws SecurityException
     {
         List<String> list;
         try
@@ -245,10 +234,9 @@ public final class RoleP
      * RBAC Role entity must exist in directory prior to making this call else exception will be thrown.
      *
      * @param entity Contains the name of the RBAC Role targeted for deletion.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public void delete( Role entity )
-        throws SecurityException
+    void delete( Role entity ) throws SecurityException
     {
         rDao.remove( entity );
     }

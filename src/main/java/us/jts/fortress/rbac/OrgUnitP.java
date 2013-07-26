@@ -34,7 +34,7 @@ import us.jts.fortress.util.cache.CacheMgr;
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
  * {@link us.jts.fortress.CreateException},{@link us.jts.fortress.UpdateException},{@link us.jts.fortress.RemoveException}),
- *  or {@link us.jts.fortress.ValidationException} as {@link us.jts.fortress.SecurityException}s with appropriate
+ *  or {@link us.jts.fortress.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link GlobalErrIds}.
  * <p>
  * This class uses synchronized data sets ({@link #ouCache} but is thread safe.
@@ -69,7 +69,7 @@ public final class OrgUnitP
     /**
      * Package private constructor.
      */
-    public OrgUnitP()
+    OrgUnitP()
     {
     }
 
@@ -79,7 +79,7 @@ public final class OrgUnitP
      * @param entity
      * @return
      */
-    public final boolean isValid( OrgUnit entity )
+    final boolean isValid( OrgUnit entity )
     {
         boolean result = false;
         if ( entity.type == OrgUnit.Type.USER )
@@ -163,10 +163,9 @@ public final class OrgUnitP
      *
      * @param entity contains full orgUnit name used for User or Perm OU data sets in directory.
      * @return OrgUnit entity containing all attributes associated with ou in directory.
-     * @throws us.jts.fortress.SecurityException in the event OrgUnit not found or DAO search error.
+     * @throws SecurityException in the event OrgUnit not found or DAO search error.
      */
-    public final OrgUnit read( OrgUnit entity )
-        throws SecurityException
+    final OrgUnit read( OrgUnit entity ) throws SecurityException
     {
         validate( entity, false );
         return oDao.findByKey( entity );
@@ -181,8 +180,7 @@ public final class OrgUnitP
      * @return List of type OrgUnit containing fully populated matching OU entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final List<OrgUnit> search( OrgUnit orgUnit )
-        throws SecurityException
+    final List<OrgUnit> search( OrgUnit orgUnit ) throws SecurityException
     {
         // Call the finder.
         return oDao.findOrgs( orgUnit );
@@ -196,10 +194,9 @@ public final class OrgUnitP
      *
      * @param entity OrgUnit contains data targeted for insertion.
      * @return OrgUnit entity copy of input + additional attributes (internalId) that were added by op.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final OrgUnit add( OrgUnit entity )
-        throws SecurityException
+    final OrgUnit add( OrgUnit entity ) throws SecurityException
     {
         validate( entity, false );
         OrgUnit oe = oDao.create( entity );
@@ -235,8 +232,7 @@ public final class OrgUnitP
      * @return OrgUnit entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final OrgUnit update( OrgUnit entity )
-        throws SecurityException
+    final OrgUnit update( OrgUnit entity ) throws SecurityException
     {
         validate( entity, false );
         return oDao.update( entity );
@@ -251,8 +247,7 @@ public final class OrgUnitP
      * @param entity OrgUnit contains data targeted for updating.  Null attributes ignored.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final void deleteParent( OrgUnit entity )
-        throws SecurityException
+    final void deleteParent( OrgUnit entity ) throws SecurityException
     {
         validate( entity, false );
         oDao.deleteParent( entity );
@@ -268,8 +263,7 @@ public final class OrgUnitP
      * @return OrgUnit entity copy of input.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final OrgUnit delete( OrgUnit entity )
-        throws SecurityException
+    final OrgUnit delete( OrgUnit entity ) throws SecurityException
     {
         oDao.remove( entity );
         if ( entity.getType() == OrgUnit.Type.USER )
@@ -297,12 +291,11 @@ public final class OrgUnitP
     /**
      * Return all OrgUnits that have a parent assignment.  This used for hierarchical processing.
      *
-      * @param orgUnit will either be a User or Perm OU.
+     * @param orgUnit will either be a User or Perm OU.
      * @return List of type OrgUnit containing {@link OrgUnit#name} and {@link OrgUnit#parents} populated.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<Graphable> getAllDescendants( OrgUnit orgUnit )
-        throws SecurityException
+    final List<Graphable> getAllDescendants( OrgUnit orgUnit ) throws SecurityException
     {
         return oDao.getAllDescendants( orgUnit );
     }

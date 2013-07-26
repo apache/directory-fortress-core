@@ -26,10 +26,10 @@ import us.jts.fortress.util.attr.VUtil;
  * {@link DelReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
  * {@link AdminRole}, validate its contents and forward on to it's corresponding DAO class {@link AdminRoleDAO}.
  * <p>
- * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
+ * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
  * {@link us.jts.fortress.CreateException},{@link us.jts.fortress.UpdateException},{@link us.jts.fortress.RemoveException}),
- *  or {@link us.jts.fortress.ValidationException} as {@link us.jts.fortress.SecurityException}s with appropriate
+ *  or {@link us.jts.fortress.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link GlobalErrIds}.
  * <p>
  * This class is thread safe.
@@ -49,7 +49,7 @@ public final class AdminRoleP
     /**
      * Package private constructor.
      */
-    public AdminRoleP()
+    AdminRoleP()
     {
     }
 
@@ -60,10 +60,9 @@ public final class AdminRoleP
      *
      * @param adminRole contains full Admin Role name.
      * @return AdminRole entity containing all attributes associated with Administrative Role in directory.
-     * @throws us.jts.fortress.SecurityException in the event AdminRole not found or DAO search error.
+     * @throws SecurityException in the event AdminRole not found or DAO search error.
      */
-    public final AdminRole read( AdminRole adminRole )
-        throws SecurityException
+    final AdminRole read( AdminRole adminRole ) throws SecurityException
     {
         return rDao.getRole( adminRole );
     }
@@ -74,9 +73,9 @@ public final class AdminRoleP
      *
      * @param adminRole contains full or partial Admin role name.
      * @return List of type Role containing fully populated matching Admin Role entities.  If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<AdminRole> search( AdminRole adminRole )
+    final List<AdminRole> search( AdminRole adminRole )
         throws SecurityException
     {
         return rDao.findRoles( adminRole );
@@ -89,9 +88,9 @@ public final class AdminRoleP
      * @param adminRole contains full or partial Admin role name.
      * @param limit     specify the max number of records to return in result set.
      * @return List of type String containing Admin Role name of all matching User entities.  If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<String> search( AdminRole adminRole, int limit )
+    final List<String> search( AdminRole adminRole, int limit )
         throws SecurityException
     {
         return rDao.findRoles( adminRole, limit );
@@ -103,9 +102,9 @@ public final class AdminRoleP
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return List of type AdminRole containing {@link AdminRole#name} and {@link AdminRole#parents} populated.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<Graphable> getAllDescendants( String contextId )
+    final List<Graphable> getAllDescendants( String contextId )
         throws SecurityException
     {
         return rDao.getAllDescendants( contextId );
@@ -118,9 +117,9 @@ public final class AdminRoleP
      *
      * @param entity Admin Role entity contains data targeted for insertion.
      * @return AdminRole entity copy of input + additional attributes (internalId) that were added by op.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final AdminRole add( AdminRole entity )
+    final AdminRole add( AdminRole entity )
         throws SecurityException
     {
         validate( entity );
@@ -134,10 +133,9 @@ public final class AdminRoleP
      *
      * @param entity Admin Role entity contains data targeted for updating.
      * @return AdminRole entity contains fully populated updated entity.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final AdminRole update( AdminRole entity )
-        throws SecurityException
+    final AdminRole update( AdminRole entity ) throws SecurityException
     {
         validate( entity );
         entity = rDao.update( entity );
@@ -152,8 +150,7 @@ public final class AdminRoleP
      * @param entity Admin Role entity contains data targeted for updating.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final void deleteParent( AdminRole entity )
-        throws SecurityException
+    final void deleteParent( AdminRole entity ) throws SecurityException
     {
         validate( entity );
         rDao.deleteParent( entity );
@@ -183,10 +180,9 @@ public final class AdminRoleP
      * @param entity contains userId and admin role name and (optional) role temporal constraints.
      * @param userDn contains the DN of user being assigned.
      * @return AdminRole contains copy of input entity and additional data processed by request.
-     * @throws us.jts.fortress.SecurityException in the event data error in user or role objects or system error.
+     * @throws SecurityException in the event data error in user or role objects or system error.
      */
-    public final AdminRole assign( AdminRole entity, String userDn )
-        throws SecurityException
+    final AdminRole assign( AdminRole entity, String userDn ) throws SecurityException
     {
         return rDao.assign( entity, userDn );
     }
@@ -199,9 +195,9 @@ public final class AdminRoleP
      * @param uRoles contains a collection of UserAdminRole being targeted for assignment.
      * @param userDn contains the userId targeted for attribute addition.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final void addOccupant( List<UserAdminRole> uRoles, String userDn, String contextId )
+    void addOccupant( List<UserAdminRole> uRoles, String userDn, String contextId )
         throws SecurityException
     {
         if ( VUtil.isNotNullOrEmpty( uRoles ) )
@@ -222,9 +218,9 @@ public final class AdminRoleP
      *
      * @param userDn contains the userId targeted for attribute removal.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final void removeOccupant( String userDn, String contextId )
+    final void removeOccupant( String userDn, String contextId )
         throws SecurityException
     {
         List<String> list;
@@ -255,10 +251,9 @@ public final class AdminRoleP
      * @param entity contains userId and admin role name targeted for removal.
      * @param userDn contains the userId targeted for attribute removal.
      * @return AdminRole contains copy of input entity and additional data processed by request.
-     * @throws us.jts.fortress.SecurityException - in the event data error in user or role objects or system error.
+     * @throws SecurityException - in the event data error in user or role objects or system error.
      */
-    public final AdminRole deassign( AdminRole entity, String userDn )
-        throws SecurityException
+    final AdminRole deassign( AdminRole entity, String userDn ) throws SecurityException
     {
         return rDao.deassign( entity, userDn );
     }
@@ -269,10 +264,9 @@ public final class AdminRoleP
      * Admin Role entity must exist in directory prior to making this call else exception will be thrown.
      *
      * @param entity Contains the name of the Admin Role targeted for deletion.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final void delete( AdminRole entity )
-        throws SecurityException
+    final void delete( AdminRole entity ) throws SecurityException
     {
         try
         {
@@ -293,7 +287,7 @@ public final class AdminRoleP
      * checks will be performed on all non-null attributes.  Validations will be performed on ARBAC constraints as well.
      *
      * @param entity contains data targeted for insertion or update.
-     * @throws us.jts.fortress.SecurityException in the event of data validation error or DAO error on Org validation.
+     * @throws SecurityException in the event of data validation error or DAO error on Org validation.
      */
     private void validate( AdminRole entity )
         throws SecurityException

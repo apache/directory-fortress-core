@@ -29,7 +29,7 @@ import us.jts.fortress.util.attr.VUtil;
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
  * {@link us.jts.fortress.CreateException},{@link us.jts.fortress.UpdateException},{@link us.jts.fortress.RemoveException}),
- * or {@link us.jts.fortress.ValidationException} as {@link us.jts.fortress.SecurityException}s with appropriate
+ * or {@link us.jts.fortress.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link us.jts.fortress.GlobalErrIds}.
  * <p>
  * This class is thread safe.
@@ -50,7 +50,7 @@ public final class SdP
     /**
      * Package private constructor.
      */
-    public SdP()
+    SdP()
     {
     }
 
@@ -62,10 +62,9 @@ public final class SdP
      *
      * @param entity SDSet contains data targeted for insertion.
      * @return SDSet entity copy of input + additional attributes (internalId) that were added by op.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final SDSet add( SDSet entity )
-        throws SecurityException
+    final SDSet add( SDSet entity ) throws SecurityException
     {
         validate( entity );
         return sdDao.create( entity );
@@ -82,8 +81,7 @@ public final class SdP
      * @return SDSet entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final SDSet update( SDSet entity )
-        throws SecurityException
+    final SDSet update( SDSet entity ) throws SecurityException
     {
         validate( entity );
         return sdDao.update( entity );
@@ -97,10 +95,9 @@ public final class SdP
      *
      * @param entity Contains the name of the SDSet node targeted for deletion.
      * @return SDSet is a copy of entity.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final SDSet delete( SDSet entity )
-        throws SecurityException
+    final SDSet delete( SDSet entity ) throws SecurityException
     {
         return sdDao.remove( entity );
     }
@@ -114,8 +111,7 @@ public final class SdP
      * @return SDSet entity containing all attributes associated with ou in directory.
      * @throws SecurityException in the event SDSet not found or DAO search error.
      */
-    public final SDSet read( SDSet entity )
-        throws SecurityException
+    final SDSet read( SDSet entity ) throws SecurityException
     {
         SDSet sde;
         // The assumption is this method is called from ReviewMgr.ssdRoleSetRoles or ReviewMgr.dsdRoleSetRoles.
@@ -134,10 +130,9 @@ public final class SdP
      *
      * @param sdSet contains sdset name or partial name along with sdset type of STATIC or DYNAMIC.
      * @return List of SDSet entities found.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<SDSet> search( SDSet sdSet )
-        throws SecurityException
+    final List<SDSet> search( SDSet sdSet ) throws SecurityException
     {
         return sdDao.search( sdSet );
     }
@@ -150,10 +145,9 @@ public final class SdP
      * @param role contains full role name associated with SDSet.
      * @param type either STATIC or DYNAMIC depending on target search data set.
      * @return List of SDSet entities found.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<SDSet> search( Role role, SDSet.SDType type )
-        throws SecurityException
+    final List<SDSet> search( Role role, SDSet.SDType type ) throws SecurityException
     {
         return sdDao.search( role, type );
     }
@@ -168,8 +162,7 @@ public final class SdP
      * @return List of SDSet entities found.
      * @throws SecurityException in the event of DAO search error.
      */
-    public final Set<SDSet> search( Set<String> rls, SDSet sdSet )
-        throws SecurityException
+    final Set<SDSet> search( Set<String> rls, SDSet sdSet ) throws SecurityException
     {
         return sdDao.search( rls, sdSet );
     }
@@ -182,7 +175,7 @@ public final class SdP
      * reasonability check on description if set.
      *
      * @param entity contains the enum type to validate
-     * @throws us.jts.fortress.SecurityException thrown in the event the attribute is null.
+     * @throws SecurityException thrown in the event the attribute is null.
      */
     private void validate( SDSet entity )
         throws SecurityException

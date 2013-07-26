@@ -32,10 +32,10 @@ import us.jts.fortress.util.time.CUtil;
  * {@link us.jts.fortress.rbac.ReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
  * {@link User}, validate its contents and forward on to it's corresponding DAO class {@link us.jts.fortress.rbac.dao.UserDAO}.
  * <p>
- * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
+ * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
  * {@link us.jts.fortress.CreateException},{@link us.jts.fortress.UpdateException},{@link us.jts.fortress.RemoveException}),
- *  or {@link us.jts.fortress.ValidationException} as {@link us.jts.fortress.SecurityException}s with appropriate
+ *  or {@link us.jts.fortress.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link us.jts.fortress.GlobalErrIds}.
  * <p>
  * This class is thread safe.
@@ -57,7 +57,7 @@ public final class UserP
     /**
      * Package private constructor.
      */
-    public UserP()
+    UserP()
     {
     }
 
@@ -67,17 +67,15 @@ public final class UserP
      *
      * @param user contains all or partial userId or full internal userId.
      * @return List of type User containing fully populated matching User entities.  If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<User> search( User user )
-        throws SecurityException
+    final List<User> search( User user ) throws SecurityException
     {
         return uDao.findUsers( user );
     }
 
 
-    public final List<User> search( OrgUnit ou, boolean limitSize )
-        throws SecurityException
+    final List<User> search( OrgUnit ou, boolean limitSize ) throws SecurityException
     {
         return uDao.findUsers( ou, limitSize );
     }
@@ -90,10 +88,9 @@ public final class UserP
      * @param user contains full or partial userId.
      * @param limit     specify the max number of records to return in result set.
      * @return List of type String containing userId of all matching User entities. If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<String> search( User user, int limit )
-        throws SecurityException
+    final List<String> search( User user, int limit ) throws SecurityException
     {
         return uDao.findUsers( user, limit );
     }
@@ -104,10 +101,9 @@ public final class UserP
      *
      * @param role contains the role name targeted for search.
      * @return List of type User containing fully populated matching User entities. If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<User> getAuthorizedUsers( Role role )
-        throws SecurityException
+    final List<User> getAuthorizedUsers( Role role ) throws SecurityException
     {
         return uDao.getAuthorizedUsers( role );
     }
@@ -119,10 +115,9 @@ public final class UserP
      * @param roles contains the set of role names targeted for search.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of type String containing the userId's for matching User entities. If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final Set<String> getAssignedUsers( Set<String> roles, String contextId )
-        throws SecurityException
+    final Set<String> getAssignedUsers( Set<String> roles, String contextId ) throws SecurityException
     {
         return uDao.getAssignedUsers( roles, contextId );
     }
@@ -136,10 +131,9 @@ public final class UserP
      * @param role
      * @param limit specify the max number of records to return in result set.
      * @return list of type String of userIds. If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<String> getAuthorizedUsers( Role role, int limit )
-        throws SecurityException
+    final List<String> getAuthorizedUsers( Role role, int limit ) throws SecurityException
     {
         return uDao.getAuthorizedUsers( role, limit );
     }
@@ -151,10 +145,9 @@ public final class UserP
      *
      * @param role contains name of RBAC role used for search.
      * @return List of fully populated User entities matching target search. If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<User> getAssignedUsers( Role role )
-        throws SecurityException
+    final List<User> getAssignedUsers( Role role ) throws SecurityException
     {
         return uDao.getAssignedUsers( role );
     }
@@ -166,10 +159,9 @@ public final class UserP
      *
      * @param role contains name of Admin role used for search.
      * @return List of fully populated User entities matching target search.  If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<User> getAssignedUsers( AdminRole role )
-        throws SecurityException
+    final List<User> getAssignedUsers( AdminRole role ) throws SecurityException
     {
         return uDao.getAssignedUsers( role );
     }
@@ -180,10 +172,9 @@ public final class UserP
      *
      * @param user contains full userId for target operation.
      * @return List of type String containing RBAC role names.  If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    public final List<String> getAssignedRoles( User user )
-        throws SecurityException
+    final List<String> getAssignedRoles( User user ) throws SecurityException
     {
         return uDao.getRoles( user );
     }
@@ -196,10 +187,9 @@ public final class UserP
      * @param user  contains full userId value.
      * @param isRoles return user's assigned roles if "true".
      * @return User entity containing all attributes associated with User in directory.
-     * @throws us.jts.fortress.SecurityException in the event of User not found or DAO search error.
+     * @throws SecurityException in the event of User not found or DAO search error.
      */
-    public final User read( User user, boolean isRoles )
-        throws SecurityException
+    final User read( User user, boolean isRoles ) throws SecurityException
     {
         return uDao.getUser( user, isRoles );
     }
@@ -212,9 +202,9 @@ public final class UserP
      *
      * @param entity User entity contains data targeted for insertion.
      * @return User entity copy of input + additional attributes (internalId) that were added by op.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final User add( User entity ) throws SecurityException
+    final User add( User entity ) throws SecurityException
     {
         return add( entity, true );
     }
@@ -228,9 +218,9 @@ public final class UserP
      * @param entity   User entity contains data targeted for insertion.
      * @param validate if false will skip the validations described above.
      * @return User entity copy of input + additional attributes (internalId)
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final User add( User entity, boolean validate ) throws SecurityException
+    final User add( User entity, boolean validate ) throws SecurityException
     {
         if ( validate )
         {
@@ -253,10 +243,9 @@ public final class UserP
      *
      * @param entity User entity contains data targeted for insertion.
      * @return User entity copy of input
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final User update( User entity )
-        throws SecurityException
+    final User update( User entity ) throws SecurityException
     {
         return update( entity, true );
     }
@@ -272,7 +261,7 @@ public final class UserP
      * @param entity   User entity contains data targeted for insertion.
      * @param validate if false will skip the validations described above.
      * @return User entity copy of input
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
     /**
      * Update existing user's attributes with the input entity.  Null or empty attributes will be ignored.
@@ -284,10 +273,9 @@ public final class UserP
      * @param entity   User entity contains data targeted for insertion.
      * @param validate if false will skip the validations described above.
      * @return User entity copy of input
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final User update( User entity, boolean validate )
-        throws SecurityException
+    final User update( User entity, boolean validate ) throws SecurityException
     {
         if ( validate )
         {
@@ -307,7 +295,7 @@ public final class UserP
      * @param session contains the session of user.
      * @param replace if set will replace existing vals
      * @return User entity copy of input
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
     private User updateProps( User entity, Session session, boolean replace )
         throws SecurityException
@@ -343,10 +331,9 @@ public final class UserP
      *
      * @param user Contains the userId of the user targeted for deletion.
      * @return String contains user DN
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final String softDelete( User user )
-        throws SecurityException
+    final String softDelete( User user ) throws SecurityException
     {
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
         // Is there a match between this userId and a Fortress system user?
@@ -369,10 +356,9 @@ public final class UserP
      *
      * @param user Contains the userid of the user targeted for deletion.
      * @return String contains user DN
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    public final String delete( User user )
-        throws SecurityException
+    final String delete( User user ) throws SecurityException
     {
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
         // Is there a match between this userId and a Fortress system user?
@@ -392,10 +378,9 @@ public final class UserP
      * password policy will default to that which is default for ldap server.
      *
      * @param user contains the userId for target user.
-     * @throws us.jts.fortress.SecurityException in the event of DAO error.
+     * @throws SecurityException in the event of DAO error.
      */
-    public final void deletePwPolicy( User user )
-        throws us.jts.fortress.SecurityException
+    final void deletePwPolicy( User user ) throws SecurityException
     {
         uDao.deletePwPolicy( user );
     }
@@ -407,9 +392,9 @@ public final class UserP
      *
      * @param user  Contains the userid of the user signing on along with password.
      * @return Session object will be returned if authentication successful.  This will not contain user's roles.
-     * @throws us.jts.fortress.SecurityException in the event of data validation failure, security policy violation or DAO error.
+     * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    public final Session authenticate( User user ) throws SecurityException
+    final Session authenticate( User user ) throws SecurityException
     {
         Session session;
         session = uDao.checkPassword( user );
@@ -479,10 +464,9 @@ public final class UserP
      * @param user    Contains userId, password (optional if "trusted"), optional User RBAC Roles: List<UserRole> rolesToBeActivated., optional User Admin Roles: List<UserAdminRole> adminRolesToBeActivated.
      * @param trusted if true password is not required.
      * @return Session object will contain authentication result code, RBAC and Admin role activations, OpenLDAP pw policy output and more.
-     * @throws us.jts.fortress.SecurityException in the event of data validation failure, security policy violation or DAO error.
+     * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    public final Session createSession( User user, boolean trusted )
-        throws SecurityException
+    final Session createSession( User user, boolean trusted ) throws SecurityException
     {
         Session session;
 
@@ -523,7 +507,7 @@ public final class UserP
      *
      * @param inUser   Contains userId that represents rDn of node in ldap directory.
      * @return Session object will contain authentication result code, RBAC and Admin role activations, OpenLDAP pw policy output and more.
-     * @throws us.jts.fortress.SecurityException in the event of data validation failure, security policy violation or DAO error.
+     * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
     private Session createSession( User inUser )
         throws SecurityException
@@ -549,7 +533,7 @@ public final class UserP
      *
      * @param inUser Contains userId that represents rDn of node in ldap directory.
      * @return Session object will contain authentication result code, RBAC and Admin role activations, OpenLDAP pw policy output and more.
-     * @throws us.jts.fortress.SecurityException in the event of data validation failure, security policy violation or DAO error.
+     * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
     private Session createSessionTrusted( User inUser )
         throws SecurityException
@@ -581,10 +565,9 @@ public final class UserP
      * Method will set the OpenLDAP pwlocked attribute which will lock user from being able to signon to the system.
      *
      * @param user Contains userId that represents rDn of node in ldap directory.
-     * @throws us.jts.fortress.SecurityException in the event of DAO error.
+     * @throws SecurityException in the event of DAO error.
      */
-    public final void lock( User user )
-        throws SecurityException
+    final void lock( User user ) throws SecurityException
     {
         uDao.lock( user );
     }
@@ -594,10 +577,9 @@ public final class UserP
      * Method will reset the OpenLDAP pwlocked attribute which will unlock user and allow to signon to the system.
      *
      * @param user Contains userId that represents rDn of node in ldap directory.
-     * @throws us.jts.fortress.SecurityException in the event of DAO  error.
+     * @throws SecurityException in the event of DAO  error.
      */
-    public final void unlock( User user )
-        throws SecurityException
+    final void unlock( User user ) throws SecurityException
     {
         uDao.unlock( user );
     }
@@ -608,10 +590,9 @@ public final class UserP
      *
      * @param entity      contains userId and old password.
      * @param newPassword contains the new password which must pass the password policy constraints.
-     * @throws us.jts.fortress.SecurityException in the event of data validation failure, password policy violation or DAO error.
+     * @throws SecurityException in the event of data validation failure, password policy violation or DAO error.
      */
-    public final void changePassword( User entity, char[] newPassword )
-        throws SecurityException
+    final void changePassword( User entity, char[] newPassword ) throws SecurityException
     {
         String userId = entity.getUserId();
         boolean result = uDao.changePassword( entity, newPassword );
@@ -623,14 +604,13 @@ public final class UserP
 
 
     /**
-     * Peform password reset on user entity.  This will change the User password and set the reset flag
+     * Perform password reset on user entity.  This will change the User password and set the reset flag
      * in OpenLDAP will will force the user to change their password at next logon time.
      *
      * @param user contains the userId and the new password.
-     * @throws us.jts.fortress.SecurityException in the event of DAO error.
+     * @throws SecurityException in the event of DAO error.
      */
-    public final void resetPassword( User user )
-        throws SecurityException
+    final void resetPassword( User user ) throws SecurityException
     {
         uDao.resetUserPassword( user );
     }
@@ -668,10 +648,9 @@ public final class UserP
      *
      * @param uRole entity contains userId and role name for targeted assignment.
      * @return String containing the user's DN.  This value is used to update the "roleOccupant" attribute on associated role entity.
-     * @throws us.jts.fortress.SecurityException in the event data error in user or role objects or system error.
+     * @throws SecurityException in the event data error in user or role objects or system error.
      */
-    public final String assign( UserRole uRole )
-        throws SecurityException
+    final String assign( UserRole uRole ) throws SecurityException
     {
         // "assign" custom Fortress role data, i.e. temporal constraints, onto the user node:
         return uDao.assign( uRole );
@@ -690,10 +669,9 @@ public final class UserP
      *
      * @param uRole entity contains userId and RBAC Role name for targeted assignment.
      * @return String containing the user's DN.  This value is used to remove the "roleOccupant" attribute on associated RBAC Role entity.
-     * @throws us.jts.fortress.SecurityException - in the event data error in user or role objects or system error.
+     * @throws SecurityException - in the event data error in user or role objects or system error.
      */
-    public final String deassign( UserRole uRole )
-        throws SecurityException
+    final String deassign( UserRole uRole ) throws SecurityException
     {
         // "deassign" custom Fortress role data from the user's node:
         return uDao.deassign( uRole );
@@ -722,10 +700,9 @@ public final class UserP
      *
      * @param uRole entity contains userId and Admin Role name for targeted assignment.
      * @return String containing the user's DN.  This value is used to update the "roleOccupant" attribute on associated Admin Role entity.
-     * @throws us.jts.fortress.SecurityException in the event data error in user or role objects or system error.
+     * @throws SecurityException in the event data error in user or role objects or system error.
      */
-    public final String assign( UserAdminRole uRole )
-        throws SecurityException
+    final String assign( UserAdminRole uRole ) throws SecurityException
     {
         // Assign custom Fortress role data, i.e. temporal constraints, onto the user node:
         return uDao.assign( uRole );
@@ -742,10 +719,9 @@ public final class UserP
      *
      * @param uRole entity contains userId and Admin Role name for targeted assignment.
      * @return String containing the user's DN.  This value is used to remove the "roleOccupant" attribute on associated Admin Role entity.
-     * @throws us.jts.fortress.SecurityException - in the event data error in user or role objects or system error.
+     * @throws SecurityException - in the event data error in user or role objects or system error.
      */
-    public final String deassign( UserAdminRole uRole )
-        throws SecurityException
+    final String deassign( UserAdminRole uRole ) throws SecurityException
     {
         // Deassign custom Fortress role data from the user's node:
         return uDao.deassign( uRole );
@@ -761,7 +737,7 @@ public final class UserP
      *
      * @param entity   User entity contains data targeted for insertion or update.  The input role constraints will be accepted.
      * @param isUpdate if true update operation is being performed which specifies a different set of targeted attributes.
-     * @throws us.jts.fortress.SecurityException in the event of data validation error or DAO error on Org validation.
+     * @throws SecurityException in the event of data validation error or DAO error on Org validation.
      */
     private void validate( User entity, boolean isUpdate )
         throws SecurityException

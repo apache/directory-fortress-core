@@ -28,10 +28,10 @@ import us.jts.fortress.util.cache.CacheMgr;
  * This class is not intended to be used by external programs.  This class will accept Fortress entity, {@link PwPolicy}, on its
  * methods, validate contents and forward on to it's corresponding DAO class {@link PolicyDAO}.
  * <p/>
- * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
+ * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
  * {@link us.jts.fortress.CreateException},{@link us.jts.fortress.UpdateException},{@link us.jts.fortress.RemoveException}),
- * or {@link us.jts.fortress.ValidationException} as {@link us.jts.fortress.SecurityException}s with appropriate
+ * or {@link us.jts.fortress.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link us.jts.fortress.GlobalErrIds}.
  * <p/>
  * This class uses one reference to synchronized data set {@link #policyCache} but is thread safe.
@@ -71,7 +71,7 @@ public final class PolicyP
     /**
      * Package private constructor.
      */
-    public PolicyP()
+    PolicyP()
     {
     }
 
@@ -82,7 +82,7 @@ public final class PolicyP
      * @param policy
      * @return
      */
-    public final boolean isValid( PwPolicy policy )
+    final boolean isValid( PwPolicy policy )
     {
         boolean result = false;
         Set<String> policySet = getPolicySet( policy.getContextId() );
@@ -98,10 +98,9 @@ public final class PolicyP
      *
      * @param policy contains the name of the policy entity.
      * @return PswdPolicy entity returns fully populated with attributes.
-     * @throws us.jts.fortress.SecurityException In the event policy entry not found, data validation or system error.
+     * @throws SecurityException In the event policy entry not found, data validation or system error.
      */
-    public final PwPolicy read( PwPolicy policy )
-        throws SecurityException
+    final PwPolicy read( PwPolicy policy ) throws SecurityException
     {
         // Call the finder method for the primary key.
         return olDao.getPolicy( policy );
@@ -113,10 +112,9 @@ public final class PolicyP
      * if and only if the policy entry is not already present in the POLICIES data set.
      *
      * @param policy Object contains the password policy attributes.
-     * @throws us.jts.fortress.SecurityException In the event of data validation or system error.
+     * @throws SecurityException In the event of data validation or system error.
      */
-    public final void add( PwPolicy policy )
-        throws SecurityException
+    final void add( PwPolicy policy ) throws SecurityException
     {
         validate( policy );
         olDao.create( policy );
@@ -135,10 +133,9 @@ public final class PolicyP
      *
      * @param policy Object must contain the name of the policy entity.  All non-null attributes will
      *               be updated.  null attributes will be ignored.
-     * @throws us.jts.fortress.SecurityException In the event policy not found , data validation or system error.
+     * @throws SecurityException In the event policy not found , data validation or system error.
      */
-    public final void update( PwPolicy policy )
-        throws SecurityException
+    final void update( PwPolicy policy ) throws SecurityException
     {
         validate( policy );
         olDao.update( policy );
@@ -151,10 +148,9 @@ public final class PolicyP
      * are assigned this policy will be removed from association.
      *
      * @param policy Object must contain the name of the policy entity.
-     * @throws us.jts.fortress.SecurityException In the event policy entity not found or system error.
+     * @throws SecurityException In the event policy entity not found or system error.
      */
-    public final void delete( PwPolicy policy )
-        throws SecurityException
+    final void delete( PwPolicy policy ) throws SecurityException
     {
         olDao.remove( policy );
         synchronized ( policySetSynchLock )
@@ -172,10 +168,9 @@ public final class PolicyP
      *
      * @param policy contains the leading chars of a policy entity.  This search is not case sensitive.
      * @return List<PswdPolicy> contains all matching password policy entities. If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException In the event of data validation or system error.
+     * @throws SecurityException In the event of data validation or system error.
      */
-    public final List<PwPolicy> search( PwPolicy policy )
-        throws SecurityException
+    final List<PwPolicy> search( PwPolicy policy ) throws SecurityException
     {
         return olDao.findPolicy( policy );
     }
@@ -186,10 +181,9 @@ public final class PolicyP
      * or updating in directory.  Data reasonability checks will be performed on all non-null attributes.
      *
      * @param policy contains data targeted for insertion or update.
-     * @throws us.jts.fortress.ValidationException in the event of data validation error or DAO error on Org validation.
+     * @throws ValidationException in the event of data validation error or DAO error on Org validation.
      */
-    private void validate( PwPolicy policy )
-        throws ValidationException
+    private void validate( PwPolicy policy ) throws ValidationException
     {
         int length = policy.getName().length();
         if ( length < 1 || length > GlobalIds.PWPOLICY_NAME_LEN )
