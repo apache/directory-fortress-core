@@ -163,5 +163,8 @@ public interface DelAccessMgr extends Manageable
      */
     public Set<String> authorizedAdminRoles(Session session)
         throws SecurityException;
+
+    public List<Permission> sessionPermissions(Session session)
+        throws SecurityException;
 }
 

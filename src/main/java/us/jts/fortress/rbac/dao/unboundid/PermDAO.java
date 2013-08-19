@@ -945,6 +945,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
     private Permission unloadPopLdapEntry( LDAPEntry le, long sequence )
     {
         Permission entity = new ObjectFactory().createPermission();
+        entity.setDn( le.getDN() );
         entity.setSequenceId( sequence );
         entity.setAbstractName( getAttribute( le, PERM_NAME ) );
         entity.setObjectName( getAttribute( le, GlobalIds.POBJ_NAME ) );
@@ -1282,18 +1283,28 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
      * @throws us.jts.fortress.FinderException
      *
      */
-    public final List<Permission> findPermissions( Session session )
+    public final List<Permission> findPermissions( Session session, boolean isAdmin )
         throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String permRoot = getRootDn( session.getContextId(), GlobalIds.PERM_ROOT );
+        String permRoot = getRootDn( isAdmin, session.getContextId() );
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             filter += "(" + USERS + "=" + session.getUserId() + ")";
-            Set<String> roles = RoleUtil.getInheritedRoles( session.getRoles(), session.getContextId() );
+            //Set<String> roles = RoleUtil.getInheritedRoles( session.getRoles(), session.getContextId() );
+            Set<String> roles;
+            if(isAdmin)
+            {
+                roles = AdminRoleUtil.getInheritedRoles( session.getAdminRoles(), session.getContextId() );
+            }
+            else
+            {
+                roles = RoleUtil.getInheritedRoles( session.getRoles(), session.getContextId() );
+            }
+
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
                 for ( String uRole : roles )

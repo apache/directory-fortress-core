@@ -156,7 +156,6 @@
                 <role name="manager" description="Tomcat Manager Role"/>
                 <role name="manager-jmx" description="Tomcat Manager Role"/>
                 <role name="EnmasseSuperUser" description="Role to access En Masse services"/>
-                <!--role name="role1" description="Tomcat Role for Calendar App" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/-->
             </addrole>
 
             <addadminrole>

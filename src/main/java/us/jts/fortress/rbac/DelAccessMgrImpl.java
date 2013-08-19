@@ -9,6 +9,7 @@ import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.cfg.Config;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.SecurityException;
+import us.jts.fortress.util.time.CUtil;
 
 import java.util.List;
 import java.util.Set;
@@ -269,8 +270,27 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     {
         String methodName = "authorizedAdminRoles";
         assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
-        assertContext(CLS_NM, methodName, session.getUser(), GlobalErrIds.USER_NULL);
-        return AdminRoleUtil.getInheritedRoles(session.getAdminRoles(), this.contextId);
+        assertContext( CLS_NM, methodName, session.getUser(), GlobalErrIds.USER_NULL );
+        return AdminRoleUtil.getInheritedRoles( session.getAdminRoles(), this.contextId );
+    }
+
+    /**
+     * This function returns the permissions of the session, i.e., the permissions assigned
+     * to its authorized roles. The function is valid if and only if the session is a valid Fortress session.
+     *
+     * @param session object contains the user's returned RBAC session from the createSession method.
+     * @return List<Permission> containing permissions (op, obj) active for user's session.
+     * @throws SecurityException in the event runtime error occurs with system.
+     */
+    @Override
+    public List<Permission> sessionPermissions(Session session)
+        throws SecurityException
+    {
+        String methodName = "sessionPermissions";
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
+        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
+        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
+        return permP.search( session, true );
     }
 
     /**

@@ -173,6 +173,7 @@ import us.jts.fortress.rbac.dao.UserDAO;
         "users",
         "roles",
         "props",
+        "dn",
         "admin"
 })
 public class Permission extends FortEntity
@@ -185,6 +186,7 @@ public class Permission extends FortEntity
     private String objectId;
     private String abstractName;
     private String type;
+    private String dn;
     @XmlElement(nillable = true)
     private Props props = new Props();
     //private Properties props;
@@ -524,6 +526,16 @@ public class Permission extends FortEntity
         this.users = users;
     }
 
+
+    public String getDn()
+    {
+        return dn;
+    }
+
+    public void setDn( String dn )
+    {
+        this.dn = dn;
+    }
 
     /**
       * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.

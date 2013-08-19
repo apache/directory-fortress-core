@@ -376,7 +376,7 @@ public final class AuditDAO extends UnboundIdDataProvider implements us.jts.fort
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(";
-            if ( audit.getUserId() != null && audit.getUserId().length() > 0 )
+            if (VUtil.isNotNullOrEmpty( audit.getUserId() ) )
             {
                 filter += REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
             }
@@ -384,19 +384,27 @@ public final class AuditDAO extends UnboundIdDataProvider implements us.jts.fort
             {
                 // have to limit the query to only authorization entries.
                 // TODO: determine why the cn=Manager user is showing up in this search:
-                filter += REQUAUTHZID + "=*)(!(" + REQUAUTHZID + "=cn=Manager," + Config.getProperty( GlobalIds.SUFFIX )
-                    + "))";
-
-                // TODO: fix this so filter by only the Fortress AuthZ entries and not the others:
-                if ( audit.isFailedOnly() )
-                {
-                    filter += "(!(" + REQRESULT + "=" + 6 + "))";
-                }
+                filter += REQUAUTHZID + "=*)(!(" + REQUAUTHZID + "=cn=Manager," + Config.getProperty(GlobalIds.SUFFIX) + "))";
+            }
+            //if( VUtil.isNotNullOrEmpty( audit.getObjName() ) && VUtil.isNotNullOrEmpty( audit.getOpName() ) )
+            if( VUtil.isNotNullOrEmpty( audit.getDn() ) )
+            {
+                //filter += "(" + REQDN + "=" + GlobalIds.POP_NAME + "=" + audit.getOpName() + "," + GlobalIds.POBJ_NAME + "=" + audit.getObjName() + ",*)";
+                filter += "(" + REQDN + "=" + audit.getDn() + ")";
+            }
+            if (audit.isFailedOnly())
+            {
+                filter += "(!(" + REQRESULT + "=" + 6 + "))";
             }
             if ( audit.getBeginDate() != null )
             {
                 String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
+            }
+            if (audit.getEndDate() != null)
+            {
+                String szTime = AttrHelper.encodeGeneralizedTime(audit.getEndDate());
+                filter += "(" + REQEND + "<=" + szTime + ")";
             }
             filter += ")";
 

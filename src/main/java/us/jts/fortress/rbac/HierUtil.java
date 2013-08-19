@@ -187,9 +187,19 @@ final class HierUtil
             {
                 String child = edge.getChild();
                 String parent = edge.getParent();
-                graph.addVertex( child );
-                graph.addVertex( parent );
-                graph.addEdge( child, parent, edge );
+
+                try
+                {
+                    graph.addVertex( child );
+                    graph.addVertex( parent );
+                    graph.addEdge( child, parent, edge );
+                }
+                catch (java.lang.IllegalArgumentException e)
+                {
+                    // TODO: determine if this needs to throw exception here:
+                    String error = "toGraph child: " + child + " parent: " + parent + " caught IllegalArgumentException=" + e;
+                    LOG.error( error );
+                }
                 if ( LOG.isDebugEnabled() )
                     LOG.debug( "toGraph child=" + child + " parent=" + parent );
             }

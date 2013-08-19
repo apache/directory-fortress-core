@@ -1562,6 +1562,17 @@ public class PermTestData extends TestCase
                 "", /* USERS_COL */
                 "", /* GROUPS_COL */
                 "T" /* IS_ADMIN_COL */
+},
+            {
+                "search", /* NAME_COL */
+                "PasswordMgr Operation", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
 }
     };
 
@@ -1891,6 +1902,17 @@ public class PermTestData extends TestCase
                 "T" /* IS_ADMIN_COL */
 },
             {
+                "updateSsdSet", /* NAME_COL */
+                "AdminMgr Operation", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+            {
                 "addSsdRoleMember", /* NAME_COL */
                 "AdminMgr Operation", /* DESC_COL */
                 "", /* OBJ_ID_COL */
@@ -1936,6 +1958,17 @@ public class PermTestData extends TestCase
 },
             {
                 "createDsdSet", /* NAME_COL */
+                "AdminMgr Operation", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+            {
+                "updateDsdSet", /* NAME_COL */
                 "AdminMgr Operation", /* DESC_COL */
                 "", /* OBJ_ID_COL */
                 "ADMIN", /* TYPE_COL */

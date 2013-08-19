@@ -84,6 +84,9 @@ public class AuditMgrImplTest extends TestCase
     private static Map<String, String> loadAuditMap()
     {
         disabled = new HashMap();
+        disabled.put("AdminMgrImpl.updateSsdSet", null);
+        disabled.put("AdminMgrImpl.updateDsdSet", null);
+        disabled.put("PwPolicyMgrImpl.search", null);
         //disabled.put("AdminMgrImpl.changePassword", null);
         //disabled.put("AdminMgrRestImpl.changePassword", null);
         LOG.info( "loadAuditMap isFirstRun [" + FortressJUnitTest.isFirstRun() + "]" );

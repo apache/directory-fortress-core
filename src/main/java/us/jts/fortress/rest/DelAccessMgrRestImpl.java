@@ -377,4 +377,10 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
     {
         throw new java.lang.UnsupportedOperationException();
     }
+
+    public List<Permission> sessionPermissions(Session session)
+        throws SecurityException
+    {
+        throw new java.lang.UnsupportedOperationException();
+    }
 }

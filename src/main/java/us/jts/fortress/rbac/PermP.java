@@ -231,7 +231,22 @@ public final class PermP
      */
     final List<Permission> search( Session session ) throws SecurityException
     {
-        return pDao.findPermissions( session );
+        return search(session, false);
+    }
+
+
+    /**
+     * This function returns the permissions of the session, i.e., the permissions assigned
+     * to its authorized roles. The function is valid if and only if the session is a valid Fortress session.
+     *
+     * @param session This object must be instantiated by calling {@link AccessMgrImpl#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @return List<Permission> containing permissions (op, obj) active for user's session.
+     * @throws us.jts.fortress.SecurityException is thrown if runtime error occurs with system.
+     */
+    final List<Permission> search(Session session, boolean isAdmin)
+        throws SecurityException
+    {
+        return pDao.findPermissions(session, isAdmin);
     }
 
 
@@ -543,12 +558,25 @@ public final class PermP
         if ( VUtil.isNotNullOrEmpty( pOp.getRoles() ) )
         {
             Set<String> roles = pOp.getRoles();
-            RoleP rp = new RoleP();
-            for ( String roleNm : roles )
+            if(pOp.isAdmin())
             {
-                Role role = new Role( roleNm );
-                role.setContextId( pOp.getContextId() );
-                rp.read( role );
+                AdminRoleP arp = new AdminRoleP();
+                for (String roleNm : roles)
+                {
+                    AdminRole adminRole = new AdminRole(roleNm);
+                    adminRole.setContextId(pOp.getContextId());
+                    arp.read(adminRole);
+                }
+            }
+            else
+            {
+                RoleP rp = new RoleP();
+                for (String roleNm : roles)
+                {
+                    Role role = new Role(roleNm);
+                    role.setContextId(pOp.getContextId());
+                    rp.read(role);
+                }
             }
         }
         // Validate User Grants:

@@ -297,5 +297,5 @@ public interface PermDAO
      * @throws us.jts.fortress.FinderException
      *
      */
-    List<Permission> findPermissions( Session session ) throws FinderException;
+    List<Permission> findPermissions( Session session, boolean isAdmin ) throws FinderException;
 }

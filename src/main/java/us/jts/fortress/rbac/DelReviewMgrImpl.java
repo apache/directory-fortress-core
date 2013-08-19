@@ -180,7 +180,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
         throws SecurityException
     {
         String methodName = "searchOU";
-        VUtil.assertNotNullOrEmpty(searchVal, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
+        //VUtil.assertNotNullOrEmpty(searchVal, GlobalErrIds.ORG_NULL, CLS_NM + "." + methodName);
         VUtil.assertNotNull(type, GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
         checkAccess(CLS_NM, methodName);
         OrgUnit orgUnit = new OrgUnit(searchVal);
