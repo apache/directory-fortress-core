@@ -15,7 +15,6 @@ import us.jts.fortress.rbac.GlobalPwMsgIds;
 import us.jts.fortress.rbac.PwMessage;
 import us.jts.fortress.rbac.PwPolicyControl;
 
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
 
 
@@ -72,14 +71,12 @@ public class OLPWControlImpl implements PwPolicyControl
      * @param pwMsg describes the outcome of the policy checks.
      */
     @Override
-    public void checkPasswordPolicy( LDAPConnection ld, boolean isAuthenticated, PwMessage pwMsg )
+    public void checkPasswordPolicy( LDAPControl[] controls, boolean isAuthenticated, PwMessage pwMsg )
     {
         String methodName = "checkPasswordPolicy";
         pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
         pwMsg.setWarningId( GlobalPwMsgIds.PP_NOWARNING );
         pwMsg.setAuthenticated( isAuthenticated );
-
-        LDAPControl[] controls = ld.getResponseControls();
 
         if ( controls == null )
         {

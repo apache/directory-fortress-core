@@ -152,7 +152,7 @@
        <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.7.5.jar"/>
        <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.7.5.jar"/>
        <property name="slf4j-log4j.jar" value="${lib.dir}/slf4j-log4j12-1.7.5.jar"/>
-       <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M12.jar"/>
+       <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M15.jar"/>
 
        <!-- ########### Define classpaths ########################### -->
        <path id="build.class.path">

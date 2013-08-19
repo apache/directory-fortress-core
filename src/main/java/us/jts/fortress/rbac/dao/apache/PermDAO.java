@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac;
+package us.jts.fortress.rbac.dao.apache;
 
 
 import java.io.UnsupportedEncodingException;
@@ -10,6 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.api.ldap.model.cursor.CursorException;
+import org.apache.directory.api.ldap.model.cursor.SearchCursor;
+import org.apache.directory.api.ldap.model.entry.DefaultAttribute;
+import org.apache.directory.api.ldap.model.entry.DefaultEntry;
+import org.apache.directory.api.ldap.model.entry.DefaultModification;
+import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.entry.Modification;
+import org.apache.directory.api.ldap.model.entry.ModificationOperation;
+import org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException;
+import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
+import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,22 +35,22 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.ApacheDsDataProvider;
+import us.jts.fortress.rbac.AdminRole;
+import us.jts.fortress.rbac.AdminRoleUtil;
+import us.jts.fortress.rbac.OrgUnit;
+import us.jts.fortress.rbac.PermObj;
+import us.jts.fortress.rbac.Permission;
+import us.jts.fortress.rbac.Role;
+import us.jts.fortress.rbac.RoleUtil;
+import us.jts.fortress.rbac.Session;
+import us.jts.fortress.rbac.User;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
-
 
 /**
- * Permission data access class for LDAP.
+ * Permission data access class for LDAP. 
  * <p/>
  * This DAO class maintains the PermObj and Permission entities.
  * <h3>The Fortress PermObj Entity Class is a composite of 3 LDAP Schema object classes</h2>
@@ -124,7 +139,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  *
  * @author Shawn McKinney
  */
-final class PermDAO extends DataProvider
+public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortress.rbac.dao.PermDAO
 {
     private static final String CLS_NM = PermDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
@@ -175,7 +190,7 @@ final class PermDAO extends DataProvider
     /**
      * Default constructor is used by internal Fortress classes.
      */
-    PermDAO()
+    public PermDAO()
     {
     }
 
@@ -186,58 +201,60 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.CreateException
      *
      */
-    final PermObj createObject( PermObj entity )
-        throws CreateException
+    public final PermObj createObject( PermObj entity ) throws CreateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity, entity.getContextId() );
+
         try
         {
-            LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, PERM_OBJ_OBJ_CLASS ) );
-            attrs.add( createAttribute( GlobalIds.POBJ_NAME, entity.getObjectName() ) );
+            Entry entry = new DefaultEntry( dn );
+            entry.add( GlobalIds.OBJECT_CLASS, PERM_OBJ_OBJ_CLASS );
+            entry.add( GlobalIds.POBJ_NAME, entity.getObjectName() );
 
             // this will generatre a new random, unique id on this entity:
             entity.setInternalId();
+
             // create the rDN:
-            attrs.add( createAttribute( GlobalIds.FT_IID, entity.getInternalId() ) );
+            entry.add( GlobalIds.FT_IID, entity.getInternalId() );
+
             // ou is required:
-            attrs.add( createAttribute( GlobalIds.OU, entity.getOu() ) );
+            entry.add( GlobalIds.OU, entity.getOu() );
 
             // description is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                attrs.add( createAttribute( GlobalIds.DESC, entity.getDescription() ) );
+                entry.add( GlobalIds.DESC, entity.getDescription() );
             }
+
             // type is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
             {
-                attrs.add( createAttribute( TYPE, entity.getType() ) );
+                entry.add( TYPE, entity.getType() );
             }
+
             // props are optional as well:
             //if the props is null don't try to load these attributes
             if ( VUtil.isNotNullOrEmpty( entity.getProperties() ) )
             {
-                loadProperties( entity.getProperties(), attrs, GlobalIds.PROPS );
+                loadProperties( entity.getProperties(), entry, GlobalIds.PROPS );
             }
-
-            // create the new entry:
-            LDAPEntry myEntry = new LDAPEntry( dn, attrs );
 
             // now add the new entry to directory:
             ld = getAdminConnection();
-            add( ld, myEntry, entity );
+            add( ld, entry, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "createObject perm obj [" + entity.getObjectName() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "createObject perm obj [" + entity.getObjectName() + "] caught LdapException="
+                + e.getMessage();
             throw new CreateException( GlobalErrIds.PERM_ADD_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -248,51 +265,56 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.UpdateException
      *
      */
-    final PermObj updateObj( PermObj entity )
+    public final PermObj updateObj( PermObj entity )
         throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity, entity.getContextId() );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
+
             if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
             {
-                LDAPAttribute ou = new LDAPAttribute( GlobalIds.OU, entity.getOu() );
-                mods.add( LDAPModification.REPLACE, ou );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.OU, entity.getOu() ) );
             }
+
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                LDAPAttribute desc = new LDAPAttribute( GlobalIds.DESC,
-                    entity.getDescription() );
-                mods.add( LDAPModification.REPLACE, desc );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
             }
+
             if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
             {
-                LDAPAttribute type = new LDAPAttribute( TYPE,
-                    entity.getType() );
-                mods.add( LDAPModification.REPLACE, type );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, TYPE, entity.getType() ) );
             }
+
             if ( VUtil.isNotNullOrEmpty( entity.getProperties() ) )
             {
                 loadProperties( entity.getProperties(), mods, GlobalIds.PROPS, true );
             }
+
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
                 modify( ld, dn, mods, entity );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "updateObj objectName [" + entity.getObjectName() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "updateObj objectName [" + entity.getObjectName() + "] caught LdapException="
+                + e.getMessage();
             throw new UpdateException( GlobalErrIds.PERM_UPDATE_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -302,20 +324,26 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.RemoveException
      *
      */
-    final void deleteObj( PermObj entity )
-        throws RemoveException
+    public final void deleteObj( PermObj entity ) throws RemoveException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity, entity.getContextId() );
+
         try
         {
             ld = getAdminConnection();
             deleteRecursive( ld, dn, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "deleteObj objectName [" + entity.getObjectName() + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+            String error = "deleteObj objectName [" + entity.getObjectName() + "] caught LdapException="
+                + e.getMessage();
+            throw new RemoveException( GlobalErrIds.PERM_DELETE_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "deleteObj objectName [" + entity.getObjectName() + "] caught LdapException="
+                + e.getMessage();
             throw new RemoveException( GlobalErrIds.PERM_DELETE_FAILED, error, e );
         }
         finally
@@ -331,65 +359,71 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.CreateException
      *
      */
-    final Permission createOperation( Permission entity )
-        throws CreateException
+    public final Permission createOperation( Permission entity ) throws CreateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity, entity.getContextId() );
+
         try
         {
-            LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS ) );
-            attrs.add( createAttribute( GlobalIds.POP_NAME, entity.getOpName() ) );
-            attrs.add( createAttribute( GlobalIds.POBJ_NAME, entity.getObjectName() ) );
+            Entry entry = new DefaultEntry( dn );
+
+            entry.add( GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS );
+            entry.add( GlobalIds.POP_NAME, entity.getOpName() );
+            entry.add( GlobalIds.POBJ_NAME, entity.getObjectName() );
             entity.setAbstractName( entity.getObjectName() + "." + entity.getOpName() );
 
-            // this will generatre a new random, unique id on this entity:
+            // this will generate a new random, unique id on this entity:
             entity.setInternalId();
+
             // create the internal id:
-            attrs.add( createAttribute( GlobalIds.FT_IID, entity.getInternalId() ) );
+            entry.add( GlobalIds.FT_IID, entity.getInternalId() );
+
             // the abstract name is the human readable identifier:
-            attrs.add( createAttribute( PERM_NAME, entity.getAbstractName() ) );
+            entry.add( PERM_NAME, entity.getAbstractName() );
+
             // organizational name requires CN attribute:
-            attrs.add( createAttribute( GlobalIds.CN, entity.getAbstractName() ) );
+            entry.add( GlobalIds.CN, entity.getAbstractName() );
 
             // objectid is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getObjectId() ) )
             {
-                attrs.add( createAttribute( POBJ_ID, entity.getObjectId() ) );
+                entry.add( POBJ_ID, entity.getObjectId() );
             }
+
             // type is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
             {
-                attrs.add( createAttribute( TYPE, entity.getType() ) );
+                entry.add( TYPE, entity.getType() );
             }
+
             // These are multi-valued attributes, use the util function to load:
             // These items are optional as well.  The utility function will return quietly if no items are loaded into collection:
-            loadAttrs( entity.getRoles(), attrs, ROLES );
-            loadAttrs( entity.getUsers(), attrs, USERS );
+            loadAttrs( entity.getRoles(), entry, ROLES );
+            loadAttrs( entity.getUsers(), entry, USERS );
 
             // props are optional as well:
             //if the props is null don't try to load these attributes
             if ( VUtil.isNotNullOrEmpty( entity.getProperties() ) )
             {
-                loadProperties( entity.getProperties(), attrs, GlobalIds.PROPS );
+                loadProperties( entity.getProperties(), entry, GlobalIds.PROPS );
             }
-            // create the new entry:
-            LDAPEntry myEntry = new LDAPEntry( dn, attrs );
+
             // now add the new entry to directory:
             ld = getAdminConnection();
-            add( ld, myEntry, entity );
+            add( ld, entry, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "createOperation objectName [" + entity.getObjectName() + "] opName ["
-                + entity.getOpName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + entity.getOpName() + "] caught LdapException=" + e.getMessage();
             throw new CreateException( GlobalErrIds.PERM_ADD_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -400,48 +434,52 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.UpdateException
      *
      */
-    final Permission updateOperation( Permission entity )
+    public final Permission updateOperation( Permission entity )
         throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( entity, entity.getContextId() );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
+
             if ( VUtil.isNotNullOrEmpty( entity.getAbstractName() ) )
             {
                 // the abstract name is the human readable identifier:
-                LDAPAttribute abstractName = new LDAPAttribute( PERM_NAME,
-                    entity.getAbstractName() );
-                mods.add( LDAPModification.REPLACE, abstractName );
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, PERM_NAME, entity.getAbstractName() ) );
             }
+
             if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
             {
-                LDAPAttribute type = new LDAPAttribute( TYPE,
-                    entity.getType() );
-                mods.add( LDAPModification.REPLACE, type );
+
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, TYPE, entity.getType() ) );
             }
 
             // These are multi-valued attributes, use the util function to load:
             loadAttrs( entity.getRoles(), mods, ROLES );
             loadAttrs( entity.getUsers(), mods, USERS );
             loadProperties( entity.getProperties(), mods, GlobalIds.PROPS, true );
+
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
                 modify( ld, dn, mods, entity );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "updateOperation objectName [" + entity.getObjectName() + "] opName ["
-                + entity.getOpName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + entity.getOpName() + "] caught LdapException=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.PERM_UPDATE_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -451,21 +489,27 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.RemoveException
      *
      */
-    final void deleteOperation( Permission entity )
-        throws RemoveException
+    public final void deleteOperation( Permission entity ) throws RemoveException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getOpRdn( entity.getOpName(), entity.getObjectId() ) + "," + GlobalIds.POBJ_NAME + "="
             + entity.getObjectName() + "," + getRootDn( entity.isAdmin(), entity.getContextId() );
+
         try
         {
             ld = getAdminConnection();
             deleteRecursive( ld, dn, entity );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "deleteOperation objectName [" + entity.getObjectName() + "] opName ["
-                + entity.getOpName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + entity.getOpName() + "] caught LdapException=" + e.getMessage();
+            throw new RemoveException( GlobalErrIds.PERM_DELETE_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "deleteOperation objectName [" + entity.getObjectName() + "] opName ["
+                + entity.getOpName() + "] caught LdapException=" + e.getMessage();
             throw new RemoveException( GlobalErrIds.PERM_DELETE_FAILED, error, e );
         }
         finally
@@ -483,42 +527,41 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final void grant( Permission pOp, Role role )
+    public final void grant( Permission pOp, Role role )
         throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( pOp, pOp.getContextId() );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute attr = new LDAPAttribute( ROLES, role.getName() );
-            mods.add( LDAPModification.ADD, attr );
+            List<Modification> mods = new ArrayList<Modification>();
+
+            mods.add( new DefaultModification(
+                ModificationOperation.ADD_ATTRIBUTE, ROLES, role.getName() ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, pOp );
         }
-        catch ( LDAPException e )
+        catch ( LdapAttributeInUseException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS )
-            {
-                String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
-                    + pOp.getOpName() + "] role [" + role.getName() + "] assignment already exists, Fortress rc="
-                    + GlobalErrIds.PERM_ROLE_EXIST;
-                throw new UpdateException( GlobalErrIds.PERM_ROLE_EXIST, warning );
-            }
-            else if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
-                    + pOp.getOpName() + "] role [" + role.getName() + "] perm not found, Fortress rc="
-                    + GlobalErrIds.PERM_OP_NOT_FOUND;
-                throw new UpdateException( GlobalErrIds.PERM_OP_NOT_FOUND, warning );
-            }
-            else
-            {
-                String error = "grant perm object [" + pOp.getObjectName() + "] operation ["
-                    + pOp.getOpName() + "] name [" + role.getName() + "]  caught LDAPException="
-                    + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.PERM_GRANT_FAILED, error, e );
-            }
+            String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                + pOp.getOpName() + "] role [" + role.getName() + "] assignment already exists, Fortress rc="
+                + GlobalErrIds.PERM_ROLE_EXIST;
+            throw new UpdateException( GlobalErrIds.PERM_ROLE_EXIST, warning );
+        }
+        catch ( LdapNoSuchObjectException e )
+        {
+            String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                + pOp.getOpName() + "] role [" + role.getName() + "] perm not found, Fortress rc="
+                + GlobalErrIds.PERM_OP_NOT_FOUND;
+            throw new UpdateException( GlobalErrIds.PERM_OP_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                + pOp.getOpName() + "] name [" + role.getName() + "]  caught LdapException="
+                + e.getMessage();
+            throw new UpdateException( GlobalErrIds.PERM_GRANT_FAILED, error, e );
         }
         finally
         {
@@ -535,34 +578,32 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final void revoke( Permission pOp, Role role )
+    public final void revoke( Permission pOp, Role role )
         throws UpdateException, FinderException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( pOp, pOp.getContextId() );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute attr = new LDAPAttribute( ROLES, role.getName() );
-            mods.add( LDAPModification.DELETE, attr );
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification(
+                ModificationOperation.REMOVE_ATTRIBUTE, ROLES, role.getName() ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, pOp );
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchAttributeException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_ATTRIBUTE )
-            {
-                String warning = "revoke perm object [" + pOp.getObjectName() + "] operation ["
-                    + pOp.getOpName() + "] name [" + role.getName() + "] assignment does not exist.";
-                throw new FinderException( GlobalErrIds.PERM_ROLE_NOT_EXIST, warning );
-            }
-            else
-            {
-                String error = "revoke perm object [" + pOp.getObjectName() + "] operation ["
-                    + pOp.getOpName() + "] name [" + role.getName() + "] caught LDAPException=" + e.getLDAPResultCode()
-                    + " msg=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.PERM_REVOKE_FAILED, error, e );
-            }
+            String warning = "revoke perm object [" + pOp.getObjectName() + "] operation ["
+                + pOp.getOpName() + "] name [" + role.getName() + "] assignment does not exist.";
+            throw new FinderException( GlobalErrIds.PERM_ROLE_NOT_EXIST, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "revoke perm object [" + pOp.getObjectName() + "] operation ["
+                + pOp.getOpName() + "] name [" + role.getName() + "] caught LdapException=" +
+                e.getMessage();
+            throw new UpdateException( GlobalErrIds.PERM_REVOKE_FAILED, error, e );
         }
         finally
         {
@@ -579,42 +620,41 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final void grant( Permission pOp, User user )
+    public final void grant( Permission pOp, User user )
         throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( pOp, pOp.getContextId() );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute attr = new LDAPAttribute( USERS, user.getUserId() );
-            mods.add( LDAPModification.ADD, attr );
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification(
+                ModificationOperation.ADD_ATTRIBUTE, USERS, user.getUserId() ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, pOp );
         }
-        catch ( LDAPException e )
+        catch ( LdapAttributeInUseException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS )
-            {
-                String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
-                    + pOp.getOpName() + "] userId [" + user.getUserId() + "] assignment already exists, Fortress rc="
-                    + GlobalErrIds.PERM_USER_EXIST;
-                throw new UpdateException( GlobalErrIds.PERM_USER_EXIST, warning );
-            }
-            else if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
-                    + pOp.getOpName() + "] userId [" + user.getUserId() + "] perm not found, Fortress rc="
-                    + GlobalErrIds.PERM_OP_NOT_FOUND;
-                throw new UpdateException( GlobalErrIds.PERM_OP_NOT_FOUND, warning );
-            }
-            else
-            {
-                String error = "grant perm object [" + pOp.getObjectName() + "] operation ["
-                    + pOp.getOpName() + "] userId [" + user.getUserId() + "] caught LDAPException="
-                    + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.PERM_GRANT_USER_FAILED, error, e );
-            }
+            String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                + pOp.getOpName() + "] userId [" + user.getUserId() + "] assignment already exists, Fortress rc="
+                + GlobalErrIds.PERM_USER_EXIST;
+
+            throw new UpdateException( GlobalErrIds.PERM_USER_EXIST, warning );
+        }
+        catch ( LdapNoSuchObjectException e )
+        {
+            String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                + pOp.getOpName() + "] userId [" + user.getUserId() + "] perm not found, Fortress rc="
+                + GlobalErrIds.PERM_OP_NOT_FOUND;
+            throw new UpdateException( GlobalErrIds.PERM_OP_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                + pOp.getOpName() + "] userId [" + user.getUserId() + "] caught LdapException="
+                + e.getMessage();
+            throw new UpdateException( GlobalErrIds.PERM_GRANT_USER_FAILED, error, e );
         }
         finally
         {
@@ -631,34 +671,33 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final void revoke( Permission pOp, User user )
+    public final void revoke( Permission pOp, User user )
         throws UpdateException, FinderException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( pOp, pOp.getContextId() );
+
         try
         {
-            LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute attr = new LDAPAttribute( USERS, user.getUserId() );
-            mods.add( LDAPModification.DELETE, attr );
+            List<Modification> mods = new ArrayList<Modification>();
+
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE,
+                USERS, user.getUserId() ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, pOp );
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchAttributeException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_ATTRIBUTE )
-            {
-                String warning = "revoke perm object [" + pOp.getObjectName() + "] operation ["
-                    + pOp.getOpName() + "] userId [" + user.getUserId() + "] assignment does not exist.";
-                throw new FinderException( GlobalErrIds.PERM_USER_NOT_EXIST, warning );
-            }
-            else
-            {
-                String error = "revoke perm object [" + pOp.getObjectName() + "] operation ["
-                    + pOp.getOpName() + "] userId [" + user.getUserId() + "] caught LDAPException="
-                    + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new UpdateException( GlobalErrIds.PERM_REVOKE_FAILED, error, e );
-            }
+            String warning = "revoke perm object [" + pOp.getObjectName() + "] operation ["
+                + pOp.getOpName() + "] userId [" + user.getUserId() + "] assignment does not exist.";
+            throw new FinderException( GlobalErrIds.PERM_USER_NOT_EXIST, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "revoke perm object [" + pOp.getObjectName() + "] operation ["
+                + pOp.getOpName() + "] userId [" + user.getUserId() + "] caught LdapException="
+                + e.getMessage();
+            throw new UpdateException( GlobalErrIds.PERM_REVOKE_FAILED, error, e );
         }
         finally
         {
@@ -673,34 +712,34 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final Permission getPerm( Permission permission )
+    public final Permission getPerm( Permission permission )
         throws FinderException
     {
         Permission entity = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getOpRdn( permission.getOpName(), permission.getObjectId() ) + "," + GlobalIds.POBJ_NAME + "="
             + permission.getObjectName() + "," + getRootDn( permission.isAdmin(), permission.getContextId() );
+
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read( ld, dn, PERMISSION_OP_ATRS );
+            Entry findEntry = read( ld, dn, PERMISSION_OP_ATRS );
             entity = unloadPopLdapEntry( findEntry, 0 );
+
             if ( entity == null )
             {
                 String warning = "getPerm no entry found dn [" + dn + "]";
                 throw new FinderException( GlobalErrIds.PERM_OP_NOT_FOUND, warning );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchObjectException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                String warning = "getPerm Op COULD NOT FIND ENTRY for dn [" + dn + "]";
-                throw new FinderException( GlobalErrIds.PERM_OP_NOT_FOUND, warning );
-            }
-
-            String error = "getUser [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String warning = "getPerm Op COULD NOT FIND ENTRY for dn [" + dn + "]";
+            throw new FinderException( GlobalErrIds.PERM_OP_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "getUser [" + dn + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_READ_OP_FAILED, error, e );
         }
         finally
@@ -717,39 +756,41 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final PermObj getPerm( PermObj permObj )
+    public final PermObj getPerm( PermObj permObj )
         throws FinderException
     {
         PermObj entity = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = GlobalIds.POBJ_NAME + "=" + permObj.getObjectName() + ","
             + getRootDn( permObj.isAdmin(), permObj.getContextId() );
+
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read( ld, dn, PERMISION_OBJ_ATRS );
+            Entry findEntry = read( ld, dn, PERMISION_OBJ_ATRS );
             entity = unloadPobjLdapEntry( findEntry, 0 );
+
             if ( entity == null )
             {
                 String warning = "getPerm Obj no entry found dn [" + dn + "]";
                 throw new FinderException( GlobalErrIds.PERM_OBJ_NOT_FOUND, warning );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchObjectException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                String warning = "getPerm Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
-                throw new FinderException( GlobalErrIds.PERM_OBJ_NOT_FOUND, warning );
-            }
-            String error = "getPerm Obj dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String warning = "getPerm Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
+            throw new FinderException( GlobalErrIds.PERM_OBJ_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "getPerm Obj dn [" + dn + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_READ_OBJ_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return entity;
     }
 
@@ -765,32 +806,39 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *          In the event system error occurs looking up data on ldap server.
      */
-    final boolean checkPermission( Session session, Permission inPerm )
-        throws FinderException
+    public final boolean checkPermission( Session session, Permission inPerm ) throws FinderException
     {
         boolean isAuthZd = false;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getOpRdn( inPerm.getOpName(), inPerm.getObjectId() ) + "," + GlobalIds.POBJ_NAME + "="
             + inPerm.getObjectName() + "," + getRootDn( inPerm.isAdmin(), inPerm.getContextId() );
+
         try
         {
             // Use unauthenticated connection because we want to assert the end user identity onto ldap hop:
             ld = getUserConnection();
+
             // LDAP Operation #1: Read the targeted permission from ldap server
             //LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS, session.getUser().getDn());
-            LDAPEntry entry = read( ld, dn, PERMISSION_OP_ATRS );
+            Entry entry = read( ld, dn, PERMISSION_OP_ATRS );
+
             // load the permission entity with data retrieved from the permission node:
             Permission outPerm = unloadPopLdapEntry( entry, 0 );
+
             // The admin flag will be set to 'true' if this is an administrative permission:
             outPerm.setAdmin( inPerm.isAdmin() );
+
             // Pass the tenant id along:
             outPerm.setContextId( inPerm.getContextId() );
+
             // The objective of these next steps is to evaluate the outcome of authorization attempt and trigger a write to slapd access logger containing the result.
             // The objectClass triggered by slapd access log write for upcoming ldap op is 'auditCompare'.
             // Set this attribute either with actual operation name that will succeed compare (for authZ success) or bogus value which will fail compare (for authZ failure):
             String attributeValue;
+
             // This method determines if the user is authorized for this permission:
             isAuthZd = isAuthorized( session, outPerm );
+
             // This is done to leave an audit trail in ldap server log:
             if ( isAuthZd )
             {
@@ -802,25 +850,20 @@ final class PermDAO extends DataProvider
                 // No, set a simple error message onto this attribute for storage into audit trail:
                 attributeValue = "AuthZ Failed";
             }
+
             // There is a switch in fortress config to disable audit ops like this one.
             // But if used the compare method will use OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection.
             // LDAP Operation #2: Compare.
             addAuthZAudit( ld, dn, session.getUser().getDn(), attributeValue );
         }
-        //catch (UnsupportedEncodingException ee)
-        //{
-        //    String error = "checkPermission caught UnsupportedEncodingException=" + ee.getMessage();
-        //    throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, ee);
-        //}
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            if ( e.getLDAPResultCode() != LDAPException.NO_RESULTS_RETURNED
-                && e.getLDAPResultCode() != LDAPException.NO_SUCH_OBJECT )
+            if ( !( e instanceof LdapNoSuchObjectException ) )
             {
-                String error = "checkPermission caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                    + e.getMessage();
+                String error = "checkPermission caught LdapException=" + e.getMessage();
                 throw new FinderException( GlobalErrIds.PERM_READ_OP_FAILED, error, e );
             }
+
             // There is a switch in fortress config to disable the audit ops.
             addAuthZAudit( ld, dn, session.getUser().getDn(), "AuthZ Invalid" );
         }
@@ -828,6 +871,7 @@ final class PermDAO extends DataProvider
         {
             closeUserConnection( ld );
         }
+
         return isAuthZd;
     }
 
@@ -841,7 +885,7 @@ final class PermDAO extends DataProvider
      * @param attributeValue string value will be associated with the 'audit' record stored in ldap.
      * @throws FinderException in the event ldap system exception occurs.
      */
-    private void addAuthZAudit( LDAPConnection ld, String permDn, String userDn, String attributeValue )
+    private void addAuthZAudit( LdapConnection ld, String permDn, String userDn, String attributeValue )
         throws FinderException
     {
         // Audit can be turned off here with fortress config param: 'enable.audit=false'
@@ -851,20 +895,18 @@ final class PermDAO extends DataProvider
             {
                 // The compare method uses OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection:
                 // LDAP Operation #2: Compare:
-                compareNode( ld, permDn, userDn, createAttribute( GlobalIds.POP_NAME, attributeValue ) );
+                compareNode( ld, permDn, userDn, new DefaultAttribute( GlobalIds.POP_NAME, attributeValue ) );
             }
             catch ( UnsupportedEncodingException ee )
             {
                 String error = "addAuthZAudit caught UnsupportedEncodingException=" + ee.getMessage();
                 throw new FinderException( GlobalErrIds.PERM_COMPARE_OP_FAILED, error, ee );
             }
-            catch ( LDAPException e )
+            catch ( LdapException e )
             {
-                if ( e.getLDAPResultCode() != LDAPException.NO_RESULTS_RETURNED
-                    && e.getLDAPResultCode() != LDAPException.NO_SUCH_OBJECT )
+                if ( !( e instanceof LdapNoSuchObjectException ) )
                 {
-                    String error = "addAuthZAudit caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                        + e.getMessage();
+                    String error = "addAuthZAudit caught LdapException=" + e.getMessage();
                     throw new FinderException( GlobalErrIds.PERM_COMPARE_OP_FAILED, error, e );
                 }
             }
@@ -885,12 +927,15 @@ final class PermDAO extends DataProvider
     {
         boolean result = false;
         Set<String> userIds = permission.getUsers();
+
         if ( VUtil.isNotNullOrEmpty( userIds ) && userIds.contains( session.getUserId() ) )
         {
             // user is assigned directly to this permission, no need to look further.
             return true;
         }
+
         Set<String> roles = permission.getRoles();
+
         if ( VUtil.isNotNullOrEmpty( roles ) )
         {
             if ( permission.isAdmin() )
@@ -898,6 +943,7 @@ final class PermDAO extends DataProvider
                 // ARBAC Permission check include's User's inherited admin roles:
                 Set<String> activatedRoles = AdminRoleUtil.getInheritedRoles( session.getAdminRoles(),
                     permission.getContextId() );
+
                 for ( String role : roles )
                 {
                     // This is case insensitive op determines if user has matching admin role to the admin permission::
@@ -912,6 +958,7 @@ final class PermDAO extends DataProvider
             {
                 // RBAC Permission check include's User's inherited roles:
                 Set<String> activatedRoles = RoleUtil.getInheritedRoles( session.getRoles(), permission.getContextId() );
+
                 for ( String role : roles )
                 {
                     // This is case insensitive op determines if user has matching role:
@@ -923,6 +970,7 @@ final class PermDAO extends DataProvider
                 }
             }
         }
+
         return result;
     }
 
@@ -931,9 +979,10 @@ final class PermDAO extends DataProvider
      * @param le
      * @param sequence
      * @return
-     * @throws LDAPException
+     * @throws LdapInvalidAttributeValueException 
+     * @throws LdapException
      */
-    private Permission unloadPopLdapEntry( LDAPEntry le, long sequence )
+    private Permission unloadPopLdapEntry( Entry le, long sequence ) throws LdapInvalidAttributeValueException
     {
         Permission entity = new ObjectFactory().createPermission();
         entity.setSequenceId( sequence );
@@ -954,15 +1003,16 @@ final class PermDAO extends DataProvider
      * @param le
      * @param sequence
      * @return
-     * @throws LDAPException
+     * @throws LdapInvalidAttributeValueException 
+     * @throws LdapException
      */
-    private PermObj unloadPobjLdapEntry( LDAPEntry le, long sequence )
+    private PermObj unloadPobjLdapEntry( Entry le, long sequence ) throws LdapInvalidAttributeValueException
     {
         PermObj entity = new ObjectFactory().createPermObj();
         entity.setSequenceId( sequence );
         entity.setObjectName( getAttribute( le, GlobalIds.POBJ_NAME ) );
         entity.setOu( getAttribute( le, GlobalIds.OU ) );
-        entity.setDn( le.getDN() );
+        entity.setDn( le.getDn().getName() );
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setType( getAttribute( le, TYPE ) );
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
@@ -977,13 +1027,13 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Permission> findPermissions( Permission permission )
+    public final List<Permission> findPermissions( Permission permission )
         throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String permRoot = getRootDn( permission.isAdmin(), permission.getContextId() );
+
         try
         {
             String permObjVal = encodeSafeText( permission.getObjectName(), GlobalIds.PERM_LEN );
@@ -993,18 +1043,23 @@ final class PermDAO extends DataProvider
                 + GlobalIds.POP_NAME + "=" + permOpVal + "*))";
 
             ld = getAdminConnection();
-            searchResults = search( ld, permRoot,
-                LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, permRoot,
+                SearchScope.SUBTREE, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++ ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "findPermissions caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "findPermissions caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findPermissions caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
         }
         finally
@@ -1021,37 +1076,43 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<PermObj> findPermissions( PermObj permObj )
+    public final List<PermObj> findPermissions( PermObj permObj )
         throws FinderException
     {
         List<PermObj> permList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String permRoot = getRootDn( permObj.isAdmin(), permObj.getContextId() );
+
         try
         {
             String permObjVal = encodeSafeText( permObj.getObjectName(), GlobalIds.PERM_LEN );
             String filter = GlobalIds.FILTER_PREFIX + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*))";
             ld = getAdminConnection();
-            searchResults = search( ld, permRoot,
-                LDAPConnection.SCOPE_SUB, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, permRoot,
+                SearchScope.SUBTREE, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                permList.add( unloadPobjLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPobjLdapEntry( searchResults.getEntry(), sequence++ ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "findPermissions caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "findPermissions caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findPermissions caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return permList;
     }
 
@@ -1061,19 +1122,19 @@ final class PermDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<PermObj> findPermissions( OrgUnit ou, boolean limitSize )
-        throws FinderException
+    public final List<PermObj> findPermissions( OrgUnit ou, boolean limitSize ) throws FinderException
     {
         List<PermObj> permList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String permRoot = getRootDn( ou.getContextId(), GlobalIds.PERM_ROOT );
+
         try
         {
             String ouVal = encodeSafeText( ou.getName(), GlobalIds.OU_LEN );
             String filter = GlobalIds.FILTER_PREFIX + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.OU + "=" + ouVal + "*))";
             int maxLimit;
+
             if ( limitSize )
             {
                 maxLimit = 10;
@@ -1082,25 +1143,32 @@ final class PermDAO extends DataProvider
             {
                 maxLimit = 0;
             }
+
             ld = getAdminConnection();
-            searchResults = search( ld, permRoot,
-                LDAPConnection.SCOPE_SUB, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit );
+            SearchCursor searchResults = search( ld, permRoot,
+                SearchScope.SUBTREE, filter, PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                permList.add( unloadPobjLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPobjLdapEntry( searchResults.getEntry(), sequence++ ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "findPermissions caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "findPermissions caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findPermissions caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return permList;
     }
 
@@ -1111,13 +1179,12 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Permission> findPermissions( Role role )
-        throws FinderException
+    public final List<Permission> findPermissions( Role role ) throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String permRoot;
+
         if ( role.getClass().equals( AdminRole.class ) )
         {
             permRoot = getRootDn( role.getContextId(), GlobalIds.ADMIN_PERM_ROOT );
@@ -1126,11 +1193,13 @@ final class PermDAO extends DataProvider
         {
             permRoot = getRootDn( role.getContextId(), GlobalIds.PERM_ROOT );
         }
+
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(";
             Set<String> roles;
+
             if ( role.getClass().equals( AdminRole.class ) )
             {
                 roles = AdminRoleUtil.getAscendants( role.getName(), role.getContextId() );
@@ -1143,36 +1212,45 @@ final class PermDAO extends DataProvider
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
                 filter += "|(" + ROLES + "=" + roleVal + ")";
+
                 for ( String uRole : roles )
                 {
                     filter += "(" + ROLES + "=" + uRole + ")";
                 }
+
                 filter += ")";
             }
             else
             {
                 filter += ROLES + "=" + roleVal + ")";
             }
+
             filter += ")";
             ld = getAdminConnection();
-            searchResults = search( ld, permRoot,
-                LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, permRoot,
+                SearchScope.SUBTREE, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++ ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "findPermissions caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "findPermissions caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PERM_ROLE_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findPermissions caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_ROLE_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return permList;
     }
 
@@ -1183,17 +1261,17 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Permission> findPermissions( User user )
-        throws FinderException
+    public final List<Permission> findPermissions( User user ) throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String permRoot = getRootDn( user.getContextId(), GlobalIds.PERM_ROOT );
+
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             Set<String> roles = RoleUtil.getInheritedRoles( user.getRoles(), user.getContextId() );
+
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
                 for ( String uRole : roles )
@@ -1201,27 +1279,35 @@ final class PermDAO extends DataProvider
                     filter += "(" + ROLES + "=" + uRole + ")";
                 }
             }
+
             filter += "(" + USERS + "=" + user.getUserId() + ")))";
             ld = getAdminConnection();
-            searchResults = search( ld, permRoot,
-                LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, permRoot,
+                SearchScope.SUBTREE, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++ ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "findPermissions user [" + user.getUserId()
-                + "] caught LDAPException in PermDAO.findPermissions=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PERM_USER_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findPermissions user [" + user.getUserId()
+                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_USER_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return permList;
     }
 
@@ -1232,37 +1318,43 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Permission> findUserPermissions( User user )
-        throws FinderException
+    public final List<Permission> findUserPermissions( User user ) throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String permRoot = getRootDn( user.getContextId(), GlobalIds.PERM_ROOT );
+
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")";
             filter += "(" + USERS + "=" + user.getUserId() + "))";
             ld = getAdminConnection();
-            searchResults = search( ld, permRoot,
-                LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, permRoot,
+                SearchScope.SUBTREE, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++ ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "findUserPermissions user [" + user.getUserId()
-                + "] caught LDAPException in PermDAO.findPermissions=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PERM_USER_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findUserPermissions user [" + user.getUserId()
+                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_USER_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return permList;
     }
 
@@ -1273,18 +1365,18 @@ final class PermDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Permission> findPermissions( Session session )
-        throws FinderException
+    public final List<Permission> findPermissions( Session session ) throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String permRoot = getRootDn( session.getContextId(), GlobalIds.PERM_ROOT );
+
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             filter += "(" + USERS + "=" + session.getUserId() + ")";
             Set<String> roles = RoleUtil.getInheritedRoles( session.getRoles(), session.getContextId() );
+
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
                 for ( String uRole : roles )
@@ -1292,27 +1384,35 @@ final class PermDAO extends DataProvider
                     filter += "(" + ROLES + "=" + uRole + ")";
                 }
             }
+
             filter += "))";
             ld = getAdminConnection();
-            searchResults = search( ld, permRoot,
-                LDAPConnection.SCOPE_SUB, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+            SearchCursor searchResults = search( ld, permRoot,
+                SearchScope.SUBTREE, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while ( searchResults.hasMoreElements() )
+
+            while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++ ) );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "findPermissions user [" + session.getUserId()
-                + "] caught LDAPException in PermDAO.findPermissions=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PERM_SESS_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findPermissions user [" + session.getUserId()
+                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_SESS_SEARCH_FAILED, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
+
         return permList;
     }
 
@@ -1325,10 +1425,16 @@ final class PermDAO extends DataProvider
     static String getOpRdn( String opName, String objId )
     {
         String rDn;
+
         if ( objId != null && objId.length() > 0 )
+        {
             rDn = GlobalIds.POP_NAME + "=" + opName + "+" + POBJ_ID + "=" + objId;
+        }
         else
+        {
             rDn = GlobalIds.POP_NAME + "=" + opName;
+        }
+
         return rDn;
     }
 
@@ -1349,6 +1455,7 @@ final class PermDAO extends DataProvider
     private String getRootDn( boolean isAdmin, String contextId )
     {
         String dn;
+
         if ( isAdmin )
         {
             dn = getRootDn( contextId, GlobalIds.ADMIN_PERM_ROOT );
@@ -1357,6 +1464,7 @@ final class PermDAO extends DataProvider
         {
             dn = getRootDn( contextId, GlobalIds.PERM_ROOT );
         }
+
         return dn;
     }
 }

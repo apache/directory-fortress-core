@@ -43,7 +43,7 @@ import us.jts.fortress.util.cache.CacheMgr;
  *
  * @author Shawn McKinney
  */
-final class PsoUtil
+public final class PsoUtil
 {
     private static final Cache psoCache;
     private static OrgUnitP orgUnitP = new OrgUnitP();
@@ -94,7 +94,7 @@ final class PsoUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of names of children {@link us.jts.fortress.rbac.OrgUnit}s of given parent.
      */
-    static Set<String> getChildren( String name, String contextId )
+    public static Set<String> getChildren( String name, String contextId )
     {
         return HierUtil.getChildren( name, getGraph( contextId ) );
     }

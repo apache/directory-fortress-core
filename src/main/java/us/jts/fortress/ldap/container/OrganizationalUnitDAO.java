@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.util.attr.VUtil;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
@@ -47,7 +47,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
  *
  * @author Shawn McKinney
  */
-final class OrganizationalUnitDAO extends DataProvider
+final class OrganizationalUnitDAO extends UnboundIdDataProvider
 {
     private static final String CLS_NM = OrganizationalUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );

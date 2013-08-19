@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac;
+package us.jts.fortress.rbac.dao.unboundid;
 
 
 import java.util.ArrayList;
@@ -23,8 +23,20 @@ import us.jts.fortress.RemoveException;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.UpdateException;
 import us.jts.fortress.cfg.Config;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.ldap.openldap.OLPWControlImpl;
+import us.jts.fortress.rbac.Address;
+import us.jts.fortress.rbac.AdminRole;
+import us.jts.fortress.rbac.GlobalPwMsgIds;
+import us.jts.fortress.rbac.OrgUnit;
+import us.jts.fortress.rbac.PwMessage;
+import us.jts.fortress.rbac.PwPolicyControl;
+import us.jts.fortress.rbac.Role;
+import us.jts.fortress.rbac.RoleUtil;
+import us.jts.fortress.rbac.Session;
+import us.jts.fortress.rbac.User;
+import us.jts.fortress.rbac.UserAdminRole;
+import us.jts.fortress.rbac.UserRole;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
@@ -107,7 +119,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  * @author Shawn McKinney
  * @created August 30, 2009
  */
-final class UserDAO extends DataProvider
+public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.UserDAO
 {
     private static final String CLS_NM = UserDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
@@ -296,7 +308,7 @@ final class UserDAO extends DataProvider
     /**
      * Don't let classes outside of this package construct this.
      */
-    UserDAO()
+    public UserDAO()
     {
     }
 
@@ -307,7 +319,7 @@ final class UserDAO extends DataProvider
      * @throws CreateException
      *
      */
-    final User create( User entity )
+    public final User create( User entity )
         throws CreateException
     {
         LDAPConnection ld = null;
@@ -421,7 +433,7 @@ final class UserDAO extends DataProvider
      * @return
      * @throws UpdateException
      */
-    final User update( User entity )
+    public final User update( User entity )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -546,7 +558,7 @@ final class UserDAO extends DataProvider
      * @return
      * @throws UpdateException
      */
-    final User updateProps( User entity, boolean replace )
+    public final User updateProps( User entity, boolean replace )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -589,7 +601,7 @@ final class UserDAO extends DataProvider
      * @param user
      * @throws RemoveException
      */
-    final String remove( User user )
+    public final String remove( User user )
         throws RemoveException
     {
         LDAPConnection ld = null;
@@ -620,7 +632,7 @@ final class UserDAO extends DataProvider
      * @throws us.jts.fortress.UpdateException
      *
      */
-    final void lock( User user )
+    public final void lock( User user )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -652,7 +664,7 @@ final class UserDAO extends DataProvider
      * @throws UpdateException
      *
      */
-    final void unlock( User user )
+    public final void unlock( User user )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -694,7 +706,7 @@ final class UserDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final User getUser( User user, boolean isRoles )
+    public final User getUser( User user, boolean isRoles )
         throws FinderException
     {
         User entity = null;
@@ -758,7 +770,7 @@ final class UserDAO extends DataProvider
      * @return
      * @throws us.jts.fortress.FinderException
      */
-    final List<UserAdminRole> getUserAdminRoles( User user )
+    public final List<UserAdminRole> getUserAdminRoles( User user )
         throws FinderException
     {
         List<UserAdminRole> roles = null;
@@ -798,7 +810,7 @@ final class UserDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<String> getRoles( User user )
+    public final List<String> getRoles( User user )
         throws FinderException
     {
         List<String> roles = null;
@@ -847,7 +859,7 @@ final class UserDAO extends DataProvider
      *
      * @throws us.jts.fortress.SecurityException
      */
-    final Session checkPassword( User user ) throws FinderException
+    public final Session checkPassword( User user ) throws FinderException
     {
         Session session = null;
         LDAPConnection ld = null;
@@ -907,7 +919,7 @@ final class UserDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> findUsers( User user ) throws FinderException
+    public final List<User> findUsers( User user ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LDAPConnection ld = null;
@@ -971,7 +983,7 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final List<String> findUsers( User user, int limit ) throws FinderException
+    public final List<String> findUsers( User user, int limit ) throws FinderException
     {
         List<String> userList = new ArrayList<>();
         LDAPConnection ld = null;
@@ -1014,7 +1026,7 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final List<User> getAuthorizedUsers( Role role )
+    public final List<User> getAuthorizedUsers( Role role )
         throws FinderException
     {
         List<User> userList = new ArrayList<>();
@@ -1075,7 +1087,7 @@ final class UserDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> getAssignedUsers( Role role )
+    public final List<User> getAssignedUsers( Role role )
         throws FinderException
     {
         List<User> userList = new ArrayList<>();
@@ -1119,7 +1131,7 @@ final class UserDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final Set<String> getAssignedUsers( Set<String> roles, String contextId )
+    public final Set<String> getAssignedUsers( Set<String> roles, String contextId )
         throws FinderException
     {
         Set<String> userSet = new HashSet<>();
@@ -1173,7 +1185,7 @@ final class UserDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> getAssignedUsers( AdminRole role )
+    public final List<User> getAssignedUsers( AdminRole role )
         throws FinderException
     {
         List<User> userList = new ArrayList<>();
@@ -1218,7 +1230,7 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final List<String> getAuthorizedUsers( Role role, int limit )
+    public final List<String> getAuthorizedUsers( Role role, int limit )
         throws FinderException
     {
         List<String> userList = new ArrayList<>();
@@ -1261,7 +1273,7 @@ final class UserDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<String> findUsersList( String searchVal, String contextId )
+    public final List<String> findUsersList( String searchVal, String contextId )
         throws FinderException
     {
         List<String> userList = new ArrayList<>();
@@ -1305,8 +1317,7 @@ final class UserDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> findUsers( OrgUnit ou, boolean limitSize )
-        throws FinderException
+    public final List<User> findUsers( OrgUnit ou, boolean limitSize ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LDAPConnection ld = null;
@@ -1362,7 +1373,7 @@ final class UserDAO extends DataProvider
      *
      * @throws SecurityException
      */
-    final boolean changePassword( User entity, char[] newPassword )
+    public final boolean changePassword( User entity, char[] newPassword )
         throws SecurityException
     {
         boolean rc = true;
@@ -1422,7 +1433,7 @@ final class UserDAO extends DataProvider
      * @throws UpdateException
      *
      */
-    final void resetUserPassword( User user )
+    public final void resetUserPassword( User user )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -1459,7 +1470,7 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final String assign( UserRole uRole )
+    public final String assign( UserRole uRole )
         throws UpdateException, FinderException
     {
         LDAPConnection ld = null;
@@ -1509,7 +1520,7 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final String deassign( UserRole uRole )
+    public final String deassign( UserRole uRole )
         throws UpdateException, FinderException
     {
         LDAPConnection ld = null;
@@ -1574,7 +1585,7 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final String assign( UserAdminRole uRole )
+    public final String assign( UserAdminRole uRole )
         throws UpdateException, FinderException
     {
         LDAPConnection ld = null;
@@ -1623,7 +1634,7 @@ final class UserDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final String deassign( UserAdminRole uRole )
+    public final String deassign( UserAdminRole uRole )
         throws UpdateException, FinderException
     {
         LDAPConnection ld = null;
@@ -1691,7 +1702,7 @@ final class UserDAO extends DataProvider
      * @throws UpdateException
      *
      */
-    final String deletePwPolicy( User user )
+    public final String deletePwPolicy( User user )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -1837,7 +1848,7 @@ final class UserDAO extends DataProvider
             }
             else if ( pwControl != null )
             {
-                pwControl.checkPasswordPolicy( ld, success, pwMsg );
+                pwControl.checkPasswordPolicy( ld.getResponseControls(), success, pwMsg );
             }
 
             // OpenLDAP has notified of password violation:

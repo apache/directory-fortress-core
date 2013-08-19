@@ -4,15 +4,18 @@
 
 package us.jts.fortress.rbac;
 
+
+import java.util.List;
+
 import us.jts.fortress.FinderException;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
-
-import java.util.List;
-
+import us.jts.fortress.rbac.dao.DaoFactory;
+import us.jts.fortress.rbac.dao.RoleDAO;
 import us.jts.fortress.util.attr.VUtil;
+
 
 /**
  * Process module for the Role entity.  This class performs data validations and error mapping.  It is typically called
@@ -20,10 +23,10 @@ import us.jts.fortress.util.attr.VUtil;
  * {@link us.jts.fortress.rbac.ReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
  * {@link Role}, validate its contents and forward on to it's corresponding DAO class {@link RoleDAO}.
  * <p>
- * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
+ * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
  * {@link us.jts.fortress.CreateException},{@link us.jts.fortress.UpdateException},{@link us.jts.fortress.RemoveException}),
- *  or {@link us.jts.fortress.ValidationException} as {@link us.jts.fortress.SecurityException}s with appropriate
+ *  or {@link us.jts.fortress.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link us.jts.fortress.GlobalErrIds}.
  * <p>
  * This class is thread safe.
@@ -32,16 +35,19 @@ import us.jts.fortress.util.attr.VUtil;
  *
  * @author Kevin McKinney
  */
-final class RoleP
+public final class RoleP
 {
     private static final String CLS_NM = RoleP.class.getName();
-    private static final RoleDAO rDao = new RoleDAO();
+    private static RoleDAO rDao = DaoFactory.createRoleDAO();
+
 
     /**
      * Package private
      */
     RoleP()
-    {}
+    {
+    }
+
 
     /**
      * Return a fully populated Role entity for a given RBAC role name.  If matching record not found a
@@ -51,23 +57,22 @@ final class RoleP
      * @return Role entity containing all attributes associated with Role in directory.
      * @throws SecurityException in the event Role not found or DAO search error.
      */
-    final Role read(Role role)
-        throws SecurityException
+    final Role read( Role role ) throws SecurityException
     {
-        return rDao.getRole(role);
+        return rDao.getRole( role );
     }
+
 
     /**
      * Takes a search string that contains full or partial RBAC Role name in directory.
      *
      * @param role contains full or partial RBAC role name.
      * @return List of type Role containing fully populated matching RBAC Role entities.  If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    final List<Role> search(Role role)
-        throws SecurityException
+    final List<Role> search( Role role ) throws SecurityException
     {
-        return rDao.findRoles(role);
+        return rDao.findRoles( role );
     }
 
 
@@ -78,12 +83,11 @@ final class RoleP
      * @param role contains full or partial RBAC role name.
      * @param limit     specify the max number of records to return in result set.
      * @return List of type String containing RBAC Role name of all matching User entities.  If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    final List<String> search(Role role, int limit)
-        throws SecurityException
+    final List<String> search( Role role, int limit ) throws SecurityException
     {
-        return rDao.findRoles(role, limit);
+        return rDao.findRoles( role, limit );
     }
 
 
@@ -92,12 +96,11 @@ final class RoleP
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return List of type Role containing {@link Role#name} and {@link Role#parents} populated.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    final List<Graphable> getAllDescendants(String contextId)
-        throws SecurityException
+    final List<Graphable> getAllDescendants( String contextId ) throws SecurityException
     {
-        return rDao.getAllDescendants(contextId);
+        return rDao.getAllDescendants( contextId );
     }
 
 
@@ -107,13 +110,12 @@ final class RoleP
      *
      * @param entity Role entity contains data targeted for insertion.
      * @return Role entity copy of input + additional attributes (internalId) that were added by op.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final Role add(Role entity)
-        throws SecurityException
+    final Role add( Role entity ) throws SecurityException
     {
-        validate(entity);
-        return rDao.create(entity);
+        validate( entity );
+        return rDao.create( entity );
     }
 
 
@@ -125,11 +127,10 @@ final class RoleP
      * @return Role entity contains fully populated updated entity.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final Role update(Role entity)
-        throws SecurityException
+    final Role update( Role entity ) throws SecurityException
     {
-        validate(entity);
-        return rDao.update(entity);
+        validate( entity );
+        return rDao.update( entity );
     }
 
 
@@ -140,11 +141,10 @@ final class RoleP
      * @param entity Role entity contains data targeted for updating.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final void deleteParent(Role entity)
-        throws SecurityException
+    final void deleteParent( Role entity ) throws SecurityException
     {
-        validate(entity);
-        rDao.deleteParent(entity);
+        validate( entity );
+        rDao.deleteParent( entity );
     }
 
 
@@ -154,12 +154,11 @@ final class RoleP
      * @param entity contains the role name targeted.
      * @param userDn String contains the dn for the user entry that is being assigned the RBAC Role.
      * @return Role containing copy of input data.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final Role assign(Role entity, String userDn)
-        throws SecurityException
+    final Role assign( Role entity, String userDn ) throws SecurityException
     {
-        return rDao.assign(entity, userDn);
+        return rDao.assign( entity, userDn );
     }
 
 
@@ -169,12 +168,11 @@ final class RoleP
      * @param entity contains the role name targeted.
      * @param userDn String contains the dn for the user entry that is being assigned the RBAC Role.
      * @return Role containing copy of input data.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final Role deassign(Role entity, String userDn)
-        throws SecurityException
+    final Role deassign( Role entity, String userDn ) throws SecurityException
     {
-        entity = rDao.deassign(entity, userDn);
+        entity = rDao.deassign( entity, userDn );
         return entity;
     }
 
@@ -186,18 +184,17 @@ final class RoleP
      * @param uRoles contains a collection of UserRole being targeted for assignment.
      * @param userDn contains the userId targeted for addition.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    final void addOccupant(List<UserRole> uRoles, String userDn, String contextId)
-        throws SecurityException
+    final void addOccupant( List<UserRole> uRoles, String userDn, String contextId ) throws SecurityException
     {
-        if (VUtil.isNotNullOrEmpty(uRoles))
+        if ( VUtil.isNotNullOrEmpty( uRoles ) )
         {
-            for (UserRole uRole : uRoles)
+            for ( UserRole uRole : uRoles )
             {
-                Role role = new Role(uRole.getName());
-                role.setContextId(contextId);
-                assign(role, userDn);
+                Role role = new Role( uRole.getName() );
+                role.setContextId( contextId );
+                assign( role, userDn );
             }
         }
     }
@@ -209,26 +206,25 @@ final class RoleP
      *
      * @param userDn contains the userId targeted for attribute removal.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @throws us.jts.fortress.SecurityException in the event of DAO search error.
+     * @throws SecurityException in the event of DAO search error.
      */
-    final void removeOccupant(String userDn, String contextId)
-        throws SecurityException
+    final void removeOccupant( String userDn, String contextId ) throws SecurityException
     {
         List<String> list;
         try
         {
-            list = rDao.findAssignedRoles(userDn, contextId);
-            for (String roleNm : list)
+            list = rDao.findAssignedRoles( userDn, contextId );
+            for ( String roleNm : list )
             {
-                Role role = new Role(roleNm);
-                role.setContextId(contextId);
-                deassign(role, userDn);
+                Role role = new Role( roleNm );
+                role.setContextId( contextId );
+                deassign( role, userDn );
             }
         }
-        catch (FinderException fe)
+        catch ( FinderException fe )
         {
             String error = "removeOccupant userDn [" + userDn + "] caught FinderException=" + fe;
-            throw new SecurityException(GlobalErrIds.ROLE_REMOVE_OCCUPANT_FAILED, error, fe);
+            throw new SecurityException( GlobalErrIds.ROLE_REMOVE_OCCUPANT_FAILED, error, fe );
         }
     }
 
@@ -238,12 +234,11 @@ final class RoleP
      * RBAC Role entity must exist in directory prior to making this call else exception will be thrown.
      *
      * @param entity Contains the name of the RBAC Role targeted for deletion.
-     * @throws us.jts.fortress.SecurityException in the event of data validation or DAO system error.
+     * @throws SecurityException in the event of data validation or DAO system error.
      */
-    void delete(Role entity)
-        throws SecurityException
+    void delete( Role entity ) throws SecurityException
     {
-        rDao.remove(entity);
+        rDao.remove( entity );
     }
 
 
@@ -255,45 +250,45 @@ final class RoleP
      * @param entity contains data targeted for insertion or update.
      * @throws us.jts.fortress.ValidationException in the event of data validation error or Org validation.
      */
-    private void validate(Role entity)
+    private void validate( Role entity )
         throws ValidationException
     {
-        VUtil.safeText(entity.getName(), GlobalIds.ROLE_LEN);
-        if (VUtil.isNotNullOrEmpty(entity.getDescription()))
+        VUtil.safeText( entity.getName(), GlobalIds.ROLE_LEN );
+        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
-            VUtil.description(entity.getDescription());
+            VUtil.description( entity.getDescription() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getTimeout()))
+        if ( VUtil.isNotNullOrEmpty( entity.getTimeout() ) )
         {
-            VUtil.timeout(entity.getTimeout());
+            VUtil.timeout( entity.getTimeout() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getBeginTime()))
+        if ( VUtil.isNotNullOrEmpty( entity.getBeginTime() ) )
         {
-            VUtil.beginTime(entity.getBeginTime());
+            VUtil.beginTime( entity.getBeginTime() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getEndTime()))
+        if ( VUtil.isNotNullOrEmpty( entity.getEndTime() ) )
         {
-            VUtil.endTime(entity.getEndTime());
+            VUtil.endTime( entity.getEndTime() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getBeginDate()))
+        if ( VUtil.isNotNullOrEmpty( entity.getBeginDate() ) )
         {
-            VUtil.beginDate(entity.getBeginDate());
+            VUtil.beginDate( entity.getBeginDate() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getEndDate()))
+        if ( VUtil.isNotNullOrEmpty( entity.getEndDate() ) )
         {
-            VUtil.endDate(entity.getEndDate());
+            VUtil.endDate( entity.getEndDate() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getDayMask()))
+        if ( VUtil.isNotNullOrEmpty( entity.getDayMask() ) )
         {
-            VUtil.dayMask(entity.getDayMask());
+            VUtil.dayMask( entity.getDayMask() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getBeginLockDate()))
+        if ( VUtil.isNotNullOrEmpty( entity.getBeginLockDate() ) )
         {
-            VUtil.beginDate(entity.getBeginDate());
+            VUtil.beginDate( entity.getBeginDate() );
         }
-        if (VUtil.isNotNullOrEmpty(entity.getEndLockDate()))
+        if ( VUtil.isNotNullOrEmpty( entity.getEndLockDate() ) )
         {
-            VUtil.endDate(entity.getEndLockDate());
+            VUtil.endDate( entity.getEndLockDate() );
         }
     }
 }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ */
+
 package us.jts.fortress.rbac.apacheds;
 
 
@@ -16,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.SecurityException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.ldap.LdapCounters;
 import us.jts.fortress.rbac.AccessMgrImplTest;
 import us.jts.fortress.rbac.AdminMgrImplTest;
@@ -65,7 +69,7 @@ public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
     @After
     public void displayCounters()
     {
-        LdapCounters counters = DataProvider.getLdapCounters();
+        LdapCounters counters = UnboundIdDataProvider.getLdapCounters();
         System.out.println( "NUMBER OF READS: " + counters.getRead() );
         System.out.println( "NUMBER OF SEARCHES: " + counters.getSearch() );
         System.out.println( "NUMBER OF COMPARES: " + counters.getCompare() );

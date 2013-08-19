@@ -4,16 +4,21 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.util.time.CUtil;
-import us.jts.fortress.util.time.Constraint;
-import us.jts.fortress.util.attr.VUtil;
+
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import java.util.Set;
-import java.util.TreeSet;
+
+import us.jts.fortress.rbac.dao.AdminRoleDAO;
+import us.jts.fortress.rbac.dao.OrgUnitDAO;
+import us.jts.fortress.util.attr.VUtil;
+import us.jts.fortress.util.time.CUtil;
+import us.jts.fortress.util.time.Constraint;
+
 
 /**
  * All entities ({@link AdminRole}, {@link OrgUnit},
@@ -124,13 +129,14 @@ import java.util.TreeSet;
  */
 @XmlRootElement(name = "fortAdminRole")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "adminRole", propOrder = {
-    "osPs",
-    "osUs",
-    "beginRange",
-    "endRange",
-    "beginInclusive",
-    "endInclusive"
+@XmlType(name = "adminRole", propOrder =
+    {
+        "osPs",
+        "osUs",
+        "beginRange",
+        "endRange",
+        "beginInclusive",
+        "endInclusive"
 })
 public class AdminRole extends Role implements Administrator
 {
@@ -141,6 +147,7 @@ public class AdminRole extends Role implements Administrator
     private boolean beginInclusive;
     private boolean endInclusive;
 
+
     /**
      * Default constructor is used by internal Fortress classes.
      */
@@ -148,24 +155,27 @@ public class AdminRole extends Role implements Administrator
     {
     }
 
+
     /**
      * Construct an Admin Role with a given temporal constraint.
      *
      * @param con maps to 'OamRC' attribute for 'ftTemporal' aux object classes.
      */
-    public AdminRole(Constraint con)
+    public AdminRole( Constraint con )
     {
-        CUtil.copy(con, this);
+        CUtil.copy( con, this );
     }
+
 
     /**
      * Construct an AdminRole entity with a given name.
      *
      */
-    public AdminRole(String name)
+    public AdminRole( String name )
     {
-        this.setName(name);
+        this.setName( name );
     }
+
 
     /**
      * Load the role range attributes given a raw format.  This method is used internal to Fortress and is not intended
@@ -174,40 +184,41 @@ public class AdminRole extends Role implements Administrator
      * @param szRaw maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setRoleRangeRaw(String szRaw)
+    public void setRoleRangeRaw( String szRaw )
     {
-        if (VUtil.isNotNullOrEmpty(szRaw))
+        if ( VUtil.isNotNullOrEmpty( szRaw ) )
         {
-            int bindx = szRaw.indexOf("(");
-            if (bindx > -1)
+            int bindx = szRaw.indexOf( "(" );
+            if ( bindx > -1 )
             {
-                this.setBeginInclusive(false);
+                this.setBeginInclusive( false );
             }
             else
             {
-                bindx = szRaw.indexOf("[");
-                this.setBeginInclusive(true);
+                bindx = szRaw.indexOf( "[" );
+                this.setBeginInclusive( true );
             }
-            int eindx = szRaw.indexOf(")");
-            if (eindx > -1)
+            int eindx = szRaw.indexOf( ")" );
+            if ( eindx > -1 )
             {
-                this.setEndInclusive(false);
+                this.setEndInclusive( false );
             }
             else
             {
-                eindx = szRaw.indexOf("]");
-                this.setEndInclusive(true);
+                eindx = szRaw.indexOf( "]" );
+                this.setEndInclusive( true );
             }
-            int cindx = szRaw.indexOf(":");
-            if (cindx > -1)
+            int cindx = szRaw.indexOf( ":" );
+            if ( cindx > -1 )
             {
-                String szBeginRange = szRaw.substring(bindx + 1, cindx);
-                String szEndRange = szRaw.substring(cindx + 1, eindx);
-                this.setBeginRange(szBeginRange);
-                this.setEndRange(szEndRange);
+                String szBeginRange = szRaw.substring( bindx + 1, cindx );
+                String szEndRange = szRaw.substring( cindx + 1, eindx );
+                this.setBeginRange( szBeginRange );
+                this.setEndRange( szEndRange );
             }
         }
     }
+
 
     /**
      *
@@ -220,22 +231,23 @@ public class AdminRole extends Role implements Administrator
     public String getRoleRangeRaw()
     {
         String szRaw = "";
-        if (this.beginRange != null)
+        if ( this.beginRange != null )
         {
-            if (this.isBeginInclusive())
+            if ( this.isBeginInclusive() )
                 szRaw += "[";
             else
                 szRaw += "(";
             szRaw += this.getBeginRange();
             szRaw += ":";
             szRaw += this.getEndRange();
-            if (this.isEndInclusive())
+            if ( this.isEndInclusive() )
                 szRaw += "]";
             else
                 szRaw += ")";
         }
         return szRaw;
     }
+
 
     /**
      * Get a collection of optional Perm OU attributes that were stored on the AdminRole entity.
@@ -248,16 +260,18 @@ public class AdminRole extends Role implements Administrator
         return osPs;
     }
 
+
     /**
      * Set a collection of optional Perm OU attributes to be stored on the AdminRole entity.
      *
      * @param osPs is a List of type String containing Perm OU.  This maps to 'ftOSP' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setOsP(Set<String> osPs)
+    public void setOsP( Set<String> osPs )
     {
         this.osPs = osPs;
     }
+
 
     /**
      * Set a Perm OU attribute to be stored on the AdminRole entity.
@@ -265,15 +279,16 @@ public class AdminRole extends Role implements Administrator
      * @param osP is a Perm OU that maps to 'ftOSP' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setOsP(String osP)
+    public void setOsP( String osP )
     {
-        if (this.osPs == null)
+        if ( this.osPs == null )
         {
             // create Set with case insensitive comparator:
-            osPs = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+            osPs = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         }
-        osPs.add(osP);
+        osPs.add( osP );
     }
+
 
     /**
      * Get a collection of optional User OU attributes that were stored on the AdminRole entity.
@@ -286,16 +301,18 @@ public class AdminRole extends Role implements Administrator
         return osUs;
     }
 
+
     /**
      * Set a collection of optional User OU attributes to be stored on the AdminRole entity.
      *
      * @param osUs is a List of type String containing User OU.  This maps to 'ftOSU' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setOsU(Set<String> osUs)
+    public void setOsU( Set<String> osUs )
     {
         this.osUs = osUs;
     }
+
 
     /**
      * Set a User OU attribute to be stored on the AdminRole entity.
@@ -303,15 +320,16 @@ public class AdminRole extends Role implements Administrator
      * @param osU is a User OU that maps to 'ftOSU' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setOsU(String osU)
+    public void setOsU( String osU )
     {
-        if (this.osUs == null)
+        if ( this.osUs == null )
         {
             // create Set with case insensitive comparator:
-            osUs = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+            osUs = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         }
-        osUs.add(osU);
+        osUs.add( osU );
     }
+
 
     /**
      * Return the begin Role range attribute for AdminRole entity which corresponds to lowest descendant.
@@ -324,16 +342,18 @@ public class AdminRole extends Role implements Administrator
         return beginRange;
     }
 
+
     /**
      * Set the begin Role range attribute for AdminRole entity which corresponds to lowest descendant.
      *
      * @param beginRange maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setBeginRange(String beginRange)
+    public void setBeginRange( String beginRange )
     {
         this.beginRange = beginRange;
     }
+
 
     /**
      * Return the end Role range attribute for AdminRole entity which corresponds to highest ascendant.
@@ -346,16 +366,18 @@ public class AdminRole extends Role implements Administrator
         return endRange;
     }
 
+
     /**
      * Set the end Role range attribute for AdminRole entity which corresponds to highest ascendant.
      *
      * @param endRange maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setEndRange(String endRange)
+    public void setEndRange( String endRange )
     {
         this.endRange = endRange;
     }
+
 
     /**
      * Get the begin inclusive which specifies if role range includes or excludes the 'beginRange' attribute.
@@ -368,16 +390,18 @@ public class AdminRole extends Role implements Administrator
         return beginInclusive;
     }
 
+
     /**
      * Set the begin inclusive which specifies if role range includes or excludes the 'beginRange' attribute.
      *
      * @param beginInclusive maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setBeginInclusive(boolean beginInclusive)
+    public void setBeginInclusive( boolean beginInclusive )
     {
         this.beginInclusive = beginInclusive;
     }
+
 
     /**
      * Get the end inclusive which specifies if role range includes or excludes the 'endRange' attribute.
@@ -390,16 +414,18 @@ public class AdminRole extends Role implements Administrator
         return endInclusive;
     }
 
+
     /**
      * Set the end inclusive which specifies if role range includes or excludes the 'endRange' attribute.
      *
      * @param endInclusive maps to 'ftRange' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setEndInclusive(boolean endInclusive)
+    public void setEndInclusive( boolean endInclusive )
     {
         this.endInclusive = endInclusive;
     }
+
 
     /**
      * Matches the name from two AdminRole entities.
@@ -407,14 +433,17 @@ public class AdminRole extends Role implements Administrator
      * @param thatObj contains an AdminRole entity.
      * @return boolean indicating both objects contain matching AdminRole names.
      */
-    public boolean equals(Object thatObj)
+    public boolean equals( Object thatObj )
     {
-        if (this == thatObj) return true;
-        if (this.getName() == null) return false;
-        if (!(thatObj instanceof AdminRole)) return false;
-        Role thatRole = (Role) thatObj;
-        if (thatRole.getName() == null) return false;
-        return thatRole.getName().equalsIgnoreCase(this.getName());
+        if ( this == thatObj )
+            return true;
+        if ( this.getName() == null )
+            return false;
+        if ( !( thatObj instanceof AdminRole ) )
+            return false;
+        Role thatRole = ( Role ) thatObj;
+        if ( thatRole.getName() == null )
+            return false;
+        return thatRole.getName().equalsIgnoreCase( this.getName() );
     }
 }
-

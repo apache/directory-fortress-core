@@ -4,9 +4,11 @@
 
 package us.jts.fortress.rbac;
 
-import us.jts.fortress.SecurityException;
 
 import java.util.List;
+
+import us.jts.fortress.SecurityException;
+import us.jts.fortress.rbac.dao.unboundid.AuditDAO;
 
 
 /**
@@ -17,9 +19,9 @@ import java.util.List;
  * the required fields are present..<BR>
  * The methods in this class are called by {@link AuditMgrImpl} methods during audit log interrogations.
  * <p/>
- * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
+ * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exception {@link us.jts.fortress.FinderException},
- * or {@link us.jts.fortress.ValidationException} as {@link us.jts.fortress.SecurityException}s with appropriate
+ * or {@link us.jts.fortress.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link us.jts.fortress.GlobalErrIds}.
  * <p/>
  * This class performs simple data validations.
@@ -28,15 +30,18 @@ import java.util.List;
  *
  * @author Shawn McKinney
  */
-final class AuditP
+public final class AuditP
 {
     private static final AuditDAO aDao = new AuditDAO();
+
 
     /**
      * Package private constructor
      */
     AuditP()
-    {}
+    {
+    }
+
 
     /**
      * This method returns a list of authorization events for a particular user {@link UserAudit#userId}
@@ -45,12 +50,11 @@ final class AuditP
      *
      * @param uAudit This entity is instantiated and populated before invocation.
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
-     * @throws us.jts.fortress.SecurityException if a runtime system error occurs.
+     * @throws SecurityException if a runtime system error occurs.
      */
-    final List<AuthZ> getAuthZs(UserAudit uAudit)
-        throws SecurityException
+    final List<AuthZ> getAuthZs( UserAudit uAudit ) throws SecurityException
     {
-        return aDao.getAllAuthZs(uAudit);
+        return aDao.getAllAuthZs( uAudit );
     }
 
 
@@ -63,10 +67,9 @@ final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws SecurityException if a runtime system error occurs.
      */
-    final List<AuthZ> searchAuthZs(UserAudit uAudit)
-        throws SecurityException
+    final List<AuthZ> searchAuthZs( UserAudit uAudit ) throws SecurityException
     {
-        return aDao.searchAuthZs(uAudit);
+        return aDao.searchAuthZs( uAudit );
     }
 
 
@@ -76,12 +79,11 @@ final class AuditP
      *
      * @param uAudit This entity is instantiated and populated before invocation.
      * @return a List of objects of type Bind.  Each Bind object contains one bind event.
-     * @throws us.jts.fortress.SecurityException if a runtime system error occurs.
+     * @throws SecurityException if a runtime system error occurs.
      */
-    final List<Bind> searchBinds(UserAudit uAudit)
-        throws SecurityException
+    final List<Bind> searchBinds( UserAudit uAudit ) throws SecurityException
     {
-        return aDao.searchBinds(uAudit);
+        return aDao.searchBinds( uAudit );
     }
 
 
@@ -91,12 +93,11 @@ final class AuditP
      *
      * @param uAudit This entity is instantiated and populated before invocation.
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
-     * @throws us.jts.fortress.SecurityException if a runtime system error occurs.
+     * @throws SecurityException if a runtime system error occurs.
      */
-    final List<Mod> searchUserMods(UserAudit uAudit)
-        throws SecurityException
+    final List<Mod> searchUserMods( UserAudit uAudit ) throws SecurityException
     {
-        return aDao.searchUserMods(uAudit);
+        return aDao.searchUserMods( uAudit );
     }
 
 
@@ -107,12 +108,11 @@ final class AuditP
      *
      * @param uAudit This entity is instantiated and populated before invocation.
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
-     * @throws us.jts.fortress.SecurityException if a runtime system error occurs.
+     * @throws SecurityException if a runtime system error occurs.
      */
-    final List<Mod> searchAdminMods(UserAudit uAudit)
-        throws SecurityException
+    final List<Mod> searchAdminMods( UserAudit uAudit ) throws SecurityException
     {
-        return aDao.searchAdminMods(uAudit);
+        return aDao.searchAdminMods( uAudit );
     }
 
 
@@ -126,12 +126,10 @@ final class AuditP
      *
      * @param uAudit This entity is instantiated and populated before invocation.
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one failed authentication event.
-     * @throws us.jts.fortress.SecurityException if a runtime system error occurs.
+     * @throws SecurityException if a runtime system error occurs.
      */
-    final List<AuthZ> searchInvalidAuthNs(UserAudit uAudit)
-        throws SecurityException
+    final List<AuthZ> searchInvalidAuthNs( UserAudit uAudit ) throws SecurityException
     {
-        return aDao.searchInvalidAuthNs(uAudit);
+        return aDao.searchInvalidAuthNs( uAudit );
     }
 }
-

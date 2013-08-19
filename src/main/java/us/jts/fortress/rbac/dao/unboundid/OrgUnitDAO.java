@@ -2,7 +2,7 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac;
+package us.jts.fortress.rbac.dao.unboundid;
 
 
 import java.util.ArrayList;
@@ -20,7 +20,11 @@ import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
+import us.jts.fortress.rbac.Graphable;
+import us.jts.fortress.rbac.OrgUnit;
+import us.jts.fortress.rbac.PsoUtil;
+import us.jts.fortress.rbac.UsoUtil;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
@@ -80,8 +84,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  * @author Shawn McKinney
  * @created September 18, 2010
  */
-final class OrgUnitDAO extends DataProvider
-
+public final class OrgUnitDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.OrgUnitDAO
 {
     private static final String CLS_NM = OrgUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
@@ -105,7 +108,7 @@ final class OrgUnitDAO extends DataProvider
     /**
      * Package private default constructor.
      */
-    OrgUnitDAO()
+    public OrgUnitDAO()
     {
     }
 
@@ -116,7 +119,7 @@ final class OrgUnitDAO extends DataProvider
      * @throws us.jts.fortress.CreateException
      *
      */
-    final OrgUnit create( OrgUnit entity )
+    public final OrgUnit create( OrgUnit entity )
         throws CreateException
     {
         LDAPConnection ld = null;
@@ -169,7 +172,7 @@ final class OrgUnitDAO extends DataProvider
      * @throws us.jts.fortress.UpdateException
      *
      */
-    final OrgUnit update( OrgUnit entity )
+    public final OrgUnit update( OrgUnit entity )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -218,7 +221,7 @@ final class OrgUnitDAO extends DataProvider
      * @throws us.jts.fortress.UpdateException
      *
      */
-    final void deleteParent( OrgUnit entity )
+    public final void deleteParent( OrgUnit entity )
         throws UpdateException
     {
         LDAPConnection ld = null;
@@ -260,7 +263,7 @@ final class OrgUnitDAO extends DataProvider
      * @throws us.jts.fortress.RemoveException
      *
      */
-    final OrgUnit remove( OrgUnit entity )
+    public final OrgUnit remove( OrgUnit entity )
         throws RemoveException
     {
         LDAPConnection ld = null;
@@ -300,7 +303,7 @@ final class OrgUnitDAO extends DataProvider
      * @throws FinderException
      *
      */
-    final OrgUnit findByKey( OrgUnit entity )
+    public final OrgUnit findByKey( OrgUnit entity )
         throws FinderException
     {
         OrgUnit oe = null;
@@ -374,7 +377,7 @@ final class OrgUnitDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<OrgUnit> findOrgs( OrgUnit orgUnit )
+    public final List<OrgUnit> findOrgs( OrgUnit orgUnit )
         throws FinderException
     {
         List<OrgUnit> orgUnitList = new ArrayList<>();
@@ -425,7 +428,7 @@ final class OrgUnitDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final Set<String> getOrgs( OrgUnit orgUnit )
+    public final Set<String> getOrgs( OrgUnit orgUnit )
         throws FinderException
     {
         Set<String> ouSet = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
@@ -471,7 +474,7 @@ final class OrgUnitDAO extends DataProvider
       * @return
       * @throws FinderException
       */
-    final List<Graphable> getAllDescendants( OrgUnit orgUnit )
+    public final List<Graphable> getAllDescendants( OrgUnit orgUnit )
         throws FinderException
     {
         String orgUnitRoot = getOrgRoot( orgUnit );

@@ -3241,7 +3241,7 @@ public class RoleTestData extends TestCase
     public static Set<String> getRelationships( String[] rle )
     {
         Set<String> parents = new HashSet<>();
-        if ( us.jts.fortress.util.attr.VUtil.isNotNullOrEmpty( rle[RELATIONSHIP_COL] ) )
+        if ( VUtil.isNotNullOrEmpty( rle[RELATIONSHIP_COL] ) )
         {
             StringTokenizer charSetTkn = new StringTokenizer( rle[RELATIONSHIP_COL], TestUtils.DELIMITER_TEST_DATA );
             if ( charSetTkn.countTokens() > 0 )

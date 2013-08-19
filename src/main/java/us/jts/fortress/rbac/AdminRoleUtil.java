@@ -34,7 +34,7 @@ import us.jts.fortress.util.cache.CacheMgr;
  * </ol>
  * After update is performed to ldap, the singleton is refreshed with latest info.
  * <p/>
- * Static methods on this class are intended for use by other Fortress classes, i.e. {@link DelAdminMgrImpl} and {@link us.jts.fortress.rbac.PermDAO}
+ * Static methods on this class are intended for use by other Fortress classes, i.e. {@link DelAdminMgrImpl} and {@link us.jts.fortress.rbac.dao.PermDAO}
  * and cannot be directly invoked by outside programs.
  * <p/>
  * This class contains singleton that can be updated but is thread safe.
@@ -42,7 +42,7 @@ import us.jts.fortress.util.cache.CacheMgr;
 
  *  @author Shawn McKinney
  */
-final class AdminRoleUtil
+public final class AdminRoleUtil
 {
     private static final Cache adminRoleCache;
     private static final AdminRoleP adminRoleP = new AdminRoleP();
@@ -100,7 +100,7 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of AdminRole names that are descendants of given node.
      */
-    static Set<String> getAscendants( String roleName, String contextId )
+    public static Set<String> getAscendants( String roleName, String contextId )
     {
         return HierUtil.getAscendants( roleName, getGraph( contextId ) );
     }
@@ -124,7 +124,7 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of AdminRole names that are children of given parent.
      */
-    static Set<String> getChildren( String roleName, String contextId )
+    public static Set<String> getChildren( String roleName, String contextId )
     {
         return HierUtil.getChildren( roleName, getGraph( contextId ) );
     }
@@ -143,13 +143,13 @@ final class AdminRoleUtil
 
 
     /**
-     * Return Set of {@link us.jts.fortress.rbac.AdminRole#name}s ascendants.  Used by {@link us.jts.fortress.rbac.PermDAO#checkPermission}
+     * Return Set of {@link us.jts.fortress.rbac.AdminRole#name}s ascendants.  Used by {@link us.jts.fortress.rbac.dao.PermDAO#checkPermission}
      * for computing authorized {@link us.jts.fortress.rbac.UserAdminRole#name}s.
      * @param uRoles contains list of adminRoles activated within a {@link us.jts.fortress.rbac.User}'s {@link us.jts.fortress.rbac.Session}.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return contains Set of all authorized adminRoles for a given User.
      */
-    static Set<String> getInheritedRoles( List<UserAdminRole> uRoles, String contextId )
+    public static Set<String> getInheritedRoles( List<UserAdminRole> uRoles, String contextId )
     {
         // create Set with case insensitive comparator:
         Set<String> iRoles = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );

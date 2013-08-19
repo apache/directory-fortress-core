@@ -8,7 +8,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;
 import us.jts.fortress.GlobalIds;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.ldap.LdapCounters;
 
 /**
@@ -312,7 +312,7 @@ public class FortressJUnitTest extends TestCase
 
     public void testDisplayCounters()
     {
-        LdapCounters counters = DataProvider.getLdapCounters();
+        LdapCounters counters = UnboundIdDataProvider.getLdapCounters();
         System.out.println( "NUMBER OF READS: " + counters.getRead() );
         System.out.println( "NUMBER OF SEARCHES: " + counters.getSearch() );
         System.out.println( "NUMBER OF COMPARES: " + counters.getCompare() );

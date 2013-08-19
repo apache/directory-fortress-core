@@ -4,18 +4,21 @@
 
 package us.jts.fortress.rbac;
 
+
+import java.util.List;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.SecurityException;
-
 import us.jts.fortress.ValidationException;
+import us.jts.fortress.rbac.dao.unboundid.PolicyDAO;
 import us.jts.fortress.util.attr.VUtil;
-import us.jts.fortress.util.cache.CacheMgr;
 import us.jts.fortress.util.cache.Cache;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.List;
-import java.util.Set;
+import us.jts.fortress.util.cache.CacheMgr;
 
 
 /**
@@ -25,10 +28,10 @@ import java.util.Set;
  * This class is not intended to be used by external programs.  This class will accept Fortress entity, {@link PwPolicy}, on its
  * methods, validate contents and forward on to it's corresponding DAO class {@link PolicyDAO}.
  * <p/>
- * Class will throw {@link us.jts.fortress.SecurityException} to caller in the event of security policy, data constraint violation or system
+ * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link us.jts.fortress.FinderException},
  * {@link us.jts.fortress.CreateException},{@link us.jts.fortress.UpdateException},{@link us.jts.fortress.RemoveException}),
- * or {@link us.jts.fortress.ValidationException} as {@link us.jts.fortress.SecurityException}s with appropriate
+ * or {@link us.jts.fortress.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link us.jts.fortress.GlobalErrIds}.
  * <p/>
  * This class uses one reference to synchronized data set {@link #policyCache} but is thread safe.
@@ -37,7 +40,7 @@ import java.util.Set;
  *
  * @author Shawn McKinney
  */
-final class PolicyP
+public final class PolicyP
 {
 
     private static final String CLS_NM = PolicyP.class.getName();
@@ -61,14 +64,17 @@ final class PolicyP
     static
     {
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        PolicyP.policyCache = cacheMgr.getCache(FORTRESS_POLICIES);
+        PolicyP.policyCache = cacheMgr.getCache( FORTRESS_POLICIES );
     }
+
 
     /**
      * Package private constructor.
      */
     PolicyP()
-    {}
+    {
+    }
+
 
     /**
      * This function uses a case insensitive search.
@@ -76,14 +82,15 @@ final class PolicyP
      * @param policy
      * @return
      */
-    final boolean isValid(PwPolicy policy)
+    final boolean isValid( PwPolicy policy )
     {
         boolean result = false;
-        Set<String> policySet = getPolicySet(policy.getContextId());
-        if (policySet != null)
-            result = policySet.contains(policy.getName());
+        Set<String> policySet = getPolicySet( policy.getContextId() );
+        if ( policySet != null )
+            result = policySet.contains( policy.getName() );
         return result;
     }
+
 
     /**
      * This method will return the password policy entity to the caller.  This command is valid
@@ -91,32 +98,31 @@ final class PolicyP
      *
      * @param policy contains the name of the policy entity.
      * @return PswdPolicy entity returns fully populated with attributes.
-     * @throws us.jts.fortress.SecurityException In the event policy entry not found, data validation or system error.
+     * @throws SecurityException In the event policy entry not found, data validation or system error.
      */
-    final PwPolicy read(PwPolicy policy)
-        throws SecurityException
+    final PwPolicy read( PwPolicy policy ) throws SecurityException
     {
         // Call the finder method for the primary key.
-        return olDao.getPolicy(policy);
+        return olDao.getPolicy( policy );
     }
+
 
     /**
      * This method will add a new policy entry to the POLICIES data set.  This command is valid
      * if and only if the policy entry is not already present in the POLICIES data set.
      *
      * @param policy Object contains the password policy attributes.
-     * @throws us.jts.fortress.SecurityException In the event of data validation or system error.
+     * @throws SecurityException In the event of data validation or system error.
      */
-    final void add(PwPolicy policy)
-        throws SecurityException
+    final void add( PwPolicy policy ) throws SecurityException
     {
-        validate(policy);
-        olDao.create(policy);
-        synchronized (policySetSynchLock)
+        validate( policy );
+        olDao.create( policy );
+        synchronized ( policySetSynchLock )
         {
-            Set<String> policySet = getPolicySet(policy.getContextId());
-            if (policySet != null)
-                policySet.add(policy.getName());
+            Set<String> policySet = getPolicySet( policy.getContextId() );
+            if ( policySet != null )
+                policySet.add( policy.getName() );
         }
     }
 
@@ -127,13 +133,12 @@ final class PolicyP
      *
      * @param policy Object must contain the name of the policy entity.  All non-null attributes will
      *               be updated.  null attributes will be ignored.
-     * @throws us.jts.fortress.SecurityException In the event policy not found , data validation or system error.
+     * @throws SecurityException In the event policy not found , data validation or system error.
      */
-    final void update(PwPolicy policy)
-        throws SecurityException
+    final void update( PwPolicy policy ) throws SecurityException
     {
-        validate(policy);
-        olDao.update(policy);
+        validate( policy );
+        olDao.update( policy );
     }
 
 
@@ -143,17 +148,16 @@ final class PolicyP
      * are assigned this policy will be removed from association.
      *
      * @param policy Object must contain the name of the policy entity.
-     * @throws us.jts.fortress.SecurityException In the event policy entity not found or system error.
+     * @throws SecurityException In the event policy entity not found or system error.
      */
-    final void delete(PwPolicy policy)
-        throws SecurityException
+    final void delete( PwPolicy policy ) throws SecurityException
     {
-        olDao.remove(policy);
-        synchronized (policySetSynchLock)
+        olDao.remove( policy );
+        synchronized ( policySetSynchLock )
         {
-            Set<String> policySet = getPolicySet(policy.getContextId());
-            if (policySet != null)
-                policySet.remove(policy.getName());
+            Set<String> policySet = getPolicySet( policy.getContextId() );
+            if ( policySet != null )
+                policySet.remove( policy.getName() );
         }
     }
 
@@ -164,12 +168,11 @@ final class PolicyP
      *
      * @param policy contains the leading chars of a policy entity.  This search is not case sensitive.
      * @return List<PswdPolicy> contains all matching password policy entities. If no records found this will be empty.
-     * @throws us.jts.fortress.SecurityException In the event of data validation or system error.
+     * @throws SecurityException In the event of data validation or system error.
      */
-    final List<PwPolicy> search(PwPolicy policy)
-        throws SecurityException
+    final List<PwPolicy> search( PwPolicy policy ) throws SecurityException
     {
-        return olDao.findPolicy(policy);
+        return olDao.findPolicy( policy );
     }
 
 
@@ -178,116 +181,126 @@ final class PolicyP
      * or updating in directory.  Data reasonability checks will be performed on all non-null attributes.
      *
      * @param policy contains data targeted for insertion or update.
-     * @throws us.jts.fortress.ValidationException in the event of data validation error or DAO error on Org validation.
+     * @throws ValidationException in the event of data validation error or DAO error on Org validation.
      */
-    private void validate(PwPolicy policy)
-        throws ValidationException
+    private void validate( PwPolicy policy ) throws ValidationException
     {
         int length = policy.getName().length();
-        if (length < 1 || length > GlobalIds.PWPOLICY_NAME_LEN)
+        if ( length < 1 || length > GlobalIds.PWPOLICY_NAME_LEN )
         {
             String error = "validate policy name [" + policy.getName() + "] INVALID LENGTH [" + length + "]";
-            LOG.error(error);
-            throw new ValidationException(GlobalErrIds.PSWD_NAME_INVLD_LEN, error);
+            LOG.error( error );
+            throw new ValidationException( GlobalErrIds.PSWD_NAME_INVLD_LEN, error );
         }
-        if (policy.getCheckQuality() != null)
+        if ( policy.getCheckQuality() != null )
         {
             try
             {
-                if (policy.getCheckQuality() < 0 || policy.getCheckQuality() > 2)
+                if ( policy.getCheckQuality() < 0 || policy.getCheckQuality() > 2 )
                 {
-                    String error = "validate policy name [" + policy.getName() + "] value checkQuality [" + policy.getCheckQuality() + "] INVALID INT VALUE";
-                    LOG.error(error);
-                    throw new ValidationException(GlobalErrIds.PSWD_QLTY_INVLD, error);
+                    String error = "validate policy name [" + policy.getName() + "] value checkQuality ["
+                        + policy.getCheckQuality() + "] INVALID INT VALUE";
+                    LOG.error( error );
+                    throw new ValidationException( GlobalErrIds.PSWD_QLTY_INVLD, error );
                 }
             }
-            catch (java.lang.NumberFormatException nfe)
+            catch ( java.lang.NumberFormatException nfe )
             {
-                String error = "validate policy name [" + policy.getName() + "] value checkQuality [" + policy.getCheckQuality() + "] INVALID INT VALUE";
-                LOG.error(error);
-                throw new ValidationException(GlobalErrIds.PSWD_QLTY_INVLD, error);
+                String error = "validate policy name [" + policy.getName() + "] value checkQuality ["
+                    + policy.getCheckQuality() + "] INVALID INT VALUE";
+                LOG.error( error );
+                throw new ValidationException( GlobalErrIds.PSWD_QLTY_INVLD, error );
             }
         }
-        if (policy.getMaxAge() != null)
+        if ( policy.getMaxAge() != null )
         {
-            if (policy.getMaxAge() > MAX_AGE)
+            if ( policy.getMaxAge() > MAX_AGE )
             {
-                String error = "validate policy name [" + policy.getName() + "] value maxAge [" + policy.getMaxAge() + "] INVALID INT VALUE";
-                LOG.error(error);
-                throw new ValidationException(GlobalErrIds.PSWD_MAXAGE_INVLD, error);
+                String error = "validate policy name [" + policy.getName() + "] value maxAge [" + policy.getMaxAge()
+                    + "] INVALID INT VALUE";
+                LOG.error( error );
+                throw new ValidationException( GlobalErrIds.PSWD_MAXAGE_INVLD, error );
             }
         }
-        if (policy.getMinAge() != null)
+        if ( policy.getMinAge() != null )
         {
             // policy.minAge
-            if (policy.getMinAge() > MAX_AGE)
+            if ( policy.getMinAge() > MAX_AGE )
             {
-                String error = "validate policy name [" + policy.getName() + "] value minAge [" + policy.getMinAge() + "] INVALID INT VALUE";
-                LOG.error(error);
-                throw new ValidationException(GlobalErrIds.PSWD_MINAGE_INVLD, error);
+                String error = "validate policy name [" + policy.getName() + "] value minAge [" + policy.getMinAge()
+                    + "] INVALID INT VALUE";
+                LOG.error( error );
+                throw new ValidationException( GlobalErrIds.PSWD_MINAGE_INVLD, error );
             }
         }
-        if (policy.getMinLength() != null)
+        if ( policy.getMinLength() != null )
         {
-            if (policy.getMinLength() > MIN_PW_LEN)
+            if ( policy.getMinLength() > MIN_PW_LEN )
             {
-                String error = "validate policy name [" + policy.getName() + "] value minLength [" + policy.getMinLength() + "] INVALID INT VALUE";
-                LOG.error(error);
-                throw new ValidationException(GlobalErrIds.PSWD_MINLEN_INVLD, error);
+                String error = "validate policy name [" + policy.getName() + "] value minLength ["
+                    + policy.getMinLength() + "] INVALID INT VALUE";
+                LOG.error( error );
+                throw new ValidationException( GlobalErrIds.PSWD_MINLEN_INVLD, error );
             }
         }
-        if (policy.getFailureCountInterval() != null)
+        if ( policy.getFailureCountInterval() != null )
         {
-            if (policy.getFailureCountInterval() > MAX_AGE)
+            if ( policy.getFailureCountInterval() > MAX_AGE )
             {
-                String error = "validate policy name [" + policy.getName() + "] value failureCountInterval [" + policy.getFailureCountInterval() + "] INVALID INT VALUE";
-                LOG.error(error);
-                throw new ValidationException(GlobalErrIds.PSWD_INTERVAL_INVLD, error);
+                String error = "validate policy name [" + policy.getName() + "] value failureCountInterval ["
+                    + policy.getFailureCountInterval() + "] INVALID INT VALUE";
+                LOG.error( error );
+                throw new ValidationException( GlobalErrIds.PSWD_INTERVAL_INVLD, error );
             }
         }
-        if (policy.getMaxFailure() != null)
+        if ( policy.getMaxFailure() != null )
         {
-            if (policy.getMaxFailure() > MAX_FAILURE)
+            if ( policy.getMaxFailure() > MAX_FAILURE )
             {
-                String error = "validate policy name [" + policy.getName() + "] value maxFailure [" + policy.getMaxFailure() + "] INVALID INT VALUE";
-                LOG.error(error);
-                throw new ValidationException(GlobalErrIds.PSWD_MAXFAIL_INVLD, error);
+                String error = "validate policy name [" + policy.getName() + "] value maxFailure ["
+                    + policy.getMaxFailure() + "] INVALID INT VALUE";
+                LOG.error( error );
+                throw new ValidationException( GlobalErrIds.PSWD_MAXFAIL_INVLD, error );
             }
         }
-        if (policy.getInHistory() != null)
+        if ( policy.getInHistory() != null )
         {
-            if (policy.getInHistory() > MAX_HISTORY)
+            if ( policy.getInHistory() > MAX_HISTORY )
             {
-                String error = "validate policy name [" + policy.getName() + "] value inHistory [" + policy.getInHistory() + "] INVALID VALUE";
-                LOG.error(error);
-                throw new ValidationException(GlobalErrIds.PSWD_HISTORY_INVLD, error);
+                String error = "validate policy name [" + policy.getName() + "] value inHistory ["
+                    + policy.getInHistory() + "] INVALID VALUE";
+                LOG.error( error );
+                throw new ValidationException( GlobalErrIds.PSWD_HISTORY_INVLD, error );
             }
         }
-        if (policy.getGraceLoginLimit() != null)
+        if ( policy.getGraceLoginLimit() != null )
         {
-            if (policy.getGraceLoginLimit() > MAX_GRACE_COUNT)
+            if ( policy.getGraceLoginLimit() > MAX_GRACE_COUNT )
             {
-                String error = "validate policy name [" + policy.getName() + "] value graceLoginLimit [" + policy.getGraceLoginLimit() + "] INVALID VALUE";
-                LOG.error(error);
-                throw new ValidationException(GlobalErrIds.PSWD_GRACE_INVLD, error);
+                String error = "validate policy name [" + policy.getName() + "] value graceLoginLimit ["
+                    + policy.getGraceLoginLimit() + "] INVALID VALUE";
+                LOG.error( error );
+                throw new ValidationException( GlobalErrIds.PSWD_GRACE_INVLD, error );
             }
         }
-        if (policy.getLockoutDuration() != null)
+        if ( policy.getLockoutDuration() != null )
         {
-            if (policy.getLockoutDuration() > MAX_AGE)
+            if ( policy.getLockoutDuration() > MAX_AGE )
             {
-                String error = "validate policy name [" + policy.getName() + "] value lockoutDuration [" + policy.getLockoutDuration() + "] INVALID VALUE";
-                LOG.error(error);
-                throw new ValidationException(GlobalErrIds.PSWD_LOCKOUTDUR_INVLD, error);
+                String error = "validate policy name [" + policy.getName() + "] value lockoutDuration ["
+                    + policy.getLockoutDuration() + "] INVALID VALUE";
+                LOG.error( error );
+                throw new ValidationException( GlobalErrIds.PSWD_LOCKOUTDUR_INVLD, error );
             }
         }
-        if (policy.getExpireWarning() != null)
+        if ( policy.getExpireWarning() != null )
         {
-            if (policy.getExpireWarning() > MAX_AGE)
+            if ( policy.getExpireWarning() > MAX_AGE )
             {
-                String error = "validate policy name [" + policy.getName() + "] value expireWarning [" + policy.getExpireWarning() + "] INVALID VALUE";
-                LOG.error(error);
-                throw new ValidationException(GlobalErrIds.PSWD_EXPWARN_INVLD, error);
+                String error = "validate policy name [" + policy.getName() + "] value expireWarning ["
+                    + policy.getExpireWarning() + "] INVALID VALUE";
+                LOG.error( error );
+                throw new ValidationException( GlobalErrIds.PSWD_EXPWARN_INVLD, error );
             }
         }
     }
@@ -299,46 +312,48 @@ final class PolicyP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of unique names.
      */
-    private static Set<String> loadPolicySet(String contextId)
+    private static Set<String> loadPolicySet( String contextId )
     {
         Set<String> policySet = null;
         try
         {
-            policySet = olDao.getPolicies(contextId);
+            policySet = olDao.getPolicies( contextId );
         }
-        catch (SecurityException se)
+        catch ( SecurityException se )
         {
             String warning = "loadPolicySet static initializer caught SecurityException=" + se;
-            LOG.info(warning);
+            LOG.info( warning );
         }
-        policyCache.put(getKey(contextId), policySet);
+        policyCache.put( getKey( contextId ), policySet );
         return policySet;
     }
+
 
     /**
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return
      */
-    private static Set<String> getPolicySet(String contextId)
+    private static Set<String> getPolicySet( String contextId )
     {
-        Set<String> policySet = (Set<String>)policyCache.get(getKey(contextId));
-        if (policySet == null)
+        Set<String> policySet = ( Set<String> ) policyCache.get( getKey( contextId ) );
+        if ( policySet == null )
         {
-            policySet = loadPolicySet(contextId);
+            policySet = loadPolicySet( contextId );
         }
         return policySet;
     }
+
 
     /**
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return
      */
-    private static String getKey(String contextId)
+    private static String getKey( String contextId )
     {
         String key = POLICIES;
-        if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equalsIgnoreCase(GlobalIds.NULL))
+        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )
         {
             key += ":" + contextId;
         }

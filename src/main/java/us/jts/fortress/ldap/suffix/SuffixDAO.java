@@ -12,7 +12,7 @@ import us.jts.fortress.CreateException;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.RemoveException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
@@ -49,7 +49,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
  *
  * @author Shawn McKinney
  */
-final class SuffixDAO extends DataProvider
+final class SuffixDAO extends UnboundIdDataProvider
 {
     private static final String CLS_NM = SuffixDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );

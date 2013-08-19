@@ -4,16 +4,22 @@
 
 package us.jts.fortress.rbac;
 
+
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Properties;
+import java.util.UUID;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Properties;
-import java.util.UUID;
+
+import us.jts.fortress.rbac.dao.RoleDAO;
+import us.jts.fortress.rbac.dao.UserDAO;
+
 
 /**
  * All entities ({@link User}, {@link Role}, {@link us.jts.fortress.rbac.Permission},
@@ -24,7 +30,7 @@ import java.util.UUID;
  * <ol>
  * <li>Manager layer:  {@link us.jts.fortress.rbac.AdminMgrImpl}, {@link us.jts.fortress.rbac.AccessMgrImpl}, {@link us.jts.fortress.rbac.ReviewMgrImpl},...</li>
  * <li>Process layer:  {@link UserP}, {@link RoleP}, {@link PermP},...</li>
- * <li>DAO layer: {@link UserDAO}, {@link RoleDAO}, {@link us.jts.fortress.rbac.PermDAO},...</li>
+ * <li>DAO layer: {@link UserDAO}, {@link RoleDAO}, {@link us.jts.fortress.rbac.dao.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
@@ -99,14 +105,15 @@ import java.util.UUID;
  */
 @XmlRootElement(name = "fortObject")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "permObj", propOrder = {
-    "objectName",
-    "description",
-    "internalId",
-    "ou",
-    "type",
-    "props",
-    "admin"
+@XmlType(name = "permObj", propOrder =
+    {
+        "objectName",
+        "description",
+        "internalId",
+        "ou",
+        "type",
+        "props",
+        "admin"
 })
 public class PermObj extends FortEntity
     implements java.io.Serializable
@@ -132,12 +139,13 @@ public class PermObj extends FortEntity
 
     }
 
+
     /**
      * Construct an Fortress PermObj entity given an object name.
      *
      * @param objectName maps to 'ftObjNm' attribute in 'ftObject' object class.
      */
-    public PermObj(String objectName)
+    public PermObj( String objectName )
     {
         this.objectName = objectName;
     }
@@ -149,7 +157,7 @@ public class PermObj extends FortEntity
      * @param objectName maps to 'ftObjNm' attribute in 'ftObject' object class.
      * @param ou maps to 'ou' attribute in 'ftObject' object class.
      */
-    public PermObj(String objectName, String ou)
+    public PermObj( String objectName, String ou )
     {
         this.objectName = objectName;
         this.ou = ou;
@@ -167,22 +175,24 @@ public class PermObj extends FortEntity
         return objectName;
     }
 
+
     /**
      * This attribute is required and sets the authorization target object name.  This name is typically derived from the class name
      * for component that is the target for Fortress authorization check. For example 'CustomerCheckOutPage'.
      *
      */
-    public void setObjectName(String objectName)
+    public void setObjectName( String objectName )
     {
         this.objectName = objectName;
     }
+
 
     /**
      * This attribute is required but is set automatically by Fortress DAO class before object is persisted to ldap.
      * This generated internal id is associated with PermObj.  This method is used by DAO class and
      * is not available to outside classes.   The generated attribute maps to 'ftId' in 'ftObject' object class.
      */
-    void setInternalId()
+    public void setInternalId()
     {
         // generate a unique id that will be used as the rDn for this entry:
         UUID uuid = UUID.randomUUID();
@@ -193,6 +203,7 @@ public class PermObj extends FortEntity
         //this.internalId = iid.toString();
     }
 
+
     /**
      * Set the internal id that is associated with PermObj.  This method is used by DAO class and
      * is generated automatically by Fortress.  Attribute stored in LDAP cannot be changed by external caller.
@@ -200,7 +211,7 @@ public class PermObj extends FortEntity
      *
      * @param internalId maps to 'ftId' in 'ftObject' object class.
      */
-    void setInternalId(String internalId)
+    public void setInternalId( String internalId )
     {
         this.internalId = internalId;
     }
@@ -228,23 +239,25 @@ public class PermObj extends FortEntity
         return admin;
     }
 
+
     /**
      * If set to true, this entity will be loaded into the Admin Permission data set.
      *
      * @param admin boolean variable indicates if entity is an RBAC or ARBAC Permission Object.
      */
 
-    public void setAdmin(boolean admin)
+    public void setAdmin( boolean admin )
     {
         this.admin = admin;
     }
+
 
     /**
      * Sets the optional description that is associated with PermObj.  This attribute is validated but not constrained by Fortress.
      *
      * @param description that is mapped to same name in 'organizationalUnit' object class.
      */
-    public void setDescription(String description)
+    public void setDescription( String description )
     {
         this.description = description;
     }
@@ -269,114 +282,120 @@ public class PermObj extends FortEntity
       *     {@link Props }
       *
       */
-     public Props getProps()
-     {
-         return props;
-     }
+    public Props getProps()
+    {
+        return props;
+    }
 
-     /**
-      * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
-      *
-      * @param value
-      *     allowed object is
-      *     {@link Props }
-      *
-      */
-     public void setProps(Props value)
-     {
-         this.props = value;
-     }
 
-     /**
-      * Add name/value pair to list of properties associated with PermObj.  These values are not constrained by Fortress.
-      * Properties are optional.
-      *
-      * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-      * @param value
-      */
-     public void addProperty(String key, String value)
-     {
-         Props.Entry entry = new Props.Entry();
-         entry.setKey(key);
-         entry.setValue(value);
-         this.props.getEntry().add(entry);
-     }
+    /**
+     * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link Props }
+     *
+     */
+    public void setProps( Props value )
+    {
+        this.props = value;
+    }
 
-     /**
-      * Get a name/value pair attribute from list of properties associated with PermObj.  These values are not constrained by Fortress.
-      * Properties are optional.
-      *
-      * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-      * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
-      */
-     public String getProperty(String key)
-     {
-         List<Props.Entry> props = this.props.getEntry();
-         Props.Entry keyObj = new Props.Entry();
-         keyObj.setKey(key);
 
-         String value = null;
-         int indx = props.indexOf(keyObj);
-         if(indx != -1)
-         {
-             Props.Entry entry = props.get(props.indexOf(keyObj));
-             value = entry.getValue();
-         }
-
-         return value;
-     }
-
-     /**
-      * Add new collection of name/value pairs to attributes associated with PermObj.  These values are not constrained by Fortress.
-      * Properties are optional.
-      *
-      * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-      */
-     public void addProperties(Properties props)
-     {
-         if(props != null)
-         {
-             for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
-             {
-                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                 String key = (String) e.nextElement();
-                 String val = props.getProperty(key);
-                 addProperty(key, val);
-             }
-         }
-     }
-
-     /**
-      * Return the collection of name/value pairs to attributes associated with PermObj.  These values are not constrained by Fortress.
-      * Properties are optional.
-      *
-      * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-      */
-     public Properties getProperties()
-     {
-         Properties properties = null;
-         List<Props.Entry> props = this.props.getEntry();
-         if (props.size() > 0)
-         {
-             properties = new Properties();
-             //int size = props.size();
-             for (Props.Entry entry : props)
-             {
-                 String key = entry.getKey();
-                 String val = entry.getValue();
-                 properties.setProperty(key, val);
-             }
-         }
-         return properties;
-     }
-
-     /**
+    /**
      * Add name/value pair to list of properties associated with PermObj.  These values are not constrained by Fortress.
      * Properties are optional.
      *
      * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      * @param value
      */
+    public void addProperty( String key, String value )
+    {
+        Props.Entry entry = new Props.Entry();
+        entry.setKey( key );
+        entry.setValue( value );
+        this.props.getEntry().add( entry );
+    }
+
+
+    /**
+     * Get a name/value pair attribute from list of properties associated with PermObj.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @param key contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     * @return value containing name/value pair that maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     */
+    public String getProperty( String key )
+    {
+        List<Props.Entry> props = this.props.getEntry();
+        Props.Entry keyObj = new Props.Entry();
+        keyObj.setKey( key );
+
+        String value = null;
+        int indx = props.indexOf( keyObj );
+        if ( indx != -1 )
+        {
+            Props.Entry entry = props.get( props.indexOf( keyObj ) );
+            value = entry.getValue();
+        }
+
+        return value;
+    }
+
+
+    /**
+     * Add new collection of name/value pairs to attributes associated with PermObj.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     */
+    public void addProperties( Properties props )
+    {
+        if ( props != null )
+        {
+            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            {
+                // This LDAP attr is stored as a name-value pair separated by a ':'.
+                String key = ( String ) e.nextElement();
+                String val = props.getProperty( key );
+                addProperty( key, val );
+            }
+        }
+    }
+
+
+    /**
+     * Return the collection of name/value pairs to attributes associated with PermObj.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     */
+    public Properties getProperties()
+    {
+        Properties properties = null;
+        List<Props.Entry> props = this.props.getEntry();
+        if ( props.size() > 0 )
+        {
+            properties = new Properties();
+            //int size = props.size();
+            for ( Props.Entry entry : props )
+            {
+                String key = entry.getKey();
+                String val = entry.getValue();
+                properties.setProperty( key, val );
+            }
+        }
+        return properties;
+    }
+
+
+    /**
+    * Add name/value pair to list of properties associated with PermObj.  These values are not constrained by Fortress.
+    * Properties are optional.
+    *
+    * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+    * @param value
+    */
     //public void addProperty(String key, String value)
     //{
     //    if (props == null)
@@ -386,7 +405,6 @@ public class PermObj extends FortEntity
 
     //    this.props.setProperty(key, value);
     //}
-
 
     /**
      * Add new collection of name/value pairs to attributes associated with PermObj.  These values are not constrained by Fortress.
@@ -399,7 +417,6 @@ public class PermObj extends FortEntity
     //    this.props = props;
     //}
 
-
     /**
      * Return the collection of name/value pairs to attributes associated with PermObj.  These values are not constrained by Fortress.
      * Properties are optional.
@@ -411,14 +428,13 @@ public class PermObj extends FortEntity
     //    return this.props;
     //}
 
-
     /**
      * Set the orgUnit name associated with PermObj.  This attribute is validated and constrained by Fortress and must contain name of existing Perm OU.
      * This attribute is required on add but not on read.
      *
      * @param ou mapped to same name in 'ftObject' object class.
      */
-    public void setOu(String ou)
+    public void setOu( String ou )
     {
         this.ou = ou;
     }
@@ -442,7 +458,7 @@ public class PermObj extends FortEntity
      *
      * @param type maps to attribute name 'ftType' in 'ftObject' object class.
      */
-    public void setType(String type)
+    public void setType( String type )
     {
         this.type = type;
     }
@@ -466,7 +482,7 @@ public class PermObj extends FortEntity
      *
      * @param dn that is mapped to same name in 'organizationalUnit' object class.
      */
-    void setDn(String dn)
+    public void setDn( String dn )
     {
         this.dn = dn;
     }
@@ -490,14 +506,17 @@ public class PermObj extends FortEntity
      * @param thatObj contains a PermObj entity.
      * @return boolean indicating both objects contain matching objectNames.
      */
-    public boolean equals(Object thatObj)
+    public boolean equals( Object thatObj )
     {
-        if (this == thatObj) return true;
-        if (this.getObjectName() == null) return false;
-        if (!(thatObj instanceof PermObj)) return false;
-        PermObj thatPermObj = (PermObj) thatObj;
-        if (thatPermObj.getObjectName() == null) return false;
-        return thatPermObj.getObjectName().equalsIgnoreCase(this.getObjectName());
+        if ( this == thatObj )
+            return true;
+        if ( this.getObjectName() == null )
+            return false;
+        if ( !( thatObj instanceof PermObj ) )
+            return false;
+        PermObj thatPermObj = ( PermObj ) thatObj;
+        if ( thatPermObj.getObjectName() == null )
+            return false;
+        return thatPermObj.getObjectName().equalsIgnoreCase( this.getObjectName() );
     }
 }
-

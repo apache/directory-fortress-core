@@ -5,23 +5,30 @@
  * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
  */
 
-package us.jts.fortress.rbac;
+package us.jts.fortress.rbac.dao.unboundid;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+import us.jts.fortress.FinderException;
 import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.cfg.Config;
-import us.jts.fortress.FinderException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
+import us.jts.fortress.rbac.AuthZ;
+import us.jts.fortress.rbac.Bind;
+import us.jts.fortress.rbac.Mod;
+import us.jts.fortress.rbac.UserAudit;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
+
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class performs data access for OpenLDAP synch repl log data
@@ -98,7 +105,7 @@ import java.util.List;
  *
  * @author Shawn McKinney
  */
-final class AuditDAO extends DataProvider
+public final class AuditDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.AuditDAO
 {
     private static final String CLS_NM = AuditDAO.class.getName();
     private static final String CREATETIMESTAMP = "createTimestamp";
@@ -139,29 +146,34 @@ final class AuditDAO extends DataProvider
     private static final String ACCESS_ADD_CLASS_NM = "auditAdd";
     private static final String AUDIT_ROOT = "audit.root";
 
-    private static final String[] AUDIT_AUTHZ_ATRS = {
-        CREATETIMESTAMP, CREATORSNAME, ENTRYCSN, ENTRYDN, ENTRYUUID, HASSUBORDINATES, MODIFIERSNAME,
-        MODIFYTIMESTAMP, OBJECTCLASS, REQATTR, REQATTRSONLY, REQUAUTHZID, REQCONTROLS, REQDN, REQDREFALIASES,
-        REQEND, REQENTRIES, REQFILTER, REQRESULT, REQSCOPE, REQSESSION, REQSIZELIMIT, REQSTART, REQTIMELIMIT,
-        REQTYPE, STRUCTURALOBJECTCLASS, SUBSCHEMAENTRY
+    private static final String[] AUDIT_AUTHZ_ATRS =
+        {
+            CREATETIMESTAMP, CREATORSNAME, ENTRYCSN, ENTRYDN, ENTRYUUID, HASSUBORDINATES, MODIFIERSNAME,
+            MODIFYTIMESTAMP, OBJECTCLASS, REQATTR, REQATTRSONLY, REQUAUTHZID, REQCONTROLS, REQDN, REQDREFALIASES,
+            REQEND, REQENTRIES, REQFILTER, REQRESULT, REQSCOPE, REQSESSION, REQSIZELIMIT, REQSTART, REQTIMELIMIT,
+            REQTYPE, STRUCTURALOBJECTCLASS, SUBSCHEMAENTRY
     };
 
-    private static final String[] AUDIT_BIND_ATRS = {
-        CREATETIMESTAMP, CREATORSNAME, ENTRYCSN, ENTRYDN, ENTRYUUID, HASSUBORDINATES, MODIFIERSNAME,
-        MODIFYTIMESTAMP, OBJECTCLASS, REQUAUTHZID, REQCONTROLS, REQDN, REQEND, REQMETHOD, REQRESULT,
-        REQSESSION, REQSTART, REQTYPE, REQVERSION, STRUCTURALOBJECTCLASS, SUBSCHEMAENTRY
+    private static final String[] AUDIT_BIND_ATRS =
+        {
+            CREATETIMESTAMP, CREATORSNAME, ENTRYCSN, ENTRYDN, ENTRYUUID, HASSUBORDINATES, MODIFIERSNAME,
+            MODIFYTIMESTAMP, OBJECTCLASS, REQUAUTHZID, REQCONTROLS, REQDN, REQEND, REQMETHOD, REQRESULT,
+            REQSESSION, REQSTART, REQTYPE, REQVERSION, STRUCTURALOBJECTCLASS, SUBSCHEMAENTRY
     };
 
-    private static final String[] AUDIT_MOD_ATRS = {
-        OBJECTCLASS, REQUAUTHZID, REQDN, REQEND, REQRESULT, REQSESSION, REQSTART, REQTYPE, REQMOD
+    private static final String[] AUDIT_MOD_ATRS =
+        {
+            OBJECTCLASS, REQUAUTHZID, REQDN, REQEND, REQRESULT, REQSESSION, REQSTART, REQTYPE, REQMOD
     };
+
 
     /**
      * Package private default constructor.
      */
-    AuditDAO()
+    public AuditDAO()
     {
     }
+
 
     /**
      * This method returns failed authentications where the userid is not present in the directory.  This
@@ -202,14 +214,14 @@ final class AuditDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<AuthZ> searchInvalidAuthNs(UserAudit audit)
+    public final List<AuthZ> searchInvalidAuthNs( UserAudit audit )
         throws FinderException
     {
         List<AuthZ> auditList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String auditRoot = Config.getProperty(AUDIT_ROOT);
-        String userRoot = Config.getProperty(GlobalIds.USER_ROOT);
+        String auditRoot = Config.getProperty( AUDIT_ROOT );
+        String userRoot = Config.getProperty( GlobalIds.USER_ROOT );
         try
         {
             // use wildcard for user if not passed in:
@@ -223,52 +235,53 @@ final class AuditDAO extends DataProvider
 
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(";
             String userId;
-            if (VUtil.isNotNullOrEmpty(audit.getUserId()))
+            if ( VUtil.isNotNullOrEmpty( audit.getUserId() ) )
             {
                 userId = audit.getUserId();
                 filter += REQDN + "=" + GlobalIds.UID + "=" + userId + "," + userRoot + ")(" +
-                    REQUAUTHZID + "=" + "cn=Manager," + Config.getProperty(GlobalIds.SUFFIX) + ")";
+                    REQUAUTHZID + "=" + "cn=Manager," + Config.getProperty( GlobalIds.SUFFIX ) + ")";
             }
             else
             {
                 // pull back all failed authN attempts for all users:
                 filter += REQATTR + "=" + GlobalIds.UID + ")(" +
-                    REQUAUTHZID + "=" + "cn=Manager," + Config.getProperty(GlobalIds.SUFFIX) + ")";
+                    REQUAUTHZID + "=" + "cn=Manager," + Config.getProperty( GlobalIds.SUFFIX ) + ")";
             }
 
-            if (audit.isFailedOnly())
+            if ( audit.isFailedOnly() )
             {
                 filter += "(" + REQENTRIES + "=" + 0 + ")";
             }
-            if (audit.getBeginDate() != null)
+            if ( audit.getBeginDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime(audit.getBeginDate());
+                String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
             filter += ")";
 
             //log.warn("filter=" + filter);
             ld = getLogConnection();
-            searchResults = search(ld, auditRoot,
-                LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
+            searchResults = search( ld, auditRoot,
+                LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while (searchResults.hasMoreElements())
+            while ( searchResults.hasMoreElements() )
             {
-                AuthZ authZ = getAuthzEntityFromLdapEntry(searchResults.next(), sequence++);
+                AuthZ authZ = getAuthzEntityFromLdapEntry( searchResults.next(), sequence++ );
                 // todo: fix this workaround. This search will return failed role assign searches as well.  
                 // Work around is to remove the ou=People failed searches from user failed searches on authN.
-                if (!AttrHelper.getAuthZId(authZ.getReqDN()).equalsIgnoreCase("People"))
-                    auditList.add(authZ);
+                if ( !AttrHelper.getAuthZId( authZ.getReqDN() ).equalsIgnoreCase( "People" ) )
+                    auditList.add( authZ );
             }
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = "LDAPException in AuditDAO.searchAuthZs id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new FinderException(GlobalErrIds.AUDT_AUTHN_INVALID_FAILED, error, e);
+            String error = "LDAPException in AuditDAO.searchAuthZs id=" + e.getLDAPResultCode() + " msg="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.AUDT_AUTHN_INVALID_FAILED, error, e );
         }
         finally
         {
-            closeLogConnection(ld);
+            closeLogConnection( ld );
         }
         return auditList;
     }
@@ -280,67 +293,70 @@ final class AuditDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<AuthZ> searchAuthZs(UserAudit audit)
+    public final List<AuthZ> searchAuthZs( UserAudit audit )
         throws FinderException
     {
         List<AuthZ> auditList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String auditRoot = Config.getProperty(AUDIT_ROOT);
-        String permRoot = getRootDn(audit.isAdmin(), audit.getContextId());
-        String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
+        String auditRoot = Config.getProperty( AUDIT_ROOT );
+        String permRoot = getRootDn( audit.isAdmin(), audit.getContextId() );
+        String userRoot = getRootDn( audit.getContextId(), GlobalIds.USER_ROOT );
         try
         {
-            String reqDn = PermDAO.getOpRdn(audit.getOpName(), audit.getObjId()) + "," + GlobalIds.POBJ_NAME + "=" + audit.getObjName() + "," + permRoot;
+            String reqDn = PermDAO.getOpRdn( audit.getOpName(), audit.getObjId() ) + "," + GlobalIds.POBJ_NAME + "="
+                + audit.getObjName() + "," + permRoot;
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(" + REQDN + "=" +
                 reqDn + ")(" + REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
-            if (audit.isFailedOnly())
+            if ( audit.isFailedOnly() )
             {
                 filter += "(!(" + REQRESULT + "=" + 6 + "))";
             }
-            if (audit.getBeginDate() != null)
+            if ( audit.getBeginDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime(audit.getBeginDate());
+                String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
             filter += ")";
 
             //System.out.println("filter=" + filter);
             ld = getLogConnection();
-            searchResults = search(ld, auditRoot,
-                LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
+            searchResults = search( ld, auditRoot,
+                LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while (searchResults.hasMoreElements())
+            while ( searchResults.hasMoreElements() )
             {
-                auditList.add(getAuthzEntityFromLdapEntry(searchResults.next(), sequence++));
+                auditList.add( getAuthzEntityFromLdapEntry( searchResults.next(), sequence++ ) );
             }
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = "LDAPException in AuditDAO.searchAuthZs id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new FinderException(GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e);
+            String error = "LDAPException in AuditDAO.searchAuthZs id=" + e.getLDAPResultCode() + " msg="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e );
         }
         finally
         {
-            closeLogConnection(ld);
+            closeLogConnection( ld );
         }
         return auditList;
     }
 
 
-    private String getRootDn(boolean isAdmin, String contextId)
+    private String getRootDn( boolean isAdmin, String contextId )
     {
         String dn;
-        if (isAdmin)
+        if ( isAdmin )
         {
-            dn = getRootDn(contextId, GlobalIds.ADMIN_PERM_ROOT);
+            dn = getRootDn( contextId, GlobalIds.ADMIN_PERM_ROOT );
         }
         else
         {
-            dn = getRootDn(contextId, GlobalIds.PERM_ROOT);
+            dn = getRootDn( contextId, GlobalIds.PERM_ROOT );
         }
         return dn;
     }
+
 
     /**
      * @param audit
@@ -348,19 +364,19 @@ final class AuditDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<AuthZ> getAllAuthZs(UserAudit audit)
+    public final List<AuthZ> getAllAuthZs( UserAudit audit )
         throws FinderException
     {
         List<AuthZ> auditList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String auditRoot = Config.getProperty(AUDIT_ROOT);
-        String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
+        String auditRoot = Config.getProperty( AUDIT_ROOT );
+        String userRoot = getRootDn( audit.getContextId(), GlobalIds.USER_ROOT );
 
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(";
-            if (audit.getUserId() != null && audit.getUserId().length() > 0)
+            if ( audit.getUserId() != null && audit.getUserId().length() > 0 )
             {
                 filter += REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
             }
@@ -368,39 +384,41 @@ final class AuditDAO extends DataProvider
             {
                 // have to limit the query to only authorization entries.
                 // TODO: determine why the cn=Manager user is showing up in this search:
-                filter += REQUAUTHZID + "=*)(!(" + REQUAUTHZID + "=cn=Manager," + Config.getProperty(GlobalIds.SUFFIX) + "))";
+                filter += REQUAUTHZID + "=*)(!(" + REQUAUTHZID + "=cn=Manager," + Config.getProperty( GlobalIds.SUFFIX )
+                    + "))";
 
                 // TODO: fix this so filter by only the Fortress AuthZ entries and not the others:
-                if (audit.isFailedOnly())
+                if ( audit.isFailedOnly() )
                 {
                     filter += "(!(" + REQRESULT + "=" + 6 + "))";
                 }
             }
-            if (audit.getBeginDate() != null)
+            if ( audit.getBeginDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime(audit.getBeginDate());
+                String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
             filter += ")";
 
             //log.warn("filter=" + filter);
             ld = getLogConnection();
-            searchResults = search(ld, auditRoot,
-                LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE);
+            searchResults = search( ld, auditRoot,
+                LDAPConnection.SCOPE_ONE, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while (searchResults.hasMoreElements())
+            while ( searchResults.hasMoreElements() )
             {
-                auditList.add(getAuthzEntityFromLdapEntry(searchResults.next(), sequence++));
+                auditList.add( getAuthzEntityFromLdapEntry( searchResults.next(), sequence++ ) );
             }
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = "LDAPException in AuditDAO.getAllAuthZs id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new FinderException(GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e);
+            String error = "LDAPException in AuditDAO.getAllAuthZs id=" + e.getLDAPResultCode() + " msg="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e );
         }
         finally
         {
-            closeLogConnection(ld);
+            closeLogConnection( ld );
         }
         return auditList;
     }
@@ -412,29 +430,29 @@ final class AuditDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Bind> searchBinds(UserAudit audit)
+    public final List<Bind> searchBinds( UserAudit audit )
         throws FinderException
     {
         List<Bind> auditList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String auditRoot = Config.getProperty(AUDIT_ROOT);
-        String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
+        String auditRoot = Config.getProperty( AUDIT_ROOT );
+        String userRoot = getRootDn( audit.getContextId(), GlobalIds.USER_ROOT );
 
         try
         {
             String filter;
-            if (audit.getUserId() != null && audit.getUserId().length() > 0)
+            if ( audit.getUserId() != null && audit.getUserId().length() > 0 )
             {
                 filter = GlobalIds.FILTER_PREFIX + ACCESS_BIND_CLASS_NM + ")(" +
                     REQDN + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
-                if (audit.isFailedOnly())
+                if ( audit.isFailedOnly() )
                 {
                     filter += "(" + REQRESULT + ">=" + 1 + ")";
                 }
-                if (audit.getBeginDate() != null)
+                if ( audit.getBeginDate() != null )
                 {
-                    String szTime = AttrHelper.encodeGeneralizedTime(audit.getBeginDate());
+                    String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
                     filter += "(" + REQEND + ">=" + szTime + ")";
                 }
                 filter += ")";
@@ -442,35 +460,36 @@ final class AuditDAO extends DataProvider
             else
             {
                 filter = GlobalIds.FILTER_PREFIX + ACCESS_BIND_CLASS_NM + ")";
-                if (audit.isFailedOnly())
+                if ( audit.isFailedOnly() )
                 {
                     filter += "(" + REQRESULT + ">=" + 1 + ")";
                 }
-                if (audit.getBeginDate() != null)
+                if ( audit.getBeginDate() != null )
                 {
-                    String szTime = AttrHelper.encodeGeneralizedTime(audit.getBeginDate());
+                    String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
                     filter += "(" + REQEND + ">=" + szTime + ")";
                 }
                 filter += ")";
             }
             //log.warn("filter=" + filter);
             ld = getLogConnection();
-            searchResults = search(ld, auditRoot,
-                LDAPConnection.SCOPE_ONE, filter, AUDIT_BIND_ATRS, false, GlobalIds.BATCH_SIZE);
+            searchResults = search( ld, auditRoot,
+                LDAPConnection.SCOPE_ONE, filter, AUDIT_BIND_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while (searchResults.hasMoreElements())
+            while ( searchResults.hasMoreElements() )
             {
-                auditList.add(getBindEntityFromLdapEntry(searchResults.next(), sequence++));
+                auditList.add( getBindEntityFromLdapEntry( searchResults.next(), sequence++ ) );
             }
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = "LDAPException in AuditDAO.searchBinds id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new FinderException(GlobalErrIds.AUDT_BIND_SEARCH_FAILED, error, e);
+            String error = "LDAPException in AuditDAO.searchBinds id=" + e.getLDAPResultCode() + " msg="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.AUDT_BIND_SEARCH_FAILED, error, e );
         }
         finally
         {
-            closeLogConnection(ld);
+            closeLogConnection( ld );
         }
         return auditList;
     }
@@ -482,43 +501,43 @@ final class AuditDAO extends DataProvider
      * @throws us.jts.fortress.FinderException
      *
      */
-    final List<Mod> searchUserMods(UserAudit audit)
+    public final List<Mod> searchUserMods( UserAudit audit )
         throws FinderException
     {
         List<Mod> modList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String auditRoot = Config.getProperty(AUDIT_ROOT);
+        String auditRoot = Config.getProperty( AUDIT_ROOT );
 
-        String userRoot = getRootDn(audit.getContextId(), GlobalIds.USER_ROOT);
+        String userRoot = getRootDn( audit.getContextId(), GlobalIds.USER_ROOT );
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_MOD_CLASS_NM + ")(" +
                 REQDN + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
-            if (audit.getBeginDate() != null)
+            if ( audit.getBeginDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime(audit.getBeginDate());
+                String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
             filter += ")";
             //log.warn("filter=" + filter);
             ld = getLogConnection();
-            searchResults = search(ld, auditRoot,
-                LDAPConnection.SCOPE_ONE, filter, AUDIT_MOD_ATRS, false, GlobalIds.BATCH_SIZE);
+            searchResults = search( ld, auditRoot,
+                LDAPConnection.SCOPE_ONE, filter, AUDIT_MOD_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while (searchResults.hasMoreElements())
+            while ( searchResults.hasMoreElements() )
             {
-                modList.add(getModEntityFromLdapEntry(searchResults.next(), sequence++));
+                modList.add( getModEntityFromLdapEntry( searchResults.next(), sequence++ ) );
             }
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
             String error = "searchUserMods caught LDAPException id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new FinderException(GlobalErrIds.AUDT_MOD_SEARCH_FAILED, error, e);
+            throw new FinderException( GlobalErrIds.AUDT_MOD_SEARCH_FAILED, error, e );
         }
         finally
         {
-            closeLogConnection(ld);
+            closeLogConnection( ld );
         }
         return modList;
     }
@@ -529,13 +548,13 @@ final class AuditDAO extends DataProvider
      * @return
      * @throws FinderException
      */
-    final List<Mod> searchAdminMods(UserAudit audit)
+    public final List<Mod> searchAdminMods( UserAudit audit )
         throws FinderException
     {
         List<Mod> modList = new ArrayList<>();
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
-        String auditRoot = Config.getProperty(AUDIT_ROOT);
+        String auditRoot = Config.getProperty( AUDIT_ROOT );
 
         try
         {
@@ -570,60 +589,61 @@ final class AuditDAO extends DataProvider
              */
             String filter = "(&(|(objectclass=" + ACCESS_MOD_CLASS_NM + ")";
             filter += "(objectclass=" + ACCESS_ADD_CLASS_NM + "))";
-            if (VUtil.isNotNullOrEmpty(audit.getDn()))
+            if ( VUtil.isNotNullOrEmpty( audit.getDn() ) )
             {
                 filter += "(" + REQDN + "=" + audit.getDn() + ")";
             }
-            if (VUtil.isNotNullOrEmpty(audit.getObjName()))
+            if ( VUtil.isNotNullOrEmpty( audit.getObjName() ) )
             {
                 filter += "(|(" + REQMOD + "=" + GlobalIds.FT_MODIFIER_CODE + ":= " + audit.getObjName() + ".";
-                if (VUtil.isNotNullOrEmpty(audit.getOpName()))
+                if ( VUtil.isNotNullOrEmpty( audit.getOpName() ) )
                 {
                     filter += audit.getOpName();
                 }
                 filter += "*)";
                 filter += "(" + REQMOD + "=" + GlobalIds.FT_MODIFIER_CODE + ":+ " + audit.getObjName() + ".";
-                if (VUtil.isNotNullOrEmpty(audit.getOpName()))
+                if ( VUtil.isNotNullOrEmpty( audit.getOpName() ) )
                 {
                     filter += audit.getOpName();
                 }
                 filter += "*))";
             }
-            if (VUtil.isNotNullOrEmpty(audit.getInternalUserId()))
+            if ( VUtil.isNotNullOrEmpty( audit.getInternalUserId() ) )
             {
                 filter += "(|(" + REQMOD + "=" + GlobalIds.FT_MODIFIER + ":= " + audit.getInternalUserId() + ")";
                 filter += "(" + REQMOD + "=" + GlobalIds.FT_MODIFIER + ":+ " + audit.getInternalUserId() + "))";
             }
-            if (audit.getBeginDate() != null)
+            if ( audit.getBeginDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime(audit.getBeginDate());
+                String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
-            if (audit.getEndDate() != null)
+            if ( audit.getEndDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime(audit.getEndDate());
+                String szTime = AttrHelper.encodeGeneralizedTime( audit.getEndDate() );
                 filter += "(" + REQEND + "<=" + szTime + ")";
             }
 
             filter += ")";
             //log.warn("filter=" + filter);
             ld = getLogConnection();
-            searchResults = search(ld, auditRoot,
-                LDAPConnection.SCOPE_ONE, filter, AUDIT_MOD_ATRS, false, GlobalIds.BATCH_SIZE);
+            searchResults = search( ld, auditRoot,
+                LDAPConnection.SCOPE_ONE, filter, AUDIT_MOD_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            while (searchResults.hasMoreElements())
+            while ( searchResults.hasMoreElements() )
             {
-                modList.add(getModEntityFromLdapEntry(searchResults.next(), sequence++));
+                modList.add( getModEntityFromLdapEntry( searchResults.next(), sequence++ ) );
             }
         }
-        catch (LDAPException e)
+        catch ( LDAPException e )
         {
-            String error = "searchAdminMods caught LDAPException id=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
-            throw new FinderException(GlobalErrIds.AUDT_MOD_ADMIN_SEARCH_FAILED, error, e);
+            String error = "searchAdminMods caught LDAPException id=" + e.getLDAPResultCode() + " msg="
+                + e.getMessage();
+            throw new FinderException( GlobalErrIds.AUDT_MOD_ADMIN_SEARCH_FAILED, error, e );
         }
         finally
         {
-            closeLogConnection(ld);
+            closeLogConnection( ld );
         }
         return modList;
     }
@@ -634,7 +654,7 @@ final class AuditDAO extends DataProvider
      * @return
      * @throws LDAPException
      */
-    private Bind getBindEntityFromLdapEntry(LDAPEntry le, long sequence)
+    private Bind getBindEntityFromLdapEntry( LDAPEntry le, long sequence )
     {
 
         /*
@@ -662,27 +682,27 @@ final class AuditDAO extends DataProvider
             */
 
         Bind auditBind = new ObjectFactory().createBind();
-        auditBind.setSequenceId(sequence);
-        auditBind.setCreateTimestamp(getAttribute(le, CREATETIMESTAMP));
-        auditBind.setCreatorsName(getAttribute(le, CREATORSNAME));
-        auditBind.setEntryCSN(getAttribute(le, ENTRYCSN));
-        auditBind.setEntryDN(getAttribute(le, ENTRYDN));
-        auditBind.setEntryUUID(getAttribute(le, ENTRYUUID));
-        auditBind.setHasSubordinates(getAttribute(le, HASSUBORDINATES));
-        auditBind.setModifiersName(getAttribute(le, MODIFIERSNAME));
-        auditBind.setModifyTimestamp(getAttribute(le, MODIFYTIMESTAMP));
-        auditBind.setObjectClass(getAttribute(le, OBJECTCLASS));
-        auditBind.setReqAuthzID(getAttribute(le, REQUAUTHZID));
-        auditBind.setReqControls(getAttribute(le, REQCONTROLS));
-        auditBind.setReqDN(getAttribute(le, REQDN));
-        auditBind.setReqEnd(getAttribute(le, REQEND));
-        auditBind.setReqMethod(getAttribute(le, REQMETHOD));
-        auditBind.setReqResult(getAttribute(le, REQRESULT));
-        auditBind.setReqSession(getAttribute(le, REQSESSION));
-        auditBind.setReqStart(getAttribute(le, REQSTART));
-        auditBind.setReqType(getAttribute(le, REQTYPE));
-        auditBind.setReqVersion(getAttribute(le, REQVERSION));
-        auditBind.setStructuralObjectClass(getAttribute(le, STRUCTURALOBJECTCLASS));
+        auditBind.setSequenceId( sequence );
+        auditBind.setCreateTimestamp( getAttribute( le, CREATETIMESTAMP ) );
+        auditBind.setCreatorsName( getAttribute( le, CREATORSNAME ) );
+        auditBind.setEntryCSN( getAttribute( le, ENTRYCSN ) );
+        auditBind.setEntryDN( getAttribute( le, ENTRYDN ) );
+        auditBind.setEntryUUID( getAttribute( le, ENTRYUUID ) );
+        auditBind.setHasSubordinates( getAttribute( le, HASSUBORDINATES ) );
+        auditBind.setModifiersName( getAttribute( le, MODIFIERSNAME ) );
+        auditBind.setModifyTimestamp( getAttribute( le, MODIFYTIMESTAMP ) );
+        auditBind.setObjectClass( getAttribute( le, OBJECTCLASS ) );
+        auditBind.setReqAuthzID( getAttribute( le, REQUAUTHZID ) );
+        auditBind.setReqControls( getAttribute( le, REQCONTROLS ) );
+        auditBind.setReqDN( getAttribute( le, REQDN ) );
+        auditBind.setReqEnd( getAttribute( le, REQEND ) );
+        auditBind.setReqMethod( getAttribute( le, REQMETHOD ) );
+        auditBind.setReqResult( getAttribute( le, REQRESULT ) );
+        auditBind.setReqSession( getAttribute( le, REQSESSION ) );
+        auditBind.setReqStart( getAttribute( le, REQSTART ) );
+        auditBind.setReqType( getAttribute( le, REQTYPE ) );
+        auditBind.setReqVersion( getAttribute( le, REQVERSION ) );
+        auditBind.setStructuralObjectClass( getAttribute( le, STRUCTURALOBJECTCLASS ) );
         return auditBind;
     }
 
@@ -692,7 +712,7 @@ final class AuditDAO extends DataProvider
      * @return
      * @throws LDAPException
      */
-    private AuthZ getAuthzEntityFromLdapEntry(LDAPEntry le, long sequence)
+    private AuthZ getAuthzEntityFromLdapEntry( LDAPEntry le, long sequence )
     {
 
         /*
@@ -728,40 +748,40 @@ final class AuditDAO extends DataProvider
         }*/
         // these attrs also on audit bind OC:
         AuthZ authZ = new ObjectFactory().createAuthZ();
-        authZ.setSequenceId(sequence);
-        authZ.setCreateTimestamp(getAttribute(le, CREATETIMESTAMP));
-        authZ.setCreatorsName(getAttribute(le, CREATORSNAME));
-        authZ.setEntryCSN(getAttribute(le, ENTRYCSN));
-        authZ.setEntryDN(getAttribute(le, ENTRYDN));
-        authZ.setEntryUUID(getAttribute(le, ENTRYUUID));
-        authZ.setHasSubordinates(getAttribute(le, HASSUBORDINATES));
-        authZ.setModifiersName(getAttribute(le, MODIFIERSNAME));
-        authZ.setModifyTimestamp(getAttribute(le, MODIFYTIMESTAMP));
-        authZ.setObjectClass(getAttribute(le, OBJECTCLASS));
-        authZ.setReqAuthzID(getAttribute(le, REQUAUTHZID));
-        authZ.setReqControls(getAttribute(le, REQCONTROLS));
-        authZ.setReqDN(getAttribute(le, REQDN));
-        authZ.setReqEnd(getAttribute(le, REQEND));
-        authZ.setReqResult(getAttribute(le, REQRESULT));
-        authZ.setReqSession(getAttribute(le, REQSESSION));
-        authZ.setReqStart(getAttribute(le, REQSTART));
-        authZ.setReqType(getAttribute(le, REQTYPE));
-        authZ.setStructuralObjectClass(getAttribute(le, STRUCTURALOBJECTCLASS));
+        authZ.setSequenceId( sequence );
+        authZ.setCreateTimestamp( getAttribute( le, CREATETIMESTAMP ) );
+        authZ.setCreatorsName( getAttribute( le, CREATORSNAME ) );
+        authZ.setEntryCSN( getAttribute( le, ENTRYCSN ) );
+        authZ.setEntryDN( getAttribute( le, ENTRYDN ) );
+        authZ.setEntryUUID( getAttribute( le, ENTRYUUID ) );
+        authZ.setHasSubordinates( getAttribute( le, HASSUBORDINATES ) );
+        authZ.setModifiersName( getAttribute( le, MODIFIERSNAME ) );
+        authZ.setModifyTimestamp( getAttribute( le, MODIFYTIMESTAMP ) );
+        authZ.setObjectClass( getAttribute( le, OBJECTCLASS ) );
+        authZ.setReqAuthzID( getAttribute( le, REQUAUTHZID ) );
+        authZ.setReqControls( getAttribute( le, REQCONTROLS ) );
+        authZ.setReqDN( getAttribute( le, REQDN ) );
+        authZ.setReqEnd( getAttribute( le, REQEND ) );
+        authZ.setReqResult( getAttribute( le, REQRESULT ) );
+        authZ.setReqSession( getAttribute( le, REQSESSION ) );
+        authZ.setReqStart( getAttribute( le, REQSTART ) );
+        authZ.setReqType( getAttribute( le, REQTYPE ) );
+        authZ.setStructuralObjectClass( getAttribute( le, STRUCTURALOBJECTCLASS ) );
 
         // these attrs only on audit search OC:
-        authZ.setReqAttr(getAttribute(le, REQATTR));
-        authZ.setReqAttrsOnly(getAttribute(le, REQATTRSONLY));
-        authZ.setReqDerefAliases(getAttribute(le, REQDREFALIASES));
-        authZ.setReqEntries(getAttribute(le, REQENTRIES));
-        authZ.setReqFilter(getAttribute(le, REQFILTER));
-        authZ.setReqScope(getAttribute(le, REQSCOPE));
-        authZ.setReqSizeLimit(getAttribute(le, REQSIZELIMIT));
-        authZ.setReqTimeLimit(getAttribute(le, REQTIMELIMIT));
+        authZ.setReqAttr( getAttribute( le, REQATTR ) );
+        authZ.setReqAttrsOnly( getAttribute( le, REQATTRSONLY ) );
+        authZ.setReqDerefAliases( getAttribute( le, REQDREFALIASES ) );
+        authZ.setReqEntries( getAttribute( le, REQENTRIES ) );
+        authZ.setReqFilter( getAttribute( le, REQFILTER ) );
+        authZ.setReqScope( getAttribute( le, REQSCOPE ) );
+        authZ.setReqSizeLimit( getAttribute( le, REQSIZELIMIT ) );
+        authZ.setReqTimeLimit( getAttribute( le, REQTIMELIMIT ) );
         return authZ;
     }
 
 
-    private Mod getModEntityFromLdapEntry(LDAPEntry le, long sequence)
+    private Mod getModEntityFromLdapEntry( LDAPEntry le, long sequence )
     {
         /*
         public class Mod
@@ -779,16 +799,16 @@ final class AuditDAO extends DataProvider
         */
 
         Mod mod = new ObjectFactory().createMod();
-        mod.setSequenceId(sequence);
-        mod.setObjectClass(getAttribute(le, OBJECTCLASS));
-        mod.setReqAuthzID(getAttribute(le, REQUAUTHZID));
-        mod.setReqDN(getAttribute(le, REQDN));
-        mod.setReqEnd(getAttribute(le, REQEND));
-        mod.setReqResult(getAttribute(le, REQRESULT));
-        mod.setReqSession(getAttribute(le, REQSESSION));
-        mod.setReqStart(getAttribute(le, REQSTART));
-        mod.setReqType(getAttribute(le, REQTYPE));
-        mod.setReqMod(getAttributes(le, REQMOD));
+        mod.setSequenceId( sequence );
+        mod.setObjectClass( getAttribute( le, OBJECTCLASS ) );
+        mod.setReqAuthzID( getAttribute( le, REQUAUTHZID ) );
+        mod.setReqDN( getAttribute( le, REQDN ) );
+        mod.setReqEnd( getAttribute( le, REQEND ) );
+        mod.setReqResult( getAttribute( le, REQRESULT ) );
+        mod.setReqSession( getAttribute( le, REQSESSION ) );
+        mod.setReqStart( getAttribute( le, REQSTART ) );
+        mod.setReqType( getAttribute( le, REQTYPE ) );
+        mod.setReqMod( getAttributes( le, REQMOD ) );
         return mod;
     }
 }

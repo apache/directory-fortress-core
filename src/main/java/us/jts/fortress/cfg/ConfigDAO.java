@@ -15,7 +15,7 @@ import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.RemoveException;
 import us.jts.fortress.UpdateException;
-import us.jts.fortress.ldap.DataProvider;
+import us.jts.fortress.ldap.UnboundIdDataProvider;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 
@@ -61,7 +61,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
  *
  * @author Shawn McKinney
  */
-final class ConfigDAO extends DataProvider
+final class ConfigDAO extends UnboundIdDataProvider
 
 {
     private static final String CLS_NM = ConfigDAO.class.getName();

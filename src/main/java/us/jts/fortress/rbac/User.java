@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import us.jts.fortress.rbac.dao.apache.UserDAO;
 import us.jts.fortress.util.time.Constraint;
 
 
@@ -32,6 +33,7 @@ import us.jts.fortress.util.time.Constraint;
  * <li>Manager layer:  {@link us.jts.fortress.rbac.AdminMgrImpl}, {@link us.jts.fortress.rbac.AccessMgrImpl}, {@link us.jts.fortress.rbac.ReviewMgrImpl},...</li>
  * <li>Process layer:  {@link UserP}, {@link us.jts.fortress.rbac.RoleP}, {@link us.jts.fortress.rbac.PermP},...</li>
  * <li>DAO layer: {@link UserDAO}, {@link us.jts.fortress.rbac.RoleDAO}, {@link us.jts.fortress.rbac.PermDAO},...</li>
+ * <li>DAO layer: {@link UserDAO}, {@link us.jts.fortress.rbac.dao.RoleDAO}, {@link us.jts.fortress.rbac.dao.PermDAO},...</li>
  * </ol>
  * Fortress clients must first instantiate the data entity before invoking one of the Manager APIs.  The caller must first
  * provide enough information to uniquely identity target record for the particular ldap operation performed.<br />
@@ -325,20 +327,11 @@ public class User extends FortEntity implements Constraint, Serializable
         this.ou = ou;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Used to retrieve User's valid userId attribute.  The Fortress userId maps to 'uid' for InetOrgPerson object class.
      *
      * @return String containing the userId.
      */
-/*
-    public String toString()
-    {
-        return userId;
-    }
-*/
-
     @Override
     public String toString()
     {
@@ -374,7 +367,6 @@ public class User extends FortEntity implements Constraint, Serializable
             ", emails=" + emails +
             '}';
     }
->>>>>>> cedb68faf71307d2bbee7f82f963501a28016d54
 
     /**
      * Required by Constraint Interface but not needed for user entity. Not intended for external use.
@@ -682,7 +674,7 @@ public class User extends FortEntity implements Constraint, Serializable
      * Generate an internal userId that is associated with User.  This method is used by DAO class and
      * is not available to outside classes.   The generated attribute maps to 'ftId' in 'ftUserAttrs' object class.
      */
-    void setInternalId()
+    public void setInternalId()
     {
         UUID uuid = UUID.randomUUID();
         internalId = uuid.toString();
@@ -814,7 +806,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param dn that is mapped to same name in 'inetOrgPerson' object class.
      */
-    void setDn( String dn )
+    public void setDn( String dn )
     {
         this.dn = dn;
     }
@@ -1490,16 +1482,5 @@ public class User extends FortEntity implements Constraint, Serializable
         }
 
         return thatUser.getUserId().equalsIgnoreCase( userId );
-    }
-
-
-    /**
-     * Used to retrieve User's valid userId attribute.  The Fortress userId maps to 'uid' for InetOrgPerson object class.
-     *
-     * @return String containing the userId.
-     */
-    public String toString()
-    {
-        return userId;
     }
 }

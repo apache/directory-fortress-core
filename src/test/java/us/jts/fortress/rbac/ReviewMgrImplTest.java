@@ -5,6 +5,7 @@
 package us.jts.fortress.rbac;
 
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -653,7 +654,7 @@ public class ReviewMgrImplTest extends TestCase
                 assertNotNull( user );
 
                 // Get the authorized roles for this user:
-                Set<String> authZRoles = UserTestData.getAuthorizedRoles( usr );
+                Collection<String> authZRoles = UserTestData.getAuthorizedRoles( usr );
 
                 // If there are any assigned roles, add them to list of authorized.
                 Set<String> asgnRoles = UserTestData.getAssignedRoles( usr );
