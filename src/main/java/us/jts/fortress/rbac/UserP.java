@@ -762,8 +762,12 @@ public final class UserP
             {
                 VUtil.password( entity.getPassword() );
             }
-
             // the OU attribute is required:
+            if ( !VUtil.isNotNullOrEmpty( entity.getOu() ) )
+            {
+                String error = "OU validation failed, null or empty value";
+                throw new ValidationException( GlobalErrIds.ORG_NULL_USER, error );
+            }
             VUtil.orgUnit( entity.getOu() );
             // ensure ou exists in the OS-U pool:
             OrgUnit ou = new OrgUnit( entity.getOu(), OrgUnit.Type.USER );
@@ -774,7 +778,6 @@ public final class UserP
                     + "] adding user with userId [" + entity.getUserId() + "]";
                 throw new ValidationException( GlobalErrIds.USER_OU_INVALID, error );
             }
-
             // description attribute is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
