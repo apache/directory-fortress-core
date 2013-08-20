@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2009-2013. Joshua Tree Software, LLC.  All Rights Reserved.
+  -->
+<project basedir="." default="all" name="Fortress Sample Data">
+    <property name="version" value="${version}"/>
+    <!--<property name="version" value="1.0-RC21"/>-->
+    <property name="home.dir" value = "../../" />
+    <property name="lib.dir" value = "${home.dir}/lib" />
+    <property name="dist.dir" value = "${home.dir}/dist" />
+    <property name="config" value="${home.dir}/config"/>
+    <property name="Fortress.jar" value="${dist.dir}/fortress-${version}.jar"/>
+    <property name="log4j.jar" value="${lib.dir}/log4j-1.2.17.jar"/>
+    <property name="ldapjdk.jar" value="${lib.dir}/unboundid-ldapsdk-2.1.0.jar"/>
+    <property name="jgrapht.jar" value="${lib.dir}/jgrapht-jdk1.5-0.7.3.jar"/>
+    <property name="jasypt.jar" value="${lib.dir}/jasypt-1.8.jar"/>
+    <property name="commons-configuration.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
+    <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
+    <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
+    <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
+    <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.5.jar"/>
+    <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.7.5.jar"/>
+    <property name="slf4j-log4j.jar" value="${lib.dir}/slf4j-log4j12-1.7.5.jar"/>
+
+    <taskdef classname="us.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
+        <classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${ehcache-core.jar}:${slf4j-api.jar}:${slf4j-log4j.jar}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+
+            <addorgunit>
+                <orgunit name="default" typeName="PERM" description="Default Fortress Permission OU"/>
+                <orgunit name="app0" typeName="PERM" description="Default Fortress Permission OU"/>
+                <orgunit name="dev0" typeName="USER" description="Default Fortress User OU"/>
+            </addorgunit>
+
+            <addadminrole>
+                <role name="FortressSuperAdmin" description="Fortress Super User" osps="APP0" osus="DEV0" begininclusive="true" endinclusive="true" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0" beginrange="" endrange=""/>
+            </addadminrole>
+
+            <addpermgrant>
+                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchBinds" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchAuthZs" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="getUserAuthZs" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchUserSessions" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchAdminMods" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchInvalidUsers" roleNm="FortressSuperAdmin" admin="true"/>
+
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="readPermission" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="readPermObj" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findPermissions" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findPermObjs" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="readRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findRoles" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="readUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findUsers" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="assignedUsers" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="assignedRoles" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="authorizedUsers" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="authorizedRoles" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="rolePermissions" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="userPermissions" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="permissionRoles" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="authorizedPermissionRoles" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="permissionUsers" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="authorizedPermissionUsers" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="ssdRoleSets" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="ssdRoleSet" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="ssdRoleSetRoles" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="ssdRoleSetCardinality" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="dsdRoleSets" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="ssdSets" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="dsdRoleSet" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="dsdRoleSetRoles" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="dsdRoleSetCardinality" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="dsdSets" roleNm="FortressSuperAdmin" admin="true"/>
+
+                <permgrant objName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="readRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="findRoles" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="assignedRoles" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="assignedUsers" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="readOU" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="searchOU" roleNm="FortressSuperAdmin" admin="true"/>
+
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="addUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="disableUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="updateUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="changePassword" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="lockUserAccount" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="unlockUserAccount" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="resetPassword" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="addRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="updateRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="assignUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deassignUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="addPermission" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="addPermObj" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deletePermission" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deletePermObj" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="updatePermission" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="updatePermObj" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="grantPermission" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="revokePermission" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="grantPermissionUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="revokePermissionUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="addDescendant" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="addAscendant" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="addInheritance" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteInheritance" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="createSsdSet" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="updateSsdSet" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="addSsdRoleMember" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteSsdRoleMember" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteSsdSet" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="setSsdSetCardinality" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="createDsdSet" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="updateDsdSet" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="addDsdRoleMember" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteDsdRoleMember" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteDsdSet" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="setDsdSetCardinality" roleNm="FortressSuperAdmin" admin="true"/>
+
+                <permgrant objName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="add" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="update" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="delete" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="updateUserPolicy" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="deletePasswordPolicy" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="search" roleNm="FortressSuperAdmin" admin="true"/>
+
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="deleteRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="updateRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="assignUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="deassignUser" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addOU" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="updateOU" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="deleteOU" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addDescendantOU" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addAscendantOU" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addInheritanceOU" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="deleteInheritanceOU" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addDescendantRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addAscendantRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addInheritanceRole" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="deleteInheritanceRole" roleNm="FortressSuperAdmin" admin="true"/>
+            </addpermgrant>
+
+            <addpermobj>
+                <permobj objectName="us.jts.fortress.rbac.DelAdminMgrImpl" description="ARBAC02 admin policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objectName="us.jts.fortress.rbac.PwPolicyMgrImpl" description="Password policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objectName="us.jts.fortress.rbac.AdminMgrImpl" description="RBAC admin policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objectName="us.jts.fortress.rbac.DelReviewMgrImpl" description="ARBAC review policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objectName="us.jts.fortress.rbac.ReviewMgrImpl" description="RBAC review policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objectName="us.jts.fortress.rbac.AuditMgrImpl" description="RBAC audit review" ou="default" type="ARBAC" admin="true"/>
+            </addpermobj>
+
+            <addpermop>
+                <permop objectName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchBinds" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchAuthZs" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AuditMgrImpl" opName="getUserAuthZs" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchUserSessions" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchAdminMods" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchInvalidUsers" admin="true"/>
+
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="readPermission" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="readPermObj" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findPermissions" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findPermObjs" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="readRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findRoles" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="readUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findUsers" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="assignedUsers" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="assignedRoles" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="authorizedUsers" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="authorizedRoles" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="rolePermissions" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="userPermissions" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="permissionRoles" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="authorizedPermissionRoles" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="permissionUsers" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="authorizedPermissionUsers" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="ssdRoleSets" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="ssdRoleSet" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="ssdRoleSetRoles" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="ssdRoleSetCardinality" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="dsdRoleSets" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="ssdSets" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="dsdRoleSet" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="dsdRoleSetRoles" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="dsdRoleSetCardinality" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.ReviewMgrImpl" opName="dsdSets" admin="true"/>
+
+                <permop objectName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="readRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="findRoles" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="assignedRoles" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="assignedUsers" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="readOU" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="searchOU" admin="true"/>
+
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="addUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="disableUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="updateUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="changePassword" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="lockUserAccount" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="unlockUserAccount" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="resetPassword" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="addRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="updateRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="assignUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="deassignUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="addPermission" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="addPermObj" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="deletePermission" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="deletePermObj" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="updatePermission" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="updatePermObj" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="grantPermission" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="revokePermission" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="grantPermissionUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="revokePermissionUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="addDescendant" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="addAscendant" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="addInheritance" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteInheritance" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="createSsdSet" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="updateSsdSet" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="addSsdRoleMember" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteSsdRoleMember" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteSsdSet" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="setSsdSetCardinality" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="createDsdSet" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="updateDsdSet" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="addDsdRoleMember" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteDsdRoleMember" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteDsdSet" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.AdminMgrImpl" opName="setDsdSetCardinality" admin="true"/>
+
+                <permop objectName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="add" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="update" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="delete" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="updateUserPolicy" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="deletePasswordPolicy" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="search" admin="true"/>
+
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="deleteRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="updateRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="assignUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="deassignUser" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addOU" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="updateOU" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="deleteOU" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addDescendantOU" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addAscendantOU" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addInheritanceOU" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="deleteInheritanceOU" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addDescendantRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addAscendantRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="addInheritanceRole" admin="true"/>
+                <permop objectName="us.jts.fortress.rbac.DelAdminMgrImpl" opName="deleteInheritanceRole" admin="true"/>
+            </addpermop>
+
+         </FortressAdmin>
+    </target>
+</project>

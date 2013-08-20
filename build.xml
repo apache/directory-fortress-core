@@ -68,6 +68,7 @@
        <!-- ########### Configuration, Load and builder properties ########################### -->
        <property name="src.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData-src.xml"/>
        <property name="dst.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData.xml"/>
+       <property name="load.delegatedadmin.script" value="${ldap.setup.dir}/DelegatedAdminManagerLoad.xml"/>
        <property name="load.demo.script" value="${ldap.setup.dir}/FortressDemoUsers.xml"/>
        <property name="build.win.properties" value="${basedir}/build.win.properties"/>
        <property name="build.nix.properties" value="${basedir}/build.nix.properties"/>
@@ -691,9 +692,11 @@
             <param name="param1" value="${dst.load.bootstrap.script}"/>
         </antcall>
         <antcall target="admin">
+            <param name="param1" value="${load.delegatedadmin.script}"/>
+        </antcall>
+        <antcall target="admin">
             <param name="param1" value="${load.demo.script}"/>
         </antcall>
-
         <echo message="Target load-slapd complete."/>
     </target>
 

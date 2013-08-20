@@ -26,6 +26,7 @@ import us.jts.fortress.DelAdminMgr;
 import us.jts.fortress.DelAdminMgrFactory;
 import us.jts.fortress.DelReviewMgr;
 import us.jts.fortress.DelReviewMgrFactory;
+import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.ReviewMgr;
 import us.jts.fortress.ReviewMgrFactory;
 import us.jts.fortress.SecurityException;
@@ -94,7 +95,6 @@ public class DelegatedMgrImplTest extends TestCase
         return suite;
     }
 
-
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
@@ -103,48 +103,91 @@ public class DelegatedMgrImplTest extends TestCase
         return suite;
     }
 
-
     public void testAddAdminUser()
     {
-        addOrgUnit( "ADD ORG_PRM_APP0", OrgUnitTestData.ORGS_PRM_APP0[0] );
-        addOrgUnit( "ADD ORG_USR_DEV0", OrgUnitTestData.ORGS_USR_DEV0[0] );
-        addAdminRoles( "ADD-ARLS SUPER", AdminRoleTestData.AROLES_SUPER, false );
-        AdminMgrImplTest.addPermObjs( "ADD-OBS PSWDMGR_OBJ", PermTestData.PSWDMGR_OBJ, false, false );
-        AdminMgrImplTest.addPermObjs( "ADD-OBS ADMINMGR_OBJ", PermTestData.ADMINMGR_OBJ, false, false );
-        AdminMgrImplTest.addPermObjs( "ADD-OBS DELEGATEDMGR_OBJ", PermTestData.DELEGATEDMGR_OBJ, false, false );
-        AdminMgrImplTest.addPermObjs( "ADD-OBS DELEGATEDREVIEWMGR_OBJ", PermTestData.DELEGATEDREVIEWMGR_OBJ, false,
-            false );
-        AdminMgrImplTest.addPermObjs( "ADD-OBS REVIEWMGR_OBJ", PermTestData.REVIEWMGR_OBJ, false, false );
-        AdminMgrImplTest.addPermOps( "ADD-OPS PSWDMGR_OBJ PSWDMGR_OPS", PermTestData.PSWDMGR_OBJ,
-            PermTestData.PSWDMGR_OPS, false, false );
-        AdminMgrImplTest.addPermOps( "ADD-OPS ADMINMGR_OBJ ADMINMGR_OPS", PermTestData.ADMINMGR_OBJ,
-            PermTestData.ADMINMGR_OPS, false, false );
-        AdminMgrImplTest.addPermOps( "ADD-OPS DELEGATEDMGR_OBJ DELEGATEDMGR_OPS", PermTestData.DELEGATEDMGR_OBJ,
-            PermTestData.DELEGATEDMGR_OPS, false, false );
-        AdminMgrImplTest.addPermOps( "ADD-OPS DELEGATEDREVIEWMGR_OBJ DELEGATEDREVIEWMGR_OPS",
-            PermTestData.DELEGATEDREVIEWMGR_OBJ, PermTestData.DELEGATEDREVIEWMGR_OPS, false, false );
-        AdminMgrImplTest.addPermOps( "ADD-OPS REVIEWMGR_OBJ REVIEWMGR_OPS", PermTestData.REVIEWMGR_OBJ,
-            PermTestData.REVIEWMGR_OPS, false, false );
-        AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER PSWDMGR_OBJ PSWDMGR_OPS", AdminRoleTestData.AROLES_SUPER,
-            PermTestData.PSWDMGR_OBJ, PermTestData.PSWDMGR_OPS, false, false );
-        AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER ADMINMGR_OBJ ADMINMGR_OPS", AdminRoleTestData.AROLES_SUPER,
-            PermTestData.ADMINMGR_OBJ, PermTestData.ADMINMGR_OPS, false, false );
-        AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER DELEGATEDMGR_OBJ DELEGATEDMGR_OPS",
-            AdminRoleTestData.AROLES_SUPER, PermTestData.DELEGATEDMGR_OBJ, PermTestData.DELEGATEDMGR_OPS, false, false );
-        AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER DELEGATEDREVIEWMGR_OBJ DELEGATEDREVIEWMGR_OPS",
-            AdminRoleTestData.AROLES_SUPER, PermTestData.DELEGATEDREVIEWMGR_OBJ, PermTestData.DELEGATEDREVIEWMGR_OPS,
-            false, false );
-        AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER REVIEWMGR_OBJ REVIEWMGR_OPS", AdminRoleTestData.AROLES_SUPER,
-            PermTestData.REVIEWMGR_OBJ, PermTestData.REVIEWMGR_OPS, false, false );
+        // These fortress delegated admin policies are needed for junit test but may have been created by an ant script so won't need to be created here:
+        if(loadAdminRequired( "LOAD-ADMIN AROLES_SUPER", AdminRoleTestData.AROLES_SUPER ))
+        {
+            addOrgUnit( "ADD ORG_PRM_APP0", OrgUnitTestData.ORGS_PRM_APP0[0] );
+            addOrgUnit( "ADD ORG_USR_DEV0", OrgUnitTestData.ORGS_USR_DEV0[0] );
+
+            addAdminRoles( "ADD-ARLS SUPER", AdminRoleTestData.AROLES_SUPER, false );
+            AdminMgrImplTest.addPermObjs( "ADD-OBS PSWDMGR_OBJ", PermTestData.PSWDMGR_OBJ, false, false );
+            AdminMgrImplTest.addPermObjs( "ADD-OBS ADMINMGR_OBJ", PermTestData.ADMINMGR_OBJ, false, false );
+            AdminMgrImplTest.addPermObjs( "ADD-OBS DELEGATEDMGR_OBJ", PermTestData.DELEGATEDMGR_OBJ, false, false );
+            AdminMgrImplTest.addPermObjs( "ADD-OBS DELEGATEDREVIEWMGR_OBJ", PermTestData.DELEGATEDREVIEWMGR_OBJ, false,
+                false );
+            AdminMgrImplTest.addPermObjs( "ADD-OBS REVIEWMGR_OBJ", PermTestData.REVIEWMGR_OBJ, false, false );
+            AdminMgrImplTest.addPermOps( "ADD-OPS PSWDMGR_OBJ PSWDMGR_OPS", PermTestData.PSWDMGR_OBJ,
+                PermTestData.PSWDMGR_OPS, false, false );
+            AdminMgrImplTest.addPermOps( "ADD-OPS ADMINMGR_OBJ ADMINMGR_OPS", PermTestData.ADMINMGR_OBJ,
+                PermTestData.ADMINMGR_OPS, false, false );
+            AdminMgrImplTest.addPermOps( "ADD-OPS DELEGATEDMGR_OBJ DELEGATEDMGR_OPS", PermTestData.DELEGATEDMGR_OBJ,
+                PermTestData.DELEGATEDMGR_OPS, false, false );
+            AdminMgrImplTest.addPermOps( "ADD-OPS DELEGATEDREVIEWMGR_OBJ DELEGATEDREVIEWMGR_OPS",
+                PermTestData.DELEGATEDREVIEWMGR_OBJ, PermTestData.DELEGATEDREVIEWMGR_OPS, false, false );
+            AdminMgrImplTest.addPermOps( "ADD-OPS REVIEWMGR_OBJ REVIEWMGR_OPS", PermTestData.REVIEWMGR_OBJ,
+                PermTestData.REVIEWMGR_OPS, false, false );
+            AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER PSWDMGR_OBJ PSWDMGR_OPS", AdminRoleTestData.AROLES_SUPER,
+                PermTestData.PSWDMGR_OBJ, PermTestData.PSWDMGR_OPS, false, false );
+            AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER ADMINMGR_OBJ ADMINMGR_OPS", AdminRoleTestData.AROLES_SUPER,
+                PermTestData.ADMINMGR_OBJ, PermTestData.ADMINMGR_OPS, false, false );
+            AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER DELEGATEDMGR_OBJ DELEGATEDMGR_OPS",
+                AdminRoleTestData.AROLES_SUPER, PermTestData.DELEGATEDMGR_OBJ, PermTestData.DELEGATEDMGR_OPS, false, false );
+            AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER DELEGATEDREVIEWMGR_OBJ DELEGATEDREVIEWMGR_OPS",
+                AdminRoleTestData.AROLES_SUPER, PermTestData.DELEGATEDREVIEWMGR_OBJ, PermTestData.DELEGATEDREVIEWMGR_OPS,
+                false, false );
+            AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER REVIEWMGR_OBJ REVIEWMGR_OPS", AdminRoleTestData.AROLES_SUPER,
+                PermTestData.REVIEWMGR_OBJ, PermTestData.REVIEWMGR_OPS, false, false );
+            AdminMgrImplTest.addPermObjs( "ADD-OBS AUDITMGR_OBJ", PermTestData.AUDITMGR_OBJ, false, true );
+            AdminMgrImplTest.addPermOps( "ADD-OPS AUDITMGR_OBJ AUDITMGR_OPS", PermTestData.AUDITMGR_OBJ,
+                PermTestData.AUDITMGR_OPS, false, true );
+            AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER AUDITMGR_OBJ AUDITMGR_OPS", AdminRoleTestData.AROLES_SUPER,
+                PermTestData.AUDITMGR_OBJ, PermTestData.AUDITMGR_OPS, false, true );
+        }
+
         AdminMgrImplTest.addUsers( "ADD-USRS TU0", UserTestData.USERS_TU0, false );
         assignAdminUsers( "ASGN-USRS TU0 SUPER", UserTestData.USERS_TU0, AdminRoleTestData.AROLES_SUPER, false );
+    }
 
-        // do these last - may have already been added via demoUsers:
-        AdminMgrImplTest.addPermObjs( "ADD-OBS AUDITMGR_OBJ", PermTestData.AUDITMGR_OBJ, false, true );
-        AdminMgrImplTest.addPermOps( "ADD-OPS AUDITMGR_OBJ AUDITMGR_OPS", PermTestData.AUDITMGR_OBJ,
-            PermTestData.AUDITMGR_OPS, false, true );
-        AdminMgrImplTest.addRoleGrants( "GRNT-APRMS SUPER AUDITMGR_OBJ AUDITMGR_OPS", AdminRoleTestData.AROLES_SUPER,
-            PermTestData.AUDITMGR_OBJ, PermTestData.AUDITMGR_OPS, false, true );
+    private static boolean loadAdminRequired( String msg, String[][] rArray )
+    {
+        // default return is 'true':
+        boolean loadAdmin = true;
+        String methodName = ".loadAdminRequired";
+        LogUtil.logIt( msg );
+        try
+        {
+            DelReviewMgr dReviewMgr = getDelegatedReviewMgr();
+            for ( String[] rle : rArray )
+            {
+                AdminRole entity = dReviewMgr.readRole( new AdminRole( RoleTestData.getName( rle ) ) );
+                if(entity == null)
+                {
+                    break;
+                }
+                //AdminRoleTestData.assertEquals( entity, rle );
+            }
+            // if we get to here it means that admin role has already been loaded
+            loadAdmin = false;
+        }
+        catch ( SecurityException ex )
+        {
+            // This is the expected when teardown is not required:
+            if ( ex.getErrorId() == GlobalErrIds.ROLE_NOT_FOUND )
+            {
+                // did not find so need to load admin roles
+            }
+            else
+            {
+                // Something unexpected occurred here, Report as warning to the logger:
+                String warning = methodName + " caught SecurityException=" + ex.getMessage();
+                LOG.warn( warning );
+                // TODO: Determine if it would be better to throw a SecurityException here.
+            }
+        }
+        LOG.info( methodName + ":" + loadAdmin );
+        return loadAdmin;
     }
 
 
@@ -1939,6 +1982,13 @@ public class DelegatedMgrImplTest extends TestCase
             adminSess = DelegatedMgrImplTest.createAdminSession();
         }
         dReviewMgr.setAdmin( adminSess );
+        return dReviewMgr;
+    }
+
+
+    private static DelReviewMgr getDelegatedReviewMgr() throws SecurityException
+    {
+        DelReviewMgr dReviewMgr = DelReviewMgrFactory.createInstance( TestUtils.getContext() );
         return dReviewMgr;
     }
 

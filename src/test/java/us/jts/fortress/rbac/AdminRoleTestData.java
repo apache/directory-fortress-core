@@ -30,7 +30,7 @@ public class AdminRoleTestData extends TestCase
     public final static String[][] AROLES_SUPER =
         {
             {
-                "oamSuperAdmin", /* NAME_COL */
+                "FortressSuperAdmin", /* NAME_COL */
                 "Super Admin Role", /* DESC_COL */
                 "0", /* TIMEOUT_COL */
                 "0000", /* BTIME_COL */

@@ -77,7 +77,7 @@
                 <!--config props="accessmgr.implementation:us.jts.fortress.rbac.AccessMgrImpl"/-->
                 <!--config props="auditmgr.implementation:us.jts.fortress.audit.AuditMgrImpl"/-->
                 <config props="audit.root:cn=log"/>
-                <config props="superadmin.role:oamSuperAdmin"/>
+                <config props="superadmin.role:FortressSuperAdmin"/>
                 <config props="temporal.validator.0:us.jts.fortress.util.time.Date"/>
                 <config props="temporal.validator.1:us.jts.fortress.util.time.LockDate"/>
                 <config props="temporal.validator.2:us.jts.fortress.util.time.Timeout"/>

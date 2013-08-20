@@ -42,7 +42,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     private static final String CLS_NM = DelAccessMgrImpl.class.getName();
     private static final UserP userP = new UserP();
     private static final PermP permP = new PermP();
-    private static final String SUPER_ADMIN = Config.getProperty("superadmin.role", "ftSuperAdmin");
+    private static final String SUPER_ADMIN = Config.getProperty("superadmin.role", "FortressSuperAdmin");
 
     // package private constructor ensures outside classes cannot use:
     DelAccessMgrImpl()
