@@ -6287,8 +6287,10 @@ public class UserTestData extends TestCase
         assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user desc", getDescription( usr ),
             user.getDescription() );
         //assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user pw policy", getPwPolicy(usr), user.getPwPolicy());
+/*
         assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user name",
             ( getFName( usr ) + " " + getLName( usr ) ), user.getName() );
+*/
         assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user cn",
             ( getFName( usr ) + " " + getLName( usr ) ), user.getCn() );
         assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user sn", getLName( usr ),

@@ -291,6 +291,7 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
             EMPLOYEE_TYPE,
             TITLE,
             SYSTEM_USER,
+            DISPLAY_NAME,
             JPEGPHOTO
     };
 
@@ -354,7 +355,11 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
                 VUtil.isNotNullOrEmpty( entity.getPassword() ) ? new String( entity.getPassword() ) : new String(
                     new char[]
                         {} ) ) );
-            attrs.add( createAttribute( DISPLAY_NAME, entity.getCn() ) );
+
+            if ( VUtil.isNotNullOrEmpty( entity.getDisplayName() ) )
+            {
+                attrs.add( createAttribute( DISPLAY_NAME, entity.getDisplayName() ) );
+            }
 
             if ( VUtil.isNotNullOrEmpty( entity.getTitle() ) )
             {
@@ -484,6 +489,12 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
             {
                 LDAPAttribute title = new LDAPAttribute( TITLE, entity.getTitle() );
                 mods.add( LDAPModification.REPLACE, title );
+            }
+
+            if ( VUtil.isNotNullOrEmpty( entity.getDisplayName() ) )
+            {
+                LDAPAttribute name = new LDAPAttribute( DISPLAY_NAME, entity.getDisplayName() );
+                mods.add( LDAPModification.REPLACE, name );
             }
 
             if ( GlobalIds.IS_OPENLDAP && VUtil.isNotNullOrEmpty( entity.getPwPolicy() ) )
@@ -1744,7 +1755,7 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
         entity.setUserId( getAttribute( le, GlobalIds.UID ) );
         entity.setCn( getAttribute( le, GlobalIds.CN ) );
-        entity.setName( entity.getCn() );
+        entity.setDisplayName( getAttribute( le, DISPLAY_NAME ) );
         entity.setSn( getAttribute( le, SN ) );
         entity.setOu( getAttribute( le, GlobalIds.OU ) );
         entity.setDn( le.getDN() );

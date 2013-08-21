@@ -166,6 +166,7 @@ import us.jts.fortress.util.time.Constraint;
         "sn",
         "cn",
         "dn",
+        "displayName",
         "employeeType",
         "title",
         "address",
@@ -212,6 +213,7 @@ public class User extends FortEntity implements Constraint, Serializable
     private String sn;
     private String dn;
     private String ou;
+    private String displayName;
     private String description;
     private String beginTime;
     private String endTime;
@@ -835,6 +837,26 @@ public class User extends FortEntity implements Constraint, Serializable
         this.ou = ou;
     }
 
+
+    /**
+     * Optional attribute maps to 'displayName' attribute on inetOrgPerson object class.
+     *
+     * @return value that is mapped to 'displayName' in 'inetOrgPerson' object class.
+     */
+    public String getDisplayName()
+    {
+        return displayName;
+    }
+
+    /**
+     * Optional attribute maps to 'displayName' attribute on inetOrgPerson object class.
+     *
+     * @param displayName maps to attribute of same name in 'inetOrgPerson' object class.
+     */
+    public void setDisplayName( String displayName )
+    {
+        this.displayName = displayName;
+    }
 
     /**
      * temporal boolean flag is used by internal Fortress components.
