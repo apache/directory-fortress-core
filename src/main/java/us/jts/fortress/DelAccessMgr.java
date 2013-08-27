@@ -164,7 +164,14 @@ public interface DelAccessMgr extends Manageable
     public Set<String> authorizedAdminRoles(Session session)
         throws SecurityException;
 
+    /**
+     * This function returns the ARBAC (administrative) permissions of the session, i.e., the permissions assigned
+     * to its authorized admin roles. The function is valid if and only if the session is a valid Fortress session.
+     *
+     * @param session object contains the user's returned ARBAC session from the createSession method.
+     * @return List<Permission> containing admin permissions (op, obj) active for user's session.
+     * @throws SecurityException in the event runtime error occurs with system.
+     */
     public List<Permission> sessionPermissions(Session session)
         throws SecurityException;
 }
-

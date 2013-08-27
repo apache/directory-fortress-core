@@ -100,6 +100,8 @@ public class HttpIds
     public static final String DSD_CARD_UPDATE = "dsdCardUpdate";
     public static final String ADMIN_AUTHZ = "adminAuthZ";
     public static final String ADMIN_ROLES = "adminRoles";
+    public static final String ADMIN_PERMS = "adminPerms";
+    public static final String ADMIN_AUTHZ_ROLES = "adminAuthzRoles";
     public static final String ADMIN_ADD = "adminAdd";
     public static final String ADMIN_DROP = "adminDrop";
     public static final String ADMIN_ASSIGN = "adminAssign";

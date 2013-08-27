@@ -70,6 +70,7 @@
        <property name="dst.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData.xml"/>
        <property name="load.delegatedadmin.script" value="${ldap.setup.dir}/DelegatedAdminManagerLoad.xml"/>
        <property name="load.demo.script" value="${ldap.setup.dir}/FortressDemoUsers.xml"/>
+       <property name="load.commander.script" value="${ldap.setup.dir}/CommanderDemoUsers.xml"/>
        <property name="build.win.properties" value="${basedir}/build.win.properties"/>
        <property name="build.nix.properties" value="${basedir}/build.nix.properties"/>
        <property name="build.properties" value="${basedir}/build.properties"/>
@@ -111,6 +112,11 @@
        <property name="enmasse" value="enmasse"/>
        <property name="enmasse.dir" value="${basedir}/${enmasse}-${version}"/>
        <property name="enmasse.zip" value="${basedir}/lib/${enmasse}-${version}.jar"/>
+
+       <!-- ########### Commander manage & config properties ########################### -->
+       <property name="commander" value="commander"/>
+       <property name="commander.dir" value="${basedir}/${commander}-${version}"/>
+       <property name="commander.zip" value="${basedir}/lib/${commander}-${version}.jar"/>
 
        <!-- ########### Java compile switches ########################### -->
        <property name="javac.optimize" value="false"/>
@@ -1184,7 +1190,8 @@
                 failonerror="true"
                 dir="${sentry.dir}"
                 timeout="4000000"
-                taskname="startAnt">
+                taskname="startAnt"
+                jvmargs="-Dversion=${version}">
             <classpath>
                 <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
             </classpath>
@@ -1259,6 +1266,70 @@
     <target name="enmasse-maven-test" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="test"/>
+        </artifact:mvn>
+    </target>
+
+    <!-- =================================
+          Install Commander Demo
+         ================================= -->
+    <target name="install-commander-demo" depends="init"  description="--> install Commander Demo">
+       <antcall target="install-sentry"></antcall>
+       <antcall target="sentry-ant-deploy-tomcat"></antcall>
+       <antcall target="sentry-ant-start-tomcat"></antcall>
+       <antcall target="install-commander"></antcall>
+       <antcall target="commander-maven-test"></antcall>
+    </target>
+
+    <!-- =================================
+          Install Commander
+         ================================= -->
+    <target name="install-commander" depends="init"  description="--> install commander">
+        <unzip src="${commander.zip}" dest="${basedir}"/>
+        <!-- copy the fortress.properties file to commander -->
+        <copy todir="${commander.dir}/src/main/resources" file="${dst.remote.conf}" overwrite="true" />
+        <concat destfile="${commander.dir}/src/main/resources/fortress.properties" append="true">${line.separator}version=${version}</concat>
+        <antcall target="admin">
+            <param name="param1" value="${load.commander.script}"/>
+        </antcall>
+        <!--<antcall target="commander-maven-install"></antcall>-->
+        <antcall target="commander-maven-deploy"></antcall>
+    </target>
+
+    <!-- =================================
+          Call the Commander Maven to install
+         ================================= -->
+    <target name="commander-maven-install" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
+        <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
+        	<arg value="install"/>
+        </artifact:mvn>
+    </target>
+
+    <!-- =================================
+          Call the Commander Maven to deploy Web app
+         ================================= -->
+    <target name="commander-maven-deploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
+        <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
+        	<arg value="tomcat:deploy"/>
+        </artifact:mvn>
+    </target>
+
+    <!-- =================================
+          Call the Commander Maven to redeploy Web app
+         ================================= -->
+    <target name="commander-maven-redeploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
+        <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
+        	<arg value="tomcat:redeploy"/>
+        </artifact:mvn>
+    </target>
+
+    <!-- =================================
+          Call the Commander Maven to integration test Web app with Selenium Web Driver
+         ================================= -->
+    <target name="commander-maven-test" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
+        <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
+        	<arg value="verify"/>
+    		<arg value="-DskipTests=false"/>
+<!--    		<arg value="-Dversion=${version}"/>-->
         </artifact:mvn>
     </target>
 

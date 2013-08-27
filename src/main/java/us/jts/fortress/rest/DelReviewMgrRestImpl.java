@@ -265,7 +265,6 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
     public List<OrgUnit> search(OrgUnit.Type type, String searchVal)
         throws SecurityException
     {
-        VUtil.assertNotNullOrEmpty(searchVal, GlobalErrIds.ORG_NULL, CLS_NM + ".search");
         VUtil.assertNotNull(type, GlobalErrIds.ORG_TYPE_NULL, CLS_NM + ".search");
         List<OrgUnit> retOrgs;
         FortRequest request = new FortRequest();

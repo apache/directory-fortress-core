@@ -18,6 +18,7 @@ import us.jts.fortress.SecurityException;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * This class implements the ARBAC02 DelAccessMgr interface for performing runtime delegated access control operations on objects that are provisioned Fortress ARBAC entities
@@ -362,7 +363,6 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         return roles;
     }
 
-    // TODO: Implement:
     /**
      * This function returns the authorized admin roles associated with a session based on hierarchical relationships. The function is valid if
      * and only if the session is a valid Fortress session.
@@ -375,12 +375,61 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
     public Set<String> authorizedAdminRoles(Session session)
         throws SecurityException
     {
-        throw new java.lang.UnsupportedOperationException();
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".authorizedAdminRoles");
+        Set<String> retRoleNames = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
+        request.setSession(session);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_AUTHZ_ROLES);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            Set<String> tempNames = response.getValueSet();
+            // This is done to use a case insensitive TreeSet for returned names.
+            retRoleNames.addAll(tempNames);
+            Session outSession = response.getSession();
+            session.copy(outSession);
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retRoleNames;
+        //throw new java.lang.UnsupportedOperationException();
     }
 
+    /**
+     * This function returns the ARBAC (administrative) permissions of the session, i.e., the permissions assigned
+     * to its authorized admin roles. The function is valid if and only if the session is a valid Fortress session.
+     *
+     * @param session object contains the user's returned ARBAC session from the createSession method.
+     * @return List<Permission> containing admin permissions (op, obj) active for user's session.
+     * @throws SecurityException in the event runtime error occurs with system.
+     */
+    @Override
     public List<Permission> sessionPermissions(Session session)
         throws SecurityException
     {
-        throw new java.lang.UnsupportedOperationException();
+        VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionPermissions");
+        List<Permission> retPerms;
+        FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
+        request.setSession(session);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_PERMS);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retPerms = response.getEntities();
+            Session outSession = response.getSession();
+            session.copy(outSession);
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retPerms;
+        //throw new java.lang.UnsupportedOperationException();
     }
 }

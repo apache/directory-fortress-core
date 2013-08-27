@@ -275,11 +275,11 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     }
 
     /**
-     * This function returns the permissions of the session, i.e., the permissions assigned
-     * to its authorized roles. The function is valid if and only if the session is a valid Fortress session.
+     * This function returns the ARBAC (administrative) permissions of the session, i.e., the permissions assigned
+     * to its authorized admin roles. The function is valid if and only if the session is a valid Fortress session.
      *
-     * @param session object contains the user's returned RBAC session from the createSession method.
-     * @return List<Permission> containing permissions (op, obj) active for user's session.
+     * @param session object contains the user's returned ARBAC session from the createSession method.
+     * @return List<Permission> containing admin permissions (op, obj) active for user's session.
      * @throws SecurityException in the event runtime error occurs with system.
      */
     @Override
