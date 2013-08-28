@@ -44,13 +44,17 @@
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.5" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.7.5" conf="default->master"/>
         <dependency org="org.apache.directory.server" name="apacheds-all" rev="2.0.0-M15" conf="default->master"/>
-        <!-- The Fortress core is not dependent on sentry or enmasse artifacts, they're required for the QUICKSTART demo package: -->
-<!--
-        <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC29"  conf="default->master"/>
+
+        <!-- Fortress core source is NOT dependent on Sentry, EnMasse or Commander artifacts rather they're required for its QUICKSTART demo apps: -->
+        <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC29"  conf="default->master">
+            <artifact name="sentry" type="jar"/>
+        </dependency>
         <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC29"  conf="default->master">
             <artifact name="enmasse" type="jar"/>
         </dependency>
--->
+        <dependency org="us.joshuatreesoftware" name="commander" rev="1.0-RC29"  conf="default->master">
+            <artifact name="commander" type="jar"/>
+        </dependency>
 
     </dependencies>
 </ivy-module>

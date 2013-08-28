@@ -1120,12 +1120,23 @@
           Install EnMasse Demo
          ================================= -->
     <target name="install-enmasse-demo" depends="init"  description="--> install EnMasse Demo">
-       <antcall target="install-sentry"></antcall>
-       <antcall target="sentry-ant-deploy-tomcat"></antcall>
+       <antcall target="doSentry"></antcall>
        <antcall target="sentry-ant-start-tomcat"></antcall>
        <antcall target="install-enmasse"></antcall>
        <antcall target="enmasse-maven-test"></antcall>
     </target>
+
+    <target name="doSentry" depends="dir.check" unless="dir.exists">
+       <echo>Install sentry to ${sentry.dir}"</echo>
+        <antcall target="install-sentry"></antcall>
+        <antcall target="sentry-ant-deploy-tomcat"></antcall>
+     </target>
+
+     <target name="dir.check">
+       <condition property="dir.exists">
+         <available file="${sentry.dir}" type="dir"/>
+       </condition>
+     </target>
 
     <!-- =================================
           Install Fortress Sentry
@@ -1273,8 +1284,7 @@
           Install Commander Demo
          ================================= -->
     <target name="install-commander-demo" depends="init"  description="--> install Commander Demo">
-       <antcall target="install-sentry"></antcall>
-       <antcall target="sentry-ant-deploy-tomcat"></antcall>
+       <antcall target="doSentry"></antcall>
        <antcall target="sentry-ant-start-tomcat"></antcall>
        <antcall target="install-commander"></antcall>
        <antcall target="commander-maven-test"></antcall>
