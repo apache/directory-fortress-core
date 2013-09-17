@@ -488,9 +488,10 @@ public final class UserP
             session.setRoles( rlsFinal );
             for ( UserRole role : user.getRoles() )
             {
-                if ( rlsActual.contains( role ) )
+                int indx = rlsActual.indexOf( role );
+                if ( indx != -1 )
                 {
-                    rlsFinal.add( role );
+                    rlsFinal.add( rlsActual.get( indx ) );
                 }
             }
         }
