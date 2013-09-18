@@ -225,6 +225,35 @@ class AccessMgrConsole
         ReaderUtil.readChar();
     }
 
+    void createSessionRolesTrusted()
+    {
+        try
+        {
+            User user = new User();
+            ReaderUtil.clearScreen();
+            System.out.println("Enter userId:");
+            user.setUserId(ReaderUtil.readLn());
+            System.out.println("Enter role (or NULL to skip):");
+            String key = ReaderUtil.readLn();
+            for (int i = 0; key != null && key.length() > 0; i++)
+            {
+                user.setRole( new UserRole( key ) );
+                System.out.println("Enter next role (or NULL if done entering roles)");
+                key = ReaderUtil.readLn();
+            }
+
+            session = am.createSession(user, true);
+            System.out.println("Session created successfully for userId [" + user.getUserId() + "]");
+            System.out.println("session id [" + session.getSessionId() + "]");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            LOG.error("createSessionProps caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
     /**
      *
      */

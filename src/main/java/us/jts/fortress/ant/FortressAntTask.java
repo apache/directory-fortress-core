@@ -1157,7 +1157,10 @@ public class FortressAntTask extends Task implements InputHandler
                     + " description=" + sd.getDescription() );
                 try
                 {
-                    adminMgr.createSsdSet( sd );
+                    if(sd.getType() == SDSet.SDType.STATIC)
+                        adminMgr.createSsdSet( sd );
+                    else
+                        adminMgr.createDsdSet( sd );
                 }
                 catch ( SecurityException se )
                 {

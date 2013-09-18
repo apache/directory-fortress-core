@@ -577,14 +577,15 @@ class ProcessMenuCommand
         System.out.println( "1. Authenticate" );
         System.out.println( "2. Create Session" );
         System.out.println( "3. Create Session Trusted" );
-        System.out.println( "4. Create Session with Props" );
-        System.out.println( "5. Check Access - RBAC" );
-        System.out.println( "6. Session Roles" );
-        System.out.println( "7. Add Active Role to Session" );
-        System.out.println( "8. Drop Active Role from Session" );
-        System.out.println( "9. Show User Data in Session" );
-        System.out.println( "0. Show UserId in Session" );
-        System.out.println( "A. Session Permissions" );
+        System.out.println( "4. Create Session with Roles Trusted" );
+        System.out.println( "5. Create Session with Props" );
+        System.out.println( "6. Check Access - RBAC" );
+        System.out.println( "7. Session Roles" );
+        System.out.println( "8. Add Active Role to Session" );
+        System.out.println( "9. Drop Active Role from Session" );
+        System.out.println( "0. Show User Data in Session" );
+        System.out.println( "A. Show UserId in Session" );
+        System.out.println( "B. Session Permissions" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
 
@@ -617,28 +618,32 @@ class ProcessMenuCommand
                         accessConsole.createSessionTrusted();
                         break;
                     case '4':
-                        accessConsole.createSessionProps();
+                        accessConsole.createSessionRolesTrusted();
                         break;
                     case '5':
-                        accessConsole.checkAccess();
+                        accessConsole.createSessionProps();
                         break;
                     case '6':
-                        accessConsole.sessionRoles();
+                        accessConsole.checkAccess();
                         break;
                     case '7':
-                        accessConsole.addActiveRole();
+                        accessConsole.sessionRoles();
                         break;
                     case '8':
-                        accessConsole.dropActiveRole();
+                        accessConsole.addActiveRole();
                         break;
                     case '9':
-                        accessConsole.getUser();
+                        accessConsole.dropActiveRole();
                         break;
                     case '0':
-                        accessConsole.getUserId();
+                        accessConsole.getUser();
                         break;
                     case 'a':
                     case 'A':
+                        accessConsole.getUserId();
+                        break;
+                    case 'b':
+                    case 'B':
                         accessConsole.sessionPermissions();
                         break;
                     case 'q':
