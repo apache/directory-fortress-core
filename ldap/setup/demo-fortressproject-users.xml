@@ -80,71 +80,71 @@
             </addrole>
 
             <delpermobj>
-                <permobj objectName="Page1"/>
-                <permobj objectName="Page2"/>
-                <permobj objectName="Page3"/>
+                <permobj objectName="com.mycompany.Page1"/>
+                <permobj objectName="com.mycompany.Page2"/>
+                <permobj objectName="com.mycompany.Page3"/>
                 <permobj objectName="us.jts.fortress.rbac.AccessMgrImpl"/>
             </delpermobj>
 
             <addpermobj>
-                <permobj objectName="Page1" description="Wicket Test Page 1" ou="WicketPerms" type="Page"/>
-                <permobj objectName="Page2" description="Wicket Test Page 2" ou="WicketPerms" type="Page"/>
-                <permobj objectName="Page3" description="Wicket Test Page 3" ou="WicketPerms" type="Page"/>
+                <permobj objectName="com.mycompany.Page1" description="Wicket Test Page 1" ou="WicketPerms" type="Page"/>
+                <permobj objectName="com.mycompany.Page2" description="Wicket Test Page 2" ou="WicketPerms" type="Page"/>
+                <permobj objectName="com.mycompany.Page3" description="Wicket Test Page 3" ou="WicketPerms" type="Page"/>
                 <permobj objectName="us.jts.fortress.rbac.AccessMgrImpl" description="Used to perform role activation functions" ou="WicketPerms" type="Page"/>
             </addpermobj>
 
             <delpermop>
-                <permop objectName="Page1" opName="Button1"/>
-                <permop objectName="Page1" opName="Button2"/>
-                <permop objectName="Page1" opName="Button3"/>
-                <permop objectName="Page2" opName="Button1"/>
-                <permop objectName="Page2" opName="Button2"/>
-                <permop objectName="Page2" opName="Button3"/>
-                <permop objectName="Page3" opName="Button1"/>
-                <permop objectName="Page3" opName="Button2"/>
-                <permop objectName="Page3" opName="Button3"/>
+                <permop objectName="com.mycompany.Page1" opName="Button1"/>
+                <permop objectName="com.mycompany.Page1" opName="Button2"/>
+                <permop objectName="com.mycompany.Page1" opName="Button3"/>
+                <permop objectName="com.mycompany.Page2" opName="Button1"/>
+                <permop objectName="com.mycompany.Page2" opName="Button2"/>
+                <permop objectName="com.mycompany.Page2" opName="Button3"/>
+                <permop objectName="com.mycompany.Page3" opName="Button1"/>
+                <permop objectName="com.mycompany.Page3" opName="Button2"/>
+                <permop objectName="com.mycompany.Page3" opName="Button3"/>
                 <permop objectName="us.jts.fortress.rbac.AccessMgrImpl" opName="addActiveRole"/>
                 <permop objectName="us.jts.fortress.rbac.AccessMgrImpl" opName="dropActiveRole"/>
             </delpermop>
 
             <addpermop>
-                <permop objectName="Page1" opName="Button1" type="Button"/>
-                <permop objectName="Page1" opName="Button2" type="Button"/>
-                <permop objectName="Page1" opName="Button3" type="Button"/>
-                <permop objectName="Page2" opName="Button1" type="Button"/>
-                <permop objectName="Page2" opName="Button2" type="Button"/>
-                <permop objectName="Page2" opName="Button3" type="Button"/>
-                <permop objectName="Page3" opName="Button1" type="Button"/>
-                <permop objectName="Page3" opName="Button2" type="Button"/>
-                <permop objectName="Page3" opName="Button3" type="Button"/>
+                <permop objectName="com.mycompany.Page1" opName="Button1" type="Button"/>
+                <permop objectName="com.mycompany.Page1" opName="Button2" type="Button"/>
+                <permop objectName="com.mycompany.Page1" opName="Button3" type="Button"/>
+                <permop objectName="com.mycompany.Page2" opName="Button1" type="Button"/>
+                <permop objectName="com.mycompany.Page2" opName="Button2" type="Button"/>
+                <permop objectName="com.mycompany.Page2" opName="Button3" type="Button"/>
+                <permop objectName="com.mycompany.Page3" opName="Button1" type="Button"/>
+                <permop objectName="com.mycompany.Page3" opName="Button2" type="Button"/>
+                <permop objectName="com.mycompany.Page3" opName="Button3" type="Button"/>
                 <permop objectName="us.jts.fortress.rbac.AccessMgrImpl" opName="addActiveRole" type="Button"/>
                 <permop objectName="us.jts.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" type="Button"/>
             </addpermop>
 
             <delpermgrant>
-                <permgrant objName="Page1" opName="Button1" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page1" opName="Button2" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page1" opName="Button3" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page2" opName="Button1" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page2" opName="Button2" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page2" opName="Button3" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page3" opName="Button1" roleNm="ROLE_TEST3"/>
-                <permgrant objName="Page3" opName="Button2" roleNm="ROLE_TEST3"/>
-                <permgrant objName="Page3" opName="Button3" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button1" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button2" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button3" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button1" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button2" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button3" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button1" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button2" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button3" roleNm="ROLE_TEST3"/>
                 <permgrant objName="us.jts.fortress.rbac.AccessMgrImpl" opName="addActiveRole" roleNm="ROLE_TEST1"/>
                 <permgrant objName="us.jts.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" roleNm="ROLE_TEST1"/>
             </delpermgrant>
 
             <addpermgrant>
-                <permgrant objName="Page1" opName="Button1" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page1" opName="Button2" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page1" opName="Button3" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page2" opName="Button1" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page2" opName="Button2" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page2" opName="Button3" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page3" opName="Button1" roleNm="ROLE_TEST3"/>
-                <permgrant objName="Page3" opName="Button2" roleNm="ROLE_TEST3"/>
-                <permgrant objName="Page3" opName="Button3" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button1" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button2" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button3" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button1" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button2" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button3" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button1" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button2" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button3" roleNm="ROLE_TEST3"/>
                 <permgrant objName="us.jts.fortress.rbac.AccessMgrImpl" opName="addActiveRole" roleNm="ROLE_TEST1"/>
                 <permgrant objName="us.jts.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" roleNm="ROLE_TEST1"/>
             </addpermgrant>
