@@ -59,7 +59,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
 
 /**
  * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
- * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.UserDAO}. {@link us.jts.fortress.rbac.RoleDAO}, {@link us.jts.fortress.rbac.PermDAO}, ....
+ * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.dao.apache.UserDAO}. {@link us.jts.fortress.rbac.dao.apache.RoleDAO}, {@link us.jts.fortress.rbac.dao.apache.PermDAO}, ....
  * These are low-level data utilities, very little if any data validations are performed here.
  * <p/>
  * This class is thread safe.
@@ -200,7 +200,7 @@ public abstract class ApacheDsDataProvider
      *
      * @param connection   handle to ldap connection.
      * @param dn   contains ldap distinguished name.
-     * @param atrs array contains array names to pull back.
+     * @param attrs array contains array names to pull back.
      * @return ldap entry.
      * @throws LdapException in the event system error occurs.
      */
@@ -511,7 +511,7 @@ public abstract class ApacheDsDataProvider
      * @param baseDn    contains address of distinguished name to begin ldap search
      * @param scope     indicates depth of search starting at basedn.  0 (base dn), 1 (one level down) or 2 (infinite) are valid values.
      * @param filter    contains the search criteria
-     * @param atrs      is the requested list of attritubutes to return from directory search.
+     * @param attrs      is the requested list of attritubutes to return from directory search.
      * @param attrsOnly if true pull back attribute names only.
      * @return result set containing ldap entries returned from directory.
      * @throws LdapException thrown in the event of error in ldap client or server code.
@@ -545,7 +545,7 @@ public abstract class ApacheDsDataProvider
      * @param baseDn    contains address of distinguished name to begin ldap search
      * @param scope     indicates depth of search starting at basedn.  0 (base dn), 1 (one level down) or 2 (infinite) are valid values.
      * @param filter    contains the search criteria
-     * @param atrs      is the requested list of attributes to return from directory search.
+     * @param attrs      is the requested list of attributes to return from directory search.
      * @param attrsOnly if true pull back attribute names only.
      * @param batchSize Will block until this many entries are ready to return from server.  0 indicates to block until all results are ready.
      * @return result set containing ldap entries returned from directory.
@@ -584,7 +584,7 @@ public abstract class ApacheDsDataProvider
      * @param baseDn     contains address of distinguished name to begin ldap search
      * @param scope      indicates depth of search starting at basedn.  0 (base dn), 1 (one level down) or 2 (infinite) are valid values.
      * @param filter     contains the search criteria
-     * @param atrs       is the requested list of attritubutes to return from directory search.
+     * @param attrs       is the requested list of attritubutes to return from directory search.
      * @param attrsOnly  if true pull back attribute names only.
      * @param batchSize  Will block until this many entries are ready to return from server.  0 indicates to block until all results are ready.
      * @param maxEntries specifies the maximum number of entries to return in this search query.
@@ -626,7 +626,7 @@ public abstract class ApacheDsDataProvider
      * @param baseDn    contains address of distinguished name to begin ldap search
      * @param scope     indicates depth of search starting at basedn.  0 (base dn), 1 (one level down) or 2 (infinite) are valid values.
      * @param filter    contains the search criteria
-     * @param atrs      is the requested list of attritubutes to return from directory search.
+     * @param attrs      is the requested list of attritubutes to return from directory search.
      * @param attrsOnly if true pull back attribute names only.
      * @return entry   containing target ldap node.
      * @throws LdapException thrown in the event of error in ldap client or server code.
@@ -669,7 +669,7 @@ public abstract class ApacheDsDataProvider
      * @param baseDn    contains address of distinguished name to begin ldap search
      * @param scope     indicates depth of search starting at basedn.  0 (base dn), 1 (one level down) or 2 (infinite) are valid values.
      * @param filter    contains the search criteria
-     * @param atrs      is the requested list of attritubutes to return from directory search.
+     * @param attrs      is the requested list of attritubutes to return from directory search.
      * @param attrsOnly if true pull back attribute names only.
      * @param userDn    string value represents the identity of user on who's behalf the request was initiated.  The value will be stored in openldap auditsearch record AuthZID's attribute.
      * @return entry   containing target ldap node.
@@ -748,18 +748,20 @@ public abstract class ApacheDsDataProvider
     protected List<String> getAttributes( Entry entry, String attributeName )
     {
         List<String> attrValues = new ArrayList<>();
-        Attribute attr = entry.get( attributeName );
-
-        if ( attr != null )
+        if(entry != null)
         {
-            for ( Value<?> value : attr )
+            Attribute attr = entry.get( attributeName );
+            if ( attr != null )
             {
-                attrValues.add( value.getString() );
+                for ( Value<?> value : attr )
+                {
+                    attrValues.add( value.getString() );
+                }
             }
-        }
-        else
-        {
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         return attrValues;
@@ -793,7 +795,7 @@ public abstract class ApacheDsDataProvider
         // create Set with case insensitive comparator:
         Set<String> attrValues = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
 
-        if ( entry.containsAttribute( attributeName ) )
+        if ( entry != null && entry.containsAttribute( attributeName ) )
         {
             for ( Value<?> value : entry.get( attributeName ) )
             {
@@ -816,11 +818,18 @@ public abstract class ApacheDsDataProvider
      */
     protected String getAttribute( Entry entry, String attributeName ) throws LdapInvalidAttributeValueException
     {
-        Attribute attr = entry.get( attributeName );
-
-        if ( attr != null )
+        if(entry != null)
         {
-            return attr.getString();
+            Attribute attr = entry.get( attributeName );
+
+            if ( attr != null )
+            {
+                return attr.getString();
+            }
+            else
+            {
+                return null;
+            }
         }
         else
         {
@@ -965,7 +974,7 @@ public abstract class ApacheDsDataProvider
      * Given an ldap attribute name and a set of attribute values, construct an ldap attribute set to be added to directory.
      *
      * @param values   set of type string containing attribute values to load into attribute set.
-     * @param attrs    contains ldap attribute set targeted for adding.
+     * @param entry    contains ldap entry to pull attrs from.
      * @param attrName name of ldap attribute being added.
      * @throws LdapException 
      */
@@ -1042,7 +1051,7 @@ public abstract class ApacheDsDataProvider
      * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap add.
      *
      * @param props    contains {@link java.util.Properties} targeted for adding to ldap.
-     * @param attrs    ldap attribute set containing name-value pairs in raw ldap format.
+     * @param entry    contains ldap entry to pull attrs from.
      * @param attrName contains the name of the ldap attribute to be added.
      * @throws LdapException 
      */
@@ -1103,7 +1112,7 @@ public abstract class ApacheDsDataProvider
      * will return the OpenLDAP PW Policy control.
      *
      * @param connection       connection to ldap server.
-     * @param userId   contains the LDAP dn to the user entry.
+     * @param userDn   contains the LDAP dn to the user entry.
      * @param password contains the password in clear text.
      * @return boolean value - true if bind successful, false otherwise.
      * @throws LdapException in the event of LDAP error.

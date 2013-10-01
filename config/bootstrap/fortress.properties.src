@@ -69,6 +69,8 @@ sys.user.5=oamTU6User5
 accessmgr.implementation=us.jts.fortress.rbac.AccessMgrImpl
 auditmgr.implementation=us.jts.fortress.rbac.AuditMgrImpl
 
+dao.connector=@LDAP_CLIENT_TYPE@
+
 ehcache.config.file=ehcache.xml
 
 ## Fortress Data Validation settings

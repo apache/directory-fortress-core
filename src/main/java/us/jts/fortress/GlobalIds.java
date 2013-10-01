@@ -477,6 +477,7 @@ public class GlobalIds
      */
     public final static boolean LDAP_FILTER_SIZE_FOUND = ( us.jts.fortress.cfg.Config
         .getProperty( LDAP_FILTER_SIZE_PROP ) != null );
+    public static final String APACHE_LDAP_API = "apache";
 
     /**
      * maximum number of entries allowed for ldap filter replacements.

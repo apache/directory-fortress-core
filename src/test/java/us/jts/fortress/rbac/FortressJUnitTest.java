@@ -49,6 +49,7 @@ public class FortressJUnitTest extends TestCase
     }
 
     private static boolean isFirstRun = getFirstRun();
+    //private static boolean isFirstRun = true;
 
     private static boolean getFirstRun()
     {

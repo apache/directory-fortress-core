@@ -764,7 +764,10 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
 
         try
         {
-            entity = unloadLdapEntry( findEntry, 0, user.getContextId() );
+            if(findEntry != null)
+            {
+                entity = unloadLdapEntry( findEntry, 0, user.getContextId() );
+            }
         }
         catch ( LdapInvalidAttributeValueException e )
         {

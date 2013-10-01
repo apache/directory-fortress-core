@@ -997,7 +997,10 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
         entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
 
         // TODO: find out the correct way to do this:
-        entity.setDn( le.getDn().getNormName() );
+        if(le != null)
+        {
+            entity.setDn( le.getDn().getNormName() );
+        }
         return entity;
     }
 

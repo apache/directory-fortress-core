@@ -376,8 +376,10 @@ public final class RoleDAO extends ApacheDsDataProvider implements us.jts.fortre
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, ROLE_ATRS );
-            entity = unloadLdapEntry( findEntry, 0, role.getContextId() );
-
+            if(findEntry != null)
+            {
+                entity = unloadLdapEntry( findEntry, 0, role.getContextId() );
+            }
             if ( entity == null )
             {
                 String warning = "getRole no entry found dn [" + dn + "]";
@@ -390,11 +392,6 @@ public final class RoleDAO extends ApacheDsDataProvider implements us.jts.fortre
             throw new FinderException( GlobalErrIds.ROLE_NOT_FOUND, warning );
         }
         catch ( LdapException e )
-        {
-            String error = "getRole dn [" + dn + "] LEXCD=" + e;
-            throw new FinderException( GlobalErrIds.ROLE_READ_FAILED, error, e );
-        }
-        catch ( Exception e )
         {
             String error = "getRole dn [" + dn + "] LEXCD=" + e;
             throw new FinderException( GlobalErrIds.ROLE_READ_FAILED, error, e );

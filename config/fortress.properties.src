@@ -40,6 +40,8 @@ http.pw=@REST_HTTP_PW@
 http.host=@REST_HTTP_HOST@
 http.port=@REST_HTTP_PORT@
 
+dao.connector=@LDAP_CLIENT_TYPE@
+
 # These may be used to override default LDAP or REST with OTHER implementations:
 #reviewmgr.implementation=us.jts.fortress.rest.ReviewMgrOtherImpl
 #adminmgr.implementation=us.jts.fortress.rest.AdminMgrOtherImpl

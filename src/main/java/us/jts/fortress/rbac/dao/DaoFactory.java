@@ -14,6 +14,7 @@ import us.jts.fortress.cfg.Config;
  */
 public class DaoFactory
 {
+
     /**
      * Create an instance of a AdminRoleDAO which depends of the used Backend
      * 
@@ -25,7 +26,7 @@ public class DaoFactory
 
         DAOType daoType = DAOType.UNBOUNDID_API;
 
-        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( GlobalIds.APACHE_LDAP_API ) ) )
         {
             daoType = DAOType.APACHE_LDAP_API;
         }
@@ -55,7 +56,7 @@ public class DaoFactory
 
         DAOType daoType = DAOType.UNBOUNDID_API;
 
-        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( GlobalIds.APACHE_LDAP_API ) ) )
         {
             daoType = DAOType.APACHE_LDAP_API;
         }
@@ -85,7 +86,7 @@ public class DaoFactory
 
         DAOType daoType = DAOType.UNBOUNDID_API;
 
-        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( GlobalIds.APACHE_LDAP_API ) ) )
         {
             daoType = DAOType.APACHE_LDAP_API;
         }
@@ -115,7 +116,7 @@ public class DaoFactory
 
         DAOType daoType = DAOType.UNBOUNDID_API;
 
-        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( GlobalIds.APACHE_LDAP_API ) ) )
         {
             daoType = DAOType.APACHE_LDAP_API;
         }
@@ -145,7 +146,7 @@ public class DaoFactory
 
         DAOType daoType = DAOType.UNBOUNDID_API;
 
-        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( GlobalIds.APACHE_LDAP_API ) ) )
         {
             daoType = DAOType.APACHE_LDAP_API;
         }
@@ -175,7 +176,7 @@ public class DaoFactory
 
         DAOType daoType = DAOType.UNBOUNDID_API;
 
-        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( GlobalIds.APACHE_LDAP_API ) ) )
         {
             daoType = DAOType.APACHE_LDAP_API;
         }
@@ -205,7 +206,7 @@ public class DaoFactory
 
         DAOType daoType = DAOType.UNBOUNDID_API;
 
-        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( GlobalIds.APACHE_LDAP_API ) ) )
         {
             daoType = DAOType.APACHE_LDAP_API;
         }
@@ -235,7 +236,7 @@ public class DaoFactory
 
         DAOType daoType = DAOType.UNBOUNDID_API;
 
-        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( "APACHE_LDAP_API" ) ) )
+        if ( ( daoConnector != null ) && ( daoConnector.equalsIgnoreCase( GlobalIds.APACHE_LDAP_API ) ) )
         {
             daoType = DAOType.APACHE_LDAP_API;
         }

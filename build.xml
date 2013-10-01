@@ -541,6 +541,8 @@
                  taskname="startAnt">
              <classpath>
                  <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
+                 <path refid="bootstrap.class.path"/>
+                 <path refid="test.class.path"/>
              </classpath>
              <sysproperty key="version" value="${version}"/>
              <sysproperty key="tenant" value="${tenant}"/>
@@ -641,6 +643,7 @@
          <replace file="${dst.bootstrap.conf}" token="@USR_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
          <replace file="${dst.bootstrap.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
+         <replace file="${dst.bootstrap.conf}" token="@LDAP_CLIENT_TYPE@" value="${ldap.client.type}"/>
 
 	     <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
          <replace file="${dst.remote.conf}" token="@SUFFIX@" value="${suffix}"/>
@@ -656,6 +659,7 @@
          <replace file="${dst.remote.conf}" token="@REST_HTTP_PW@" value="${http.pw}"/>
          <replace file="${dst.remote.conf}" token="@REST_HTTP_HOST@" value="${http.host}"/>
          <replace file="${dst.remote.conf}" token="@REST_HTTP_PORT@" value="${http.port}"/>
+         <replace file="${dst.remote.conf}" token="@LDAP_CLIENT_TYPE@" value="${ldap.client.type}"/>
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
          <delete file="${dst.load.bootstrap.script}"/>
