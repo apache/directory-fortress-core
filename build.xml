@@ -1291,7 +1291,6 @@
        <antcall target="doSentry"></antcall>
        <antcall target="sentry-ant-start-tomcat"></antcall>
        <antcall target="install-commander"></antcall>
-       <antcall target="commander-maven-test"></antcall>
     </target>
 
     <!-- =================================
@@ -1302,10 +1301,8 @@
         <!-- copy the fortress.properties file to commander -->
         <copy todir="${commander.dir}/src/main/resources" file="${dst.remote.conf}" overwrite="true" />
         <concat destfile="${commander.dir}/src/main/resources/fortress.properties" append="true">${line.separator}version=${version}</concat>
-        <antcall target="admin">
-            <param name="param1" value="${load.commander.script}"/>
-        </antcall>
-        <!--<antcall target="commander-maven-install"></antcall>-->
+        <!-- load the sample test policy for commander -->
+        <antcall target="commander-maven-load"></antcall>
         <antcall target="commander-maven-deploy"></antcall>
     </target>
 
@@ -1337,13 +1334,21 @@
     </target>
 
     <!-- =================================
+          Call the Commander Maven to load test policy into LDAP
+         ================================= -->
+    <target name="commander-maven-load" depends="init" description="--> load Commander test policy into LDAP">
+        <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
+        	<arg value="test"/>
+        </artifact:mvn>
+    </target>
+
+    <!-- =================================
           Call the Commander Maven to integration test Web app with Selenium Web Driver
          ================================= -->
     <target name="commander-maven-test" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="verify"/>
     		<arg value="-DskipTests=false"/>
-<!--    		<arg value="-Dversion=${version}"/>-->
         </artifact:mvn>
     </target>
 

@@ -176,7 +176,6 @@
             <source>1.7</source>
             <target>1.7</target>
             <optimize>true</optimize>
-            <showDeprecations>true</showDeprecations>
             <encoding>ISO-8859-1</encoding>
           </configuration>
         </plugin>
