@@ -6,7 +6,13 @@
 <br>
 <p>
 These instructions are intended for new users who want to quickly learn how to use JoshuaTree Fortress and Symas OpenLDAP IAM software on Windows platform.
-<br><br>Follow them carefully and OpenLDAP will be installed, configured, loaded, and ready to use by <em>Section IV</em>
+These instructions are intended for new users who want to quickly learn how to install and test JoshuaTree Fortress and Symas OpenLDAP IAM software.
+<br><br>Follow the steps and
+    <ul>
+    <li>OpenLDAP will be installed, configured, loaded, and ready to use by <em>Section IV</em>.</li>
+    <li>Commander Web Admin demo starts in <em>Section V</em></li>    
+    <li>EnMasse Policy Server demo starts in <em>Section XI</em></li>
+    </ul>
 </p>
   <hr>
    <h2>System Prerequisites</h2>
@@ -171,6 +177,37 @@ Note 1: WARNING messages in test output are good as these are negative tests in 
 The 'init-slapd' target may be re-run after the 'test-full-init' and 'test-full' targets have completed.  This will delete the test data from the directory
 and restart directory with a clean slate.
     </li>
+    <li>
+       <h3>Instructions to install Commander Web UI Demo (optional)</h3>
+Run the install-commander-demo target:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">b install-commander-demo
+</p></pre>
+
+   </li>
+    
+    <li>
+       <h3>Instructions to automatically test Commander Web UI Demo (optional)</h3>
+Run the commander-maven-test target to perform headless test of Commander Web:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">b commander-maven-test
+</p></pre>
+
+note: Firefox must be preinstalled to target system.
+   </li>
+    
+    
+    <li>
+       <h3>Instructions to connect to Commander Web Admin</h3>
+Open up browser and enter the following URL:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">http://localhost:8080/commander
+</p></pre>
+
+userId: test
+password: test
+<br><br>
+Click on links on top or bottons on side of page to navigate between pages
+   </li>
+    
+    
   <hr>
     <li>
        <h3>Instructions to run the Fortress Command Line Interpreter (CLI) utility (optional)</h3>
@@ -198,7 +235,7 @@ manual in the javadoc located here:
 <br><br>
 <a href="./dist/docs/api/us/jts/fortress/cli/package-summary.html">Command Line Interpreter</a>
 <br><br>
-Note: if javadocs are not found, go to Section VII
+Note: if javadocs are not found, go to Section X
 	   </li>	   
         </ol>
    </li>
@@ -281,8 +318,73 @@ Good places to start learning about Fortress:
     <li><a href="./dist/docs/api/us/jts/fortress/cli/package-summary.html">Command Line Interpreter</a></li>
     <li><a href="./dist/docs/api/us/jts/fortress/ant/FortressAntTask.html">FortressAntTask</a></li>
     </ul>
-	   </li>
+	   </li>	   	   	   	   
         </ol>
+
+    <hr>
+    <li>
+       <h3>Instructions to install EnMasse Policy Server Demo (optional)</h3>
+        <ol type="A">	  
+           <li>
+Run the install-enmasse-demo target:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">b install-enmasse-demo
+</p></pre>
+
+   </li>
+           <li>
+Verify it ran correctly according to Ant.
+           <li>
+After above step completes, Fortress EnMasse will be installed
+<br><br>	   
+	   </li>
+	</ol>
+    <hr>
+    <li>
+       <h3>Instructions to regression test EnMasse Policy server on target machine (optional)</h3>
+        <ol type="A">
+	  
+		  <li>Edit file named 'build.properties' and enable REST protocol here:
+       <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">enable.mgr.impl.rest=true
+       </p></pre>
+       Accept the defaults for other HTTP parameters in build.properties:
+       <pre><p style="font-family:monospace;color:blue;font-size:14px;">http.user=demouser4
+http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
+http.host=localhost
+http.port=8080
+       </p></pre>
+		  </li>
+	  Should look like the following:	  
+		  <br><br><img src="./images/Screenshot41-enmasse-http-settings.png" /><br><br>
+		   
+		  <li>Save and exit the text file editor		  
+		  </li><br>
+		  
+           <li>From FORTRESS_HOME root folder, enter the following command from a system prompt:
+<br><pre><p style="font-family:monospace;color:blue;font-size:14px;">b test-full	    
+</p></pre>
+	   </li>
+	   <img src="./images/Screenshot10-ant-test-init.png" /><br><br>
+Note: The EnMasse regression tests will run for around 20 minutes.<br><br>
+           <li>Verify these tests ran with no ERRORS.
+<br><pre><p style="font-family:monospace;color:blue;font-size:14px;">BUILD SUCCESSFUL	    
+</p></pre>  
+	   </li>
+	   <img src="./images/Screenshot43-ant-enmasse-test-success.png" /><br><br>
+           <li>
+This regression test may be rerun as often as necessary:
+<br><pre><p style="font-family:monospace;color:blue;font-size:14px;">b test-full
+</p></pre>  
+   	   </li>	   	   	   
+Note 1: WARNING messages in test output are good as these are negative tests in action:
+	   <br><img src="./images/Screenshot12-junit-warn.png" />	   	   
+<br><br>Note 2: If you made it this far without junit or ant ERRORS, EnMasse is installed and certified to run on your machine.
+<br><br>Note 3: These tests load tens of thousands of records into your directory.
+The 'test-full' target may be re-run as often as necessary.  After regressions testing have completed, you may run the 'init-slapd' target to remove all test data from the directory.
+    </li>
+    </li>		  
+	</ol>
+  <hr>
+		
         <hr>
     <li>
        <h3>More Utilities</h3>

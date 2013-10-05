@@ -20,7 +20,7 @@
   <artifactId>fortress</artifactId>
   <packaging>jar</packaging>
   <name>Fortress Core</name>
-  <version>1.0-RC30</version>
+  <version>1.0-RC31</version>
   <description>Fortress is a standards-based Identity and Access Management SDK.</description>
   <url>http://jts.us</url>
 

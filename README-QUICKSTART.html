@@ -9,8 +9,8 @@ These instructions are intended for new users who want to quickly learn how to i
 <br><br>Follow the steps and
     <ul>
     <li>OpenLDAP will be installed, configured, loaded, and ready to use by <em>Section IV</em>.</li>
-    <li>EnMasse Policy Server demo starts in <em>Section IX</em></li>
-    <li>Commander Web Admin demo starts in <em>Section X</em></li>
+    <li>Commander Web Admin demo starts in <em>Section V</em></li>    
+    <li>EnMasse Policy Server demo starts in <em>Section XI</em></li>
     </ul>
 </p>
 <hr>
@@ -187,6 +187,36 @@ Note 1: WARNING messages in test output are good as these are negative tests in 
 <br><br>Note 3: These tests load tens of thousands of records into your newly installed directory.
 The 'init-slapd' and 'test-full' targets may be re-run as often as necessary.  After regressions testing has completed, you may run the 'init-slapd' target to remove all test data from the directory.
     </li>
+    
+    <li>
+       <h3>Instructions to install Commander Web UI Demo (optional)</h3>
+Run the install-commander-demo target:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">/b.sh install-commander-demo
+</p></pre>
+
+   </li>
+    
+    <li>
+       <h3>Instructions to automatically test Commander Web UI Demo (optional)</h3>
+Run the commander-maven-test target to perform headless test of Commander Web:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">/b.sh commander-maven-test
+</p></pre>
+
+note: Firefox must be preinstalled to target system.
+   </li>
+        
+    <li>
+       <h3>Instructions to connect to Commander Web Admin</h3>
+Open up browser and enter the following URL:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">http://localhost:8080/commander
+</p></pre>
+
+userId: test
+password: test
+<br><br>
+Click on links on top or bottons on side of page to navigate between pages
+   </li>
+    
     <hr>
     <li>
        <h3>Instructions to run the Fortress Command Line Interpreter (CLI) utility (optional)</h3>
@@ -214,7 +244,7 @@ manual in the javadoc located here:
 <br><br>
 <a href="./dist/docs/api/us/jts/fortress/cli/package-summary.html">Command Line Interpreter</a>
 <br><br>
-Note: if javadocs are not found, go to Section VII
+Note: if javadocs are not found, go to Section X
 	   </li>	   
         </ol>
    </li>
@@ -299,6 +329,9 @@ Good places to start learning about Fortress:
     </ul>
 	   </li>
         </ol>
+    <hr>	
+	
+	
     <hr>
     <li>
        <h3>Instructions to install EnMasse Policy Server Demo (optional)</h3>
@@ -365,15 +398,7 @@ The 'test-full' target may be re-run as often as necessary.  After regressions t
     </li>		  
 	</ol>
   <hr>
-        
-    <li>
-       <h3>Instructions to install Commander Web UI Demo (optional)</h3>
-Run the install-commander-demo target:
-<pre><p style="font-family:monospace;color:blue;font-size:14px;">/b.sh install-commander-demo
-</p></pre>
-
-   </li>
- 
+         
     <li>
        <h3>More Utilities</h3>
 Other execution targets you may find useful:       
