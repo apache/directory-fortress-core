@@ -1263,6 +1263,7 @@
     <target name="enmasse-maven-deploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="tomcat:deploy"/>
+            <arg value="-DfailIfNoTests=false" />
         </artifact:mvn>
     </target>
 
@@ -1272,6 +1273,7 @@
     <target name="enmasse-maven-redeploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="tomcat:redeploy"/>
+            <arg value="-DfailIfNoTests=false" />
         </artifact:mvn>
     </target>
 
