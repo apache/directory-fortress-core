@@ -1348,6 +1348,7 @@
           Call the Commander Maven to integration test Web app with Selenium Web Driver
          ================================= -->
     <target name="commander-maven-test" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
+        <replace file="${commander.dir}/src/test/java/us/jts/commander/integration/CommanderSeleniumITCase.java" token="http://192.168.1.101:8080" value="http://${http.host}:${http.port}"/>
         <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="verify"/>
     		<arg value="-DskipTests=false"/>
