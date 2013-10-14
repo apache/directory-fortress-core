@@ -308,9 +308,14 @@
              <attribute name="Built-By" value="${user.name}"/>
              <attribute name="Compile-JDK" value="${java.runtime.version}"/>
              <attribute name="Test-VM" value="${java.vm.version}"/>
+             <attribute name="Built-Date" value="${TODAY}"/>
           </manifest>
        </jar>
     </target>
+
+    <tstamp>
+        <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+    </tstamp>
 
      <!-- =================================
            target: build-jar-test - create jar containing compiled test classes
@@ -549,6 +554,33 @@
              <arg value="-buildfile"/>
              <arg file="${param1}"/>
              <arg value="-Dbasedir=${ldap.setup.dir}"/>
+         </java>
+     </target>
+
+    <!-- =================================
+          target: admin-debug - runs the Ant demo load scripts in debug mode
+         ================================= -->
+     <target name="admin-debug" depends="init-fortress-config" description="--> admin -Dparam1=path/to/FileName.xml : to run fortress admin scripts at specified location">
+         <echo message="###############  Run Fortress Ant script ${param1}  ###############"/>
+         <java
+                 classname="org.apache.tools.ant.launch.Launcher"
+                 fork="true"
+                 failonerror="true"
+                 dir="${ldap.setup.dir}"
+                 timeout="4000000"
+                 taskname="startAnt">
+             <classpath>
+                 <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
+                 <path refid="bootstrap.class.path"/>
+                 <path refid="test.class.path"/>
+             </classpath>
+             <sysproperty key="version" value="${version}"/>
+             <sysproperty key="tenant" value="${tenant}"/>
+             <arg value="-buildfile"/>
+             <arg file="${param1}"/>
+             <arg value="-Dbasedir=${ldap.setup.dir}"/>
+             <jvmarg  value="-Xdebug" />
+             <jvmarg  value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" />
          </java>
      </target>
 
