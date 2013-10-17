@@ -574,6 +574,7 @@
                  <path refid="bootstrap.class.path"/>
                  <path refid="test.class.path"/>
              </classpath>
+             <sysproperty key="debug.admin" value="true"/>
              <sysproperty key="version" value="${version}"/>
              <sysproperty key="tenant" value="${tenant}"/>
              <arg value="-buildfile"/>

@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.AdminMgr;
 import us.jts.fortress.AdminMgrFactory;
+import us.jts.fortress.CfgException;
 import us.jts.fortress.DelAdminMgr;
 import us.jts.fortress.DelAdminMgrFactory;
 import us.jts.fortress.GlobalErrIds;
@@ -32,7 +33,9 @@ import us.jts.fortress.ldap.container.OrganizationalUnit;
 import us.jts.fortress.ldap.container.OrganizationalUnitP;
 import us.jts.fortress.ldap.suffix.Suffix;
 import us.jts.fortress.ldap.suffix.SuffixP;
+
 import us.jts.fortress.rbac.AdminRole;
+import us.jts.fortress.rbac.ClassUtil;
 import us.jts.fortress.rbac.Context;
 import us.jts.fortress.rbac.OrgUnit;
 import us.jts.fortress.rbac.OrgUnitAnt;
@@ -46,11 +49,13 @@ import us.jts.fortress.rbac.SDSet;
 import us.jts.fortress.rbac.User;
 import us.jts.fortress.rbac.UserAdminRole;
 import us.jts.fortress.rbac.UserRole;
+import us.jts.fortress.util.Testable;
 import us.jts.fortress.util.attr.VUtil;
 
 
 /**
- * This class implements Apache Ant custom task and is used to drive the Fortress Administrative APIs using XML files.  The
+ * This class implements Apache Ant custom task and is used to drive the Fortress Administrative APIs using XML files
+ * .  The
  * methods in this class are not intended to be callable by outside programs.  The following APIs are supported:
  * <p/>
  * <ol>
@@ -60,7 +65,8 @@ import us.jts.fortress.util.attr.VUtil;
  * <li>{@link ConfigMgr}</li>
  * </ol>
  * <p/>
- * using the custom Ant task that is implemented in this class.  The format of the XML is flat and consists of entity names
+ * using the custom Ant task that is implemented in this class.  The format of the XML is flat and consists of entity
+ * names
  * along with their attributes.
  * <h3>
  * This class will process xml formatted requests with the following tags:
@@ -110,37 +116,49 @@ import us.jts.fortress.util.attr.VUtil;
  * processing order within this class.
  * <ol>
  * <li>Delete User Role Assignments {@link us.jts.fortress.AdminMgr#deassignUser(us.jts.fortress.rbac.UserRole)}</li>
- * <li>Delete User AdminRole Assignments {@link us.jts.fortress.DelAdminMgr#deassignUser(us.jts.fortress.rbac.UserAdminRole)}</li>
- * <li>Revoke Permission Assignments Delete{@link us.jts.fortress.AdminMgr#revokePermission(us.jts.fortress.rbac.Permission, us.jts.fortress.rbac.Role)}</li>
+ * <li>Delete User AdminRole Assignments {@link DelAdminMgr#deassignUser(UserAdminRole)}</li>
+ * <li>Revoke Permission Assignments Delete{@link AdminMgr#revokePermission(us.jts.fortress.rbac.Permission,
+ * us.jts.fortress.rbac.Role)}</li>
  * <li>Delete Users {@link us.jts.fortress.AdminMgr#disableUser(us.jts.fortress.rbac.User)}</li>
  * <li>Delete Password Policies {@link us.jts.fortress.PwPolicyMgr#delete(us.jts.fortress.rbac.PwPolicy)}</li>
- * <li>Delete Permission Operations {@link us.jts.fortress.AdminMgr#deletePermission(us.jts.fortress.rbac.Permission)}</li>
+ * <li>Delete Permission Operations {@link us.jts.fortress.AdminMgr#deletePermission(us.jts.fortress.rbac.Permission)
+ * }</li>
  * <li>Delete Permission Objects {@link us.jts.fortress.AdminMgr#deletePermObj(us.jts.fortress.rbac.PermObj)}</li>
- * <li>Delete SSD and DSD Sets {@link us.jts.fortress.AdminMgr#deleteDsdSet(us.jts.fortress.rbac.SDSet)} and {@link us.jts.fortress.AdminMgr#deleteSsdSet(us.jts.fortress.rbac.SDSet)}</li>
- * <li>Delete RBAC Roles Inheritances {@link us.jts.fortress.AdminMgr#deleteInheritance(us.jts.fortress.rbac.Role, us.jts.fortress.rbac.Role)}</li>
+ * <li>Delete SSD and DSD Sets {@link us.jts.fortress.AdminMgr#deleteDsdSet(us.jts.fortress.rbac.SDSet)} and {@link
+ * us.jts.fortress.AdminMgr#deleteSsdSet(us.jts.fortress.rbac.SDSet)}</li>
+ * <li>Delete RBAC Roles Inheritances {@link us.jts.fortress.AdminMgr#deleteInheritance(us.jts.fortress.rbac.Role,
+ * us.jts.fortress.rbac.Role)}</li>
  * <li>Delete RBAC Roles {@link us.jts.fortress.AdminMgr#deleteRole(us.jts.fortress.rbac.Role)}</li>
- * <li>Delete ARBAC Role Inheritances {@link us.jts.fortress.DelAdminMgr#deleteInheritance(us.jts.fortress.rbac.AdminRole, us.jts.fortress.rbac.AdminRole)}</li>
+ * <li>Delete ARBAC Role Inheritances {@link DelAdminMgr#deleteInheritance(us.jts.fortress.rbac.AdminRole,
+ * us.jts.fortress.rbac.AdminRole)}</li>
  * <li>Delete ARBAC Roles {@link us.jts.fortress.DelAdminMgr#deleteRole(us.jts.fortress.rbac.AdminRole)}</li>
- * <li>Delete User and Perm OU Inheritances {@link us.jts.fortress.DelAdminMgr#deleteInheritance(us.jts.fortress.rbac.OrgUnit, us.jts.fortress.rbac.OrgUnit)} USER and PERM</li>
- * <li>Delete User and Perm OUs {@link us.jts.fortress.DelAdminMgr#delete(us.jts.fortress.rbac.OrgUnit)} USER and PERM</li>
+ * <li>Delete User and Perm OU Inheritances {@link DelAdminMgr#deleteInheritance(us.jts.fortress.rbac.OrgUnit,
+ * us.jts.fortress.rbac.OrgUnit)} USER and PERM</li>
+ * <li>Delete User and Perm OUs {@link us.jts.fortress.DelAdminMgr#delete(us.jts.fortress.rbac.OrgUnit)} USER and
+ * PERM</li>
  * <li>Delete Configuration Entries {@link us.jts.fortress.cfg.ConfigMgr#delete(String, java.util.Properties)}</li>
- * <li>Delete Containers {@link us.jts.fortress.ldap.container.OrganizationalUnitP#delete(us.jts.fortress.ldap.container.OrganizationalUnit)}</li>
+ * <li>Delete Containers {@link OrganizationalUnitP#delete(OrganizationalUnit)}</li>
  * <li>Delete Suffix {@link us.jts.fortress.ldap.suffix.SuffixP#delete(us.jts.fortress.ldap.suffix.Suffix)}}</li>
- * <li>Add Suffix {@link us.jts.fortress.ldap.suffix.SuffixP#add(us.jts.fortress.ldap.suffix.Suffix)}}</li>
- * <li>Add Containers {@link us.jts.fortress.ldap.container.OrganizationalUnitP#add(us.jts.fortress.ldap.container.OrganizationalUnit)}</li>
+ * <li>Add Suffix {@link SuffixP#add(Suffix)}}</li>
+ * <li>Add Containers {@link OrganizationalUnitP#add(OrganizationalUnit)}</li>
  * <li>Add Configuration Parameters {@link ConfigMgr#add(String, java.util.Properties)}</li>
  * <li>Add User and Perm OUs {@link us.jts.fortress.DelAdminMgr#add(us.jts.fortress.rbac.OrgUnit)} USER and PERM</li>
- * <li>Add User and Perm OU Inheritances {@link us.jts.fortress.DelAdminMgr#addInheritance(us.jts.fortress.rbac.OrgUnit, us.jts.fortress.rbac.OrgUnit)} USER and PERM</li>
+ * <li>Add User and Perm OU Inheritances {@link DelAdminMgr#addInheritance(us.jts.fortress.rbac.OrgUnit,
+ * us.jts.fortress.rbac.OrgUnit)} USER and PERM</li>
  * <li>Add ARBAC Roles {@link us.jts.fortress.DelAdminMgr#addRole(us.jts.fortress.rbac.AdminRole)}</li>
- * <li>Add ARBAC Role Inheritances {@link us.jts.fortress.DelAdminMgr#addInheritance(us.jts.fortress.rbac.AdminRole, us.jts.fortress.rbac.AdminRole)}</li>
+ * <li>Add ARBAC Role Inheritances {@link us.jts.fortress.DelAdminMgr#addInheritance(us.jts.fortress.rbac.AdminRole,
+ * us.jts.fortress.rbac.AdminRole)}</li>
  * <li>Add RBAC Roles {@link us.jts.fortress.AdminMgr#addRole(us.jts.fortress.rbac.Role)}</li>
- * <li>Add RBAC Role Inheritances {@link us.jts.fortress.AdminMgr#addInheritance(us.jts.fortress.rbac.Role, us.jts.fortress.rbac.Role)}</li>
- * <li>Add DSD and SSD Sets {@link us.jts.fortress.AdminMgr#createDsdSet(us.jts.fortress.rbac.SDSet)} and {@link us.jts.fortress.AdminMgr#createSsdSet(us.jts.fortress.rbac.SDSet)}</li>
+ * <li>Add RBAC Role Inheritances {@link us.jts.fortress.AdminMgr#addInheritance(us.jts.fortress.rbac.Role,
+ * us.jts.fortress.rbac.Role)}</li>
+ * <li>Add DSD and SSD Sets {@link us.jts.fortress.AdminMgr#createDsdSet(us.jts.fortress.rbac.SDSet)} and {@link us
+ * .jts.fortress.AdminMgr#createSsdSet(us.jts.fortress.rbac.SDSet)}</li>
  * <li>Add Permission Objects {@link us.jts.fortress.AdminMgr#addPermObj(us.jts.fortress.rbac.PermObj)}</li>
  * <li>Add Permission Operations {@link us.jts.fortress.AdminMgr#addPermission(us.jts.fortress.rbac.Permission)}</li>
  * <li>Add Password Policies {@link us.jts.fortress.PwPolicyMgr#add(us.jts.fortress.rbac.PwPolicy)}</li>
  * <li>Add Users {@link us.jts.fortress.AdminMgr#addUser(us.jts.fortress.rbac.User)}</li>
- * <li>Grant RBAC Permissions {@link us.jts.fortress.AdminMgr#grantPermission(us.jts.fortress.rbac.Permission, us.jts.fortress.rbac.Role)}</li>
+ * <li>Grant RBAC Permissions {@link us.jts.fortress.AdminMgr#grantPermission(us.jts.fortress.rbac.Permission,
+ * us.jts.fortress.rbac.Role)}</li>
  * <li>Assign ARBAC Roles {@link us.jts.fortress.DelAdminMgr#assignUser(us.jts.fortress.rbac.UserAdminRole)}</li>
  * <li>Assign RBAC Roles {@link us.jts.fortress.AdminMgr#assignUser(us.jts.fortress.rbac.UserRole)}</li>
  * </li>
@@ -151,6 +169,8 @@ import us.jts.fortress.util.attr.VUtil;
  */
 public class FortressAntTask extends Task implements InputHandler
 {
+    public static final boolean DEBUG = ( ( System.getProperty( "debug.admin" ) != null ) && ( System.getProperty(
+        "debug.admin" ).equalsIgnoreCase( "true" ) ) );
     private static final String SEMICOLON = ";";
     final private List<us.jts.fortress.ant.Addconfig> addconfig = new ArrayList<>();
     final private List<us.jts.fortress.ant.Delconfig> delconfig = new ArrayList<>();
@@ -250,7 +270,6 @@ public class FortressAntTask extends Task implements InputHandler
      * Used by Apache Ant to load data from xml into entities.
      *
      * @param request
-     *
      */
     public void handleInput( InputRequest request )
     {
@@ -613,7 +632,8 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * Load the entity with data.
      *
-     * @param addadminroleinheritance contains the ant initialized data entities to be handed off for further processing.
+     * @param addadminroleinheritance contains the ant initialized data entities to be handed off for further
+     *                                processing.
      */
     public void addAddadminroleinheritance( Addadminroleinheritance addadminroleinheritance )
     {
@@ -624,7 +644,8 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * Load the entity with data.
      *
-     * @param deladminroleinheritance contains the ant initialized data entities to be handed off for further processing.
+     * @param deladminroleinheritance contains the ant initialized data entities to be handed off for further
+     *                                processing.
      */
     public void addDeladminroleinheritance( Deladminroleinheritance deladminroleinheritance )
     {
@@ -667,9 +688,9 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    public void execute()
-        throws BuildException
+    public void execute() throws BuildException
     {
+        LOG.info( "DEBUG MODE 1" );
         if ( isListNotNull( addcontexts ) )
         {
             setContext( addcontexts.get( 0 ).getContexts().get( 0 ) );
@@ -854,14 +875,41 @@ public class FortressAntTask extends Task implements InputHandler
         {
             addUserRoles();
         }
+
+        if ( DEBUG )
+        {
+            LOG.info( "DEBUG MODE" );
+            try
+            {
+                Testable tester = ( Testable ) ClassUtil.createInstance( "us.jts.fortress.rbac.ReviewMgrAntTest" );
+                tester.execute( this );
+            }
+            catch ( CfgException ce )
+            {
+                String error = "Error executing tests, errCode=" + ce.getErrorId() + " msg=" + ce;
+                LOG.warn( error );
+            }
+            // 1. Gather the test data
+            // 2. run the junit verify positive tests
+            //   a. permissions created
+            //   b. roles created
+            //   c. role to permissions are created
+            //   d. users are created
+            //   e. user-roles are created
+            //   f. user-permissions are succeed tests
+            //   g.
+            // 3. run the junit verify negative tests
+            //   a. user-permissions failure test
+            // 4. verify the junit test results
+            // 5. publish test results
+        }
     }
 
 
     /**
      * @throws BuildException
      */
-    private void addUsers()
-        throws BuildException
+    private void addUsers() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Adduser adduser : addusers )
@@ -870,9 +918,8 @@ public class FortressAntTask extends Task implements InputHandler
 
             for ( UserAnt user : users )
             {
-                LOG.info( "addUsers userid=" + user.getUserId()
-                    + " description=" + user.getDescription()
-                    + " orgUnit=" + user.getOu() );
+                LOG.info( "addUsers userid=" + user.getUserId() + " description=" + user.getDescription() + " " +
+                    "orgUnit=" + user.getOu() );
                 try
                 {
                     try
@@ -933,8 +980,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteUsers()
-        throws BuildException
+    private void deleteUsers() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Deluser deluser : delusers )
@@ -959,8 +1005,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addUserRoles()
-        throws BuildException
+    private void addUserRoles() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Adduserrole adduserrole : adduserroles )
@@ -968,8 +1013,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<UserRole> userroles = adduserrole.getUserRoles();
             for ( UserRole userRole : userroles )
             {
-                LOG.info( "addUserRoles userid=" + userRole.getUserId()
-                    + " role name=" + userRole.getName() );
+                LOG.info( "addUserRoles userid=" + userRole.getUserId() + " role name=" + userRole.getName() );
 
                 /*
                 System.out.println("userrole data:");
@@ -993,8 +1037,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    String warning = "addUserRoles userId [" + userRole.getUserId() + "] role name ["
-                        + userRole.getName() + "] caught SecurityException=" + se;
+                    String warning = "addUserRoles userId [" + userRole.getUserId() + "] role name [" + userRole
+                        .getName() + "] caught SecurityException=" + se;
                     LOG.warn( warning );
                 }
             }
@@ -1005,8 +1049,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void delUserRoles()
-        throws BuildException
+    private void delUserRoles() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Deluserrole deluserrole : deluserroles )
@@ -1014,16 +1057,15 @@ public class FortressAntTask extends Task implements InputHandler
             List<UserRole> userroles = deluserrole.getUserRoles();
             for ( UserRole userRole : userroles )
             {
-                LOG.info( "delUserRoles userid=" + userRole.getUserId()
-                    + " role name=" + userRole.getName() );
+                LOG.info( "delUserRoles userid=" + userRole.getUserId() + " role name=" + userRole.getName() );
                 try
                 {
                     adminMgr.deassignUser( userRole );
                 }
                 catch ( us.jts.fortress.SecurityException se )
                 {
-                    String warning = "delUserRoles userId [" + userRole.getUserId() + "] role name ["
-                        + userRole.getName() + "] caught SecurityException=" + se;
+                    String warning = "delUserRoles userId [" + userRole.getUserId() + "] role name [" + userRole
+                        .getName() + "] caught SecurityException=" + se;
                     LOG.warn( warning );
                 }
             }
@@ -1034,8 +1076,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addRoles()
-        throws BuildException
+    private void addRoles() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addrole addrole : addroles )
@@ -1043,8 +1084,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Role> roles = addrole.getRoles();
             for ( Role role : roles )
             {
-                LOG.info( "addRoles name=" + role.getName()
-                    + " description=" + role.getDescription() );
+                LOG.info( "addRoles name=" + role.getName() + " description=" + role.getDescription() );
                 try
                 {
                     adminMgr.addRole( role );
@@ -1061,8 +1101,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteRoles()
-        throws BuildException
+    private void deleteRoles() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Delrole delrole : delroles )
@@ -1087,8 +1126,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addRoleInheritances()
-        throws BuildException
+    private void addRoleInheritances() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addroleinheritance addroleinheritance : addroleinheritances )
@@ -1096,16 +1134,17 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> roles = addroleinheritance.getRelationships();
             for ( Relationship relationship : roles )
             {
-                LOG.info( "addRoleInheritances parent=" + relationship.getParent()
-                    + " child=" + relationship.getChild() );
+                LOG.info( "addRoleInheritances parent=" + relationship.getParent() + " child=" + relationship
+                    .getChild() );
                 try
                 {
-                    adminMgr.addInheritance( new Role( relationship.getParent() ), new Role( relationship.getChild() ) );
+                    adminMgr.addInheritance( new Role( relationship.getParent() ), new Role( relationship.getChild()
+                    ) );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addRoleInheritances parent [" + relationship.getParent() + "] child ["
-                        + relationship.getChild() + "] caught SecurityException=" + se );
+                    LOG.warn( "addRoleInheritances parent [" + relationship.getParent() + "] child [" + relationship
+                        .getChild() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1115,8 +1154,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteRoleInheritances()
-        throws BuildException
+    private void deleteRoleInheritances() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Delroleinheritance delroleinheritance : delroleinheritances )
@@ -1124,8 +1162,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> roles = delroleinheritance.getRelationships();
             for ( Relationship relationship : roles )
             {
-                LOG.info( "deleteRoleInheritances parent=" + relationship.getParent()
-                    + " child=" + relationship.getChild() );
+                LOG.info( "deleteRoleInheritances parent=" + relationship.getParent() + " child=" + relationship
+                    .getChild() );
                 try
                 {
                     adminMgr.deleteInheritance( new Role( relationship.getParent() ),
@@ -1133,8 +1171,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteRoleInheritances parent [" + relationship.getParent() + "] child ["
-                        + relationship.getChild() + "] caught SecurityException=" + se );
+                    LOG.warn( "deleteRoleInheritances parent [" + relationship.getParent() + "] child [" +
+                        relationship.getChild() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1144,8 +1182,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addSdsets()
-        throws BuildException
+    private void addSdsets() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addsdset addsdset : addsdsets )
@@ -1153,14 +1190,17 @@ public class FortressAntTask extends Task implements InputHandler
             List<SDSetAnt> sds = addsdset.getSdset();
             for ( SDSetAnt sd : sds )
             {
-                LOG.info( "addSdsets name=" + sd.getName()
-                    + " description=" + sd.getDescription() );
+                LOG.info( "addSdsets name=" + sd.getName() + " description=" + sd.getDescription() );
                 try
                 {
-                    if(sd.getType() == SDSet.SDType.STATIC)
+                    if ( sd.getType() == SDSet.SDType.STATIC )
+                    {
                         adminMgr.createSsdSet( sd );
+                    }
                     else
+                    {
                         adminMgr.createDsdSet( sd );
+                    }
                 }
                 catch ( SecurityException se )
                 {
@@ -1174,8 +1214,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteSdsets()
-        throws BuildException
+    private void deleteSdsets() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Delsdset delsdset : delsdsets )
@@ -1208,8 +1247,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addPermObjs()
-        throws BuildException
+    private void addPermObjs() throws BuildException
     {
         // Loop through the entityclass elements
         for ( AddpermObj addpermObj : addpermObjs )
@@ -1217,10 +1255,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermObj> permObjs = addpermObj.getPermObjs();
             for ( PermObj permObj : permObjs )
             {
-                LOG.info( "addPermObjs objectName=" + permObj.getObjectName()
-                    + " description=" + permObj.getDescription()
-                    + " orgUnit=" + permObj.getOu()
-                    + " type=" + permObj.getType() );
+                LOG.info( "addPermObjs objectName=" + permObj.getObjectName() + " description=" + permObj
+                    .getDescription() + " orgUnit=" + permObj.getOu() + " type=" + permObj.getType() );
                 try
                 {
                     try
@@ -1233,8 +1269,8 @@ public class FortressAntTask extends Task implements InputHandler
                         if ( se.getErrorId() == GlobalErrIds.PERM_DUPLICATE )
                         {
                             adminMgr.updatePermObj( permObj );
-                            System.out.println( CLS_NM + ".addPermObjs - update entity objectName="
-                                + permObj.getObjectName() );
+                            System.out.println( CLS_NM + ".addPermObjs - update entity objectName=" + permObj
+                                .getObjectName() );
                         }
                         else
                         {
@@ -1244,8 +1280,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( us.jts.fortress.SecurityException se )
                 {
-                    LOG.warn( "addPermObjs objectName [" + permObj.getObjectName()
-                        + "] caught SecurityException=" + se );
+                    LOG.warn( "addPermObjs objectName [" + permObj.getObjectName() + "] caught SecurityException=" +
+                        se );
                 }
             }
         }
@@ -1255,8 +1291,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deletePermObjs()
-        throws BuildException
+    private void deletePermObjs() throws BuildException
     {
         // Loop through the entityclass elements
         for ( DelpermObj delpermObj : delpermObjs )
@@ -1264,16 +1299,15 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermObj> permObjs = delpermObj.getObjs();
             for ( PermObj permObj : permObjs )
             {
-                LOG.info( "deletePermObjs objectName=" + permObj.getObjectName()
-                    + " description=" + permObj.getDescription() );
+                LOG.info( "deletePermObjs objectName=" + permObj.getObjectName() + " description=" + permObj
+                    .getDescription() );
                 try
                 {
                     adminMgr.deletePermObj( permObj );
                 }
                 catch ( us.jts.fortress.SecurityException se )
                 {
-                    LOG.warn( "deletePermObjs name [" + permObj.getObjectName()
-                        + "] caught SecurityException=" + se );
+                    LOG.warn( "deletePermObjs name [" + permObj.getObjectName() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1283,8 +1317,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addPermOps()
-        throws BuildException
+    private void addPermOps() throws BuildException
     {
         // Loop through the entityclass elements
         for ( AddpermOp addpermOp : addpermOps )
@@ -1292,8 +1325,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermAnt> permissions = addpermOp.getPermOps();
             for ( PermAnt permission : permissions )
             {
-                LOG.info( "addPermOps name=" + permission.getOpName()
-                    + " objectName=" + permission.getObjectName() );
+                LOG.info( "addPermOps name=" + permission.getOpName() + " objectName=" + permission.getObjectName() );
                 try
                 {
                     try
@@ -1306,8 +1338,8 @@ public class FortressAntTask extends Task implements InputHandler
                         if ( se.getErrorId() == GlobalErrIds.PERM_DUPLICATE )
                         {
                             adminMgr.updatePermission( permission );
-                            LOG.info( "addPermOps - update entity - name=" + permission.getOpName()
-                                + " objectName=" + permission.getObjectName() );
+                            LOG.info( "addPermOps - update entity - name=" + permission.getOpName() + " objectName="
+                                + permission.getObjectName() );
                         }
                         else
                         {
@@ -1317,8 +1349,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addPermOps name [" + permission.getOpName() + "] objectName ["
-                        + permission.getObjectName() + "] caught SecurityException=" + se );
+                    LOG.warn( "addPermOps name [" + permission.getOpName() + "] objectName [" + permission
+                        .getObjectName() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1328,8 +1360,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deletePermOps()
-        throws BuildException
+    private void deletePermOps() throws BuildException
     {
         // Loop through the entityclass elements
         for ( DelpermOp delpermOp : delpermOps )
@@ -1337,16 +1368,16 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermAnt> permissions = delpermOp.getPermOps();
             for ( Permission permission : permissions )
             {
-                LOG.info( "deletePermOps name=" + permission.getOpName() + " objectName="
-                    + permission.getObjectName() );
+                LOG.info( "deletePermOps name=" + permission.getOpName() + " objectName=" + permission.getObjectName
+                    () );
                 try
                 {
                     adminMgr.deletePermission( permission );
                 }
                 catch ( us.jts.fortress.SecurityException se )
                 {
-                    LOG.warn( "deletePermOps name [" + permission.getOpName() + "] objectName["
-                        + permission.getObjectName() + "] caught SecurityException=" + se );
+                    LOG.warn( "deletePermOps name [" + permission.getOpName() + "] objectName[" + permission
+                        .getObjectName() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1356,8 +1387,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addPermGrants()
-        throws BuildException
+    private void addPermGrants() throws BuildException
     {
         // Loop through the entityclass elements
         for ( AddpermGrant addpermGrant : addpermGrants )
@@ -1365,11 +1395,9 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermGrant> permGrants = addpermGrant.getPermGrants();
             for ( PermGrant permGrant : permGrants )
             {
-                String info = "addPermGrants: Add permission grant object name=" + permGrant.getObjName()
-                    + " operation name=" + permGrant.getOpName()
-                    + " object id=" + permGrant.getObjId()
-                    + " role name=" + permGrant.getRoleNm()
-                    + " userId=" + permGrant.getUserId();
+                String info = "addPermGrants: Add permission grant object name=" + permGrant.getObjName() + " " +
+                    "operation name=" + permGrant.getOpName() + " object id=" + permGrant.getObjId() + " role name="
+                    + permGrant.getRoleNm() + " userId=" + permGrant.getUserId();
                 LOG.info( info );
                 try
                 {
@@ -1404,8 +1432,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deletePermGrants()
-        throws BuildException
+    private void deletePermGrants() throws BuildException
     {
         // Loop through the entityclass elements
         for ( DelpermGrant delpermGrant : delpermGrants )
@@ -1413,11 +1440,9 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermGrant> permGrants = delpermGrant.getPermGrants();
             for ( PermGrant permGrant : permGrants )
             {
-                String info = "deletePermGrants: Delete permission grant object name="
-                    + permGrant.getObjName()
-                    + " operation name=" + permGrant.getOpName()
-                    + " role name=" + permGrant.getRoleNm()
-                    + " userId=" + permGrant.getUserId();
+                String info = "deletePermGrants: Delete permission grant object name=" + permGrant.getObjName() + " " +
+                    "operation name=" + permGrant.getOpName() + " role name=" + permGrant.getRoleNm() + " userId=" +
+                    permGrant.getUserId();
                 LOG.info( info );
                 try
                 {
@@ -1452,8 +1477,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addPolicies()
-        throws BuildException
+    private void addPolicies() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addpwpolicy addpwpolicy : addpolicies )
@@ -1478,8 +1502,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deletePolicies()
-        throws BuildException
+    private void deletePolicies() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Delpwpolicy delpwpolicy : delpolicies )
@@ -1504,8 +1527,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addContainers()
-        throws BuildException
+    private void addContainers() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addcontainer addcontainer : addcontainers )
@@ -1514,8 +1536,7 @@ public class FortressAntTask extends Task implements InputHandler
 
             for ( OrganizationalUnit ou : containers )
             {
-                LOG.info( "addContainers name=" + ou.getName()
-                    + " description=" + ou.getDescription() );
+                LOG.info( "addContainers name=" + ou.getName() + " description=" + ou.getDescription() );
                 try
                 {
                     OrganizationalUnitP op = new OrganizationalUnitP();
@@ -1539,8 +1560,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteContainers()
-        throws BuildException
+    private void deleteContainers() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Delcontainer delcontainer : delcontainers )
@@ -1566,8 +1586,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addSuffixes()
-        throws BuildException
+    private void addSuffixes() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addsuffix addsuffix : addsuffixes )
@@ -1576,8 +1595,7 @@ public class FortressAntTask extends Task implements InputHandler
 
             for ( Suffix suffix : suffixes )
             {
-                LOG.info( "addSuffixes name=" + suffix.getName()
-                    + " description=" + suffix.getDescription() );
+                LOG.info( "addSuffixes name=" + suffix.getName() + " description=" + suffix.getDescription() );
                 try
                 {
                     SuffixP sp = new SuffixP();
@@ -1595,8 +1613,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteSuffixes()
-        throws BuildException
+    private void deleteSuffixes() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Delsuffix delsuffix : delsuffixes )
@@ -1622,8 +1639,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addOrgunits()
-        throws BuildException
+    private void addOrgunits() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addorgunit addorgunit : addorgunits )
@@ -1631,9 +1647,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<OrgUnitAnt> ous = addorgunit.getOrgUnits();
             for ( OrgUnitAnt ou : ous )
             {
-                LOG.info( "addOrgunits name=" + ou.getName()
-                    + " typeName=" + ou.getTypeName()
-                    + " description=" + ou.getDescription() );
+                LOG.info( "addOrgunits name=" + ou.getName() + " typeName=" + ou.getTypeName() + " description=" + ou
+                    .getDescription() );
                 try
                 {
                     dAdminMgr.add( ou );
@@ -1650,8 +1665,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void delOrgunits()
-        throws BuildException
+    private void delOrgunits() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Delorgunit delorgunit : delorgunits )
@@ -1659,8 +1673,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<OrgUnitAnt> ous = delorgunit.getOrgUnits();
             for ( OrgUnitAnt ou : ous )
             {
-                LOG.info( "deleteOrgunits name=" + ou.getName()
-                    + " typeName=" + ou.getTypeName() );
+                LOG.info( "deleteOrgunits name=" + ou.getName() + " typeName=" + ou.getTypeName() );
                 try
                 {
                     dAdminMgr.delete( ou );
@@ -1677,8 +1690,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addUserOrgunitInheritances()
-        throws BuildException
+    private void addUserOrgunitInheritances() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Adduserorgunitinheritance adduserorgunitinheritance : adduserorgunitinheritances )
@@ -1686,17 +1698,17 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> orgs = adduserorgunitinheritance.getRelationships();
             for ( Relationship relationship : orgs )
             {
-                LOG.info( "addUserOrgunitInheritances parent=" + relationship.getParent()
-                    + " child=" + relationship.getChild() );
+                LOG.info( "addUserOrgunitInheritances parent=" + relationship.getParent() + " child=" + relationship
+                    .getChild() );
                 try
                 {
-                    dAdminMgr.addInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.USER ), new OrgUnit(
-                        relationship.getChild(), OrgUnit.Type.USER ) );
+                    dAdminMgr.addInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.USER ),
+                        new OrgUnit( relationship.getChild(), OrgUnit.Type.USER ) );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addUserOrgunitInheritances parent [" + relationship.getParent() + "] child ["
-                        + relationship.getChild() + "] caught SecurityException=" + se );
+                    LOG.warn( "addUserOrgunitInheritances parent [" + relationship.getParent() + "] child [" +
+                        relationship.getChild() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1706,8 +1718,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteUserOrgunitInheritances()
-        throws BuildException
+    private void deleteUserOrgunitInheritances() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Deluserorgunitinheritance deluserorgunitinheritance : deluserorgunitinheritances )
@@ -1715,8 +1726,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> orgs = deluserorgunitinheritance.getRelationships();
             for ( Relationship relationship : orgs )
             {
-                LOG.info( "deleteUserOrgunitInheritances parent=" + relationship.getParent()
-                    + " child=" + relationship.getChild() );
+                LOG.info( "deleteUserOrgunitInheritances parent=" + relationship.getParent() + " child=" +
+                    relationship.getChild() );
                 try
                 {
                     dAdminMgr.deleteInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.USER ),
@@ -1724,8 +1735,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteUserOrgunitInheritances parent [" + relationship.getParent()
-                        + "] child [" + relationship.getChild() + "] caught SecurityException=" + se );
+                    LOG.warn( "deleteUserOrgunitInheritances parent [" + relationship.getParent() + "] child [" +
+                        relationship.getChild() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1735,8 +1746,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addPermOrgunitInheritances()
-        throws BuildException
+    private void addPermOrgunitInheritances() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addpermorgunitinheritance addpermorgunitinheritance : addpermorgunitinheritances )
@@ -1744,17 +1754,17 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> orgs = addpermorgunitinheritance.getRelationships();
             for ( Relationship relationship : orgs )
             {
-                LOG.info( "addPermOrgunitInheritances parent=" + relationship.getParent()
-                    + " child=" + relationship.getChild() );
+                LOG.info( "addPermOrgunitInheritances parent=" + relationship.getParent() + " child=" + relationship
+                    .getChild() );
                 try
                 {
-                    dAdminMgr.addInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.PERM ), new OrgUnit(
-                        relationship.getChild(), OrgUnit.Type.PERM ) );
+                    dAdminMgr.addInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.PERM ),
+                        new OrgUnit( relationship.getChild(), OrgUnit.Type.PERM ) );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addPermOrgunitInheritances parent [" + relationship.getParent() + "] child ["
-                        + relationship.getChild() + "] caught SecurityException=" + se );
+                    LOG.warn( "addPermOrgunitInheritances parent [" + relationship.getParent() + "] child [" +
+                        relationship.getChild() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1764,8 +1774,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deletePermOrgunitInheritances()
-        throws BuildException
+    private void deletePermOrgunitInheritances() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Delpermorgunitinheritance delpermorgunitinheritance : delpermorgunitinheritances )
@@ -1773,8 +1782,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> orgs = delpermorgunitinheritance.getRelationships();
             for ( Relationship relationship : orgs )
             {
-                LOG.info( "deletePermOrgunitInheritances parent=" + relationship.getParent()
-                    + " child=" + relationship.getChild() );
+                LOG.info( "deletePermOrgunitInheritances parent=" + relationship.getParent() + " child=" +
+                    relationship.getChild() );
                 try
                 {
                     dAdminMgr.deleteInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.PERM ),
@@ -1782,8 +1791,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deletePermOrgunitInheritances parent [" + relationship.getParent()
-                        + "] child [" + relationship.getChild() + "] caught SecurityException=" + se );
+                    LOG.warn( "deletePermOrgunitInheritances parent [" + relationship.getParent() + "] child [" +
+                        relationship.getChild() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1793,8 +1802,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addAdminRoles()
-        throws BuildException
+    private void addAdminRoles() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addadminrole addrole : addadminroles )
@@ -1802,8 +1810,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<AdminRoleAnt> roles = addrole.getRoles();
             for ( AdminRoleAnt role : roles )
             {
-                LOG.info( "addAdminRoles name=" + role.getName()
-                    + " description=" + role.getDescription() );
+                LOG.info( "addAdminRoles name=" + role.getName() + " description=" + role.getDescription() );
                 try
                 {
                     dAdminMgr.addRole( role );
@@ -1820,8 +1827,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteAdminRoles()
-        throws BuildException
+    private void deleteAdminRoles() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Deladminrole delrole : deladminroles )
@@ -1846,8 +1852,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addAdminRoleInheritances()
-        throws BuildException
+    private void addAdminRoleInheritances() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addadminroleinheritance addadminroleinheritance : addadminroleinheritances )
@@ -1855,8 +1860,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> roles = addadminroleinheritance.getRelationships();
             for ( Relationship relationship : roles )
             {
-                LOG.info( "addAdminRoleInheritances parent=" + relationship.getParent()
-                    + " child=" + relationship.getChild() );
+                LOG.info( "addAdminRoleInheritances parent=" + relationship.getParent() + " child=" + relationship
+                    .getChild() );
                 try
                 {
                     dAdminMgr.addInheritance( new AdminRole( relationship.getParent() ),
@@ -1864,8 +1869,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addAdminRoleInheritances parent [" + relationship.getParent() + "] child ["
-                        + relationship.getChild() + "] caught SecurityException=" + se );
+                    LOG.warn( "addAdminRoleInheritances parent [" + relationship.getParent() + "] child [" +
+                        relationship.getChild() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1875,8 +1880,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteAdminRoleInheritances()
-        throws BuildException
+    private void deleteAdminRoleInheritances() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Deladminroleinheritance deladminroleinheritance : deladminroleinheritances )
@@ -1884,8 +1888,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> roles = deladminroleinheritance.getRelationships();
             for ( Relationship relationship : roles )
             {
-                LOG.info( "deleteAdminRoleInheritances parent=" + relationship.getParent()
-                    + " child=" + relationship.getChild() );
+                LOG.info( "deleteAdminRoleInheritances parent=" + relationship.getParent() + " child=" + relationship
+                    .getChild() );
                 try
                 {
                     dAdminMgr.deleteInheritance( new AdminRole( relationship.getParent() ),
@@ -1893,8 +1897,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteAdminRoleInheritances parent [" + relationship.getParent() + "] child ["
-                        + relationship.getChild() + "] caught SecurityException=" + se );
+                    LOG.warn( "deleteAdminRoleInheritances parent [" + relationship.getParent() + "] child [" +
+                        relationship.getChild() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1904,8 +1908,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addUserAdminRoles()
-        throws BuildException
+    private void addUserAdminRoles() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Adduseradminrole adduserrole : adduseradminroles )
@@ -1913,8 +1916,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<UserAdminRole> userroles = adduserrole.getUserRoles();
             for ( UserAdminRole userRole : userroles )
             {
-                LOG.info( "addUserAdminRoles userid=" + userRole.getUserId()
-                    + " role name=" + userRole.getName() );
+                LOG.info( "addUserAdminRoles userid=" + userRole.getUserId() + " role name=" + userRole.getName() );
                 try
                 {
                     //AdminRole role = new AdminRole(userRole);
@@ -1922,8 +1924,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    String warning = "addUserAdminRoles userId [" + userRole.getUserId() + "] role name ["
-                        + userRole.getName() + "] caught SecurityException=" + se;
+                    String warning = "addUserAdminRoles userId [" + userRole.getUserId() + "] role name [" + userRole
+                        .getName() + "] caught SecurityException=" + se;
                     LOG.warn( warning );
                 }
             }
@@ -1934,8 +1936,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void delUserAdminRoles()
-        throws BuildException
+    private void delUserAdminRoles() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Deluseradminrole deluserrole : deluseradminroles )
@@ -1943,16 +1944,15 @@ public class FortressAntTask extends Task implements InputHandler
             List<UserAdminRole> userroles = deluserrole.getUserRoles();
             for ( UserAdminRole userRole : userroles )
             {
-                LOG.info( "delUserAdminRoles userid=" + userRole.getUserId()
-                    + " role name=" + userRole.getName() );
+                LOG.info( "delUserAdminRoles userid=" + userRole.getUserId() + " role name=" + userRole.getName() );
                 try
                 {
                     dAdminMgr.deassignUser( userRole );
                 }
                 catch ( SecurityException se )
                 {
-                    String warning = "delUserAdminRoles userId [" + userRole.getUserId() + "] role name ["
-                        + userRole.getName() + "] caught SecurityException=" + se;
+                    String warning = "delUserAdminRoles userId [" + userRole.getUserId() + "] role name [" + userRole
+                        .getName() + "] caught SecurityException=" + se;
                     LOG.warn( warning );
                 }
             }
@@ -1963,8 +1963,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addConfig()
-        throws BuildException
+    private void addConfig() throws BuildException
     {
         Properties props = new Properties();
         String configNodeName = "";
@@ -2021,8 +2020,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteConfig()
-        throws BuildException
+    private void deleteConfig() throws BuildException
     {
         Properties props = new Properties();
         String configNodeName = "";
@@ -2081,4 +2079,43 @@ public class FortressAntTask extends Task implements InputHandler
         return props;
     }
 
+    public List<AddpermOp> getAddpermOps()
+    {
+        return addpermOps;
+    }
+
+    public List<AddpermObj> getAddpermObjs()
+    {
+        return addpermObjs;
+    }
+
+    public List<Adduser> getAddusers()
+    {
+        return addusers;
+    }
+
+    public List<Adduserrole> getAdduserroles()
+    {
+        return adduserroles;
+    }
+
+    public List<Addrole> getAddroles()
+    {
+        return addroles;
+    }
+
+    public List<Addsdset> getAddsdsets()
+    {
+        return addsdsets;
+    }
+
+    public List<Addroleinheritance> getAddroleinheritances()
+    {
+        return addroleinheritances;
+    }
+
+    public List<AddpermGrant> getAddpermGrants()
+    {
+        return addpermGrants;
+    }
 }
