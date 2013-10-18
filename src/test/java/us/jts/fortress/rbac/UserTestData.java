@@ -6310,6 +6310,35 @@ public class UserTestData extends TestCase
     }
 
 
+    public static void assertEquals( User user, User user2 )
+    {
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user userId", user2.getUserId()
+            .toUpperCase(), user.getUserId().toUpperCase() );
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user desc", user2.getDescription( ),
+            user.getDescription() );
+        assertEquals(UserTestData.class.getName() + ".assertEquals failed compare user pw policy", user2.getPwPolicy( ), user.getPwPolicy());
+
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user name",
+            user2.getName( ), user.getName() );
+
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user cn",
+            user2.getCn( ), user.getCn() );
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user sn", user2.getSn( ),
+            user.getSn() );
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user ou", user2.getOu( ), user.getOu() );
+        //assertTrue( UserTestData.class.getName() + ".assertEquals failed compare user address", user2.getAddress( )
+        //    .equals( user.getAddress() ) );
+        //assertAddress(usr, user.getAddress());
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user phones", user2.getPhones( ),
+            user.getPhones() );
+        assertEquals( UserTestData.class.getName() + ".assertEquals failed compare user mobiles", user2.getMobiles( ),
+            user.getMobiles() );
+        //assertProps( user2.getProperties(), user.getProperties() );
+        //assertEmail( usr, user.getEmails() );
+        TestUtils.assertTemporal( UserTestData.class.getName() + ".assertEquals", user2, user );
+    }
+
+
     /**
      * Determine if a given User object contains its assigned email  values.
      *

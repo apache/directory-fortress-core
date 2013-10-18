@@ -876,12 +876,15 @@ public class FortressAntTask extends Task implements InputHandler
             addUserRoles();
         }
 
+        // Test the results?
         if ( DEBUG )
         {
+            // Verify the input XML file against what made it into the target LDAP directory:
             LOG.info( "DEBUG MODE" );
             try
             {
-                Testable tester = ( Testable ) ClassUtil.createInstance( "us.jts.fortress.rbac.ReviewMgrAntTest" );
+                // Use reflexion to avoid core dependency on test classes located under FORTRESS_HOME/src/main/test
+                Testable tester = ( Testable ) ClassUtil.createInstance( "us.jts.fortress.rbac.FortressAntLoadTest" );
                 tester.execute( this );
             }
             catch ( CfgException ce )
@@ -889,19 +892,6 @@ public class FortressAntTask extends Task implements InputHandler
                 String error = "Error executing tests, errCode=" + ce.getErrorId() + " msg=" + ce;
                 LOG.warn( error );
             }
-            // 1. Gather the test data
-            // 2. run the junit verify positive tests
-            //   a. permissions created
-            //   b. roles created
-            //   c. role to permissions are created
-            //   d. users are created
-            //   e. user-roles are created
-            //   f. user-permissions are succeed tests
-            //   g.
-            // 3. run the junit verify negative tests
-            //   a. user-permissions failure test
-            // 4. verify the junit test results
-            // 5. publish test results
         }
     }
 
