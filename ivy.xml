@@ -44,6 +44,7 @@
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.5" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.7.5" conf="default->master"/>
         <dependency org="org.apache.directory.server" name="apacheds-all" rev="2.0.0-M15" conf="default->master"/>
+        <dependency org="net.sf.opencsv" name="opencsv" rev="2.3" conf="default->master" />
 
         <!-- Fortress core source is NOT dependent on Sentry, EnMasse or Commander artifacts rather they're required for its QUICKSTART demo apps: -->
         <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC31"  conf="default->master">

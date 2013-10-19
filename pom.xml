@@ -15,204 +15,210 @@
    limitations under the License.
 -->
 <project>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>us.joshuatreesoftware</groupId>
-  <artifactId>fortress</artifactId>
-  <packaging>jar</packaging>
-  <name>Fortress Core</name>
-  <version>1.0-RC31</version>
-  <description>Fortress is a standards-based Identity and Access Management SDK.</description>
-  <url>http://jts.us</url>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>us.joshuatreesoftware</groupId>
+    <artifactId>fortress</artifactId>
+    <packaging>jar</packaging>
+    <name>Fortress Core</name>
+    <version>1.0-RC31</version>
+    <description>Fortress is a standards-based Identity and Access Management SDK.</description>
+    <url>http://jts.us</url>
 
-  <licenses>
-    <license>
-      <name>BSD</name>
-      <url>http://jts.us/License</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+    <licenses>
+        <license>
+            <name>BSD</name>
+            <url>http://jts.us/License</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <scm>
-    <url>http://www.openldap.org/software/repo/openldap-fortress-core.git</url>
-    <connection>git://git.openldap.org/openldap-fortress-core.git</connection>
-  </scm>
+    <scm>
+        <url>http://www.openldap.org/software/repo/openldap-fortress-core.git</url>
+        <connection>git://git.openldap.org/openldap-fortress-core.git</connection>
+    </scm>
 
-  <issueManagement>
-    <system>Fortress Core JIRA</system>
-    <url>https://fortress.atlassian.net/browse/FC/</url>
-  </issueManagement>
+    <issueManagement>
+        <system>Fortress Core JIRA</system>
+        <url>https://fortress.atlassian.net/browse/FC/</url>
+    </issueManagement>
 
-  <developers>
-    <developer>
-      <id>smckinney</id>
-      <name>Shawn McKinney</name>
-      <email>shawn.mckinney@jts.us</email>
-    </developer>
-  </developers>
+    <developers>
+        <developer>
+            <id>smckinney</id>
+            <name>Shawn McKinney</name>
+            <email>shawn.mckinney@jts.us</email>
+        </developer>
+    </developers>
 
-  <dependencies>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.4</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.4</version>
+        </dependency>
 
-    <dependency>
-      <groupId>commons-configuration</groupId>
-      <artifactId>commons-configuration</artifactId>
-      <version>1.6</version>
-    </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.6</version>
+        </dependency>
 
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.1</version>
-    </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
 
-    <dependency>
-      <groupId>commons-pool</groupId>
-      <artifactId>commons-pool</artifactId>
-      <version>1.6</version>
-    </dependency>
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+            <version>1.6</version>
+        </dependency>
 
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.4</version>
-    </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
 
-    <dependency>
-      <groupId>commons-httpclient</groupId>
-      <artifactId>commons-httpclient</artifactId>
-      <version>3.1</version>
-    </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
 
-    <dependency>
-       <groupId>com.unboundid</groupId>
-       <artifactId>unboundid-ldapsdk</artifactId>
-       <version>2.3.3</version>
-    </dependency>
+        <dependency>
+            <groupId>com.unboundid</groupId>
+            <artifactId>unboundid-ldapsdk</artifactId>
+            <version>2.3.3</version>
+        </dependency>
 
 
-    <!-- Logging dependencies -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.5</version>
-    </dependency>
+        <!-- Logging dependencies -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.5</version>
-    </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+        </dependency>
 
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-    </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
 
-    <dependency>
-       <groupId>org.jasypt</groupId>
-       <artifactId>jasypt</artifactId>
-       <version>1.8</version>
-    </dependency>
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.8</version>
+        </dependency>
 
-    <dependency>
-       <groupId>org.jgrapht</groupId>
-       <artifactId>jgrapht-jdk1.5</artifactId>
-       <version>0.7.3</version>
-    </dependency>
+        <dependency>
+            <groupId>org.jgrapht</groupId>
+            <artifactId>jgrapht-jdk1.5</artifactId>
+            <version>0.7.3</version>
+        </dependency>
 
-    <dependency>
-      <groupId>net.sf.ehcache</groupId>
-      <artifactId>ehcache-core</artifactId>
-      <version>2.6.5</version>
-    </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>2.6.5</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.apache.ant</groupId>
-      <artifactId>ant</artifactId>
-      <version>1.9.1</version>
-    </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.9.1</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-common-utilities</artifactId>
-      <version>2.5.10</version>
-    </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-common-utilities</artifactId>
+            <version>2.5.10</version>
+        </dependency>
 
-    <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>jsr311-api</artifactId>
-      <version>1.1-ea</version>
-    </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>1.1-ea</version>
+        </dependency>
 
-    <!-- Test dependencies -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-all</artifactId>
-      <version>2.0.0-M15</version>
-      <type>jar</type>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
 
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>2.5.1</version>
-          <configuration>
-            <source>1.7</source>
-            <target>1.7</target>
-            <optimize>true</optimize>
-            <encoding>ISO-8859-1</encoding>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+        <dependency>
+            <groupId>net.sf.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>2.3</version>
+        </dependency>
 
-    <resources>
-      <resource>
-        <directory>config</directory>
-      </resource>
-    </resources>
-    
-    <plugins>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.6</version>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <!-- here the phase you need -->
-            <phase>validate</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${basedir}/target/config</outputDirectory>
-              <resources>          
-                <resource>
-                  <directory>config</directory>
-                  <filtering>true</filtering>
-                </resource>
-              </resources>              
-            </configuration>            
-          </execution>
-        </executions>
-      </plugin>
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-all</artifactId>
+            <version>2.0.0-M15</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
-    </plugins>
-  </build>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                        <optimize>true</optimize>
+                        <encoding>ISO-8859-1</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <resources>
+            <resource>
+                <directory>config</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/config</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>config</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
 </project>

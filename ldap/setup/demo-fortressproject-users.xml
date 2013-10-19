@@ -2,7 +2,7 @@
 <!--
   ~ Copyright (c) 2009-2013. Joshua Tree Software, LLC.  All Rights Reserved.
   -->
-<project basedir="." default="all" name="Fortress Sample Data">
+<project basedir="." default="all" name="DemoFortressProjectUsers">
     <taskdef classname="us.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
         <classpath path="${java.class.path}"/>
     </taskdef>

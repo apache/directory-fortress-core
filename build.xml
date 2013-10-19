@@ -160,6 +160,7 @@
        <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.7.5.jar"/>
        <property name="slf4j-log4j.jar" value="${lib.dir}/slf4j-log4j12-1.7.5.jar"/>
        <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M15.jar"/>
+       <property name="opencsv.jar" value="${lib.dir}/opencsv-2.3.jar"/>
 
        <!-- ########### Define classpaths ########################### -->
        <path id="build.class.path">
@@ -181,6 +182,7 @@
            <pathelement location="${cxf-common-utilities.jar}"/>
            <pathelement location="${ehcache-core.jar}"/>
            <pathelement location="${apacheds-all.jar}"/>
+           <pathelement location="${opencsv.jar}"/>
        </path>
 
        <!-- This is used for the JUnit Tests -->
@@ -214,6 +216,7 @@
            <pathelement location="${ant.home}/lib/ant.jar"/>
            <pathelement location="${images.dir}"/>
            <pathelement location="${apacheds-all.jar}"/>
+           <pathelement location="${opencsv.jar}"/>
        </path>
 
        <!-- This is used before the initial loads have stored properties on the ldap server. -->

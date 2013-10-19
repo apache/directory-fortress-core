@@ -4,8 +4,13 @@
 
 package us.jts.fortress.rbac;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import au.com.bytecode.opencsv.CSVWriter;
 import org.apache.tools.ant.Task;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
@@ -49,6 +54,7 @@ public class FortressAntLoadTest implements Testable
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     // This static variable stores reference for input data.  It must be static to make available for junit test methods.
     private static FortressAntTask fortressAntTask;
+    private static String fileName;
 
     /**
      * This method is called by {@link FortressAntTask} via reflexion and invokes its JUnit tests to verify loaded data into LDAP against input data.
@@ -57,13 +63,14 @@ public class FortressAntLoadTest implements Testable
     public synchronized void execute( Task task )
     {
         fortressAntTask = ( FortressAntTask ) task;
-        LOG.info( "execute FortressAntLoadTest JUnit tests..." );
+        fileName = task.getProject().getName();
+        LOG.info( "execute FortressAntLoadTest JUnit tests on file name: " + fileName );
         Result result = JUnitCore.runClasses( FortressAntLoadTest.class );
         for ( Failure failure : result.getFailures() )
         {
-            System.out.println( failure.toString() );
+            LOG.info( failure.toString() );
         }
-        System.out.println( result.wasSuccessful() );
+        LOG.info( "TEST SUCCESS: " + result.wasSuccessful() );
     }
 
 
@@ -84,13 +91,23 @@ public class FortressAntLoadTest implements Testable
      * @param msg
      * @param permissions
      */
-    private static void checkPermissions( String msg, List<UserAnt> users, List<PermAnt> permissions )
+    private void checkPermissions( String msg, List<UserAnt> users, List<PermAnt> permissions )
     {
+        //String DATE_FORMAT = "yyyyMMdd HHmmssSSS";
+        String DATE_FORMAT = "E yyyy.MM.dd 'at' hh:mm:ss a zzz";
+        // Sep 22, 2013 8:38:38 AM
+        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        Date now = new Date();
+        String szTimestamp = format.format(now);
         AccessMgr accessMgr = null;
+        CSVWriter writer = null;
         LogUtil.logIt( msg );
         try
         {
             accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            writer = new CSVWriter(new FileWriter(fileName + ".csv"), '\t');
+            String[] entries = "user#resource#operation#result#assigned roles#activated roles#timestamp".split("#");
+            writer.writeNext(entries);
         }
         catch ( SecurityException ex )
         {
@@ -99,18 +116,31 @@ public class FortressAntLoadTest implements Testable
             // Can't continue without AccessMgr
             fail( ex.getMessage() );
         }
+        catch(IOException ioe)
+        {
+            String error = "File IO Exception=" + ioe;
+            LOG.warn( error );
+            // Can't continue without output file to write the results in
+            fail( ioe.getMessage() );
+        }
         for ( UserAnt user : users )
         {
             try
             {
                 Session session = accessMgr.createSession( user, false );
                 assertNotNull( session );
+
+                ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
+                List<UserRole> assignedRoles = reviewMgr.assignedRoles( user );
+
                 for ( PermAnt permAnt : permissions )
                 {
                     Boolean result = accessMgr.checkAccess( session, permAnt );
                     // TODO: send this message as CSV output file:
                     LOG.info( "User: " + user.getUserId() + " Perm Obj: " + permAnt.getObjectName() + " Perm " +
                         "Operation: " + permAnt.getOpName() + " RESULT: " + result );
+                    String[] entries = (user.getUserId() + "#" + permAnt.getObjectName() + "#" + permAnt.getOpName() + "#" + result + "#" + assignedRoles + "#" + session.getUser().getRoles() + "#" + szTimestamp).split("#");
+                    writer.writeNext(entries);
                 }
             }
             catch ( SecurityException ex )
@@ -119,6 +149,14 @@ public class FortressAntLoadTest implements Testable
                 LOG.error( "checkPermissions caught SecurityException rc=" + ex.getErrorId() + ", " +
                     "msg=" + ex.getMessage() + ex );
             }
+        }
+        try
+        {
+            writer.close();
+        }
+        catch(IOException ioe)
+        {
+            // ignore
         }
     }
 
