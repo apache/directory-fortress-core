@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import us.jts.fortress.rbac.dao.apache.UserDAO;
@@ -188,8 +189,8 @@ import us.jts.fortress.util.time.Constraint;
         "roles",
         "adminRoles",
         "password",
-        "newPassword",
-        "jpegPhoto"
+        "newPassword"
+/*        "jpegPhoto"*/
 })
 public class User extends FortEntity implements Constraint, Serializable
 {
@@ -239,7 +240,7 @@ public class User extends FortEntity implements Constraint, Serializable
     private List<String> mobiles;
     @XmlElement(nillable = true)
     private List<String> emails;
-    @XmlElement(nillable = true)
+    @XmlTransient
     private byte[] jpegPhoto;
 
 
