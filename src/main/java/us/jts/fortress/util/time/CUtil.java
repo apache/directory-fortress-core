@@ -6,11 +6,13 @@ package us.jts.fortress.util.time;
 
 import us.jts.fortress.CfgException;
 import us.jts.fortress.GlobalIds;
+import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.cfg.Config;
 import us.jts.fortress.SecurityException;
 import us.jts.fortress.ValidationException;
 import us.jts.fortress.rbac.ClassUtil;
 import us.jts.fortress.rbac.Session;
+import us.jts.fortress.rbac.Warning;
 import us.jts.fortress.util.attr.VUtil;
 
 import org.slf4j.Logger;
@@ -412,9 +414,11 @@ public class CUtil
                         rc = val.validate(session, constraint, currTime);
                         if (rc > 0)
                         {
-                            LOG.info(location + " role [" + constraint.getName() + "] for user ["
-                                + session.getUserId() + "] was deactivated reason code [" + rc + "]");
+                            String msg = location + " role [" + constraint.getName() + "] for user ["
+                                + session.getUserId() + "] was deactivated reason code [" + rc + "]";
+                            LOG.info(msg);
                             roleItems.remove();
+                            session.setWarning( new ObjectFactory().createWarning( rc, msg, Warning.Type.ROLE, constraint.getName() ) );
                         }
                     }
                 }
@@ -428,9 +432,11 @@ public class CUtil
                         rc = val.validate(session, constraint, currTime);
                         if (rc > 0)
                         {
-                            LOG.info(location + " admin role [" + constraint.getName() + "] for user ["
-                                + session.getUserId() + "] was deactivated reason code [" + rc + "]");
+                            String msg = location + " admin role [" + constraint.getName() + "] for user ["
+                                + session.getUserId() + "] was deactivated reason code [" + rc + "]";
+                            LOG.info(msg);
                             roleItems.remove();
+                            session.setWarning( new ObjectFactory().createWarning( rc, msg, Warning.Type.ROLE, constraint.getName() ) );
                         }
                     }
                 }

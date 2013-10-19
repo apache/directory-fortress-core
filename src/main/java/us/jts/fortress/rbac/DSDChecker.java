@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.GlobalErrIds;
+import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.util.time.Constraint;
 import us.jts.fortress.util.time.Time;
 import us.jts.fortress.util.time.Validator;
@@ -96,6 +97,8 @@ public class DSDChecker
                                     + dsd.getCardinality();
                                 LOG.warn( warning );
                                 rc = GlobalErrIds.ACTV_FAILED_DSD;
+                                session.setWarning( new ObjectFactory().createWarning( rc, warning,
+                                    Warning.Type.ROLE, activatedRole.getName() ) );
                             }
                         }
                         else
@@ -118,6 +121,7 @@ public class DSDChecker
                                             + " Cardinality:" + dsd.getCardinality();
                                         LOG.warn( warning );
                                         rc = GlobalErrIds.ACTV_FAILED_DSD;
+                                        session.setWarning( new ObjectFactory().createWarning( rc, warning, Warning.Type.ROLE, activatedRole.getName() ) );
                                     }
                                     // Breaking out of the loop here means the DSD algorithm will only match one
                                     // role per parent.

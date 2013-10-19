@@ -287,7 +287,7 @@ public class AccessMgrSample extends TestCase
             LOG.info( "S   UID  [" + session.getUserId() + "]:" );
             LOG.info( "S   IID  [" + session.getInternalUserId() + "]" );
             LOG.info( "S   ERR  [" + session.getErrorId() + "]" );
-            LOG.info( "S   WARN [" + session.getWarningId() + "]" );
+            LOG.info( "S   WARN [" + session.getWarnings() + "]" );
             LOG.info( "S   MSG  [" + session.getMsg() + "]" );
             LOG.info( "S   EXP  [" + session.getExpirationSeconds() + "]" );
             LOG.info( "S   GRAC [" + session.getGraceLogins() + "]" );

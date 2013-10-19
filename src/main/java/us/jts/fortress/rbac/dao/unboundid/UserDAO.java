@@ -37,6 +37,7 @@ import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rbac.User;
 import us.jts.fortress.rbac.UserAdminRole;
 import us.jts.fortress.rbac.UserRole;
+import us.jts.fortress.rbac.Warning;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
@@ -1850,10 +1851,12 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
         {
             if ( !GlobalIds.IS_OPENLDAP )
             {
-                pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
+                //pwMsg.setWarningId( GlobalPwMsgIds.NOT_OLPW_POLICY_ENABLED );
+                String msg = msgHdr + "OPENLDAP PW POLICY NOT ENABLED";
+                pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.NOT_OLPW_POLICY_ENABLED, msg, Warning.Type.PASSWORD ) );
                 pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
-                String msg = msgHdr + "PW POLICY NOT ENABLED";
-                pwMsg.setMsg( msg );
+                //String msg = msgHdr + "OPENLDAP PW POLICY NOT ENABLED";
+                //pwMsg.setMsg( msg );
                 LOG.debug( msg );
                 return;
             }
@@ -1862,14 +1865,13 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
                 pwControl.checkPasswordPolicy( ld.getResponseControls(), success, pwMsg );
             }
 
-            // OpenLDAP has notified of password violation:
+            // OpenLDAP has notified of password policy violation:
             if ( pwMsg.getErrorId() > 0 )
             {
                 String errMsg;
 
                 switch ( pwMsg.getErrorId() )
                 {
-
                     case GlobalPwMsgIds.CHANGE_AFTER_RESET:
                         // Don't throw exception if authenticating in J2EE Realm - The Web application must give user a chance to modify their password.
                         if ( !GlobalIds.IS_REALM )
@@ -1882,7 +1884,7 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
                             errMsg = msgHdr
                                 + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID BUT ALLOWING TO CONTINUE DUE TO REALM";
                             success = true;
-                            pwMsg.setWarningId( GlobalErrIds.USER_PW_RESET );
+                            pwMsg.setWarning( new ObjectFactory().createWarning( GlobalErrIds.USER_PW_RESET, errMsg, Warning.Type.PASSWORD ) );
                         }
 
                         break;
@@ -1947,16 +1949,6 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
                 pwMsg.setAuthenticated( true );
                 LOG.debug( msg );
             }
-        }
-        else
-        {
-            // Even though we didn't find valid pw control, the actual userid/pw check passed:
-            pwMsg.setAuthenticated( success );
-            pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
-            pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
-            String msg = msgHdr + "NO PASSWORD CONTROLS FOUND";
-            pwMsg.setMsg( msg );
-            LOG.warn( "checkPwPolicies " + msg );
         }
     }
 

@@ -6,8 +6,10 @@ package us.jts.fortress.rbac;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -140,7 +142,8 @@ import java.util.UUID;
     "expirationSeconds",
     "graceLogins",
     "message",
-    "warningId"
+    "warnings"
+/*    "warningId"*/
 })
 public class Session  extends FortEntity implements PwMessage, java.io.Serializable
 {
@@ -148,12 +151,14 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     private String sessionId;
     private long lastAccess;
     private int timeout;
-    private int warningId;
+/*    private int warningId;*/
     private int errorId;
     private int graceLogins;
     private int expirationSeconds;
     private boolean isAuthenticated;
     private String message;
+    @XmlElement(nillable = true)
+    private List<Warning> warnings;
 
     /**
      * A 'true' value here indicates user successfully authenticated with Fortress.
@@ -184,12 +189,13 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
         //this.sessionId = inSession.getSessionId();
         this.lastAccess = inSession.getLastAccess();
         this.timeout = inSession.getTimeout();
-        this.warningId = inSession.getWarningId();
+/*        this.warningId = inSession.getWarningId();*/
         this.errorId = inSession.getErrorId();
         this.graceLogins = inSession.getGraceLogins();
         this.expirationSeconds = inSession.expirationSeconds;
         this.isAuthenticated = inSession.isAuthenticated();
         this.message = inSession.getMsg();
+        this.warnings = inSession.getWarnings();
     }
 
     /**
@@ -367,10 +373,12 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      *
      * @return int contains warning id.
      */
+/*
     public int getWarningId()
     {
         return this.warningId;
     }
+*/
 
     /**
      * Gets the attribute that specifies the number of times an expired password can
@@ -597,10 +605,12 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      *
      * @param warning contains warning id.
      */
+/*
     public void setWarningId(int warning)
     {
         this.warningId = warning;
     }
+*/
 
     /**
      * Set the error id that is associated with the password policy checks.  a '0' indicates no errors.
@@ -652,5 +662,24 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     public void setExpirationSeconds(int expire)
     {
         this.expirationSeconds = expire;
+    }
+
+    public List<Warning> getWarnings()
+    {
+        return warnings;
+    }
+
+    public void setWarnings( List<Warning> warnings )
+    {
+        this.warnings = warnings;
+    }
+
+    public void setWarning( Warning warning )
+    {
+        if ( warnings == null )
+        {
+            warnings = new ArrayList<>();
+        }
+        this.warnings.add( warning );
     }
 }

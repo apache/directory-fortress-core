@@ -11,11 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import us.jts.fortress.GlobalIds;
+import us.jts.fortress.ObjectFactory;
 import us.jts.fortress.rbac.GlobalPwMsgIds;
 import us.jts.fortress.rbac.PwMessage;
 import us.jts.fortress.rbac.PwPolicyControl;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPControl;
+import us.jts.fortress.rbac.Warning;
 
 
 /**
@@ -66,7 +68,7 @@ public class OLPWControlImpl implements PwPolicyControl
      * <li>  PPOLICY_GRACE  0x81
      * </ul>
      *
-     * @param ld ldap connection object.
+     * @param controls ldap controls object.
      * @param isAuthenticated set to 'true' if password checks pass.
      * @param pwMsg describes the outcome of the policy checks.
      */
@@ -75,14 +77,12 @@ public class OLPWControlImpl implements PwPolicyControl
     {
         String methodName = "checkPasswordPolicy";
         pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
-        pwMsg.setWarningId( GlobalPwMsgIds.PP_NOWARNING );
+        //pwMsg.setWarningId( GlobalPwMsgIds.PP_NOWARNING );
         pwMsg.setAuthenticated( isAuthenticated );
 
         if ( controls == null )
         {
-            pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
-            LOG.debug( methodName + " controls is null" );
-
+            pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.NO_CONTROLS_FOUND, "PW CONTROLS NOT FOUND", Warning.Type.PASSWORD ) );
         }
         else if ( controls.length >= 1 )
         {
@@ -116,8 +116,8 @@ public class OLPWControlImpl implements PwPolicyControl
 
                     if ( rB == null || rB[1] == 0 )
                     {
-                        LOG.debug( methodName + " no password control found" );
-                        pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
+                        LOG.debug( methodName + " no password policy for user" );
+                        pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.NOT_PW_POLICY_ENABLED, "NO PW POLICY ENABLED FOR USER", Warning.Type.PASSWORD ) );
                     }
 
                     if ( LOG.isDebugEnabled() )
@@ -151,7 +151,8 @@ public class OLPWControlImpl implements PwPolicyControl
                                 {
                                     case ( byte ) 0xa0:
                                     case ( byte ) 0x80:
-                                        pwMsg.setWarningId( GlobalPwMsgIds.PASSWORD_EXPIRATION_WARNING );
+                                        //pwMsg.setWarningId( GlobalPwMsgIds.PASSWORD_EXPIRATION_WARNING );
+                                        pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.PASSWORD_EXPIRATION_WARNING, "PASSWORD HAS EXPIRED", Warning.Type.PASSWORD ) );
                                         // BER Encoded byte array:
                                         // client: 00110000 00000110 10100000 00000100 10100000 00000010 00000010 00100100
                                         //							 ^                  ^                   ^
@@ -178,7 +179,7 @@ public class OLPWControlImpl implements PwPolicyControl
 
                                     case ( byte ) 0xa1:
                                     case ( byte ) 0x81:
-                                        pwMsg.setWarningId( GlobalPwMsgIds.PASSWORD_GRACE_WARNING );
+                                        pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.PASSWORD_GRACE_WARNING, "PASSWORD IN GRACE", Warning.Type.PASSWORD ) );
                                         // BER Encoded byte array:
                                         //client: 00110000 00000101 10100000 00000011 10100001 00000001 01100100
                                         //  			     		^                 ^                 ^
@@ -204,7 +205,7 @@ public class OLPWControlImpl implements PwPolicyControl
                                         break;
 
                                     default:
-                                        pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
+                                        pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE, "INVALID PASSWORD", Warning.Type.PASSWORD ) );
 
                                         if ( LOG.isDebugEnabled() )
                                         {
@@ -282,7 +283,7 @@ public class OLPWControlImpl implements PwPolicyControl
                                 break;
 
                             default:
-                                pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
+                                pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE, "INVALID POLICY MESSAGE TYPE", Warning.Type.PASSWORD ) );
 
                                 if ( LOG.isDebugEnabled() )
                                 {
@@ -296,7 +297,7 @@ public class OLPWControlImpl implements PwPolicyControl
                 }
                 else
                 {
-                    pwMsg.setWarningId( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE );
+                    pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.INVALID_PASSWORD_MESSAGE, "CANNOT PROCESS OPENLDAP POLICY CONTROL", Warning.Type.PASSWORD ) );
 
                     if ( LOG.isDebugEnabled() )
                     {

@@ -4,6 +4,8 @@
 
 package us.jts.fortress.rbac;
 
+import java.util.List;
+
 /**
  * Interface is implemented by {@link us.jts.fortress.rbac.Session} and prescribes methods used to return Fortress
  * password messages to the caller.
@@ -61,7 +63,9 @@ public interface PwMessage
      *
      * @param warning contains warning id.
      */
-    public void setWarningId(int warning);
+    public void setWarning(Warning warning);
+    public void setWarnings(List<Warning> warnings);
+    //public void setWarningId(int warning);
 
 
     /**
@@ -69,7 +73,8 @@ public interface PwMessage
      *
      * @return warning contains warning id.
      */
-    public int getWarningId();
+    public List<Warning> getWarnings();
+    //public int getWarningId();
 
     /**
      * Set the error id that pertain to User's password. This attribute maps to values greater than or equal to 100 contained within here {@link GlobalPwMsgIds}

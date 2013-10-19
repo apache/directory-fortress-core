@@ -55,6 +55,7 @@ import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rbac.User;
 import us.jts.fortress.rbac.UserAdminRole;
 import us.jts.fortress.rbac.UserRole;
+import us.jts.fortress.rbac.Warning;
 import us.jts.fortress.util.attr.AttrHelper;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
@@ -1798,7 +1799,6 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
      * @param entry
      * @return
      * @throws LdapInvalidAttributeValueException 
-     * @throws LDAPException
      */
     private User unloadLdapEntry( Entry entry, long sequence, String contextId )
         throws LdapInvalidAttributeValueException
@@ -1907,10 +1907,9 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
         {
             if ( !GlobalIds.IS_OPENLDAP )
             {
-                pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
+                String msg = msgHdr + "OPENLDAP PW POLICY NOT ENABLED";
+                pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.NOT_OLPW_POLICY_ENABLED, msg, Warning.Type.PASSWORD ) );
                 pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
-                String msg = msgHdr + "PW POLICY NOT ENABLED";
-                pwMsg.setMsg( msg );
                 LOG.debug( msg );
                 return;
             }
@@ -1939,7 +1938,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
                             errMsg = msgHdr
                                 + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID BUT ALLOWING TO CONTINUE DUE TO REALM";
                             success = true;
-                            pwMsg.setWarningId( GlobalErrIds.USER_PW_RESET );
+                            pwMsg.setWarning( new ObjectFactory().createWarning( GlobalErrIds.USER_PW_RESET, errMsg, Warning.Type.PASSWORD ) );
                         }
 
                         break;
@@ -2004,16 +2003,6 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
                 pwMsg.setAuthenticated( true );
                 LOG.debug( msg );
             }
-        }
-        else
-        {
-            // Even though we didn't find valid pw control, the actual userid/pw check passed:
-            pwMsg.setAuthenticated( success );
-            pwMsg.setWarningId( GlobalPwMsgIds.NO_CONTROLS_FOUND );
-            pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
-            String msg = msgHdr + "NO PASSWORD CONTROLS FOUND";
-            pwMsg.setMsg( msg );
-            LOG.warn( "checkPwPolicies " + msg );
         }
     }
 
@@ -2122,7 +2111,7 @@ public final class UserDAO extends ApacheDsDataProvider implements us.jts.fortre
      * Given a collection of RBAC roles, {@link UserRole}, convert to raw data format and load into ldap attribute set in preparation for ldap add.
      *
      * @param list  contains List of type {@link UserRole} targeted for adding to ldap.
-     * @param attrs collection of ldap attributes containing RBAC role assignments in raw ldap format.
+     * @param entry ldap entry containing attributes mapping to RBAC role assignments in raw ldap format.
      * @throws LdapException 
      */
     private void loadUserRoles( List<UserRole> list, Entry entry ) throws LdapException

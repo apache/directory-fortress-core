@@ -441,7 +441,7 @@ class AccessMgrConsole
             System.out.println("S   UID  [" + session.getUserId() + "]:");
             System.out.println("S   IID  [" + session.getInternalUserId() + "]");
             System.out.println("S   ERR  [" + session.getErrorId() + "]");
-            System.out.println("S   WARN [" + session.getWarningId() + "]");
+            System.out.println("S   WARN [" + session.getWarnings() + "]");
             System.out.println("S   MSG  [" + session.getMsg() + "]");
             System.out.println("S   EXP  [" + session.getExpirationSeconds() + "]");
             System.out.println("S   GRAC [" + session.getGraceLogins() + "]");

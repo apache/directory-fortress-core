@@ -1034,7 +1034,7 @@ public class CommandLineInterpreter
         printRow(type, "UID ", session.getUserId());
         printRow(type, "IID ", session.getInternalUserId());
         printRow(type, "ERR ", "" + session.getErrorId());
-        printRow(type, "WARN", "" + session.getWarningId());
+        printRow(type, "WARN", "" + session.getWarnings());
         printRow(type, "MSG ", session.getMsg());
         printRow(type, "EXP ", "" + session.getExpirationSeconds());
         printRow(type, "GRAC", "" + session.getGraceLogins());

@@ -28,6 +28,16 @@ public class GlobalPwMsgIds
     public final static int PP_NOWARNING = 0;
 
     /**
+     * The user has no password policies in effect.
+     */
+    public final static int NOT_PW_POLICY_ENABLED = 8;
+
+    /**
+     * The OPENLDAP password policies are not enforced.
+     */
+    public final static int NOT_OLPW_POLICY_ENABLED = 9;
+
+    /**
      * The password policy control was not found in the message.
      */
     public final static int NO_CONTROLS_FOUND = 10;

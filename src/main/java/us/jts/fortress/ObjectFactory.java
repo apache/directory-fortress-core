@@ -3,29 +3,7 @@
  */
 package us.jts.fortress;
 
-import us.jts.fortress.rbac.AdminRoleRelationship;
-import us.jts.fortress.rbac.AdminRole;
-import us.jts.fortress.rbac.AuthZ;
-import us.jts.fortress.rbac.Bind;
-import us.jts.fortress.rbac.FortEntity;
-import us.jts.fortress.rbac.OrgUnitRelationship;
-import us.jts.fortress.rbac.PwPolicy;
-import us.jts.fortress.rbac.RolePerm;
-import us.jts.fortress.rbac.Mod;
-import us.jts.fortress.rbac.UserAudit;
-import us.jts.fortress.rbac.Address;
-import us.jts.fortress.rbac.PermGrant;
-import us.jts.fortress.rbac.OrgUnit;
-import us.jts.fortress.rbac.UserAdminRole;
-import us.jts.fortress.rbac.PermObj;
-import us.jts.fortress.rbac.Permission;
-import us.jts.fortress.rbac.Props;
-import us.jts.fortress.rbac.Role;
-import us.jts.fortress.rbac.RoleRelationship;
-import us.jts.fortress.rbac.SDSet;
-import us.jts.fortress.rbac.Session;
-import us.jts.fortress.rbac.User;
-import us.jts.fortress.rbac.UserRole;
+import us.jts.fortress.rbac.*;
 import us.jts.fortress.rest.FortRequest;
 import us.jts.fortress.rest.FortResponse;
 
@@ -78,6 +56,7 @@ public class ObjectFactory
     private final static QName FortRequest_QNAME = new QName("", "fortRequest");
     private final static QName FortAddress_QNAME = new QName("", "fortAddress");
     private final static QName _FortProps_QNAME = new QName("", "fortProps");
+    private final static QName _FortWarning_QNAME = new QName("", "fortWarning");
 
 
     @XmlElementDecl(namespace = "", name = "fortEntity")
@@ -272,6 +251,12 @@ public class ObjectFactory
         return new JAXBElement<>(_FortProps_QNAME, Props.class, null, value);
     }
 
+    @XmlElementDecl(namespace = "", name = "fortWarning")
+    public JAXBElement<Warning> createFortWarning(Warning value)
+    {
+        return new JAXBElement<Warning>(_FortWarning_QNAME, Warning.class, null, value);
+    }
+
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: us.jts.fortress.model2
@@ -443,5 +428,15 @@ public class ObjectFactory
     public Props createProps()
     {
         return new Props();
+    }
+
+    public Warning createWarning(int id, String msg, Warning.Type type)
+    {
+        return new Warning(id, msg, type);
+    }
+
+    public Warning createWarning(int id, String msg, Warning.Type type, String name)
+    {
+        return new Warning(id, msg, type, name);
     }
 }
