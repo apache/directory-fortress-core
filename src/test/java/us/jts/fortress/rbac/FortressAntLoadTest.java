@@ -7,6 +7,7 @@ package us.jts.fortress.rbac;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,14 +36,12 @@ import us.jts.fortress.ant.UserAnt;
 import us.jts.fortress.util.LogUtil;
 import us.jts.fortress.util.Testable;
 
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 
 /**
- * The ReviewMgrAnt Tester component is used to verify results against XML load file.  It is called by {@link FortressAntTask} after it completes
+ * The ReviewMgrAnt Tester component is used to verify results against XML load file.  It is called by {@link
+ * FortressAntTask} after it completes
  * its data load.
  *
  * @author Shawn McKinney
@@ -52,12 +51,14 @@ public class FortressAntLoadTest implements Testable
 {
     private static final String CLS_NM = FortressAntLoadTest.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    // This static variable stores reference for input data.  It must be static to make available for junit test methods.
+    // This static variable stores reference for input data.  It must be static to make available for junit test
+    // methods.
     private static FortressAntTask fortressAntTask;
     private static String fileName;
 
     /**
-     * This method is called by {@link FortressAntTask} via reflexion and invokes its JUnit tests to verify loaded data into LDAP against input data.
+     * This method is called by {@link FortressAntTask} via reflexion and invokes its JUnit tests to verify loaded
+     * data into LDAP against input data.
      */
     @Override
     public synchronized void execute( Task task )
@@ -93,21 +94,20 @@ public class FortressAntLoadTest implements Testable
      */
     private void checkPermissions( String msg, List<UserAnt> users, List<PermAnt> permissions )
     {
-        //String DATE_FORMAT = "yyyyMMdd HHmmssSSS";
         String DATE_FORMAT = "E yyyy.MM.dd 'at' hh:mm:ss a zzz";
-        // Sep 22, 2013 8:38:38 AM
-        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        SimpleDateFormat format = new SimpleDateFormat( DATE_FORMAT );
         Date now = new Date();
-        String szTimestamp = format.format(now);
+        String szTimestamp = format.format( now );
         AccessMgr accessMgr = null;
         CSVWriter writer = null;
         LogUtil.logIt( msg );
         try
         {
             accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
-            writer = new CSVWriter(new FileWriter(fileName + ".csv"), '\t');
-            String[] entries = "user#resource#operation#result#assigned roles#activated roles#timestamp".split("#");
-            writer.writeNext(entries);
+            writer = new CSVWriter( new FileWriter( fileName + ".csv" ), '\t' );
+            String[] entries = "user#resource#operation#result#assigned roles#activated roles#timestamp#warnings"
+                .split( "#" );
+            writer.writeNext( entries );
         }
         catch ( SecurityException ex )
         {
@@ -116,7 +116,7 @@ public class FortressAntLoadTest implements Testable
             // Can't continue without AccessMgr
             fail( ex.getMessage() );
         }
-        catch(IOException ioe)
+        catch ( IOException ioe )
         {
             String error = "File IO Exception=" + ioe;
             LOG.warn( error );
@@ -127,8 +127,17 @@ public class FortressAntLoadTest implements Testable
         {
             try
             {
+                List<String> warnings = null;
                 Session session = accessMgr.createSession( user, false );
                 assertNotNull( session );
+                if ( session.getWarnings() != null )
+                {
+                    warnings = new ArrayList();
+                    for ( Warning warning : session.getWarnings() )
+                    {
+                        warnings.add( warning.getMsg() );
+                    }
+                }
 
                 ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
                 List<UserRole> assignedRoles = reviewMgr.assignedRoles( user );
@@ -139,8 +148,10 @@ public class FortressAntLoadTest implements Testable
                     // TODO: send this message as CSV output file:
                     LOG.info( "User: " + user.getUserId() + " Perm Obj: " + permAnt.getObjectName() + " Perm " +
                         "Operation: " + permAnt.getOpName() + " RESULT: " + result );
-                    String[] entries = (user.getUserId() + "#" + permAnt.getObjectName() + "#" + permAnt.getOpName() + "#" + result + "#" + assignedRoles + "#" + session.getUser().getRoles() + "#" + szTimestamp).split("#");
-                    writer.writeNext(entries);
+                    String[] entries = ( user.getUserId() + "#" + permAnt.getObjectName() + "#" + permAnt.getOpName()
+                        + "#" + result + "#" + assignedRoles + "#" + session.getUser().getRoles() + "#" + szTimestamp
+                        + "#" + warnings ).split( "#" );
+                    writer.writeNext( entries );
                 }
             }
             catch ( SecurityException ex )
@@ -154,7 +165,7 @@ public class FortressAntLoadTest implements Testable
         {
             writer.close();
         }
-        catch(IOException ioe)
+        catch ( IOException ioe )
         {
             // ignore
         }

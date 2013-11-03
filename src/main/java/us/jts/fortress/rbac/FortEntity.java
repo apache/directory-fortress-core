@@ -182,7 +182,7 @@ public String getModId()
 
 
 /**
- * Set the contextId for this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT
+ * Return the contextId for this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT
  *
  * @return value maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
  */
@@ -193,7 +193,7 @@ public String getContextId()
 
 
 /**
- * Return the contextId associated with this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT.
+ * Set the contextId associated with this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT.
  * Package private to prevent outside classes from setting.
  *
  * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
