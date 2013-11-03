@@ -574,7 +574,7 @@
                  taskname="startAnt">
              <classpath>
                  <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
-                 <path refid="bootstrap.class.path"/>
+                 <!--<path refid="bootstrap.class.path"/>-->
                  <path refid="test.class.path"/>
              </classpath>
              <sysproperty key="debug.admin" value="true"/>
@@ -1404,7 +1404,7 @@
     <!-- =================================
           target: resolve
          ================================= -->
-    <target name="resolve" depends="download-ivy" description="--> retreive dependencies with ivy" unless="local.mode">
+    <target name="resolve" depends="download-ivy" description="--> retreive dependencies with ivy">
         <ivy:retrieve pattern="${lib.dir}/[artifact]-[revision].[ext]" />
     </target>
 
