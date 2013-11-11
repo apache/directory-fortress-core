@@ -5,6 +5,8 @@
 package us.jts.fortress.util;
 
 import org.slf4j.LoggerFactory;
+import us.jts.fortress.GlobalIds;
+import us.jts.fortress.util.attr.VUtil;
 
 /**
  * Contains a simple wrapper for log4j that is used by test utilities.
@@ -24,6 +26,7 @@ public class LogUtil
      */
     public static void logIt(String msg)
     {
+        msg = getContext() + " " + msg;
         if(LOG.isDebugEnabled())
         {
             LOG.debug( msg );
@@ -41,5 +44,16 @@ public class LogUtil
             LOG.error( msg );
         }
 	}
+
+    public static String getContext()
+    {
+        String contextId = null;
+        String tenant = System.getProperty( GlobalIds.TENANT );
+        if ( VUtil.isNotNullOrEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
+        {
+            contextId = tenant;
+        }
+        return contextId;
+    }
 }
 
