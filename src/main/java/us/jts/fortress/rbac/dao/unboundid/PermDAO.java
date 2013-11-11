@@ -784,9 +784,8 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         try
         {
             // Use unauthenticated connection because we want to assert the end user identity onto ldap hop:
-            ld = getUserConnection();
+            ld = getAdminConnection();
             // LDAP Operation #1: Read the targeted permission from ldap server
-            //LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS, session.getUser().getDn());
             LDAPEntry entry = read( ld, dn, PERMISSION_OP_ATRS );
             // load the permission entity with data retrieved from the permission node:
             Permission outPerm = unloadPopLdapEntry( entry, 0 );
@@ -816,11 +815,6 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             // LDAP Operation #2: Compare.
             addAuthZAudit( ld, dn, session.getUser().getDn(), attributeValue );
         }
-        //catch (UnsupportedEncodingException ee)
-        //{
-        //    String error = "checkPermission caught UnsupportedEncodingException=" + ee.getMessage();
-        //    throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, ee);
-        //}
         catch ( LDAPException e )
         {
             if ( e.getLDAPResultCode() != LDAPException.NO_RESULTS_RETURNED
@@ -835,7 +829,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         }
         finally
         {
-            closeUserConnection( ld );
+            closeAdminConnection( ld );
         }
         return isAuthZd;
     }

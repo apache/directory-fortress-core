@@ -321,12 +321,9 @@ class ConnectionPool
         {
             LDAPConnectionObject co =
                 ( LDAPConnectionObject ) pool.elementAt( index );
-
             // Reset the auth if necessary
-            //if (ldc == null || !ldc.getAuthenticationMethod().equals("sasl")) {
             if ( ldc == null )
             {
-
                 boolean reauth = false;
                 //if user bound anon then getAuthenticationDN is null
                 if ( ld.getAuthenticationDN() == null )
@@ -337,22 +334,7 @@ class ConnectionPool
                 {
                     reauth = true;
                 }
-                if ( reauth )
-                {
-                    try
-                    {
-                        //debug("user changed credentials-resetting");
-                        ld.bind( authdn, authpw ); //reauth as proper user
-                    }
-                    catch ( LDAPException e )
-                    {
-                        debug( "unable to reauth during close as " + authdn );
-                        debug( e.toString() );
-                        LOG.warn( "close caught LDAPException: " + e.getMessage() );
-                    }
-                }
             }
-
             co.setInUse( false ); // Mark as available
             synchronized ( pool )
             {
