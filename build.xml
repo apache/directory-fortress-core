@@ -539,7 +539,7 @@
           target: admin - runs the Ant demo load scripts
          ================================= -->
      <target name="admin" depends="init-fortress-config" description="--> admin -Dparam1=path/to/FileName.xml : to run fortress admin scripts at specified location">
-         <echo message="###############  Run Fortress Ant script ${param1}  ###############"/>
+         <echo message="###############  Run Fortress Ant script param1: ${param1} tenant: ${tenant} version: ${version}  ###############"/>
          <java
                  classname="org.apache.tools.ant.launch.Launcher"
                  fork="true"
@@ -1113,6 +1113,8 @@
                 <include name="LICENSE.txt"/>
                 <include name="NOTICE.txt"/>
                 <exclude name="*.log"/>
+                <exclude name="*.out"/>
+                <exclude name="*.err"/>
                 <exclude name="build.sh"/>
                 <exclude name="codetemplates.xml"/>
                 <exclude name="formatting.xml"/>
@@ -1127,7 +1129,12 @@
                 <include name="*/**"/>
                 <exclude name="*.conf"/>
                 <exclude name="*.log"/>
+                <exclude name="*/*.csv"/>
                 <exclude name="*/*.log"/>
+                <exclude name="*/dev-symas-website-policy.xml"/>
+                <exclude name="*/AccountsSecurityPolicy.xml"/>
+                <exclude name="*/demo-fortressproject-users.xml"/>
+                <exclude name="*/refreshLDAPData.xml"/>
             </zipfileset>
 
             <zipfileset dir="${config.dir}" prefix="config">
@@ -1326,9 +1333,9 @@
           Install Commander Demo
          ================================= -->
     <target name="install-commander-demo" depends="init"  description="--> install Commander Demo">
-       <antcall target="doSentry"></antcall>
-       <antcall target="sentry-ant-start-tomcat"></antcall>
-       <antcall target="install-commander"></antcall>
+        <antcall target="doSentry"></antcall>
+        <antcall target="sentry-ant-start-tomcat"></antcall>
+        <antcall target="install-commander"></antcall>
     </target>
 
     <!-- =================================
@@ -1339,6 +1346,7 @@
         <!-- copy the fortress.properties file to commander -->
         <copy todir="${commander.dir}/src/main/resources" file="${dst.remote.conf}" overwrite="true" />
         <concat destfile="${commander.dir}/src/main/resources/fortress.properties" append="true">${line.separator}version=${version}</concat>
+        <replace file="${commander.dir}/pom.xml" token="&lt;ANT_HOME>/home/smckinn/JavaTools/apache-ant-1.8.2&lt;/ANT_HOME>" value="&lt;ANT_HOME>../apache-ant/&lt;/ANT_HOME>"/>
         <!-- load the sample test policy for commander -->
         <antcall target="commander-maven-load"></antcall>
         <antcall target="commander-maven-deploy"></antcall>
