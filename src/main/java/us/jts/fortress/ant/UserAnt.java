@@ -5,10 +5,19 @@
 package us.jts.fortress.ant;
 
 
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import us.jts.fortress.rbac.User;
 import us.jts.fortress.rbac.UserRole;
+import us.jts.fortress.rbac.dao.DaoFactory;
 import us.jts.fortress.util.attr.AttrHelper;
+import us.jts.fortress.util.attr.VUtil;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.StringTokenizer;
 
 /**
@@ -31,6 +40,9 @@ public class UserAnt extends User
     private String building;
     private String departmentNumber;
     private String roomNumber;
+    private String photo;
+    private static final String CLS_NM = UserAnt.class.getName();
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     public String getAddresses()
     {
@@ -217,4 +229,60 @@ public class UserAnt extends User
         }
     }
 
+    public String getPhoto()
+    {
+        return photo;
+    }
+
+    public void setPhoto( String photo )
+    {
+        this.photo = photo;
+        if( VUtil.isNotNullOrEmpty( photo ))
+        {
+            byte[] jpeg = getJpegPhoto( photo );
+            if( VUtil.isNotNullOrEmpty( jpeg ))
+            {
+                setJpegPhoto( jpeg );
+            }
+        }
+    }
+
+    private static byte[] getJpegPhoto( String fileName )
+    {
+        byte[] value = null;
+        try
+        {
+            value = readJpegFile( fileName );
+        }
+        catch ( ArrayIndexOutOfBoundsException ae )
+        {
+            // attribute is optional, do nothing here
+        }
+
+        return value;
+    }
+
+    public static byte[] readJpegFile( String fileName )
+    {
+        URL fUrl = UserAnt.class.getClassLoader().getResource( fileName );
+        byte[] image = null;
+        try
+        {
+            if ( fUrl != null )
+            {
+                image = FileUtils.readFileToByteArray( new File( fUrl.toURI() ) );
+            }
+        }
+        catch ( URISyntaxException se )
+        {
+            String warn = "readJpegFile caught URISyntaxException=" + se;
+            LOG.warn( warn );
+        }
+        catch ( IOException ioe )
+        {
+            String warn = "readJpegFile caught IOException=" + ioe;
+            LOG.warn( warn );
+        }
+        return image;
+    }
 }

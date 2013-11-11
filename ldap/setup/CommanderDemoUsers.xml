@@ -11,7 +11,7 @@
         <FortressAdmin>
 
             <adduser>
-                <user userId="test" password="test" description="Commander Demo User" ou="demousrs1" cn="test" sn="user"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="test" password="test" description="Commander Demo User" ou="demousrs1" cn="test" sn="user"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" photo="TestPhoto1.jpeg"/>
             </adduser>
 
             <adduseradminrole>
