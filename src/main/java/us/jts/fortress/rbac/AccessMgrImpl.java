@@ -301,10 +301,15 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
                 + session.getUserId() + "] role not authorized for user.";
             throw new SecurityException( GlobalErrIds.URLE_ACTIVATE_FAILED, info );
         }
+
         // validate Dynamic Separation of Duty Relations:
         SDUtil.validateDSD( session, role );
-        // now activate the role to the session:
+
+        // set the role to the session:
         session.setRole( uRoles.get( indx ) );
+
+        // Check role temporal constraints & DSD:
+        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
     }
 
 
