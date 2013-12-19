@@ -97,6 +97,10 @@ package us.jts.fortress;
  * <li> <code>{@link GlobalErrIds#USER_SN_NULL} = 1033;</code>
  * <li> <code>{@link GlobalErrIds#USER_PW_PLCY_INVALID} = 1034;</code>
  * <li> <code>{@link GlobalErrIds#USER_OU_INVALID} = 1035;</code>
+ * <li> <code>{@link GlobalErrIds#SESS_CTXT_NULL} = 1036;</code>
+ * <li> <code>{@link GlobalErrIds#USER_BIND_FAILED} = 1037;</code>
+ *
+ *
  * </ul>
  * <h3>
  * <p/>2000's User-Role assignments
@@ -234,6 +238,9 @@ package us.jts.fortress;
  * <li> <code>{@link GlobalErrIds#HIER_REL_NOT_EXIST} = 5060;</code>
  * <li> <code>{@link GlobalErrIds#HIER_NULL} = 0561;</code>
  * <li> <code>{@link GlobalErrIds#HIER_TYPE_NULL} = 5062;</code>
+ * <li> <code>{@link GlobalErrIds#HIER_CANNOT_PERFORM} = 5063;</code>
+ * <li> <code>{@link GlobalErrIds#HIER_REL_CYCLIC} = 5064;</code>
+ *
  * </ul>
  * <h4>
  * <p/> Separation of Duty Relations
