@@ -914,7 +914,7 @@ public final class UserDAO extends UnboundIdDataProvider implements us.jts.fortr
             {
                 String error = "checkPassword userId [" + user.getUserId() + "] caught LDAPException="
                     + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
+                throw new FinderException( GlobalErrIds.USER_BIND_FAILED, error, e );
             }
         }
         finally

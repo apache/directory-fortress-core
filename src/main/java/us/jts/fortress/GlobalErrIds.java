@@ -339,6 +339,11 @@ public class GlobalErrIds
     public final static int SESS_CTXT_NULL = 1036;
 
     /**
+     * The User bind operation failed on server.
+     */
+    public final static int USER_BIND_FAILED = 1037;
+
+    /**
      * 2000's User-Role assignments
      */
 
