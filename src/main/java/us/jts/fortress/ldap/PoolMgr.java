@@ -108,8 +108,6 @@ class PoolMgr
     private static String adminUserId = null;
     private static final boolean isDebugEnabled = Config.getBoolean(LDAP_DEBUG_FLAG, false);
     private static int connectionTimeout ;
-    private static String hostName;
-    private static int portId;
     private static int ldapRevision;
 
     // Load all of the static member variables of this class & initialize the admin connection pools:
@@ -289,7 +287,7 @@ class PoolMgr
                     String warning = MSG_HDR + " detected bad connection, retry";
                     LOG.warn( warning );
                     // attempt to reconnect:
-                    ld.connect(hostName, portId);
+                    ld.connect(Config.getProperty(LDAP_HOST, "localhost"), Config.getInt(LDAP_PORT, 389));
                     // if admin connection type must bind here using stored creds:
                     if(type.equals(ConnType.ADMIN))
                     {
@@ -331,7 +329,7 @@ class PoolMgr
                 warning += " attempt to reconnect";
                 LOG.warn( warning );
                 // attempt reconnect:
-                ld.connect(hostName, portId);
+                ld.connect(Config.getProperty(LDAP_HOST, "localhost"), Config.getInt(LDAP_PORT, 389));
                 // if admin connection type must bind here using stored creds:
                 if(type.equals(ConnType.ADMIN))
                 {
