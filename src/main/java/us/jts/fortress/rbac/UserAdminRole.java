@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import us.jts.fortress.GlobalIds;
+import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
 import us.jts.fortress.util.time.Constraint;
 
@@ -256,7 +257,7 @@ public class UserAdminRole extends UserRole implements Administrator
                 sb.append( org );
             }
         }
-        if ( this.getRoleRangeRaw() != null )
+        if ( VUtil.isNotNullOrEmpty( this.getRoleRangeRaw() ) )
         {
             sb.append( GlobalIds.DELIMITER );
             sb.append( R );
