@@ -693,7 +693,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         {
             ld = getAdminConnection();
             LDAPEntry findEntry = read( ld, dn, PERMISSION_OP_ATRS );
-            entity = unloadPopLdapEntry( findEntry, 0 );
+            entity = unloadPopLdapEntry( findEntry, 0, permission.isAdmin() );
             if ( entity == null )
             {
                 String warning = "getPerm no entry found dn [" + dn + "]";
@@ -737,7 +737,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         {
             ld = getAdminConnection();
             LDAPEntry findEntry = read( ld, dn, PERMISION_OBJ_ATRS );
-            entity = unloadPobjLdapEntry( findEntry, 0 );
+            entity = unloadPobjLdapEntry( findEntry, 0, permObj.isAdmin() );
             if ( entity == null )
             {
                 String warning = "getPerm Obj no entry found dn [" + dn + "]";
@@ -788,7 +788,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             // LDAP Operation #1: Read the targeted permission from ldap server
             LDAPEntry entry = read( ld, dn, PERMISSION_OP_ATRS );
             // load the permission entity with data retrieved from the permission node:
-            Permission outPerm = unloadPopLdapEntry( entry, 0 );
+            Permission outPerm = unloadPopLdapEntry( entry, 0, inPerm.isAdmin() );
             // The admin flag will be set to 'true' if this is an administrative permission:
             outPerm.setAdmin( inPerm.isAdmin() );
             // Pass the tenant id along:
@@ -936,7 +936,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
      * @return
      * @throws LDAPException
      */
-    private Permission unloadPopLdapEntry( LDAPEntry le, long sequence )
+    private Permission unloadPopLdapEntry( LDAPEntry le, long sequence, boolean isAdmin )
     {
         Permission entity = new ObjectFactory().createPermission();
         entity.setDn( le.getDN() );
@@ -950,6 +950,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         entity.setUsers( getAttributeSet( le, USERS ) );
         entity.setType( getAttribute( le, TYPE ) );
         entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
+        entity.setAdmin( isAdmin );
         return entity;
     }
 
@@ -960,7 +961,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
      * @return
      * @throws LDAPException
      */
-    private PermObj unloadPobjLdapEntry( LDAPEntry le, long sequence )
+    private PermObj unloadPobjLdapEntry( LDAPEntry le, long sequence, boolean isAdmin )
     {
         PermObj entity = new ObjectFactory().createPermObj();
         entity.setSequenceId( sequence );
@@ -971,6 +972,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         entity.setType( getAttribute( le, TYPE ) );
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
         entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
+        entity.setAdmin( isAdmin );
         return entity;
     }
 
@@ -1002,7 +1004,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++, permission.isAdmin() ) );
             }
         }
         catch ( LDAPException e )
@@ -1043,7 +1045,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
-                permList.add( unloadPobjLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPobjLdapEntry( searchResults.next(), sequence++, permObj.isAdmin() ) );
             }
         }
         catch ( LDAPException e )
@@ -1092,7 +1094,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
-                permList.add( unloadPobjLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPobjLdapEntry( searchResults.next(), sequence++, false ) );
             }
         }
         catch ( LDAPException e )
@@ -1122,9 +1124,11 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         LDAPConnection ld = null;
         LDAPSearchResults searchResults;
         String permRoot;
+        boolean isAdmin = false;
         if ( role.getClass().equals( AdminRole.class ) )
         {
             permRoot = getRootDn( role.getContextId(), GlobalIds.ADMIN_PERM_ROOT );
+            isAdmin = true;
         }
         else
         {
@@ -1164,7 +1168,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++, isAdmin ) );
             }
         }
         catch ( LDAPException e )
@@ -1212,7 +1216,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++, false ) );
             }
         }
         catch ( LDAPException e )
@@ -1253,7 +1257,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++, false ) );
             }
         }
         catch ( LDAPException e )
@@ -1313,7 +1317,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             long sequence = 0;
             while ( searchResults.hasMoreElements() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.next(), sequence++, isAdmin ) );
             }
         }
         catch ( LDAPException e )

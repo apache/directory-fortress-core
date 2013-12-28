@@ -724,7 +724,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, PERMISSION_OP_ATRS );
-            entity = unloadPopLdapEntry( findEntry, 0 );
+            entity = unloadPopLdapEntry( findEntry, 0, permission.isAdmin() );
 
             if ( entity == null )
             {
@@ -768,7 +768,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, PERMISION_OBJ_ATRS );
-            entity = unloadPobjLdapEntry( findEntry, 0 );
+            entity = unloadPobjLdapEntry( findEntry, 0,permObj.isAdmin() );
 
             if ( entity == null )
             {
@@ -823,7 +823,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
             Entry entry = read( ld, dn, PERMISSION_OP_ATRS );
 
             // load the permission entity with data retrieved from the permission node:
-            Permission outPerm = unloadPopLdapEntry( entry, 0 );
+            Permission outPerm = unloadPopLdapEntry( entry, 0, inPerm.isAdmin() );
 
             // The admin flag will be set to 'true' if this is an administrative permission:
             outPerm.setAdmin( inPerm.isAdmin() );
@@ -982,7 +982,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
      * @throws LdapInvalidAttributeValueException 
      * @throws LdapException
      */
-    private Permission unloadPopLdapEntry( Entry le, long sequence ) throws LdapInvalidAttributeValueException
+    private Permission unloadPopLdapEntry( Entry le, long sequence, boolean isAdmin ) throws LdapInvalidAttributeValueException
     {
         Permission entity = new ObjectFactory().createPermission();
         entity.setSequenceId( sequence );
@@ -995,6 +995,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
         entity.setUsers( getAttributeSet( le, USERS ) );
         entity.setType( getAttribute( le, TYPE ) );
         entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
+        entity.setAdmin( isAdmin );
 
         // TODO: find out the correct way to do this:
         if(le != null)
@@ -1012,7 +1013,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
      * @throws LdapInvalidAttributeValueException 
      * @throws LdapException
      */
-    private PermObj unloadPobjLdapEntry( Entry le, long sequence ) throws LdapInvalidAttributeValueException
+    private PermObj unloadPobjLdapEntry( Entry le, long sequence, boolean isAdmin ) throws LdapInvalidAttributeValueException
     {
         PermObj entity = new ObjectFactory().createPermObj();
         entity.setSequenceId( sequence );
@@ -1023,6 +1024,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
         entity.setType( getAttribute( le, TYPE ) );
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
         entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
+        entity.setAdmin( isAdmin );
         return entity;
     }
 
@@ -1055,7 +1057,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
 
             while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++, permission.isAdmin() ) );
             }
         }
         catch ( LdapException e )
@@ -1101,7 +1103,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
 
             while ( searchResults.next() )
             {
-                permList.add( unloadPobjLdapEntry( searchResults.getEntry(), sequence++ ) );
+                permList.add( unloadPobjLdapEntry( searchResults.getEntry(), sequence++, permObj.isAdmin() ) );
             }
         }
         catch ( LdapException e )
@@ -1157,7 +1159,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
 
             while ( searchResults.next() )
             {
-                permList.add( unloadPobjLdapEntry( searchResults.getEntry(), sequence++ ) );
+                permList.add( unloadPobjLdapEntry( searchResults.getEntry(), sequence++, false ) );
             }
         }
         catch ( LdapException e )
@@ -1191,9 +1193,11 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
         LdapConnection ld = null;
         String permRoot;
 
+        boolean isAdmin = false;
         if ( role.getClass().equals( AdminRole.class ) )
         {
             permRoot = getRootDn( role.getContextId(), GlobalIds.ADMIN_PERM_ROOT );
+            isAdmin = true;
         }
         else
         {
@@ -1239,7 +1243,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
 
             while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++, isAdmin ) );
             }
         }
         catch ( LdapException e )
@@ -1294,7 +1298,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
 
             while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++,false ) );
             }
         }
         catch ( LdapException e )
@@ -1341,7 +1345,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
 
             while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++, false ) );
             }
         }
         catch ( LdapException e )
@@ -1406,7 +1410,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
 
             while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++ ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++, isAdmin ) );
             }
         }
         catch ( LdapException e )
