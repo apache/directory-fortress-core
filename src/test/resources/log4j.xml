@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © 2009-2013. Joshua Tree Software, LLC.  All Rights Reserved.
+  ~ Copyright © 2009-2014. Joshua Tree Software, LLC.  All Rights Reserved.
   -->
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">

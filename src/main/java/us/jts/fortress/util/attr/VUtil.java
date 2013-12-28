@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ * Copyright (c) 2009-2014, JoshuaTree. All Rights Reserved.
  */
 
 package us.jts.fortress.util.attr;

@@ -1,7 +1,7 @@
 package us.jts.fortress.rest;
 
 /*
- * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ * Copyright (c) 2009-2014, JoshuaTree. All Rights Reserved.
  */
 
 import us.jts.fortress.GlobalErrIds;

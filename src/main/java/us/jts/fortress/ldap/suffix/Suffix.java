@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+* Copyright (c) 2009-2014, JoshuaTree. All Rights Reserved.
 */
 
 package us.jts.fortress.ldap.suffix;
@@ -30,7 +30,7 @@ package us.jts.fortress.ldap.suffix;
  * </blockquote>
  * </font>
  * <p/>
- * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ * Copyright (c) 2009-2014, JoshuaTree. All Rights Reserved.
  *
  * @author Shawn McKinney
  */

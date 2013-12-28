@@ -1,5 +1,5 @@
 <!--
-  Copyright (C) 2009-2013, JoshuaTree. All Rights Reserved.
+  Copyright (C) 2009-2014, JoshuaTree. All Rights Reserved.
   Licensed to Joshua Tree Software, LLC under New BSD license agreements.
   See the NOTICE file distributed with this work for additional information
   regarding copyright ownership.
@@ -126,7 +126,7 @@
        <!-- ########### Javadoc properties ########################### -->
        <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
        <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
-       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2013, JoshuaTree. All Rights Reserved. Generated ${TODAY}&lt;/small&gt;"/>
+       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2014, JoshuaTree. All Rights Reserved. Generated ${TODAY}&lt;/small&gt;"/>
        <property name="javadoc.overview" value="${src.java.dir}/us/jts/fortress/overview.html" />
        <property name="javadoc.dist.zip" value="${dist.dir}/${name}-${version}-javadoc.jar"/>
        <property name="javadoc.stylesheet" value="${src.java.dir}/us/jts/fortress/fortress-javadoc.css" />
