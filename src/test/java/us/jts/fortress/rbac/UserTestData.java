@@ -612,8 +612,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -640,8 +640,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV2", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -668,8 +668,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV3", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -696,8 +696,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV4", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -724,8 +724,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV5", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -752,8 +752,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV6", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -780,8 +780,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV7", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -808,8 +808,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV8", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -836,8 +836,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV9", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -864,8 +864,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -899,8 +899,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -927,8 +927,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV2", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -955,8 +955,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV3", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -983,8 +983,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV4", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1011,8 +1011,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV5", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1039,8 +1039,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV6", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1067,8 +1067,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV7", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1095,8 +1095,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV8", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1123,8 +1123,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV9", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1151,8 +1151,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1183,8 +1183,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1207,8 +1207,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV2", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1231,8 +1231,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV3", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1255,8 +1255,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV4", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1279,8 +1279,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV5", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1303,8 +1303,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV6", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1327,8 +1327,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV7", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1351,8 +1351,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV8", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1375,8 +1375,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV9", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1399,8 +1399,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1428,8 +1428,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1456,8 +1456,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV2", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1484,8 +1484,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV3", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1512,8 +1512,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV4", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1540,8 +1540,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV5", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1568,8 +1568,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV6", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1596,8 +1596,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV7", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1624,8 +1624,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV8", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1652,8 +1652,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV9", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1680,8 +1680,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1713,8 +1713,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1741,8 +1741,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV2", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1769,8 +1769,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV3", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1797,8 +1797,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV4", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1825,8 +1825,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV5", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1853,8 +1853,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV6", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1881,8 +1881,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV7", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1909,8 +1909,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV8", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1937,8 +1937,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV9", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1965,8 +1965,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -1999,8 +1999,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2027,8 +2027,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV2", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2055,8 +2055,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV3", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2083,8 +2083,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV4", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2111,8 +2111,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV5", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2139,8 +2139,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV6", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2167,8 +2167,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV7", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2195,8 +2195,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV8", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2223,8 +2223,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV9", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2251,8 +2251,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2279,8 +2279,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2307,8 +2307,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2335,8 +2335,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2363,8 +2363,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2391,8 +2391,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2419,8 +2419,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2447,8 +2447,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2475,8 +2475,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2503,8 +2503,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2531,8 +2531,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2559,8 +2559,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2587,8 +2587,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2615,8 +2615,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2643,8 +2643,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2671,8 +2671,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2699,8 +2699,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2733,8 +2733,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2761,8 +2761,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV2", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2789,8 +2789,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV3", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2817,8 +2817,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV4", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2845,8 +2845,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV5", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2873,8 +2873,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV6", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2901,8 +2901,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV7", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2929,8 +2929,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV8", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2957,8 +2957,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV9", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -2985,8 +2985,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3019,8 +3019,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3047,8 +3047,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3075,8 +3075,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3103,8 +3103,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3131,8 +3131,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3165,8 +3165,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV1", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3193,8 +3193,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV2", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3221,8 +3221,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV3", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3249,8 +3249,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV4", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3277,8 +3277,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV5", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3305,8 +3305,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV6", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3333,8 +3333,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV7", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3361,8 +3361,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV8", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3389,8 +3389,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV9", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -3417,8 +3417,8 @@ public class UserTestData extends TestCase
                 "0000", /* ETIME_COL */
                 "20100101", /* BDATE_COL */
                 "21000101", /* EDATE_COL */
-                "none", /* BLOCKDATE_COL */
-                "none", /* ELOCKDATE_COL */
+                "", /* BLOCKDATE_COL */
+                "", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV10", /* ORG_COL */
                 "30", /* TIMEOUT_COL */
@@ -6493,7 +6493,10 @@ public class UserTestData extends TestCase
      */
     public static String getBeginDate( String[] usr )
     {
-        return usr[BDATE_COL];
+        String value = null;
+        if(VUtil.isNotNullOrEmpty( usr[BDATE_COL] ))
+            value = usr[BDATE_COL];
+        return value;
     }
 
 
@@ -6503,7 +6506,10 @@ public class UserTestData extends TestCase
      */
     public static String getEndDate( String[] usr )
     {
-        return usr[EDATE_COL];
+        String value = null;
+        if(VUtil.isNotNullOrEmpty( usr[EDATE_COL] ))
+            value = usr[EDATE_COL];
+        return value;
     }
 
 
@@ -6513,7 +6519,10 @@ public class UserTestData extends TestCase
      */
     public static String getBeginLockDate( String[] usr )
     {
-        return usr[BLOCKDATE_COL];
+        String value = null;
+        if(VUtil.isNotNullOrEmpty( usr[BLOCKDATE_COL] ))
+            value = usr[BLOCKDATE_COL];
+        return value;
     }
 
 
@@ -6523,7 +6532,10 @@ public class UserTestData extends TestCase
      */
     public static String getEndLockDate( String[] usr )
     {
-        return usr[ELOCKDATE_COL];
+        String value = null;
+        if(VUtil.isNotNullOrEmpty( usr[ELOCKDATE_COL] ))
+            value = usr[ELOCKDATE_COL];
+        return value;
     }
 
 

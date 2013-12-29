@@ -230,10 +230,14 @@ public class TestUtils extends TestCase
     public static void assertTemporal( String msg, us.jts.fortress.util.time.Constraint c1,
         us.jts.fortress.util.time.Constraint c2 )
     {
-        assertEquals( msg, c1.getBeginDate(), c2.getBeginDate() );
-        assertEquals( msg, c1.getEndDate(), c2.getEndDate() );
-        assertEquals( msg, c1.getBeginLockDate(), c2.getBeginLockDate() );
-        assertEquals( msg, c1.getEndLockDate(), c2.getEndLockDate() );
+        if(c1.getBeginDate() != null || c2.getBeginDate() != null)
+            assertEquals( msg, c1.getBeginDate(), c2.getBeginDate() );
+        if(c1.getEndDate() != null || c2.getEndDate() != null)
+            assertEquals( msg, c1.getEndDate(), c2.getEndDate() );
+        if(c1.getBeginLockDate() != null || c2.getBeginLockDate() != null)
+            assertEquals( msg, c1.getBeginLockDate(), c2.getBeginLockDate() );
+        if(c1.getEndLockDate() != null || c2.getEndLockDate() != null)
+            assertEquals( msg, c1.getEndLockDate(), c2.getEndLockDate() );
         assertEquals( msg, c1.getBeginTime(), c2.getBeginTime() );
         assertEquals( msg, c1.getEndTime(), c2.getEndTime() );
         assertEquals( msg, c1.getDayMask(), c2.getDayMask() );
