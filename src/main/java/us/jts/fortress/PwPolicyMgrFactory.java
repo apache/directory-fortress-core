@@ -26,6 +26,18 @@ public class PwPolicyMgrFactory
     private static final String CLS_NM = PwPolicyMgrFactory.class.getName();
 
     /**
+     * Create and return a reference to {@link PwPolicyMgr} object using HOME context.
+     *
+     * @return instance of {@link PwPolicyMgr}.
+     * @throws us.jts.fortress.SecurityException in the event of failure during instantiation.
+     */
+    public static PwPolicyMgr createInstance()
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME );
+    }
+
+    /**
      * Create and return a reference to {@link PwPolicyMgr} object.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
@@ -51,6 +63,19 @@ public class PwPolicyMgrFactory
         PwPolicyMgr policyMgr = (PwPolicyMgr) ClassUtil.createInstance(policyClassName);
         policyMgr.setContextId(contextId);
         return policyMgr;
+    }
+
+    /**
+     * Create and return a reference to {@link us.jts.fortress.PwPolicyMgr} object using HOME context.
+     *
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link us.jts.fortress.PwPolicyMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static PwPolicyMgr createInstance(Session adminSess)
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME, adminSess );
     }
 
     /**

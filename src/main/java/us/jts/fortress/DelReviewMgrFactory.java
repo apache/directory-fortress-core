@@ -26,6 +26,18 @@ public class DelReviewMgrFactory
     private static final String CLS_NM = DelReviewMgrFactory.class.getName();
 
     /**
+     * Create and return a reference to {@link DelReviewMgr} object using HOME context.
+     *
+     * @return instance of {@link DelReviewMgr}.
+     * @throws us.jts.fortress.SecurityException in the event of failure during instantiation.
+     */
+    public static DelReviewMgr createInstance()
+        throws us.jts.fortress.SecurityException
+    {
+        return createInstance( GlobalIds.HOME );
+    }
+
+    /**
      * Create and return a reference to {@link DelReviewMgr} object.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
@@ -51,6 +63,19 @@ public class DelReviewMgrFactory
         DelReviewMgr delReviewMgr = (DelReviewMgr) ClassUtil.createInstance(dReviewClassName);
         delReviewMgr.setContextId(contextId);
         return delReviewMgr;
+    }
+
+    /**
+     * Create and return a reference to {@link us.jts.fortress.DelReviewMgr} object using HOME context.
+     *
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link us.jts.fortress.DelReviewMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static DelReviewMgr createInstance(Session adminSess)
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME, adminSess );
     }
 
     /**

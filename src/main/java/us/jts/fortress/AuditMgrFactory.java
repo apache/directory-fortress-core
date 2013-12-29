@@ -26,6 +26,18 @@ public class AuditMgrFactory
     private static final String CLS_NM = AuditMgrFactory.class.getName();
 
     /**
+     * Create and return a reference to {@link us.jts.fortress.AuditMgr} object using HOME context.
+     *
+     * @return instance of {@link us.jts.fortress.AuditMgr}.
+     * @throws us.jts.fortress.SecurityException in the event of failure during instantiation.
+     */
+    public static AuditMgr createInstance()
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME );
+    }
+
+    /**
      * Create and return a reference to {@link us.jts.fortress.AuditMgr} object.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
@@ -51,6 +63,19 @@ public class AuditMgrFactory
         AuditMgr auditMgr = (AuditMgr) ClassUtil.createInstance(auditClassName);
         auditMgr.setContextId(contextId);
         return auditMgr;
+    }
+
+    /**
+     * Create and return a reference to {@link us.jts.fortress.AuditMgr} object using HOME context.
+     *
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link us.jts.fortress.AuditMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static AuditMgr createInstance(Session adminSess)
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME, adminSess );
     }
 
     /**

@@ -26,6 +26,18 @@ public class AccessMgrFactory
     private static final String CLS_NM = AccessMgrFactory.class.getName();
 
     /**
+     * Create and return a reference to {@link us.jts.fortress.AccessMgr} object using HOME context.
+     *
+     * @return instance of {@link us.jts.fortress.AccessMgr}.
+     * @throws us.jts.fortress.SecurityException in the event of failure during instantiation.
+     */
+    public static AccessMgr createInstance()
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME );
+    }
+
+    /**
      * Create and return a reference to {@link us.jts.fortress.AccessMgr} object.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.

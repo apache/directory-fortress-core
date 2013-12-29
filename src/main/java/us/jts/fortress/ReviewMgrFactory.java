@@ -26,6 +26,18 @@ public class ReviewMgrFactory
     private static final String CLS_NM = ReviewMgrFactory.class.getName();
 
     /**
+     * Create and return a reference to {@link us.jts.fortress.ReviewMgr} object using HOME context.
+     *
+     * @return instance of {@link us.jts.fortress.ReviewMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static us.jts.fortress.ReviewMgr createInstance()
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME );
+    }
+
+    /**
      * Create and return a reference to {@link us.jts.fortress.ReviewMgr} object.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
@@ -51,6 +63,19 @@ public class ReviewMgrFactory
         ReviewMgr reviewMgr = (us.jts.fortress.ReviewMgr) ClassUtil.createInstance(reviewClassName);
         reviewMgr.setContextId(contextId);
         return reviewMgr;
+    }
+
+    /**
+     * Create and return a reference to {@link us.jts.fortress.ReviewMgr} object using HOME context.
+     *
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link us.jts.fortress.ReviewMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static ReviewMgr createInstance(Session adminSess)
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME, adminSess );
     }
 
     /**

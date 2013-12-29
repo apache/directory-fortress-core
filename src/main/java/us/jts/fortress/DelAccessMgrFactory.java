@@ -26,6 +26,19 @@ public class DelAccessMgrFactory
     private static final String CLS_NM = DelAccessMgrFactory.class.getName();
 
     /**
+     * Create and return a reference to {@link DelAccessMgr} object using HOME context.
+     *
+     * @return instance of {@link DelAccessMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static DelAccessMgr createInstance()
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME );
+    }
+
+
+    /**
      * Create and return a reference to {@link DelAccessMgr} object.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
@@ -51,6 +64,20 @@ public class DelAccessMgrFactory
         DelAccessMgr accessMgr = (DelAccessMgr) ClassUtil.createInstance(accessClassName);
         accessMgr.setContextId(contextId);
         return accessMgr;
+    }
+
+
+    /**
+     * Create and return a reference to {@link us.jts.fortress.DelAccessMgr} object using HOME context.
+     *
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link us.jts.fortress.DelAccessMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static DelAccessMgr createInstance(Session adminSess)
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME, adminSess );
     }
 
 
