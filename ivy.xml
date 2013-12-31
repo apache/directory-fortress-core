@@ -47,7 +47,6 @@
         <dependency org="net.sf.opencsv" name="opencsv" rev="2.3" conf="default->master" />
 
         <!-- Fortress core source is NOT dependent on Sentry, EnMasse or Commander artifacts rather they're required for its QUICKSTART demo apps: -->
-<!--
         <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC34"  conf="default->master">
             <artifact name="sentry" type="jar"/>
         </dependency>
@@ -57,7 +56,6 @@
         <dependency org="us.joshuatreesoftware" name="commander" rev="1.0-RC34"  conf="default->master">
             <artifact name="commander" type="jar"/>
         </dependency>
--->
 
     </dependencies>
 </ivy-module>
