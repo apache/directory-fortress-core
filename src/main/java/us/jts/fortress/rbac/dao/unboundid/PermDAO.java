@@ -232,6 +232,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
 
             // create the new entry:
             LDAPEntry myEntry = new LDAPEntry( dn, attrs );
+            entity.setDn( dn );
 
             // now add the new entry to directory:
             ld = getAdminConnection();
@@ -290,6 +291,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             {
                 ld = getAdminConnection();
                 modify( ld, dn, mods, entity );
+                entity.setDn( dn );
             }
         }
         catch ( LDAPException e )
@@ -388,6 +390,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             // now add the new entry to directory:
             ld = getAdminConnection();
             add( ld, myEntry, entity );
+            entity.setDn( dn );
         }
         catch ( LDAPException e )
         {
@@ -439,6 +442,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             {
                 ld = getAdminConnection();
                 modify( ld, dn, mods, entity );
+                entity.setDn( dn );
             }
         }
         catch ( LDAPException e )

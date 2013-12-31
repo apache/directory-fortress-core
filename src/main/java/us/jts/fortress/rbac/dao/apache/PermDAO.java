@@ -243,6 +243,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
             // now add the new entry to directory:
             ld = getAdminConnection();
             add( ld, entry, entity );
+            entity.setDn( dn );
         }
         catch ( LdapException e )
         {
@@ -302,6 +303,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
             {
                 ld = getAdminConnection();
                 modify( ld, dn, mods, entity );
+                entity.setDn( dn );
             }
         }
         catch ( LdapException e )
@@ -412,6 +414,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
             // now add the new entry to directory:
             ld = getAdminConnection();
             add( ld, entry, entity );
+            entity.setDn( dn );
         }
         catch ( LdapException e )
         {
@@ -467,6 +470,7 @@ public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortre
             {
                 ld = getAdminConnection();
                 modify( ld, dn, mods, entity );
+                entity.setDn( dn );
             }
         }
         catch ( LdapException e )
