@@ -37,6 +37,7 @@ package us.jts.fortress.ldap.suffix;
 public class Suffix
 {
     private String dc;
+    private String dc2;
     private String name;
     private String description;
 
@@ -60,26 +61,6 @@ public class Suffix
      */
     public Suffix()
     {
-    }
-
-    /**
-     * Get top level domain component specifier, i.e. dc=com.  This attribute is required.
-     *
-     * @return dc maps to 'dc' in 'dcObject' object class.
-     */
-    public String getDc()
-    {
-        return dc;
-    }
-
-    /**
-     * Set top level domain component specifier, i.e. dc=com.  This attribute is required.
-     *
-     * @param dc maps to 'dc' in 'dcObject' object class.
-     */
-    public void setDc(String dc)
-    {
-        this.dc = dc;
     }
 
     /**
@@ -122,6 +103,46 @@ public class Suffix
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    /**
+     * Get top level domain component specifier, i.e. dc=com.  This attribute is required.
+     *
+     * @return dc maps to 'dc' in 'dcObject' object class.
+     */
+    public String getDc()
+    {
+        return dc;
+    }
+
+    /**
+     * Set top level domain component specifier, i.e. dc=com.  This attribute is required.
+     *
+     * @param dc maps to 'dc' in 'dcObject' object class.
+     */
+    public void setDc(String dc)
+    {
+        this.dc = dc;
+    }
+
+    /**
+     * Get top level domain component specifier, i.e. dc=com for a three part dc structure.  This attribute is optional.
+     *
+     * @return dc maps to 'dc' in 'dcObject' object class.
+     */
+    public String getDc2()
+    {
+        return dc2;
+    }
+
+    /**
+     * Get top level domain component specifier, i.e. dc=com for three part dc structure.  This attribute is optional.
+     *
+     * @return dc maps to 'dc' in 'dcObject' object class.
+     */
+    public void setDc2( String dc2 )
+    {
+        this.dc2 = dc2;
     }
 }
 

@@ -21,7 +21,7 @@
     <packaging>jar</packaging>
     <name>Fortress Core</name>
     <version>1.0-RC34</version>
-    <description>Fortress is a standards-based Identity and Access Management SDK.</description>
+    <description>Fortress is a standards-based Identity and Access Management SDK that implements ANSI RBAC INCITS 359.</description>
     <url>http://jts.us</url>
 
     <licenses>

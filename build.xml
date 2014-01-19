@@ -702,6 +702,7 @@
 	     <copy file="${src.load.bootstrap.script}" tofile="${dst.load.bootstrap.script}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_NAME@" value="${suffix.name}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC@" value="${suffix.dc}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC2@" value="${suffix.dc2}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX@" value="${suffix}"/>
          <replace file="${dst.load.bootstrap.script}" token="@LOG_ROOT_DN@" value="${log.root.dn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@CFG_LOG_ROOT_PW@" value="${cfg.log.root.pw}"/>

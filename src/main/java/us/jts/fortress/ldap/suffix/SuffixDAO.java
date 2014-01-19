@@ -18,6 +18,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
+import us.jts.fortress.util.attr.VUtil;
 
 
 /**
@@ -145,6 +146,13 @@ final class SuffixDAO extends UnboundIdDataProvider
      */
     private String getDn( Suffix se )
     {
-        return DC + "=" + se.getName() + "," + DC + "=" + se.getDc();
+        String dn = DC + "=" + se.getName() + "," + DC + "=" + se.getDc();
+        // only use this domain component variable if it has been set in the build.properties file:
+        if( VUtil.isNotNullOrEmpty( se.getDc2() ) && !se.getDc2().equals( "${suffix.dc2}" ))
+        {
+            dn += "," + DC + "=" + se.getDc2();
+        }
+        LOG.debug( "suffix=" + dn );
+        return dn;
     }
 }
