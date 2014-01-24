@@ -26,7 +26,8 @@ moduleload  accesslog.la
 ### ACLs
 ### This one allows user to modify their own password (needed for pw policies):
 ### This also allows user to modify their own ftmod attributes (needed for audit):
-access to attrs=userpassword,ftModCode,ftModId,ftModifier
+#access to attrs=userpassword,ftModCode,ftModId,ftModifier
+access to attrs=userpassword
          by self write
          by * auth
 
