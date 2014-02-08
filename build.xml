@@ -758,12 +758,21 @@
     </target>
 
     <!-- =================================
-          target: init-slapd - initializes the fortress, OpenLDAP and Berkeley DB
-          Use Caution as it removes the file volume containing the BerkeleyDB User data!
-          This operation is destructive and non-reversible.  It is intended for complete openldap
-          system tear down and reinstall.
+          target: init-slapd - Performs the following functions:
 
-          Never run this Ant target on a production system.
+                1. Initializes the Fortress runtime config
+                2. Installs OpenLDAP directory server to the local machine
+                3. Loads seed data into directory server.
+
+          WARNING: Use caution running this target.
+
+          It backs up the folder containing current LMDB database (ponted to by ${db.dir}) and creates a new/empty database folder.
+
+          This operation can be manually reversed by moving the saved DB folder (pointed to by ${db.hist.dir}) back to original location (again ${db.dir}).
+
+          This operation is for creating new or reinitializing existing OpenLdap instances back to origin and should NEVER be run against an LDAP server in prod env.
+
+          Do NOT run this Ant target on a production LDAP instance !!
          ================================= -->
     <target name="init-slapd" depends="build-jar" description="--> task recreates openldap system and must be run as elevated priv's to teardown/create slapd files and folders">
         <echo message="###############  Initialize OpenLDAP  ###############"/>
