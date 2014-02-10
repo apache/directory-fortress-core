@@ -57,6 +57,7 @@ public class RestUtils
     private static final int HTTP_401_UNAUTHORIZED = 401;
     private static final int HTTP_403_FORBIDDEN = 403;
     private static final int HTTP_404_NOT_FOUND = 404;
+    private static CachedJaxbContext cachedJaxbContext = new CachedJaxbContext();
 
 
     /**
@@ -72,7 +73,7 @@ public class RestUtils
         try
         {
             // Create a JAXB context passing in the class of the object we want to marshal/unmarshal
-            final JAXBContext context = JAXBContext.newInstance( FortRequest.class );
+            final JAXBContext context = cachedJaxbContext.getJaxbContext( FortRequest.class );
             // =============================================================================================================
             // Marshalling OBJECT to XML
             // =============================================================================================================
@@ -106,7 +107,8 @@ public class RestUtils
         try
         {
             // Create a JAXB context passing in the class of the object we want to marshal/unmarshal
-            final JAXBContext context = JAXBContext.newInstance( FortResponse.class );
+            final JAXBContext context = cachedJaxbContext.getJaxbContext( FortResponse.class );
+
             // Create the unmarshaller, that will transform the XML back into an object
             final Unmarshaller unmarshaller = context.createUnmarshaller();
             response = ( FortResponse ) unmarshaller.unmarshal( new StringReader( szResponse ) );

@@ -766,7 +766,7 @@
 
           WARNING: Use caution running this target.
 
-          It backs up the folder containing current LMDB database (ponted to by ${db.dir}) and creates a new/empty database folder.
+          It backs up the folder containing current LMDB database (pointed to by ${db.dir}) and creates a new/empty database folder.
 
           This operation can be manually reversed by moving the saved DB folder (pointed to by ${db.hist.dir}) back to original location (again ${db.dir}).
 

@@ -147,7 +147,7 @@ final class AdminUtil
     }
 
     /**
-     * Wrapper function to call {@link us.jts.fortress.rbac.AccessMgrImpl#checkAccess(us.jts.fortress.rbac.Session, us.jts.fortress.rbac.Permission)}.
+     * Wrapper function to call {@link us.jts.fortress.rbac.DelAccessMgrImpl#checkAccess(us.jts.fortress.rbac.Session, us.jts.fortress.rbac.Permission)}.
      * Perform user arbac authorization.  This function returns a Boolean value meaning whether the subject of a given session is
      * allowed or not to perform a given operation on a given object. The function is valid if and
      * only if the session is a valid Fortress session, the object is a member of the OBJS data set,
