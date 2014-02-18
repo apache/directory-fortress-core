@@ -34,17 +34,17 @@ ldap.server.type=@SERVER_TYPE@
 # Define the high-level structure of LDAP DIT:
 suffix=@SUFFIX@
 config.root=ou=Config,@SUFFIX@
-user.root=ou=People,@SUFFIX@
-pwpolicy.root=ou=Policies,@SUFFIX@
-role.root=ou=Roles,ou=RBAC,@SUFFIX@
-perm.root=ou=Permissions,ou=RBAC,@SUFFIX@
-sdconstraint.root=ou=Constraints,ou=RBAC,@SUFFIX@
-userou.root=ou=OS-U,ou=ARBAC,@SUFFIX@
-permou.root=ou=OS-P,ou=ARBAC,@SUFFIX@
-adminrole.root=ou=AdminRoles,ou=ARBAC,@SUFFIX@
-adminperm.root=ou=AdminPerms,ou=ARBAC,@SUFFIX@
+user.root=@USERS_DN@
+pwpolicy.root=@POLICIES_DN@
+role.root=@ROLES_DN@
+perm.root=@PERMS_DN@
+sdconstraint.root=@CONSTRAINTS_DN@
+userou.root=@USEROUS_DN@
+permou.root=@PERMOUS_DN@
+adminrole.root=@ADMINROLES_DN@
+adminperm.root=@ADMINPERMS_DN@
+audit.root=@AUDITS_DN@
 example.root=ou=Examples,@SUFFIX@
-audit.root=cn=log
 
 superadmin.role=oamSuperAdmin
 

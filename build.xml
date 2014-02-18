@@ -101,6 +101,8 @@
        <property name="dst.slapd.conf" value="${slapd.dir}/slapd.conf"/>
        <property name="source.fortress.schema" value="${ldap.schema.dir}/fortress.schema"/>
        <property name="target.fortress.schema" value="${slapd.schema.dir}/fortress.schema"/>
+       <property name="source.rbac.schema" value="${ldap.schema.dir}/rbac.schema"/>
+       <property name="target.rbac.schema" value="${slapd.schema.dir}/rbac.schema"/>
        <property name="db.cfg" value="${ldap.dir}/DB_CONFIG"/>
 
        <!-- ########### Sentry manage & config properties ########################### -->
@@ -620,8 +622,60 @@
          <replace file="${target.slapd.conf}" token="@DFLT_SIZE@" value="${dflt.size}"/>
          <replace file="${target.slapd.conf}" token="@DFLT_BDB_CACHE_SIZE@" value="${dflt.bdb.cache.size}"/>
          <replace file="${target.slapd.conf}" token="@DFLT_BDB_CACHE_IDLE_SIZE@" value="${dflt.bdb.cache.idle.size}"/>
+         <replace file="${target.slapd.conf}" token="@POLICIES_DN@" value="${policies.dn}"/>
+         <antcall target="init-rbac-accelerator"></antcall>
          <echo message="Target init-all-config complete."/>
      </target>
+
+
+    <!-- =================================
+          RBAC Accelerator Overlay Config
+         ================================= -->
+    <target name="init-rbac-accelerator" depends="init">
+        <antcall target="enable-rbac-accelerator"></antcall>
+        <antcall target="disable-rbac-accelerator"></antcall>
+    </target>
+
+    <!-- =================================
+          Enable the RBAC Accelerator Overlay
+         ================================= -->
+    <target name="enable-rbac-accelerator" depends="init" if="rbac.accelerator">
+        <echo message="###############  Initialize the RBAC Accelerator Overlay"/>
+        <replace file="${target.slapd.conf}" token="@RBAC_MODULE@" value="${rbac.module}"/>
+        <replace file="${target.slapd.conf}" token="@DDS_MODULE@" value="${dds.module}"/>
+        <replace file="${target.slapd.conf}" token="@MONITOR_MODULE@" value="${monitor.module}"/>
+        <replace file="${target.slapd.conf}" token="@IS_RBAC_ACCELERATOR@" value=""/>
+        <replace file="${target.slapd.conf}" token="@USERS_DN@" value="${users.dn}"/>
+        <replace file="${target.slapd.conf}" token="@ROLES_DN@" value="${roles.dn}"/>
+        <replace file="${target.slapd.conf}" token="@PERMS_DN@" value="${perms.dn}"/>
+        <replace file="${target.slapd.conf}" token="@SUFFIX@" value="${suffix.dc}"/>
+        <replace file="${target.slapd.conf}" token="@SUFFIX_NAME@" value="${suffix.name}"/>
+        <replace file="${target.slapd.conf}" token="@RBAC_DB_PATH@" value="${db.sess.dir}"/>
+        <replace file="${target.slapd.conf}" token="@AUDIT_DB_PATH@" value="${db.audit.dir}"/>
+        <replace file="${target.slapd.conf}" token="@RBAC_DN@" value="${rbac.dn}"/>
+        <replace file="${target.slapd.conf}" token="@SESSIONS_DN@" value="${sessions.dn}"/>
+        <replace file="${target.slapd.conf}" token="@AUDITS_DN@" value="${audit.dn}"/>
+
+        <echo message="###############  Backup old RBAC ACCEL OVERLAY LMDB audit folder  ###############"/>
+        <move todir="${db.bak.audit.dir}/${TODAY}" failonerror="false">
+            <fileset dir="${db.audit.dir}"/>
+        </move>
+        <echo message="###############  Create RBAC ACCEL OVERLAY session folder  ###############"/>
+        <mkdir dir="${db.sess.dir}"/>
+        <echo message="###############  Create RBAC ACCEL OVERLAY audit folder  ###############"/>
+        <mkdir dir="${db.audit.dir}"/>
+    </target>
+
+    <!-- =================================
+          Disable RBAC Accelerator Overlay
+         ================================= -->
+    <target name="disable-rbac-accelerator" depends="init" unless="rbac.accelerator">
+        <echo message="###############  Disable the RBAC Accelerator Overlay"/>
+        <replace file="${target.slapd.conf}" token="@RBAC_MODULE@" value=""/>
+        <replace file="${target.slapd.conf}" token="@DDS_MODULE@" value=""/>
+        <replace file="${target.slapd.conf}" token="@MONITOR_MODULE@" value=""/>
+        <replace file="${target.slapd.conf}" token="@IS_RBAC_ACCELERATOR@" value="#"/>
+    </target>
 
     <!-- =================================
           init slapd for windows
@@ -680,6 +734,16 @@
          <replace file="${dst.bootstrap.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
          <replace file="${dst.bootstrap.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
          <replace file="${dst.bootstrap.conf}" token="@LDAP_CLIENT_TYPE@" value="${ldap.client.type}"/>
+         <replace file="${dst.bootstrap.conf}" token="@USERS_DN@" value="${users.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@ROLES_DN@" value="${roles.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@POLICIES_DN@" value="${policies.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@PERMS_DN@" value="${perms.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@CONSTRAINTS_DN@" value="${constraints.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@USEROUS_DN@" value="${userous.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@PERMOUS_DN@" value="${permous.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@ADMINROLES_DN@" value="${adminroles.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@ADMINPERMS_DN@" value="${adminperms.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@AUDITS_DN@" value="${audits.dn}"/>
 
 	     <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
          <replace file="${dst.remote.conf}" token="@SUFFIX@" value="${suffix}"/>
@@ -711,6 +775,16 @@
          <replace file="${dst.load.bootstrap.script}" token="@USR_MIN_CONN@" value="${log.min.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@USR_MAX_CONN@" value="${log.max.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@USERS_DN@" value="${users.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@ROLES_DN@" value="${roles.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@POLICIES_DN@" value="${policies.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@PERMS_DN@" value="${perms.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@CONSTRAINTS_DN@" value="${constraints.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@USEROUS_DN@" value="${userous.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@PERMOUS_DN@" value="${permous.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@ADMINROLES_DN@" value="${adminroles.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@ADMINPERMS_DN@" value="${adminperms.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@AUDITS_DN@" value="${audits.dn}"/>
 
          <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
          <delete file="${bootstrap.ehcache.conf}"/>
@@ -802,12 +876,14 @@
         <echo message="###############  Backup slapd configuration and Fortress LDAP schema  ###############"/>
         <move file="${dst.slapd.conf}" tofile="${dst.slapd.conf}.bak.${TODAY}" failonerror="false" />
         <move file="${target.fortress.schema}" tofile="${target.fortress.schema}.${TODAY}" failonerror="false" />
+        <move file="${target.rbac.schema}" tofile="${target.rbac.schema}.${TODAY}" failonerror="false" />
 
         <echo message="###############  Setup meta config and base load scripts for openldap and fortress  ###############"/>
         <antcall target="init-all-config"></antcall>
 
         <echo message="###############  Copy slapd configuration and Fortress LDAP schema files from source  ###############"/>
         <copy todir="${slapd.schema.dir}" file="${source.fortress.schema}"/>
+        <copy todir="${slapd.schema.dir}" file="${source.rbac.schema}"/>
         <copy todir="${slapd.dir}" file="${target.slapd.conf}"/>
 
         <antcall target="copy-access-libs"></antcall>		

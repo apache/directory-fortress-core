@@ -8,6 +8,7 @@ include		@SCHEMA_PATH@/inetorgperson.schema
 include		@SCHEMA_PATH@/nis.schema
 include		@SCHEMA_PATH@/openldap.schema
 include		@SCHEMA_PATH@/fortress.schema
+include		@SCHEMA_PATH@/rbac.schema
 
 disallow bind_anon
 idletimeout 0
@@ -22,11 +23,20 @@ modulepath	@SLAPD_MODULE_PATH@
 moduleload	@DB_MODULE_NM@
 moduleload	ppolicy.la
 moduleload  accesslog.la
+@RBAC_MODULE@
+@DDS_MODULE@
+@MONITOR_MODULE@
 
 ### ACLs
+@IS_RBAC_ACCELERATOR@access to dn="" by * read
+@IS_RBAC_ACCELERATOR@access to *
+@IS_RBAC_ACCELERATOR@	by self write
+@IS_RBAC_ACCELERATOR@	by users read
+@IS_RBAC_ACCELERATOR@	by anonymous auth
+@IS_RBAC_ACCELERATOR@	by sockurl="^ldapi:///$" write
+
 ### This one allows user to modify their own password (needed for pw policies):
 ### This also allows user to modify their own ftmod attributes (needed for audit):
-#access to attrs=userpassword,ftModCode,ftModId,ftModifier
 access to attrs=userpassword
          by self write
          by * auth
@@ -55,7 +65,7 @@ suffix		"@LOG_SUFFIX@"
 rootdn      "@LOG_ROOT_DN@"
 rootpw      "@LOG_ROOT_PW@"
 index objectClass,reqDN,reqAuthzID,reqStart,reqAttr eq
-directory	@HISTORY_DB_PATH@
+directory	"@HISTORY_DB_PATH@"
 access to *
     by dn.base="@LOG_ROOT_DN@" write
 @LOG_DBNOSYNCH@
@@ -79,7 +89,7 @@ index uidNumber,gidNumber,objectclass eq,pres
 index cn,sn,ftObjNm,ftOpNm,ftRoleName,uid,ou eq,sub
 index ftId,ftPermName,ftRoles,ftUsers,ftRA,ftARA eq
 
-directory	@DEFAULT_DB_PATH@
+directory	"@DEFAULT_DB_PATH@"
 overlay accesslog
 logdb   "@LOG_SUFFIX@"
 @DFLT_DBNOSYNCH@
@@ -99,6 +109,51 @@ logpurge 5+00:00 1+00:00
 #######################################################################
 # Enable the Password Policy overlay to enforce password policies on this database.
 overlay     ppolicy
-ppolicy_default "cn=PasswordPolicy, ou=Policies, @SUFFIX@"
+ppolicy_default "cn=PasswordPolicy,@POLICIES_DN@"
 ppolicy_use_lockout
 ppolicy_hash_cleartext
+
+#######################################################################
+# RBAC Session database
+#######################################################################
+@IS_RBAC_ACCELERATOR@database mdb
+@IS_RBAC_ACCELERATOR@suffix     "@SESSIONS_DN@"
+@IS_RBAC_ACCELERATOR@rootdn	    "cn=manager,@SESSIONS_DN@"
+@IS_RBAC_ACCELERATOR@rootpw	    @LOG_ROOT_PW@
+@IS_RBAC_ACCELERATOR@directory  "@RBAC_DB_PATH@"
+@IS_RBAC_ACCELERATOR@overlay     dds
+@IS_RBAC_ACCELERATOR@dds-default-ttl 3600
+@IS_RBAC_ACCELERATOR@dds-max-dynamicObjects	100000
+
+#######################################################################
+# RBAC audit database
+#######################################################################
+@IS_RBAC_ACCELERATOR@database	mdb
+@IS_RBAC_ACCELERATOR@suffix		"@AUDITS_DN@"
+@IS_RBAC_ACCELERATOR@rootdn		"cn=manager,@AUDITS_DN@"
+@IS_RBAC_ACCELERATOR@rootpw		@LOG_ROOT_PW@
+@IS_RBAC_ACCELERATOR@directory	"@AUDIT_DB_PATH@"
+
+#######################################################################
+# RBAC database
+#######################################################################
+@IS_RBAC_ACCELERATOR@database	mdb
+@IS_RBAC_ACCELERATOR@suffix		"@RBAC_DN@"
+@IS_RBAC_ACCELERATOR@rootdn		"cn=manager,@RBAC_DN@"
+@IS_RBAC_ACCELERATOR@rootpw		@LOG_ROOT_PW@
+@IS_RBAC_ACCELERATOR@overlay	rbac
+@IS_RBAC_ACCELERATOR@rbac-default-tenant-id "@SUFFIX_NAME@"
+@IS_RBAC_ACCELERATOR@rbac-default-users-base-dn "@USERS_DN@"
+@IS_RBAC_ACCELERATOR@rbac-default-roles-base-dn "@ROLES_DN@"
+@IS_RBAC_ACCELERATOR@rbac-default-permissions-base-dn "@PERMS_DN@"
+@IS_RBAC_ACCELERATOR@rbac-default-sessions-base-dn "@SESSIONS_DN@"
+@IS_RBAC_ACCELERATOR@rbac-default-audit-base-dn "@AUDITS_DN@"
+@IS_RBAC_ACCELERATOR@rbac-admin "@SUFFIX@"
+@IS_RBAC_ACCELERATOR@rbac-pwd "secret"
+@IS_RBAC_ACCELERATOR@rbac-session-admin "cn=manager,@SESSIONS_DN@"
+@IS_RBAC_ACCELERATOR@rbac-session-admin-pwd secret
+
+#######################################################################
+# Monitor database
+#######################################################################
+@IS_RBAC_ACCELERATOR@database monitor

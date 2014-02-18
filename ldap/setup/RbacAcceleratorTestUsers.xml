@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2009-2013. Joshua Tree Software, LLC.  All Rights Reserved.
+  -->
+<project basedir="." default="all" name="Fortress Sample Data">
+    <taskdef classname="us.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
+        <classpath path="${java.class.path}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+
+            <deluser>
+                <user userId="rbacuser1"/>
+            </deluser>
+
+            <adduser>
+                <user userId="rbacuser1" password="secret" description="Demo Test User 4" ou="demousrs1" cn="JoeUser4" sn="User4"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" />
+            </adduser>
+
+            <deluserrole>
+                <userrole userId="rbacuser1" name="rbacrole1"/>
+                <userrole userId="rbacuser1" name="rbacrole2"/>
+            </deluserrole>
+
+            <adduserrole>
+                <userrole userId="rbacuser1" name="rbacrole1"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
+                <userrole userId="rbacuser1" name="rbacrole2"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
+            </adduserrole>
+
+            <delrole>
+                <role name="rbacrole1"/>
+                <role name="rbacrole2"/>
+            </delrole>
+
+            <addrole>
+                <role name="rbacrole1" description="Used for RBAC Accelerator Testing" />
+                <role name="rbacrole2" description="Used for RBAC Accelerator Testing" />
+            </addrole>
+
+            <delpermobj>
+                <permobj objectName="/rbac/cal2.jsp"/>
+            </delpermobj>
+
+            <addpermobj>
+                <permobj objectName="/rbac/cal2.jsp" description="Fortress Web Demo App Object 2" ou="demoapps1" type="Ant"/>
+            </addpermobj>
+
+            <delpermop>
+                <permop opName="8am" objectName="/rbac/cal2.jsp"/>
+                <permop opName="9am" objectName="/rbac/cal2.jsp"/>
+                <permop opName="10am" objectName="/rbac/cal2.jsp"/>
+                <permop opName="11am" objectName="/rbac/cal2.jsp"/>
+                <permop opName="12pm" objectName="/rbac/cal2.jsp"/>
+                <permop opName="1pm" objectName="/rbac/cal2.jsp"/>
+                <permop opName="2pm" objectName="/rbac/cal2.jsp"/>
+                <permop opName="3pm" objectName="/rbac/cal2.jsp"/>
+                <permop opName="4pm" objectName="/rbac/cal2.jsp"/>
+                <permop opName="5pm" objectName="/rbac/cal2.jsp"/>
+                <permop opName="6pm" objectName="/rbac/cal2.jsp"/>
+            </delpermop>
+
+            <addpermop>
+                <permop opName="8am" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="9am" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="10am" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="11am" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="12pm" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="1pm" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="2pm" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="3pm" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="4pm" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="5pm" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="6pm" objectName="/rbac/cal2.jsp" type="Ant"/>
+            </addpermop>
+
+            <delpermgrant>
+                <permgrant objName="/rbac/cal2.jsp" opName="8am" roleNm="rbacrole1"/>
+                <permgrant objName="/rbac/cal2.jsp" opName="10am" roleNm="rbacrole1"/>
+                <permgrant objName="/rbac/cal2.jsp" opName="12pm" roleNm="rbacrole1"/>
+                <permgrant objName="/rbac/cal2.jsp" opName="2pm" roleNm="rbacrole1"/>
+                <permgrant objName="/rbac/cal2.jsp" opName="4pm" roleNm="rbacrole1"/>
+                <permgrant objName="/rbac/cal2.jsp" opName="6pm" roleNm="rbacrole1"/>
+            </delpermgrant>
+
+            <addpermgrant>
+                <permgrant objName="/rbac/cal2.jsp" opName="8am" roleNm="rbacrole1"/>
+                <permgrant objName="/rbac/cal2.jsp" opName="10am" roleNm="rbacrole1"/>
+                <permgrant objName="/rbac/cal2.jsp" opName="12pm" roleNm="rbacrole1"/>
+                <permgrant objName="/rbac/cal2.jsp" opName="2pm" roleNm="rbacrole1"/>
+                <permgrant objName="/rbac/cal2.jsp" opName="4pm" roleNm="rbacrole1"/>
+                <permgrant objName="/rbac/cal2.jsp" opName="6pm" roleNm="rbacrole1"/>
+            </addpermgrant>
+
+         </FortressAdmin>
+    </target>
+</project>

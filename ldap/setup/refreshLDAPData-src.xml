@@ -47,19 +47,19 @@
                 <config props="ldap.server.type:@SERVER_TYPE@"/>
                 <config props="clientside.sorting:true"/>
                 <config props="suffix:@SUFFIX@"/>
-                <config props="user.root:ou=People,@SUFFIX@"/>
-                <config props="pwpolicy.root:ou=Policies,@SUFFIX@"/>
-                <config props="role.root:ou=Roles,ou=RBAC,@SUFFIX@"/>
-                <config props="perm.root:ou=Permissions,ou=RBAC,@SUFFIX@"/>
-                <config props="sdconstraint.root:ou=Constraints,ou=RBAC,@SUFFIX@"/>
-                <config props="userou.root:ou=OS-U,ou=ARBAC,@SUFFIX@"/>
-                <config props="permou.root:ou=OS-P,ou=ARBAC,@SUFFIX@"/>
-                <config props="adminrole.root:ou=AdminRoles,ou=ARBAC,@SUFFIX@"/>
-                <config props="adminperm.root:ou=AdminPerms,ou=ARBAC,@SUFFIX@"/>
+                <config props="user.root:@USERS_DN@"/>
+                <config props="pwpolicy.root:@POLICIES_DN@"/>
+                <config props="role.root:@ROLES_DN@"/>
+                <config props="perm.root:@PERMS_DN@"/>
+                <config props="sdconstraint.root:@CONSTRAINTS_DN@"/>
+                <config props="userou.root:@USEROUS_DN@"/>
+                <config props="permou.root:@PERMOUS_DN@"/>
+                <config props="adminrole.root:@ADMINROLES_DN@"/>
+                <config props="adminperm.root:@ADMINPERMS_DN@"/>
                 <config props="example.root:ou=Examples,@SUFFIX@"/>
                 <!--config props="accessmgr.implementation:us.jts.fortress.rbac.AccessMgrImpl"/-->
                 <!--config props="auditmgr.implementation:us.jts.fortress.audit.AuditMgrImpl"/-->
-                <config props="audit.root:cn=log"/>
+                <config props="audit.root:@AUDITS_DN@"/>
                 <config props="superadmin.role:FortressSuperAdmin"/>
                 <config props="temporal.validator.0:us.jts.fortress.util.time.Date"/>
                 <config props="temporal.validator.1:us.jts.fortress.util.time.LockDate"/>
