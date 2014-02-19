@@ -470,7 +470,7 @@ public interface DelAdminMgr extends Manageable
      * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link us.jts.fortress.rbac.PermObj}*->{@link us.jts.fortress.rbac.Permission}).
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link us.jts.fortress.rbac.Permission#objectName} - contains the name of existing object being targeted for the permission add</li>
+     * <li>{@link us.jts.fortress.rbac.Permission#objName} - contains the name of existing object being targeted for the permission add</li>
      * <li>{@link us.jts.fortress.rbac.Permission#opName} - contains the name of new permission operation being added</li>
      * </ul>
      * <h4>optional parameters</h4>
@@ -481,7 +481,7 @@ public interface DelAdminMgr extends Manageable
      * <li>{@link Permission#type} - any safe text</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objectName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
+     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -495,7 +495,7 @@ public interface DelAdminMgr extends Manageable
      * The perm operation must exist before making this call.  Only non-null attributes will be updated.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link us.jts.fortress.rbac.Permission#objectName} - contains the name of existing object being targeted for the permission update</li>
+     * <li>{@link us.jts.fortress.rbac.Permission#objName} - contains the name of existing object being targeted for the permission update</li>
      * <li>{@link us.jts.fortress.rbac.Permission#opName} - contains the name of existing permission operation being updated</li>
      * </ul>
      * <h4>optional parameters</h4>
@@ -506,7 +506,7 @@ public interface DelAdminMgr extends Manageable
      * <li>{@link us.jts.fortress.rbac.Permission#type} - any safe text</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
+     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that identifies target and any optional data to update.  Null or empty attributes will be ignored.
      * @return copy of Permission entity.
      * @throws us.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
@@ -520,11 +520,11 @@ public interface DelAdminMgr extends Manageable
      * The perm operation must exist before making this call.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link us.jts.fortress.rbac.Permission#objectName} - contains the name of existing object being targeted for the permission delete</li>
+     * <li>{@link us.jts.fortress.rbac.Permission#objName} - contains the name of existing object being targeted for the permission delete</li>
      * <li>{@link us.jts.fortress.rbac.Permission#opName} - contains the name of existing permission operation being removed</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objectName}, and operation, {@link us.jts.fortress.rbac.Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objName}, and operation, {@link us.jts.fortress.rbac.Permission#opName}, that identifies target.
      * @throws us.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
      */
@@ -537,7 +537,7 @@ public interface DelAdminMgr extends Manageable
      * A {@link us.jts.fortress.rbac.PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link us.jts.fortress.rbac.PermObj}*->{@link us.jts.fortress.rbac.Permission}).
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link us.jts.fortress.rbac.PermObj#objectName} - contains the name of new object being added</li>
+     * <li>{@link us.jts.fortress.rbac.PermObj#objName} - contains the name of new object being added</li>
      * <li>{@link us.jts.fortress.rbac.PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
      * </ul>
      * <h4>optional parameters</h4>
@@ -547,7 +547,7 @@ public interface DelAdminMgr extends Manageable
      * <li>{@link us.jts.fortress.rbac.PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
      * </ul>
      *
-     * @param pObj must contain the {@link us.jts.fortress.rbac.PermObj#objectName} and {@link us.jts.fortress.rbac.PermObj#ou}.  The other attributes are optional.
+     * @param pObj must contain the {@link us.jts.fortress.rbac.PermObj#objName} and {@link us.jts.fortress.rbac.PermObj#ou}.  The other attributes are optional.
      * @return copy of PermObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -560,7 +560,7 @@ public interface DelAdminMgr extends Manageable
      * A {@link us.jts.fortress.rbac.PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link us.jts.fortress.rbac.PermObj}*->{@link us.jts.fortress.rbac.Permission}).
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link us.jts.fortress.rbac.PermObj#objectName} - contains the name of existing object being updated</li>
+     * <li>{@link us.jts.fortress.rbac.PermObj#objName} - contains the name of existing object being updated</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
@@ -570,7 +570,7 @@ public interface DelAdminMgr extends Manageable
      * <li>{@link us.jts.fortress.rbac.PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
      * </ul>
      *
-     * @param pObj must contain the {@link us.jts.fortress.rbac.PermObj#objectName}. Only non-null attributes will be updated.
+     * @param pObj must contain the {@link us.jts.fortress.rbac.PermObj#objName}. Only non-null attributes will be updated.
      * @return copy of newly updated PermObj entity.
      * @throws us.jts.fortress.SecurityException
      *          - thrown in the event of perm object data or system error.
@@ -584,10 +584,10 @@ public interface DelAdminMgr extends Manageable
      * in associated permission objects that are attached to this object.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link us.jts.fortress.rbac.PermObj#objectName} - contains the name of existing object targeted for removal</li>
+     * <li>{@link us.jts.fortress.rbac.PermObj#objName} - contains the name of existing object targeted for removal</li>
      * </ul>
      *
-     * @param pObj must contain the {@link us.jts.fortress.rbac.PermObj#objectName} of object targeted for removal.
+     * @param pObj must contain the {@link us.jts.fortress.rbac.PermObj#objName} of object targeted for removal.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     public void deletePermObj(PermObj pObj)
@@ -602,12 +602,12 @@ public interface DelAdminMgr extends Manageable
      * and the adminRole is a member of the ADMIN_ROLES data set.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link us.jts.fortress.rbac.Permission#objectName} - contains the object name</li>
+     * <li>{@link us.jts.fortress.rbac.Permission#objName} - contains the object name</li>
      * <li>{@link us.jts.fortress.rbac.Permission#opName} - contains the operation name</li>
      * <li>{@link us.jts.fortress.rbac.AdminRole#name} - contains the adminRole name</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objectName}, and operation, {@link us.jts.fortress.rbac.Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objName}, and operation, {@link us.jts.fortress.rbac.Permission#opName}, that identifies target.
      * @param role must contains {@link us.jts.fortress.rbac.AdminRole#name}.
      * @throws us.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
@@ -624,12 +624,12 @@ public interface DelAdminMgr extends Manageable
      * the role is a member of the ADMIN_ROLES data set, and the permission is assigned to that AdminRole.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link us.jts.fortress.rbac.Permission#objectName} - contains the object name</li>
+     * <li>{@link us.jts.fortress.rbac.Permission#objName} - contains the object name</li>
      * <li>{@link us.jts.fortress.rbac.Permission#opName} - contains the operation name</li>
      * <li>{@link us.jts.fortress.rbac.AdminRole#name} - contains the adminRole name</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objectName}, and operation, {@link us.jts.fortress.rbac.Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objName}, and operation, {@link us.jts.fortress.rbac.Permission#opName}, that identifies target.
      * @param role must contains {@link us.jts.fortress.rbac.AdminRole#name}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
@@ -645,12 +645,12 @@ public interface DelAdminMgr extends Manageable
      * and the user is a member of the USERS data set.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link us.jts.fortress.rbac.Permission#objectName} - contains the object name</li>
+     * <li>{@link us.jts.fortress.rbac.Permission#objName} - contains the object name</li>
      * <li>{@link us.jts.fortress.rbac.Permission#opName} - contains the operation name</li>
      * <li>{@link us.jts.fortress.rbac.User#userId} - contains the userId</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objectName}, and operation, {@link us.jts.fortress.rbac.Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objName}, and operation, {@link us.jts.fortress.rbac.Permission#opName}, that identifies target.
      * @param user must contain {@link us.jts.fortress.rbac.User#userId} of target User entity.
      * @throws us.jts.fortress.SecurityException
      *          Thrown in the event of data validation or system error.
@@ -667,12 +667,12 @@ public interface DelAdminMgr extends Manageable
      * the user is a member of the USERS data set, and the permission is assigned to that user.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link us.jts.fortress.rbac.Permission#objectName} - contains the object name</li>
+     * <li>{@link us.jts.fortress.rbac.Permission#objName} - contains the object name</li>
      * <li>{@link us.jts.fortress.rbac.Permission#opName} - contains the operation name</li>
      * <li>{@link us.jts.fortress.rbac.User#userId} - contains the userId</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objectName}, and operation, {@link us.jts.fortress.rbac.Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link us.jts.fortress.rbac.Permission#objName}, and operation, {@link us.jts.fortress.rbac.Permission#opName}, that identifies target.
      * @param user must contain {@link us.jts.fortress.rbac.User#userId} of target User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */

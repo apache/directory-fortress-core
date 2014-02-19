@@ -34,12 +34,12 @@ import us.jts.fortress.rbac.dao.UserDAO;
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
- * For example, this entity requires {@link #objectName} and {@link #ou} attributes set before passing into {@link us.jts.fortress.rbac.AdminMgrImpl} or  {@link us.jts.fortress.rbac.ReviewMgrImpl} APIs.
+ * For example, this entity requires {@link #objName} and {@link #ou} attributes set before passing into {@link us.jts.fortress.rbac.AdminMgrImpl} or  {@link us.jts.fortress.rbac.ReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
  * <h4>PermObj entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setObjectName} and {@link #setOu} attributes set before calling {@link us.jts.fortress.rbac.AdminMgrImpl#addPermObj(PermObj)}.
+ * <li>{@link #setObjName} and {@link #setOu} attributes set before calling {@link us.jts.fortress.rbac.AdminMgrImpl#addPermObj(PermObj)}.
  * <li>{@link #addProperty} may be set before calling {@link us.jts.fortress.rbac.AdminMgrImpl#addPermObj(PermObj)}.
  * <li>{@link #getProperty} may be set after calling {@link us.jts.fortress.rbac.ReviewMgrImpl#findPermObjs(PermObj)}.
  * </ul>
@@ -52,7 +52,7 @@ import us.jts.fortress.rbac.dao.UserDAO;
  * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link us.jts.fortress.rbac.Permission}
  * <p/>
  * <img src="../doc-files/RbacCore.png">
- * <li>The unique key to locate an Fortress PermObj entity is {@code PermObj#objectName}.
+ * <li>The unique key to locate an Fortress PermObj entity is {@code PermObj#objName}.
  * <li>For sample code usages check out {@link us.jts.fortress.rbac.Permission} javadoc.
  * </ul>
  * <p/>
@@ -107,7 +107,7 @@ import us.jts.fortress.rbac.dao.UserDAO;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "permObj", propOrder =
     {
-        "objectName",
+        "objName",
         "description",
         "internalId",
         "ou",
@@ -120,7 +120,7 @@ public class PermObj extends FortEntity
 {
     private boolean admin;
     private String internalId;
-    private String objectName;
+    private String objName;
     private String description;
     @XmlElement(nillable = true)
     private Props props = new Props();
@@ -143,23 +143,23 @@ public class PermObj extends FortEntity
     /**
      * Construct an Fortress PermObj entity given an object name.
      *
-     * @param objectName maps to 'ftObjNm' attribute in 'ftObject' object class.
+     * @param objName maps to 'ftObjNm' attribute in 'ftObject' object class.
      */
-    public PermObj( String objectName )
+    public PermObj( String objName )
     {
-        this.objectName = objectName;
+        this.objName = objName;
     }
 
 
     /**
      * Construct an Fortress PermObj entity given an object and perm ou name.
      *
-     * @param objectName maps to 'ftObjNm' attribute in 'ftObject' object class.
+     * @param objName maps to 'ftObjNm' attribute in 'ftObject' object class.
      * @param ou maps to 'ou' attribute in 'ftObject' object class.
      */
-    public PermObj( String objectName, String ou )
+    public PermObj( String objName, String ou )
     {
-        this.objectName = objectName;
+        this.objName = objName;
         this.ou = ou;
     }
 
@@ -170,9 +170,9 @@ public class PermObj extends FortEntity
      *
      * @return the name of the object which maps to 'ftObjNm' attribute in 'ftObject' object class.
      */
-    public String getObjectName()
+    public String getObjName()
     {
-        return objectName;
+        return objName;
     }
 
 
@@ -181,9 +181,9 @@ public class PermObj extends FortEntity
      * for component that is the target for Fortress authorization check. For example 'CustomerCheckOutPage'.
      *
      */
-    public void setObjectName( String objectName )
+    public void setObjName( String objName )
     {
-        this.objectName = objectName;
+        this.objName = objName;
     }
 
 
@@ -501,22 +501,22 @@ public class PermObj extends FortEntity
 
 
     /**
-     * Matches the objectName from two PermObj entities.
+     * Matches the objName from two PermObj entities.
      *
      * @param thatObj contains a PermObj entity.
-     * @return boolean indicating both objects contain matching objectNames.
+     * @return boolean indicating both objects contain matching objNames.
      */
     public boolean equals( Object thatObj )
     {
         if ( this == thatObj )
             return true;
-        if ( this.getObjectName() == null )
+        if ( this.getObjName() == null )
             return false;
         if ( !( thatObj instanceof PermObj ) )
             return false;
         PermObj thatPermObj = ( PermObj ) thatObj;
-        if ( thatPermObj.getObjectName() == null )
+        if ( thatPermObj.getObjName() == null )
             return false;
-        return thatPermObj.getObjectName().equalsIgnoreCase( this.getObjectName() );
+        return thatPermObj.getObjName().equalsIgnoreCase( this.getObjName() );
     }
 }

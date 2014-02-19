@@ -784,7 +784,7 @@ class AdminMgrConsole
             //System.out.println("Enter object id (or enter for NULL)");
             //String object = ReaderUtil.readLn();
             PermObj pObj = new PermObj();
-            pObj.setObjectName(name);
+            pObj.setObjName( name );
             am.deletePermObj(pObj);
             System.out.println("perm object deleted: [" + name + "]");
             System.out.println("ENTER to continue");
@@ -804,7 +804,7 @@ class AdminMgrConsole
         {
             ReaderUtil.clearScreen();
             System.out.println("Enter perm object name:");
-            pe.setObjectName(ReaderUtil.readLn());
+            pe.setObjName( ReaderUtil.readLn() );
             System.out.println("Enter Perm's description field");
             pe.setDescription(ReaderUtil.readLn());
             System.out.println("Enter organization unit, blank for default");
@@ -822,7 +822,7 @@ class AdminMgrConsole
             }
 
             pe = am.addPermObj(pe);
-            System.out.println("perm object name [" + pe.getObjectName() + "]");
+            System.out.println("perm object name [" + pe.getObjName() + "]");
             System.out.println("internalId [" + pe.getInternalId() + "]");
             System.out.println("description [" + pe.getDescription() + "]");
             System.out.println("organizational unit [" + pe.getOu() + "]");
@@ -846,11 +846,11 @@ class AdminMgrConsole
         {
             ReaderUtil.clearScreen();
             System.out.println("Enter perm object name:");
-            pe.setObjectName(ReaderUtil.readLn());
+            pe.setObjName( ReaderUtil.readLn() );
             System.out.println("Enter perm object id (or NULL to skip):");
             String oid = ReaderUtil.readLn();
             if (oid != null && oid.length() > 0)
-                pe.setObjectId(oid);
+                pe.setObjId( oid );
             System.out.println("Enter Perm operation name:");
             pe.setOpName(ReaderUtil.readLn());
             //System.out.println("Enter Perm abstract name:");
@@ -884,7 +884,7 @@ class AdminMgrConsole
             }
 
             pe = am.addPermission(pe);
-            System.out.println("perm object name [" + pe.getObjectName() + "]");
+            System.out.println("perm object name [" + pe.getObjName() + "]");
             System.out.println("perm operation name [" + pe.getOpName() + "]");
             System.out.println("perm abstract name [" + pe.getAbstractName() + "]");
             System.out.println("internalId [" + pe.getInternalId() + "]");

@@ -204,7 +204,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         {
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, PERM_OBJ_OBJ_CLASS ) );
-            attrs.add( createAttribute( GlobalIds.POBJ_NAME, entity.getObjectName() ) );
+            attrs.add( createAttribute( GlobalIds.POBJ_NAME, entity.getObjName() ) );
 
             // this will generatre a new random, unique id on this entity:
             entity.setInternalId();
@@ -240,7 +240,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         }
         catch ( LDAPException e )
         {
-            String error = "createObject perm obj [" + entity.getObjectName() + "] caught LDAPException="
+            String error = "createObject perm obj [" + entity.getObjName() + "] caught LDAPException="
                 + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException( GlobalErrIds.PERM_ADD_FAILED, error, e );
         }
@@ -296,7 +296,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         }
         catch ( LDAPException e )
         {
-            String error = "updateObj objectName [" + entity.getObjectName() + "] caught LDAPException="
+            String error = "updateObj objName [" + entity.getObjName() + "] caught LDAPException="
                 + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.PERM_UPDATE_FAILED, error, e );
         }
@@ -325,7 +325,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         }
         catch ( LDAPException e )
         {
-            String error = "deleteObj objectName [" + entity.getObjectName() + "] caught LDAPException="
+            String error = "deleteObj objName [" + entity.getObjName() + "] caught LDAPException="
                 + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException( GlobalErrIds.PERM_DELETE_FAILED, error, e );
         }
@@ -352,8 +352,8 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS ) );
             attrs.add( createAttribute( GlobalIds.POP_NAME, entity.getOpName() ) );
-            attrs.add( createAttribute( GlobalIds.POBJ_NAME, entity.getObjectName() ) );
-            entity.setAbstractName( entity.getObjectName() + "." + entity.getOpName() );
+            attrs.add( createAttribute( GlobalIds.POBJ_NAME, entity.getObjName() ) );
+            entity.setAbstractName( entity.getObjName() + "." + entity.getOpName() );
 
             // this will generatre a new random, unique id on this entity:
             entity.setInternalId();
@@ -365,9 +365,9 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
             attrs.add( createAttribute( GlobalIds.CN, entity.getAbstractName() ) );
 
             // objectid is optional:
-            if ( VUtil.isNotNullOrEmpty( entity.getObjectId() ) )
+            if ( VUtil.isNotNullOrEmpty( entity.getObjId() ) )
             {
-                attrs.add( createAttribute( POBJ_ID, entity.getObjectId() ) );
+                attrs.add( createAttribute( POBJ_ID, entity.getObjId() ) );
             }
             // type is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
@@ -394,7 +394,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         }
         catch ( LDAPException e )
         {
-            String error = "createOperation objectName [" + entity.getObjectName() + "] opName ["
+            String error = "createOperation objName [" + entity.getObjName() + "] opName ["
                 + entity.getOpName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new CreateException( GlobalErrIds.PERM_ADD_FAILED, error, e );
         }
@@ -447,7 +447,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         }
         catch ( LDAPException e )
         {
-            String error = "updateOperation objectName [" + entity.getObjectName() + "] opName ["
+            String error = "updateOperation objName [" + entity.getObjName() + "] opName ["
                 + entity.getOpName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.PERM_UPDATE_FAILED, error, e );
         }
@@ -468,8 +468,8 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         throws RemoveException
     {
         LDAPConnection ld = null;
-        String dn = getOpRdn( entity.getOpName(), entity.getObjectId() ) + "," + GlobalIds.POBJ_NAME + "="
-            + entity.getObjectName() + "," + getRootDn( entity.isAdmin(), entity.getContextId() );
+        String dn = getOpRdn( entity.getOpName(), entity.getObjId() ) + "," + GlobalIds.POBJ_NAME + "="
+            + entity.getObjName() + "," + getRootDn( entity.isAdmin(), entity.getContextId() );
         try
         {
             ld = getAdminConnection();
@@ -477,7 +477,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         }
         catch ( LDAPException e )
         {
-            String error = "deleteOperation objectName [" + entity.getObjectName() + "] opName ["
+            String error = "deleteOperation objName [" + entity.getObjName() + "] opName ["
                 + entity.getOpName() + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e.getMessage();
             throw new RemoveException( GlobalErrIds.PERM_DELETE_FAILED, error, e );
         }
@@ -513,21 +513,21 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         {
             if ( e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS )
             {
-                String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                String warning = "grant perm object [" + pOp.getObjName() + "] operation ["
                     + pOp.getOpName() + "] role [" + role.getName() + "] assignment already exists, Fortress rc="
                     + GlobalErrIds.PERM_ROLE_EXIST;
                 throw new UpdateException( GlobalErrIds.PERM_ROLE_EXIST, warning );
             }
             else if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
             {
-                String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                String warning = "grant perm object [" + pOp.getObjName() + "] operation ["
                     + pOp.getOpName() + "] role [" + role.getName() + "] perm not found, Fortress rc="
                     + GlobalErrIds.PERM_OP_NOT_FOUND;
                 throw new UpdateException( GlobalErrIds.PERM_OP_NOT_FOUND, warning );
             }
             else
             {
-                String error = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                String error = "grant perm object [" + pOp.getObjName() + "] operation ["
                     + pOp.getOpName() + "] name [" + role.getName() + "]  caught LDAPException="
                     + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException( GlobalErrIds.PERM_GRANT_FAILED, error, e );
@@ -565,13 +565,13 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         {
             if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_ATTRIBUTE )
             {
-                String warning = "revoke perm object [" + pOp.getObjectName() + "] operation ["
+                String warning = "revoke perm object [" + pOp.getObjName() + "] operation ["
                     + pOp.getOpName() + "] name [" + role.getName() + "] assignment does not exist.";
                 throw new FinderException( GlobalErrIds.PERM_ROLE_NOT_EXIST, warning );
             }
             else
             {
-                String error = "revoke perm object [" + pOp.getObjectName() + "] operation ["
+                String error = "revoke perm object [" + pOp.getObjName() + "] operation ["
                     + pOp.getOpName() + "] name [" + role.getName() + "] caught LDAPException=" + e.getLDAPResultCode()
                     + " msg=" + e.getMessage();
                 throw new UpdateException( GlobalErrIds.PERM_REVOKE_FAILED, error, e );
@@ -609,21 +609,21 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         {
             if ( e.getLDAPResultCode() == LDAPException.ATTRIBUTE_OR_VALUE_EXISTS )
             {
-                String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                String warning = "grant perm object [" + pOp.getObjName() + "] operation ["
                     + pOp.getOpName() + "] userId [" + user.getUserId() + "] assignment already exists, Fortress rc="
                     + GlobalErrIds.PERM_USER_EXIST;
                 throw new UpdateException( GlobalErrIds.PERM_USER_EXIST, warning );
             }
             else if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
             {
-                String warning = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                String warning = "grant perm object [" + pOp.getObjName() + "] operation ["
                     + pOp.getOpName() + "] userId [" + user.getUserId() + "] perm not found, Fortress rc="
                     + GlobalErrIds.PERM_OP_NOT_FOUND;
                 throw new UpdateException( GlobalErrIds.PERM_OP_NOT_FOUND, warning );
             }
             else
             {
-                String error = "grant perm object [" + pOp.getObjectName() + "] operation ["
+                String error = "grant perm object [" + pOp.getObjName() + "] operation ["
                     + pOp.getOpName() + "] userId [" + user.getUserId() + "] caught LDAPException="
                     + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException( GlobalErrIds.PERM_GRANT_USER_FAILED, error, e );
@@ -661,13 +661,13 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         {
             if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_ATTRIBUTE )
             {
-                String warning = "revoke perm object [" + pOp.getObjectName() + "] operation ["
+                String warning = "revoke perm object [" + pOp.getObjName() + "] operation ["
                     + pOp.getOpName() + "] userId [" + user.getUserId() + "] assignment does not exist.";
                 throw new FinderException( GlobalErrIds.PERM_USER_NOT_EXIST, warning );
             }
             else
             {
-                String error = "revoke perm object [" + pOp.getObjectName() + "] operation ["
+                String error = "revoke perm object [" + pOp.getObjName() + "] operation ["
                     + pOp.getOpName() + "] userId [" + user.getUserId() + "] caught LDAPException="
                     + e.getLDAPResultCode() + " msg=" + e.getMessage();
                 throw new UpdateException( GlobalErrIds.PERM_REVOKE_FAILED, error, e );
@@ -691,8 +691,8 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
     {
         Permission entity = null;
         LDAPConnection ld = null;
-        String dn = getOpRdn( permission.getOpName(), permission.getObjectId() ) + "," + GlobalIds.POBJ_NAME + "="
-            + permission.getObjectName() + "," + getRootDn( permission.isAdmin(), permission.getContextId() );
+        String dn = getOpRdn( permission.getOpName(), permission.getObjId() ) + "," + GlobalIds.POBJ_NAME + "="
+            + permission.getObjName() + "," + getRootDn( permission.isAdmin(), permission.getContextId() );
         try
         {
             ld = getAdminConnection();
@@ -735,7 +735,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
     {
         PermObj entity = null;
         LDAPConnection ld = null;
-        String dn = GlobalIds.POBJ_NAME + "=" + permObj.getObjectName() + ","
+        String dn = GlobalIds.POBJ_NAME + "=" + permObj.getObjName() + ","
             + getRootDn( permObj.isAdmin(), permObj.getContextId() );
         try
         {
@@ -773,7 +773,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
      * record storage on ldap server but can be disabled.
      *
      * @param session contains {@link Session#getUserId()}, for rbac check {@link us.jts.fortress.rbac.Session#getRoles()}, for arbac check: {@link us.jts.fortress.rbac.Session#getAdminRoles()}.
-     * @param inPerm  must contain required attributes {@link Permission#objectName} and {@link Permission#opName}.  {@link Permission#objectId} is optional.
+     * @param inPerm  must contain required attributes {@link Permission#objName} and {@link Permission#opName}.  {@link Permission#objectId} is optional.
      * @return boolean containing result of check.
      * @throws us.jts.fortress.FinderException
      *          In the event system error occurs looking up data on ldap server.
@@ -783,8 +783,8 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
     {
         boolean isAuthZd = false;
         LDAPConnection ld = null;
-        String dn = getOpRdn( inPerm.getOpName(), inPerm.getObjectId() ) + "," + GlobalIds.POBJ_NAME + "="
-            + inPerm.getObjectName() + "," + getRootDn( inPerm.isAdmin(), inPerm.getContextId() );
+        String dn = getOpRdn( inPerm.getOpName(), inPerm.getObjId() ) + "," + GlobalIds.POBJ_NAME + "="
+            + inPerm.getObjName() + "," + getRootDn( inPerm.isAdmin(), inPerm.getContextId() );
         try
         {
             // Use unauthenticated connection because we want to assert the end user identity onto ldap hop:
@@ -946,8 +946,8 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         entity.setDn( le.getDN() );
         entity.setSequenceId( sequence );
         entity.setAbstractName( getAttribute( le, PERM_NAME ) );
-        entity.setObjectName( getAttribute( le, GlobalIds.POBJ_NAME ) );
-        entity.setObjectId( getAttribute( le, POBJ_ID ) );
+        entity.setObjName( getAttribute( le, GlobalIds.POBJ_NAME ) );
+        entity.setObjId( getAttribute( le, POBJ_ID ) );
         entity.setOpName( getAttribute( le, GlobalIds.POP_NAME ) );
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setRoles( getAttributeSet( le, ROLES ) );
@@ -969,7 +969,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
     {
         PermObj entity = new ObjectFactory().createPermObj();
         entity.setSequenceId( sequence );
-        entity.setObjectName( getAttribute( le, GlobalIds.POBJ_NAME ) );
+        entity.setObjName( getAttribute( le, GlobalIds.POBJ_NAME ) );
         entity.setOu( getAttribute( le, GlobalIds.OU ) );
         entity.setDn( le.getDN() );
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
@@ -996,7 +996,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         String permRoot = getRootDn( permission.isAdmin(), permission.getContextId() );
         try
         {
-            String permObjVal = encodeSafeText( permission.getObjectName(), GlobalIds.PERM_LEN );
+            String permObjVal = encodeSafeText( permission.getObjName(), GlobalIds.PERM_LEN );
             String permOpVal = encodeSafeText( permission.getOpName(), GlobalIds.PERM_LEN );
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*)("
@@ -1040,7 +1040,7 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
         String permRoot = getRootDn( permObj.isAdmin(), permObj.getContextId() );
         try
         {
-            String permObjVal = encodeSafeText( permObj.getObjectName(), GlobalIds.PERM_LEN );
+            String permObjVal = encodeSafeText( permObj.getObjName(), GlobalIds.PERM_LEN );
             String filter = GlobalIds.FILTER_PREFIX + PERM_OBJ_OBJECT_CLASS_NAME + ")("
                 + GlobalIds.POBJ_NAME + "=" + permObjVal + "*))";
             ld = getAdminConnection();
@@ -1357,14 +1357,14 @@ public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortr
 
     private String getDn( Permission pOp, String contextId )
     {
-        return getOpRdn( pOp.getOpName(), pOp.getObjectId() ) + "," + GlobalIds.POBJ_NAME + "=" + pOp.getObjectName()
+        return getOpRdn( pOp.getOpName(), pOp.getObjId() ) + "," + GlobalIds.POBJ_NAME + "=" + pOp.getObjName()
             + "," + getRootDn( pOp.isAdmin(), contextId );
     }
 
 
     private String getDn( PermObj pObj, String contextId )
     {
-        return GlobalIds.POBJ_NAME + "=" + pObj.getObjectName() + "," + getRootDn( pObj.isAdmin(), contextId );
+        return GlobalIds.POBJ_NAME + "=" + pObj.getObjName() + "," + getRootDn( pObj.isAdmin(), contextId );
     }
 
 

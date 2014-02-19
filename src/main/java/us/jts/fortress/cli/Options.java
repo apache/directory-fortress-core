@@ -188,7 +188,7 @@ public class Options implements java.io.Serializable
     public PermObj getPermObj()
     {
         PermObj permObj = new PermObj();
-        permObj.setObjectName(getName());
+        permObj.setObjName( getName() );
         permObj.setDescription(getDescription());
         permObj.setOu(getOu());
         permObj.setType(getType());
@@ -199,7 +199,7 @@ public class Options implements java.io.Serializable
     public Permission getPermission()
     {
         Permission perm = new Permission();
-        perm.setObjectName(getName());
+        perm.setObjName( getName() );
         perm.setOpName(getOpName());
         updateRoleAssigns(perm);
         updateProperties(perm);

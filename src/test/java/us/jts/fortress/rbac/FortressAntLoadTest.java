@@ -146,9 +146,9 @@ public class FortressAntLoadTest implements Testable
                 {
                     Boolean result = accessMgr.checkAccess( session, permAnt );
                     // TODO: send this message as CSV output file:
-                    LOG.info( "User: " + user.getUserId() + " Perm Obj: " + permAnt.getObjectName() + " Perm " +
+                    LOG.info( "User: " + user.getUserId() + " Perm Obj: " + permAnt.getObjName() + " Perm " +
                         "Operation: " + permAnt.getOpName() + " RESULT: " + result );
-                    String[] entries = ( user.getUserId() + "#" + permAnt.getObjectName() + "#" + permAnt.getOpName()
+                    String[] entries = ( user.getUserId() + "#" + permAnt.getObjName() + "#" + permAnt.getOpName()
                         + "#" + result + "#" + assignedRoles + "#" + session.getUser().getRoles() + "#" + szTimestamp
                         + "#" + warnings ).split( "#" );
                     writer.writeNext( entries );
@@ -195,9 +195,9 @@ public class FortressAntLoadTest implements Testable
             for ( PermGrant permGrant : permGrants )
             {
                 pOp = new Permission();
-                pOp.setObjectName( permGrant.getObjName() );
+                pOp.setObjName( permGrant.getObjName() );
                 pOp.setOpName( permGrant.getOpName() );
-                pOp.setObjectId( permGrant.getObjId() );
+                pOp.setObjId( permGrant.getObjId() );
                 List<String> roles = reviewMgr.permissionRoles( pOp );
                 assertNotNull( roles );
                 int indx = roles.indexOf( permGrant.getRoleNm() );
@@ -347,7 +347,7 @@ public class FortressAntLoadTest implements Testable
             {
                 Permission entity = reviewMgr.readPermission( permAnt );
                 assertNotNull( entity );
-                assertTrue( "Failed objectName value compare", entity.getObjectName().equals( permAnt.getObjectName()
+                assertTrue( "Failed objName value compare", entity.getObjName().equals( permAnt.getObjName()
                 ) );
                 assertTrue( "Failed opName value compare", entity.getOpName().equals( permAnt.getOpName() ) );
             }
@@ -384,7 +384,7 @@ public class FortressAntLoadTest implements Testable
             {
                 PermObj entity = reviewMgr.readPermObj( permObj );
                 assertNotNull( entity );
-                assertTrue( "Failed objectName value compare", entity.getObjectName().equals( permObj.getObjectName()
+                assertTrue( "Failed objName value compare", entity.getObjName().equals( permObj.getObjName()
                 ) );
             }
         }

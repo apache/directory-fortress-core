@@ -144,8 +144,8 @@ public class AuditMgrImplTest extends TestCase
                 uAudit.setUserId( user.getUserId() );
                 for ( String[] obj : oArray )
                 {
-                    String objectName = AdminUtil.getObjName( PermTestData.getName( obj ) );
-                    uAudit.setObjName( objectName );
+                    String objName = AdminUtil.getObjName( PermTestData.getName( obj ) );
+                    uAudit.setObjName( objName );
                     for ( String[] op : opArray )
                     {
                         uAudit.setOpName( PermTestData.getName( op ) );
@@ -154,13 +154,13 @@ public class AuditMgrImplTest extends TestCase
 
                         assertTrue(
                             CLS_NM + "searchAdminMods failed search for successful authentication user ["
-                                + user.getUserId() + "] object [" + objectName + "] operation ["
+                                + user.getUserId() + "] object [" + objName + "] operation ["
                                 + PermTestData.getName( op ) + "]",
-                            mods.size() > 0 || !isAudit( objectName, PermTestData.getName( op ) ) );
-                        boolean result = mods.size() > 0 || !isAudit( objectName, PermTestData.getName( op ) );
+                            mods.size() > 0 || !isAudit( objName, PermTestData.getName( op ) ) );
+                        boolean result = mods.size() > 0 || !isAudit( objName, PermTestData.getName( op ) );
                         LOG.debug( "searchAdminMods search user [" + user.getUserId() + "] object ["
-                            + objectName + "] operation [" + PermTestData.getName( op ) + "] result: " + result );
-                        //System.out.println("searchAdminMods search user [" + user.getUserId() + "] object [" + objectName + "] operation [" + PermTestData.getName(op) + "] result: " + result);
+                            + objName + "] operation [" + PermTestData.getName( op ) + "] result: " + result );
+                        //System.out.println("searchAdminMods search user [" + user.getUserId() + "] object [" + objName + "] operation [" + PermTestData.getName(op) + "] result: " + result);
                     }
                 }
             }

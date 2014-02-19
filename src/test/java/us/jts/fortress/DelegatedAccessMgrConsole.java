@@ -98,9 +98,9 @@ class DelegatedAccessMgrConsole
             System.out.println("Enter role name:");
             Role role = new Role(ReaderUtil.readLn());
             System.out.println("Enter perm object name:");
-            String objectName = ReaderUtil.readLn();
-            boolean result = dAmgr.canGrant(session, role, new Permission(objectName));
-            System.out.println("Can Assign Role [" + role.getName() + "] Object name [" + objectName + "] return [" + result + "]");
+            String objName = ReaderUtil.readLn();
+            boolean result = dAmgr.canGrant(session, role, new Permission(objName));
+            System.out.println("Can Assign Role [" + role.getName() + "] Object name [" + objName + "] return [" + result + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)
@@ -119,9 +119,9 @@ class DelegatedAccessMgrConsole
             System.out.println("Enter role name:");
             Role role = new Role(ReaderUtil.readLn());
             System.out.println("Enter perm object name:");
-            String objectName = ReaderUtil.readLn();
-            boolean result = dAmgr.canRevoke(session, role, new Permission(objectName));
-            System.out.println("Can Revoke Role [" + role.getName() + "] Object name [" + objectName + "] return [" + result + "]");
+            String objName = ReaderUtil.readLn();
+            boolean result = dAmgr.canRevoke(session, role, new Permission(objName));
+            System.out.println("Can Revoke Role [" + role.getName() + "] Object name [" + objName + "] return [" + result + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)
@@ -191,7 +191,7 @@ class DelegatedAccessMgrConsole
             System.out.println("Enter operation name:");
             String opName = ReaderUtil.readLn();
             boolean result = dAmgr.checkAccess(session, new Permission(objName, opName));
-            System.out.println("CheckAccess return [" + result + "] for user [" + session.getUserId() + "] objectName [" + objName + "] operationName [" + opName + "]");
+            System.out.println("CheckAccess return [" + result + "] for user [" + session.getUserId() + "] objName [" + objName + "] operationName [" + opName + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)

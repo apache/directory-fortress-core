@@ -522,7 +522,7 @@ public class DelegatedMgrImplTest extends TestCase
                     {
                         // Call checkAccess method
                         assertTrue(
-                            CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objectName ["
+                            CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
                                 + PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op ) + "]",
                             dAccessMgr.checkAccess( session,
                                 new Permission( PermTestData.getName( obj ), PermTestData.getName( op ) ) ) );
@@ -538,7 +538,7 @@ public class DelegatedMgrImplTest extends TestCase
                     {
                         // Call checkAccess method (this should fail):
                         assertTrue(
-                            CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objectName ["
+                            CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
                                 + PermTestData.getName( oArrayBad[i] ) + "] operationName ["
                                 + PermTestData.getName( opArrayBad[j] ) + "]",
                             !dAccessMgr.checkAccess( session, new Permission( PermTestData.getName( oArrayBad[i] ),
@@ -851,12 +851,12 @@ public class DelegatedMgrImplTest extends TestCase
                         boolean result;
                         if ( op == GRANT_OP.GRANT )
                         {
-                            result = delAccessMgr.canGrant( session, role, new Permission( pObj.getObjectName(), "" ) );
+                            result = delAccessMgr.canGrant( session, role, new Permission( pObj.getObjName(), "" ) );
                             methodName = ".canGrantPerms";
                         }
                         else
                         {
-                            result = delAccessMgr.canRevoke( session, role, new Permission( pObj.getObjectName(), "" ) );
+                            result = delAccessMgr.canRevoke( session, role, new Permission( pObj.getObjName(), "" ) );
                             methodName = ".canRevokePerms";
                         }
 

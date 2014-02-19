@@ -44,8 +44,8 @@ public class DelpermObj
      * <pre>
      * {@code
      * <delpermobj>
-     *     <permobj objectName="/jsp/cal/cal1.jsp"/>
-     *     <permobj objectName="/jsp/cal/cal2.jsp"/>
+     *     <permobj objName="/jsp/cal/cal1.jsp"/>
+     *     <permobj objName="/jsp/cal/cal2.jsp"/>
      * </delpermobj>
      * }
      * </pre>

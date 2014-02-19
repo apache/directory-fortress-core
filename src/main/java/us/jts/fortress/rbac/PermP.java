@@ -491,13 +491,13 @@ public final class PermP
             if ( !orgUnitP.isValid( ou ) )
             {
                 String error = "validate detected invalid orgUnit name [" + pObj.getOu() + "] for object name ["
-                    + pObj.getObjectName() + "]";
+                    + pObj.getObjName() + "]";
                 //log.warn(error);
                 throw new ValidationException( GlobalErrIds.PERM_OU_INVALID, error );
             }
-            if ( VUtil.isNotNullOrEmpty( pObj.getObjectName() ) )
+            if ( VUtil.isNotNullOrEmpty( pObj.getObjName() ) )
             {
-                VUtil.description( pObj.getObjectName() );
+                VUtil.description( pObj.getObjName() );
             }
             if ( VUtil.isNotNullOrEmpty( pObj.getOu() ) )
             {
@@ -519,7 +519,7 @@ public final class PermP
                 if ( !orgUnitP.isValid( ou ) )
                 {
                     String error = "validate detected invalid orgUnit name [" + pObj.getOu() + "] for object name ["
-                        + pObj.getObjectName() + "]";
+                        + pObj.getObjName() + "]";
                     throw new ValidationException( GlobalErrIds.PERM_OU_INVALID, error );
                 }
             }

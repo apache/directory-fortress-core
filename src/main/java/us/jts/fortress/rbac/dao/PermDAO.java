@@ -230,7 +230,7 @@ public interface PermDAO
      * record storage on ldap server but can be disabled.
      *
      * @param session contains {@link Session#getUserId()}, for rbac check {@link us.jts.fortress.rbac.Session#getRoles()}, for arbac check: {@link us.jts.fortress.rbac.Session#getAdminRoles()}.
-     * @param inPerm  must contain required attributes {@link Permission#objectName} and {@link Permission#opName}.  {@link Permission#objectId} is optional.
+     * @param inPerm  must contain required attributes {@link Permission#objName} and {@link Permission#opName}.  {@link Permission#objectId} is optional.
      * @return boolean containing result of check.
      * @throws us.jts.fortress.FinderException
      *          In the event system error occurs looking up data on ldap server.

@@ -732,7 +732,7 @@ public class CommandLineInterpreter
                     for (PermObj outPermObj : outPermObjs)
                     {
                         printSeparator();
-                        printRow("PO", "POBJ[" + ++ctr + "]", outPermObj.getObjectName());
+                        printRow("PO", "POBJ[" + ++ctr + "]", outPermObj.getObjName());
                         printPermObj(outPermObj);
                     }
                 }
@@ -971,7 +971,7 @@ public class CommandLineInterpreter
         String type = "P";
         if (perm != null)
         {
-            printRow(type, "POBJ", perm.getObjectName());
+            printRow(type, "POBJ", perm.getObjName());
             printRow(type, "OPER", perm.getOpName());
             printRow(type, "IID", perm.getInternalId());
             printRow(type, "TYPE", perm.getType());
@@ -1009,7 +1009,7 @@ public class CommandLineInterpreter
         String type = "O";
         if (permObj != null)
         {
-            printRow(type, "NAME", permObj.getObjectName());
+            printRow(type, "NAME", permObj.getObjName());
             printRow(type, "IID ", permObj.getInternalId());
             printRow(type, "TYPE", permObj.getType());
             printRow(type, "OU  ", permObj.getOu());

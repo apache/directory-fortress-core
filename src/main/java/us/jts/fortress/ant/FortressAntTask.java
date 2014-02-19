@@ -1245,7 +1245,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermObj> permObjs = addpermObj.getPermObjs();
             for ( PermObj permObj : permObjs )
             {
-                LOG.info( "addPermObjs objectName=" + permObj.getObjectName() + " description=" + permObj
+                LOG.info( "addPermObjs objName=" + permObj.getObjName() + " description=" + permObj
                     .getDescription() + " orgUnit=" + permObj.getOu() + " type=" + permObj.getType() );
                 try
                 {
@@ -1259,8 +1259,8 @@ public class FortressAntTask extends Task implements InputHandler
                         if ( se.getErrorId() == GlobalErrIds.PERM_DUPLICATE )
                         {
                             adminMgr.updatePermObj( permObj );
-                            System.out.println( CLS_NM + ".addPermObjs - update entity objectName=" + permObj
-                                .getObjectName() );
+                            System.out.println( CLS_NM + ".addPermObjs - update entity objName=" + permObj
+                                .getObjName() );
                         }
                         else
                         {
@@ -1270,7 +1270,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( us.jts.fortress.SecurityException se )
                 {
-                    LOG.warn( "addPermObjs objectName [" + permObj.getObjectName() + "] caught SecurityException=" +
+                    LOG.warn( "addPermObjs objName [" + permObj.getObjName() + "] caught SecurityException=" +
                         se );
                 }
             }
@@ -1289,7 +1289,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermObj> permObjs = delpermObj.getObjs();
             for ( PermObj permObj : permObjs )
             {
-                LOG.info( "deletePermObjs objectName=" + permObj.getObjectName() + " description=" + permObj
+                LOG.info( "deletePermObjs objName=" + permObj.getObjName() + " description=" + permObj
                     .getDescription() );
                 try
                 {
@@ -1297,7 +1297,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( us.jts.fortress.SecurityException se )
                 {
-                    LOG.warn( "deletePermObjs name [" + permObj.getObjectName() + "] caught SecurityException=" + se );
+                    LOG.warn( "deletePermObjs name [" + permObj.getObjName() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1315,7 +1315,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermAnt> permissions = addpermOp.getPermOps();
             for ( PermAnt permission : permissions )
             {
-                LOG.info( "addPermOps name=" + permission.getOpName() + " objectName=" + permission.getObjectName() );
+                LOG.info( "addPermOps name=" + permission.getOpName() + " objName=" + permission.getObjName() );
                 try
                 {
                     try
@@ -1328,8 +1328,8 @@ public class FortressAntTask extends Task implements InputHandler
                         if ( se.getErrorId() == GlobalErrIds.PERM_DUPLICATE )
                         {
                             adminMgr.updatePermission( permission );
-                            LOG.info( "addPermOps - update entity - name=" + permission.getOpName() + " objectName="
-                                + permission.getObjectName() );
+                            LOG.info( "addPermOps - update entity - name=" + permission.getOpName() + " objName="
+                                + permission.getObjName() );
                         }
                         else
                         {
@@ -1339,8 +1339,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addPermOps name [" + permission.getOpName() + "] objectName [" + permission
-                        .getObjectName() + "] caught SecurityException=" + se );
+                    LOG.warn( "addPermOps name [" + permission.getOpName() + "] objName [" + permission
+                        .getObjName() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1358,16 +1358,15 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermAnt> permissions = delpermOp.getPermOps();
             for ( Permission permission : permissions )
             {
-                LOG.info( "deletePermOps name=" + permission.getOpName() + " objectName=" + permission.getObjectName
-                    () );
+                LOG.info( "deletePermOps name=" + permission.getOpName() + " objName=" + permission.getObjName() );
                 try
                 {
                     adminMgr.deletePermission( permission );
                 }
                 catch ( us.jts.fortress.SecurityException se )
                 {
-                    LOG.warn( "deletePermOps name [" + permission.getOpName() + "] objectName[" + permission
-                        .getObjectName() + "] caught SecurityException=" + se );
+                    LOG.warn( "deletePermOps name [" + permission.getOpName() + "] objName[" + permission
+                        .getObjName() + "] caught SecurityException=" + se );
                 }
             }
         }
@@ -1394,7 +1393,7 @@ public class FortressAntTask extends Task implements InputHandler
                     Permission perm = new Permission( permGrant.getObjName(), permGrant.getOpName(),
                         permGrant.isAdmin() );
                     perm.setOpName( permGrant.getOpName() );
-                    perm.setObjectId( permGrant.getObjId() );
+                    perm.setObjId( permGrant.getObjId() );
                     if ( permGrant.getRoleNm() != null && permGrant.getRoleNm().length() > 0 )
                     {
                         adminMgr.grantPermission( perm, new Role( permGrant.getRoleNm() ) );
@@ -1439,7 +1438,7 @@ public class FortressAntTask extends Task implements InputHandler
                     Permission perm = new Permission( permGrant.getObjName(), permGrant.getOpName(),
                         permGrant.isAdmin() );
                     perm.setOpName( permGrant.getOpName() );
-                    perm.setObjectId( permGrant.getObjId() );
+                    perm.setObjId( permGrant.getObjId() );
                     if ( permGrant.getRoleNm() != null && permGrant.getRoleNm().length() > 0 )
                     {
                         adminMgr.revokePermission( perm, new Role( permGrant.getRoleNm() ) );

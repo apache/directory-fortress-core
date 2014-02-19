@@ -664,6 +664,8 @@
         <mkdir dir="${db.sess.dir}"/>
         <echo message="###############  Create RBAC ACCEL OVERLAY audit folder  ###############"/>
         <mkdir dir="${db.audit.dir}"/>
+
+        <antcall target="copy-rbac-libs"></antcall>
     </target>
 
     <!-- =================================
@@ -919,6 +921,18 @@
 				<include name="**/accesslog*"/>
 			</fileset>
 		</copy>
+    </target>
+
+    <!-- =================================
+          copy the slapd rbac accelerator overlay libs from install to bin folder
+         ================================= -->
+    <target name="copy-rbac-libs" depends="init" >
+        <echo message="###############  Copy rbac libs ${openldap.install.artifact.dir} to openldap lib folder ${slapd.module.dir}"/>
+        <copy todir="${slapd.module.dir}" failonerror="false">
+            <fileset dir="${openldap.install.artifact.dir}">
+                <include name="**/rbac*"/>
+            </fileset>
+        </copy>
     </target>
 
     <!-- =================================
@@ -1213,6 +1227,7 @@
 
             <zipfileset dir="${ldap.dir}" prefix="ldap">
                 <include name="*/**"/>
+                <exclude name="setup/ext/**"/>
                 <exclude name="*.conf"/>
                 <exclude name="*.log"/>
                 <exclude name="*/*.csv"/>

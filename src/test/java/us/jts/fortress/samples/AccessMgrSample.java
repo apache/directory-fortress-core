@@ -96,7 +96,7 @@ public class AccessMgrSample extends TestCase
                 boolean result = accessMgr.checkAccess( session, inPerm );
                 assertTrue( szLocation, result );
                 LOG.info( szLocation + " user [" + session.getUserId() + "] permission object ["
-                    + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success" );
+                    + inPerm.getObjName() + "] operation name [" + inPerm.getOpName() + "] success" );
             }
         }
         catch ( SecurityException ex )
@@ -139,7 +139,7 @@ public class AccessMgrSample extends TestCase
                 boolean result = accessMgr.checkAccess( session, checkPerm );
                 assertTrue( szLocation, result );
                 LOG.info( szLocation + " user [" + session.getUserId() + "] permission object ["
-                    + checkPerm.getObjectName() + "] operation name [" + checkPerm.getOpName() + "] success" );
+                    + checkPerm.getObjName() + "] operation name [" + checkPerm.getOpName() + "] success" );
             }
         }
         catch ( SecurityException ex )

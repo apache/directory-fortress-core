@@ -64,7 +64,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
     private boolean admin = false;
 
     /**
-     * Get the optional objName attribute which limits set by {@link us.jts.fortress.rbac.Permission#objectName}.
+     * Get the optional objName attribute which limits set by {@link us.jts.fortress.rbac.Permission#objName}.
      * For modification search, this attr maps to {@link AuditDAO#REQMOD}.  For authorization search, it will map to {@link AuditDAO#REQDN}.
      * The object name is derived from another class name which represents targets for Fortress authorizations. For example {@link us.jts.fortress.rbac.AdminMgrImpl} or 'CustomerCheckOutPage'.
      *
@@ -76,7 +76,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
     }
 
     /**
-     * Set the optional objName attribute which limits set by {@link us.jts.fortress.rbac.Permission#objectName}.
+     * Set the optional objName attribute which limits set by {@link us.jts.fortress.rbac.Permission#objName}.
      * For modification search, this attr maps to {@link AuditDAO#REQMOD}.  For authorization search, it will map to {@link AuditDAO#REQDN}.
      * The object name is derived from another class name which represents targets for Fortress authorizations. For example {@link us.jts.fortress.rbac.AdminMgrImpl} or 'CustomerCheckOutPage'.
      *

@@ -67,8 +67,8 @@ class AccessMgrConsole
                 {
                     //pe = (Permission) list.get(i);
                     System.out.println("**perm:" + (i++) + "***");
-                    System.out.println("object name [" + pe.getObjectName() + "]");
-                    System.out.println("object id [" + pe.getObjectId() + "]");
+                    System.out.println("object name [" + pe.getObjName() + "]");
+                    System.out.println("object id [" + pe.getObjId() + "]");
                     System.out.println("operation name [" + pe.getOpName() + "]");
                     System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
                     System.out.println("internalId [" + pe.getInternalId() + "]");
@@ -269,7 +269,7 @@ class AccessMgrConsole
             System.out.println("Enter operation name:");
             String opName = ReaderUtil.readLn();
             boolean result = am.checkAccess(session, new Permission(objName, opName));
-            System.out.println("CheckAccess return [" + result + "] for user [" + session.getUserId() + "] objectName [" + objName + "] operationName [" + opName + "]");
+            System.out.println("CheckAccess return [" + result + "] for user [" + session.getUserId() + "] objName [" + objName + "] operationName [" + opName + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)

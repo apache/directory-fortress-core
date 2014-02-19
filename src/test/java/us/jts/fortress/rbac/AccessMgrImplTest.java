@@ -725,7 +725,7 @@ public class AccessMgrImplTest extends TestCase
                     for ( String[] op : opArray )
                     {
                         // Call checkAccess method
-                        assertTrue( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objectName ["
+                        assertTrue( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
                             + PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op ) + "]",
                             accessMgr.checkAccess(
                                 session,
@@ -734,7 +734,7 @@ public class AccessMgrImplTest extends TestCase
 
                         // Call checkAccess method (this should fail):
                         assertTrue(
-                            CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objectName ["
+                            CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
                                 + PermTestData.getName( oArrayBad[i] ) + "] operationName ["
                                 + PermTestData.getName( opArrayBad[j] ) + "]",
                             !accessMgr.checkAccess( session, new Permission( PermTestData.getName( oArrayBad[i] ),

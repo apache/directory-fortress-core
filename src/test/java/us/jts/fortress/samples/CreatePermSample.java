@@ -107,7 +107,7 @@ public class CreatePermSample extends TestCase
                 // now retrieve the list of Roles that are still assigned to perm.  This should be a null list because of revocation performed above:
                 List<String> assignedRoles = reviewMgr.permissionRoles(inPerm);
                 assertTrue(assignedRoles.size() == 0);
-                LOG.info(szLocation + " permission roles revocation check for object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] revocation success");
+                LOG.info(szLocation + " permission roles revocation check for object [" + inPerm.getObjName() + "] operation name [" + inPerm.getOpName() + "] revocation success");
             }
         }
         catch (SecurityException ex)
@@ -210,9 +210,9 @@ public class CreatePermSample extends TestCase
 
             // Do some validations.
             assertNotNull(outObj);
-            assertTrue(szLocation + " failed obj name check", TEST_PERM_OBJECT.equals(outObj.getObjectName()));
+            assertTrue(szLocation + " failed obj name check", TEST_PERM_OBJECT.equals(outObj.getObjName()));
             assertTrue(szLocation + " failed obj ou check", CreatePermOrgSample.TEST_PERM_OU_NM.equals(outObj.getOu()));
-            LOG.info(szLocation + " permission object [" + outObj.getObjectName() + "] success");
+            LOG.info(szLocation + " permission object [" + outObj.getObjName() + "] success");
         }
         catch (SecurityException ex)
         {
@@ -239,23 +239,23 @@ public class CreatePermSample extends TestCase
             adminMgr.addPermObj(shoppingCart);
 
             // Now create the permission operations and grant...
-            Permission create = new Permission(shoppingCart.getObjectName(), "create");
+            Permission create = new Permission(shoppingCart.getObjName(), "create");
             adminMgr.addPermission(create);
             adminMgr.grantPermission(create, new Role("Customer"));
 
-            Permission read = new Permission(shoppingCart.getObjectName(), "read");
+            Permission read = new Permission(shoppingCart.getObjName(), "read");
             adminMgr.addPermission(read);
             adminMgr.grantPermission(read, new Role("Customer"));
 
-            Permission update = new Permission(shoppingCart.getObjectName(), "update");
+            Permission update = new Permission(shoppingCart.getObjName(), "update");
             adminMgr.addPermission(update);
             adminMgr.grantPermission(update, new Role("Admin"));
 
-            Permission delete = new Permission(shoppingCart.getObjectName(), "delete");
+            Permission delete = new Permission(shoppingCart.getObjName(), "delete");
             adminMgr.addPermission(delete);
             adminMgr.grantPermission(delete, new Role("Manager"));
 
-            Permission checkout = new Permission(shoppingCart.getObjectName(), "checkout");
+            Permission checkout = new Permission(shoppingCart.getObjName(), "checkout");
             adminMgr.addPermission(checkout);
             adminMgr.grantPermission(delete, new Role("Customer"));
         }
@@ -293,7 +293,7 @@ public class CreatePermSample extends TestCase
                 // Do some validations.
                 assertNotNull(outPerm);
                 assertTrue(szLocation + " failed permission check", outPerm.equals(inPerm));
-                LOG.info(szLocation + " permission object [" + outPerm.getObjectName() + "] operation name [" + outPerm.getOpName() + "] success");
+                LOG.info(szLocation + " permission object [" + outPerm.getObjName() + "] operation name [" + outPerm.getOpName() + "] success");
 
             }
         }
@@ -327,7 +327,7 @@ public class CreatePermSample extends TestCase
 
                     // This API add a 'oamRoles' attribute associated with Role to the 'oamOperation' ldap object class:
                     adminMgr.grantPermission(inPerm, inRole);
-                    LOG.info(szLocation + " permission role [" + inRole.getName() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
+                    LOG.info(szLocation + " permission role [" + inRole.getName() + "] object [" + inPerm.getObjName() + "] operation name [" + inPerm.getOpName() + "] success");
                 }
             }
 
@@ -373,7 +373,7 @@ public class CreatePermSample extends TestCase
 
                 // This API add a 'oamUsers' attribute associated with User to the 'oamOperation' ldap object class:
                 adminMgr.grantPermission(inPerm, inUser);
-                LOG.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
+                LOG.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjName() + "] operation name [" + inPerm.getOpName() + "] success");
             }
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
             ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
@@ -424,7 +424,7 @@ public class CreatePermSample extends TestCase
                 // now read the list of Users that are still granted.  This should be a null list because of revocation performed above:
                 List<String> assignedUsers = reviewMgr.permissionUsers(inPerm);
                 assertTrue(assignedUsers.size() == 0);
-                LOG.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjectName() + "] operation name [" + inPerm.getOpName() + "] success");
+                LOG.info(szLocation + " permission user [" + inUser.getUserId() + "] object [" + inPerm.getObjName() + "] operation name [" + inPerm.getOpName() + "] success");
             }
         }
         catch (SecurityException ex)

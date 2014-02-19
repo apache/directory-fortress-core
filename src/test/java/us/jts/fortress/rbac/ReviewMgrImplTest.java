@@ -115,21 +115,21 @@ public class ReviewMgrImplTest extends TestCase
                 for ( String[] ops : pOpArray )
                 {
                     pOp = new Permission();
-                    pOp.setObjectName( PermTestData.getName( objs ) );
+                    pOp.setObjName( PermTestData.getName( objs ) );
                     pOp.setOpName( PermTestData.getName( ops ) );
-                    pOp.setObjectId( PermTestData.getObjectId( ops ) );
+                    pOp.setObjId( PermTestData.getObjId( ops ) );
                     Permission entity = reviewMgr.readPermission( pOp );
                     assertNotNull( entity );
                     PermTestData.assertEquals( PermTestData.getName( objs ), entity, ops );
-                    LOG.debug( "readPermissionOps object name [" + pOp.getObjectName() + "] operation name ["
-                        + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] successful" );
+                    LOG.debug( "readPermissionOps object name [" + pOp.getObjName() + "] operation name ["
+                        + pOp.getOpName() + "] objectId [" + pOp.getObjId() + "] successful" );
                 }
             }
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "readPermissionOps object name [" + pOp.getObjectName() + "] operation name ["
-                + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "] caught SecurityException rc="
+            LOG.error( "readPermissionOps object name [" + pOp.getObjName() + "] operation name ["
+                + pOp.getOpName() + "] objectId [" + pOp.getObjId() + "] caught SecurityException rc="
                 + ex.getErrorId() + ", msg=" + ex.getMessage() + ex );
             fail( ex.getMessage() );
         }
@@ -168,7 +168,7 @@ public class ReviewMgrImplTest extends TestCase
                 for ( String[] op : pOpArray )
                 {
                     pOp = new Permission();
-                    pOp.setObjectName( PermTestData.getName( obj ) );
+                    pOp.setObjName( PermTestData.getName( obj ) );
                     pOp.setOpName( srchValue );
                     List<Permission> ops = reviewMgr.findPermissions( pOp );
                     assertNotNull( ops );
@@ -181,7 +181,7 @@ public class ReviewMgrImplTest extends TestCase
                         Permission entity = ops.get( indx );
                         assertNotNull( entity );
                         PermTestData.assertEquals( PermTestData.getName( obj ), entity, op );
-                        LOG.debug( "searchPermissionOps objectName [" + entity.getObjectName()
+                        LOG.debug( "searchPermissionOps objName [" + entity.getObjName()
                             + "] operation name [" + entity.getOpName() + "] successful" );
                     }
                     else
@@ -227,16 +227,16 @@ public class ReviewMgrImplTest extends TestCase
             for ( String[] objs : pArray )
             {
                 pObj = new PermObj();
-                pObj.setObjectName( PermTestData.getName( objs ) );
+                pObj.setObjName( PermTestData.getName( objs ) );
                 PermObj entity = reviewMgr.readPermObj( pObj );
                 assertNotNull( entity );
                 PermTestData.assertEquals( entity, objs );
-                LOG.debug( "readPermissionObjs object name [" + pObj.getObjectName() + "] successful" );
+                LOG.debug( "readPermissionObjs object name [" + pObj.getObjName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "readPermissionOps object name [" + pObj.getObjectName()
+            LOG.error( "readPermissionOps object name [" + pObj.getObjName()
                 + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage() + ex );
             fail( ex.getMessage() );
         }
@@ -280,7 +280,7 @@ public class ReviewMgrImplTest extends TestCase
                     PermObj entity = objs.get( indx );
                     assertNotNull( entity );
                     PermTestData.assertEquals( entity, obj );
-                    LOG.debug( "searchPermissionObjs [" + entity.getObjectName() + "] successful" );
+                    LOG.debug( "searchPermissionObjs [" + entity.getObjName() + "] successful" );
                 }
                 else
                 {
@@ -845,13 +845,13 @@ public class ReviewMgrImplTest extends TestCase
                             Permission pOp = perms.get( indx );
                             assertNotNull( pOp );
                             PermTestData.assertEquals( PermTestData.getName( obj ), pOp, op );
-                            LOG.debug( "rolePermissions role name [" + role.getName() + "] perm objectName ["
+                            LOG.debug( "rolePermissions role name [" + role.getName() + "] perm objName ["
                                 + PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op )
                                 + "] successful" );
                         }
                         else
                         {
-                            msg = "rolePermissions role name [" + role.getName() + "] perm objectName ["
+                            msg = "rolePermissions role name [" + role.getName() + "] perm objName ["
                                 + PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op )
                                 + "] failed list search";
                             LogUtil.logIt( msg );
@@ -896,13 +896,13 @@ public class ReviewMgrImplTest extends TestCase
                 for ( String[] op : pOpArray )
                 {
                     pOp = new Permission();
-                    pOp.setObjectName( PermTestData.getName( obj ) );
+                    pOp.setObjName( PermTestData.getName( obj ) );
                     pOp.setOpName( PermTestData.getName( op ) );
-                    pOp.setObjectId( PermTestData.getObjectId( op ) );
+                    pOp.setObjId( PermTestData.getObjId( op ) );
                     List<String> roles = reviewMgr.permissionRoles( pOp );
                     assertNotNull( roles );
-                    assertTrue( CLS_NM + "permissionRoles permission object [" + pOp.getObjectName()
-                        + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]",
+                    assertTrue( CLS_NM + "permissionRoles permission object [" + pOp.getObjName()
+                        + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjId() + "]",
                         rArray.length == roles.size() );
                     for ( String[] rle : rArray )
                     {
@@ -912,14 +912,14 @@ public class ReviewMgrImplTest extends TestCase
                             String roleNm = roles.get( indx );
                             assertEquals( CLS_NM + ".permissionRoles failed compare role name",
                                 RoleTestData.getName( rle ), roleNm );
-                            LOG.debug( ".permissionRoles permission objectName [" + pOp.getObjectName()
-                                + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId()
+                            LOG.debug( ".permissionRoles permission objName [" + pOp.getObjName()
+                                + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjId()
                                 + "] roleNm [" + roleNm + "] successful" );
                         }
                         else
                         {
-                            msg = "permissionRoles permission objectName [" + pOp.getObjectName()
-                                + "] operationName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId()
+                            msg = "permissionRoles permission objName [" + pOp.getObjName()
+                                + "] operationName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjId()
                                 + "] role [" + RoleTestData.getName( rle ) + "] failed list search";
                             LogUtil.logIt( msg );
                             fail( msg );
@@ -970,14 +970,14 @@ public class ReviewMgrImplTest extends TestCase
                 for ( String[] op : pOpArray )
                 {
                     pOp = new Permission();
-                    pOp.setObjectName( PermTestData.getName( obj ) );
+                    pOp.setObjName( PermTestData.getName( obj ) );
                     pOp.setOpName( PermTestData.getName( op ) );
-                    pOp.setObjectId( PermTestData.getObjectId( op ) );
+                    pOp.setObjId( PermTestData.getObjId( op ) );
                     Set<String> roles = reviewMgr.authorizedPermissionRoles( pOp );
                     assertNotNull( roles );
                     int expectedAuthZedRoles = i + 1;
-                    assertTrue( CLS_NM + "authorizedPermissionRoles permission object [" + pOp.getObjectName()
-                        + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]",
+                    assertTrue( CLS_NM + "authorizedPermissionRoles permission object [" + pOp.getObjName()
+                        + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjId() + "]",
                         expectedAuthZedRoles == roles.size() );
                     int j = 1;
                     for ( String[] rle : rArray )
@@ -988,13 +988,13 @@ public class ReviewMgrImplTest extends TestCase
                             assertTrue(
                                 CLS_NM + "authorizedPermissionRoles roleName [" + roleName
                                     + "] should be authorized for operationName [" + pOp.getOpName() + "] objectId ["
-                                    + pOp.getObjectId() + "]", roles.contains( roleName ) );
+                                    + pOp.getObjId() + "]", roles.contains( roleName ) );
                         }
                         else
                         {
                             assertTrue( CLS_NM + "authorizedPermissionRoles roleName [" + roleName
                                 + "] should not be authorized for operationName [" + pOp.getOpName() + "] objectId ["
-                                + pOp.getObjectId() + "]", !roles.contains( roleName ) );
+                                + pOp.getObjId() + "]", !roles.contains( roleName ) );
                         }
                     }
                     i++;
@@ -1036,13 +1036,13 @@ public class ReviewMgrImplTest extends TestCase
                 for ( String[] op : pOpArray )
                 {
                     pOp = new Permission();
-                    pOp.setObjectName( PermTestData.getName( obj ) );
+                    pOp.setObjName( PermTestData.getName( obj ) );
                     pOp.setOpName( PermTestData.getName( op ) );
-                    pOp.setObjectId( PermTestData.getObjectId( op ) );
+                    pOp.setObjId( PermTestData.getObjId( op ) );
                     List<String> users = reviewMgr.permissionUsers( pOp );
                     assertNotNull( users );
-                    assertTrue( CLS_NM + "permissionUsers permission object [" + pOp.getObjectName()
-                        + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]",
+                    assertTrue( CLS_NM + "permissionUsers permission object [" + pOp.getObjName()
+                        + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjId() + "]",
                         uArray.length == users.size() );
                     for ( String[] usr : uArray )
                     {
@@ -1052,14 +1052,14 @@ public class ReviewMgrImplTest extends TestCase
                             String userId = users.get( indx );
                             assertEquals( CLS_NM + ".permissionUsers failed compare userId",
                                 UserTestData.getUserId( usr ), userId );
-                            LOG.debug( "permissionUsers permission objectName [" + pOp.getObjectName()
-                                + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId()
+                            LOG.debug( "permissionUsers permission objName [" + pOp.getObjName()
+                                + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjId()
                                 + "] userId [" + userId + "] successful" );
                         }
                         else
                         {
-                            msg = "permissionUsers permission objectName [" + pOp.getObjectName()
-                                + "] operationName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjectId()
+                            msg = "permissionUsers permission objName [" + pOp.getObjName()
+                                + "] operationName [" + pOp.getOpName() + "]  objectId [" + pOp.getObjId()
                                 + "] userId [" + UserTestData.getUserId( usr ) + "] failed list search";
                             LogUtil.logIt( msg );
                             fail( msg );
@@ -1110,14 +1110,14 @@ public class ReviewMgrImplTest extends TestCase
                 for ( String[] op : pOpArray )
                 {
                     pOp = new Permission();
-                    pOp.setObjectName( PermTestData.getName( obj ) );
+                    pOp.setObjName( PermTestData.getName( obj ) );
                     pOp.setOpName( PermTestData.getName( op ) );
-                    pOp.setObjectId( PermTestData.getObjectId( op ) );
+                    pOp.setObjId( PermTestData.getObjId( op ) );
                     Set<String> users = reviewMgr.authorizedPermissionUsers( pOp );
                     assertNotNull( users );
                     int expectedAuthZedUsers = i + 1;
-                    assertTrue( CLS_NM + "authorizedPermissionUsers permission object [" + pOp.getObjectName()
-                        + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjectId() + "]",
+                    assertTrue( CLS_NM + "authorizedPermissionUsers permission object [" + pOp.getObjName()
+                        + "] operationName [" + pOp.getOpName() + "] objectId [" + pOp.getObjId() + "]",
                         expectedAuthZedUsers == users.size() );
                     int j = 1;
                     for ( String[] usr : uArray )
@@ -1128,13 +1128,13 @@ public class ReviewMgrImplTest extends TestCase
                             assertTrue(
                                 CLS_NM + "authorizedPermissionUsers userId [" + userId
                                     + "] should be authorized for operationName [" + pOp.getOpName() + "] objectId ["
-                                    + pOp.getObjectId() + "]", users.contains( userId ) );
+                                    + pOp.getObjId() + "]", users.contains( userId ) );
                         }
                         else
                         {
                             assertTrue( CLS_NM + "authorizedPermissionUsers userId [" + userId
                                 + "] should not be authorized for operationName [" + pOp.getOpName() + "] objectId ["
-                                + pOp.getObjectId() + "]", !users.contains( userId ) );
+                                + pOp.getObjId() + "]", !users.contains( userId ) );
                         }
                     }
                     i++;
@@ -1192,13 +1192,13 @@ public class ReviewMgrImplTest extends TestCase
                             Permission pOp = perms.get( indx );
                             assertNotNull( pOp );
                             PermTestData.assertEquals( PermTestData.getName( obj ), pOp, op );
-                            LOG.debug( "userPermissions userId [" + user.getUserId() + "] perm objectName ["
+                            LOG.debug( "userPermissions userId [" + user.getUserId() + "] perm objName ["
                                 + PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op )
                                 + "] successful" );
                         }
                         else
                         {
-                            msg = "userPermissions userId [" + user.getUserId() + "] perm objectName ["
+                            msg = "userPermissions userId [" + user.getUserId() + "] perm objName ["
                                 + PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op )
                                 + "] failed list search";
                             LogUtil.logIt( msg );

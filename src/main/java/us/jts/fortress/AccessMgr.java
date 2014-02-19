@@ -132,7 +132,7 @@ public interface AccessMgr extends Manageable
      * one of the session's active roles. This implementation will verify the roles or userId correspond
      * to the subject's active roles are registered in the object's access control list.
      *
-     * @param perm    must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, of permission User is trying to access.
+     * @param perm    must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, of permission User is trying to access.
      * @param session This object must be instantiated by calling {@link AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @return True if user has access, false otherwise.
      * @throws us.jts.fortress.SecurityException

@@ -165,7 +165,7 @@ public class AttrHelper
      * Parse slapd access raw data to pull the permission name out.
      *
      * @param authZ raw data contained in Fortress audit entity.
-     * @return Permission contains {@link us.jts.fortress.rbac.Permission#objectName} and {@link us.jts.fortress.rbac.Permission#opName}
+     * @return Permission contains {@link us.jts.fortress.rbac.Permission#objName} and {@link us.jts.fortress.rbac.Permission#opName}
      */
     public static Permission getAuthZPerm(AuthZ authZ)
     {
@@ -223,7 +223,7 @@ public class AttrHelper
                         indx = val.indexOf('=');
                         if (indx >= 1)
                         {
-                            pOp.setObjectName(val.substring(indx + 1, val.length() - 1));
+                            pOp.setObjName( val.substring( indx + 1, val.length() - 1 ) );
                         }
                         break;
 

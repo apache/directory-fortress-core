@@ -578,7 +578,7 @@ public class AuthZ extends FortEntity implements Serializable
      * <ul>
      * <li>userId: {@link us.jts.fortress.rbac.User#userId}
      * <li>activated roles: {@link us.jts.fortress.rbac.UserRole#name}
-     * <li>object name: {@link us.jts.fortress.rbac.Permission#objectName}
+     * <li>object name: {@link us.jts.fortress.rbac.Permission#objName}
      * <li>operation name: {@link us.jts.fortress.rbac.Permission#opName}
      * </ul>
      *
@@ -596,7 +596,7 @@ public class AuthZ extends FortEntity implements Serializable
      * <ul>
      * <li>userId: {@link us.jts.fortress.rbac.User#userId}
      * <li>activated roles: {@link us.jts.fortress.rbac.UserRole#name}
-     * <li>object name: {@link us.jts.fortress.rbac.Permission#objectName}
+     * <li>object name: {@link us.jts.fortress.rbac.Permission#objName}
      * <li>operation name: {@link us.jts.fortress.rbac.Permission#opName}
      * </ul>
      *

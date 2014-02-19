@@ -77,7 +77,7 @@ final class AdminUtil
      *
      * @param session This object must be instantiated by calling {@link us.jts.fortress.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.     * @param perm    Instantiated Permission entity requires valid object name and operation name attributes set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
-     * @param perm    Instantiated Permission entity requires {@link us.jts.fortress.rbac.Permission#objectName} and {@link us.jts.fortress.rbac.Permission#opName}.
+     * @param perm    Instantiated Permission entity requires {@link us.jts.fortress.rbac.Permission#objName} and {@link us.jts.fortress.rbac.Permission#opName}.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return boolean value true indicates access allowed.
      * @throws SecurityException In the event of data validation error (i.e. invalid perm or role name) or system error.
@@ -90,7 +90,7 @@ final class AdminUtil
             boolean result = dAccessMgr.canGrant(session, role, perm);
             if (!result)
             {
-                String warning = "canGrant Role [" + role.getName() + "] Perm object [" + perm.getObjectName() + "] Perm Operation [" + perm.getOpName() + "] Admin [" + session.getUserId() + "] failed check.";
+                String warning = "canGrant Role [" + role.getName() + "] Perm object [" + perm.getObjName() + "] Perm Operation [" + perm.getOpName() + "] Admin [" + session.getUserId() + "] failed check.";
                 throw new us.jts.fortress.SecurityException(GlobalErrIds.URLE_ADMIN_CANNOT_GRANT, warning);
             }
         }
@@ -103,7 +103,7 @@ final class AdminUtil
      *
      * @param session This object must be instantiated by calling {@link us.jts.fortress.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.     * @param perm    Instantiated Permission entity requires valid object name and operation name attributes set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
-     * @param perm    Instantiated Permission entity requires {@link us.jts.fortress.rbac.Permission#objectName} and {@link us.jts.fortress.rbac.Permission#opName}.
+     * @param perm    Instantiated Permission entity requires {@link us.jts.fortress.rbac.Permission#objName} and {@link us.jts.fortress.rbac.Permission#opName}.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws us.jts.fortress.SecurityException In the event of data validation error (i.e. invalid perm or role name) or system error.
      */
@@ -115,7 +115,7 @@ final class AdminUtil
             boolean result = dAccessMgr.canRevoke(session, role, perm);
             if (!result)
             {
-                String warning = "canRevoke Role [" + role.getName() + "] Perm object [" + perm.getObjectName() + "] Perm Operation [" + perm.getOpName() + "] Admin [" + session.getUserId() + "] failed check.";
+                String warning = "canRevoke Role [" + role.getName() + "] Perm object [" + perm.getObjName() + "] Perm Operation [" + perm.getOpName() + "] Admin [" + session.getUserId() + "] failed check.";
                 throw new SecurityException(GlobalErrIds.URLE_ADMIN_CANNOT_REVOKE, warning);
             }
         }
@@ -131,7 +131,7 @@ final class AdminUtil
      * </ol>
      *
      * @param session object contains the {@link us.jts.fortress.rbac.User}'s RBAC, {@link us.jts.fortress.rbac.UserRole}, and Administrative Roles {@link UserAdminRole}.
-     * @param perm    contains the permission object name, {@link us.jts.fortress.rbac.Permission#objectName}, and operation name, {@link us.jts.fortress.rbac.Permission#opName}
+     * @param perm    contains the permission object name, {@link us.jts.fortress.rbac.Permission#objName}, and operation name, {@link us.jts.fortress.rbac.Permission#opName}
      * @param entity  used to pass contextual information through Fortress layers for administrative security checks and audit.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws us.jts.fortress.SecurityException in the event of system error.
@@ -141,7 +141,7 @@ final class AdminUtil
         if (session != null)
         {
             entity.setAdminSession(session);
-            entity.setModCode(getObjName(perm.getObjectName()) + "." + perm.getOpName());
+            entity.setModCode(getObjName(perm.getObjName()) + "." + perm.getOpName());
             checkAccess(session, perm, contextId);
         }
     }
@@ -170,17 +170,17 @@ final class AdminUtil
             boolean result = dAccessMgr.checkAccess(session, perm);
             if (!result)
             {
-                String info = "checkAccess failed for user [" + session.getUserId() + "] object [" + perm.getObjectName() + "] operation [" + perm.getOpName() + "]";
+                String info = "checkAccess failed for user [" + session.getUserId() + "] object [" + perm.getObjName() + "] operation [" + perm.getOpName() + "]";
                 throw new us.jts.fortress.AuthorizationException(GlobalErrIds.USER_ADMIN_NOT_AUTHORIZED, info);
             }
         }
     }
 
     /**
-     * Utility will parse a String containing objectName.operationName and return the objectName only.
+     * Utility will parse a String containing objName.operationName and return the objName only.
      *
      * @param szObj contains raw data format.
-     * @return String containing objectName.
+     * @return String containing objName.
      */
     static String getObjName(String szObj)
     {

@@ -2762,10 +2762,10 @@ public class PermTestData extends TestCase
     public static Permission getOp( String objName, String[] op )
     {
         Permission pOp = new Permission();
-        pOp.setObjectName( objName );
-        pOp.setObjectId( getObjectId( op ) );
+        pOp.setObjName( objName );
+        pOp.setObjId( getObjectId( op ) );
         pOp.setOpName( getName( op ) );
-        //pOp.setAbstractName(pOp.getObjectName() + "." + pOp.getOpName());
+        //pOp.setAbstractName(pOp.getObjName() + "." + pOp.getOpName());
         pOp.setType( getType( op ) );
         pOp.setAdmin( isOpAdmin( op ) );
         return pOp;
@@ -2779,17 +2779,17 @@ public class PermTestData extends TestCase
      */
     public static void assertEquals( String objName, Permission pOp, String[] op )
     {
-        assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm objectName", objName,
-            pOp.getObjectName() );
+        assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm objName", objName,
+            pOp.getObjName() );
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm operation name", getName( op ),
             pOp.getOpName() );
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm type", getType( op ),
             pOp.getType() );
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm abstract name",
-            ( objName + "." + getName( op ) ), ( pOp.getObjectName() + "." + pOp.getOpName() ) );
+            ( objName + "." + getName( op ) ), ( pOp.getObjName() + "." + pOp.getOpName() ) );
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm isAdmin", isOpAdmin( op ),
             pOp.isAdmin() );
-        LOG.debug( PermTestData.class.getName() + ".assertEquals perm objectName [" + objName + "] operation name ["
+        LOG.debug( PermTestData.class.getName() + ".assertEquals perm objName [" + objName + "] operation name ["
             + pOp.getOpName() + "] successful" );
     }
 
@@ -2801,7 +2801,7 @@ public class PermTestData extends TestCase
     public static PermObj getObj( String[] obj )
     {
         PermObj pObj = new PermObj();
-        pObj.setObjectName( getName( obj ) );
+        pObj.setObjName( getName( obj ) );
         pObj.setDescription( getDescription( obj ) );
         pObj.setType( getType( obj ) );
         pObj.setOu( getOu( obj ) );
@@ -2816,8 +2816,8 @@ public class PermTestData extends TestCase
      */
     public static void assertEquals( PermObj pObj, String[] obj )
     {
-        assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm objectName", getName( obj ),
-            pObj.getObjectName() );
+        assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm objName", getName( obj ),
+            pObj.getObjName() );
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm description",
             getDescription( obj ), pObj.getDescription() );
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm type", getType( obj ),
@@ -2825,7 +2825,7 @@ public class PermTestData extends TestCase
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm ou", getOu( obj ), pObj.getOu() );
         assertEquals( PermTestData.class.getName() + ".assertEquals failed compare perm isAdmin", isAdmin( obj ),
             pObj.isAdmin() );
-        LOG.debug( PermTestData.class.getName() + ".assertEquals perm objectName [" + pObj.getObjectName()
+        LOG.debug( PermTestData.class.getName() + ".assertEquals perm objName [" + pObj.getObjName()
             + "] successful" );
     }
 

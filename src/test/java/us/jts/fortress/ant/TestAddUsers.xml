@@ -106,25 +106,25 @@
             </delrole>
 
             <addpermObj>
-                <permObj objectName="AntObj1" description="Test Ant Object 1" ou="test" type="Ant"/>
+                <permObj objName="AntObj1" description="Test Ant Object 1" ou="test" type="Ant"/>
             </addpermObj>
 
             <delpermObj>
-                <permObj objectName="AntObj1"/>
+                <permObj objName="AntObj1"/>
             </delpermObj>
 
             <addpermOp>
-                <permOp opName="Op1" objectName="AntObj1" abstractName="AntObj1.Op1" type="Ant" role="test1"/>
-                <permOp opName="Op2" objectName="AntObj1" abstractName="AntObj1.Op2" type="Ant" role="test2"/>
-                <permOp opName="Op3" objectName="AntObj1" abstractName="AntObj1.Op3" type="Ant" role="test1,test2"/>
-                <permOp opName="Op4" objectName="AntObj1" abstractName="AntObj1.Op4" type="Ant"/>
+                <permOp opName="Op1" objName="AntObj1" abstractName="AntObj1.Op1" type="Ant" role="test1"/>
+                <permOp opName="Op2" objName="AntObj1" abstractName="AntObj1.Op2" type="Ant" role="test2"/>
+                <permOp opName="Op3" objName="AntObj1" abstractName="AntObj1.Op3" type="Ant" role="test1,test2"/>
+                <permOp opName="Op4" objName="AntObj1" abstractName="AntObj1.Op4" type="Ant"/>
             </addpermOp>
 
             <delpermOp>
-                <permOp opName="Op1" objectName="AntObj1" />
-                <permOp opName="Op2" objectName="AntObj1"/>
-                <permOp opName="Op3" objectName="AntObj1"/>
-                <permOp opName="Op4" objectName="AntObj1"/>
+                <permOp opName="Op1" objName="AntObj1" />
+                <permOp opName="Op2" objName="AntObj1"/>
+                <permOp opName="Op3" objName="AntObj1"/>
+                <permOp opName="Op4" objName="AntObj1"/>
             </delpermOp>
 
             <delpwpolicy>

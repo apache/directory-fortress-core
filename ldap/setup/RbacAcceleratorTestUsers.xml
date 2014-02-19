@@ -39,39 +39,39 @@
             </addrole>
 
             <delpermobj>
-                <permobj objectName="/rbac/cal2.jsp"/>
+                <permobj objName="/rbac/cal2.jsp"/>
             </delpermobj>
 
             <addpermobj>
-                <permobj objectName="/rbac/cal2.jsp" description="Fortress Web Demo App Object 2" ou="demoapps1" type="Ant"/>
+                <permobj objName="/rbac/cal2.jsp" description="Fortress Web Demo App Object 2" ou="demoapps1" type="Ant"/>
             </addpermobj>
 
             <delpermop>
-                <permop opName="8am" objectName="/rbac/cal2.jsp"/>
-                <permop opName="9am" objectName="/rbac/cal2.jsp"/>
-                <permop opName="10am" objectName="/rbac/cal2.jsp"/>
-                <permop opName="11am" objectName="/rbac/cal2.jsp"/>
-                <permop opName="12pm" objectName="/rbac/cal2.jsp"/>
-                <permop opName="1pm" objectName="/rbac/cal2.jsp"/>
-                <permop opName="2pm" objectName="/rbac/cal2.jsp"/>
-                <permop opName="3pm" objectName="/rbac/cal2.jsp"/>
-                <permop opName="4pm" objectName="/rbac/cal2.jsp"/>
-                <permop opName="5pm" objectName="/rbac/cal2.jsp"/>
-                <permop opName="6pm" objectName="/rbac/cal2.jsp"/>
+                <permop opName="8am" objName="/rbac/cal2.jsp"/>
+                <permop opName="9am" objName="/rbac/cal2.jsp"/>
+                <permop opName="10am" objName="/rbac/cal2.jsp"/>
+                <permop opName="11am" objName="/rbac/cal2.jsp"/>
+                <permop opName="12pm" objName="/rbac/cal2.jsp"/>
+                <permop opName="1pm" objName="/rbac/cal2.jsp"/>
+                <permop opName="2pm" objName="/rbac/cal2.jsp"/>
+                <permop opName="3pm" objName="/rbac/cal2.jsp"/>
+                <permop opName="4pm" objName="/rbac/cal2.jsp"/>
+                <permop opName="5pm" objName="/rbac/cal2.jsp"/>
+                <permop opName="6pm" objName="/rbac/cal2.jsp"/>
             </delpermop>
 
             <addpermop>
-                <permop opName="8am" objectName="/rbac/cal2.jsp" type="Ant"/>
-                <permop opName="9am" objectName="/rbac/cal2.jsp" type="Ant"/>
-                <permop opName="10am" objectName="/rbac/cal2.jsp" type="Ant"/>
-                <permop opName="11am" objectName="/rbac/cal2.jsp" type="Ant"/>
-                <permop opName="12pm" objectName="/rbac/cal2.jsp" type="Ant"/>
-                <permop opName="1pm" objectName="/rbac/cal2.jsp" type="Ant"/>
-                <permop opName="2pm" objectName="/rbac/cal2.jsp" type="Ant"/>
-                <permop opName="3pm" objectName="/rbac/cal2.jsp" type="Ant"/>
-                <permop opName="4pm" objectName="/rbac/cal2.jsp" type="Ant"/>
-                <permop opName="5pm" objectName="/rbac/cal2.jsp" type="Ant"/>
-                <permop opName="6pm" objectName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="8am" objName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="9am" objName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="10am" objName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="11am" objName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="12pm" objName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="1pm" objName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="2pm" objName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="3pm" objName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="4pm" objName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="5pm" objName="/rbac/cal2.jsp" type="Ant"/>
+                <permop opName="6pm" objName="/rbac/cal2.jsp" type="Ant"/>
             </addpermop>
 
             <delpermgrant>

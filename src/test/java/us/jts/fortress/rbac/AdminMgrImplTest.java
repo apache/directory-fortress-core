@@ -1722,8 +1722,8 @@ public class AdminMgrImplTest extends TestCase
                 {
                     pOp = PermTestData.getOp( PermTestData.getName( obj ), op );
                     adminMgr.addPermission( pOp );
-                    LOG.debug( "addPermOp objectName [" + pOp.getObjectName() + "] opName ["
-                        + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] successful" );
+                    LOG.debug( "addPermOp objName [" + pOp.getObjName() + "] opName ["
+                        + pOp.getOpName() + "]  objectId [" + pOp.getObjId() + "] successful" );
                 }
             }
         }
@@ -1731,8 +1731,8 @@ public class AdminMgrImplTest extends TestCase
         {
             if ( !canFail )
             {
-                LOG.error( "addPermOp objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName()
-                    + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException rc=" + ex.getErrorId()
+                LOG.error( "addPermOp objName [" + pOp.getObjName() + "] opName [" + pOp.getOpName()
+                    + "]  objectId [" + pOp.getObjId() + "] caught SecurityException rc=" + ex.getErrorId()
                     + ", msg=" + ex.getMessage(), ex );
                 fail( ex.getMessage() );
             }
@@ -1774,14 +1774,14 @@ public class AdminMgrImplTest extends TestCase
                 pObj = PermTestData.getObj( obj );
                 // Todo - add props
                 adminMgr.addPermObj( pObj );
-                LOG.debug( "addPermObjs objectName [" + pObj.getObjectName() + "] successful" );
+                LOG.debug( "addPermObjs objName [" + pObj.getObjName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
             if ( !canFail )
             {
-                LOG.error( "addPermObjs objectName [" + pObj.getObjectName()
+                LOG.error( "addPermObjs objName [" + pObj.getObjName()
                     + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
                 fail( ex.getMessage() );
             }
@@ -1829,8 +1829,8 @@ public class AdminMgrImplTest extends TestCase
                 {
                     pOp = PermTestData.getOp( PermTestData.getName( obj ), op );
                     adminMgr.deletePermission( pOp );
-                    LOG.debug( "delPermOps objectName [" + pOp.getObjectName() + "] opName ["
-                        + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] successful" );
+                    LOG.debug( "delPermOps objName [" + pOp.getObjName() + "] opName ["
+                        + pOp.getOpName() + "]  objectId [" + pOp.getObjId() + "] successful" );
                 }
             }
         }
@@ -1838,8 +1838,8 @@ public class AdminMgrImplTest extends TestCase
         {
             if ( !canFail )
             {
-                LOG.error( "delPermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName()
-                    + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException rc=" + ex.getErrorId()
+                LOG.error( "delPermOps objName [" + pOp.getObjName() + "] opName [" + pOp.getOpName()
+                    + "]  objectId [" + pOp.getObjId() + "] caught SecurityException rc=" + ex.getErrorId()
                     + ", msg=" + ex.getMessage(), ex );
                 fail( ex.getMessage() );
             }
@@ -1880,12 +1880,12 @@ public class AdminMgrImplTest extends TestCase
             {
                 pObj = PermTestData.getObj( obj );
                 adminMgr.deletePermObj( pObj );
-                LOG.debug( "delPermObjs objectName [" + pObj.getObjectName() + "] successful" );
+                LOG.debug( "delPermObjs objName [" + pObj.getObjName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "delPermObjs objectName [" + pObj.getObjectName() + "] caught SecurityException rc="
+            LOG.error( "delPermObjs objName [" + pObj.getObjName() + "] caught SecurityException rc="
                 + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1921,12 +1921,12 @@ public class AdminMgrImplTest extends TestCase
                 pObj = PermTestData.getObj( obj );
                 // Todo - add props
                 adminMgr.updatePermObj( pObj );
-                LOG.debug( "updatePermObjs objectName [" + pObj.getObjectName() + "] successful" );
+                LOG.debug( "updatePermObjs objName [" + pObj.getObjName() + "] successful" );
             }
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "updatePermObjs objectName [" + pObj.getObjectName()
+            LOG.error( "updatePermObjs objName [" + pObj.getObjName()
                 + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -1964,15 +1964,15 @@ public class AdminMgrImplTest extends TestCase
                 {
                     pOp = PermTestData.getOp( PermTestData.getName( obj ), op );
                     adminMgr.updatePermission( pOp );
-                    LOG.debug( "updatePermOps objectName [" + pOp.getObjectName() + "] opName ["
-                        + pOp.getOpName() + "]  objectId [" + pOp.getObjectId() + "] successful" );
+                    LOG.debug( "updatePermOps objName [" + pOp.getObjName() + "] opName ["
+                        + pOp.getOpName() + "]  objectId [" + pOp.getObjId() + "] successful" );
                 }
             }
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "updatePermOps objectName [" + pOp.getObjectName() + "] opName [" + pOp.getOpName()
-                + "]  objectId [" + pOp.getObjectId() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg="
+            LOG.error( "updatePermOps objName [" + pOp.getObjName() + "] opName [" + pOp.getOpName()
+                + "]  objectId [" + pOp.getObjId() + "] caught SecurityException rc=" + ex.getErrorId() + ", msg="
                 + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -2031,8 +2031,8 @@ public class AdminMgrImplTest extends TestCase
                         role = new Role( RoleTestData.getName( rle ) );
                         pOp = PermTestData.getOp( PermTestData.getName( obj ), op );
                         adminMgr.grantPermission( pOp, role );
-                        LOG.debug( "addRoleGrants role name [" + role.getName() + "] objectName ["
-                            + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name ["
+                        LOG.debug( "addRoleGrants role name [" + role.getName() + "] objName ["
+                            + pOp.getObjName() + "] objectId [" + pOp.getObjId() + "] operation name ["
                             + pOp.getOpName() + "] successful" );
                     }
                 }
@@ -2043,8 +2043,8 @@ public class AdminMgrImplTest extends TestCase
             if ( !canFail )
             {
                 LOG.error(
-                    "addRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName()
-                        + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName()
+                    "addRoleGrants role name [" + role.getName() + "] objName [" + pOp.getObjName()
+                        + "] objectId [" + pOp.getObjId() + "] operation name [" + pOp.getOpName()
                         + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
                 fail( ex.getMessage() );
             }
@@ -2075,16 +2075,16 @@ public class AdminMgrImplTest extends TestCase
                 {
                     pOp = PermTestData.getOp( PermTestData.getName( obj ), op );
                     adminMgr.grantPermission( pOp, role );
-                    LOG.debug( "addRoleGrantsH role name [" + role.getName() + "] objectName ["
-                        + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name ["
+                    LOG.debug( "addRoleGrantsH role name [" + role.getName() + "] objName ["
+                        + pOp.getObjName() + "] objectId [" + pOp.getObjId() + "] operation name ["
                         + pOp.getOpName() + "] successful" );
                 }
             }
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "addRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName()
-                + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName()
+            LOG.error( "addRoleGrantsH role name [" + role.getName() + "] objName [" + pOp.getObjName()
+                + "] objectId [" + pOp.getObjId() + "] operation name [" + pOp.getOpName()
                 + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -2129,7 +2129,7 @@ public class AdminMgrImplTest extends TestCase
                     i++;
 
                     LOG.debug( "addRoleGrantsHB userId [" + user.getUserId() + "] role name ["
-                        + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId()
+                        + role.getName() + "] objName [" + pOp.getObjName() + "] objectId [" + pOp.getObjId()
                         + "] operation name [" + pOp.getOpName() + "] successful" );
                 }
             }
@@ -2196,8 +2196,8 @@ public class AdminMgrImplTest extends TestCase
                         role = new Role( RoleTestData.getName( rle ) );
                         pOp = PermTestData.getOp( PermTestData.getName( obj ), op );
                         adminMgr.revokePermission( pOp, role );
-                        LOG.debug( "delRoleGrants role name [" + role.getName() + "] objectName ["
-                            + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name ["
+                        LOG.debug( "delRoleGrants role name [" + role.getName() + "] objName ["
+                            + pOp.getObjName() + "] objectId [" + pOp.getObjId() + "] operation name ["
                             + pOp.getOpName() + "] successful" );
                     }
                 }
@@ -2205,8 +2205,8 @@ public class AdminMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "delRoleGrants role name [" + role.getName() + "] objectName [" + pOp.getObjectName()
-                + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName()
+            LOG.error( "delRoleGrants role name [" + role.getName() + "] objName [" + pOp.getObjName()
+                + "] objectId [" + pOp.getObjId() + "] operation name [" + pOp.getOpName()
                 + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -2236,16 +2236,16 @@ public class AdminMgrImplTest extends TestCase
                 {
                     pOp = PermTestData.getOp( PermTestData.getName( obj ), op );
                     adminMgr.revokePermission( pOp, role );
-                    LOG.debug( "delRoleGrantsH role name [" + role.getName() + "] objectName ["
-                        + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name ["
+                    LOG.debug( "delRoleGrantsH role name [" + role.getName() + "] objName ["
+                        + pOp.getObjName() + "] objectId [" + pOp.getObjId() + "] operation name ["
                         + pOp.getOpName() + "] successful" );
                 }
             }
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "delRoleGrantsH role name [" + role.getName() + "] objectName [" + pOp.getObjectName()
-                + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName()
+            LOG.error( "delRoleGrantsH role name [" + role.getName() + "] objName [" + pOp.getObjName()
+                + "] objectId [" + pOp.getObjId() + "] operation name [" + pOp.getOpName()
                 + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -2289,7 +2289,7 @@ public class AdminMgrImplTest extends TestCase
                     i++;
 
                     LOG.debug( "delRoleGrantsHB userId [" + user.getUserId() + "] role name ["
-                        + role.getName() + "] objectName [" + pOp.getObjectName() + "] objectId [" + pOp.getObjectId()
+                        + role.getName() + "] objName [" + pOp.getObjName() + "] objectId [" + pOp.getObjId()
                         + "] operation name [" + pOp.getOpName() + "] successful" );
                 }
             }
@@ -2333,8 +2333,8 @@ public class AdminMgrImplTest extends TestCase
                         user = new User( UserTestData.getUserId( usr ) );
                         pOp = PermTestData.getOp( PermTestData.getName( obj ), op );
                         adminMgr.grantPermission( pOp, user );
-                        LOG.debug( "addUserGrants userId [" + user.getUserId() + "] objectName ["
-                            + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name ["
+                        LOG.debug( "addUserGrants userId [" + user.getUserId() + "] objName ["
+                            + pOp.getObjName() + "] objectId [" + pOp.getObjId() + "] operation name ["
                             + pOp.getOpName() + "] successful" );
                     }
                 }
@@ -2342,8 +2342,8 @@ public class AdminMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "addUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName()
-                + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName()
+            LOG.error( "addUserGrants userId [" + user.getUserId() + "] objName [" + pOp.getObjName()
+                + "] objectId [" + pOp.getObjId() + "] operation name [" + pOp.getOpName()
                 + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
@@ -2379,8 +2379,8 @@ public class AdminMgrImplTest extends TestCase
                         user = new User( UserTestData.getUserId( usr ) );
                         pOp = PermTestData.getOp( PermTestData.getName( obj ), op );
                         adminMgr.revokePermission( pOp, user );
-                        LOG.debug( "delUserGrants userId [" + user.getUserId() + "] objectName ["
-                            + pOp.getObjectName() + "] objectId [" + pOp.getObjectId() + "] operation name ["
+                        LOG.debug( "delUserGrants userId [" + user.getUserId() + "] objName ["
+                            + pOp.getObjName() + "] objectId [" + pOp.getObjId() + "] operation name ["
                             + pOp.getOpName() + "] successful" );
                     }
                 }
@@ -2388,8 +2388,8 @@ public class AdminMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "delUserGrants userId [" + user.getUserId() + "] objectName [" + pOp.getObjectName()
-                + "] objectId [" + pOp.getObjectId() + "] operation name [" + pOp.getOpName()
+            LOG.error( "delUserGrants userId [" + user.getUserId() + "] objName [" + pOp.getObjName()
+                + "] objectId [" + pOp.getObjId() + "] operation name [" + pOp.getOpName()
                 + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }

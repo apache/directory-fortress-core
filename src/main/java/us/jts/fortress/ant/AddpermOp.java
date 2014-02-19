@@ -41,18 +41,18 @@ public class AddpermOp
      * <pre>
      * {@code
      * <addpermop>
-     *     <permop opName="main" objectName="/jsp/cal/cal1.jsp" type="Ant"/>
-     *     <permop opName="8am" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
-     *     <permop opName="9am" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
-     *     <permop opName="10am" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
-     *     <permop opName="11am" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
-     *     <permop opName="12pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
-     *     <permop opName="1pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
-     *     <permop opName="2pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
-     *     <permop opName="3pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
-     *     <permop opName="4pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
-     *     <permop opName="5pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
-     *     <permop opName="6pm" objectName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="main" objName="/jsp/cal/cal1.jsp" type="Ant"/>
+     *     <permop opName="8am" objName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="9am" objName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="10am" objName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="11am" objName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="12pm" objName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="1pm" objName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="2pm" objName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="3pm" objName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="4pm" objName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="5pm" objName="/jsp/cal/cal2.jsp" type="Ant"/>
+     *     <permop opName="6pm" objName="/jsp/cal/cal2.jsp" type="Ant"/>
      * </addpermop>
      * }
      * </pre>

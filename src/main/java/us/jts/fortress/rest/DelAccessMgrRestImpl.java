@@ -231,7 +231,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         String methodName = CLS_NM + ".checkAccess";
         VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, methodName);
         VUtil.assertNotNullOrEmpty(perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL, methodName);
-        VUtil.assertNotNullOrEmpty(perm.getObjectName(), GlobalErrIds.PERM_OBJECT_NULL, methodName);
+        VUtil.assertNotNullOrEmpty(perm.getObjName(), GlobalErrIds.PERM_OBJECT_NULL, methodName);
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, methodName);
         boolean result;
         FortRequest request = new FortRequest();

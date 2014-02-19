@@ -154,7 +154,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
         String methodName =  "checkAccess";
         assertContext(CLS_NM, methodName, perm, GlobalErrIds.PERM_NULL);
         VUtil.assertNotNullOrEmpty(perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL, methodName);
-        VUtil.assertNotNullOrEmpty(perm.getObjectName(), GlobalErrIds.PERM_OBJECT_NULL, methodName);
+        VUtil.assertNotNullOrEmpty(perm.getObjName(), GlobalErrIds.PERM_OBJECT_NULL, methodName);
         assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
         // This flag set will check administrative permission data set.
         perm.setAdmin(true);
@@ -380,7 +380,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
         if(VUtil.isNotNullOrEmpty(uaRoles))
         {
             // validate perm and retrieve perm's ou:
-            PermObj inObj = new PermObj(perm.getObjectName());
+            PermObj inObj = new PermObj(perm.getObjName());
             inObj.setContextId(contextId);
             PermObj pObj = permP.read(inObj);
             for(UserAdminRole uaRole : uaRoles)

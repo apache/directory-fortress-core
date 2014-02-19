@@ -57,11 +57,11 @@ public interface ReviewMgr extends Manageable
      * This method returns a matching permission entity to caller.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objectName} - contains the name of existing object being targeted</li>
+     * <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
      * <li>{@link Permission#opName} - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param permission must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
+     * @param permission must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
      * @return Permission entity that is loaded with data.
      * @throws us.jts.fortress.SecurityException
      *          if permission not found or system error occurs.
@@ -73,10 +73,10 @@ public interface ReviewMgr extends Manageable
      * Method reads permission object from perm container in directory.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link PermObj#objectName} - contains the name of existing object being targeted</li>
+     * <li>{@link PermObj#objName} - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param permObj entity contains the {@link PermObj#objectName} of target record.
+     * @param permObj entity contains the {@link PermObj#objName} of target record.
      * @return PermObj loaded with perm object data.
      * @throws SecurityException is thrown if object not found or system error.
      */
@@ -87,7 +87,7 @@ public interface ReviewMgr extends Manageable
      * Method returns a list of type Permission that match the perm object search string.
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link Permission#objectName} - contains one or more characters of existing object being targeted</li>
+     * <li>{@link Permission#objName} - contains one or more characters of existing object being targeted</li>
      * <li>{@link Permission#opName} - contains one or more characters of existing permission operation</li>
      * </ul>
      *
@@ -105,7 +105,7 @@ public interface ReviewMgr extends Manageable
      * Method returns a list of type PermObj that match the perm object search string.
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link PermObj#objectName} - contains one or more characters of existing object being targeted</li>
+     * <li>{@link PermObj#objName} - contains one or more characters of existing object being targeted</li>
      * </ul>
      *
      * @param permObj contains object name search string.  The search val contains 1 or more leading chars that correspond to object name.
@@ -378,11 +378,11 @@ public interface ReviewMgr extends Manageable
      * Return a list of type String of all roles that have granted a particular permission.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objectName} - contains the name of existing object being targeted</li>
+     * <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
      * <li>{@link Permission#opName} - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
+     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
      * @return List of type string containing the Role names that have the matching perm granted.
      * @throws SecurityException in the event permission not found or system error occurs.
      */
@@ -394,11 +394,11 @@ public interface ReviewMgr extends Manageable
      * Return all role names that have been authorized for a given permission.  This will process role hierarchies to determine set of all Roles who have access to a given permission.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objectName} - contains the name of existing object being targeted</li>
+     * <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
      * <li>{@link Permission#opName} - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
+     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
      * @return Set of type String containing all roles names that have been granted a particular permission.
      * @throws us.jts.fortress.SecurityException
      *          in the event of validation or system error.
@@ -411,11 +411,11 @@ public interface ReviewMgr extends Manageable
      * Return all userIds that have been granted (directly) a particular permission.  This will not consider assigned or authorized Roles.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objectName} - contains the name of existing object being targeted</li>
+     * <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
      * <li>{@link Permission#opName} - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
+     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
      * @return List of type String containing all userIds that have been granted a particular permission.
      * @throws us.jts.fortress.SecurityException
      *          in the event of validation or system error.
@@ -428,11 +428,11 @@ public interface ReviewMgr extends Manageable
      * Return all userIds that have been authorized for a given permission.  This will process role hierarchies to determine set of all Users who have access to a given permission.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objectName} - contains the name of existing object being targeted</li>
+     * <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
      * <li>{@link Permission#opName} - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objectName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
+     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
      * @return Set of type String containing all userIds that have been granted a particular permission.
      * @throws us.jts.fortress.SecurityException
      *          in the event of validation or system error.

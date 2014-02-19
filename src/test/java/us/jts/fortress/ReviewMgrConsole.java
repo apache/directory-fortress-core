@@ -590,8 +590,8 @@ class ReviewMgrConsole
            *  public class FinePerm
            *  implements java.io.Serializable
            *  {
-           *  public String getObjectName()
-           *  public void setObjectName(String objectName)
+           *  public String getObjName()
+           *  public void setObjName(String objName)
            *  public void addRole(String name)
            *  public List getRoles()
            *  public void addUser(String user)
@@ -610,7 +610,7 @@ class ReviewMgrConsole
             System.out.println("Enter op name:");
             String opname = ReaderUtil.readLn();
             pe = new Permission();
-            pe.setObjectName(name);
+            pe.setObjName( name );
             pe.setOpName(opname);
             List list = rm.findPermissions(pe);
             if (list != null)
@@ -620,8 +620,8 @@ class ReviewMgrConsole
                     pe = (Permission) list.get(i);
                     System.out.println("**perm:" + (i + 1) + "***");
                     //System.out.println("perm operation [" + pe.operation + "]");
-                    System.out.println("object name [" + pe.getObjectName() + "]");
-                    System.out.println("object id [" + pe.getObjectId() + "]");
+                    System.out.println("object name [" + pe.getObjName() + "]");
+                    System.out.println("object id [" + pe.getObjId() + "]");
                     System.out.println("operation name [" + pe.getOpName() + "]");
                     System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
                     System.out.println("internalId [" + pe.getInternalId() + "]");
@@ -682,7 +682,7 @@ class ReviewMgrConsole
 			while (piter.hasNext())
 			{
 				FinePerm perm = (FinePerm) pmap.get(piter.next());
-				System.out.println("Fine Perm objectname:" + perm.getObjectName());
+				System.out.println("Fine Perm objectname:" + perm.getObjName());
 				if (perm.getRoles() != null && perm.getRoles().size() > 0)
 				{
 					List roles = perm.getRoles();
@@ -729,10 +729,10 @@ class ReviewMgrConsole
 
             System.out.println("Enter perm object name:");
             String name = ReaderUtil.readLn();
-            permission.setObjectName(name);
+            permission.setObjName( name );
             System.out.println("Enter perm object id or null for none:");
             String oid = ReaderUtil.readLn();
-            permission.setObjectId(oid);
+            permission.setObjId( oid );
             System.out.println("Enter perm operation name:");
             String op = ReaderUtil.readLn();
             permission.setOpName(op);
@@ -740,8 +740,8 @@ class ReviewMgrConsole
             if (pe != null)
             {
                 //System.out.println("perm operation [" + pe.operation + "]");
-                System.out.println("object name [" + pe.getObjectName() + "]");
-                System.out.println("object id [" + pe.getObjectId() + "]");
+                System.out.println("object name [" + pe.getObjName() + "]");
+                System.out.println("object id [" + pe.getObjId() + "]");
                 System.out.println("operation name [" + pe.getOpName() + "]");
                 System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
                 System.out.println("internalId [" + pe.getInternalId() + "]");
@@ -798,10 +798,10 @@ class ReviewMgrConsole
 
             System.out.println("Enter perm object name:");
             String name = ReaderUtil.readLn();
-            permission.setObjectName(name);
+            permission.setObjName( name );
             System.out.println("Enter perm object id or null for none:");
             String oid = ReaderUtil.readLn();
-            permission.setObjectId(oid);
+            permission.setObjId( oid );
             System.out.println("Enter perm operation name:");
             String op = ReaderUtil.readLn();
             permission.setOpName(op);
@@ -809,8 +809,8 @@ class ReviewMgrConsole
             if (pe != null)
             {
                 //System.out.println("perm operation [" + pe.operation + "]");
-                System.out.println("object name [" + pe.getObjectName() + "]");
-                System.out.println("object id [" + pe.getObjectId() + "]");
+                System.out.println("object name [" + pe.getObjName() + "]");
+                System.out.println("object id [" + pe.getObjId() + "]");
                 System.out.println("operation name [" + pe.getOpName() + "]");
                 System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
                 System.out.println("internalId [" + pe.getInternalId() + "]");
@@ -845,10 +845,10 @@ class ReviewMgrConsole
 
             System.out.println("Enter perm object name:");
             String name = ReaderUtil.readLn();
-            permission.setObjectName(name);
+            permission.setObjName( name );
             System.out.println("Enter perm object id or null for none:");
             String oid = ReaderUtil.readLn();
-            permission.setObjectId(oid);
+            permission.setObjId( oid );
             System.out.println("Enter perm operation name:");
             String op = ReaderUtil.readLn();
             permission.setOpName(op);
@@ -856,8 +856,8 @@ class ReviewMgrConsole
             if (pe != null)
             {
                 //System.out.println("perm operation [" + pe.operation + "]");
-                System.out.println("object name [" + pe.getObjectName() + "]");
-                System.out.println("object id [" + pe.getObjectId() + "]");
+                System.out.println("object name [" + pe.getObjName() + "]");
+                System.out.println("object id [" + pe.getObjId() + "]");
                 System.out.println("operation name [" + pe.getOpName() + "]");
                 System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
                 System.out.println("internalId [" + pe.getInternalId() + "]");
@@ -935,8 +935,8 @@ class ReviewMgrConsole
                 {
                     System.out.println("**perm:" + (++ctr) + "***");
                     //System.out.println("perm operation [" + pe.operation + "]");
-                    System.out.println("object name [" + pe.getObjectName() + "]");
-                    System.out.println("object id [" + pe.getObjectId() + "]");
+                    System.out.println("object name [" + pe.getObjName() + "]");
+                    System.out.println("object id [" + pe.getObjId() + "]");
                     System.out.println("operation name [" + pe.getOpName() + "]");
                     System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
                     System.out.println("internalId [" + pe.getInternalId() + "]");

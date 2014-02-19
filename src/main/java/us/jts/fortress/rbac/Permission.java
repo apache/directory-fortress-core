@@ -35,26 +35,26 @@ import us.jts.fortress.rbac.dao.UserDAO;
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
- * For example, this entity requires {@link #setObjectName} and {@link #setOpName} attributes set before passing into {@link us.jts.fortress.rbac.AccessMgrImpl} APIs.
+ * For example, this entity requires {@link #setObjName} and {@link #setOpName} attributes set before passing into {@link us.jts.fortress.rbac.AccessMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
  * <h4>Permission entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setObjectName} and {@link #setOpName} attributes set before calling {@link us.jts.fortress.rbac.AccessMgrImpl#checkAccess(us.jts.fortress.rbac.Session, Permission)}.
+ * <li>{@link #setObjName} and {@link #setOpName} attributes set before calling {@link us.jts.fortress.rbac.AccessMgrImpl#checkAccess(us.jts.fortress.rbac.Session, Permission)}.
  * <li>{@link #getRoles} may be set after calling {@link us.jts.fortress.rbac.ReviewMgrImpl#readPermission(Permission)} or {@link us.jts.fortress.rbac.AccessMgrImpl#sessionPermissions(us.jts.fortress.rbac.Session)}.
  * <li>{@link #getUsers} may be set after calling {@link us.jts.fortress.rbac.ReviewMgrImpl#readPermission(Permission)} or {@link us.jts.fortress.rbac.AccessMgrImpl#sessionPermissions(us.jts.fortress.rbac.Session)}.
  * </ul>
  * <p/>
  * <h4>More Permission entity notes</h4>
  * <ul>
- * <li>The unique key to locate a Permission entity (which is required for all authZ requests) is {@link Permission#objectName} and {@link Permission#opName}.<br />
+ * <li>The unique key to locate a Permission entity (which is required for all authZ requests) is {@link Permission#objName} and {@link Permission#opName}.<br />
  * <li>The Permission entity is used to target function points within computer programs needing authorization. This permission model allows a one-to-many relationship between the objects {@link PermObj} and operations {@link Permission}.
  * <p/>
  * <img src="../doc-files/RbacCore.png">
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
  * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link Permission}
  * <li>Permissions in Fortress may also be assigned directly to {@link #users}.
- * <li>Objects {@link #objectName}, Operations {@link #opName}, Roles {@link #roles}, Users {@link #users} are not case sensitive for reads or searches.
+ * <li>Objects {@link #objName}, Operations {@link #opName}, Roles {@link #roles}, Users {@link #users} are not case sensitive for reads or searches.
  * </ul>
  * <p/>
  * The application entity that requires authorization will be mapped to the {@link PermObj} entity and the application's methods or operation names
@@ -74,23 +74,23 @@ import us.jts.fortress.rbac.dao.UserDAO;
  *  adminMgr.addPermObj(shoppingCart);
  *
  *  // Now create the permission operations and grant to applicable roles:
- *  Permission create = new Permission(shoppingCart.getObjectName(), "create");
+ *  Permission create = new Permission(shoppingCart.getObjName(), "create");
  *  adminMgr.addPermission(create);
  *  adminMgr.grantPermission(create, new Role("Customer"));
  *
- *  Permission read = new Permission(shoppingCart.getObjectName(), "read");
+ *  Permission read = new Permission(shoppingCart.getObjName(), "read");
  *  adminMgr.addPermission(read);
  *  adminMgr.grantPermission(read, new Role("Customer"));
  *
- *  Permission update = new Permission(shoppingCart.getObjectName(), "update");
+ *  Permission update = new Permission(shoppingCart.getObjName(), "update");
  *  adminMgr.addPermission(update);
  *  adminMgr.grantPermission(update, new Role("Admin"));
  *
- *  Permission delete = new Permission(shoppingCart.getObjectName(), "delete");
+ *  Permission delete = new Permission(shoppingCart.getObjName(), "delete");
  *  adminMgr.addPermission(delete);
  *  adminMgr.grantPermission(delete, new Role("Manager"));
  *
- *  Permission checkout = new Permission(shoppingCart.getObjectName(), "checkout");
+ *  Permission checkout = new Permission(shoppingCart.getObjName(), "checkout");
  *  adminMgr.addPermission(checkout);
  *  adminMgr.grantPermission(delete, new Role("Customer"));
  * }
@@ -164,9 +164,9 @@ import us.jts.fortress.rbac.dao.UserDAO;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "permission", propOrder =
     {
-        "objectName",
+        "objName",
         "opName",
-        "objectId",
+        "objId",
         "abstractName",
         "internalId",
         "type",
@@ -182,8 +182,8 @@ public class Permission extends FortEntity
     private boolean admin;
     private String internalId;
     private String opName;
-    private String objectName;
-    private String objectId;
+    private String objName;
+    private String objId;
     private String abstractName;
     private String type;
     private String dn;
@@ -199,12 +199,12 @@ public class Permission extends FortEntity
     /**
      * This constructor is commonly used to create Permission that is a target for authorization API.
      *
-     * @param objectName maps to 'ftObjNm' attribute in 'ftOperation' object class.
+     * @param objName maps to 'ftObjNm' attribute in 'ftOperation' object class.
      * @param opName     maps to 'ftOpNm' attribute in 'ftOperation' object class.
      */
-    public Permission( String objectName, String opName )
+    public Permission( String objName, String opName )
     {
-        this.objectName = objectName;
+        this.objName = objName;
         this.opName = opName;
     }
 
@@ -220,39 +220,39 @@ public class Permission extends FortEntity
     /**
      * Constructor is used for APIs that do not require opName for example ARBAC canGrant/canRevoke.
      *
-     * @param objectName maps to 'ftObjNm' attribute in 'ftOperation' object class.
+     * @param objName maps to 'ftObjNm' attribute in 'ftOperation' object class.
      */
-    public Permission( String objectName )
+    public Permission( String objName )
     {
-        this.objectName = objectName;
+        this.objName = objName;
     }
 
 
     /**
-     * This constructor adds the objectId which is used for creating Permissions that have an identity.
+     * This constructor adds the objId which is used for creating Permissions that have an identity.
      *
-     * @param objectName maps to 'ftObjNm' attribute in 'ftOperation' object class.
+     * @param objName maps to 'ftObjNm' attribute in 'ftOperation' object class.
      * @param opName     maps to 'ftOpNm' attribute in 'ftOperation' object class.
-     * @param objectId   maps to 'ftObjId' attribute in 'ftOperation' object class.
+     * @param objId   maps to 'ftObjId' attribute in 'ftOperation' object class.
      */
-    public Permission( String objectName, String opName, String objectId )
+    public Permission( String objName, String opName, String objId )
     {
-        this.objectName = objectName;
+        this.objName = objName;
         this.opName = opName;
-        this.objectId = objectId;
+        this.objId = objId;
     }
 
 
     /**
      * This constructor adds the admin flag which is used to process as Administrative permission.
      *
-     * @param objectName maps to 'ftObjNm' attribute in 'ftOperation' object class.
+     * @param objName maps to 'ftObjNm' attribute in 'ftOperation' object class.
      * @param opName     maps to 'ftOpNm' attribute in 'ftOperation' object class.
      * @param admin      attribute is used to specify the Permission is to be stored and processed in the Administrative RBAC data sets.
      */
-    public Permission( String objectName, String opName, boolean admin )
+    public Permission( String objName, String opName, boolean admin )
     {
-        this.objectName = objectName;
+        this.objName = objName;
         this.opName = opName;
         this.admin = admin;
     }
@@ -346,9 +346,9 @@ public class Permission extends FortEntity
      *
      * @return the name of the object which maps to 'ftObjNm' attribute in 'ftOperation' object class.
      */
-    public String getObjectName()
+    public String getObjName()
     {
-        return this.objectName;
+        return this.objName;
     }
 
 
@@ -357,14 +357,14 @@ public class Permission extends FortEntity
      * for component that is the target for Fortress authorization check. For example 'CustomerCheckOutPage'.
      *
      */
-    public void setObjectName( String objectName )
+    public void setObjName( String objName )
     {
-        this.objectName = objectName;
+        this.objName = objName;
     }
 
 
     /**
-     * Return the Permission's abstract name which is the value of objectName concatenated with OpName, i.e. 'Patient.checkin'
+     * Return the Permission's abstract name which is the value of objName concatenated with OpName, i.e. 'Patient.checkin'
      * This value is automatically generated by the Fortress DAO class.
      *
      * @return abstractName maps to 'ftPermName' attribute in 'ftOperation' object class.
@@ -376,7 +376,7 @@ public class Permission extends FortEntity
 
 
     /**
-     * Set the Permission's abstract name which is the value of objectName concatenated with OpName, i.e. 'Patient.checkin'
+     * Set the Permission's abstract name which is the value of objName concatenated with OpName, i.e. 'Patient.checkin'
      * This value is automatically generated by the Fortress DAO class and value will be ignored if set by external client.
      *
      * @param abstractName maps to 'ftPermName' attribute in 'ftOperation' object class.
@@ -410,26 +410,26 @@ public class Permission extends FortEntity
 
 
     /**
-     * Get optional objectId attribute which can be used to tag a Permission object with an identity, i.e. objectName='Customer', objectId='12345'.
+     * Get optional objId attribute which can be used to tag a Permission object with an identity, i.e. objName='Customer', objId='12345'.
      * This value is not constrained by any other object.
      *
      * @return maps to 'ftObjectId' attribute in 'ftOperation' object class.
      */
-    public String getObjectId()
+    public String getObjId()
     {
-        return objectId;
+        return objId;
     }
 
 
     /**
-     * Set optional objectId which can be used to tag a Permission object with an identity, i.e. objectName='Account', objectId='09876543'.
+     * Set optional objId which can be used to tag a Permission object with an identity, i.e. objName='Account', objId='09876543'.
      * This value is not constrained by any other object.
      *
-     * @param objectId maps to 'ftObjectId' attribute in 'ftOperation' object class.
+     * @param objId maps to 'ftObjectId' attribute in 'ftOperation' object class.
      */
-    public void setObjectId( String objectId )
+    public void setObjId( String objId )
     {
-        this.objectId = objectId;
+        this.objId = objId;
     }
 
 
@@ -662,14 +662,14 @@ public class Permission extends FortEntity
     {
         if ( this == thatOp )
             return true;
-        if ( this.getObjectName() == null )
+        if ( this.getObjName() == null )
             return false;
         if ( !( thatOp instanceof Permission ) )
             return false;
         Permission thatPermission = ( Permission ) thatOp;
-        if ( thatPermission.getObjectName() == null )
+        if ( thatPermission.getObjName() == null )
             return false;
-        return ( ( thatPermission.getObjectName().equalsIgnoreCase( this.getObjectName() ) ) && ( thatPermission
+        return ( ( thatPermission.getObjName().equalsIgnoreCase( this.getObjName() ) ) && ( thatPermission
             .getOpName().equalsIgnoreCase( this.getOpName() ) ) );
     }
 }

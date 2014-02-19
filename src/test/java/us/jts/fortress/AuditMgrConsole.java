@@ -437,7 +437,7 @@ class AuditMgrConsole
 
                 System.out.println("    userId          " + AttrHelper.getAuthZId(authZ.getReqAuthzID()));
                 Permission pOp = AttrHelper.getAuthZPerm(authZ);
-                System.out.println("    Resource Name   " + pOp.getObjectName());
+                System.out.println("    Resource Name   " + pOp.getObjName());
                 System.out.println("    Operation       " + pOp.getOpName());
                 // TODO: fix the NPE that happens here:
                 //System.out.println("    Success?        " + authZ.getReqEntries().equals("1"));

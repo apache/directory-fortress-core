@@ -46,8 +46,8 @@ public class AddpermObj
      * <pre>
      * {@code
      * <addpermobj>
-     *     <permobj objectName="/jsp/cal/cal1.jsp" description="Fortress Web Demo App Object 1" ou="demoapps1" type="Ant"/>
-     *     <permobj objectName="/jsp/cal/cal2.jsp" description="Fortress Web Demo App Object 2" ou="demoapps1" type="Ant"/>
+     *     <permobj objName="/jsp/cal/cal1.jsp" description="Fortress Web Demo App Object 1" ou="demoapps1" type="Ant"/>
+     *     <permobj objName="/jsp/cal/cal2.jsp" description="Fortress Web Demo App Object 2" ou="demoapps1" type="Ant"/>
      * </addpermobj>
      * }
      * </pre>
