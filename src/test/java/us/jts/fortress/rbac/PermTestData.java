@@ -2748,7 +2748,7 @@ public class PermTestData extends TestCase
      * @param op
      * @return
      */
-    public static String getObjectId( String[] op )
+    public static String getObjId( String[] op )
     {
         return op[OBJ_ID_COL];
     }
@@ -2763,7 +2763,7 @@ public class PermTestData extends TestCase
     {
         Permission pOp = new Permission();
         pOp.setObjName( objName );
-        pOp.setObjId( getObjectId( op ) );
+        pOp.setObjId( getObjId( op ) );
         pOp.setOpName( getName( op ) );
         //pOp.setAbstractName(pOp.getObjName() + "." + pOp.getOpName());
         pOp.setType( getType( op ) );

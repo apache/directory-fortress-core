@@ -262,7 +262,7 @@ public class AuditMgrImplTest extends TestCase
                     for ( String[] op : opArray )
                     {
                         uAudit.setOpName( PermTestData.getName( op ) );
-                        uAudit.setObjId( PermTestData.getObjectId( op ) );
+                        uAudit.setObjId( PermTestData.getObjId( op ) );
                         uAudit.setFailedOnly( failedOnly );
                         List<AuthZ> authZs = auditMgr.searchAuthZs( uAudit );
                         assertNotNull( authZs );

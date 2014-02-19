@@ -730,7 +730,7 @@ public class AccessMgrImplTest extends TestCase
                             accessMgr.checkAccess(
                                 session,
                                 new Permission( PermTestData.getName( obj ), PermTestData.getName( op ), PermTestData
-                                    .getObjectId( opArray[j] ) ) ) );
+                                    .getObjId( opArray[j] ) ) ) );
 
                         // Call checkAccess method (this should fail):
                         assertTrue(
@@ -738,7 +738,7 @@ public class AccessMgrImplTest extends TestCase
                                 + PermTestData.getName( oArrayBad[i] ) + "] operationName ["
                                 + PermTestData.getName( opArrayBad[j] ) + "]",
                             !accessMgr.checkAccess( session, new Permission( PermTestData.getName( oArrayBad[i] ),
-                                PermTestData.getName( opArrayBad[j] ), PermTestData.getObjectId( opArrayBad[j] ) ) ) );
+                                PermTestData.getName( opArrayBad[j] ), PermTestData.getObjId( opArrayBad[j] ) ) ) );
 
                         j++;
                     }
