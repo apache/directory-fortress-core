@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang.StringUtils;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.util.attr.VUtil;
 import us.jts.fortress.util.time.CUtil;
@@ -134,46 +135,54 @@ public class UserAdminRole extends UserRole implements Administrator
      */
     public void load( String szRawData, String contextId )
     {
-        if ( szRawData != null && szRawData.length() > 0 )
+        if ( ( szRawData != null ) && ( szRawData.length() > 0 ) )
         {
-            StringTokenizer tkn = new StringTokenizer( szRawData, GlobalIds.DELIMITER );
-            if ( tkn.countTokens() > 0 )
+            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, GlobalIds.DELIMITER );
+            for ( int i = 0; i < tokens.length; i++ )
             {
-                int count = tkn.countTokens();
-                for ( int i = 0; i < count; i++ )
+                if ( VUtil.isNotNullOrEmpty( tokens[i] ) )
                 {
                     switch ( i )
                     {
                         case 0:
-                            this.setName( tkn.nextToken() );
-                            this.setParents( AdminRoleUtil.getParents( this.name.toUpperCase(), contextId ) );
+                            name = tokens[i];
+                            parents = RoleUtil.getParents( name.toUpperCase(), contextId );
                             break;
+
                         case 1:
-                            this.setTimeout( Integer.parseInt( tkn.nextToken() ) );
+                            this.setTimeout( Integer.parseInt( tokens[i] ) );
                             break;
+
                         case 2:
-                            this.setBeginTime( tkn.nextToken() );
+                            this.setBeginTime( tokens[i] );
                             break;
+
                         case 3:
-                            this.setEndTime( tkn.nextToken() );
+                            this.setEndTime( tokens[i] );
                             break;
+
                         case 4:
-                            this.setBeginDate( tkn.nextToken() );
+                            this.setBeginDate( tokens[i] );
                             break;
+
                         case 5:
-                            this.setEndDate( tkn.nextToken() );
+                            this.setEndDate( tokens[i] );
                             break;
+
                         case 6:
-                            this.setBeginLockDate( tkn.nextToken() );
+                            this.setBeginLockDate( tokens[i] );
                             break;
+
                         case 7:
-                            this.setEndLockDate( tkn.nextToken() );
+                            this.setEndLockDate( tokens[i] );
                             break;
+
                         case 8:
-                            this.setDayMask( tkn.nextToken() );
+                            this.setDayMask( tokens[i] );
                             break;
+
                         default:
-                            String szValue = tkn.nextToken();
+                            String szValue = tokens[i];
                             int indx = szValue.indexOf( P + GlobalIds.PROP_SEP );
                             if ( indx >= 0 )
                             {
