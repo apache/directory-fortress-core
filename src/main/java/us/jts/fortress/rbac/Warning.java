@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * This class contains messages that map to warning that occur during role activation and password policy validation.
@@ -42,7 +43,7 @@ import javax.xml.bind.annotation.XmlType;
         "type",
         "name"
     })
-public class Warning
+public class Warning implements Serializable
 {
     public Warning()
     {
