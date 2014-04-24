@@ -141,7 +141,6 @@
        <property name="commons-config.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
        <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
        <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
-       <property name="commons-pool.jar" value="${lib.dir}/commons-pool-1.5.2.jar"/>
        <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
        <property name="commons-io.jar" value="${lib.dir}/commons-io-2.4.jar"/>
        <property name="cxf-common-utilities.jar" value="${lib.dir}/cxf-common-utilities-2.5.0.jar"/>
@@ -161,7 +160,13 @@
        <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.7.5.jar"/>
        <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.7.5.jar"/>
        <property name="slf4j-log4j.jar" value="${lib.dir}/slf4j-log4j12-1.7.5.jar"/>
-       <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M15.jar"/>
+       <property name="apacheJMeter_core.jar" value="${lib.dir}/ApacheJMeter_core-2.11.jar"/>
+       <property name="apacheJMeter_java.jar" value="${lib.dir}/ApacheJMeter_java-2.11.jar"/>
+       <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M16.jar"/>
+       <property name="apacheds-api-all.jar" value="${lib.dir}/api-all-1.0.0-M22.jar"/>
+       <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-${version}.jar"/>
+       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-${version}.jar"/>
+       <property name="mina-core.jar" value="${lib.dir}/mina-core-2.0.7.jar"/>
        <property name="opencsv.jar" value="${lib.dir}/opencsv-2.3.jar"/>
 
        <!-- ########### Define classpaths ########################### -->
@@ -172,7 +177,6 @@
            <pathelement location="${junit.jar}"/>
            <pathelement location="${commons-config.jar}"/>
            <pathelement location="${commons-lang.jar}"/>
-           <pathelement location="${commons-pool.jar}"/>
            <pathelement location="${commons-io.jar}"/>
            <pathelement location="${jasypt.jar}"/>
            <pathelement location="${jaxb-api.jar}"/>
@@ -183,8 +187,16 @@
            <pathelement location="${jsr311-api.jar}"/>
            <pathelement location="${cxf-common-utilities.jar}"/>
            <pathelement location="${ehcache-core.jar}"/>
+           <pathelement location="${mina-core.jar}"/>
+           <pathelement location="${accelerator-api.jar}"/>
+           <pathelement location="${accelerator-impl.jar}"/>
+           <pathelement location="${apacheds-api-all.jar}"/>
            <pathelement location="${apacheds-all.jar}"/>
            <pathelement location="${opencsv.jar}"/>
+           <pathelement location="${slf4j-api.jar}"/>
+           <pathelement location="${slf4j-log4j.jar}"/>
+           <pathelement location="${apacheJMeter_core.jar}"/>
+           <pathelement location="${apacheJMeter_java.jar}"/>
        </path>
 
        <!-- This is used for the JUnit Tests -->
@@ -199,7 +211,6 @@
            <pathelement location="${log4j.jar}"/>
            <pathelement location="${commons-config.jar}"/>
            <pathelement location="${commons-lang.jar}"/>
-           <pathelement location="${commons-pool.jar}"/>
            <pathelement location="${commons-logging.jar}"/>
            <pathelement location="${commons-collections.jar}"/>
            <pathelement location="${commons-codec.jar}"/>
@@ -217,8 +228,13 @@
            <pathelement location="${slf4j-jcl.jar}"/>
            <pathelement location="${ant.home}/lib/ant.jar"/>
            <pathelement location="${images.dir}"/>
-           <pathelement location="${apacheds-all.jar}"/>
+           <pathelement location="${accelerator-api.jar}"/>
+           <pathelement location="${accelerator-impl.jar}"/>
+           <pathelement location="${apacheds-api-all.jar}"/>
+           <pathelement location="${mina-core.jar}"/>
            <pathelement location="${opencsv.jar}"/>
+           <pathelement location="${apacheJMeter_core.jar}"/>
+           <pathelement location="${apacheJMeter_java.jar}"/>
        </path>
 
        <!-- This is used before the initial loads have stored properties on the ldap server. -->
@@ -231,7 +247,6 @@
            <pathelement location="${log4j.jar}"/>
            <pathelement location="${commons-config.jar}"/>
            <pathelement location="${commons-lang.jar}"/>
-           <pathelement location="${commons-pool.jar}"/>
            <pathelement location="${commons-logging.jar}"/>
            <pathelement location="${commons-collections.jar}"/>
            <pathelement location="${jasypt.jar}"/>
@@ -484,6 +499,19 @@
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
             <test name="us.jts.fortress.rbac.apacheds.FortressJUnitApachedsTest"/>
+        </junit>
+    </target>
+
+    <!-- =================================
+          target: test-full - runs junit regression tests
+         ================================= -->
+    <target name="test-accel" depends="build-jar,compile-test,init-fortress-config" description="--> run RBAC accelerator tests">
+        <echo message="Run the RBAC accelerator JUnit tests."/>
+        <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}" maxmemory="1024m">
+            <sysproperty key="tenant" value="${tenant}"/>
+            <classpath refid="test.class.path"/>
+            <formatter type="plain" usefile="false"/>
+            <test name="us.jts.fortress.rbac.accelerator.TestAccelerator"/>
         </junit>
     </target>
 
