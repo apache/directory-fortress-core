@@ -32,7 +32,8 @@ package us.jts.fortress;
  * <p/>100's - Configuration Errors
  * </h3>
  * <ul>
- * <li> <code>{@link GlobalErrIds#CONTEXT_NULL} = 103;</code>
+ * <li> <code>{@link GlobalErrIds#CONTEXT_NULL} = 101;</code>
+ * <li> <code>{@code CONTEXT_SERIALIZATION_FAILED} = 102;</code>*
  * <li> <code>{@link GlobalErrIds#FT_MGR_CLASS_NOT_FOUND} = 103;</code>
  * <li> <code>{@link GlobalErrIds#FT_MGR_INST_EXCEPTION} = 104;</code>
  * <li> <code>{@link GlobalErrIds#FT_MGR_ILLEGAL_ACCESS} = 105;</code>
@@ -56,6 +57,7 @@ package us.jts.fortress;
  * <li> <code>{@link GlobalErrIds#FT_CACHE_CLEAR_ERR} = 132;</code>
  * <li> <code>{@link GlobalErrIds#FT_CACHE_FLUSH_ERR} = 133;</code>
  * <li> <code>{@link GlobalErrIds#FT_NULL_CACHE} = 134;</code>
+ * <li> <code>{@link GlobalErrIds#FT_APACHE_LDAP_POOL_INIT_FAILED} = 135;</code>
  * </ul>
  * <h3>
  * <p/>1000's - User Entity Rule and LDAP Errors
@@ -394,6 +396,16 @@ package us.jts.fortress;
  * <li> <code>{@link GlobalErrIds#REST_UNKNOWN_ERR} = 10107;</code>
  * <li> <code>{@link GlobalErrIds#REST_FORBIDDEN_ERR} = 10108;</code>
  * <li> <code>{@link GlobalErrIds#REST_UNAUTHORIZED_ERR} = 10109;</code>
+ * </ul>
+ * <h3>
+ * <p/>10200's - RBAC Accelerator extended LDAP operation Error Ids
+ * </h3>
+ * <ul>
+ * <li> <code>{@link GlobalErrIds#ACEL_CREATE_SESSION_ERR} = 10201;</code>
+ * <li> <code>{@link GlobalErrIds#ACEL_DELETE_SESSION_ERR} = 10202;</code>
+ * <li> <code>{@link GlobalErrIds#ACEL_CHECK_ACCESS_ERR} = 10203;</code>
+ * <li> <code>{@link GlobalErrIds#ACEL_ADD_ROLE_ERR} = 10204;</code>
+ * <li> <code>{@link GlobalErrIds#ACEL_DROP_ROLE_ERR} = 10205;</code>
  * </ul>
  * <p/>
  *

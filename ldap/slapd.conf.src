@@ -81,11 +81,8 @@ database	@DB_TYPE@
 suffix		"@SUFFIX@"
 rootdn      "@ROOT_DN@"
 rootpw      "@ROOT_PW@"
-#index ou,uid,uidNumber,gidNumber,objectclass eq,pres
-#index cn,sn eq,sub
-#index ftId,ftPermName,ftObjNm,ftOpNm,ftRoles,ftUsers,ftRA,ftARA,ftRoleName eq
 
-index uidNumber,gidNumber,objectclass eq,pres
+index uidNumber,gidNumber,objectclass eq
 index cn,sn,ftObjNm,ftOpNm,ftRoleName,uid,ou eq,sub
 index ftId,ftPermName,ftRoles,ftUsers,ftRA,ftARA eq
 
@@ -124,6 +121,8 @@ ppolicy_hash_cleartext
 @IS_RBAC_ACCELERATOR@overlay     dds
 @IS_RBAC_ACCELERATOR@dds-default-ttl 3600
 @IS_RBAC_ACCELERATOR@dds-max-dynamicObjects	100000
+@IS_RBAC_ACCELERATOR@@DFLT_DBNOSYNCH@
+@IS_RBAC_ACCELERATOR@@DFLT_CHECKPOINT@
 
 #######################################################################
 # RBAC audit database
@@ -133,6 +132,8 @@ ppolicy_hash_cleartext
 @IS_RBAC_ACCELERATOR@rootdn		"cn=manager,@AUDITS_DN@"
 @IS_RBAC_ACCELERATOR@rootpw		@LOG_ROOT_PW@
 @IS_RBAC_ACCELERATOR@directory	"@AUDIT_DB_PATH@"
+@IS_RBAC_ACCELERATOR@@DFLT_DBNOSYNCH@
+@IS_RBAC_ACCELERATOR@@DFLT_CHECKPOINT@
 
 #######################################################################
 # RBAC database

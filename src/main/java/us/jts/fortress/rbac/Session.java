@@ -220,6 +220,17 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     }
 
     /**
+     * Construct a new Session instance with given User entity.
+     *
+     * @param user contains the User attributes that are associated with the Session.
+     */
+    public Session(User user, String sessionId)
+    {
+        this.sessionId = sessionId;
+        this.user = user;
+    }
+
+    /**
      * Return the unique id that is associated with User.  This attribute is generated automatically
      * by Fortress when new Session is created and is not known or changeable by external client.
      *

@@ -47,18 +47,30 @@
         <developer>
             <id>smckinney</id>
             <name>Shawn McKinney</name>
-            <email>shawn.mckinney@jts.us</email>
+            <email>smckinney@symas.com</email>
         </developer>
 
         <developer>
             <id>elecharny</id>
             <name>Emmanuel Lecharny</name>
-            <email>elecharny@apache.org</email>
+            <email>elecharny@symas.com</email>
         </developer>
 
     </developers>
 
     <dependencies>
+        <dependency>
+            <groupId>org.openldap</groupId>
+            <artifactId>accelerator-api</artifactId>
+            <version>1.0-RC35</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openldap</groupId>
+            <artifactId>accelerator-impl</artifactId>
+            <version>1.0-RC35</version>
+        </dependency>
+
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -75,12 +87,6 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-pool</groupId>
-            <artifactId>commons-pool</artifactId>
-            <version>1.6</version>
         </dependency>
 
         <dependency>
@@ -172,10 +178,18 @@
         <dependency>
             <groupId>org.apache.directory.server</groupId>
             <artifactId>apacheds-all</artifactId>
-            <version>2.0.0-M15</version>
+            <version>2.0.0-M16</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.directory.api</groupId>
+            <artifactId>api-all</artifactId>
+            <version>1.0.0-M22</version>
+            <type>jar</type>
+        </dependency>
+
     </dependencies>
 
     <build>

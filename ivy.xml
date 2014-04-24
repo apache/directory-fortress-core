@@ -43,8 +43,11 @@
         <dependency org="org.slf4j" name="slf4j-api" rev="1.7.5" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.5" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.7.5" conf="default->master"/>
-        <dependency org="org.apache.directory.server" name="apacheds-all" rev="2.0.0-M15" conf="default->master"/>
+        <dependency org="org.apache.directory.api" name="api-all" rev="1.0.0-M22" conf="default->master"/>
+        <dependency org="org.apache.directory.server" name="apacheds-all" rev="2.0.0-M16" conf="default->master"/>
         <dependency org="net.sf.opencsv" name="opencsv" rev="2.3" conf="default->master" />
+        <dependency org="org.apache.jmeter" name="ApacheJMeter_core" rev="2.11" conf="default->master" />
+        <dependency org="org.apache.jmeter" name="ApacheJMeter_java" rev="2.11" conf="default->master" />
 
         <!-- Fortress core source is NOT dependent on Sentry, EnMasse or Commander artifacts rather they're required for its QUICKSTART demo apps: -->
         <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC35"  conf="default->master">
@@ -55,6 +58,12 @@
         </dependency>
         <dependency org="us.joshuatreesoftware" name="commander" rev="1.0-RC35"  conf="default->master">
             <artifact name="commander" type="jar"/>
+        </dependency>
+        <dependency org="org.openldap" name="accelerator-api" rev="1.0-RC35"  conf="default->master">
+            <artifact name="accelerator-api" type="jar"/>
+        </dependency>
+        <dependency org="org.openldap" name="accelerator-impl" rev="1.0-RC35"  conf="default->master">
+            <artifact name="accelerator-impl" type="jar"/>
         </dependency>
 
     </dependencies>

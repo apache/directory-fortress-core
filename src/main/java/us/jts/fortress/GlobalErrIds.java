@@ -150,6 +150,11 @@ public class GlobalErrIds
     public final static int FT_NULL_CACHE = 134;
 
     /**
+     * Could not initialize Apache LDAP Connection Pool.
+     */
+    public final static int FT_APACHE_LDAP_POOL_INIT_FAILED = 135;
+
+    /**
      * 1000's - User Entity Rule and LDAP Errors
      */
 
@@ -1223,6 +1228,7 @@ public class GlobalErrIds
     /**
      * 9000's Administrative RBAC
      */
+
     /**
      * The Administrative Role search failed on ldap server.
      */
@@ -1372,6 +1378,7 @@ public class GlobalErrIds
      * The supplied Administrative Role parent attribute could not be removed on ldap server.
      */
     public final static int ARLE_REMOVE_PARENT_FAILED = 9028;
+
     /**
      * 10000's - Temporal Constraint Validation Error Ids
      */
@@ -1452,49 +1459,81 @@ public class GlobalErrIds
     public final static int CONST_NULL_TEXT = 10015;
 
     /**
-     *
+     * 10100's - REST Error Ids
+     */
+
+    /**
+     * The REST function failed with HTTP error.
      */
     public final static int REST_WEB_ERR = 10101;
 
     /**
-     *
+     * The REST function failed with an IO error.
      */
     public final static int REST_IO_ERR = 10102;
 
     /**
-     *
+     * The REST function failed during XML marshaling.
      */
     public final static int REST_MARSHALL_ERR = 10103;
 
     /**
-     *
+     * The REST function failed during XML unmarshal
      */
     public final static int REST_UNMARSHALL_ERR = 10104;
 
     /**
-     *
+     * The REST fucntion failed with HTTP Get.
      */
     public final static int REST_GET_FAILED = 10105;
 
     /**
-     *
+     * The REST endpoint was not found.
      */
     public final static int REST_NOT_FOUND_ERR = 10106;
 
     /**
-     *
+     *  The REST function failed with an unknown error.
      */
     public final static int REST_UNKNOWN_ERR = 10107;
 
     /**
-     *
+     * The REST function failed with HTTP forbidden error.
      */
     public final static int REST_FORBIDDEN_ERR = 10108;
 
     /**
-     *
+     * The REST function failed with an HTTP unauthorized error.
      */
     public final static int REST_UNAUTHORIZED_ERR = 10109;
 
+    /**
+     * 10200's - RBAC Accelerator Error Ids
+     */
+
+    /**
+     * The RBAC Accelerator function failed because CreateSession LDAP extended operation error.
+     */
+    public final static int ACEL_CREATE_SESSION_ERR = 10201;
+
+    /**
+     * The RBAC Accelerator function failed because DeleteSession LDAP extended operation error.
+     */
+    public final static int ACEL_DELETE_SESSION_ERR = 10202;
+
+    /**
+     * The RBAC Accelerator function failed because CheckAccess LDAP extended operation error.
+     */
+    public final static int ACEL_CHECK_ACCESS_ERR = 10203;
+
+    /**
+     * The RBAC Accelerator function failed because AddRole LDAP extended operation error.
+     */
+    public final static int ACEL_ADD_ROLE_ERR = 10204;
+
+    /**
+     * The RBAC Accelerator function failed because DropRole LDAP extended operation error.
+     */
+    public final static int ACEL_DROP_ROLE_ERR = 10205;
 }
 

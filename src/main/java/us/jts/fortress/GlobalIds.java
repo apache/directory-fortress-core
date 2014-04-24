@@ -85,6 +85,11 @@ public class GlobalIds
      */
     public final static String CONFIG_IMPLEMENTATION = "configmgr.implementation";
 
+    /**
+     * When this optional tag, {@code accelsmgr.implementation}, is placed in Fortress properties, its class name will be the default {@link us.jts.fortress.AccelMgr} instance used.
+     */
+    public final static String ACCEL_IMPLEMENTATION = "accelmgr.implementation";
+
     //	AUTHENTICATION_TYPE
     /**
      * This property is used to specify if authentication is being performed within a security realm.

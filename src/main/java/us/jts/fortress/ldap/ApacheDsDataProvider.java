@@ -17,6 +17,9 @@ import java.util.TreeSet;
 import org.apache.commons.pool.impl.GenericObjectPool;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
+import org.apache.directory.api.ldap.codec.api.LdapApiService;
+import org.apache.directory.api.ldap.codec.api.LdapApiServiceFactory;
+import org.apache.directory.api.ldap.codec.standalone.StandaloneLdapApiService;
 import org.apache.directory.api.ldap.model.entry.Attribute;
 import org.apache.directory.api.ldap.model.entry.DefaultAttribute;
 import org.apache.directory.api.ldap.model.entry.DefaultModification;
@@ -44,6 +47,8 @@ import org.apache.directory.ldap.client.api.PoolableLdapConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import us.jts.fortress.CfgRuntimeException;
+import us.jts.fortress.GlobalErrIds;
 import us.jts.fortress.GlobalIds;
 import us.jts.fortress.cfg.Config;
 import us.jts.fortress.rbac.FortEntity;
@@ -59,7 +64,8 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
 
 /**
  * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
- * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.dao.apache.UserDAO}. {@link us.jts.fortress.rbac.dao.apache.RoleDAO}, {@link us.jts.fortress.rbac.dao.apache.PermDAO}, ....
+ * Fortress DAO's, i.e. {@link us.jts.fortress.rbac.dao.apache.UserDAO}. {@link us.jts.fortress.rbac.dao.apache
+ * .RoleDAO}, {@link us.jts.fortress.rbac.dao.apache.PermDAO}, ....
  * These are low-level data utilities, very little if any data validations are performed here.
  * <p/>
  * This class is thread safe.
@@ -80,13 +86,19 @@ public abstract class ApacheDsDataProvider
     private static final String LDAP_ADMIN_POOL_UID = "admin.user";
     private static final String LDAP_ADMIN_POOL_PW = "admin.pw";
 
-    /** The Admin connection pool */
+    /**
+     * The Admin connection pool
+     */
     private static LdapConnectionPool adminPool;
 
-    /** The Log connection pool */
+    /**
+     * The Log connection pool
+     */
     private static LdapConnectionPool logPool;
 
-    /** The User connection pool */
+    /**
+     * The User connection pool
+     */
     private static LdapConnectionPool userPool;
 
     static
@@ -113,6 +125,28 @@ public abstract class ApacheDsDataProvider
         }
 
         config.setCredentials( adminPw );
+        try
+        {
+            System.setProperty( StandaloneLdapApiService.EXTENDED_OPERATIONS_LIST,
+                "org.openldap.accelerator.impl.createSession.RbacCreateSessionFactory,"
+              + "org.openldap.accelerator.impl.checkAccess.RbacCheckAccessFactory,"
+              + "org.openldap.accelerator.impl.addRole.RbacAddRoleFactory,"
+              + "org.openldap.accelerator.impl.dropRole.RbacDropRoleFactory,"
+              + "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory");
+
+            LdapApiService ldapApiService = new StandaloneLdapApiService();
+            if ( LdapApiServiceFactory.isInitialized() == false )
+            {
+                LdapApiServiceFactory.initialize( ldapApiService );
+            }
+            config.setLdapApiService( ldapApiService );
+        }
+        catch ( Exception ex )
+        {
+            String error =  "Exception caught initializing Admin Pool: " + ex;
+            throw new CfgRuntimeException( GlobalErrIds.FT_APACHE_LDAP_POOL_INIT_FAILED, error, ex );
+        }
+
         PoolableLdapConnectionFactory factory = new PoolableLdapConnectionFactory( config );
 
         // Create the Admin pool
@@ -151,16 +185,16 @@ public abstract class ApacheDsDataProvider
         StringBuilder dn = new StringBuilder();
 
         // The contextId must not be null, or "HOME" or "null"
-        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL )
-            && !contextId.equals( GlobalIds.HOME ) )
+        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) && !contextId
+            .equals( GlobalIds.HOME ) )
         {
             int idx = szDn.indexOf( Config.getProperty( GlobalIds.SUFFIX ) );
 
             if ( idx != -1 )
             {
                 // Found. The DN is ,ou=<contextId>,  
-                dn.append( szDn.substring( 0, idx - 1 ) ).append( "," ).append( GlobalIds.OU ).append( "=" )
-                    .append( contextId ).append( "," ).append( szDn.substring( idx ) );
+                dn.append( szDn.substring( 0, idx - 1 ) ).append( "," ).append( GlobalIds.OU ).append( "=" ).append(
+                    contextId ).append( "," ).append( szDn.substring( idx ) );
             }
         }
         else
@@ -181,11 +215,11 @@ public abstract class ApacheDsDataProvider
     protected String getRootDn( String contextId )
     {
         StringBuilder dn = new StringBuilder();
-        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL )
-            && !contextId.equals( GlobalIds.HOME ) )
+        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) && !contextId
+            .equals( GlobalIds.HOME ) )
         {
-            dn.append( GlobalIds.OU ).append( "=" ).append( contextId ).append( "," )
-                .append( Config.getProperty( GlobalIds.SUFFIX ) );
+            dn.append( GlobalIds.OU ).append( "=" ).append( contextId ).append( "," +
+                "" ).append( Config.getProperty( GlobalIds.SUFFIX ) );
         }
         else
         {
@@ -198,14 +232,13 @@ public abstract class ApacheDsDataProvider
     /**
      * Read the ldap record from specified location.
      *
-     * @param connection   handle to ldap connection.
-     * @param dn   contains ldap distinguished name.
-     * @param attrs array contains array names to pull back.
+     * @param connection handle to ldap connection.
+     * @param dn         contains ldap distinguished name.
+     * @param attrs      array contains array names to pull back.
      * @return ldap entry.
      * @throws LdapException in the event system error occurs.
      */
-    protected Entry read( LdapConnection connection, String dn, String[] attrs )
-        throws LdapException
+    protected Entry read( LdapConnection connection, String dn, String[] attrs ) throws LdapException
     {
         counters.incrementRead();
 
@@ -216,16 +249,17 @@ public abstract class ApacheDsDataProvider
     /**
      * Read the ldap record from specified location with user assertion.
      *
-     * @param connection     handle to ldap connection.
-     * @param dn     contains ldap distinguished name.
-     * @param attrs   array contains array names to pull back.                                        , PoolMgr.ConnType.USER
-     * @param userDn string value represents the identity of user on who's behalf the request was initiated.  The value will be stored in openldap auditsearch record AuthZID's attribute.
+     * @param connection handle to ldap connection.
+     * @param dn         contains ldap distinguished name.
+     * @param attrs      array contains array names to pull back.                                        ,
+     *                   PoolMgr.ConnType.USER
+     * @param userDn     string value represents the identity of user on who's behalf the request was initiated.  The
+     *                   value will be stored in openldap auditsearch record AuthZID's attribute.
      * @return ldap entry.
      * @throws LdapException                in the event system error occurs.
      * @throws UnsupportedEncodingException for search control errors.
      */
-    protected Entry read( LdapConnection connection, String dn, String[] attrs, String userDn )
-        throws LdapException
+    protected Entry read( LdapConnection connection, String dn, String[] attrs, String userDn ) throws LdapException
     {
         counters.incrementRead();
 
@@ -236,8 +270,8 @@ public abstract class ApacheDsDataProvider
     /**
      * Add a new ldap entry to the directory.  Do not add audit context.
      *
-     * @param connection    handle to ldap connection.
-     * @param entry contains data to add..
+     * @param connection handle to ldap connection.
+     * @param entry      contains data to add..
      * @throws LdapException in the event system error occurs.
      */
     protected void add( LdapConnection connection, Entry entry ) throws LdapException
@@ -250,9 +284,9 @@ public abstract class ApacheDsDataProvider
     /**
      * Add a new ldap entry to the directory.  Add audit context.
      *
-     * @param connection     handle to ldap connection.
-     * @param entry  contains data to add..
-     * @param entity contains audit context.
+     * @param connection handle to ldap connection.
+     * @param entry      contains data to add..
+     * @param entity     contains audit context.
      * @throws LdapException in the event system error occurs.
      */
     protected void add( LdapConnection connection, Entry entry, FortEntity entity ) throws LdapException
@@ -284,36 +318,33 @@ public abstract class ApacheDsDataProvider
     /**
      * Update exiting ldap entry to the directory.  Do not add audit context.
      *
-     * @param connection   handle to ldap connection.
-     * @param dn   contains distinguished node of entry.
-     * @param mods contains data to modify.
+     * @param connection handle to ldap connection.
+     * @param dn         contains distinguished node of entry.
+     * @param mods       contains data to modify.
      * @throws LdapException in the event system error occurs.
      */
-    protected void modify( LdapConnection connection, String dn, List<Modification> mods )
-        throws LdapException
+    protected void modify( LdapConnection connection, String dn, List<Modification> mods ) throws LdapException
     {
         counters.incrementMod();
-        connection.modify( dn, mods.toArray( new Modification[]
-            {} ) );
+        connection.modify( dn, mods.toArray( new Modification[]{} ) );
     }
 
 
     /**
      * Update exiting ldap entry to the directory.  Add audit context.
      *
-     * @param connection     handle to ldap connection.
-     * @param dn     contains distinguished node of entry.
-     * @param mods   contains data to modify.
-     * @param entity contains audit context.
+     * @param connection handle to ldap connection.
+     * @param dn         contains distinguished node of entry.
+     * @param mods       contains data to modify.
+     * @param entity     contains audit context.
      * @throws LdapException in the event system error occurs.
      */
-    protected void modify( LdapConnection connection, String dn, List<Modification> mods, FortEntity entity )
-        throws LdapException
+    protected void modify( LdapConnection connection, String dn, List<Modification> mods,
+        FortEntity entity ) throws LdapException
     {
         counters.incrementMod();
         audit( mods, entity );
-        connection.modify( dn, mods.toArray( new Modification[]
-            {} ) );
+        connection.modify( dn, mods.toArray( new Modification[]{} ) );
     }
 
 
@@ -321,11 +352,10 @@ public abstract class ApacheDsDataProvider
      * Delete exiting ldap entry from the directory.  Do not add audit context.
      *
      * @param connection handle to ldap connection.
-     * @param dn contains distinguished node of entry targeted for removal..
+     * @param dn         contains distinguished node of entry targeted for removal..
      * @throws LdapException in the event system error occurs.
      */
-    protected void delete( LdapConnection connection, String dn )
-        throws LdapException
+    protected void delete( LdapConnection connection, String dn ) throws LdapException
     {
         counters.incrementDelete();
         connection.delete( dn );
@@ -333,16 +363,16 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * Delete exiting ldap entry from the directory.  Add audit context.  This method will call modify prior to delete which will
+     * Delete exiting ldap entry from the directory.  Add audit context.  This method will call modify prior to
+     * delete which will
      * force corresponding audit record to be written to slapd access log.
      *
-     * @param connection     handle to ldap connection.
-     * @param dn     contains distinguished node of entry targeted for removal..
-     * @param entity contains audit context.
+     * @param connection handle to ldap connection.
+     * @param dn         contains distinguished node of entry targeted for removal..
+     * @param entity     contains audit context.
      * @throws LdapException in the event system error occurs.
      */
-    protected void delete( LdapConnection connection, String dn, FortEntity entity )
-        throws LdapException
+    protected void delete( LdapConnection connection, String dn, FortEntity entity ) throws LdapException
     {
         counters.incrementDelete();
         List<Modification> mods = new ArrayList<Modification>();
@@ -361,13 +391,12 @@ public abstract class ApacheDsDataProvider
      * Delete exiting ldap entry and all descendants from the directory.  Do not add audit context.
      *
      * @param connection handle to ldap connection.
-     * @param dn contains distinguished node of entry targeted for removal..
-     * @throws LdapException in the event system error occurs.
-     * @throws IOException 
-     * @throws CursorException 
+     * @param dn         contains distinguished node of entry targeted for removal..
+     * @throws LdapException   in the event system error occurs.
+     * @throws IOException
+     * @throws CursorException
      */
-    protected void deleteRecursive( LdapConnection connection, String dn )
-        throws LdapException, CursorException
+    protected void deleteRecursive( LdapConnection connection, String dn ) throws LdapException, CursorException
     {
         int recursiveCount = 0;
         deleteRecursive( dn, connection, recursiveCount );
@@ -375,18 +404,19 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * Delete exiting ldap entry and all descendants from the directory.  Add audit context.  This method will call modify prior to delete which will
+     * Delete exiting ldap entry and all descendants from the directory.  Add audit context.  This method will call
+     * modify prior to delete which will
      * force corresponding audit record to be written to slapd access log.
      *
-     * @param connection     handle to ldap connection.
-     * @param dn     contains distinguished node of entry targeted for removal..
-     * @param entity contains audit context.
-     * @throws LdapException in the event system error occurs.
-     * @throws IOException 
-     * @throws CursorException 
+     * @param connection handle to ldap connection.
+     * @param dn         contains distinguished node of entry targeted for removal..
+     * @param entity     contains audit context.
+     * @throws LdapException   in the event system error occurs.
+     * @throws IOException
+     * @throws CursorException
      */
-    protected void deleteRecursive( LdapConnection connection, String dn, FortEntity entity )
-        throws LdapException, CursorException
+    protected void deleteRecursive( LdapConnection connection, String dn, FortEntity entity ) throws LdapException,
+        CursorException
     {
         List<Modification> mods = new ArrayList<Modification>();
         audit( mods, entity );
@@ -404,14 +434,14 @@ public abstract class ApacheDsDataProvider
      * Used to recursively remove all nodes up to record pointed to by dn attribute.
      *
      * @param dn             contains distinguished node of entry targeted for removal..
-     * @param connection             handle to ldap connection.
+     * @param connection     handle to ldap connection.
      * @param recursiveCount keeps track of how many iterations have been performed.
-     * @throws LdapException in the event system error occurs.
-     * @throws IOException 
-     * @throws CursorException 
+     * @throws LdapException   in the event system error occurs.
+     * @throws IOException
+     * @throws CursorException
      */
-    private void deleteRecursive( String dn, LdapConnection connection, int recursiveCount )
-        throws LdapException, CursorException
+    private void deleteRecursive( String dn, LdapConnection connection, int recursiveCount ) throws LdapException,
+        CursorException
     {
         String method = "deleteRecursive";
 
@@ -444,15 +474,14 @@ public abstract class ApacheDsDataProvider
             catch ( LdapReferralException lre )
             {
                 // cannot continue;
-                String error = "." + method + " dn [" + dn + "] caught LDAPReferralException="
-                    + lre.getMessage() + "=" + lre.getReferralInfo();
+                String error = "." + method + " dn [" + dn + "] caught LDAPReferralException=" + lre.getMessage() +
+                    "=" + lre.getReferralInfo();
                 throw lre;
             }
             catch ( LdapException le )
             {
                 // cannot continue;
-                String error = "." + method + " dn [" + dn + "] caught LdapException="
-                    + le.getMessage();
+                String error = "." + method + " dn [" + dn + "] caught LdapException=" + le.getMessage();
                 throw new LdapException( error );
             }
         }
@@ -476,28 +505,22 @@ public abstract class ApacheDsDataProvider
         {
             if ( VUtil.isNotNullOrEmpty( entity.getAdminSession().getInternalUserId() ) )
             {
-                Modification modification = new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE,
-                    GlobalIds.FT_MODIFIER,
-                    entity.getAdminSession().getInternalUserId() );
+                Modification modification = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
+                    GlobalIds.FT_MODIFIER, entity.getAdminSession().getInternalUserId() );
                 mods.add( modification );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getModCode() ) )
             {
-                Modification modification = new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE,
-                    GlobalIds.FT_MODIFIER_CODE,
-                    entity.getModCode() );
+                Modification modification = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
+                    GlobalIds.FT_MODIFIER_CODE, entity.getModCode() );
                 mods.add( modification );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getModId() ) )
             {
-                Modification modification = new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE,
-                    GlobalIds.FT_MODIFIER_ID,
-                    entity.getModId() );
+                Modification modification = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
+                    GlobalIds.FT_MODIFIER_ID, entity.getModId() );
                 mods.add( modification );
             }
         }
@@ -507,22 +530,18 @@ public abstract class ApacheDsDataProvider
     /**
      * Perform normal ldap search accepting default batch size.
      *
-     * @param connection        is LdapConnection object used for all communication with host.
-     * @param baseDn    contains address of distinguished name to begin ldap search
-     * @param scope     indicates depth of search starting at basedn.  0 (base dn), 1 (one level down) or 2 (infinite) are valid values.
-     * @param filter    contains the search criteria
+     * @param connection is LdapConnection object used for all communication with host.
+     * @param baseDn     contains address of distinguished name to begin ldap search
+     * @param scope      indicates depth of search starting at basedn.  0 (base dn),
+     *                   1 (one level down) or 2 (infinite) are valid values.
+     * @param filter     contains the search criteria
      * @param attrs      is the requested list of attritubutes to return from directory search.
-     * @param attrsOnly if true pull back attribute names only.
+     * @param attrsOnly  if true pull back attribute names only.
      * @return result set containing ldap entries returned from directory.
      * @throws LdapException thrown in the event of error in ldap client or server code.
      */
-    protected SearchCursor search( LdapConnection connection,
-        String baseDn,
-        SearchScope scope,
-        String filter,
-        String[] attrs,
-        boolean attrsOnly )
-        throws LdapException
+    protected SearchCursor search( LdapConnection connection, String baseDn, SearchScope scope, String filter,
+        String[] attrs, boolean attrsOnly ) throws LdapException
     {
         counters.incrementSearch();
 
@@ -541,24 +560,20 @@ public abstract class ApacheDsDataProvider
     /**
      * Perform normal ldap search specifying default batch size.
      *
-     * @param connection        is LdapConnection object used for all communication with host.
-     * @param baseDn    contains address of distinguished name to begin ldap search
-     * @param scope     indicates depth of search starting at basedn.  0 (base dn), 1 (one level down) or 2 (infinite) are valid values.
-     * @param filter    contains the search criteria
+     * @param connection is LdapConnection object used for all communication with host.
+     * @param baseDn     contains address of distinguished name to begin ldap search
+     * @param scope      indicates depth of search starting at basedn.  0 (base dn),
+     *                   1 (one level down) or 2 (infinite) are valid values.
+     * @param filter     contains the search criteria
      * @param attrs      is the requested list of attributes to return from directory search.
-     * @param attrsOnly if true pull back attribute names only.
-     * @param batchSize Will block until this many entries are ready to return from server.  0 indicates to block until all results are ready.
+     * @param attrsOnly  if true pull back attribute names only.
+     * @param batchSize  Will block until this many entries are ready to return from server.  0 indicates to block
+     *                   until all results are ready.
      * @return result set containing ldap entries returned from directory.
      * @throws LdapException thrown in the event of error in ldap client or server code.
      */
-    protected SearchCursor search( LdapConnection connection,
-        String baseDn,
-        SearchScope scope,
-        String filter,
-        String[] attrs,
-        boolean attrsOnly,
-        int batchSize )
-        throws LdapException
+    protected SearchCursor search( LdapConnection connection, String baseDn, SearchScope scope, String filter,
+        String[] attrs, boolean attrsOnly, int batchSize ) throws LdapException
     {
         counters.incrementSearch();
 
@@ -580,26 +595,21 @@ public abstract class ApacheDsDataProvider
     /**
      * Perform normal ldap search specifying default batch size and max entries to return.
      *
-     * @param connection         is LdapConnection object used for all communication with host.
+     * @param connection is LdapConnection object used for all communication with host.
      * @param baseDn     contains address of distinguished name to begin ldap search
-     * @param scope      indicates depth of search starting at basedn.  0 (base dn), 1 (one level down) or 2 (infinite) are valid values.
+     * @param scope      indicates depth of search starting at basedn.  0 (base dn),
+     *                   1 (one level down) or 2 (infinite) are valid values.
      * @param filter     contains the search criteria
-     * @param attrs       is the requested list of attritubutes to return from directory search.
+     * @param attrs      is the requested list of attritubutes to return from directory search.
      * @param attrsOnly  if true pull back attribute names only.
-     * @param batchSize  Will block until this many entries are ready to return from server.  0 indicates to block until all results are ready.
+     * @param batchSize  Will block until this many entries are ready to return from server.  0 indicates to block
+     *                   until all results are ready.
      * @param maxEntries specifies the maximum number of entries to return in this search query.
      * @return result set containing ldap entries returned from directory.
      * @throws LdapException thrown in the event of error in ldap client or server code.
      */
-    protected SearchCursor search( LdapConnection connection,
-        String baseDn,
-        SearchScope scope,
-        String filter,
-        String[] attrs,
-        boolean attrsOnly,
-        int batchSize,
-        int maxEntries )
-        throws LdapException
+    protected SearchCursor search( LdapConnection connection, String baseDn, SearchScope scope, String filter,
+        String[] attrs, boolean attrsOnly, int batchSize, int maxEntries ) throws LdapException
     {
         counters.incrementSearch();
 
@@ -622,23 +632,20 @@ public abstract class ApacheDsDataProvider
      * This method will search the directory and return at most one record.  If more than one record is found
      * an ldap exception will be thrown.
      *
-     * @param connection        is LdapConnection object used for all communication with host.
-     * @param baseDn    contains address of distinguished name to begin ldap search
-     * @param scope     indicates depth of search starting at basedn.  0 (base dn), 1 (one level down) or 2 (infinite) are valid values.
-     * @param filter    contains the search criteria
+     * @param connection is LdapConnection object used for all communication with host.
+     * @param baseDn     contains address of distinguished name to begin ldap search
+     * @param scope      indicates depth of search starting at basedn.  0 (base dn),
+     *                   1 (one level down) or 2 (infinite) are valid values.
+     * @param filter     contains the search criteria
      * @param attrs      is the requested list of attritubutes to return from directory search.
-     * @param attrsOnly if true pull back attribute names only.
+     * @param attrsOnly  if true pull back attribute names only.
      * @return entry   containing target ldap node.
-     * @throws LdapException thrown in the event of error in ldap client or server code.
-     * @throws IOException 
-     * @throws CursorException 
+     * @throws LdapException   thrown in the event of error in ldap client or server code.
+     * @throws IOException
+     * @throws CursorException
      */
-    protected Entry searchNode( LdapConnection connection,
-        String baseDn,
-        SearchScope scope, String filter,
-        String[] attrs,
-        boolean attrsOnly )
-        throws LdapException, CursorException, IOException
+    protected Entry searchNode( LdapConnection connection, String baseDn, SearchScope scope, String filter,
+        String[] attrs, boolean attrsOnly ) throws LdapException, CursorException, IOException
     {
         SearchRequest searchRequest = new SearchRequestImpl();
 
@@ -654,8 +661,8 @@ public abstract class ApacheDsDataProvider
 
         if ( result.next() )
         {
-            throw new LdapException( "searchNode failed to return unique record for LDAP search of base DN ["
-                + baseDn + "] filter [" + filter + "]" );
+            throw new LdapException( "searchNode failed to return unique record for LDAP search of base DN [" +
+                baseDn + "] filter [" + filter + "]" );
         }
 
         return entry;
@@ -665,26 +672,22 @@ public abstract class ApacheDsDataProvider
     /**
      * This search method uses OpenLDAP Proxy Authorization Control to assert arbitrary user identity onto connection.
      *
-     * @param connection        is LdapConnection object used for all communication with host.
-     * @param baseDn    contains address of distinguished name to begin ldap search
-     * @param scope     indicates depth of search starting at basedn.  0 (base dn), 1 (one level down) or 2 (infinite) are valid values.
-     * @param filter    contains the search criteria
+     * @param connection is LdapConnection object used for all communication with host.
+     * @param baseDn     contains address of distinguished name to begin ldap search
+     * @param scope      indicates depth of search starting at basedn.  0 (base dn),
+     *                   1 (one level down) or 2 (infinite) are valid values.
+     * @param filter     contains the search criteria
      * @param attrs      is the requested list of attritubutes to return from directory search.
-     * @param attrsOnly if true pull back attribute names only.
-     * @param userDn    string value represents the identity of user on who's behalf the request was initiated.  The value will be stored in openldap auditsearch record AuthZID's attribute.
+     * @param attrsOnly  if true pull back attribute names only.
+     * @param userDn     string value represents the identity of user on who's behalf the request was initiated.  The
+     *                   value will be stored in openldap auditsearch record AuthZID's attribute.
      * @return entry   containing target ldap node.
-     * @throws LdapException thrown in the event of error in ldap client or server code.
-     * @throws IOException 
-     * @throws CursorException 
+     * @throws LdapException   thrown in the event of error in ldap client or server code.
+     * @throws IOException
+     * @throws CursorException
      */
-    protected Entry searchNode( LdapConnection connection,
-        String baseDn,
-        SearchScope scope,
-        String filter,
-        String[] attrs,
-        boolean attrsOnly,
-        String userDn )
-        throws LdapException, CursorException, IOException
+    protected Entry searchNode( LdapConnection connection, String baseDn, SearchScope scope, String filter,
+        String[] attrs, boolean attrsOnly, String userDn ) throws LdapException, CursorException, IOException
     {
         counters.incrementSearch();
 
@@ -702,8 +705,8 @@ public abstract class ApacheDsDataProvider
 
         if ( result.next() )
         {
-            throw new LdapException( "searchNode failed to return unique record for LDAP search of base DN ["
-                + baseDn + "] filter [" + filter + "]" );
+            throw new LdapException( "searchNode failed to return unique record for LDAP search of base DN [" +
+                baseDn + "] filter [" + filter + "]" );
         }
 
         return entry;
@@ -711,18 +714,19 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * This method uses the compare ldap func to assert audit record into the directory server's configured audit logger.
+     * This method uses the compare ldap func to assert audit record into the directory server's configured audit
+     * logger.
      *
-     * @param connection        is LdapConnection object used for all communication with host.
-     * @param dn        contains address of distinguished name to begin ldap search
-     * @param userDn    dn for user node
-     * @param attribute attribute used for compare
+     * @param connection is LdapConnection object used for all communication with host.
+     * @param dn         contains address of distinguished name to begin ldap search
+     * @param userDn     dn for user node
+     * @param attribute  attribute used for compare
      * @return true if compare operation succeeds
      * @throws LdapException                thrown in the event of error in ldap client or server code.
      * @throws UnsupportedEncodingException in the event the server cannot perform the operation.
      */
-    protected boolean compareNode( LdapConnection connection, String dn, String userDn, Attribute attribute )
-        throws LdapException, UnsupportedEncodingException
+    protected boolean compareNode( LdapConnection connection, String dn, String userDn,
+        Attribute attribute ) throws LdapException, UnsupportedEncodingException
     {
         counters.incrementCompare();
 
@@ -738,7 +742,8 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns as a list of strings.
+     * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns
+     * as a list of strings.
      *
      * @param entry         contains the target ldap entry.
      * @param attributeName name of ldap attribute to retrieve.
@@ -748,7 +753,7 @@ public abstract class ApacheDsDataProvider
     protected List<String> getAttributes( Entry entry, String attributeName )
     {
         List<String> attrValues = new ArrayList<>();
-        if(entry != null)
+        if ( entry != null )
         {
             Attribute attr = entry.get( attributeName );
             if ( attr != null )
@@ -783,7 +788,8 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns as a set of strings.
+     * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns
+     * as a set of strings.
      *
      * @param entry         contains the target ldap entry.
      * @param attributeName name of ldap attribute to retrieve.
@@ -813,12 +819,13 @@ public abstract class ApacheDsDataProvider
      * @param entry         contains the target ldap entry.
      * @param attributeName name of ldap attribute to retrieve.
      * @return value contained in a string variable.
-     * @throws LdapInvalidAttributeValueException 
+     * @throws LdapInvalidAttributeValueException
+     *
      * @throws LdapException in the event of ldap client error.
      */
     protected String getAttribute( Entry entry, String attributeName ) throws LdapInvalidAttributeValueException
     {
-        if(entry != null)
+        if ( entry != null )
         {
             Attribute attr = entry.get( attributeName );
 
@@ -866,8 +873,7 @@ public abstract class ApacheDsDataProvider
      * @return Attribute containing multi-occurring attribute set.
      * @throws LdapException in the event of ldap client error.
      */
-    protected Attribute createAttributes( String name, String values[] )
-        throws LdapException
+    protected Attribute createAttributes( String name, String values[] ) throws LdapException
     {
         Attribute attr = new DefaultAttribute( name, values );
 
@@ -880,7 +886,8 @@ public abstract class ApacheDsDataProvider
      *
      * @param le         ldap entry containing constraint.
      * @param ftDateTime reference to {@link us.jts.fortress.util.time.Constraint} containing formatted data.
-     * @throws LdapInvalidAttributeValueException 
+     * @throws LdapInvalidAttributeValueException
+     *
      * @throws LdapException in the event of ldap client error.
      */
     protected void unloadTemporal( Entry le, Constraint ftDateTime ) throws LdapInvalidAttributeValueException
@@ -895,7 +902,8 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * Given an ldap attribute name and a list of attribute values, construct an ldap modification set to be updated in directory.
+     * Given an ldap attribute name and a list of attribute values, construct an ldap modification set to be updated
+     * in directory.
      *
      * @param list     list of type string containing attribute values to load into modification set.
      * @param mods     contains ldap modification set targeted for updating.
@@ -905,24 +913,24 @@ public abstract class ApacheDsDataProvider
     {
         if ( ( list != null ) && ( list.size() > 0 ) )
         {
-            mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
-                attrName,
-                list.toArray( new String[]
-                    {} )
-                ) );
+            mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, attrName,
+                list.toArray( new String[]{} ) ) );
         }
     }
 
 
     /**
-     * Given a collection of {@link us.jts.fortress.rbac.Relationship}s, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
+     * Given a collection of {@link us.jts.fortress.rbac.Relationship}s, convert to raw data name-value format and
+     * load into ldap modification set in preparation for ldap modify.
      *
      * @param list     contains List of type {@link us.jts.fortress.rbac.Relationship} targeted for updating in ldap.
      * @param mods     ldap modification set containing parent-child relationships in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be updated.
-     * @param op       specifies type of mod: {@link Hier.Op#ADD}, {@link us.jts.fortress.rbac.Hier.Op#MOD}, {@link Hier.Op#REM}
+     * @param op       specifies type of mod: {@link Hier.Op#ADD}, {@link us.jts.fortress.rbac.Hier.Op#MOD},
+     * {@link Hier.Op#REM}
      */
-    protected void loadRelationshipAttrs( List<Relationship> list, List<Modification> mods, String attrName, Hier.Op op )
+    protected void loadRelationshipAttrs( List<Relationship> list, List<Modification> mods, String attrName,
+        Hier.Op op )
     {
         if ( list != null )
         {
@@ -953,7 +961,8 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * Given an ldap attribute name and a set of attribute values, construct an ldap modification set to be updated in directory.
+     * Given an ldap attribute name and a set of attribute values, construct an ldap modification set to be updated
+     * in directory.
      *
      * @param values   set of type string containing attribute values to load into modification set.
      * @param mods     contains ldap modification set targeted for updating.
@@ -963,38 +972,39 @@ public abstract class ApacheDsDataProvider
     {
         if ( ( values != null ) && ( values.size() > 0 ) )
         {
-            mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, attrName, values
-                .toArray( new String[]
-                    {} ) ) );
+            mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, attrName,
+                values.toArray( new String[]{} ) ) );
         }
     }
 
 
     /**
-     * Given an ldap attribute name and a set of attribute values, construct an ldap attribute set to be added to directory.
+     * Given an ldap attribute name and a set of attribute values, construct an ldap attribute set to be added to
+     * directory.
      *
      * @param values   set of type string containing attribute values to load into attribute set.
      * @param entry    contains ldap entry to pull attrs from.
      * @param attrName name of ldap attribute being added.
-     * @throws LdapException 
+     * @throws LdapException
      */
     protected void loadAttrs( Set<String> values, Entry entry, String attrName ) throws LdapException
     {
         if ( ( values != null ) && ( values.size() > 0 ) )
         {
-            entry.add( attrName, values.toArray( new String[]
-                {} ) );
+            entry.add( attrName, values.toArray( new String[]{} ) );
         }
     }
 
 
     /**
-     * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
+     * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap
+     * modification set in preparation for ldap modify.
      *
      * @param props    contains {@link java.util.Properties} targeted for updating in ldap.
      * @param mods     ldap modification set containing name-value pairs in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be updated.
-     * @param replace  boolean variable, if set to true use {@link LDAPModification#REPLACE} else {@link LDAPModification#ADD}.
+     * @param replace  boolean variable, if set to true use {@link LDAPModification#REPLACE} else {@link
+     * LDAPModification#ADD}.
      */
     protected void loadProperties( Properties props, List<Modification> mods, String attrName, boolean replace )
     {
@@ -1010,18 +1020,16 @@ public abstract class ApacheDsDataProvider
                 String key = ( String ) e.nextElement();
                 String val = props.getProperty( key );
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                mods.add( new DefaultModification(
-                    ModificationOperation.ADD_ATTRIBUTE,
-                    attrName,
-                    key + GlobalIds.PROP_SEP + val
-                    ) );
+                mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, attrName,
+                    key + GlobalIds.PROP_SEP + val ) );
             }
         }
     }
 
 
     /**
-     * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
+     * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap
+     * modification set in preparation for ldap modify.
      *
      * @param props    contains {@link java.util.Properties} targeted for removal from ldap.
      * @param mods     ldap modification set containing name-value pairs in raw ldap format to be removed.
@@ -1039,8 +1047,7 @@ public abstract class ApacheDsDataProvider
                 String val = props.getProperty( key );
 
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE,
-                    attrName,
+                mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, attrName,
                     key + GlobalIds.PROP_SEP + val ) );
             }
         }
@@ -1048,15 +1055,15 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap add.
+     * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap
+     * modification set in preparation for ldap add.
      *
      * @param props    contains {@link java.util.Properties} targeted for adding to ldap.
      * @param entry    contains ldap entry to pull attrs from.
      * @param attrName contains the name of the ldap attribute to be added.
-     * @throws LdapException 
+     * @throws LdapException
      */
-    protected void loadProperties( Properties props, Entry entry, String attrName )
-        throws LdapException
+    protected void loadProperties( Properties props, Entry entry, String attrName ) throws LdapException
     {
         if ( ( props != null ) && ( props.size() > 0 ) )
         {
@@ -1086,8 +1093,7 @@ public abstract class ApacheDsDataProvider
      * @return String containing encoded data.
      * @throws LdapException
      */
-    protected String encodeSafeText( String value, int validLen )
-        throws LdapException
+    protected String encodeSafeText( String value, int validLen ) throws LdapException
     {
         if ( VUtil.isNotNullOrEmpty( value ) )
         {
@@ -1111,14 +1117,13 @@ public abstract class ApacheDsDataProvider
      * if and only if the user entity is a member of the USERS data set.  The LDAP directory
      * will return the OpenLDAP PW Policy control.
      *
-     * @param connection       connection to ldap server.
-     * @param userDn   contains the LDAP dn to the user entry.
-     * @param password contains the password in clear text.
+     * @param connection connection to ldap server.
+     * @param userDn     contains the LDAP dn to the user entry.
+     * @param password   contains the password in clear text.
      * @return boolean value - true if bind successful, false otherwise.
      * @throws LdapException in the event of LDAP error.
      */
-    protected boolean bind( LdapConnection connection, String userDn, char[] password )
-        throws LdapException
+    protected boolean bind( LdapConnection connection, String userDn, char[] password ) throws LdapException
     {
         counters.incrementBind();
 
@@ -1131,7 +1136,7 @@ public abstract class ApacheDsDataProvider
      * Calls the PoolMgr to close the Admin LDAP connection.
      *
      * @param connection handle to ldap connection object.
-     * @throws Exception 
+     * @throws Exception
      */
     protected void closeAdminConnection( LdapConnection connection )
     {
@@ -1150,7 +1155,7 @@ public abstract class ApacheDsDataProvider
      * Calls the PoolMgr to close the Log LDAP connection.
      *
      * @param connection handle to ldap connection object.
-     * @throws Exception 
+     * @throws Exception
      */
     protected void closeLogConnection( LdapConnection connection )
     {
@@ -1169,7 +1174,7 @@ public abstract class ApacheDsDataProvider
      * Calls the PoolMgr to close the User LDAP connection.
      *
      * @param connection handle to ldap connection object.
-     * @throws Exception 
+     * @throws Exception
      */
     protected void closeUserConnection( LdapConnection connection )
     {
