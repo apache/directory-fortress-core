@@ -19,7 +19,6 @@ import us.jts.fortress.GlobalErrIds;
  */
 public class EhCacheImpl implements Cache
 {
-    private static final String CLS_NM = EhCacheImpl.class.getName();
     private BlockingCache cache;
     private final String name;
 

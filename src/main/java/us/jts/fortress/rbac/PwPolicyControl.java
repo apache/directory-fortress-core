@@ -18,7 +18,7 @@ public interface PwPolicyControl
     /**
      * Check the password policy controls returned from server and sets the PwMessage with what it finds.
      *
-     * @param ld ldap connection object.
+     * @param controls ldap controls object.
      * @param isAuthenticated set to 'true' if password checks pass.
      * @param pwMsg describes the outcome of the policy checks.
      */

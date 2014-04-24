@@ -581,8 +581,7 @@ class PoolMgr
         {
             if (conn.isConnected())
             {
-                info = "checkConnection -  " + szType + " connection good";
-                LOG.debug( info );
+                LOG.debug( "checkConnection for type: {}, is good", szType );
                 rc = true;
             }
             else

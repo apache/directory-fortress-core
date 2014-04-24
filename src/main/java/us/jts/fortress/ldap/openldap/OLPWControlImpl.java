@@ -90,7 +90,7 @@ public class OLPWControlImpl implements PwPolicyControl
             {
                 if ( LOG.isDebugEnabled() )
                 {
-                    LOG.debug( methodName + " controls[" + i + "]=" + controls[i] );
+                    LOG.debug( "{} controls[{}]={}", methodName, i, controls[i] );
                 }
 
                 LDAPControl con = controls[i];
@@ -102,7 +102,8 @@ public class OLPWControlImpl implements PwPolicyControl
 
                     if ( LOG.isDebugEnabled() )
                     {
-                        LOG.debug( methodName + " control value length=" + rB.length );
+                        LOG.debug( "{} control value length={}", methodName, rB.length );
+
                         String bytes = "";
 
                         for ( byte aRB : rB )
@@ -110,8 +111,7 @@ public class OLPWControlImpl implements PwPolicyControl
                             bytes = bytes + printRawData( aRB );
                         }
 
-                        LOG.debug( methodName + " printRawData:" );
-                        LOG.debug( bytes );
+                        LOG.debug( "{} printRawData numbytes: {}", methodName, bytes );
                     }
 
                     if ( rB == null || rB[1] == 0 )
@@ -122,8 +122,8 @@ public class OLPWControlImpl implements PwPolicyControl
 
                     if ( LOG.isDebugEnabled() )
                     {
-                        LOG.debug( methodName + " byte[]=" + Arrays.toString( rB ) );
-                        LOG.debug( "control.toString()=" + con.toString() );
+                        LOG.debug( "{} byte[]={}", methodName, Arrays.toString( rB ) );
+                        LOG.debug( "control.toString()={}", con.toString() );
                     }
 
                     int indx = 0;
@@ -131,7 +131,7 @@ public class OLPWControlImpl implements PwPolicyControl
 
                     if ( LOG.isDebugEnabled() )
                     {
-                        LOG.debug( methodName + " BER encoded object type=" + lBerObjType );
+                        LOG.debug( "{} BER encoded object type={}", methodName, lBerObjType );
                     }
 
                     int msgLen = getInt( rB[indx++] );
@@ -171,8 +171,7 @@ public class OLPWControlImpl implements PwPolicyControl
 
                                         if ( LOG.isDebugEnabled() )
                                         {
-                                            LOG.debug( methodName + " User:" + pwMsg.getUserId()
-                                                + " password expires in " + expire + " seconds." );
+                                            LOG.debug( "{} User:{}, password expires in: {} seconds.", methodName, pwMsg.getUserId(), expire );
                                         }
 
                                         break;
@@ -198,8 +197,7 @@ public class OLPWControlImpl implements PwPolicyControl
 
                                         if ( LOG.isDebugEnabled() )
                                         {
-                                            LOG.debug( methodName + " UserId:" + pwMsg.getUserId()
-                                                + " # logins left=" + grace );
+                                            LOG.debug( "{} UserId:{}, # logins left={}", methodName, pwMsg.getUserId() + grace );
                                         }
 
                                         break;
@@ -209,8 +207,7 @@ public class OLPWControlImpl implements PwPolicyControl
 
                                         if ( LOG.isDebugEnabled() )
                                         {
-                                            LOG.debug( methodName + " UserId:" + pwMsg.getUserId()
-                                                + " Invalid PPOlicy Type" );
+                                            LOG.debug( "{} UserId:{}, Invalid PPOlicy Type", methodName, pwMsg.getUserId() );
                                         }
 
                                         break;
@@ -229,8 +226,7 @@ public class OLPWControlImpl implements PwPolicyControl
 
                                 if ( LOG.isDebugEnabled() )
                                 {
-                                    LOG.debug( methodName + " UserId:" + pwMsg.getUserId() + " PPOLICY_ERROR="
-                                        + err );
+                                    LOG.debug( "{} UserId:{}, PPOLICY_ERROR={}", methodName, pwMsg.getUserId(), err);
                                 }
 
                                 switch ( err )
@@ -287,8 +283,7 @@ public class OLPWControlImpl implements PwPolicyControl
 
                                 if ( LOG.isDebugEnabled() )
                                 {
-                                    LOG.debug( methodName + " userId: " + pwMsg.getUserId()
-                                        + " Invalid PPOlicy Message Type" );
+                                    LOG.debug( "{} userId:{}, Invalid PPOlicy Message Type", methodName, pwMsg.getUserId());
                                 }
 
                                 break;
@@ -301,8 +296,7 @@ public class OLPWControlImpl implements PwPolicyControl
 
                     if ( LOG.isDebugEnabled() )
                     {
-                        LOG.debug( methodName + " UserId: " + pwMsg.getUserId()
-                            + " Can't process LDAP control..." );
+                        LOG.debug( "{} UserId:{},  Can't process LDAP control.", methodName, pwMsg.getUserId() );
                     }
                 }
             }

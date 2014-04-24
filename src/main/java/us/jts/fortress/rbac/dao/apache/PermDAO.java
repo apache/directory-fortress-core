@@ -141,8 +141,6 @@ import us.jts.fortress.util.attr.VUtil;
  */
 public final class PermDAO extends ApacheDsDataProvider implements us.jts.fortress.rbac.dao.PermDAO
 {
-    private static final String CLS_NM = PermDAO.class.getName();
-    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     /*
       *  *************************************************************************
       *  **  OpenAccessMgr PERMISSION STATICS

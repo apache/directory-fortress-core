@@ -107,7 +107,6 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  */
 public final class AuditDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.AuditDAO
 {
-    private static final String CLS_NM = AuditDAO.class.getName();
     private static final String CREATETIMESTAMP = "createTimestamp";
     private static final String CREATORSNAME = "creatorsName";
     private static final String ENTRYCSN = "entryCSN";

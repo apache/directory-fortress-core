@@ -35,8 +35,7 @@ class RegExUtil
 	{
 		if (safeTextPatternStr == null || safeTextPatternStr.compareTo("") == 0)
 		{
-			String warning = "safeText can't find safeText regular expression pattern.  Check your Fortress cfg";
-			LOG.debug(warning);
+			LOG.debug("safeText can't find safeText regular expression pattern.  Check your Fortress cfg");
 		}
 		else
 		{

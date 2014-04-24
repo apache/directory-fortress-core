@@ -95,7 +95,6 @@ import us.jts.fortress.util.time.CUtil;
  */
 public final class AdminRoleDAO extends ApacheDsDataProvider implements us.jts.fortress.rbac.dao.AdminRoleDAO
 {
-    private static final String CLS_NM = AdminRoleDAO.class.getName();
     private static final String ROLE_OCCUPANT = "roleOccupant";
     private static final String ROLE_OSP = "ftOSP";
     private static final String ROLE_OSU = "ftOSU";

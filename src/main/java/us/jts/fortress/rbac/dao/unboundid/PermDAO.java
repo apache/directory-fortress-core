@@ -135,8 +135,6 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  */
 public final class PermDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.PermDAO
 {
-    private static final String CLS_NM = PermDAO.class.getName();
-    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     /*
       *  *************************************************************************
       *  **  OpenAccessMgr PERMISSION STATICS

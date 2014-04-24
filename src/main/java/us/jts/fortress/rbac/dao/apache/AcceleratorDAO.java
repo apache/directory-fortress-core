@@ -137,7 +137,7 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements us.jts
             // Send the request
             RbacCheckAccessResponse rbacCheckAccessResponse = ( RbacCheckAccessResponse ) ld.extended(
                 rbacCheckAccessRequest );
-            LOG.debug( "checkAccess result: "  + rbacCheckAccessResponse.getLdapResult().getResultCode().getResultCode());
+            LOG.debug( "checkAccess result: {}", rbacCheckAccessResponse.getLdapResult().getResultCode().getResultCode());
             if(rbacCheckAccessResponse.getLdapResult().getResultCode().getResultCode() == 0)
             {
                 result = true;
@@ -174,7 +174,7 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements us.jts
             // Send the request
             RbacDropRoleResponse rbacDropRoleResponse = ( RbacDropRoleResponse ) ld.extended(
                 dropRoleRequest );
-            LOG.debug( "dropActiveRole result: "  + rbacDropRoleResponse.getLdapResult().getResultCode().getResultCode());
+            LOG.debug( "dropActiveRole result: {}", rbacDropRoleResponse.getLdapResult().getResultCode().getResultCode());
             if(rbacDropRoleResponse.getLdapResult().getResultCode().getResultCode() != 0)
             {
                 String info = "dropActiveRole Role [" + userRole.getName() + "] User ["
@@ -207,7 +207,7 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements us.jts
             // Send the request
             RbacAddRoleResponse rbacAddRoleResponse = ( RbacAddRoleResponse ) ld.extended(
                 addRoleRequest );
-            LOG.debug( "addActiveRole result: "  + rbacAddRoleResponse.getLdapResult().getResultCode().getResultCode());
+            LOG.debug( "addActiveRole result: {}", rbacAddRoleResponse.getLdapResult().getResultCode().getResultCode());
             if(rbacAddRoleResponse.getLdapResult().getResultCode().getResultCode() != 0)
             {
                 String info;
@@ -251,7 +251,7 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements us.jts
             // Send the request
             RbacDeleteSessionResponse deleteSessionResponse = ( RbacDeleteSessionResponse ) ld.extended(
                 deleteSessionRequest );
-            LOG.debug( "deleteSession result: "  + deleteSessionResponse.getLdapResult().getResultCode().getResultCode());
+            LOG.debug( "deleteSession result: {}", deleteSessionResponse.getLdapResult().getResultCode().getResultCode());
         }
         catch ( LdapException e )
         {

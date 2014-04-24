@@ -91,7 +91,6 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
  */
 public final class AdminRoleDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.AdminRoleDAO
 {
-    private static final String CLS_NM = AdminRoleDAO.class.getName();
     private static final String ROLE_OCCUPANT = "roleOccupant";
     private static final String ROLE_OSP = "ftOSP";
     private static final String ROLE_OSU = "ftOSU";

@@ -35,7 +35,6 @@ import java.util.Set;
  */
 final class SDUtil
 {
-    private static final String CLS_NM = SDUtil.class.getName();
     private static final Cache m_dsdCache;
     private static final String FORTRESS_DSDS = "fortress.dsd";
     private static final Cache m_ssdCache;

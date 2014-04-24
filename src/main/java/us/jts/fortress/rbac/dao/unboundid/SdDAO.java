@@ -99,8 +99,6 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 public final class SdDAO extends UnboundIdDataProvider implements us.jts.fortress.rbac.dao.SdDAO
 
 {
-    private static final String CLS_NM = SdDAO.class.getName();
-
     private static final String SD_SET_NM = "ftSetName";
     private static final String ROLES = "ftRoles";
     private static final String SD_SET_CARDINALITY = "ftSetCardinality";

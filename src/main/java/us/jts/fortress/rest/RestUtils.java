@@ -146,8 +146,7 @@ public class RestUtils
         {
             url += "/" + id3;
         }
-        LOG.debug( "get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: "
-            + url );
+        LOG.debug( "get function1:{}, id1:{}, id2:{}, id3:{}, url:{}", function, id, id2, id3, url );
         GetMethod get = new GetMethod( url );
         setMethodHeaders( get, userId, password );
         return handleHttpMethod( get );
@@ -175,8 +174,7 @@ public class RestUtils
         {
             url += "/" + id3;
         }
-        LOG.debug( "get function:" + function + ", id1:" + id + ", id2:" + id2 + ", id3:" + id3 + ", url: "
-            + url );
+        LOG.debug( "get function2:{}, id1:{}, id2:{}, id3:{}, url:{}", function, id, id2, id3, url );
         GetMethod get = new GetMethod( url );
         setMethodHeaders( get, HTTP_UID, HTTP_PW );
         return handleHttpMethod( get );
@@ -207,8 +205,7 @@ public class RestUtils
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod( post );
             szResponse = IOUtils.toString( post.getResponseBodyAsStream(), "UTF-8" );
-            LOG.debug( "post URI=[" + URI + "], function=[" + function + "], response=" + szResponse
-                + " result=" + result );
+            LOG.debug( "post URI=[{}], function=[{}], response=[{}], result=[{}]", URI, function, szResponse, result );
         }
         catch ( IOException ioe )
         {
@@ -242,7 +239,7 @@ public class RestUtils
      */
     public static String post( String szInput, String function ) throws RestException
     {
-        LOG.debug( "post URI=[" + URI + "], function=[" + function + "], request=" + szInput );
+        LOG.debug( "post URI=[{}], function=[{}], request=[{}]", URI, function, szInput );
         String szResponse = null;
         PostMethod post = new PostMethod( URI + function );
         post.addRequestHeader( "Accept", "text/xml" );
@@ -256,7 +253,7 @@ public class RestUtils
             if ( result == HTTP_OK )
             {
                 szResponse = IOUtils.toString( post.getResponseBodyAsStream(), "UTF-8" );
-                LOG.debug( "post URI=[" + URI + "], function=[" + function + "], response=" + szResponse );
+                LOG.debug( "post URI=[{}], function=[{}], response=[{}]", URI, function, szResponse );
             }
             else if ( result == HTTP_401_UNAUTHORIZED )
             {
@@ -355,7 +352,7 @@ public class RestUtils
         try
         {
             int statusCode = client.executeMethod( httpMethod );
-            LOG.debug( "handleHttpMethod Response status : " + statusCode );
+            LOG.debug( "handleHttpMethod Response status : {}", statusCode );
 
             Response.Status status = Response.Status.fromStatusCode( statusCode );
 

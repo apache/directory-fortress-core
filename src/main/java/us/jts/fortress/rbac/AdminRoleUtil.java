@@ -226,7 +226,7 @@ public final class AdminRoleUtil
         }
         catch ( SecurityException se )
         {
-            LOG.info( "loadGraph caught SecurityException=" + se );
+            LOG.info( "loadGraph caught SecurityException={}", se );
         }
         Hier hier = HierUtil.loadHier( contextId, descendants );
         SimpleDirectedGraph<String, Relationship> graph;

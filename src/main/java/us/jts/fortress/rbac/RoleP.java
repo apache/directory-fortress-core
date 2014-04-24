@@ -37,9 +37,7 @@ import us.jts.fortress.util.attr.VUtil;
  */
 public final class RoleP
 {
-    private static final String CLS_NM = RoleP.class.getName();
     private static RoleDAO rDao = DaoFactory.createRoleDAO();
-
 
     /**
      * Package private

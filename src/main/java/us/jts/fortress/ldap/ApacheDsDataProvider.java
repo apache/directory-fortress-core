@@ -76,8 +76,6 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
 public abstract class ApacheDsDataProvider
 {
     private static final int MAX_DEPTH = 100;
-    private static final String CLS_NM = ApacheDsDataProvider.class.getName();
-    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final LdapCounters counters = new LdapCounters();
     private static final String LDAP_HOST = "host";
     private static final String LDAP_PORT = "port";

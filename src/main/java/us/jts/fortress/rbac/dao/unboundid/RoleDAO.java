@@ -84,7 +84,6 @@ public final class RoleDAO extends UnboundIdDataProvider implements us.jts.fortr
       *  **  OpenAccessMgr ROLE STATICS
       *  ************************************************************************
       */
-    private static final String CLS_NM = RoleDAO.class.getName();
     private static final String ROLE_OCCUPANT = "roleOccupant";
     private static final String ROLE_NM = "ftRoleName";
 

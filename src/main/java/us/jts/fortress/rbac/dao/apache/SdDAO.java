@@ -102,8 +102,6 @@ import us.jts.fortress.util.attr.VUtil;
  */
 public final class SdDAO extends ApacheDsDataProvider implements us.jts.fortress.rbac.dao.SdDAO
 {
-    private static final String CLS_NM = SdDAO.class.getName();
-
     private static final String SD_SET_NM = "ftSetName";
     private static final String ROLES = "ftRoles";
     private static final String SD_SET_CARDINALITY = "ftSetCardinality";

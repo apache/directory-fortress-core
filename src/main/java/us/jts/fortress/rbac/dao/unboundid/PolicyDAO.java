@@ -83,7 +83,6 @@ public final class PolicyDAO extends UnboundIdDataProvider implements us.jts.for
       *  **  OPENLDAP PW POLICY ATTRIBUTES AND CONSTANTS
       *  ************************************************************************
       */
-    private static final String CLS_NM = PolicyDAO.class.getName();
     private static final String OLPW_POLICY_EXTENSION = "2.5.4.35";
     private static final String OLPW_POLICY_CLASS = "pwdPolicy";
     /**

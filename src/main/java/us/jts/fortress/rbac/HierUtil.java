@@ -201,7 +201,7 @@ final class HierUtil
                     LOG.error( error );
                 }
                 if ( LOG.isDebugEnabled() )
-                    LOG.debug( "toGraph child=" + child + " parent=" + parent );
+                    LOG.debug( "toGraph child={}, parent={}", child, parent );
             }
         }
         return graph;
@@ -290,9 +290,7 @@ final class HierUtil
                 //log.debug("getDescendants vertex is null");
                 return 0;
             }
-            if ( LOG.isDebugEnabled() )
-                LOG.debug( "hasChildren [" + v + "]" );
-
+            LOG.debug( "hasChildren [{}]", v );
             numChildren = graph.inDegreeOf( v );
         }
         catch ( java.lang.IllegalArgumentException e )
@@ -342,10 +340,7 @@ final class HierUtil
         {
             return null;
         }
-        if ( LOG.isDebugEnabled() )
-        {
-            LOG.debug( "getAscendants [" + v + "]" );
-        }
+        LOG.debug( "getAscendants [{}]", v);
         Set<Relationship> edges;
         try
         {
@@ -450,9 +445,7 @@ final class HierUtil
             //log.debug("getDescendants graph is null");
             return null;
         }
-        if ( LOG.isDebugEnabled() )
-            LOG.debug( "getDescendants [" + v + "]" );
-
+        LOG.debug( "getDescendants [{}]", v);
         Set<Relationship> edges;
         try
         {
@@ -556,10 +549,7 @@ final class HierUtil
             //log.debug("getAscendants graph is null");
             return null;
         }
-        if ( LOG.isDebugEnabled() )
-        {
-            LOG.debug( "getAscendants [" + v + "]" );
-        }
+        LOG.debug( "getAscendants [{}]", v);
         Set<Relationship> edges;
         try
         {
@@ -606,10 +596,7 @@ final class HierUtil
             //log.debug("getParents graph is null");
             return null;
         }
-        if ( LOG.isDebugEnabled() )
-        {
-            LOG.debug( "getParents [" + vertex + "]" );
-        }
+        LOG.debug( "getParents [{}]" + vertex);
         Set<Relationship> edges;
         try
         {
