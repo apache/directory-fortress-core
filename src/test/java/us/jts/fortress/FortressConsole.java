@@ -24,7 +24,6 @@ public class FortressConsole
 	public static void main(String[] args)
 	{
 		ProcessMenuCommand rc = new ProcessMenuCommand();
-
 		rc.processRbacControl();
 	}
 }

@@ -363,4 +363,12 @@ public class SDSet extends FortEntity
         }
         return thatSet.getName().equalsIgnoreCase(this.getName());
     }
+
+    @Override
+    public String toString()
+    {
+        return "SDSet{" +
+            "name='" + name + '\'' +
+            '}';
+    }
 }

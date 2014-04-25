@@ -3622,7 +3622,8 @@ public class RoleTestData extends TestCase
                 "oamT6Ssd3", /* NAME_COL */
                 "Test Case T6B", /* DESC_COL */
                 "2", /* CARDINALITY */
-                "oamT13SSD10,oamT13SSD5,oamT13SSD1", /* RELATIONSHIP_COL */
+                "oamT13SSD10,oamT13SSD1", /* RELATIONSHIP_COL */
+//                "oamT13SSD10,oamT13SSD5,oamT13SSD1", /* RELATIONSHIP_COL */
 }
     };
 
@@ -3825,6 +3826,28 @@ public class RoleTestData extends TestCase
                 "oamT13DSD10,oamT13DSD5,oamT13DSD1", /* RELATIONSHIP_COL */
 }
     };
+
+    public final static String[][] DSD_T6_D =
+        {
+            {
+                "oamT6Dsd1", /* NAME_COL */
+                "Test Case T6D", /* DESC_COL */
+                "4", /* CARDINALITY */
+                "oamT13DSD5,oamT13DSD5,oamT13DSD8", /* RELATIONSHIP_COL */
+            },
+            {
+                "oamT6Dsd2", /* NAME_COL */
+                "Test Case T6D", /* DESC_COL */
+                "4", /* CARDINALITY */
+                "oamT13DSD1,oamT13DSD3,oamT13DSD8", /* RELATIONSHIP_COL */
+            },
+            {
+                "oamT6Dsd3", /* NAME_COL */
+                "Test Case T6D", /* DESC_COL */
+                "2", /* WORKS FOR ADD ACTIVE ROLE DSD TESTS */
+                "oamT13DSD10,oamT13DSD1", /* RELATIONSHIP_COL */
+            }
+        };
 
     public final static String[][] DSD_T7 =
         {
