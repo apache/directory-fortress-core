@@ -1,20 +1,18 @@
 <!--
-  Copyright (C) 2009-2014, JoshuaTree. All Rights Reserved.
-  Licensed to Joshua Tree Software, LLC under New BSD license agreements.
-  See the NOTICE file distributed with this work for additional information
-  regarding copyright ownership.
-  JTS licenses this file to You under the New BSD License
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
 
-       http://jts.us/License
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
--->
 <project name="fortress-core" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
     <!-- =================================
           initialize all Fortress Core package properties
@@ -266,7 +264,7 @@
        <property name="test.showoutput" value="yes" />
 
        <!-- define Maven coordinates (publishing only) -->
-       <property name="groupId" value="us.jts" />
+       <property name="groupId" value="org.openldap" />
        <property name="artifactId" value="fortress" />
 
        <!-- defined maven snapshots and staging repository id and url (publishing only) -->
@@ -1185,7 +1183,7 @@
     <target name="generate-schema" depends="init-jaxb,compile" description="--> generates JAXB schema based on Fortress entity classes">
         <echo message="Generating schemas..."/>
         <mkdir dir="${generated.schema.dir}"/>
-        <schemagen srcdir="${src.java.dir}/us/jts/fortress" destdir="${generated.schema.dir}">
+        <schemagen srcdir="${src.java.dir}/org/openldap/fortress" destdir="${generated.schema.dir}">
             <classpath refid="build.class.path"/>
             <include name="rbac/Address.java"/>
             <include name="rbac/AdminRole.java"/>
@@ -1527,7 +1525,7 @@
           Call the Commander Maven to integration test Web app with Selenium Web Driver
          ================================= -->
     <target name="commander-maven-test" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
-        <replace file="${commander.dir}/src/test/java/us/jts/commander/integration/CommanderSeleniumITCase.java" token="http://192.168.1.101:8080" value="http://${http.host}:${http.port}"/>
+        <replace file="${commander.dir}/src/test/java/org/openldap/commander/integration/CommanderSeleniumITCase.java" token="http://192.168.1.101:8080" value="http://${http.host}:${http.port}"/>
         <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
         	<arg value="verify"/>
     		<arg value="-DskipTests=false"/>
