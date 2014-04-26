@@ -1,33 +1,31 @@
 <!--
-  Copyright (C) 2009-2014, JoshuaTree. All Rights Reserved.
-  Licensed to Joshua Tree Software, LLC under New BSD license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  JTS licenses this file to You under the New BSD License
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-       http://jts.us/License
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
--->
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>us.joshuatreesoftware</groupId>
+    <groupId>org.openldap</groupId>
     <artifactId>fortress</artifactId>
     <packaging>jar</packaging>
     <name>Fortress Core</name>
-    <version>1.0-RC35</version>
+    <version>1.0-RC35a</version>
     <description>Fortress is a standards-based Identity and Access Management SDK that implements ANSI RBAC INCITS 359.</description>
-    <url>http://jts.us</url>
+    <url>http://www.openldap.org/fortress/</url>
 
     <licenses>
         <license>
-            <name>BSD</name>
-            <url>http://jts.us/License</url>
+            <name>OpenLDAP Public License</name>
+            <url>http://www.OpenLDAP.org/license.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>

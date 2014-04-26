@@ -1,0 +1,32 @@
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+
+<html>
+   <head>
+      <title>Package Documentation for us.jts.fortress.ldap.container</title>
+   </head>
+   <body>
+      <p>
+         This package contains APIs to perform CRUD on fortress container objects in ldap.
+      </p>
+      <p>
+         The <b>us.jts.fortress.ldap.container</b> package provides apis to add and
+          remove ldap <b>OrganizationalUnit</b> entries.  These entries are called 'containers'
+          and are used to organize related fortress nodes.  An example container is <b>ou=People</b> which will be placed as a
+          child node of the directory's ldap suffix, i.e. <b>dc=example,dc=com</b>.  The container is used to store subentries, i.e. <b>inetOrgPerson</b>.
+          These container APIs are used by buildup/teardown processes.
+      </p>
+   </body>
+</html>

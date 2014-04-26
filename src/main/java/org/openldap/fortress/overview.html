@@ -1,0 +1,63 @@
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+<html>
+   <head>
+      <title>Overview of the org.openldap.fortress component</title>
+   </head>
+   <body>
+       A standards based and open source Identity Access Management Java SDK for LDAP v3 compliant systems.
+       <hr>
+      <h2>What can Fortress SDK do?</h2>
+       Contained within this SDK are APIs and utilities to perform authentication, authorization, administration, audit and password policies.
+       The most important package in this system is <A HREF="us/jts/fortress/package-summary.html">org.openldap.fortress</A> which contains all of the public APIs that are called by outside programs.
+      <h3>Fortress Manager APIs</h3>
+       <ol>
+       <li><a href="us/jts/fortress/AccessMgr.html">AccessMgr</a> - This class performs runtime access control operations on objects that are provisioned <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities that reside in LDAP directory.</li>
+       <li><a href="us/jts/fortress/AdminMgr.html">AdminMgr</a> - This class performs administrative functions to provision Fortress <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities into the LDAP directory.</li>
+       <li><a href="us/jts/fortress/AuditMgr.html">AuditMgr</a> - This interface prescribes methods used to search OpenLDAP's slapd access log.</li>
+       <li><a href="us/jts/fortress/DelAccessMgr.html">DelAccessMgr</a> - This interface prescribes the API for performing runtime delegated access control operations on objects that are provisioned Fortress <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> entities that reside in LDAP directory.</li>
+       <li><a href="us/jts/fortress/DelAdminMgr.html">DelAdminMgr</a> - This class prescribes the <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> DelegatedAdminMgr interface for performing policy administration of Fortress ARBAC entities that reside in LDAP directory.</li>
+       <li><a href="us/jts/fortress/DelReviewMgr.html">DelReviewMgr</a> - This class prescribes the <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> DelegatedReviewMgr interface for performing policy interrogation of provisioned Fortress ARBAC02 entities that reside in LDAP directory.</li>
+       <li><a href="us/jts/fortress/PwPolicyMgr.html">PwPolicyMgr</a> - This class adheres to <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">IETF PW policy draft</a> and is used to perform administrative and review functions on the <a href="us/jts/fortress/rbac/PwPolicy.html">PWPOLICIES</a> and <a href="us/jts/fortress/rbac/User.html">USERS</a> data sets within Fortress.</li>
+       <li><a href="us/jts/fortress/ReviewMgr.html">ReviewMgr</a> - This interface prescribes the administrative review functions on already provisioned Fortress <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a> entities that reside in LDAP directory.</li>
+       </ol>
+       <h5>Error Handling</h5>
+       These APIs throw checked exceptions defined in <a href="us/jts/fortress/SecurityException.html">SecurityException</a>
+       <hr>
+      <h2>What technologies are used?</h2>
+      <p>
+         Fortress SDK runs on any platform that supports Java technology and LDAP v3 protocols.  Functionality that extends beyond
+          LDAP v3 is provided via <a href="http://openldap.org/">OpenLDAP</a> specific features.  In other words Fortress was optimized to run on OpenLDAP.
+      </p>
+       <hr>
+      <h2>What are the conditions of use?</h2>
+      <p>
+         This software development toolkit is open source, thus free to use and distribute via the <a href="http://www.opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>.
+         It was developed and tested on open systems like <a href="http://www.ubuntu.com/">Ubuntu</a> and <a href="http://www.centos.org/">Centos</a> and was helped along
+         by the following open source products:
+          <ol>
+          <li><a href="http://www.openldap.org/project/">The OpenLDAP Project</a></li>
+          <li><a href="http://www.apache.org/">The Apache Software Foundation</a></li>
+          <li><a href="http://www.unboundid.com/">UnboundID</a></li>
+          <li><a href="http://www.eigenbase.org/">The Eigenbase Project</a></li>
+          <li><a href="http://ehcache.org/">Ehcache</a></li>
+          </ol>
+      </p>
+      <p>
+         Check out these <A HREF="../samples/overview-summary.html">samples</A> in the <b>org.openldap.fortress.samples</b> package to show how Fortress APIs can be used by outside clients.  The
+         <b>dist</b> target in build.xml creates the samples package in the /dist folder of this project and is intended to be used for experimentation.
+      </p>
+   </body>
+</html>

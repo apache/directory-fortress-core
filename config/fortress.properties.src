@@ -43,12 +43,12 @@ http.port=@REST_HTTP_PORT@
 dao.connector=@LDAP_CLIENT_TYPE@
 
 # These may be used to override default LDAP or REST with OTHER implementations:
-#reviewmgr.implementation=us.jts.fortress.rest.ReviewMgrOtherImpl
-#adminmgr.implementation=us.jts.fortress.rest.AdminMgrOtherImpl
-#accessmgr.implementation=us.jts.fortress.rest.AccessMgrOtherImpl
-#delegated.adminmgr.implementation=us.jts.fortress.rest.DelAdminMgrOtherImpl
-#delegated.reviewmgr.implementation=us.jts.fortress.rest.DelReviewMgrOtherImpl
-#policymgr.implementation=us.jts.fortress.rest.PwPolicyMgrOtherImpl
-#delegated.accessmgr.implementation=us.jts.fortress.rest.DelAccessMgrOtherImpl
-#auditmgr.implementation=us.jts.fortress.rest.AuditMgrOtherImpl
-#configmgr.implementation=us.jts.fortress.rest.ConfigMgrOtherImpl
+#reviewmgr.implementation=org.openldap.fortress.rest.ReviewMgrOtherImpl
+#adminmgr.implementation=org.openldap.fortress.rest.AdminMgrOtherImpl
+#accessmgr.implementation=org.openldap.fortress.rest.AccessMgrOtherImpl
+#delegated.adminmgr.implementation=org.openldap.fortress.rest.DelAdminMgrOtherImpl
+#delegated.reviewmgr.implementation=org.openldap.fortress.rest.DelReviewMgrOtherImpl
+#policymgr.implementation=org.openldap.fortress.rest.PwPolicyMgrOtherImpl
+#delegated.accessmgr.implementation=org.openldap.fortress.rest.DelAccessMgrOtherImpl
+#auditmgr.implementation=org.openldap.fortress.rest.AuditMgrOtherImpl
+#configmgr.implementation=org.openldap.fortress.rest.ConfigMgrOtherImpl
