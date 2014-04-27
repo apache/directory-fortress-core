@@ -239,6 +239,8 @@
            <pathelement location="${opencsv.jar}"/>
            <pathelement location="${apacheJMeter_core.jar}"/>
            <pathelement location="${apacheJMeter_java.jar}"/>
+           <pathelement location="${apacheds-api-all.jar}"/>
+           <pathelement location="${apacheds-all.jar}"/>
        </path>
 
        <!-- This is used before the initial loads have stored properties on the ldap server. -->
@@ -507,7 +509,7 @@
     </target>
 
     <!-- =================================
-          target: test-full - runs junit regression tests
+          target: test-accel - runs accelerator junit unit tests
          ================================= -->
     <target name="test-accel" depends="build-jar,compile-test,init-fortress-config" description="--> run RBAC accelerator tests">
         <echo message="Run the RBAC accelerator JUnit tests."/>
@@ -516,6 +518,19 @@
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
             <test name="org.openldap.fortress.rbac.accelerator.TestAccelerator"/>
+        </junit>
+    </target>
+
+    <!-- =================================
+          target: test-accel - runs accelerator junit regression tests
+         ================================= -->
+    <target name="test-accel-full" depends="build-jar,compile-test,init-fortress-config" description="--> run RBAC accelerator tests">
+        <echo message="Run the RBAC accelerator JUnit tests."/>
+        <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}" maxmemory="1024m">
+            <sysproperty key="tenant" value="${tenant}"/>
+            <classpath refid="test.class.path"/>
+            <formatter type="plain" usefile="false"/>
+            <test name="org.openldap.fortress.rbac.AccelMgrImplTest"/>
         </junit>
     </target>
 

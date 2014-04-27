@@ -1,19 +1,17 @@
 <!--
-  Copyright (C) 2009-2014, JoshuaTree. All Rights Reserved.
-  Licensed to Joshua Tree Software, LLC under New BSD license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  JTS licenses this file to You under the New BSD License
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-       http://jts.us/License
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
--->
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
 <ivy-module version="2.0">
     <info organisation="org.apache" module="openldap-fortress-core"/>
 
@@ -49,22 +47,23 @@
         <dependency org="org.apache.jmeter" name="ApacheJMeter_core" rev="2.11" conf="default->master" />
         <dependency org="org.apache.jmeter" name="ApacheJMeter_java" rev="2.11" conf="default->master" />
 
-        <!-- Fortress core source is NOT dependent on Sentry, EnMasse or Commander artifacts rather they're required for its QUICKSTART demo apps: -->
-        <dependency org="us.joshuatreesoftware" name="sentry" rev="1.0-RC35"  conf="default->master">
-            <artifact name="sentry" type="jar"/>
-        </dependency>
-        <dependency org="us.joshuatreesoftware" name="enmasse" rev="1.0-RC35"  conf="default->master">
-            <artifact name="enmasse" type="jar"/>
-        </dependency>
-        <dependency org="us.joshuatreesoftware" name="commander" rev="1.0-RC35"  conf="default->master">
-            <artifact name="commander" type="jar"/>
-        </dependency>
-        <dependency org="org.openldap" name="accelerator-api" rev="1.0-RC35"  conf="default->master">
-            <artifact name="accelerator-api" type="jar"/>
-        </dependency>
+        <!-- Fortress core source IS dependent org.openldap accelerator: -->
         <dependency org="org.openldap" name="accelerator-impl" rev="1.0-RC35"  conf="default->master">
             <artifact name="accelerator-impl" type="jar"/>
         </dependency>
+
+        <!-- Fortress core source is NOT dependent on Sentry, EnMasse or Commander artifacts rather they're required for its QUICKSTART demo apps: -->
+<!--
+        <dependency org="org.openldap" name="sentry" rev="1.0-RC36"  conf="default->master">
+            <artifact name="sentry" type="jar"/>
+        </dependency>
+        <dependency org="org.openldap" name="enmasse" rev="1.0-RC36"  conf="default->master">
+            <artifact name="enmasse" type="jar"/>
+        </dependency>
+        <dependency org="org.openldap" name="commander" rev="1.0-RC36"  conf="default->master">
+            <artifact name="commander" type="jar"/>
+        </dependency>
+-->
 
     </dependencies>
 </ivy-module>
