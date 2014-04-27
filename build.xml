@@ -133,7 +133,7 @@
        <property name="javadoc.samples.dir" value="${dist.dir}/docs/samples"/>
        <property name="javadoc.samples.images.dir" value="${javadoc.samples.dir}/images"/>
        <property name="javadoc.samples.dist.zip" value="${dist.dir}/${name}-${version}-javadocsamples.jar"/>
-       <property name="javadoc.samples.overview" value="${src.java.dir}/org/openldap/fortress/samples/overview.html" />
+       <property name="javadoc.samples.overview" value="${src.test.dir}/org/openldap/fortress/samples/overview.html" />
 
        <!-- ########### Fortress Package Dependencies ########################### -->
        <property name="commons-config.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
@@ -421,7 +421,7 @@
            target: build
           ================================= -->
     <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples" description="--> create the core Fortress library">
-       <copy todir="${dist.dir}" file="/LICENSE"/>
+       <copy todir="${dist.dir}" file="${basedir}/LICENSE"/>
        <copy todir="${dist.dir}" file="${basedir}/NOTICE.txt"/>
     </target>
 
@@ -433,7 +433,7 @@
            <zipfileset dir='${src.java.dir}'/>
 
            <zipfileset dir='${dist.dir}' prefix='META-INF'>
-               <include name="LICENSE.txt"/>
+               <include name="LICENSE"/>
                <include name="NOTICE.txt"/>
            </zipfileset>
         </zip>
@@ -442,21 +442,21 @@
           <zipfileset dir='${src.test.dir}'/>
 
           <zipfileset dir='${dist.dir}' prefix='META-INF'>
-              <include name="LICENSE.txt"/>
+              <include name="LICENSE"/>
               <include name="NOTICE.txt"/>
           </zipfileset>
         </zip>
 
         <zip destfile="${javadoc.dist.zip}" basedir="${javadoc.dir}">
             <zipfileset dir='${dist.dir}' prefix='META-INF'>
-                <include name="LICENSE.txt"/>
+                <include name="LICENSE"/>
                 <include name="NOTICE.txt"/>
             </zipfileset>
         </zip>
 
         <zip destfile="${samples.dist.zip}" basedir="${src.test.dir}" includes="**/samples/*.java,build.xml">
             <zipfileset dir='${dist.dir}' prefix='META-INF'>
-                <include name="LICENSE.txt"/>
+                <include name="LICENSE"/>
                 <include name="NOTICE.txt"/>
             </zipfileset>
             <zipfileset dir='${javadoc.samples.dir}'/>
