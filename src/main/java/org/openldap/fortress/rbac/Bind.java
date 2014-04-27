@@ -32,18 +32,17 @@ import java.io.Serializable;
  * <code># SIMPLE for LDAP Simple Binds or SASL(mech) for SASL Binds. Note that unless</code>
  * <code># configured as a global overlay, only Simple Binds using DNs that reside in</code>
  * <code># the current database will be logged:</code>
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass (  1.3.6.1.4.1.4203.666.11.5.2.6 NAME 'auditBind'</code>
- * <li> <code>DESC 'Bind operation'</code>
- * <li> <code>SUP auditObject STRUCTURAL</code>
- * <li> <code>MUST ( reqVersion $ reqMethod ) )</code>
- * <li> ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * objectclass (  1.3.6.1.4.1.4203.666.11.5.2.6 NAME 'auditBind'</code>
+ * DESC 'Bind operation'</code>
+ * SUP auditObject STRUCTURAL</code>
+ * MUST ( reqVersion $ reqMethod ) )</code>
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * Note this class used descriptions pulled from man pages on slapd access log.
  * <p/>
-
  *
  * @author Shawn McKinney
  */

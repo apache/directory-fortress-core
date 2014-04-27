@@ -29,32 +29,26 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * This abstract class is extended by other Fortress entities.  It is used to store contextual data that can be used for
  * administrative RBAC checking in addition to associating an audit context with every LDAP operation.
- * <p/>
- * <p/>
- * objectclass ( 1.3.6.1.4.1.38088.3.4
- * NAME 'ftMods'
- * DESC 'Fortress Modifiers AUX Object Class'
- * AUXILIARY
- * MAY (
- * ftModifier $
- * ftModCode $
- * ftModId
- * )
- * )
- * <p/>
+ * <p>
  * <h4>Audit Context Schema</h4>
- * The FortEntity Class is stored in LDAP records as an auxiliary object class:
+ * The FortEntity Class is used to tag all Fortress LDAP records with variables contained within this auxiliary object class:
  * <p/>
  * ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
- * <li> <code>NAME 'ftMods'</code>
- * <li> <code>DESC 'Fortress Modifiers AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY ( ftModifier $ ftModCode $ ftModId ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Audit Modification Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.4
+ *  NAME 'ftMods'
+ *  DESC 'Fortress Modifiers AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftModifier $
+ *      ftModCode $
+ *      ftModId
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * This class is not thread safe.
  *

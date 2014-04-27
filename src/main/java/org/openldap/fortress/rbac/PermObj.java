@@ -70,46 +70,55 @@ import org.openldap.fortress.rbac.dao.UserDAO;
  * <h4>PermObj Schema</h4>
  * The Fortress PermObj Entity Class is a composite of 3 different LDAP Schema object classes:
  * <p/>
- * 1. ftObject AUXILIARY Object Class is used to store object name, id and type variables on target entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.2</code>
- * <li> <code>NAME 'ftObject'</code>
- * <li> <code>DESC 'Fortress Permission Object Class'</code>
- * <li> <code>SUP organizationalunit</code>
- * <li> <code>STRUCTURAL</code>
- * <li> <code>MUST (</code>
- * <li> <code>ftId $ ftObjNm ) </code>
- * <li> <code>MAY ( ftType ) )  </code>
- * <li>  ------------------------------------------
- * </ul>
- * <p/>
+ * 1. ftObject STRUCTURAL Object Class is used to store object name, id and type variables on target entity.
+ * <pre>
+ * Fortress Permission Structural Object Class
+ * objectclass	( 1.3.6.1.4.1.38088.2.2
+ *  NAME 'ftObject'
+ *  DESC 'Fortress Permission Object Class'
+ *  SUP organizationalunit
+ *  STRUCTURAL
+ *  MUST (
+ *      ftId $
+ *      ftObjNm
+ *  )
+ *  MAY (
+ *      ftType
+ *  )
+ * )
  * 2. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.
- * <code># This aux object class can be used to store custom attributes.</code><br />
- * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.2</code>
- * <li> <code>NAME 'ftProperties'</code>
- * <li> <code>DESC 'Fortress Properties AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY ( ftProps ) ) </code>
- * <li>  ------------------------------------------
- * </ul>
+ * This aux object class can be used to store custom attributes<br />
+ * The properties collections consist of name/value pairs and are not constrainted by Fortress.<br />
+ * <pre>
+ * ------------------------------------------
+ * AC2: Fortress Properties Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.2
+ *  NAME 'ftProperties'
+ *  DESC 'Fortress Properties AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftProps
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
- * <li> <code>NAME 'ftMods'</code>
- * <li> <code>DESC 'Fortress Modifiers AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY (</code>
- * <li> <code>ftModifier $</code>
- * <li> <code>ftModCode $</code>
- * <li> <code>ftModId ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Audit Modification Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.4
+ *  NAME 'ftMods'
+ *  DESC 'Fortress Modifiers AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftModifier $
+ *      ftModCode $
+ *      ftModId
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  *
  * @author Shawn McKinney

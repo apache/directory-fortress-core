@@ -92,49 +92,60 @@ import org.openldap.fortress.rbac.dao.OrgUnitDAO;
  * The Fortress OrgUnit entity is a composite of the following other Fortress structural and aux object classes:
  * <p/>
  * 1. organizationalUnit Structural Object Class is used to store basic attributes like ou and description.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 2.5.6.5 NAME 'organizationalUnit'</code>
- * <li> <code>DESC 'RFC2256: an organizational unit'</code>
- * <li> <code>SUP top STRUCTURAL</code>
- * <li> <code>MUST ou</code>
- * <li> <code>MAY ( userPassword $ searchGuide $ seeAlso $ businessCategory $</code>
- * <li> <code>x121Address $ registeredAddress $ destinationIndicator $</code>
- * <li> <code>preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $</code>
- * <li> <code>telephoneNumber $ internationaliSDNNumber $</code>
- * <li> <code>facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $</code>
- * <li> <code>postalAddress $ physicalDeliveryOfficeName $ st $ l $ description ) )</code>
- * <li>  ------------------------------------------
- * </ul>
- * <p/>
+ * <pre>
+ * ------------------------------------------
+ * objectclass ( 2.5.6.5 NAME 'organizationalUnit'
+ *  DESC 'RFC2256: an organizational unit'
+ *  SUP top STRUCTURAL
+ *  MUST ou
+ *  MAY (
+ *      userPassword $ searchGuide $ seeAlso $ businessCategory $
+ *      x121Address $ registeredAddress $ destinationIndicator $
+ *      preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $
+ *      telephoneNumber $ internationaliSDNNumber $
+ *      facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $
+ *      postalAddress $ physicalDeliveryOfficeName $ st $ l $ description
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 2. ftOrgUnit Structural objectclass is used to store the OrgUnit internal id.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code> objectclass	( 1.3.6.1.4.1.38088.2.6</code>
- * <li> <code>NAME 'ftOrgUnit'</code>
- * <li> <code>DESC 'Fortress OrgUnit Class'</code>
- * <li> <code>SUP organizationalunit</code>
- * <li> <code>STRUCTURAL</code>
- * <li> <code>MUST ( ftId ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Organizational Structural Object Class
+ * objectclass	( 1.3.6.1.4.1.38088.2.6
+ *  NAME 'ftOrgUnit'
+ *  DESC 'Fortress OrgUnit Structural Object Class'
+ *  SUP organizationalunit
+ *  STRUCTURAL
+ *  MUST (
+ *      ftId
+ *  )
+ *  MAY (
+ *      ftParents
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
- * <li> <code>NAME 'ftMods'</code>
- * <li> <code>DESC 'Fortress Modifiers AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY (</code>
- * <li> <code>ftModifier $</code>
- * <li> <code>ftModCode $</code>
- * <li> <code>ftModId ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Audit Modification Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.4
+ *  NAME 'ftMods'
+ *  DESC 'Fortress Modifiers AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftModifier $
+ *      ftModCode $
+ *      ftModId
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
-
  *
  * @author Shawn McKinney
  */

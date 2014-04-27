@@ -52,46 +52,56 @@ import javax.xml.bind.annotation.XmlType;
  * The OpenLDAP Password Policy entity is a composite of the following structural and aux object classes:
  * <p/>
  * 1. organizationalRole Structural Object Class is used to store basic attributes like cn and description.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code> objectclass ( 2.5.6.14 NAME 'device'</code>
- * <li> <code>DESC 'RFC2256: a device'</code>
- * <li> <code>SUP top STRUCTURAL</code>
- * <li> <code>MUST cn</code>
- * <li> <code>MAY ( serialNumber $ seeAlso $ owner $ ou $ o $ l $ description ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * objectclass ( 2.5.6.14 NAME 'device'
+ *  DESC 'RFC2256: a device'
+ *  SUP top STRUCTURAL
+ *  MUST cn
+ *  MAY (
+ *      serialNumber $ seeAlso $ owner $ ou $ o $ l $ description
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 2. pwdPolicy AUXILIARY Object Class is used to store OpenLDAP Password Policies.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.42.2.27.8.2.1</code>
- * <li> <code>NAME 'pwdPolicy'</code>
- * <li> <code>SUP top</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MUST ( pwdAttribute )</code>
- * <li> <code>MAY ( pwdMinAge $ pwdMaxAge $ pwdInHistory $ pwdCheckQuality $</code>
- * <li> <code>pwdMinLength $ pwdExpireWarning $ pwdGraceAuthNLimit $ pwdLockout $</code>
- * <li> <code>pwdLockoutDuration $ pwdMaxFailure $ pwdFailureCountInterval $</code>
- * <li> <code>pwdMustChange $ pwdAllowUserChange $ pwdSafeModify ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * objectclass ( 1.3.6.1.4.1.42.2.27.8.2.1</code>
+ *  NAME 'pwdPolicy'</code>
+ *  SUP top</code>
+ *  AUXILIARY</code>
+ *  MUST (
+ *      pwdAttribute
+ *  )
+ *  MAY (
+ *      pwdMinAge $ pwdMaxAge $ pwdInHistory $ pwdCheckQuality $
+ *      pwdMinLength $ pwdExpireWarning $ pwdGraceAuthNLimit $ pwdLockout $
+ *      pwdLockoutDuration $ pwdMaxFailure $ pwdFailureCountInterval $
+ *      pwdMustChange $ pwdAllowUserChange $ pwdSafeModify
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
- * <li> <code>NAME 'ftMods'</code>
- * <li> <code>DESC 'Fortress Modifiers AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY (</code>
- * <li> <code>ftModifier $</code>
- * <li> <code>ftModCode $</code>
- * <li> <code>ftModId ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Audit Modification Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.4
+ *  NAME 'ftMods'
+ *  DESC 'Fortress Modifiers AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftModifier $
+ *      ftModCode $
+ *      ftModId
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
- *
  *
  * @author Shawn McKinney
  */

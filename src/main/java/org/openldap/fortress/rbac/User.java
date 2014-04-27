@@ -90,77 +90,101 @@ import org.openldap.fortress.util.time.Constraint;
  * <code># The inetOrgPerson represents people who are associated with an</code><br />
  * <code># organization in some way.  It is a structural class and is derived</code><br />
  * <code># from the organizationalPerson which is defined in X.521 [X521].</code><br />
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 2.16.840.1.113730.3.2.2</code>
- * <li> <code>NAME 'inetOrgPerson'</code>
- * <li> <code>DESC 'RFC2798: Internet Organizational Person'</code>
- * <li> <code>SUP organizationalPerson</code>
- * <li> <code>STRUCTURAL</code>
- * <li> <code>MAY ( audio $ businessCategory $ carLicense $ departmentNumber $</code>
- * <li> <code>displayName $ employeeNumber $ employeeType $ givenName $</code>
- * <li> <code>homePhone $ homePostalAddress $ initials $ jpegPhoto $</code>
- * <li> <code>labeledURI $ mail $ manager $ mobile $ o $ pager $ photo $</code>
- * <li> <code>roomNumber $ secretary $ uid $ userCertificate $</code>
- * <li> <code>x500uniqueIdentifier $ preferredLanguage $</code>
- * <li> <code>userSMIMECertificate $ userPKCS12 ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * objectclass ( 2.16.840.1.113730.3.2.2
+ *  NAME 'inetOrgPerson'
+ *  DESC 'RFC2798: Internet Organizational Person'
+ *  SUP organizationalPerson
+ *  STRUCTURAL
+ *  MAY (
+ *      audio $ businessCategory $ carLicense $ departmentNumber $
+ *      displayName $ employeeNumber $ employeeType $ givenName $
+ *      homePhone $ homePostalAddress $ initials $ jpegPhoto $
+ *      labeledURI $ mail $ manager $ mobile $ o $ pager $ photo $
+ *      roomNumber $ secretary $ uid $ userCertificate $
+ *      x500uniqueIdentifier $ preferredLanguage $
+ *      userSMIMECertificate $ userPKCS12
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  *
  * 2. organizationalPerson Structural Object Class.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 2.5.6.7</code>
- * <li> <code>NAME 'organizationalPerson'</code>
- * <li> <code>DESC 'RFC2256: an organizational person'</code>
- * <li> <code>SUP person</code>
- * <li> <code>STRUCTURAL</code>
- * <li> <code>MAY ( title $ x121Address $ registeredAddress $ destinationIndicator $</code>
- * <li> <code>preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $</code>
- * <li> <code>telephoneNumber $ internationaliSDNNumber $</code>
- * <li> <code>facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $</code>
- * <li> <code>postalAddress $ physicalDeliveryOfficeName $ ou $ st $ l ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * objectclass ( 2.5.6.7
+ *  NAME 'organizationalPerson'
+ *  DESC 'RFC2256: an organizational person'
+ *  SUP person
+ *  STRUCTURAL
+ *  MAY (
+ *      title $ x121Address $ registeredAddress $ destinationIndicator $
+ *      preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $
+ *      telephoneNumber $ internationaliSDNNumber $
+ *      facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $
+ *      postalAddress $ physicalDeliveryOfficeName $ ou $ st $ l
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  *
  * 3. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br />
  * <code># This aux object class can be used to store custom attributes.</code><br />
  * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.2</code>
- * <li> <code>NAME 'ftProperties'</code>
- * <li> <code>DESC 'Fortress Properties AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY ( ftProps ) ) </code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * AC2: Fortress Properties Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.2
+ *  NAME 'ftProperties'
+ *  DESC 'Fortress Properties AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftProps
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  *
  * 4. ftUserAttrs is used to store user RBAC and Admin role assignment and other security attributes on User entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.1</code>
- * <li> <code>NAME 'ftUserAttrs'</code>
- * <li> <code>DESC 'Fortress User Attribute AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MUST ( ftId )</code>
- * <li> <code>MAY ( ftRC $ ftRA $ ftARC $ ftARA $ ftCstr</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress User Attributes Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.1
+ *  NAME 'ftUserAttrs'
+ *  DESC 'Fortress User Attribute AUX Object Class'
+ *  AUXILIARY
+ *  MUST (
+ *      ftId
+ *  )
+ *  MAY (
+ *      ftRC $
+ *      ftRA $
+ *      ftARC $
+ *      ftARA $
+ *      ftCstr $
+ *      ftSystem
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  *
  * 5. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
- * <li> <code>NAME 'ftMods'</code>
- * <li> <code>DESC 'Fortress Modifiers AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY (</code>
- * <li> <code>ftModifier $</code>
- * <li> <code>ftModCode $</code>
- * <li> <code>ftModId ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Audit Modification Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.4
+ *  NAME 'ftMods'
+ *  DESC 'Fortress Modifiers AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftModifier $
+ *      ftModCode $
+ *      ftModId
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  *
  * @author Shawn McKinney
  */

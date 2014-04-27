@@ -67,72 +67,96 @@ import org.openldap.fortress.util.time.Constraint;
  * The Fortress AdminRole entity is a composite of the following other Fortress structural and aux object classes:
  * <p/>
  * 1. organizationalRole Structural Object Class is used to store basic attributes like cn and description.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 2.5.6.8 NAME 'organizationalRole'</code>
- * <li> <code>DESC 'RFC2256: an organizational role'</code>
- * <li> <code>SUP top STRUCTURAL</code>
- * <li> <code>MUST cn</code>
- * <li> <code>MAY ( x121Address $ registeredAddress $ destinationIndicator $</code>
- * <li> <code>preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $</code>
- * <li> <code>telephoneNumber $ internationaliSDNNumber $ facsimileTelephoneNumber $</code>
- * <li> <code>seeAlso $ roleOccupant $ preferredDeliveryMethod $ street $</code>
- * <li> <code>postOfficeBox $ postalCode $ postalAddress $</code>
- * <li> <code>physicalDeliveryOfficeName $ ou $ st $ l $ description ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * objectclass ( 2.5.6.8 NAME 'organizationalRole'
+ *  DESC 'RFC2256: an organizational role'
+ *  SUP top STRUCTURAL
+ *  MUST cn
+ *  MAY (
+ *      x121Address $ registeredAddress $ destinationIndicator $
+ *      preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $
+ *      telephoneNumber $ internationaliSDNNumber $ facsimileTelephoneNumber $
+ *      seeAlso $ roleOccupant $ preferredDeliveryMethod $ street $
+ *      postOfficeBox $ postalCode $ postalAddress $
+ *      physicalDeliveryOfficeName $ ou $ st $ l $ description
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 2. ftRls Structural objectclass is used to store the AdminRole information like name, and temporal constraints.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.1</code>
- * <li> <code>NAME 'ftRls'</code>
- * <li> <code>DESC 'Fortress Role Object Class'</code>
- * <li> <code>SUP organizationalrole</code>
- * <li> <code>STRUCTURAL</code>
- * <li> <code>MUST ( ftId $ ftRoleName )</code>
- * <li> <code>MAY ( description $ ftCstr ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Roles Structural Object Class
+ * objectclass	( 1.3.6.1.4.1.38088.2.1
+ *  NAME 'ftRls'
+ *  DESC 'Fortress Role Structural Object Class'
+ *  SUP organizationalrole
+ *  STRUCTURAL
+ *  MUST (
+ *      ftId $
+ *      ftRoleName
+ *  )
+ *  MAY (
+ *      description $
+ *      ftCstr $
+ *      ftParents
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 3. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br />
  * <code># This aux object class can be used to store custom attributes.</code><br />
  * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.2</code>
- * <li> <code>NAME 'ftProperties'</code>
- * <li> <code>DESC 'Fortress Properties AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY ( ftProps ) ) </code>
- * <li>  ------------------------------------------
- * </ul>
- * <p/>
+ * <pre>
+ * ------------------------------------------
+ * AC2: Fortress Properties Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.2
+ *  NAME 'ftProperties'
+ *  DESC 'Fortress Properties AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftProps
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 4. ftPools Auxiliary object class store the ARBAC Perm and User OU assignments on AdminRole entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.3</code>
- * <li> <code>NAME 'ftPools'</code>
- * <li> <code>DESC 'Fortress Pools AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY ( ftOSU $ ftOSP ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Organizational Pools Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.3
+ *  NAME 'ftPools'
+ *  DESC 'Fortress Pools AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftOSU  $
+ *      ftOSP  $
+ *      ftRange
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 5. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
- * <li> <code>NAME 'ftMods'</code>
- * <li> <code>DESC 'Fortress Modifiers AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY (</code>
- * <li> <code>ftModifier $</code>
- * <li> <code>ftModCode $</code>
- * <li> <code>ftModId ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Audit Modification Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.4
+ *  NAME 'ftMods'
+ *  DESC 'Fortress Modifiers AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftModifier $
+ *      ftModCode $
+ *      ftModId
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
 
  *

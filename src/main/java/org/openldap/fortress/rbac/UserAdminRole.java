@@ -41,16 +41,27 @@ import org.openldap.fortress.util.time.Constraint;
  * <p/>
  * <h4>UserAdminRole Schema</h4>
  * ftUserAttrs is used to store RBAC and ARBAC Role role assignments and other security attributes on User entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.1</code>
- * <li> <code>NAME 'ftUserAttrs'</code>
- * <li> <code>DESC 'Fortress User Attribute AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MUST ( ftId )</code>
- * <li> <code>MAY ( ftRC $ ftRA $ ftARC $ ftARA $ ftCstr</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress User Attributes Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.1
+ *  NAME 'ftUserAttrs'
+ *  DESC 'Fortress User Attribute AUX Object Class'
+ *  AUXILIARY
+ *  MUST (
+ *      ftId
+ *  )
+ *  MAY (
+ *      ftRC $
+ *      ftRA $
+ *      ftARC $
+ *      ftARA $
+ *      ftCstr $
+ *      ftSystem
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  *
  * @author Shawn McKinney

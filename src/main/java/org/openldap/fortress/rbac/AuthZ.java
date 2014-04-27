@@ -28,16 +28,16 @@ import java.io.Serializable;
  * The auditCompare Structural object class is used by the slapo-accesslog overlay to store record of fortress authorization events.
  * These events can later be pulled as audit trail using ldap protocol.  The data pertaining to authZ events are stored in this entity record.<br/>
  * <p/>
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass (  1.3.6.1.4.1.4203.666.11.5.2.7</code>
- * <li> <code>NAME 'auditCompare'</code>
- * <li> <code>DESC 'Compare operation'</code>
- * <li> <code>SUP auditObject STRUCTURAL</code>
- * <li> <code>MUST reqAssertion )</code>
- * <li> ------------------------------------------
- * </ul>
- * <code>For the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request</code>
+ * <pre>
+ * ------------------------------------------
+ * objectclass (  1.3.6.1.4.1.4203.666.11.5.2.7
+ * NAME 'auditCompare'
+ * DESC 'Compare operation'
+ * SUP auditObject STRUCTURAL
+ * MUST reqAssertion )
+ * ------------------------------------------
+ * </pre>
+ * For the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request
  * <p/>
  * Note this class uses descriptions pulled from man pages on slapo-accesslog.
  * <p/>

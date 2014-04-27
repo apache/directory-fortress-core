@@ -32,7 +32,22 @@ import javax.xml.bind.annotation.XmlType;
 import org.openldap.fortress.rbac.dao.RoleDAO;
 import org.openldap.fortress.rbac.dao.UserDAO;
 
-
+/*
+## OC2: Fortress Permission Structural Object Class
+    objectclass	( 1.3.6.1.4.1.38088.2.2
+    NAME 'ftObject'
+    DESC 'Fortress Permission Object Class'
+    SUP organizationalunit
+    STRUCTURAL
+    MUST (
+    ftId $
+    ftObjNm
+    )
+    MAY (
+    ftType
+    )
+    )
+*/
 /**
  * All entities ({@link User}, {@link Role}, {@link Permission},
  * {@link PwPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
@@ -127,47 +142,61 @@ import org.openldap.fortress.rbac.dao.UserDAO;
  * <p/>
  * 1. {@code ftOperation} STRUCTURAL Object Class is assigned roles and/or users which grants permissions which can be later checked
  * using either 'checkAccess' or 'sessionPermissions APIs both methods that reside in the 'AccessMgrImpl' class.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.3</code>
- * <li> <code>NAME 'ftOperation'</code>
- * <li> <code>DESC 'Fortress Permission Operation Object Class'</code>
- * <li> <code>SUP organizationalrole</code>
- * <li> <code>STRUCTURAL</code>
- * <li> <code>MUST ( ftId $ ftPermName $</code>
- * <li> <code>ftObjNm $ ftOpNm )</code>
- * <li> <code>MAY ( ftRoles $ ftUsers $</code>
- * <li> <code> ftObjId $ ftType) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Operation Structural Object Class
+ * objectclass	( 1.3.6.1.4.1.38088.2.3
+ *  NAME 'ftOperation'
+ *  DESC 'Fortress Permission Operation Structural Object Class'
+ *  SUP organizationalrole
+ *  STRUCTURAL
+ *  MUST (
+ *      ftId $
+ *      ftPermName $
+ *      ftObjNm $
+ *      ftOpNm
+ *  )
+ *  MAY (
+ *      ftObjId $
+ *      ftRoles $
+ *      ftUsers $
+ *      ftType
+ *  )
+ *  )
  * 2. {@code ftProperties} AUXILIARY Object Class is used to store optional client or otherwise custom name/value pairs on target entity.<br />
  * <code># This aux object class can be used to store custom attributes.</code><br />
  * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.2</code>
- * <li> <code>NAME 'ftProperties'</code>
- * <li> <code>DESC 'Fortress Properties AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY ( ftProps ) ) </code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * AC2: Fortress Properties Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.2
+ *  NAME 'ftProperties'
+ *  DESC 'Fortress Properties AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftProps
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 3. {@code ftMods} AUXILIARY Object Class is used to store Fortress audit variables on target entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
- * <li> <code>NAME 'ftMods'</code>
- * <li> <code>DESC 'Fortress Modifiers AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY (</code>
- * <li> <code>ftModifier $</code>
- * <li> <code>ftModCode $</code>
- * <li> <code>ftModId ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Audit Modification Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.4
+ *  NAME 'ftMods'
+ *  DESC 'Fortress Modifiers AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftModifier $
+ *      ftModCode $
+ *      ftModId
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
-
  *
  * @author Shawn McKinney
  */

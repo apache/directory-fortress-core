@@ -30,49 +30,59 @@ import java.util.List;
  * entity is a composite of 3 different LDAP Schema object classes:
  * <p/>
  * 1. organizationalRole Structural Object Class is used to store basic attributes like cn and description.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 2.5.6.8 NAME 'organizationalRole'</code>
- * <li> <code>DESC 'RFC2256: an organizational role'</code>
- * <li> <code>SUP top STRUCTURAL</code>
- * <li> <code>MUST cn</code>
- * <li> <code>MAY ( x121Address $ registeredAddress $ destinationIndicator $</code>
- * <li> <code>preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $</code>
- * <li> <code>telephoneNumber $ internationaliSDNNumber $ facsimileTelephoneNumber $</code>
- * <li> <code>seeAlso $ roleOccupant $ preferredDeliveryMethod $ street $</code>
- * <li> <code>postOfficeBox $ postalCode $ postalAddress $</code>
- * <li> <code>physicalDeliveryOfficeName $ ou $ st $ l $ description ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * objectclass ( 2.5.6.8 NAME 'organizationalRole'
+ *  DESC 'RFC2256: an organizational role'
+ *  SUP top STRUCTURAL
+ *  MUST cn
+ *  MAY (
+ *      x121Address $ registeredAddress $ destinationIndicator $
+ *      preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $
+ *      telephoneNumber $ internationaliSDNNumber $ facsimileTelephoneNumber $
+ *      seeAlso $ roleOccupant $ preferredDeliveryMethod $ street $
+ *      postOfficeBox $ postalCode $ postalAddress $
+ *      physicalDeliveryOfficeName $ ou $ st $ l $ description
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
  * 2. ftHier AUXILIARY Object Class is used to store parent to child relationships on target entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.7</code>
- * <li> <code>NAME 'ftHier'</code>
- * <li> <code>DESC 'Fortress Hierarchy Object Class'</code>
- * <li> <code>SUP organizationalrole</code>
- * <li> <code>STRUCTURAL</code>
- * <li> <code>MUST ( cn ) </code>
- * <li> <code> MAY ( ftRels $ description ) ) </code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Hierarchies Structural Object Class
+ * objectclass	( 1.3.6.1.4.1.38088.2.7
+ * NAME 'ftHier'
+ * DESC 'Fortress Hierarchy Structural Object Class'
+ * SUP organizationalrole
+ * STRUCTURAL
+ * MUST (
+ *      cn
+ *  )
+ * MAY (
+ *      ftRels $
+ *      description
+ *  )
+ * )
  * <p/>
  * 3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
- * <ul>
- * <li>  ------------------------------------------
- * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.4</code>
- * <li> <code>NAME 'ftMods'</code>
- * <li> <code>DESC 'Fortress Modifiers AUX Object Class'</code>
- * <li> <code>AUXILIARY</code>
- * <li> <code>MAY (</code>
- * <li> <code>ftModifier $</code>
- * <li> <code>ftModCode $</code>
- * <li> <code>ftModId ) )</code>
- * <li>  ------------------------------------------
- * </ul>
+ * <pre>
+ * ------------------------------------------
+ * Fortress Audit Modification Auxiliary Object Class
+ * objectclass ( 1.3.6.1.4.1.38088.3.4
+ *  NAME 'ftMods'
+ *  DESC 'Fortress Modifiers AUX Object Class'
+ *  AUXILIARY
+ *  MAY (
+ *      ftModifier $
+ *      ftModCode $
+ *      ftModId
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
  * <p/>
-
  *
  * @author Shawn McKinney
  */
