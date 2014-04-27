@@ -14,7 +14,7 @@
   -->
 <html>
    <head>
-      <title>Package Documentation for us.jts.fortress</title>
+      <title>Package Documentation for org.openldap.fortress</title>
    </head>
    <body>
       <p>
@@ -22,18 +22,18 @@
          are organized into categories or 'Managers'.  Each manager controls a specific area of functionality.
       <h3>Managers</h3>
           <ol>
-          <li>{@link us.jts.fortress.AccessMgr} is used for RBAC runtime security checking</li>
-          <li>{@link us.jts.fortress.AdminMgr} is for RBAC provisioning</li>
-          <li>{@link us.jts.fortress.AuditMgr} is for interrogating OpenLDAP audit and historical logs</li>
-          <li>{@link us.jts.fortress.DelAccessMgr} is used for ARBAC runtime security checking</li>
-          <li>{@link us.jts.fortress.DelAdminMgr} is for ARBAC provisioning</li>
-          <li>{@link us.jts.fortress.DelReviewMgr} is used to interrogate ARBAC policy</li>
-          <li>{@link us.jts.fortress.PwPolicyMgr} is for performing OpenLDAP pwpolicy provisioning and interrogation</li>
-          <li>{@link us.jts.fortress.ReviewMgr} is used to interrogate RBAC policy</li>
+          <li>{@link org.openldap.fortress.AccessMgr} is used for RBAC runtime security checking</li>
+          <li>{@link org.openldap.fortress.AdminMgr} is for RBAC provisioning</li>
+          <li>{@link org.openldap.fortress.AuditMgr} is for interrogating OpenLDAP audit and historical logs</li>
+          <li>{@link org.openldap.fortress.DelAccessMgr} is used for ARBAC runtime security checking</li>
+          <li>{@link org.openldap.fortress.DelAdminMgr} is for ARBAC provisioning</li>
+          <li>{@link org.openldap.fortress.DelReviewMgr} is used to interrogate ARBAC policy</li>
+          <li>{@link org.openldap.fortress.PwPolicyMgr} is for performing OpenLDAP pwpolicy provisioning and interrogation</li>
+          <li>{@link org.openldap.fortress.ReviewMgr} is used to interrogate RBAC policy</li>
           </ol>
       </p>
       <p>
-         The <b>us.jts.fortress</b> package provides managers, factories and exception classes that can be thrown when
+         The <b>org.openldap.fortress</b> package provides managers, factories and exception classes that can be thrown when
           fortress needs to report an error status code back to caller.  The fortress manager APIs are based on standards like <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a>,
           <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> and <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policy for LDAP Directories</a>.
           A {@link org.openldap.fortress.util.time.Constraint} mechanism is used by fortress to control the {@link org.openldap.fortress.util.time.Time}, {@link org.openldap.fortress.util.time.Date} and {@link org.openldap.fortress.util.time.Day} of week for when a
@@ -130,12 +130,12 @@
       The following APIs generate events subsequently stored in this access log:
       </h4>
       <ul>
-      <li> {@link us.jts.fortress.AccessMgr}
-      <li> {@link us.jts.fortress.AdminMgr}
-      <li> {@link us.jts.fortress.AdminMgr}
-      <li> {@link us.jts.fortress.DelAdminMgr}
-      <li> {@link us.jts.fortress.cfg.ConfigMgr}
-      <li> {@link us.jts.fortress.PwPolicyMgr}
+      <li> {@link org.openldap.fortress.AccessMgr}
+      <li> {@link org.openldap.fortress.AdminMgr}
+      <li> {@link org.openldap.fortress.AdminMgr}
+      <li> {@link org.openldap.fortress.DelAdminMgr}
+      <li> {@link org.openldap.fortress.cfg.ConfigMgr}
+      <li> {@link org.openldap.fortress.PwPolicyMgr}
       </ul>
       </p>
    </body>

@@ -57,7 +57,7 @@ public class GlobalIds
     public final static String ADMIN_IMPLEMENTATION = "adminmgr.implementation";
 
     /**
-     * When this optional tag, {@code daoConnector}, is placed in Fortress properties, its class name will be the default {@link org.openldap.fortress.DAO} instance used.
+     * When this optional tag, {@code daoConnector}, is placed in Fortress properties,
      */
     public final static String DAO_CONNECTOR = "dao.connector";
 
