@@ -126,7 +126,7 @@
        <!-- ########### Javadoc properties ########################### -->
        <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
        <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
-       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2014, JoshuaTree. All Rights Reserved. Generated ${TODAY}&lt;/small&gt;"/>
+       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2014, The OpenLDAP Foundation. All Rights Reserved. Generated ${TODAY}&lt;/small&gt;"/>
        <property name="javadoc.overview" value="${src.java.dir}/org/openldap/fortress/overview.html" />
        <property name="javadoc.dist.zip" value="${dist.dir}/${name}-${version}-javadoc.jar"/>
        <property name="javadoc.stylesheet" value="${src.java.dir}/org/openldap/fortress/fortress-javadoc.css" />
@@ -421,7 +421,7 @@
            target: build
           ================================= -->
     <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples" description="--> create the core Fortress library">
-       <copy todir="${dist.dir}" file="${basedir}/LICENSE.txt"/>
+       <copy todir="${dist.dir}" file="/LICENSE"/>
        <copy todir="${dist.dir}" file="${basedir}/NOTICE.txt"/>
     </target>
 
