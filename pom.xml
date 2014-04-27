@@ -18,7 +18,7 @@
     <artifactId>fortress</artifactId>
     <packaging>jar</packaging>
     <name>Fortress Core</name>
-    <version>1.0-RC35a</version>
+    <version>1.0-RC36</version>
     <description>Fortress is a standards-based Identity and Access Management SDK that implements ANSI RBAC INCITS 359.</description>
     <url>http://www.openldap.org/fortress/</url>
 
@@ -60,13 +60,13 @@
         <dependency>
             <groupId>org.openldap</groupId>
             <artifactId>accelerator-api</artifactId>
-            <version>1.0-RC35</version>
+            <version>1.0-RC36</version>
         </dependency>
 
         <dependency>
             <groupId>org.openldap</groupId>
             <artifactId>accelerator-impl</artifactId>
-            <version>1.0-RC35</version>
+            <version>1.0-RC36</version>
         </dependency>
 
         <dependency>
