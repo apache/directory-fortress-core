@@ -383,26 +383,6 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     }
 
     /**
-     * Gets the warningId attribute that was returned from password policy checks.
-     * <p/>
-     * <ul>
-     * <li> <code>NOWARNING = 0;</code>
-     * <li> <code>NO_CONTROLS_FOUND = 10;</code>
-     * <li> <code>PASSWORD_EXPIRATION_WARNING = 11;</code>
-     * <li> <code>PASSWORD_GRACE_WARNING = 12;</code>
-     * </ul>
-     * <p/>
-     *
-     * @return int contains warning id.
-     */
-/*
-    public int getWarningId()
-    {
-        return this.warningId;
-    }
-*/
-
-    /**
      * Gets the attribute that specifies the number of times an expired password can
      * be used to authenticate before failure.
      *
@@ -615,26 +595,6 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     }
 
     /**
-     * Sets the warningId attribute that was returned from password policy checks.
-     * <p/>
-     * <ul>
-     * <li> <code>NOWARNING = 0;</code>
-     * <li> <code>NO_CONTROLS_FOUND = 10;</code>
-     * <li> <code>PASSWORD_EXPIRATION_WARNING = 11;</code>
-     * <li> <code>PASSWORD_GRACE_WARNING = 12;</code>
-     * </ul>
-     * <p/>
-     *
-     * @param warning contains warning id.
-     */
-/*
-    public void setWarningId(int warning)
-    {
-        this.warningId = warning;
-    }
-*/
-
-    /**
      * Set the error id that is associated with the password policy checks.  a '0' indicates no errors.
      * <ul>
      * <li> <code>INVALID_PASSWORD_MESSAGE = -10;</code>
@@ -686,16 +646,33 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
         this.expirationSeconds = expire;
     }
 
+    /**
+     * Get the warnings attached to this Session.  Used for processing password policy scenarios, e.g.. password expiring message.
+     *
+     * @return null value, zero or more objects of type {@link Warning} will be returned.  Note: the caller of this method must ensure a not null condition before use.
+     */
     public List<Warning> getWarnings()
     {
         return warnings;
     }
 
+    /**
+     * Set the warnings on this Session.  Used for processing password policy scenarios, e.g.. password expiring message.
+     * Not intended for use outside of Fortress packages.
+     *
+     * @param warnings zero or more objects of type warning may be set on a Fortress session.
+     */
     public void setWarnings( List<Warning> warnings )
     {
         this.warnings = warnings;
     }
 
+    /**
+     * Add a warning to the collection into Fortress Session object.  Used for processing password policy scenarios, e.g.. password expiring message.
+     * Not intended for use outside of Fortress packages.
+     *
+     * @param warning one object of type warning will be added to Fortress session.
+     */
     public void setWarning( Warning warning )
     {
         if ( warnings == null )
