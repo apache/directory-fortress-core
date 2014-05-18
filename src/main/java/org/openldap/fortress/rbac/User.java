@@ -44,7 +44,6 @@ import org.openldap.fortress.util.time.Constraint;
  * <ol>
  * <li>Manager layer:  {@link org.openldap.fortress.rbac.AdminMgrImpl}, {@link org.openldap.fortress.rbac.AccessMgrImpl}, {@link org.openldap.fortress.rbac.ReviewMgrImpl},...</li>
  * <li>Process layer:  {@link UserP}, {@link org.openldap.fortress.rbac.RoleP}, {@link org.openldap.fortress.rbac.PermP},...</li>
- * <li>DAO layer: {@link UserDAO}, {@link org.openldap.fortress.rbac.RoleDAO}, {@link org.openldap.fortress.rbac.PermDAO},...</li>
  * <li>DAO layer: {@link UserDAO}, {@link org.openldap.fortress.rbac.dao.RoleDAO}, {@link org.openldap.fortress.rbac.dao.PermDAO},...</li>
  * </ol>
  * Fortress clients must first instantiate the data entity before invoking one of the Manager APIs.  The caller must first

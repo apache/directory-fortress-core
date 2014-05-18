@@ -56,7 +56,7 @@ import org.openldap.fortress.util.time.CUtil;
  */
 public final class UserP
 {
-    private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean( "user.session.props.enabled", false );
+    //private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean( "user.session.props.enabled", false );
     private static final String CLS_NM = UserP.class.getName();
     private static UserDAO uDao = DaoFactory.createUserDAO();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
@@ -299,44 +299,6 @@ public final class UserP
 
 
     /**
-     * Update name value pairs stored on User entity as attributes.  These attributes are not constrained
-     * by Fortress policy and are useful for; 1. Audit information on user, ie. host name, IP, etc. 2. Custom attributes stored on User entity on behalf of the client.
-     *
-     * @param entity contains UserId and the props targeted for insertion.
-     * @param session contains the session of user.
-     * @param replace if set will replace existing vals
-     * @return User entity copy of input
-     * @throws SecurityException in the event of data validation or DAO system error.
-     */
-    private User updateProps( User entity, Session session, boolean replace )
-        throws SecurityException
-    {
-        int i = 1;
-        if ( VUtil.isNotNullOrEmpty( session.getUser().getRoles() ) )
-        {
-            for ( UserRole uRole : session.getUser().getRoles() )
-            {
-                entity.addProperty( "R" + i++, uRole.getName() );
-            }
-        }
-        i = 1;
-        if ( VUtil.isNotNullOrEmpty( session.getUser().getAdminRoles() ) )
-        {
-            for ( UserAdminRole uAdminRole : session.getUser().getAdminRoles() )
-            {
-                entity.addProperty( "A" + i++, uAdminRole.getName() );
-            }
-        }
-
-        // only call the dao if properties exists:
-        if ( VUtil.isNotNullOrEmpty( entity.getProperties() ) )
-            entity = uDao.updateProps( entity, replace );
-
-        return entity;
-    }
-
-
-    /**
      * Method performs a "soft" delete.  It disables User entity and flags as "deleted".  User must exist in directory
      * prior to making this call.
      *
@@ -491,6 +453,8 @@ public final class UserP
             session = createSession( user );
         }
 
+        // TODO: solve default role quandary here.
+        // TODO: add code to activate default roles here if applicable and not otherwise passed in by the caller.
         if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
         {
             // Process selective activation of user's RBAC roles into session:
@@ -506,9 +470,13 @@ public final class UserP
                 }
             }
         }
-        // add props if enabled:
-        if ( IS_SESSION_PROPS_ENABLED )
-            updateProps( user, session, true );
+        // Check user temporal constraints.  This op already performed for authenticated users.
+        if(trusted)
+        {
+            CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
+        }
+        // Check role temporal constraints + activate roles:
+        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, true );
         return session;
     }
 
@@ -533,9 +501,6 @@ public final class UserP
 
         // Set the user entity into the session object:
         session.setUser( user );
-
-        // Check role temporal constraints + activate roles:
-        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, true );
         return session;
     }
 
@@ -566,9 +531,6 @@ public final class UserP
         // Set this flag to false because user's password was not authenticated.
         session.setAuthenticated( false );
         session.setUser( user );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, true );
-
         return session;
     }
 

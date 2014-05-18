@@ -21,7 +21,6 @@
         <dependency org="commons-configuration" name="commons-configuration" rev="1.6" conf="default->master"/>
         <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>
         <dependency org="commons-collections" name="commons-collections" rev="3.2.1" conf="default->master"/>
-        <dependency org="commons-pool" name="commons-pool" rev="1.5.2" conf="default->master"/>
         <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="default->master"/>
         <dependency org="commons-codec" name="commons-codec" rev="1.2" conf="default->master"/>
         <dependency org="commons-io" name="commons-io" rev="2.4" conf="default->master"/>
@@ -57,7 +56,6 @@
         </dependency>
 
         <!-- Fortress core source is NOT dependent on Sentry, EnMasse or Commander artifacts rather they're required for its QUICKSTART demo apps: -->
-<!--
         <dependency org="org.openldap" name="sentry" rev="1.0-RC36"  conf="default->master">
             <artifact name="sentry" type="jar"/>
         </dependency>
@@ -67,7 +65,6 @@
         <dependency org="org.openldap" name="commander" rev="1.0-RC36"  conf="default->master">
             <artifact name="commander" type="jar"/>
         </dependency>
--->
 
     </dependencies>
 </ivy-module>
