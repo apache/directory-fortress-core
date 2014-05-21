@@ -51,7 +51,7 @@ public class AccessMgrImplTest extends TestCase
     {
         TestSuite suite = new TestSuite();
         //suite.addTest(new AccessMgrImplTest("testDropActiveRole"));
-        suite.addTest( new AccessMgrImplTest( "testCheckAccess" ) );
+        suite.addTest( new AccessMgrImplTest( "testCreateSessionWithRolesTrusted" ) );
         return suite;
     }
 

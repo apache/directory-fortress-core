@@ -442,38 +442,36 @@ public final class UserP
     final Session createSession( User user, boolean trusted ) throws SecurityException
     {
         Session session;
-
         if ( trusted )
         {
+            // Create the rbac session without authentication of password.
             session = createSessionTrusted( user );
+            // Check user temporal constraints.  This op usually performed during authentication.
+            CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
         }
         else
         {
+            // Create the rbac session if the user authentication succeeds:
             VUtil.assertNotNullOrEmpty( user.getPassword(), GlobalErrIds.USER_PW_NULL, CLS_NM + ".createSession" );
             session = createSession( user );
         }
-
-        // TODO: solve default role quandary here.
-        // TODO: add code to activate default roles here if applicable and not otherwise passed in by the caller.
+        // Did the caller pass in a set of roles for selective activation?
         if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
         {
             // Process selective activation of user's RBAC roles into session:
             List<UserRole> rlsActual = session.getRoles();
             List<UserRole> rlsFinal = new ArrayList<>();
             session.setRoles( rlsFinal );
+            // Activate only the intersection between assigned and roles passed into this method:
             for ( UserRole role : user.getRoles() )
             {
                 int indx = rlsActual.indexOf( role );
                 if ( indx != -1 )
                 {
-                    rlsFinal.add( rlsActual.get( indx ) );
+                    UserRole candidateRole = rlsActual.get( indx );
+                    rlsFinal.add( candidateRole );
                 }
             }
-        }
-        // Check user temporal constraints.  This op already performed for authenticated users.
-        if(trusted)
-        {
-            CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
         }
         // Check role temporal constraints + activate roles:
         CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, true );
