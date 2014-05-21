@@ -154,7 +154,7 @@
        <property name="jackson-jaxrs.jar" value="${lib.dir}/jackson-jaxrs-1.9.0.jar"/>
        <property name="commons-httpclient.jar" value="${lib.dir}/commons-httpclient-3.1.jar"/>
        <property name="jsr311-api.jar" value="${lib.dir}/jsr311-api-1.1.1.jar"/>
-       <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.5.jar"/>
+       <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.9.jar"/>
        <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.7.5.jar"/>
        <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.7.5.jar"/>
        <property name="slf4j-log4j.jar" value="${lib.dir}/slf4j-log4j12-1.7.5.jar"/>
@@ -162,14 +162,14 @@
        <property name="apacheJMeter_java.jar" value="${lib.dir}/ApacheJMeter_java-2.11.jar"/>
        <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M16.jar"/>
        <property name="apacheds-api-all.jar" value="${lib.dir}/api-all-1.0.0-M22.jar"/>
-       <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-1.0-RC35.jar"/>
-       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-1.0-RC35.jar"/>
 
-       <!--
-               TODO: renable before release:
-              <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-${version}.jar"/>
-              <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-${version}.jar"/>
-       -->
+       <!-- TODO: before RC37 release, remove this:  -->
+       <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-1.0-RC36.jar"/>
+<!--       <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-${version}.jar"/>-->
+
+       <!-- TODO: before RC37 release, remove this:  -->
+       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-1.0-RC36.jar"/>
+<!--       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-${version}.jar"/>-->
        <property name="mina-core.jar" value="${lib.dir}/mina-core-2.0.7.jar"/>
        <property name="opencsv.jar" value="${lib.dir}/opencsv-2.3.jar"/>
 
@@ -729,7 +729,7 @@
     <!-- =================================
           init slapd for windows
          ================================= -->
-    <target name="init-slapd-win-script" depends="init" description="--> creates a startup file for slapd on windows">
+    <target name="init-slapd-win-script" depends="init" if="windows" description="--> creates a startup file for slapd on windows">
         <echo message="###############  Create slapd startup script for windows  ###############"/>
         <delete file="${dst.start.slapd.script-win}"/>
         <copy file="${src.start.slapd.script-win}" tofile="${dst.start.slapd.script-win}"/>
@@ -1257,7 +1257,7 @@
                 <include name="*.sh"/>
                 <include name="*.bat"/>
                 <include name="*.html"/>
-                <include name="LICENSE.txt"/>
+                <include name="LICENSE"/>
                 <include name="NOTICE.txt"/>
                 <exclude name="*.log"/>
                 <exclude name="*.out"/>

@@ -36,7 +36,7 @@
         <dependency org="org.codehaus.jackson" name="jackson-jaxrs" rev="1.9.0" conf="default->master"/>
         <dependency org="javax.ws.rs" name="jsr311-api" rev="1.1.1" conf="default->master" />
         <dependency org="org.apache.cxf" name="cxf-common-utilities" rev="2.5.0" conf="default->master"/>
-        <dependency org="net.sf.ehcache" name="ehcache-core" rev="2.6.5" conf="default->master"/>
+        <dependency org="net.sf.ehcache" name="ehcache-core" rev="2.6.9" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-api" rev="1.7.5" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.5" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.7.5" conf="default->master"/>

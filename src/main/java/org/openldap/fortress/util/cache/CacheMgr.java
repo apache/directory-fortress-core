@@ -36,7 +36,7 @@ public class CacheMgr
     private static final String EHCACHE_CONFIG_FILE = "ehcache.config.file";
     private final CacheManager m_ehCacheImpl;
     private static CacheMgr m_ftCacheImpl;
-    private static final AtomicBoolean isFtCacheInitialized = new AtomicBoolean( false );
+    private static final AtomicBoolean isCacheInitialized = new AtomicBoolean( false );
     private static final Object m_lock = new Object();
 
 
@@ -48,6 +48,7 @@ public class CacheMgr
     private CacheMgr( CacheManager cacheMangerImpl )
     {
         m_ehCacheImpl = cacheMangerImpl;
+        this.m_ftCacheImpl = this;
     }
 
 
@@ -57,16 +58,20 @@ public class CacheMgr
      */
     public static CacheMgr getInstance()
     {
-        if ( !isFtCacheInitialized.get() )
+        // only drop into this block of the cache object hasn't previously been set on this classloader:
+        if ( !isCacheInitialized.get() )
         {
+            // ensure only one thread can enter this block
             synchronized ( m_lock )
             {
                 String cacheConfig = null;
                 try
                 {
+                    // this property contains the cache file name.
                     cacheConfig = Config.getProperty( EHCACHE_CONFIG_FILE );
-                    m_ftCacheImpl = new CacheMgr( CacheManager.create( ClassUtil.resourceAsStream( cacheConfig ) ) );
-                    isFtCacheInitialized.set( true );
+                    // This call will create a new CacheManager, or throw exception if the it already exists, or if the configuration file is not found on classloader.
+                    m_ftCacheImpl = new CacheMgr( new CacheManager( ClassUtil.resourceAsStream( cacheConfig ) ) );
+                    isCacheInitialized.set( true );
                 }
                 catch ( CfgException ce )
                 {
@@ -89,7 +94,10 @@ public class CacheMgr
         return CacheFactory.createInstance( cacheName, m_ehCacheImpl );
     }
 
-
+    /**
+     * Used to clear all elements from all cache objects.
+     *
+     */
     public void clearAll()
     {
         m_ehCacheImpl.clearAll();
