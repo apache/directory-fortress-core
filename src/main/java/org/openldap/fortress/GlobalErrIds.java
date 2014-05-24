@@ -1546,5 +1546,81 @@ public class GlobalErrIds
      * The RBAC Accelerator function failed because DropRole LDAP extended operation error.
      */
     public final static int ACEL_DROP_ROLE_ERR = 10205;
-}
 
+
+
+    /**
+     * 10300's - Group Error Ids
+     */
+
+    /**
+     * The Group search failed on ldap server.
+     */
+    public final static int GROUP_SEARCH_FAILED = 10300;
+
+    /**
+     * The Group read failed on ldap server.
+     */
+    public final static int GROUP_READ_FAILED = 10301;
+
+    /**
+     * The supplied Group could not be added to ldap server.
+     */
+    public final static int GROUP_ADD_FAILED = 10302;
+
+    /**
+     * The supplied Group could not be updated on ldap server.
+     */
+    public final static int GROUP_UPDATE_FAILED = 10303;
+
+    /**
+     * The supplied Group could not be removed from ldap server.
+     */
+    public final static int GROUP_DELETE_FAILED = 10304;
+
+    /**
+     * The Group name is required and cannot be null.
+     */
+    public final static int GROUP_NM_NULL = 10305;
+
+    /**
+     * The Group was not found on ldap server.
+     */
+    public final static int GROUP_NOT_FOUND = 10306;
+
+    /**
+     * The Group entity is required and cannot be null
+     */
+    public final static int GROUP_NULL = 10307;
+
+    /**
+     * The Group assignment failed on the ldap server.
+     */
+    public final static int GROUP_USER_ASSIGN_FAILED = 10308;
+
+    /**
+     * The Group deassignment operation failed on the ldap server.
+     */
+    public final static int GROUP_USER_DEASSIGN_FAILED = 10309;
+
+
+    /**
+     * The group name is required and cannot be null.
+     */
+    public final static int GROUP_NAME_NULL = 10310;
+
+    /**
+     * The supplied group name failed length check.
+     */
+    public final static int GROUP_NAME_INVLD = 10311;
+
+    /**
+     * The group protocol name is required and cannot be null.
+     */
+    public final static int GROUP_PROTOCOL_NULL = 10312;
+
+    /**
+     * The supplied group protocol name failed length check.
+     */
+    public final static int GROUP_PROTOCOL_INVLD = 10313;
+}

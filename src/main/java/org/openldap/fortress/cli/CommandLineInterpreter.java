@@ -25,6 +25,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.openldap.fortress.ldap.group.Group;
+import org.openldap.fortress.ldap.group.GroupMgr;
+import org.openldap.fortress.ldap.group.GroupMgrFactory;
 import org.slf4j.LoggerFactory;
 import org.openldap.fortress.*;
 import org.openldap.fortress.rbac.AdminRole;
@@ -49,6 +52,7 @@ public class CommandLineInterpreter
     private ReviewMgr reviewMgr;
     private AccessMgr accessMgr;
     private DelAdminMgr delAdminMgr;
+    private GroupMgr groupMgr;
     //private DelReviewMgr delReviewMgr;
     //private DelAccessMgr delAccessMgr;
     //private PwPolicyMgr pwPolicyMgr;
@@ -60,6 +64,7 @@ public class CommandLineInterpreter
     private static final String DELEGATED_ADMIN = "dadmin";
     private static final String DELEGATED_REVIEW = "dreview";
     private static final String DELEGATED_SYSTEM = "dsystem";
+    private static final String GROUP = "group";
 
     /* THESE ARE THE 2ND LEVEL COMMANDS: */
     private static final String ADD_USER = "auser";
@@ -101,6 +106,16 @@ public class CommandLineInterpreter
     private static final String FIND_PERMS = "fperm";
     private static final String GRANT = "grant";
     private static final String REVOKE = "revoke";
+
+    private static final String ADD_GROUP = "agroup";
+    private static final String UPDATE_GROUP = "ugroup";
+    private static final String DELETE_GROUP = "dgroup";
+    private static final String READ_GROUP = "rgroup";
+    private static final String FIND_GROUP = "fgroup";
+    private static final String ASSIGN_GROUP = "asgngroup";
+    private static final String DEASSIGN_GROUP = "dsgngroup";
+    private static final String ADD_GROUP_PROP = "agprop";
+    private static final String DELETE_GROUP_PROP = "dgprop";
 
     private static final String ADD_USERORG = "auou";
     private static final String UPDATE_USERORG = "uuou";
@@ -146,7 +161,7 @@ public class CommandLineInterpreter
         {
             try
             {
-                LOG.info("CLI function groups include " + ADMIN + ", " + REVIEW + ", " + SYSTEM + ", " + DELEGATED_ADMIN);
+                LOG.info("CLI function groups include " + ADMIN + ", " + REVIEW + ", " + SYSTEM + ", " + DELEGATED_ADMIN + ", " + GROUP);
                 LOG.info("Enter one from above or 'q' to quit");
                 input = br.readLine();
                 if (VUtil.isNotNullOrEmpty(input))
@@ -173,7 +188,7 @@ public class CommandLineInterpreter
     private static void printUsage()
     {
         LOG.error("Usage: group function options");
-        LOG.error("where group is: admin, review, system or dadmin");
+        LOG.error("where group is: admin, review, system, dadmin or group");
         LOG.error("Check out the Command Line Reference manual for what the valid function and option combinations are.");
     }
 
@@ -198,6 +213,10 @@ public class CommandLineInterpreter
         else if (commands.contains(DELEGATED_ADMIN))
         {
             processDelegatedAdminCommand(commands, options);
+        }
+        else if (commands.contains(GROUP))
+        {
+            processGroupCommand(commands, options);
         }
         else if (commands.contains(DELEGATED_REVIEW))
         {
@@ -853,6 +872,128 @@ public class CommandLineInterpreter
     }
 
     /**
+     * @param commands
+     * @param options
+     */
+    private void processGroupCommand(Set<String> commands, Options options)
+    {
+        String command;
+        try
+        {
+            if (commands.contains(ADD_GROUP))
+            {
+                command = ADD_GROUP;
+                LOG.info(command);
+                Group group = options.getGroup();
+                groupMgr.add( group );
+            }
+            else if (commands.contains(UPDATE_GROUP))
+            {
+                command = UPDATE_GROUP;
+                LOG.info(command);
+                Group group = options.getGroup();
+                groupMgr.update( group );
+            }
+            else if (commands.contains(DELETE_GROUP))
+            {
+                command = DELETE_GROUP;
+                LOG.info(command);
+                Group group = options.getGroup();
+                groupMgr.delete( group );
+            }
+            else if (commands.contains(READ_GROUP))
+            {
+                command = READ_GROUP;
+                LOG.info(command);
+                Group group = options.getGroup();
+                Group outGroup = groupMgr.read( group );
+                printGroup(outGroup);
+            }
+            else if (commands.contains(FIND_GROUP))
+            {
+                command = FIND_GROUP;
+                LOG.info(command);
+                Group inGroup = options.getGroup();
+                List<Group> groups = groupMgr.find( inGroup );
+                if(VUtil.isNotNullOrEmpty( groups ))
+                {
+                    for(Group outGroup : groups)
+                    {
+                        printGroup(outGroup);
+                    }
+                }
+            }
+            else if (commands.contains(ASSIGN_GROUP))
+            {
+                command = ASSIGN_GROUP;
+                LOG.info(command);
+                Group group = options.getGroup();
+                if(VUtil.isNotNullOrEmpty( group.getMembers() ) )
+                {
+                    for( String member : group.getMembers())
+                    {
+                        groupMgr.assign( group, member );
+                    }
+                }
+            }
+            else if (commands.contains(DEASSIGN_GROUP))
+            {
+                command = DEASSIGN_GROUP;
+                LOG.info(command);
+                Group group = options.getGroup();
+                if(VUtil.isNotNullOrEmpty( group.getMembers() ) )
+                {
+                    for( String member : group.getMembers())
+                    {
+                        groupMgr.deassign( group, member );
+                    }
+                }
+            }
+            else if (commands.contains(ADD_GROUP_PROP))
+            {
+                command = ADD_GROUP_PROP;
+                LOG.info(command);
+                Group group = options.getGroup();
+                if(VUtil.isNotNullOrEmpty( group.getProperties() ))
+                {
+                    for (Enumeration e = group.getProperties().propertyNames(); e.hasMoreElements(); )
+                    {
+                        String key = (String) e.nextElement();
+                        String val = group.getProperty(key);
+                        groupMgr.add( group, key, val  );
+                    }
+                }
+            }
+            else if (commands.contains(DELETE_GROUP_PROP))
+            {
+                command = DELETE_GROUP_PROP;
+                LOG.info(command);
+                Group group = options.getGroup();
+                if(VUtil.isNotNullOrEmpty( group.getProperties() ))
+                {
+                    for (Enumeration e = group.getProperties().propertyNames(); e.hasMoreElements(); )
+                    {
+                        String key = (String) e.nextElement();
+                        String val = group.getProperty(key);
+                        groupMgr.delete( group, key, val );
+                    }
+                }
+            }
+            else
+            {
+                LOG.warn("unknown group operation detected");
+                return;
+            }
+            LOG.info("command:" + command + " was successful");
+        }
+        catch ( org.openldap.fortress.SecurityException se)
+        {
+            String error = "processGroupCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
+            LOG.error(error);
+        }
+    }
+
+    /**
      * @param parser
      * @return entity containing user options
      */
@@ -1125,6 +1266,37 @@ public class CommandLineInterpreter
         }
     }
 
+    private void printGroup(Group group)
+    {
+        String type = "G";
+        if (group != null)
+        {
+            printSeparator();
+            printRow(type, "GROUP DATA" , group.getName());
+            printRow(type, "NAME ", group.getName());
+            printRow(type, "DESC", group.getDescription());
+            printRow(type, "PROT", group.getProtocol());
+            if (VUtil.isNotNullOrEmpty(group.getMembers()))
+            {
+                int memctr = 0;
+                for (String member : group.getMembers())
+                {
+                    printRow(type, "MEMBER[" + ++memctr + "]", member);
+                }
+            }
+            if (VUtil.isNotNullOrEmpty(group.getProperties()))
+            {
+                int propctr = 0;
+                for (Enumeration e = group.getProperties().propertyNames(); e.hasMoreElements(); )
+                {
+                    String key = (String) e.nextElement();
+                    String val = group.getProperty(key);
+                    printRow(type, "PROP[" + ++ propctr + "]", key + "=" + val);
+                }
+            }
+        }
+    }
+
     /**
      * @param constraint
      * @param label
@@ -1233,7 +1405,8 @@ public class CommandLineInterpreter
             adminMgr = AdminMgrFactory.createInstance(contextId);
             reviewMgr = ReviewMgrFactory.createInstance(contextId);
             accessMgr = AccessMgrFactory.createInstance(contextId);
-            delAdminMgr = DelAdminMgrFactory.createInstance(contextId);
+            accessMgr = AccessMgrFactory.createInstance(contextId);
+            groupMgr = GroupMgrFactory.createInstance( contextId );
             //delReviewMgr = DelReviewMgrFactory.createInstance(contextId);
             //delAccessMgr = DelAccessMgrFactory.createInstance(contextId);
             //pwPolicyMgr = PwPolicyMgrFactory.createInstance(contextId);

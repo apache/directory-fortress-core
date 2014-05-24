@@ -62,6 +62,7 @@ Currently the following groups of functions are supported:
     <li>review - used to interrogate RBAC policies</li>
     <li>system - used to test RBAC policies</li>
     <li>dadmin - used to setup ARBAC (administrative role based access control) policies</li>
+    <li>group - used to setup LDAP Group policies</li>
 </ul>
 <h2>Sample run to add new User to LDAP</h2>
    <pre>      
@@ -140,6 +141,8 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>a : adminRoles * - multi-occurring attribute contains the name of already existing adminRole to assign to
             user
         </li>
+        <li>X : protocol - alphanumeric string used for groups</li>
+        <li>M : member - contains userId of member to a group</li>
     </ul>
 
     <h4>example</h4>
@@ -1549,7 +1552,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
             <h3>ruser : READ_USER</h3>
 
             <p>
-                This function reads a User object from the directory. The userId is not case senstive.
+                This function reads a User object from the directory. The userId is not case sensitive.
             </p>
 
             <h4>required parameters</h4>
@@ -1608,7 +1611,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
             <h3>rrole : READ_ROLE</h3>
 
             <p>
-                This function reads a Role object from the directory. The Role name is not case senstive.
+                This function reads a Role object from the directory. The Role name is not case sensitive.
             </p>
 
             <h4>required parameters</h4>
@@ -1649,7 +1652,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
             <h3>robj : READ_POBJ</h3>
 
             <p>
-                This function reads a Permission Object from the directory. The object name is not case senstive.
+                This function reads a Permission Object from the directory. The object name is not case sensitive.
             </p>
 
             <h4>required parameters</h4>
@@ -1691,7 +1694,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
 
             <p>
                 This function reads a Permission Operation from the directory. The permission object and operation names
-                are not case senstive.
+                are not case sensitive.
             </p>
 
             <h4>required parameters</h4>
@@ -1736,6 +1739,195 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
 
     </ol>
 </li>
+
+<li>
+
+    <h3>Group Commands</h3>
+
+    <ol type="A">
+
+        <li>
+            <h3>agroup : ADD_GROUP</h3>
+
+            <p>
+                This function adds a new LDAP group to the directory.
+            </p>
+
+            <h4>required parameters</h4>
+            <ul>
+                <li>n : name - contains the name to use for new LDAP group.  It must be unique.</li>
+                <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP directory"</li>
+            </ul>
+            <h4>optional parameters</h4>
+            <ul>
+                <li>d : description - maps to description attribute on object class</li>
+                <li>X : protocol - used to specify protocol</li>
+                <li>v : properties * - multi-occurring attribute contains property key and values are separated with a '='.  e.g.: key1=val1</li>
+            </ul>
+            <h4>example</h4>
+            <ul>
+                <li>group agroup -n footest1 -d "Test LDAP Groups 001" -M demouser4 -v key1=val1 -v key2=val2 -X ssh</li>
+                <li>group agroup -n footest2 -d "Test LDAP Groups 001" -M demouser5 -M demouser6 -v key3=val3 -v key4=val4 -X rdp</li>
+            </ul>
+        </li>
+
+
+        <li>
+            <h3>ugroup : UPDATE_GROUP</h3>
+
+            <p>
+                This function updates existing LDAP group in the directory.  For multi-occurring attributes, members & properties, supplied
+                values will be added only. Use DEASSIGN_GROUP or DEL_GROUP_PROP first if you need to replace existing value.
+            </p>
+
+            <h4>required parameters</h4>
+            <ul>
+                <li>n : name - contains the name of an existing LDAP group.</li>
+            </ul>
+            <h4>optional parameters</h4>
+            <ul>
+                <li>M : members * - multi-occurring attribute maps to a userId in the LDAP directory"</li>
+                <li>d : description - maps to description attribute on object class</li>
+                <li>X : protocol - used to specify protocol</li>
+                <li>v : properties * - multi-occurring attribute contains property key and values are separated with a '='.  e.g.: key1=val1</li>
+            </ul>
+            <h4>example</h4>
+            <ul>
+                <li>group ugroup -n footest1 -d "Update Test LDAP Groups 001" -X ssh2</li>
+            </ul>
+        </li>
+
+
+        <li>
+            <h3>dgroup : DELETE_GROUP</h3>
+
+            <p>
+                This function removes an LDAP group from the directory.
+            </p>
+
+            <h4>required parameters</h4>
+            <ul>
+                <li>n : name - contains the name of an existing LDAP group.</li>
+            </ul>
+            <h4>example</h4>
+            <ul>
+                <li>group dgroup -n footest1</li>
+            </ul>
+        </li>
+
+
+        <li>
+            <h3>asgngroup : ASSIGN_GROUP</h3>
+
+            <p>
+                This function adds a user as a member to an existing LDAP group in the directory.
+            </p>
+
+            <h4>required parameters</h4>
+            <ul>
+                <li>n : name - contains the name of an existing LDAP group.</li>
+                <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP directory"</li>
+            </ul>
+            <h4>example</h4>
+            <ul>
+                <li>group asgngroup -n footest1 -M demouser5</li>
+            </ul>
+        </li>
+
+        <li>
+            <h3>dsgngroup : DEASSIGN_GROUP</h3>
+
+            <p>
+                This function removes a user as a member from an existing LDAP group in the directory.
+            </p>
+
+            <h4>required parameters</h4>
+            <ul>
+                <li>n : name - contains the name of an existing LDAP group.</li>
+                <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP directory"</li>
+            </ul>
+            <h4>example</h4>
+            <ul>
+                <li>group dsgngroup -n footest1 -M demouser5</li>
+            </ul>
+        </li>
+
+        <li>
+            <h3>agprop : ADD_GROUP_PROP</h3>
+
+            <p>
+                This function adds one or more properties to an existing LDAP group.
+            </p>
+
+            <h4>required parameters</h4>
+            <ul>
+                <li>n : name - contains the name of an existing LDAP group.</li>
+                <li>v : properties * - multi-occurring property key and values are separated with a '='. e.g. mykey1=myvalue1</li>
+            </ul>
+            <h4>example</h4>
+            <ul>
+                <li>group agprop -n footest1 -v key5=val5</li>
+            </ul>
+        </li>
+
+        <li>
+            <h3>dgprop : DEL_GROUP_PROP</h3>
+
+            <p>
+                This function removes one or more properties from an existing LDAP group.
+            </p>
+
+            <h4>required parameters</h4>
+            <ul>
+                <li>n : name - contains the name of an existing LDAP group.</li>
+                <li>v : properties * - multi-occurring property key and values are separated with a '='. e.g. mykey1=myvalue1</li>
+            </ul>
+            <h4>example</h4>
+            <ul>
+                <li>group dgprop -n footest1 -v key5=val5</li>
+            </ul>
+        </li>
+
+        <li>
+            <h3>rgroup : READ_GROUP</h3>
+
+            <p>
+                This function reads and displays to console an existing LDAP group. The Group name is not case sensitive.
+            </p>
+
+            <h4>required parameters</h4>
+            <ul>
+                <li>n : name - contains the full name for already existing Group</li>
+            </ul>
+            <h4>example</h4>
+            <ul>
+                <li>group fgroup -n footest1</li>
+            </ul>
+        </li>
+
+        <li>
+            <h3>fgroup : FIND_GROUPS</h3>
+
+            <p>
+                This function searches and displays to console existing LDAP groups found as target of search. The Group name is not case sensitive.
+            </p>
+
+            <h4>required parameters</h4>
+            <ul>
+                <li>n : name - contains the full name for already existing Group</li>
+            </ul>
+            <h4>example</h4>
+            <ul>
+                <li>group fgroup -n fo</li>
+            </ul>
+        </li>
+
+        <br>
+    </ol>
+    <!-- end group -->
+</li>
+
+
 <li>
 
     <h3>System Commands</h3>
@@ -1841,9 +2033,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         </li>
         <br>
     </ol>
-    </ol>
 </li>
-</ol>
 <p>
     The <b>org.openldap.fortress.cli.CommandLineInterpreter</b> drives the Fortress APIs. For more info on how the Fortress
     APIs work, check out Fortress SDK Javadoc.

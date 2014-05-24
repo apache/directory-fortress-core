@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+<project basedir="." default="all" name="Fortress LDAP Group Test 001 Data">
+    <taskdef classname="org.openldap.fortress.ant.FortressAntTask" name="FortressAdmin" >
+        <classpath path="${java.class.path}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+
+            <addgroup>
+                <group name="test001" protocol="test" description="Test Group 001" groupMembers="guser1,guser2,guser3" groupProps="key1=value1, key2=val 2, key3='VAL 3'" />
+            </addgroup>
+
+            <delgroup>
+                <group name="test001"/>
+            </delgroup>
+
+            <adduser>
+                <user userId="guser1" password="password" description="Group Test 001 User1" ou="GroupTest001Users" cn="test1" sn="user1"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser2" password="password" description="Group Test 001 User1" ou="GroupTest001Users" cn="test2" sn="user2"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser3" password="password" description="Group Test 001 User1" ou="GroupTest001Users" cn="test3" sn="user3"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+            </adduser>
+
+            <deluser>
+                <user userId="guser1"/>
+                <user userId="guser2"/>
+                <user userId="guser3"/>
+            </deluser>
+
+            <addorgunit>
+                <orgunit name="GroupTest001Users" typeName="USER" description="Used for Group Test 001"/>
+            </addorgunit>
+
+            <delorgunit>
+                <orgunit name="GroupTest001Users" typeName="USER"/>
+            </delorgunit>
+
+        </FortressAdmin>
+    </target>
+</project>

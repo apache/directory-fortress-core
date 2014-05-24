@@ -15,6 +15,7 @@
 package org.openldap.fortress.cli;
 
 import org.openldap.fortress.GlobalIds;
+import org.openldap.fortress.ldap.group.Group;
 import org.openldap.fortress.rbac.AdminRole;
 import org.openldap.fortress.rbac.OrgUnit;
 import org.openldap.fortress.rbac.Relationship;
@@ -74,6 +75,9 @@ public class Options implements java.io.Serializable
     final CmdLineParser.Option city;
     final CmdLineParser.Option postalCode;
     final CmdLineParser.Option postalOfficeBox;
+    final CmdLineParser.Option protocol;
+    final CmdLineParser.Option member;
+
 
     /**
      * @param parser
@@ -123,6 +127,8 @@ public class Options implements java.io.Serializable
         this.postalOfficeBox = parser.addStringOption('2', "postalOfficeBox");
         this.title = parser.addStringOption('3', "title");
         this.employeeType = parser.addStringOption('4', "employeeType");
+        this.protocol = parser.addStringOption('X', "protocol");
+        this.member = parser.addStringOption('M', "member");
     }
 
     /**
@@ -154,6 +160,19 @@ public class Options implements java.io.Serializable
         orgUnit.setName(getName());
         orgUnit.setDescription(getDescription());
         return orgUnit;
+    }
+
+    /**
+     */
+    public Group getGroup()
+    {
+        Group group = new Group();
+        group.setName( getName() );
+        group.setDescription( getDescription() );
+        group.setProtocol( getProtocol() );
+        updateAssigns(group);
+        updateProperties(group);
+        return group;
     }
 
     /**
@@ -338,6 +357,36 @@ public class Options implements java.io.Serializable
                 {
                     perm.addProperty(szRaw.substring(0, indx), szRaw.substring(indx + 1));
                 }
+            }
+        }
+    }
+
+    private void updateProperties(Group group)
+    {
+        Vector fractionValues = parser.getOptionValues(properties);
+        if (fractionValues != null)
+        {
+            for (Object raw : fractionValues)
+            {
+                String szRaw = (String) raw;
+                int indx = szRaw.indexOf("=");
+                if (indx >= 1)
+                {
+                    group.addProperty(szRaw.substring(0, indx), szRaw.substring(indx + 1));
+                }
+            }
+        }
+    }
+
+    private void updateAssigns(Group group)
+    {
+        Vector fractionValues = parser.getOptionValues(member);
+        if (fractionValues != null)
+        {
+            for (Object raw : fractionValues)
+            {
+                String szRaw = (String) raw;
+                group.setMember( szRaw );
             }
         }
     }
@@ -625,5 +674,15 @@ public class Options implements java.io.Serializable
     String getEndInclusive()
     {
         return (String) parser.getOptionValue(endInclusive);
+    }
+
+    String getProtocol()
+    {
+        return (String) parser.getOptionValue(protocol);
+    }
+
+    String getMember()
+    {
+        return (String) parser.getOptionValue(member);
     }
 }

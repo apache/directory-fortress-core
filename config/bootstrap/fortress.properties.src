@@ -55,6 +55,7 @@ permou.root=@PERMOUS_DN@
 adminrole.root=@ADMINROLES_DN@
 adminperm.root=@ADMINPERMS_DN@
 audit.root=@AUDITS_DN@
+group.root=@GROUPS_DN@
 example.root=ou=Examples,@SUFFIX@
 
 superadmin.role=oamSuperAdmin
@@ -143,6 +144,7 @@ ldap.sub.15=7e
 #regXSafetext=^A-Za-z0-9- .
 
 user.objectclass=inetOrgPerson
+group.objectclass=guacConfigGroup
 crypto.prop=@CFG_CRYPTO_PROP@
 enable.audit=true
 clientside.sorting=true

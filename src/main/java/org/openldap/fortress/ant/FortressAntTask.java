@@ -25,6 +25,8 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.input.InputHandler;
 import org.apache.tools.ant.input.InputRequest;
+import org.openldap.fortress.ldap.group.GroupMgr;
+import org.openldap.fortress.ldap.group.GroupMgrFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -162,8 +164,7 @@ import org.openldap.fortress.util.attr.VUtil;
  * <li>Add RBAC Roles {@link org.openldap.fortress.AdminMgr#addRole(org.openldap.fortress.rbac.Role)}</li>
  * <li>Add RBAC Role Inheritances {@link org.openldap.fortress.AdminMgr#addInheritance(org.openldap.fortress.rbac.Role,
  * org.openldap.fortress.rbac.Role)}</li>
- * <li>Add DSD and SSD Sets {@link org.openldap.fortress.AdminMgr#createDsdSet(org.openldap.fortress.rbac.SDSet)} and {@link us
- * .jts.fortress.AdminMgr#createSsdSet(org.openldap.fortress.rbac.SDSet)}</li>
+ * <li>Add DSD and SSD Sets {@link org.openldap.fortress.AdminMgr#createDsdSet(org.openldap.fortress.rbac.SDSet)} and {@link org.openldap.fortress.AdminMgr#createSsdSet(org.openldap.fortress.rbac.SDSet)}</li>
  * <li>Add Permission Objects {@link org.openldap.fortress.AdminMgr#addPermObj(org.openldap.fortress.rbac.PermObj)}</li>
  * <li>Add Permission Operations {@link org.openldap.fortress.AdminMgr#addPermission(org.openldap.fortress.rbac.Permission)}</li>
  * <li>Add Password Policies {@link org.openldap.fortress.PwPolicyMgr#add(org.openldap.fortress.rbac.PwPolicy)}</li>
@@ -187,6 +188,8 @@ public class FortressAntTask extends Task implements InputHandler
     final private List<org.openldap.fortress.ant.Delconfig> delconfig = new ArrayList<>();
     final private List<Adduser> addusers = new ArrayList<>();
     final private List<Deluser> delusers = new ArrayList<>();
+    final private List<Addgroup> addgroups = new ArrayList<>();
+    final private List<Delgroup> delgroups = new ArrayList<>();
     final private List<Adduserrole> adduserroles = new ArrayList<>();
     final private List<Deluserrole> deluserroles = new ArrayList<>();
     final private List<Addrole> addroles = new ArrayList<>();
@@ -225,6 +228,7 @@ public class FortressAntTask extends Task implements InputHandler
     private AdminMgr adminMgr = null;
     private DelAdminMgr dAdminMgr = null;
     private PwPolicyMgr policyMgr = null;
+    private GroupMgr groupMgr = null;
     private static final String CLS_NM = FortressAntTask.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private Context context;
@@ -250,6 +254,7 @@ public class FortressAntTask extends Task implements InputHandler
             adminMgr = org.openldap.fortress.AdminMgrFactory.createInstance( context.getName() );
             dAdminMgr = DelAdminMgrFactory.createInstance( context.getName() );
             policyMgr = PwPolicyMgrFactory.createInstance( context.getName() );
+            groupMgr = GroupMgrFactory.createInstance( context.getName() );
         }
         catch ( SecurityException se )
         {
@@ -269,6 +274,7 @@ public class FortressAntTask extends Task implements InputHandler
             adminMgr = AdminMgrFactory.createInstance( GlobalIds.HOME );
             dAdminMgr = DelAdminMgrFactory.createInstance( GlobalIds.HOME );
             policyMgr = PwPolicyMgrFactory.createInstance( GlobalIds.HOME );
+            groupMgr = GroupMgrFactory.createInstance( GlobalIds.HOME );
         }
         catch ( SecurityException se )
         {
@@ -329,6 +335,28 @@ public class FortressAntTask extends Task implements InputHandler
     public void addDeluser( Deluser deluser )
     {
         this.delusers.add( deluser );
+    }
+
+
+    /**
+     * Load the entity with data.
+     *
+     * @param addgroup contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addAddgroup( Addgroup addgroup )
+    {
+        this.addgroups.add( addgroup );
+    }
+
+
+    /**
+     * Load the entity with data.
+     *
+     * @param delgroup contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addDelgroup( Delgroup delgroup )
+    {
+        this.delgroups.add( delgroup );
     }
 
 
@@ -701,7 +729,7 @@ public class FortressAntTask extends Task implements InputHandler
      */
     public void execute() throws BuildException
     {
-        LOG.info( "DEBUG MODE 1" );
+        LOG.info( "FORTRESS ANT TASK NAME : " + getTaskName() );
         if ( isListNotNull( addcontexts ) )
         {
             setContext( addcontexts.get( 0 ).getContexts().get( 0 ) );
@@ -720,6 +748,11 @@ public class FortressAntTask extends Task implements InputHandler
         if ( isListNotNull( delpermGrants ) )
         {
             deletePermGrants();
+        }
+
+        if ( isListNotNull( delgroups ) )
+        {
+            deleteGroups();
         }
 
         if ( isListNotNull( delusers ) )
@@ -872,6 +905,11 @@ public class FortressAntTask extends Task implements InputHandler
             addUsers();
         }
 
+        if ( isListNotNull( addgroups ) )
+        {
+            addGroups();
+        }
+
         if ( isListNotNull( addpermGrants ) )
         {
             addPermGrants();
@@ -1002,6 +1040,54 @@ public class FortressAntTask extends Task implements InputHandler
         }
     }
 
+    /**
+     * @throws BuildException
+     */
+    private void addGroups() throws BuildException
+    {
+        // Loop through the entityclass elements
+        for ( Addgroup addgroup : addgroups )
+        {
+            List<GroupAnt> groups = addgroup.getGroups();
+
+            for ( GroupAnt group : groups )
+            {
+                LOG.info( "addGroups name=" + group.getName() + " description=" + group.getDescription());
+                try
+                {
+                    groupMgr.add( group );
+                }
+                catch ( SecurityException se )
+                {
+                    LOG.warn( "addGroups name [" + group.getName() + "] caught SecurityException=" + se );
+                }
+            }
+        }
+    }
+
+    /**
+     * @throws BuildException
+     */
+    private void deleteGroups() throws BuildException
+    {
+        // Loop through the entityclass elements
+        for ( Delgroup delgroup : delgroups )
+        {
+            List<GroupAnt> groups = delgroup.getGroups();
+            for ( GroupAnt group : groups )
+            {
+                LOG.info( "deleteGroups name=" + group.getName() );
+                try
+                {
+                    groupMgr.delete( group );
+                }
+                catch ( SecurityException se )
+                {
+                    LOG.warn( "deleteGroups name [" + group.getName() + "] caught SecurityException=" + se );
+                }
+            }
+        }
+    }
 
     /**
      * @throws BuildException

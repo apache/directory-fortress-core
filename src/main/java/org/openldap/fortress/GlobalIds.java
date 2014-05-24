@@ -101,6 +101,11 @@ public class GlobalIds
      */
     public final static String ACCEL_IMPLEMENTATION = "accelmgr.implementation";
 
+    /**
+     * When this optional tag, {@code groupImplementation}, is placed in Fortress properties, its class name will be the default {link GroupMgr} instance used.
+     */
+    public final static String GROUP_IMPLEMENTATION = "groupmgr.implementation";
+
     //	AUTHENTICATION_TYPE
     /**
      * This property is used to specify if authentication is being performed within a security realm.
@@ -197,6 +202,12 @@ public class GlobalIds
      * {@code ou=AdminPerms,ou=ARBAC,dc=example,dc=com}
      */
     public final static String ADMIN_PERM_ROOT = "adminperm.root";
+
+    /**
+     * Specifies the dn of the container where the Groups are located.  This is typically in the format of
+     * {@code ou=Groups,dc=example,dc=com}
+     */
+    public final static String GROUP_ROOT = "group.root";
 
     /*
       *  *************************************************************************

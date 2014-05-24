@@ -1025,6 +1025,21 @@ public abstract class UnboundIdDataProvider
      */
     protected void loadProperties( Properties props, LDAPModificationSet mods, String attrName, boolean replace )
     {
+        loadProperties( props, mods, attrName, GlobalIds.PROP_SEP, replace );
+    }
+
+
+    /**
+     * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
+     *
+     * @param props    contains {@link java.util.Properties} targeted for updating in ldap.
+     * @param mods     ldap modification set containing name-value pairs in raw ldap format.
+     * @param attrName contains the name of the ldap attribute to be updated.
+     * @param separator contains the delimiter for the property.
+     * @param replace  boolean variable, if set to true use {@link LDAPModification#REPLACE} else {@link LDAPModification#ADD}.
+     */
+    protected void loadProperties( Properties props, LDAPModificationSet mods, String attrName, char separator, boolean replace )
+    {
         if ( props != null && props.size() > 0 )
         {
             LDAPAttribute prop = new LDAPAttribute( attrName );
@@ -1036,7 +1051,7 @@ public abstract class UnboundIdDataProvider
                 String key = ( String ) e.nextElement();
                 String val = props.getProperty( key );
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
-                prop = new LDAPAttribute( attrName, key + GlobalIds.PROP_SEP + val );
+                prop = new LDAPAttribute( attrName, key + separator + val );
                 mods.add( LDAPModification.ADD, prop );
             }
         }
@@ -1076,6 +1091,19 @@ public abstract class UnboundIdDataProvider
      */
     protected void loadProperties( Properties props, LDAPAttributeSet attrs, String attrName )
     {
+        loadProperties( props, attrs, attrName, ':' );
+    }
+
+
+    /**
+     * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap add.
+     *
+     * @param props    contains {@link java.util.Properties} targeted for adding to ldap.
+     * @param attrs    ldap attribute set containing name-value pairs in raw ldap format.
+     * @param attrName contains the name of the ldap attribute to be added.
+     */
+    protected void loadProperties( Properties props, LDAPAttributeSet attrs, String attrName, char separator )
+    {
         if ( props != null && props.size() > 0 )
         {
             LDAPAttribute attr = null;
@@ -1084,7 +1112,7 @@ public abstract class UnboundIdDataProvider
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 String key = ( String ) e.nextElement();
                 String val = props.getProperty( key );
-                String prop = key + GlobalIds.PROP_SEP + val;
+                String prop = key + separator + val;
                 if ( attr == null )
                 {
                     attr = new LDAPAttribute( attrName, prop );

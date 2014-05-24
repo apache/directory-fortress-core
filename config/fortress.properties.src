@@ -55,6 +55,8 @@ http.port=@REST_HTTP_PORT@
 
 dao.connector=@LDAP_CLIENT_TYPE@
 
+group.objectclass=guacConfigGroup
+
 # These may be used to override default LDAP or REST with OTHER implementations:
 #reviewmgr.implementation=org.openldap.fortress.rest.ReviewMgrOtherImpl
 #adminmgr.implementation=org.openldap.fortress.rest.AdminMgrOtherImpl

@@ -33,6 +33,7 @@
                 <container name="Config" description="Fortress Configuration Realms"/>
                 <container name="People" description="Fortress People"/>
                 <container name="Policies" description="Fortress Policies"/>
+                <container name="Groups" description="LDAP Groups"/>
                 <container name="RBAC" description="Fortress RBAC Policies"/>
                 <container name="Roles" parent="RBAC" description="Fortress Roles"/>
                 <container name="Permissions" parent="RBAC" description="Fortress Permissions"/>
@@ -59,6 +60,7 @@
                 <config props="clientside.sorting:true"/>
                 <config props="suffix:@SUFFIX@"/>
                 <config props="user.root:@USERS_DN@"/>
+                <config props="group.root:@GROUPS_DN@"/>
                 <config props="pwpolicy.root:@POLICIES_DN@"/>
                 <config props="role.root:@ROLES_DN@"/>
                 <config props="perm.root:@PERMS_DN@"/>
@@ -127,6 +129,7 @@
                 <config props="clientside.sorting:true"/>
                 <config props="suffix:@SUFFIX@"/>
                 <config props="user.root:ou=People,@SUFFIX@"/>
+                <config props="group.root:@GROUPS_DN@"/>
                 <config props="role.root:ou=Roles,ou=RBAC,@SUFFIX@"/>
                 <config props="perm.root:ou=Permissions,ou=RBAC,@SUFFIX@"/>
                 <config props="sdconstraint.root:ou=Constraints,ou=RBAC,@SUFFIX@"/>

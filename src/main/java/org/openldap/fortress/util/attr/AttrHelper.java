@@ -68,6 +68,19 @@ public class AttrHelper
      */
     public static Properties getProperties(List<String> propList)
     {
+        return getProperties(propList, GlobalIds.PROP_SEP );
+    }
+
+    /**
+     * Convert from a {@link java.util.List} of properties stored as name:value pairs to
+     * a {@link java.util.Properties}.
+     *
+     * @param propList contains a list of name-value pairs separated by a ':'.
+     * @param separator contains char to be used to separate key and value.
+     * @return reference to a Properties collection.
+     */
+    public static Properties getProperties( List<String> propList, char separator )
+    {
         Properties props = null;
         if (propList != null && propList.size() > 0)
         {
@@ -76,7 +89,7 @@ public class AttrHelper
             for (String raw : propList)
             {
 
-                int indx = raw.indexOf(GlobalIds.PROP_SEP);
+                int indx = raw.indexOf(separator);
                 if (indx >= 1)
                 {
                     props.setProperty(raw.substring(0, indx), raw.substring(indx + 1));
@@ -92,22 +105,47 @@ public class AttrHelper
      * @param inputString contains comma delimited list of properties.
      * @return java collection class containing props.
      */
-    public static Properties getProperties(String inputString)
+    public static Properties getProperties( String inputString )
+    {
+        return getProperties( inputString, GlobalIds.PROP_SEP );
+    }
+
+    /**
+     * Convert from a comma delimited list of name-value pairs separated by a ':'.  Return the pros as {@link java.util.Properties}.
+     *
+     * @param inputString contains comma delimited list of properties.
+     * @param separator contains char to be used to separate key and value.
+     * @return java collection class containing props.
+     */
+    public static Properties getProperties( String inputString, char separator )
+    {
+        return getProperties( inputString, separator, GlobalIds.DELIMITER );
+    }
+
+    /**
+     * Convert from a comma delimited list of name-value pairs separated by a ':'.  Return the pros as {@link java.util.Properties}.
+     *
+     * @param inputString contains comma delimited list of properties.
+     * @param separator contains char to be used to separate key and value.
+     * @param delimiter contains a single char specifying delimiter between properties.
+     * @return java collection class containing props.
+     */
+    public static Properties getProperties( String inputString, char separator, String delimiter )
     {
         Properties props = new Properties();
         if (inputString != null && inputString.length() > 0)
         {
-            StringTokenizer maxTkn = new StringTokenizer(inputString, GlobalIds.DELIMITER);
+            StringTokenizer maxTkn = new StringTokenizer(inputString, delimiter);
             if (maxTkn.countTokens() > 0)
             {
                 while (maxTkn.hasMoreTokens())
                 {
                     String val = maxTkn.nextToken();
-                    int indx = val.indexOf(GlobalIds.PROP_SEP);
+                    int indx = val.indexOf(separator);
                     if (indx >= 1)
                     {
-                        String name = val.substring(0, indx);
-                        String value = val.substring(indx + 1);
+                        String name = val.substring(0, indx).trim();
+                        String value = val.substring(indx + 1).trim();
                         props.setProperty(name, value);
                     }
                 }

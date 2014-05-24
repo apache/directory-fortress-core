@@ -14,6 +14,7 @@
  */
 package org.openldap.fortress;
 
+import org.openldap.fortress.ldap.group.Group;
 import org.openldap.fortress.rbac.*;
 import org.openldap.fortress.rest.FortRequest;
 import org.openldap.fortress.rest.FortResponse;
@@ -68,6 +69,7 @@ public class ObjectFactory
     private final static QName FortAddress_QNAME = new QName("", "fortAddress");
     private final static QName _FortProps_QNAME = new QName("", "fortProps");
     private final static QName _FortWarning_QNAME = new QName("", "fortWarning");
+    private final static QName _FortGroup_QNAME = new QName("", "fortGroup");
 
 
     @XmlElementDecl(namespace = "", name = "fortEntity")
@@ -268,6 +270,14 @@ public class ObjectFactory
         return new JAXBElement<Warning>(_FortWarning_QNAME, Warning.class, null, value);
     }
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.openldap.fortress.ldap.group.Group }{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortGroup")
+    public JAXBElement<Group> createFortGroup(Group value)
+    {
+        return new JAXBElement<>(_FortGroup_QNAME, Group.class, null, value);
+    }
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.openldap.fortress.model2
@@ -314,6 +324,14 @@ public class ObjectFactory
     public Role createRole()
     {
         return new Role();
+    }
+
+    /**
+     * Create an instance of {@link Group }
+     */
+    public Group createGroup()
+    {
+        return new Group();
     }
 
     /**

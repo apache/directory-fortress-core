@@ -18,6 +18,7 @@
  */
 package org.openldap.fortress;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
@@ -30,19 +31,18 @@ import java.io.InputStreamReader;
  */
 class ProcessMenuCommand
 {
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( ProcessMenuCommand.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( ProcessMenuCommand.class.getName() );
     final private AdminMgrConsole adminConsole = new AdminMgrConsole();
     final private ReviewMgrConsole reviewConsole = new ReviewMgrConsole();
-    final private org.openldap.fortress.AccessMgrConsole accessConsole = new org.openldap.fortress.AccessMgrConsole();
-    final private org.openldap.fortress.PolicyMgrConsole policyConsole = new org.openldap.fortress.PolicyMgrConsole();
-    final private org.openldap.fortress.AuditMgrConsole auditConsole = new org.openldap.fortress.AuditMgrConsole();
-    final private org.openldap.fortress.DelegatedAdminMgrConsole delAdminConsole = new org.openldap.fortress
-        .DelegatedAdminMgrConsole();
-    final private org.openldap.fortress.DelegatedReviewMgrConsole delReviewConsole = new org.openldap.fortress
-        .DelegatedReviewMgrConsole();
-    final private org.openldap.fortress.DelegatedAccessMgrConsole delAccessConsole = new org.openldap.fortress
+    final private AccessMgrConsole accessConsole = new AccessMgrConsole();
+    final private PolicyMgrConsole policyConsole = new PolicyMgrConsole();
+    final private AuditMgrConsole auditConsole = new AuditMgrConsole();
+    final private DelegatedAdminMgrConsole delAdminConsole = new DelegatedAdminMgrConsole();
+    final private DelegatedReviewMgrConsole delReviewConsole = new DelegatedReviewMgrConsole();
+    final private DelegatedAccessMgrConsole delAccessConsole = new org.openldap.fortress
         .DelegatedAccessMgrConsole();
-    final private org.openldap.fortress.ConfigMgrConsole cfgConsole = new org.openldap.fortress.ConfigMgrConsole();
+    final private ConfigMgrConsole cfgConsole = new ConfigMgrConsole();
+    final private GroupMgrConsole groupConsole = new GroupMgrConsole();
     final private EncryptMgrConsole encryptConsole = new EncryptMgrConsole();
 
     /**
@@ -62,9 +62,9 @@ class ProcessMenuCommand
         System.out.println( "8. AUDIT MANAGER FUNCTIONS" );
         System.out.println( "9. CONFIG MANAGER FUNCTIONS" );
         System.out.println( "A. ENCRYPTION MANAGER FUNCTIONS" );
+        System.out.println( "B. GROUP MANAGER FUNCTIONS" );
         System.out.println( "Enter q or Q to quit" );
     }
-
 
     /**
      *
@@ -114,6 +114,10 @@ class ProcessMenuCommand
                     case 'A':
                         processEncryptManagerFunction();
                         break;
+                    case 'b':
+                    case 'B':
+                        processGroupManagerFunction();
+                        break;
                     case 'q':
                     case 'Q':
                         done = true;
@@ -129,6 +133,76 @@ class ProcessMenuCommand
         }
     }
 
+    void processGroupManagerFunction()
+    {
+        BufferedReader br = new BufferedReader( new InputStreamReader( System.in ) );
+        boolean done = false;
+        int input;
+        try
+        {
+            while ( !done )
+            {
+                showGroupFunctionMenu();
+                input = br.read();
+                switch ( input )
+                {
+                    case '1':
+                        groupConsole.add();
+                        break;
+                    case '2':
+                        groupConsole.update();
+                        break;
+                    case '3':
+                        groupConsole.delete();
+                        break;
+                    case '4':
+                        groupConsole.addProperty();
+                        break;
+                    case '5':
+                        groupConsole.deleteProperty();
+                        break;
+                    case '6':
+                        groupConsole.assign();
+                        break;
+                    case '7':
+                        groupConsole.deassign();
+                        break;
+                    case '8':
+                        groupConsole.readGroup();
+                        break;
+                    case '9':
+                        groupConsole.findGroups();
+                        break;
+                    case 'q':
+                    case 'Q':
+                        done = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        catch ( Exception e )
+        {
+            LOG.error( "Exception caught in processEncryptManagerFunction = " + e );
+        }
+    }
+
+    private void showGroupFunctionMenu()
+    {
+        ReaderUtil.clearScreen();
+        System.out.println( "CHOOSE GROUP MANAGER FUNCTION" );
+        System.out.println( "1.  Add new group" );
+        System.out.println( "2.  Update existing group" );
+        System.out.println( "3.  Delete group" );
+        System.out.println( "4.  Add property to group" );
+        System.out.println( "5.  Delete property from group" );
+        System.out.println( "6.  Assign user to group" );
+        System.out.println( "7.  Deassign user from group" );
+        System.out.println( "8.  Read a group" );
+        System.out.println( "9.  Search for groups" );
+        System.out.println( "Enter q or Q to return to previous menu" );
+    }
 
     void processEncryptManagerFunction()
     {
@@ -171,6 +245,7 @@ class ProcessMenuCommand
         System.out.println( "CHOOSE ENCRYPTION MANAGER FUNCTION" );
         System.out.println( "1.  Encrypt text value" );
         System.out.println( "2.  Decrypt text value" );
+        System.out.println( "Enter q or Q to return to previous menu" );
     }
 
     void processConfigManagerFunction()
@@ -225,6 +300,7 @@ class ProcessMenuCommand
         System.out.println( "2.  Update Config Param" );
         System.out.println( "3.  Read Config Params" );
         System.out.println( "4.  Delete Config Params" );
+        System.out.println( "Enter q or Q to return to previous menu" );
     }
 
     /**

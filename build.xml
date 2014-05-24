@@ -793,6 +793,7 @@
          <replace file="${dst.bootstrap.conf}" token="@ADMINROLES_DN@" value="${adminroles.dn}"/>
          <replace file="${dst.bootstrap.conf}" token="@ADMINPERMS_DN@" value="${adminperms.dn}"/>
          <replace file="${dst.bootstrap.conf}" token="@AUDITS_DN@" value="${audits.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@GROUPS_DN@" value="${groups.dn}"/>
 
 	     <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
          <replace file="${dst.remote.conf}" token="@SUFFIX@" value="${suffix}"/>
@@ -825,6 +826,7 @@
          <replace file="${dst.load.bootstrap.script}" token="@USR_MAX_CONN@" value="${log.max.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
          <replace file="${dst.load.bootstrap.script}" token="@USERS_DN@" value="${users.dn}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@GROUPS_DN@" value="${groups.dn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@ROLES_DN@" value="${roles.dn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@POLICIES_DN@" value="${policies.dn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@PERMS_DN@" value="${perms.dn}"/>
