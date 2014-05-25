@@ -116,7 +116,7 @@ final class GroupDAO extends UnboundIdDataProvider
      * @throws org.openldap.fortress.CreateException
      *
      */
-    final Group update( Group group ) throws org.openldap.fortress.CreateException
+    final Group update( Group group ) throws org.openldap.fortress.UpdateException
     {
         LDAPConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
@@ -150,7 +150,7 @@ final class GroupDAO extends UnboundIdDataProvider
         {
             String error = "update group node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " " +
                 "msg=" + e.getMessage();
-            throw new CreateException( GlobalErrIds.GROUP_UPDATE_FAILED, error, e );
+            throw new UpdateException( GlobalErrIds.GROUP_UPDATE_FAILED, error, e );
         }
         finally
         {
@@ -176,7 +176,7 @@ final class GroupDAO extends UnboundIdDataProvider
         {
             String error = "update group property node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " " +
                 "msg=" + e.getMessage();
-            throw new CreateException( GlobalErrIds.GROUP_UPDATE_FAILED, error, e );
+            throw new CreateException( GlobalErrIds.GROUP_ADD_PROPERTY_FAILED, error, e );
         }
         finally
         {
@@ -185,7 +185,7 @@ final class GroupDAO extends UnboundIdDataProvider
         return group;
     }
 
-    final Group delete( Group group, String key, String value ) throws org.openldap.fortress.CreateException
+    final Group delete( Group group, String key, String value ) throws org.openldap.fortress.RemoveException
     {
         LDAPConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
@@ -202,7 +202,7 @@ final class GroupDAO extends UnboundIdDataProvider
         {
             String error = "delete group property node dn [" + nodeDn + "] caught LDAPException=" + e.getLDAPResultCode() + " " +
                 "msg=" + e.getMessage();
-            throw new CreateException( GlobalErrIds.GROUP_UPDATE_FAILED, error, e );
+            throw new RemoveException( GlobalErrIds.GROUP_DELETE_PROPERTY_FAILED, error, e );
         }
         finally
         {
