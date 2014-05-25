@@ -36,6 +36,7 @@ import org.openldap.fortress.rbac.Permission;
 import org.openldap.fortress.rbac.User;
 import org.openldap.fortress.rbac.UserRole;
 import org.openldap.fortress.util.attr.VUtil;
+import org.openldap.fortress.util.time.Constraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.jgrapht.UndirectedGraph;
@@ -271,6 +272,35 @@ class AdminMgrConsole
         ReaderUtil.readChar();
     }
 
+    private void enterTemporal(Constraint constraint)
+    {
+        System.out.println("Enter beginTime (alpha HHMM):");
+        constraint.setBeginTime(ReaderUtil.readLn());
+        System.out.println("Enter endTime (alpha HHMM):");
+        constraint.setEndTime(ReaderUtil.readLn());
+        System.out.println("Enter beginDate (alpha YYYYMMDD):");
+        constraint.setBeginDate(ReaderUtil.readLn());
+        System.out.println("Enter endDate (alpha YYYYMMDD):");
+        constraint.setEndDate(ReaderUtil.readLn());
+        System.out.println("Enter beginLockDate (alpha YYYYMMDD):");
+        constraint.setBeginLockDate(ReaderUtil.readLn());
+        System.out.println("Enter endLockDate (alpha YYYYMMDD):");
+        constraint.setEndLockDate(ReaderUtil.readLn());
+        System.out.println("Enter dayMask (numeric 1234567):");
+        constraint.setDayMask(ReaderUtil.readLn());
+        System.out.println("Enter timeout (integer 0 - ...):");
+        String timeout = ReaderUtil.readLn();
+        try
+        {
+            constraint.setTimeout(Integer.parseInt(timeout));
+        }
+        catch (java.lang.NumberFormatException nfe)
+        {
+            System.out.println("number format exception=" + nfe);
+            constraint.setTimeout(0);
+        }
+    }
+
 
     /**
      * Adds a feature to the User attribute of the AdminMgrConsole object
@@ -301,31 +331,7 @@ class AdminMgrConsole
             String choice = ReaderUtil.readLn();
             if (choice != null && choice.equalsIgnoreCase("Y"))
             {
-                System.out.println("Enter beginTime (alpha HHMM):");
-                ue.setBeginTime(ReaderUtil.readLn());
-                System.out.println("Enter endTime (alpha HHMM):");
-                ue.setEndTime(ReaderUtil.readLn());
-                System.out.println("Enter beginDate (alpha YYYYMMDD):");
-                ue.setBeginDate(ReaderUtil.readLn());
-                System.out.println("Enter endDate (alpha YYYYMMDD):");
-                ue.setEndDate(ReaderUtil.readLn());
-                System.out.println("Enter beginLockDate (alpha YYYYMMDD):");
-                ue.setBeginLockDate(ReaderUtil.readLn());
-                System.out.println("Enter endLockDate (alpha YYYYMMDD):");
-                ue.setEndLockDate(ReaderUtil.readLn());
-                System.out.println("Enter dayMask (numeric 1234567):");
-                ue.setDayMask(ReaderUtil.readLn());
-                System.out.println("Enter timeout (integer 0 - ...):");
-                String timeout = ReaderUtil.readLn();
-                try
-                {
-                    ue.setTimeout(Integer.parseInt(timeout));
-                }
-                catch (java.lang.NumberFormatException nfe)
-                {
-                    System.out.println("number format exception=" + nfe);
-                    ue.setTimeout(0);
-                }
+                enterTemporal(ue);
             }
 
             System.out.println("Enter Role name (or NULL to skip):");
@@ -334,7 +340,15 @@ class AdminMgrConsole
             {
                 UserRole userRole = new UserRole();
                 userRole.setName(val);
+                userRole.setUserId( ue.getUserId() );
                 ue.setRole(userRole);
+                System.out.println("Do you want to set temporal constraints on User - Y or N");
+                choice = ReaderUtil.readLn();
+                if (choice != null && choice.equalsIgnoreCase("Y"))
+                {
+                    enterTemporal(userRole);
+                }
+
                 System.out.println("Enter next name (or NULL if done entering roles):");
                 val = ReaderUtil.readLn();
             }
@@ -356,7 +370,7 @@ class AdminMgrConsole
             {
                 ue.setPwPolicy(policy);
             }
-
+/*
             ue.setAddress(new Address());
             ue.getAddress().setAddress("123 Test Ln");
             ue.getAddress().setAddress("Suite 1");
@@ -369,7 +383,7 @@ class AdminMgrConsole
             ue.setPhone("222-222-3333");
             ue.setMobile("333-222-3333");
             ue.setMobile("444-222-3333");
-
+*/
             User ue2 = am.addUser(ue);
             if(VUtil.isNotNullOrEmpty(ue.getRoles()))
             {
@@ -433,23 +447,11 @@ class AdminMgrConsole
             System.out.println("Enter organization unit, blank for default");
             ue.setOu(ReaderUtil.readLn());
 
-            System.out.println("Enter Role name (or NULL to skip):");
-            String val = ReaderUtil.readLn();
-            for (int i = 0; val != null && val.length() > 0; i++)
+            System.out.println("Do you want to set temporal constraints on User - Y or N");
+            choice = ReaderUtil.readLn();
+            if (choice != null && choice.equalsIgnoreCase("Y"))
             {
-                UserRole userRole = new UserRole();
-                userRole.setName(val);
-                userRole.setBeginTime("0800");
-                userRole.setEndTime("1500");
-                userRole.setBeginDate("20090101");
-                userRole.setEndDate("21000101");
-                userRole.setDayMask("1234567");
-                userRole.setBeginLockDate("none");
-                userRole.setEndLockDate("none");
-                userRole.setTimeout(0);
-                ue.setRole(userRole);
-                System.out.println("Enter next name (or NULL if done entering roles):");
-                val = ReaderUtil.readLn();
+                enterTemporal(ue);
             }
 
             System.out.println("Enter prop key (or NULL to skip):");
@@ -457,7 +459,7 @@ class AdminMgrConsole
             for (int i = 0; key != null && key.length() > 0; i++)
             {
                 System.out.println("Enter prop val:");
-                val = ReaderUtil.readLn();
+                String val = ReaderUtil.readLn();
                 ue.addProperty(key, val);
                 System.out.println("Enter next prop key (or NULL if done entering properties)");
                 key = ReaderUtil.readLn();
