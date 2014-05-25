@@ -938,7 +938,8 @@ public abstract class UnboundIdDataProvider
 
 
     /**
-     * Given an ldap attribute name and a list of attribute values, construct an ldap modification set to be updated in directory.
+     * Given a multi-occurring ldap attribute name and a list of attribute values, construct an ldap modification set to be updated in directory.
+     * This function will replace all existing attributes with new values.
      *
      * @param list     list of type string containing attribute values to load into modification set.
      * @param mods     contains ldap modification set targeted for updating.
@@ -946,10 +947,27 @@ public abstract class UnboundIdDataProvider
      */
     protected void loadAttrs( List<String> list, LDAPModificationSet mods, String attrName )
     {
+        loadAttrs( list, mods, attrName, true );
+    }
+
+    /**
+     * Given a multi-occurring ldap attribute name and a list of attribute values, construct an ldap modification set to be updated in directory.
+     *
+     * @param list     list of type string containing attribute values to load into modification set.
+     * @param mods     contains ldap modification set targeted for updating.
+     * @param attrName name of ldap attribute being modified.
+     * @param replace boolean value if true will replace existing attributes with new..
+     */
+    protected void loadAttrs( List<String> list, LDAPModificationSet mods, String attrName, boolean replace )
+    {
         if ( list != null && list.size() > 0 )
         {
             LDAPAttribute attr = new LDAPAttribute( attrName );
-            mods.add( LDAPModification.REPLACE, attr );
+            if(replace)
+            {
+                mods.add( LDAPModification.REPLACE, attr );
+            }
+
             for ( String val : list )
             {
                 attr = new LDAPAttribute( attrName, val );
@@ -957,7 +975,6 @@ public abstract class UnboundIdDataProvider
             }
         }
     }
-
 
     /**
      * Given a collection of {@link org.openldap.fortress.rbac.Relationship}s, convert to raw data name-value format and load into ldap modification set in preparation for ldap modify.
