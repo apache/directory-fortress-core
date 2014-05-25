@@ -135,7 +135,7 @@ final class GroupDAO extends UnboundIdDataProvider
                 LDAPAttribute protocol = new LDAPAttribute( PROTOCOL, group.getProtocol() );
                 mods.add( LDAPModification.REPLACE, protocol );
             }
-            loadAttrs( group.getMembers(), mods, MEMBER );
+            loadAttrs( group.getMembers(), mods, MEMBER, false );
             if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
             {
                 loadProperties( group.getProperties(), mods, PARAMETER, '=', false );

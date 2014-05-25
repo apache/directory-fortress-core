@@ -181,12 +181,6 @@ final class GroupP
             LOG.warn( error );
             throw new org.openldap.fortress.ValidationException( GlobalErrIds.GROUP_NAME_INVLD, error );
         }
-        if ( !VUtil.isNotNullOrEmpty( entity.getProtocol() ) )
-        {
-            String error = "validate dc validation failed, null or empty value";
-            LOG.warn( error );
-            throw new org.openldap.fortress.ValidationException( GlobalErrIds.GROUP_PROTOCOL_NULL, error );
-        }
         if ( entity.getProtocol().length() > GlobalIds.OU_LEN )
         {
             String error = "validate protocol [" + entity.getProtocol() + "] invalid length [" + entity.getProtocol()
@@ -194,7 +188,6 @@ final class GroupP
             LOG.warn( error );
             throw new org.openldap.fortress.ValidationException( GlobalErrIds.GROUP_PROTOCOL_INVLD, error );
         }
-        VUtil.safeText( entity.getDescription(), GlobalIds.DESC_LEN );
         if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );

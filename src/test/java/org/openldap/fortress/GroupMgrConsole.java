@@ -101,6 +101,21 @@ class GroupMgrConsole
             System.out.println("Enter protocol:");
             String protocol = ReaderUtil.readLn();
             group.setProtocol( protocol );
+
+            System.out.println("Enter member userId or NULL to skip");
+            String userId = ReaderUtil.readLn();
+            if (VUtil.isNotNullOrEmpty( userId ))
+                group.setMember( userId );
+
+            System.out.println("Enter property key or NULL to skip");
+            String key = ReaderUtil.readLn();
+            if (VUtil.isNotNullOrEmpty( key ))
+            {
+                System.out.println("Enter property value");
+                String value = ReaderUtil.readLn();
+                group.addProperty( key, value );
+            }
+
             groupMgr.update( group );
             System.out.println("Group successfully updated");
             System.out.println("ENTER to continue");
