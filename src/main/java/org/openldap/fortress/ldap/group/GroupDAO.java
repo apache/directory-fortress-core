@@ -54,14 +54,19 @@ final class GroupDAO extends UnboundIdDataProvider
     private static final String CLS_NM = GroupDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String GROUP_OBJECT_CLASS = "group.objectclass";
-    private static final String objectClassImpl = Config.getProperty( GROUP_OBJECT_CLASS );
-    private static final String GROUP_OBJ_CLASS[] = {GlobalIds.TOP, objectClassImpl};
+    private static final String GROUP_OBJECT_CLASS_IMPL = Config.getProperty( GROUP_OBJECT_CLASS );
+    private static final String GROUP_PROTOCOL_ATTR = "group.protocol";
+    private static final String GROUP_PROTOCOL_ATTR_IMPL = Config.getProperty( GROUP_PROTOCOL_ATTR );
+    private static final String GROUP_PROPERTY_ATTR = "group.properties";
+    private static final String GROUP_PROPERTY_ATTR_IMPL = Config.getProperty( GROUP_PROPERTY_ATTR );
 
-    private static final String PROTOCOL = "guacConfigProtocol";
-    private static final String PARAMETER = "guacConfigParameter";
+    private static final String GROUP_OBJ_CLASS[] = {GlobalIds.TOP, GROUP_OBJECT_CLASS_IMPL};
+
+    //private static final String PROTOCOL = "guacConfigProtocol";
+    //private static final String PARAMETER = "guacConfigParameter";
     private static final String MEMBER = "member";
 
-    private static final String[] GROUP_ATRS = {GlobalIds.CN, GlobalIds.DESC, PROTOCOL, PARAMETER, MEMBER};
+    private static final String[] GROUP_ATRS = {GlobalIds.CN, GlobalIds.DESC, GROUP_PROTOCOL_ATTR_IMPL, GROUP_PROPERTY_ATTR_IMPL, MEMBER};
 
     /**
      * Package private default constructor.
@@ -85,9 +90,9 @@ final class GroupDAO extends UnboundIdDataProvider
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, GROUP_OBJ_CLASS ) );
             attrs.add( createAttribute( GlobalIds.CN, group.getName() ) );
-            attrs.add( createAttribute( PROTOCOL, group.getProtocol() ) );
+            attrs.add( createAttribute( GROUP_PROTOCOL_ATTR_IMPL, group.getProtocol() ) );
             loadAttrs( group.getMembers(), attrs, MEMBER );
-            loadProperties( group.getProperties(), attrs, PARAMETER, '=' );
+            loadProperties( group.getProperties(), attrs, GROUP_PROPERTY_ATTR_IMPL, '=' );
             if ( VUtil.isNotNullOrEmpty( group.getDescription() ) )
             {
                 attrs.add( createAttribute( GlobalIds.DESC, group.getDescription() ) );
@@ -132,13 +137,13 @@ final class GroupDAO extends UnboundIdDataProvider
             }
             if ( VUtil.isNotNullOrEmpty( group.getProtocol() ) )
             {
-                LDAPAttribute protocol = new LDAPAttribute( PROTOCOL, group.getProtocol() );
+                LDAPAttribute protocol = new LDAPAttribute( GROUP_PROTOCOL_ATTR_IMPL, group.getProtocol() );
                 mods.add( LDAPModification.REPLACE, protocol );
             }
             loadAttrs( group.getMembers(), mods, MEMBER, false );
             if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
             {
-                loadProperties( group.getProperties(), mods, PARAMETER, '=', false );
+                loadProperties( group.getProperties(), mods, GROUP_PROPERTY_ATTR_IMPL, '=', false );
             }
             if ( mods.size() > 0 )
             {
@@ -167,7 +172,7 @@ final class GroupDAO extends UnboundIdDataProvider
         {
             LOG.info( "add group property dn [" + nodeDn + "]" );
             LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute prop = new LDAPAttribute( PARAMETER, key + "=" + value );
+            LDAPAttribute prop = new LDAPAttribute( GROUP_PROPERTY_ATTR_IMPL, key + "=" + value );
             mods.add( LDAPModification.ADD, prop );
             ld = getAdminConnection();
             modify( ld, nodeDn, mods, group );
@@ -193,7 +198,7 @@ final class GroupDAO extends UnboundIdDataProvider
         {
             LOG.info( "delete group property dn [" + nodeDn + "]" );
             LDAPModificationSet mods = new LDAPModificationSet();
-            LDAPAttribute prop = new LDAPAttribute( PARAMETER, key + "=" + value );
+            LDAPAttribute prop = new LDAPAttribute( GROUP_PROPERTY_ATTR_IMPL, key + "=" + value );
             mods.add( LDAPModification.DELETE, prop );
             ld = getAdminConnection();
             modify( ld, nodeDn, mods, group );
@@ -360,7 +365,7 @@ final class GroupDAO extends UnboundIdDataProvider
         try
         {
             String searchVal = encodeSafeText( group.getName(), GlobalIds.ROLE_LEN );
-            filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")(" + GlobalIds.CN + "=" + searchVal + "*))";
+            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + GlobalIds.CN + "=" + searchVal + "*))";
             ld = getAdminConnection();
             searchResults = search( ld, groupRoot, LDAPConnection.SCOPE_ONE, filter, GROUP_ATRS, false,
                 GlobalIds.BATCH_SIZE );
@@ -394,9 +399,9 @@ final class GroupDAO extends UnboundIdDataProvider
         Group entity = new ObjectFactory().createGroup();
         entity.setName( getAttribute( le, GlobalIds.CN ) );
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
-        entity.setProtocol( getAttribute( le, PROTOCOL ) );
+        entity.setProtocol( getAttribute( le, GROUP_PROTOCOL_ATTR_IMPL ) );
         entity.setMembers( getAttributes( le, MEMBER ) );
-        entity.addProperties( AttrHelper.getProperties( getAttributes( le, PARAMETER ), '=' ) );
+        entity.addProperties( AttrHelper.getProperties( getAttributes( le, GROUP_PROPERTY_ATTR_IMPL ), '=' ) );
         entity.setSequenceId( sequence );
         return entity;
     }
