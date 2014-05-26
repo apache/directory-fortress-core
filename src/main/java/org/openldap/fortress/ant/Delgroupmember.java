@@ -22,16 +22,16 @@ import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link GroupAnt}s used to drive {@link org.openldap.fortress.ldap.group.GroupMgr#add(org.openldap.fortress.ldap.group.Group)} .
+ * The class is used by {@link FortressAntTask} to load {@link Group}s.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Delgroup', is used for the xml tag in the load script.</p>
  * <pre>
  * {@code
  * <target name="all">
  *     <FortressAdmin>
- *         <delgroup>
+ *         <delgroupmember>
  *           ...
- *         </delgroup>
+ *         </delgroupmember>
  *     </FortressAdmin>
  * </target>
  * }
@@ -39,14 +39,14 @@ import java.util.List;
  *
  * @author Shawn McKinney
  */
-public class Delgroup
+public class Delgroupmember
 {
     final private List<Group> groups = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.
      */
-    public Delgroup()
+    public Delgroupmember()
     {
     }
 
@@ -54,9 +54,9 @@ public class Delgroup
      * <p>This method name, 'addGroup', is used for derived xml tag 'group' in the load script.</p>
      * <pre>
      * {@code
-     *  <delgroup>
+     *  <delgroupmember>
      *      <group name="test001"/>
-     *  </delgroup>
+     *  </delgroupmember>
      * }
      * </pre>
      *
@@ -70,7 +70,7 @@ public class Delgroup
     /**
      * Used by {@link FortressAntTask#deleteGroups()} to retrieve list of Groups as defined in input xml file.
      *
-     * @return collection containing {@link GroupAnt}s targeted for removal.
+     * @return collection containing {@link Group}s targeted for removal.
      */
     public List<Group> getGroups()
     {

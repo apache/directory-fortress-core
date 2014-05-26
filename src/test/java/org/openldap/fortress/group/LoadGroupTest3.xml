@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+<project basedir="../../../../../../../ldap/setup" default="all" name="Fortress LDAP Group Test 001 Data">
+    <taskdef classname="org.openldap.fortress.ant.FortressAntTask" name="GroupTest" >
+        <classpath path="${java.class.path}"/>
+    </taskdef>
+
+    <target name="all">
+        <GroupTest>
+
+            <addgroup>
+                <group name="test301" protocol="test1"  description="Test Group 001" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
+                <group name="test302" protocol="test2"  description="Test Group 002" members="guser11,guser12" properties="key1=value1, key2=val 2, key3='VAL 3'" />
+            </addgroup>
+
+            <delgroup>
+                <group name="test301"/>
+                <group name="test302"/>
+            </delgroup>
+
+        </GroupTest>
+    </target>
+</project>

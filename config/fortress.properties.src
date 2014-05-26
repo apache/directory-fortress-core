@@ -59,6 +59,8 @@ group.objectclass=configGroup
 group.protocol=configProtocol
 group.properties=configParameter
 
+GroupTest=org.openldap.fortress.group.GroupAntTest
+
 # These may be used to override default LDAP or REST with OTHER implementations:
 #reviewmgr.implementation=org.openldap.fortress.rest.ReviewMgrOtherImpl
 #adminmgr.implementation=org.openldap.fortress.rest.AdminMgrOtherImpl

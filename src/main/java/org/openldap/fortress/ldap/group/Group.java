@@ -18,6 +18,7 @@ package org.openldap.fortress.ldap.group;
 
 import org.openldap.fortress.rbac.FortEntity;
 import org.openldap.fortress.rbac.Props;
+import org.openldap.fortress.util.attr.AttrHelper;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 @XmlRootElement(name = "fortGroup")
 @XmlAccessorType( XmlAccessType.FIELD)
@@ -118,30 +120,76 @@ public class Group extends FortEntity implements Serializable
         this.description = description;
     }
 
-    public Props getProps()
+    /**
+     * Get protocol qualifier for this entity.
+     *
+     * @return protocol.
+     */
+    public String getProtocol()
     {
-        return props;
+        return protocol;
     }
 
-    public void setProps( Props props )
+    /**
+     * Set the protocol qualifier for this entity.
+     *
+     * @param protocol contains protocol qualifier for this entity.
+     */
+    public void setProtocol( String protocol )
     {
-        this.props = props;
+        this.protocol = protocol;
     }
 
-    public void setMember( String dn )
+    /**
+     * Add a single userId as member of this entity.
+     *
+     * @param userId
+     */
+    public void setMember( String userId )
     {
         if ( members == null )
         {
             members = new ArrayList<>();
         }
-        members.add( dn );
+        members.add( userId );
     }
 
+    /**
+     * Return the members
+     *
+     * @return List of type String containing userIds.
+     */
     public List<String> getMembers()
     {
         return members;
     }
 
+    /**
+     * Set a member on this entity using a comma delimited String.
+     *
+     * @param members String contains one or more userids in comma delimited format.
+     */
+    public void setMembers( String members )
+    {
+        if (members != null)
+        {
+            StringTokenizer tkn = new StringTokenizer(members, ",");
+            if (tkn.countTokens() > 0)
+            {
+                while (tkn.hasMoreTokens())
+                {
+                    String member = tkn.nextToken();
+                    setMember( member );
+                }
+            }
+        }
+    }
+
+    /**
+     * Set members onto this entity using a List of userIds.
+     *
+     * @param members List of type String contains userIds to be associated as members of this group.
+     */
     public void setMembers( List<String> members )
     {
         this.members = members;
@@ -187,23 +235,34 @@ public class Group extends FortEntity implements Serializable
     }
 
     /**
-     * Add new collection of name/value pairs to attributes associated with PermObj.  These values are not constrained by Fortress.
+     * Add new collection of name/value pairs to attributes associated with Group.  These values are not constrained by Fortress.
      * Properties are optional.
      *
-     * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     * @param properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
      */
-    public void addProperties( Properties props )
+    public void addProperties( Properties properties )
     {
-        if ( props != null )
+        if ( properties != null )
         {
-            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration e = properties.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 String key = ( String ) e.nextElement();
-                String val = props.getProperty( key );
+                String val = properties.getProperty( key );
                 addProperty( key, val );
             }
         }
+    }
+
+    /**
+     * Add new collection of name=value pairs to attributes associated with Group.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @param properties contains name=value pairs that are comma delmited.
+     */
+    public void setProperties( String properties )
+    {
+        addProperties( AttrHelper.getProperties( properties, '=', "," ));
     }
 
     /**
@@ -231,23 +290,71 @@ public class Group extends FortEntity implements Serializable
     }
 
     /**
-     * Get protocol qualifier for this entity.
+     * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
      *
-     * @return protocol.
+     * @return {@link Props }
+     *
      */
-    public String getProtocol()
+    public Props getProps()
     {
-        return protocol;
+        return props;
     }
 
     /**
-     * Set the protocol qualifier for this entity.
+     * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
      *
-     * @param protocol contains protocol qualifier for this entity.
+     * @param props
+     *     allowed object is
+     *     {@link Props }
+     *
      */
-    public void setProtocol( String protocol )
+    public void setProps( Props props )
     {
-        this.protocol = protocol;
+        this.props = props;
+    }
+
+    @Override
+    public boolean equals( Object o )
+    {
+        if ( this == o )
+        {
+            return true;
+        }
+        if ( o == null || getClass() != o.getClass() )
+        {
+            return false;
+        }
+
+        Group group = ( Group ) o;
+
+        if ( description != null ? !description.equals( group.description ) : group.description != null )
+        {
+            return false;
+        }
+        if ( members != null ? !members.equals( group.members ) : group.members != null )
+        {
+            return false;
+        }
+        if ( !name.equals( group.name ) )
+        {
+            return false;
+        }
+        if ( protocol != null ? !protocol.equals( group.protocol ) : group.protocol != null )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = name.hashCode();
+        result = 31 * result + ( description != null ? description.hashCode() : 0 );
+        result = 31 * result + ( protocol != null ? protocol.hashCode() : 0 );
+        result = 31 * result + ( members != null ? members.hashCode() : 0 );
+        result = 31 * result + ( props != null ? props.hashCode() : 0 );
+        return result;
     }
 }
-

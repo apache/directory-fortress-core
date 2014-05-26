@@ -30,7 +30,7 @@ import java.util.List;
  * {@code
  * <target name="all">
  *     <FortressAdmin>
- *         <addgroup>
+ *         <addgroupmember>
  *           ...
  *         </addgroup>
  *     </FortressAdmin>
@@ -40,14 +40,14 @@ import java.util.List;
  *
  * @author Shawn McKinney
  */
-public class Addgroup
+public class Addgroupmember
 {
     final private List<Group> groups = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.
      */
-    public Addgroup()
+    public Addgroupmember()
     {
     }
 
@@ -78,3 +78,4 @@ public class Addgroup
         return this.groups;
     }
 }
+
