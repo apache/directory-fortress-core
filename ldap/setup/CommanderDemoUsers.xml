@@ -68,6 +68,7 @@
                 <relationship child="CommanderSuperUser" parent="ROLE_AUDIT_AUTHZS"/>
                 <relationship child="CommanderSuperUser" parent="ROLE_AUDIT_MODS"/>
                 <relationship child="CommanderSuperUser" parent="ROLE_AUDIT_BINDS"/>
+                <relationship child="CommanderSuperUser" parent="ROLE_GROUPS"/>
             </addroleinheritance>
 
          </FortressAdmin>

@@ -607,7 +607,7 @@ final class HierUtil
             //log.debug("getParents graph is null");
             return null;
         }
-        LOG.debug( "getParents [{}]" + vertex);
+        LOG.debug( "getParents [{}]", vertex);
         Set<Relationship> edges;
         try
         {

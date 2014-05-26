@@ -138,6 +138,17 @@
                 <permgrant objName="org.openldap.fortress.rbac.DelAdminMgrImpl" opName="addAscendantRole" roleNm="FortressSuperAdmin" admin="true"/>
                 <permgrant objName="org.openldap.fortress.rbac.DelAdminMgrImpl" opName="addInheritanceRole" roleNm="FortressSuperAdmin" admin="true"/>
                 <permgrant objName="org.openldap.fortress.rbac.DelAdminMgrImpl" opName="deleteInheritanceRole" roleNm="FortressSuperAdmin" admin="true"/>
+
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="add" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="update" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="delete" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="addProperty" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="deleteProperty" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="assign" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="deassign" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="read" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="find" roleNm="FortressSuperAdmin" admin="true"/>
+
             </addpermgrant>
 
             <addpermobj>
@@ -147,9 +158,11 @@
                 <permobj objName="org.openldap.fortress.rbac.DelReviewMgrImpl" description="ARBAC review policies" ou="default" type="ARBAC" admin="true"/>
                 <permobj objName="org.openldap.fortress.rbac.ReviewMgrImpl" description="RBAC review policies" ou="default" type="ARBAC" admin="true"/>
                 <permobj objName="org.openldap.fortress.rbac.AuditMgrImpl" description="RBAC audit review" ou="default" type="ARBAC" admin="true"/>
+                <permobj objName="org.openldap.fortress.ldap.group.GroupMgrImpl" description="LDAP Group admin policies" ou="default" type="ARBAC" admin="true"/>
             </addpermobj>
 
             <addpermop>
+
                 <permop objName="org.openldap.fortress.rbac.AuditMgrImpl" opName="searchBinds" admin="true"/>
                 <permop objName="org.openldap.fortress.rbac.AuditMgrImpl" opName="searchAuthZs" admin="true"/>
                 <permop objName="org.openldap.fortress.rbac.AuditMgrImpl" opName="getUserAuthZs" admin="true"/>
@@ -256,6 +269,16 @@
                 <permop objName="org.openldap.fortress.rbac.DelAdminMgrImpl" opName="addAscendantRole" admin="true"/>
                 <permop objName="org.openldap.fortress.rbac.DelAdminMgrImpl" opName="addInheritanceRole" admin="true"/>
                 <permop objName="org.openldap.fortress.rbac.DelAdminMgrImpl" opName="deleteInheritanceRole" admin="true"/>
+
+                <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="add" admin="true"/>
+                <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="update" admin="true"/>
+                <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="delete" admin="true"/>
+                <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="addProperty" admin="true"/>
+                <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="deleteProperty" admin="true"/>
+                <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="read" admin="true"/>
+                <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="find" admin="true"/>
+                <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="assign" admin="true"/>
+                <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="deassign" admin="true"/>
             </addpermop>
 
          </FortressAdmin>

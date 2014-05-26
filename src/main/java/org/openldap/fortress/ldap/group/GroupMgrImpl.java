@@ -51,7 +51,9 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     @Override
     public Group add( Group group ) throws org.openldap.fortress.SecurityException
     {
-        assertContext( CLS_NM, "add", group, GlobalErrIds.GROUP_NULL );
+        String methodName = "add";
+        assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
+        checkAccess(CLS_NM, methodName);
         loadUserDns( group );
         return groupP.add( group );
     }
@@ -68,7 +70,9 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     @Override
     public Group update( Group group ) throws org.openldap.fortress.SecurityException
     {
-        assertContext( CLS_NM, "update", group, GlobalErrIds.GROUP_NULL );
+        String methodName = "update";
+        assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
+        checkAccess(CLS_NM, methodName);
         loadUserDns( group );
         return groupP.update( group );
     }
@@ -83,7 +87,9 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     @Override
     public Group delete( Group group ) throws org.openldap.fortress.SecurityException
     {
-        assertContext( CLS_NM, "delete", group, GlobalErrIds.GROUP_NULL );
+        String methodName = "delete";
+        assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
+        checkAccess(CLS_NM, methodName);
         return groupP.delete( group );
     }
 
@@ -98,7 +104,9 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
      */
     public Group add( Group group, String key, String value ) throws org.openldap.fortress.SecurityException
     {
-        assertContext( CLS_NM, "addProperty", group, GlobalErrIds.GROUP_NULL );
+        String methodName = "addProperty";
+        assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
+        checkAccess(CLS_NM, methodName);
         return groupP.add( group, key, value );
     }
 
@@ -113,7 +121,9 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
      */
     public Group delete( Group group, String key, String value ) throws org.openldap.fortress.SecurityException
     {
-        assertContext( CLS_NM, "deleteProperty", group, GlobalErrIds.GROUP_NULL );
+        String methodName = "deleteProperty";
+        assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
+        checkAccess(CLS_NM, methodName);
         return groupP.delete( group, key, value );
     }
 
@@ -127,7 +137,9 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     @Override
     public Group read( Group group ) throws org.openldap.fortress.SecurityException
     {
-        assertContext( CLS_NM, "read", group, GlobalErrIds.GROUP_NULL );
+        String methodName = "read";
+        assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
+        checkAccess(CLS_NM, methodName);
         return groupP.read( group );
     }
 
@@ -141,7 +153,9 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     @Override
     public List<Group> find( Group group ) throws org.openldap.fortress.SecurityException
     {
-        assertContext( CLS_NM, "find", group, GlobalErrIds.GROUP_NULL );
+        String methodName = "find";
+        assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
+        checkAccess(CLS_NM, methodName);
         return groupP.search( group );
     }
 
@@ -156,7 +170,9 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     @Override
     public Group assign( Group group, String member ) throws org.openldap.fortress.SecurityException
     {
-        assertContext( CLS_NM, "assign", group, GlobalErrIds.GROUP_NULL );
+        String methodName = "assign";
+        assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
+        checkAccess(CLS_NM, methodName);
         ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
         User user = reviewMgr.readUser( new User( member ) );
         return groupP.assign( group, user.getDn() );
@@ -173,7 +189,9 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     @Override
     public Group deassign( Group group, String member ) throws org.openldap.fortress.SecurityException
     {
-        assertContext( CLS_NM, "deassign", group, GlobalErrIds.GROUP_NULL );
+        String methodName = "deassign";
+        assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
+        checkAccess(CLS_NM, methodName);
         ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
         User user = reviewMgr.readUser( new User( member ) );
         return groupP.deassign( group, user.getDn() );

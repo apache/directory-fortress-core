@@ -20,6 +20,7 @@ import org.openldap.fortress.GlobalIds;
 import org.openldap.fortress.cfg.Config;
 import org.openldap.fortress.rbac.ClassUtil;
 import org.openldap.fortress.SecurityException;
+import org.openldap.fortress.rbac.Session;
 import org.openldap.fortress.rest.ConfigMgrRestImpl;
 import org.openldap.fortress.util.attr.VUtil;
 
@@ -39,7 +40,7 @@ public class GroupMgrFactory
     private static final String CLS_NM = GroupMgrFactory.class.getName();
 
     /**
-     * Create and return a reference to {@link org.openldap.fortress.AdminMgr} object using HOME context.
+     * Create and return a reference to {@link GroupMgr} object using HOME context.
      *
      * @return instance of {@link org.openldap.fortress.AdminMgr}.
      * @throws org.openldap.fortress.SecurityException in the event of failure during instantiation.
@@ -68,6 +69,36 @@ public class GroupMgrFactory
 
         GroupMgr groupMgr = (GroupMgr) ClassUtil.createInstance(groupClassName);
         groupMgr.setContextId(contextId);
+        return groupMgr;
+    }
+
+
+    /**
+     * Create and return a reference to {@link GroupMgr} object using HOME context.
+     *
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link org.openldap.fortress.AdminMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static GroupMgr createInstance(Session adminSess)
+        throws SecurityException
+    {
+        return createInstance( GlobalIds.HOME, adminSess );
+    }
+
+    /**
+     * Create and return a reference to {@link GroupMgr} object.
+     *
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param adminSess contains a valid Fortress A/RBAC Session object.
+     * @return instance of {@link org.openldap.fortress.AdminMgr}.
+     * @throws SecurityException in the event of failure during instantiation.
+     */
+    public static GroupMgr createInstance(String contextId, Session adminSess)
+        throws SecurityException
+    {
+        GroupMgr groupMgr = createInstance(contextId);
+        groupMgr.setAdmin(adminSess);
         return groupMgr;
     }
 }
