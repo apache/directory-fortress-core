@@ -59,13 +59,8 @@ final class GroupDAO extends UnboundIdDataProvider
     private static final String GROUP_PROTOCOL_ATTR_IMPL = Config.getProperty( GROUP_PROTOCOL_ATTR );
     private static final String GROUP_PROPERTY_ATTR = "group.properties";
     private static final String GROUP_PROPERTY_ATTR_IMPL = Config.getProperty( GROUP_PROPERTY_ATTR );
-
     private static final String GROUP_OBJ_CLASS[] = {GlobalIds.TOP, GROUP_OBJECT_CLASS_IMPL};
-
-    //private static final String PROTOCOL = "guacConfigProtocol";
-    //private static final String PARAMETER = "guacConfigParameter";
     private static final String MEMBER = "member";
-
     private static final String[] GROUP_ATRS = {GlobalIds.CN, GlobalIds.DESC, GROUP_PROTOCOL_ATTR_IMPL, GROUP_PROPERTY_ATTR_IMPL, MEMBER};
 
     /**
@@ -86,7 +81,7 @@ final class GroupDAO extends UnboundIdDataProvider
         String nodeDn = getDn( group.getName(), group.getContextId() );
         try
         {
-            LOG.info( "create group dn [" + nodeDn + "]" );
+            LOG.debug( "create group dn {[]}", nodeDn );
             LDAPAttributeSet attrs = new LDAPAttributeSet();
             attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, GROUP_OBJ_CLASS ) );
             attrs.add( createAttribute( GlobalIds.CN, group.getName() ) );
@@ -127,8 +122,7 @@ final class GroupDAO extends UnboundIdDataProvider
         String nodeDn = getDn( group.getName(), group.getContextId() );
         try
         {
-            LOG.info( "update group dn [" + nodeDn + "]" );
-
+            LOG.debug( "update group dn {[]}", nodeDn );
             LDAPModificationSet mods = new LDAPModificationSet();
             if ( VUtil.isNotNullOrEmpty( group.getDescription() ) )
             {
@@ -170,7 +164,7 @@ final class GroupDAO extends UnboundIdDataProvider
         String nodeDn = getDn( group.getName(), group.getContextId() );
         try
         {
-            LOG.info( "add group property dn [" + nodeDn + "]" );
+            LOG.debug( "add group property dn {[]}, key {[]}, value {[]}", nodeDn, key, value );
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute prop = new LDAPAttribute( GROUP_PROPERTY_ATTR_IMPL, key + "=" + value );
             mods.add( LDAPModification.ADD, prop );
@@ -196,7 +190,7 @@ final class GroupDAO extends UnboundIdDataProvider
         String nodeDn = getDn( group.getName(), group.getContextId() );
         try
         {
-            LOG.info( "delete group property dn [" + nodeDn + "]" );
+            LOG.debug( "delete group property dn {[]}, key {[]}, value {[]}", nodeDn, key, value );
             LDAPModificationSet mods = new LDAPModificationSet();
             LDAPAttribute prop = new LDAPAttribute( GROUP_PROPERTY_ATTR_IMPL, key + "=" + value );
             mods.add( LDAPModification.DELETE, prop );
@@ -227,7 +221,7 @@ final class GroupDAO extends UnboundIdDataProvider
     {
         LDAPConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
-        LOG.info( "remove group dn [" + nodeDn + "]" );
+        LOG.debug( "remove group dn {[]}", nodeDn );
         try
         {
             ld = getAdminConnection();
@@ -257,6 +251,7 @@ final class GroupDAO extends UnboundIdDataProvider
     {
         LDAPConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
+        LOG.debug( "assign group property dn {[]}, member dn {[]}", dn, userDn );
         try
         {
             LDAPModificationSet mods = new LDAPModificationSet();
@@ -289,6 +284,7 @@ final class GroupDAO extends UnboundIdDataProvider
     {
         LDAPConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
+        LOG.debug( "deassign group property dn {[]}, member dn {[]}", dn, userDn );
         try
         {
             LDAPModificationSet mods = new LDAPModificationSet();

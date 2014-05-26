@@ -32,7 +32,7 @@ import java.util.List;
  *     <FortressAdmin>
  *         <addgroupmember>
  *           ...
- *         </addgroup>
+ *         </addgroupmember>
  *     </FortressAdmin>
  * </target>
  * }
@@ -55,9 +55,9 @@ public class Addgroupmember
      * <p>This method name, 'addGroup', is used for derived xml tag 'user' in the load script.</p>
      * <pre>
      * {@code
-     * <addgroup>
-     *      <group name="test001" protocol="test" description="Test Group 001" members="guser1,guser2,guser3" properties="key1=value1, key2=val 2, key3='VAL 3'" />
-     * </addgroup>
+     * <addgroupmember>
+     *      <group name="test001" members="guser1,guser2,guser3" />
+     * </addgroupmember>
      * }
      * </pre>
      *
@@ -69,7 +69,7 @@ public class Addgroupmember
     }
 
     /**
-     * Used by {@link FortressAntTask#addGroups()} to retrieve list of Groups as defined in input xml file.
+     * Used by {@link org.openldap.fortress.ant.FortressAntTask#addGroupMembers()} to retrieve list of Groups as defined in input xml file.
      *
      * @return collection containing {@link Group}s targeted for insertion.
      */

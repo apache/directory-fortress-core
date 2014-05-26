@@ -22,16 +22,16 @@
         <GroupTest>
 
             <addgroup>
-                <group name="test101" protocol="test1"  description="Test Group 001" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
-                <group name="test102" protocol="test2"  description="Test Group 002" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
-                <group name="test103" protocol="test3"  description="Test Group 003" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
-                <group name="test104" protocol="test4"  description="Test Group 004" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
-                <group name="test105" protocol="test5"  description="Test Group 005" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
-                <group name="test106" protocol="test6"  description="Test Group 006" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
-                <group name="test107" protocol="test7"  description="Test Group 007" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
-                <group name="test108" protocol="test8"  description="Test Group 008" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
-                <group name="test109" protocol="test9"  description="Test Group 009" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
-                <group name="test110" protocol="test10" description="Test Group 010" members="guser11" properties="key1=value1, key2=val 2, key3='VAL 3'" />
+                <group name="test101" protocol="test1"  description="Test Group 001" members="guser11"  />
+                <group name="test102" protocol="test2"  description="Test Group 002" members="guser11" />
+                <group name="test103" protocol="test3"  description="Test Group 003" members="guser11" />
+                <group name="test104" protocol="test4"  description="Test Group 004" members="guser11" />
+                <group name="test105" protocol="test5"  description="Test Group 005" members="guser11" />
+                <group name="test106" protocol="test6"  description="Test Group 006" members="guser11" />
+                <group name="test107" protocol="test7"  description="Test Group 007" members="guser11" />
+                <group name="test108" protocol="test8"  description="Test Group 008" members="guser11" />
+                <group name="test109" protocol="test9"  description="Test Group 009" members="guser11" />
+                <group name="test110" protocol="test10" description="Test Group 010" members="guser11" />
             </addgroup>
 
             <delgroup>
@@ -59,6 +59,45 @@
                 <group name="test109" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19" />
                 <group name="test110" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19,guser20" />
             </addgroupmember>
+
+            <delgroupmember>
+                <group name="test101" members="guser11" />
+                <group name="test102" members="guser11,guser12" />
+                <group name="test103" members="guser11,guser12,guser13" />
+                <group name="test104" members="guser11,guser12,guser13,guser14" />
+                <group name="test105" members="guser11,guser12,guser13,guser14,guser15" />
+                <group name="test106" members="guser11,guser12,guser13,guser14,guser15,guser16" />
+                <group name="test107" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17" />
+                <group name="test108" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18" />
+                <group name="test109" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19" />
+                <group name="test110" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19,guser20" />
+            </delgroupmember>
+
+            <addgroupproperty>
+                <group name="test101" properties="key1=val1" />
+                <group name="test102" properties="key1=val1,key2=val2" />
+                <group name="test103" properties="key1=val1,key2=val2,key3=val3" />
+                <group name="test104" properties="key1=val1,key2=val2,key3=val3,key4=val4" />
+                <group name="test105" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5" />
+                <group name="test106" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6" />
+                <group name="test107" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6 " />
+                <group name="test108" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8 " />
+                <group name="test109" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8,key9=val9 " />
+                <group name="test110" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8,key9=val9,key10=val10" />
+            </addgroupproperty>
+
+            <delgroupproperty>
+                <group name="test101" properties="key1=val1" />
+                <group name="test102" properties="key1=val1,key2=val2" />
+                <group name="test103" properties="key1=val1,key2=val2,key3=val3" />
+                <group name="test104" properties="key1=val1,key2=val2,key3=val3,key4=val4" />
+                <group name="test105" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5" />
+                <group name="test106" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6" />
+                <group name="test107" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6 " />
+                <group name="test108" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8 " />
+                <group name="test109" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8,key9=val9 " />
+                <group name="test110" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8,key9=val9,key10=val10" />
+            </delgroupproperty>
 
             <adduser>
                 <user userId="guser11" password="password" description="Group Test 001 User11" ou="GroupTest002Users" cn="test11" sn="user11"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />

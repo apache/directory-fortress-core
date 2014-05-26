@@ -39,14 +39,14 @@ import java.util.List;
  *
  * @author Shawn McKinney
  */
-public class Delgroupmember
+public class Delgroupproperty
 {
     final private List<Group> groups = new ArrayList<>();
 
     /**
      * All Ant data entities must have a default constructor.
      */
-    public Delgroupmember()
+    public Delgroupproperty()
     {
     }
 
@@ -55,7 +55,7 @@ public class Delgroupmember
      * <pre>
      * {@code
      *  <delgroupmember>
-     *      <group name="test001" members="guser1,guser2,guser3" />
+     *      <group name="test001"/>
      *  </delgroupmember>
      * }
      * </pre>
@@ -68,7 +68,7 @@ public class Delgroupmember
     }
 
     /**
-     * Used by {@link org.openldap.fortress.ant.FortressAntTask#addGroupMembers()} to retrieve list of Groups as defined in input xml file.
+     * Used by {@link FortressAntTask#deleteGroups()} to retrieve list of Groups as defined in input xml file.
      *
      * @return collection containing {@link Group}s targeted for removal.
      */

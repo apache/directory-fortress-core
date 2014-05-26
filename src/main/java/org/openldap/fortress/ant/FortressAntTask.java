@@ -17,6 +17,7 @@ package org.openldap.fortress.ant;
 
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
@@ -190,10 +191,6 @@ public class FortressAntTask extends Task implements InputHandler
     final private List<org.openldap.fortress.ant.Delconfig> delconfig = new ArrayList<>();
     final private List<Adduser> addusers = new ArrayList<>();
     final private List<Deluser> delusers = new ArrayList<>();
-    final protected List<Addgroup> addgroups = new ArrayList<>();
-    final protected List<Delgroup> delgroups = new ArrayList<>();
-    final protected List<Addgroupmember> addgroupmembers = new ArrayList<>();
-    final protected List<Delgroupmember> delgroupmembers = new ArrayList<>();
     final private List<Adduserrole> adduserroles = new ArrayList<>();
     final private List<Deluserrole> deluserroles = new ArrayList<>();
     final private List<Addrole> addroles = new ArrayList<>();
@@ -227,6 +224,12 @@ public class FortressAntTask extends Task implements InputHandler
     final private List<Deladminroleinheritance> deladminroleinheritances = new ArrayList<>();
     final private List<Deluseradminrole> deluseradminroles = new ArrayList<>();
     final private List<Addcontext> addcontexts = new ArrayList<>();
+    final protected List<Addgroup> addgroups = new ArrayList<>();
+    final protected List<Delgroup> delgroups = new ArrayList<>();
+    final protected List<Addgroupmember> addgroupmembers = new ArrayList<>();
+    final protected List<Delgroupmember> delgroupmembers = new ArrayList<>();
+    final protected List<Addgroupproperty> addgroupproperties = new ArrayList<>();
+    final protected List<Delgroupproperty> delgroupproperties = new ArrayList<>();
 
     protected ConfigMgr cfgMgr = null;
     protected AdminMgr adminMgr = null;
@@ -339,50 +342,6 @@ public class FortressAntTask extends Task implements InputHandler
     public void addDeluser( Deluser deluser )
     {
         this.delusers.add( deluser );
-    }
-
-
-    /**
-     * Load the entity with data.
-     *
-     * @param addgroupmember contains the ant initialized data entities to be handed off for further processing.
-     */
-    public void addAddgroupmember( Addgroupmember addgroupmember )
-    {
-        this.addgroupmembers.add( addgroupmember );
-    }
-
-
-    /**
-     * Load the entity with data.
-     *
-     * @param delgroupmember contains the ant initialized data entities to be handed off for further processing.
-     */
-    public void addDelgroupmember( Delgroupmember delgroupmember )
-    {
-        this.delgroupmembers.add( delgroupmember );
-    }
-
-
-    /**
-     * Load the entity with data.
-     *
-     * @param addgroup contains the ant initialized data entities to be handed off for further processing.
-     */
-    public void addAddgroup( Addgroup addgroup )
-    {
-        this.addgroups.add( addgroup );
-    }
-
-
-    /**
-     * Load the entity with data.
-     *
-     * @param delgroup contains the ant initialized data entities to be handed off for further processing.
-     */
-    public void addDelgroup( Delgroup delgroup )
-    {
-        this.delgroups.add( delgroup );
     }
 
 
@@ -739,6 +698,71 @@ public class FortressAntTask extends Task implements InputHandler
         this.deluseradminroles.add( deluserrole );
     }
 
+    /**
+     * Load the entity with data.
+     *
+     * @param addgroup contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addAddgroup( Addgroup addgroup )
+    {
+        this.addgroups.add( addgroup );
+    }
+
+
+    /**
+     * Load the entity with data.
+     *
+     * @param delgroup contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addDelgroup( Delgroup delgroup )
+    {
+        this.delgroups.add( delgroup );
+    }
+
+
+    /**
+     * Load the entity with data.
+     *
+     * @param addgroupmember contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addAddgroupmember( Addgroupmember addgroupmember )
+    {
+        this.addgroupmembers.add( addgroupmember );
+    }
+
+
+    /**
+     * Load the entity with data.
+     *
+     * @param delgroupmember contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addDelgroupmember( Delgroupmember delgroupmember )
+    {
+        this.delgroupmembers.add( delgroupmember );
+    }
+
+
+    /**
+     * Load the entity with data.
+     *
+     * @param addgroupproperty contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addAddgroupproperty( Addgroupproperty addgroupproperty )
+    {
+        this.addgroupproperties.add( addgroupproperty );
+    }
+
+
+    /**
+     * Load the entity with data.
+     *
+     * @param delgroupproperty contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addDelgroupproperty( Delgroupproperty delgroupproperty )
+    {
+        this.delgroupproperties.add( delgroupproperty );
+    }
+
 
     /**
      * @param list
@@ -776,9 +800,14 @@ public class FortressAntTask extends Task implements InputHandler
             deletePermGrants();
         }
 
+        if ( isListNotNull( delgroupproperties ) )
+        {
+            deleteGroupProperties();
+        }
+
         if ( isListNotNull( delgroupmembers ) )
         {
-            deleteGroupmembers();
+            deleteGroupMembers();
         }
 
         if ( isListNotNull( delgroups ) )
@@ -943,7 +972,12 @@ public class FortressAntTask extends Task implements InputHandler
 
         if ( isListNotNull( addgroupmembers ) )
         {
-            addGroupmembers();
+            addGroupMembers();
+        }
+
+        if ( isListNotNull( addgroupproperties ) )
+        {
+            addGroupProperties();
         }
 
         if ( isListNotNull( addpermGrants ) )
@@ -1133,7 +1167,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void addGroupmembers() throws BuildException
+    private void addGroupMembers() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Addgroupmember addgroupmember : addgroupmembers )
@@ -1146,20 +1180,20 @@ public class FortressAntTask extends Task implements InputHandler
                 {
                     for(String member : group.getMembers())
                     {
-                        LOG.info( "addGroupmembers name=" + group.getName() + ", member=" + member );
+                        LOG.info( "addGroupMembers name=" + group.getName() + ", member=" + member );
                         try
                         {
                             groupMgr.assign( group, member );
                         }
                         catch ( SecurityException se )
                         {
-                            LOG.warn( "addGroupmembers name [" + group.getName() + "], member [" + member + "] caught SecurityException=" + se );
+                            LOG.warn( "addGroupMembers name [" + group.getName() + "], member [" + member + "] caught SecurityException=" + se );
                         }
                     }
                 }
                 else
                 {
-                    LOG.info( "addGroupmembers name=" + group.getName() + ", no member found" );
+                    LOG.info( "addGroupMembers name=" + group.getName() + ", no member found" );
                 }
             }
         }
@@ -1168,7 +1202,7 @@ public class FortressAntTask extends Task implements InputHandler
     /**
      * @throws BuildException
      */
-    private void deleteGroupmembers() throws BuildException
+    private void deleteGroupMembers() throws BuildException
     {
         // Loop through the entityclass elements
         for ( Delgroupmember delgroupmember : delgroupmembers )
@@ -1194,6 +1228,78 @@ public class FortressAntTask extends Task implements InputHandler
                 else
                 {
                     LOG.info( "deleteGroupmembers name=" + group.getName() + ", no member found" );
+                }
+            }
+        }
+    }
+
+    /**
+     * @throws BuildException
+     */
+    private void addGroupProperties() throws BuildException
+    {
+        // Loop through the entityclass elements
+        for ( Addgroupproperty addgroupproperty : addgroupproperties )
+        {
+            List<Group> groups = addgroupproperty.getGroups();
+            for ( Group group : groups )
+            {
+                if(VUtil.isNotNullOrEmpty( group.getProperties() ))
+                {
+                    for ( Enumeration e = group.getProperties().propertyNames(); e.hasMoreElements(); )
+                    {
+                        // This LDAP attr is stored as a name-value pair separated by a ':'.
+                        String key = ( String ) e.nextElement();
+                        String val = group.getProperties().getProperty( key );
+                        try
+                        {
+                            groupMgr.add( group, key, val );
+                        }
+                        catch ( SecurityException se )
+                        {
+                            LOG.warn( "addGroupProperties name [" + group.getName() + "], key [" + key + "], value [" + val + "] caught SecurityException=" + se );
+                        }
+                    }
+                }
+                else
+                {
+                    LOG.info( "addGroupProperties name=" + group.getName() + ", no properties found" );
+                }
+            }
+        }
+    }
+
+    /**
+     * @throws BuildException
+     */
+    private void deleteGroupProperties() throws BuildException
+    {
+        // Loop through the entityclass elements
+        for ( Delgroupproperty delgroupproperty : delgroupproperties )
+        {
+            List<Group> groups = delgroupproperty.getGroups();
+            for ( Group group : groups )
+            {
+                if(VUtil.isNotNullOrEmpty( group.getProperties() ))
+                {
+                    for ( Enumeration e = group.getProperties().propertyNames(); e.hasMoreElements(); )
+                    {
+                        // This LDAP attr is stored as a name-value pair separated by a ':'.
+                        String key = ( String ) e.nextElement();
+                        String val = group.getProperties().getProperty( key );
+                        try
+                        {
+                            groupMgr.delete( group, key, val );
+                        }
+                        catch ( SecurityException se )
+                        {
+                            LOG.warn( "deleteGroupProperties name [" + group.getName() + "], key [" + key + "], value [" + val + "] caught SecurityException=" + se );
+                        }
+                    }
+                }
+                else
+                {
+                    LOG.info( "deleteGroupProperties name=" + group.getName() + ", no properties found" );
                 }
             }
         }
