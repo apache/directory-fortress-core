@@ -539,4 +539,12 @@ public class PermObj extends FortEntity
             return false;
         return thatPermObj.getObjName().equalsIgnoreCase( this.getObjName() );
     }
+
+    @Override
+    public String toString()
+    {
+        return "Permission Object {" +
+            "name='" + objName + '\'' +
+            '}';
+    }
 }

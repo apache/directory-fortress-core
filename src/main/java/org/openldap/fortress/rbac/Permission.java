@@ -712,4 +712,13 @@ public class Permission extends FortEntity
         return ( ( thatPermission.getObjName().equalsIgnoreCase( this.getObjName() ) ) && ( thatPermission
             .getOpName().equalsIgnoreCase( this.getOpName() ) ) );
     }
+
+    @Override
+    public String toString()
+    {
+        return "Permission{" +
+            "objName='" + objName + '\'' +
+            ", opName='" + opName + '\'' +
+            '}';
+    }
 }
