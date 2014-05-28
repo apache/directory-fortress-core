@@ -106,7 +106,7 @@
        <!-- ########### Sentry manage & config properties ########################### -->
        <property name="sentry" value="sentry"/>
        <property name="sentry.dir" value="${basedir}/${sentry}-${version}"/>
-       <property name="sentry.zip" value="${lib.dir}/${sentry}-${version}.jar"/>
+       <property name="sentry.zip" value="${lib.dir}/${sentry}-${version}-dist.jar"/>
 
        <!-- ########### EnMasse manage & config properties ########################### -->
        <property name="enmasse" value="enmasse"/>
@@ -136,6 +136,8 @@
        <property name="javadoc.samples.overview" value="${src.test.dir}/org/openldap/fortress/samples/overview.html" />
 
        <!-- ########### Fortress Package Dependencies ########################### -->
+       <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-${version}.jar"/>
+       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-${version}.jar"/>
        <property name="commons-config.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
        <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
        <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
@@ -162,14 +164,6 @@
        <property name="apacheJMeter_java.jar" value="${lib.dir}/ApacheJMeter_java-2.11.jar"/>
        <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M16.jar"/>
        <property name="apacheds-api-all.jar" value="${lib.dir}/api-all-1.0.0-M22.jar"/>
-
-       <!-- TODO: before RC37 release, remove this:  -->
-       <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-1.0-RC36.jar"/>
-<!--       <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-${version}.jar"/>-->
-
-       <!-- TODO: before RC37 release, remove this:  -->
-       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-1.0-RC36.jar"/>
-<!--       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-${version}.jar"/>-->
        <property name="mina-core.jar" value="${lib.dir}/mina-core-2.0.7.jar"/>
        <property name="opencsv.jar" value="${lib.dir}/opencsv-2.3.jar"/>
 
