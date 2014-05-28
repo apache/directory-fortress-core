@@ -1776,8 +1776,8 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
             <h3>ugroup : UPDATE_GROUP</h3>
 
             <p>
-                This function updates existing LDAP group in the directory.  For multi-occurring attributes, members & properties, supplied
-                values will be added only. Use DEASSIGN_GROUP or DEL_GROUP_PROP first if you need to replace existing value.
+                Modify existing group node.  The name is required.  Does not update members or properties.
+                Use ASSIGN_GROUP, DEASSIGN_GROUP, ADD_GROUP_PROP or DEL_GROUP_PROP for multi-occurring attributes.
             </p>
 
             <h4>required parameters</h4>
@@ -1788,8 +1788,6 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
             <ul>
                 <li>M : members * - multi-occurring attribute maps to a userId in the LDAP directory"</li>
                 <li>d : description - maps to description attribute on object class</li>
-                <li>X : protocol - used to specify protocol</li>
-                <li>v : properties * - multi-occurring attribute contains property key and values are separated with a '='.  e.g.: key1=val1</li>
             </ul>
             <h4>example</h4>
             <ul>

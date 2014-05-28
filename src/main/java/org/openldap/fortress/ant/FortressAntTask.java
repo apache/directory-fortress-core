@@ -1176,9 +1176,10 @@ public class FortressAntTask extends Task implements InputHandler
 
             for ( Group group : groups )
             {
-                if(VUtil.isNotNullOrEmpty( group.getMembers() ))
+                List<String> members = group.getMembers();
+                if(VUtil.isNotNullOrEmpty( members ))
                 {
-                    for(String member : group.getMembers())
+                    for( String member : members )
                     {
                         LOG.info( "addGroupMembers name=" + group.getName() + ", member=" + member );
                         try

@@ -55,10 +55,6 @@ http.port=@REST_HTTP_PORT@
 
 dao.connector=@LDAP_CLIENT_TYPE@
 
-group.objectclass=configGroup
-group.protocol=configProtocol
-group.properties=configParameter
-
 GroupTest=org.openldap.fortress.group.GroupAntTest
 
 # These may be used to override default LDAP or REST with OTHER implementations:

@@ -47,30 +47,42 @@
                 <group name="test110"/>
             </delgroup>
 
+<!--
             <addgroupmember>
-                <group name="test101" members="guser11" />
-                <group name="test102" members="guser11,guser12" />
-                <group name="test103" members="guser11,guser12,guser13" />
-                <group name="test104" members="guser11,guser12,guser13,guser14" />
-                <group name="test105" members="guser11,guser12,guser13,guser14,guser15" />
-                <group name="test106" members="guser11,guser12,guser13,guser14,guser15,guser16" />
-                <group name="test107" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17" />
-                <group name="test108" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18" />
-                <group name="test109" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19" />
-                <group name="test110" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19,guser20" />
+                <group name="test102" members="guser12" />
+                <group name="test103" members="guser12,guser13" />
+                <group name="test104" members="guser12,guser13,guser14" />
+                <group name="test105" members="guser12,guser13,guser14,guser15" />
+                <group name="test106" members="guser12,guser13,guser14,guser15,guser16" />
+                <group name="test107" members="guser12,guser13,guser14,guser15,guser16,guser17" />
+                <group name="test108" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18" />
+                <group name="test109" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19" />
+                <group name="test110" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19,guser20" />
+            </addgroupmember>
+-->
+
+            <addgroupmember>
+                <group name="test102" members="guser12" />
+                <group name="test103" members="guser12,guser13" />
+                <group name="test104" members="guser12,guser13,guser14" />
+                <group name="test105" members="guser12,guser13,guser14,guser15" />
+                <group name="test106" members="guser12,guser13,guser14,guser15,guser16" />
+                <group name="test107" members="guser12,guser13,guser14,guser15,guser16,guser17" />
+                <group name="test108" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18" />
+                <group name="test109" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19" />
+                <group name="test110" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19,guser20" />
             </addgroupmember>
 
             <delgroupmember>
-                <group name="test101" members="guser11" />
-                <group name="test102" members="guser11,guser12" />
-                <group name="test103" members="guser11,guser12,guser13" />
-                <group name="test104" members="guser11,guser12,guser13,guser14" />
-                <group name="test105" members="guser11,guser12,guser13,guser14,guser15" />
-                <group name="test106" members="guser11,guser12,guser13,guser14,guser15,guser16" />
-                <group name="test107" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17" />
-                <group name="test108" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18" />
-                <group name="test109" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19" />
-                <group name="test110" members="guser11,guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19,guser20" />
+                <group name="test102" members="guser12" />
+                <group name="test103" members="guser12,guser13" />
+                <group name="test104" members="guser12,guser13,guser14" />
+                <group name="test105" members="guser12,guser13,guser14,guser15" />
+                <group name="test106" members="guser12,guser13,guser14,guser15,guser16" />
+                <group name="test107" members="guser12,guser13,guser14,guser15,guser16,guser17" />
+                <group name="test108" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18" />
+                <group name="test109" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19" />
+                <group name="test110" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19,guser20" />
             </delgroupmember>
 
             <addgroupproperty>

@@ -147,6 +147,10 @@ user.objectclass=inetOrgPerson
 group.objectclass=configGroup
 group.protocol=configProtocol
 group.properties=configParameter
+#group.objectclass=guacConfigGroup
+#group.protocol=guacConfigProtocol
+#group.properties=guacConfigParameter
+
 
 crypto.prop=@CFG_CRYPTO_PROP@
 enable.audit=true

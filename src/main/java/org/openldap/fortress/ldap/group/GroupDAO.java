@@ -24,6 +24,7 @@ import org.openldap.fortress.FinderException;
 import org.openldap.fortress.ObjectFactory;
 import org.openldap.fortress.UpdateException;
 import org.openldap.fortress.cfg.Config;
+import org.openldap.fortress.rbac.User;
 import org.openldap.fortress.util.attr.AttrHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,7 @@ import org.openldap.fortress.util.attr.VUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Contains the Group node for LDAP Directory Information Tree.
@@ -116,7 +118,7 @@ final class GroupDAO extends UnboundIdDataProvider
      * @throws org.openldap.fortress.CreateException
      *
      */
-    final Group update( Group group ) throws org.openldap.fortress.UpdateException
+    final Group update( Group group ) throws org.openldap.fortress.FinderException, org.openldap.fortress.UpdateException
     {
         LDAPConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
@@ -134,11 +136,13 @@ final class GroupDAO extends UnboundIdDataProvider
                 LDAPAttribute protocol = new LDAPAttribute( GROUP_PROTOCOL_ATTR_IMPL, group.getProtocol() );
                 mods.add( LDAPModification.REPLACE, protocol );
             }
+/*
             loadAttrs( group.getMembers(), mods, MEMBER, false );
             if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
             {
                 loadProperties( group.getProperties(), mods, GROUP_PROPERTY_ATTR_IMPL, '=', false );
             }
+*/
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
@@ -155,10 +159,10 @@ final class GroupDAO extends UnboundIdDataProvider
         {
             closeAdminConnection( ld );
         }
-        return group;
+        return get( group );
     }
 
-    final Group add( Group group, String key, String value ) throws org.openldap.fortress.CreateException
+    final Group add( Group group, String key, String value ) throws org.openldap.fortress.FinderException, org.openldap.fortress.CreateException
     {
         LDAPConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
@@ -181,10 +185,10 @@ final class GroupDAO extends UnboundIdDataProvider
         {
             closeAdminConnection( ld );
         }
-        return group;
+        return get( group );
     }
 
-    final Group delete( Group group, String key, String value ) throws org.openldap.fortress.RemoveException
+    final Group delete( Group group, String key, String value ) throws org.openldap.fortress.FinderException, org.openldap.fortress.RemoveException
     {
         LDAPConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
@@ -207,7 +211,7 @@ final class GroupDAO extends UnboundIdDataProvider
         {
             closeAdminConnection( ld );
         }
-        return group;
+        return get( group );
     }
 
     /**
@@ -247,7 +251,7 @@ final class GroupDAO extends UnboundIdDataProvider
      * @throws org.openldap.fortress.UpdateException
      *
      */
-    final Group assign( Group entity, String userDn ) throws UpdateException
+    final Group assign( Group entity, String userDn ) throws org.openldap.fortress.FinderException, UpdateException
     {
         LDAPConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -270,7 +274,7 @@ final class GroupDAO extends UnboundIdDataProvider
         {
             closeAdminConnection( ld );
         }
-        return entity;
+        return get( entity );
     }
 
     /**
@@ -280,7 +284,7 @@ final class GroupDAO extends UnboundIdDataProvider
      * @throws org.openldap.fortress.UpdateException
      *
      */
-    final Group deassign( Group entity, String userDn ) throws UpdateException
+    final Group deassign( Group entity, String userDn ) throws org.openldap.fortress.FinderException, UpdateException
     {
         LDAPConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -303,7 +307,7 @@ final class GroupDAO extends UnboundIdDataProvider
         {
             closeAdminConnection( ld );
         }
-        return entity;
+        return get( entity );
     }
 
     /**
@@ -385,6 +389,45 @@ final class GroupDAO extends UnboundIdDataProvider
     }
 
     /**
+     * @param user
+     * @return
+     * @throws org.openldap.fortress.FinderException
+     *
+     */
+    final List<Group> find( User user ) throws FinderException
+    {
+        List<Group> groupList = new ArrayList<>();
+        LDAPConnection ld = null;
+        LDAPSearchResults searchResults;
+        String groupRoot = getRootDn( user.getContextId(), GlobalIds.GROUP_ROOT );
+        String filter = null;
+        try
+        {
+            String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
+            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + MEMBER + "=" + user.getDn() + "))";
+            ld = getAdminConnection();
+            searchResults = search( ld, groupRoot, LDAPConnection.SCOPE_ONE, filter, GROUP_ATRS, false,
+                GlobalIds.BATCH_SIZE );
+            long sequence = 0;
+            while ( searchResults.hasMoreElements() )
+            {
+                groupList.add( unloadLdapEntry( searchResults.next(), sequence++ ) );
+            }
+        }
+        catch ( LDAPException e )
+        {
+            String error = "find filter [" + filter + "] caught LDAPException=" + e.getLDAPResultCode() + " msg=" + e
+                .getMessage();
+            throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+        return groupList;
+    }
+
+    /**
      * @param le
      * @param sequence
      * @return
@@ -397,7 +440,8 @@ final class GroupDAO extends UnboundIdDataProvider
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
         entity.setProtocol( getAttribute( le, GROUP_PROTOCOL_ATTR_IMPL ) );
         entity.setMembers( getAttributes( le, MEMBER ) );
-        entity.addProperties( AttrHelper.getProperties( getAttributes( le, GROUP_PROPERTY_ATTR_IMPL ), '=' ) );
+        entity.setMemberDn( true );
+        entity.setProperties( AttrHelper.getProperties( getAttributes( le, GROUP_PROPERTY_ATTR_IMPL ), '=' ) );
         entity.setSequenceId( sequence );
         return entity;
     }

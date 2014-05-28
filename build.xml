@@ -836,7 +836,9 @@
          <replace file="${dst.load.bootstrap.script}" token="@ADMINROLES_DN@" value="${adminroles.dn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@ADMINPERMS_DN@" value="${adminperms.dn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@AUDITS_DN@" value="${audits.dn}"/>
-
+         <replace file="${dst.load.bootstrap.script}" token="@GROUP_OBJECT_CLASS@" value="${group.objectclass}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@GROUP_PROTOCOL@" value="${group.protocol}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@GROUP_PROPERTIES@" value="${group.properties}"/>
          <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
          <delete file="${bootstrap.ehcache.conf}"/>
 	     <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>

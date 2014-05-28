@@ -54,14 +54,18 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         String methodName = "add";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
-        loadUserDns( group );
+        if(!group.isMemberDn())
+        {
+            loadUserDns( group );
+        }
+
         return groupP.add( group );
     }
 
     /**
-     * Modify existing group node.  The name is required.  For multi-occurring attributes, members & properties, supplied
-     * values will be added only. Use {@link GroupMgr#delete( Group group, String key, String value )} or {@link GroupMgr#deassign( Group group, String member) }
-     * first if you need to replace existing value.
+     * Modify existing group node.  The name is required.  Does not update members or properties.
+     * Use {@link GroupMgr#add( Group group, String key, String value )}, {@link GroupMgr#delete( Group group, String key, String value )},
+     * {@link GroupMgr#assign( Group group, String member) }, or {@link GroupMgr#deassign( Group group, String member) } for multi-occurring attributes.
      *
      * @param group contains {@link Group}.
      * @return {@link Group} containing entity just modified.
@@ -73,7 +77,6 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         String methodName = "update";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
-        loadUserDns( group );
         return groupP.update( group );
     }
 
@@ -130,9 +133,9 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     /**
      * Read an existing group node.  The name is required.
      *
-     * @param group contains {@link Group}.
-     * @return {@link Group} containing entity just added.
-     * @throws org.openldap.fortress.SecurityException in the event entry already present or other system error.
+     * @param group contains {@link Group} with name field set with an existing group name.
+     * @return {@link Group} containing entity found.
+     * @throws org.openldap.fortress.SecurityException in the event system error.
      */
     @Override
     public Group read( Group group ) throws org.openldap.fortress.SecurityException
@@ -147,8 +150,8 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
      * Search using a full or partial group node.  The name is required.
      *
      * @param group contains {@link Group}.
-     * @return {@link Group} containing entity just added.
-     * @throws org.openldap.fortress.SecurityException in the event entry already present or other system error.
+     * @return List of type {@link Group} containing entities found.
+     * @throws org.openldap.fortress.SecurityException in the event system error.
      */
     @Override
     public List<Group> find( Group group ) throws org.openldap.fortress.SecurityException
@@ -157,6 +160,22 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         return groupP.search( group );
+    }
+
+    /**
+     * Search for groups by userId.  Member (maps to userId) and is required.
+     *
+     * @param user contains userId that maps to Group member attribute.
+     * @return {@link Group} containing entity just added.
+     * @throws org.openldap.fortress.SecurityException in the event system error.
+     */
+    public List<Group> find( User user ) throws org.openldap.fortress.SecurityException
+    {
+        String methodName = "findWithUsers";
+        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
+        checkAccess(CLS_NM, methodName);
+        loadUserDn( user );
+        return groupP.search( user );
     }
 
     /**
@@ -210,5 +229,13 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
             }
             group.setMembers( userDns );
         }
+    }
+
+    private void loadUserDn( User inUser ) throws org.openldap.fortress.SecurityException
+    {
+        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+        String userDns;
+        User outUser = reviewMgr.readUser( inUser );
+        inUser.setDn( outUser.getDn() );
     }
 }

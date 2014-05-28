@@ -148,6 +148,7 @@
                 <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="deassign" roleNm="FortressSuperAdmin" admin="true"/>
                 <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="read" roleNm="FortressSuperAdmin" admin="true"/>
                 <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="find" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="findWithUsers" roleNm="FortressSuperAdmin" admin="true"/>
 
             </addpermgrant>
 
@@ -277,6 +278,7 @@
                 <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="deleteProperty" admin="true"/>
                 <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="read" admin="true"/>
                 <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="find" admin="true"/>
+                <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="findWithUsers" admin="true"/>
                 <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="assign" admin="true"/>
                 <permop objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="deassign" admin="true"/>
             </addpermop>

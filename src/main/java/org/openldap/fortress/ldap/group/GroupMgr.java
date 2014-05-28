@@ -16,6 +16,7 @@
 package org.openldap.fortress.ldap.group;
 
 import org.openldap.fortress.Manageable;
+import org.openldap.fortress.rbac.User;
 
 import java.util.List;
 
@@ -39,9 +40,9 @@ public interface GroupMgr extends Manageable
     public Group add( Group group ) throws org.openldap.fortress.SecurityException;
 
     /**
-     * Modify existing group node.  The name is required.  For multi-occurring attributes, members & properties, supplied
-     * values will be added only. Use {@link GroupMgr#delete( Group group, String key, String value )} or {@link GroupMgr#deassign( Group group, String member) }
-     * first if you need to replace existing value.
+     * Modify existing group node.  The name is required.  Does not update members or properties.
+     * Use {@link GroupMgr#add( Group group, String key, String value )}, {@link GroupMgr#delete( Group group, String key, String value )},
+     * {@link GroupMgr#assign( Group group, String member) }, or {@link GroupMgr#deassign( Group group, String member) } for multi-occurring attributes.
      *
      * @param group contains {@link Group}.
      * @return {@link Group} containing entity just modified.
@@ -83,9 +84,9 @@ public interface GroupMgr extends Manageable
     /**
      * Read an existing group node.  The name is required.
      *
-     * @param group contains {@link Group}.
-     * @return {@link Group} containing entity just added.
-     * @throws org.openldap.fortress.SecurityException in the event entry already present or other system error.
+     * @param group contains {@link Group} with name field set with an existing group name.
+     * @return {@link Group} containing entity found.
+     * @throws org.openldap.fortress.SecurityException in the event system error.
      */
     public Group read( Group group ) throws org.openldap.fortress.SecurityException;
 
@@ -93,10 +94,19 @@ public interface GroupMgr extends Manageable
      * Search using a full or partial group node.  The name is required.
      *
      * @param group contains {@link Group}.
-     * @return {@link Group} containing entity just added.
-     * @throws org.openldap.fortress.SecurityException in the event entry already present or other system error.
+     * @return List of type {@link Group} containing entities found.
+     * @throws org.openldap.fortress.SecurityException in the event system error.
      */
     public List<Group> find( Group group ) throws org.openldap.fortress.SecurityException;
+
+    /**
+     * Search for groups by userId.  Member (maps to userId) and is required.
+     *
+     * @param user contains userId that maps to Group member attribute.
+     * @return {@link Group} containing entity just added.
+     * @throws org.openldap.fortress.SecurityException in the event system error.
+     */
+    public List<Group> find( User user ) throws org.openldap.fortress.SecurityException;
 
     /**
      * Assign a user to an existing group node.  The group name and member are required.

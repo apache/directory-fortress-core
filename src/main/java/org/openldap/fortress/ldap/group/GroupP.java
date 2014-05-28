@@ -16,6 +16,7 @@
 package org.openldap.fortress.ldap.group;
 
 
+import org.openldap.fortress.rbac.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -156,6 +157,18 @@ final class GroupP
     final List<Group> search( Group group ) throws SecurityException
     {
         return gDao.find( group );
+    }
+
+    /**
+     * Takes a search string that contains full or partial Group name in directory.
+     *
+     * @param user contains full dn for existing user.
+     * @return List of type Group containing fully populated matching entities.  If no records found this will be empty.
+     * @throws SecurityException in the event of DAO search error.
+     */
+    final List<Group> search( User user ) throws SecurityException
+    {
+        return gDao.find( user );
     }
 
     /**
