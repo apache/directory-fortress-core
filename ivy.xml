@@ -12,8 +12,12 @@
   ~ top-level directory of the distribution or, alternatively, at
   ~ <http://www.OpenLDAP.org/license.html>.
   -->
-<ivy-module version="2.0">
-    <info organisation="org.apache" module="openldap-fortress-core"/>
+<!--<ivy-module version="2.0">-->
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd"
+            xmlns:e="http://ant.apache.org/ivy/extra">
+
+<info organisation="org.apache" module="openldap-fortress-core"/>
 
     <dependencies>
         <!-- Fortress core is dependent on these libs: -->
@@ -47,24 +51,27 @@
         <dependency org="org.apache.jmeter" name="ApacheJMeter_java" rev="2.11" conf="default->master" />
 
         <!-- Fortress core source IS dependent org.openldap accelerator: -->
-        <dependency org="org.openldap" name="accelerator-impl" rev="1.0-RC36"  conf="default->master">
+        <dependency org="org.openldap" name="accelerator-impl" rev="1.0-RC37"  conf="default->master">
             <artifact name="accelerator-impl" type="jar"/>
         </dependency>
 
-        <dependency org="org.openldap" name="accelerator-api" rev="1.0-RC36"  conf="default->master">
+        <dependency org="org.openldap" name="accelerator-api" rev="1.0-RC37"  conf="default->master">
             <artifact name="accelerator-api" type="jar"/>
         </dependency>
 
         <!-- Fortress core source is NOT dependent on Sentry, EnMasse or Commander artifacts rather they're required for its QUICKSTART demo apps: -->
-        <dependency org="org.openldap" name="sentry" rev="1.0-RC36"  conf="default->master">
-            <artifact name="sentry" type="jar"/>
+<!--
+        <dependency org="org.openldap" name="sentry" rev="1.0-RC37"  conf="default->master">
+            <artifact name="sentry" e:classifier="dist" type="jar"/>
         </dependency>
-        <dependency org="org.openldap" name="enmasse" rev="1.0-RC36"  conf="default->master">
+
+        <dependency org="org.openldap" name="enmasse" rev="1.0-RC37"  conf="default->master">
             <artifact name="enmasse" type="jar"/>
         </dependency>
-        <dependency org="org.openldap" name="commander" rev="1.0-RC36"  conf="default->master">
+        <dependency org="org.openldap" name="commander" rev="1.0-RC37"  conf="default->master">
             <artifact name="commander" type="jar"/>
         </dependency>
+-->
 
     </dependencies>
 </ivy-module>
