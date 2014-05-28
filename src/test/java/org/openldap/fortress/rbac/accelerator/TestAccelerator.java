@@ -45,7 +45,7 @@ public class TestAccelerator
         // Teardown for data used by the unit tests
     }
 
-    //@Test
+    @Test
     public void testCreateSession()
     {
         LOG.info( "testCreateSession..." );
@@ -62,10 +62,19 @@ public class TestAccelerator
             session = accelMgr.createSession( user, false );
             assertNotNull( session );
             assertTrue( session.isAuthenticated() );
-            // negative test case:
-            user.setUserId( "rbacuser1" );
-            user.setPassword( "secretx".toCharArray() );
-            session = accelMgr.createSession( user, false );
+            try
+            {
+                // negative test case:
+                user.setUserId( "rbacuser1" );
+                user.setPassword( "secretx".toCharArray() );
+                session = accelMgr.createSession( user, false );
+                fail("failed negative createSession for rbacuser1");
+            }
+            catch( org.openldap.fortress.SecurityException se)
+            {
+                // sucess
+            }
+
             assertNotNull( session );
             assertFalse( session.isAuthenticated() );
         }
@@ -73,11 +82,10 @@ public class TestAccelerator
         {
             se.printStackTrace();
             fail();
-
         }
     }
 
-    //@Test
+    @Test
     public void testCheckAccess()
     {
         AccelMgr accelMgr = null;
@@ -119,7 +127,7 @@ public class TestAccelerator
         }
     }
 
-    //@Test
+    @Test
     public void testDeleteSession()
     {
         LOG.info( "testDeleteSession..." );
@@ -159,7 +167,6 @@ public class TestAccelerator
             assertTrue( session.isAuthenticated() );
             UserRole userRole = new UserRole( user.getUserId(), "rbacrole2" );
             accelMgr.addActiveRole( session, userRole );
-            accelMgr.addActiveRole( session, userRole );
         }
         catch( org.openldap.fortress.SecurityException se)
         {
@@ -168,7 +175,7 @@ public class TestAccelerator
         }
     }
 
-    //@Test
+    @Test
     public void testDropActiveRole()
     {
         LOG.info( "testDropActiveRole..." );
@@ -197,7 +204,7 @@ public class TestAccelerator
     }
 
 
-    //@Test
+    @Test
     public void testCombinedCalls()
     {
         LOG.info( "testCombinedCalls..." );
