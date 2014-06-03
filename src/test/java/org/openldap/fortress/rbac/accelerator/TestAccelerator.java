@@ -67,6 +67,7 @@ public class TestAccelerator
                 // negative test case:
                 user.setUserId( "rbacuser1" );
                 user.setPassword( "secretx".toCharArray() );
+                session = null;
                 session = accelMgr.createSession( user, false );
                 fail("failed negative createSession for rbacuser1");
             }
@@ -75,8 +76,8 @@ public class TestAccelerator
                 // sucess
             }
 
-            assertNotNull( session );
-            assertFalse( session.isAuthenticated() );
+            // negative case should leave the session null.
+            assertNull( session );
         }
         catch( org.openldap.fortress.SecurityException se)
         {
