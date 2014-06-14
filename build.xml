@@ -788,6 +788,9 @@
          <replace file="${dst.bootstrap.conf}" token="@ADMINPERMS_DN@" value="${adminperms.dn}"/>
          <replace file="${dst.bootstrap.conf}" token="@AUDITS_DN@" value="${audits.dn}"/>
          <replace file="${dst.bootstrap.conf}" token="@GROUPS_DN@" value="${groups.dn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@GROUP_OBJECT_CLASS@" value="${group.objectclass}"/>
+         <replace file="${dst.bootstrap.conf}" token="@GROUP_PROTOCOL@" value="${group.protocol}"/>
+         <replace file="${dst.bootstrap.conf}" token="@GROUP_PROPERTIES@" value="${group.properties}"/>
 
 	     <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
          <replace file="${dst.remote.conf}" token="@SUFFIX@" value="${suffix}"/>

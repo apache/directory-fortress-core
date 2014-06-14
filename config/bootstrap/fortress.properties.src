@@ -144,14 +144,9 @@ ldap.sub.15=7e
 #regXSafetext=^A-Za-z0-9- .
 
 user.objectclass=inetOrgPerson
-group.objectclass=configGroup
-group.protocol=configProtocol
-group.properties=configParameter
-#group.objectclass=guacConfigGroup
-#group.protocol=guacConfigProtocol
-#group.properties=guacConfigParameter
-
-
+group.objectclass=@GROUP_OBJECT_CLASS@
+group.protocol=@GROUP_PROTOCOL@
+group.properties=@GROUP_PROPERTIES@
 crypto.prop=@CFG_CRYPTO_PROP@
 enable.audit=true
 clientside.sorting=true
