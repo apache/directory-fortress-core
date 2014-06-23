@@ -1,7 +1,21 @@
-Fortress Identity Access Management SDK
-Copyright (c) 2009-2014 JoshuaTree Software, LLC
+#
+# This work is part of OpenLDAP Software <http://www.openldap.org/>.
+#
+# Copyright 1998-2014 The OpenLDAP Foundation.
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted only as authorized by the OpenLDAP
+# Public License.
+#
+# A copy of this license is available in the file LICENSE in the
+# top-level directory of the distribution or, alternatively, at
+# <http://www.OpenLDAP.org/license.html>.
+#
 
-This product distribution source code was developed by JoshuaTree Software (http://jts.us/).
+Fortress Identity Access Management SDK
+
+This product distribution source code was developed by The OpenLDAP Project (http://openldap.org/).
 
 The purpose of this NOTICE.txt file is to include notices that are required by the copyright owner and their license. Some of the accompanying products have an attribution requirement, so see below. Other accompanying products do not require attribution, so are not listed. 
 
