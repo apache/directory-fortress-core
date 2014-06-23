@@ -228,7 +228,7 @@
            <pathelement location="${images.dir}"/>
            <pathelement location="${accelerator-api.jar}"/>
            <pathelement location="${accelerator-impl.jar}"/>
-           <pathelement location="${apacheds-api-all.jar}"/>
+<!--           <pathelement location="${apacheds-api-all.jar}"/>-->
            <pathelement location="${mina-core.jar}"/>
            <pathelement location="${opencsv.jar}"/>
            <pathelement location="${apacheJMeter_core.jar}"/>
