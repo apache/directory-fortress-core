@@ -76,9 +76,8 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements org.op
             ld.setTimeOut( 0 );
             // Create a new RBAC session
             RbacCreateSessionRequest rbacCreateSessionRequest = new RbacCreateSessionRequestImpl();
-            //rbacCreateSessionRequest.setSessionId( "foofighters" );
-            rbacCreateSessionRequest.setTenantId( "jts" );
-            //rbacCreateSessionRequest.setTenantId( user.getContextId() );
+            //rbacCreateSessionRequest.setTenantId( "jts" );
+            rbacCreateSessionRequest.setTenantId( user.getContextId() );
             rbacCreateSessionRequest.setUserIdentity( user.getUserId() );
             rbacCreateSessionRequest.setPassword( new String(user.getPassword()) );
             if( VUtil.isNotNullOrEmpty( user.getRoles() ))
