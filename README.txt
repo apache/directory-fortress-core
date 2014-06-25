@@ -17,22 +17,30 @@ README for Fortress Identity and Access Management SDK
 Version 1.0.0.RC37
 last updated: June 25, 2014
 
-This document contains instructions to download, compile, test and use the
-Fortress Identity and Access Management system.___________________________________________________________________________________
+This document provides instructions to download, compile, test and use the
+Fortress IAM with OpenLDAP server.  If you don't already have OpenLDAP installed,
+instructions contained within may be followed.
+___________________________________________________________________________________
 ###################################################################################
-# SECTION 0:  Prerequisites
+# SECTION 0:  Prerequisites for Fortress SDK installation and use with LDAP server
 ###################################################################################
 1. Internet access to retrieve source code from OpenLDAP GIT and binary dependencies from online Maven repo.
 
-NOTE: The Fortress build.xml may run without connection to Internet iff:
-- The Fortress source modules have been downloaded
-- The binary dependencies are already present in FORTRESS_HOME/lib folder
-- Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties:
+Fortress uses Apache Ant for installation and management of its operations.  Ordinarily the target environment
+would have access to the Internet to pull down its dependencies from Maven but may run without outside connection iff:
+
+a. The binary dependencies are already present in FORTRESS_HOME/lib folder.  For list of dependencies goto ivy.xml file.
+b. Local mode has been enabled on target machine.  This can be done by adding the following entry to your build.properties file:
+
 local.mode=true
 
 2. Java SDK Version 7 or beyond installed to target environment
 3. Apache Ant 1.8 or beyond installed to target environment
-4. OpenLDAP installed to target system.  (options follow in section 1)
+4. OpenLDAP installed to target system.  (options follow in section 1).
+
+Note:  Fortress SDK is LDAPv3 compliant and works with other directory servers, especially ApacheDS:
+README-QUICKSTART-APACHEDS.html.
+
 5. GIT installed to target environment. (Fortress developers only)
 ___________________________________________________________________________________
 ###################################################################################
