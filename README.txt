@@ -14,7 +14,7 @@
 ___________________________________________________________________________________
 ###################################################################################
 README for Fortress Identity and Access Management SDK
-Version 1.0.0.RC37
+Version 1.0-RC37
 last updated: June 25, 2014
 
 This document provides instructions to download, compile, test and use the
@@ -264,7 +264,7 @@ ________________________________________________________________________________
 # SECTION 7. Instructions for Symas installation of OpenLDAP
 ###################################################################################
 
-a. Go to http://www.symas.com/index.php/downloads/
+a. Go to Symas.com downloads section.
 
 b. Register, pull down Silver or Gold packages for target server.
 
@@ -315,22 +315,22 @@ _______________________________________________________________________________
 # SECTION 8. Instructions to test openldap-fortress-core using regression tests
 ###############################################################################
 
-a. from the same shell prompt as 2a enter the following:
-
-(if first time regression tests run:)
-
->$ANT_HOME/bin/ant test-full-init
-
-b. Or for subsequent runs:
+a. from FORTRESS_HOME enter the following command:
 
 >$ANT_HOME/bin/ant test-full
 
+Notes:
+  - These tests load tens of thousands of ldap records into your newly installed directory.
+  - The 'init-slapd' and 'test-full' targets may be re-run as often as necessary.
+  - After regressions testing has completed, you may run the 'init-slapd' target to remove all test data from the directory.
+  - WARNING log messages in test output are good as these are negative tests in action:
+  - If these test completes without junit or ant ERRORS, Fortress is certified to run on your target ldap server machine.
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 9. Instructions to run the openldap-fortress-core command line interpreter (CLI) utility
 ###################################################################################
 
-a. from the same shell prompt as 2a enter the following:
+a. from FORTRESS_HOME enter the following command:
 
 >$ANT_HOME/bin/ant cli
 
@@ -343,7 +343,7 @@ ________________________________________________________________________________
 # SECTION 10. Learn how to use openldap-fortress-core APIs with samples
 ###################################################################################
 
-a. from the same shell prompt as 2a enter the following:
+a. from FORTRESS_HOME enter the following command:
 
 (if first time sample tests run)
 
@@ -374,7 +374,7 @@ ________________________________________________________________________________
 # SECTION 11. Instructions to run the openldap-fortress-core command console
 ###################################################################################
 
-a. from the same shell prompt as 2a enter the following:
+a. from FORTRESS_HOME enter the following command:
 
 >$ANT_HOME/bin/ant console
 
@@ -436,7 +436,7 @@ Note:  This is included for informational purposes in case it fails to automatic
 
 - Apache Ivy is used to retrieve the Java libraries that openldap-fortress-core depends on.
 
-a. Open a shell prompt within the FORTRESS_HOME root folder and enter the following:
+a. from FORTRESS_HOME enter the following command:
 
 >export JAVA_HOME=/path to the root folder of your java SDK
 >export ANT_HOME=/path to the root folder of your Apache Ant installation
