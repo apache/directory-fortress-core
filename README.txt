@@ -14,13 +14,11 @@
 ___________________________________________________________________________________
 ###################################################################################
 README for Fortress Identity and Access Management SDK
-Version 1.0.0.RC36
-last updated: April 27, 2014
+Version 1.0.0.RC37
+last updated: June 25, 2014
 
 This document contains instructions to download, compile, test and use the
-Fortress Identity and Access Management system.
-Fortress is released under BSD open source license as specified within this package.
-___________________________________________________________________________________
+Fortress Identity and Access Management system.___________________________________________________________________________________
 ###################################################################################
 # SECTION 0:  Prerequisites
 ###################################################################################
@@ -36,7 +34,6 @@ local.mode=true
 3. Apache Ant 1.8 or beyond installed to target environment
 4. OpenLDAP installed to target system.  (options follow in section 1)
 5. GIT installed to target environment. (Fortress developers only)
-
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 1:  Options for installing OpenLDAP to target server environment
@@ -45,13 +42,13 @@ ________________________________________________________________________________
 This document includes three options for installing OpenLDAP server:
 
 -------------------------------------------------------------------------------
-- INSTALL OPTION 1 - JOSHUATREE SOFTWARE Fortress Quickstart installation packages for OpenLDAP server
+- INSTALL OPTION 1 - Fortress QUICKSTART installation packages for OpenLDAP server
 -------------------------------------------------------------------------------
 - Required Sections to follow:
     2, 3, 4
 
 -------------------------------------------------------------------------------
-- INSTALL OPTION 2 - TARGET system package management system for OpenLDAP server
+- INSTALL OPTION 2 - TARGET operating system's OpenLDAP server
 -------------------------------------------------------------------------------
 - Required Sections to follow:
     2, 3, 5, 6
@@ -61,7 +58,6 @@ This document includes three options for installing OpenLDAP server:
 -------------------------------------------------------------------------------
 - Required Sections to follow:
     2, 3, 5, 7
-
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 2. Instructions to pull Fortress source code from OpenLDAP GIT
@@ -110,36 +106,26 @@ a. from the FORTRESS_HOME root folder, enter the following:
 - All project artifacts are loaded into $FORTRESS_HOME/openldap-fortress-core/dist location.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 4. Instructions for JOSHUATREE BUILDER installation of OpenLDAP
+# SECTION 4. Instructions for FORTRESS QUICKSTART builder installation of OpenLDAP
 ###################################################################################
 
-a. Go to https://joshuatreesoftware.us/jtspages/download.php
+a. Go to http://iamfortress.org/download
 
-b. Register, pull down the Fortress Builder package to match your target platform.
+b. Pull down the Fortress Builder package to match your target platform.
 
-c. Follow the README-QUICKSTART.txt or more involved README-INSTALL-FORTRESS.txt contained within the Builder package.
+c. Follow the steps I, II & III contained within README-QUICKSTART.html, or README-QUICKSTART-WINDOWS.html documents.
 
-d. Execute the 'init-slapd' and 'init-config' targets in Fortress Builder.
-
-e. Add a property to build.properties in this package that points back to where Fortress Builder package resides.
-
-Edit $FORTRESS_HOME/openldap-fortress-core/build.properties and add the following directive:
-
-builder.home=/path to $FORTRESS_BUILDER_HOME/fortressBuilder-[platform]-[version]
-
-e.g.:
-
-builder.home=/home/user/dev/fortressBuilder-Debian-Silver-i386-1.0.0
+d. Proceed to SECTION 8 in this document for integration testing Fortress & OpenLDAP on your target platform.
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 5. Instructions to configure openldap-fortress-core SDK for target system
 ###################################################################################
 
-- This must be done when OpenLDAP is not installed with Fortress Builder.
+- This must be done when OpenLDAP is not installed with the Fortress QUICKSTART package.
 
 - The 'init-config' ant target on this project will substitute parameters found in 'build.properties' into their proper location.
 
-- For newcomers just trying to learn the ropes the defaults usually work, especially if you are using the fortress-builder package to install OpenLDAP.
+- For newcomers just trying to learn the ropes the defaults usually work.
 
 - unless you know what you are doing, never change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
 
@@ -424,16 +410,15 @@ It is currently set to "/usr/lib/jvm/java-6-openjdk/jre"
 If running sudo:
 
 - Option 1:
-sudo apt-get install openjdk-6-jdk
+sudo apt-get install openjdk-7-jdk
 
 - Option 2:
 
 add this to build.xml javac task:
 
-  	     executable="/opt/jdk1.6.0_27/bin/javac"
-         compiler="javac1.6"
+  	     executable="/opt/jdk1.7.0_27/bin/javac"
+         compiler="javac1.7"
          fork = "true"
-
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 14. Instructions to enable Apache Ivy dependency management
