@@ -22,6 +22,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.openldap.fortress.util.attr.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -190,6 +191,15 @@ public class AccelMgrImplTest extends TestCase
     {
         checkAccess( "CHCK-ACS TU3 TOB3 TOP3 ", UserTestData.USERS_TU3, PermTestData.OBJS_TOB3,
             PermTestData.OPS_TOP3, PermTestData.OBJS_TOB2, PermTestData.OPS_TOP1 );
+
+        checkAccess( "CHCK-ACS TU3 TO3 TOP1 ", UserTestData.USERS_TU3, PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3,
+            PermTestData.OBJS_TOB2, PermTestData.OPS_TOP1 );
+
+        checkAccess( "CHCK-ACS TU4 TO4 TOP1 ", UserTestData.USERS_TU4, PermTestData.OBJS_TOB2, PermTestData.OPS_TOP2,
+            PermTestData.OBJS_TOB2, PermTestData.OPS_TOP1 );
+
+        checkAccess( "CHCK-ACS TU1_UPD TO1 TOP1 ", UserTestData.USERS_TU1_UPD, PermTestData.OBJS_TOB1,
+            PermTestData.OPS_TOP1, PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3 );
     }
 
 
@@ -219,27 +229,37 @@ public class AccelMgrImplTest extends TestCase
                     int j = 0;
                     for ( String[] op : opArray )
                     {
-                        // Call checkAccess method
+                        Permission goodPerm;
+                        if( VUtil.isNotNullOrEmpty( PermTestData.getObjId( opArray[j] ) ) )
+                        {
+                            // with an objectId:
+                            goodPerm = new Permission(
+                                PermTestData.getName( obj ),
+                                PermTestData.getName( op ),
+                                PermTestData.getObjId( opArray[j] ) );
+                        }
+                        else
+                        {
+                            // without an objectId:
+                            goodPerm = new Permission(
+                                PermTestData.getName( obj ),
+                                PermTestData.getName( op ) );
+                        }
+
+                        // Positive test case, call checkAccess method, should return 'true':
                         assertTrue( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName [" +
                             PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op ) + "]",
-                            accelMgr.checkAccess( session, new Permission( PermTestData.getName( obj ),
-                                PermTestData.getName( op ) ) ) );
-                        // TODO: add support for objectIds:
-/*
-                        assertTrue( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
-                            + PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op ) + "]",
-                            accelMgr.checkAccess(
-                                session,
-                                new Permission( PermTestData.getName( obj ), PermTestData.getName( op ), PermTestData
-                                    .getObjId( opArray[j] ) ) ) );
-*/
-                        // Call checkAccess method (this should fail):
-                        assertTrue( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName [" +
-                            PermTestData.getName( oArrayBad[i] ) + "] operationName [" + PermTestData.getName(
-                            opArrayBad[j] ) + "]", !accelMgr.checkAccess( session,
-                            new Permission( PermTestData.getName( oArrayBad[i] ), PermTestData.getName( opArrayBad[j]
-                            ), PermTestData.getObjId( opArrayBad[j] ) ) ) );
+                            accelMgr.checkAccess( session, goodPerm ) );
 
+                        Permission badPerm = new Permission(
+                            PermTestData.getName( oArrayBad[i] ),
+                            PermTestData.getName( opArrayBad[j]),
+                            PermTestData.getObjId( opArrayBad[j] ) );
+
+                        // Negative test case, call checkAccess method again, should return 'false':
+                        assertFalse( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName [" +
+                            PermTestData.getName( oArrayBad[i] ) + "] operationName [" + PermTestData.getName(
+                            opArrayBad[j] ) + "]", accelMgr.checkAccess( session, badPerm ) );
                         j++;
                     }
                     i++;

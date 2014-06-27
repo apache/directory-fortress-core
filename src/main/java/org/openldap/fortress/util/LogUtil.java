@@ -37,7 +37,9 @@ public class LogUtil
      */
     public static void logIt(String msg)
     {
-        msg = getContext() + " " + msg;
+        if(VUtil.isNotNullOrEmpty( getContext() ))
+            msg = getContext() + " " + msg;
+
         if(LOG.isDebugEnabled())
         {
             LOG.debug( msg );
