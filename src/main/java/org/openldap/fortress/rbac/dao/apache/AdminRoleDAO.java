@@ -139,11 +139,6 @@ public final class AdminRoleDAO extends ApacheDsDataProvider implements org.open
     };
 
 
-    public AdminRoleDAO()
-    {
-    }
-
-
     /**
      * Create a new AdminRole entity using supplied data.  Required attribute is {@link AdminRole#name}.
      * This data will be stored in the {@link GlobalIds#ADMIN_ROLE_ROOT} container.

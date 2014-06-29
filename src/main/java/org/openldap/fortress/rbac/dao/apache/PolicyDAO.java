@@ -138,14 +138,6 @@ public final class PolicyDAO extends ApacheDsDataProvider implements org.openlda
 
 
     /**
-     * Package private default constructor.
-     */
-    public PolicyDAO()
-    {
-    }
-
-
-    /**
      * @param entity
      * @return
      * @throws org.openldap.fortress.CreateException

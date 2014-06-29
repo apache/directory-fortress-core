@@ -120,14 +120,6 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements org.openld
 
 
     /**
-     * Package private default constructor.
-     */
-    public OrgUnitDAO()
-    {
-    }
-
-
-    /**
      * @param entity
      * @return
      * @throws org.openldap.fortress.CreateException

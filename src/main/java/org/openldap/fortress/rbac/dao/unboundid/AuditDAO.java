@@ -177,14 +177,6 @@ public final class AuditDAO extends UnboundIdDataProvider implements org.openlda
 
 
     /**
-     * Package private default constructor.
-     */
-    public AuditDAO()
-    {
-    }
-
-
-    /**
      * This method returns failed authentications where the userid is not present in the directory.  This
      * is possible because Fortress performs read on user before the bind.
      * User:

@@ -136,14 +136,6 @@ public final class SdDAO extends ApacheDsDataProvider implements org.openldap.fo
 
 
     /**
-     * Package private constructor
-     */
-    public SdDAO()
-    {
-    }
-
-
-    /**
      * @param entity
      * @return
      * @throws org.openldap.fortress.CreateException

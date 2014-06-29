@@ -117,14 +117,6 @@ public final class OrgUnitDAO extends UnboundIdDataProvider implements org.openl
 
 
     /**
-     * Package private default constructor.
-     */
-    public OrgUnitDAO()
-    {
-    }
-
-
-    /**
      * @param entity
      * @return
      * @throws org.openldap.fortress.CreateException

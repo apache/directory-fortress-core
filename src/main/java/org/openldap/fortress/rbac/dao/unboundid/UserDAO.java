@@ -319,14 +319,6 @@ public final class UserDAO extends UnboundIdDataProvider implements org.openldap
 
 
     /**
-     * Don't let classes outside of this package construct this.
-     */
-    public UserDAO()
-    {
-    }
-
-
-    /**
      * @param entity
      * @return
      * @throws CreateException

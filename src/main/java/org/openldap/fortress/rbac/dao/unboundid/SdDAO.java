@@ -133,14 +133,6 @@ public final class SdDAO extends UnboundIdDataProvider implements org.openldap.f
 
 
     /**
-     * Package private constructor
-     */
-    public SdDAO()
-    {
-    }
-
-
-    /**
      * @param entity
      * @return
      * @throws org.openldap.fortress.CreateException

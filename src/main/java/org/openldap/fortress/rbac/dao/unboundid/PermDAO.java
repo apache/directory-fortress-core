@@ -188,14 +188,6 @@ public final class PermDAO extends UnboundIdDataProvider implements org.openldap
 
 
     /**
-     * Default constructor is used by internal Fortress classes.
-     */
-    public PermDAO()
-    {
-    }
-
-
-    /**
      * @param entity
      * @return
      * @throws org.openldap.fortress.CreateException

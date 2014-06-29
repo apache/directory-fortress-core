@@ -134,14 +134,6 @@ public final class PolicyDAO extends UnboundIdDataProvider implements org.openld
 
 
     /**
-     * Package private default constructor.
-     */
-    public PolicyDAO()
-    {
-    }
-
-
-    /**
      * @param entity
      * @return
      * @throws org.openldap.fortress.CreateException

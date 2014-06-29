@@ -327,14 +327,6 @@ public final class UserDAO extends ApacheDsDataProvider implements org.openldap.
 
 
     /**
-     * Don't let classes outside of this package construct this.
-     */
-    public UserDAO()
-    {
-    }
-
-
-    /**
      * @param entity
      * @return
      * @throws CreateException

@@ -109,14 +109,6 @@ public final class RoleDAO extends UnboundIdDataProvider implements org.openldap
 
 
     /**
-     * Don't let any classes outside of this package construct instance of this class.
-     */
-    public RoleDAO()
-    {
-    }
-
-
-    /**
      * @param entity
      * @return
      * @throws CreateException

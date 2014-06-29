@@ -135,11 +135,6 @@ public final class AdminRoleDAO extends UnboundIdDataProvider implements org.ope
     };
 
 
-    public AdminRoleDAO()
-    {
-    }
-
-
     /**
      * Create a new AdminRole entity using supplied data.  Required attribute is {@link AdminRole#name}.
      * This data will be stored in the {@link GlobalIds#ADMIN_ROLE_ROOT} container.
