@@ -46,6 +46,27 @@ public class TestAccelerator
     }
 
     @Test
+    public void testSessionRoles()
+    {
+        LOG.info( "testSessionRoles..." );
+        User user = new User();
+        user.setUserId( "rbacuser1" );
+        user.setPassword( "secret".toCharArray() );
+        try
+        {
+            AccelMgr accelMgr = AccelMgrFactory.createInstance( TestUtils.getContext() );
+            Session session;
+            session = accelMgr.createSession( user, false );
+            assertNotNull( session );
+            accelMgr.sessionRoles( session );
+        }
+        catch( org.openldap.fortress.SecurityException se)
+        {
+            se.printStackTrace();
+        }
+    }
+
+    //@Test
     public void testCreateSession()
     {
         LOG.info( "testCreateSession..." );
@@ -86,7 +107,7 @@ public class TestAccelerator
         }
     }
 
-    @Test
+    //@Test
     public void testCheckAccess()
     {
         AccelMgr accelMgr = null;
@@ -113,6 +134,7 @@ public class TestAccelerator
             // positive test case:
             Permission perm = new Permission();
             perm.setObjName( "/rbac/cal2.jsp" );
+            //perm.setObjId( "123456" );
             perm.setOpName( "8am" );
             boolean result = accelMgr.checkAccess( session, perm );
             assertTrue( result );
@@ -128,7 +150,7 @@ public class TestAccelerator
         }
     }
 
-    @Test
+    //@Test
     public void testDeleteSession()
     {
         LOG.info( "testDeleteSession..." );
@@ -149,7 +171,7 @@ public class TestAccelerator
         }
     }
 
-    @Test
+    //@Test
     public void testAddActiveRole()
     {
         LOG.info( "testAddActiveRole..." );
@@ -176,7 +198,7 @@ public class TestAccelerator
         }
     }
 
-    @Test
+    //@Test
     public void testDropActiveRole()
     {
         LOG.info( "testDropActiveRole..." );
@@ -205,7 +227,7 @@ public class TestAccelerator
     }
 
 
-    @Test
+    //@Test
     public void testCombinedCalls()
     {
         LOG.info( "testCombinedCalls..." );

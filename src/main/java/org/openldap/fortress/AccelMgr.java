@@ -119,8 +119,27 @@ public interface AccelMgr extends Manageable
         throws SecurityException;
 
 
+    /**
+     * This function deletes a fortress session from the RBAC Policy Decision Point inside OpenLDAP RBAC Accelerator.  The function is valid if
+     * and only if the session is a valid Fortress session.
+     *
+     * @param session object contains the user's returned RBAC session from the createSession method.
+     * @throws SecurityException is thrown if session invalid or system. error.
+     */
     public void deleteSession(Session session)
         throws SecurityException;
+
+    /**
+     * This function returns the active roles associated with a session. The function is valid if
+     * and only if the session is a valid Fortress session.
+     *
+     * @param session object contains the user's returned RBAC session from the createSession method.
+     * @return List<UserRole> containing all roles active in user's session.  This will NOT contain inherited roles.
+     * @throws SecurityException is thrown if session invalid or system. error.
+     */
+    public List<UserRole> sessionRoles(Session session)
+        throws SecurityException;
+
 
     /**
      * Perform user RBAC authorization.  This function returns a Boolean value meaning whether the subject of a given session is

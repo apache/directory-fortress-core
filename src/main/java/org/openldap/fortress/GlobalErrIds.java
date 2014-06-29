@@ -1548,6 +1548,10 @@ public class GlobalErrIds
     public final static int ACEL_DROP_ROLE_ERR = 10205;
 
     /**
+     * The RBAC Accelerator function failed because SessionRoles LDAP extended operation error.
+     */
+    public final static int ACEL_SESSION_ROLES_ERR = 10206;
+    /**
      * 10300's - Group Error Ids
      */
     /**

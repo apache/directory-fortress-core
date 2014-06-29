@@ -21,11 +21,14 @@ import org.openldap.fortress.rbac.Session;
 import org.openldap.fortress.rbac.User;
 import org.openldap.fortress.rbac.UserRole;
 
+import java.util.List;
+
 
 public interface AcceleratorDAO
 {
     public Session createSession( User user ) throws SecurityException;
     public void deleteSession( Session session ) throws SecurityException;
+    public List<UserRole> sessionRoles( Session session ) throws SecurityException;
     public boolean checkAccess( Session session, Permission perm ) throws SecurityException;
     public void dropActiveRole( Session session, UserRole userRole ) throws SecurityException;
     public void addActiveRole( Session session, UserRole userRole ) throws SecurityException;

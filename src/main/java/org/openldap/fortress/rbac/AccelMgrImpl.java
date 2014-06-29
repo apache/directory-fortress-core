@@ -158,6 +158,23 @@ public class AccelMgrImpl extends Manageable implements AccelMgr
 
 
     /**
+     * This function returns the active roles associated with a session. The function is valid if
+     * and only if the session is a valid Fortress session.
+     *
+     * @param session object contains the user's returned RBAC session from the createSession method.
+     * @return List<UserRole> containing all roles active in user's session.  This will NOT contain inherited roles.
+     * @throws SecurityException is thrown if session invalid or system. error.
+     */
+    public List<UserRole> sessionRoles(Session session)
+        throws SecurityException
+    {
+        String methodName = "sessionRoles";
+        assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
+        return aDao.sessionRoles( session );
+    }
+
+
+    /**
      * Perform user rbac authorization.  This function returns a Boolean value meaning whether the subject of a given session is
      * allowed or not to perform a given operation on a given object. The function is valid if and
      * only if the session is a valid Fortress session, the object is a member of the OBJS data set,

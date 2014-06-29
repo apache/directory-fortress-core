@@ -189,7 +189,7 @@
                 <!-- safe modify must be false iff user can chg pw after reset -->
                 <policy name="Test1"
                     minAge="0"
-                    maxAge="2000000"
+                    maxAge="525600"
                     inHistory="5"
                     checkQuality="2"
                     minLength="4"

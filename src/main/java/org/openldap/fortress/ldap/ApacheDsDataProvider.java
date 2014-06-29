@@ -139,7 +139,9 @@ public abstract class ApacheDsDataProvider
               + "org.openldap.accelerator.impl.checkAccess.RbacCheckAccessFactory,"
               + "org.openldap.accelerator.impl.addRole.RbacAddRoleFactory,"
               + "org.openldap.accelerator.impl.dropRole.RbacDropRoleFactory,"
-              + "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory");
+              + "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory,"
+              + "org.openldap.accelerator.impl.sessionRoles.RbacSessionRolesFactory"
+                );
 
             LdapApiService ldapApiService = new StandaloneLdapApiService();
             if ( LdapApiServiceFactory.isInitialized() == false )

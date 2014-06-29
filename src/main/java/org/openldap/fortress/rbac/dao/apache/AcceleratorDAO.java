@@ -34,6 +34,9 @@ import org.openldap.accelerator.api.dropRole.RbacDropRoleResponse;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
+import org.openldap.accelerator.api.sessionRoles.RbacSessionRolesRequest;
+import org.openldap.accelerator.api.sessionRoles.RbacSessionRolesRequestImpl;
+import org.openldap.accelerator.api.sessionRoles.RbacSessionRolesResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.openldap.fortress.*;
@@ -44,6 +47,9 @@ import org.openldap.fortress.rbac.Session;
 import org.openldap.fortress.rbac.User;
 import org.openldap.fortress.rbac.UserRole;
 import org.openldap.fortress.util.attr.VUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public final class AcceleratorDAO extends ApacheDsDataProvider implements org.openldap.fortress.rbac.dao.AcceleratorDAO
@@ -274,5 +280,43 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements org.op
         {
             closeAdminConnection( ld );
         }
+    }
+
+
+    public List<UserRole> sessionRoles( Session session ) throws SecurityException
+    {
+        LdapConnection ld = null;
+        List<UserRole> userRoleList = null;
+        try
+        {
+            ld = getAdminConnection();
+            RbacSessionRolesRequest sessionRolesRequest = new RbacSessionRolesRequestImpl();
+            sessionRolesRequest.setSessionId( session.getSessionId() );
+            sessionRolesRequest.setUserIdentity( session.getUserId() );
+            // Send the request
+            RbacSessionRolesResponse sessionRolesResponse = ( RbacSessionRolesResponse ) ld.extended(
+                sessionRolesRequest );
+            LOG.debug( "sessionRoles result: {}", sessionRolesResponse.getLdapResult().getResultCode().getResultCode());
+            if(VUtil.isNotNullOrEmpty( sessionRolesResponse.getRoles() ) )
+            {
+                userRoleList = new ArrayList<>(  );
+                for( String roleNm : sessionRolesResponse.getRoles() )
+                {
+                    UserRole userRole = new UserRole( session.getUserId(), roleNm );
+                    userRoleList.add( userRole );
+                }
+            }
+        }
+        catch ( LdapException e )
+        {
+            String error = "sessionRoles caught LDAPException=" + " msg=" + e
+                .getMessage();
+            throw new org.openldap.fortress.SecurityException( GlobalErrIds.ACEL_SESSION_ROLES_ERR, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+        return userRoleList;
     }
 }
