@@ -131,7 +131,7 @@ ppolicy_hash_cleartext
 @IS_RBAC_ACCELERATOR@suffix     "@SESSIONS_DN@"
 @IS_RBAC_ACCELERATOR@rootdn	    "cn=manager,@SESSIONS_DN@"
 @IS_RBAC_ACCELERATOR@rootpw	    @LOG_ROOT_PW@
-@IS_RBAC_ACCELERATOR@directory  "@RBAC_DB_PATH@"
+@IS_RBAC_ACCELERATOR@directory  "@RBACSESS_DB_PATH@"
 @IS_RBAC_ACCELERATOR@overlay     dds
 @IS_RBAC_ACCELERATOR@dds-default-ttl 3600
 @IS_RBAC_ACCELERATOR@dds-max-dynamicObjects	100000
@@ -156,6 +156,7 @@ ppolicy_hash_cleartext
 @IS_RBAC_ACCELERATOR@suffix		"@RBAC_DN@"
 @IS_RBAC_ACCELERATOR@rootdn		"cn=manager,@RBAC_DN@"
 @IS_RBAC_ACCELERATOR@rootpw		@LOG_ROOT_PW@
+@IS_RBAC_ACCELERATOR@directory	"@RBACOVERLAY_DB_PATH@"
 @IS_RBAC_ACCELERATOR@overlay	rbac
 @IS_RBAC_ACCELERATOR@rbac-default-tenant-id "@SUFFIX_NAME@"
 @IS_RBAC_ACCELERATOR@rbac-default-users-base-dn "@USERS_DN@"
