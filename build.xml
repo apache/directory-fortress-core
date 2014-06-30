@@ -691,8 +691,9 @@
         <replace file="${target.slapd.conf}" token="@PERMS_DN@" value="${perms.dn}"/>
         <replace file="${target.slapd.conf}" token="@SUFFIX@" value="${suffix.dc}"/>
         <replace file="${target.slapd.conf}" token="@SUFFIX_NAME@" value="${suffix.name}"/>
-        <replace file="${target.slapd.conf}" token="@RBAC_DB_PATH@" value="${db.sess.dir}"/>
+        <replace file="${target.slapd.conf}" token="@RBACSESS_DB_PATH@" value="${db.sess.dir}"/>
         <replace file="${target.slapd.conf}" token="@AUDIT_DB_PATH@" value="${db.audit.dir}"/>
+        <replace file="${target.slapd.conf}" token="@RBACOVERLAY_DB_PATH@" value="${db.rbac.dir}"/>
         <replace file="${target.slapd.conf}" token="@RBAC_DN@" value="${rbac.dn}"/>
         <replace file="${target.slapd.conf}" token="@SESSIONS_DN@" value="${sessions.dn}"/>
         <replace file="${target.slapd.conf}" token="@AUDITS_DN@" value="${audit.dn}"/>
@@ -705,7 +706,8 @@
         <mkdir dir="${db.sess.dir}"/>
         <echo message="###############  Create RBAC ACCEL OVERLAY audit folder  ###############"/>
         <mkdir dir="${db.audit.dir}"/>
-
+        <echo message="###############  Create RBAC ACCEL OVERLAY rbac folder  ###############"/>
+        <mkdir dir="${db.rbac.dir}"/>
         <antcall target="copy-rbac-libs"></antcall>
     </target>
 
