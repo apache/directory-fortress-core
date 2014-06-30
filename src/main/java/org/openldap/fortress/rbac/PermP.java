@@ -565,6 +565,10 @@ public final class PermP
         {
             VUtil.description( pOp.getType() );
         }
+        if ( VUtil.isNotNullOrEmpty( pOp.getDescription() ) )
+        {
+            VUtil.description( pOp.getDescription() );
+        }
         // Validate Role Grants:
         if ( VUtil.isNotNullOrEmpty( pOp.getRoles() ) )
         {

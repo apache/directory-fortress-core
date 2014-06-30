@@ -367,6 +367,11 @@ public final class PermDAO extends UnboundIdDataProvider implements org.openldap
             {
                 attrs.add( createAttribute( POBJ_ID, entity.getObjId() ) );
             }
+            // description is optional:
+            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            {
+                attrs.add( createAttribute( GlobalIds.DESC, entity.getDescription() ) );
+            }
             // type is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
             {
@@ -418,6 +423,12 @@ public final class PermDAO extends UnboundIdDataProvider implements org.openldap
         try
         {
             LDAPModificationSet mods = new LDAPModificationSet();
+            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            {
+                LDAPAttribute desc = new LDAPAttribute( GlobalIds.DESC,
+                    entity.getDescription() );
+                mods.add( LDAPModification.REPLACE, desc );
+            }
             if ( VUtil.isNotNullOrEmpty( entity.getAbstractName() ) )
             {
                 // the abstract name is the human readable identifier:
@@ -947,6 +958,7 @@ public final class PermDAO extends UnboundIdDataProvider implements org.openldap
         entity.setObjName( getAttribute( le, GlobalIds.POBJ_NAME ) );
         entity.setObjId( getAttribute( le, POBJ_ID ) );
         entity.setOpName( getAttribute( le, GlobalIds.POP_NAME ) );
+        entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setRoles( getAttributeSet( le, ROLES ) );
         entity.setUsers( getAttributeSet( le, USERS ) );

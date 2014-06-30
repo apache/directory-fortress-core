@@ -2776,6 +2776,7 @@ public class PermTestData extends TestCase
         pOp.setObjName( objName );
         pOp.setObjId( getObjId( op ) );
         pOp.setOpName( getName( op ) );
+        pOp.setDescription( getDescription( op ) );
         //pOp.setAbstractName(pOp.getObjName() + "." + pOp.getOpName());
         pOp.setType( getType( op ) );
         pOp.setAdmin( isOpAdmin( op ) );

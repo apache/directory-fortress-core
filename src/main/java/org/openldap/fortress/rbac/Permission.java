@@ -207,6 +207,7 @@ import org.openldap.fortress.rbac.dao.UserDAO;
         "objName",
         "opName",
         "objId",
+        "description",
         "abstractName",
         "internalId",
         "type",
@@ -227,6 +228,7 @@ public class Permission extends FortEntity
     private String abstractName;
     private String type;
     private String dn;
+    private String description;
     @XmlElement(nillable = true)
     private Props props = new Props();
     //private Properties props;
@@ -575,6 +577,25 @@ public class Permission extends FortEntity
     public void setDn( String dn )
     {
         this.dn = dn;
+    }
+
+    /**
+     * Return the description field on this entity.  The description is often used as a human readable label for the permission.
+     * @return String containing the description.
+     */
+    public String getDescription()
+    {
+        return description;
+    }
+
+    /**
+     * Set the optional description field on this entity.  The description is used as a human readable label for the permission.
+     *
+     * @param description String contains the description.
+     */
+    public void setDescription( String description )
+    {
+        this.description = description;
     }
 
     /**

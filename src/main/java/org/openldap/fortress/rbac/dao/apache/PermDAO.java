@@ -380,6 +380,12 @@ public final class PermDAO extends ApacheDsDataProvider implements org.openldap.
             // create the internal id:
             entry.add( GlobalIds.FT_IID, entity.getInternalId() );
 
+            // description is optional:
+            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            {
+                entry.add( GlobalIds.DESC, entity.getDescription() );
+            }
+
             // the abstract name is the human readable identifier:
             entry.add( PERM_NAME, entity.getAbstractName() );
 
@@ -451,6 +457,12 @@ public final class PermDAO extends ApacheDsDataProvider implements org.openldap.
                 // the abstract name is the human readable identifier:
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, PERM_NAME, entity.getAbstractName() ) );
+            }
+
+            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            {
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
@@ -997,6 +1009,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.openldap.
         entity.setRoles( getAttributeSet( le, ROLES ) );
         entity.setUsers( getAttributeSet( le, USERS ) );
         entity.setType( getAttribute( le, TYPE ) );
+        entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
         entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
         entity.setAdmin( isAdmin );
 
