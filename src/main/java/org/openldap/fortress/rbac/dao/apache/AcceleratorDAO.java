@@ -160,7 +160,11 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements org.op
             RbacCheckAccessRequest rbacCheckAccessRequest = new RbacCheckAccessRequestImpl();
             rbacCheckAccessRequest.setSessionId( session.getSessionId() );
             rbacCheckAccessRequest.setObject( perm.getObjName() );
-            rbacCheckAccessRequest.setObjectId( perm.getObjId() );
+            // objectId is optional
+            if(VUtil.isNotNullOrEmpty( perm.getObjId()))
+            {
+                rbacCheckAccessRequest.setObjectId( perm.getObjId() );
+            }
             rbacCheckAccessRequest.setOperation( perm.getOpName() );
             // Send the request
             RbacCheckAccessResponse rbacCheckAccessResponse = ( RbacCheckAccessResponse ) ld.extended(
