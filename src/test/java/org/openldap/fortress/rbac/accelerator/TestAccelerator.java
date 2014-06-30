@@ -66,7 +66,7 @@ public class TestAccelerator
         }
     }
 
-    //@Test
+    @Test
     public void testCreateSession()
     {
         LOG.info( "testCreateSession..." );
@@ -107,7 +107,7 @@ public class TestAccelerator
         }
     }
 
-    //@Test
+    @Test
     public void testCheckAccess()
     {
         AccelMgr accelMgr = null;
@@ -150,7 +150,7 @@ public class TestAccelerator
         }
     }
 
-    //@Test
+    @Test
     public void testDeleteSession()
     {
         LOG.info( "testDeleteSession..." );
@@ -198,7 +198,7 @@ public class TestAccelerator
         }
     }
 
-    //@Test
+    @Test
     public void testDropActiveRole()
     {
         LOG.info( "testDropActiveRole..." );
@@ -227,7 +227,7 @@ public class TestAccelerator
     }
 
 
-    //@Test
+    @Test
     public void testCombinedCalls()
     {
         LOG.info( "testCombinedCalls..." );
