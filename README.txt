@@ -15,7 +15,7 @@ ________________________________________________________________________________
 ###################################################################################
 README for Fortress Identity and Access Management SDK
 Version 1.0-RC37
-last updated: June 25, 2014
+last updated: July 3, 2014
 
 This document provides instructions to download, compile, test and use the
 Fortress IAM with OpenLDAP server.  If you don't already have OpenLDAP installed,
@@ -227,37 +227,71 @@ a. Install OpenLDAP using your existing package management system.
 
         + etc.
 
-- No need to configure or load the OpenLDAP server.  That is handled on step c below.
+b. Copy fortress schema to openldap schema folder:
+
+cp FORTRESS_HOME/ldap/schema/fortress.schema $OPENLDAP_HOME/etc/openldap/schema
+
+c. Enable Fortress schema in slapd.conf:
+
+include		FORTRESS_HOME/etc/openldap/schema/fortress.schema
+
+note: for steps b & c above substitute FORTRESS_HOME for root of your OpenLDAP installation.
+
+d. For password policy support, enable pwpolicy overlay in slapd.conf:
+
+moduleload	ppolicy.la
+
+e. For Fortress audit support, enable slapoaccesslog in slapd.conf
+
+moduleload  accesslog.la
+
+f. Gather the following information about your OpenLDAP instance:
+
+i. suffix
+ii. host
+iii. port
+iv. ldap user account that has read/write priv for default DIT (root works)
+v. pw for above
+vi. ldap user account that has read/write priv for access log DIT (log root works)
+vii. pw for above
 
 
-b. enable the correct installation particulars into FORTRESS_HOME/openldap-fortress-core/build.properties.
+g. Example OpenLDAP instance:
 
-    These parameters will need to vary according to how your OpenLDAP system was installed. For Debian OpenLDAP builds,
-    use the following:
+i. dc=example, dc=com
+ii. myhostname
+iii. 389
+iv. "cn=Manager,dc=example,dc=com"
+v. secret
+vi. "cn=Manager,cn=log"
+vii. secret
 
-## If using Debian/Ubuntu OpenLDAP, uncomment this section:
-db.dir=/var/lib/ldap
-db.hist.dir=${db.dir}/hist
-db.bak.dir=/var/lib/ldap-backup/db
-db.bak.hist.dir=/var/lib/ldap-backup/hist
-slapd.dir=/etc/ldap
-pid.dir=/var/run/slapd
-slapd.module.dir=/usr/lib/ldap
-slapd.start=slapd -f /etc/ldap/slapd.conf
- unless you know what you're doing, take the default:
-log.dbnosynch=dbnosync
-dflt.dbnosynch=dbnosync
-log.checkpoint=checkpoint	4056 60
-dflt.checkpoint=checkpoint	1024 60
+h. Modify the build.properties file with settings
 
-c. Run the install target:
+i.
+suffix.name=example
+suffix.dc=com
 
-if Debian sudo:
->sudo $ANT_HOME/bin/ant init-slapd
+ii. ldap.host=myhostname
 
-if not sudo you must run as user that has priv to modify folders in /var and /opt folders:
->su
->$ANT_HOME/bin/ant init-slapd
+iii. ldap.port=389
+
+iv. root.dn=cn=Manager,${suffix}
+
+v. root.pw=secret
+note: the above may be hased using slappasswd
+
+vi. log.root.dn=cn=Manager,${log.suffix}
+
+vii. secret
+
+i. Create the Fortress DIT:
+
+from the FORTRESS_HOME root folder, enter the following:
+
+>$ANT_HOME/bin/ant load-slapd
+
+j. Proceed to SECTION 8 to regression test Fortress and OpenLDAP
 
 ___________________________________________________________________________________
 ###################################################################################
