@@ -229,13 +229,14 @@ a. Install OpenLDAP using your existing package management system.
 
 b. Copy fortress schema to openldap schema folder:
 
-cp FORTRESS_HOME/ldap/schema/fortress.schema $OPENLDAP_HOME/etc/openldap/schema
+cp FORTRESS_HOME/ldap/schema/fortress.schema OPENLDAP_HOME/etc/openldap/schema
 
 c. Enable Fortress schema in slapd.conf:
 
-include		FORTRESS_HOME/etc/openldap/schema/fortress.schema
+include		OPENLDAP_HOME/etc/openldap/schema/fortress.schema
 
-note: for steps b & c above substitute FORTRESS_HOME for root of your OpenLDAP installation.
+note: for steps b & c above substitute FORTRESS_HOME for root of your Fortress installation.
+note: for steps b above substitute OPENLDAP_HOME for root of your OPENLDAP installation.
 
 d. For password policy support, enable pwpolicy overlay in slapd.conf:
 
