@@ -355,8 +355,9 @@ a. from FORTRESS_HOME enter the following command:
 
 Notes:
   - These tests load tens of thousands of ldap records into your newly installed directory.
-  - The 'init-slapd' and 'test-full' targets may be re-run as often as necessary.
-  - After regressions testing has completed, you may run the 'init-slapd' target to remove all test data from the directory.
+  - The 'init-slapd' and/or 'test-full' targets may be re-run as often as necessary.
+  - After regressions testing has completed. you may run the 'init-slapd' target to remove all test data from the directory.
+  - if you followed steps in, SECTION 6 (existing OpenLDAP server), do NOT run the init-slapd target
   - WARNING log messages in test output are good as these are negative tests in action:
   - If these test completes without junit or ant ERRORS, Fortress is certified to run on your target ldap server machine.
 ___________________________________________________________________________________
