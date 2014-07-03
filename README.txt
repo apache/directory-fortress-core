@@ -227,9 +227,11 @@ a. Install OpenLDAP using your existing package management system.
 
         + etc.
 
+
 b. Copy fortress schema to openldap schema folder:
 
 cp FORTRESS_HOME/ldap/schema/fortress.schema OPENLDAP_HOME/etc/openldap/schema
+
 
 c. Enable Fortress schema in slapd.conf:
 
@@ -238,15 +240,69 @@ include		OPENLDAP_HOME/etc/openldap/schema/fortress.schema
 note: for steps b & c above substitute FORTRESS_HOME for root of your Fortress installation.
 note: for steps b above substitute OPENLDAP_HOME for root of your OPENLDAP installation.
 
+
 d. For password policy support, enable pwpolicy overlay in slapd.conf:
 
 moduleload	ppolicy.la
 
-e. For Fortress audit support, enable slapoaccesslog in slapd.conf
+
+e. For Fortress audit support, enable slapoaccesslog in slapd.conf:
 
 moduleload  accesslog.la
 
-f. Gather the following information about your OpenLDAP instance:
+
+f. Add Fortress audit log settings to slapd.conf:
+
+# History DB Settings  (optional, use only if fortress audit is needed)
+# note: the following settings may be tailored to your requirements:
+database	 mdb
+maxreaders 64
+maxsize 1000000000
+suffix		"cn=log"
+rootdn      "cn=Manager,cn=log"
+rootpw      "{SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU"
+index objectClass,reqDN,reqAuthzID,reqStart,reqAttr eq
+directory	"/var/openldap/hist"
+access to *
+    by dn.base="cn=Manager,cn=log" write
+dbnosync
+checkpoint   64 5
+
+
+g. Add Fortress default DB settings to slapd.conf:
+
+# Default DB Settings
+# note: the following settings may be tailored to your requirements:
+database	mdb
+maxreaders 64
+maxsize 1000000000
+suffix		"dc=example,dc=com"
+rootdn      "cn=Manager,dc=example,dc=com"
+rootpw      "{SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU"
+
+index uidNumber,gidNumber,objectclass eq
+index cn,sn,ftObjNm,ftOpNm,ftRoleName,uid,ou eq,sub
+index ftId,ftPermName,ftRoles,ftUsers,ftRA,ftARA eq
+
+directory	"/var/openldap/dflt"
+overlay accesslog
+logdb   "cn=log"
+dbnosync
+checkpoint	64 5
+
+
+h. More Fortress audit log settings in slapd.conf:
+
+# Audit Log Settings (optional, use only if fortress audit is needed)
+# note: the following settings may be tailored to your requirements:
+logops bind writes compare
+logoldattr ftModifier ftModCode ftModId ftRC ftRA ftARC ftARA ftCstr ftId ftPermName ftObjNm ftOpNm ftObjId ftGroups ftRoles ftUsers ftType
+logpurge 5+00:00 1+00:00
+
+# Instructions to configure Fortress to work with your customized OpenLDAP instance
+
+
+i. Gather the following information about your OpenLDAP instance:
 
 i. suffix
 ii. host
@@ -257,7 +313,7 @@ vi. ldap user account that has read/write priv for access log DIT (log root work
 vii. pw for above
 
 
-g. Example OpenLDAP instance:
+j. Example OpenLDAP instance:
 
 i. dc=example, dc=com
 ii. myhostname
@@ -269,7 +325,7 @@ vii. secret
 
 h. Modify the build.properties file with settings
 
-i.
+k.
 suffix.name=example
 suffix.dc=com
 
@@ -286,13 +342,13 @@ vi. log.root.dn=cn=Manager,${log.suffix}
 
 vii. secret
 
-i. Create the Fortress DIT:
+l. Create the Fortress DIT:
 
 from the FORTRESS_HOME root folder, enter the following:
 
 >$ANT_HOME/bin/ant load-slapd
 
-j. Proceed to SECTION 8 to regression test Fortress and OpenLDAP
+m. Skip to SECTION 8 to regression test Fortress and OpenLDAP
 
 ___________________________________________________________________________________
 ###################################################################################
