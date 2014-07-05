@@ -15,7 +15,7 @@ ________________________________________________________________________________
 ###################################################################################
 README for Fortress Identity and Access Management SDK
 Version 1.0-RC37
-last updated: July 3, 2014
+last updated: July 4, 2014
 
 This document provides instructions to download, compile, test and use the
 Fortress IAM with OpenLDAP server.  If you don't already have OpenLDAP installed,
@@ -25,20 +25,22 @@ ________________________________________________________________________________
 # SECTION 0:  Prerequisites for Fortress SDK installation and use with LDAP server
 ###################################################################################
 1. Internet access to retrieve source code from OpenLDAP GIT and binary dependencies from online Maven repo.
-
-Fortress uses Apache Ant for installation and management of its operations.  Ordinarily the target environment
-would have access to the Internet to pull down its dependencies from Maven but may run without outside connection iff:
-
-a. The binary dependencies are already present in FORTRESS_HOME/lib folder.  For list of dependencies goto ivy.xml file.
-b. Local mode has been enabled on target machine.  This can be done by adding the following entry to your build.properties file:
+Fortress installation procedures use Apache Ant & Ivy.  Ivy pulls external dependencies from Maven repositories.
+These ant targets need external access to the Internet to pull down dependencies but may run without external connection IFF:
+a. The necessary binary jars are already present and loaded into FORTRESS_HOME/lib folder.  For list of dependency jars check out the ivy.xml file.
+b. Local mode has been enabled in target runtime env.  This can be done by adding the following to build.properties file:
 
 local.mode=true
 
+More prereqs:
+
 2. Java SDK Version 7 or beyond installed to target environment
+
 3. Apache Ant 1.8 or beyond installed to target environment
+
 4. OpenLDAP installed to target system.  (options follow in section 1).
 
-Note:  Fortress SDK is LDAPv3 compliant and works with other directory servers, especially ApacheDS:
+Note:  Fortress is LDAPv3 compliant and works with other directory servers, especially ApacheDS:
 README-QUICKSTART-APACHEDS.html.
 
 5. GIT installed to target environment. (Fortress developers only)
@@ -91,7 +93,7 @@ This will pull down source code from GIT and load into
 the directory from which it ran, hereafter called 'FORTRESS_HOME'.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 3. Instructions to build openldap-fortress-core software distribution packages
+# SECTION 3. Instructions to build openldap-fortress-core software distribution packages using 'dist' target.
 ###################################################################################
 
 NOTE: The Fortress build.xml may run without connection to Internet iff:
@@ -126,7 +128,7 @@ c. Follow the steps I, II & III contained within README-QUICKSTART.html, or READ
 d. Proceed to SECTION 8 in this document for integration testing Fortress & OpenLDAP on your target platform.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 5. Instructions to configure openldap-fortress-core SDK for target system
+# SECTION 5. Instructions to configure openldap-fortress-core SDK for target system using build.properties file.
 ###################################################################################
 
 - This must be done when OpenLDAP is not installed with the Fortress QUICKSTART package.
@@ -214,7 +216,7 @@ slapd.install=rpm -Uvv symas-openldap-gold.i386-2.4.25.110424.rpm
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 6. Instructions for using pre-existing or native OpenLDAP installation.
+# SECTION 6. Instructions for using pre-existing or native OpenLDAP installation using 'load-slapd' target.
 ###################################################################################
 
 a. Install OpenLDAP using your existing package management system.
@@ -352,7 +354,7 @@ m. Skip to SECTION 8 to regression test Fortress and OpenLDAP
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 7. Instructions for Symas installation of OpenLDAP
+# SECTION 7. Instructions for Symas installation of OpenLDAP - using 'init-slapd' target
 ###################################################################################
 
 a. Go to Symas.com downloads section.
@@ -403,23 +405,31 @@ if not sudo you must run as user that has priv to modify folders in /var and /op
 
 _______________________________________________________________________________
 ###############################################################################
-# SECTION 8. Instructions to test openldap-fortress-core using regression tests
+# SECTION 8. Instructions to fully regression test openldap-fortress-core using 'test-full' target
 ###############################################################################
 
 a. from FORTRESS_HOME enter the following command:
 
 >$ANT_HOME/bin/ant test-full
 
-Notes:
-  - These tests load tens of thousands of ldap records into your newly installed directory.
-  - The 'init-slapd' and/or 'test-full' targets may be re-run as often as necessary.
-  - After regressions testing has completed. you may run the 'init-slapd' target to remove all test data from the directory.
-  - if you followed steps in, SECTION 6 (existing OpenLDAP server), do NOT run the init-slapd target
-  - WARNING log messages in test output are good as these are negative tests in action:
-  - If these test completes without junit or ant ERRORS, Fortress is certified to run on your target ldap server machine.
+Testing Notes:
+
+  - If these tests complete without Junit or ant ERRORS, Fortress is certified to run on the target ldap server.
+
+  - These tests will load thousands of records into the target ldap server.
+
+  - The 'test-full' target may be run as many times as necessary and should be run at least twice to test the teardown APIs.
+
+  - The 2nd and subsequent times 'test-full' runs, it will tear down the data loaded during the prior run.
+
+  - After the 'test-full' target runs, you may run the 'init-slapd' target to clear out the the test data loaded.
+    - Unless you followed steps from SECTION 6 (existing OpenLDAP server), in which case do NOT run the 'init-slapd' target.
+
+  - WARNING log messages are good as these are negative tests in action:
+
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 9. Instructions to run the openldap-fortress-core command line interpreter (CLI) utility
+# SECTION 9. Instructions to run the openldap-fortress-core command line interpreter (CLI) utility using 'cli' target
 ###################################################################################
 
 a. from FORTRESS_HOME enter the following command:
@@ -432,16 +442,10 @@ $FORTRESS_HOME/openldap-fortress-core/dist/docs/api/com/jts/fortress/cli/package
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 10. Learn how to use openldap-fortress-core APIs with samples
+# SECTION 10. Learn how to use openldap-fortress-core APIs with samples using 'test-samples' target
 ###################################################################################
 
 a. from FORTRESS_HOME enter the following command:
-
-(if first time sample tests run)
-
->$ANT_HOME/bin/ant test-samples-init
-
-b. Or if subsequent runs:
 
 >$ANT_HOME/bin/ant test-samples
 
@@ -461,6 +465,17 @@ f. view the fortress-core SDK java doc here:
 
 $FORTRESS_HOME/openldap-fortress-core/dist/docs/api/index.html
 
+Testing Notes:
+
+  - Test cases are simple and useful for learning how to code using Fortress APIs.
+
+  - Tests should complete without Junit or ant ERRORS.
+
+  - These tests will load some records into the target ldap server.
+
+  - The 'test-samples' target may be run as many times as necessary and should be run at least twice to test the teardown APIs.
+
+  - The 2nd and subsequent times 'test-samples' runs, it will tear down the data loaded during the prior run.
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 11. Instructions to run the openldap-fortress-core command console
