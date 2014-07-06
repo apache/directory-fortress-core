@@ -16,14 +16,27 @@
   <img src="./images/fortresscommunitylogov3.jpg" />  
 <br>
 <p>
-These instructions are intended for new users who want to quickly learn how to install and test JoshuaTree Fortress and Symas OpenLDAP IAM software using the QUICKSTART package:
-    http://iamfortress.org/download
-    For instructions on how to get Fortress working with existing OpenLDAP instance, following instructions in README.txt, SECTION 6
-<br><br>Follow the steps and
+The intent of this document is to help new users with OpenLDAP Fortress IAM software using one of the the linux QUICKSTART packages located here:
+    <a href="http://iamfortress.org/download">iamfortress.org/download</a>
+    <br>For instructions on how to get Fortress connected to an existing OpenLDAP instance, follow the instructions inside <b>SECTION 6</b> of this document: <a href="./README.txt">README.txt</a>
+    <h2>Table of Contents</h2>
     <ul>
-    <li>OpenLDAP will be installed, configured, loaded, and ready to use by <em>Section IV</em>.</li>
-    <li>Commander Web Admin demo starts in <em>Section V</em></li>    
-    <li>EnMasse Policy Server demo starts in <em>Section XI</em></li>
+    <li>System Prerequisites</li>
+    <li>Guidelines and Tips for first-time users</li>
+    <li><b><em>Section I</em></b> - download Fortress QUICKSTART and prepare the package</li>
+    <li><b><em>Section II</em></b> - compile Fortress source and build distribution packages</li>
+    <li><b><em>Section III</em></b> - install, configure and load OpenLDAP with seed data</li>
+    <li><b><em>Section IV</em></b> - integration test Fortress and OpenLDAP</li>
+    <li><b><em>Section V</em></b> - Commander Web Administration demo</li>
+    <li><b><em>Section VI</em></b> - integration test Commander with Solenium</li>
+    <li><b><em>Section VII</em></b> - connecting to Commander via Web browser</li>
+    <li><b><em>Section VIII</em></b> - Instructions to use Fortress Command Line Interpreter (CLI)</li>
+    <li><b><em>Section IX</em></b> - Instructions to use Fortress Console utility (CLI)</li>
+    <li><b><em>Section X</em></b> - How to generate and view javadoc</li>
+    <li><b><em>Section XI</em></b> - EnMasse REST Policy Server demo</li>
+    <li><b><em>Section XII</em></b> - integration test Fortress, EnMasse and OpenLDAP</li>
+    <li><b><em>Section XIII</em></b> - enable and test the OpenLDAP RBAC Accelerator Overlay</li>
+    <li><b><em>Section XIV</em></b> - misc info about other utilities</li>
     </ul>
 </p>
 <hr>
@@ -32,7 +45,7 @@ These instructions are intended for new users who want to quickly learn how to i
     <ul>
     <li>Internet access to retrieve binary dependencies from online Maven repo.</li>
     <li>Java SDK Version 7 or beyond installed to target environment</li>
-    <li>Redhat or Ubuntu server machine (for window environments use <em>README-QUICKSTART-WINDOWS.html</em>)</li>    
+    <li>Redhat or Ubuntu server machine (for window environments use <a href="./README-QUICKSTART-WINDOWS.html">README-QUICKSTART-WINDOWS.html</a>)</li>
     <li>1GB RAM</li>
     <li>20GB HD</li>
     </ul>
@@ -48,16 +61,17 @@ These instructions are intended for new users who want to quickly learn how to i
     <ul>
     <li>In the document that follows, when you read <em>[version]</em> or <em>[platform]</em> substitute with current package info.  For example - if the downloaded package version is 1.0.0 and platform is 'Debian Silver i386', the instructions show fortressBuilder-<em>[platform]</em>-<em>[version]</em>.jar your file name would be fortressBuilder-Debian-Silver-i386-1.0.0.zip</li>
 <br>    
-    <li>Is your target machine windows?  Go to <em>README-QUICKSTART-WINDOWS</em></li>
+    <li>Is your target machine windows?  Go to <a href="./README-QUICKSTART-WINDOWS.html">README-QUICKSTART-WINDOWS.html</a></li>
 <br>    
-    <li>The source code for this project is located in <em>FORTRESS_HOME/src</em> folder.</li>    
+    <li>The source code for this project is located here <a href="./src">./src</a>.</li>
     </ul>       
 
 <ol type="I">
 <hr>
  <li>
-       <h3>Instructions to extract and configure Fortress Builder Package to Target System</h3>
-        <ol type="A">	  
+       <h3>Instructions to download, extract and configure Fortress Builder Package to Target System</h3>
+        <ol type="A">
+            <li>Download one of the linux packages from here: <a href="http://iamfortress.org/download">iamfortress.org/download</a></li><br>
            <li>Copy fortressBuilder-[platform]-[version].zip to hard drive on target server env.</li>
 <br>	   
            <li>Extract the zip.  The location for archive can vary according to requirements.  The location of package will be referred to as <em>FORTRESS_HOME</em> later on.</li>
@@ -411,7 +425,39 @@ The 'test-full' target may be re-run as often as necessary.  After regressions t
     </li>		  
 	</ol>
   <hr>
-         
+  <li>
+      <h3>Instructions to enable RBAC Accelerator Overlay in OpenLDAP and test Java-side bindings (optional)</h3>
+      <ol type="A">
+
+          <li>Edit file named 'build.properties' and enable RBAC accelerator by adding:
+              <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">rbac.accelerator=true</p></pre>
+          </li>
+          <li>Save and exit the text file editor</li><br>
+          <li>Reinstall Symas OpenLDAP by running the <b>init-slapd</b> target described in <b>Section III: Instructions to run the Builder to Install Symas OpenLDAP, configure and load with seed data</b>
+          </li><br>
+
+          <li>Load necessary test data for unit tests:
+              <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh admin -Dparam1=ldap/setup/RbacAcceleratorTestUsers.xml</p></pre>
+          </li>
+          <li>Now you can run the rbac accelerator unit tests:
+              <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh test-accel</p></pre>
+          </li>
+          <li>Verify the <b>test-accel</b> target completed with no ant or junit errors</li><br>
+          <li>Reload necessary regression test data by running the <b>test-full</b> target described in <b>Section IV: Instructions to regression test Fortress and Symas OpenLDAP on target machine</b>
+          </li><br>
+          <li>Now you can run the rbac accelerator regression tests:
+              <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh test-full-accel</p></pre>
+          </li>
+          <li>Verify the <b>test-full-accel</b> target completed with no ant or junit errors</li><br>
+          <li>Check out the javadoc for learning about APIs supported within the RBAC accelerator:
+              <a href="./dist/docs/api/org/openldap/fortress/AccelMgr.html">Fortress Accelerator Client</a>
+          </li>
+  </ol>
+      <br>Note 1: The RBAC accelerator turns OpenLDAP into an RBAC Policy Decision Point (PDP) server.  All state is maintained in OpenLDAP LMDB databases including session and audit trail.
+      <br><br>Note 2: The <b>slapd.conf</b> file contains the mappings for the new database backends.  You can view this data using any LDAP browser.
+      <br><br>Note 3: Bindings for C and Python are being worked on and will be released soon.
+      <br><br>Note 4: <b>SessionPermissions</b> will be in future release as required by ANSI RBAC (INCITS 359) Core functionality.
+  <hr>
     <li>
        <h3>More Utilities</h3>
 Other execution targets you may find useful:       
