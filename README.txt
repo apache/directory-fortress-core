@@ -14,12 +14,28 @@
 ___________________________________________________________________________________
 ###################################################################################
 README for Fortress Identity and Access Management SDK
-Version 1.0-RC37
-last updated: July 4, 2014
+Version 1.0-RC38
+last updated: July 6, 2014
 
 This document provides instructions to download, compile, test and use the
 Fortress IAM with OpenLDAP server.  If you don't already have OpenLDAP installed,
-instructions contained within may be followed.
+instructions following may be followed.
+___________________________________________________________________________________
+###################################################################################
+# Guidelines and Tips for first-time users
+###################################################################################
+ - In the document that follows, when you read:
+   + FORTRESS_HOME, refer to the package root of the openldap-fortress-core project download.
+   + OPENLDAP_HOME, refer to the root of OpenLDAP binary installation folder, e.g. /opt/etc/openldap
+   + ANT_HOME, refer to the package root of the target machine's ant distribution package.
+
+ - This system uses ant and maven targets to build, install and configure itself with OpenLDAP.
+   There are also targets that may be used for management of process and policy data within LDAP.
+   This document covers the most important ones to get started.  For a full list of targets enter:
+   $ANT_HOME/bin/ant -p
+
+ - Questions or suggestions on how this package works?  Submit to openldap-fortress mailing list:
+    http://www.openldap.org/lists/mm/listinfo/openldap-fortress
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 0:  Prerequisites for Fortress SDK installation and use with LDAP server
@@ -86,7 +102,7 @@ read-only:
 
 # If Fortress Developer and have access to GIT repo:
 
-committers: Open a terminal session within preferred folder name/location and enter the following command:
+Committers: Open a terminal session within preferred folder name/location and enter the following command:
 >git clone ssh://git-master.openldap.org/~git/git/openldap-fortress-core.git
 
 This will pull down source code from GIT and load into
@@ -97,7 +113,7 @@ ________________________________________________________________________________
 ###################################################################################
 
 NOTE: The Fortress build.xml may run without connection to Internet iff:
-- The binary dependencies are already present in $FORTRESS_HOME/openldap-fortress-core/lib folder
+- The binary dependencies are already present in $FORTRESS_HOME/lib folder
 - Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties:
 local.mode=true
 
@@ -108,12 +124,12 @@ a. from the FORTRESS_HOME root folder, enter the following:
 - During the above step, Apache Ivy jar will download automatically to the configured $ANT_HOME/lib folder.
 
 - During the above step, fortress dependencies will be downloaded from maven global
-  Internet repository using Apache Ivy into $FORTRESS_HOME/openldap-fortress-core/lib.
+  Internet repository using Apache Ivy into $FORTRESS_HOME/lib.
 
 - Fortress source modules will be compiled along with production of java archive (jar)
   files, javadoc and sample distributions.
 
-- All project artifacts are loaded into $FORTRESS_HOME/openldap-fortress-core/dist location.
+- All project artifacts are loaded into $FORTRESS_HOME/dist location.
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 4. Instructions for FORTRESS QUICKSTART builder installation of OpenLDAP
@@ -139,7 +155,7 @@ ________________________________________________________________________________
 
 - unless you know what you are doing, never change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
 
-a. Edit the $FORTRESS_HOME/openldap-fortress-core/build.properties file.
+a. Edit the $FORTRESS_HOME/build.properties file.
 
 b. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running the build.xml script from same platform as your
 are running OpenLDAP, localhost will do:
@@ -239,8 +255,8 @@ c. Enable Fortress schema in slapd.conf:
 
 include		OPENLDAP_HOME/etc/openldap/schema/fortress.schema
 
-note: for steps b & c above substitute FORTRESS_HOME for root of your Fortress installation.
-note: for steps b above substitute OPENLDAP_HOME for root of your OPENLDAP installation.
+note: for steps b above substitute FORTRESS_HOME for root of your Fortress installation.
+note: for steps b & c above substitute OPENLDAP_HOME for root of your OPENLDAP installation.
 
 
 d. For password policy support, enable pwpolicy overlay in slapd.conf:
@@ -438,7 +454,7 @@ a. from FORTRESS_HOME enter the following command:
 
 b. follow instructions in the command line interpreter reference manual contained within the javadoc:
 
-$FORTRESS_HOME/openldap-fortress-core/dist/docs/api/com/jts/fortress/cli/package-summary.html
+$FORTRESS_HOME/dist/docs/api/com/jts/fortress/cli/package-summary.html
 
 ___________________________________________________________________________________
 ###################################################################################
@@ -451,7 +467,7 @@ a. from FORTRESS_HOME enter the following command:
 
 c. view and change the samples here:
 
-$FORTRESS_HOME/openldap-fortress-core/src/test/com/jts/fortress/samples
+$FORTRESS_HOME/src/test/com/jts/fortress/samples
 
 d. compile and re-run samples to test your changes using:
 
@@ -459,11 +475,11 @@ d. compile and re-run samples to test your changes using:
 
 e. view the samples java doc here:
 
-$FORTRESS_HOME/openldap-fortress-core/dist/docs/samples/index.html
+$FORTRESS_HOME/dist/docs/samples/index.html
 
 f. view the fortress-core SDK java doc here:
 
-$FORTRESS_HOME/openldap-fortress-core/dist/docs/api/index.html
+$FORTRESS_HOME/dist/docs/api/index.html
 
 Testing Notes:
 
@@ -520,7 +536,7 @@ BUILD FAILED
 /home/user/tmp/fortress/13/openldap-fortress-core-302f201/build.xml:233: Unable to find a javac compiler;
 com.sun.tools.javac.Main is not on the classpath.
 Perhaps JAVA_HOME does not point to the JDK.
-It is currently set to "/usr/lib/jvm/java-6-openjdk/jre"
+It is currently set to "/usr/lib/jvm/java-7-openjdk/jre"
 
 If running sudo:
 
