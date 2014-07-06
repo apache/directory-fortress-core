@@ -137,7 +137,7 @@ ________________________________________________________________________________
 
 a. Go to http://iamfortress.org/download
 
-b. Pull down the Fortress Builder package to match your target platform.
+b. Pull down the Fortress Builder package to match target platform.
 
 c. Follow the steps I, II & III contained within README-QUICKSTART.html, or README-QUICKSTART-WINDOWS.html documents.
 
@@ -375,11 +375,11 @@ ________________________________________________________________________________
 
 a. Go to Symas.com downloads section.
 
-b. Register, pull down Silver or Gold packages for target server.
+b. Register, pull down Silver or Gold packages to match target platform.
 
-c. copy installation binaries to FORTRESS_HOME/openldap-fortress-core/ldap/setup folder.
+c. copy installation binaries to FORTRESS_HOME/ldap/setup folder.
 
-d. enable the correct installation particulars into FORTRESS_HOME/openldap-fortress-core/build.properties.
+d. enable the correct installation particulars into FORTRESS_HOME/build.properties.
 
 - If using sudo you are required to enter your sudo pw:
 
@@ -410,7 +410,7 @@ slapd.uninstall=rpm -e symas-openldap-gold
 
 e. Run the install target:
 
-From $FORTRESS_HOME/openldap-fortress-core folder, enter the following command from a system prompt:
+From $FORTRESS_HOME root folder, enter the following command from a system prompt:
 
 if Debian sudo:
 >sudo $ANT_HOME/bin/ant init-slapd
@@ -494,7 +494,7 @@ Testing Notes:
   - The 2nd and subsequent times 'test-samples' runs, it will tear down the data loaded during the prior run.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 11. Instructions to run the openldap-fortress-core command console
+# SECTION 11. Instructions to run the openldap-fortress-core command console using 'console' target
 ###################################################################################
 
 a. from FORTRESS_HOME enter the following command:
