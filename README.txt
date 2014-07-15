@@ -13,12 +13,15 @@
 # <http://www.OpenLDAP.org/license.html>.
 ___________________________________________________________________________________
 ###################################################################################
-README for Fortress Identity and Access Management SDK
-Version 1.0-RC38
-last updated: July 14, 2014
+# README for Fortress Identity and Access Management SDK
+# Version 1.0-RC38
+# last updated: July 15, 2014
+###################################################################################
+# Introduction
+###################################################################################
 
-Follow instructions to download, compile, load and test Fortress software with LDAP system.
-If you don't already have LDAP server installed, instructions follow below.
+This document contains instructions to download, compile, load and test Fortress software with LDAP system.
+If you don't already have an LDAP server installed, options to do so follow in subsequent sections.
 
 APIs within this software package adhere to the following security standards:
    1 - IETF Password Policy Draft
@@ -30,19 +33,22 @@ APIs within this software package adhere to the following security standards:
 The combination of 1 2 & 3 above will be designated as 'A/P/R/BAC' in document as follows.
 ___________________________________________________________________________________
 ###################################################################################
-# Tips for first-time users
+# Tips for first-time users of Fortress
 ###################################################################################
+
+ - Follow the instructions in SECTION 2 (INSTALL Option 1).
+
  - Definitions: When you read:
    + FORTRESS_HOME, refer to the package root of the openldap-fortress-core project download.
    + OPENLDAP_HOME, refer to the root of OpenLDAP binary installation folder, e.g. /opt/etc/openldap
    + ANT_HOME, refer to the package root of the target machine's ant distribution package.
 
- - This software package uses an Apache Ant script (FORTRESS_HOME/build.xml) to compile, install, and configure fortress into an LDAP server using
+ - This software package uses an Apache Ant script (FORTRESS_HOME/build.xml) to compile, install, and configure Fortress into an LDAP server using
     operational steps called 'targets'.
 
- - The Ant targets may be used to manage A/P/R/BAC policy data contained within an existing LDAP server.
+ - The targets may be used to manage A/P/R/BAC policy data contained within an existing LDAP server.
 
- - This document describes the most important Ant targets to start using fortress.  For a complete list of targets, enter (from FORTRESS_HOME):
+ - This document describes the most important targets to start using fortress.  For a complete list, enter (from FORTRESS_HOME):
    $ANT_HOME/bin/ant -p
 
  - Or view the ant script itself (FORTRESS_HOME/build.xml).
@@ -54,7 +60,7 @@ ________________________________________________________________________________
 # SECTION 0:  Prerequisites for Fortress SDK installation and use with LDAP server
 ###################################################################################
 1. Internet access to retrieve source code from OpenLDAP GIT and binary dependencies from online Maven repo.
-Fortress installation procedures use Apache Ant & Ivy.  Ivy pulls external dependencies from Maven repositories.
+Fortress installation procedures use Apache Ant & Ivy.  Ivy pulls external dependencies from Maven repositories over the Internet.
 These ant targets need external access to the Internet to pull down dependencies but may run without external connection IFF:
 a. The necessary binary jars are already present and loaded into FORTRESS_HOME/lib folder.  For list of dependency jars check out the ivy.xml file.
 b. Local mode has been enabled in target runtime env.  This can be done by adding the following to build.properties file:
@@ -78,28 +84,38 @@ ________________________________________________________________________________
 # SECTION 1:  Options for installing OpenLDAP to target server environment
 ###################################################################################
 
-This document includes three options for installing OpenLDAP server:
+This document includes three options for use of Fortress and LDAP server:
 
 -------------------------------------------------------------------------------
-- INSTALL OPTION 1 - Fortress QUICKSTART installation packages for OpenLDAP server
+- INSTALL OPTION 1 - Fortress QUICKSTART installation packages (that include Symas OpenLDAP server) - recommended for first-time users
 -------------------------------------------------------------------------------
 - Required Sections to follow:
-    2, 3, 4
+    2, 8
 
 -------------------------------------------------------------------------------
 - INSTALL OPTION 2 - TARGET operating system's OpenLDAP server
 -------------------------------------------------------------------------------
 - Required Sections to follow:
-    2, 3, 5, 6
+    3, 4, 5, 6, 8
 
 -------------------------------------------------------------------------------
 - INSTALL OPTION 3 - SYMAS Gold and Silver installation packages for OpenLDAP server
 -------------------------------------------------------------------------------
 - Required Sections to follow:
-    2, 3, 5, 7
+    3, 4, 5, 7, 8
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 2. Instructions to pull Fortress source code from OpenLDAP GIT
+# SECTION 2. Instructions for FORTRESS QUICKSTART builder installation of OpenLDAP
+###################################################################################
+
+a. Go to http://iamfortress.org/download
+
+b. Pull down the Fortress Builder package to match target platform.
+
+c. Follow the steps I, II & III contained within README-QUICKSTART.html, or README-QUICKSTART-WINDOWS.html documents.
+___________________________________________________________________________________
+###################################################################################
+# SECTION 3. Instructions to pull Fortress source code from OpenLDAP GIT
 ###################################################################################
 
 # If Fortress User
@@ -121,7 +137,7 @@ Committers: Open a terminal session within preferred folder name/location and en
 Pulls source code from GIT and loads into the current directory, hereafter called 'FORTRESS_HOME'.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 3. Instructions to build openldap-fortress-core software distribution packages using 'dist' target.
+# SECTION 4. Instructions to build openldap-fortress-core software distribution packages using 'dist' target.
 ###################################################################################
 
 NOTE: The Fortress build.xml may run without connection to Internet iff:
@@ -147,25 +163,14 @@ dist notes:
 
 - Apache Ivy jar will download automatically to the configured $ANT_HOME/lib folder.
 
-- fortress dependencies will be downloaded from maven global
-  Internet repository using Apache Ivy into $FORTRESS_HOME/lib.
+- Dependencies will be downloaded from maven global Internet repository using Apache Ivy into $FORTRESS_HOME/lib.
+
+- Xml file (FORTRESS_HOME/ivy.xml) contains the list of dependencies.
 
 - Fortress source modules will be compiled along with production of java archive (jar)
   files, javadoc and sample distributions.
 
 - Project artifacts are loaded into $FORTRESS_HOME/dist location.
-___________________________________________________________________________________
-###################################################################################
-# SECTION 4. Instructions for FORTRESS QUICKSTART builder installation of OpenLDAP
-###################################################################################
-
-a. Go to http://iamfortress.org/download
-
-b. Pull down the Fortress Builder package to match target platform.
-
-c. Follow the steps I, II & III contained within README-QUICKSTART.html, or README-QUICKSTART-WINDOWS.html documents.
-
-d. Proceed to SECTION 8 in this document for integration testing Fortress & OpenLDAP on your target platform.
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 5. Instructions to configure openldap-fortress-core SDK for target system using build.properties file.
@@ -245,14 +250,6 @@ user.min.conn=1
 
 # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of user's.
 user.max.conn=10
-
-h. (optional) if uninstalling old Symas OpenLDAP, set the slapd.uninstall correct Symas OpenLDAP package name.
-for example, if Redhat i386:
-slapd.uninstall=rpm -e symas-openldap-gold
-
-i. (option if using Symas OpenLDAP binaries) Point slapdInstall.sh to use correct Symas OpenLDAP installation binaries.
-for example for Redhat i386:
-slapd.install=rpm -Uvv symas-openldap-gold.i386-2.4.25.110424.rpm
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 6. Instructions for using pre-existing or native OpenLDAP installation using 'load-slapd' target.
@@ -398,6 +395,7 @@ load-slapd notes:
     2 - DelegatedAdminManagerLoad.xml - Delegated administration policy - required for EnMasse and Commander web application demonstrations.
     3 - FortressDemoUsers.xml - demo/sample data - not required.
   - for production usage 2 & 3 above may be cleared out using any ldap client tool.
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 7. Instructions for Symas installation of OpenLDAP - using 'init-slapd' target
@@ -439,6 +437,7 @@ slapd.install=rpm -Uvv symas-openldap-gold.i386-2.4.25.110424.rpm
 slapd.uninstall=rpm -e symas-openldap-gold
 
 e. Run the install target:
+
 
 From $FORTRESS_HOME root folder, enter the following command from a system prompt:
 
