@@ -15,13 +15,35 @@ ________________________________________________________________________________
 ###################################################################################
 # README for Fortress Identity and Access Management SDK
 # Version 1.0-RC38
-# last updated: July 15, 2014
+# last updated: July 19, 2014
 ###################################################################################
-# Introduction
+# Table of Contents
 ###################################################################################
-
-This document contains instructions to download, compile, load and test Fortress software with LDAP system.
-If you don't already have an LDAP server installed, options to do so follow in subsequent sections.
+# Document Overview
+# Tips for first-time users of Fortress
+# SECTION 0:  Prerequisites for Fortress SDK installation and use with LDAP server
+# SECTION 1:  Options for installing OpenLDAP to target server environment
+# SECTION 1:  Options for installing OpenLDAP to target server environment
+# SECTION 2.  Instructions for Fortress Quickstart builder installation of OpenLDAP
+# SECTION 3.  Instructions to pull Fortress source code from OpenLDAP GIT
+# SECTION 4.  Instructions to build software distribution packages using 'dist' target.
+# SECTION 5.  Instructions to configure SDK for target system using build.properties file.
+# SECTION 6.  Instructions for using pre-existing or native OpenLDAP installation using 'load-slapd' target.
+# SECTION 7.  Instructions for Symas installation of OpenLDAP - using 'init-slapd' target
+# SECTION 8.  Instructions to integration test using 'test-full' target
+# SECTION 9.  Instructions to run the command line interpreter (CLI) utility using 'cli' target
+# SECTION 10. Instructions to use Fortress A/P/R/BAC APIs with samples using 'test-samples' target
+# SECTION 11. Instructions to run the command console using 'console' target
+# SECTION 12. Instructions to encrypt LDAP passwords used in config files.
+# SECTION 13. Instructions to load data into the default database using 'admin' target.
+# SECTION 14. Instructions to enable Apache Ivy dependency management
+# SECTION 15. Troubleshooting
+___________________________________________________________________________________
+###################################################################################
+# Document Overview
+###################################################################################
+This document contains instructions to download, compile, load and test Fortress SDK with LDAP system.
+If you don't already have an LDAP server installed, options follow in subsequent sections.
 
 APIs within this software package adhere to the following security standards:
    1 - IETF Password Policy Draft
@@ -33,7 +55,7 @@ APIs within this software package adhere to the following security standards:
 The combination of 1 2 & 3 above will be designated as 'A/P/R/BAC' in document as follows.
 ___________________________________________________________________________________
 ###################################################################################
-# Tips for first-time users of Fortress
+#  Tips for first-time users of Fortress
 ###################################################################################
 
  - Follow the instructions in SECTION 2 (INSTALL Option 1).
@@ -61,7 +83,7 @@ ________________________________________________________________________________
 ###################################################################################
 1. Internet access to retrieve source code from OpenLDAP GIT and binary dependencies from online Maven repo.
 Fortress installation procedures use Apache Ant & Ivy.  Ivy pulls external dependencies from Maven repositories over the Internet.
-These ant targets need external access to the Internet to pull down dependencies but may run without external connection IFF:
+These ant targets need external access to the Internet to pull down dependencies but may run without IFF:
 a. The necessary binary jars are already present and loaded into FORTRESS_HOME/lib folder.  For list of dependency jars check out the ivy.xml file.
 b. Local mode has been enabled in target runtime env.  This can be done by adding the following to build.properties file:
 
@@ -105,7 +127,7 @@ This document includes three options for use of Fortress and LDAP server:
     3, 4, 5, 7, 8
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 2. Instructions for FORTRESS QUICKSTART builder installation of OpenLDAP
+# SECTION 2. Instructions for Fortress Quickstart builder installation of OpenLDAP
 ###################################################################################
 
 a. Go to http://iamfortress.org/download
@@ -137,7 +159,7 @@ Committers: Open a terminal session within preferred folder name/location and en
 Pulls source code from GIT and loads into the current directory, hereafter called 'FORTRESS_HOME'.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 4. Instructions to build openldap-fortress-core software distribution packages using 'dist' target.
+# SECTION 4. Instructions to build software distribution packages using 'dist' target.
 ###################################################################################
 
 NOTE: The Fortress build.xml may run without connection to Internet iff:
@@ -173,7 +195,7 @@ dist notes:
 - Project artifacts are loaded into $FORTRESS_HOME/dist location.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 5. Instructions to configure openldap-fortress-core SDK for target system using build.properties file.
+# SECTION 5. Instructions to configure SDK for target system using build.properties file.
 ###################################################################################
 
 - This must be done when OpenLDAP is not installed with the Fortress QUICKSTART package.
@@ -455,7 +477,7 @@ init-slapd notes:
   - Seeds LDAP data by calling 'load-slapd' target as described in section above.
 _______________________________________________________________________________
 ###############################################################################
-# SECTION 8. Instructions to integration test openldap-fortress-core using 'test-full' target
+# SECTION 8. Instructions to integration test using 'test-full' target
 ########################################s#######################################
 
 a. from FORTRESS_HOME enter the following command:
@@ -468,7 +490,7 @@ test-full Notes:
 
   - Tests load thousands of records into target ldap server.
 
-  - The 2nd and subsequent times test runs, teardown of data from prior run occurs.
+  - The 2nd and subsequent time tests runs, teardown of data from prior run occurs.
 
   - Should be run at least twice to verify Fortress A/P/R/BAC teardown API success.
 
@@ -480,7 +502,7 @@ test-full Notes:
   - WARNING log messages are good as these are negative tests in action:
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 9. Instructions to run the openldap-fortress-core command line interpreter (CLI) utility using 'cli' target
+# SECTION 9. Instructions to run the command line interpreter (CLI) utility using 'cli' target
 ###################################################################################
 
 a. from FORTRESS_HOME enter the following command:
@@ -492,7 +514,7 @@ b. follow instructions in the command line interpreter reference manual containe
 $FORTRESS_HOME/dist/docs/api/com/jts/fortress/cli/package-summary.html
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 10. Learn how to use openldap-fortress-core A/P/R/BAC APIs with samples using 'test-samples' target
+# SECTION 10. Instructions to use Fortress A/P/R/BAC APIs with samples using 'test-samples' target
 ###################################################################################
 
 a. from FORTRESS_HOME enter the following command:
@@ -528,7 +550,7 @@ Testing Notes:
   - The 2nd and subsequent times 'test-samples' runs, it will tear down the data loaded during the prior run.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 11. Instructions to run the openldap-fortress-core command console using 'console' target
+# SECTION 11. Instructions to run the command console using 'console' target
 ###################################################################################
 
 a. from FORTRESS_HOME enter the following command:
@@ -536,7 +558,7 @@ a. from FORTRESS_HOME enter the following command:
 >$ANT_HOME/bin/ant console
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 12. Instructions to encrypt LDAP passwords used in openldap-fortress-core config files.
+# SECTION 12. Instructions to encrypt LDAP passwords used in config files.
 ###################################################################################
 
 If you need the passwords for LDAP service accounts to be encrypted before loading into Fortress properties files you can

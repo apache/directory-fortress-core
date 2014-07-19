@@ -860,7 +860,7 @@
     <target name="load-slapd" depends="build-jar" description="--> task runs ant admin scripts to refresh fortress boostrap data">
         <echo message="###############  Initialize OpenLDAP  ###############"/>
 
-        <echo message="Load the Fortress boostrap config and demo users"/>
+        <echo message="Load the Fortress bootstrap config and demo users"/>
         <antcall target="admin">
             <param name="param1" value="${dst.load.bootstrap.script}"/>
         </antcall>
