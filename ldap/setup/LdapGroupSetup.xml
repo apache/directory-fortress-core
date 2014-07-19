@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+<project basedir="." default="all" name="Fortress LDAP Group Test 002 Data">
+    <taskdef classname="org.openldap.fortress.ant.FortressAntTask" name="FortressAdmin" >
+        <classpath path="${java.class.path}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+
+            <adduser>
+                <user userId="groupuser1" password="password" description="Ldap Group Test User 1" cn="group user1" sn="user1" ou="grptest1" />
+                <user userId="groupuser2" password="password" description="Ldap Group Test User 2" cn="group user1" sn="user2" ou="grptest1" />
+                <user userId="groupuser3" password="password" description="Ldap Group Test User 3" cn="group user1" sn="user3" ou="grptest1" />
+                <user userId="groupuser4" password="password" description="Ldap Group Test User 4" cn="group user1" sn="user4" ou="grptest1" />
+                <user userId="groupuser5" password="password" description="Ldap Group Test User 5" cn="group user1" sn="user5" ou="grptest1" />
+            </adduser>
+
+            <deluser>
+                <user userId="groupuser1"/>
+                <user userId="groupuser2"/>
+                <user userId="groupuser3"/>
+                <user userId="groupuser4"/>
+                <user userId="groupuser5"/>
+            </deluser>
+
+            <addgroup>
+                <group name="test-group-1" protocol="ssh" properties="hostname=host1, port=22, username=tgadmin1, password=secret" members="groupuser1,groupuser2,groupuser3,groupuser4,groupuser5" description="Ldap Test Group 1 Configuration" />
+                <group name="test-group-2" protocol="ssh" properties="hostname=host2, port=22, username=tgadmin2, password=secret" members="groupuser1,groupuser2,groupuser3,groupuser4" description="Ldap Test Group 2 Configuration" />
+                <group name="test-group-3" protocol="ssh" properties="hostname=host3, port=22, username=tgadmin3, password=secret" members="groupuser1,groupuser2,groupuser3" description="Ldap Test Group 3 Configuration" />
+                <group name="test-group-4" protocol="ssh" properties="hostname=host4, port=22, username=tgadmin4, password=secret" members="groupuser1,groupuser2" description="Ldap Test Group 4 Configuration" />
+                <group name="test-group-5" protocol="ssh" properties="hostname=host5, port=22, username=tgadmin5, password=secret" members="groupuser1" description="Ldap Test Group 5 Configuration" />
+            </addgroup>
+
+            <delgroup>
+                <group name="test-group-1" />
+                <group name="test-group-2" />
+                <group name="test-group-3" />
+                <group name="test-group-4" />
+                <group name="test-group-5" />
+            </delgroup>
+
+            <addorgunit>
+                <orgunit name="grptest1" typeName="USER" description="Ldap Group Test Users"/>
+            </addorgunit>
+
+            <delorgunit>
+                <orgunit name="grptest1" typeName="USER"/>
+            </delorgunit>
+
+        </FortressAdmin>
+    </target>
+</project>
