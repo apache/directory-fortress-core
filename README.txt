@@ -21,9 +21,8 @@ ________________________________________________________________________________
 ###################################################################################
 # Document Overview
 # Tips for first-time users of Fortress
-# SECTION 0:  Prerequisites for Fortress SDK installation and use with LDAP server
-# SECTION 1:  Options for installing OpenLDAP to target server environment
-# SECTION 1:  Options for installing OpenLDAP to target server environment
+# SECTION 0.  Prerequisites for Fortress SDK installation and use with LDAP server
+# SECTION 1.  Options for installing OpenLDAP to target server environment
 # SECTION 2.  Instructions for Fortress Quickstart builder installation of OpenLDAP
 # SECTION 3.  Instructions to pull Fortress source code from OpenLDAP GIT
 # SECTION 4.  Instructions to build software distribution packages using 'dist' target.
@@ -79,7 +78,7 @@ ________________________________________________________________________________
     http://www.openldap.org/lists/mm/listinfo/openldap-fortress
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 0:  Prerequisites for Fortress SDK installation and use with LDAP server
+# SECTION 0.  Prerequisites for Fortress SDK installation and use with LDAP server
 ###################################################################################
 1. Internet access to retrieve source code from OpenLDAP GIT and binary dependencies from online Maven repo.
 Fortress installation procedures use Apache Ant & Ivy.  Ivy pulls external dependencies from Maven repositories over the Internet.
@@ -103,7 +102,7 @@ Prereq notes:
  - Tested with ApacheDS: FORTRESS_HOME/README-QUICKSTART-APACHEDS.html.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 1:  Options for installing OpenLDAP to target server environment
+# SECTION 1.  Options for installing OpenLDAP to target server environment
 ###################################################################################
 
 This document includes three options for use of Fortress and LDAP server:
