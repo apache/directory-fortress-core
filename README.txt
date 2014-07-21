@@ -142,7 +142,7 @@ ________________________________________________________________________________
 # If Fortress User
 
 RELEASES from Maven website:
-http://search.maven.org/#browse%7C-1179527181
+http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.openldap%22
 
 SNAPSHOTs from OpenLDAP's GIT Software Repo:
 http://www.openldap.org/devel/gitweb.cgi?p=openldap-fortress-core.git;a=summary
