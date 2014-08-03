@@ -1,4 +1,17 @@
-/* Notice:
+/*
+ * This work is part of OpenLDAP Software <http://www.openldap.org/>.
+ *
+ * Copyright 1998-2014 The OpenLDAP Foundation.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted only as authorized by the OpenLDAP
+ * Public License.
+ *
+ * A copy of this license is available in the file LICENSE in the
+ * top-level directory of the distribution or, alternatively, at
+ * <http://www.OpenLDAP.org/license.html>.
+ *
  * The contents of this file are subject to the Netscape Public
  * License Version 1.1 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of
@@ -31,33 +44,33 @@
 package org.openldap.fortress.ldap;
 
 
+import java.security.GeneralSecurityException;
 import java.util.Date;
 
+import com.unboundid.ldap.sdk.migrate.ldapjdk.JavaToLDAPSocketFactory;
+import com.unboundid.util.ssl.SSLUtil;
+import com.unboundid.util.ssl.TrustStoreTrustManager;
+import org.openldap.fortress.cfg.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 
+import javax.net.ssl.SSLSocketFactory;
+
 
 /**
- * Connection pool class is used by {@link PoolMgr} to manage live connections to the ldap server.  The connection pools
- * increase speed for data access by avoiding cost of recreating connections for every ldap request.
+ * This connection pool class is used by Fortress {@link PoolMgr}.
+ * PoolMgr operations utilize multiple instances of this class to connections for different purposes.
+ * For example the 'admin' pool contains connections that have privileges to make modifications to the directory data during administrative operations {@link org.openldap.fortress.AdminMgr}.
+ * The 'user' pool contain unprivileged connections used for authentication processing only, {@link org.openldap.fortress.AccessMgr}.
+ * A 3rd pool, may be used to interrogate data stored by OpenLDAP's slapo access log info, This is used interrogating the fortress audit log events, {@link org.openldap.fortress.AuditMgr}.
+ * The contents of this file have been derived from the original, Mozilla Java LDAP SDK, and are subject to the Netscape Public License Version 1.1 (the "License")
+ * as described at the top of this file;
+ * The code mods include additional functionality to enable SSL connections in pool.  There have been other updates to the original functions to integrate with UnboundID's Java LDAP SDK.
  * </p>
- * <p/>
- * The contents of this file were derived from the ConnectionPool in Mozilla Java LDAP SDK and are subject to the Netscape Public
- * License Version 1.1 (the "License"); you may not use this file
- * except in compliance with the License. You may obtain a copy of the License at
- * <a href="http://www.mozilla.org/MPL/MPL-1.1.html/">Mozilla Public License Version 1.1</a> or see
- * <a href="http://www.mozilla.org/MPL/">Mozilla Public License</a> for more info.
- * <p/>
- * </p>
- * Software distributed under the License is distributed on an "AS
- * IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
- * implied. See the License for the specific language governing
- * rights and limitations under the License.
- * <p/>
- * </p>
+ * Original Mozilla javadoc:
  * Class to maintain a pool of individual connections to the
  * same server. Specify the initial size and the max size
  * when constructing a pool. Call getConnection() to obtain
@@ -436,6 +449,14 @@ class ConnectionPool
     }
 
 
+    /**
+     * *** FORTRESS MOD ****
+     *
+     * Create pool of LDAP connections to server.  Add SSL capability using unboundId's compatibility utility.
+     *
+     * @param size number of connections to generate and store in pool
+     * @throws LDAPException in the event of system error.
+     */
     private synchronized void setUpPool( int size )
         throws LDAPException
     {
@@ -444,13 +465,94 @@ class ConnectionPool
         {
             LDAPConnectionObject co =
                 new LDAPConnectionObject();
-            // Make LDAP connection, using template if available
-            LDAPConnection newConn = new LDAPConnection();
+
+            LDAPConnection newConn = createConnection( );
             newConn.connect( host, port, authdn, authpw );
             co.setLDAPConn( newConn );
             co.setInUse( false ); // Mark not in use
             pool.addElement( co );
         }
+    }
+
+    /**
+     * *** FORTRESS MOD ****
+     *
+     * Used to manage trust store properties.  If enabled, create SSL connection.
+     *
+     */
+    private static final String ENABLE_LDAP_SSL = "enable.ldap.ssl";
+    private static final String ENABLE_LDAP_SSL_DEBUG = "enable.ldap.ssl.debug";
+    private static final String TRUST_STORE = Config.getProperty( "trust.store" );
+    private static final String TRUST_STORE_PW = Config.getProperty( "trust.store.password" );
+    private static final boolean IS_SSL = (
+        Config.getProperty( ENABLE_LDAP_SSL ) != null   &&
+        Config.getProperty( ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
+        TRUST_STORE      != null   &&
+        TRUST_STORE_PW   != null );
+
+    private static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
+    private static final boolean IS_SET_TRUST_STORE_PROP = (
+        IS_SSL &&
+        Config.getProperty( SET_TRUST_STORE_PROP ) != null   &&
+        Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ));
+
+    private static final boolean IS_SSL_DEBUG = ( ( Config.getProperty( ENABLE_LDAP_SSL_DEBUG ) != null ) && ( Config
+        .getProperty( ENABLE_LDAP_SSL_DEBUG ).equalsIgnoreCase( "true" ) ) );
+
+    static
+    {
+        if(IS_SET_TRUST_STORE_PROP)
+        {
+            LOG.info( "Set JSSE truststore properties:");
+            LOG.info( "javax.net.ssl.trustStore: " + TRUST_STORE );
+            LOG.info( "javax.net.debug: " + new Boolean( IS_SSL_DEBUG ).toString());
+            System.setProperty( "javax.net.ssl.trustStore", TRUST_STORE );
+            System.setProperty( "javax.net.ssl.trustStorePassword", TRUST_STORE_PW );
+            System.setProperty( "javax.net.debug", new Boolean( IS_SSL_DEBUG ).toString() );
+        }
+    }
+
+    /**
+     * *** FORTRESS MOD ****
+     *
+     * If enabled, use Unbound compatibility lib to create SSL connection.
+     *
+     * @return handle to LDAPConnection
+     * @throws LDAPException wrap GeneralSecurityException or throws ldapexcep.
+     */
+    private LDAPConnection createConnection() throws LDAPException
+    {
+        LDAPConnection newConn = null;
+        if(IS_SSL)
+        {
+            // Generate SSL Connection using Unbound compatibility lib utils:
+            // http://stackoverflow.com/questions/22672477/unboundid-ldap-jdk-migration
+            SSLSocketFactory sslSocketFactory;
+            //SSLUtil sslUtil = new SSLUtil(new TrustAllTrustManager());
+            // These config values set in fortress.properties
+            SSLUtil sslUtil = new SSLUtil(
+                new TrustStoreTrustManager(
+                    TRUST_STORE,
+                    TRUST_STORE_PW.toCharArray() , null, true ) );
+            try
+            {
+                sslSocketFactory = sslUtil.createSSLSocketFactory();
+            }
+            catch(GeneralSecurityException e)
+            {
+                String error = "GeneralSecurityException while creating SSL socket factory=" + e;
+                throw new LDAPException( error, LDAPException.CONNECT_ERROR );
+            }
+            JavaToLDAPSocketFactory ldapSocketFactory =
+                new JavaToLDAPSocketFactory(sslSocketFactory);
+            newConn = new LDAPConnection(ldapSocketFactory);
+        }
+        else
+        {
+            // Make LDAP connection, using template if available
+            newConn = new LDAPConnection();
+        }
+        return newConn;
     }
 
 
