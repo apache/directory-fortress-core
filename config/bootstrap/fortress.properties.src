@@ -17,6 +17,13 @@
 host=@LDAP_HOST@
 port=@LDAP_PORT@
 
+# Used for SSL Connection to LDAP Server:
+enable.ldap.ssl=@ENABLE_LDAP_SSL@
+enable.ldap.ssl.debug=@ENABLE_LDAP_SSL_DEBUG@
+trust.store=@TRUST_STORE@
+trust.store.password=@TRUST_STORE_PW@
+trust.store.set.prop=@TRUST_STORE_SET_PROPW@
+
 # These credentials are used for read/write access to all nodes under suffix:
 admin.user=@ROOT_DN@
 # LDAP admin root pass is encrypted using 'encrypt' target in build.xml:

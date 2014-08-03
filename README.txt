@@ -21,17 +21,17 @@ ________________________________________________________________________________
 ###################################################################################
 # Document Overview
 # Tips for first-time users of Fortress
-# SECTION 0.  Prerequisites for Fortress SDK installation and use with LDAP server
+# SECTION 0.  Prerequisites for Fortress SDK installation and usage
 # SECTION 1.  Options for installing OpenLDAP to target server environment
 # SECTION 2.  Instructions for Fortress Quickstart builder installation of OpenLDAP
 # SECTION 3.  Instructions to pull Fortress source code from OpenLDAP GIT
 # SECTION 4.  Instructions to build software distribution packages using 'dist' target.
 # SECTION 5.  Instructions to configure SDK for target system using build.properties file.
-# SECTION 6.  Instructions for using pre-existing or native OpenLDAP installation using 'load-slapd' target.
+# SECTION 6.  Instructions for pre-existing or native OpenLDAP installation using 'load-slapd' target.
 # SECTION 7.  Instructions for Symas installation of OpenLDAP - using 'init-slapd' target
 # SECTION 8.  Instructions to integration test using 'test-full' target
 # SECTION 9.  Instructions to run the command line interpreter (CLI) utility using 'cli' target
-# SECTION 10. Instructions to use Fortress A/P/R/BAC APIs with samples using 'test-samples' target
+# SECTION 10. Instructions to use Fortress A/P/R/BAC APIs with 'test-samples' target
 # SECTION 11. Instructions to run the command console using 'console' target
 # SECTION 12. Instructions to encrypt LDAP passwords used in config files.
 # SECTION 13. Instructions to load data into the default database using 'admin' target.
@@ -78,7 +78,7 @@ ________________________________________________________________________________
     http://www.openldap.org/lists/mm/listinfo/openldap-fortress
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 0.  Prerequisites for Fortress SDK installation and use with LDAP server
+# SECTION 0.  Prerequisites for Fortress SDK installation and usage
 ###################################################################################
 1. Internet access to retrieve source code from OpenLDAP GIT and binary dependencies from online Maven repo.
 Fortress installation procedures use Apache Ant & Ivy.  Ivy pulls external dependencies from Maven repositories over the Internet.
@@ -273,7 +273,7 @@ user.min.conn=1
 user.max.conn=10
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 6. Instructions for using pre-existing or native OpenLDAP installation using 'load-slapd' target.
+# SECTION 6. Instructions for pre-existing or native OpenLDAP installation using 'load-slapd' target.
 ###################################################################################
 
 a. Install OpenLDAP using preferred method.
@@ -513,7 +513,7 @@ b. follow instructions in the command line interpreter reference manual containe
 $FORTRESS_HOME/dist/docs/api/com/jts/fortress/cli/package-summary.html
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 10. Instructions to use Fortress A/P/R/BAC APIs with samples using 'test-samples' target
+# SECTION 10. Instructions to use Fortress A/P/R/BAC APIs with 'test-samples' target
 ###################################################################################
 
 a. from FORTRESS_HOME enter the following command:
