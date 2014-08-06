@@ -24,6 +24,11 @@ include		@SCHEMA_PATH@/openldap.schema
 include		@SCHEMA_PATH@/fortress.schema
 include		@SCHEMA_PATH@/rbac.schema
 
+### SSL Configuration
+@IS_SSL@TLSCACertificateFile @CA_CERT_FILEW@
+@IS_SSL@TLSCertificateFile @CERT_FILEW@
+@IS_SSL@TLSCertificateKeyFile @CERT_KEY_FILEW@
+
 disallow bind_anon
 idletimeout 0
 sizelimit 5000

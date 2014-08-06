@@ -43,6 +43,7 @@
        <property name="lib.dir" value="${basedir}/lib"/>
        <property name="src.java.dir" value="${src.dir}/main/java"/>
        <property name="src.test.dir" value="${src.dir}/test/java"/>
+       <property name="src.test.resources.dir" value="${src.dir}/test/resources"/>
 
        <!-- ########### Build properties & artifacts ########################### -->
        <property name="build.dir" value="${basedir}/build"/>
@@ -62,6 +63,8 @@
        <property name="ldap.setup.dir" value="${ldap.dir}/setup"/>
        <property name="ldap.schema.dir" value="${ldap.dir}/schema"/>
        <property name="slapd.schema.dir" value="${slapd.dir}/schema"/>
+       <property name="src.slapd.ssl.keys.dir" value="${src.test.resources.dir}/certs"/>
+       <property name="dst.slapd.ssl.keys.dir" value="${openldap.root}/ssl"/>
 
        <!-- ########### Configuration, Load and builder properties ########################### -->
        <property name="src.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData-src.xml"/>
@@ -94,6 +97,9 @@
        <property name="mkdir.slapd-win" value="${ldap.setup.dir}/mkDir.cmd"/>
        <property name="uninstall.slapd.script" value="${ldap.setup.dir}/uninstall.sh"/>
        <property name="install.slapd.script" value="${ldap.setup.dir}/install.sh"/>
+       <property name="source.symas.conf" value="${ldap.dir}/symas-openldap.conf.src"/>
+       <property name="target.symas.conf" value="${ldap.dir}/symas-openldap.conf"/>
+       <property name="dst.symas.conf" value="${slapd.dir}/symas-openldap.conf"/>
        <property name="source.slapd.conf" value="${ldap.dir}/slapd.conf.src"/>
        <property name="target.slapd.conf" value="${ldap.dir}/slapd.conf"/>
        <property name="dst.slapd.conf" value="${slapd.dir}/slapd.conf"/>
@@ -636,7 +642,7 @@
          ================================= -->
      <target name="init-openldap-config" depends="init" description="--> map env params from build.properties to scripts and config files">
          <echo message="###############  Modify slapd configuration per user settings  ###############"/>
-         <delete file="${target.slapd.conf}"/>
+         <delete file="${target.slapd.conf}" failonerror="false"/>
 	     <copy file="${source.slapd.conf}" tofile="${target.slapd.conf}"/>
          <replace file="${target.slapd.conf}" token="@SCHEMA_PATH@" value="${slapd.schema.dir}"/>
          <replace file="${target.slapd.conf}" token="@SUFFIX@" value="${suffix}"/>
@@ -664,10 +670,17 @@
          <replace file="${target.slapd.conf}" token="@DFLT_BDB_CACHE_SIZE@" value="${dflt.bdb.cache.size}"/>
          <replace file="${target.slapd.conf}" token="@DFLT_BDB_CACHE_IDLE_SIZE@" value="${dflt.bdb.cache.idle.size}"/>
          <replace file="${target.slapd.conf}" token="@POLICIES_DN@" value="${policies.dn}"/>
+
+         <!-- setup the symas openldap slapd start/stop script -->
+         <delete file="${target.symas.conf}" failonerror="false"/>
+         <copy file="${source.symas.conf}" tofile="${target.symas.conf}"/>
+         <replace file="${target.symas.conf}" token="@LDAP_URIS@" value="${ldap.uris}"/>
+
          <antcall target="init-rbac-accelerator"></antcall>
+         <antcall target="init-slapd-ssl"></antcall>
+
          <echo message="Target init-all-config complete."/>
      </target>
-
 
     <!-- =================================
           RBAC Accelerator Overlay Config
@@ -720,6 +733,34 @@
         <replace file="${target.slapd.conf}" token="@DDS_MODULE@" value=""/>
         <replace file="${target.slapd.conf}" token="@MONITOR_MODULE@" value=""/>
         <replace file="${target.slapd.conf}" token="@IS_RBAC_ACCELERATOR@" value="#"/>
+    </target>
+
+    <!-- =================================
+          OpenLDAP SSL Config
+         ================================= -->
+    <target name="init-slapd-ssl" depends="init">
+        <antcall target="enable-slapd-ssl"></antcall>
+        <antcall target="disable-slapd-ssl"></antcall>
+    </target>
+
+    <!-- =================================
+          Enable OpenLDAP SSL
+         ================================= -->
+    <target name="enable-slapd-ssl" depends="init" if="enable.ldap.ssl">
+        <echo message="###############  Enable OpenLDAP SSL"/>
+        <antcall target="copy-ssl-keys"></antcall>
+        <replace file="${target.slapd.conf}" token="@IS_SSL@" value=""/>
+        <replace file="${target.slapd.conf}" token="@CA_CERT_FILEW@" value="${dst.slapd.ssl.keys.dir}/${tls.ca.cert.file}"/>
+        <replace file="${target.slapd.conf}" token="@CERT_FILEW@" value="${dst.slapd.ssl.keys.dir}/${tls.cert.file}"/>
+        <replace file="${target.slapd.conf}" token="@CERT_KEY_FILEW@" value="${dst.slapd.ssl.keys.dir}/${tls.key.file}"/>
+    </target>
+
+    <!-- =================================
+          Disable OpenLDAP SSL
+         ================================= -->
+    <target name="disable-slapd-ssl" depends="init" unless="enable.ldap.ssl">
+        <echo message="###############  Disable OpenLDAP SSL"/>
+        <replace file="${target.slapd.conf}" token="@IS_SSL@" value="#"/>
     </target>
 
     <!-- =================================
@@ -937,6 +978,7 @@
 
         <echo message="###############  Backup slapd configuration and Fortress LDAP schema  ###############"/>
         <move file="${dst.slapd.conf}" tofile="${dst.slapd.conf}.bak.${TODAY}" failonerror="false" />
+        <move file="${dst.symas.conf}" tofile="${dst.symas.conf}.bak.${TODAY}" failonerror="false" />
         <move file="${target.fortress.schema}" tofile="${target.fortress.schema}.${TODAY}" failonerror="false" />
         <move file="${target.rbac.schema}" tofile="${target.rbac.schema}.${TODAY}" failonerror="false" />
 
@@ -947,6 +989,7 @@
         <copy todir="${slapd.schema.dir}" file="${source.fortress.schema}"/>
         <copy todir="${slapd.schema.dir}" file="${source.rbac.schema}"/>
         <copy todir="${slapd.dir}" file="${target.slapd.conf}"/>
+        <copy todir="${slapd.dir}" file="${target.symas.conf}"/>
 
         <antcall target="copy-access-libs"></antcall>		
         <antcall target="init-slapd-win-script"></antcall>
@@ -991,6 +1034,18 @@
         <copy todir="${slapd.module.dir}" failonerror="false">
             <fileset dir="${openldap.install.artifact.dir}">
                 <include name="**/rbac*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- =================================
+          copy the slapd rbac accelerator overlay libs from install to bin folder
+         ================================= -->
+    <target name="copy-ssl-keys" depends="init" >
+        <echo message="###############  Copy SSL keys from ${src.slapd.ssl.keys.dir} to ${dst.slapd.ssl.keys.dir}"/>
+        <copy todir="${dst.slapd.ssl.keys.dir}" failonerror="false">
+            <fileset dir="${src.slapd.ssl.keys.dir}">
+                <include name="*.pem"/>
             </fileset>
         </copy>
     </target>
