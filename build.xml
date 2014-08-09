@@ -860,6 +860,8 @@
          <replace file="${dst.remote.conf}" token="@TRUST_STORE@" value="${trust.store}"/>
          <replace file="${dst.remote.conf}" token="@TRUST_STORE_PW@" value="${trust.store.password}"/>
          <replace file="${dst.remote.conf}" token="@TRUST_STORE_SET_PROPW@" value="${trust.store.set.prop}"/>
+         <replace file="${dst.remote.conf}" token="@KEY_STORE@" value="${key.store}"/>
+         <replace file="${dst.remote.conf}" token="@KEY_STORE_PW@" value="${key.store.password}"/>
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
          <delete file="${dst.load.bootstrap.script}"/>
