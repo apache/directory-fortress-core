@@ -39,6 +39,7 @@ import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.cxf.common.util.Base64Utility;
 import org.apache.cxf.helpers.IOUtils;
+import org.openldap.fortress.GlobalIds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,14 +66,40 @@ public class RestUtils
         .getProperty( HTTP_PW_PARAM ) ) : Config.getProperty( HTTP_PW_PARAM ) );
     private final static String HTTP_HOST = Config.getProperty( "http.host" );
     private final static String HTTP_PORT = Config.getProperty( "http.port" );
+    private final static String HTTP_PROTOCOL = Config.getProperty( "http.protocol", "http" );
     private static final String VERSION = System.getProperty( "version" );
     private static final String SERVICE = "enmasse-" + VERSION;
-    private static final String URI = "http://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
+    // TODO: add SSL capability here:
+    private static final String URI = HTTP_PROTOCOL + "://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
     private static final int HTTP_OK = 200;
     private static final int HTTP_401_UNAUTHORIZED = 401;
     private static final int HTTP_403_FORBIDDEN = 403;
     private static final int HTTP_404_NOT_FOUND = 404;
     private static CachedJaxbContext cachedJaxbContext = new CachedJaxbContext();
+
+    /**
+     * Used to manage trust store properties.  If enabled, create SSL connection.
+     *
+     */
+    private static final String TRUST_STORE = Config.getProperty( "trust.store" );
+    private static final String TRUST_STORE_PW = Config.getProperty( "trust.store.password" );
+    private static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
+    private static final boolean IS_SET_TRUST_STORE_PROP = (
+            Config.getProperty( SET_TRUST_STORE_PROP ) != null   &&
+            Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ));
+
+    static
+    {
+        if(IS_SET_TRUST_STORE_PROP)
+        {
+            LOG.info( "Set JSSE truststore properties:");
+            LOG.info( "javax.net.ssl.trustStore: " + TRUST_STORE );
+            System.setProperty( "javax.net.ssl.trustStore", TRUST_STORE );
+            System.setProperty( "javax.net.ssl.trustStorePassword", TRUST_STORE_PW );
+        }
+    }
+
+
 
 
     /**

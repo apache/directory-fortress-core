@@ -50,6 +50,7 @@ import java.util.Date;
 import com.unboundid.ldap.sdk.migrate.ldapjdk.JavaToLDAPSocketFactory;
 import com.unboundid.util.ssl.SSLUtil;
 import com.unboundid.util.ssl.TrustStoreTrustManager;
+import org.openldap.fortress.GlobalIds;
 import org.openldap.fortress.cfg.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -475,8 +476,6 @@ class ConnectionPool
     }
 
     /**
-     * *** FORTRESS MOD ****
-     *
      * Used to manage trust store properties.  If enabled, create SSL connection.
      *
      */
@@ -486,15 +485,15 @@ class ConnectionPool
     private static final String TRUST_STORE_PW = Config.getProperty( "trust.store.password" );
     private static final boolean IS_SSL = (
         Config.getProperty( ENABLE_LDAP_SSL ) != null   &&
-        Config.getProperty( ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
-        TRUST_STORE      != null   &&
-        TRUST_STORE_PW   != null );
+            Config.getProperty( ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
+            TRUST_STORE      != null   &&
+            TRUST_STORE_PW   != null );
 
     private static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
     private static final boolean IS_SET_TRUST_STORE_PROP = (
         IS_SSL &&
-        Config.getProperty( SET_TRUST_STORE_PROP ) != null   &&
-        Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ));
+            Config.getProperty( SET_TRUST_STORE_PROP ) != null   &&
+            Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ));
 
     private static final boolean IS_SSL_DEBUG = ( ( Config.getProperty( ENABLE_LDAP_SSL_DEBUG ) != null ) && ( Config
         .getProperty( ENABLE_LDAP_SSL_DEBUG ).equalsIgnoreCase( "true" ) ) );
@@ -523,7 +522,7 @@ class ConnectionPool
     private LDAPConnection createConnection() throws LDAPException
     {
         LDAPConnection newConn = null;
-        if(IS_SSL)
+        if( IS_SSL)
         {
             // Generate SSL Connection using Unbound compatibility lib utils:
             // http://stackoverflow.com/questions/22672477/unboundid-ldap-jdk-migration
@@ -554,7 +553,6 @@ class ConnectionPool
         }
         return newConn;
     }
-
 
     private int find( LDAPConnection con )
     {
