@@ -140,16 +140,16 @@
                 <userrole userId="demoUser10" name="role1"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
 
                 <userrole userId="tcmanager" name="manager-gui"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
+                <userrole userId="tcmanager" name="manager-script"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
                 <userrole userId="tcmanager" name="manager"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
-                <userrole userId="tcmanager" name="manager-jmx"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
             </adduserrole>
 
             <addrole>
                 <role name="role1" description="Tomcat Role 1 for Calendar App"/>
                 <role name="role2" description="Tomcat Role 2 for Calendar App"/>
-                <role name="manager-gui" description="Tomcat 7 Manager Role"/>
+                <role name="manager-gui" description="Tomcat 7 Manager Role for Manager UI"/>
+                <role name="manager-script" description="Tomcat 7 Manager Role for Management Scripts"/>
                 <role name="manager" description="Tomcat Manager Role"/>
-                <role name="manager-jmx" description="Tomcat Manager Role"/>
                 <role name="EnmasseSuperUser" description="Role to access En Masse services"/>
             </addrole>
 
@@ -189,11 +189,11 @@
                 <!-- safe modify must be false iff user can chg pw after reset -->
                 <policy name="Test1"
                     minAge="0"
-                    maxAge="525600"
+                    maxAge="7776000"
                     inHistory="5"
                     checkQuality="2"
                     minLength="4"
-                    expireWarning="1000000"
+                    expireWarning="2592000"
                     graceLoginLimit="3"
                     lockout="true"
                     lockoutDuration="0"
