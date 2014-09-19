@@ -505,6 +505,8 @@ public class GlobalIds
     public final static boolean LDAP_FILTER_SIZE_FOUND = ( org.openldap.fortress.cfg.Config
         .getProperty( LDAP_FILTER_SIZE_PROP ) != null );
     public static final String APACHE_LDAP_API = "apache";
+    public static final String AUTH_Z_FAILED = "authzfailed";
+    public static final String AUTH_Z_FAILED_VALUE = "ftOpNm=" + AUTH_Z_FAILED;
 
     /**
      * maximum number of entries allowed for ldap filter replacements.

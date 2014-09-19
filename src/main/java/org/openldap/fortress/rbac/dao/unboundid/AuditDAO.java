@@ -160,7 +160,7 @@ public final class AuditDAO extends UnboundIdDataProvider implements org.openlda
             CREATETIMESTAMP, CREATORSNAME, ENTRYCSN, ENTRYDN, ENTRYUUID, HASSUBORDINATES, MODIFIERSNAME,
             MODIFYTIMESTAMP, OBJECTCLASS, REQATTR, REQATTRSONLY, REQUAUTHZID, REQCONTROLS, REQDN, REQDREFALIASES,
             REQEND, REQENTRIES, REQFILTER, REQRESULT, REQSCOPE, REQSESSION, REQSIZELIMIT, REQSTART, REQTIMELIMIT,
-            REQTYPE, STRUCTURALOBJECTCLASS, SUBSCHEMAENTRY
+            REQTYPE, REQASSERTION, STRUCTURALOBJECTCLASS, SUBSCHEMAENTRY
     };
 
     private static final String[] AUDIT_BIND_ATRS =
@@ -309,10 +309,14 @@ public final class AuditDAO extends UnboundIdDataProvider implements org.openlda
                 + audit.getObjName() + "," + permRoot;
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(" + REQDN + "=" +
                 reqDn + ")(" + REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
+/*
+            todo: fixme (can't search on reqAssertion attribute):
             if ( audit.isFailedOnly() )
             {
-                filter += "(!(" + REQRESULT + "=" + 6 + "))";
+                //filter += "(!(" + REQRESULT + "=" + 6 + "))";
+                filter += "(" + REQASSERTION + "=" + GlobalIds.AUTH_Z_FAILED_VALUE + ")";
             }
+*/
             if ( audit.getBeginDate() != null )
             {
                 String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
@@ -393,10 +397,14 @@ public final class AuditDAO extends UnboundIdDataProvider implements org.openlda
                 //filter += "(" + REQDN + "=" + GlobalIds.POP_NAME + "=" + audit.getOpName() + "," + GlobalIds.POBJ_NAME + "=" + audit.getObjName() + ",*)";
                 filter += "(" + REQDN + "=" + audit.getDn() + ")";
             }
+/*
+            todo: fixme (can't search on reqAssertion attribute):
             if (audit.isFailedOnly())
             {
-                filter += "(!(" + REQRESULT + "=" + 6 + "))";
+                //filter += "(!(" + REQRESULT + "=" + 6 + "))";
+                filter += "(" + REQASSERTION + "=" + GlobalIds.AUTH_Z_FAILED_VALUE + ")";
             }
+*/
             if ( audit.getBeginDate() != null )
             {
                 String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
@@ -752,6 +760,7 @@ public final class AuditDAO extends UnboundIdDataProvider implements org.openlda
             private String reqStart;
             private String reqTimeLimit;
             private String reqType;
+            private String reqAssertion;
             private String structuralObjectClass;
             private String subschemaSubentry;
         }*/
@@ -786,6 +795,7 @@ public final class AuditDAO extends UnboundIdDataProvider implements org.openlda
         authZ.setReqScope( getAttribute( le, REQSCOPE ) );
         authZ.setReqSizeLimit( getAttribute( le, REQSIZELIMIT ) );
         authZ.setReqTimeLimit( getAttribute( le, REQTIMELIMIT ) );
+        authZ.setReqAssertion( getAttribute( le, REQASSERTION ) );
         return authZ;
     }
 

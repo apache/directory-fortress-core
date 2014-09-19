@@ -72,6 +72,7 @@ import java.io.Serializable;
     "reqStart",
     "reqTimeLimit",
     "reqType",
+    "reqAssertion",
     "structuralObjectClass",
     "subschemaSubentry",
     "sequenceId"
@@ -103,6 +104,7 @@ public class AuthZ extends FortEntity implements Serializable
     private String reqStart;
     private String reqTimeLimit;
     private String reqType;
+    private String reqAssertion;
     private String structuralObjectClass;
     private String subschemaSubentry;
     private long sequenceId;
@@ -494,6 +496,26 @@ public class AuthZ extends FortEntity implements Serializable
     public void setReqType(String reqType)
     {
         this.reqType = reqType;
+    }
+
+    /**
+     * Get the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request.
+     *
+     * @return value that maps to 'reqAssertion' attribute on 'auditCompare' object class.
+     */
+    public String getReqAssertion()
+    {
+        return reqAssertion;
+    }
+
+    /**
+     * Set the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request.
+     *
+     * @param reqAssertion value maps to 'reqAssertion' attribute contained in the 'auditCompare' object class.
+     */
+    public void setReqAssertion( String reqAssertion )
+    {
+        this.reqAssertion = reqAssertion;
     }
 
     /**

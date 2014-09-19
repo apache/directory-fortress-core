@@ -144,10 +144,10 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 public final class PermDAO extends UnboundIdDataProvider implements org.openldap.fortress.rbac.dao.PermDAO
 {
     /*
-      *  *************************************************************************
-      *  **  OpenAccessMgr PERMISSION STATICS
-      *  ************************************************************************
-      */
+          *  *************************************************************************
+          *  **  OpenAccessMgr PERMISSION STATICS
+          *  ************************************************************************
+          */
     private static final String TYPE = "ftType";
     private static final String PERM_OBJ_OBJECT_CLASS_NAME = "ftObject";
     private static final String PERM_OP_OBJECT_CLASS_NAME = "ftOperation";
@@ -821,7 +821,7 @@ public final class PermDAO extends UnboundIdDataProvider implements org.openldap
             else
             {
                 // No, set a simple error message onto this attribute for storage into audit trail:
-                attributeValue = "AuthZ Failed";
+                attributeValue = GlobalIds.AUTH_Z_FAILED;
             }
             // There is a switch in fortress config to disable audit ops like this one.
             // But if used the compare method will use OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection.
