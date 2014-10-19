@@ -614,6 +614,10 @@ public class GlobalErrIds
      * The supplied Permission operation could not be read due to server failure.
      */
     public final static int PERM_COMPARE_OP_FAILED = 3028;
+    /**
+     * The supplied Permission does not exist in LDAP DIT.
+     */
+    public final static int PERM_NOT_EXIST = 3029;
 
     /**
      * 4000's - Password Policy Entity

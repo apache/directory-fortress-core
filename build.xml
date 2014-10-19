@@ -168,8 +168,8 @@
        <property name="slf4j-log4j.jar" value="${lib.dir}/slf4j-log4j12-1.7.5.jar"/>
        <property name="apacheJMeter_core.jar" value="${lib.dir}/ApacheJMeter_core-2.11.jar"/>
        <property name="apacheJMeter_java.jar" value="${lib.dir}/ApacheJMeter_java-2.11.jar"/>
-       <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M16.jar"/>
-       <property name="apacheds-api-all.jar" value="${lib.dir}/api-all-1.0.0-M22.jar"/>
+       <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M17.jar"/>
+       <property name="apacheds-api-all.jar" value="${lib.dir}/api-all-1.0.0-M24.jar"/>
        <property name="mina-core.jar" value="${lib.dir}/mina-core-2.0.7.jar"/>
        <property name="opencsv.jar" value="${lib.dir}/opencsv-2.3.jar"/>
 

@@ -911,6 +911,22 @@ public abstract class ApacheDsDataProvider
 
 
     /**
+     * Given an ldap attribute name and a list of attribute values, construct an ldap attribute set to be added to directory.
+     *
+     * @param list     list of type string containing attribute values to load into attribute set.
+     * @param entry    contains ldap attribute set targeted for adding.
+     * @param attrName name of ldap attribute being added.
+     */
+    protected void loadAttrs( List<String> list, Entry entry, String attrName ) throws LdapException
+    {
+        if ( list != null && list.size() > 0 )
+        {
+            entry.add( attrName, list.toArray( new String[] {} ) );
+        }
+    }
+
+
+    /**
      * Given an ldap attribute name and a list of attribute values, construct an ldap modification set to be updated
      * in directory.
      *

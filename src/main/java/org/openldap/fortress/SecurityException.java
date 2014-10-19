@@ -181,6 +181,7 @@ package org.openldap.fortress;
  * <li> <code>{@link GlobalErrIds#PERM_OPERATION_NM_NULL} = 3026;</code>
  * <li> <code>{@link GlobalErrIds#PERM_OBJECT_NM_NULL} = 3027;</code>
  * <li> <code>{@link GlobalErrIds#PERM_COMPARE_OP_FAILED} = 3028;</code>
+ * <li> <code>{@link GlobalErrIds#PERM_NOT_EXIST} = 3029;</code>
  * </ul>
  * <h3>
  * <p/>4000's - Password Policy Entity
@@ -416,26 +417,26 @@ package org.openldap.fortress;
  * <li> <code>{@link GlobalErrIds#ACEL_DELETE_SESSION_ERR} = 10202;</code>
  * <li> <code>{@link GlobalErrIds#ACEL_CHECK_ACCESS_ERR} = 10203;</code>
  * <li> <code>{@link GlobalErrIds#ACEL_ADD_ROLE_ERR} = 10204;</code>
- * <li> <code>{@link GlobalErrIds#ACEL_DROP_ROLE_ERR} = 10205;</code>*
+ * <li> <code>{@link GlobalErrIds#ACEL_DROP_ROLE_ERR} = 10205;</code>
  * </ul>
  * <h3>
  * <p/>10300's - LDAP Group operation Error Ids
  * </h3>
  * <ul>
  * <li> <code>{@link GlobalErrIds#GROUP_SEARCH_FAILED} = 10300;</code>
- * <li> <code>{@link GlobalErrIds#GROUP_READ_FAILED} = 10301;</code> *
+ * <li> <code>{@link GlobalErrIds#GROUP_READ_FAILED} = 10301;</code>
  * <li> <code>{@link GlobalErrIds#GROUP_ADD_FAILED} = 10302;</code>
- * <li> <code>{@link GlobalErrIds#GROUP_UPDATE_FAILED} = 10303;</code> *
+ * <li> <code>{@link GlobalErrIds#GROUP_UPDATE_FAILED} = 10303;</code>
  * <li> <code>{@link GlobalErrIds#GROUP_DELETE_FAILED} = 10304;</code>
- * <li> <code>{@link GlobalErrIds#GROUP_ADD_PROPERTY_FAILED} = 10305;</code> *
+ * <li> <code>{@link GlobalErrIds#GROUP_ADD_PROPERTY_FAILED} = 10305;</code>
  * <li> <code>{@link GlobalErrIds#GROUP_DELETE_PROPERTY_FAILED} = 10306;</code>
- * <li> <code>{@link GlobalErrIds#GROUP_NOT_FOUND} = 10307;</code> *
+ * <li> <code>{@link GlobalErrIds#GROUP_NOT_FOUND} = 10307;</code>
  * <li> <code>{@link GlobalErrIds#GROUP_NULL} = 10308;</code>
- * <li> <code>{@link GlobalErrIds#GROUP_USER_ASSIGN_FAILED} = 10309;</code> *
+ * <li> <code>{@link GlobalErrIds#GROUP_USER_ASSIGN_FAILED} = 10309;</code>
  * <li> <code>{@link GlobalErrIds#GROUP_USER_DEASSIGN_FAILED} = 10310;</code>
- * <li> <code>{@link GlobalErrIds#GROUP_NAME_NULL} = 10311;</code> *
+ * <li> <code>{@link GlobalErrIds#GROUP_NAME_NULL} = 10311;</code>
  * <li> <code>{@link GlobalErrIds#GROUP_NAME_INVLD} = 10312;</code>
- * <li> <code>{@link GlobalErrIds#GROUP_PROTOCOL_INVLD} = 10313;</code> *
+ * <li> <code>{@link GlobalErrIds#GROUP_PROTOCOL_INVLD} = 10313;</code>
  * </ul>
  * <p/>
  *

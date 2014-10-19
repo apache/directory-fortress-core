@@ -548,13 +548,23 @@ public class DelegatedMgrImplTest extends TestCase
                     for ( String[] op : opArrayBad )
                     {
                         // Call checkAccess method (this should fail):
-                        assertTrue(
-                            CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
+                        try
+                        {
+                            boolean result = dAccessMgr.checkAccess( session, new Permission( PermTestData.getName( oArrayBad[i] ),
+                                PermTestData.getName( opArrayBad[j] ) ) );
+                            assertTrue(
+                                CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
+                                    + PermTestData.getName( oArrayBad[i] ) + "] operationName ["
+                                    + PermTestData.getName( opArrayBad[j] ) + "]",
+                                !result );
+                        }
+                        catch (SecurityException se)
+                        {
+                            // The expected condition is security exception perm not exist:
+                            assertTrue( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
                                 + PermTestData.getName( oArrayBad[i] ) + "] operationName ["
-                                + PermTestData.getName( opArrayBad[j] ) + "]",
-                            !dAccessMgr.checkAccess( session, new Permission( PermTestData.getName( oArrayBad[i] ),
-                                PermTestData.getName( opArrayBad[j] ) ) ) );
-
+                                + PermTestData.getName( opArrayBad[j] ) + "], negative use case, incorrect exception id=" + se.getErrorId(), se.getErrorId() == GlobalErrIds.PERM_NOT_EXIST );
+                        }
                         j++;
                     }
                     i++;

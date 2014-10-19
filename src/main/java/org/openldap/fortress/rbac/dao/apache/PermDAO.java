@@ -816,7 +816,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.openldap.
      * record storage on ldap server but can be disabled.
      *
      * @param session contains {@link Session#getUserId()}, for rbac check {@link org.openldap.fortress.rbac.Session#getRoles()}, for arbac check: {@link org.openldap.fortress.rbac.Session#getAdminRoles()}.
-     * @param inPerm  must contain required attributes {@link Permission#objName} and {@link Permission#opName}.  {@link Permission#objectId} is optional.
+     * @param inPerm  must contain required attributes {@link Permission#objName} and {@link Permission#opName}.  {@link Permission#objId} is optional.
      * @return boolean containing result of check.
      * @throws org.openldap.fortress.FinderException
      *          In the event system error occurs looking up data on ldap server.
@@ -836,6 +836,12 @@ public final class PermDAO extends ApacheDsDataProvider implements org.openldap.
             // LDAP Operation #1: Read the targeted permission from ldap server
             //LDAPEntry entry = read(ld, dn, PERMISSION_OP_ATRS, session.getUser().getDn());
             Entry entry = read( ld, dn, PERMISSION_OP_ATRS );
+            if(entry == null)
+            {
+                // if permission not found, cannot continue.
+                String error = "checkPermission DOES NOT EXIST : obj name [" + inPerm.getObjName() + "], obj id [" + inPerm.getObjId() + "], op name [" + inPerm.getOpName() + "], idAdmin [" + inPerm.isAdmin() + "]";
+                throw new FinderException( GlobalErrIds.PERM_NOT_EXIST, error );
+            }
 
             // load the permission entity with data retrieved from the permission node:
             Permission outPerm = unloadPopLdapEntry( entry, 0, inPerm.isAdmin() );
