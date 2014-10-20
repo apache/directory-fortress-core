@@ -118,20 +118,6 @@ public abstract class ApacheDsDataProvider
     private static final boolean IS_SSL_DEBUG = ( ( Config.getProperty( ENABLE_LDAP_SSL_DEBUG ) != null ) && ( Config
         .getProperty( ENABLE_LDAP_SSL_DEBUG ).equalsIgnoreCase( "true" ) ) );
 
-    static
-    {
-        if(IS_SET_TRUST_STORE_PROP)
-        {
-            LOG.info( "Set JSSE truststore properties:");
-            LOG.info( "javax.net.ssl.trustStore: " + TRUST_STORE );
-            LOG.info( "javax.net.debug: " + new Boolean( IS_SSL_DEBUG ).toString());
-            System.setProperty( "javax.net.ssl.trustStore", TRUST_STORE );
-            System.setProperty( "javax.net.ssl.trustStorePassword", TRUST_STORE_PW );
-            System.setProperty( "javax.net.debug", new Boolean( IS_SSL_DEBUG ).toString() );
-        }
-    }
-
-
     /**
      * The Admin connection pool
      */
