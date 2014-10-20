@@ -68,7 +68,8 @@ import org.openldap.fortress.util.crypto.EncryptUtil;
 import org.openldap.fortress.util.time.CUtil;
 import org.openldap.fortress.util.time.Constraint;
 
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -84,6 +85,10 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
  */
 public abstract class ApacheDsDataProvider
 {
+    // Logging
+    private static final String CLS_NM = ApacheDsDataProvider.class.getName();
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
+
     private static final int MAX_DEPTH = 100;
     private static final LdapCounters counters = new LdapCounters();
     private static final String LDAP_HOST = "host";
@@ -92,6 +97,40 @@ public abstract class ApacheDsDataProvider
     private static final String LDAP_ADMIN_POOL_MAX = "max.admin.conn";
     private static final String LDAP_ADMIN_POOL_UID = "admin.user";
     private static final String LDAP_ADMIN_POOL_PW = "admin.pw";
+
+    // Used for TLS/SSL client-side configs:
+    private static final String ENABLE_LDAP_SSL = "enable.ldap.ssl";
+    private static final String ENABLE_LDAP_SSL_DEBUG = "enable.ldap.ssl.debug";
+    private static final String TRUST_STORE = Config.getProperty( "trust.store" );
+    private static final String TRUST_STORE_PW = Config.getProperty( "trust.store.password" );
+    private static final boolean IS_SSL = (
+        Config.getProperty( ENABLE_LDAP_SSL ) != null   &&
+            Config.getProperty( ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
+            TRUST_STORE      != null   &&
+            TRUST_STORE_PW   != null );
+
+    private static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
+    private static final boolean IS_SET_TRUST_STORE_PROP = (
+        IS_SSL &&
+            Config.getProperty( SET_TRUST_STORE_PROP ) != null   &&
+            Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ));
+
+    private static final boolean IS_SSL_DEBUG = ( ( Config.getProperty( ENABLE_LDAP_SSL_DEBUG ) != null ) && ( Config
+        .getProperty( ENABLE_LDAP_SSL_DEBUG ).equalsIgnoreCase( "true" ) ) );
+
+    static
+    {
+        if(IS_SET_TRUST_STORE_PROP)
+        {
+            LOG.info( "Set JSSE truststore properties:");
+            LOG.info( "javax.net.ssl.trustStore: " + TRUST_STORE );
+            LOG.info( "javax.net.debug: " + new Boolean( IS_SSL_DEBUG ).toString());
+            System.setProperty( "javax.net.ssl.trustStore", TRUST_STORE );
+            System.setProperty( "javax.net.ssl.trustStorePassword", TRUST_STORE_PW );
+            System.setProperty( "javax.net.debug", new Boolean( IS_SSL_DEBUG ).toString() );
+        }
+    }
+
 
     /**
      * The Admin connection pool
@@ -115,10 +154,28 @@ public abstract class ApacheDsDataProvider
         int min = Config.getInt( LDAP_ADMIN_POOL_MIN, 1 );
         int max = Config.getInt( LDAP_ADMIN_POOL_MAX, 10 );
 
+        if(IS_SET_TRUST_STORE_PROP)
+        {
+            LOG.info( "Set JSSE truststore properties in Apache LDAP client:");
+            LOG.info( "javax.net.ssl.trustStore: " + TRUST_STORE );
+            LOG.info( "javax.net.debug: " + new Boolean( IS_SSL_DEBUG ).toString());
+            System.setProperty( "javax.net.ssl.trustStore", TRUST_STORE );
+            System.setProperty( "javax.net.ssl.trustStorePassword", TRUST_STORE_PW );
+            System.setProperty( "javax.net.debug", new Boolean( IS_SSL_DEBUG ).toString() );
+        }
+
         LdapConnectionConfig config = new LdapConnectionConfig();
         config.setLdapHost( host );
         config.setLdapPort( port );
         config.setName( Config.getProperty( LDAP_ADMIN_POOL_UID, "" ) );
+
+        // added by smckinney for TLS/SSL config:
+        config.setUseSsl( IS_SSL );
+        //config.setTrustManagers( new NoVerificationTrustManager() );
+
+        config.setTrustManagers( new LdapClientTrustStoreManager(
+            TRUST_STORE,
+            TRUST_STORE_PW.toCharArray() , null, true ) );
 
         String adminPw = null;
 
@@ -921,7 +978,7 @@ public abstract class ApacheDsDataProvider
     {
         if ( list != null && list.size() > 0 )
         {
-            entry.add( attrName, list.toArray( new String[] {} ) );
+            entry.add( attrName, list.toArray( new String[]{} ) );
         }
     }
 
@@ -1028,10 +1085,27 @@ public abstract class ApacheDsDataProvider
      * @param props    contains {@link java.util.Properties} targeted for updating in ldap.
      * @param mods     ldap modification set containing name-value pairs in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be updated.
-     * @param replace  boolean variable, if set to true use {@link LDAPModification#REPLACE} else {@link
-     * LDAPModification#ADD}.
+     * @param replace  boolean variable, if set to true use {@link ModificationOperation#REPLACE_ATTRIBUTE} else {@link
+     * ModificationOperation#ADD_ATTRIBUTE}.
      */
     protected void loadProperties( Properties props, List<Modification> mods, String attrName, boolean replace )
+    {
+        loadProperties( props, mods, attrName, replace, GlobalIds.PROP_SEP );
+    }
+
+
+    /**
+     * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap
+     * modification set in preparation for ldap modify.
+     *
+     * @param props    contains {@link java.util.Properties} targeted for updating in ldap.
+     * @param mods     ldap modification set containing name-value pairs in raw ldap format.
+     * @param attrName contains the name of the ldap attribute to be updated.
+     * @param replace  boolean variable, if set to true use {@link ModificationOperation#REPLACE_ATTRIBUTE} else {@link
+     * ModificationOperation#ADD_ATTRIBUTE}.
+     * @param separator contains the char value used to separate name and value in ldap raw format.
+     */
+    protected void loadProperties( Properties props, List<Modification> mods, String attrName, boolean replace, char separator )
     {
         if ( props != null && props.size() > 0 )
         {
@@ -1046,7 +1120,7 @@ public abstract class ApacheDsDataProvider
                 String val = props.getProperty( key );
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, attrName,
-                    key + GlobalIds.PROP_SEP + val ) );
+                    key + separator + val ) );
             }
         }
     }
@@ -1105,6 +1179,43 @@ public abstract class ApacheDsDataProvider
             }
 
             if ( attr.size() != 0 )
+            {
+                entry.add( attr );
+            }
+        }
+    }
+
+
+    /**
+     * Given a collection of {@link java.util.Properties}, convert to raw data name-value format and load into ldap modification set in preparation for ldap add.
+     *
+     * @param props    contains {@link java.util.Properties} targeted for adding to ldap.
+     * @param entry    contains ldap entry to push attrs into.
+     * @param attrName contains the name of the ldap attribute to be added.
+     * @param separator contains the char value used to separate name and value in ldap raw format.
+     * @throws LdapException
+     */
+    protected void loadProperties( Properties props, Entry entry, String attrName, char separator ) throws LdapException
+    {
+        if ( props != null && props.size() > 0 )
+        {
+            Attribute attr = null;
+            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            {
+                // This LDAP attr is stored as a name-value pair separated by a ':'.
+                String key = ( String ) e.nextElement();
+                String val = props.getProperty( key );
+                String prop = key + separator + val;
+                if ( attr == null )
+                {
+                    attr = new DefaultAttribute( attrName );
+                }
+                else
+                {
+                    attr.add( prop );
+                }
+            }
+            if ( attr != null )
             {
                 entry.add( attr );
             }

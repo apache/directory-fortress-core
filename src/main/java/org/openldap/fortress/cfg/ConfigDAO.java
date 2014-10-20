@@ -16,8 +16,18 @@
 package org.openldap.fortress.cfg;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import org.apache.directory.api.ldap.model.entry.DefaultEntry;
+import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.entry.Modification;
+import org.apache.directory.api.ldap.model.exception.LdapEntryAlreadyExistsException;
+import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
+import org.apache.directory.ldap.client.api.LdapConnection;
+import org.openldap.fortress.ldap.ApacheDsDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,16 +36,8 @@ import org.openldap.fortress.GlobalErrIds;
 import org.openldap.fortress.GlobalIds;
 import org.openldap.fortress.RemoveException;
 import org.openldap.fortress.UpdateException;
-import org.openldap.fortress.ldap.UnboundIdDataProvider;
 import org.openldap.fortress.util.attr.AttrHelper;
 import org.openldap.fortress.util.attr.VUtil;
-
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
-
 
 /**
  * This class provides data access for the standard ldap object device that has been extended to support name/value pairs.
@@ -72,7 +74,7 @@ import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
  *
  * @author Shawn McKinney
  */
-final class ConfigDAO extends UnboundIdDataProvider
+final class ConfigDAO extends ApacheDsDataProvider
 
 {
     private static final String CLS_NM = ConfigDAO.class.getName();
@@ -91,14 +93,12 @@ final class ConfigDAO extends UnboundIdDataProvider
             GlobalIds.CN, GlobalIds.PROPS
     };
 
-
     /**
      * Package private default constructor.
      */
     ConfigDAO()
     {
     }
-
 
     /**
      * @param name
@@ -109,33 +109,28 @@ final class ConfigDAO extends UnboundIdDataProvider
     final Properties create( String name, Properties props )
         throws org.openldap.fortress.CreateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( name );
         LOG.info( "create dn [" + dn + "]" );
         try
         {
+            Entry myEntry = new DefaultEntry( dn );
+            myEntry.add( GlobalIds.OBJECT_CLASS, CONFIG_OBJ_CLASS );
             ld = getAdminConnection();
-            LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, CONFIG_OBJ_CLASS ) );
-            attrs.add( createAttribute( GlobalIds.CN, name ) );
-            loadProperties( props, attrs, GlobalIds.PROPS );
-            LDAPEntry myEntry = new LDAPEntry( dn, attrs );
+            myEntry.add( GlobalIds.CN, name );
+            loadProperties( props, myEntry, GlobalIds.PROPS );
             add( ld, myEntry );
         }
-        catch ( LDAPException e )
+        catch ( LdapEntryAlreadyExistsException e )
+        {
+            String warning = "create config dn [" + dn + "] caught LdapEntryAlreadyExistsException="
+                + e.getMessage() + " msg=" + e.getMessage();
+            throw new org.openldap.fortress.CreateException( GlobalErrIds.FT_CONFIG_ALREADY_EXISTS, warning );
+        }
+        catch ( LdapException e )
         {
             String error;
-            if ( e.getLDAPResultCode() == LDAPException.ENTRY_ALREADY_EXISTS )
-            {
-                String warning = "create config dn [" + dn + "] caught LDAPException="
-                    + e.getLDAPResultCode() + " msg=" + e.getMessage();
-                throw new org.openldap.fortress.CreateException( GlobalErrIds.FT_CONFIG_ALREADY_EXISTS, warning );
-            }
-            else
-            {
-                error = "create config dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode()
-                    + " msg=" + e.getMessage();
-            }
+            error = "create config dn [" + dn + "] caught LDAPException=" + e.getMessage();
             LOG.error( error, e );
             throw new org.openldap.fortress.CreateException( GlobalErrIds.FT_CONFIG_CREATE_FAILED, error );
         }
@@ -156,26 +151,26 @@ final class ConfigDAO extends UnboundIdDataProvider
     final Properties update( String name, Properties props )
         throws org.openldap.fortress.UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( name );
         LOG.info( "update dn [" + dn + "]" );
         try
         {
-            ld = getAdminConnection();
-            LDAPModificationSet mods = new LDAPModificationSet();
-            if ( org.openldap.fortress.util.attr.VUtil.isNotNullOrEmpty( props ) )
+            List<Modification> mods = new ArrayList<Modification>();
+            if ( VUtil.isNotNullOrEmpty( props ) )
             {
                 loadProperties( props, mods, GlobalIds.PROPS, true );
             }
+            ld = getAdminConnection();
             if ( mods.size() > 0 )
             {
+                ld = getAdminConnection();
                 modify( ld, dn, mods );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "update dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "update dn [" + dn + "] caught LDAPException=" + e.getMessage();
             throw new org.openldap.fortress.UpdateException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error );
         }
         finally
@@ -193,7 +188,7 @@ final class ConfigDAO extends UnboundIdDataProvider
     final void remove( String name )
         throws RemoveException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( name );
         LOG.info( "remove dn [" + dn + "]" );
         try
@@ -201,10 +196,9 @@ final class ConfigDAO extends UnboundIdDataProvider
             ld = getAdminConnection();
             delete( ld, dn );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "remove dn [" + dn + "] LDAPException=" + e.getLDAPResultCode() + " msg="
-                + e.getMessage();
+            String error = "remove dn [" + dn + "] LDAPException=" + e.getMessage();
             throw new org.openldap.fortress.RemoveException( GlobalErrIds.FT_CONFIG_DELETE_FAILED, error );
         }
         finally
@@ -223,26 +217,25 @@ final class ConfigDAO extends UnboundIdDataProvider
     final Properties remove( String name, Properties props )
         throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( name );
         LOG.info( "remove props dn [" + dn + "]" );
         try
         {
-            ld = getAdminConnection();
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
             if ( VUtil.isNotNullOrEmpty( props ) )
             {
                 removeProperties( props, mods, GlobalIds.PROPS );
             }
             if ( mods.size() > 0 )
             {
+                ld = getAdminConnection();
                 modify( ld, dn, mods );
             }
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
-            String error = "remove props dn [" + dn + "] caught LDAPException=" + e.getLDAPResultCode()
-                + " msg=" + e.getMessage();
+            String error = "remove props dn [" + dn + "] caught LDAPException=" + e.getMessage();
             throw new org.openldap.fortress.UpdateException( GlobalErrIds.FT_CONFIG_DELETE_PROPS_FAILED, error );
         }
         finally
@@ -262,23 +255,23 @@ final class ConfigDAO extends UnboundIdDataProvider
         throws FinderException
     {
         Properties props = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = getDn( name );
         LOG.info( "getConfig dn [" + dn + "]" );
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read( ld, dn, CONFIG_ATRS );
+            Entry findEntry = read( ld, dn, CONFIG_ATRS );
             props = AttrHelper.getProperties( getAttributes( findEntry, GlobalIds.PROPS ) );
         }
-        catch ( LDAPException e )
+        catch ( LdapNoSuchObjectException e )
         {
-            if ( e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT )
-            {
-                String warning = "getConfig COULD NOT FIND ENTRY for dn [" + dn + "]";
-                throw new org.openldap.fortress.FinderException( GlobalErrIds.FT_CONFIG_NOT_FOUND, warning );
-            }
-            String error = "getConfig dn [" + dn + "] LEXCD=" + e.getLDAPResultCode() + " LEXMSG=" + e;
+            String warning = "getConfig COULD NOT FIND ENTRY for dn [" + dn + "]";
+            throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "getConfig dn [" + dn + "] caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.FT_CONFIG_READ_FAILED, error );
         }
         finally

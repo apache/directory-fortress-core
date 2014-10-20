@@ -381,19 +381,11 @@ public final class UserDAO extends ApacheDsDataProvider implements org.openldap.
                 myEntry.add( EMPLOYEE_TYPE, entity.getEmployeeType() );
             }
 
-            // These are multi-valued attributes, use the util function to load:
-            // These items are optional.  The utility function will return quietly if no items are loaded into collection:
+            // These are multi-valued attributes, use the util function to load.
+            // These items are optional.  The utility function will return quietly if item list is empty:
             loadAttrs( entity.getPhones(), myEntry, TELEPHONE_NUMBER );
             loadAttrs( entity.getMobiles(), myEntry, MOBILE );
             loadAttrs( entity.getEmails(), myEntry, MAIL );
-/*
-            myEntry.add( TELEPHONE_NUMBER, entity.getPhones().toArray( new String[]
-                {} ) );
-            myEntry.add( MOBILE, entity.getMobiles().toArray( new String[]
-                {} ) );
-            myEntry.add( MAIL, entity.getEmails().toArray( new String[]
-                {} ) );
-*/
 
             // The following attributes are optional:
             if ( VUtil.isNotNullOrEmpty( entity.isSystem() ) )

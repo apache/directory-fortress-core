@@ -166,6 +166,11 @@ public class GlobalErrIds
     public final static int FT_APACHE_LDAP_POOL_INIT_FAILED = 135;
 
     /**
+     * Cannot load JSSE TrustStore because the full-qualified input file name is null.
+     */
+    public final static int FT_CONFIG_JSSE_TRUSTSTORE_NULL = 136;
+
+    /**
      * 1000's - User Entity Rule and LDAP Errors
      */
 

@@ -16,6 +16,12 @@
 package org.openldap.fortress.ldap.suffix;
 
 
+import org.apache.directory.api.ldap.model.cursor.CursorException;
+import org.apache.directory.api.ldap.model.entry.DefaultEntry;
+import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.ldap.client.api.LdapConnection;
+import org.openldap.fortress.ldap.ApacheDsDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,12 +29,6 @@ import org.openldap.fortress.CreateException;
 import org.openldap.fortress.GlobalErrIds;
 import org.openldap.fortress.GlobalIds;
 import org.openldap.fortress.RemoveException;
-import org.openldap.fortress.ldap.UnboundIdDataProvider;
-
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
 import org.openldap.fortress.util.attr.VUtil;
 
 
@@ -61,7 +61,7 @@ import org.openldap.fortress.util.attr.VUtil;
  *
  * @author Shawn McKinney
  */
-final class SuffixDAO extends UnboundIdDataProvider
+final class SuffixDAO extends ApacheDsDataProvider
 {
     private static final String CLS_NM = SuffixDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
@@ -88,23 +88,22 @@ final class SuffixDAO extends UnboundIdDataProvider
     final void create( Suffix se )
         throws org.openldap.fortress.CreateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String nodeDn = getDn( se );
         try
         {
             LOG.info( "create suffix dn [" + nodeDn + "]" );
-            LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add( createAttributes( GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS ) );
-            attrs.add( createAttribute( DC, se.getName() ) );
-            attrs.add( createAttribute( O, se.getDescription() ) );
-            LDAPEntry myEntry = new LDAPEntry( nodeDn, attrs );
+            Entry myEntry = new DefaultEntry( nodeDn );
+            myEntry.add( GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS );
+            myEntry.add( DC, se.getName() );
+            myEntry.add( O, se.getDescription() );
             ld = getAdminConnection();
             add( ld, myEntry );
         }
-        catch ( LDAPException e )
+        catch ( LdapException e )
         {
             String error = "create container node dn [" + nodeDn + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
             throw new CreateException( GlobalErrIds.SUFX_CREATE_FAILED, error, e );
         }
         finally
@@ -129,7 +128,7 @@ final class SuffixDAO extends UnboundIdDataProvider
     final void remove( Suffix se )
         throws org.openldap.fortress.RemoveException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String nodeDn = getDn( se );
         LOG.info( "remove suffix dn [" + nodeDn + "]" );
         try
@@ -137,10 +136,16 @@ final class SuffixDAO extends UnboundIdDataProvider
             ld = getAdminConnection();
             deleteRecursive( ld, nodeDn );
         }
-        catch ( LDAPException e )
+        catch ( CursorException e )
+        {
+            String error = "remove suffix node dn [" + nodeDn + "] caught CursorException="
+                + e.getMessage();
+            throw new org.openldap.fortress.RemoveException( GlobalErrIds.SUFX_DELETE_FAILED, error, e );
+        }
+        catch ( LdapException e )
         {
             String error = "remove suffix node dn [" + nodeDn + "] caught LDAPException="
-                + e.getLDAPResultCode() + " msg=" + e.getMessage();
+                + e.getMessage();
             throw new RemoveException( GlobalErrIds.SUFX_DELETE_FAILED, error, e );
         }
         finally

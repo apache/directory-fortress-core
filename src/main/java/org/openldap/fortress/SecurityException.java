@@ -69,6 +69,8 @@ package org.openldap.fortress;
  * <li> <code>{@link GlobalErrIds#FT_CACHE_FLUSH_ERR} = 133;</code>
  * <li> <code>{@link GlobalErrIds#FT_NULL_CACHE} = 134;</code>
  * <li> <code>{@link GlobalErrIds#FT_APACHE_LDAP_POOL_INIT_FAILED} = 135;</code>
+ * <li> <code>{@link GlobalErrIds#FT_CONFIG_JSSE_TRUSTSTORE_NULL} = 136;</code>
+ *
  * </ul>
  * <h3>
  * <p/>1000's - User Entity Rule and LDAP Errors
