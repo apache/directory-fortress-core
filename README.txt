@@ -147,13 +147,13 @@ http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.openldap%22
 SNAPSHOTs from OpenLDAP's GIT Software Repo:
 http://www.openldap.org/devel/gitweb.cgi?p=openldap-fortress-core.git;a=summary
 
-read-only:
->git clone git://git.openldap.org/openldap-fortress-core.git
+Non-committers (read-only):
+>git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
 
 # If Fortress Developer and have access to GIT repo:
 
 Committers: Open a terminal session within preferred folder name/location and enter the following command:
->git clone ssh://git-master.openldap.org/~git/git/openldap-fortress-core.git
+>git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
 
 Pulls source code from GIT and loads into the current directory, hereafter called 'FORTRESS_HOME'.
 ___________________________________________________________________________________
