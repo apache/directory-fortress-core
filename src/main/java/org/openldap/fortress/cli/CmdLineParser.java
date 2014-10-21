@@ -1,21 +1,33 @@
-/*
- *   Licensed to the Apache Software Foundation (ASF) under one
- *   or more contributor license agreements.  See the NOTICE file
- *   distributed with this work for additional information
- *   regarding copyright ownership.  The ASF licenses this file
- *   to you under the Apache License, Version 2.0 (the
- *   "License"); you may not use this file except in compliance
- *   with the License.  You may obtain a copy of the License at
+/**
+ * Copyright (c) 2001-2012 Steve Purcell.
+ * Copyright (c) 2002      Vidar Holen.
+ * Copyright (c) 2002      Michal Ceresna.
+ * Copyright (c) 2005      Ewan Mellor.
+ * Copyright (c) 2010-2012 penSec.IT UG (haftungsbeschränkt).
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * All rights reserved.
  *
- *   Unless required by applicable law or agreed to in writing,
- *   software distributed under the License is distributed on an
- *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *   KIND, either express or implied.  See the License for the
- *   specific language governing permissions and limitations
- *   under the License.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. Neither the name of the copyright holder nor the names
+ * of its contributors may be used to endorse or promote products derived from
+ * this software without specific prior written permission.
  *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 package org.openldap.fortress.cli;
 
@@ -43,9 +55,9 @@ public class CmdLineParser
      */
     public static abstract class OptionException extends Exception
     {
-        OptionException(String msg)
+        OptionException( String msg )
         {
-            super(msg);
+            super( msg );
         }
     }
 
@@ -57,14 +69,14 @@ public class CmdLineParser
      */
     public static class UnknownOptionException extends OptionException
     {
-        UnknownOptionException(String optionName)
+        UnknownOptionException( String optionName )
         {
-            this(optionName, "Unknown option '" + optionName + "'");
+            this( optionName, "Unknown option '" + optionName + "'" );
         }
 
-        UnknownOptionException(String optionName, String msg)
+        UnknownOptionException( String optionName, String msg )
         {
-            super(msg);
+            super( msg );
             this.optionName = optionName;
         }
 
@@ -87,14 +99,13 @@ public class CmdLineParser
      *
      * @author Vidar Holen
      */
-    public static class UnknownSuboptionException
-        extends UnknownOptionException
+    public static class UnknownSuboptionException extends UnknownOptionException
     {
         private final char suboption;
 
-        UnknownSuboptionException(String option, char suboption)
+        UnknownSuboptionException( String option, char suboption )
         {
-            super(option, "Illegal option: '" + suboption + "' in '" + option + "'");
+            super( option, "Illegal option: '" + suboption + "' in '" + option + "'" );
             this.suboption = suboption;
         }
 
@@ -116,10 +127,10 @@ public class CmdLineParser
     {
         private final char notflag;
 
-        NotFlagException(String option, char unflaggish)
+        NotFlagException( String option, char unflaggish )
         {
-            super(option, "Illegal option: '" + option + "', '" +
-                unflaggish + "' requires a value");
+            super( option, "Illegal option: '" + option + "', '" +
+                unflaggish + "' requires a value" );
             notflag = unflaggish;
         }
 
@@ -140,11 +151,11 @@ public class CmdLineParser
      */
     public static class IllegalOptionValueException extends OptionException
     {
-        public IllegalOptionValueException(Option opt, String value)
+        public IllegalOptionValueException( Option opt, String value )
         {
-            super("Illegal value '" + value + "' for option " +
-                (opt.shortForm() != null ? "-" + opt.shortForm() + "/" : "") +
-                "--" + opt.longForm());
+            super( "Illegal value '" + value + "' for option " +
+                ( opt.shortForm() != null ? "-" + opt.shortForm() + "/" : "" ) +
+                "--" + opt.longForm() );
             this.option = opt;
             this.value = value;
         }
@@ -175,21 +186,22 @@ public class CmdLineParser
     public static abstract class Option
     {
 
-        Option(String longForm, boolean wantsValue)
+        Option( String longForm, boolean wantsValue )
         {
-            this(null, longForm, wantsValue);
+            this( null, longForm, wantsValue );
         }
 
-        Option(char shortForm, String longForm,
-                         boolean wantsValue)
+        Option( char shortForm, String longForm, boolean wantsValue )
         {
-            this(new String(new char[]{shortForm}), longForm, wantsValue);
+            this( new String( new char[]{shortForm} ), longForm, wantsValue );
         }
 
-        private Option(String shortForm, String longForm, boolean wantsValue)
+        private Option( String shortForm, String longForm, boolean wantsValue )
         {
-            if (longForm == null)
-                throw new IllegalArgumentException("Null longForm not allowed");
+            if ( longForm == null )
+            {
+                throw new IllegalArgumentException( "Null longForm not allowed" );
+            }
             this.shortForm = shortForm;
             this.longForm = longForm;
             this.wantsValue = wantsValue;
@@ -213,16 +225,15 @@ public class CmdLineParser
             return this.wantsValue;
         }
 
-        public final Object getValue(String arg, Locale locale)
-            throws IllegalOptionValueException
+        public final Object getValue( String arg, Locale locale ) throws IllegalOptionValueException
         {
-            if (this.wantsValue)
+            if ( this.wantsValue )
             {
-                if (arg == null)
+                if ( arg == null )
                 {
-                    throw new IllegalOptionValueException(this, "arg is null");
+                    throw new IllegalOptionValueException( this, "arg is null" );
                 }
-                return this.parseValue(arg, locale);
+                return this.parseValue( arg, locale );
             }
             else
             {
@@ -234,8 +245,7 @@ public class CmdLineParser
          * Override to extract and convert an option value passed on the
          * command-line
          */
-        Object parseValue(String arg, Locale locale)
-            throws IllegalOptionValueException
+        Object parseValue( String arg, Locale locale ) throws IllegalOptionValueException
         {
             return null;
         }
@@ -246,14 +256,14 @@ public class CmdLineParser
 
         public static class BooleanOption extends Option
         {
-            public BooleanOption(char shortForm, String longForm)
+            public BooleanOption( char shortForm, String longForm )
             {
-                super(shortForm, longForm, false);
+                super( shortForm, longForm, false );
             }
 
-            public BooleanOption(String longForm)
+            public BooleanOption( String longForm )
             {
-                super(longForm, false);
+                super( longForm, false );
             }
         }
 
@@ -262,26 +272,25 @@ public class CmdLineParser
          */
         public static class IntegerOption extends Option
         {
-            public IntegerOption(char shortForm, String longForm)
+            public IntegerOption( char shortForm, String longForm )
             {
-                super(shortForm, longForm, true);
+                super( shortForm, longForm, true );
             }
 
-            public IntegerOption(String longForm)
+            public IntegerOption( String longForm )
             {
-                super(longForm, true);
+                super( longForm, true );
             }
 
-            protected Object parseValue(String arg, Locale locale)
-                throws IllegalOptionValueException
+            protected Object parseValue( String arg, Locale locale ) throws IllegalOptionValueException
             {
                 try
                 {
-                    return new Integer(arg);
+                    return new Integer( arg );
                 }
-                catch (NumberFormatException e)
+                catch ( NumberFormatException e )
                 {
-                    throw new IllegalOptionValueException(this, arg);
+                    throw new IllegalOptionValueException( this, arg );
                 }
             }
         }
@@ -291,26 +300,25 @@ public class CmdLineParser
          */
         public static class LongOption extends Option
         {
-            public LongOption(char shortForm, String longForm)
+            public LongOption( char shortForm, String longForm )
             {
-                super(shortForm, longForm, true);
+                super( shortForm, longForm, true );
             }
 
-            public LongOption(String longForm)
+            public LongOption( String longForm )
             {
-                super(longForm, true);
+                super( longForm, true );
             }
 
-            protected Object parseValue(String arg, Locale locale)
-                throws IllegalOptionValueException
+            protected Object parseValue( String arg, Locale locale ) throws IllegalOptionValueException
             {
                 try
                 {
-                    return new Long(arg);
+                    return new Long( arg );
                 }
-                catch (NumberFormatException e)
+                catch ( NumberFormatException e )
                 {
-                    throw new IllegalOptionValueException(this, arg);
+                    throw new IllegalOptionValueException( this, arg );
                 }
             }
         }
@@ -320,28 +328,27 @@ public class CmdLineParser
          */
         public static class DoubleOption extends Option
         {
-            public DoubleOption(char shortForm, String longForm)
+            public DoubleOption( char shortForm, String longForm )
             {
-                super(shortForm, longForm, true);
+                super( shortForm, longForm, true );
             }
 
-            public DoubleOption(String longForm)
+            public DoubleOption( String longForm )
             {
-                super(longForm, true);
+                super( longForm, true );
             }
 
-            protected Object parseValue(String arg, Locale locale)
-                throws IllegalOptionValueException
+            protected Object parseValue( String arg, Locale locale ) throws IllegalOptionValueException
             {
                 try
                 {
-                    NumberFormat format = NumberFormat.getNumberInstance(locale);
-                    Number num = format.parse(arg);
+                    NumberFormat format = NumberFormat.getNumberInstance( locale );
+                    Number num = format.parse( arg );
                     return num.doubleValue();
                 }
-                catch (ParseException e)
+                catch ( ParseException e )
                 {
-                    throw new IllegalOptionValueException(this, arg);
+                    throw new IllegalOptionValueException( this, arg );
                 }
             }
         }
@@ -351,17 +358,17 @@ public class CmdLineParser
          */
         public static class StringOption extends Option
         {
-            public StringOption(char shortForm, String longForm)
+            public StringOption( char shortForm, String longForm )
             {
-                super(shortForm, longForm, true);
+                super( shortForm, longForm, true );
             }
 
-            public StringOption(String longForm)
+            public StringOption( String longForm )
             {
-                super(longForm, true);
+                super( longForm, true );
             }
 
-            protected Object parseValue(String arg, Locale locale)
+            protected Object parseValue( String arg, Locale locale )
             {
                 return arg;
             }
@@ -371,11 +378,13 @@ public class CmdLineParser
     /**
      * Add the specified Option to the list of accepted options
      */
-    final Option addOption(Option opt)
+    final Option addOption( Option opt )
     {
-        if (opt.shortForm() != null)
-            this.options.put("-" + opt.shortForm(), opt);
-        this.options.put("--" + opt.longForm(), opt);
+        if ( opt.shortForm() != null )
+        {
+            this.options.put( "-" + opt.shortForm(), opt );
+        }
+        this.options.put( "--" + opt.longForm(), opt );
         return opt;
     }
 
@@ -384,9 +393,9 @@ public class CmdLineParser
      *
      * @return the new Option
      */
-    public final Option addStringOption(char shortForm, String longForm)
+    public final Option addStringOption( char shortForm, String longForm )
     {
-        return addOption(new Option.StringOption(shortForm, longForm));
+        return addOption( new Option.StringOption( shortForm, longForm ) );
     }
 
     /**
@@ -394,9 +403,9 @@ public class CmdLineParser
      *
      * @return the new Option
      */
-    public final Option addStringOption(String longForm)
+    public final Option addStringOption( String longForm )
     {
-        return addOption(new Option.StringOption(longForm));
+        return addOption( new Option.StringOption( longForm ) );
     }
 
     /**
@@ -404,9 +413,9 @@ public class CmdLineParser
      *
      * @return the new Option
      */
-    public final Option addIntegerOption(char shortForm, String longForm)
+    public final Option addIntegerOption( char shortForm, String longForm )
     {
-        return addOption(new Option.IntegerOption(shortForm, longForm));
+        return addOption( new Option.IntegerOption( shortForm, longForm ) );
     }
 
     /**
@@ -414,9 +423,9 @@ public class CmdLineParser
      *
      * @return the new Option
      */
-    public final Option addIntegerOption(String longForm)
+    public final Option addIntegerOption( String longForm )
     {
-        return addOption(new Option.IntegerOption(longForm));
+        return addOption( new Option.IntegerOption( longForm ) );
     }
 
     /**
@@ -424,9 +433,9 @@ public class CmdLineParser
      *
      * @return the new Option
      */
-    public final Option addLongOption(char shortForm, String longForm)
+    public final Option addLongOption( char shortForm, String longForm )
     {
-        return addOption(new Option.LongOption(shortForm, longForm));
+        return addOption( new Option.LongOption( shortForm, longForm ) );
     }
 
     /**
@@ -434,9 +443,9 @@ public class CmdLineParser
      *
      * @return the new Option
      */
-    public final Option addLongOption(String longForm)
+    public final Option addLongOption( String longForm )
     {
-        return addOption(new Option.LongOption(longForm));
+        return addOption( new Option.LongOption( longForm ) );
     }
 
     /**
@@ -444,9 +453,9 @@ public class CmdLineParser
      *
      * @return the new Option
      */
-    public final Option addDoubleOption(char shortForm, String longForm)
+    public final Option addDoubleOption( char shortForm, String longForm )
     {
-        return addOption(new Option.DoubleOption(shortForm, longForm));
+        return addOption( new Option.DoubleOption( shortForm, longForm ) );
     }
 
     /**
@@ -454,9 +463,9 @@ public class CmdLineParser
      *
      * @return the new Option
      */
-    public final Option addDoubleOption(String longForm)
+    public final Option addDoubleOption( String longForm )
     {
-        return addOption(new Option.DoubleOption(longForm));
+        return addOption( new Option.DoubleOption( longForm ) );
     }
 
     /**
@@ -464,9 +473,9 @@ public class CmdLineParser
      *
      * @return the new Option
      */
-    public final Option addBooleanOption(char shortForm, String longForm)
+    public final Option addBooleanOption( char shortForm, String longForm )
     {
-        return addOption(new Option.BooleanOption(shortForm, longForm));
+        return addOption( new Option.BooleanOption( shortForm, longForm ) );
     }
 
     /**
@@ -474,41 +483,41 @@ public class CmdLineParser
      *
      * @return the new Option
      */
-    public final Option addBooleanOption(String longForm)
+    public final Option addBooleanOption( String longForm )
     {
-        return addOption(new Option.BooleanOption(longForm));
+        return addOption( new Option.BooleanOption( longForm ) );
     }
 
     /**
      * Equivalent to {@link #getOptionValue(Option, Object) getOptionValue(o,
      * null)}.
      */
-    public final Object getOptionValue(Option o)
+    public final Object getOptionValue( Option o )
     {
-        return getOptionValue(o, null);
+        return getOptionValue( o, null );
     }
 
 
     /**
      * @return the parsed value of the given Option, or null if the
-     *         option was not set
+     * option was not set
      */
-    final Object getOptionValue(Option o, Object def)
+    final Object getOptionValue( Option o, Object def )
     {
-        Vector v = (Vector) values.get(o.longForm());
+        Vector v = ( Vector ) values.get( o.longForm() );
 
-        if (v == null)
+        if ( v == null )
         {
             return def;
         }
-        else if (v.isEmpty())
+        else if ( v.isEmpty() )
         {
             return null;
         }
         else
         {
-            Object result = v.elementAt(0);
-            v.removeElementAt(0);
+            Object result = v.elementAt( 0 );
+            v.removeElementAt( 0 );
             return result;
         }
     }
@@ -516,23 +525,23 @@ public class CmdLineParser
 
     /**
      * @return A Vector giving the parsed values of all the occurrences of the
-     *         given Option, or an empty Vector if the option was not set.
+     * given Option, or an empty Vector if the option was not set.
      */
-    public final Vector getOptionValues(Option option)
+    public final Vector getOptionValues( Option option )
     {
         Vector result = new Vector();
 
-        while (true)
+        while ( true )
         {
-            Object o = getOptionValue(option, null);
+            Object o = getOptionValue( option, null );
 
-            if (o == null)
+            if ( o == null )
             {
                 return result;
             }
             else
             {
-                result.addElement(o);
+                result.addElement( o );
             }
         }
     }
@@ -551,15 +560,14 @@ public class CmdLineParser
      * list of command-line arguments. The default locale is used for
      * parsing options whose values might be locale-specific.
      */
-    public final void parse(String[] argv)
-        throws IllegalOptionValueException, UnknownOptionException
+    public final void parse( String[] argv ) throws IllegalOptionValueException, UnknownOptionException
     {
 
         // It would be best if this method only threw OptionException, but for
         // backwards compatibility with old user code we throw the two
         // exceptions above instead.
 
-        parse(argv, Locale.getDefault());
+        parse( argv, Locale.getDefault() );
     }
 
     /**
@@ -567,8 +575,7 @@ public class CmdLineParser
      * list of command-line arguments. The specified locale is used for
      * parsing options whose values might be locale-specific.
      */
-    final void parse(String[] argv, Locale locale)
-        throws IllegalOptionValueException, UnknownOptionException
+    final void parse( String[] argv, Locale locale ) throws IllegalOptionValueException, UnknownOptionException
     {
 
         // It would be best if this method only threw OptionException, but for
@@ -577,104 +584,107 @@ public class CmdLineParser
 
         Vector otherArgs = new Vector();
         int position = 0;
-        this.values = new Hashtable(10);
-        while (position < argv.length)
+        this.values = new Hashtable( 10 );
+        while ( position < argv.length )
         {
             String curArg = argv[position];
-            if (curArg.startsWith("-"))
+            if ( curArg.startsWith( "-" ) )
             {
-                if (curArg.equals("--"))
+                if ( curArg.equals( "--" ) )
                 { // end of options
                     position += 1;
                     break;
                 }
                 String valueArg = null;
-                if (curArg.startsWith("--"))
+                if ( curArg.startsWith( "--" ) )
                 { // handle --arg=value
-                    int equalsPos = curArg.indexOf("=");
-                    if (equalsPos != -1)
+                    int equalsPos = curArg.indexOf( "=" );
+                    if ( equalsPos != -1 )
                     {
-                        valueArg = curArg.substring(equalsPos + 1);
-                        curArg = curArg.substring(0, equalsPos);
+                        valueArg = curArg.substring( equalsPos + 1 );
+                        curArg = curArg.substring( 0, equalsPos );
                     }
                 }
-                else if (curArg.length() > 2)
+                else if ( curArg.length() > 2 )
                 {  // handle -abcd
-                    for (int i = 1; i < curArg.length(); i++)
+                    for ( int i = 1; i < curArg.length(); i++ )
                     {
-                        Option opt = (Option) this.options.get
-                            ("-" + curArg.charAt(i));
-                        if (opt == null) throw new
-                            UnknownSuboptionException(curArg, curArg.charAt(i));
-                        if (opt.wantsValue()) throw new
-                            NotFlagException(curArg, curArg.charAt(i));
-                        addValue(opt, opt.getValue(null, locale));
+                        Option opt = ( Option ) this.options.get( "-" + curArg.charAt( i ) );
+                        if ( opt == null )
+                        {
+                            throw new UnknownSuboptionException( curArg, curArg.charAt( i ) );
+                        }
+                        if ( opt.wantsValue() )
+                        {
+                            throw new NotFlagException( curArg, curArg.charAt( i ) );
+                        }
+                        addValue( opt, opt.getValue( null, locale ) );
 
                     }
                     position++;
                     continue;
                 }
 
-                Option opt = (Option) this.options.get(curArg);
-                if (opt == null)
+                Option opt = ( Option ) this.options.get( curArg );
+                if ( opt == null )
                 {
-                    throw new UnknownOptionException(curArg);
+                    throw new UnknownOptionException( curArg );
                 }
                 Object value;
-                if (opt.wantsValue())
+                if ( opt.wantsValue() )
                 {
-                    if (valueArg == null)
+                    if ( valueArg == null )
                     {
                         position += 1;
-                        if (position < argv.length)
+                        if ( position < argv.length )
                         {
                             valueArg = argv[position];
                         }
                     }
-                    value = opt.getValue(valueArg, locale);
+                    value = opt.getValue( valueArg, locale );
                 }
                 else
                 {
-                    value = opt.getValue(null, locale);
+                    value = opt.getValue( null, locale );
                 }
 
-                addValue(opt, value);
+                addValue( opt, value );
 
                 position += 1;
             }
             else
             {
-                otherArgs.addElement(curArg);
+                otherArgs.addElement( curArg );
                 position += 1;
             }
         }
-        for (; position < argv.length; ++position)
+        for (; position < argv.length; ++position )
         {
-            otherArgs.addElement(argv[position]);
+            otherArgs.addElement( argv[position] );
         }
 
         this.remainingArgs = new String[otherArgs.size()];
-        otherArgs.copyInto(remainingArgs);
+        otherArgs.copyInto( remainingArgs );
     }
 
 
-    private void addValue(Option opt, Object value)
+    private void addValue( Option opt, Object value )
     {
         String lf = opt.longForm();
 
-        Vector v = (Vector) values.get(lf);
+        Vector v = ( Vector ) values.get( lf );
 
-        if (v == null)
+        if ( v == null )
         {
             v = new Vector();
-            values.put(lf, v);
+            values.put( lf, v );
         }
 
-        v.addElement(value);
+        v.addElement( value );
     }
 
 
     private String[] remainingArgs = null;
-    private final Hashtable options = new Hashtable(10);
-    private Hashtable values = new Hashtable(10);
+    private final Hashtable options = new Hashtable( 10 );
+    private Hashtable values = new Hashtable( 10 );
 }
