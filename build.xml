@@ -426,7 +426,7 @@
            target: build
           ================================= -->
     <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples" description="--> create the core Fortress library">
-       <copy todir="${dist.dir}" file="${basedir}/LICENSE"/>
+       <copy todir="${dist.dir}" file="${basedir}/LICENSE.txt"/>
        <copy todir="${dist.dir}" file="${basedir}/NOTICE.txt"/>
     </target>
 
