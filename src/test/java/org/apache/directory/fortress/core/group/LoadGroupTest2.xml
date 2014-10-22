@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *   Licensed to the Apache Software Foundation (ASF) under one
+ *   or more contributor license agreements.  See the NOTICE file
+ *   distributed with this work for additional information
+ *   regarding copyright ownership.  The ASF licenses this file
+ *   to you under the Apache License, Version 2.0 (the
+ *   "License"); you may not use this file except in compliance
+ *   with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing,
+ *   software distributed under the License is distributed on an
+ *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *   KIND, either express or implied.  See the License for the
+ *   specific language governing permissions and limitations
+ *   under the License.
+-->
+<project basedir="../../../../../../../ldap/setup" default="all" name="Fortress LDAP Group Test 002 Data">
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="GroupTest" >
+        <classpath path="${java.class.path}"/>
+    </taskdef>
+
+    <target name="all">
+        <GroupTest>
+
+            <addgroup>
+                <group name="test101" protocol="test1"  description="Test Group 001" members="guser11"  />
+                <group name="test102" protocol="test2"  description="Test Group 002" members="guser11" />
+                <group name="test103" protocol="test3"  description="Test Group 003" members="guser11" />
+                <group name="test104" protocol="test4"  description="Test Group 004" members="guser11" />
+                <group name="test105" protocol="test5"  description="Test Group 005" members="guser11" />
+                <group name="test106" protocol="test6"  description="Test Group 006" members="guser11" />
+                <group name="test107" protocol="test7"  description="Test Group 007" members="guser11" />
+                <group name="test108" protocol="test8"  description="Test Group 008" members="guser11" />
+                <group name="test109" protocol="test9"  description="Test Group 009" members="guser11" />
+                <group name="test110" protocol="test10" description="Test Group 010" members="guser11" />
+            </addgroup>
+
+            <delgroup>
+                <group name="test101"/>
+                <group name="test102"/>
+                <group name="test103"/>
+                <group name="test104"/>
+                <group name="test105"/>
+                <group name="test106"/>
+                <group name="test107"/>
+                <group name="test108"/>
+                <group name="test109"/>
+                <group name="test110"/>
+            </delgroup>
+
+<!--
+            <addgroupmember>
+                <group name="test102" members="guser12" />
+                <group name="test103" members="guser12,guser13" />
+                <group name="test104" members="guser12,guser13,guser14" />
+                <group name="test105" members="guser12,guser13,guser14,guser15" />
+                <group name="test106" members="guser12,guser13,guser14,guser15,guser16" />
+                <group name="test107" members="guser12,guser13,guser14,guser15,guser16,guser17" />
+                <group name="test108" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18" />
+                <group name="test109" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19" />
+                <group name="test110" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19,guser20" />
+            </addgroupmember>
+-->
+
+            <addgroupmember>
+                <group name="test102" members="guser12" />
+                <group name="test103" members="guser12,guser13" />
+                <group name="test104" members="guser12,guser13,guser14" />
+                <group name="test105" members="guser12,guser13,guser14,guser15" />
+                <group name="test106" members="guser12,guser13,guser14,guser15,guser16" />
+                <group name="test107" members="guser12,guser13,guser14,guser15,guser16,guser17" />
+                <group name="test108" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18" />
+                <group name="test109" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19" />
+                <group name="test110" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19,guser20" />
+            </addgroupmember>
+
+            <delgroupmember>
+                <group name="test102" members="guser12" />
+                <group name="test103" members="guser12,guser13" />
+                <group name="test104" members="guser12,guser13,guser14" />
+                <group name="test105" members="guser12,guser13,guser14,guser15" />
+                <group name="test106" members="guser12,guser13,guser14,guser15,guser16" />
+                <group name="test107" members="guser12,guser13,guser14,guser15,guser16,guser17" />
+                <group name="test108" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18" />
+                <group name="test109" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19" />
+                <group name="test110" members="guser12,guser13,guser14,guser15,guser16,guser17,guser18,guser19,guser20" />
+            </delgroupmember>
+
+            <addgroupproperty>
+                <group name="test101" properties="key1=val1" />
+                <group name="test102" properties="key1=val1,key2=val2" />
+                <group name="test103" properties="key1=val1,key2=val2,key3=val3" />
+                <group name="test104" properties="key1=val1,key2=val2,key3=val3,key4=val4" />
+                <group name="test105" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5" />
+                <group name="test106" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6" />
+                <group name="test107" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6 " />
+                <group name="test108" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8 " />
+                <group name="test109" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8,key9=val9 " />
+                <group name="test110" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8,key9=val9,key10=val10" />
+            </addgroupproperty>
+
+            <delgroupproperty>
+                <group name="test101" properties="key1=val1" />
+                <group name="test102" properties="key1=val1,key2=val2" />
+                <group name="test103" properties="key1=val1,key2=val2,key3=val3" />
+                <group name="test104" properties="key1=val1,key2=val2,key3=val3,key4=val4" />
+                <group name="test105" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5" />
+                <group name="test106" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6" />
+                <group name="test107" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6 " />
+                <group name="test108" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8 " />
+                <group name="test109" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8,key9=val9 " />
+                <group name="test110" properties="key1=val1,key2=val2,key3=val3,key4=val4,key5=val5,key6=val6,key7=val7,key8=val8,key9=val9,key10=val10" />
+            </delgroupproperty>
+
+            <adduser>
+                <user userId="guser11" password="password" description="Group Test 001 User11" ou="GroupTest002Users" cn="test11" sn="user11"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser12" password="password" description="Group Test 001 User12" ou="GroupTest002Users" cn="test12" sn="user12"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser13" password="password" description="Group Test 001 User13" ou="GroupTest002Users" cn="test13" sn="user13"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser14" password="password" description="Group Test 001 User14" ou="GroupTest002Users" cn="test14" sn="user14"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser15" password="password" description="Group Test 001 User15" ou="GroupTest002Users" cn="test15" sn="user15"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser16" password="password" description="Group Test 001 User16" ou="GroupTest002Users" cn="test16" sn="user16"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser17" password="password" description="Group Test 001 User17" ou="GroupTest002Users" cn="test17" sn="user17"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser18" password="password" description="Group Test 001 User18" ou="GroupTest002Users" cn="test18" sn="user18"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser19" password="password" description="Group Test 001 User19" ou="GroupTest002Users" cn="test19" sn="user19"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+                <user userId="guser20" password="password" description="Group Test 001 User20" ou="GroupTest002Users" cn="test20" sn="user20"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" />
+            </adduser>
+
+            <deluser>
+                <user userId="guser11"/>
+                <user userId="guser12"/>
+                <user userId="guser13"/>
+                <user userId="guser14"/>
+                <user userId="guser15"/>
+                <user userId="guser16"/>
+                <user userId="guser17"/>
+                <user userId="guser18"/>
+                <user userId="guser19"/>
+                <user userId="guser20"/>
+            </deluser>
+
+            <addorgunit>
+                <orgunit name="GroupTest002Users" typeName="USER" description="Used for Group Test 002"/>
+            </addorgunit>
+
+            <delorgunit>
+                <orgunit name="GroupTest002Users" typeName="USER"/>
+            </delorgunit>
+
+        </GroupTest>
+    </target>
+</project>

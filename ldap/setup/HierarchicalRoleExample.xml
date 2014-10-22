@@ -35,7 +35,7 @@
     <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.5.jar"/>
     <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.7.5.jar"/>
     <property name="slf4j-log4j.jar" value="${lib.dir}/slf4j-log4j12-1.7.5.jar"/>
-    <taskdef classname="org.openldap.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin" >
     	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${jasypt.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${ehcache-core.jar}:${slf4j-api.jar}:${slf4j-log4j.jar}"/>
     </taskdef>
 

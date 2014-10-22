@@ -18,7 +18,7 @@
    under the License.
 -->
 <project basedir="." default="all" name="Fortress LDAP Group Test 002 Data">
-    <taskdef classname="org.openldap.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin" >
         <classpath path="${java.class.path}"/>
     </taskdef>
 

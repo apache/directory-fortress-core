@@ -19,7 +19,7 @@
 -->
 <project basedir="." default="all" name="Fortress Sample Data">
 
-    <taskdef classname="org.openldap.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin" >
         <classpath path="${java.class.path}"/>
     </taskdef>
 
@@ -99,14 +99,14 @@
                 <permobj objName="com.mycompany.Page1"/>
                 <permobj objName="com.mycompany.Page2"/>
                 <permobj objName="com.mycompany.Page3"/>
-                <permobj objName="org.openldap.fortress.rbac.AccessMgrImpl"/>
+                <permobj objName="org.apache.directory.fortress.core.rbac.AccessMgrImpl"/>
             </delpermobj>
 
             <addpermobj>
                 <permobj objName="com.mycompany.Page1" description="Wicket Test Page 1" ou="WicketPerms" type="Page"/>
                 <permobj objName="com.mycompany.Page2" description="Wicket Test Page 2" ou="WicketPerms" type="Page"/>
                 <permobj objName="com.mycompany.Page3" description="Wicket Test Page 3" ou="WicketPerms" type="Page"/>
-                <permobj objName="org.openldap.fortress.rbac.AccessMgrImpl" description="Used to perform role activation functions" ou="WicketPerms" type="Page"/>
+                <permobj objName="org.apache.directory.fortress.core.rbac.AccessMgrImpl" description="Used to perform role activation functions" ou="WicketPerms" type="Page"/>
                 <permobj objName="ROLE_TEST1" description="Used to perform ROLE_TEST1 role activation functions" ou="WicketPerms" type="Page"/>
                 <permobj objName="ROLE_TEST2" description="Used to perform ROLE_TEST2 role activation functions" ou="WicketPerms" type="Page"/>
                 <permobj objName="ROLE_TEST3" description="Used to perform ROLE_TEST3 role activation functions" ou="WicketPerms" type="Page"/>
@@ -122,8 +122,8 @@
                 <permop objName="com.mycompany.Page3" opName="Button1"/>
                 <permop objName="com.mycompany.Page3" opName="Button2"/>
                 <permop objName="com.mycompany.Page3" opName="Button3"/>
-                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="addActiveRole"/>
-                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="dropActiveRole"/>
+                <permop objName="org.apache.directory.fortress.core.rbac.AccessMgrImpl" opName="addActiveRole"/>
+                <permop objName="org.apache.directory.fortress.core.rbac.AccessMgrImpl" opName="dropActiveRole"/>
                 <permop objName="ROLE_TEST1" opName="dropActiveRole"/>
                 <permop objName="ROLE_TEST1" opName="dropActiveRole" type="Button"/>
                 <permop objName="ROLE_TEST2" opName="addActiveRole" type="Button"/>
@@ -142,8 +142,8 @@
                 <permop objName="com.mycompany.Page3" opName="Button1" type="Button"/>
                 <permop objName="com.mycompany.Page3" opName="Button2" type="Button"/>
                 <permop objName="com.mycompany.Page3" opName="Button3" type="Button"/>
-                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="addActiveRole" type="Button"/>
-                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" type="Button"/>
+                <permop objName="org.apache.directory.fortress.core.rbac.AccessMgrImpl" opName="addActiveRole" type="Button"/>
+                <permop objName="org.apache.directory.fortress.core.rbac.AccessMgrImpl" opName="dropActiveRole" type="Button"/>
                 <permop objName="ROLE_TEST1" opName="addActiveRole" type="Button"/>
                 <permop objName="ROLE_TEST1" opName="dropActiveRole" type="Button"/>
                 <permop objName="ROLE_TEST2" opName="addActiveRole" type="Button"/>

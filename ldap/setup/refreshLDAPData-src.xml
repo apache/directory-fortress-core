@@ -18,7 +18,7 @@
    under the License.
 -->
 <project basedir="." default="all" name="Fortress Properties">
-    <taskdef classname="org.openldap.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin" >
         <classpath path="${java.class.path}"/>
     </taskdef>
 
@@ -74,16 +74,16 @@
                 <config props="adminrole.root:@ADMINROLES_DN@"/>
                 <config props="adminperm.root:@ADMINPERMS_DN@"/>
                 <config props="example.root:ou=Examples,@SUFFIX@"/>
-                <!--config props="accessmgr.implementation:org.openldap.fortress.rbac.AccessMgrImpl"/-->
-                <!--config props="auditmgr.implementation:org.openldap.fortress.audit.AuditMgrImpl"/-->
+                <!--config props="accessmgr.implementation:org.apache.directory.fortress.core.rbac.AccessMgrImpl"/-->
+                <!--config props="auditmgr.implementation:org.apache.directory.fortress.audit.AuditMgrImpl"/-->
                 <config props="audit.root:@AUDITS_DN@"/>
                 <config props="superadmin.role:FortressSuperAdmin"/>
-                <config props="temporal.validator.0:org.openldap.fortress.util.time.Date"/>
-                <config props="temporal.validator.1:org.openldap.fortress.util.time.LockDate"/>
-                <config props="temporal.validator.2:org.openldap.fortress.util.time.Timeout"/>
-                <config props="temporal.validator.3:org.openldap.fortress.util.time.ClockTime"/>
-                <config props="temporal.validator.4:org.openldap.fortress.util.time.Day"/>
-                <config props="temporal.validator.dsd:org.openldap.fortress.rbac.DSDChecker"/>
+                <config props="temporal.validator.0:org.apache.directory.fortress.core.util.time.Date"/>
+                <config props="temporal.validator.1:org.apache.directory.fortress.core.util.time.LockDate"/>
+                <config props="temporal.validator.2:org.apache.directory.fortress.core.util.time.Timeout"/>
+                <config props="temporal.validator.3:org.apache.directory.fortress.core.util.time.ClockTime"/>
+                <config props="temporal.validator.4:org.apache.directory.fortress.core.util.time.Day"/>
+                <config props="temporal.validator.dsd:org.apache.directory.fortress.core.rbac.DSDChecker"/>
                 <config props="user.objectclass:inetOrgPerson"/>
                 <config props="group.objectclass:@GROUP_OBJECT_CLASS@"/>
                 <config props="group.protocol:@GROUP_PROTOCOL@"/>
@@ -143,14 +143,14 @@
                 <config props="adminperm.root:ou=AdminPerms,ou=ARBAC,@SUFFIX@"/>
                 <config props="audit.root:cn=log"/>
                 <config props="superadmin.role:oamSuperAdmin"/>
-                <config props="temporal.validator.0:org.openldap.fortress.util.time.Date"/>
-                <config props="temporal.validator.1:org.openldap.fortress.util.time.LockDate"/>
-                <config props="temporal.validator.2:org.openldap.fortress.util.time.Timeout"/>
-                <config props="temporal.validator.3:org.openldap.fortress.util.time.ClockTime"/>
-                <config props="temporal.validator.4:org.openldap.fortress.util.time.Day"/>
-                <config props="temporal.validator.dsd:org.openldap.fortress.rbac.DSDChecker"/>
-                <config props="accessmgr.implementation:org.openldap.fortress.rbac.AccessMgrImpl"/>
-                <config props="auditmgr.implementation:org.openldap.fortress.rbac.AuditMgrImpl"/>
+                <config props="temporal.validator.0:org.apache.directory.fortress.core.util.time.Date"/>
+                <config props="temporal.validator.1:org.apache.directory.fortress.core.util.time.LockDate"/>
+                <config props="temporal.validator.2:org.apache.directory.fortress.core.util.time.Timeout"/>
+                <config props="temporal.validator.3:org.apache.directory.fortress.core.util.time.ClockTime"/>
+                <config props="temporal.validator.4:org.apache.directory.fortress.core.util.time.Day"/>
+                <config props="temporal.validator.dsd:org.apache.directory.fortress.core.rbac.DSDChecker"/>
+                <config props="accessmgr.implementation:org.apache.directory.fortress.core.rbac.AccessMgrImpl"/>
+                <config props="auditmgr.implementation:org.apache.directory.fortress.core.rbac.AuditMgrImpl"/>
                 <config props="user.objectclass:inetOrgPerson"/>
                 <config props="group.objectclass:@GROUP_OBJECT_CLASS@"/>
                 <config props="group.protocol:@GROUP_PROTOCOL@"/>

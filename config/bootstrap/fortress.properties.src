@@ -72,11 +72,11 @@ example.root=ou=Examples,@SUFFIX@
 superadmin.role=oamSuperAdmin
 
 # these properties will enable temporal constraint checks on role activations:
-temporal.validator.0=org.openldap.fortress.util.time.Date
-temporal.validator.1=org.openldap.fortress.util.time.LockDate
-temporal.validator.2=org.openldap.fortress.util.time.Timeout
-temporal.validator.3=org.openldap.fortress.util.time.ClockTime
-temporal.validator.4=org.openldap.fortress.util.time.Day
+temporal.validator.0=org.apache.directory.fortress.core.util.time.Date
+temporal.validator.1=org.apache.directory.fortress.core.util.time.LockDate
+temporal.validator.2=org.apache.directory.fortress.core.util.time.Timeout
+temporal.validator.3=org.apache.directory.fortress.core.util.time.ClockTime
+temporal.validator.4=org.apache.directory.fortress.core.util.time.Day
 
 # enabling this property will enable Dynamic Separation of Duty constraint checks on role activations:
 temporal.validator.dsd=us.jts.fortress.rbac.DSDChecker
@@ -89,8 +89,8 @@ sys.user.4=oamTU6User4
 sys.user.5=oamTU6User5
 
 # Fortress Class Definitions:  NOT NEEDED UNLESS OVERIDING DEFAULT IMPLEMENTATIONS
-accessmgr.implementation=org.openldap.fortress.rbac.AccessMgrImpl
-auditmgr.implementation=org.openldap.fortress.rbac.AuditMgrImpl
+accessmgr.implementation=org.apache.directory.fortress.core.rbac.AccessMgrImpl
+auditmgr.implementation=org.apache.directory.fortress.core.rbac.AuditMgrImpl
 
 dao.connector=@LDAP_CLIENT_TYPE@
 

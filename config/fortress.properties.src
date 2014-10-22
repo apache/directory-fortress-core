@@ -70,15 +70,15 @@ http.port=@REST_HTTP_PORT@
 
 dao.connector=@LDAP_CLIENT_TYPE@
 
-GroupTest=org.openldap.fortress.group.GroupAntTest
+GroupTest=org.apache.directory.fortress.core.group.GroupAntTest
 
 # These may be used to override default LDAP or REST with OTHER implementations:
-#reviewmgr.implementation=org.openldap.fortress.rest.ReviewMgrOtherImpl
-#adminmgr.implementation=org.openldap.fortress.rest.AdminMgrOtherImpl
-#accessmgr.implementation=org.openldap.fortress.rest.AccessMgrOtherImpl
-#delegated.adminmgr.implementation=org.openldap.fortress.rest.DelAdminMgrOtherImpl
-#delegated.reviewmgr.implementation=org.openldap.fortress.rest.DelReviewMgrOtherImpl
-#policymgr.implementation=org.openldap.fortress.rest.PwPolicyMgrOtherImpl
-#delegated.accessmgr.implementation=org.openldap.fortress.rest.DelAccessMgrOtherImpl
-#auditmgr.implementation=org.openldap.fortress.rest.AuditMgrOtherImpl
-#configmgr.implementation=org.openldap.fortress.rest.ConfigMgrOtherImpl
+#reviewmgr.implementation=org.apache.directory.fortress.core.rest.ReviewMgrOtherImpl
+#adminmgr.implementation=org.apache.directory.fortress.core.rest.AdminMgrOtherImpl
+#accessmgr.implementation=org.apache.directory.fortress.core.rest.AccessMgrOtherImpl
+#delegated.adminmgr.implementation=org.apache.directory.fortress.core.rest.DelAdminMgrOtherImpl
+#delegated.reviewmgr.implementation=org.apache.directory.fortress.core.rest.DelReviewMgrOtherImpl
+#policymgr.implementation=org.apache.directory.fortress.core.rest.PwPolicyMgrOtherImpl
+#delegated.accessmgr.implementation=org.apache.directory.fortress.core.rest.DelAccessMgrOtherImpl
+#auditmgr.implementation=org.apache.directory.fortress.core.rest.AuditMgrOtherImpl
+#configmgr.implementation=org.apache.directory.fortress.core.rest.ConfigMgrOtherImpl

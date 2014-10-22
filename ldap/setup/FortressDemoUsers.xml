@@ -18,7 +18,7 @@
    under the License.
 -->
 <project basedir="." default="all" name="Fortress Sample Data">
-    <taskdef classname="org.openldap.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin" >
         <classpath path="${java.class.path}"/>
     </taskdef>
 
@@ -221,7 +221,7 @@
 
 <!--
                 <permobj admin="true"
-                         objName="org.openldap.fortress.audit.AuditMgrImpl"
+                         objName="org.apache.directory.fortress.audit.AuditMgrImpl"
                          description="AuditMgr Object"
                          ou="demoapps1" type="Ant"/>
 -->
@@ -243,12 +243,12 @@
                 <permop opName="6pm" objName="/cal/cal2.jsp" type="Ant"/>
 
 <!--
-                <permop admin="true" opName="searchBinds" objName="org.openldap.fortress.audit.AuditMgrImpl" type="Ant"/>
-                <permop admin="true" opName="searchAuthZs" objName="org.openldap.fortress.audit.AuditMgrImpl" type="Ant"/>
-                <permop admin="true" opName="getUserAuthZs" objName="org.openldap.fortress.audit.AuditMgrImpl" type="Ant"/>
-                <permop admin="true" opName="searchUserSessions" objName="org.openldap.fortress.audit.AuditMgrImpl" type="Ant"/>
-                <permop admin="true" opName="searchAdminMods" objName="org.openldap.fortress.audit.AuditMgrImpl" type="Ant"/>
-                <permop admin="true" opName="searchInvalidUsers" objName="org.openldap.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchBinds" objName="org.apache.directory.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchAuthZs" objName="org.apache.directory.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="getUserAuthZs" objName="org.apache.directory.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchUserSessions" objName="org.apache.directory.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchAdminMods" objName="org.apache.directory.fortress.audit.AuditMgrImpl" type="Ant"/>
+                <permop admin="true" opName="searchInvalidUsers" objName="org.apache.directory.fortress.audit.AuditMgrImpl" type="Ant"/>
 -->
             </addpermop>
 
@@ -262,12 +262,12 @@
                 <permgrant objName="/cal/cal2.jsp" opName="6pm" roleNm="role1"/>
 
 <!--
-                <permgrant admin="true" objName="org.openldap.fortress.audit.AuditMgrImpl" opName="searchBinds" roleNm="DemoAdminUsers"/>
-                <permgrant admin="true" objName="org.openldap.fortress.audit.AuditMgrImpl" opName="searchAuthZs" roleNm="DemoAdminUsers"/>
-                <permgrant admin="true" objName="org.openldap.fortress.audit.AuditMgrImpl" opName="getUserAuthZs" roleNm="DemoAdminUsers"/>
-                <permgrant admin="true" objName="org.openldap.fortress.audit.AuditMgrImpl" opName="searchUserSessions" roleNm="DemoAdminUsers"/>
-                <permgrant admin="true" objName="org.openldap.fortress.audit.AuditMgrImpl" opName="searchAdminMods" roleNm="DemoAdminUsers"/>
-                <permgrant admin="true" objName="org.openldap.fortress.audit.AuditMgrImpl" opName="searchInvalidUsers" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="org.apache.directory.fortress.audit.AuditMgrImpl" opName="searchBinds" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="org.apache.directory.fortress.audit.AuditMgrImpl" opName="searchAuthZs" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="org.apache.directory.fortress.audit.AuditMgrImpl" opName="getUserAuthZs" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="org.apache.directory.fortress.audit.AuditMgrImpl" opName="searchUserSessions" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="org.apache.directory.fortress.audit.AuditMgrImpl" opName="searchAdminMods" roleNm="DemoAdminUsers"/>
+                <permgrant admin="true" objName="org.apache.directory.fortress.audit.AuditMgrImpl" opName="searchInvalidUsers" roleNm="DemoAdminUsers"/>
 -->
             </addpermgrant>
 

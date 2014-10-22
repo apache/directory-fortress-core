@@ -37,8 +37,8 @@
        <property name="title" value="Fortress Identity and Access Management SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
        <property name="vendor" value="Joshua Tree Software"/>
-       <property name="package" value="org.openldap.fortress.*"/>
-       <property name="package.samples" value="org.openldap.fortress.samples"/>
+       <property name="package" value="org.apache.directory.fortress.*"/>
+       <property name="package.samples" value="org.apache.directory.fortress.core.samples"/>
        <property name="images.dir" value="${basedir}/images"/>
 
        <!-- ########### Env specific properties ########################### -->
@@ -136,9 +136,9 @@
        <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
        <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
        <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2014, The OpenLDAP Foundation. All Rights Reserved. Generated ${TODAY}&lt;/small&gt;"/>
-       <property name="javadoc.overview" value="${src.java.dir}/org/openldap/fortress/overview.html" />
+       <property name="javadoc.overview" value="/org/apache/directory/fortress/overview.html" />
        <property name="javadoc.dist.zip" value="${dist.dir}/${name}-${version}-javadoc.jar"/>
-       <property name="javadoc.stylesheet" value="${src.java.dir}/org/openldap/fortress/fortress-javadoc.css" />
+       <property name="javadoc.stylesheet" value="/org/apache/directory/fortress/fortress-javadoc.css" />
        <property name="javadoc.samples.dir" value="${dist.dir}/docs/samples"/>
        <property name="javadoc.samples.images.dir" value="${javadoc.samples.dir}/images"/>
        <property name="javadoc.samples.dist.zip" value="${dist.dir}/${name}-${version}-javadocsamples.jar"/>
@@ -263,8 +263,8 @@
        </path>
 
        <!-- ########### Test properties ########################### -->
-       <property name="test.sample.entry" value="org.openldap.fortress.samples.AllSamplesJUnitTest"/>
-       <property name="test.regression.entry"  value="org.openldap.fortress.rbac.FortressJUnitTest"/>
+       <property name="test.sample.entry" value="org.apache.directory.fortress.core.samples.AllSamplesJUnitTest"/>
+       <property name="test.regression.entry"  value="org.apache.directory.fortress.core.rbac.FortressJUnitTest"/>
        <property name="test.failonerror" value="false" />
        <property name="test.showoutput" value="yes" />
 
@@ -507,7 +507,7 @@
             <sysproperty key="tenant" value="${tenant}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
-            <test name="org.openldap.fortress.rbac.apacheds.FortressJUnitApachedsTest"/>
+            <test name="org.apache.directory.fortress.core.rbac.apacheds.FortressJUnitApachedsTest"/>
         </junit>
     </target>
 
@@ -520,7 +520,7 @@
             <sysproperty key="tenant" value="${tenant}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
-            <test name="org.openldap.fortress.rbac.accelerator.TestAccelerator"/>
+            <test name="org.apache.directory.fortress.core.rbac.accelerator.TestAccelerator"/>
         </junit>
     </target>
 
@@ -533,7 +533,7 @@
             <sysproperty key="tenant" value="${tenant}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
-            <test name="org.openldap.fortress.rbac.AccelMgrImplTest"/>
+            <test name="org.apache.directory.fortress.core.rbac.AccelMgrImplTest"/>
         </junit>
     </target>
 
@@ -543,7 +543,7 @@
      <target name="console" depends="build-jar,compile-test,init-fortress-config" description="--> start Fortress Console app">
          <echo message="Run the Fortress console app"/>
          <java
-                 classname="org.openldap.fortress.FortressConsole"
+                 classname="org.apache.directory.fortress.core.FortressConsole"
                  fork="false"
                  failonerror="true"
                  timeout="4000000"
@@ -560,7 +560,7 @@
      <target name="cli" depends="build-jar,compile,init-fortress-config" description="--> start Fortress Command Line Interpreter">
          <echo message="Run the Fortress Command Line Interpreter"/>
          <java
-                 classname="org.openldap.fortress.cli.CommandLineInterpreter"
+                 classname="org.apache.directory.fortress.core.cli.CommandLineInterpreter"
                  fork="false"
                  failonerror="true"
                  timeout="4000000"
@@ -577,7 +577,7 @@
      <target name="encrypt" depends="compile" description="--> encrypt -Dparam1=value : encrypts value from clear text to encrypted cypher string that is hex encoded">
          <echo message="Encrypt a value"/>
          <java
-                 classname="org.openldap.fortress.util.crypto.EncryptUtil"
+                 classname="org.apache.directory.fortress.core.util.crypto.EncryptUtil"
                  fork="false"
                  failonerror="true"
                  timeout="4000000"
@@ -1309,7 +1309,7 @@
     <target name="compile-schema" depends="init-jaxb,generate-schema" description="--> generates Java classes based on Fortress schema">
         <echo message="Compiling the schema..."/>
         <mkdir dir="${generated.classes.dir}"/>
-        <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="org.openldap.fortress.model" removeOldOutput="yes"/>
+        <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="org.apache.directory.fortress.model" removeOldOutput="yes"/>
     </target>
 
     <!-- =================================

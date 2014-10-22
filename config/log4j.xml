@@ -37,13 +37,13 @@
     </appender>
 
     <!-- Uncomment to store REST log statements to file:
-        <category name="org.openldap.fortress.rest.RestUtils" class="org.apache.log4j.Logger" additivity="false">
+        <category name="org.apache.directory.fortress.core.rest.RestUtils" class="org.apache.log4j.Logger" additivity="false">
             <priority value="INFO" class="org.apache.log4j.Level"/>
             <appender-ref ref="file"/>
         </category>
     -->
 
-    <category name="org.openldap.fortress.example" class="org.apache.log4j.Logger" additivity="false">
+    <category name="org.apache.directory.fortress.core.example" class="org.apache.log4j.Logger" additivity="false">
         <priority value="DEBUG" class="org.apache.log4j.Level"/>
         <appender-ref ref="console"/>
     </category>
