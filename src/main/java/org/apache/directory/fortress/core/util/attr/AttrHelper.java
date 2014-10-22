@@ -194,8 +194,9 @@ public class AttrHelper
      */
     public static Date decodeGeneralizedTime(String inputString) throws ParseException
     {
-        Date aDate;
-        aDate = com.unboundid.util.StaticUtils.decodeGeneralizedTime(inputString);
+        Date aDate = null;
+        // TODO: fix me (removed for unboundid)
+        //aDate = com.unboundid.util.StaticUtils.decodeGeneralizedTime(inputString);
         return aDate;
     }
 
@@ -209,8 +210,9 @@ public class AttrHelper
      */
     public static String encodeGeneralizedTime(Date date)
     {
-        String szTime;
-        szTime = com.unboundid.util.StaticUtils.encodeGeneralizedTime(date);
+        String szTime = null;
+        // TODO: fix me (removed for unboundid)
+        //szTime = com.unboundid.util.StaticUtils.encodeGeneralizedTime(date);
         return szTime;
     }
 

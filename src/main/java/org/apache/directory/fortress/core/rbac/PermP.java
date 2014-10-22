@@ -27,8 +27,6 @@ import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.rbac.dao.DaoFactory;
-import org.apache.directory.fortress.core.rbac.dao.PermDAO;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 
@@ -56,7 +54,7 @@ public final class PermP
      * Description of the Field
      */
     private static final String CLS_NM = PermP.class.getName();
-    private static final PermDAO pDao = DaoFactory.createPermDAO();
+    private static final PermDAO pDao = new PermDAO();
     private final OrgUnitP orgUnitP = new OrgUnitP();
 
 

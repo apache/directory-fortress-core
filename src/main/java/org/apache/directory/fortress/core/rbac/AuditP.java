@@ -23,7 +23,6 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.List;
 
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.rbac.dao.unboundid.AuditDAO;
 
 
 /**

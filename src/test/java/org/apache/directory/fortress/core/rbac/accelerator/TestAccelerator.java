@@ -207,7 +207,7 @@ public class TestAccelerator
     public void testDropActiveRole()
     {
         LOG.info( "testDropActiveRole..." );
-        //AcceleratorDAO aDao = new org.apache.directory.fortress.core.rbac.dao.apache.AcceleratorDAO();
+        //AcceleratorDAO aDao = new org.apache.directory.fortress.core.rbac.AcceleratorDAO();
         try
         {
             AccelMgr accelMgr = AccelMgrFactory.createInstance( TestUtils.getContext() );

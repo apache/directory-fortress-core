@@ -30,8 +30,6 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.rbac.dao.AdminRoleDAO;
-import org.apache.directory.fortress.core.rbac.dao.DaoFactory;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 
@@ -57,7 +55,7 @@ public final class AdminRoleP
 {
     private static final String CLS_NM = AdminRoleP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final AdminRoleDAO rDao = DaoFactory.createAdminRoleDAO();
+    private static final AdminRoleDAO rDao = new AdminRoleDAO();
     private static final OrgUnitP op = new OrgUnitP();
 
 

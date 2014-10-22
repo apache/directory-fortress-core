@@ -33,9 +33,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.apache.directory.fortress.core.rbac.dao.RoleDAO;
-import org.apache.directory.fortress.core.rbac.dao.UserDAO;
-
 /*
 ## OC2: Fortress Permission Structural Object Class
     objectclass	( 1.3.6.1.4.1.38088.2.2
@@ -61,7 +58,7 @@ import org.apache.directory.fortress.core.rbac.dao.UserDAO;
  * <ol>
  * <li>Manager layer:  {@link AdminMgrImpl}, {@link AccessMgrImpl}, {@link ReviewMgrImpl},...</li>
  * <li>Process layer:  {@link org.apache.directory.fortress.core.rbac.UserP}, {@link org.apache.directory.fortress.core.rbac.RoleP}, {@link org.apache.directory.fortress.core.rbac.PermP},...</li>
- * <li>DAO layer: {@link UserDAO}, {@link RoleDAO}, {@link org.apache.directory.fortress.core.rbac.dao.PermDAO},...</li>
+ * <li>DAO layer: {@link UserDAO}, {@link RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />

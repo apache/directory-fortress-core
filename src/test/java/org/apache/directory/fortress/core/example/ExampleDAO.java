@@ -19,30 +19,34 @@
  */
 package org.apache.directory.fortress.core.example;
 
+import org.apache.directory.api.ldap.model.cursor.CursorException;
+import org.apache.directory.api.ldap.model.cursor.SearchCursor;
+import org.apache.directory.api.ldap.model.entry.DefaultEntry;
+import org.apache.directory.api.ldap.model.entry.DefaultModification;
+import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.entry.Modification;
+import org.apache.directory.api.ldap.model.entry.ModificationOperation;
+import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
+import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.fortress.core.FinderException;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.util.time.CUtil;
+import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.cfg.Config;
-import org.apache.directory.fortress.core.ldap.UnboundIdDataProvider;
-
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttribute;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPAttributeSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPEntry;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModification;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPModificationSet;
-import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPSearchResults;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ExampleDAO extends UnboundIdDataProvider
+public class ExampleDAO extends ApacheDsDataProvider
 
 {
     private static final String CLS_NM = ExampleDAO.class.getName();
@@ -60,7 +64,7 @@ public class ExampleDAO extends UnboundIdDataProvider
     public Example create(Example entity)
         throws CreateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = GlobalIds.CN + "=" + entity.getName() + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
@@ -88,24 +92,27 @@ public class ExampleDAO extends UnboundIdDataProvider
             */
 
             ld = getAdminConnection();
-            LDAPAttributeSet attrs = new LDAPAttributeSet();
-            attrs.add(createAttributes(GlobalIds.OBJECT_CLASS, EIds.EXAMPLE_OBJ_CLASS));
+            Entry entry = new DefaultEntry( dn );
+            entry.add( createAttributes( GlobalIds.OBJECT_CLASS, EIds.EXAMPLE_OBJ_CLASS ) );
+
             entity.setId();
-            attrs.add(createAttribute(GlobalIds.FT_IID, entity.getId()));
-            attrs.add(createAttribute(EIds.EXAMPLE_NM, entity.getName()));
+
+            entry.add( GlobalIds.FT_IID, entity.getId() );
+
+            entry.add( EIds.EXAMPLE_NM, entity.getName() );
+
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
-                attrs.add(createAttribute(GlobalIds.DESC, entity.getDescription()));
+                entry.add( GlobalIds.DESC, entity.getDescription() );
+
             // organizational name requires CN attribute:
-            attrs.add(createAttribute(GlobalIds.CN, entity.getName()));
+            entry.add( GlobalIds.CN, entity.getName() );
 
             //AttrHelper.loadTemporalAttrs(entity, attrs);
             entity.setName("EXAMPLE");
-            attrs.add(createAttribute(GlobalIds.CONSTRAINT, CUtil.setConstraint( entity )));
-
-            LDAPEntry myEntry = new LDAPEntry(dn, attrs);
-            add(ld, myEntry);
+            entry.add( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) );
+            add(ld, entry);
         }
-        catch (LDAPException e)
+        catch (LdapException e)
         {
             String error = "create [" + entity.getName() + "] caught LDAPException=" + e;
             LOG.error(error);
@@ -128,7 +135,7 @@ public class ExampleDAO extends UnboundIdDataProvider
     public Example update(Example entity)
         throws UpdateException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = GlobalIds.CN + "=" + entity.getName() + "," + Config.getProperty( EIds.EXAMPLE_ROOT );
         if (LOG.isDebugEnabled())
         {
@@ -137,24 +144,24 @@ public class ExampleDAO extends UnboundIdDataProvider
         try
         {
             ld = getAdminConnection();
-            LDAPModificationSet mods = new LDAPModificationSet();
+            List<Modification> mods = new ArrayList<Modification>();
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
             {
-                LDAPAttribute desc = new LDAPAttribute(GlobalIds.DESC, entity.getDescription());
-                mods.add(LDAPModification.REPLACE, desc);
+                mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
+
             }
+
             String szRawData = CUtil.setConstraint( entity );
             if (szRawData != null && szRawData.length() > 0)
             {
-                LDAPAttribute constraint = new LDAPAttribute(GlobalIds.CONSTRAINT, szRawData);
-                mods.add(LDAPModification.REPLACE, constraint);
+                mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.CONSTRAINT, szRawData ) );
             }
             if (mods.size() > 0)
             {
                 modify(ld, dn, mods);
             }
         }
-        catch (LDAPException e)
+        catch (LdapException e)
         {
             String error = "update [" + entity.getName() + "] caught LDAPException=" + e;
             LOG.error(error);
@@ -176,7 +183,7 @@ public class ExampleDAO extends UnboundIdDataProvider
     public void remove(String name)
         throws RemoveException
     {
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = GlobalIds.CN + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
@@ -187,7 +194,7 @@ public class ExampleDAO extends UnboundIdDataProvider
             ld = getAdminConnection();
             delete(ld, dn);
         }
-        catch (LDAPException e)
+        catch (LdapException e)
         {
             String error = "remove [" + name + "] caught LDAPException=" + e;
             LOG.error(error);
@@ -210,7 +217,7 @@ public class ExampleDAO extends UnboundIdDataProvider
         throws FinderException
     {
         Example entity = null;
-        LDAPConnection ld = null;
+        LdapConnection ld = null;
         String dn = GlobalIds.CN + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
@@ -219,7 +226,8 @@ public class ExampleDAO extends UnboundIdDataProvider
         try
         {
             ld = getAdminConnection();
-            LDAPEntry findEntry = read(ld, dn, EXAMPLE_ATRS);
+            Entry findEntry = read( ld, dn, EXAMPLE_ATRS );
+
             entity = getEntityFromLdapEntry(findEntry);
             if (entity == null)
             {
@@ -228,20 +236,16 @@ public class ExampleDAO extends UnboundIdDataProvider
                 throw new FinderException(EErrIds.EXAMPLE_NOT_FOUND, error);
             }
         }
-        catch (LDAPException e)
+        catch ( LdapNoSuchObjectException e )
         {
-            if (e.getLDAPResultCode() == LDAPException.NO_SUCH_OBJECT)
-            {
-                String error = "findByKey COULD NOT FIND ENTRY for example name [" + name + "]";
-                LOG.warn(error);
-                throw new FinderException(EErrIds.EXAMPLE_NOT_FOUND, error);
-            }
-            else
-            {
-                String error = "findByKey name [" + name + "] caught LDAPException=" + e;
-                LOG.warn(error);
-                throw new FinderException(EErrIds.EXAMPLE_READ_FAILED, error);
-            }
+            String error = "findByKey COULD NOT FIND ENTRY for example name [" + name + "]";
+            throw new FinderException( GlobalErrIds.SSD_NOT_FOUND, error );
+        }
+        catch (LdapException e)
+        {
+            String error = "findByKey name [" + name + "] caught LDAPException=" + e;
+            LOG.warn(error);
+            throw new FinderException(EErrIds.EXAMPLE_READ_FAILED, error);
         }
         finally
         {
@@ -261,8 +265,7 @@ public class ExampleDAO extends UnboundIdDataProvider
         throws FinderException
     {
         List<Example> exampleList = new ArrayList<>();
-        LDAPConnection ld = null;
-        LDAPSearchResults searchResults;
+        LdapConnection ld = null;
         String exampleRoot = Config.getProperty( EIds.EXAMPLE_ROOT );
 
         if (LOG.isDebugEnabled())
@@ -275,18 +278,23 @@ public class ExampleDAO extends UnboundIdDataProvider
             ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + Arrays.toString(EIds.EXAMPLE_OBJ_CLASS) + ")("
                 + EIds.EXAMPLE_NM + "=" + searchVal + "*))";
-            searchResults = search(ld, exampleRoot,
-                LDAPConnection.SCOPE_ONE, filter, EXAMPLE_ATRS, false, EIds.BATCH_SIZE);
-            while (searchResults.hasMoreElements())
+            SearchCursor searchResults = search( ld, exampleRoot,
+                SearchScope.SUBTREE, filter, EXAMPLE_ATRS, false, GlobalIds.BATCH_SIZE );
+            while ( searchResults.next() )
             {
-                exampleList.add(getEntityFromLdapEntry(searchResults.next()));
+                exampleList.add(getEntityFromLdapEntry(searchResults.getEntry()));
             }
         }
-        catch (LDAPException e)
+        catch (LdapException e)
         {
             String error = "findExamples caught LDAPException=" + e;
             LOG.warn(error);
             throw new FinderException(EErrIds.EXAMPLE_SEARCH_FAILED, error);
+        }
+        catch ( CursorException e )
+        {
+            String error = "findExamples caught CursorException=" + e;
+            throw new FinderException( EErrIds.EXAMPLE_SEARCH_FAILED, error, e );
         }
         finally
         {
@@ -299,29 +307,11 @@ public class ExampleDAO extends UnboundIdDataProvider
     /**
      * @param le
      * @return
-     * @throws LDAPException
      */
-    private Example getEntityFromLdapEntry(LDAPEntry le)
+    private Example getEntityFromLdapEntry(Entry le) throws LdapInvalidAttributeValueException
     {
-        /*
-        public class Role
-                implements Constraint, java.io.Serializable
-        {
-            private String id;          // this maps to oamId
-            private String name;          // this is oamRoleName
-            private String description; // this is description
-            private String dn;          // this attribute is automatically saved to each ldap record.
-            private String beginTime;     // this attribute is oamBeginTime
-            private String endTime;        // this attribute is oamEndTime
-            private String beginDate;    // this attribute is oamBeginDate
-            private String endDate;        // this attribute is oamEndDate
-            private String beginLockDate;// this attribute is oamBeginLockDate
-            private String endLockDate;    // this attribute is oamEndLockDate
-            private String dayMask;        // this attribute is oamDayMask
-            private int timeout;        // this attribute is oamTimeOut
-            */
         Example entity = new Example();
-        entity.setId(getAttribute(le, GlobalIds.FT_IID));
+        entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName(getAttribute(le, EIds.EXAMPLE_NM));
         entity.setDescription(getAttribute(le, GlobalIds.DESC));
         unloadTemporal(le, entity);

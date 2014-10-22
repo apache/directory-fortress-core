@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac.dao.apache;
+package org.apache.directory.fortress.core.rbac;
 
 
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -46,10 +46,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Session;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserRole;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.ArrayList;
@@ -65,7 +61,7 @@ import java.util.List;
  *
  * @author Shawn McKinney
  */
-public final class AcceleratorDAO extends ApacheDsDataProvider implements org.apache.directory.fortress.core.rbac.dao.AcceleratorDAO
+final class AcceleratorDAO extends ApacheDsDataProvider
 
 {
     private static final Logger LOG = LoggerFactory.getLogger( AcceleratorDAO.class.getName() );
@@ -86,8 +82,7 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements org.ap
      * @throws SecurityException rethrows {@code LdapException} with {@code GlobalErrIds.ACEL_CREATE_SESSION_ERR}.
      *
      */
-    @Override
-    public final Session createSession( User user ) throws SecurityException
+    final Session createSession( User user ) throws SecurityException
     {
         Session session = null;
         LdapConnection ld = null;
@@ -153,8 +148,7 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements org.ap
      * @return True if user has access, false otherwise.
      * @throws SecurityException rethrows {@code LdapException} with {@code GlobalErrIds.ACEL_CHECK_ACCESS_ERR}.
      */
-    @Override
-    public boolean checkAccess( Session session, Permission perm )
+    boolean checkAccess( Session session, Permission perm )
         throws SecurityException
     {
         boolean result = false;
@@ -208,7 +202,7 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements org.ap
      * @param userRole both the {@link UserRole#userId} and {@link UserRole#name} fields must be set before invoking.
      * @throws SecurityException rethrows {@code LdapException} with {@code GlobalErrIds.ACEL_DROP_ROLE_ERR}.
      */
-    public void dropActiveRole( Session session, UserRole userRole ) throws SecurityException
+    void dropActiveRole( Session session, UserRole userRole ) throws SecurityException
     {
         LdapConnection ld = null;
         try
@@ -251,7 +245,7 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements org.ap
      * @param userRole both the {@link UserRole#userId} and {@link UserRole#name} fields must be set before invoking.
      * @throws SecurityException rethrows {@code LdapException} with {@code GlobalErrIds.ACEL_ADD_ROLE_ERR}.
      */
-    public void addActiveRole( Session session, UserRole userRole ) throws SecurityException
+    void addActiveRole( Session session, UserRole userRole ) throws SecurityException
     {
         LdapConnection ld = null;
         try
@@ -303,7 +297,7 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements org.ap
      * @param session contains a valid sessionId captured from accelerator createSession method.
      * @throws SecurityException rethrows {@code LdapException} with {@code GlobalErrIds.ACEL_DELETE_SESSION_ERR}.
      */
-    public void deleteSession( Session session ) throws SecurityException
+    void deleteSession( Session session ) throws SecurityException
     {
         LdapConnection ld = null;
         try
@@ -340,7 +334,7 @@ public final class AcceleratorDAO extends ApacheDsDataProvider implements org.ap
      * @return List of type UserRole.  May be null if user has no roles activated in session stored - server side.
      * @throws SecurityException rethrows {@code LdapException} with {@code GlobalErrIds.ACEL_SESSION_ROLES_ERR}.
      */
-    public List<UserRole> sessionRoles( Session session ) throws SecurityException
+    List<UserRole> sessionRoles( Session session ) throws SecurityException
     {
         LdapConnection ld = null;
         List<UserRole> userRoleList = null;

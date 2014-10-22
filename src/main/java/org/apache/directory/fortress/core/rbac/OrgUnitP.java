@@ -29,8 +29,6 @@ import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.rbac.dao.DaoFactory;
-import org.apache.directory.fortress.core.rbac.dao.OrgUnitDAO;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
@@ -69,7 +67,7 @@ public final class OrgUnitP
     private static Cache ouCache;
 
     // DAO class for OU data sets must be initializer before the other statics:
-    private static final OrgUnitDAO oDao = DaoFactory.createOrgUnitDAO();
+    private static final OrgUnitDAO oDao = new OrgUnitDAO();
     private static final String USER_OUS = "user.ous";
     private static final String PERM_OUS = "perm.ous";
     private static final String FORTRESS_OUS = "fortress.ous";

@@ -27,8 +27,6 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.rbac.dao.DaoFactory;
-import org.apache.directory.fortress.core.rbac.dao.RoleDAO;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 
@@ -52,7 +50,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  */
 public final class RoleP
 {
-    private static RoleDAO rDao = DaoFactory.createRoleDAO();
+    private static RoleDAO rDao = new RoleDAO();
 
     /**
      * Package private

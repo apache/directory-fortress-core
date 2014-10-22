@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac.dao.apache;
+package org.apache.directory.fortress.core.rbac;
 
 
 import java.io.UnsupportedEncodingException;
@@ -49,15 +49,6 @@ import org.apache.directory.fortress.core.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.AdminRoleUtil;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.PermObj;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.RoleUtil;
-import org.apache.directory.fortress.core.rbac.Session;
-import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
@@ -152,7 +143,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author Shawn McKinney
  */
-public final class PermDAO extends ApacheDsDataProvider implements org.apache.directory.fortress.core.rbac.dao.PermDAO
+final class PermDAO extends ApacheDsDataProvider
 {
     /*
       *  *************************************************************************
@@ -204,7 +195,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.CreateException
      *
      */
-    public final PermObj createObject( PermObj entity ) throws CreateException
+    final PermObj createObject( PermObj entity ) throws CreateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity, entity.getContextId() );
@@ -269,7 +260,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    public final PermObj updateObj( PermObj entity )
+    final PermObj updateObj( PermObj entity )
         throws UpdateException
     {
         LdapConnection ld = null;
@@ -329,7 +320,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.RemoveException
      *
      */
-    public final void deleteObj( PermObj entity ) throws RemoveException
+    final void deleteObj( PermObj entity ) throws RemoveException
     {
         LdapConnection ld = null;
         String dn = getDn( entity, entity.getContextId() );
@@ -364,7 +355,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.CreateException
      *
      */
-    public final Permission createOperation( Permission entity ) throws CreateException
+    final Permission createOperation( Permission entity ) throws CreateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity, entity.getContextId() );
@@ -446,7 +437,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    public final Permission updateOperation( Permission entity )
+    final Permission updateOperation( Permission entity )
         throws UpdateException
     {
         LdapConnection ld = null;
@@ -508,7 +499,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.RemoveException
      *
      */
-    public final void deleteOperation( Permission entity ) throws RemoveException
+    final void deleteOperation( Permission entity ) throws RemoveException
     {
         LdapConnection ld = null;
         String dn = getOpRdn( entity.getOpName(), entity.getObjId() ) + "," + GlobalIds.POBJ_NAME + "="
@@ -546,7 +537,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final void grant( Permission pOp, Role role )
+    final void grant( Permission pOp, Role role )
         throws UpdateException
     {
         LdapConnection ld = null;
@@ -597,7 +588,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final void revoke( Permission pOp, Role role )
+    final void revoke( Permission pOp, Role role )
         throws UpdateException, FinderException
     {
         LdapConnection ld = null;
@@ -639,7 +630,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final void grant( Permission pOp, User user )
+    final void grant( Permission pOp, User user )
         throws UpdateException
     {
         LdapConnection ld = null;
@@ -690,7 +681,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final void revoke( Permission pOp, User user )
+    final void revoke( Permission pOp, User user )
         throws UpdateException, FinderException
     {
         LdapConnection ld = null;
@@ -731,7 +722,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final Permission getPerm( Permission permission )
+    final Permission getPerm( Permission permission )
         throws FinderException
     {
         Permission entity = null;
@@ -775,7 +766,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final PermObj getPerm( PermObj permObj )
+    final PermObj getPerm( PermObj permObj )
         throws FinderException
     {
         PermObj entity = null;
@@ -825,7 +816,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *          In the event system error occurs looking up data on ldap server.
      */
-    public final boolean checkPermission( Session session, Permission inPerm ) throws FinderException
+    final boolean checkPermission( Session session, Permission inPerm ) throws FinderException
     {
         boolean isAuthZd = false;
         LdapConnection ld = null;
@@ -1061,7 +1052,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<Permission> findPermissions( Permission permission )
+    final List<Permission> findPermissions( Permission permission )
         throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
@@ -1110,7 +1101,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<PermObj> findPermissions( PermObj permObj )
+    final List<PermObj> findPermissions( PermObj permObj )
         throws FinderException
     {
         List<PermObj> permList = new ArrayList<>();
@@ -1156,7 +1147,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @return
      * @throws FinderException
      */
-    public final List<PermObj> findPermissions( OrgUnit ou, boolean limitSize ) throws FinderException
+    final List<PermObj> findPermissions( OrgUnit ou, boolean limitSize ) throws FinderException
     {
         List<PermObj> permList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1213,7 +1204,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<Permission> findPermissions( Role role ) throws FinderException
+    final List<Permission> findPermissions( Role role ) throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1297,7 +1288,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<Permission> findPermissions( User user ) throws FinderException
+    final List<Permission> findPermissions( User user ) throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1354,7 +1345,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<Permission> findUserPermissions( User user ) throws FinderException
+    final List<Permission> findUserPermissions( User user ) throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1401,7 +1392,7 @@ public final class PermDAO extends ApacheDsDataProvider implements org.apache.di
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<Permission> findPermissions( Session session, boolean isAdmin ) throws FinderException
+    final List<Permission> findPermissions( Session session, boolean isAdmin ) throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
         LdapConnection ld = null;

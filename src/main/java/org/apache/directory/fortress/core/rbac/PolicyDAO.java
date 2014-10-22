@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac.dao.apache;
+package org.apache.directory.fortress.core.rbac;
 
 
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author Shawn McKinney
  */
-public final class PolicyDAO extends ApacheDsDataProvider implements org.apache.directory.fortress.core.rbac.dao.PolicyDAO
+final class PolicyDAO extends ApacheDsDataProvider
 {
     /*
       *  *************************************************************************
@@ -147,7 +147,7 @@ public final class PolicyDAO extends ApacheDsDataProvider implements org.apache.
      * @throws org.apache.directory.fortress.core.CreateException
      *
      */
-    public final PwPolicy create( PwPolicy entity )
+    final PwPolicy create( PwPolicy entity )
         throws CreateException
     {
         LdapConnection ld = null;
@@ -265,7 +265,7 @@ public final class PolicyDAO extends ApacheDsDataProvider implements org.apache.
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    public final void update( PwPolicy entity ) throws UpdateException
+    final void update( PwPolicy entity ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
@@ -406,7 +406,7 @@ public final class PolicyDAO extends ApacheDsDataProvider implements org.apache.
      * @param entity
      * @throws org.apache.directory.fortress.core.RemoveException
      */
-    public final void remove( PwPolicy entity ) throws RemoveException
+    final void remove( PwPolicy entity ) throws RemoveException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
@@ -434,7 +434,7 @@ public final class PolicyDAO extends ApacheDsDataProvider implements org.apache.
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final PwPolicy getPolicy( PwPolicy policy ) throws FinderException
+    final PwPolicy getPolicy( PwPolicy policy ) throws FinderException
     {
         PwPolicy entity = null;
         LdapConnection ld = null;
@@ -589,7 +589,7 @@ public final class PolicyDAO extends ApacheDsDataProvider implements org.apache.
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<PwPolicy> findPolicy( PwPolicy policy ) throws FinderException
+    final List<PwPolicy> findPolicy( PwPolicy policy ) throws FinderException
     {
         List<PwPolicy> policyArrayList = new ArrayList<>();
         LdapConnection ld = null;
@@ -634,7 +634,7 @@ public final class PolicyDAO extends ApacheDsDataProvider implements org.apache.
      * @return
      * @throws FinderException
      */
-    public final Set<String> getPolicies( String contextId )
+    final Set<String> getPolicies( String contextId )
         throws FinderException
     {
         Set<String> policySet = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );

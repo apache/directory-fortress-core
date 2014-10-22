@@ -25,7 +25,6 @@ import java.util.Set;
 
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.rbac.dao.unboundid.SdDAO;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 
@@ -39,7 +38,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * This class performs data validations and error mapping in addition to calling DAO methods.  It is typically called
  * by internal Fortress Manager classes ({@link org.apache.directory.fortress.core.AdminMgr}, {@link org.apache.directory.fortress.core.ReviewMgr}) and also by internal SD utils.
  * This class is not intended to be called externally or outside of Fortress Core itself.  This class will accept {@link SDSet},
- * validate its contents and forward on to it's corresponding DAO {@link org.apache.directory.fortress.core.rbac.dao.unboundid.SdDAO}.
+ * validate its contents and forward on to it's corresponding DAO {@link org.apache.directory.fortress.core.rbac.SdDAO}.
  * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link org.apache.directory.fortress.core.FinderException},

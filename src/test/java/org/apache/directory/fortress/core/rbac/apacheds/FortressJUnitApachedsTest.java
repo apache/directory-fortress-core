@@ -35,7 +35,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ldap.UnboundIdDataProvider;
 import org.apache.directory.fortress.core.ldap.LdapCounters;
 import org.apache.directory.fortress.core.rbac.AccessMgrImplTest;
 import org.apache.directory.fortress.core.rbac.AdminMgrImplTest;
@@ -84,14 +83,15 @@ public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
     @After
     public void displayCounters()
     {
-        LdapCounters counters = UnboundIdDataProvider.getLdapCounters();
-        System.out.println( "NUMBER OF READS: " + counters.getRead() );
-        System.out.println( "NUMBER OF SEARCHES: " + counters.getSearch() );
-        System.out.println( "NUMBER OF COMPARES: " + counters.getCompare() );
-        System.out.println( "NUMBER OF BINDS: " + counters.getBind() );
-        System.out.println( "NUMBER OF ADDS: " + counters.getAdd() );
-        System.out.println( "NUMBER OF MODS: " + counters.getMod() );
-        System.out.println( "NUMBER OF DELETES: " + counters.getDelete() );
+        // TODO: FIX THIS: (removed with unboundid)
+        //LdapCounters counters = UnboundIdDataProvider.getLdapCounters();
+        //System.out.println( "NUMBER OF READS: " + counters.getRead() );
+        //System.out.println( "NUMBER OF SEARCHES: " + counters.getSearch() );
+        //System.out.println( "NUMBER OF COMPARES: " + counters.getCompare() );
+        //System.out.println( "NUMBER OF BINDS: " + counters.getBind() );
+        //System.out.println( "NUMBER OF ADDS: " + counters.getAdd() );
+        //System.out.println( "NUMBER OF MODS: " + counters.getMod() );
+        //System.out.println( "NUMBER OF DELETES: " + counters.getDelete() );
     }
 
 

@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac.dao.apache;
+package org.apache.directory.fortress.core.rbac;
 
 
 import java.util.ArrayList;
@@ -48,10 +48,6 @@ import org.apache.directory.fortress.core.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.rbac.Graphable;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.PsoUtil;
-import org.apache.directory.fortress.core.rbac.UsoUtil;
 
 
 /**
@@ -102,7 +98,7 @@ import org.apache.directory.fortress.core.rbac.UsoUtil;
  * @author Shawn McKinney
  * @created September 18, 2010
  */
-public final class OrgUnitDAO extends ApacheDsDataProvider implements org.apache.directory.fortress.core.rbac.dao.OrgUnitDAO
+final class OrgUnitDAO extends ApacheDsDataProvider
 {
     private static final String CLS_NM = OrgUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
@@ -129,7 +125,7 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements org.apache
      * @throws org.apache.directory.fortress.core.CreateException
      *
      */
-    public final OrgUnit create( OrgUnit entity ) throws CreateException
+    final OrgUnit create( OrgUnit entity ) throws CreateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
@@ -188,7 +184,7 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements org.apache
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    public final OrgUnit update( OrgUnit entity ) throws UpdateException
+    final OrgUnit update( OrgUnit entity ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
@@ -242,7 +238,7 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements org.apache
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    public final void deleteParent( OrgUnit entity ) throws UpdateException
+    final void deleteParent( OrgUnit entity ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
@@ -284,7 +280,7 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements org.apache
      * @throws org.apache.directory.fortress.core.RemoveException
      *
      */
-    public final OrgUnit remove( OrgUnit entity ) throws RemoveException
+    final OrgUnit remove( OrgUnit entity ) throws RemoveException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
@@ -326,7 +322,7 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements org.apache
      * @throws FinderException
      *
      */
-    public final OrgUnit findByKey( OrgUnit entity ) throws FinderException
+    final OrgUnit findByKey( OrgUnit entity ) throws FinderException
     {
         OrgUnit oe = null;
         LdapConnection ld = null;
@@ -405,7 +401,7 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements org.apache
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<OrgUnit> findOrgs( OrgUnit orgUnit ) throws FinderException
+    final List<OrgUnit> findOrgs( OrgUnit orgUnit ) throws FinderException
     {
         List<OrgUnit> orgUnitList = new ArrayList<>();
         LdapConnection ld = null;
@@ -476,7 +472,7 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements org.apache
      * @return
      * @throws FinderException
      */
-    public final Set<String> getOrgs( OrgUnit orgUnit ) throws FinderException
+    final Set<String> getOrgs( OrgUnit orgUnit ) throws FinderException
     {
         Set<String> ouSet = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         LdapConnection ld = null;
@@ -543,7 +539,7 @@ public final class OrgUnitDAO extends ApacheDsDataProvider implements org.apache
       * @return
       * @throws FinderException
       */
-    public final List<Graphable> getAllDescendants( OrgUnit orgUnit ) throws FinderException
+    final List<Graphable> getAllDescendants( OrgUnit orgUnit ) throws FinderException
     {
         String orgUnitRoot = getOrgRoot( orgUnit );
         String[] DESC_ATRS =

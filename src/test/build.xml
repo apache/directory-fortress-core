@@ -43,7 +43,6 @@
       <property name="commons-pool.jar" value="${lib.dir}/commons-pool-1.5.2.jar"/>
       <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
       <property name="commons-beanutils.jar" value="${lib.dir}/commons-beanutils-1.8.0.jar"/>
-      <property name="unboundsdk.jar" value="${lib.dir}/unboundid-ldapsdk-se.jar"/>
       <property name="jgraph.jar" value="${lib.dir}/jgrapht-jdk1.6.jar"/>
       <property name="log4j.jar" value="${lib.dir}/log4j-1.2.8.jar"/>
       <property name="junit.jar" value="${lib.dir}/junit-4.4.jar"/>
@@ -65,7 +64,6 @@
            <pathelement location="${build.test-classes.dir}"/>
            <pathelement location="${dist.jar}"/>
            <pathelement location="${jgraph.jar}"/>
-           <pathelement location="${unboundsdk.jar}"/>
            <pathelement location="${junit.jar}"/>
            <pathelement location="${log4j.jar}"/>
            <pathelement location="${commons-config.jar}"/>

@@ -78,8 +78,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
- * Fortress DAO's, i.e. {@link org.apache.directory.fortress.core.rbac.dao.apache.UserDAO}. {@link org.apache.directory.fortress.core.rbac.dao.apache
- * .RoleDAO}, {@link org.apache.directory.fortress.core.rbac.dao.apache.PermDAO}, ....
+ * Fortress DAO's, i.e. {@link org.apache.directory.fortress.core.rbac.UserDAO}. {@link org.apache.directory.fortress.core.rbac.dao.apache
+ * .RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO}, ....
  * These are low-level data utilities, very little if any data validations are performed here.
  * <p/>
  * This class is thread safe.

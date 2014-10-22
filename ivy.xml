@@ -32,7 +32,6 @@
         <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="default->master"/>
         <dependency org="commons-codec" name="commons-codec" rev="1.2" conf="default->master"/>
         <dependency org="commons-io" name="commons-io" rev="2.4" conf="default->master"/>
-        <dependency org="com.unboundid" name="unboundid-ldapsdk" rev="2.1.0" conf="default->master"/>
         <dependency org="junit" name="junit" rev="4.11" conf="default->master"/>
         <dependency org="log4j" name="log4j" rev="1.2.17" conf="default->master"/>
         <dependency org="org.jasypt" name="jasypt" rev="1.8" conf="default->master"/>

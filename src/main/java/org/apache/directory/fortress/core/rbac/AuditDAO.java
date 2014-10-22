@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac.dao.apache;
+package org.apache.directory.fortress.core.rbac;
 
 
 import java.util.ArrayList;
@@ -37,10 +37,6 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ObjectFactory;
 import org.apache.directory.fortress.core.cfg.Config;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.rbac.AuthZ;
-import org.apache.directory.fortress.core.rbac.Bind;
-import org.apache.directory.fortress.core.rbac.Mod;
-import org.apache.directory.fortress.core.rbac.UserAudit;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
@@ -120,7 +116,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author Shawn McKinney
  */
-public final class AuditDAO extends ApacheDsDataProvider implements org.apache.directory.fortress.core.rbac.dao.AuditDAO
+final class AuditDAO extends ApacheDsDataProvider
 {
     private static final String CREATETIMESTAMP = "createTimestamp";
     private static final String CREATORSNAME = "creatorsName";
@@ -220,7 +216,7 @@ public final class AuditDAO extends ApacheDsDataProvider implements org.apache.d
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<AuthZ> searchInvalidAuthNs( UserAudit audit ) throws FinderException
+    final List<AuthZ> searchInvalidAuthNs( UserAudit audit ) throws FinderException
     {
         List<AuthZ> auditList = new ArrayList<>();
         LdapConnection ld = null;
@@ -307,7 +303,7 @@ public final class AuditDAO extends ApacheDsDataProvider implements org.apache.d
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<AuthZ> searchAuthZs( UserAudit audit ) throws FinderException
+    final List<AuthZ> searchAuthZs( UserAudit audit ) throws FinderException
     {
         List<AuthZ> auditList = new ArrayList<>();
         LdapConnection ld = null;
@@ -388,7 +384,7 @@ public final class AuditDAO extends ApacheDsDataProvider implements org.apache.d
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<AuthZ> getAllAuthZs( UserAudit audit ) throws FinderException
+    final List<AuthZ> getAllAuthZs( UserAudit audit ) throws FinderException
     {
         List<AuthZ> auditList = new ArrayList<>();
         LdapConnection ld = null;
@@ -461,7 +457,7 @@ public final class AuditDAO extends ApacheDsDataProvider implements org.apache.d
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<Bind> searchBinds( UserAudit audit ) throws FinderException
+    final List<Bind> searchBinds( UserAudit audit ) throws FinderException
     {
         List<Bind> auditList = new ArrayList<>();
         LdapConnection ld = null;
@@ -544,7 +540,7 @@ public final class AuditDAO extends ApacheDsDataProvider implements org.apache.d
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    public final List<Mod> searchUserMods( UserAudit audit ) throws FinderException
+    final List<Mod> searchUserMods( UserAudit audit ) throws FinderException
     {
         List<Mod> modList = new ArrayList<>();
         LdapConnection ld = null;
@@ -599,7 +595,7 @@ public final class AuditDAO extends ApacheDsDataProvider implements org.apache.d
      * @return
      * @throws FinderException
      */
-    public final List<Mod> searchAdminMods( UserAudit audit ) throws FinderException
+    final List<Mod> searchAdminMods( UserAudit audit ) throws FinderException
     {
         List<Mod> modList = new ArrayList<>();
         LdapConnection ld = null;

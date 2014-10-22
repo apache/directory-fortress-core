@@ -25,7 +25,6 @@ import java.util.List;
 import org.apache.directory.fortress.core.AccelMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.rbac.dao.AcceleratorDAO;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 
@@ -70,7 +69,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 public class AccelMgrImpl extends Manageable implements AccelMgr
 {
     private static final String CLS_NM = AccessMgrImpl.class.getName();
-    private static final AcceleratorDAO aDao = new org.apache.directory.fortress.core.rbac.dao.apache.AcceleratorDAO();
+    private static final AcceleratorDAO aDao = new org.apache.directory.fortress.core.rbac.AcceleratorDAO();
 
 
     /**

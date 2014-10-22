@@ -31,10 +31,6 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.apache.directory.fortress.core.rbac.dao.AdminRoleDAO;
-import org.apache.directory.fortress.core.rbac.dao.OrgUnitDAO;
-
-
 /**
  * All entities ({@link AdminRole}, {@link OrgUnit},
  * {@link org.apache.directory.fortress.core.rbac.SDSet} etc...) are used to carry data between three Fortress

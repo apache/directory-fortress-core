@@ -20,22 +20,8 @@
 -->
 
 <project basedir="." default="all" name="Fortress Sample Data">
-    <property name="root.dir" value = "/home/smckinn/" />
-    <property name="home.dir" value = "${root.dir}/SVN/oamDev/oamCore/trunk/" />
-    <property name="lib.dir" value = "${home.dir}/lib" />
-    <property name="pub.dir" value = "${home.dir}/target/pub" />
-    <property name="config" value="${home.dir}/config"/>
-    <property name="Fortress.jar" value="${pub.dir}/oamCore-dev.jar"/>
-    <property name="log4j.jar" value="${lib.dir}/log4j-1.2.8.jar"/>
-    <property name="ldapjdk.jar" value="${lib.dir}/unboundid-ldapsdk-se.jar"/>
-    <property name="jgrapht.jar" value="${lib.dir}/jgrapht-jdk1.6.jar"/>
-    <property name="commons-configuration.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
-    <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
-    <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
-    <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
-    <property name="commons-beanutils.jar" value="${lib.dir}/commons-beanutils-1.8.0.jar"/>
     <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin" >
-    	<classpath path="${config}:${Fortress.jar}:${log4j.jar}:${ldapjdk.jar}:${jgrapht.jar}:${commons-configuration.jar}:${commons-lang.jar}:${commons-collections.jar}:${commons-logging.jar}:${commons-beanutils.jar}"/>
+        <classpath path="${java.class.path}"/>
     </taskdef>
 
     <target name="all">

@@ -33,8 +33,6 @@ import org.apache.directory.fortress.core.ObjectFactory;
 import org.apache.directory.fortress.core.PasswordException;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.rbac.dao.DaoFactory;
-import org.apache.directory.fortress.core.rbac.dao.UserDAO;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
@@ -61,7 +59,7 @@ public final class UserP
 {
     //private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean( "user.session.props.enabled", false );
     private static final String CLS_NM = UserP.class.getName();
-    private static UserDAO uDao = DaoFactory.createUserDAO();
+    private static UserDAO uDao = new UserDAO();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final PolicyP policyP = new PolicyP();
     private static final AdminRoleP admRoleP = new AdminRoleP();

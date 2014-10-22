@@ -154,7 +154,6 @@
        <property name="commons-io.jar" value="${lib.dir}/commons-io-2.4.jar"/>
        <property name="cxf-common-utilities.jar" value="${lib.dir}/cxf-common-utilities-2.5.0.jar"/>
        <property name="commons-codec.jar" value="${lib.dir}/commons-codec-1.2.jar"/>
-       <property name="unboundsdk.jar" value="${lib.dir}/unboundid-ldapsdk-2.1.0.jar"/>
        <property name="jgraph.jar" value="${lib.dir}/jgrapht-jdk1.5-0.7.3.jar"/>
        <property name="log4j.jar" value="${lib.dir}/log4j-1.2.17.jar"/>
        <property name="junit.jar" value="${lib.dir}/junit-4.11.jar"/>
@@ -180,7 +179,6 @@
        <path id="build.class.path">
            <pathelement location="${build.classes.dir}"/>
            <pathelement location="${jgraph.jar}"/>
-           <pathelement location="${unboundsdk.jar}"/>
            <pathelement location="${junit.jar}"/>
            <pathelement location="${commons-config.jar}"/>
            <pathelement location="${commons-lang.jar}"/>
@@ -213,7 +211,6 @@
            <pathelement location="${build.test-classes.dir}"/>
            <pathelement location="${dist.jar}"/>
            <pathelement location="${jgraph.jar}"/>
-           <pathelement location="${unboundsdk.jar}"/>
            <pathelement location="${junit.jar}"/>
            <pathelement location="${log4j.jar}"/>
            <pathelement location="${commons-config.jar}"/>
@@ -251,7 +248,6 @@
            <path location="${config.bootstrap.dir}"/>
            <pathelement location="${build.classes.dir}"/>
            <pathelement location="${jgraph.jar}"/>
-           <pathelement location="${unboundsdk.jar}"/>
            <pathelement location="${junit.jar}"/>
            <pathelement location="${log4j.jar}"/>
            <pathelement location="${commons-config.jar}"/>
