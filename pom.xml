@@ -16,7 +16,8 @@
   specific language governing permissions and limitations
   under the License.
 -->
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.directory</groupId>
   <artifactId>fortress-core</artifactId>
@@ -67,48 +68,45 @@
   <!-- ====================================================== --> 
   <properties>
     <!-- Maven Plugins -->
-    <version.apache.rat.plugin>0.10</version.apache.rat.plugin>
-    <version.api.plugin>3.2.3</version.api.plugin>
-    <version.assembly.plugin>2.4</version.assembly.plugin>
-    <version.build.helper.plugin>1.9</version.build.helper.plugin>
-    <version.bundle.plugin>2.5.0</version.bundle.plugin>
-    <version.changes.plugin>2.10</version.changes.plugin>
-    <version.checkstyle.plugin>2.12.1</version.checkstyle.plugin>
-    <version.clean.plugin>2.5</version.clean.plugin>
-    <version.clirr.plugin>2.6.1</version.clirr.plugin>
-    <version.cobertura.plugin>2.6</version.cobertura.plugin>
-    <version.compiler.plugin>3.1</version.compiler.plugin>
-    <version.dashboard.plugin>1.0.0-beta-1</version.dashboard.plugin>
-    <version.dependency.plugin>2.8</version.dependency.plugin>
-    <version.deploy.plugin>2.8.1</version.deploy.plugin>
-    <version.docck.plugin>1.0</version.docck.plugin>
-    <version.eclipse.plugin>2.9</version.eclipse.plugin>
-    <version.enforcer.plugin>1.3.1</version.enforcer.plugin>
-    <version.findbugs.plugin>2.5.4</version.findbugs.plugin>
-    <version.gpg.plugin>1.5</version.gpg.plugin>
-    <version.install.plugin>2.5.1</version.install.plugin>
-    <version.jar.plugin>2.5</version.jar.plugin>
-    <version.javancss.plugin>2.0</version.javancss.plugin>
-    <version.javadoc.plugin>2.9.1</version.javadoc.plugin>
-    <version.jdepend.plugin>2.0</version.jdepend.plugin>
-    <version.jmeter.core>2.11</version.jmeter.core>
-    <version.jmeter.java>2.11</version.jmeter.java>
-    <version.jxr.plugin>2.4</version.jxr.plugin>
-    <version.model.plugin>3.2.3</version.model.plugin>
-    <version.plexus.utils>3.0.18</version.plexus.utils>
-    <version.plugin.plugin>3.3</version.plugin.plugin>
-    <version.pmd.plugin>3.1</version.pmd.plugin>
-    <version.project.plugin>3.0-alpha-2</version.project.plugin>
-    <version.project.info.report.plugin>2.7</version.project.info.report.plugin>
-    <version.rat.maven.plugin>1.0-alpha-3</version.rat.maven.plugin>
-    <version.release.plugin>2.5</version.release.plugin>
-    <version.remote.resources.plugin>1.5</version.remote.resources.plugin>
-    <version.resources.plugin>2.6</version.resources.plugin>
-    <version.scm.plugin>1.9</version.scm.plugin>
-    <version.site.plugin>3.3</version.site.plugin>
-    <version.source.plugin>2.2.1</version.source.plugin>
-    <version.shade.plugin>2.3</version.shade.plugin>
-    <version.surefire.plugin>2.17</version.surefire.plugin>
+    <version.maven.apache.rat.plugin>0.10</version.maven.apache.rat.plugin>
+    <version.maven.api.plugin>3.2.3</version.maven.api.plugin>
+    <version.maven.assembly.plugin>2.4</version.maven.assembly.plugin>
+    <version.maven.build.helper.plugin>1.9</version.maven.build.helper.plugin>
+    <version.maven.bundle.plugin>2.5.0</version.maven.bundle.plugin>
+    <version.maven.changes.plugin>2.10</version.maven.changes.plugin>
+    <version.maven.checkstyle.plugin>2.12.1</version.maven.checkstyle.plugin>
+    <version.maven.clean.plugin>2.5</version.maven.clean.plugin>
+    <version.maven.clirr.plugin>2.6.1</version.maven.clirr.plugin>
+    <version.maven.cobertura.plugin>2.6</version.maven.cobertura.plugin>
+    <version.maven.compiler.plugin>3.1</version.maven.compiler.plugin>
+    <version.maven.dashboard.plugin>1.0.0-beta-1</version.maven.dashboard.plugin>
+    <version.maven.dependency.plugin>2.8</version.maven.dependency.plugin>
+    <version.maven.deploy.plugin>2.8.1</version.maven.deploy.plugin>
+    <version.maven.docck.plugin>1.0</version.maven.docck.plugin>
+    <version.maven.eclipse.plugin>2.9</version.maven.eclipse.plugin>
+    <version.maven.enforcer.plugin>1.3.1</version.maven.enforcer.plugin>
+    <version.maven.findbugs.plugin>2.5.4</version.maven.findbugs.plugin>
+    <version.maven.gpg.plugin>1.5</version.maven.gpg.plugin>
+    <version.maven.install.plugin>2.5.1</version.maven.install.plugin>
+    <version.maven.jar.plugin>2.5</version.maven.jar.plugin>
+    <version.maven.javancss.plugin>2.0</version.maven.javancss.plugin>
+    <version.maven.javadoc.plugin>2.9.1</version.maven.javadoc.plugin>
+    <version.maven.jdepend.plugin>2.0</version.maven.jdepend.plugin>
+    <version.maven.jxr.plugin>2.4</version.maven.jxr.plugin>
+    <version.maven.model.plugin>3.2.3</version.maven.model.plugin>
+    <version.maven.plexus.utils>3.0.18</version.maven.plexus.utils>
+    <version.maven.plugin.plugin>3.3</version.maven.plugin.plugin>
+    <version.maven.pmd.plugin>3.1</version.maven.pmd.plugin>
+    <version.maven.project.plugin>3.0-alpha-2</version.maven.project.plugin>
+    <version.maven.project.info.report.plugin>2.7</version.maven.project.info.report.plugin>
+    <version.maven.release.plugin>2.5</version.maven.release.plugin>
+    <version.maven.remote.resources.plugin>1.5</version.maven.remote.resources.plugin>
+    <version.maven.resources.plugin>2.6</version.maven.resources.plugin>
+    <version.maven.scm.plugin>1.9</version.maven.scm.plugin>
+    <version.maven.site.plugin>3.3</version.maven.site.plugin>
+    <version.maven.source.plugin>2.2.1</version.maven.source.plugin>
+    <version.maven.shade.plugin>2.3</version.maven.shade.plugin>
+    <version.maven.surefire.plugin>2.17</version.maven.surefire.plugin>
 
     <!-- Jars -->
     <version.accelerator.api>1.0-RC39</version.accelerator.api>
@@ -135,6 +133,8 @@
     <version.hamcrest.core>1.3</version.hamcrest.core>
     <version.jasypt>1.8</version.jasypt>
     <version.jgrapht.jdk5>0.7.3</version.jgrapht.jdk5>
+    <version.jmeter.core>2.11</version.jmeter.core>
+    <version.jmeter.java>2.11</version.jmeter.java>
     <version.jsr311.api>1.1-ea</version.jsr311.api>
     <version.junit>4.11</version.junit>
     <version.log4j>1.2.17</version.log4j>
@@ -147,6 +147,14 @@
     <version.xmlschema.core>2.0.3</version.xmlschema.core>
     <version.xpp3>1.1.4c</version.xpp3>
     <version.xml.apis>1.0b2</version.xml.apis>
+    
+    <!-- =====================================================  -->
+    <!-- This is a hack to allow someone to release             -->
+    <!-- without having to run the tests. In order to           -->
+    <!-- do so, just tpe :                                      -->
+    <!-- mvn release:prepare -Drelease.arguments="-N -Prelease" -->
+    <!-- =====================================================  -->
+    <release.arguments></release.arguments>
   </properties>
   
   <!-- ====================================================== --> 
@@ -154,6 +162,7 @@
   <!-- ====================================================== --> 
   <dependencyManagement>
     <dependencies>
+      <!--  To be defined later -->
     </dependencies>
   </dependencyManagement>
 
@@ -280,7 +289,6 @@
       <version>${version.jsr311.api}</version>
     </dependency>
 
-    <!-- Test dependencies -->
     <dependency>
       <groupId>org.apache.jmeter</groupId>
       <artifactId>ApacheJMeter_core</artifactId>
@@ -315,13 +323,54 @@
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${version.maven.release.plugin}</version>
+          <configuration>
+            <arguments>${release.arguments}</arguments>
+            <tagNameFormat>@{project.version}</tagNameFormat>
+          </configuration>
+        </plugin>
+      
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>2.5.1</version>
+          <version>${version.maven.compiler.plugin}</version>
           <configuration>
             <source>1.7</source>
             <target>1.7</target>
             <optimize>true</optimize>
             <encoding>ISO-8859-1</encoding>
+          </configuration>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <configuration>
+            <excludeSubProjects>false</excludeSubProjects>
+            <excludes>
+              <!-- MAVEN_DEFAULT_EXCLUDES -->
+              <exclude>**/target/**/*</exclude>
+              <exclude>**/cobertura.ser</exclude>
+              <!-- ECLIPSE_DEFAULT_EXCLUDES -->
+              <exclude>**/.classpath</exclude>
+              <exclude>**/.project</exclude>
+              <exclude>**/.settings/**/*</exclude>
+              <!-- IDEA_DEFAULT_EXCLUDES -->
+              <exclude>**/*.iml</exclude>
+              <exclude>**/*.ipr</exclude>
+              <exclude>**/*.iws</exclude>
+              <!-- MANIFEST_MF_EXCLUDES -->
+              <exclude>**/MANIFEST.MF</exclude>
+              <!-- GIT_EXCLUDES -->
+              <exclude>**/.git/**/*</exclude>
+              <!-- CERT_EXCLUDES -->
+              <exclude>**/*.pem</exclude>
+              <!-- EXTERNAL_CODE_EXCLUDES -->
+              <exclude>**/CmdLineParser.java</exclude>
+              <!-- LICENSE_EXCLUDES -->
+              <exclude>**/lib/LICENSE*</exclude>
+            </excludes>
           </configuration>
         </plugin>
       </plugins>
@@ -334,6 +383,21 @@
     </resources>
 
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${version.maven.source.plugin}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>2.6</version>
@@ -359,4 +423,39 @@
       </plugin>
     </plugins>
   </build>
+  
+  <profiles>
+    <profile>
+      <id>apache-release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>source-release-assembly</id>
+                <configuration>
+                  <!-- we have a dedicated distribution module -->
+                  <skipAssembly>true</skipAssembly>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          
+          <plugin>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+         </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
