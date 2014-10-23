@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.util.attr;
 
+import org.apache.directory.api.util.DateUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.rbac.Administrator;
 import org.apache.directory.fortress.core.rbac.AuthZ;
@@ -32,7 +33,7 @@ import java.util.Properties;
 
 /**
  * Class contains static utilities for various conversions of ldap data to application entity and back.  These methods are called by the
- * Fortress DAO's, i.e. {@link org.apache.directory.fortress.core.rbac.dao.UserDAO}.
+ * Fortress DAO's, i.e. {@link org.apache.directory.fortress.core.rbac.UserDAO}.
  * These are low-level data utilities and no validations are performed.  These apis should not be called by outside programs.
  * <p/>
  * This class is thread safe.
@@ -60,7 +61,6 @@ public class AttrHelper
         // copy the user and perm pools:
         trgR.setOsP(srcR.getOsP());
         trgR.setOsU(srcR.getOsU());
-
     }
 
     /**
@@ -92,7 +92,6 @@ public class AttrHelper
             propList.size();
             for (String raw : propList)
             {
-
                 int indx = raw.indexOf(separator);
                 if (indx >= 1)
                 {
@@ -186,7 +185,7 @@ public class AttrHelper
 
 
     /**
-     * Convert from raw ldap generalized time format to {@link java.util.Date}.  Use the UnboundID SDK, <a href="http://www.unboundid.com/products/ldap-sdk/">JGraphT</a>
+     * Convert from raw ldap generalized time format to {@link java.util.Date}.
      * to decode the string.
      *
      * @param inputString containing raw ldap generalized time formatted string.
@@ -195,14 +194,13 @@ public class AttrHelper
     public static Date decodeGeneralizedTime(String inputString) throws ParseException
     {
         Date aDate = null;
-        // TODO: fix me (removed for unboundid)
-        //aDate = com.unboundid.util.StaticUtils.decodeGeneralizedTime(inputString);
+        aDate = DateUtils.getDate( inputString );
         return aDate;
     }
 
 
     /**
-     * Convert from java date {@link java.util.Date} format to raw ldap generalized time format.  Use the UnboundID SDK, <a href="http://www.unboundid.com/products/ldap-sdk/">JGraphT</a>
+     * Convert from java date {@link java.util.Date} format to raw ldap generalized time format.
      * to encode the string.
      *
      * @param date reference to standard java date.
@@ -211,8 +209,7 @@ public class AttrHelper
     public static String encodeGeneralizedTime(Date date)
     {
         String szTime = null;
-        // TODO: fix me (removed for unboundid)
-        //szTime = com.unboundid.util.StaticUtils.encodeGeneralizedTime(date);
+        szTime = DateUtils.getGeneralizedTime( date );
         return szTime;
     }
 

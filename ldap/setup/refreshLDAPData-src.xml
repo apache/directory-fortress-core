@@ -52,12 +52,8 @@
             <addconfig>
                 <config props="enable.audit:true"/>
                 <config props="config.realm:DEFAULT"/>
-                <config props="log.admin.user:@LOG_ROOT_DN@"/>
-                <config props="log.admin.pw:@CFG_LOG_ROOT_PW@"/>
                 <config props="min.user.conn:@USR_MIN_CONN@"/>
                 <config props="max.user.conn:@USR_MAX_CONN@"/>
-                <config props="min.log.conn:@LOG_MIN_CONN@"/>
-                <config props="max.log.conn:@LOG_MAX_CONN@"/>
                 <config props="user.session.props.enabled:false"/>
                 <config props="authn.type:default"/>
                 <config props="ldap.server.type:@SERVER_TYPE@"/>
