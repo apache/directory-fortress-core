@@ -167,10 +167,10 @@ public abstract class ApacheDsDataProvider
         config.setLdapPort( port );
         config.setName( Config.getProperty( LDAP_ADMIN_POOL_UID, "" ) );
 
-        // added by smckinney for TLS/SSL config:
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
+        // validate certificates but allow self-signed certs if within this truststore:
         config.setTrustManagers( new LdapClientTrustStoreManager(
             TRUST_STORE,
             TRUST_STORE_PW.toCharArray() , null, true ) );
@@ -226,37 +226,41 @@ public abstract class ApacheDsDataProvider
         userPool.setMaxActive( max );
         userPool.setMinIdle( min );
 
-        // Create the Log pool
-        // TODO: Initializing the log pool in static block requires static props set within fortress.properties.
-        // To make this dynamic requires moving this code outside of static block AND storing the connection metadata inside fortress config node (in ldap).
-        LdapConnectionConfig logConfig = new LdapConnectionConfig();
-        logConfig.setLdapHost( host );
-        logConfig.setLdapPort( port );
-        logConfig.setName( Config.getProperty( LDAP_ADMIN_POOL_UID, "" ) );
-
-        // added by smckinney for TLS/SSL config:
-        logConfig.setUseSsl( IS_SSL );
-        logConfig.setTrustManagers( new LdapClientTrustStoreManager(
-            TRUST_STORE,
-            TRUST_STORE_PW.toCharArray() , null, true ) );
-
-        logConfig.setName( Config.getProperty( LDAP_LOG_POOL_UID, "" ) );
-        String logPw;
-        if ( EncryptUtil.isEnabled() )
+        // This pool of access log connections is used by {@link org.apache.directory.fortress.AuditMgr}.
+        // To enable, set {@code log.admin.user} && {@code log.admin.pw} inside fortress.properties file:
+        if(VUtil.isNotNullOrEmpty( LDAP_LOG_POOL_UID ) && VUtil.isNotNullOrEmpty( LDAP_LOG_POOL_PW ))
         {
-            logPw = EncryptUtil.decrypt( Config.getProperty( LDAP_ADMIN_POOL_PW ) );
+            // TODO: Initializing the log pool in static block requires static props set within fortress.properties.
+            // To make this dynamic requires moving this code outside of static block AND storing the connection metadata inside fortress config node (in ldap).
+            LdapConnectionConfig logConfig = new LdapConnectionConfig();
+            logConfig.setLdapHost( host );
+            logConfig.setLdapPort( port );
+            logConfig.setName( Config.getProperty( LDAP_ADMIN_POOL_UID, "" ) );
+
+            logConfig.setUseSsl( IS_SSL );
+            // validate certificates but allow self-signed certs if within this truststore:
+            logConfig.setTrustManagers( new LdapClientTrustStoreManager(
+                TRUST_STORE,
+                TRUST_STORE_PW.toCharArray() , null, true ) );
+
+            logConfig.setName( Config.getProperty( LDAP_LOG_POOL_UID, "" ) );
+            String logPw;
+            if ( EncryptUtil.isEnabled() )
+            {
+                logPw = EncryptUtil.decrypt( Config.getProperty( LDAP_LOG_POOL_PW ) );
+            }
+            else
+            {
+                logPw = Config.getProperty( LDAP_LOG_POOL_PW );
+            }
+            logConfig.setCredentials( logPw );
+            factory = new PoolableLdapConnectionFactory( logConfig );
+            logPool = new LdapConnectionPool( factory );
+            logPool.setTestOnBorrow( true );
+            logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
+            logPool.setMaxActive( logmax );
+            logPool.setMinIdle( logmin );
         }
-        else
-        {
-            logPw = Config.getProperty( LDAP_LOG_POOL_PW );
-        }
-        logConfig.setCredentials( logPw );
-        factory = new PoolableLdapConnectionFactory( logConfig );
-        logPool = new LdapConnectionPool( factory );
-        logPool.setTestOnBorrow( true );
-        logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-        logPool.setMaxActive( logmax );
-        logPool.setMinIdle( logmin );
     }
 
 
