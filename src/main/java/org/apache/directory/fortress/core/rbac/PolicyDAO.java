@@ -129,7 +129,7 @@ final class PolicyDAO extends ApacheDsDataProvider
     private static final String OLPW_SAFE_MODIFY = "pwdSafeModify";
     private static final String[] PASSWORD_POLICY_ATRS =
         {
-            OLPW_MIN_AGE, OLPW_MAX_AGE, OLPW_IN_HISTORY, OLPW_CHECK_QUALITY,
+            GlobalIds.CN, OLPW_MIN_AGE, OLPW_MAX_AGE, OLPW_IN_HISTORY, OLPW_CHECK_QUALITY,
             OLPW_MIN_LENGTH, OLPW_EXPIRE_WARNING, OLPW_GRACE_LOGIN_LIMIT, OLPW_LOCKOUT,
             OLPW_LOCKOUT_DURATION, OLPW_MAX_FAILURE, OLPW_FAILURE_COUNT_INTERVAL,
             OLPW_MUST_CHANGE, OLPW_ALLOW_USER_CHANGE, OLPW_SAFE_MODIFY,
@@ -478,8 +478,7 @@ final class PolicyDAO extends ApacheDsDataProvider
     {
         PwPolicy entity = new ObjectFactory().createPswdPolicy();
         entity.setSequenceId( sequence );
-        entity.setName( getRdn( le.getDn().getName() ) );
-        //entity.setAttribute(getAttribute(le, OLPW_ATTRIBUTE));
+        entity.setName( getAttribute( le, GlobalIds.CN ) );
         String val = getAttribute( le, OLPW_MIN_AGE );
 
         if ( VUtil.isNotNullOrEmpty( val ) )
