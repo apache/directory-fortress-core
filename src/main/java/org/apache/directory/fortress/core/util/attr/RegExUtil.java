@@ -19,15 +19,18 @@
  */
 package org.apache.directory.fortress.core.util.attr;
 
-import org.apache.directory.fortress.core.GlobalErrIds;
 
+import org.apache.directory.api.util.Strings;
+import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.cfg.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 /**
  *  Regular expression utilities to perform data validations on Fortress attributes.  These utils use the standard
@@ -39,30 +42,39 @@ class RegExUtil
 {
     private static final String CLS_NM = RegExUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-	private static final String safeTextPatternStr = Config.getProperty( GlobalIds.REG_EX_SAFE_TEXT );
+    private static final String SAFE_TEXT_PATTERN_STRING = Config.getProperty( GlobalIds.REG_EX_SAFE_TEXT );
+    private static Pattern SAFE_TEXT_PATTERN;
+    
+    static 
+    {
+        if ( ( SAFE_TEXT_PATTERN_STRING != null ) && ( SAFE_TEXT_PATTERN_STRING.length() != 0 ) )
+        {
+            SAFE_TEXT_PATTERN = Pattern.compile( SAFE_TEXT_PATTERN_STRING );
+        }
+    }
 
-	/**
-	 *  Perform safe text validation on character string.
-	 *
-	 * @param  value Contains the string to check.
-	 * @exception org.apache.directory.fortress.core.ValidationException  In the event the data validation fails.
-	 */
-	public static void safeText(String value)
-		throws ValidationException
-	{
-		if (safeTextPatternStr == null || safeTextPatternStr.compareTo("") == 0)
-		{
-			LOG.debug("safeText can't find safeText regular expression pattern.  Check your Fortress cfg");
-		}
-		else
-		{
-			Pattern safeTextPattern = Pattern.compile(safeTextPatternStr);
-			Matcher safeTextMatcher = safeTextPattern.matcher(value);
-			if (!safeTextMatcher.find())
-			{
-				String error = "safeText has detected invalid value [" + value + "]";
-				throw new ValidationException(GlobalErrIds.CONST_INVLD_TEXT, error);
-			}
-		}
-	}
+
+    /**
+     *  Perform safe text validation on character string.
+     *
+     * @param  value Contains the string to check.
+     * @exception org.apache.directory.fortress.core.ValidationException  In the event the data validation fails.
+     */
+    public static void safeText( String value ) throws ValidationException
+    {
+        if ( Strings.isEmpty( SAFE_TEXT_PATTERN_STRING ) )
+        {
+            LOG.debug( "safeText can't find safeText regular expression pattern.  Check your Fortress cfg" );
+        }
+        else
+        {
+            Matcher safeTextMatcher = SAFE_TEXT_PATTERN.matcher( value );
+            
+            if ( !safeTextMatcher.find() )
+            {
+                String error = "safeText has detected invalid value [" + value + "]";
+                throw new ValidationException( GlobalErrIds.CONST_INVLD_TEXT, error );
+            }
+        }
+    }
 }
