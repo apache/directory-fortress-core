@@ -19,6 +19,8 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,9 +37,10 @@ import javax.xml.bind.annotation.XmlType;
     "role",
     "perm"
 })
-public class RolePerm extends FortEntity
-    implements java.io.Serializable
+public class RolePerm extends FortEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    
     private Role role;
     private Permission perm;
 
@@ -46,18 +49,37 @@ public class RolePerm extends FortEntity
         return role;
     }
 
+    
     public void setRole(Role role)
     {
         this.role = role;
     }
+    
 
     public Permission getPerm()
     {
         return perm;
     }
 
+    
     public void setPerm(Permission perm)
     {
         this.perm = perm;
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "RolePerm object: \n" );
+
+        sb.append( "    role :" ).append( role ).append( '\n' );
+        sb.append( "    perm :" ).append( perm ).append( '\n' );
+
+        return sb.toString();
     }
 }

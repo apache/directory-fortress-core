@@ -24,6 +24,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -160,8 +162,9 @@ import java.util.UUID;
     "warnings"
 /*    "warningId"*/
 })
-public class Session  extends FortEntity implements PwMessage, java.io.Serializable
+public class Session  extends FortEntity implements PwMessage, Serializable
 {
+    private static final long serialVersionUID = 1L;
     private User user;
     private String sessionId;
     private long lastAccess;
@@ -184,6 +187,7 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         return isAuthenticated;
     }
+    
 
     private void init()
     {
@@ -191,13 +195,14 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
         UUID uuid = UUID.randomUUID();
         this.sessionId = uuid.toString();
     }
+    
 
     /**
      * Copy values from incoming Session object.
      *
      * @param inSession contains Session values.
      */
-    public void copy(Session inSession)
+    public void copy( Session inSession )
     {
         this.user = inSession.getUser();
         // don't copy session id:
@@ -212,6 +217,7 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
         this.message = inSession.getMsg();
         this.warnings = inSession.getWarnings();
     }
+    
 
     /**
      * Default constructor for Fortress Session.
@@ -220,30 +226,33 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         init();
         // this class will not check for null on user object.
-        this.user = new User();
+        user = new User();
     }
+    
 
     /**
      * Construct a new Session instance with given User entity.
      *
      * @param user contains the User attributes that are associated with the Session.
      */
-    public Session(User user)
+    public Session( User user )
     {
         init();
         this.user = user;
     }
+    
 
     /**
      * Construct a new Session instance with given User entity.
      *
      * @param user contains the User attributes that are associated with the Session.
      */
-    public Session(User user, String sessionId)
+    public Session (User user, String sessionId )
     {
         this.sessionId = sessionId;
         this.user = user;
     }
+    
 
     /**
      * Return the unique id that is associated with User.  This attribute is generated automatically
@@ -253,7 +262,7 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      */
     public String getSessionId()
     {
-        return this.sessionId;
+        return sessionId;
     }
 
 
@@ -310,6 +319,7 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         return this.user;
     }
+    
 
     /**
      * Return the userId that is associated with this Session object.
@@ -320,6 +330,7 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         return this.user.getUserId();
     }
+    
 
     /**
      * Return the internal userId that is associated with User.  This attribute is generated automatically
@@ -331,6 +342,7 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         return this.user.getInternalId();
     }
+    
 
     /**
      * Return the list of User's RBAC Roles that have been activated into User's session.  This list will not include
@@ -342,11 +354,14 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         List<UserRole> roles = null;
 
-        if (user != null)
+        if ( user != null )
+        {
             roles = user.getRoles();
+        }
 
         return roles;
     }
+    
 
     /**
      * Return a list of User's Admin Roles  that have been activated into User's session.  This list will not include
@@ -358,8 +373,10 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         List<UserAdminRole> roles = null;
 
-        if (user != null)
+        if ( user != null )
+        {
             roles = user.getAdminRoles();
+        }
 
         return roles;
     }
@@ -373,8 +390,9 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      */
     public long getLastAccess()
     {
-        return this.lastAccess;
+        return lastAccess;
     }
+    
 
     /**
      * Gets the message that is associated with the user's last authentication attempt.
@@ -383,8 +401,9 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      */
     public String getMsg()
     {
-        return this.message;
+        return message;
     }
+    
 
     /**
      * Gets the attribute that specifies the number of times an expired password can
@@ -394,8 +413,9 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      */
     public int getGraceLogins()
     {
-        return this.graceLogins;
+        return graceLogins;
     }
+    
 
     /**
      * This attribute specifies the maximum number of seconds before a
@@ -410,8 +430,9 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      */
     public int getExpirationSeconds()
     {
-        return this.expirationSeconds;
+        return expirationSeconds;
     }
+    
 
     /**
      * Get the integer timeout that contains max time (in seconds) that User's session may remain inactive.
@@ -421,8 +442,9 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      */
     private int getTimeout()
     {
-        return this.timeout;
+        return timeout;
     }
+    
 
     /**
      * Get the value that will be set to 'true' if user has successfully authenticated with Fortress for this Session.  This value is set by
@@ -432,8 +454,9 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      */
     public boolean setAuthenticated()
     {
-        return this.isAuthenticated;
+        return isAuthenticated;
     }
+    
 
     /**
      * Return the error id that is associated with the password policy checks.  a '0' indicates no errors.
@@ -457,9 +480,10 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      */
     public int getErrorId()
     {
-        return this.errorId;
+        return errorId;
     }
 
+    
     /**
      * Set a User entity into the Session.
      * Sample User data contained in Session object:
@@ -508,10 +532,11 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      * <p/>
      * @param user Contains userId, roles and other security attributes used for access control.
      */
-    public void setUser(User user)
+    public void setUser( User user )
     {
         this.user = user;
     }
+    
 
     /**
      * Set the internal userId that is associated with User.  This method is used by DAO class and
@@ -520,10 +545,11 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      *
      * @param internalUserId maps to 'ftId' in 'ftUserAttrs' object class.
      */
-    public void setInternalUserId(String internalUserId)
+    public void setInternalUserId( String internalUserId )
     {
-        this.user.setInternalId(internalUserId);
+        this.user.setInternalId( internalUserId );
     }
+    
 
     /**
      * Set the value to 'true' indicating that user has successfully authenticated with Fortress.  This value is set by
@@ -531,19 +557,20 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      *
      * @param authenticated indicates result of authentication.
      */
-    public void setAuthenticated(boolean authenticated)
+    public void setAuthenticated( boolean authenticated )
     {
         isAuthenticated = authenticated;
     }
+    
 
     /**
      * Set the userId that is associated with User.  UserId is required attribute and must be set on add, update, delete, createSession, authenticate, etc..
      *
      * @param userId maps to 'uid' attribute in 'inNetOrgPerson' object class.
      */
-    public void setUserId(String userId)
+    public void setUserId( String userId )
     {
-        this.user.setUserId(userId);
+        user.setUserId( userId );
     }
 
 
@@ -552,20 +579,22 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      *
      * @param roles List of type UserRole that contains at minimum UserId and Role name.
      */
-    public void setRoles(List<UserRole> roles)
+    public void setRoles( List<UserRole> roles )
     {
-        this.user.setRoles(roles);
+        user.setRoles( roles );
     }
+    
 
     /**
      * Add a single user-role object to the list of UserRoles for User.
      *
      * @param role UserRole contains at least userId and role name (activation) and additional constraints (assignment)
      */
-    public void setRole(UserRole role)
+    public void setRole( UserRole role )
     {
-        user.setRole(role);
+        user.setRole( role );
     }
+    
 
     /**
      * Set the integer timeout that contains max time (in seconds) that User's session may remain inactive.
@@ -577,6 +606,7 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         this.timeout = timeout;
     }
+    
 
     /**
      * Set the last access time in milliseconds. Note that while the unit of time of the return value is a millisecond,
@@ -585,18 +615,20 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      */
     public void setLastAccess()
     {
-        this.lastAccess = System.currentTimeMillis();
+        lastAccess = System.currentTimeMillis();
     }
+    
 
     /**
      * Set the message that is associated with the user's last authentication attempt.
      *
      * @param message Contains text explaining result of user's last authentication.
      */
-    public void setMsg(String message)
+    public void setMsg( String message )
     {
         this.message = message;
     }
+    
 
     /**
      * Set the error id that is associated with the password policy checks.  a '0' indicates no errors.
@@ -618,10 +650,11 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      *
      * @param error contains the error id that was generated on the user's last authentication.
      */
-    public void setErrorId(int error)
+    public void setErrorId( int error )
     {
         this.errorId = error;
     }
+    
 
     /**
      * This attribute specifies the number of times an expired password can
@@ -629,10 +662,11 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      *
      * @param grace The number of logins the user has left before password fails.
      */
-    public void setGraceLogins(int grace)
+    public void setGraceLogins( int grace )
     {
         this.graceLogins = grace;
     }
+    
 
     /**
      * This attribute specifies the maximum number of seconds before a
@@ -645,10 +679,11 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
      *
      * @param expire attribute is computed based on last time user has changed their password.
      */
-    public void setExpirationSeconds(int expire)
+    public void setExpirationSeconds( int expire )
     {
         this.expirationSeconds = expire;
     }
+    
 
     /**
      * Get the warnings attached to this Session.  Used for processing password policy scenarios, e.g.. password expiring message.
@@ -659,6 +694,7 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         return warnings;
     }
+    
 
     /**
      * Set the warnings on this Session.  Used for processing password policy scenarios, e.g.. password expiring message.
@@ -670,6 +706,7 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         this.warnings = warnings;
     }
+    
 
     /**
      * Add a warning to the collection into Fortress Session object.  Used for processing password policy scenarios, e.g.. password expiring message.
@@ -681,8 +718,55 @@ public class Session  extends FortEntity implements PwMessage, java.io.Serializa
     {
         if ( warnings == null )
         {
-            warnings = new ArrayList<>();
+            warnings = new ArrayList<Warning>();
         }
+        
         this.warnings.add( warning );
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "Session object: \n" );
+
+        sb.append( "    sessionId :" ).append( sessionId ).append( '\n' );
+        sb.append( "    user :" ).append( user ).append( '\n' );
+        sb.append( "    isAuthenticated :" ).append( isAuthenticated ).append( '\n' );
+        sb.append( "    lastAccess :" ).append( lastAccess ).append( '\n' );
+        sb.append( "    timeout :" ).append( timeout ).append( '\n' );
+        sb.append( "    graceLogins :" ).append( graceLogins ).append( '\n' );
+        sb.append( "    expirationSeconds :" ).append( expirationSeconds ).append( '\n' );
+        sb.append( "    errorId :" ).append( errorId ).append( '\n' );
+        sb.append( "    message :" ).append( message ).append( '\n' );
+
+        if ( warnings != null )
+        {
+            sb.append( "    warnings : " );
+
+            boolean isFirst = true;
+
+            for ( Warning warning : warnings )
+            {
+                if ( isFirst )
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    sb.append( ", " );
+                }
+
+                sb.append( warning );
+            }
+
+            sb.append( '\n' );
+        }
+
+        return sb.toString();
     }
 }

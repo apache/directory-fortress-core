@@ -20,6 +20,8 @@
 package org.apache.directory.fortress.core.rbac;
 
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -129,9 +131,10 @@ import javax.xml.bind.annotation.XmlType;
     "allowUserChange",
     "safeModify"
 })
-public class PwPolicy extends FortEntity
-    implements java.io.Serializable
+public class PwPolicy extends FortEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
     /**
      * Maps to name attribute of pwdPolicy object class.
      */
@@ -330,6 +333,7 @@ public class PwPolicy extends FortEntity
     public PwPolicy()
     {
     }
+    
 
     /**
      * Create instance given a policy name.
@@ -347,8 +351,9 @@ public class PwPolicy extends FortEntity
      */
     public String getName()
     {
-        return this.name;
+        return name;
     }
+    
 
     /**
      * Set the required attribute policy name on this entity.
@@ -358,6 +363,7 @@ public class PwPolicy extends FortEntity
     {
         this.name = name;
     }
+    
 
     /**
      * This optional attribute holds the number of seconds that must elapse between
@@ -368,8 +374,9 @@ public class PwPolicy extends FortEntity
      */
     public Integer getMinAge()
     {
-        return this.minAge;
+        return minAge;
     }
+    
 
     /**
      * This optional attribute holds the number of seconds that must elapse between
@@ -382,6 +389,7 @@ public class PwPolicy extends FortEntity
     {
         this.minAge = minAge;
     }
+    
 
     /**
      * This optional attribute holds the number of seconds after which a modified
@@ -394,8 +402,9 @@ public class PwPolicy extends FortEntity
      */
     public Long getMaxAge()
     {
-        return this.maxAge;
+        return maxAge;
     }
+    
 
     /**
      * This optional attribute holds the number of seconds after which a modified
@@ -410,6 +419,7 @@ public class PwPolicy extends FortEntity
     {
         this.maxAge = maxAge;
     }
+    
 
     /**
      * This optional attribute specifies the maximum number of used passwords stored
@@ -422,8 +432,9 @@ public class PwPolicy extends FortEntity
      */
     public Short getInHistory()
     {
-        return this.inHistory;
+        return inHistory;
     }
+    
 
     /**
      * This optional attribute specifies the maximum number of used passwords stored
@@ -438,6 +449,7 @@ public class PwPolicy extends FortEntity
     {
         this.inHistory = inHistory;
     }
+    
 
     /**
      * This optional attribute is not currently supported by Fortress.
@@ -454,8 +466,9 @@ public class PwPolicy extends FortEntity
      */
     public Short getCheckQuality()
     {
-        return this.checkQuality;
+        return checkQuality;
     }
+    
 
     /**
      * This optional attribute is not currently supported by Fortress.
@@ -474,6 +487,7 @@ public class PwPolicy extends FortEntity
     {
         this.checkQuality = checkQuality;
     }
+    
 
     /**
      * When quality checking is enabled, this optional attribute holds the minimum
@@ -488,8 +502,9 @@ public class PwPolicy extends FortEntity
      */
     public Short getMinLength()
     {
-        return this.minLength;
+        return minLength;
     }
+    
 
     /**
      * When quality checking is enabled, this optional attribute holds the minimum
@@ -506,6 +521,7 @@ public class PwPolicy extends FortEntity
     {
         this.minLength = minLength;
     }
+    
 
     /**
      * This optional attribute specifies the maximum number of seconds before a
@@ -519,8 +535,9 @@ public class PwPolicy extends FortEntity
      */
     public Long getExpireWarning()
     {
-        return this.expireWarning;
+        return expireWarning;
     }
+    
 
     /**
      * This optional attribute specifies the maximum number of seconds before a
@@ -536,6 +553,7 @@ public class PwPolicy extends FortEntity
     {
         this.expireWarning = expireWarning;
     }
+    
 
     /**
      * This optional attribute specifies the number of times an expired password can
@@ -546,8 +564,9 @@ public class PwPolicy extends FortEntity
      */
     public Short getGraceLoginLimit()
     {
-        return this.graceLoginLimit;
+        return graceLoginLimit;
     }
+    
 
     /**
      * This optional attribute specifies the number of times an expired password can
@@ -560,6 +579,7 @@ public class PwPolicy extends FortEntity
     {
         this.graceLoginLimit = graceLoginLimit;
     }
+    
 
     /**
      * This optional attribute indicates, when its value is "TRUE", that the password
@@ -574,8 +594,9 @@ public class PwPolicy extends FortEntity
      */
     public Boolean getLockout()
     {
-        return this.lockout;
+        return lockout;
     }
+    
 
     /**
      * This optional attribute indicates, when its value is "TRUE", that the password
@@ -592,6 +613,7 @@ public class PwPolicy extends FortEntity
     {
         this.lockout = lockout;
     }
+    
 
     /**
      * This optional attribute holds the number of seconds that the password cannot
@@ -604,8 +626,9 @@ public class PwPolicy extends FortEntity
      */
     public Integer getLockoutDuration()
     {
-        return this.lockoutDuration;
+        return lockoutDuration;
     }
+    
 
     /**
      * This optional attribute holds the number of seconds that the password cannot
@@ -620,6 +643,7 @@ public class PwPolicy extends FortEntity
     {
         this.lockoutDuration = lockoutDuration;
     }
+    
 
     /**
      * This optional attribute specifies the number of consecutive failed bind
@@ -631,8 +655,9 @@ public class PwPolicy extends FortEntity
      */
     public Short getMaxFailure()
     {
-        return this.maxFailure;
+        return maxFailure;
     }
+    
 
     /**
      * This optional attribute specifies the number of consecutive failed bind
@@ -646,6 +671,7 @@ public class PwPolicy extends FortEntity
     {
         this.maxFailure = maxFailure;
     }
+    
 
     /**
      * This optional attribute holds the number of seconds after which the password
@@ -658,8 +684,9 @@ public class PwPolicy extends FortEntity
      */
     public Short getFailureCountInterval()
     {
-        return this.failureCountInterval;
+        return failureCountInterval;
     }
+    
 
     /**
      * This optional attribute holds the number of seconds after which the password
@@ -674,6 +701,7 @@ public class PwPolicy extends FortEntity
     {
         this.failureCountInterval = failureCountInterval;
     }
+    
 
     /**
      * This optional attribute specifies with a value of "TRUE" that users must
@@ -689,8 +717,9 @@ public class PwPolicy extends FortEntity
      */
     public Boolean getMustChange()
     {
-        return this.mustChange;
+        return mustChange;
     }
+    
 
     /**
      * This optional attribute specifies with a value of "TRUE" that users must
@@ -708,6 +737,7 @@ public class PwPolicy extends FortEntity
     {
         this.mustChange = mustChange;
     }
+    
 
     /**
      * This optional attribute indicates whether users can change their own
@@ -720,8 +750,9 @@ public class PwPolicy extends FortEntity
      */
     public Boolean getAllowUserChange()
     {
-        return this.allowUserChange;
+        return allowUserChange;
     }
+    
 
     /**
      * This optional attribute indicates whether users can change their own
@@ -736,6 +767,7 @@ public class PwPolicy extends FortEntity
     {
         this.allowUserChange = allowUserChange;
     }
+    
 
     /**
      * This optional attribute specifies whether or not the existing password must be
@@ -746,8 +778,9 @@ public class PwPolicy extends FortEntity
      */
     public Boolean getSafeModify()
     {
-        return this.safeModify;
+        return safeModify;
     }
+    
 
     /**
      * This optional attribute specifies whether or not the existing password must be
@@ -760,6 +793,7 @@ public class PwPolicy extends FortEntity
     {
         this.safeModify = safeModify;
     }
+    
 
     /**
      * Matches the name from two PwPolicy entities.
@@ -769,11 +803,58 @@ public class PwPolicy extends FortEntity
      */
     public boolean equals(Object thatObj)
     {
-        if (this == thatObj) return true;
-        if (this.getName() == null) return false;
-        if (!(thatObj instanceof PwPolicy)) return false;
+        if ( this == thatObj )
+        {
+            return true;
+        }
+        
+        if ( this.getName() == null )
+        {
+            return false;
+        }
+        
+        if ( !( thatObj instanceof PwPolicy ) )
+        {
+            return false;
+        }
+        
         PwPolicy thatPolicy = (PwPolicy) thatObj;
-        if (thatPolicy.getName() == null) return false;
-        return thatPolicy.getName().equalsIgnoreCase(this.getName());
+        
+        if ( thatPolicy.getName() == null )
+        {
+            return false;
+        }
+        
+        return thatPolicy.getName().equalsIgnoreCase( this.getName() );
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "PwPolicy object: \n" );
+
+        sb.append( "    attribute :" ).append( attribute ).append( '\n' );
+        sb.append( "    maxAge :" ).append( maxAge ).append( '\n' );
+        sb.append( "    minAge :" ).append( minAge ).append( '\n' );
+        sb.append( "    allowUserChange :" ).append( allowUserChange ).append( '\n' );
+        sb.append( "    checkQuality :" ).append( checkQuality ).append( '\n' );
+        sb.append( "    expireWarning :" ).append( expireWarning ).append( '\n' );
+        sb.append( "    failureCountInterval :" ).append( failureCountInterval ).append( '\n' );
+        sb.append( "    graceLoginLimit :" ).append( graceLoginLimit ).append( '\n' );
+        sb.append( "    inHistory :" ).append( inHistory ).append( '\n' );
+        sb.append( "    lockout :" ).append( lockout ).append( '\n' );
+        sb.append( "    lockoutDuration :" ).append( lockoutDuration ).append( '\n' );
+        sb.append( "    maxFailure :" ).append( maxFailure ).append( '\n' );
+        sb.append( "    minLength :" ).append( minLength ).append( '\n' );
+        sb.append( "    mustChange :" ).append( mustChange ).append( '\n' );
+        sb.append( "    name :" ).append( name ).append( '\n' );
+        sb.append( "    safeModify :" ).append( safeModify ).append( '\n' );
+
+        return sb.toString();
     }
 }

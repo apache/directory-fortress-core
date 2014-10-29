@@ -20,11 +20,21 @@
 package org.apache.directory.fortress.core.ldap.suffix;
 
 
+/**
+ * A class storing the suffix information
+ */
 public class Suffix
 {
+    /** Top level domain component */
     private String dc;
+    
+    /** top level domain component specifier */
     private String dc2;
+    
+    /** Second level domain component name */
     private String name;
+    
+    /** The suffix description */
     private String description;
 
 
@@ -35,12 +45,13 @@ public class Suffix
      * @param name        second level domain component name maps to attribute in 'dcObject' object class.
      * @param description maps to 'o' attribute in 'dcObject' object class.
      */
-    public Suffix(String dc, String name, String description)
+    public Suffix( String dc, String name, String description )
     {
         this.dc = dc;
         this.name = name;
         this.description = description;
     }
+    
 
     /**
      * Default constructor used by {@link org.apache.directory.fortress.core.ant.FortressAntTask}
@@ -48,6 +59,7 @@ public class Suffix
     public Suffix()
     {
     }
+    
 
     /**
      * Get the second level qualifier on the domain component.  This attribute is required.
@@ -58,16 +70,18 @@ public class Suffix
     {
         return name;
     }
+    
 
     /**
      * Set the second level qualifier on the domain component.  This attribute is required.
      *
      * @param name maps to 'dcObject' object class.
      */
-    public void setName(String name)
+    public void setName( String name )
     {
         this.name = name;
     }
+    
 
     /**
      * Get the description for the domain component.  This value is not required or constrained
@@ -79,6 +93,7 @@ public class Suffix
     {
         return description;
     }
+    
 
     /**
      * Set the description for the domain component.  This value is not required or constrained
@@ -86,10 +101,11 @@ public class Suffix
      *
      * @param description maps to 'o' attribute on 'dcObject'.
      */
-    public void setDescription(String description)
+    public void setDescription( String description )
     {
         this.description = description;
     }
+    
 
     /**
      * Get top level domain component specifier, i.e. dc=com.  This attribute is required.
@@ -100,16 +116,18 @@ public class Suffix
     {
         return dc;
     }
+    
 
     /**
      * Set top level domain component specifier, i.e. dc=com.  This attribute is required.
      *
      * @param dc maps to 'dc' in 'dcObject' object class.
      */
-    public void setDc(String dc)
+    public void setDc( String dc )
     {
         this.dc = dc;
     }
+    
 
     /**
      * Get top level domain component specifier, i.e. dc=com for a three part dc structure.  This attribute is optional.
@@ -120,6 +138,7 @@ public class Suffix
     {
         return dc2;
     }
+    
 
     /**
      * Get top level domain component specifier, i.e. dc=com for three part dc structure.  This attribute is optional.
@@ -129,6 +148,24 @@ public class Suffix
     public void setDc2( String dc2 )
     {
         this.dc2 = dc2;
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "Suffix object: \n" );
+
+        sb.append( "    dc :" ).append( dc ).append( '\n' );
+        sb.append( "    dc2 :" ).append( dc2 ).append( '\n' );
+        sb.append( "    name :" ).append( name ).append( '\n' );
+        sb.append( "    description :" ).append( description ).append( '\n' );
+
+        return sb.toString();
     }
 }
 

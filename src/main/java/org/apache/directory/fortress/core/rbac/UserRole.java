@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.rbac;
 
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -78,8 +79,10 @@ import org.apache.directory.fortress.core.util.time.Constraint;
 @XmlType( name = "userRole", propOrder = {"name", "userId", "parents", "beginDate", "beginLockDate", "beginTime",
     "dayMask", "endDate", "endLockDate", "endTime", "timeout"} )
 @XmlSeeAlso( {UserAdminRole.class} )
-public class UserRole extends FortEntity implements java.io.Serializable, Constraint
+public class UserRole extends FortEntity implements Serializable, Constraint
 {
+    private static final long serialVersionUID = 1L;
+    
     protected String userId;
     protected String name;
     private Integer timeout;
@@ -265,17 +268,6 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
         }
 
         return sb.toString();
-    }
-
-
-    /**
-     * Used to retrieve UserRole Role name attribute.  The Fortress UserRole name maps to 'ftRA' attribute on
-     * 'ftUserAttrs' object class.
-     */
-    @Override
-    public String toString()
-    {
-        return name;
     }
 
 
@@ -614,5 +606,16 @@ public class UserRole extends FortEntity implements java.io.Serializable, Constr
         }
 
         return ( thatRole.getName().equalsIgnoreCase( name ) );
+    }
+
+
+    /**
+     * Used to retrieve UserRole Role name attribute.  The Fortress UserRole name maps to 'ftRA' attribute on
+     * 'ftUserAttrs' object class.
+     */
+    @Override
+    public String toString()
+    {
+        return name;
     }
 }

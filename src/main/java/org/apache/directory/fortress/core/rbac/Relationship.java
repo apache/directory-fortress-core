@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+import java.io.Serializable;
 import java.lang.String;
 
 /**
@@ -28,10 +29,14 @@ import java.lang.String;
  *
  * @author Shawn McKinney
  */
-public class Relationship
-    implements java.io.Serializable
+public class Relationship implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    
+    /** The child */
     private String child;
+    
+    /** The parent */
     private String parent;
 
     /**
@@ -41,17 +46,20 @@ public class Relationship
     public Relationship()
     {
     }
+    
+    
     /**
      * Construct a new relationship given a child and parent name.
      *
      * @param child  contains the name of child.
      * @param parent contains the name of parent.
      */
-    public Relationship(String child, String parent)
+    public Relationship( String child, String parent )
     {
         this.child = child;
         this.parent = parent;
     }
+    
 
     /**
      * Return the child name.
@@ -62,16 +70,18 @@ public class Relationship
     {
         return child;
     }
+    
 
     /**
      * Set the child name.
      *
      * @param child contains the name of child.
      */
-    public void setChild(String child)
+    public void setChild( String child )
     {
         this.child = child;
     }
+    
 
     /**
      * Return the parent name.
@@ -82,16 +92,18 @@ public class Relationship
     {
         return parent;
     }
+    
 
     /**
      * Set the parent name.
      *
      * @param parent contains the name of parent.
      */
-    public void setParent(String parent)
+    public void setParent( String parent )
     {
         this.parent = parent;
     }
+    
 
     /**
      * Compute the hashcode on the parent and child values.  This is used for list processing.
@@ -102,6 +114,7 @@ public class Relationship
     {
         return child.hashCode() + parent.hashCode();
     }
+    
 
     /**
      * Matches the parent and child values from two Relationship entities.
@@ -109,25 +122,47 @@ public class Relationship
      * @param thatObj contains a Relationship entity.
      * @return boolean indicating both objects contain matching parent and child names.
      */
-    public boolean equals(Object thatObj)
+    public boolean equals (Object thatObj )
     {
-        if (this == thatObj)
+        if ( this == thatObj )
         {
             return true;
         }
-        if (this.getChild() == null || this.getParent() == null)
+        
+        if ( ( this.getChild() == null ) || ( this.getParent() == null ) )
         {
             return false;
         }
-        if (!(thatObj instanceof Relationship))
+        
+        if ( !( thatObj instanceof Relationship ) )
         {
             return false;
         }
+        
         Relationship thatKey = (Relationship) thatObj;
-        if (thatKey.getChild() == null || thatKey.getParent() == null)
+        
+        if ( ( thatKey.getChild() == null ) || ( thatKey.getParent() == null ) )
         {
             return false;
         }
-        return ((thatKey.getChild().equalsIgnoreCase(this.getChild()) && thatKey.getParent().equalsIgnoreCase(this.getParent())));
+        
+        return ( thatKey.getChild().equalsIgnoreCase( this.getChild() ) 
+                 && thatKey.getParent().equalsIgnoreCase( this.getParent() ) );
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "Relationship object: \n" );
+
+        sb.append( "    parent :" ).append( parent ).append( '\n' );
+        sb.append( "    child :" ).append( child ).append( '\n' );
+
+        return sb.toString();
     }
 }

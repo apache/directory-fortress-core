@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.rbac;
 
 
+import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
@@ -135,9 +136,10 @@ import javax.xml.bind.annotation.XmlType;
         "props",
         "admin"
 })
-public class PermObj extends FortEntity
-    implements java.io.Serializable
+public class PermObj extends FortEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    
     private boolean admin;
     private String internalId;
     private String objName;
@@ -373,7 +375,7 @@ public class PermObj extends FortEntity
     {
         if ( props != null )
         {
-            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 String key = ( String ) e.nextElement();

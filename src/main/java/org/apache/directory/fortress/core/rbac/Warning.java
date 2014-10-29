@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import java.io.Serializable;
 
 /**
@@ -34,7 +35,8 @@ import java.io.Serializable;
  * @author Shawn McKinney
  */
 /**
- * This entity is stored on {@link org.apache.directory.fortress.core.rbac.Session} and is used to pass warnings that occur during role activation and password policy validation.
+ * This entity is stored on {@link org.apache.directory.fortress.core.rbac.Session} and is used to pass warnings 
+ * that occur during role activation and password policy validation.
  * <p/>
  * Contains data from event that occurs during session initialization:
  * <p/>
@@ -60,9 +62,16 @@ import java.io.Serializable;
     })
 public class Warning implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private String msg;
+    private String name;
+    private Type type;
+
     public Warning()
     {
     }
+    
 
     /**
      *
@@ -70,12 +79,13 @@ public class Warning implements Serializable
      * @param msg
      * @param type
      */
-    public Warning(int id, String msg, Type type)
+    public Warning( int id, String msg, Type type )
     {
         this.id = id;
         this.msg = msg;
         this.type = type;
     }
+    
 
     /**
      *
@@ -84,13 +94,14 @@ public class Warning implements Serializable
      * @param type
      * @param name
      */
-    public Warning(int id, String msg, Type type, String name)
+    public Warning( int id, String msg, Type type, String name )
     {
         this.id = id;
         this.msg = msg;
         this.name = name;
         this.type = type;
     }
+    
 
     /**
      * Type determines if warning is of type Role or Password Policy.
@@ -109,11 +120,7 @@ public class Warning implements Serializable
          */
         PASSWORD
     }
-
-    private int id;
-    private String msg;
-    private String name;
-    private Type type;
+    
 
     public int getId()
     {
@@ -124,16 +131,19 @@ public class Warning implements Serializable
     {
         this.id = id;
     }
+    
 
     public String getMsg()
     {
         return msg;
     }
+    
 
     public void setMsg( String msg )
     {
         this.msg = msg;
     }
+    
 
     public String getName()
     {
@@ -144,14 +154,34 @@ public class Warning implements Serializable
     {
         this.name = name;
     }
+    
 
     public Type getType()
     {
         return type;
     }
+    
 
     public void setType( Type type )
     {
         this.type = type;
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "Warning object: \n" );
+
+        sb.append( "    id :" ).append( id ).append( '\n' );
+        sb.append( "    name :" ).append( name ).append( '\n' );
+        sb.append( "    type :" ).append( type ).append( '\n' );
+        sb.append( "    msg :" ).append( msg ).append( '\n' );
+
+        return sb.toString();
     }
 }

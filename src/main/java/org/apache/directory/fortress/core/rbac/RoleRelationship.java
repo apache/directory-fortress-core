@@ -19,6 +19,8 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,9 +37,9 @@ import javax.xml.bind.annotation.XmlType;
     "child",
     "parent"
 })
-public class RoleRelationship extends FortEntity
-    implements java.io.Serializable
+public class RoleRelationship extends FortEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
     private Role parent;
     private Role child;
 
@@ -46,18 +48,37 @@ public class RoleRelationship extends FortEntity
         return parent;
     }
 
+    
     public void setParent(Role parent)
     {
         this.parent = parent;
     }
 
+    
     public Role getChild()
     {
         return child;
     }
 
+    
     public void setChild(Role child)
     {
         this.child = child;
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "RoleRelationship object: \n" );
+
+        sb.append( "    parent :" ).append( parent ).append( '\n' );
+        sb.append( "    child :" ).append( child ).append( '\n' );
+
+        return sb.toString();
     }
 }
