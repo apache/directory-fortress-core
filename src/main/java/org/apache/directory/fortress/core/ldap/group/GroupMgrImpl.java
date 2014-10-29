@@ -19,7 +19,9 @@
  */
 package org.apache.directory.fortress.core.ldap.group;
 
-import org.apache.directory.fortress.core.*;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.ReviewMgr;
+import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.rbac.Manageable;
 import org.apache.directory.fortress.core.rbac.User;
@@ -57,6 +59,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         String methodName = "add";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
+        
         if(!group.isMemberDn())
         {
             loadUserDns( group );
@@ -80,6 +83,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         String methodName = "update";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
+        
         return groupP.update( group );
     }
 
@@ -96,6 +100,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         String methodName = "delete";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
+        
         return groupP.delete( group );
     }
 
@@ -113,6 +118,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         String methodName = "addProperty";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
+        
         return groupP.add( group, key, value );
     }
 
@@ -130,6 +136,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         String methodName = "deleteProperty";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
+        
         return groupP.delete( group, key, value );
     }
 
@@ -146,6 +153,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         String methodName = "read";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
+        
         return groupP.read( group );
     }
 
@@ -162,6 +170,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         String methodName = "find";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
+        
         return groupP.search( group );
     }
 
@@ -178,6 +187,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
         checkAccess(CLS_NM, methodName);
         loadUserDn( user );
+        
         return groupP.search( user );
     }
 
@@ -197,6 +207,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         checkAccess(CLS_NM, methodName);
         ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
         User user = reviewMgr.readUser( new User( member ) );
+        
         return groupP.assign( group, user.getDn() );
     }
 
@@ -216,6 +227,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         checkAccess(CLS_NM, methodName);
         ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
         User user = reviewMgr.readUser( new User( member ) );
+        
         return groupP.deassign( group, user.getDn() );
     }
 
@@ -224,12 +236,14 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         if( VUtil.isNotNullOrEmpty( group.getMembers() ))
         {
             ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
-            List<String> userDns = new ArrayList<>();
+            List<String> userDns = new ArrayList<String>();
+            
             for( String member : group.getMembers() )
             {
                 User user = reviewMgr.readUser( new User( member ) );
                 userDns.add( user.getDn() );
             }
+            
             group.setMembers( userDns );
         }
     }
@@ -237,7 +251,6 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     private void loadUserDn( User inUser ) throws SecurityException
     {
         ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
-        String userDns;
         User outUser = reviewMgr.readUser( inUser );
         inUser.setDn( outUser.getDn() );
     }
