@@ -152,7 +152,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     <!-- This is a hack to allow someone to release             -->
     <!-- without having to run the tests. In order to           -->
     <!-- do so, just tpe :                                      -->
-    <!-- mvn release:prepare -Drelease.arguments="-N -Prelease" -->
+    <!-- mvn release:prepare                                    --> 
+    <!--            -Drelease.arguments="-DskipTests -Prelease" -->
     <!-- =====================================================  -->
     <release.arguments></release.arguments>
   </properties>
