@@ -19,8 +19,11 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.directory.api.util.Strings;
 
 /**
  * All entities (User, Role, Permission, Policy, SDSet, etc...) are used to carry data between Fortress's
@@ -90,11 +93,17 @@ import java.util.List;
  *
  * @author Shawn McKinney
  */
-public class Hier extends FortEntity
-    implements java.io.Serializable
+public class Hier extends FortEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    
+    /** The operation */
     public Op op;
+    
+    /** The hierarchy type - ROLE, AROLE, USER, PERM */
     public Type type;
+    
+    /** the list of relationships that are set in collection on this entity */
     private List<Relationship> relationships;
 
     /**
@@ -103,26 +112,29 @@ public class Hier extends FortEntity
     public Hier()
     {
     }
+    
 
     /**
      * construct hierarchy given a list of parent-child relationships.
      *
      * @param relationships maps to 'ftRels' attribute on 'ftHier' object class.
      */
-    public Hier(List<Relationship> relationships)
+    public Hier( List<Relationship> relationships )
     {
         this.relationships = relationships;
     }
+    
 
     /**
      * Construct entity given a hierarchy type - ROLE, AROLE, USER, PERM.
      *
      * @param type determines where the target node resides.  For example the 'ROLE' type will specify the RBAC Role container as target.
      */
-    public Hier(Type type)
+    public Hier( Type type )
     {
         this.type = type;
     }
+    
 
     /**
      * Construct entity given a parent, child and a hierarchy type.
@@ -131,11 +143,12 @@ public class Hier extends FortEntity
      * @param child  maps to the 'ftRels' attribute in 'ftHier' object class.
      * @param parent maps to the 'ftRels' attribute in 'ftHier' object class.
      */
-    public Hier(Type type, String child, String parent)
+    public Hier( Type type, String child, String parent )
     {
         this.type = type;
-        setRelationship(child, parent);
+        setRelationship( child, parent );
     }
+    
 
     /**
      * Construct entity given a parent and child.
@@ -143,10 +156,11 @@ public class Hier extends FortEntity
      * @param child  maps to the 'ftRels' attribute in 'ftHier' object class.
      * @param parent maps to the 'ftRels' attribute in 'ftHier' object class.
      */
-    public Hier(String child, String parent)
+    public Hier( String child, String parent )
     {
-        setRelationship(child, parent);
+        setRelationship( child, parent );
     }
+    
 
     /**
      * Operation type specifies if Add, Update or Deletion of relationship is being targeted.
@@ -168,6 +182,7 @@ public class Hier extends FortEntity
          */
         REM
     }
+    
 
     /**
      * Return the operation to execute on behalf of this entity.
@@ -178,6 +193,7 @@ public class Hier extends FortEntity
     {
         return op;
     }
+    
 
     /**
      * The the operation for which this entity is bound for.  Add, Update or Delete.
@@ -188,6 +204,7 @@ public class Hier extends FortEntity
     {
         this.op = op;
     }
+    
 
     /**
      * Enumeration is used to specify which hierarchy node this entity is bound to.  RBAC Role, Admin Roles, User OU or Perm OU.
@@ -214,6 +231,7 @@ public class Hier extends FortEntity
          */
         PERM
     }
+    
 
     /**
      * Return required the type of node this entity is bound to.
@@ -224,13 +242,14 @@ public class Hier extends FortEntity
     {
         return type;
     }
+    
 
     /**
      * Set the required type which determines which directory node this entity is bound to.
      *
      * @param type variable specifies which directory node the hierarchy entity is bound to.
      */
-    public void setType(Type type)
+    public void setType( Type type )
     {
         this.type = type;
     }
@@ -243,16 +262,19 @@ public class Hier extends FortEntity
      * @param role   attribute maps to the 'ftRels' attribute on 'ftHier' object class.
      * @param parent attribute maps to the 'ftRels' attribute on 'ftHier' object class.
      */
-    public boolean isRelationship(String role, String parent)
+    public boolean isRelationship( String role, String parent )
     {
         boolean result = false;
-        if (relationships != null)
+        
+        if ( relationships != null )
         {
-            result = relationships.contains(new Relationship(role.toUpperCase(), parent.toUpperCase()));
+            result = relationships.contains(
+                new Relationship( Strings.toUpperCase( role ), Strings.toUpperCase( parent ) ) );
         }
 
         return result;
     }
+    
 
     /**
      * Set the child and parent into the collection of valid relationships stored in this entity.
@@ -260,30 +282,33 @@ public class Hier extends FortEntity
      * @param role   attribute maps to the 'ftRels' attribute on 'ftHier' object class.
      * @param parent attribute maps to the 'ftRels' attribute on 'ftHier' object class.
      */
-    public void setRelationship(String role, String parent)
+    public void setRelationship( String role, String parent )
     {
         if (relationships == null)
         {
-            relationships = new ArrayList<>();
+            relationships = new ArrayList<Relationship>();
         }
 
-        relationships.add(new Relationship(role.toUpperCase(), parent.toUpperCase()));
+        relationships.add(
+            new Relationship( Strings.toUpperCase( role ), Strings.toUpperCase(parent ) ) );
     }
 
+    
     /**
      * Set the relationship object into the collection of valid relationships stored in this entity.
      *
      * @param rel attribute maps to the 'ftRels' attribute on 'ftHier' object class.
      */
-    public void setRelationship(Relationship rel)
+    public void setRelationship( Relationship rel )
     {
         if (relationships == null)
         {
-            relationships = new ArrayList<>();
+            relationships = new ArrayList<Relationship>();
         }
 
-        relationships.add(rel);
+        relationships.add( rel );
     }
+    
 
     /**
      * Remove the specified relationship from the collection of valid relationships stored in this entity.
@@ -291,13 +316,15 @@ public class Hier extends FortEntity
      * @param role   attribute maps to the 'ftRels' attribute on 'ftHier' object class.
      * @param parent attribute maps to the 'ftRels' attribute on 'ftHier' object class.
      */
-    public void removeRelationship(String role, String parent)
+    public void removeRelationship( String role, String parent )
     {
         if (relationships != null)
         {
-            relationships.remove(new Relationship(role.toUpperCase(), parent.toUpperCase()));
+            relationships.remove(
+                new Relationship( Strings.toUpperCase( role ), Strings.toUpperCase( parent ) ) );
         }
     }
+    
 
     /**
      * Return the list of relationships that are set in collection on this entity.
@@ -308,14 +335,54 @@ public class Hier extends FortEntity
     {
         return relationships;
     }
+    
 
     /**
      * Set the list of relationships that are set in collection on this entity.
      *
      * @param relationships that map to the 'ftRels' attribute on the 'ftHier' object class.
      */
-    public void setRelationships(List<Relationship> relationships)
+    public void setRelationships( List<Relationship> relationships )
     {
         this.relationships = relationships;
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "Hier object: \n" );
+
+        sb.append( "    operation :" ).append( op ).append( '\n' );
+        sb.append( "    type :" ).append( type ).append( '\n' );
+
+        if ( relationships != null )
+        {
+            sb.append( "    relationships : " );
+
+            boolean isFirst = true;
+
+            for ( Relationship relationship : relationships )
+            {
+                if ( isFirst )
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    sb.append( ", " );
+                }
+
+                sb.append( relationship );
+            }
+
+            sb.append( '\n' );
+        }
+
+        return sb.toString();
     }
 }
