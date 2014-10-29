@@ -473,14 +473,99 @@ public class AdminRole extends Role implements Administrator
     public boolean equals( Object thatObj )
     {
         if ( this == thatObj )
+        {
             return true;
+        }
+        
         if ( this.getName() == null )
+        {
             return false;
+        }
+        
         if ( !( thatObj instanceof AdminRole ) )
+        {
             return false;
+        }
+        
         Role thatRole = ( Role ) thatObj;
+        
         if ( thatRole.getName() == null )
+        {
             return false;
+        }
+        
         return thatRole.getName().equalsIgnoreCase( this.getName() );
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "AdminRole object: \n" );
+
+        if ( beginRange != null )
+        {
+            sb.append( "    beginRange :" ).append( beginRange ).append( '\n' );
+        }
+
+        if ( endRange != null )
+        {
+            sb.append( "    endRange :" ).append( endRange ).append( '\n' );
+        }
+
+        sb.append( "    beginInclusive :" ).append( beginInclusive ).append( '\n' );
+        sb.append( "    endInclusive :" ).append( endInclusive ).append( '\n' );
+
+        if ( osPs != null )
+        {
+            sb.append( "    osPs : " );
+
+            boolean isFirst = true;
+
+            for ( String osP : osPs )
+            {
+                if ( isFirst )
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    sb.append( ", " );
+                }
+
+                sb.append( osP );
+            }
+
+            sb.append( '\n' );
+        }
+
+        if ( osUs != null )
+        {
+            sb.append( "    osUs : " );
+
+            boolean isFirst = true;
+
+            for ( String osU : osUs )
+            {
+                if ( isFirst )
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    sb.append( ", " );
+                }
+
+                sb.append( osU );
+            }
+
+            sb.append( '\n' );
+        }
+
+        return sb.toString();
     }
 }
