@@ -47,6 +47,7 @@ import java.util.StringTokenizer;
     })
 public class Group extends FortEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
     private String name;
     private String description;
     private String protocol;
@@ -251,7 +252,8 @@ public class Group extends FortEntity implements Serializable
         {
             // reset the existing properties stored in this entity.
             props = new Props();
-            for ( Enumeration e = properties.propertyNames(); e.hasMoreElements(); )
+            
+            for ( Enumeration<?> e = properties.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 String key = ( String ) e.nextElement();
