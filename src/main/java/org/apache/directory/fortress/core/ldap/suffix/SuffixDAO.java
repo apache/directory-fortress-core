@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.ldap.suffix;
 
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
 import org.apache.directory.api.ldap.model.entry.Entry;
@@ -28,7 +29,6 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -69,8 +69,6 @@ final class SuffixDAO extends ApacheDsDataProvider
 {
     private static final String CLS_NM = SuffixDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final String DC = "dc";
-    private static final String O = "o";
     private static final String[] SUFFIX_OBJ_CLASS =
         {
             GlobalIds.SUFFIX_CLASS, GlobalIds.ORGANIZATION_CLASS
@@ -99,8 +97,8 @@ final class SuffixDAO extends ApacheDsDataProvider
             LOG.info( "create suffix dn [" + nodeDn + "]" );
             Entry myEntry = new DefaultEntry( nodeDn );
             myEntry.add( GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS );
-            myEntry.add( DC, se.getName() );
-            myEntry.add( O, se.getDescription() );
+            myEntry.add( SchemaConstants.DC_AT, se.getName() );
+            myEntry.add( SchemaConstants.O_AT, se.getDescription() );
             ld = getAdminConnection();
             add( ld, myEntry );
         }
@@ -166,13 +164,16 @@ final class SuffixDAO extends ApacheDsDataProvider
      */
     private String getDn( Suffix se )
     {
-        String dn = DC + "=" + se.getName() + "," + DC + "=" + se.getDc();
+        String dn = SchemaConstants.DC_AT + "=" + se.getName() + "," + SchemaConstants.DC_AT + "=" + se.getDc();
+
         // only use this domain component variable if it has been set in the build.properties file:
         if( VUtil.isNotNullOrEmpty( se.getDc2() ) && !se.getDc2().equals( "${suffix.dc2}" ))
         {
-            dn += "," + DC + "=" + se.getDc2();
+            dn += "," + SchemaConstants.DC_AT + "=" + se.getDc2();
         }
-        LOG.debug( "suffix=" + dn );
+        
+        LOG.debug( "suffix={}", dn );
+        
         return dn;
     }
 }

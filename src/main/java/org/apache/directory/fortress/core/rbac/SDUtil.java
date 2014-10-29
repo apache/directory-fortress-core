@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ReviewMgrFactory;
@@ -30,6 +31,7 @@ import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
 import org.apache.directory.fortress.core.util.cache.DsdCacheEntry;
 import org.apache.directory.fortress.core.util.time.Constraint;
+
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
 import net.sf.ehcache.search.Result;
@@ -56,7 +58,6 @@ final class SDUtil
     private static final String FORTRESS_SSDS = "fortress.ssd";
     private static final SdP sp = new SdP();
     private static final String IS_DSD_CACHE_DISABLED_PARM = "enable.dsd.cache";
-    private static final String MEMBER = "member";
     private static final String DSD_NAME = "name";
     private static final String EMPTY_ELEMENT = "empty";
     private static final String CONTEXT_ID = "contextId";
@@ -242,7 +243,7 @@ final class SDUtil
         contextId = getContextId(contextId);
         Set<SDSet> finalSet = new HashSet<>();
         Attribute<String> context = m_dsdCache.getSearchAttribute(CONTEXT_ID);
-        Attribute<String> member = m_dsdCache.getSearchAttribute(MEMBER);
+        Attribute<String> member = m_dsdCache.getSearchAttribute(SchemaConstants.MEMBER_AT);
         Query query = m_dsdCache.createQuery();
         query.includeKeys();
         query.includeValues();
@@ -303,7 +304,7 @@ final class SDUtil
         else
         {
             // Search on roleName attribute which maps to 'member' attr on the cache record:
-            Attribute<String> member = m_dsdCache.getSearchAttribute(MEMBER);
+            Attribute<String> member = m_dsdCache.getSearchAttribute(SchemaConstants.MEMBER_AT);
             Attribute<String> context = m_dsdCache.getSearchAttribute(CONTEXT_ID);
             Query query = m_dsdCache.createQuery();
             query.includeKeys();
