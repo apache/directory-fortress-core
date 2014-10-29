@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.rbac;
 
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -161,19 +162,30 @@ import javax.xml.bind.annotation.XmlType;
         "parents",
         "type"
 })
-public class OrgUnit extends FortEntity
-    implements Graphable, java.io.Serializable
+public class OrgUnit extends FortEntity implements Graphable, Serializable
 {
+    private static final long serialVersionUID = 1L;
+
     /**
-     * Maps to the location for a particular OrgUnit entity to either the User, {@code ou=OS-U}, or Permission, {@code ou=OS-P}, tree in ldap.
-     *
+     * Maps to the location for a particular OrgUnit entity to either the User, 
+     * {@code ou=OS-U}, or Permission, {@code ou=OS-P}, tree in ldap.
      */
     public Type type;
+    
+    /** The name required attribute of the OrgUnit object */
     private String name;
+    
+    /** the internal id that is associated with OrgUnit */
     private String id;
+    
+    /** The description that is associated with OrgUnit */
     private String description;
+    
+    /** The names of orgUnits that are parents (direct ascendants) of this orgUnit */
     @XmlElement(nillable = true)
     private Set<String> parents;
+    
+    /** The set of child orgUnit names (direct descendants) of this orgUnit */
     @XmlElement(nillable = true)
     private Set<String> children;
 
@@ -359,6 +371,7 @@ public class OrgUnit extends FortEntity
         {
             this.parents = new HashSet<>();
         }
+        
         this.parents.add( parent );
     }
 
@@ -403,14 +416,91 @@ public class OrgUnit extends FortEntity
     public boolean equals( Object thatObj )
     {
         if ( this == thatObj )
+        {
             return true;
+        }
+        
         if ( this.getName() == null )
+        {
             return false;
+        }
+        
         if ( !( thatObj instanceof OrgUnit ) )
+        {
             return false;
+        }
+        
         OrgUnit thatOrg = ( OrgUnit ) thatObj;
+        
         if ( thatOrg.getName() == null )
+        {
             return false;
+        }
+        
         return thatOrg.getName().equalsIgnoreCase( this.getName() );
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "OrgUnit object: \n" );
+
+        sb.append( "    name :" ).append( name ).append( '\n' );
+        sb.append( "    id :" ).append( id ).append( '\n' );
+        sb.append( "    description :" ).append( description ).append( '\n' );
+        sb.append( "    type :" ).append( type ).append( '\n' );
+
+        if ( parents != null )
+        {
+            sb.append( "    parents : " );
+
+            boolean isFirst = true;
+
+            for ( String parent : parents )
+            {
+                if ( isFirst )
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    sb.append( ", " );
+                }
+
+                sb.append( parent );
+            }
+
+            sb.append( '\n' );
+        }
+
+        if ( children != null )
+        {
+            sb.append( "    children : " );
+
+            boolean isFirst = true;
+
+            for ( String child : children )
+            {
+                if ( isFirst )
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    sb.append( ", " );
+                }
+
+                sb.append( child );
+            }
+
+            sb.append( '\n' );
+        }
+
+        return sb.toString();
     }
 }
