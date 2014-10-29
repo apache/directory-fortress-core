@@ -42,6 +42,7 @@ timelimit 60
 threads 8
 loglevel 32768
 gentlehup on
+sortvals  roleOccupant
 pidfile		@PID_PATH@/slapd.pid
 argsfile	@PID_PATH@/slapd.args
 modulepath	@SLAPD_MODULE_PATH@

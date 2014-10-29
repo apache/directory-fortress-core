@@ -102,6 +102,12 @@ public abstract class ApacheDsDataProvider
     private static final String LDAP_ADMIN_POOL_UID = "admin.user";
     private static final String LDAP_ADMIN_POOL_PW = "admin.pw";
 
+    // Used for slapd access log {@link org.apache.directory.fortress.core.rbacAuditDAO}
+    private static final String LDAP_LOG_POOL_UID = "log.admin.user";
+    private static final String LDAP_LOG_POOL_PW = "log.admin.pw";
+    private static final String LDAP_LOG_POOL_MIN = "min.log.conn";
+    private static final String LDAP_LOG_POOL_MAX = "max.log.conn";
+
     // Used for TLS/SSL client-side configs:
     private static final String ENABLE_LDAP_SSL = "enable.ldap.ssl";
     private static final String ENABLE_LDAP_SSL_DEBUG = "enable.ldap.ssl.debug";
@@ -143,6 +149,8 @@ public abstract class ApacheDsDataProvider
         int port = Config.getInt( LDAP_PORT, 10389 );
         int min = Config.getInt( LDAP_ADMIN_POOL_MIN, 1 );
         int max = Config.getInt( LDAP_ADMIN_POOL_MAX, 10 );
+        int logmin = Config.getInt( LDAP_LOG_POOL_MIN, 1 );
+        int logmax = Config.getInt( LDAP_LOG_POOL_MAX, 10 );
 
         if(IS_SET_TRUST_STORE_PROP)
         {
@@ -159,16 +167,15 @@ public abstract class ApacheDsDataProvider
         config.setLdapPort( port );
         config.setName( Config.getProperty( LDAP_ADMIN_POOL_UID, "" ) );
 
-        // added by smckinney for TLS/SSL config:
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
+        // validate certificates but allow self-signed certs if within this truststore:
         config.setTrustManagers( new LdapClientTrustStoreManager(
             TRUST_STORE,
             TRUST_STORE_PW.toCharArray() , null, true ) );
 
-        String adminPw = null;
-
+        String adminPw;
         if ( EncryptUtil.isEnabled() )
         {
             adminPw = EncryptUtil.decrypt( Config.getProperty( LDAP_ADMIN_POOL_PW ) );
@@ -212,19 +219,48 @@ public abstract class ApacheDsDataProvider
         adminPool.setMaxActive( max );
         adminPool.setMinIdle( min );
 
-        // Create the Log pool
-        logPool = new LdapConnectionPool( factory );
-        logPool.setTestOnBorrow( true );
-        logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-        logPool.setMaxActive( max );
-        logPool.setMinIdle( min );
-
         // Create the User pool
         userPool = new LdapConnectionPool( factory );
         userPool.setTestOnBorrow( true );
         userPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
         userPool.setMaxActive( max );
         userPool.setMinIdle( min );
+
+        // This pool of access log connections is used by {@link org.apache.directory.fortress.AuditMgr}.
+        // To enable, set {@code log.admin.user} && {@code log.admin.pw} inside fortress.properties file:
+        if(VUtil.isNotNullOrEmpty( LDAP_LOG_POOL_UID ) && VUtil.isNotNullOrEmpty( LDAP_LOG_POOL_PW ))
+        {
+            // TODO: Initializing the log pool in static block requires static props set within fortress.properties.
+            // To make this dynamic requires moving this code outside of static block AND storing the connection metadata inside fortress config node (in ldap).
+            LdapConnectionConfig logConfig = new LdapConnectionConfig();
+            logConfig.setLdapHost( host );
+            logConfig.setLdapPort( port );
+            logConfig.setName( Config.getProperty( LDAP_ADMIN_POOL_UID, "" ) );
+
+            logConfig.setUseSsl( IS_SSL );
+            // validate certificates but allow self-signed certs if within this truststore:
+            logConfig.setTrustManagers( new LdapClientTrustStoreManager(
+                TRUST_STORE,
+                TRUST_STORE_PW.toCharArray() , null, true ) );
+
+            logConfig.setName( Config.getProperty( LDAP_LOG_POOL_UID, "" ) );
+            String logPw;
+            if ( EncryptUtil.isEnabled() )
+            {
+                logPw = EncryptUtil.decrypt( Config.getProperty( LDAP_LOG_POOL_PW ) );
+            }
+            else
+            {
+                logPw = Config.getProperty( LDAP_LOG_POOL_PW );
+            }
+            logConfig.setCredentials( logPw );
+            factory = new PoolableLdapConnectionFactory( logConfig );
+            logPool = new LdapConnectionPool( factory );
+            logPool.setTestOnBorrow( true );
+            logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
+            logPool.setMaxActive( logmax );
+            logPool.setMinIdle( logmin );
+        }
     }
 
 

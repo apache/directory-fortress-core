@@ -652,7 +652,7 @@
          <replace file="${target.slapd.conf}" token="@LOGOPS@" value="${log.ops}"/>
          <replace file="${target.slapd.conf}" token="@ROOT_DN@" value="${root.dn}"/>
          <replace file="${target.slapd.conf}" token="@ROOT_PW@" value="${root.pw}"/>
-         <replace file="${target.slapd.conf}" token="@LOG_ROOT_DN@" value="${log.root.dn}"/>
+         <replace file="${target.slapd.conf}" token="@LOG_ROOT_DN@" value="${log.admin.user}"/>
          <replace file="${target.slapd.conf}" token="@LOG_ROOT_PW@" value="${log.root.pw}"/>
          <replace file="${target.slapd.conf}" token="@LOG_SUFFIX@" value="${log.suffix}"/>
          <replace file="${target.slapd.conf}" token="@LOG_DBNOSYNCH@" value="${log.dbnosynch}"/>
@@ -812,8 +812,10 @@
          <replace file="${dst.bootstrap.conf}" token="@CFG_ROOT_PW@" value="${cfg.root.pw}"/>
          <replace file="${dst.bootstrap.conf}" token="@ADM_MIN_CONN@" value="${admin.min.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@ADM_MAX_CONN@" value="${admin.max.conn}"/>
-         <replace file="${dst.bootstrap.conf}" token="@LOG_MIN_CONN@" value="${log.min.conn}"/>
-         <replace file="${dst.bootstrap.conf}" token="@LOG_MAX_CONN@" value="${log.max.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@LOG_ROOT_DN@" value="${log.admin.user}"/>
+         <replace file="${dst.bootstrap.conf}" token="@CFG_LOG_ROOT_PW@" value="${log.admin.pw}"/>
+         <replace file="${dst.bootstrap.conf}" token="@LOG_MIN_CONN@" value="${min.log.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@LOG_MAX_CONN@" value="${max.log.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@USR_MIN_CONN@" value="${user.min.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@USR_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
@@ -847,6 +849,10 @@
          <replace file="${dst.remote.conf}" token="@CFG_ROOT_PW@" value="${cfg.root.pw}"/>
          <replace file="${dst.remote.conf}" token="@ADM_MIN_CONN@" value="${admin.min.conn}"/>
          <replace file="${dst.remote.conf}" token="@ADM_MAX_CONN@" value="${admin.max.conn}"/>
+         <replace file="${dst.remote.conf}" token="@LOG_ROOT_DN@" value="${log.admin.user}"/>
+         <replace file="${dst.remote.conf}" token="@CFG_LOG_ROOT_PW@" value="${log.admin.pw}"/>
+         <replace file="${dst.remote.conf}" token="@LOG_MIN_CONN@" value="${min.log.conn}"/>
+         <replace file="${dst.remote.conf}" token="@LOG_MAX_CONN@" value="${max.log.conn}"/>
          <replace file="${dst.remote.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
          <replace file="${dst.remote.conf}" token="@ENABLE_REST@" value="${enable.mgr.impl.rest}"/>
          <replace file="${dst.remote.conf}" token="@REST_HTTP_USER@" value="${http.user}"/>
@@ -869,10 +875,6 @@
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC@" value="${suffix.dc}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC2@" value="${suffix.dc2}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX@" value="${suffix}"/>
-         <replace file="${dst.load.bootstrap.script}" token="@LOG_ROOT_DN@" value="${log.root.dn}"/>
-         <replace file="${dst.load.bootstrap.script}" token="@CFG_LOG_ROOT_PW@" value="${cfg.log.root.pw}"/>
-         <replace file="${dst.load.bootstrap.script}" token="@LOG_MIN_CONN@" value="${user.min.conn}"/>
-         <replace file="${dst.load.bootstrap.script}" token="@LOG_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@USR_MIN_CONN@" value="${log.min.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@USR_MAX_CONN@" value="${log.max.conn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
