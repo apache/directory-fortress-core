@@ -19,6 +19,8 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -43,14 +45,26 @@ import javax.xml.bind.annotation.XmlType;
     "roleNm",
     "admin"
 })
-public class PermGrant extends FortEntity
-    implements java.io.Serializable
+public class PermGrant extends FortEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    
+    /** The permission object name */
     private String objName;
+    
+    /** The permission operation name */
     private String opName;
+    
+    /** The permission object ID */
     private String objId;
+    
+    /** The userId attribute from this entity */
     private String userId;
+    
+    /** The role name associated from this entity */
     private String roleNm;
+    
+    /** Tells if the entity is stored with administrative permissions */
     private boolean admin;
 
     /**
@@ -61,6 +75,7 @@ public class PermGrant extends FortEntity
     {
         return objName;
     }
+    
 
     /**
      * Set the permission object name.
@@ -70,6 +85,7 @@ public class PermGrant extends FortEntity
     {
         this.objName = objName;
     }
+    
 
     /**
      * Return the permission object id.
@@ -79,6 +95,7 @@ public class PermGrant extends FortEntity
     {
         return objId;
     }
+    
 
     /**
      * Set the permission object id.
@@ -88,6 +105,7 @@ public class PermGrant extends FortEntity
     {
         this.objId = objId;
     }
+    
 
     /**
      * Return the permission operation name.
@@ -97,6 +115,7 @@ public class PermGrant extends FortEntity
     {
         return opName;
     }
+    
 
     /**
      * Set the permission operation name.
@@ -106,6 +125,7 @@ public class PermGrant extends FortEntity
     {
         this.opName = opName;
     }
+    
 
     /**
      * Get the userId attribute from this entity.
@@ -117,6 +137,7 @@ public class PermGrant extends FortEntity
         return userId;
     }
 
+    
     /**
      * Set the userId attribute on this entity.
      *
@@ -126,6 +147,7 @@ public class PermGrant extends FortEntity
     {
         this.userId = userId;
     }
+    
 
     /**
      * Get the role name associated from this entity.
@@ -136,6 +158,7 @@ public class PermGrant extends FortEntity
     {
         return roleNm;
     }
+    
 
     /**
      * Set the role name associated with this entity.
@@ -157,6 +180,7 @@ public class PermGrant extends FortEntity
     {
         return admin;
     }
+    
 
     /**
      * Return boolean value that will be set to true if this entity will be stored in Administrative Permissions.
@@ -165,5 +189,25 @@ public class PermGrant extends FortEntity
     public void setAdmin(boolean admin)
     {
         this.admin = admin;
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "PermGrant object: \n" );
+
+        sb.append( "    roleNm :" ).append( roleNm ).append( '\n' );
+        sb.append( "    objName :" ).append( objName ).append( '\n' );
+        sb.append( "    objId :" ).append( objId ).append( '\n' );
+        sb.append( "    userId :" ).append( userId ).append( '\n' );
+        sb.append( "    opName :" ).append( opName ).append( '\n' );
+        sb.append( "    isAdmin :" ).append( admin ).append( '\n' );
+
+        return sb.toString();
     }
 }

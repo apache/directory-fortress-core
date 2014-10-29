@@ -19,6 +19,8 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -36,9 +38,10 @@ import javax.xml.bind.annotation.XmlType;
     "child",
     "parent"
 })
-public class OrgUnitRelationship extends FortEntity
-    implements java.io.Serializable
+public class OrgUnitRelationship extends FortEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    
     private OrgUnit parent;
     private OrgUnit child;
 
@@ -47,19 +50,38 @@ public class OrgUnitRelationship extends FortEntity
         return parent;
     }
 
+    
     public void setParent(OrgUnit parent)
     {
         this.parent = parent;
     }
 
+    
     public OrgUnit getChild()
     {
         return child;
     }
 
+    
     public void setChild(OrgUnit child)
     {
         this.child = child;
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "OrgUnitRelationship object: \n" );
+
+        sb.append( "    parent :" ).append( parent ).append( '\n' );
+        sb.append( "    child :" ).append( child ).append( '\n' );
+
+        return sb.toString();
     }
 }
 
