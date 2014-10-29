@@ -21,14 +21,18 @@ package org.apache.directory.fortress.core.rbac;
 
 
 /**
- * This class contains the Context id which is used as container for segregating data by customer within the LDAP Directory Information Tree.
+ * This class contains the Context id which is used as container for segregating data by customer 
+ * within the LDAP Directory Information Tree.
  * <p/>
  *
  * @author Shawn McKinney
  */
 public class Context
 {
+    /** The context ID */
     private String name;
+    
+    /** The content description */ 
     private String description;
 
 
@@ -50,6 +54,7 @@ public class Context
     public Context()
     {
     }
+    
 
     /**
      * Get the id to use for sub-directory within the DIT.  This attribute is required.
@@ -60,6 +65,7 @@ public class Context
     {
         return name;
     }
+    
 
     /**
      * Set the id to use for sub-directory within the DIT.  This attribute is required.
@@ -70,6 +76,7 @@ public class Context
     {
         this.name = name;
     }
+    
 
     /**
      * Get the description for the context.  This value is not required or constrained
@@ -81,6 +88,7 @@ public class Context
     {
         return description;
     }
+    
 
     /**
      * Set the description for the context.  This value is not required or constrained
@@ -91,5 +99,20 @@ public class Context
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( "Context object: \n" );
+        sb.append( "    name :" ).append( name ).append( '\n' );
+        sb.append( "    description :" ).append( description ).append( '\n' );
+
+        return sb.toString();
     }
 }
