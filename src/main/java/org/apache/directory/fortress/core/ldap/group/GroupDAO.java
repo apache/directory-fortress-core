@@ -1,4 +1,5 @@
 /*
+
  *   Licensed to the Apache Software Foundation (ASF) under one
  *   or more contributor license agreements.  See the NOTICE file
  *   distributed with this work for additional information
@@ -20,6 +21,7 @@
 package org.apache.directory.fortress.core.ldap.group;
 
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
@@ -41,7 +43,6 @@ import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -68,8 +69,7 @@ final class GroupDAO extends ApacheDsDataProvider
     private static final String GROUP_PROPERTY_ATTR = "group.properties";
     private static final String GROUP_PROPERTY_ATTR_IMPL = Config.getProperty( GROUP_PROPERTY_ATTR );
     private static final String GROUP_OBJ_CLASS[] = {GlobalIds.TOP, GROUP_OBJECT_CLASS_IMPL};
-    private static final String MEMBER = "member";
-    private static final String[] GROUP_ATRS = {GlobalIds.CN, GlobalIds.DESC, GROUP_PROTOCOL_ATTR_IMPL, GROUP_PROPERTY_ATTR_IMPL, MEMBER};
+    private static final String[] GROUP_ATRS = {GlobalIds.CN, GlobalIds.DESC, GROUP_PROTOCOL_ATTR_IMPL, GROUP_PROPERTY_ATTR_IMPL, SchemaConstants.MEMBER_AT};
 
     /**
      * Package private default constructor.
@@ -87,19 +87,22 @@ final class GroupDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
+        
         try
         {
-            LOG.debug( "create group dn {[]}", nodeDn );
+            LOG.debug( "create group dn [{}]", nodeDn );
             Entry myEntry = new DefaultEntry( nodeDn );
             myEntry.add( GlobalIds.OBJECT_CLASS, GROUP_OBJ_CLASS );
             myEntry.add( GlobalIds.CN , group.getName() );
             myEntry.add( GROUP_PROTOCOL_ATTR_IMPL, group.getProtocol() );
-            loadAttrs( group.getMembers(), myEntry, MEMBER );
+            loadAttrs( group.getMembers(), myEntry, SchemaConstants.MEMBER_AT );
             loadProperties( group.getProperties(), myEntry, GROUP_PROPERTY_ATTR_IMPL, '=' );
+            
             if ( VUtil.isNotNullOrEmpty( group.getDescription() ) )
             {
                 myEntry.add( GlobalIds.DESC, group.getDescription() );
             }
+            
             ld = getAdminConnection();
             add( ld, myEntry );
         }
@@ -112,8 +115,10 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
+        
         return group;
     }
+
 
     /**
      * @param group
@@ -125,22 +130,27 @@ final class GroupDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
+        
         try
         {
-            LOG.debug( "update group dn {[]}", nodeDn );
+            LOG.debug( "update group dn [{}]", nodeDn );
             List<Modification> mods = new ArrayList<Modification>();
+            
             if ( VUtil.isNotNullOrEmpty( group.getDescription() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, group.getDescription() ) );
             }
+            
             if ( VUtil.isNotNullOrEmpty( group.getProtocol() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, GROUP_PROTOCOL_ATTR_IMPL, group.getProtocol() ) );
             }
-            loadAttrs( group.getMembers(), mods, MEMBER );
+            
+            loadAttrs( group.getMembers(), mods, SchemaConstants.MEMBER_AT );
             loadProperties( group.getProperties(), mods, GROUP_PROPERTY_ATTR_IMPL, true, '=' );
+            
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
@@ -163,9 +173,10 @@ final class GroupDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
+        
         try
         {
-            LOG.debug( "add group property dn {[]}, key {[]}, value {[]}", nodeDn, key, value );
+            LOG.debug( "add group property dn [{}], key [{}], value [{}]", nodeDn, key, value );
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification(
                 ModificationOperation.ADD_ATTRIBUTE, GROUP_PROPERTY_ATTR_IMPL, key + "=" + value ) );
@@ -181,16 +192,19 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
+        
         return get( group );
     }
+
 
     final Group delete( Group group, String key, String value ) throws FinderException, RemoveException
     {
         LdapConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
+        
         try
         {
-            LOG.debug( "delete group property dn {[]}, key {[]}, value {[]}", nodeDn, key, value );
+            LOG.debug( "delete group property dn [{}], key [{}], value [{}]", nodeDn, key, value );
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification(
                 ModificationOperation.REMOVE_ATTRIBUTE, GROUP_PROPERTY_ATTR_IMPL, key + "=" + value ) );
@@ -220,7 +234,7 @@ final class GroupDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
-        LOG.debug( "remove group dn {[]}", nodeDn );
+        LOG.debug( "remove group dn [{}]", nodeDn );
         try
         {
             ld = getAdminConnection();
@@ -255,12 +269,12 @@ final class GroupDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
-        LOG.debug( "assign group property dn {[]}, member dn {[]}", dn, userDn );
+        LOG.debug( "assign group property dn [{}], member dn [{}]", dn, userDn );
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification(
-                ModificationOperation.ADD_ATTRIBUTE, MEMBER, userDn ) );
+                ModificationOperation.ADD_ATTRIBUTE, SchemaConstants.MEMBER_AT, userDn ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
@@ -288,12 +302,13 @@ final class GroupDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
-        LOG.debug( "deassign group property dn {[]}, member dn {[]}", dn, userDn );
+        LOG.debug( "deassign group property dn [{}], member dn [{}]", dn, userDn );
+        
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification(
-                ModificationOperation.REMOVE_ATTRIBUTE, MEMBER, userDn ) );
+                ModificationOperation.REMOVE_ATTRIBUTE, SchemaConstants.MEMBER_AT, userDn ) );
 
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
@@ -308,6 +323,7 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
+        
         return get( entity );
     }
 
@@ -322,11 +338,13 @@ final class GroupDAO extends ApacheDsDataProvider
         Group entity = null;
         LdapConnection ld = null;
         String dn = getDn( group.getName(), group.getContextId() );
+        
         try
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, GROUP_ATRS );
             entity = unloadLdapEntry( findEntry, 0 );
+            
             if ( entity == null )
             {
                 String warning = "read no entry found dn [" + dn + "]";
@@ -363,6 +381,7 @@ final class GroupDAO extends ApacheDsDataProvider
         SearchCursor searchResults;
         String groupRoot = getRootDn( group.getContextId(), GlobalIds.GROUP_ROOT );
         String filter = null;
+        
         try
         {
             String searchVal = encodeSafeText( group.getName(), GlobalIds.ROLE_LEN );
@@ -390,6 +409,7 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
+        
         return groupList;
     }
 
@@ -406,14 +426,16 @@ final class GroupDAO extends ApacheDsDataProvider
         SearchCursor searchResults;
         String groupRoot = getRootDn( user.getContextId(), GlobalIds.GROUP_ROOT );
         String filter = null;
+        
         try
         {
-            String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
-            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + MEMBER + "=" + user.getDn() + "))";
+            encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
+            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + SchemaConstants.MEMBER_AT + "=" + user.getDn() + "))";
             ld = getAdminConnection();
             searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
+            
             while ( searchResults.next() )
             {
                 groupList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
@@ -433,8 +455,10 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
+        
         return groupList;
     }
+    
 
     /**
      * @param le
@@ -449,12 +473,14 @@ final class GroupDAO extends ApacheDsDataProvider
         entity.setName( getAttribute( le, GlobalIds.CN ) );
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
         entity.setProtocol( getAttribute( le, GROUP_PROTOCOL_ATTR_IMPL ) );
-        entity.setMembers( getAttributes( le, MEMBER ) );
+        entity.setMembers( getAttributes( le, SchemaConstants.MEMBER_AT ) );
         entity.setMemberDn( true );
         entity.setProperties( AttrHelper.getProperties( getAttributes( le, GROUP_PROPERTY_ATTR_IMPL ), '=' ) );
         entity.setSequenceId( sequence );
+        
         return entity;
     }
+    
 
     private String getDn( String name, String contextId )
     {
