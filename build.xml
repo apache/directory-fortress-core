@@ -145,8 +145,11 @@
        <property name="javadoc.samples.overview" value="${src.test.dir}/org/openldap/fortress/samples/overview.html" />
 
        <!-- ########### Fortress Package Dependencies ########################### -->
+<!--
        <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-${version}.jar"/>
-       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-${version}.jar"/>
+       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-${version}.jar"/>-->
+       <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-1.0-RC40.jar"/>
+       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-1.0-RC40.jar"/>
        <property name="commons-config.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
        <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
        <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>

@@ -21,7 +21,7 @@
             xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd"
             xmlns:e="http://ant.apache.org/ivy/extra">
 
-<info organisation="org.apache" module="openldap-fortress-core"/>
+<info organisation="org.apache" module="fortress-core"/>
 
     <dependencies>
         <!-- Fortress core is dependent on these libs: -->
@@ -54,11 +54,11 @@
         <dependency org="org.apache.jmeter" name="ApacheJMeter_java" rev="2.11" conf="default->master" />
 
         <!-- Fortress core source IS dependent org.openldap accelerator: -->
-        <dependency org="org.openldap" name="accelerator-impl" rev="1.0-RC39"  conf="default->master">
+        <dependency org="org.openldap" name="accelerator-impl" rev="1.0-RC40"  conf="default->master">
             <artifact name="accelerator-impl" type="jar"/>
         </dependency>
 
-        <dependency org="org.openldap" name="accelerator-api" rev="1.0-RC39"  conf="default->master">
+        <dependency org="org.openldap" name="accelerator-api" rev="1.0-RC40"  conf="default->master">
             <artifact name="accelerator-api" type="jar"/>
         </dependency>
 
