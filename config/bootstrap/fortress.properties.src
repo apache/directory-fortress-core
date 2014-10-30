@@ -85,7 +85,7 @@ temporal.validator.3=org.apache.directory.fortress.core.util.time.ClockTime
 temporal.validator.4=org.apache.directory.fortress.core.util.time.Day
 
 # enabling this property will enable Dynamic Separation of Duty constraint checks on role activations:
-temporal.validator.dsd=us.jts.fortress.rbac.DSDChecker
+temporal.validator.dsd=org.apache.directory.fortress.core.rbac.DSDChecker
 
 # Users in the following list cannot be deleted using OAM admin functions (AdminMgr.deleteUser, AdminMgr.forceDeleteUser)
 sys.user.1=oamTU6User1
