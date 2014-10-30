@@ -109,8 +109,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     <version.maven.surefire.plugin>2.17</version.maven.surefire.plugin>
 
     <!-- Jars -->
-    <version.accelerator.api>1.0-RC39</version.accelerator.api>
-    <version.accelerator.impl>1.0-RC39</version.accelerator.impl>
+    <version.accelerator.api>1.0-RC40</version.accelerator.api>
+    <version.accelerator.impl>1.0-RC40</version.accelerator.impl>
     <version.ant>1.9.1</version.ant>
     <version.ant.launcher>1.9.1</version.ant.launcher>
     <version.antlr>2.7.7</version.antlr>
