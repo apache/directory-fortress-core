@@ -450,10 +450,10 @@ public class OrgUnit extends FortEntity implements Graphable, Serializable
 
         sb.append( "OrgUnit object: \n" );
 
-        sb.append( "    name :" ).append( name ).append( '\n' );
-        sb.append( "    id :" ).append( id ).append( '\n' );
-        sb.append( "    description :" ).append( description ).append( '\n' );
-        sb.append( "    type :" ).append( type ).append( '\n' );
+        sb.append( "    name : " ).append( name ).append( '\n' );
+        sb.append( "    id : " ).append( id ).append( '\n' );
+        sb.append( "    description : " ).append( description ).append( '\n' );
+        sb.append( "    type : " ).append( type ).append( '\n' );
 
         if ( parents != null )
         {
