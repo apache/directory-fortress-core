@@ -22,10 +22,11 @@ package org.apache.directory.fortress.core.rbac;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
@@ -62,8 +63,8 @@ public final class OrgUnitP
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     // these fields are used to synchronize access to the above static pools:
-    private static final Object userPoolSynchLock = new Object();
-    private static final Object permPoolSynchLock = new Object();
+    private static final Lock userPoolLock = new ReentrantLock();
+    private static final Lock permPoolLock = new ReentrantLock();
     private static Cache ouCache;
 
     // DAO class for OU data sets must be initializer before the other statics:
@@ -95,22 +96,42 @@ public final class OrgUnitP
     final boolean isValid( OrgUnit entity )
     {
         boolean result = false;
+        
         if ( entity.type == OrgUnit.Type.USER )
         {
-            Set<String> userPool = getOrgSet( entity );
-            if ( userPool != null && entity.getType() == OrgUnit.Type.USER )
+            try
             {
-                result = userPool.contains( entity.getName() );
+                userPoolLock.lock();
+                Set<String> userPool = getUserSet( entity );
+
+                if ( userPool != null )
+                {
+                    result = userPool.contains( entity.getName() );
+                }
+            }
+            finally
+            {
+                userPoolLock.unlock();
             }
         }
         else
         {
-            Set<String> permPool = getOrgSet( entity );
-            if ( permPool != null )
+            try
             {
-                result = permPool.contains( entity.getName() );
+                permPoolLock.lock();
+                Set<String> permPool = getPermSet( entity );
+
+                if ( permPool != null )
+                {
+                    result = permPool.contains( entity.getName() );
+                }
+            }
+            finally
+            {
+                permPoolLock.unlock();
             }
         }
+        
         return result;
     }
 
@@ -122,6 +143,7 @@ public final class OrgUnitP
     private static Set<String> loadOrgSet( OrgUnit orgUnit )
     {
         Set<String> ouSet = null;
+        
         try
         {
             ouSet = oDao.getOrgs( orgUnit );
@@ -131,6 +153,7 @@ public final class OrgUnitP
             String warning = "loadOrgSet static initializer caught SecurityException=" + se;
             LOG.info( warning, se );
         }
+        
         if ( orgUnit.getType() == OrgUnit.Type.USER )
         {
             // TODO:  add context id to this cache
@@ -147,26 +170,55 @@ public final class OrgUnitP
 
     /**
      *
-     * @param orgUnit will either be a User or Perm OU.
-     * @return Set containing the OU mapping to a particular type and tenant.
+     * @param orgUnit will be a Perm OU.
+     * @return Set containing the OU mapping to a Perm type and tenant.
      */
-    private static Set<String> getOrgSet( OrgUnit orgUnit )
+    private static Set<String> getPermSet( OrgUnit orgUnit )
     {
-        Set<String> orgSet;
-        if ( orgUnit.getType() == OrgUnit.Type.USER )
+        try
         {
-            orgSet = ( Set<String> ) ouCache.get( getKey( USER_OUS, orgUnit.getContextId() ) );
-        }
-        else
-        {
-            orgSet = ( Set<String> ) ouCache.get( getKey( PERM_OUS, orgUnit.getContextId() ) );
-        }
+            permPoolLock.lock();
+            @SuppressWarnings("unchecked")
+            Set<String> permSet = ( Set<String> ) ouCache.get( getKey( PERM_OUS, orgUnit.getContextId() ) );
 
-        if ( orgSet == null )
-        {
-            orgSet = loadOrgSet( orgUnit );
+            if ( permSet == null )
+            {
+                permSet = loadOrgSet( orgUnit );
+            }
+            
+            return permSet;
         }
-        return orgSet;
+        finally
+        {
+            permPoolLock.unlock();
+        }
+    }
+
+
+    /**
+     *
+     * @param orgUnit will be a User OU
+     * @return Set containing the OU mapping to the user type and tenant.
+     */
+    private static Set<String> getUserSet( OrgUnit orgUnit )
+    {
+        try
+        {
+            userPoolLock.lock();
+            @SuppressWarnings("unchecked")
+            Set<String> userSet = ( Set<String> ) ouCache.get( getKey( USER_OUS, orgUnit.getContextId() ) );
+
+            if ( userSet == null )
+            {
+                userSet = loadOrgSet( orgUnit );
+            }
+            
+            return userSet;
+        }
+        finally
+        {
+            userPoolLock.unlock();
+        }
     }
 
 
@@ -181,6 +233,7 @@ public final class OrgUnitP
     final OrgUnit read( OrgUnit entity ) throws SecurityException
     {
         validate( entity, false );
+        
         return oDao.findByKey( entity );
     }
 
@@ -213,24 +266,44 @@ public final class OrgUnitP
     {
         validate( entity, false );
         OrgUnit oe = oDao.create( entity );
+        
         if ( entity.getType() == OrgUnit.Type.USER )
         {
-            Set<String> userPool = getOrgSet( entity );
-            synchronized ( userPoolSynchLock )
+            try
             {
+                userPoolLock.lock();
+
+                Set<String> userPool = getUserSet( entity );
+                
                 if ( userPool != null )
+                {
                     userPool.add( entity.getName() );
+                }
+            }
+            finally
+            {
+                userPoolLock.unlock();
             }
         }
         else
         {
-            Set<String> permPool = getOrgSet( entity );
-            synchronized ( permPoolSynchLock )
+            try
             {
+                permPoolLock.lock();
+
+                Set<String> permPool = getPermSet( entity );
+                
                 if ( permPool != null )
+                {
                     permPool.add( entity.getName() );
+                }
+            }
+            finally
+            {
+                permPoolLock.unlock();
             }
         }
+        
         return oe;
     }
 
@@ -248,6 +321,7 @@ public final class OrgUnitP
     final OrgUnit update( OrgUnit entity ) throws SecurityException
     {
         validate( entity, false );
+        
         return oDao.update( entity );
     }
 
@@ -279,24 +353,42 @@ public final class OrgUnitP
     final OrgUnit delete( OrgUnit entity ) throws SecurityException
     {
         oDao.remove( entity );
+        
         if ( entity.getType() == OrgUnit.Type.USER )
         {
-            Set<String> userPool = getOrgSet( entity );
-            synchronized ( userPoolSynchLock )
+            try
             {
+                userPoolLock.lock();
+                Set<String> userPool = getUserSet( entity );
+
                 if ( userPool != null )
+                {
                     userPool.remove( entity.getName() );
+                }
+            }
+            finally
+            {
+                userPoolLock.unlock();
             }
         }
         else
         {
-            Set<String> permPool = getOrgSet( entity );
-            synchronized ( permPoolSynchLock )
+            try
             {
+                permPoolLock.lock();
+                Set<String> permPool = getPermSet( entity );
+
                 if ( permPool != null )
+                {
                     permPool.remove( entity.getName() );
+                }
+            }
+            finally
+            {
+                permPoolLock.unlock();
             }
         }
+        
         return entity;
     }
 
@@ -327,14 +419,17 @@ public final class OrgUnitP
         throws SecurityException
     {
         VUtil.safeText( entity.getName(), GlobalIds.OU_LEN );
+        
         if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }
+        
         if ( entity.getType() == null )
         {
             String error = "validate null or empty org unit type";
             int errCode;
+            
             if ( entity.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_TYPE_NULL_PERM;
@@ -343,6 +438,7 @@ public final class OrgUnitP
             {
                 errCode = GlobalErrIds.ORG_TYPE_NULL_USER;
             }
+            
             throw new SecurityException( errCode, error );
         }
     }
@@ -358,11 +454,12 @@ public final class OrgUnitP
     private static String getKey( String type, String contextId )
     {
         String key = type;
+        
         if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )
         {
             key += ":" + contextId;
-
         }
+        
         return key;
     }
 }
