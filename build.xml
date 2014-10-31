@@ -268,7 +268,7 @@
        <property name="test.showoutput" value="yes" />
 
        <!-- define Maven coordinates (publishing only) -->
-       <property name="groupId" value="org.openldap" />
+       <property name="groupId" value="org.apache.directory" />
        <property name="artifactId" value="fortress" />
 
        <!-- defined maven snapshots and staging repository id and url (publishing only) -->
