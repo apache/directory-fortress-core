@@ -21,6 +21,7 @@ package org.apache.directory.fortress.core.rbac;
 
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.mavibot.btree.util.Strings;
 
 import java.io.InputStream;
 
@@ -52,34 +53,36 @@ public class ClassUtil
      * @throws org.apache.directory.fortress.core.CfgException in the event of failure to instantiate.
      *
      */
-    public static Object createInstance(String className)
-        throws CfgException
+    public static Object createInstance(String className) throws CfgException
     {
         Object target;
+        
         try
         {
-            if (className == null || className.length() == 0)
+            if ( Strings.isEmpty( className ) )
             {
                 String error = "createInstance() null or empty classname";
                 throw new CfgException(GlobalErrIds.FT_MGR_CLASS_NAME_NULL, error);
             }
-            target = Class.forName(className).newInstance();
+            
+            target = Class.forName( className ).newInstance();
         }
-        catch (java.lang.ClassNotFoundException e)
+        catch ( ClassNotFoundException e )
         {
             String error = "createInstance() className [" + className + "] caught java.lang.ClassNotFoundException=" + e;
             throw new CfgException(GlobalErrIds.FT_MGR_CLASS_NOT_FOUND, error, e);
         }
-        catch (java.lang.InstantiationException e)
+        catch ( InstantiationException e )
         {
             String error = "createInstance()  [" + className + "] caught java.lang.InstantiationException=" + e;
             throw new CfgException(GlobalErrIds.FT_MGR_INST_EXCEPTION, error, e);
         }
-        catch (java.lang.IllegalAccessException e)
+        catch ( IllegalAccessException e )
         {
             String error = "createInstance()  [" + className + "] caught java.lang.IllegalAccessException=" + e;
             throw new CfgException(GlobalErrIds.FT_MGR_ILLEGAL_ACCESS, error, e);
         }
+        
         return target;
 	}
 
@@ -88,16 +91,17 @@ public class ClassUtil
      * Find a file on the classloader and return as InputStream.
      * @param name contains the name of the file resource.
      * @return handle to the InputStream
-     * @throws org.apache.directory.fortress.core.CfgException in the event resource is not found on classloader.
+     * @throws CfgException in the event resource is not found on classloader.
      */
-    public static InputStream resourceAsStream(String name) throws CfgException
+    public static InputStream resourceAsStream( String name ) throws CfgException
     {
-        InputStream is;
-        is = ClassUtil.class.getClassLoader().getResourceAsStream(name);
-        if (is == null)
+        InputStream is = ClassUtil.class.getClassLoader().getResourceAsStream( name );
+        
+        if ( is == null )
         {
             throw new CfgException(GlobalErrIds.FT_RESOURCE_NOT_FOUND, name);
         }
+        
         return is;
     }
 }
