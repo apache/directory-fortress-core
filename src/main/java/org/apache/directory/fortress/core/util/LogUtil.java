@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.util;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.util.attr.VUtil;
@@ -30,8 +31,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  */
 public class LogUtil
 {
-    //final private static Logger log = Logger.getLogger(LogUtil.class.getName());
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( LogUtil.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( LogUtil.class.getName() );
 
 
     /**
@@ -41,35 +41,42 @@ public class LogUtil
      */
     public static void logIt(String msg)
     {
-        if(VUtil.isNotNullOrEmpty( getContext() ))
-            msg = getContext() + " " + msg;
-
-        if(LOG.isDebugEnabled())
+        if ( LOG.isDebugEnabled() || LOG.isInfoEnabled() || LOG.isWarnEnabled() || LOG.isErrorEnabled() )
         {
-            LOG.debug( msg );
+            if ( VUtil.isNotNullOrEmpty( getContext() ) )
+            {
+                msg = getContext() + " " + msg;
+            }
+    
+            if ( LOG.isDebugEnabled() )
+            {
+                LOG.debug( msg );
+            }
+            else if( LOG.isInfoEnabled() )
+            {
+                LOG.info( msg );
+            }
+            else if ( LOG.isWarnEnabled() )
+            {
+                LOG.warn( msg );
+            }
+            else if ( LOG.isErrorEnabled() )
+            {
+                LOG.error( msg );
+            }
         }
-        else if(LOG.isInfoEnabled())
-        {
-            LOG.info( msg );
-        }
-        else if(LOG.isWarnEnabled())
-        {
-            LOG.warn( msg );
-        }
-        else if(LOG.isErrorEnabled())
-        {
-            LOG.error( msg );
-        }
-	}
+    }
 
     public static String getContext()
     {
         String contextId = null;
         String tenant = System.getProperty( GlobalIds.TENANT );
+        
         if ( VUtil.isNotNullOrEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
         {
             contextId = tenant;
         }
+
         return contextId;
     }
 }
