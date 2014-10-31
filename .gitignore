@@ -8,7 +8,6 @@ eclipse-classes
 *.ipr
 lib/*.jar
 build
-config
 dist
 .externalToolBuilders
 apache-ant-1.9.1
