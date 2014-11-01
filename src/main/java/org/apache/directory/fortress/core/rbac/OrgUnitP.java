@@ -22,8 +22,8 @@ package org.apache.directory.fortress.core.rbac;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,8 +63,8 @@ public final class OrgUnitP
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     // these fields are used to synchronize access to the above static pools:
-    private static final Lock userPoolLock = new ReentrantLock();
-    private static final Lock permPoolLock = new ReentrantLock();
+    private static final ReadWriteLock userPoolLock = new ReentrantReadWriteLock();
+    private static final ReadWriteLock permPoolLock = new ReentrantReadWriteLock();
     private static Cache ouCache;
 
     // DAO class for OU data sets must be initializer before the other statics:
@@ -93,7 +93,7 @@ public final class OrgUnitP
      * @param entity
      * @return
      */
-    final boolean isValid( OrgUnit entity )
+    /* No Qualifier */final boolean isValid( OrgUnit entity )
     {
         boolean result = false;
         
@@ -101,7 +101,7 @@ public final class OrgUnitP
         {
             try
             {
-                userPoolLock.lock();
+                userPoolLock.readLock().lock();
                 Set<String> userPool = getUserSet( entity );
 
                 if ( userPool != null )
@@ -111,14 +111,14 @@ public final class OrgUnitP
             }
             finally
             {
-                userPoolLock.unlock();
+                userPoolLock.readLock().unlock();
             }
         }
         else
         {
             try
             {
-                permPoolLock.lock();
+                permPoolLock.readLock().lock();
                 Set<String> permPool = getPermSet( entity );
 
                 if ( permPool != null )
@@ -128,7 +128,7 @@ public final class OrgUnitP
             }
             finally
             {
-                permPoolLock.unlock();
+                permPoolLock.readLock().unlock();
             }
         }
         
@@ -137,16 +137,17 @@ public final class OrgUnitP
 
 
     /**
-     * @param orgUnit
-     * @return
+     * Loads the User set for an orgUnit
+     * @param orgUnit The orgUnit
+     * @return The set of associated User
      */
-    private static Set<String> loadOrgSet( OrgUnit orgUnit )
+    private static Set<String> loadUserSet( OrgUnit orgUnit )
     {
-        Set<String> ouSet = null;
+        Set<String> ouUserSet = null;
         
         try
         {
-            ouSet = oDao.getOrgs( orgUnit );
+            ouUserSet = oDao.getOrgs( orgUnit );
         }
         catch ( SecurityException se )
         {
@@ -154,17 +155,34 @@ public final class OrgUnitP
             LOG.info( warning, se );
         }
         
-        if ( orgUnit.getType() == OrgUnit.Type.USER )
-        {
-            // TODO:  add context id to this cache
-            ouCache.put( getKey( USER_OUS, orgUnit.getContextId() ), ouSet );
-        }
-        else
-        {
-            ouCache.put( getKey( PERM_OUS, orgUnit.getContextId() ), ouSet );
-        }
+        ouCache.put( getKey( USER_OUS, orgUnit.getContextId() ), ouUserSet );
 
-        return ouSet;
+        return ouUserSet;
+    }
+
+
+    /**
+     * Loads the Perm set for an orgUnit
+     * @param orgUnit The orgUnit
+     * @return The set of associated Perms
+     */
+    private static Set<String> loadPermSet( OrgUnit orgUnit )
+    {
+        Set<String> ouPermSet = null;
+        
+        try
+        {
+            ouPermSet = oDao.getOrgs( orgUnit );
+        }
+        catch ( SecurityException se )
+        {
+            String warning = "loadOrgSet static initializer caught SecurityException=" + se;
+            LOG.info( warning, se );
+        }
+        
+        ouCache.put( getKey( PERM_OUS, orgUnit.getContextId() ), ouPermSet );
+
+        return ouPermSet;
     }
 
 
@@ -175,23 +193,15 @@ public final class OrgUnitP
      */
     private static Set<String> getPermSet( OrgUnit orgUnit )
     {
-        try
-        {
-            permPoolLock.lock();
-            @SuppressWarnings("unchecked")
-            Set<String> permSet = ( Set<String> ) ouCache.get( getKey( PERM_OUS, orgUnit.getContextId() ) );
+        @SuppressWarnings("unchecked")
+        Set<String> permSet = ( Set<String> ) ouCache.get( getKey( PERM_OUS, orgUnit.getContextId() ) );
 
-            if ( permSet == null )
-            {
-                permSet = loadOrgSet( orgUnit );
-            }
-            
-            return permSet;
-        }
-        finally
+        if ( permSet == null )
         {
-            permPoolLock.unlock();
+            permSet = loadPermSet( orgUnit );
         }
+        
+        return permSet;
     }
 
 
@@ -202,23 +212,15 @@ public final class OrgUnitP
      */
     private static Set<String> getUserSet( OrgUnit orgUnit )
     {
-        try
-        {
-            userPoolLock.lock();
-            @SuppressWarnings("unchecked")
-            Set<String> userSet = ( Set<String> ) ouCache.get( getKey( USER_OUS, orgUnit.getContextId() ) );
+        @SuppressWarnings("unchecked")
+        Set<String> userSet = ( Set<String> ) ouCache.get( getKey( USER_OUS, orgUnit.getContextId() ) );
 
-            if ( userSet == null )
-            {
-                userSet = loadOrgSet( orgUnit );
-            }
-            
-            return userSet;
-        }
-        finally
+        if ( userSet == null )
         {
-            userPoolLock.unlock();
+            userSet = loadUserSet( orgUnit );
         }
+        
+        return userSet;
     }
 
 
@@ -271,7 +273,7 @@ public final class OrgUnitP
         {
             try
             {
-                userPoolLock.lock();
+                userPoolLock.writeLock().lock();
 
                 Set<String> userPool = getUserSet( entity );
                 
@@ -282,14 +284,14 @@ public final class OrgUnitP
             }
             finally
             {
-                userPoolLock.unlock();
+                userPoolLock.writeLock().unlock();
             }
         }
         else
         {
             try
             {
-                permPoolLock.lock();
+                permPoolLock.writeLock().lock();
 
                 Set<String> permPool = getPermSet( entity );
                 
@@ -300,7 +302,7 @@ public final class OrgUnitP
             }
             finally
             {
-                permPoolLock.unlock();
+                permPoolLock.writeLock().unlock();
             }
         }
         
@@ -358,7 +360,7 @@ public final class OrgUnitP
         {
             try
             {
-                userPoolLock.lock();
+                userPoolLock.writeLock().lock();
                 Set<String> userPool = getUserSet( entity );
 
                 if ( userPool != null )
@@ -368,14 +370,14 @@ public final class OrgUnitP
             }
             finally
             {
-                userPoolLock.unlock();
+                userPoolLock.writeLock().unlock();
             }
         }
         else
         {
             try
             {
-                permPoolLock.lock();
+                permPoolLock.writeLock().lock();
                 Set<String> permPool = getPermSet( entity );
 
                 if ( permPool != null )
@@ -385,7 +387,7 @@ public final class OrgUnitP
             }
             finally
             {
-                permPoolLock.unlock();
+                permPoolLock.writeLock().unlock();
             }
         }
         
