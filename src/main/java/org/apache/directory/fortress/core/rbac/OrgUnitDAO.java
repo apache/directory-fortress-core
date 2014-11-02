@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
@@ -34,12 +35,14 @@ import org.apache.directory.api.ldap.model.entry.Modification;
 import org.apache.directory.api.ldap.model.entry.ModificationOperation;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
+import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.ldap.client.api.LdapConnection;
+import org.apache.directory.mavibot.btree.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -128,22 +131,24 @@ final class OrgUnitDAO extends ApacheDsDataProvider
     final OrgUnit create( OrgUnit entity ) throws CreateException
     {
         LdapConnection ld = null;
-        String dn = getDn( entity );
+        Dn dn = getDn( entity );
 
         try
         {
             Entry entry = new DefaultEntry( dn );
-            entry.add( GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS );
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, ORGUNIT_OBJ_CLASS );
             entity.setId();
             entry.add( GlobalIds.FT_IID, entity.getId() );
+            
+            String description = entity.getDescription();
 
-            if ( entity.getDescription() != null && entity.getDescription().length() > 0 )
+            if ( !Strings.isEmpty( description ) )
             {
-                entry.add( GlobalIds.DESC, entity.getDescription() );
+                entry.add( GlobalIds.DESC, description );
             }
 
             // organizational name requires OU attribute:
-            entry.add( GlobalIds.OU, entity.getName() );
+            entry.add( SchemaConstants.OU_AT, entity.getName() );
 
             // These multi-valued attributes are optional.  The utility function will return quietly if no items are loaded into collection:
             loadAttrs( entity.getParents(), entry, GlobalIds.PARENT_NODES );
@@ -187,7 +192,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
     final OrgUnit update( OrgUnit entity ) throws UpdateException
     {
         LdapConnection ld = null;
-        String dn = getDn( entity );
+        Dn dn = getDn( entity );
 
         try
         {
@@ -241,7 +246,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
     final void deleteParent( OrgUnit entity ) throws UpdateException
     {
         LdapConnection ld = null;
-        String dn = getDn( entity );
+        Dn dn = getDn( entity );
 
         try
         {
@@ -283,7 +288,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
     final OrgUnit remove( OrgUnit entity ) throws RemoveException
     {
         LdapConnection ld = null;
-        String dn = getDn( entity );
+        Dn dn = getDn( entity );
 
         try
         {
@@ -326,7 +331,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
     {
         OrgUnit oe = null;
         LdapConnection ld = null;
-        String dn = getDn( entity );
+        Dn dn = getDn( entity );
 
         try
         {
@@ -474,7 +479,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
      */
     final Set<String> getOrgs( OrgUnit orgUnit ) throws FinderException
     {
-        Set<String> ouSet = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
+        Set<String> ouSet = new TreeSet<String>( String.CASE_INSENSITIVE_ORDER );
         LdapConnection ld = null;
         String orgUnitRoot = getOrgRoot( orgUnit );
 
@@ -487,7 +492,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
 
             while ( searchResults.next() )
             {
-                ouSet.add( getAttribute( searchResults.getEntry(), GlobalIds.OU ) );
+                ouSet.add( getAttribute( searchResults.getEntry(), SchemaConstants.OU_AT ) );
             }
         }
         catch ( LdapException e )
@@ -584,32 +589,41 @@ final class OrgUnitDAO extends ApacheDsDataProvider
 
 
     /**
-     * @param orgUnit
-     * @return
+     * Creates a new Dn for the given orgUnit
+     *  
+     * @param orgUnit The orgUnit
+     * @return A Dn
+     * @throws LdapInvalidDnException If the DN is invalid 
      */
-    private String getDn( OrgUnit orgUnit )
+    private Dn getDn( OrgUnit orgUnit )
     {
-        String dn = null;
-
-        switch ( orgUnit.type )
+        Dn dn = null;
+        
+        try
         {
-            case USER:
-                dn = GlobalIds.OU + "=" + orgUnit.getName() + ","
-                    + getRootDn( orgUnit.getContextId(), GlobalIds.OSU_ROOT );
-                break;
+            switch ( orgUnit.type )
+            {
+                case USER:
+                    dn = new Dn( GlobalIds.OU + "=" + orgUnit.getName(), getRootDn( orgUnit.getContextId(), GlobalIds.OSU_ROOT ) );
+                    break;
+    
+                case PERM:
+                    dn = new Dn( GlobalIds.OU + "=" + orgUnit.getName(), getRootDn( orgUnit.getContextId(), GlobalIds.PSU_ROOT ) );
+                    break;
+    
+                default:
+                    String warning = "getDn invalid type";
+                    LOG.warn( warning );
+                    break;
+            }
 
-            case PERM:
-                dn = GlobalIds.OU + "=" + orgUnit.getName() + ","
-                    + getRootDn( orgUnit.getContextId(), GlobalIds.PSU_ROOT );
-                break;
-
-            default:
-                String warning = "getDn invalid type";
-                LOG.warn( warning );
-                break;
+            return dn;
         }
-
-        return dn;
+        catch ( LdapInvalidDnException lide )
+        {
+            LOG.error( lide.getMessage() );
+            throw new RuntimeException( lide.getMessage() );
+        }
     }
 
 
