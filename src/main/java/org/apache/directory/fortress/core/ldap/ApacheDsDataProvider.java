@@ -339,6 +339,23 @@ public abstract class ApacheDsDataProvider
 
 
     /**
+     * Read the ldap record from specified location.
+     *
+     * @param connection handle to ldap connection.
+     * @param dn         contains ldap distinguished name.
+     * @param attrs      array contains array names to pull back.
+     * @return ldap entry.
+     * @throws LdapException in the event system error occurs.
+     */
+    protected Entry read( LdapConnection connection, Dn dn, String[] attrs ) throws LdapException
+    {
+        counters.incrementRead();
+
+        return connection.lookup( dn, attrs );
+    }
+
+
+    /**
      * Read the ldap record from specified location with user assertion.
      *
      * @param connection handle to ldap connection.
@@ -385,7 +402,7 @@ public abstract class ApacheDsDataProvider
     {
         counters.incrementAdd();
 
-        if ( GlobalIds.IS_AUDIT && entity != null && entity.getAdminSession() != null )
+        if ( GlobalIds.IS_AUDIT && ( entity != null ) && ( entity.getAdminSession() != null ) )
         {
             if ( VUtil.isNotNullOrEmpty( entity.getAdminSession().getInternalUserId() ) )
             {
@@ -423,6 +440,21 @@ public abstract class ApacheDsDataProvider
 
 
     /**
+     * Update exiting ldap entry to the directory.  Do not add audit context.
+     *
+     * @param connection handle to ldap connection.
+     * @param dn         contains distinguished node of entry.
+     * @param mods       contains data to modify.
+     * @throws LdapException in the event system error occurs.
+     */
+    protected void modify( LdapConnection connection, Dn dn, List<Modification> mods ) throws LdapException
+    {
+        counters.incrementMod();
+        connection.modify( dn, mods.toArray( new Modification[]{} ) );
+    }
+
+
+    /**
      * Update exiting ldap entry to the directory.  Add audit context.
      *
      * @param connection handle to ldap connection.
@@ -432,6 +464,24 @@ public abstract class ApacheDsDataProvider
      * @throws LdapException in the event system error occurs.
      */
     protected void modify( LdapConnection connection, String dn, List<Modification> mods,
+        FortEntity entity ) throws LdapException
+    {
+        counters.incrementMod();
+        audit( mods, entity );
+        connection.modify( dn, mods.toArray( new Modification[]{} ) );
+    }
+
+
+    /**
+     * Update exiting ldap entry to the directory.  Add audit context.
+     *
+     * @param connection handle to ldap connection.
+     * @param dn         contains distinguished node of entry.
+     * @param mods       contains data to modify.
+     * @param entity     contains audit context.
+     * @throws LdapException in the event system error occurs.
+     */
+    protected void modify( LdapConnection connection, Dn dn, List<Modification> mods,
         FortEntity entity ) throws LdapException
     {
         counters.incrementMod();
@@ -465,6 +515,31 @@ public abstract class ApacheDsDataProvider
      * @throws LdapException in the event system error occurs.
      */
     protected void delete( LdapConnection connection, String dn, FortEntity entity ) throws LdapException
+    {
+        counters.incrementDelete();
+        List<Modification> mods = new ArrayList<Modification>();
+        audit( mods, entity );
+
+        if ( mods.size() > 0 )
+        {
+            modify( connection, dn, mods );
+        }
+
+        connection.delete( dn );
+    }
+
+
+    /**
+     * Delete exiting ldap entry from the directory.  Add audit context.  This method will call modify prior to
+     * delete which will
+     * force corresponding audit record to be written to slapd access log.
+     *
+     * @param connection handle to ldap connection.
+     * @param dn         contains distinguished node of entry targeted for removal..
+     * @param entity     contains audit context.
+     * @throws LdapException in the event system error occurs.
+     */
+    protected void delete( LdapConnection connection, Dn dn, FortEntity entity ) throws LdapException
     {
         counters.incrementDelete();
         List<Modification> mods = new ArrayList<Modification>();
@@ -1260,16 +1335,19 @@ public abstract class ApacheDsDataProvider
         if ( VUtil.isNotNullOrEmpty( value ) )
         {
             int length = value.length();
+            
             if ( length > validLen )
             {
                 String error = "encodeSafeText value [" + value + "] invalid length [" + length + "]";
                 throw new LdapException( error );
             }
+            
             if ( GlobalIds.LDAP_FILTER_SIZE_FOUND )
             {
                 value = VUtil.escapeLDAPSearchFilter( value );
             }
         }
+        
         return value;
     }
 
