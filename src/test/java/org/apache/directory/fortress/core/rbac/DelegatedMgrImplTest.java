@@ -931,17 +931,17 @@ public class DelegatedMgrImplTest extends TestCase
     public static void addOrgUnit( String msg, String[] org )
     {
         LogUtil.logIt( msg );
+        
         try
         {
             DelAdminMgr dAdminMgr = DelAdminMgrFactory.createInstance( TestUtils.getContext() );
             OrgUnit ou = OrgUnitTestData.getOrgUnit( org );
             OrgUnit entity = dAdminMgr.add( ou );
-            LOG.debug( "addOrgUnit ou [" + entity.getName() + "] successful" );
+            LOG.debug( "addOrgUnit ou [{}] successful", entity.getName() );
         }
         catch ( SecurityException ex )
         {
-            LOG.error(
-                "addOrgUnit caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            LOG.error( "addOrgUnit caught SecurityException rc={}, msg={}", ex.getErrorId(), ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }
