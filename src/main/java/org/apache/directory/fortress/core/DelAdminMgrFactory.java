@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.cfg.Config;
 import org.apache.directory.fortress.core.rbac.ClassUtil;
 import org.apache.directory.fortress.core.rbac.DelAdminMgrImpl;
@@ -39,6 +40,7 @@ public class DelAdminMgrFactory
 {
     private static String dAdminClassName = Config.getProperty(GlobalIds.DELEGATED_ADMIN_IMPLEMENTATION);
     private static final String CLS_NM = DelAdminMgrFactory.class.getName();
+    private static final String CREATE_INSTANCE_METHOD = CLS_NM + ".createInstance";
 
     /**
      * Create and return a reference to {@link DelAdminMgr} object using HOME context.
@@ -62,10 +64,11 @@ public class DelAdminMgrFactory
     public static DelAdminMgr createInstance(String contextId)
         throws SecurityException
     {
-        VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
-        if (!VUtil.isNotNullOrEmpty(dAdminClassName))
+        VUtil.assertNotNull( contextId, GlobalErrIds.CONTEXT_NULL, CREATE_INSTANCE_METHOD );
+        
+        if ( Strings.isEmpty( dAdminClassName ) )
         {
-            if(GlobalIds.IS_REST)
+            if ( GlobalIds.IS_REST )
             {
                 dAdminClassName = DelAdminMgrRestImpl.class.getName();
             }
@@ -75,8 +78,9 @@ public class DelAdminMgrFactory
             }
         }
 
-        DelAdminMgr delAdminMgr = (DelAdminMgr) ClassUtil.createInstance(dAdminClassName);
+        DelAdminMgr delAdminMgr = (DelAdminMgr) ClassUtil.createInstance( dAdminClassName );
         delAdminMgr.setContextId(contextId);
+        
         return delAdminMgr;
     }
 
