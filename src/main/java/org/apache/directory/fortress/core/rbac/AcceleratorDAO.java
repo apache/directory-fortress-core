@@ -20,6 +20,8 @@
 package org.apache.directory.fortress.core.rbac;
 
 
+import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.openldap.accelerator.api.addRole.RbacAddRoleRequest;
 import org.openldap.accelerator.api.addRole.RbacAddRoleRequestImpl;
@@ -36,9 +38,6 @@ import org.openldap.accelerator.api.deleteSession.RbacDeleteSessionResponse;
 import org.openldap.accelerator.api.dropRole.RbacDropRoleRequest;
 import org.openldap.accelerator.api.dropRole.RbacDropRoleRequestImpl;
 import org.openldap.accelerator.api.dropRole.RbacDropRoleResponse;
-import org.apache.directory.api.ldap.model.exception.LdapException;
-import org.apache.directory.ldap.client.api.LdapConnection;
-
 import org.openldap.accelerator.api.sessionRoles.RbacSessionRolesRequest;
 import org.openldap.accelerator.api.sessionRoles.RbacSessionRolesRequestImpl;
 import org.openldap.accelerator.api.sessionRoles.RbacSessionRolesResponse;
@@ -47,6 +46,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.ldap.client.api.LdapConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,6 @@ import java.util.List;
  * @author Shawn McKinney
  */
 final class AcceleratorDAO extends ApacheDsDataProvider
-
 {
     private static final Logger LOG = LoggerFactory.getLogger( AcceleratorDAO.class.getName() );
 
@@ -86,6 +85,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
     {
         Session session = null;
         LdapConnection ld = null;
+        
         try
         {
             ld = getAdminConnection();
@@ -96,6 +96,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             rbacCreateSessionRequest.setTenantId( user.getContextId() );
             rbacCreateSessionRequest.setUserIdentity( user.getUserId() );
             rbacCreateSessionRequest.setPassword( new String(user.getPassword()) );
+            
             if( VUtil.isNotNullOrEmpty( user.getRoles() ))
             {
                 for ( UserRole userRole : user.getRoles())
@@ -103,12 +104,14 @@ final class AcceleratorDAO extends ApacheDsDataProvider
                     rbacCreateSessionRequest.addRole( userRole.getName() );
                 }
             }
+            
             // Send the request
             RbacCreateSessionResponse rbacCreateSessionResponse = ( RbacCreateSessionResponse ) ld.extended(
                 rbacCreateSessionRequest );
-            LOG.debug( "createSession userId: " + user.getUserId() + ", sessionId: " +  rbacCreateSessionResponse.getSessionId() + ", resultCode: " +   rbacCreateSessionResponse.getLdapResult().getResultCode().getResultCode());
+            LOG.debug( "createSession userId: {}, sessionId: {}",user.getUserId(), rbacCreateSessionResponse.getSessionId() + ", resultCode: " +   rbacCreateSessionResponse.getLdapResult().getResultCode());
             session = new Session( user, rbacCreateSessionResponse.getSessionId() );
-            if(rbacCreateSessionResponse.getLdapResult().getResultCode().getResultCode() == 0)
+            
+            if ( rbacCreateSessionResponse.getLdapResult().getResultCode() == ResultCodeEnum.SUCCESS )
             {
                 session.setAuthenticated(true);
             }
@@ -129,6 +132,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
+        
         return session;
     }
 
@@ -148,35 +152,31 @@ final class AcceleratorDAO extends ApacheDsDataProvider
      * @return True if user has access, false otherwise.
      * @throws SecurityException rethrows {@code LdapException} with {@code GlobalErrIds.ACEL_CHECK_ACCESS_ERR}.
      */
-    boolean checkAccess( Session session, Permission perm )
-        throws SecurityException
+    boolean checkAccess( Session session, Permission perm ) throws SecurityException
     {
         boolean result = false;
         LdapConnection ld = null;
+        
         try
         {
             ld = getAdminConnection();
             RbacCheckAccessRequest rbacCheckAccessRequest = new RbacCheckAccessRequestImpl();
             rbacCheckAccessRequest.setSessionId( session.getSessionId() );
             rbacCheckAccessRequest.setObject( perm.getObjName() );
+            
             // objectId is optional
             if(VUtil.isNotNullOrEmpty( perm.getObjId()))
             {
                 rbacCheckAccessRequest.setObjectId( perm.getObjId() );
             }
+            
             rbacCheckAccessRequest.setOperation( perm.getOpName() );
             // Send the request
             RbacCheckAccessResponse rbacCheckAccessResponse = ( RbacCheckAccessResponse ) ld.extended(
                 rbacCheckAccessRequest );
-            LOG.debug( "checkAccess result: {}", rbacCheckAccessResponse.getLdapResult().getResultCode().getResultCode());
-            if(rbacCheckAccessResponse.getLdapResult().getResultCode().getResultCode() == 0)
-            {
-                result = true;
-            }
-            else
-            {
-                result = false;
-            }
+            LOG.debug( "checkAccess result: {}", rbacCheckAccessResponse.getLdapResult().getResultCode() );
+            
+            result = rbacCheckAccessResponse.getLdapResult().getResultCode() == ResultCodeEnum.SUCCESS;
         }
         catch ( LdapException e )
         {
@@ -188,6 +188,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
+        
         return result;
     }
 
@@ -205,6 +206,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
     void dropActiveRole( Session session, UserRole userRole ) throws SecurityException
     {
         LdapConnection ld = null;
+        
         try
         {
             ld = getAdminConnection();
@@ -215,8 +217,9 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             // Send the request
             RbacDropRoleResponse rbacDropRoleResponse = ( RbacDropRoleResponse ) ld.extended(
                 dropRoleRequest );
-            LOG.debug( "dropActiveRole result: {}", rbacDropRoleResponse.getLdapResult().getResultCode().getResultCode());
-            if(rbacDropRoleResponse.getLdapResult().getResultCode().getResultCode() != 0)
+            LOG.debug( "dropActiveRole result: {}", rbacDropRoleResponse.getLdapResult().getResultCode() );
+            
+            if ( rbacDropRoleResponse.getLdapResult().getResultCode() != ResultCodeEnum.SUCCESS )
             {
                 String info = "dropActiveRole Role [" + userRole.getName() + "] User ["
                     + session.getUserId() + "], not previously activated.";
@@ -234,6 +237,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             closeAdminConnection( ld );
         }
     }
+    
 
     /**
      * Activate user role into rbac session
@@ -248,6 +252,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
     void addActiveRole( Session session, UserRole userRole ) throws SecurityException
     {
         LdapConnection ld = null;
+        
         try
         {
             ld = getAdminConnection();
@@ -258,12 +263,14 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             // Send the request
             RbacAddRoleResponse rbacAddRoleResponse = ( RbacAddRoleResponse ) ld.extended(
                 addRoleRequest );
-            LOG.debug( "addActiveRole result: {}", rbacAddRoleResponse.getLdapResult().getResultCode().getResultCode());
-            if(rbacAddRoleResponse.getLdapResult().getResultCode().getResultCode() != 0)
+            LOG.debug( "addActiveRole result: {}", rbacAddRoleResponse.getLdapResult().getResultCode() );
+            
+            if ( rbacAddRoleResponse.getLdapResult().getResultCode() != ResultCodeEnum.SUCCESS )
             {
                 String info;
                 int rc;
-                if(rbacAddRoleResponse.getLdapResult().getResultCode().getResultCode() == 20)
+                
+                if( rbacAddRoleResponse.getLdapResult().getResultCode() == ResultCodeEnum.ATTRIBUTE_OR_VALUE_EXISTS )
                 {
                     info = "addActiveRole Role [" + userRole.getName() + "] User ["
                         + session.getUserId() + "], already activated.";
@@ -275,6 +282,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
                         + session.getUserId() + "], not authorized for user.";
                     rc = GlobalErrIds.URLE_ACTIVATE_FAILED;
                 }
+                
                 throw new SecurityException( rc, info );
             }
         }
@@ -289,6 +297,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             closeAdminConnection( ld );
         }
     }
+    
 
     /**
      * Delete the stored session on rbac accelerator server.
@@ -300,6 +309,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
     void deleteSession( Session session ) throws SecurityException
     {
         LdapConnection ld = null;
+        
         try
         {
             ld = getAdminConnection();
@@ -309,7 +319,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             // Send the request
             RbacDeleteSessionResponse deleteSessionResponse = ( RbacDeleteSessionResponse ) ld.extended(
                 deleteSessionRequest );
-            LOG.debug( "deleteSession result: {}", deleteSessionResponse.getLdapResult().getResultCode().getResultCode());
+            LOG.debug( "deleteSession result: {}", deleteSessionResponse.getLdapResult().getResultCode());
         }
         catch ( LdapException e )
         {
@@ -338,6 +348,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         List<UserRole> userRoleList = null;
+        
         try
         {
             ld = getAdminConnection();
@@ -348,9 +359,11 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             RbacSessionRolesResponse sessionRolesResponse = ( RbacSessionRolesResponse ) ld.extended(
                 sessionRolesRequest );
             LOG.debug( "sessionRoles result: {}", sessionRolesResponse.getLdapResult().getResultCode().getResultCode());
-            if(VUtil.isNotNullOrEmpty( sessionRolesResponse.getRoles() ) )
+            
+            if ( VUtil.isNotNullOrEmpty( sessionRolesResponse.getRoles() ) )
             {
-                userRoleList = new ArrayList<>(  );
+                userRoleList = new ArrayList<UserRole>();
+                
                 for( String roleNm : sessionRolesResponse.getRoles() )
                 {
                     userRoleList.add( new UserRole( session.getUserId(), roleNm ) );
@@ -368,6 +381,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
+        
         return userRoleList;
     }
 }
