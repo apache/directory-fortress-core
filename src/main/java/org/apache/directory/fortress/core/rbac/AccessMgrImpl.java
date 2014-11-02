@@ -76,7 +76,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
 
 
     // package private constructor ensures outside classes cannot use:
-    public AccessMgrImpl()
+    protected AccessMgrImpl()
     {
     }
 
