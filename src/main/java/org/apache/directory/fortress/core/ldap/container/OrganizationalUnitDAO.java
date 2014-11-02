@@ -97,16 +97,21 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String nodeDn = GlobalIds.OU + "=" + oe.getName() + ",";
+        
         if ( VUtil.isNotNullOrEmpty( oe.getParent() ) )
+        {
             nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
+        }
+        
         nodeDn += getRootDn( oe.getContextId() );
+        
         try
         {
-            LOG.info( "create container dn [" + nodeDn + "]" );
-            Entry myEntry = new DefaultEntry( nodeDn );
-            myEntry.add( GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS );
-            myEntry.add( GlobalIds.OU, oe.getName() );
-            myEntry.add( GlobalIds.DESC, oe.getDescription() );
+            LOG.info( "create container dn [{}]",  nodeDn );
+            Entry myEntry = new DefaultEntry( nodeDn,
+                GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS,
+                GlobalIds.OU, oe.getName(),
+                GlobalIds.DESC, oe.getDescription() );
             ld = getAdminConnection();
             add( ld, myEntry );
         }
@@ -132,11 +137,16 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String nodeDn = GlobalIds.OU + "=" + oe.getName() + ",";
+        
         if ( VUtil.isNotNullOrEmpty( oe.getParent() ) )
+        {
             nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
+        }
+        
         nodeDn += getRootDn( oe.getContextId(), GlobalIds.SUFFIX );
 
-        LOG.info( "remove container dn [" + nodeDn + "]" );
+        LOG.info( "remove container dn [{}]", nodeDn );
+        
         try
         {
             ld = getAdminConnection();
