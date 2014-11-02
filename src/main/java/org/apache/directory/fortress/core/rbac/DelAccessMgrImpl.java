@@ -60,7 +60,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     private static final String SUPER_ADMIN = Config.getProperty("superadmin.role", "FortressSuperAdmin");
 
     // package private constructor ensures outside classes cannot use:
-    DelAccessMgrImpl()
+    /* No qualifier */ DelAccessMgrImpl()
     {}
 
     /**
