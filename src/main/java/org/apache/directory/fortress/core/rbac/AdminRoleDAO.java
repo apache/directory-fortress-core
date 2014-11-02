@@ -239,6 +239,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
             if ( entity.isTemporalSet() )
             {
                 String szRawData = CUtil.setConstraint( entity );
+                
                 if ( VUtil.isNotNullOrEmpty( szRawData ) )
                 {
                     mods.add( new DefaultModification(
@@ -356,6 +357,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
+        
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
@@ -460,7 +462,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      */
     final List<AdminRole> findRoles( AdminRole adminRole ) throws FinderException
     {
-        List<AdminRole> roleList = new ArrayList<>();
+        List<AdminRole> roleList = new ArrayList<AdminRole>();
         LdapConnection ld = null;
         String roleRoot = getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
         String filter;
@@ -508,7 +510,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      */
     final List<String> findRoles( AdminRole adminRole, int limit ) throws FinderException
     {
-        List<String> roleList = new ArrayList<>();
+        List<String> roleList = new ArrayList<String>();
         LdapConnection ld = null;
         String roleRoot = getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
         String filter;
