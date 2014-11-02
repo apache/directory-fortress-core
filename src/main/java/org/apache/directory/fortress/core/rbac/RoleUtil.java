@@ -23,11 +23,11 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
@@ -305,6 +305,7 @@ public final class RoleUtil
         inHier.setContextId( contextId );
         LOG.info( "loadGraph initializing ROLE context [" + inHier.getContextId() + "]" );
         List<Graphable> descendants = null;
+        
         try
         {
             descendants = roleP.getAllDescendants( inHier.getContextId() );
@@ -313,13 +314,13 @@ public final class RoleUtil
         {
             LOG.info( "loadGraph caught SecurityException=" + se );
         }
+        
         Hier hier = HierUtil.loadHier( contextId, descendants );
         SimpleDirectedGraph<String, Relationship> graph;
-        synchronized ( HierUtil.getLock( contextId, HierUtil.Type.ROLE ) )
-        {
-            graph = HierUtil.buildGraph( hier );
-        }
+        
+        graph = HierUtil.buildGraph( hier );
         roleCache.put( getKey( contextId ), graph );
+        
         return graph;
     }
 
@@ -332,10 +333,12 @@ public final class RoleUtil
     private static String getKey( String contextId )
     {
         String key = HierUtil.Type.ROLE.toString();
+        
         if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )
         {
             key += ":" + contextId;
         }
+        
         return key;
     }
 
@@ -347,12 +350,42 @@ public final class RoleUtil
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {
-        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache
-            .get( getKey( contextId ) );
-        if ( graph == null )
+        ReadWriteLock hierLock = HierUtil.getLock( contextId, HierUtil.Type.ROLE );
+        String key = getKey( contextId ) ;
+        
+        try
         {
-            graph = loadGraph( contextId );
+            hierLock.readLock().lock();
+            SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache
+                .get( key );
+            
+            if ( graph == null )
+            {
+                try
+                {
+                    hierLock.readLock().unlock();
+                    hierLock.writeLock().lock();
+
+                    graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache.get( key );
+
+                    if ( graph == null )
+                    {
+                        graph = loadGraph( contextId );
+                    }
+                    
+                    hierLock.readLock().lock();
+                }
+                finally
+                {
+                    hierLock.writeLock().unlock();
+                }
+            }
+            
+            return graph;
         }
-        return graph;
+        finally
+        {
+            hierLock.readLock().unlock();
+        }
     }
 }

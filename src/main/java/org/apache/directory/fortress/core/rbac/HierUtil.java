@@ -26,11 +26,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
@@ -70,6 +71,10 @@ final class HierUtil
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String VERTEX = "Vertex";
 
+    /** A lock used internally to protect the access to the locks map */
+    private static final ReadWriteLock getLockLock = new ReentrantReadWriteLock();
+
+
     /**
      * The 'Type' attribute corresponds to what type of hierarchy is being referred to.
      */
@@ -81,7 +86,7 @@ final class HierUtil
         PSO
     }
 
-    private static final Map<String, Object> synchMap = new HashMap<>();
+    private static final Map<String, ReadWriteLock> synchMap = new HashMap<String, ReadWriteLock>();
 
 
     /**
@@ -90,15 +95,47 @@ final class HierUtil
      * @param type
      * @return
      */
-    static Object getLock( String contextId, Type type )
+    static ReadWriteLock getLock( String contextId, Type type )
     {
-        Object synchObj = synchMap.get( getSynchKey( contextId, type ) );
-        if ( synchObj == null )
+        String syncKey = getSynchKey( contextId, type );
+     
+        try
         {
-            synchObj = new Object();
-            synchMap.put( getSynchKey( contextId, type ), synchObj );
+            getLockLock.readLock().lock();
+            ReadWriteLock synchObj = synchMap.get( syncKey );
+            
+            if ( synchObj == null )
+            {
+                // Not found, we will create a new one and store it into the map
+                try
+                {
+                    getLockLock.readLock().unlock();
+                    getLockLock.writeLock().lock();
+
+                    // Retry immediately to get the lock from the map, it might have been updated by
+                    // another thread while this thread was blocked on the write lock 
+                    synchObj = synchMap.get( syncKey );
+                    
+                    if ( synchObj == null )
+                    {
+                        synchObj = new ReentrantReadWriteLock();
+                        synchMap.put( syncKey, synchObj );
+                    }
+
+                    getLockLock.readLock().lock();
+                }
+                finally
+                {
+                    getLockLock.writeLock().unlock();
+                }
+            }
+            
+            return synchObj;
         }
-        return synchObj;
+        finally
+        {
+            getLockLock.readLock().unlock();
+        }
     }
 
 
