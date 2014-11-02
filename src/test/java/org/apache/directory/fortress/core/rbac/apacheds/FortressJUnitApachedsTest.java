@@ -35,7 +35,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ldap.LdapCounters;
 import org.apache.directory.fortress.core.rbac.AccessMgrImplTest;
 import org.apache.directory.fortress.core.rbac.AdminMgrImplTest;
 import org.apache.directory.fortress.core.rbac.AdminRoleTestData;

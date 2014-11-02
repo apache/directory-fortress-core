@@ -65,10 +65,12 @@ public class TestUtils extends TestCase
     {
         // This property can be overriden with system property:
         String tenant = System.getProperty( GlobalIds.TENANT );
+        
         if ( VUtil.isNotNullOrEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
         {
             contextId = tenant;
         }
+        
         return contextId;
     }
 

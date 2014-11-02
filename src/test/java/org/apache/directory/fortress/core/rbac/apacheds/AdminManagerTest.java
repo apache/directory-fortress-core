@@ -114,9 +114,11 @@ public class AdminManagerTest extends AbstractLdapTestUnit
     private void addUsers( String msg, String[][] uArray, boolean isAdmin )
     {
         LogUtil.logIt( msg );
+        
         try
         {
             AdminMgr adminMgr;
+            
             if ( isAdmin )
             {
                 adminMgr = getManagedAdminMgr();
@@ -125,6 +127,7 @@ public class AdminManagerTest extends AbstractLdapTestUnit
             {
                 adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
             }
+            
             for ( String[] usr : uArray )
             {
                 User user = UserTestData.getUser( usr );

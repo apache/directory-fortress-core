@@ -118,12 +118,14 @@ public class OrganizationalUnitP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.CNTR_NAME_INVLD, error );
         }
+        
         if ( !VUtil.isNotNullOrEmpty( entity.getName() ) )
         {
             String error = "validate name validation failed, null or empty value";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.CNTR_NAME_NULL, error );
         }
+        
         if ( entity.getParent().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
@@ -132,13 +134,16 @@ public class OrganizationalUnitP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.CNTR_PARENT_INVLD, error );
         }
+        
         if ( !VUtil.isNotNullOrEmpty( entity.getParent() ) )
         {
             String error = "validate parent validation failed, null or empty value";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.CNTR_PARENT_NULL, error );
         }
+        
         VUtil.safeText( entity.getDescription(), GlobalIds.DESC_LEN );
+        
         if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );

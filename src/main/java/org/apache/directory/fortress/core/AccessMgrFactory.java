@@ -59,8 +59,7 @@ public class AccessMgrFactory
      * @return instance of {@link AccessMgr}.
      * @throws SecurityException in the event of failure during instantiation.
      */
-    public static AccessMgr createInstance(String contextId)
-        throws SecurityException
+    public static AccessMgr createInstance( String contextId) throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         if (!VUtil.isNotNullOrEmpty(accessClassName))

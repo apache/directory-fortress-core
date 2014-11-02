@@ -306,10 +306,12 @@ public final class AdminRoleP
         throws SecurityException
     {
         VUtil.safeText( entity.getName(), GlobalIds.ROLE_LEN );
+        
         if ( VUtil.isNotNullOrEmpty( entity.getBeginRange() ) && VUtil.isNotNullOrEmpty( entity.getEndRange() ) )
         {
             VUtil.safeText( entity.getBeginRange(), GlobalIds.ROLE_LEN );
             VUtil.safeText( entity.getEndRange(), GlobalIds.ROLE_LEN );
+            
             if ( entity.getBeginRange().equalsIgnoreCase( entity.getEndRange() )
                 && ( !entity.isBeginInclusive() || !entity.isEndInclusive() ) )
             {
@@ -341,42 +343,52 @@ public final class AdminRoleP
             LOG.warn( error );
             throw new SecurityException( GlobalErrIds.ARLE_END_RANGE_NULL, error );
         }
+        
         if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }
+        
         if ( entity.getTimeout() >= 0 )
         {
             VUtil.timeout( entity.getTimeout() );
         }
+        
         if ( VUtil.isNotNullOrEmpty( entity.getBeginTime() ) )
         {
             VUtil.beginTime( entity.getBeginTime() );
         }
+        
         if ( VUtil.isNotNullOrEmpty( entity.getEndTime() ) )
         {
             VUtil.endTime( entity.getEndTime() );
         }
+        
         if ( VUtil.isNotNullOrEmpty( entity.getBeginDate() ) )
         {
             VUtil.beginDate( entity.getBeginDate() );
         }
+        
         if ( VUtil.isNotNullOrEmpty( entity.getEndDate() ) )
         {
             VUtil.endDate( entity.getEndDate() );
         }
+        
         if ( VUtil.isNotNullOrEmpty( entity.getDayMask() ) )
         {
             VUtil.dayMask( entity.getDayMask() );
         }
+        
         if ( VUtil.isNotNullOrEmpty( entity.getBeginLockDate() ) )
         {
             VUtil.beginDate( entity.getBeginDate() );
         }
+        
         if ( VUtil.isNotNullOrEmpty( entity.getEndLockDate() ) )
         {
             VUtil.endDate( entity.getEndLockDate() );
         }
+        
         if ( VUtil.isNotNullOrEmpty( entity.getOsU() ) )
         {
             for ( String ou : entity.getOsU() )
@@ -387,6 +399,7 @@ public final class AdminRoleP
                 op.read( inOe );
             }
         }
+        
         if ( VUtil.isNotNullOrEmpty( entity.getOsP() ) )
         {
             for ( String ou : entity.getOsP() )

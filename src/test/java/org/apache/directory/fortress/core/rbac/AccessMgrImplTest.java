@@ -464,9 +464,11 @@ public class AccessMgrImplTest extends TestCase
     public static void createSessionsWithRolesTrusted( String msg, String[][] uArray, String[][] rArray )
     {
         LogUtil.logIt( msg );
+        
         try
         {
             AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            
             for ( String[] usr : uArray )
             {
                 User user = UserTestData.getUser( usr );
