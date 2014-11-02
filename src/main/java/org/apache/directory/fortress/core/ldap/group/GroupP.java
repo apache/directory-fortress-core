@@ -20,11 +20,11 @@
 package org.apache.directory.fortress.core.ldap.group;
 
 
+import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.rbac.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
@@ -55,6 +55,7 @@ final class GroupP
     final Group add( Group group ) throws SecurityException
     {
         validate( group );
+        
         return gDao.create( group );
     }
 
@@ -68,6 +69,7 @@ final class GroupP
     final Group update( Group group ) throws SecurityException
     {
         validate( group );
+        
         return gDao.update( group );
     }
 
@@ -185,12 +187,13 @@ final class GroupP
      */
     private void validate( Group entity ) throws SecurityException
     {
-        if ( !VUtil.isNotNullOrEmpty( entity.getName() ) )
+        if ( Strings.isEmpty( entity.getName() ) )
         {
             String error = "validate name validation failed, null or empty value";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.GROUP_NAME_NULL, error );
         }
+        
         if ( entity.getName().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
@@ -198,6 +201,7 @@ final class GroupP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.GROUP_NAME_INVLD, error );
         }
+        
         if ( entity.getProtocol().length() > GlobalIds.OU_LEN )
         {
             String error = "validate protocol [" + entity.getProtocol() + "] invalid length [" + entity.getProtocol()
@@ -205,7 +209,8 @@ final class GroupP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.GROUP_PROTOCOL_INVLD, error );
         }
-        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+        
+        if ( !Strings.isEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }

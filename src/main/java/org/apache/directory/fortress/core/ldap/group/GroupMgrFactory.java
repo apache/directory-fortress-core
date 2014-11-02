@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.ldap.group;
 
+import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.cfg.Config;
@@ -41,6 +42,7 @@ public class GroupMgrFactory
 {
     private static String groupClassName = Config.getProperty( GlobalIds.GROUP_IMPLEMENTATION );
     private static final String CLS_NM = GroupMgrFactory.class.getName();
+    private static final String CREATE_INSTANCE_METHOD = CLS_NM + ".createInstance";
 
     /**
      * Create and return a reference to {@link GroupMgr} object using HOME context.
@@ -64,14 +66,16 @@ public class GroupMgrFactory
     public static GroupMgr createInstance(String contextId)
         throws SecurityException
     {
-        VUtil.assertNotNull( contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance" );
-        if (!VUtil.isNotNullOrEmpty(groupClassName))
+        VUtil.assertNotNull( contextId, GlobalErrIds.CONTEXT_NULL, CREATE_INSTANCE_METHOD );
+        
+        if ( Strings.isEmpty( groupClassName ) )
         {
             groupClassName = GroupMgrImpl.class.getName();
         }
 
         GroupMgr groupMgr = (GroupMgr) ClassUtil.createInstance(groupClassName);
         groupMgr.setContextId(contextId);
+        
         return groupMgr;
     }
 
@@ -102,6 +106,7 @@ public class GroupMgrFactory
     {
         GroupMgr groupMgr = createInstance(contextId);
         groupMgr.setAdmin(adminSess);
+        
         return groupMgr;
     }
 }
