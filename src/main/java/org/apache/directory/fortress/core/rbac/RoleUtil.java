@@ -366,12 +366,13 @@ public final class RoleUtil
                     hierLock.readLock().unlock();
                     hierLock.writeLock().lock();
 
-                    graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache.get( key );
+                    // TODO: determine why this (code that was commented out) creates a deadlock:
+                    //graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache.get( key );
 
-                    if ( graph == null )
-                    {
+                    //if ( graph == null )
+                    //{
                         graph = loadGraph( contextId );
-                    }
+                    //}
                     
                     hierLock.readLock().lock();
                 }
