@@ -277,7 +277,6 @@ public abstract class ApacheDsDataProvider
     protected String getRootDn( String contextId, String root )
     {
         String szDn = Config.getProperty( root );
-        StringBuilder dn = new StringBuilder();
 
         // The contextId must not be null, or "HOME" or "null"
         if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) && !contextId
@@ -288,16 +287,22 @@ public abstract class ApacheDsDataProvider
             if ( idx != -1 )
             {
                 // Found. The DN is ,ou=<contextId>,  
+                StringBuilder dn = new StringBuilder();
+
                 dn.append( szDn.substring( 0, idx - 1 ) ).append( "," ).append( GlobalIds.OU ).append( "=" ).append(
                     contextId ).append( "," ).append( szDn.substring( idx ) );
+                
+                return dn.toString();
+            }
+            else
+            {
+                return "";
             }
         }
         else
         {
-            dn.append( szDn );
+            return szDn;
         }
-
-        return dn.toString();
     }
 
 
