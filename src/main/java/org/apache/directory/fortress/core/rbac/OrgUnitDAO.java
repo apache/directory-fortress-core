@@ -494,6 +494,8 @@ final class OrgUnitDAO extends ApacheDsDataProvider
             {
                 ouSet.add( getAttribute( searchResults.getEntry(), SchemaConstants.OU_AT ) );
             }
+            
+            searchResults.close();
         }
         catch ( LdapException e )
         {
@@ -604,11 +606,11 @@ final class OrgUnitDAO extends ApacheDsDataProvider
             switch ( orgUnit.type )
             {
                 case USER:
-                    dn = new Dn( GlobalIds.OU + "=" + orgUnit.getName(), getRootDn( orgUnit.getContextId(), GlobalIds.OSU_ROOT ) );
+                    dn = new Dn( SchemaConstants.OU_AT + "=" + orgUnit.getName(), getRootDn( orgUnit.getContextId(), GlobalIds.OSU_ROOT ) );
                     break;
     
                 case PERM:
-                    dn = new Dn( GlobalIds.OU + "=" + orgUnit.getName(), getRootDn( orgUnit.getContextId(), GlobalIds.PSU_ROOT ) );
+                    dn = new Dn( SchemaConstants.OU_AT + "=" + orgUnit.getName(), getRootDn( orgUnit.getContextId(), GlobalIds.PSU_ROOT ) );
                     break;
     
                 default:
