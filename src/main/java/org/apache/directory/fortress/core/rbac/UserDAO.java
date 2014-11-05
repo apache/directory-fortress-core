@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.Attribute;
@@ -45,7 +46,6 @@ import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -163,7 +163,7 @@ final class UserDAO extends ApacheDsDataProvider
     // The Fortress User entity attributes are stored within standard LDAP object classes along with custom auxiliary object classes:
     private static final String USER_OBJ_CLASS[] =
         {
-            GlobalIds.TOP,
+            SchemaConstants.TOP_OC,
             Config.getProperty( USER_OBJECT_CLASS ),
             USERS_AUX_OBJECT_CLASS_NAME,
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
@@ -250,22 +250,23 @@ final class UserDAO extends ApacheDsDataProvider
     private static final String OPENLDAP_ACCOUNT_LOCKED_TIME = "pwdAccountLockedTime";
     private static final String LOCK_VALUE = "000001010000Z";
     private static final String[] USERID =
-        { GlobalIds.UID };
+        { SchemaConstants.UID_AT };
     private static final String[] ROLES =
         { GlobalIds.USER_ROLE_ASSIGN };
 
     private static final String[] USERID_ATRS =
         {
-            GlobalIds.UID
+            SchemaConstants.UID_AT
     };
 
     // This smaller result set of attributes are needed for user validation and authentication operations.
     private static final String[] AUTHN_ATRS =
         {
             GlobalIds.FT_IID,
-            GlobalIds.UID, PW,
+            SchemaConstants.UID_AT, PW,
             GlobalIds.DESC,
-            GlobalIds.OU, GlobalIds.CN,
+            SchemaConstants.OU_AT, 
+            SchemaConstants.CN_AT,
             SN,
             GlobalIds.CONSTRAINT,
             GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : null,
@@ -277,10 +278,10 @@ final class UserDAO extends ApacheDsDataProvider
     private static final String[] DEFAULT_ATRS =
         {
             GlobalIds.FT_IID,
-            GlobalIds.UID, PW,
+            SchemaConstants.UID_AT, PW,
             GlobalIds.DESC,
-            GlobalIds.OU,
-            GlobalIds.CN,
+            SchemaConstants.OU_AT,
+            SchemaConstants.CN_AT,
             SN,
             GlobalIds.USER_ROLE_DATA,
             GlobalIds.CONSTRAINT,
@@ -337,9 +338,9 @@ final class UserDAO extends ApacheDsDataProvider
 
             Entry myEntry = new DefaultEntry( dn );
 
-            myEntry.add( GlobalIds.OBJECT_CLASS, USER_OBJ_CLASS );
+            myEntry.add( SchemaConstants.OBJECT_CLASS_AT, USER_OBJ_CLASS );
             myEntry.add( GlobalIds.FT_IID, entity.getInternalId() );
-            myEntry.add( GlobalIds.UID, entity.getUserId() );
+            myEntry.add( SchemaConstants.UID_AT, entity.getUserId() );
 
             // CN is required on inetOrgPerson object class, if caller did not set, use the userId:
             if ( !VUtil.isNotNullOrEmpty( entity.getCn() ) )
@@ -347,7 +348,7 @@ final class UserDAO extends ApacheDsDataProvider
                 entity.setCn( entity.getUserId() );
             }
 
-            myEntry.add( GlobalIds.CN, entity.getCn() );
+            myEntry.add( SchemaConstants.CN_AT, entity.getCn() );
 
             // SN is required on inetOrgPerson object class, if caller did not set, use the userId:
             if ( !VUtil.isNotNullOrEmpty( entity.getSn() ) )
@@ -395,7 +396,7 @@ final class UserDAO extends ApacheDsDataProvider
 
             if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
             {
-                myEntry.add( GlobalIds.OU, entity.getOu() );
+                myEntry.add( SchemaConstants.OU_AT, entity.getOu() );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
@@ -454,7 +455,7 @@ final class UserDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( entity.getCn() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.CN, entity.getCn() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.CN_AT, entity.getCn() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getSn() ) )
@@ -466,7 +467,7 @@ final class UserDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.OU, entity.getOu() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.OU_AT, entity.getOu() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getPassword() ) )
@@ -942,7 +943,7 @@ final class UserDAO extends ApacheDsDataProvider
                 // place a wild card after the input userId:
                 String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
                 filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
-                    + GlobalIds.UID + "=" + searchVal + "*))";
+                    + SchemaConstants.UID_AT + "=" + searchVal + "*))";
             }
             else if ( VUtil.isNotNullOrEmpty( user.getInternalId() ) )
             {
@@ -1006,7 +1007,7 @@ final class UserDAO extends ApacheDsDataProvider
         {
             String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
-                + GlobalIds.UID + "=" + searchVal + "*))";
+                + SchemaConstants.UID_AT + "=" + searchVal + "*))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot,
                 SearchScope.ONELEVEL, filter, USERID, false, GlobalIds.BATCH_SIZE, limit );
@@ -1014,7 +1015,7 @@ final class UserDAO extends ApacheDsDataProvider
             while ( searchResults.next() )
             {
                 Entry entry = searchResults.getEntry();
-                userList.add( getAttribute( entry, GlobalIds.UID ) );
+                userList.add( getAttribute( entry, SchemaConstants.UID_AT ) );
             }
         }
         catch ( LdapException e )
@@ -1187,7 +1188,7 @@ final class UserDAO extends ApacheDsDataProvider
 
             while ( searchResults.next() )
             {
-                userSet.add( getAttribute( searchResults.getEntry(), GlobalIds.UID ) );
+                userSet.add( getAttribute( searchResults.getEntry(), SchemaConstants.UID_AT ) );
             }
         }
         catch ( LdapException e )
@@ -1283,7 +1284,7 @@ final class UserDAO extends ApacheDsDataProvider
             while ( searchResults.next() )
             {
                 Entry entry = searchResults.getEntry();
-                userList.add( getAttribute( entry, GlobalIds.UID ) );
+                userList.add( getAttribute( entry, SchemaConstants.UID_AT ) );
             }
         }
         catch ( LdapException e )
@@ -1323,7 +1324,7 @@ final class UserDAO extends ApacheDsDataProvider
         {
             searchVal = encodeSafeText( searchVal, GlobalIds.USERID_LEN );
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
-                + GlobalIds.UID + "=" + searchVal + "*))";
+                + SchemaConstants.UID_AT + "=" + searchVal + "*))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot,
                 SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false, GlobalIds.BATCH_SIZE );
@@ -1369,7 +1370,7 @@ final class UserDAO extends ApacheDsDataProvider
         {
             String szOu = encodeSafeText( ou.getName(), GlobalIds.OU_LEN );
             String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")("
-                + GlobalIds.OU + "=" + szOu + "))";
+                + SchemaConstants.OU_AT + "=" + szOu + "))";
             int maxLimit;
 
             if ( limitSize )
@@ -1800,11 +1801,11 @@ final class UserDAO extends ApacheDsDataProvider
         entity.setSequenceId( sequence );
         entity.setInternalId( getAttribute( entry, GlobalIds.FT_IID ) );
         entity.setDescription( getAttribute( entry, GlobalIds.DESC ) );
-        entity.setUserId( getAttribute( entry, GlobalIds.UID ) );
-        entity.setCn( getAttribute( entry, GlobalIds.CN ) );
+        entity.setUserId( getAttribute( entry, SchemaConstants.UID_AT ) );
+        entity.setCn( getAttribute( entry, SchemaConstants.CN_AT ) );
         entity.setName( entity.getCn() );
         entity.setSn( getAttribute( entry, SN ) );
-        entity.setOu( getAttribute( entry, GlobalIds.OU ) );
+        entity.setOu( getAttribute( entry, SchemaConstants.OU_AT ) );
         entity.setDn( entry.getDn().getName() );
         entity.setTitle( getAttribute( entry, TITLE ) );
         entity.setEmployeeType( getAttribute( entry, EMPLOYEE_TYPE ) );
@@ -2336,7 +2337,7 @@ final class UserDAO extends ApacheDsDataProvider
      */
     private String getDn( String userId, String contextId )
     {
-        return GlobalIds.UID + "=" + userId + "," + getRootDn( contextId, GlobalIds.USER_ROOT );
+        return SchemaConstants.UID_AT + "=" + userId + "," + getRootDn( contextId, GlobalIds.USER_ROOT );
     }
 
 

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.entry.Modification;
@@ -35,7 +36,6 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -95,7 +95,7 @@ final class ConfigDAO extends ApacheDsDataProvider
 
     private static final String[] CONFIG_ATRS =
         {
-            GlobalIds.CN, GlobalIds.PROPS
+            SchemaConstants.CN_AT, GlobalIds.PROPS
     };
 
     /**
@@ -120,9 +120,9 @@ final class ConfigDAO extends ApacheDsDataProvider
         try
         {
             Entry myEntry = new DefaultEntry( dn );
-            myEntry.add( GlobalIds.OBJECT_CLASS, CONFIG_OBJ_CLASS );
+            myEntry.add( SchemaConstants.OBJECT_CLASS_AT, CONFIG_OBJ_CLASS );
             ld = getAdminConnection();
-            myEntry.add( GlobalIds.CN, name );
+            myEntry.add( SchemaConstants.CN_AT, name );
             loadProperties( props, myEntry, GlobalIds.PROPS );
             add( ld, myEntry );
         }
@@ -294,6 +294,6 @@ final class ConfigDAO extends ApacheDsDataProvider
      */
     private String getDn( String name )
     {
-        return GlobalIds.CN + "=" + name + "," + CONFIG_ROOT_DN;
+        return SchemaConstants.CN_AT + "=" + name + "," + CONFIG_ROOT_DN;
     }
 }

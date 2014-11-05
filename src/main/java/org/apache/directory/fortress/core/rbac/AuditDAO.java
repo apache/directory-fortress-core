@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.Entry;
@@ -30,7 +31,6 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
-
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -240,13 +240,13 @@ final class AuditDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( audit.getUserId() ) )
             {
                 userId = audit.getUserId();
-                filter += REQDN + "=" + GlobalIds.UID + "=" + userId + "," + userRoot + ")(" +
+                filter += REQDN + "=" + SchemaConstants.UID_AT + "=" + userId + "," + userRoot + ")(" +
                     REQUAUTHZID + "=" + "cn=Manager," + Config.getProperty( GlobalIds.SUFFIX ) + ")";
             }
             else
             {
                 // pull back all failed authN attempts for all users:
-                filter += REQATTR + "=" + GlobalIds.UID + ")(" +
+                filter += REQATTR + "=" + SchemaConstants.UID_AT + ")(" +
                     REQUAUTHZID + "=" + "cn=Manager," + Config.getProperty( GlobalIds.SUFFIX ) + ")";
             }
 
@@ -316,7 +316,7 @@ final class AuditDAO extends ApacheDsDataProvider
             String reqDn = PermDAO.getOpRdn( audit.getOpName(), audit.getObjId() ) + "," + GlobalIds.POBJ_NAME + "="
                 + audit.getObjName() + "," + permRoot;
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(" + REQDN + "=" +
-                reqDn + ")(" + REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
+                reqDn + ")(" + REQUAUTHZID + "=" + SchemaConstants.UID_AT + "=" + audit.getUserId() + "," + userRoot + ")";
 
             if ( audit.isFailedOnly() )
             {
@@ -397,7 +397,7 @@ final class AuditDAO extends ApacheDsDataProvider
 
             if ( audit.getUserId() != null && audit.getUserId().length() > 0 )
             {
-                filter += REQUAUTHZID + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
+                filter += REQUAUTHZID + "=" + SchemaConstants.UID_AT + "=" + audit.getUserId() + "," + userRoot + ")";
             }
             else
             {
@@ -471,7 +471,7 @@ final class AuditDAO extends ApacheDsDataProvider
             if ( audit.getUserId() != null && audit.getUserId().length() > 0 )
             {
                 filter = GlobalIds.FILTER_PREFIX + ACCESS_BIND_CLASS_NM + ")(" +
-                    REQDN + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
+                    REQDN + "=" + SchemaConstants.UID_AT + "=" + audit.getUserId() + "," + userRoot + ")";
 
                 if ( audit.isFailedOnly() )
                 {
@@ -551,7 +551,7 @@ final class AuditDAO extends ApacheDsDataProvider
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_MOD_CLASS_NM + ")(" +
-                REQDN + "=" + GlobalIds.UID + "=" + audit.getUserId() + "," + userRoot + ")";
+                REQDN + "=" + SchemaConstants.UID_AT + "=" + audit.getUserId() + "," + userRoot + ")";
 
             if ( audit.getBeginDate() != null )
             {

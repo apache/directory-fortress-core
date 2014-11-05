@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
@@ -35,7 +36,6 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
-
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -130,7 +130,7 @@ final class RoleDAO extends ApacheDsDataProvider
         try
         {
             Entry entry = new DefaultEntry( dn );
-            entry.add( GlobalIds.OBJECT_CLASS, GlobalIds.ROLE_OBJ_CLASS );
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, GlobalIds.ROLE_OBJ_CLASS );
             entity.setId();
             entry.add( GlobalIds.FT_IID, entity.getId() );
             entry.add( ROLE_NM, entity.getName() );
@@ -142,7 +142,7 @@ final class RoleDAO extends ApacheDsDataProvider
             }
 
             // CN attribute is required for this object class:
-            entry.add( GlobalIds.CN, entity.getName() );
+            entry.add( SchemaConstants.CN_AT, entity.getName() );
             entry.add( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) );
 
             // These multi-valued attributes are optional.  The utility function will return quietly if items are not loaded into collection:
@@ -652,6 +652,6 @@ final class RoleDAO extends ApacheDsDataProvider
 
     private String getDn( String name, String contextId )
     {
-        return GlobalIds.CN + "=" + name + "," + getRootDn( contextId, GlobalIds.ROLE_ROOT );
+        return SchemaConstants.CN_AT + "=" + name + "," + getRootDn( contextId, GlobalIds.ROLE_ROOT );
     }
 }

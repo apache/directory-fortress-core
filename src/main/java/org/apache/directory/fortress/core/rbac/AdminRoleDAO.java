@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
@@ -35,7 +36,6 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
-
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -117,7 +117,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
     private static final String POOLS_AUX_OBJECT_CLASS_NAME = "ftPools";
     private static final String ADMIN_ROLE_OBJ_CLASS[] =
         {
-            GlobalIds.TOP,
+            SchemaConstants.TOP_OC,
             GlobalIds.ROLE_OBJECT_CLASS_NM,
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
             POOLS_AUX_OBJECT_CLASS_NAME,
@@ -160,7 +160,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         {
             Entry entry = new DefaultEntry( dn );
 
-            entry.add( GlobalIds.OBJECT_CLASS, ADMIN_ROLE_OBJ_CLASS );
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, ADMIN_ROLE_OBJ_CLASS );
             entity.setId();
             entry.add( GlobalIds.FT_IID, entity.getId() );
             entry.add( ROLE_NM, entity.getName() );
@@ -172,7 +172,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
             }
 
             // CN attribute is required for this object class:
-            entry.add( GlobalIds.CN, entity.getName() );
+            entry.add( SchemaConstants.CN_AT, entity.getName() );
             entry.add( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) );
             loadAttrs( entity.getOsP(), entry, ROLE_OSP );
             loadAttrs( entity.getOsU(), entry, ROLE_OSU );
@@ -690,7 +690,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
 
     private String getDn( AdminRole adminRole )
     {
-        return GlobalIds.CN + "=" + adminRole.getName() + ","
+        return SchemaConstants.CN_AT + "=" + adminRole.getName() + ","
             + getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
     }
 }

@@ -96,7 +96,7 @@ final class SuffixDAO extends ApacheDsDataProvider
         {
             LOG.info( "create suffix dn [" + nodeDn + "]" );
             Entry myEntry = new DefaultEntry( nodeDn );
-            myEntry.add( GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS );
+            myEntry.add( SchemaConstants.OBJECT_CLASS_AT, SUFFIX_OBJ_CLASS );
             myEntry.add( SchemaConstants.DC_AT, se.getName() );
             myEntry.add( SchemaConstants.O_AT, se.getDescription() );
             ld = getAdminConnection();

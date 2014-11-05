@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
@@ -37,7 +38,6 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
-
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -124,13 +124,13 @@ final class SdDAO extends ApacheDsDataProvider
     private static final String SSD_OBJECT_CLASS_NM = "ftSSDSet";
     private static final String SSD_OBJ_CLASS[] =
         {
-            GlobalIds.TOP, SSD_OBJECT_CLASS_NM, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+            SchemaConstants.TOP_OC, SSD_OBJECT_CLASS_NM, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
     private static final String DSD_OBJECT_CLASS_NM = "ftDSDSet";
     private static final String DSD_OBJ_CLASS[] =
         {
-            GlobalIds.TOP, DSD_OBJECT_CLASS_NM, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+            SchemaConstants.TOP_OC, DSD_OBJECT_CLASS_NM, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
     private static final String[] SD_SET_ATRS =
@@ -158,7 +158,7 @@ final class SdDAO extends ApacheDsDataProvider
         try
         {
             Entry entry = new DefaultEntry( dn );
-            entry.add( createAttributes( GlobalIds.OBJECT_CLASS, objectClass ) );
+            entry.add( createAttributes( SchemaConstants.OBJECT_CLASS_AT, objectClass ) );
             entity.setId();
             entry.add( GlobalIds.FT_IID, entity.getId() );
             entry.add( SD_SET_NM, entity.getName() );
@@ -170,7 +170,7 @@ final class SdDAO extends ApacheDsDataProvider
             }
 
             // CN attribute is required for this object class:
-            entry.add( GlobalIds.CN, entity.getName() );
+            entry.add( SchemaConstants.CN_AT, entity.getName() );
             loadAttrs( entity.getMembers(), entry, ROLES );
             entry.add( SD_SET_CARDINALITY, "" + entity.getCardinality() );
 
@@ -622,7 +622,7 @@ final class SdDAO extends ApacheDsDataProvider
 
     private String getDn( String name, String contextId )
     {
-        return GlobalIds.CN + "=" + name + "," + getSdRoot( contextId );
+        return SchemaConstants.CN_AT + "=" + name + "," + getSdRoot( contextId );
     }
 
 

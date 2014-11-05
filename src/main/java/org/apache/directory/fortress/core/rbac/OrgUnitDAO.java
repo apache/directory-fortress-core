@@ -109,16 +109,16 @@ final class OrgUnitDAO extends ApacheDsDataProvider
 
     private static final String ORGUNIT_OBJ_CLASS[] =
         {
-            GlobalIds.TOP, ORGUNIT_OBJECT_CLASS_NM, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+            SchemaConstants.TOP_OC, ORGUNIT_OBJECT_CLASS_NM, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
     private static final String[] ORGUNIT_ATRS =
         {
-            GlobalIds.FT_IID, GlobalIds.OU, GlobalIds.DESC, GlobalIds.PARENT_NODES
+            GlobalIds.FT_IID, SchemaConstants.OU_AT, GlobalIds.DESC, GlobalIds.PARENT_NODES
     };
 
     private static final String[] ORGUNIT_ATR =
         {
-            GlobalIds.OU
+            SchemaConstants.OU_AT
     };
 
 
@@ -416,7 +416,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
         {
             String searchVal = encodeSafeText( orgUnit.getName(), GlobalIds.ROLE_LEN );
             String filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
-                + GlobalIds.OU + "=" + searchVal + "*))";
+                + SchemaConstants.OU_AT + "=" + searchVal + "*))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, orgUnitRoot,
                 SearchScope.ONELEVEL, filter, ORGUNIT_ATRS, false, GlobalIds.BATCH_SIZE );
@@ -550,7 +550,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
     {
         String orgUnitRoot = getOrgRoot( orgUnit );
         String[] DESC_ATRS =
-            { GlobalIds.OU, GlobalIds.PARENT_NODES };
+            { SchemaConstants.OU_AT, GlobalIds.PARENT_NODES };
         List<Graphable> descendants = new ArrayList<>();
         LdapConnection ld = null;
         String filter = null;
@@ -672,7 +672,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
     {
         OrgUnit entity = new ObjectFactory().createOrgUnit();
         entity.setSequenceId( sequence );
-        entity.setName( getAttribute( le, GlobalIds.OU ) );
+        entity.setName( getAttribute( le, SchemaConstants.OU_AT ) );
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
 
         return entity;
@@ -694,7 +694,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
         OrgUnit entity = new ObjectFactory().createOrgUnit();
         entity.setSequenceId( sequence );
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
-        entity.setName( getAttribute( le, GlobalIds.OU ) );
+        entity.setName( getAttribute( le, SchemaConstants.OU_AT ) );
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
         String dn = le.getDn().getName();
 

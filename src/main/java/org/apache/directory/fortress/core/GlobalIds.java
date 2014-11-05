@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core;
 
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.fortress.core.cfg.Config;
 
 
@@ -140,14 +141,6 @@ public class GlobalIds
         .getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
 
     /**
-     * Constant is used to tell ldap server to return no attributes on search.
-     */
-    public final static String[] NO_ATRS =
-        {
-            "1.1"
-    };
-
-    /**
      * Parameter specifies the distinguished name (dn) of the LDAP suffix.  The is the root or top-most node for a Directory Information Tree (DIT).  The typical
      * Fortress suffix format is {@code dc=example,dc=com}.
      */
@@ -219,11 +212,6 @@ public class GlobalIds
       *  ************************************************************************
       */
 
-    /*
-     * Constant contains the top object class name that is at the root of all ldap object class structures.
-     */
-    public final static String TOP = "top";
-
     /**
      * Constant contains the organization object class name.
      */
@@ -233,16 +221,6 @@ public class GlobalIds
      * Constant contains the suffix's dcObject object class name.
      */
     public final static String SUFFIX_CLASS = "dcObject";
-
-    /**
-     * Constant contains the userId attribute name for inetOrgPerson object class.
-     */
-    public final static String UID = "uid";
-
-    /**
-     * Constant contains the common name attribute name used within inetOrgPerson and other ldap object classes.
-     */
-    public final static String CN = "cn";
 
     /**
      * Constant contains the ldap distinguished name attribute.
@@ -260,19 +238,9 @@ public class GlobalIds
     public final static String DESC = "description";
 
     /**
-     * Constant contains the ou attribute name used within inetOrgPerson and other ldap object classes.
-     */
-    public final static String OU = "ou";
-
-    /**
      * Password policy object class structure uses cn attribute name.
      */
-    public final static String POLICY_NODE_TYPE = CN;
-
-    /**
-     * Constant contains the ldap object class attribute name.
-     */
-    public final static String OBJECT_CLASS = "objectclass";
+    public final static String POLICY_NODE_TYPE = SchemaConstants.CN_AT;
 
     /*
     *  *************************************************************************
@@ -371,7 +339,7 @@ public class GlobalIds
      */
     public final static String ROLE_OBJ_CLASS[] =
         {
-            GlobalIds.TOP,
+            SchemaConstants.TOP_OC,
             ROLE_OBJECT_CLASS_NM,
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME

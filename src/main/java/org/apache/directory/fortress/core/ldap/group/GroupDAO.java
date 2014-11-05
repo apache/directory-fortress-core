@@ -68,8 +68,8 @@ final class GroupDAO extends ApacheDsDataProvider
     private static final String GROUP_PROTOCOL_ATTR_IMPL = Config.getProperty( GROUP_PROTOCOL_ATTR );
     private static final String GROUP_PROPERTY_ATTR = "group.properties";
     private static final String GROUP_PROPERTY_ATTR_IMPL = Config.getProperty( GROUP_PROPERTY_ATTR );
-    private static final String GROUP_OBJ_CLASS[] = {GlobalIds.TOP, GROUP_OBJECT_CLASS_IMPL};
-    private static final String[] GROUP_ATRS = {GlobalIds.CN, GlobalIds.DESC, GROUP_PROTOCOL_ATTR_IMPL, GROUP_PROPERTY_ATTR_IMPL, SchemaConstants.MEMBER_AT};
+    private static final String GROUP_OBJ_CLASS[] = {SchemaConstants.TOP_OC, GROUP_OBJECT_CLASS_IMPL};
+    private static final String[] GROUP_ATRS = {SchemaConstants.CN_AT, GlobalIds.DESC, GROUP_PROTOCOL_ATTR_IMPL, GROUP_PROPERTY_ATTR_IMPL, SchemaConstants.MEMBER_AT};
 
     /**
      * Package private default constructor.
@@ -92,8 +92,8 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             LOG.debug( "create group dn [{}]", nodeDn );
             Entry myEntry = new DefaultEntry( nodeDn );
-            myEntry.add( GlobalIds.OBJECT_CLASS, GROUP_OBJ_CLASS );
-            myEntry.add( GlobalIds.CN , group.getName() );
+            myEntry.add( SchemaConstants.OBJECT_CLASS_AT, GROUP_OBJ_CLASS );
+            myEntry.add( SchemaConstants.CN_AT , group.getName() );
             myEntry.add( GROUP_PROTOCOL_ATTR_IMPL, group.getProtocol() );
             loadAttrs( group.getMembers(), myEntry, SchemaConstants.MEMBER_AT );
             loadProperties( group.getProperties(), myEntry, GROUP_PROPERTY_ATTR_IMPL, '=' );
@@ -385,7 +385,7 @@ final class GroupDAO extends ApacheDsDataProvider
         try
         {
             String searchVal = encodeSafeText( group.getName(), GlobalIds.ROLE_LEN );
-            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + GlobalIds.CN + "=" + searchVal + "*))";
+            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + SchemaConstants.CN_AT + "=" + searchVal + "*))";
             ld = getAdminConnection();
             searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
                 GlobalIds.BATCH_SIZE );
@@ -470,7 +470,7 @@ final class GroupDAO extends ApacheDsDataProvider
         throws LdapInvalidAttributeValueException
     {
         Group entity = new ObjectFactory().createGroup();
-        entity.setName( getAttribute( le, GlobalIds.CN ) );
+        entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
         entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
         entity.setProtocol( getAttribute( le, GROUP_PROTOCOL_ATTR_IMPL ) );
         entity.setMembers( getAttributes( le, SchemaConstants.MEMBER_AT ) );
@@ -484,6 +484,6 @@ final class GroupDAO extends ApacheDsDataProvider
 
     private String getDn( String name, String contextId )
     {
-        return GlobalIds.CN + "=" + name + "," + getRootDn( contextId, GlobalIds.GROUP_ROOT );
+        return SchemaConstants.CN_AT + "=" + name + "," + getRootDn( contextId, GlobalIds.GROUP_ROOT );
     }
 }

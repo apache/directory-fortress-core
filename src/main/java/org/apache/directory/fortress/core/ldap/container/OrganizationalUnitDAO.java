@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.ldap.container;
 
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
 import org.apache.directory.api.ldap.model.entry.Entry;
@@ -96,11 +97,11 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
         throws CreateException
     {
         LdapConnection ld = null;
-        String nodeDn = GlobalIds.OU + "=" + oe.getName() + ",";
+        String nodeDn = SchemaConstants.OU_AT + "=" + oe.getName() + ",";
         
         if ( VUtil.isNotNullOrEmpty( oe.getParent() ) )
         {
-            nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
+            nodeDn += SchemaConstants.OU_AT + "=" + oe.getParent() + ",";
         }
         
         nodeDn += getRootDn( oe.getContextId() );
@@ -109,8 +110,8 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
         {
             LOG.info( "create container dn [{}]",  nodeDn );
             Entry myEntry = new DefaultEntry( nodeDn,
-                GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS,
-                GlobalIds.OU, oe.getName(),
+                SchemaConstants.OBJECT_CLASS_AT, ORGUNIT_OBJ_CLASS,
+                SchemaConstants.OU_AT, oe.getName(),
                 GlobalIds.DESC, oe.getDescription() );
             ld = getAdminConnection();
             add( ld, myEntry );
@@ -136,11 +137,11 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
         throws RemoveException
     {
         LdapConnection ld = null;
-        String nodeDn = GlobalIds.OU + "=" + oe.getName() + ",";
+        String nodeDn = SchemaConstants.OU_AT + "=" + oe.getName() + ",";
         
         if ( VUtil.isNotNullOrEmpty( oe.getParent() ) )
         {
-            nodeDn += GlobalIds.OU + "=" + oe.getParent() + ",";
+            nodeDn += SchemaConstants.OU_AT + "=" + oe.getParent() + ",";
         }
         
         nodeDn += getRootDn( oe.getContextId(), GlobalIds.SUFFIX );

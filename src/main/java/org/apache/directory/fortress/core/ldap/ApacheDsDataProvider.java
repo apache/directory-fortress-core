@@ -30,6 +30,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.pool.impl.GenericObjectPool;
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.codec.api.LdapApiService;
@@ -59,7 +60,6 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapConnectionConfig;
 import org.apache.directory.ldap.client.api.LdapConnectionPool;
 import org.apache.directory.ldap.client.api.PoolableLdapConnectionFactory;
-
 import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -71,7 +71,6 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -289,7 +288,7 @@ public abstract class ApacheDsDataProvider
                 // Found. The DN is ,ou=<contextId>,  
                 StringBuilder dn = new StringBuilder();
 
-                dn.append( szDn.substring( 0, idx - 1 ) ).append( "," ).append( GlobalIds.OU ).append( "=" ).append(
+                dn.append( szDn.substring( 0, idx - 1 ) ).append( "," ).append( SchemaConstants.OU_AT ).append( "=" ).append(
                     contextId ).append( "," ).append( szDn.substring( idx ) );
                 
                 return dn.toString();
@@ -318,7 +317,7 @@ public abstract class ApacheDsDataProvider
         if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) && !contextId
             .equals( GlobalIds.HOME ) )
         {
-            dn.append( GlobalIds.OU ).append( "=" ).append( contextId ).append( "," +
+            dn.append( SchemaConstants.OU_AT ).append( "=" ).append( contextId ).append( "," +
                 "" ).append( Config.getProperty( GlobalIds.SUFFIX ) );
         }
         else
@@ -631,7 +630,7 @@ public abstract class ApacheDsDataProvider
         String theDN;
 
         // Find child nodes
-        SearchCursor cursor = search( connection, dn, SearchScope.ONELEVEL, "(objectclass=*)", GlobalIds.NO_ATRS,
+        SearchCursor cursor = search( connection, dn, SearchScope.ONELEVEL, "(objectclass=*)", SchemaConstants.NO_ATTRIBUTE_ARRAY,
             false, 0 );
 
         // Iterate over all entries under this entry

@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
@@ -37,7 +38,6 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
-
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -109,7 +109,7 @@ final class PolicyDAO extends ApacheDsDataProvider
      */
     private static final String OAM_PWPOLICY_OBJ_CLASS[] =
         {
-            GlobalIds.TOP, "device", OLPW_POLICY_CLASS, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+            SchemaConstants.TOP_OC, "device", OLPW_POLICY_CLASS, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
     private static final String OLPW_ATTRIBUTE = "pwdAttribute";
@@ -129,7 +129,7 @@ final class PolicyDAO extends ApacheDsDataProvider
     private static final String OLPW_SAFE_MODIFY = "pwdSafeModify";
     private static final String[] PASSWORD_POLICY_ATRS =
         {
-            GlobalIds.CN, OLPW_MIN_AGE, OLPW_MAX_AGE, OLPW_IN_HISTORY, OLPW_CHECK_QUALITY,
+            SchemaConstants.CN_AT, OLPW_MIN_AGE, OLPW_MAX_AGE, OLPW_IN_HISTORY, OLPW_CHECK_QUALITY,
             OLPW_MIN_LENGTH, OLPW_EXPIRE_WARNING, OLPW_GRACE_LOGIN_LIMIT, OLPW_LOCKOUT,
             OLPW_LOCKOUT_DURATION, OLPW_MAX_FAILURE, OLPW_FAILURE_COUNT_INTERVAL,
             OLPW_MUST_CHANGE, OLPW_ALLOW_USER_CHANGE, OLPW_SAFE_MODIFY,
@@ -137,7 +137,7 @@ final class PolicyDAO extends ApacheDsDataProvider
 
     private static final String[] PASSWORD_POLICY_NAME_ATR =
         {
-            GlobalIds.CN
+            SchemaConstants.CN_AT
     };
 
 
@@ -156,8 +156,8 @@ final class PolicyDAO extends ApacheDsDataProvider
         try
         {
             Entry entry = new DefaultEntry( dn );
-            entry.add( GlobalIds.OBJECT_CLASS, OAM_PWPOLICY_OBJ_CLASS );
-            entry.add( GlobalIds.CN, entity.getName() );
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, OAM_PWPOLICY_OBJ_CLASS );
+            entry.add( SchemaConstants.CN_AT, entity.getName() );
             entry.add( OLPW_ATTRIBUTE, OLPW_POLICY_EXTENSION );
 
             if ( entity.getMinAge() != null )
@@ -478,7 +478,7 @@ final class PolicyDAO extends ApacheDsDataProvider
     {
         PwPolicy entity = new ObjectFactory().createPswdPolicy();
         entity.setSequenceId( sequence );
-        entity.setName( getAttribute( le, GlobalIds.CN ) );
+        entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
         String val = getAttribute( le, OLPW_MIN_AGE );
 
         if ( VUtil.isNotNullOrEmpty( val ) )
@@ -649,7 +649,7 @@ final class PolicyDAO extends ApacheDsDataProvider
 
             while ( searchResults.next() )
             {
-                policySet.add( getAttribute( searchResults.getEntry(), GlobalIds.CN ) );
+                policySet.add( getAttribute( searchResults.getEntry(), SchemaConstants.CN_AT ) );
             }
         }
         catch ( LdapException e )
