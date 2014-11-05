@@ -177,6 +177,10 @@ import org.apache.directory.fortress.core.util.time.Constraint;
 })
 public class AdminRole extends Role implements Administrator
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private Set<String> osPs;
     private Set<String> osUs;
     private String beginRange;
@@ -507,6 +511,8 @@ public class AdminRole extends Role implements Administrator
 
         sb.append( "AdminRole object: \n" );
 
+        sb.append( super.toString( "    " ) ).append( '\n' );
+        
         if ( beginRange != null )
         {
             sb.append( "    beginRange :" ).append( beginRange ).append( '\n' );
