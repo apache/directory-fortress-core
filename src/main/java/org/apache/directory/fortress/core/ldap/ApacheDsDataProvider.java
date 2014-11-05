@@ -78,8 +78,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
- * Fortress DAO's, i.e. {@link org.apache.directory.fortress.core.rbac.UserDAO}. {@link org.apache.directory.fortress.core.rbac.dao.apache
- * .RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO}, ....
+ * Fortress DAO's, i.e. {@link org.apache.directory.fortress.core.rbac.UserDAO}. {@link org.apache.directory.fortress.core.rbac.RoleDAO},
+ * {@link org.apache.directory.fortress.core.rbac.PermDAO}, ....
  * These are low-level data utilities, very little if any data validations are performed here.
  * <p/>
  * This class is thread safe.
@@ -170,10 +170,11 @@ public abstract class ApacheDsDataProvider
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
-        // validate certificates but allow self-signed certs if within this truststore:
-        config.setTrustManagers( new LdapClientTrustStoreManager(
-            TRUST_STORE,
-            TRUST_STORE_PW.toCharArray() , null, true ) );
+        if(IS_SSL && VUtil.isNotNullOrEmpty( TRUST_STORE ) && VUtil.isNotNullOrEmpty( TRUST_STORE_PW ) )
+        {
+            // validate certificates but allow self-signed certs if within this truststore:
+            config.setTrustManagers( new LdapClientTrustStoreManager( TRUST_STORE, TRUST_STORE_PW.toCharArray(), null, true ) );
+        }
 
         String adminPw;
         if ( EncryptUtil.isEnabled() )
@@ -238,10 +239,12 @@ public abstract class ApacheDsDataProvider
             logConfig.setName( Config.getProperty( LDAP_ADMIN_POOL_UID, "" ) );
 
             logConfig.setUseSsl( IS_SSL );
-            // validate certificates but allow self-signed certs if within this truststore:
-            logConfig.setTrustManagers( new LdapClientTrustStoreManager(
-                TRUST_STORE,
-                TRUST_STORE_PW.toCharArray() , null, true ) );
+
+            if( IS_SSL && VUtil.isNotNullOrEmpty( TRUST_STORE ) && VUtil.isNotNullOrEmpty( TRUST_STORE_PW ) )
+            {
+                // validate certificates but allow self-signed certs if within this truststore:
+                logConfig.setTrustManagers( new LdapClientTrustStoreManager( TRUST_STORE, TRUST_STORE_PW.toCharArray(), null, true ) );
+            }
 
             logConfig.setName( Config.getProperty( LDAP_LOG_POOL_UID, "" ) );
             String logPw;
