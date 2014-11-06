@@ -71,7 +71,7 @@ final class SuffixDAO extends ApacheDsDataProvider
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String[] SUFFIX_OBJ_CLASS =
         {
-            GlobalIds.SUFFIX_CLASS, GlobalIds.ORGANIZATION_CLASS
+            SchemaConstants.DC_OBJECT_OC, GlobalIds.ORGANIZATION_CLASS
     };
 
 

@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.example;
 
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.fortress.core.GlobalIds;
 
 public class EIds
@@ -36,7 +37,7 @@ public class EIds
     public final static String EXAMPLE_OBJECT_CLASS_NM = "oamExamples";
 
     public final static String EXAMPLE_OBJ_CLASS[] = {
-            GlobalIds.TOP, EXAMPLE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
+            SchemaConstants.TOP_OC, EXAMPLE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
 //            GlobalIds.TOP, EXAMPLE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.TEMPORAL_AUX_OBJECT_CLASS_NAME
     };
 

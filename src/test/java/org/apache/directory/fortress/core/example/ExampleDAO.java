@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.example;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
@@ -65,7 +66,7 @@ public class ExampleDAO extends ApacheDsDataProvider
         throws CreateException
     {
         LdapConnection ld = null;
-        String dn = GlobalIds.CN + "=" + entity.getName() + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
+        String dn = SchemaConstants.CN_AT + "=" + entity.getName() + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
             LOG.debug("create dn [" + dn + "]");
@@ -93,7 +94,7 @@ public class ExampleDAO extends ApacheDsDataProvider
 
             ld = getAdminConnection();
             Entry entry = new DefaultEntry( dn );
-            entry.add( createAttributes( GlobalIds.OBJECT_CLASS, EIds.EXAMPLE_OBJ_CLASS ) );
+            entry.add( createAttributes( SchemaConstants.OBJECT_CLASS_AT, EIds.EXAMPLE_OBJ_CLASS ) );
 
             entity.setId();
 
@@ -105,7 +106,7 @@ public class ExampleDAO extends ApacheDsDataProvider
                 entry.add( GlobalIds.DESC, entity.getDescription() );
 
             // organizational name requires CN attribute:
-            entry.add( GlobalIds.CN, entity.getName() );
+            entry.add( SchemaConstants.CN_AT, entity.getName() );
 
             //AttrHelper.loadTemporalAttrs(entity, attrs);
             entity.setName("EXAMPLE");
@@ -136,7 +137,7 @@ public class ExampleDAO extends ApacheDsDataProvider
         throws UpdateException
     {
         LdapConnection ld = null;
-        String dn = GlobalIds.CN + "=" + entity.getName() + "," + Config.getProperty( EIds.EXAMPLE_ROOT );
+        String dn = SchemaConstants.CN_AT + "=" + entity.getName() + "," + Config.getProperty( EIds.EXAMPLE_ROOT );
         if (LOG.isDebugEnabled())
         {
             LOG.debug("update dn [" + dn + "]");
@@ -184,7 +185,7 @@ public class ExampleDAO extends ApacheDsDataProvider
         throws RemoveException
     {
         LdapConnection ld = null;
-        String dn = GlobalIds.CN + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
+        String dn = SchemaConstants.CN_AT + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
             LOG.debug("remove dn [" + dn + "]");
@@ -218,7 +219,7 @@ public class ExampleDAO extends ApacheDsDataProvider
     {
         Example entity = null;
         LdapConnection ld = null;
-        String dn = GlobalIds.CN + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
+        String dn = SchemaConstants.CN_AT + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
             LOG.debug("findByKey dn [" + dn + "]");

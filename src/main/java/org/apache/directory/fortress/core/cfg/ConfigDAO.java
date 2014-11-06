@@ -86,11 +86,10 @@ final class ConfigDAO extends ApacheDsDataProvider
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String CONFIG_ROOT_PARAM = "config.root";
     private static final String CONFIG_ROOT_DN = Config.getProperty( CONFIG_ROOT_PARAM );
-    private static final String DEVICE_OBJECT_CLASS_NM = "device";
 
     private static final String CONFIG_OBJ_CLASS[] =
         {
-            DEVICE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
+        SchemaConstants.DEVICE_OC, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
     };
 
     private static final String[] CONFIG_ATRS =

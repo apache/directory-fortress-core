@@ -109,7 +109,7 @@ final class PolicyDAO extends ApacheDsDataProvider
      */
     private static final String OAM_PWPOLICY_OBJ_CLASS[] =
         {
-            SchemaConstants.TOP_OC, "device", OLPW_POLICY_CLASS, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+            SchemaConstants.TOP_OC, SchemaConstants.DEVICE_OC, OLPW_POLICY_CLASS, GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
     private static final String OLPW_ATTRIBUTE = "pwdAttribute";

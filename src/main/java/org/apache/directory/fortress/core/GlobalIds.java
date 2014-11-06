@@ -218,11 +218,6 @@ public class GlobalIds
     public final static String ORGANIZATION_CLASS = "organization";
 
     /**
-     * Constant contains the suffix's dcObject object class name.
-     */
-    public final static String SUFFIX_CLASS = "dcObject";
-
-    /**
      * Constant contains the ldap distinguished name attribute.
      */
     public final static String DN = "dn";

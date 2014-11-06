@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
 import org.apache.directory.api.ldap.model.entry.DefaultAttribute;
@@ -40,7 +41,6 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeExceptio
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
-
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -156,7 +156,7 @@ final class PermDAO extends ApacheDsDataProvider
 
     private static final String PERM_OBJ_OBJ_CLASS[] =
         {
-            GlobalIds.TOP,
+            SchemaConstants.TOP_OC,
             "organizationalunit",
             PERM_OBJ_OBJECT_CLASS_NAME,
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
@@ -165,7 +165,7 @@ final class PermDAO extends ApacheDsDataProvider
 
     private static final String PERM_OP_OBJ_CLASS[] =
         {
-            GlobalIds.TOP,
+            SchemaConstants.TOP_OC,
             "organizationalrole",
             PERM_OP_OBJECT_CLASS_NAME,
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
@@ -178,13 +178,13 @@ final class PermDAO extends ApacheDsDataProvider
     private static final String USERS = "ftUsers";
     private static final String[] PERMISSION_OP_ATRS =
         {
-            GlobalIds.FT_IID, PERM_NAME, GlobalIds.POBJ_NAME, GlobalIds.POP_NAME, GlobalIds.DESC, GlobalIds.OU,
+            GlobalIds.FT_IID, PERM_NAME, GlobalIds.POBJ_NAME, GlobalIds.POP_NAME, GlobalIds.DESC, SchemaConstants.OU_AT,
             POBJ_ID, TYPE, ROLES, USERS, GlobalIds.PROPS
     };
 
     private static final String[] PERMISION_OBJ_ATRS =
         {
-            GlobalIds.FT_IID, GlobalIds.POBJ_NAME, GlobalIds.DESC, GlobalIds.OU, TYPE,
+            GlobalIds.FT_IID, GlobalIds.POBJ_NAME, GlobalIds.DESC, SchemaConstants.OU_AT, TYPE,
             GlobalIds.PROPS
     };
 
@@ -203,7 +203,7 @@ final class PermDAO extends ApacheDsDataProvider
         try
         {
             Entry entry = new DefaultEntry( dn );
-            entry.add( GlobalIds.OBJECT_CLASS, PERM_OBJ_OBJ_CLASS );
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, PERM_OBJ_OBJ_CLASS );
             entry.add( GlobalIds.POBJ_NAME, entity.getObjName() );
 
             // this will generatre a new random, unique id on this entity:
@@ -213,7 +213,7 @@ final class PermDAO extends ApacheDsDataProvider
             entry.add( GlobalIds.FT_IID, entity.getInternalId() );
 
             // ou is required:
-            entry.add( GlobalIds.OU, entity.getOu() );
+            entry.add( SchemaConstants.OU_AT, entity.getOu() );
 
             // description is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
@@ -273,7 +273,7 @@ final class PermDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.OU, entity.getOu() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.OU_AT, entity.getOu() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
@@ -364,7 +364,7 @@ final class PermDAO extends ApacheDsDataProvider
         {
             Entry entry = new DefaultEntry( dn );
 
-            entry.add( GlobalIds.OBJECT_CLASS, PERM_OP_OBJ_CLASS );
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, PERM_OP_OBJ_CLASS );
             entry.add( GlobalIds.POP_NAME, entity.getOpName() );
             entry.add( GlobalIds.POBJ_NAME, entity.getObjName() );
             entity.setAbstractName( entity.getObjName() + "." + entity.getOpName() );
@@ -385,7 +385,7 @@ final class PermDAO extends ApacheDsDataProvider
             entry.add( PERM_NAME, entity.getAbstractName() );
 
             // organizational name requires CN attribute:
-            entry.add( GlobalIds.CN, entity.getAbstractName() );
+            entry.add( SchemaConstants.CN_AT, entity.getAbstractName() );
 
             // objectid is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getObjId() ) )
@@ -1035,7 +1035,7 @@ final class PermDAO extends ApacheDsDataProvider
         PermObj entity = new ObjectFactory().createPermObj();
         entity.setSequenceId( sequence );
         entity.setObjName( getAttribute( le, GlobalIds.POBJ_NAME ) );
-        entity.setOu( getAttribute( le, GlobalIds.OU ) );
+        entity.setOu( getAttribute( le, SchemaConstants.OU_AT ) );
         entity.setDn( le.getDn().getName() );
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setType( getAttribute( le, TYPE ) );
@@ -1157,7 +1157,7 @@ final class PermDAO extends ApacheDsDataProvider
         {
             String ouVal = encodeSafeText( ou.getName(), GlobalIds.OU_LEN );
             String filter = GlobalIds.FILTER_PREFIX + PERM_OBJ_OBJECT_CLASS_NAME + ")("
-                + GlobalIds.OU + "=" + ouVal + "*))";
+                + SchemaConstants.OU_AT + "=" + ouVal + "*))";
             int maxLimit;
 
             if ( limitSize )
