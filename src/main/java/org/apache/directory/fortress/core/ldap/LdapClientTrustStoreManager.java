@@ -242,7 +242,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
                 {
                     // Eat this ioexception because it shouldn't be a problem, but log just in case:
                     LOG.warn( "FortressTrustStoreManager.getTrustManagers finally block on input stream close " +
-                        "operation caught IOException=" + e.getMessage() );
+                        "operation caught IOException={}", e.getMessage() );
                 }
             }
         }

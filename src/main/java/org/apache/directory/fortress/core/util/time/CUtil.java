@@ -390,7 +390,7 @@ public class CUtil
         {
             if(LOG.isDebugEnabled())
             {
-                LOG.debug(location + " userId [" + session.getUserId() + "]  no constraints enabled");
+                LOG.debug( "{} userId [{}]  no constraints enabled", location, session.getUserId() );
             }
             return;
         }
@@ -399,7 +399,7 @@ public class CUtil
         {
             if(LOG.isDebugEnabled())
             {
-                LOG.debug(location + " userId [" + session.getUserId() + "] has no roles assigned");
+                LOG.debug( "{} userId [{}]  has no roles assigned", location, session.getUserId() );
             }
             return;
         }

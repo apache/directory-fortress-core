@@ -220,7 +220,7 @@ public final class PsoUtil
     {
         Hier inHier = new Hier( Hier.Type.ROLE );
         inHier.setContextId( contextId );
-        LOG.info( "loadGraph initializing PSO context [" + inHier.getContextId() + "]" );
+        LOG.info( "loadGraph initializing PSO context [{}]", inHier.getContextId() );
         List<Graphable> descendants = null;
         
         try
@@ -232,7 +232,7 @@ public final class PsoUtil
         }
         catch ( SecurityException se )
         {
-            LOG.info( "loadGraph caught SecurityException=" + se );
+            LOG.info( "loadGraph caught SecurityException={}", se );
         }
         
         Hier hier = HierUtil.loadHier( contextId, descendants );

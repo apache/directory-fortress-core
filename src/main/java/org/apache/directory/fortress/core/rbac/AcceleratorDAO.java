@@ -108,7 +108,9 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             // Send the request
             RbacCreateSessionResponse rbacCreateSessionResponse = ( RbacCreateSessionResponse ) ld.extended(
                 rbacCreateSessionRequest );
-            LOG.debug( "createSession userId: {}, sessionId: {}",user.getUserId(), rbacCreateSessionResponse.getSessionId() + ", resultCode: " +   rbacCreateSessionResponse.getLdapResult().getResultCode());
+            LOG.debug( "createSession userId: {}, sessionId: {}, resultCode: {}",
+                user.getUserId(), rbacCreateSessionResponse.getSessionId(), 
+                rbacCreateSessionResponse.getLdapResult().getResultCode());
             session = new Session( user, rbacCreateSessionResponse.getSessionId() );
             
             if ( rbacCreateSessionResponse.getLdapResult().getResultCode() == ResultCodeEnum.SUCCESS )

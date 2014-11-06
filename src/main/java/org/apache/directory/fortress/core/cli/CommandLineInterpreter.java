@@ -442,7 +442,7 @@ public class CommandLineInterpreter
                 LOG.warn("unknown delegated admin operation detected");
                 return;
             }
-            LOG.info("command:" + command + " was successful");
+            LOG.info("command:{} was successful", command);
         }
         catch ( org.apache.directory.fortress.core.SecurityException se)
         {
@@ -659,7 +659,7 @@ public class CommandLineInterpreter
                 LOG.warn("unknown admin operation detected");
                 return;
             }
-            LOG.info("command:" + command + " was successful");
+            LOG.info("command:{} was successful", command);
         }
         catch ( SecurityException se)
         {
@@ -810,7 +810,7 @@ public class CommandLineInterpreter
                 LOG.warn("unknown review operation detected");
                 return;
             }
-            LOG.info("command:" + command + " was successful");
+            LOG.info("command:{} was successful", command);
         }
         catch ( SecurityException se)
         {
@@ -875,7 +875,7 @@ public class CommandLineInterpreter
                 LOG.warn("unknown system operation detected");
                 return;
             }
-            LOG.info("command:" + command + " was successful");
+            LOG.info("command:{} was successful", command);
         }
         catch ( SecurityException se)
         {
@@ -997,7 +997,7 @@ public class CommandLineInterpreter
                 LOG.warn("unknown group operation detected");
                 return;
             }
-            LOG.info("command:" + command + " was successful");
+            LOG.info( "command:{} was successful", command );
         }
         catch ( SecurityException se)
         {
@@ -1049,7 +1049,7 @@ public class CommandLineInterpreter
             options.add(arg);
             if (!isPassword)
             {
-                LOG.info("arg:" + arg);
+                LOG.info("arg:{}", arg);
             }
             else
             {
@@ -1163,8 +1163,9 @@ public class CommandLineInterpreter
             {
                 String key = (String) e.nextElement();
                 String val = perm.getProperty(key);
-                LOG.info(type + "   KEY" + ++ctr + " [" + key + "]");
-                LOG.info(type + "   VAL" + ctr + " [" + val + "]");
+                ++ctr;
+                LOG.info( "{}   KEY{} [{}]", type, ctr, key );
+                LOG.info( "{}   VAL{} [{}]", type, ctr, val );
             }
         }
     }
@@ -1187,8 +1188,9 @@ public class CommandLineInterpreter
             {
                 String key = (String) e.nextElement();
                 String val = permObj.getProperty(key);
-                LOG.info(type + "   KEY" + ++ctr + " [" + key + "]");
-                LOG.info(type + "   VAL" + ctr + " [" + val + "]");
+                ++ctr;
+                LOG.info( "{}   KEY{} [{}]", type, ctr, key );
+                LOG.info( "{}   VAL{} [{}]", type, ctr, val );
             }
         }
     }
@@ -1272,8 +1274,9 @@ public class CommandLineInterpreter
                 {
                     String key = (String) e.nextElement();
                     String val = user.getProperty(key);
-                    LOG.info(type + "   KEY" + ++ctr + " [" + key + "]");
-                    LOG.info(type + "   VAL" + ctr + " [" + val + "]");
+                    ++ctr;
+                    LOG.info( "{}   KEY{} [{}]", type, ctr, key );
+                    LOG.info( "{}   VAL{} [{}]", type, ctr, val );
                 }
             }
         }
@@ -1390,7 +1393,7 @@ public class CommandLineInterpreter
      */
     private void printRow(String type, String name, String value)
     {
-        LOG.info(type + "   " + name + " [" + value + "]");
+        LOG.info( "{}   {} [{}]", type, name, value);
     }
 
     /**

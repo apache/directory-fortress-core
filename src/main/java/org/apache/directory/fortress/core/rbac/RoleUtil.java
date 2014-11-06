@@ -303,7 +303,7 @@ public final class RoleUtil
     {
         Hier inHier = new Hier( Hier.Type.ROLE );
         inHier.setContextId( contextId );
-        LOG.info( "loadGraph initializing ROLE context [" + inHier.getContextId() + "]" );
+        LOG.info( "loadGraph initializing ROLE context [{}]", inHier.getContextId() );
         List<Graphable> descendants = null;
         
         try
@@ -312,7 +312,7 @@ public final class RoleUtil
         }
         catch ( SecurityException se )
         {
-            LOG.info( "loadGraph caught SecurityException=" + se );
+            LOG.info( "loadGraph caught SecurityException={}", se );
         }
         
         Hier hier = HierUtil.loadHier( contextId, descendants );

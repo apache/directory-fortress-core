@@ -252,8 +252,8 @@ final class HierUtil
                     String error = "toGraph child: " + child + " parent: " + parent + " caught IllegalArgumentException=" + e;
                     LOG.error( error );
                 }
-                if ( LOG.isDebugEnabled() )
-                    LOG.debug( "toGraph child={}, parent={}", child, parent );
+
+                LOG.debug( "toGraph child={}, parent={}", child, parent );
             }
         }
         return graph;
@@ -533,8 +533,8 @@ final class HierUtil
             //log.debug("getChildren graph is null");
             return null;
         }
-        if ( LOG.isDebugEnabled() )
-            LOG.debug( "getChildren [" + vertex + "]" );
+
+        LOG.debug( "getChildren [{}]", vertex );
 
         Set<Relationship> edges;
         try

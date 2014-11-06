@@ -571,7 +571,7 @@ public final class UserP
         boolean result = uDao.changePassword( entity, newPassword );
         if ( !result )
         {
-            LOG.warn( "changePassword failed for user [" + userId + "]" );
+            LOG.warn( "changePassword failed for user [{}]", userId );
         }
     }
 

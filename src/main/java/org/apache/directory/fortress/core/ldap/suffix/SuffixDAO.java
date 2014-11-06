@@ -94,7 +94,7 @@ final class SuffixDAO extends ApacheDsDataProvider
         String nodeDn = getDn( se );
         try
         {
-            LOG.info( "create suffix dn [" + nodeDn + "]" );
+            LOG.info( "create suffix dn [{}]", nodeDn );
             Entry myEntry = new DefaultEntry( nodeDn );
             myEntry.add( SchemaConstants.OBJECT_CLASS_AT, SUFFIX_OBJ_CLASS );
             myEntry.add( SchemaConstants.DC_AT, se.getName() );
@@ -132,7 +132,7 @@ final class SuffixDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String nodeDn = getDn( se );
-        LOG.info( "remove suffix dn [" + nodeDn + "]" );
+        LOG.info( "remove suffix dn [{}]", nodeDn );
         try
         {
             ld = getAdminConnection();

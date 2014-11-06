@@ -166,13 +166,11 @@ public class Config
         if ( config != null )
         {
             value = ( String ) config.getProperty( name );
-            if ( LOG.isDebugEnabled() )
-                LOG.debug( "getProperty name [{}] value [{}]", name, value );
+            LOG.debug( "getProperty name [{}] value [{}]", name, value );
         }
         else
         {
-            String error = "getProperty invalid config, can't read prop [" + name + "]";
-            LOG.error( error );
+            LOG.error( "getProperty invalid config, can't read prop [{}]", name );
         }
         return value;
     }
@@ -217,13 +215,11 @@ public class Config
         if ( config != null )
         {
             value = ( char ) config.getProperty( name );
-            if ( LOG.isDebugEnabled() )
-                LOG.debug( "getChar name [{}] value [{}]", name, value );
+            LOG.debug( "getChar name [{}] value [{}]", name, value );
         }
         else
         {
-            String error = "getChar invalid config, can't read prop [" + name + "]";
-            LOG.error( error );
+            LOG.error( "getChar invalid config, can't read prop [{}]", name );
         }
         return value;
     }

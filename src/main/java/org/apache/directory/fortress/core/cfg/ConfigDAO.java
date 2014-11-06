@@ -115,7 +115,7 @@ final class ConfigDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String dn = getDn( name );
-        LOG.info( "create dn [" + dn + "]" );
+        LOG.info( "create dn [{}]", dn );
         try
         {
             Entry myEntry = new DefaultEntry( dn );
@@ -157,7 +157,7 @@ final class ConfigDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String dn = getDn( name );
-        LOG.info( "update dn [" + dn + "]" );
+        LOG.info( "update dn [{}]", dn );
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
@@ -194,7 +194,7 @@ final class ConfigDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String dn = getDn( name );
-        LOG.info( "remove dn [" + dn + "]" );
+        LOG.info( "remove dn [{}]", dn );
         try
         {
             ld = getAdminConnection();
@@ -223,7 +223,7 @@ final class ConfigDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String dn = getDn( name );
-        LOG.info( "remove props dn [" + dn + "]" );
+        LOG.info( "remove props dn [{}]", dn );
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
@@ -261,7 +261,7 @@ final class ConfigDAO extends ApacheDsDataProvider
         Properties props = null;
         LdapConnection ld = null;
         String dn = getDn( name );
-        LOG.info( "getConfig dn [" + dn + "]" );
+        LOG.info( "getConfig dn [{}]", dn );
         try
         {
             ld = getAdminConnection();

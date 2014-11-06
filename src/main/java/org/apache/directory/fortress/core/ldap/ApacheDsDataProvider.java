@@ -29,6 +29,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.pool.PoolableObjectFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
@@ -56,10 +57,10 @@ import org.apache.directory.api.ldap.model.message.SearchRequest;
 import org.apache.directory.api.ldap.model.message.SearchRequestImpl;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.api.ldap.model.name.Dn;
+import org.apache.directory.ldap.client.api.DefaultPoolableLdapConnectionFactory;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapConnectionConfig;
 import org.apache.directory.ldap.client.api.LdapConnectionPool;
-import org.apache.directory.ldap.client.api.PoolableLdapConnectionFactory;
 import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -154,8 +155,8 @@ public abstract class ApacheDsDataProvider
         if(IS_SET_TRUST_STORE_PROP)
         {
             LOG.info( "Set JSSE truststore properties in Apache LDAP client:");
-            LOG.info( "javax.net.ssl.trustStore: " + TRUST_STORE );
-            LOG.info( "javax.net.debug: " + new Boolean( IS_SSL_DEBUG ).toString());
+            LOG.info( "javax.net.ssl.trustStore: {}", TRUST_STORE );
+            LOG.info( "javax.net.debug: {}" + IS_SSL_DEBUG );
             System.setProperty( "javax.net.ssl.trustStore", TRUST_STORE );
             System.setProperty( "javax.net.ssl.trustStorePassword", TRUST_STORE_PW );
             System.setProperty( "javax.net.debug", new Boolean( IS_SSL_DEBUG ).toString() );
@@ -210,17 +211,17 @@ public abstract class ApacheDsDataProvider
             throw new CfgRuntimeException( GlobalErrIds.FT_APACHE_LDAP_POOL_INIT_FAILED, error, ex );
         }
 
-        PoolableLdapConnectionFactory factory = new PoolableLdapConnectionFactory( config );
+        PoolableObjectFactory<LdapConnection> poolFactory = new DefaultPoolableLdapConnectionFactory( config );
 
         // Create the Admin pool
-        adminPool = new LdapConnectionPool( factory );
+        adminPool = new LdapConnectionPool( poolFactory );
         adminPool.setTestOnBorrow( true );
         adminPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
         adminPool.setMaxActive( max );
         adminPool.setMinIdle( min );
 
         // Create the User pool
-        userPool = new LdapConnectionPool( factory );
+        userPool = new LdapConnectionPool( poolFactory );
         userPool.setTestOnBorrow( true );
         userPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
         userPool.setMaxActive( max );
@@ -256,8 +257,8 @@ public abstract class ApacheDsDataProvider
                 logPw = Config.getProperty( LDAP_LOG_POOL_PW );
             }
             logConfig.setCredentials( logPw );
-            factory = new PoolableLdapConnectionFactory( logConfig );
-            logPool = new LdapConnectionPool( factory );
+            poolFactory = new DefaultPoolableLdapConnectionFactory( logConfig );
+            logPool = new LdapConnectionPool( poolFactory );
             logPool.setTestOnBorrow( true );
             logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
             logPool.setMaxActive( logmax );

@@ -96,7 +96,7 @@ public class RestUtils
         if(IS_SET_TRUST_STORE_PROP)
         {
             LOG.info( "Set JSSE truststore properties:");
-            LOG.info( "javax.net.ssl.trustStore: " + TRUST_STORE );
+            LOG.info( "javax.net.ssl.trustStore: {}", TRUST_STORE );
             System.setProperty( "javax.net.ssl.trustStore", TRUST_STORE );
             System.setProperty( "javax.net.ssl.trustStorePassword", TRUST_STORE_PW );
         }
@@ -238,7 +238,7 @@ public class RestUtils
      */
     public static String post( String userId, String password, String szInput, String function ) throws RestException
     {
-        LOG.debug( "post URI=[" + URI + "], function=[" + function + "], request=" + szInput );
+        LOG.debug( "post URI=[{}], function=[{}], request={}", URI, function, szInput );
         String szResponse = null;
         PostMethod post = new PostMethod( URI + function );
         post.addRequestHeader( "Accept", "text/xml" );
