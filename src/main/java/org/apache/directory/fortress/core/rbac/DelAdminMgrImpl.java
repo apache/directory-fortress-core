@@ -51,8 +51,6 @@ import java.util.Set;
 public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
 {
     private static final String CLS_NM = DelAdminMgrImpl.class.getName();
-    private static final String ADD_OU_METHOD = ".addOU";
-    private static final String FULL_ADD_OU_METHOD = CLS_NM + "." + ADD_OU_METHOD;
     private static final OrgUnitP ouP = new OrgUnitP();
     private static final AdminRoleP admRP = new AdminRoleP();
     private static final PermP permP = new PermP();
@@ -339,11 +337,11 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
     @Override
     public OrgUnit add(OrgUnit entity) throws SecurityException
     {
-        assertContext( ADD_OU_METHOD, entity, GlobalErrIds.ORG_NULL );
-        setEntitySession( CLS_NM, ADD_OU_METHOD, entity);
-        VUtil.assertNotNull( entity.getType(), GlobalErrIds.ORG_TYPE_NULL, FULL_ADD_OU_METHOD );
-        
-        return ouP.add( entity );
+        String methodName = "addOU";
+        assertContext(CLS_NM, methodName, entity, GlobalErrIds.ORG_NULL);
+        setEntitySession(CLS_NM, methodName, entity);
+        VUtil.assertNotNull(entity.getType(), GlobalErrIds.ORG_TYPE_NULL, CLS_NM + "." + methodName);
+        return ouP.add(entity);
     }
 
     /**
