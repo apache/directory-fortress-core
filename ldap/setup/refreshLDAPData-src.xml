@@ -26,8 +26,7 @@
         <FortressAdmin>
 
             <addsuffix>
-                <!--suffix name="@SUFFIX_NAME@" dc="@SUFFIX_DC@" description="JoshuaTree Software"/-->
-                <suffix name="@SUFFIX_NAME@" dc="@SUFFIX_DC@"  dc2="@SUFFIX_DC2@" description="JoshuaTree Software"/>
+                <suffix name="@SUFFIX_NAME@" dc="@SUFFIX_DC@"  dc2="@SUFFIX_DC2@" description="Apache Fortress DIT Suffix"/>
             </addsuffix>
 
             <addcontainer>

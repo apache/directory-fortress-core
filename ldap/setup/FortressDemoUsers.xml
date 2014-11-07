@@ -131,8 +131,10 @@
 
                 <userrole userId="demoUser2" name="role1"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
                 <userrole userId="demoUser3" name="role1"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
+
                 <userrole userId="demoUser4" name="role1"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
-                <userrole userId="demoUser4" name="EnmasseSuperUser"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
+                <userrole userId="demoUser4" name="fortress-rest-user"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
+                <userrole userId="demoUser4" name="fortress-rest-super-user"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
                 <!-- Bad - role end time -->
                 <userrole userId="demoUser5" name="role1"  beginTime="0700" endTime="0800" beginDate="20100101" endDate="21000101" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
                 <userrole userId="demoUser6" name="role1"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
@@ -154,7 +156,8 @@
                 <role name="manager-gui" description="Tomcat 7 Manager Role for Manager UI"/>
                 <role name="manager-script" description="Tomcat 7 Manager Role for Management Scripts"/>
                 <role name="manager" description="Tomcat Manager Role"/>
-                <role name="EnmasseSuperUser" description="Role to access En Masse services"/>
+                <role name="fortress-rest-super-user" description="Role to gain access to the Fortress Rest services"/>
+                <role name="fortress-rest-user" description="Role to gain access to the Fortress Rest server"/>
             </addrole>
 
             <addadminrole>
