@@ -72,7 +72,7 @@
                 <!--config props="accessmgr.implementation:org.apache.directory.fortress.core.rbac.AccessMgrImpl"/-->
                 <!--config props="auditmgr.implementation:org.apache.directory.fortress.audit.AuditMgrImpl"/-->
                 <config props="audit.root:@AUDITS_DN@"/>
-                <config props="superadmin.role:FortressSuperAdmin"/>
+                <config props="superadmin.role:fortress-core-super-admin"/>
                 <config props="temporal.validator.0:org.apache.directory.fortress.core.util.time.Date"/>
                 <config props="temporal.validator.1:org.apache.directory.fortress.core.util.time.LockDate"/>
                 <config props="temporal.validator.2:org.apache.directory.fortress.core.util.time.Timeout"/>
@@ -137,7 +137,7 @@
                 <config props="sdconstraint.root:ou=Constraints,ou=RBAC,@SUFFIX@"/>
                 <config props="adminperm.root:ou=AdminPerms,ou=ARBAC,@SUFFIX@"/>
                 <config props="audit.root:cn=log"/>
-                <config props="superadmin.role:oamSuperAdmin"/>
+                <config props="superadmin.role:fortress-core-super-admin"/>
                 <config props="temporal.validator.0:org.apache.directory.fortress.core.util.time.Date"/>
                 <config props="temporal.validator.1:org.apache.directory.fortress.core.util.time.LockDate"/>
                 <config props="temporal.validator.2:org.apache.directory.fortress.core.util.time.Timeout"/>
