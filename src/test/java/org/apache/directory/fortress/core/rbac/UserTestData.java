@@ -63,7 +63,7 @@ public class UserTestData extends TestCase
                 "20500115", /* ELOCKDATE_COL */
                 "1234567", /* DAYMASK_COL */
                 "DEV0", /* ORG_COL */
-                "100", /* TIMEOUT_COL */
+                "0", /* TIMEOUT_COL */
                 "", /* ASSGND_ROLES_COL */
                 "", /* AUTHZ_ROLES_COL */
                 "Lawrence,KS,66045,Strong Hall,Computer Science,222",/* ADDRESS_COL */
