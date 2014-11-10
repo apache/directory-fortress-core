@@ -69,10 +69,6 @@ final class SuffixDAO extends ApacheDsDataProvider
 {
     private static final String CLS_NM = SuffixDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-
-    private static final String DC = "dc";
-    private static final String O = "o";
-
     private static final String[] SUFFIX_OBJ_CLASS =
         {
             GlobalIds.SUFFIX_CLASS, GlobalIds.ORGANIZATION_CLASS
@@ -102,12 +98,9 @@ final class SuffixDAO extends ApacheDsDataProvider
             Entry myEntry = new DefaultEntry( nodeDn );
             myEntry.add( GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS );
             myEntry.add( GlobalIds.OBJECT_CLASS, SUFFIX_OBJ_CLASS );
-            myEntry.add( DC, se.getName() );
-            myEntry.add( O, se.getDescription() );
-    /*
             myEntry.add( SchemaConstants.DC_AT, se.getName() );
             myEntry.add( SchemaConstants.O_AT, se.getDescription() );
-*/
+
             ld = getAdminConnection();
             add( ld, myEntry );
         }
