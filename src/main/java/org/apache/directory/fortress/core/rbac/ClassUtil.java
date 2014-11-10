@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core.rbac;
 
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.mavibot.btree.util.Strings;
+import org.apache.directory.api.util.Strings;
 
 import java.io.InputStream;
 
