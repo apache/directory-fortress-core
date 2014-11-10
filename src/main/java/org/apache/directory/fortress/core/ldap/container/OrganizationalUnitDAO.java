@@ -108,17 +108,12 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
         try
         {
             LOG.info( "create container dn [{}]",  nodeDn );
-            Entry myEntry = new DefaultEntry( nodeDn );
-            myEntry.add( GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS );
-            myEntry.add( GlobalIds.OU, oe.getName() );
-            myEntry.add( GlobalIds.DESC, oe.getDescription() );
 
-            /*
             Entry myEntry = new DefaultEntry( nodeDn,
-                GlobalIds.OBJECT_CLASS, ORGUNIT_OBJ_CLASS,
+                GlobalIds.OBJECT_CLASS, ORGUNIT_CLASS,
                 GlobalIds.OU, oe.getName(),
                 GlobalIds.DESC, oe.getDescription() );
-*/
+
             ld = getAdminConnection();
             add( ld, myEntry );
         }
