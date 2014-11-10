@@ -23,7 +23,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   <artifactId>fortress-core</artifactId>
   <packaging>jar</packaging>
   <name>Apache Fortress Core</name>
-  <version>1.0.0-M1-SNAPSHOT</version>
+  <version>1.0-RC40</version>
   <inceptionYear>2007</inceptionYear>
   <description>Apache Fortress is a standards-based Identity and Access Management SDK that implements ANSI RBAC INCITS 359.</description>
   <url>http://directory.apache.org/fortress/</url>
@@ -115,7 +115,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     <version.ant.launcher>1.9.1</version.ant.launcher>
     <version.antlr>2.7.7</version.antlr>
     <version.apacheds>2.0.0-M18-SNAPSHOT</version.apacheds>
-    <version.api.all>1.0.0-M24</version.api.all>
+    <version.api.all>1.0.0-M26-SNAPSHOT</version.api.all>
     <version.commons.beanutils>1.7.0</version.commons.beanutils>
     <version.commons.beanutils-core>1.8.0</version.commons.beanutils-core>
     <version.commons.codec>1.2</version.commons.codec>
@@ -171,7 +171,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   <!-- The dependencies                                       -->
   <!-- ====================================================== --> 
   <dependencies>
-    <!-- dependency>
+    <dependency>
       <groupId>org.openldap</groupId>
       <artifactId>accelerator-api</artifactId>
       <version>${version.accelerator.api}</version>
@@ -181,7 +181,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
       <groupId>org.openldap</groupId>
       <artifactId>accelerator-impl</artifactId>
       <version>${version.accelerator.impl}</version>
-    </dependency -->
+    </dependency>
 
     <dependency>
       <groupId>commons-lang</groupId>
@@ -231,12 +231,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
       <version>${version.cxf.common.utilities}</version>
     </dependency>
 
-    <!-- dependency>
+    <dependency>
       <groupId>org.apache.directory.api</groupId>
       <artifactId>api-all</artifactId>
       <version>${version.api.all}</version>
       <type>jar</type>
-    </dependency -->
+    </dependency>
     
     <dependency>
       <groupId>org.apache.ant</groupId>
@@ -338,7 +338,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
       <artifactId>apacheds-jdbm1</artifactId>
       <version>2.0.0-M2</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-jdbm-partition</artifactId>
