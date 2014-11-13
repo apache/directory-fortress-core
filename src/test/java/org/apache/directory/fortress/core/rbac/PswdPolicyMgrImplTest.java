@@ -1191,8 +1191,8 @@ public class PswdPolicyMgrImplTest extends TestCase
         // todo: use annotations to pass names of input tables for logging:
         //     public void add(PwPolicy policy)
         //add("POLICIES_TP1", PolicyTestData.POLICIES_TP1);
-        add( "ADD " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ), PolicyTestData.POLICIES_TP1 );
-        add( "ADD " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP2" ), PolicyTestData.POLICIES_TP2 );
+        add( "ADD " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP1" ), PolicyTestData.POLICIES_TP1, false );
+        add( "ADD " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_TP2" ), PolicyTestData.POLICIES_TP2, false );
     }
 
 
@@ -1200,7 +1200,7 @@ public class PswdPolicyMgrImplTest extends TestCase
      * @param msg
      * @param pArray
      */
-    public void add( String msg, String[][] pArray )
+    public static void add( String msg, String[][] pArray, boolean nofail )
     {
         LogUtil.logIt( msg );
         try
@@ -1215,8 +1215,11 @@ public class PswdPolicyMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error( "add caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
-            fail( ex.getMessage() );
+            if(!nofail)
+            {
+                LOG.error( "add caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+                fail( ex.getMessage() );
+            }
         }
     }
 

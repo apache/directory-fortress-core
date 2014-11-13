@@ -54,6 +54,31 @@ public class PolicyTestData extends TestCase
         String message();
     }
 
+    @MyAnnotation(name = "POLICIES_BASE", value = "PLCY BASE")
+    final public static String[][] POLICIES_BASE =
+        {
+
+            {
+                "Test1", /* NAME_COL */
+                "userPassword", /* ATTR_COL */
+                "0", /* MINAGE_COL */
+                "7776000", /* MAXAGE_COL */
+                "5", /* HISTORY_COL */
+                "2", /* CHKQUAL_COL */
+                "4", /* MINLEN_COL */
+                "2592000", /* EXPIREWARN_COL */
+                "3", /* GRACE_COL */
+                "TRUE", /* LOCKOUT_COL */
+                "0", /* LOCKDURATION_COL */
+                "3", /* MAXFAIL_COL */
+                "0", /* INTERVAL_COL */
+                "TRUE", /* MUSTCHG_COL */
+                "TRUE", /* ALLOWCHG_COL */
+                "FALSE" /* SAFEMODIFY_COL */
+            },
+        };
+
+
     /**
      * Test Case TP1:
      */

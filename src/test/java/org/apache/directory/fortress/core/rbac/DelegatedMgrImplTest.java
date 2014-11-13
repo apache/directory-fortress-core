@@ -161,6 +161,7 @@ public class DelegatedMgrImplTest extends TestCase
                 PermTestData.AUDITMGR_OBJ, PermTestData.AUDITMGR_OPS, false, true );
         }
 
+        PswdPolicyMgrImplTest.add( "ADD " + TestUtils.getDataLabel( PolicyTestData.class, "POLICIES_BASE" ), PolicyTestData.POLICIES_BASE, true );
         AdminMgrImplTest.addUsers( "ADD-USRS TU0", UserTestData.USERS_TU0, false );
         assignAdminUsers( "ASGN-USRS TU0 SUPER", UserTestData.USERS_TU0, AdminRoleTestData.AROLES_SUPER, false );
     }
