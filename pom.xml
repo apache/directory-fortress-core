@@ -597,7 +597,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
                                     timeout="4000000"
                                     taskname="startAnt">
                                 <classpath>
-                                    <pathelement location="./config"/>
+                                    <pathelement location="./config/bootstrap"/>
                                     <pathelement location="./target/classes/"/>
                                     <pathelement location="${org.apache.ant:ant-launcher:jar}"/>
                                     <pathelement location="${org.apache.ant:ant:jar}"/>
