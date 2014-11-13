@@ -656,6 +656,12 @@
             </plugin>
 
         </plugins>
+
+        <testResources>
+            <testResource>
+                <directory>${project.basedir}/config</directory>
+            </testResource>
+        </testResources>
     </build>
 
     <profiles>
