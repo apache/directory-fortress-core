@@ -198,12 +198,6 @@
             <version>${version.commons.configuration}</version>
         </dependency>
 
-        <!-- dependency>
-          <groupId>commons-collections</groupId>
-          <artifactId>commons-collections</artifactId>
-          <version>${version.commons.collections}</version>
-        </dependency -->
-
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -264,30 +258,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>${version.slf4j.api}</version>
         </dependency>
-
-        <!-- Logging dependencies -->
-        <!--  dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-log4j12</artifactId>
-          <version>${version.slf4j.log4j12}</version>
-        </dependency-->
-
-        <!--
-            <dependency>
-              <groupId>log4j</groupId>
-              <artifactId>log4j</artifactId>
-              <version>${version.log4j}</version>
-            </dependency>
-        -->
-
-        <!-- tests dependencies -->
-        <!-- dependency>
-          <groupId>org.apache.directory.server</groupId>
-          <artifactId>apacheds-all</artifactId>
-          <version>${version.apacheds.all}</version>
-          <type>jar</type>
-          <scope>test</scope>
-        </dependency -->
 
         <dependency>
             <groupId>org.apache.directory.server</groupId>
