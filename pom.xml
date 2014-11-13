@@ -270,11 +270,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
       <version>${version.slf4j.log4j12}</version>
     </dependency-->
 
-    <!-- dependency>
+<!--
+    <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>${version.log4j}</version>
-    </dependency-->
+    </dependency>
+-->
 
     <!-- tests dependencies -->
     <!-- dependency>
@@ -576,6 +578,62 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
           </execution>
         </executions>
       </plugin>
+
+        <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.7</version>
+            <executions>
+                <execution>
+                    <phase>test</phase>
+                    <configuration>
+                        <target name="fortress-load"
+                                if="load.file"
+                                description="Loads fortress policy into ldap">
+                            <echo message="###############  Run Fortress Ant script to load policy  ###############"/>
+                            <java
+                                    classname="org.apache.tools.ant.launch.Launcher"
+                                    fork="true"
+                                    failonerror="true"
+                                    dir="${basedir}"
+                                    timeout="4000000"
+                                    taskname="startAnt">
+                                <classpath>
+                                    <pathelement location="./config"/>
+                                    <pathelement location="./target/classes/"/>
+                                    <pathelement location="${org.apache.ant:ant-launcher:jar}"/>
+                                    <pathelement location="${org.apache.ant:ant:jar}"/>
+                                    <pathelement location="${org.openldap:accelerator-api:jar}"/>
+                                    <pathelement location="${org.openldap:accelerator-impl:jar}"/>
+                                    <pathelement location="${log4j:log4j:jar}"/>
+                                    <pathelement location="${org.apache.directory.api:api-all:jar}"/>
+                                    <pathelement location="${org.apache.mina:mina-core:jar}"/>
+                                    <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}"/>
+                                    <pathelement location="${org.jasypt:jasypt:jar}"/>
+                                    <pathelement location="${commons-configuration:commons-configuration:jar}"/>
+                                    <pathelement location="${commons-lang:commons-lang:jar}"/>
+                                    <pathelement location="${commons-collections:commons-collections:jar}"/>
+                                    <pathelement location="${commons-logging:commons-logging:jar}"/>
+                                    <pathelement location="${commons-io:commons-io:jar}"/>
+                                    <pathelement location="${commons-pool:commons-pool:jar}"/>
+                                    <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
+                                    <pathelement location="${org.slf4j:slf4j-api:jar}"/>
+                                    <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>
+                                    <pathelement location="${antlr:antlr:jar}"/>
+                                </classpath>
+                                <sysproperty key="version" value="${project.version}"/>
+                                <sysproperty key="tenant" value="HOME"/>
+                                <arg value="-buildfile"/>
+                                <arg file="./${load.file}"/>
+                            </java>
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+
     </plugins>
   </build>
   
