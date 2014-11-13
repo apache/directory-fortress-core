@@ -74,7 +74,6 @@
        <property name="dst.load.bootstrap.script" value="${ldap.setup.dir}/refreshLDAPData.xml"/>
        <property name="load.delegatedadmin.script" value="${ldap.setup.dir}/DelegatedAdminManagerLoad.xml"/>
        <property name="load.demo.script" value="${ldap.setup.dir}/FortressDemoUsers.xml"/>
-       <property name="load.commander.script" value="${ldap.setup.dir}/CommanderDemoUsers.xml"/>
        <property name="build.win.properties" value="${basedir}/build.win.properties"/>
        <property name="build.nix.properties" value="${basedir}/build.nix.properties"/>
        <property name="build.properties" value="${basedir}/build.properties"/>
@@ -135,7 +134,7 @@
        <!-- ########### Javadoc properties ########################### -->
        <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
        <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
-       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2009-2014, The OpenLDAP Foundation. All Rights Reserved. Generated ${TODAY}&lt;/small&gt;"/>
+       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2003-2014, The Apache Software Foundation. All Rights Reserved. Generated ${TODAY}&lt;/small&gt;"/>
        <property name="javadoc.overview" value="/org/apache/directory/fortress/overview.html" />
        <property name="javadoc.dist.zip" value="${dist.dir}/${name}-${version}-javadoc.jar"/>
        <property name="javadoc.stylesheet" value="/org/apache/directory/fortress/fortress-javadoc.css" />
@@ -625,7 +624,7 @@
                  taskname="startAnt">
              <classpath>
                  <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
-                 <!--<path refid="bootstrap.class.path"/>-->
+                 <path refid="bootstrap.class.path"/>
                  <path refid="test.class.path"/>
              </classpath>
              <sysproperty key="debug.admin" value="true"/>
