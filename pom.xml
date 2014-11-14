@@ -508,16 +508,6 @@
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-release-plugin</artifactId>
-          <version>${version.maven.release.plugin}</version>
-          <configuration>
-            <arguments>${release.arguments}</arguments>
-            <tagNameFormat>@{project.version}</tagNameFormat>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${version.maven.compiler.plugin}</version>
           <configuration>
@@ -625,13 +615,7 @@
               </tasks>
             </configuration>
           </execution>
-        </executions>
-      </plugin>
 
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>${version.maven.antrun.plugin}</version>
-        <executions>
           <execution>
             <phase>test</phase>
             <configuration>
