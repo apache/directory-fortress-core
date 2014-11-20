@@ -1329,7 +1329,7 @@ public class DelegatedMgrImplTest extends TestCase
                 int indx = roles.indexOf( AdminRoleTestData.getRole( rle ) );
                 if ( indx != -1 )
                 {
-                    AdminRole entity = roles.get( indx );
+                    AdminRole entity = (AdminRole)roles.get( indx );
                     assertNotNull( entity );
                     AdminRoleTestData.assertEquals( entity, rle );
                     LOG.debug( "searchAdminRoles [" + entity.getName() + "] successful" );
@@ -1772,9 +1772,10 @@ public class DelegatedMgrImplTest extends TestCase
             DelReviewMgr dReviewMgr = getManagedDelegatedReviewMgr();
             String srchVal = TestUtils.getSrchValue( RoleTestData.getName( rArray[0] ) );
             List<AdminRole> cleanup = dReviewMgr.findRoles( srchVal );
-            for ( AdminRole re : cleanup )
+            
+            for ( Role re : cleanup )
             {
-                dAdminMgr.deleteRole( re );
+                dAdminMgr.deleteRole( (AdminRole)re );
                 LOG.debug( "delAdminRoleDescendant cleanup adminRole [" + re.getName() + "] successful" );
             }
         }
