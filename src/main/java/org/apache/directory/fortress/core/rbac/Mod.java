@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -61,20 +62,23 @@ import java.util.List;
  */
 @XmlRootElement(name = "fortMod")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "mod", propOrder = {
-    "reqSession",
-    "objectClass",
-    "reqAuthzID",
-    "reqDN",
-    "reqResult",
-    "reqStart",
-    "reqEnd",
-    "reqMod",
-    "reqType",
-    "sequenceId"
+@XmlType(name = "mod", propOrder =
+    {
+        "reqSession",
+        "objectClass",
+        "reqAuthzID",
+        "reqDN",
+        "reqResult",
+        "reqStart",
+        "reqEnd",
+        "reqMod",
+        "reqType",
+        "sequenceId"
 })
 public class Mod extends FortEntity implements Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private String reqSession;
     private String objectClass;
     private String reqAuthzID;
@@ -86,6 +90,7 @@ public class Mod extends FortEntity implements Serializable
     @XmlElement(nillable = true)
     private List<String> reqMod;
     private long sequenceId;
+
 
     /**
      * The reqMod attribute carries all of the attributes of the original entry being added.
@@ -101,6 +106,7 @@ public class Mod extends FortEntity implements Serializable
         return reqMod;
     }
 
+
     /**
      * The reqMod attribute carries all of the attributes of the original entry being added.
      * (Or in the case of a Modify operation, all of the modifications being performed.)
@@ -110,10 +116,11 @@ public class Mod extends FortEntity implements Serializable
      *
      * @param reqMod contains collection of Strings that map to 'reqMod' attribute on 'auditModify' object class.
      */
-    public void setReqMod(List<String> reqMod)
+    public void setReqMod( List<String> reqMod )
     {
         this.reqMod = reqMod;
     }
+
 
     /**
      * reqEnd provide the end time of the operation. It uses generalizedTime syntax.
@@ -125,15 +132,17 @@ public class Mod extends FortEntity implements Serializable
         return reqEnd;
     }
 
+
     /**
      * reqEnd provide the end time of the operation. It uses generalizedTime syntax.
      *
      * @param reqEnd value that maps to same name on 'auditModify' object class.
      */
-    public void setReqEnd(String reqEnd)
+    public void setReqEnd( String reqEnd )
     {
         this.reqEnd = reqEnd;
     }
+
 
     /**
      * The reqSession attribute is an implementation-specific identifier  that
@@ -147,6 +156,7 @@ public class Mod extends FortEntity implements Serializable
         return reqSession;
     }
 
+
     /**
      * The reqSession attribute is an implementation-specific identifier  that
      * is  common to all the operations associated with the same LDAP session.
@@ -154,10 +164,11 @@ public class Mod extends FortEntity implements Serializable
      *
      * @param reqSession maps to same name on 'auditModify' object class.
      */
-    public void setReqSession(String reqSession)
+    public void setReqSession( String reqSession )
     {
         this.reqSession = reqSession;
     }
+
 
     /**
      * Get the object class name of the audit record.  For this entity, this value will always be 'auditModify'.
@@ -169,15 +180,17 @@ public class Mod extends FortEntity implements Serializable
         return objectClass;
     }
 
+
     /**
      * Set the object class name of the audit record.  For this entity, this value will always be 'auditModify'.
      *
      * @param objectClass value that maps to same name on 'auditModify' obejct class.
      */
-    public void setObjectClass(String objectClass)
+    public void setObjectClass( String objectClass )
     {
         this.objectClass = objectClass;
     }
+
 
     /**
      * The  reqAuthzID  attribute  is  the  distinguishedName of the user that
@@ -193,6 +206,7 @@ public class Mod extends FortEntity implements Serializable
         return reqAuthzID;
     }
 
+
     /**
      * The  reqAuthzID  attribute  is  the  distinguishedName of the user that
      * performed the operation.  This will usually be the  same  name  as  was
@@ -201,10 +215,11 @@ public class Mod extends FortEntity implements Serializable
      * For Fortress bind operations this will map to {@link User#userId}
      *
      */
-    public void setReqAuthzID(String reqAuthzID)
+    public void setReqAuthzID( String reqAuthzID )
     {
         this.reqAuthzID = reqAuthzID;
     }
+
 
     /**
      * The reqDN attribute is the  distinguishedName  of  the  target  of  the
@@ -219,6 +234,7 @@ public class Mod extends FortEntity implements Serializable
         return reqDN;
     }
 
+
     /**
      * The reqDN attribute is the  distinguishedName  of  the  target  of  the
      * operation. E.g., for a Bind request, this is the Bind DN. For an Add
@@ -227,10 +243,11 @@ public class Mod extends FortEntity implements Serializable
      *
      * @param reqDN maps to 'reqDN' attribute on 'auditModify' object class.
      */
-    public void setReqDN(String reqDN)
+    public void setReqDN( String reqDN )
     {
         this.reqDN = reqDN;
     }
+
 
     /**
      * The reqResult attribute is the numeric LDAP result code of the
@@ -245,6 +262,7 @@ public class Mod extends FortEntity implements Serializable
         return reqResult;
     }
 
+
     /**
      * The reqResult attribute is the numeric LDAP result code of the
      * operation, indicating either success or a particular LDAP  error  code.
@@ -253,10 +271,11 @@ public class Mod extends FortEntity implements Serializable
      *
      * @param reqResult maps to same name on 'auditModify' object class.
      */
-    public void setReqResult(String reqResult)
+    public void setReqResult( String reqResult )
     {
         this.reqResult = reqResult;
     }
+
 
     /**
      * reqStart provide the start of the operation, They use generalizedTime syntax.
@@ -269,16 +288,18 @@ public class Mod extends FortEntity implements Serializable
         return reqStart;
     }
 
+
     /**
      * reqStart provide the start of the operation, They use generalizedTime syntax.
      * The reqStart attribute is also used as the RDN for each log entry.
      *
      * @param reqStart maps to same name on 'auditModify' object class.
      */
-    public void setReqStart(String reqStart)
+    public void setReqStart( String reqStart )
     {
         this.reqStart = reqStart;
     }
+
 
     /**
      * The reqType attribute is a simple string containing the type of
@@ -293,6 +314,7 @@ public class Mod extends FortEntity implements Serializable
         return reqType;
     }
 
+
     /**
      * The reqType attribute is a simple string containing the type of
      * operation being logged, e.g. add, delete, search, etc. For extended
@@ -301,10 +323,11 @@ public class Mod extends FortEntity implements Serializable
      *
      * @param reqType maps to same name on 'auditModify' object class.
      */
-    public void setReqType(String reqType)
+    public void setReqType( String reqType )
     {
         this.reqType = reqType;
     }
+
 
     /**
      * Sequence id is used internal to Fortress.
@@ -315,11 +338,12 @@ public class Mod extends FortEntity implements Serializable
         return sequenceId;
     }
 
+
     /**
      * Sequence id is used internal to Fortress
      * @param sequenceId contains sequence to use.
      */
-    public void setSequenceId(long sequenceId)
+    public void setSequenceId( long sequenceId )
     {
         this.sequenceId = sequenceId;
     }

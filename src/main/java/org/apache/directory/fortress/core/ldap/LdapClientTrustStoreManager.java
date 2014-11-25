@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.ldap;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -38,6 +39,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 /**
  * Implement the X509TrustManager interface which will be used during JSSE truststore manager initialization for LDAP
  * client-to-server communications over TLS/SSL.
@@ -49,6 +51,8 @@ import org.slf4j.LoggerFactory;
  */
 public final class LdapClientTrustStoreManager implements X509TrustManager, Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     // Logging
     private static final String CLS_NM = LdapClientTrustStoreManager.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
@@ -58,6 +62,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
     private final char[] trustStorePw;
     private final String trustStoreFile;
     private final String trustStoreFormat;
+
 
     /**
      * Constructor used by connection configuration utility to load trust store manager.
@@ -92,6 +97,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         }
     }
 
+
     /**
      * Determine if client certificate is to be trusted.
      *
@@ -109,6 +115,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         }
     }
 
+
     /**
      * Determine if server certificate is to be trusted.
      *
@@ -125,6 +132,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         }
     }
 
+
     /**
      * Return the list of accepted issuers for this trust manager.
      *
@@ -134,6 +142,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
     {
         return new X509Certificate[0];
     }
+
 
     /**
      * Return array of trust managers to caller.  Will verify that current date is within certs validity period.
@@ -162,6 +171,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         }
         return loadTrustManagers( getTrustStore() );
     }
+
 
     /**
      * Return an array of X.509 TrustManagers.
@@ -196,6 +206,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         }
         return x509TrustManagers;
     }
+
 
     /**
      * Load the TrustStore file into JSSE KeyStore instance.

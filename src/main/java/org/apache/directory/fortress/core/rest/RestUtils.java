@@ -468,7 +468,7 @@ public class RestUtils
         if ( properties != null )
         {
             props = new ObjectFactory().createProps();
-            for ( Enumeration e = properties.propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = properties.propertyNames(); e.hasMoreElements(); )
             {
                 String key = ( String ) e.nextElement();
                 String val = properties.getProperty( key );

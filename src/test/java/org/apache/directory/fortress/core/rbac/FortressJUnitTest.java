@@ -23,7 +23,6 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.ldap.LdapCounters;
 
 /**
  * This JUnit test class drives all of the Fortress Administration APIs contained within {@link AdminMgrImplTest},

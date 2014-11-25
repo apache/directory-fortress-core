@@ -704,6 +704,7 @@ public class FortressAntTask extends Task implements InputHandler
         this.deluseradminroles.add( deluserrole );
     }
 
+
     /**
      * Load the entity with data.
      *
@@ -774,9 +775,9 @@ public class FortressAntTask extends Task implements InputHandler
      * @param list
      * @return boolean
      */
-    private boolean isListNotNull( List list )
+    private boolean isListNotNull( List<?> list )
     {
-        return ( list != null && list.size() > 0 );
+        return ( ( list != null ) && ( list.size() > 0 ) );
     }
 
 
@@ -1009,7 +1010,7 @@ public class FortressAntTask extends Task implements InputHandler
             try
             {
                 String testClassName = Config.getProperty( getTaskName() );
-                if(!VUtil.isNotNullOrEmpty( testClassName ))
+                if ( !VUtil.isNotNullOrEmpty( testClassName ) )
                 {
                     testClassName = "org.apache.directory.fortress.core.rbac.FortressAntLoadTest";
                 }
@@ -1038,7 +1039,7 @@ public class FortressAntTask extends Task implements InputHandler
 
             for ( UserAnt user : users )
             {
-                LOG.info( "addUsers userid={} description={} orgUnit={}", 
+                LOG.info( "addUsers userid={} description={} orgUnit={}",
                     user.getUserId(), user.getDescription(), user.getOu() );
                 try
                 {
@@ -1090,7 +1091,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addUsers userId [{}] caught SecurityException={}", user.getUserId(),  se );
+                    LOG.warn( "addUsers userId [{}] caught SecurityException={}", user.getUserId(), se );
                 }
             }
         }
@@ -1121,6 +1122,7 @@ public class FortressAntTask extends Task implements InputHandler
         }
     }
 
+
     /**
      * @throws BuildException
      */
@@ -1133,7 +1135,7 @@ public class FortressAntTask extends Task implements InputHandler
 
             for ( Group group : groups )
             {
-                LOG.info( "addGroups name={} description={}", group.getName(), group.getDescription());
+                LOG.info( "addGroups name={} description={}", group.getName(), group.getDescription() );
                 try
                 {
                     groupMgr.add( group );
@@ -1145,6 +1147,7 @@ public class FortressAntTask extends Task implements InputHandler
             }
         }
     }
+
 
     /**
      * @throws BuildException
@@ -1170,6 +1173,7 @@ public class FortressAntTask extends Task implements InputHandler
         }
     }
 
+
     /**
      * @throws BuildException
      */
@@ -1183,9 +1187,9 @@ public class FortressAntTask extends Task implements InputHandler
             for ( Group group : groups )
             {
                 List<String> members = group.getMembers();
-                if(VUtil.isNotNullOrEmpty( members ))
+                if ( VUtil.isNotNullOrEmpty( members ) )
                 {
-                    for( String member : members )
+                    for ( String member : members )
                     {
                         LOG.info( "addGroupMembers name={}, member={}", group.getName(), member );
                         try
@@ -1194,7 +1198,8 @@ public class FortressAntTask extends Task implements InputHandler
                         }
                         catch ( SecurityException se )
                         {
-                            LOG.warn( "addGroupMembers name [{}], member [{}] caught SecurityException={}", group.getName(), member, se );
+                            LOG.warn( "addGroupMembers name [{}], member [{}] caught SecurityException={}",
+                                group.getName(), member, se );
                         }
                     }
                 }
@@ -1205,6 +1210,7 @@ public class FortressAntTask extends Task implements InputHandler
             }
         }
     }
+
 
     /**
      * @throws BuildException
@@ -1217,9 +1223,9 @@ public class FortressAntTask extends Task implements InputHandler
             List<Group> groups = delgroupmember.getGroups();
             for ( Group group : groups )
             {
-                if(VUtil.isNotNullOrEmpty( group.getMembers() ))
+                if ( VUtil.isNotNullOrEmpty( group.getMembers() ) )
                 {
-                    for(String member : group.getMembers())
+                    for ( String member : group.getMembers() )
                     {
                         LOG.info( "deleteGroupmembers name={}, member={}", group.getName(), member );
                         try
@@ -1228,7 +1234,7 @@ public class FortressAntTask extends Task implements InputHandler
                         }
                         catch ( SecurityException se )
                         {
-                            LOG.warn( "deleteGroupmembers name [{}], member [{}] caught SecurityException={}", 
+                            LOG.warn( "deleteGroupmembers name [{}], member [{}] caught SecurityException={}",
                                 group.getName(), member, se );
                         }
                     }
@@ -1241,6 +1247,7 @@ public class FortressAntTask extends Task implements InputHandler
         }
     }
 
+
     /**
      * @throws BuildException
      */
@@ -1252,9 +1259,9 @@ public class FortressAntTask extends Task implements InputHandler
             List<Group> groups = addgroupproperty.getGroups();
             for ( Group group : groups )
             {
-                if(VUtil.isNotNullOrEmpty( group.getProperties() ))
+                if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
-                    for ( Enumeration e = group.getProperties().propertyNames(); e.hasMoreElements(); )
+                    for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {
                         // This LDAP attr is stored as a name-value pair separated by a ':'.
                         String key = ( String ) e.nextElement();
@@ -1265,7 +1272,8 @@ public class FortressAntTask extends Task implements InputHandler
                         }
                         catch ( SecurityException se )
                         {
-                            LOG.warn( "addGroupProperties name [{}], key [{}], value [{}] caught SecurityException={}", group.getName(), key, val, se );
+                            LOG.warn( "addGroupProperties name [{}], key [{}], value [{}] caught SecurityException={}",
+                                group.getName(), key, val, se );
                         }
                     }
                 }
@@ -1276,6 +1284,7 @@ public class FortressAntTask extends Task implements InputHandler
             }
         }
     }
+
 
     /**
      * @throws BuildException
@@ -1288,9 +1297,9 @@ public class FortressAntTask extends Task implements InputHandler
             List<Group> groups = delgroupproperty.getGroups();
             for ( Group group : groups )
             {
-                if(VUtil.isNotNullOrEmpty( group.getProperties() ))
+                if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
-                    for ( Enumeration e = group.getProperties().propertyNames(); e.hasMoreElements(); )
+                    for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {
                         // This LDAP attr is stored as a name-value pair separated by a ':'.
                         String key = ( String ) e.nextElement();
@@ -1301,7 +1310,8 @@ public class FortressAntTask extends Task implements InputHandler
                         }
                         catch ( SecurityException se )
                         {
-                            LOG.warn( "deleteGroupProperties name [{}], key [{}], value [{}] caught SecurityException={}",
+                            LOG.warn(
+                                "deleteGroupProperties name [{}], key [{}], value [{}] caught SecurityException={}",
                                 group.getName(), key, val, se );
                         }
                     }
@@ -1313,6 +1323,7 @@ public class FortressAntTask extends Task implements InputHandler
             }
         }
     }
+
 
     /**
      * @throws BuildException
@@ -1450,11 +1461,11 @@ public class FortressAntTask extends Task implements InputHandler
                 try
                 {
                     adminMgr.addInheritance( new Role( relationship.getParent() ), new Role( relationship.getChild()
-                    ) );
+                        ) );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addRoleInheritances parent [{}] child [{}] caught SecurityException={}", 
+                    LOG.warn( "addRoleInheritances parent [{}] child [{}] caught SecurityException={}",
                         relationship.getParent(), relationship.getChild(), se );
                 }
             }
@@ -1473,7 +1484,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> roles = delroleinheritance.getRelationships();
             for ( Relationship relationship : roles )
             {
-                LOG.info( "deleteRoleInheritances parent={} child={}", relationship.getParent(), relationship.getChild() );
+                LOG.info( "deleteRoleInheritances parent={} child={}", relationship.getParent(),
+                    relationship.getChild() );
                 try
                 {
                     adminMgr.deleteInheritance( new Role( relationship.getParent() ),
@@ -1547,7 +1559,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteSdsets name [{}] caught SecurityException={}", sd.getName(),  se );
+                    LOG.warn( "deleteSdsets name [{}] caught SecurityException={}", sd.getName(), se );
                 }
             }
         }
@@ -1565,7 +1577,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermObj> permObjs = addpermObj.getPermObjs();
             for ( PermObj permObj : permObjs )
             {
-                LOG.info( "addPermObjs objName={} description={} orgUnit={} type={}", 
+                LOG.info( "addPermObjs objName={} description={} orgUnit={} type={}",
                     permObj.getObjName(), permObj.getDescription(), permObj.getOu(), permObj.getType() );
                 try
                 {
@@ -1617,7 +1629,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deletePermObjs name [{}] caught SecurityException={}", permObj.getObjName(),  se );
+                    LOG.warn( "deletePermObjs name [{}] caught SecurityException={}", permObj.getObjName(), se );
                 }
             }
         }
@@ -1635,7 +1647,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermAnt> permissions = addpermOp.getPermOps();
             for ( PermAnt permission : permissions )
             {
-                LOG.info( "addPermOps name={} objName={}", permission.getOpName() , permission.getObjName() );
+                LOG.info( "addPermOps name={} objName={}", permission.getOpName(), permission.getObjName() );
                 try
                 {
                     try
@@ -1685,7 +1697,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deletePermOps name [{}] objName[{}] caught SecurityException={}", 
+                    LOG.warn( "deletePermOps name [{}] objName[{}] caught SecurityException={}",
                         permission.getOpName(), permission.getObjName(), se );
                 }
             }
@@ -1859,7 +1871,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addContainers name [{}] caught SecurityException={}", ou.getName(),  se );
+                    LOG.warn( "addContainers name [{}] caught SecurityException={}", ou.getName(), se );
                 }
             }
         }
@@ -2169,7 +2181,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> roles = addadminroleinheritance.getRelationships();
             for ( Relationship relationship : roles )
             {
-                LOG.info( "addAdminRoleInheritances parent={} child={}", 
+                LOG.info( "addAdminRoleInheritances parent={} child={}",
                     relationship.getParent(), relationship.getChild() );
                 try
                 {
@@ -2382,45 +2394,54 @@ public class FortressAntTask extends Task implements InputHandler
         return props;
     }
 
+
     public List<AddpermOp> getAddpermOps()
     {
         return addpermOps;
     }
+
 
     public List<AddpermObj> getAddpermObjs()
     {
         return addpermObjs;
     }
 
+
     public List<Adduser> getAddusers()
     {
         return addusers;
     }
+
 
     public List<Adduserrole> getAdduserroles()
     {
         return adduserroles;
     }
 
+
     public List<Addrole> getAddroles()
     {
         return addroles;
     }
+
 
     public List<Addsdset> getAddsdsets()
     {
         return addsdsets;
     }
 
+
     public List<Addroleinheritance> getAddroleinheritances()
     {
         return addroleinheritances;
     }
 
+
     public List<AddpermGrant> getAddpermGrants()
     {
         return addpermGrants;
     }
+
 
     public List<Addgroup> getAddgroups()
     {

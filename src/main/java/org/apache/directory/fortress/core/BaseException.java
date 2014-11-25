@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+
 /**
  * Base exception class for checked exceptions thrown.  This class wraps {@code java.lang.Exception}.  The BaseException
  * class adds int attribute which stores the necessary error code as required by all checked exceptions in this system.
@@ -29,7 +30,11 @@ package org.apache.directory.fortress.core;
  */
 public abstract class BaseException extends Exception implements StandardException
 {
-	private final int errorId;
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
+    private final int errorId;
+
 
     /**
      * Create exception containing error code and message.
@@ -37,11 +42,12 @@ public abstract class BaseException extends Exception implements StandardExcepti
      * @param  errorId see {@link GlobalErrIds} for list of valid error codes that can be set.  Valid values between 0 & 100_000.
      * @param msg contains textual information including method of origin and description of the root cause.
      */
-	BaseException(int errorId, String msg)
-	{
-		super(msg);
-		this.errorId = errorId;
-	}
+    BaseException( int errorId, String msg )
+    {
+        super( msg );
+        this.errorId = errorId;
+    }
+
 
     /**
      * Create exception containing error code, message and previous exception.
@@ -50,19 +56,20 @@ public abstract class BaseException extends Exception implements StandardExcepti
      * @param msg contains textual information including method of origin and description of the root cause.
      * @param previousException contains reference to related exception which usually is system related, i.e. ldap.
      */
-	BaseException(int errorId, String msg, Throwable previousException)
-	{
-		super(msg, previousException);
-		this.errorId = errorId;
-	}
+    BaseException( int errorId, String msg, Throwable previousException )
+    {
+        super( msg, previousException );
+        this.errorId = errorId;
+    }
+
 
     /**
      * Return the error id that is defined by this class {@link GlobalErrIds}.
      *
      * @return error id which is defined here {@link GlobalErrIds}.  Valid values for Fortress error codes fall between 0 and 100_000.
      */
-	public int getErrorId()
-	{
-		return errorId;
-	}
+    public int getErrorId()
+    {
+        return errorId;
+    }
 }

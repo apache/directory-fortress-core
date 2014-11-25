@@ -114,16 +114,16 @@ public abstract class ApacheDsDataProvider
     private static final String TRUST_STORE = Config.getProperty( "trust.store" );
     private static final String TRUST_STORE_PW = Config.getProperty( "trust.store.password" );
     private static final boolean IS_SSL = (
-        Config.getProperty( ENABLE_LDAP_SSL ) != null   &&
+        Config.getProperty( ENABLE_LDAP_SSL ) != null &&
             Config.getProperty( ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
-            TRUST_STORE      != null   &&
-            TRUST_STORE_PW   != null );
+            TRUST_STORE != null &&
+        TRUST_STORE_PW != null );
 
     private static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
     private static final boolean IS_SET_TRUST_STORE_PROP = (
         IS_SSL &&
-            Config.getProperty( SET_TRUST_STORE_PROP ) != null   &&
-            Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ));
+            Config.getProperty( SET_TRUST_STORE_PROP ) != null &&
+        Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ) );
 
     private static final boolean IS_SSL_DEBUG = ( ( Config.getProperty( ENABLE_LDAP_SSL_DEBUG ) != null ) && ( Config
         .getProperty( ENABLE_LDAP_SSL_DEBUG ).equalsIgnoreCase( "true" ) ) );
@@ -152,9 +152,9 @@ public abstract class ApacheDsDataProvider
         int logmin = Config.getInt( LDAP_LOG_POOL_MIN, 1 );
         int logmax = Config.getInt( LDAP_LOG_POOL_MAX, 10 );
 
-        if(IS_SET_TRUST_STORE_PROP)
+        if ( IS_SET_TRUST_STORE_PROP )
         {
-            LOG.info( "Set JSSE truststore properties in Apache LDAP client:");
+            LOG.info( "Set JSSE truststore properties in Apache LDAP client:" );
             LOG.info( "javax.net.ssl.trustStore: {}", TRUST_STORE );
             LOG.info( "javax.net.debug: {}" + IS_SSL_DEBUG );
             System.setProperty( "javax.net.ssl.trustStore", TRUST_STORE );
@@ -170,10 +170,11 @@ public abstract class ApacheDsDataProvider
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
-        if(IS_SSL && VUtil.isNotNullOrEmpty( TRUST_STORE ) && VUtil.isNotNullOrEmpty( TRUST_STORE_PW ) )
+        if ( IS_SSL && VUtil.isNotNullOrEmpty( TRUST_STORE ) && VUtil.isNotNullOrEmpty( TRUST_STORE_PW ) )
         {
             // validate certificates but allow self-signed certs if within this truststore:
-            config.setTrustManagers( new LdapClientTrustStoreManager( TRUST_STORE, TRUST_STORE_PW.toCharArray(), null, true ) );
+            config.setTrustManagers( new LdapClientTrustStoreManager( TRUST_STORE, TRUST_STORE_PW.toCharArray(), null,
+                true ) );
         }
 
         String adminPw;
@@ -191,11 +192,11 @@ public abstract class ApacheDsDataProvider
         {
             System.setProperty( StandaloneLdapApiService.EXTENDED_OPERATIONS_LIST,
                 "org.openldap.accelerator.impl.createSession.RbacCreateSessionFactory,"
-              + "org.openldap.accelerator.impl.checkAccess.RbacCheckAccessFactory,"
-              + "org.openldap.accelerator.impl.addRole.RbacAddRoleFactory,"
-              + "org.openldap.accelerator.impl.dropRole.RbacDropRoleFactory,"
-              + "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory,"
-              + "org.openldap.accelerator.impl.sessionRoles.RbacSessionRolesFactory"
+                    + "org.openldap.accelerator.impl.checkAccess.RbacCheckAccessFactory,"
+                    + "org.openldap.accelerator.impl.addRole.RbacAddRoleFactory,"
+                    + "org.openldap.accelerator.impl.dropRole.RbacDropRoleFactory,"
+                    + "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory,"
+                    + "org.openldap.accelerator.impl.sessionRoles.RbacSessionRolesFactory"
                 );
 
             LdapApiService ldapApiService = new StandaloneLdapApiService();
@@ -207,7 +208,7 @@ public abstract class ApacheDsDataProvider
         }
         catch ( Exception ex )
         {
-            String error =  "Exception caught initializing Admin Pool: " + ex;
+            String error = "Exception caught initializing Admin Pool: " + ex;
             throw new CfgRuntimeException( GlobalErrIds.FT_APACHE_LDAP_POOL_INIT_FAILED, error, ex );
         }
 
@@ -229,7 +230,7 @@ public abstract class ApacheDsDataProvider
 
         // This pool of access log connections is used by {@link org.apache.directory.fortress.AuditMgr}.
         // To enable, set {@code log.admin.user} && {@code log.admin.pw} inside fortress.properties file:
-        if(VUtil.isNotNullOrEmpty( LDAP_LOG_POOL_UID ) && VUtil.isNotNullOrEmpty( LDAP_LOG_POOL_PW ))
+        if ( VUtil.isNotNullOrEmpty( LDAP_LOG_POOL_UID ) && VUtil.isNotNullOrEmpty( LDAP_LOG_POOL_PW ) )
         {
             // TODO: Initializing the log pool in static block requires static props set within fortress.properties.
             // To make this dynamic requires moving this code outside of static block AND storing the connection metadata inside fortress config node (in ldap).
@@ -240,10 +241,11 @@ public abstract class ApacheDsDataProvider
 
             logConfig.setUseSsl( IS_SSL );
 
-            if( IS_SSL && VUtil.isNotNullOrEmpty( TRUST_STORE ) && VUtil.isNotNullOrEmpty( TRUST_STORE_PW ) )
+            if ( IS_SSL && VUtil.isNotNullOrEmpty( TRUST_STORE ) && VUtil.isNotNullOrEmpty( TRUST_STORE_PW ) )
             {
                 // validate certificates but allow self-signed certs if within this truststore:
-                logConfig.setTrustManagers( new LdapClientTrustStoreManager( TRUST_STORE, TRUST_STORE_PW.toCharArray(), null, true ) );
+                logConfig.setTrustManagers( new LdapClientTrustStoreManager( TRUST_STORE, TRUST_STORE_PW.toCharArray(),
+                    null, true ) );
             }
 
             logConfig.setName( Config.getProperty( LDAP_LOG_POOL_UID, "" ) );
@@ -289,9 +291,10 @@ public abstract class ApacheDsDataProvider
                 // Found. The DN is ,ou=<contextId>,  
                 StringBuilder dn = new StringBuilder();
 
-                dn.append( szDn.substring( 0, idx - 1 ) ).append( "," ).append( SchemaConstants.OU_AT ).append( "=" ).append(
-                    contextId ).append( "," ).append( szDn.substring( idx ) );
-                
+                dn.append( szDn.substring( 0, idx - 1 ) ).append( "," ).append( SchemaConstants.OU_AT ).append( "=" )
+                    .append(
+                        contextId ).append( "," ).append( szDn.substring( idx ) );
+
                 return dn.toString();
             }
             else
@@ -443,7 +446,8 @@ public abstract class ApacheDsDataProvider
     protected void modify( LdapConnection connection, String dn, List<Modification> mods ) throws LdapException
     {
         counters.incrementMod();
-        connection.modify( dn, mods.toArray( new Modification[]{} ) );
+        connection.modify( dn, mods.toArray( new Modification[]
+            {} ) );
     }
 
 
@@ -458,7 +462,8 @@ public abstract class ApacheDsDataProvider
     protected void modify( LdapConnection connection, Dn dn, List<Modification> mods ) throws LdapException
     {
         counters.incrementMod();
-        connection.modify( dn, mods.toArray( new Modification[]{} ) );
+        connection.modify( dn, mods.toArray( new Modification[]
+            {} ) );
     }
 
 
@@ -476,7 +481,8 @@ public abstract class ApacheDsDataProvider
     {
         counters.incrementMod();
         audit( mods, entity );
-        connection.modify( dn, mods.toArray( new Modification[]{} ) );
+        connection.modify( dn, mods.toArray( new Modification[]
+            {} ) );
     }
 
 
@@ -494,7 +500,8 @@ public abstract class ApacheDsDataProvider
     {
         counters.incrementMod();
         audit( mods, entity );
-        connection.modify( dn, mods.toArray( new Modification[]{} ) );
+        connection.modify( dn, mods.toArray( new Modification[]
+            {} ) );
     }
 
 
@@ -631,7 +638,8 @@ public abstract class ApacheDsDataProvider
         String theDN;
 
         // Find child nodes
-        SearchCursor cursor = search( connection, dn, SearchScope.ONELEVEL, "(objectclass=*)", SchemaConstants.NO_ATTRIBUTE_ARRAY,
+        SearchCursor cursor = search( connection, dn, SearchScope.ONELEVEL, "(objectclass=*)",
+            SchemaConstants.NO_ATTRIBUTE_ARRAY,
             false, 0 );
 
         // Iterate over all entries under this entry
@@ -1087,7 +1095,8 @@ public abstract class ApacheDsDataProvider
     {
         if ( list != null && list.size() > 0 )
         {
-            entry.add( attrName, list.toArray( new String[]{} ) );
+            entry.add( attrName, list.toArray( new String[]
+                {} ) );
         }
     }
 
@@ -1105,7 +1114,8 @@ public abstract class ApacheDsDataProvider
         if ( ( list != null ) && ( list.size() > 0 ) )
         {
             mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, attrName,
-                list.toArray( new String[]{} ) ) );
+                list.toArray( new String[]
+                    {} ) ) );
         }
     }
 
@@ -1164,7 +1174,8 @@ public abstract class ApacheDsDataProvider
         if ( ( values != null ) && ( values.size() > 0 ) )
         {
             mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, attrName,
-                values.toArray( new String[]{} ) ) );
+                values.toArray( new String[]
+                    {} ) ) );
         }
     }
 
@@ -1182,7 +1193,8 @@ public abstract class ApacheDsDataProvider
     {
         if ( ( values != null ) && ( values.size() > 0 ) )
         {
-            entry.add( attrName, values.toArray( new String[]{} ) );
+            entry.add( attrName, values.toArray( new String[]
+                {} ) );
         }
     }
 
@@ -1214,7 +1226,8 @@ public abstract class ApacheDsDataProvider
      * ModificationOperation#ADD_ATTRIBUTE}.
      * @param separator contains the char value used to separate name and value in ldap raw format.
      */
-    protected void loadProperties( Properties props, List<Modification> mods, String attrName, boolean replace, char separator )
+    protected void loadProperties( Properties props, List<Modification> mods, String attrName, boolean replace,
+        char separator )
     {
         if ( props != null && props.size() > 0 )
         {
@@ -1223,7 +1236,7 @@ public abstract class ApacheDsDataProvider
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, attrName ) );
             }
 
-            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 String key = ( String ) e.nextElement();
                 String val = props.getProperty( key );
@@ -1249,7 +1262,7 @@ public abstract class ApacheDsDataProvider
         {
             Attribute prop;
 
-            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 String key = ( String ) e.nextElement();
                 String val = props.getProperty( key );
@@ -1277,7 +1290,7 @@ public abstract class ApacheDsDataProvider
         {
             Attribute attr = new DefaultAttribute( attrName );
 
-            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 String key = ( String ) e.nextElement();
@@ -1304,12 +1317,13 @@ public abstract class ApacheDsDataProvider
      * @param separator contains the char value used to separate name and value in ldap raw format.
      * @throws LdapException
      */
-    protected void loadProperties( Properties props, Entry entry, String attrName, char separator ) throws LdapException
+    protected void loadProperties( Properties props, Entry entry, String attrName, char separator )
+        throws LdapException
     {
         if ( props != null && props.size() > 0 )
         {
             Attribute attr = null;
-            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 String key = ( String ) e.nextElement();
@@ -1343,19 +1357,19 @@ public abstract class ApacheDsDataProvider
         if ( VUtil.isNotNullOrEmpty( value ) )
         {
             int length = value.length();
-            
+
             if ( length > validLen )
             {
                 String error = "encodeSafeText value [" + value + "] invalid length [" + length + "]";
                 throw new LdapException( error );
             }
-            
+
             if ( GlobalIds.LDAP_FILTER_SIZE_FOUND )
             {
                 value = VUtil.escapeLDAPSearchFilter( value );
             }
         }
-        
+
         return value;
     }
 

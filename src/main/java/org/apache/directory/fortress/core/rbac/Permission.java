@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.rbac;
 
 
+import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
@@ -32,6 +33,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 
 /*
 ## OC2: Fortress Permission Structural Object Class
@@ -219,9 +221,11 @@ import javax.xml.bind.annotation.XmlType;
         "dn",
         "admin"
 })
-public class Permission extends FortEntity
-    implements java.io.Serializable
+public class Permission extends FortEntity implements Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     private boolean admin;
     private String internalId;
     private String opName;
@@ -576,10 +580,12 @@ public class Permission extends FortEntity
         return dn;
     }
 
+
     public void setDn( String dn )
     {
         this.dn = dn;
     }
+
 
     /**
      * Return the description field on this entity.  The description is often used as a human readable label for the permission.
@@ -590,6 +596,7 @@ public class Permission extends FortEntity
         return description;
     }
 
+
     /**
      * Set the optional description field on this entity.  The description is used as a human readable label for the permission.
      *
@@ -599,6 +606,7 @@ public class Permission extends FortEntity
     {
         this.description = description;
     }
+
 
     /**
       * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
@@ -679,7 +687,7 @@ public class Permission extends FortEntity
     {
         if ( props != null )
         {
-            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 String key = ( String ) e.nextElement();
@@ -735,6 +743,7 @@ public class Permission extends FortEntity
         return ( ( thatPermission.getObjName().equalsIgnoreCase( this.getObjName() ) ) && ( thatPermission
             .getOpName().equalsIgnoreCase( this.getOpName() ) ) );
     }
+
 
     @Override
     public String toString()

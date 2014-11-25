@@ -92,7 +92,7 @@ public class Config
                 Properties props = getRemoteConfig( realmName );
                 if ( props != null )
                 {
-                    for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+                    for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
                     {
                         String key = ( String ) e.nextElement();
                         String val = props.getProperty( key );

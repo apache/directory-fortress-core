@@ -33,6 +33,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.StringTokenizer;
 
+
 /**
  * Entity is used by custom Apache Ant task for special handling of collections.  This is necessary because the
  * Ant parser cannot deal with complex data attribute types.  The class extends a base entity.
@@ -41,6 +42,8 @@ import java.util.StringTokenizer;
  */
 public class UserAnt extends User
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private String userProps;
     private String email;
     private String phone;
@@ -57,115 +60,135 @@ public class UserAnt extends User
     private static final String CLS_NM = UserAnt.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
+
     public String getAddresses()
     {
         return addresses;
     }
 
-    public void setAddresses(String addresses)
+
+    public void setAddresses( String addresses )
     {
         this.addresses = addresses;
-         // allow the setter to process comma delimited strings:
-         StringTokenizer tkn = new StringTokenizer(addresses, ",");
-         if (tkn.countTokens() > 0)
-         {
-             while (tkn.hasMoreTokens())
-             {
-                 String aTkn = tkn.nextToken();
-                 getAddress().setAddress(aTkn);
-             }
-         }
+        // allow the setter to process comma delimited strings:
+        StringTokenizer tkn = new StringTokenizer( addresses, "," );
+        if ( tkn.countTokens() > 0 )
+        {
+            while ( tkn.hasMoreTokens() )
+            {
+                String aTkn = tkn.nextToken();
+                getAddress().setAddress( aTkn );
+            }
+        }
     }
+
 
     public String getUserProps()
     {
         return userProps;
     }
 
+
     public void setUserProps( String userProps )
     {
         this.userProps = userProps;
-        addProperties(AttrHelper.getProperties(userProps));
+        addProperties( AttrHelper.getProperties( userProps ) );
     }
+
 
     public String getPostalCode()
     {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode)
+
+    public void setPostalCode( String postalCode )
     {
-        getAddress().setPostalCode(postalCode);
+        getAddress().setPostalCode( postalCode );
     }
+
 
     public String getPostOfficeBox()
     {
         return postOfficeBox;
     }
 
-    public void setPostOfficeBox(String postOfficeBox)
+
+    public void setPostOfficeBox( String postOfficeBox )
     {
-        getAddress().setPostOfficeBox(postOfficeBox);
+        getAddress().setPostOfficeBox( postOfficeBox );
     }
+
 
     public String getBuilding()
     {
         return building;
     }
 
-    public void setBuilding(String building)
+
+    public void setBuilding( String building )
     {
-        getAddress().setBuilding(building);
+        getAddress().setBuilding( building );
     }
+
 
     public String getDepartmentNumber()
     {
         return departmentNumber;
     }
 
-    public void setDepartmentNumber(String departmentNumber)
+
+    public void setDepartmentNumber( String departmentNumber )
     {
-        getAddress().setDepartmentNumber(departmentNumber);
+        getAddress().setDepartmentNumber( departmentNumber );
     }
+
 
     public String getRoomNumber()
     {
         return roomNumber;
     }
 
-    public void setRoomNumber(String roomNumber)
+
+    public void setRoomNumber( String roomNumber )
     {
-        getAddress().setRoomNumber(roomNumber);
+        getAddress().setRoomNumber( roomNumber );
     }
+
 
     public String getCity()
     {
         return city;
     }
 
-    public void setCity(String city)
+
+    public void setCity( String city )
     {
-        getAddress().setCity(city);
+        getAddress().setCity( city );
     }
+
 
     public String getState()
     {
         return state;
     }
 
-    public void setState(String state)
+
+    public void setState( String state )
     {
-        getAddress().setState(state);
+        getAddress().setState( state );
     }
+
 
     public String getCountry()
     {
         return country;
     }
 
-    public void setCountry(String country)
+
+    public void setCountry( String country )
     {
-        getAddress().setCountry(country);
+        getAddress().setCountry( country );
     }
 
     private String country;
@@ -177,88 +200,97 @@ public class UserAnt extends User
      *
      * @param password String format will be converted to char[].
      */
-    public void setPassword(String password)
+    public void setPassword( String password )
     {
-        super.setPassword(password.toCharArray());
+        super.setPassword( password.toCharArray() );
     }
+
 
     public String getPhone()
     {
         return phone;
     }
 
-    public void setPhone(String phone)
+
+    public void setPhone( String phone )
     {
         this.phone = phone;
         // allow the setter to process comma delimited strings:
-        StringTokenizer tkn = new StringTokenizer(phone, ",");
-        if (tkn.countTokens() > 0)
+        StringTokenizer tkn = new StringTokenizer( phone, "," );
+        if ( tkn.countTokens() > 0 )
         {
-            while (tkn.hasMoreTokens())
+            while ( tkn.hasMoreTokens() )
             {
                 String pTkn = tkn.nextToken();
-                getPhones().add(pTkn);
+                getPhones().add( pTkn );
             }
         }
     }
+
 
     public String getEmail()
     {
         return email;
     }
 
-    public void setEmail(String email)
+
+    public void setEmail( String email )
     {
         this.email = email;
         // allow the setter to process comma delimited strings:
-        StringTokenizer tkn = new StringTokenizer(email, ",");
-        if (tkn.countTokens() > 0)
+        StringTokenizer tkn = new StringTokenizer( email, "," );
+        if ( tkn.countTokens() > 0 )
         {
-            while (tkn.hasMoreTokens())
+            while ( tkn.hasMoreTokens() )
             {
                 String eTkn = tkn.nextToken();
-                getEmails().add(eTkn);
+                getEmails().add( eTkn );
             }
         }
     }
+
 
     public String getMobile()
     {
         return mobile;
     }
 
-    public void setMobile(String mobile)
+
+    public void setMobile( String mobile )
     {
         this.mobile = mobile;
         // allow the setter to process comma delimited strings:
-        StringTokenizer tkn = new StringTokenizer(mobile, ",");
-        if (tkn.countTokens() > 0)
+        StringTokenizer tkn = new StringTokenizer( mobile, "," );
+        if ( tkn.countTokens() > 0 )
         {
-            while (tkn.hasMoreTokens())
+            while ( tkn.hasMoreTokens() )
             {
                 String pTkn = tkn.nextToken();
-                getMobiles().add(pTkn);
+                getMobiles().add( pTkn );
             }
         }
     }
+
 
     public String getPhoto()
     {
         return photo;
     }
 
+
     public void setPhoto( String photo )
     {
         this.photo = photo;
-        if( VUtil.isNotNullOrEmpty( photo ))
+        if ( VUtil.isNotNullOrEmpty( photo ) )
         {
             byte[] jpeg = getJpegPhoto( photo );
-            if( VUtil.isNotNullOrEmpty( jpeg ))
+            if ( VUtil.isNotNullOrEmpty( jpeg ) )
             {
                 setJpegPhoto( jpeg );
             }
         }
     }
+
 
     private static byte[] getJpegPhoto( String fileName )
     {
@@ -274,6 +306,7 @@ public class UserAnt extends User
 
         return value;
     }
+
 
     public static byte[] readJpegFile( String fileName )
     {

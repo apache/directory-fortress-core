@@ -27,9 +27,9 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.rbac.ClassUtil;
 import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.rbac.UserRole;
 import org.apache.directory.fortress.core.rbac.Warning;
 import org.apache.directory.fortress.core.util.attr.VUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -422,11 +422,13 @@ public class CUtil
                 if (VUtil.isNotNullOrEmpty(session.getRoles()))
                 {
                     // now check the constraint on every rbac role activation candidate contained within session object:
-                    ListIterator roleItems = session.getRoles().listIterator();
+                    ListIterator<UserRole> roleItems = session.getRoles().listIterator();
+                    
                     while (roleItems.hasNext())
                     {
                         Constraint constraint = (Constraint) roleItems.next();
                         rc = val.validate(session, constraint, currTime);
+                        
                         if (rc > 0)
                         {
                             String msg = location + " role [" + constraint.getName() + "] for user ["

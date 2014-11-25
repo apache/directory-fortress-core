@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,6 +27,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * This class is used as a container for {@code java.util.Properties} for passing to En Masse server.
@@ -61,12 +63,16 @@ import java.util.List;
  */
 @XmlRootElement(name = "fortProps")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "props", propOrder = {
-    "entry"
+@XmlType(name = "props", propOrder =
+    {
+        "entry"
 })
 public class Props extends FortEntity implements Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private List<Props.Entry> entry;
+
 
     /**
      * Gets the value of the entry property.
@@ -92,7 +98,7 @@ public class Props extends FortEntity implements Serializable
      */
     public List<Props.Entry> getEntry()
     {
-        if (entry == null)
+        if ( entry == null )
         {
             entry = new ArrayList<>();
         }
@@ -120,15 +126,19 @@ public class Props extends FortEntity implements Serializable
      *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "key",
-        "value"
+    @XmlType(name = "", propOrder =
+        {
+            "key",
+            "value"
     })
     public static class Entry implements Serializable
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
 
         protected String key;
         protected String value;
+
 
         /**
          * Gets the value of the key property.
@@ -143,6 +153,7 @@ public class Props extends FortEntity implements Serializable
             return key;
         }
 
+
         /**
          * Sets the value of the key property.
          *
@@ -151,10 +162,11 @@ public class Props extends FortEntity implements Serializable
          *     {@link Object }
          *
          */
-        public void setKey(String value)
+        public void setKey( String value )
         {
             this.key = value;
         }
+
 
         /**
          * Gets the value of the value property.
@@ -169,6 +181,7 @@ public class Props extends FortEntity implements Serializable
             return value;
         }
 
+
         /**
          * Sets the value of the value property.
          *
@@ -177,22 +190,23 @@ public class Props extends FortEntity implements Serializable
          *     {@link Object }
          *
          */
-        public void setValue(String value)
+        public void setValue( String value )
         {
             this.value = value;
         }
+
 
         /**
          *
          * @param obj
          * @return boolean value
          */
-        public boolean equals(Object obj)
+        public boolean equals( Object obj )
         {
-            if (obj != null && obj instanceof Props.Entry)
+            if ( obj != null && obj instanceof Props.Entry )
             {
-                Props.Entry inObj = (Props.Entry) obj;
-                return key.equals(inObj.getKey());
+                Props.Entry inObj = ( Props.Entry ) obj;
+                return key.equals( inObj.getKey() );
             }
             return false;
         }

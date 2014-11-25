@@ -19,14 +19,20 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+
+import java.io.Serializable;
+
+
 /**
  * This class contains constants that contain status for Fortress password policy checking.
  *
  * @author Shawn McKinney
  */
-public class GlobalPwMsgIds
-    implements java.io.Serializable
+public class GlobalPwMsgIds implements Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     /**
      * The processor could not process the password message.
      */
@@ -122,37 +128,39 @@ public class GlobalPwMsgIds
      * These message will correspond with the errors above and will be loaded into the pw message entity and returned to
      * caller.
      */
-    private final static String[] pwMsgs = {
-        "password will expire",
-        "password in grace limit",
-        "password is expired",
-        "user account is locked",
-        "password requires change after reset",
-        "password modification is not allowed",
-        "old password is required",
-        "insufficient password quality is found",
-        "password is too short",
-        "password is too young",
-        "password is in history",
-        "account is locked due to user constraints"
+    private final static String[] pwMsgs =
+        {
+            "password will expire",
+            "password in grace limit",
+            "password is expired",
+            "user account is locked",
+            "password requires change after reset",
+            "password modification is not allowed",
+            "old password is required",
+            "insufficient password quality is found",
+            "password is too short",
+            "password is too young",
+            "password is in history",
+            "account is locked due to user constraints"
     };
 
     /**
      * array contains the password policy violations.
      */
-    private final static int[] pwIds = {
-        PASSWORD_EXPIRATION_WARNING,
-        PASSWORD_GRACE_WARNING,
-        PASSWORD_HAS_EXPIRED,
-        ACCOUNT_LOCKED,
-        CHANGE_AFTER_RESET,
-        NO_MODIFICATIONS,
-        MUST_SUPPLY_OLD,
-        INSUFFICIENT_QUALITY,
-        PASSWORD_TOO_SHORT,
-        PASSWORD_TOO_YOUNG,
-        HISTORY_VIOLATION,
-        ACCOUNT_LOCKED_CONSTRAINTS
+    private final static int[] pwIds =
+        {
+            PASSWORD_EXPIRATION_WARNING,
+            PASSWORD_GRACE_WARNING,
+            PASSWORD_HAS_EXPIRED,
+            ACCOUNT_LOCKED,
+            CHANGE_AFTER_RESET,
+            NO_MODIFICATIONS,
+            MUST_SUPPLY_OLD,
+            INSUFFICIENT_QUALITY,
+            PASSWORD_TOO_SHORT,
+            PASSWORD_TOO_YOUNG,
+            HISTORY_VIOLATION,
+            ACCOUNT_LOCKED_CONSTRAINTS
     };
 
 
@@ -162,11 +170,11 @@ public class GlobalPwMsgIds
      * @param iId contains index offset of message.
      * @return string containing the error message.
      */
-    public static String getMessage(int iId)
+    public static String getMessage( int iId )
     {
-        for (int i = 0; i < pwIds.length; i++)
+        for ( int i = 0; i < pwIds.length; i++ )
         {
-            if (iId == pwIds[i])
+            if ( iId == pwIds[i] )
             {
                 return pwMsgs[i];
             }
@@ -182,11 +190,11 @@ public class GlobalPwMsgIds
      * @param strMsg
      * @return int
      */
-    private static int getMessageCode(String strMsg)
+    private static int getMessageCode( String strMsg )
     {
-        for (int i = 0; i < pwMsgs.length; i++)
+        for ( int i = 0; i < pwMsgs.length; i++ )
         {
-            if (pwMsgs[i].equals(strMsg))
+            if ( pwMsgs[i].equals( strMsg ) )
             {
                 return pwIds[i];
             }
@@ -194,4 +202,3 @@ public class GlobalPwMsgIds
         return -1;
     }
 }
-

@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -26,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import java.util.Date;
+
 
 /**
  * This entity is used to pass search criteria into the {@link org.apache.directory.fortress.core.AuditMgr} APIs, down through the
@@ -45,22 +47,25 @@ import java.util.Date;
  */
 @XmlRootElement(name = "fortUserAudit")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "userAudit", propOrder = {
-    "name",
-    "description",
-    "failedOnly",
-    "objName",
-    "objId",
-    "opName",
-    "userId",
-    "internalUserId",
-    "beginDate",
-    "endDate",
-    "dn",
-    "admin"
+@XmlType(name = "userAudit", propOrder =
+    {
+        "name",
+        "description",
+        "failedOnly",
+        "objName",
+        "objId",
+        "opName",
+        "userId",
+        "internalUserId",
+        "beginDate",
+        "endDate",
+        "dn",
+        "admin"
 })
 public class UserAudit extends FortEntity implements java.io.Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private String name;
     private String description;
     private boolean failedOnly;
@@ -76,6 +81,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
     private String dn;
     private boolean admin = false;
 
+
     /**
      * Get the optional objName attribute which limits set by {@link Permission#objName}.
      * For modification search, this attr maps to {@link AuditDAO#REQMOD}.  For authorization search, it will map to {@link AuditDAO#REQDN}.
@@ -88,6 +94,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
         return objName;
     }
 
+
     /**
      * Set the optional objName attribute which limits set by {@link Permission#objName}.
      * For modification search, this attr maps to {@link AuditDAO#REQMOD}.  For authorization search, it will map to {@link AuditDAO#REQDN}.
@@ -95,10 +102,11 @@ public class UserAudit extends FortEntity implements java.io.Serializable
      *
      * @param objName maps to 'reqDn' for 'auditSearch' target, or 'reqMod' for 'auditMod' search.
      */
-    public void setObjName(String objName)
+    public void setObjName( String objName )
     {
         this.objName = objName;
     }
+
 
     /**
      * The failedOnly flag will limit result set to include only authN or authZ events that have failed.
@@ -116,6 +124,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
         return failedOnly;
     }
 
+
     /**
      * The failedOnly flag will limit result set to include only authN or authZ events that have failed.
      * <p/>
@@ -127,10 +136,11 @@ public class UserAudit extends FortEntity implements java.io.Serializable
      *
      * @param failedOnly if boolean true search will limit to failed only.
      */
-    public void setFailedOnly(boolean failedOnly)
+    public void setFailedOnly( boolean failedOnly )
     {
         this.failedOnly = failedOnly;
     }
+
 
     /**
      * Get the optional opName attribute which limits {@link AuditMgrImpl#searchAdminMods(UserAudit)} by {@link AuditDAO#REQMOD}.
@@ -143,16 +153,18 @@ public class UserAudit extends FortEntity implements java.io.Serializable
         return opName;
     }
 
+
     /**
      * Set the optional opName attribute which limits {@link AuditMgrImpl#searchAdminMods(UserAudit)} by {@link AuditDAO#REQMOD}.
      * The operation name is derived from a method name of a class which represents targets for Fortress authorizations. For example 'read', 'search' or 'add'.
      *
      * @param opName attribute maps to 'reqMod' on 'auditMod' object class.
      */
-    public void setOpName(String opName)
+    public void setOpName( String opName )
     {
         this.opName = opName;
     }
+
 
     /**
      * Get the optional userId attribute which limits set by {@link org.apache.directory.fortress.core.rbac.User#userId}.
@@ -166,6 +178,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
         return userId;
     }
 
+
     /**
      * Set the optional userId attribute which limits set by {@link org.apache.directory.fortress.core.rbac.User#userId}.
      * For authentication searchs, this attr maps to {@link AuditDAO#REQDN}.  For authorization search, it will map to {@link AuditDAO#REQUAUTHZID}.
@@ -173,10 +186,11 @@ public class UserAudit extends FortEntity implements java.io.Serializable
      *
      * @param userId maps to 'reqDn' for authentications or 'reqAuthzID' for authorization events.
      */
-    public void setUserId(String userId)
+    public void setUserId( String userId )
     {
         this.userId = userId;
     }
+
 
     /**
      * Get the optional internalUserId attribute which limits set by {@link org.apache.directory.fortress.core.rbac.User#internalId}.
@@ -190,6 +204,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
         return internalUserId;
     }
 
+
     /**
      * Set the optional internalUserId attribute which limits set by {@link org.apache.directory.fortress.core.rbac.User#internalId}.
      * For {@link AuditMgrImpl#searchUserSessions(UserAudit)} this attr maps to {@link AuditDAO#REQMOD}.
@@ -197,10 +212,11 @@ public class UserAudit extends FortEntity implements java.io.Serializable
      *
      * @param internalUserId maps to 'reqMod' for 'auditModify' object class searches.
      */
-    public void setInternalUserId(String internalUserId)
+    public void setInternalUserId( String internalUserId )
     {
         this.internalUserId = internalUserId;
     }
+
 
     /**
      * Get the Date for search to begin.  The earlier the date, the more records will be returned.
@@ -214,6 +230,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
         return beginDate;
     }
 
+
     /**
      * Set the Date for search to begin.  The earlier the date, the more records will be returned.
      * This attribute is mapped to 'reqStart' on slapd audit records which provides the start
@@ -221,10 +238,11 @@ public class UserAudit extends FortEntity implements java.io.Serializable
      *
      * @param beginDate attribute that maps to 'reqStart' in audit object classes.
      */
-    public void setBeginDate(Date beginDate)
+    public void setBeginDate( Date beginDate )
     {
         this.beginDate = beginDate;
     }
+
 
     /**
      *
@@ -234,14 +252,16 @@ public class UserAudit extends FortEntity implements java.io.Serializable
         return endDate;
     }
 
+
     /**
      *
      * @param endDate
      */
-    public void setEndDate(Date endDate)
+    public void setEndDate( Date endDate )
     {
         this.endDate = endDate;
     }
+
 
     /**
      * Get the optional dn attribute can be used to constraint {@link AuditMgrImpl#searchUserSessions(UserAudit)}.
@@ -254,33 +274,38 @@ public class UserAudit extends FortEntity implements java.io.Serializable
         return dn;
     }
 
+
     /**
      * Set the optional dn attribute can be used to constraint {@link AuditMgrImpl#searchUserSessions(UserAudit)}.
      * The dn for this search may represent any target entry in DIT that has been recently modified or deleted.
      *
      * @param dn maps to 'reqDn' for 'auditModify' object class searches.
      */
-    public void setDn(String dn)
+    public void setDn( String dn )
     {
         this.dn = dn;
     }
+
 
     public String getObjId()
     {
         return objId;
     }
 
-    public void setObjId(String objId)
+
+    public void setObjId( String objId )
     {
         this.objId = objId;
     }
+
 
     public boolean isAdmin()
     {
         return admin;
     }
 
-    public void setAdmin(boolean admin)
+
+    public void setAdmin( boolean admin )
     {
         this.admin = admin;
     }

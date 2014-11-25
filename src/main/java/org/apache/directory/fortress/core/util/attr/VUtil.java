@@ -215,7 +215,7 @@ public class VUtil
     {
         if ( isNotNullOrEmpty( props ) )
         {
-            for ( Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 String key = ( String ) e.nextElement();
                 String val = props.getProperty( key );
@@ -542,7 +542,7 @@ public class VUtil
      * @param list contains the reference to list.
      * @return boolean if validation succeeds.
      */
-    public static boolean isNotNullOrEmpty( Collection list )
+    public static boolean isNotNullOrEmpty( Collection<?> list )
     {
         return ( list != null ) && ( list.size() > 0 );
     }

@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+
 /**
  * This exception is declared to be thrown by all APIs within Fortress Manager interfaces: ({@link AdminMgr}, {@link AccessMgr},
  * {@link ReviewMgr},{@link PwPolicyMgr},{@link AuditMgr},{@link DelAdminMgr},
@@ -450,14 +451,18 @@ package org.apache.directory.fortress.core;
  */
 public class SecurityException extends BaseException
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
+
     /**
      * Create exception with error id and message.
      * @param  errorId see {@link GlobalErrIds} for list of valid error codes that can be set.  Valid values between 0 & 100_000.
      * @param msg contains textual information including method of origin and description of the root cause.
      */
-    public SecurityException(int errorId, String msg)
+    public SecurityException( int errorId, String msg )
     {
-        super(errorId, msg);
+        super( errorId, msg );
     }
 
 
@@ -467,8 +472,8 @@ public class SecurityException extends BaseException
      * @param msg contains textual information including method of origin and description of the root cause.
      * @param previousException contains reference to related exception which usually is system related, i.e. ldap.
      */
-    public SecurityException(int errorId, String msg, Exception previousException)
+    public SecurityException( int errorId, String msg, Exception previousException )
     {
-        super(errorId, msg, previousException);
+        super( errorId, msg, previousException );
     }
 }

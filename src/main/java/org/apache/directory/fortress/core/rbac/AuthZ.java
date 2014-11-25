@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
+
 /**
  * This entity class contains OpenLDAP slapo-accesslog records that correspond to authorization attempts made to the directory.
  * <p/>
@@ -50,39 +51,42 @@ import java.io.Serializable;
  */
 @XmlRootElement(name = "fortAuthZ")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "authZ", propOrder = {
-    "createTimestamp",
-    "creatorsName",
-    "entryCSN",
-    "entryDN",
-    "entryUUID",
-    "hasSubordinates",
-    "modifiersName",
-    "modifyTimestamp",
-    "objectClass",
-    "reqAttr",
-    "reqAttrsOnly",
-    "reqAuthzID",
-    "reqControls",
-    "reqDN",
-    "reqDerefAliases",
-    "reqEnd",
-    "reqEntries",
-    "reqFilter",
-    "reqResult",
-    "reqScope",
-    "reqSession",
-    "reqSizeLimit",
-    "reqStart",
-    "reqTimeLimit",
-    "reqType",
-    "reqAssertion",
-    "structuralObjectClass",
-    "subschemaSubentry",
-    "sequenceId"
+@XmlType(name = "authZ", propOrder =
+    {
+        "createTimestamp",
+        "creatorsName",
+        "entryCSN",
+        "entryDN",
+        "entryUUID",
+        "hasSubordinates",
+        "modifiersName",
+        "modifyTimestamp",
+        "objectClass",
+        "reqAttr",
+        "reqAttrsOnly",
+        "reqAuthzID",
+        "reqControls",
+        "reqDN",
+        "reqDerefAliases",
+        "reqEnd",
+        "reqEntries",
+        "reqFilter",
+        "reqResult",
+        "reqScope",
+        "reqSession",
+        "reqSizeLimit",
+        "reqStart",
+        "reqTimeLimit",
+        "reqType",
+        "reqAssertion",
+        "structuralObjectClass",
+        "subschemaSubentry",
+        "sequenceId"
 })
 public class AuthZ extends FortEntity implements Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private String createTimestamp;
     private String creatorsName;
     private String entryCSN;
@@ -113,6 +117,7 @@ public class AuthZ extends FortEntity implements Serializable
     private String subschemaSubentry;
     private long sequenceId;
 
+
     /**
      * Get the attribute that maps to 'reqStart' which provides the start time of the operation which is also the rDn for the node.
      * These time attributes use generalizedTime syntax. The reqStart attribute is also used as the RDN for each log entry.
@@ -124,16 +129,18 @@ public class AuthZ extends FortEntity implements Serializable
         return createTimestamp;
     }
 
+
     /**
      * Set the attribute that maps to 'reqStart' which provides the start time of the operation which is also the rDn for the node.
      * These time attributes use generalizedTime syntax. The reqStart attribute is also used as the RDN for each log entry.
      *
      * @param createTimestamp attribute that maps to 'reqStart' in 'auditSearch' object class.
      */
-    public void setCreateTimestamp(String createTimestamp)
+    public void setCreateTimestamp( String createTimestamp )
     {
         this.createTimestamp = createTimestamp;
     }
+
 
     /**
      * Return the user dn containing the identity of log user who added the audit record.  This will be the system user that
@@ -147,6 +154,7 @@ public class AuthZ extends FortEntity implements Serializable
         return creatorsName;
     }
 
+
     /**
      * Set the user dn containing the identity of log user who added the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
@@ -154,10 +162,11 @@ public class AuthZ extends FortEntity implements Serializable
      *
      * @param creatorsName maps to 'creatorsName' attribute on 'auditSearch' object class.
      */
-    public void setCreatorsName(String creatorsName)
+    public void setCreatorsName( String creatorsName )
     {
         this.creatorsName = creatorsName;
     }
+
 
     /**
      * Return the Change Sequence Number (CSN) containing sequence number that is used for OpenLDAP synch replication functionality.
@@ -169,15 +178,17 @@ public class AuthZ extends FortEntity implements Serializable
         return entryCSN;
     }
 
+
     /**
      * Set the Change Sequence Number (CSN) containing sequence number that is used for OpenLDAP synch replication functionality.
      *
      * @param entryCSN maps to 'entryCSN' attribute on 'auditSearch' object class.
      */
-    public void setEntryCSN(String entryCSN)
+    public void setEntryCSN( String entryCSN )
     {
         this.entryCSN = entryCSN;
     }
+
 
     /**
      * Get the entry dn for bind object stored in directory.  This attribute uses the 'reqStart' along with suffix for log.
@@ -189,15 +200,17 @@ public class AuthZ extends FortEntity implements Serializable
         return entryDN;
     }
 
+
     /**
      * Set the entry dn for bind object stored in directory.  This attribute uses the 'reqStart' along with suffix for log.
      *
      * @param entryDN attribute that maps to 'entryDN' on 'auditSearch' object class.
      */
-    public void setEntryDN(String entryDN)
+    public void setEntryDN( String entryDN )
     {
         this.entryDN = entryDN;
     }
+
 
     /**
      * Get the attribute that contains the Universally Unique ID (UUID) of the corresponding 'auditSearch' record.
@@ -209,15 +222,17 @@ public class AuthZ extends FortEntity implements Serializable
         return entryUUID;
     }
 
+
     /**
      * Set the attribute that contains the Universally Unique ID (UUID) of the corresponding 'auditSearch' record.
      *
      * @param entryUUID that maps to 'entryUUID' attribute on 'auditSearch' object class.
      */
-    public void setEntryUUID(String entryUUID)
+    public void setEntryUUID( String entryUUID )
     {
         this.entryUUID = entryUUID;
     }
+
 
     /**
      * Get the attribute that corresponds to the boolean value hasSubordinates.
@@ -229,15 +244,17 @@ public class AuthZ extends FortEntity implements Serializable
         return hasSubordinates;
     }
 
+
     /**
      * Set the attribute that corresponds to the boolean value hasSubordinates.
      *
      * @param hasSubordinates maps to same name on 'auditSearch' object class.
      */
-    public void setHasSubordinates(String hasSubordinates)
+    public void setHasSubordinates( String hasSubordinates )
     {
         this.hasSubordinates = hasSubordinates;
     }
+
 
     /**
      * Return the user dn containing the identity of log user who last modified the audit record.  This will be the system user that
@@ -251,6 +268,7 @@ public class AuthZ extends FortEntity implements Serializable
         return modifiersName;
     }
 
+
     /**
      * Set the user dn containing the identity of log user who modified the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
@@ -258,10 +276,11 @@ public class AuthZ extends FortEntity implements Serializable
      *
      * @param modifiersName maps to 'modifiersName' attribute on 'auditSearch' object class.
      */
-    public void setModifiersName(String modifiersName)
+    public void setModifiersName( String modifiersName )
     {
         this.modifiersName = modifiersName;
     }
+
 
     /**
      * Get the attribute that maps to 'modifyTimestamp' which provides the last time audit record was changed.
@@ -274,16 +293,18 @@ public class AuthZ extends FortEntity implements Serializable
         return modifyTimestamp;
     }
 
+
     /**
      * Set the attribute that maps to 'modifyTimestamp' which provides the last time audit record was changed.
      * The time attributes use generalizedTime syntax.
      *
      * @param modifyTimestamp attribute that maps to same name in 'auditSearch' object class.
      */
-    public void setModifyTimestamp(String modifyTimestamp)
+    public void setModifyTimestamp( String modifyTimestamp )
     {
         this.modifyTimestamp = modifyTimestamp;
     }
+
 
     /**
      * Get the object class name of the audit record.  For this entity, this value will always be 'auditSearch'.
@@ -295,15 +316,17 @@ public class AuthZ extends FortEntity implements Serializable
         return objectClass;
     }
 
+
     /**
      * Set the object class name of the audit record.  For this entity, this value will always be 'auditSearch'.
      *
      * @param objectClass value that maps to same name on 'auditSearch' obejct class.
      */
-    public void setObjectClass(String objectClass)
+    public void setObjectClass( String objectClass )
     {
         this.objectClass = objectClass;
     }
+
 
     /**
      * The  reqAuthzID  attribute  is  the  distinguishedName of the user that
@@ -319,6 +342,7 @@ public class AuthZ extends FortEntity implements Serializable
         return reqAuthzID;
     }
 
+
     /**
      * The  reqAuthzID  attribute  is  the  distinguishedName of the user that
      * performed the operation.  This will usually be the  same  name  as  was
@@ -327,10 +351,11 @@ public class AuthZ extends FortEntity implements Serializable
      * For Fortress bind operations this will map to {@link org.apache.directory.fortress.core.rbac.User#userId}
      *
      */
-    public void setReqAuthzID(String reqAuthzID)
+    public void setReqAuthzID( String reqAuthzID )
     {
         this.reqAuthzID = reqAuthzID;
     }
+
 
     /**
      * The reqControls and reqRespControls attributes carry any controls  sent
@@ -345,6 +370,7 @@ public class AuthZ extends FortEntity implements Serializable
         return reqControls;
     }
 
+
     /**
      * The reqControls and reqRespControls attributes carry any controls  sent
      * by  the  client  on  the  request  and  returned  by  the server in the
@@ -353,10 +379,11 @@ public class AuthZ extends FortEntity implements Serializable
      *
      * @param reqControls maps to same name attribute on 'auditSearch' object class.
      */
-    public void setReqControls(String reqControls)
+    public void setReqControls( String reqControls )
     {
         this.reqControls = reqControls;
     }
+
 
     /**
      * The reqDN attribute is the  distinguishedName  of  the  target  of  the
@@ -371,6 +398,7 @@ public class AuthZ extends FortEntity implements Serializable
         return reqDN;
     }
 
+
     /**
      * The reqDN attribute is the  distinguishedName  of  the  target  of  the
      * operation.  E.g.,  for  a Bind request, this is the Bind DN. For an Add
@@ -379,10 +407,11 @@ public class AuthZ extends FortEntity implements Serializable
      *
      * @param reqDN maps to 'reqDN' attribute on 'auditSearch' object class.
      */
-    public void setReqDN(String reqDN)
+    public void setReqDN( String reqDN )
     {
         this.reqDN = reqDN;
     }
+
 
     /**
      * reqEnd provide the end time of the operation. It uses generalizedTime syntax.
@@ -394,15 +423,17 @@ public class AuthZ extends FortEntity implements Serializable
         return reqEnd;
     }
 
+
     /**
      * reqEnd provide the end time of the operation. It uses generalizedTime syntax.
      *
      * @param reqEnd value that maps to same name on 'auditSearch' object class.
      */
-    public void setReqEnd(String reqEnd)
+    public void setReqEnd( String reqEnd )
     {
         this.reqEnd = reqEnd;
     }
+
 
     /**
      * The  reqResult  attribute  is  the  numeric  LDAP  result  code  of the
@@ -417,6 +448,7 @@ public class AuthZ extends FortEntity implements Serializable
         return reqResult;
     }
 
+
     /**
      * The  reqResult  attribute  is  the  numeric  LDAP  result  code  of the
      * operation, indicating either success or a particular LDAP  error  code.
@@ -425,10 +457,11 @@ public class AuthZ extends FortEntity implements Serializable
      *
      * @param reqResult maps to same name on 'auditSearch' object class.
      */
-    public void setReqResult(String reqResult)
+    public void setReqResult( String reqResult )
     {
         this.reqResult = reqResult;
     }
+
 
     /**
      * The reqSession attribute is an implementation-specific identifier  that
@@ -442,6 +475,7 @@ public class AuthZ extends FortEntity implements Serializable
         return reqSession;
     }
 
+
     /**
      * The reqSession attribute is an implementation-specific identifier  that
      * is  common to all the operations associated with the same LDAP session.
@@ -449,10 +483,11 @@ public class AuthZ extends FortEntity implements Serializable
      *
      * @param reqSession maps to same name on 'auditSearch' object class.
      */
-    public void setReqSession(String reqSession)
+    public void setReqSession( String reqSession )
     {
         this.reqSession = reqSession;
     }
+
 
     /**
      * reqStart provide the start of the operation,  They  use generalizedTime syntax.
@@ -465,16 +500,18 @@ public class AuthZ extends FortEntity implements Serializable
         return reqStart;
     }
 
+
     /**
      * reqStart provide the start of the operation,  They  use generalizedTime syntax.
      * The reqStart attribute is also used as the RDN for each log entry.
      *
      * @param reqStart maps to same name on 'auditSearch' object class.
      */
-    public void setReqStart(String reqStart)
+    public void setReqStart( String reqStart )
     {
         this.reqStart = reqStart;
     }
+
 
     /**
      * The  reqType  attribute  is  a  simple  string  containing  the type of
@@ -489,6 +526,7 @@ public class AuthZ extends FortEntity implements Serializable
         return reqType;
     }
 
+
     /**
      * The  reqType  attribute  is  a  simple  string  containing  the type of
      * operation being logged, e.g.  add, delete, search,  etc.  For  extended
@@ -497,10 +535,11 @@ public class AuthZ extends FortEntity implements Serializable
      *
      * @param reqType maps to same name on 'auditSearch' object class.
      */
-    public void setReqType(String reqType)
+    public void setReqType( String reqType )
     {
         this.reqType = reqType;
     }
+
 
     /**
      * Get the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request.
@@ -512,6 +551,7 @@ public class AuthZ extends FortEntity implements Serializable
         return reqAssertion;
     }
 
+
     /**
      * Set the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request.
      *
@@ -521,6 +561,7 @@ public class AuthZ extends FortEntity implements Serializable
     {
         this.reqAssertion = reqAssertion;
     }
+
 
     /**
      * Returns the name of the structural object class that is used to log the event.  For this entity
@@ -533,16 +574,18 @@ public class AuthZ extends FortEntity implements Serializable
         return structuralObjectClass;
     }
 
+
     /**
      * Returns the name of the structural object class that is used to log the event.  For this entity
      * this value will always be 'auditSearch'.
      *
      * @param structuralObjectClass maps to same name on 'auditSearch' object class.
      */
-    public void setStructuralObjectClass(String structuralObjectClass)
+    public void setStructuralObjectClass( String structuralObjectClass )
     {
         this.structuralObjectClass = structuralObjectClass;
     }
+
 
     /**
      * The reqEntries attribute is the integer count of  how  many entries  were  returned  by  this search request.
@@ -554,15 +597,17 @@ public class AuthZ extends FortEntity implements Serializable
         return reqEntries;
     }
 
+
     /**
      * The reqEntries attribute is the integer count of  how  many entries  were  returned  by  this search request.
      *
      * @param reqEntries maps to same name on 'auditSearch' object class
      */
-    public void setReqEntries(String reqEntries)
+    public void setReqEntries( String reqEntries )
     {
         this.reqEntries = reqEntries;
     }
+
 
     /**
      * The reqAttr attribute lists the requested attributes if specific attributes were requested.
@@ -574,15 +619,17 @@ public class AuthZ extends FortEntity implements Serializable
         return reqAttr;
     }
 
+
     /**
      * The reqAttr attribute lists the requested attributes if specific attributes were requested.
      *
      * @param reqAttr maps to same name on 'auditSearch' object class.
      */
-    public void setReqAttr(String reqAttr)
+    public void setReqAttr( String reqAttr )
     {
         this.reqAttr = reqAttr;
     }
+
 
     /**
      * The reqAttrsOnly attribute is a Boolean value showing TRUE if only attribute names
@@ -596,6 +643,7 @@ public class AuthZ extends FortEntity implements Serializable
         return reqAttrsOnly;
     }
 
+
     /**
      * The reqAttrsOnly attribute is a Boolean value showing TRUE if only attribute names
      * were  requested, or FALSE if attributes and their values were requested.
@@ -603,10 +651,11 @@ public class AuthZ extends FortEntity implements Serializable
      *
      * @param reqAttrsOnly maps to same name on 'auditSearch' object class.
      */
-    public void setReqAttrsOnly(String reqAttrsOnly)
+    public void setReqAttrsOnly( String reqAttrsOnly )
     {
         this.reqAttrsOnly = reqAttrsOnly;
     }
+
 
     /**
      * The reqFilter attribute carries the filter used in the search request.
@@ -626,6 +675,7 @@ public class AuthZ extends FortEntity implements Serializable
         return reqFilter;
     }
 
+
     /**
      * The reqFilter attribute carries the filter used in the search request.
      * <p/>
@@ -639,10 +689,11 @@ public class AuthZ extends FortEntity implements Serializable
      *
      * @param reqFilter maps to same name on 'auditSearch' object class.
      */
-    public void setReqFilter(String reqFilter)
+    public void setReqFilter( String reqFilter )
     {
         this.reqFilter = reqFilter;
     }
+
 
     /**
      * The reqScope attribute contains the scope of the original search request, using
@@ -655,16 +706,18 @@ public class AuthZ extends FortEntity implements Serializable
         return reqScope;
     }
 
+
     /**
      * The reqScope attribute contains the scope of the original search request, using
      * the values specified for the LDAP URL format. I.e. base, one, sub, or subord.
      *
      * @param reqScope maps to same name on 'auditSearch' object class.
      */
-    public void setReqScope(String reqScope)
+    public void setReqScope( String reqScope )
     {
         this.reqScope = reqScope;
     }
+
 
     /**
      * The reqSizeLimit attribute indicate what limits were requested on the search operation.
@@ -676,15 +729,17 @@ public class AuthZ extends FortEntity implements Serializable
         return reqSizeLimit;
     }
 
+
     /**
      * The reqSizeLimit attribute indicate what limits were requested on the search operation.
      *
      * @param reqSizeLimit maps to same name on 'auditSearch' object class.
      */
-    public void setReqSizeLimit(String reqSizeLimit)
+    public void setReqSizeLimit( String reqSizeLimit )
     {
         this.reqSizeLimit = reqSizeLimit;
     }
+
 
     /**
      * The reqTimeLimit attribute indicate what limits were requested on the search operation.
@@ -696,15 +751,17 @@ public class AuthZ extends FortEntity implements Serializable
         return reqTimeLimit;
     }
 
+
     /**
      * The reqTimeLimit attribute indicate what limits were requested on the search operation.
      *
      * @param reqTimeLimit maps to same name on 'auditSearch' object class.
      */
-    public void setReqTimeLimit(String reqTimeLimit)
+    public void setReqTimeLimit( String reqTimeLimit )
     {
         this.reqTimeLimit = reqTimeLimit;
     }
+
 
     /**
      * Return the subschemaSubentry attribute from the audit entry.
@@ -716,15 +773,17 @@ public class AuthZ extends FortEntity implements Serializable
         return subschemaSubentry;
     }
 
+
     /**
      * Set the subschemaSubentry attribute from the audit entry.
      *
      * @param subschemaSubentry maps to same name on 'auditSearch' object class.
      */
-    public void setSubschemaSubentry(String subschemaSubentry)
+    public void setSubschemaSubentry( String subschemaSubentry )
     {
         this.subschemaSubentry = subschemaSubentry;
     }
+
 
     /**
      * The reqDerefAliases attribute is on of never, finding, searching, or always, denoting how aliases
@@ -737,16 +796,18 @@ public class AuthZ extends FortEntity implements Serializable
         return reqDerefAliases;
     }
 
+
     /**
      * The reqDerefAliases attribute is on of never, finding, searching, or always, denoting how aliases
      * will be processed during the search.
      *
      * @param reqDerefAliases maps to same name on 'auditSearch' object class.
      */
-    public void setReqDerefAliases(String reqDerefAliases)
+    public void setReqDerefAliases( String reqDerefAliases )
     {
         this.reqDerefAliases = reqDerefAliases;
     }
+
 
     /**
      * Sequence id is used internal to Fortress.
@@ -757,13 +818,13 @@ public class AuthZ extends FortEntity implements Serializable
         return sequenceId;
     }
 
+
     /**
      * Sequence id is used internal to Fortress
      * @param sequenceId contains sequence to use.
      */
-    public void setSequenceId(long sequenceId)
+    public void setSequenceId( long sequenceId )
     {
         this.sequenceId = sequenceId;
     }
 }
-

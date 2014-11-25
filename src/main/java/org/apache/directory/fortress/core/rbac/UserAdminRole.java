@@ -96,6 +96,8 @@ import org.apache.directory.fortress.core.util.time.Constraint;
 })
 public class UserAdminRole extends UserRole implements Administrator
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @XmlElement(nillable = true)
     private Set<String> osPs;
     @XmlElement(nillable = true)

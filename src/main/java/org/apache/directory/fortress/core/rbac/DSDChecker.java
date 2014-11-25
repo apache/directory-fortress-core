@@ -68,7 +68,8 @@ public class DSDChecker
      * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_DSD} if failed.
      */
     @Override
-    public int validate( Session session, Constraint constraint, Time time ) throws org.apache.directory.fortress.core.SecurityException
+    public int validate( Session session, Constraint constraint, Time time )
+        throws org.apache.directory.fortress.core.SecurityException
     {
         int rc = 0;
         int matchCount;
@@ -91,14 +92,15 @@ public class DSDChecker
             {
                 for ( SDSet dsd : dsdSets )
                 {
-                    Iterator activatedRoles = activeRoleList.iterator();
+                    Iterator<UserRole> activatedRoles = activeRoleList.iterator();
                     matchCount = 0;
                     Set<String> map = dsd.getMembers();
 
                     // now check the DSD on every role activation candidate contained within session object:
                     while ( activatedRoles.hasNext() )
                     {
-                        UserRole activatedRole = ( UserRole ) activatedRoles.next();
+                        UserRole activatedRole = activatedRoles.next();
+
                         if ( map.contains( activatedRole.getName() ) )
                         {
                             matchCount++;
@@ -135,7 +137,8 @@ public class DSDChecker
                                             + " Cardinality:" + dsd.getCardinality();
                                         LOG.warn( warning );
                                         rc = GlobalErrIds.ACTV_FAILED_DSD;
-                                        session.setWarning( new ObjectFactory().createWarning( rc, warning, Warning.Type.ROLE, activatedRole.getName() ) );
+                                        session.setWarning( new ObjectFactory().createWarning( rc, warning,
+                                            Warning.Type.ROLE, activatedRole.getName() ) );
                                     }
                                     // Breaking out of the loop here means the DSD algorithm will only match one
                                     // role per parent.

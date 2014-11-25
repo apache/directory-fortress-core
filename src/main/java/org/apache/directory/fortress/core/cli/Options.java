@@ -42,6 +42,9 @@ import java.util.Vector;
  */
 public class Options implements java.io.Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     final CmdLineParser parser;
     final CmdLineParser.Option userId;
     final CmdLineParser.Option password;

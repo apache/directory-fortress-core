@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.util.cache;
 
+
 import org.apache.directory.fortress.core.BaseRuntimeException;
 
 
@@ -31,9 +32,12 @@ import org.apache.directory.fortress.core.BaseRuntimeException;
  */
 class CacheException extends BaseRuntimeException
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private int subsystem;
     private Exception exception;
     private Object moreInfo;
+
 
     /**
      * Create exception with error id, message and related exception.
@@ -41,21 +45,23 @@ class CacheException extends BaseRuntimeException
      * @param newMsgText contains text related to the exception.
      * @param newException contains related exception.
      */
-    public CacheException(int errorId, String newMsgText, Exception newException)
+    public CacheException( int errorId, String newMsgText, Exception newException )
     {
-        super(errorId, newMsgText, newException);
+        super( errorId, newMsgText, newException );
         this.exception = newException;
     }
+
 
     /**
      * Create exception with error id and message.
      * @param errorId contains error code that is contained within {@link org.apache.directory.fortress.core.GlobalErrIds}
      * @param newMsgText contains text related to the exception.
      */
-    public CacheException(int errorId, String newMsgText)
+    public CacheException( int errorId, String newMsgText )
     {
-        super(errorId, newMsgText);
+        super( errorId, newMsgText );
     }
+
 
     /**
      * Get the exception object.
@@ -67,4 +73,3 @@ class CacheException extends BaseRuntimeException
         return exception;
     }
 }
-

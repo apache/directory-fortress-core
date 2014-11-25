@@ -55,6 +55,8 @@ public class CmdLineParser
      */
     public static abstract class OptionException extends Exception
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         OptionException( String msg )
         {
             super( msg );
@@ -69,6 +71,8 @@ public class CmdLineParser
      */
     public static class UnknownOptionException extends OptionException
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         UnknownOptionException( String optionName )
         {
             this( optionName, "Unknown option '" + optionName + "'" );
@@ -101,6 +105,8 @@ public class CmdLineParser
      */
     public static class UnknownSuboptionException extends UnknownOptionException
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private final char suboption;
 
         UnknownSuboptionException( String option, char suboption )
@@ -125,6 +131,8 @@ public class CmdLineParser
      */
     public static class NotFlagException extends UnknownOptionException
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private final char notflag;
 
         NotFlagException( String option, char unflaggish )
@@ -151,6 +159,9 @@ public class CmdLineParser
      */
     public static class IllegalOptionValueException extends OptionException
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
+
         public IllegalOptionValueException( Option opt, String value )
         {
             super( "Illegal value '" + value + "' for option " +

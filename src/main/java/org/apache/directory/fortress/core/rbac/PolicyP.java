@@ -58,7 +58,6 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  */
 public final class PolicyP
 {
-
     private static final String CLS_NM = PolicyP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     // This is 5 years duration in seconds:
@@ -101,18 +100,18 @@ public final class PolicyP
     final boolean isValid( PwPolicy policy )
     {
         boolean result = false;
-        
+
         try
         {
             policySetLock.readLock().lock();
 
             Set<String> policySet = getPolicySet( policy.getContextId() );
-            
+
             if ( policySet != null )
             {
                 result = policySet.contains( policy.getName() );
             }
-            
+
             return result;
         }
         finally
@@ -148,13 +147,13 @@ public final class PolicyP
     {
         validate( policy );
         olDao.create( policy );
-        
+
         try
         {
             policySetLock.writeLock().lock();
 
             Set<String> policySet = getPolicySet( policy.getContextId() );
-            
+
             if ( policySet != null )
             {
                 policySet.add( policy.getName() );
@@ -193,13 +192,13 @@ public final class PolicyP
     final void delete( PwPolicy policy ) throws SecurityException
     {
         olDao.remove( policy );
-        
+
         try
         {
             policySetLock.writeLock().lock();
 
             Set<String> policySet = getPolicySet( policy.getContextId() );
-            
+
             if ( policySet != null )
             {
                 policySet.remove( policy.getName() );
@@ -236,14 +235,14 @@ public final class PolicyP
     private void validate( PwPolicy policy ) throws ValidationException
     {
         int length = policy.getName().length();
-        
+
         if ( length < 1 || length > GlobalIds.PWPOLICY_NAME_LEN )
         {
             String error = "validate policy name [" + policy.getName() + "] INVALID LENGTH [" + length + "]";
             LOG.error( error );
             throw new ValidationException( GlobalErrIds.PSWD_NAME_INVLD_LEN, error );
         }
-        
+
         if ( policy.getCheckQuality() != null )
         {
             try
@@ -264,7 +263,7 @@ public final class PolicyP
                 throw new ValidationException( GlobalErrIds.PSWD_QLTY_INVLD, error );
             }
         }
-        
+
         if ( policy.getMaxAge() != null )
         {
             if ( policy.getMaxAge() > MAX_AGE )
@@ -275,7 +274,7 @@ public final class PolicyP
                 throw new ValidationException( GlobalErrIds.PSWD_MAXAGE_INVLD, error );
             }
         }
-        
+
         if ( policy.getMinAge() != null )
         {
             // policy.minAge
@@ -287,7 +286,7 @@ public final class PolicyP
                 throw new ValidationException( GlobalErrIds.PSWD_MINAGE_INVLD, error );
             }
         }
-        
+
         if ( policy.getMinLength() != null )
         {
             if ( policy.getMinLength() > MIN_PW_LEN )
@@ -298,7 +297,7 @@ public final class PolicyP
                 throw new ValidationException( GlobalErrIds.PSWD_MINLEN_INVLD, error );
             }
         }
-        
+
         if ( policy.getFailureCountInterval() != null )
         {
             if ( policy.getFailureCountInterval() > MAX_AGE )
@@ -309,7 +308,7 @@ public final class PolicyP
                 throw new ValidationException( GlobalErrIds.PSWD_INTERVAL_INVLD, error );
             }
         }
-        
+
         if ( policy.getMaxFailure() != null )
         {
             if ( policy.getMaxFailure() > MAX_FAILURE )
@@ -320,7 +319,7 @@ public final class PolicyP
                 throw new ValidationException( GlobalErrIds.PSWD_MAXFAIL_INVLD, error );
             }
         }
-        
+
         if ( policy.getInHistory() != null )
         {
             if ( policy.getInHistory() > MAX_HISTORY )
@@ -331,7 +330,7 @@ public final class PolicyP
                 throw new ValidationException( GlobalErrIds.PSWD_HISTORY_INVLD, error );
             }
         }
-        
+
         if ( policy.getGraceLoginLimit() != null )
         {
             if ( policy.getGraceLoginLimit() > MAX_GRACE_COUNT )
@@ -342,7 +341,7 @@ public final class PolicyP
                 throw new ValidationException( GlobalErrIds.PSWD_GRACE_INVLD, error );
             }
         }
-        
+
         if ( policy.getLockoutDuration() != null )
         {
             if ( policy.getLockoutDuration() > MAX_AGE )
@@ -353,7 +352,7 @@ public final class PolicyP
                 throw new ValidationException( GlobalErrIds.PSWD_LOCKOUTDUR_INVLD, error );
             }
         }
-        
+
         if ( policy.getExpireWarning() != null )
         {
             if ( policy.getExpireWarning() > MAX_AGE )
@@ -376,7 +375,7 @@ public final class PolicyP
     private static Set<String> loadPolicySet( String contextId )
     {
         Set<String> policySet = null;
-        
+
         try
         {
             policySet = olDao.getPolicies( contextId );
@@ -386,9 +385,9 @@ public final class PolicyP
             String warning = "loadPolicySet static initializer caught SecurityException=" + se;
             LOG.info( warning );
         }
-        
+
         policyCache.put( getKey( contextId ), policySet );
-        
+
         return policySet;
     }
 
@@ -405,12 +404,12 @@ public final class PolicyP
             policySetLock.readLock().lock();
 
             Set<String> policySet = ( Set<String> ) policyCache.get( getKey( contextId ) );
-            
+
             if ( policySet == null )
             {
                 policySet = loadPolicySet( contextId );
             }
-            
+
             return policySet;
         }
         finally
@@ -428,12 +427,12 @@ public final class PolicyP
     private static String getKey( String contextId )
     {
         String key = POLICIES;
-        
+
         if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )
         {
             key += ":" + contextId;
         }
-        
+
         return key;
     }
 }

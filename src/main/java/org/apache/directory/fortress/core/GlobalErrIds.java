@@ -40,6 +40,9 @@ package org.apache.directory.fortress.core;
  */
 public class GlobalErrIds
 {
+    /** Default value when we have no error */
+    public static final int NO_ERROR = 0;
+    
     /**
      * Group 1 - Configuration Errors:
      */

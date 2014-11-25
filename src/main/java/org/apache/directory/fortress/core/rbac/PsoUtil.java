@@ -23,10 +23,7 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
@@ -222,7 +219,7 @@ public final class PsoUtil
         inHier.setContextId( contextId );
         LOG.info( "loadGraph initializing PSO context [{}]", inHier.getContextId() );
         List<Graphable> descendants = null;
-        
+
         try
         {
             OrgUnit orgUnit = new OrgUnit();
@@ -234,13 +231,13 @@ public final class PsoUtil
         {
             LOG.info( "loadGraph caught SecurityException={}", se );
         }
-        
+
         Hier hier = HierUtil.loadHier( contextId, descendants );
         SimpleDirectedGraph<String, Relationship> graph;
-        
+
         graph = HierUtil.buildGraph( hier );
         psoCache.put( getKey( contextId ), graph );
-        
+
         return graph;
     }
 
@@ -253,13 +250,13 @@ public final class PsoUtil
     {
         ReadWriteLock hierLock = HierUtil.getLock( contextId, HierUtil.Type.PSO );
         String key = getKey( contextId );
-        
+
         try
         {
             hierLock.readLock().lock();
             SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) psoCache
                 .get( key );
-            
+
             if ( graph == null )
             {
                 try
@@ -272,7 +269,7 @@ public final class PsoUtil
 
                     //if ( graph == null )
                     //{
-                        graph = loadGraph( contextId );
+                    graph = loadGraph( contextId );
                     //}
 
                     hierLock.readLock().lock();
@@ -282,7 +279,7 @@ public final class PsoUtil
                     hierLock.writeLock().unlock();
                 }
             }
-            
+
             return graph;
         }
         finally

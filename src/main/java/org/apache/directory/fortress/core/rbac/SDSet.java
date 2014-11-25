@@ -19,16 +19,20 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
+
 
 /**
  * <h4>Static Separation of Duties Schema</h4>
@@ -123,17 +127,19 @@ import java.util.UUID;
  */
 @XmlRootElement(name = "fortSet")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "sdset", propOrder = {
-    "name",
-    "id",
-    "description",
-    "cardinality",
-    "members",
-    "type"
+@XmlType(name = "sdset", propOrder =
+    {
+        "name",
+        "id",
+        "description",
+        "cardinality",
+        "members",
+        "type"
 })
-public class SDSet extends FortEntity
-    implements java.io.Serializable, Comparable
+public class SDSet extends FortEntity implements Serializable, Comparable<SDSet>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private String id;
     private String name;
     private String description;
@@ -141,7 +147,6 @@ public class SDSet extends FortEntity
     @XmlElement(nillable = true)
     private Set<String> members;
     private SDType type;
-
 
     /**
      * enum for SSD or DSD data sets.  Both nodes will be stored in the same LDAP container but use different
@@ -163,6 +168,7 @@ public class SDSet extends FortEntity
         DYNAMIC
     }
 
+
     /**
      * Get the required type of SD Set - 'STATIC' Or 'DYNAMIC'.
      *
@@ -173,15 +179,17 @@ public class SDSet extends FortEntity
         return type;
     }
 
+
     /**
      * Set the required type of SD Set - 'STATIC' Or 'DYNAMIC'.
      *
      * @param type maps to either 'ftSSDSet' or 'ftDSDSet' object class is used.
      */
-    public void setType(SDType type)
+    public void setType( SDType type )
     {
         this.type = type;
     }
+
 
     /**
      * Create a new, empty map that is used to load Role members.  This method is called by any class
@@ -191,7 +199,7 @@ public class SDSet extends FortEntity
      */
     private static Set<String> createMembers()
     {
-        return new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        return new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
     }
 
 
@@ -211,7 +219,7 @@ public class SDSet extends FortEntity
      *
      * @param name maps to 'cn' attribute on the 'organizationalRole' object class.
      */
-    public void setName(String name)
+    public void setName( String name )
     {
         this.name = name;
     }
@@ -233,7 +241,7 @@ public class SDSet extends FortEntity
      *
      * @param description that is mapped to same name in 'organizationalrole' object class.
      */
-    public void setDescription(String description)
+    public void setDescription( String description )
     {
         this.description = description;
     }
@@ -270,7 +278,7 @@ public class SDSet extends FortEntity
      *
      * @param id maps to 'ftId' in either 'ftSSDSet' or 'ftDSDSet' object class.
      */
-    public void setId(String id)
+    public void setId( String id )
     {
         this.id = id;
     }
@@ -289,6 +297,7 @@ public class SDSet extends FortEntity
         return cardinality;
     }
 
+
     /**
      * Set the numeric value that reflects the membership cardinality for SDSet.  A value of '2' indicates
      * the Role membership is mutually exclusive amongst members.  A value of '3' indicates no more than two Roles
@@ -296,10 +305,11 @@ public class SDSet extends FortEntity
      * no more than three Roles may be used at a time, etc...
      *
      */
-    public void setCardinality(Integer cardinality)
+    public void setCardinality( Integer cardinality )
     {
         this.cardinality = cardinality;
     }
+
 
     /**
      * Return the alphabetically sorted Set containing Role membership to SDSet.
@@ -312,12 +322,13 @@ public class SDSet extends FortEntity
         return members;
     }
 
+
     /**
      * Set an alphabetically sorted Set containing Role membership to SDSet.
      *
      * @param members attribute maps to 'ftRoles' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.
      */
-    public void setMembers(Set<String> members)
+    public void setMembers( Set<String> members )
     {
         this.members = members;
     }
@@ -328,13 +339,13 @@ public class SDSet extends FortEntity
      *
      * @param member role name.
      */
-    public void setMember(String member)
+    public void setMember( String member )
     {
-        if(this.members == null)
+        if ( this.members == null )
         {
             this.members = new HashSet<>();
         }
-        this.members.add(member);
+        this.members.add( member );
     }
 
 
@@ -343,37 +354,36 @@ public class SDSet extends FortEntity
      *
      * @param role attribute maps to 'ftRoles' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.
      */
-    public void addMember(String role)
+    public void addMember( String role )
     {
-        if (this.members == null)
+        if ( this.members == null )
         {
             this.members = createMembers();
         }
-        this.members.add(role);
+        this.members.add( role );
     }
+
 
     /**
      * Remove a member from the alphabetically sorted Set containing Role membership to SDSet.
      *
      * @param role attribute maps to 'ftRoles' attribute in either 'ftSSDSet' or 'ftDSDSet' object class.
      */
-    public void delMember(String role)
+    public void delMember( String role )
     {
-        if (this.members == null)
+        if ( this.members == null )
         {
             return;
         }
-        this.members.remove(role);
+        this.members.remove( role );
     }
 
-    public int compareTo(Object o)
+
+    public int compareTo( SDSet that )
     {
-        SDSet k1 = this;
-        SDSet k2 = (SDSet) o;
-        String s1 = k1.getName();
-        String s2 = k2.getName();
-        return s1.compareToIgnoreCase(s2);
+        return name.compareToIgnoreCase( that.getName() );
     }
+
 
     /**
      * Matches the name from two SDSet entities.
@@ -381,27 +391,28 @@ public class SDSet extends FortEntity
      * @param thatObj contains an SDSet entity.
      * @return boolean indicating both objects contain matching SDSet names.
      */
-    public boolean equals(Object thatObj)
+    public boolean equals( Object thatObj )
     {
-        if (this == thatObj)
+        if ( this == thatObj )
         {
             return true;
         }
-        if (this.getName() == null)
+        if ( this.getName() == null )
         {
             return false;
         }
-        if (!(thatObj instanceof Role ))
+        if ( !( thatObj instanceof Role ) )
         {
             return false;
         }
-        SDSet thatSet = (SDSet) thatObj;
-        if (thatSet.getName() == null)
+        SDSet thatSet = ( SDSet ) thatObj;
+        if ( thatSet.getName() == null )
         {
             return false;
         }
-        return thatSet.getName().equalsIgnoreCase(this.getName());
+        return thatSet.getName().equalsIgnoreCase( this.getName() );
     }
+
 
     @Override
     public String toString()

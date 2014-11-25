@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.cli;
 
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -146,1023 +147,1046 @@ public class CommandLineInterpreter
     private static final String ASSIGNED_ROLES = "assignedroles";
     private static final String CHECK_ACCESS = "checkaccess";
 
+
     /**
      * @param args
      */
-    public static void main(String[] args)
+    public static void main( String[] args )
     {
         CommandLineInterpreter cli = new CommandLineInterpreter();
         cli.runInteractiveMode();
     }
+
 
     /**
      *
      */
     private void runInteractiveMode()
     {
-        if (!constructManagers())
+        if ( !constructManagers() )
         {
             String error = "Startup to interactive mode failed, goodbye.";
-            LOG.error(error);
+            LOG.error( error );
             return;
         }
 
-        LOG.info("Startup to interactive mode success...");
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        LOG.info( "Startup to interactive mode success..." );
+        BufferedReader br = new BufferedReader( new InputStreamReader( System.in ) );
         String input;
-        while (true)
+        while ( true )
         {
             try
             {
-                LOG.info("CLI function groups include " + ADMIN + ", " + REVIEW + ", " + SYSTEM + ", " + DELEGATED_ADMIN + ", " + GROUP);
-                LOG.info("Enter one from above or 'q' to quit");
+                LOG.info( "CLI function groups include " + ADMIN + ", " + REVIEW + ", " + SYSTEM + ", "
+                    + DELEGATED_ADMIN + ", " + GROUP );
+                LOG.info( "Enter one from above or 'q' to quit" );
                 input = br.readLine();
-                if (VUtil.isNotNullOrEmpty(input))
+                if ( VUtil.isNotNullOrEmpty( input ) )
                 {
-                    if ("Q".equalsIgnoreCase(input))
+                    if ( "Q".equalsIgnoreCase( input ) )
                     {
-                        LOG.info("Goodbye");
+                        LOG.info( "Goodbye" );
                         break;
                     }
 
-                    String[] options = parseUserInput(input);
-                    processUserInput(options);
+                    String[] options = parseUserInput( input );
+                    processUserInput( options );
                 }
             }
-            catch (Exception e)
+            catch ( Exception e )
             {
                 String error = "runInteractiveMode caught Exception=" + e.toString();
-                LOG.error(error);
+                LOG.error( error );
                 e.printStackTrace();
             }
         }
     }
 
+
     private static void printUsage()
     {
-        LOG.error("Usage: group function options");
-        LOG.error("where group is: admin, review, system, dadmin or group");
-        LOG.error("Check out the Command Line Reference manual for what the valid function and option combinations are.");
+        LOG.error( "Usage: group function options" );
+        LOG.error( "where group is: admin, review, system, dadmin or group" );
+        LOG.error( "Check out the Command Line Reference manual for what the valid function and option combinations are." );
     }
+
 
     /**
      * @param commands
      * @param options
      */
-    private void processCommand(Set<String> commands, Options options)
+    private void processCommand( Set<String> commands, Options options )
     {
-        if (commands.contains(ADMIN))
+        if ( commands.contains( ADMIN ) )
         {
-            processAdminCommand(commands, options);
+            processAdminCommand( commands, options );
         }
-        else if (commands.contains(REVIEW))
+        else if ( commands.contains( REVIEW ) )
         {
-            processReviewCommand(commands, options);
+            processReviewCommand( commands, options );
         }
-        else if (commands.contains(SYSTEM))
+        else if ( commands.contains( SYSTEM ) )
         {
-            processSystemCommand(commands, options);
+            processSystemCommand( commands, options );
         }
-        else if (commands.contains(DELEGATED_ADMIN))
+        else if ( commands.contains( DELEGATED_ADMIN ) )
         {
-            processDelegatedAdminCommand(commands, options);
+            processDelegatedAdminCommand( commands, options );
         }
-        else if (commands.contains(GROUP))
+        else if ( commands.contains( GROUP ) )
         {
-            processGroupCommand(commands, options);
+            processGroupCommand( commands, options );
         }
-        else if (commands.contains(DELEGATED_REVIEW))
+        else if ( commands.contains( DELEGATED_REVIEW ) )
         {
             //processDelegatedReviewCommand(commands, options);
         }
-        else if (commands.contains(DELEGATED_SYSTEM))
+        else if ( commands.contains( DELEGATED_SYSTEM ) )
         {
             //processDelegatedSystemCommand(commands, options);
         }
         else
         {
-            LOG.warn("unknown admin operation detected");
+            LOG.warn( "unknown admin operation detected" );
         }
     }
 
-    private void processDelegatedAdminCommand(Set<String> commands, Options options)
+
+    private void processDelegatedAdminCommand( Set<String> commands, Options options )
     {
         String command;
         try
         {
-            if (commands.contains(ADD_ROLE))
+            if ( commands.contains( ADD_ROLE ) )
             {
                 command = ADD_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 AdminRole role = options.getAdminRole();
-                delAdminMgr.addRole(role);
+                delAdminMgr.addRole( role );
             }
-            else if (commands.contains(UPDATE_ROLE))
+            else if ( commands.contains( UPDATE_ROLE ) )
             {
                 command = UPDATE_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 AdminRole role = options.getAdminRole();
-                delAdminMgr.updateRole(role);
+                delAdminMgr.updateRole( role );
             }
-            else if (commands.contains(DELETE_ROLE))
+            else if ( commands.contains( DELETE_ROLE ) )
             {
                 command = DELETE_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 AdminRole role = options.getAdminRole();
-                delAdminMgr.deleteRole(role);
+                delAdminMgr.deleteRole( role );
             }
-            else if (commands.contains(ASSIGN_ROLE))
+            else if ( commands.contains( ASSIGN_ROLE ) )
             {
                 command = ASSIGN_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 Role role = options.getRole();
                 String userId = options.getUserId();
-                delAdminMgr.assignUser(new UserAdminRole(userId, role));
+                delAdminMgr.assignUser( new UserAdminRole( userId, role ) );
             }
-            else if (commands.contains(DEASSIGN_ROLE))
+            else if ( commands.contains( DEASSIGN_ROLE ) )
             {
                 command = DEASSIGN_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 Role role = options.getRole();
                 String userId = options.getUserId();
-                delAdminMgr.deassignUser(new UserAdminRole(userId, role));
+                delAdminMgr.deassignUser( new UserAdminRole( userId, role ) );
             }
-            else if (commands.contains(ADD_ROLE_INHERITANCE))
+            else if ( commands.contains( ADD_ROLE_INHERITANCE ) )
             {
                 command = ADD_ROLE_INHERITANCE;
-                LOG.info(command);
+                LOG.info( command );
                 Relationship relationship = options.getRelationship();
-                delAdminMgr.addInheritance(new AdminRole(relationship.getParent()), new AdminRole(relationship.getChild()));
+                delAdminMgr.addInheritance( new AdminRole( relationship.getParent() ),
+                    new AdminRole( relationship.getChild() ) );
             }
-            else if (commands.contains(DELETE_ROLE_INHERITANCE))
+            else if ( commands.contains( DELETE_ROLE_INHERITANCE ) )
             {
                 command = DELETE_ROLE_INHERITANCE;
-                LOG.info(command);
+                LOG.info( command );
                 Relationship relationship = options.getRelationship();
-                delAdminMgr.deleteInheritance(new AdminRole(relationship.getParent()), new AdminRole(relationship.getChild()));
+                delAdminMgr.deleteInheritance( new AdminRole( relationship.getParent() ),
+                    new AdminRole( relationship.getChild() ) );
             }
-            else if (commands.contains(ADD_POBJ))
+            else if ( commands.contains( ADD_POBJ ) )
             {
                 command = ADD_POBJ;
-                LOG.info(command);
+                LOG.info( command );
                 PermObj permObj = options.getPermObj();
-                delAdminMgr.addPermObj(permObj);
+                delAdminMgr.addPermObj( permObj );
             }
-            else if (commands.contains(UPDATE_POBJ))
+            else if ( commands.contains( UPDATE_POBJ ) )
             {
                 command = UPDATE_POBJ;
-                LOG.info(command);
+                LOG.info( command );
                 PermObj permObj = options.getPermObj();
-                delAdminMgr.updatePermObj(permObj);
+                delAdminMgr.updatePermObj( permObj );
             }
-            else if (commands.contains(DELETE_POBJ))
+            else if ( commands.contains( DELETE_POBJ ) )
             {
                 command = DELETE_POBJ;
-                LOG.info(command);
+                LOG.info( command );
                 PermObj permObj = options.getPermObj();
-                delAdminMgr.deletePermObj(permObj);
+                delAdminMgr.deletePermObj( permObj );
             }
-            else if (commands.contains(ADD_PERM))
+            else if ( commands.contains( ADD_PERM ) )
             {
                 command = ADD_PERM;
-                LOG.info(command);
+                LOG.info( command );
                 Permission perm = options.getPermission();
-                delAdminMgr.addPermission(perm);
+                delAdminMgr.addPermission( perm );
             }
-            else if (commands.contains(UPDATE_PERM))
+            else if ( commands.contains( UPDATE_PERM ) )
             {
                 command = UPDATE_PERM;
-                LOG.info(command);
+                LOG.info( command );
                 Permission perm = options.getPermission();
-                delAdminMgr.updatePermission(perm);
+                delAdminMgr.updatePermission( perm );
             }
-            else if (commands.contains(DELETE_PERM))
+            else if ( commands.contains( DELETE_PERM ) )
             {
                 command = DELETE_PERM;
-                LOG.info(command);
+                LOG.info( command );
                 Permission permObj = options.getPermission();
-                delAdminMgr.deletePermission(permObj);
+                delAdminMgr.deletePermission( permObj );
             }
-            else if (commands.contains(GRANT))
+            else if ( commands.contains( GRANT ) )
             {
                 command = GRANT;
-                LOG.info(command);
+                LOG.info( command );
                 Permission perm = options.getPermission();
                 AdminRole role = options.getAdminRole();
-                role.setName(options.getRoleNm());
-                delAdminMgr.grantPermission(perm, role);
+                role.setName( options.getRoleNm() );
+                delAdminMgr.grantPermission( perm, role );
             }
-            else if (commands.contains(REVOKE))
+            else if ( commands.contains( REVOKE ) )
             {
                 command = REVOKE;
-                LOG.info(command);
+                LOG.info( command );
                 Permission perm = options.getPermission();
                 AdminRole role = options.getAdminRole();
-                role.setName(options.getRoleNm());
-                delAdminMgr.revokePermission(perm, role);
+                role.setName( options.getRoleNm() );
+                delAdminMgr.revokePermission( perm, role );
             }
-            else if (commands.contains(ADD_USERORG))
+            else if ( commands.contains( ADD_USERORG ) )
             {
                 command = ADD_USERORG;
-                LOG.info(command);
+                LOG.info( command );
                 OrgUnit orgUnit = options.getOrgUnit();
-                orgUnit.setType(OrgUnit.Type.USER);
-                delAdminMgr.add(orgUnit);
+                orgUnit.setType( OrgUnit.Type.USER );
+                delAdminMgr.add( orgUnit );
             }
-            else if (commands.contains(UPDATE_USERORG))
+            else if ( commands.contains( UPDATE_USERORG ) )
             {
                 command = UPDATE_USERORG;
-                LOG.info(command);
+                LOG.info( command );
                 OrgUnit orgUnit = options.getOrgUnit();
-                orgUnit.setType(OrgUnit.Type.USER);
-                delAdminMgr.update(orgUnit);
+                orgUnit.setType( OrgUnit.Type.USER );
+                delAdminMgr.update( orgUnit );
             }
-            else if (commands.contains(DELETE_USERORG))
+            else if ( commands.contains( DELETE_USERORG ) )
             {
                 command = DELETE_USERORG;
-                LOG.info(command);
+                LOG.info( command );
                 OrgUnit orgUnit = options.getOrgUnit();
-                orgUnit.setType(OrgUnit.Type.USER);
-                delAdminMgr.delete(orgUnit);
+                orgUnit.setType( OrgUnit.Type.USER );
+                delAdminMgr.delete( orgUnit );
             }
-            else if (commands.contains(ADD_USERORG_INHERITANCE))
+            else if ( commands.contains( ADD_USERORG_INHERITANCE ) )
             {
                 command = ADD_USERORG_INHERITANCE;
-                LOG.info(command);
+                LOG.info( command );
                 Relationship relationship = options.getRelationship();
-                delAdminMgr.addInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.USER), new OrgUnit(relationship.getChild(), OrgUnit.Type.USER));
+                delAdminMgr.addInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.USER ), new OrgUnit(
+                    relationship.getChild(), OrgUnit.Type.USER ) );
             }
-            else if (commands.contains(DELETE_USERORG_INHERITANCE))
+            else if ( commands.contains( DELETE_USERORG_INHERITANCE ) )
             {
                 command = DELETE_USERORG_INHERITANCE;
-                LOG.info(command);
+                LOG.info( command );
                 Relationship relationship = options.getRelationship();
-                delAdminMgr.deleteInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.USER), new OrgUnit(relationship.getChild(), OrgUnit.Type.USER));
+                delAdminMgr.deleteInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.USER ), new OrgUnit(
+                    relationship.getChild(), OrgUnit.Type.USER ) );
             }
-            else if (commands.contains(ADD_PERMORG))
+            else if ( commands.contains( ADD_PERMORG ) )
             {
                 command = ADD_PERMORG;
-                LOG.info(command);
+                LOG.info( command );
                 OrgUnit orgUnit = options.getOrgUnit();
-                orgUnit.setType(OrgUnit.Type.PERM);
-                delAdminMgr.add(orgUnit);
+                orgUnit.setType( OrgUnit.Type.PERM );
+                delAdminMgr.add( orgUnit );
             }
-            else if (commands.contains(UPDATE_PERMORG))
+            else if ( commands.contains( UPDATE_PERMORG ) )
             {
                 command = UPDATE_PERMORG;
-                LOG.info(command);
+                LOG.info( command );
                 OrgUnit orgUnit = options.getOrgUnit();
-                orgUnit.setType(OrgUnit.Type.PERM);
-                delAdminMgr.update(orgUnit);
+                orgUnit.setType( OrgUnit.Type.PERM );
+                delAdminMgr.update( orgUnit );
             }
-            else if (commands.contains(DELETE_PERMORG))
+            else if ( commands.contains( DELETE_PERMORG ) )
             {
                 command = DELETE_PERMORG;
-                LOG.info(command);
+                LOG.info( command );
                 OrgUnit orgUnit = options.getOrgUnit();
-                orgUnit.setType(OrgUnit.Type.PERM);
-                delAdminMgr.delete(orgUnit);
+                orgUnit.setType( OrgUnit.Type.PERM );
+                delAdminMgr.delete( orgUnit );
             }
-            else if (commands.contains(ADD_PERMORG_INHERITANCE))
+            else if ( commands.contains( ADD_PERMORG_INHERITANCE ) )
             {
                 command = ADD_PERMORG_INHERITANCE;
-                LOG.info(command);
+                LOG.info( command );
                 Relationship relationship = options.getRelationship();
-                delAdminMgr.addInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.PERM), new OrgUnit(relationship.getChild(), OrgUnit.Type.PERM));
+                delAdminMgr.addInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.PERM ), new OrgUnit(
+                    relationship.getChild(), OrgUnit.Type.PERM ) );
             }
-            else if (commands.contains(DELETE_PERMORG_INHERITANCE))
+            else if ( commands.contains( DELETE_PERMORG_INHERITANCE ) )
             {
                 command = DELETE_PERMORG_INHERITANCE;
-                LOG.info(command);
+                LOG.info( command );
                 Relationship relationship = options.getRelationship();
-                delAdminMgr.deleteInheritance(new OrgUnit(relationship.getParent(), OrgUnit.Type.PERM), new OrgUnit(relationship.getChild(), OrgUnit.Type.PERM));
+                delAdminMgr.deleteInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.PERM ), new OrgUnit(
+                    relationship.getChild(), OrgUnit.Type.PERM ) );
             }
             else
             {
-                LOG.warn("unknown delegated admin operation detected");
+                LOG.warn( "unknown delegated admin operation detected" );
                 return;
             }
-            LOG.info("command:{} was successful", command);
+            LOG.info( "command:{} was successful", command );
         }
-        catch ( org.apache.directory.fortress.core.SecurityException se)
+        catch ( org.apache.directory.fortress.core.SecurityException se )
         {
-            String error = "processDelegatedAdminCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
-            LOG.error(error);
+            String error = "processDelegatedAdminCommand caught SecurityException=" + se + ", return code="
+                + se.getErrorId();
+            LOG.error( error );
         }
     }
+
 
     /**
      * @param commands
      * @param options
      */
-    private void processAdminCommand(Set<String> commands, Options options)
+    private void processAdminCommand( Set<String> commands, Options options )
     {
         String command;
         try
         {
-            if (commands.contains(ADD_USER))
+            if ( commands.contains( ADD_USER ) )
             {
                 command = ADD_USER;
-                LOG.info(command);
+                LOG.info( command );
                 User user = options.getUser();
-                adminMgr.addUser(user);
+                adminMgr.addUser( user );
             }
-            else if (commands.contains(UPDATE_USER))
+            else if ( commands.contains( UPDATE_USER ) )
             {
                 command = UPDATE_USER;
-                LOG.info(command);
+                LOG.info( command );
                 User user = options.getUser();
-                adminMgr.updateUser(user);
+                adminMgr.updateUser( user );
             }
-            else if (commands.contains(DELETE_USER))
+            else if ( commands.contains( DELETE_USER ) )
             {
                 command = DELETE_USER;
-                LOG.info(command);
+                LOG.info( command );
                 User user = options.getUser();
-                adminMgr.deleteUser(user);
+                adminMgr.deleteUser( user );
             }
-            else if (commands.contains(ADD_ROLE))
+            else if ( commands.contains( ADD_ROLE ) )
             {
                 command = ADD_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 Role role = options.getRole();
-                adminMgr.addRole(role);
+                adminMgr.addRole( role );
             }
-            else if (commands.contains(UPDATE_ROLE))
+            else if ( commands.contains( UPDATE_ROLE ) )
             {
                 command = UPDATE_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 Role role = options.getRole();
-                adminMgr.updateRole(role);
+                adminMgr.updateRole( role );
             }
-            else if (commands.contains(DELETE_ROLE))
+            else if ( commands.contains( DELETE_ROLE ) )
             {
                 command = DELETE_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 Role role = options.getRole();
-                adminMgr.deleteRole(role);
+                adminMgr.deleteRole( role );
             }
-            else if (commands.contains(ASSIGN_ROLE))
+            else if ( commands.contains( ASSIGN_ROLE ) )
             {
                 command = ASSIGN_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 Role role = options.getRole();
                 String userId = options.getUserId();
-                adminMgr.assignUser(new UserRole(userId, role));
+                adminMgr.assignUser( new UserRole( userId, role ) );
             }
-            else if (commands.contains(DEASSIGN_ROLE))
+            else if ( commands.contains( DEASSIGN_ROLE ) )
             {
                 command = DEASSIGN_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 Role role = options.getRole();
                 String userId = options.getUserId();
-                adminMgr.deassignUser(new UserRole(userId, role));
+                adminMgr.deassignUser( new UserRole( userId, role ) );
             }
-            else if (commands.contains(ADD_ROLE_INHERITANCE))
+            else if ( commands.contains( ADD_ROLE_INHERITANCE ) )
             {
                 command = ADD_ROLE_INHERITANCE;
-                LOG.info(command);
+                LOG.info( command );
                 Relationship relationship = options.getRelationship();
-                adminMgr.addInheritance(new Role(relationship.getParent()), new Role(relationship.getChild()));
+                adminMgr.addInheritance( new Role( relationship.getParent() ), new Role( relationship.getChild() ) );
             }
-            else if (commands.contains(DELETE_ROLE_INHERITANCE))
+            else if ( commands.contains( DELETE_ROLE_INHERITANCE ) )
             {
                 command = DELETE_ROLE_INHERITANCE;
-                LOG.info(command);
+                LOG.info( command );
                 Relationship relationship = options.getRelationship();
-                adminMgr.deleteInheritance(new Role(relationship.getParent()), new Role(relationship.getChild()));
+                adminMgr.deleteInheritance( new Role( relationship.getParent() ), new Role( relationship.getChild() ) );
             }
-            else if (commands.contains(ADD_POBJ))
+            else if ( commands.contains( ADD_POBJ ) )
             {
                 command = ADD_POBJ;
-                LOG.info(command);
+                LOG.info( command );
                 PermObj permObj = options.getPermObj();
-                adminMgr.addPermObj(permObj);
+                adminMgr.addPermObj( permObj );
             }
-            else if (commands.contains(UPDATE_POBJ))
+            else if ( commands.contains( UPDATE_POBJ ) )
             {
                 command = UPDATE_POBJ;
-                LOG.info(command);
+                LOG.info( command );
                 PermObj permObj = options.getPermObj();
-                adminMgr.updatePermObj(permObj);
+                adminMgr.updatePermObj( permObj );
             }
-            else if (commands.contains(DELETE_POBJ))
+            else if ( commands.contains( DELETE_POBJ ) )
             {
                 command = DELETE_POBJ;
-                LOG.info(command);
+                LOG.info( command );
                 PermObj permObj = options.getPermObj();
-                adminMgr.deletePermObj(permObj);
+                adminMgr.deletePermObj( permObj );
             }
-            else if (commands.contains(ADD_PERM))
+            else if ( commands.contains( ADD_PERM ) )
             {
                 command = ADD_PERM;
-                LOG.info(command);
+                LOG.info( command );
                 Permission perm = options.getPermission();
-                adminMgr.addPermission(perm);
+                adminMgr.addPermission( perm );
             }
-            else if (commands.contains(UPDATE_PERM))
+            else if ( commands.contains( UPDATE_PERM ) )
             {
                 command = UPDATE_PERM;
-                LOG.info(command);
+                LOG.info( command );
                 Permission perm = options.getPermission();
-                adminMgr.updatePermission(perm);
+                adminMgr.updatePermission( perm );
             }
-            else if (commands.contains(DELETE_PERM))
+            else if ( commands.contains( DELETE_PERM ) )
             {
                 command = DELETE_PERM;
-                LOG.info(command);
+                LOG.info( command );
                 Permission permObj = options.getPermission();
-                adminMgr.deletePermission(permObj);
+                adminMgr.deletePermission( permObj );
             }
-            else if (commands.contains(GRANT))
+            else if ( commands.contains( GRANT ) )
             {
                 command = GRANT;
-                LOG.info(command);
+                LOG.info( command );
                 Permission perm = options.getPermission();
                 Role role = options.getRole();
-                role.setName(options.getRoleNm());
-                adminMgr.grantPermission(perm, role);
+                role.setName( options.getRoleNm() );
+                adminMgr.grantPermission( perm, role );
             }
-            else if (commands.contains(REVOKE))
+            else if ( commands.contains( REVOKE ) )
             {
                 command = REVOKE;
-                LOG.info(command);
+                LOG.info( command );
                 Permission perm = options.getPermission();
                 Role role = options.getRole();
-                role.setName(options.getRoleNm());
-                adminMgr.revokePermission(perm, role);
+                role.setName( options.getRoleNm() );
+                adminMgr.revokePermission( perm, role );
             }
-            else if (commands.contains(CREATE_SSD_SET))
+            else if ( commands.contains( CREATE_SSD_SET ) )
             {
                 command = CREATE_SSD_SET;
-                LOG.info(command);
+                LOG.info( command );
                 SDSet ssd = options.getSdSet();
-                ssd.setType(SDSet.SDType.STATIC);
-                adminMgr.createSsdSet(ssd);
+                ssd.setType( SDSet.SDType.STATIC );
+                adminMgr.createSsdSet( ssd );
             }
-            else if (commands.contains(DELETE_SSD_SET))
+            else if ( commands.contains( DELETE_SSD_SET ) )
             {
                 command = DELETE_SSD_SET;
-                LOG.info(command);
+                LOG.info( command );
                 SDSet ssd = options.getSdSet();
-                ssd.setType(SDSet.SDType.STATIC);
-                adminMgr.deleteSsdSet(ssd);
+                ssd.setType( SDSet.SDType.STATIC );
+                adminMgr.deleteSsdSet( ssd );
             }
-            else if (commands.contains(CREATE_DSD_SET))
+            else if ( commands.contains( CREATE_DSD_SET ) )
             {
                 command = CREATE_DSD_SET;
-                LOG.info(command);
+                LOG.info( command );
                 SDSet ssd = options.getSdSet();
-                ssd.setType(SDSet.SDType.DYNAMIC);
-                adminMgr.createDsdSet(ssd);
+                ssd.setType( SDSet.SDType.DYNAMIC );
+                adminMgr.createDsdSet( ssd );
             }
-            else if (commands.contains(DELETE_DSD_SET))
+            else if ( commands.contains( DELETE_DSD_SET ) )
             {
                 command = DELETE_DSD_SET;
-                LOG.info(command);
+                LOG.info( command );
                 SDSet ssd = options.getSdSet();
-                ssd.setType(SDSet.SDType.DYNAMIC);
-                adminMgr.deleteDsdSet(ssd);
+                ssd.setType( SDSet.SDType.DYNAMIC );
+                adminMgr.deleteDsdSet( ssd );
             }
-            else if (commands.contains(CHANGE_PASSWORD))
+            else if ( commands.contains( CHANGE_PASSWORD ) )
             {
                 command = CHANGE_PASSWORD;
-                LOG.info(command);
+                LOG.info( command );
                 User user = options.getUser();
                 char[] newPassword = options.getNewPassword();
-                adminMgr.changePassword(user, newPassword);
+                adminMgr.changePassword( user, newPassword );
             }
-            else if (commands.contains(RESET_PASSWORD))
+            else if ( commands.contains( RESET_PASSWORD ) )
             {
                 command = RESET_PASSWORD;
-                LOG.info(command);
+                LOG.info( command );
                 User user = options.getUser();
                 char[] newPassword = options.getNewPassword();
-                adminMgr.resetPassword(user, newPassword);
+                adminMgr.resetPassword( user, newPassword );
             }
-            else if (commands.contains(LOCK_USER_ACCOUNT))
+            else if ( commands.contains( LOCK_USER_ACCOUNT ) )
             {
                 command = LOCK_USER_ACCOUNT;
-                LOG.info(command);
+                LOG.info( command );
                 User user = options.getUser();
-                adminMgr.lockUserAccount(user);
+                adminMgr.lockUserAccount( user );
             }
-            else if (commands.contains(UNLOCK_USER_ACCOUNT))
+            else if ( commands.contains( UNLOCK_USER_ACCOUNT ) )
             {
                 command = UNLOCK_USER_ACCOUNT;
-                LOG.info(command);
+                LOG.info( command );
                 User user = options.getUser();
-                adminMgr.unlockUserAccount(user);
+                adminMgr.unlockUserAccount( user );
             }
             else
             {
-                LOG.warn("unknown admin operation detected");
+                LOG.warn( "unknown admin operation detected" );
                 return;
             }
-            LOG.info("command:{} was successful", command);
+            LOG.info( "command:{} was successful", command );
         }
-        catch ( SecurityException se)
+        catch ( SecurityException se )
         {
             String error = "processAdminCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
-            LOG.error(error);
+            LOG.error( error );
         }
     }
+
 
     /**
      * @param commands
      * @param options
      */
-    private void processReviewCommand(Set<String> commands, Options options)
+    private void processReviewCommand( Set<String> commands, Options options )
     {
         String command;
         try
         {
-            if (commands.contains(READ_USER))
+            if ( commands.contains( READ_USER ) )
             {
                 command = READ_USER;
-                LOG.info(READ_USER);
+                LOG.info( READ_USER );
                 User inUser = options.getUser();
-                User outUser = reviewMgr.readUser(inUser);
-                printUser(outUser);
+                User outUser = reviewMgr.readUser( inUser );
+                printUser( outUser );
             }
-            else if (commands.contains(FIND_USERS))
+            else if ( commands.contains( FIND_USERS ) )
             {
                 command = FIND_USERS;
-                LOG.info(command);
+                LOG.info( command );
                 User user = options.getUser();
-                List<User> outUsers = reviewMgr.findUsers(user);
-                if (VUtil.isNotNullOrEmpty(outUsers))
+                List<User> outUsers = reviewMgr.findUsers( user );
+                if ( VUtil.isNotNullOrEmpty( outUsers ) )
                 {
                     int ctr = 0;
-                    for (User outUser : outUsers)
+                    for ( User outUser : outUsers )
                     {
-                        printRow("U", "CTR ", "" + ctr++);
-                        printUser(outUser);
+                        printRow( "U", "CTR ", "" + ctr++ );
+                        printUser( outUser );
                     }
                 }
             }
-            else if (commands.contains(ASSIGNED_USERS))
+            else if ( commands.contains( ASSIGNED_USERS ) )
             {
                 command = ASSIGNED_USERS;
-                LOG.info(command);
+                LOG.info( command );
                 Role inRole = options.getRole();
-                List<User> outUsers = reviewMgr.assignedUsers(inRole);
-                if (VUtil.isNotNullOrEmpty(outUsers))
+                List<User> outUsers = reviewMgr.assignedUsers( inRole );
+                if ( VUtil.isNotNullOrEmpty( outUsers ) )
                 {
-                    for (User outUser : outUsers)
+                    for ( User outUser : outUsers )
                     {
-                        printUser(outUser);
+                        printUser( outUser );
                     }
                 }
             }
-            else if (commands.contains(READ_ROLE))
+            else if ( commands.contains( READ_ROLE ) )
             {
                 command = READ_ROLE;
-                LOG.info(command);
+                LOG.info( command );
                 Role inRole = options.getRole();
-                Role outRole = reviewMgr.readRole(inRole);
-                printRole(outRole);
+                Role outRole = reviewMgr.readRole( inRole );
+                printRole( outRole );
             }
-            else if (commands.contains(FIND_ROLES))
+            else if ( commands.contains( FIND_ROLES ) )
             {
                 command = FIND_ROLES;
-                LOG.info(command);
+                LOG.info( command );
                 String inRoleNm = options.getName();
-                List<Role> outRoles = reviewMgr.findRoles(inRoleNm);
-                if (VUtil.isNotNullOrEmpty(outRoles))
+                List<Role> outRoles = reviewMgr.findRoles( inRoleNm );
+                if ( VUtil.isNotNullOrEmpty( outRoles ) )
                 {
                     int ctr = 0;
-                    for (Role outRole : outRoles)
+                    for ( Role outRole : outRoles )
                     {
                         printSeparator();
-                        printRow("R", "ROLE[" + ++ctr + "]", outRole.getName());
-                        printRole(outRole);
+                        printRow( "R", "ROLE[" + ++ctr + "]", outRole.getName() );
+                        printRole( outRole );
                     }
                 }
             }
-            else if (commands.contains(ASSIGNED_ROLES))
+            else if ( commands.contains( ASSIGNED_ROLES ) )
             {
                 command = ASSIGNED_ROLES;
-                LOG.info(command);
+                LOG.info( command );
                 String userId = options.getUserId();
-                List<UserRole> uRoles = reviewMgr.assignedRoles(new User(userId));
-                if (uRoles != null)
+                List<UserRole> uRoles = reviewMgr.assignedRoles( new User( userId ) );
+                if ( uRoles != null )
                 {
-                    for (UserRole ur : uRoles)
+                    for ( UserRole ur : uRoles )
                     {
-                        printTemporal("R", ur, "RBACROLE");
+                        printTemporal( "R", ur, "RBACROLE" );
                         printSeparator();
                     }
                 }
             }
-            else if (commands.contains(READ_POBJ))
+            else if ( commands.contains( READ_POBJ ) )
             {
                 command = READ_POBJ;
-                LOG.info(command);
+                LOG.info( command );
                 PermObj inPermObj = options.getPermObj();
-                PermObj outPermObj = reviewMgr.readPermObj(inPermObj);
-                printPermObj(outPermObj);
+                PermObj outPermObj = reviewMgr.readPermObj( inPermObj );
+                printPermObj( outPermObj );
             }
-            else if (commands.contains(FIND_POBJS))
+            else if ( commands.contains( FIND_POBJS ) )
             {
                 command = FIND_POBJS;
-                LOG.info(command);
+                LOG.info( command );
                 PermObj inPermObj = options.getPermObj();
-                List<PermObj> outPermObjs = reviewMgr.findPermObjs(inPermObj);
-                if (VUtil.isNotNullOrEmpty(outPermObjs))
+                List<PermObj> outPermObjs = reviewMgr.findPermObjs( inPermObj );
+                if ( VUtil.isNotNullOrEmpty( outPermObjs ) )
                 {
                     int ctr = 0;
-                    for (PermObj outPermObj : outPermObjs)
+                    for ( PermObj outPermObj : outPermObjs )
                     {
                         printSeparator();
-                        printRow("PO", "POBJ[" + ++ctr + "]", outPermObj.getObjName());
-                        printPermObj(outPermObj);
+                        printRow( "PO", "POBJ[" + ++ctr + "]", outPermObj.getObjName() );
+                        printPermObj( outPermObj );
                     }
                 }
             }
-            else if (commands.contains(READ_PERM))
+            else if ( commands.contains( READ_PERM ) )
             {
                 command = READ_PERM;
-                LOG.info(command);
+                LOG.info( command );
                 Permission inPerm = options.getPermission();
-                Permission outPerm = reviewMgr.readPermission(inPerm);
-                printPermission(outPerm);
+                Permission outPerm = reviewMgr.readPermission( inPerm );
+                printPermission( outPerm );
             }
-            else if (commands.contains(FIND_PERMS))
+            else if ( commands.contains( FIND_PERMS ) )
             {
                 command = FIND_PERMS;
-                LOG.info(command);
+                LOG.info( command );
                 Permission inPerm = options.getPermission();
-                List<Permission> outPerms = reviewMgr.findPermissions(inPerm);
-                if (VUtil.isNotNullOrEmpty(outPerms))
+                List<Permission> outPerms = reviewMgr.findPermissions( inPerm );
+                if ( VUtil.isNotNullOrEmpty( outPerms ) )
                 {
                     int ctr = 0;
-                    for (Permission outPerm : outPerms)
+                    for ( Permission outPerm : outPerms )
                     {
                         printSeparator();
-                        printRow("P", "PERM[" + ++ctr + "]", outPerm.getAbstractName());
-                        printPermission(outPerm);
+                        printRow( "P", "PERM[" + ++ctr + "]", outPerm.getAbstractName() );
+                        printPermission( outPerm );
                     }
                 }
             }
             else
             {
-                LOG.warn("unknown review operation detected");
+                LOG.warn( "unknown review operation detected" );
                 return;
             }
-            LOG.info("command:{} was successful", command);
+            LOG.info( "command:{} was successful", command );
         }
-        catch ( SecurityException se)
+        catch ( SecurityException se )
         {
             String error = "processReviewCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
-            LOG.error(error);
+            LOG.error( error );
         }
     }
+
 
     /**
      * @param commands
      * @param options
      */
-    private void processSystemCommand(Set<String> commands, Options options)
+    private void processSystemCommand( Set<String> commands, Options options )
     {
         String command;
         try
         {
-            if (commands.contains(CREATE_SESSION))
+            if ( commands.contains( CREATE_SESSION ) )
             {
                 command = CREATE_SESSION;
-                LOG.info(READ_USER);
+                LOG.info( READ_USER );
                 User inUser = options.getUser();
-                Session session = accessMgr.createSession(inUser, false);
-                printSession(session);
+                Session session = accessMgr.createSession( inUser, false );
+                printSession( session );
             }
-            else if (commands.contains(AUTHENTICATE))
+            else if ( commands.contains( AUTHENTICATE ) )
             {
                 command = AUTHENTICATE;
-                LOG.info(command);
+                LOG.info( command );
                 User inUser = options.getUser();
-                Session session = accessMgr.authenticate(inUser.getUserId(), inUser.getPassword());
-                printSession(session);
+                Session session = accessMgr.authenticate( inUser.getUserId(), inUser.getPassword() );
+                printSession( session );
             }
-            else if (commands.contains(ASSIGNED_ROLES))
+            else if ( commands.contains( ASSIGNED_ROLES ) )
             {
                 command = ASSIGNED_ROLES;
-                LOG.info(command);
+                LOG.info( command );
                 User inUser = options.getUser();
-                Session session = accessMgr.createSession(inUser, true);
-                List<UserRole> uRoles = accessMgr.sessionRoles(session);
-                if (uRoles != null)
+                Session session = accessMgr.createSession( inUser, true );
+                List<UserRole> uRoles = accessMgr.sessionRoles( session );
+                if ( uRoles != null )
                 {
-                    for (UserRole ur : uRoles)
+                    for ( UserRole ur : uRoles )
                     {
-                        printTemporal("R", ur, "RBACROLE");
+                        printTemporal( "R", ur, "RBACROLE" );
                         printSeparator();
                     }
                 }
             }
-            else if (commands.contains(CHECK_ACCESS))
+            else if ( commands.contains( CHECK_ACCESS ) )
             {
                 command = CHECK_ACCESS;
-                LOG.info(command);
+                LOG.info( command );
                 Permission inPerm = options.getPermission();
                 User inUser = options.getUser();
-                Session session = accessMgr.createSession(inUser, true);
-                boolean result = accessMgr.checkAccess(session, inPerm);
-                printRow("CA", "PERM", "" + result);
+                Session session = accessMgr.createSession( inUser, true );
+                boolean result = accessMgr.checkAccess( session, inPerm );
+                printRow( "CA", "PERM", "" + result );
             }
             else
             {
-                LOG.warn("unknown system operation detected");
+                LOG.warn( "unknown system operation detected" );
                 return;
             }
-            LOG.info("command:{} was successful", command);
+            LOG.info( "command:{} was successful", command );
         }
-        catch ( SecurityException se)
+        catch ( SecurityException se )
         {
             String error = "processSystemCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
-            LOG.error(error);
+            LOG.error( error );
         }
     }
+
 
     /**
      * @param commands
      * @param options
      */
-    private void processGroupCommand(Set<String> commands, Options options)
+    private void processGroupCommand( Set<String> commands, Options options )
     {
         String command;
         try
         {
-            if (commands.contains(ADD_GROUP))
+            if ( commands.contains( ADD_GROUP ) )
             {
                 command = ADD_GROUP;
-                LOG.info(command);
+                LOG.info( command );
                 Group group = options.getGroup();
                 groupMgr.add( group );
             }
-            else if (commands.contains(UPDATE_GROUP))
+            else if ( commands.contains( UPDATE_GROUP ) )
             {
                 command = UPDATE_GROUP;
-                LOG.info(command);
+                LOG.info( command );
                 Group group = options.getGroup();
                 groupMgr.update( group );
             }
-            else if (commands.contains(DELETE_GROUP))
+            else if ( commands.contains( DELETE_GROUP ) )
             {
                 command = DELETE_GROUP;
-                LOG.info(command);
+                LOG.info( command );
                 Group group = options.getGroup();
                 groupMgr.delete( group );
             }
-            else if (commands.contains(READ_GROUP))
+            else if ( commands.contains( READ_GROUP ) )
             {
                 command = READ_GROUP;
-                LOG.info(command);
+                LOG.info( command );
                 Group group = options.getGroup();
                 Group outGroup = groupMgr.read( group );
-                printGroup(outGroup);
+                printGroup( outGroup );
             }
-            else if (commands.contains(FIND_GROUP))
+            else if ( commands.contains( FIND_GROUP ) )
             {
                 command = FIND_GROUP;
-                LOG.info(command);
+                LOG.info( command );
                 Group inGroup = options.getGroup();
                 List<Group> groups = groupMgr.find( inGroup );
-                if(VUtil.isNotNullOrEmpty( groups ))
+                if ( VUtil.isNotNullOrEmpty( groups ) )
                 {
-                    for(Group outGroup : groups)
+                    for ( Group outGroup : groups )
                     {
-                        printGroup(outGroup);
+                        printGroup( outGroup );
                     }
                 }
             }
-            else if (commands.contains(ASSIGN_GROUP))
+            else if ( commands.contains( ASSIGN_GROUP ) )
             {
                 command = ASSIGN_GROUP;
-                LOG.info(command);
+                LOG.info( command );
                 Group group = options.getGroup();
-                if(VUtil.isNotNullOrEmpty( group.getMembers() ) )
+                if ( VUtil.isNotNullOrEmpty( group.getMembers() ) )
                 {
-                    for( String member : group.getMembers())
+                    for ( String member : group.getMembers() )
                     {
                         groupMgr.assign( group, member );
                     }
                 }
             }
-            else if (commands.contains(DEASSIGN_GROUP))
+            else if ( commands.contains( DEASSIGN_GROUP ) )
             {
                 command = DEASSIGN_GROUP;
-                LOG.info(command);
+                LOG.info( command );
                 Group group = options.getGroup();
-                if(VUtil.isNotNullOrEmpty( group.getMembers() ) )
+                if ( VUtil.isNotNullOrEmpty( group.getMembers() ) )
                 {
-                    for( String member : group.getMembers())
+                    for ( String member : group.getMembers() )
                     {
                         groupMgr.deassign( group, member );
                     }
                 }
             }
-            else if (commands.contains(ADD_GROUP_PROP))
+            else if ( commands.contains( ADD_GROUP_PROP ) )
             {
                 command = ADD_GROUP_PROP;
-                LOG.info(command);
+                LOG.info( command );
                 Group group = options.getGroup();
-                if(VUtil.isNotNullOrEmpty( group.getProperties() ))
+                if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
-                    for (Enumeration e = group.getProperties().propertyNames(); e.hasMoreElements(); )
+                    for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {
-                        String key = (String) e.nextElement();
-                        String val = group.getProperty(key);
-                        groupMgr.add( group, key, val  );
+                        String key = ( String ) e.nextElement();
+                        String val = group.getProperty( key );
+                        groupMgr.add( group, key, val );
                     }
                 }
             }
-            else if (commands.contains(DELETE_GROUP_PROP))
+            else if ( commands.contains( DELETE_GROUP_PROP ) )
             {
                 command = DELETE_GROUP_PROP;
-                LOG.info(command);
+                LOG.info( command );
                 Group group = options.getGroup();
-                if(VUtil.isNotNullOrEmpty( group.getProperties() ))
+                if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
-                    for (Enumeration e = group.getProperties().propertyNames(); e.hasMoreElements(); )
+                    for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {
-                        String key = (String) e.nextElement();
-                        String val = group.getProperty(key);
+                        String key = ( String ) e.nextElement();
+                        String val = group.getProperty( key );
                         groupMgr.delete( group, key, val );
                     }
                 }
             }
             else
             {
-                LOG.warn("unknown group operation detected");
+                LOG.warn( "unknown group operation detected" );
                 return;
             }
             LOG.info( "command:{} was successful", command );
         }
-        catch ( SecurityException se)
+        catch ( SecurityException se )
         {
             String error = "processGroupCommand caught SecurityException=" + se + ", return code=" + se.getErrorId();
-            LOG.error(error);
+            LOG.error( error );
         }
     }
+
 
     /**
      * @param parser
      * @return entity containing user options
      */
-    private Options loadOptions(CmdLineParser parser)
+    private Options loadOptions( CmdLineParser parser )
     {
-        return new Options(parser);
+        return new Options( parser );
     }
+
 
     /**
      *
      * @param input
      * @return array of strings
      */
-    private String[] parseUserInput(String input)
+    private String[] parseUserInput( String input )
     {
         List<String> options = new ArrayList<>();
         // Break into separate tokens Strings that are delimited by "", '', or white space:
-        Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
-        Matcher regexMatcher = regex.matcher(input);
+        Pattern regex = Pattern.compile( "[^\\s\"']+|\"([^\"]*)\"|'([^']*)'" );
+        Matcher regexMatcher = regex.matcher( input );
 
         boolean isPassword = false;
-        while (regexMatcher.find())
+        while ( regexMatcher.find() )
         {
             String arg;
-            if (regexMatcher.group(1) != null)
+            if ( regexMatcher.group( 1 ) != null )
             {
                 // Add double-quoted string without the quotes
-                arg = regexMatcher.group(1);
+                arg = regexMatcher.group( 1 );
             }
-            else if (regexMatcher.group(2) != null)
+            else if ( regexMatcher.group( 2 ) != null )
             {
                 // Add single-quoted string without the quotes
-                arg = regexMatcher.group(2);
+                arg = regexMatcher.group( 2 );
             }
             else
             {
                 // Add unquoted word
                 arg = regexMatcher.group();
             }
-            options.add(arg);
-            if (!isPassword)
+            options.add( arg );
+            if ( !isPassword )
             {
-                LOG.info("arg:{}", arg);
+                LOG.info( "arg:{}", arg );
             }
             else
             {
                 isPassword = false;
             }
-            if ("-p".equalsIgnoreCase(arg))
+            if ( "-p".equalsIgnoreCase( arg ) )
             {
                 isPassword = true;
             }
         }
-        return options.toArray(new String[options.size()]);
+        return options.toArray( new String[options.size()] );
     }
+
 
     /**
      * @param args
      */
-    private void processUserInput(String[] args)
+    private void processUserInput( String[] args )
     {
         CmdLineParser parser = new CmdLineParser();
-        Options options = loadOptions(parser);
+        Options options = loadOptions( parser );
         Set<String> commands = null;
         try
         {
-            parser.parse(args);
-            commands = loadCommandSet(parser.getRemainingArgs());
+            parser.parse( args );
+            commands = loadCommandSet( parser.getRemainingArgs() );
         }
-        catch (CmdLineParser.OptionException e)
+        catch ( CmdLineParser.OptionException e )
         {
             String error = "processUserInput caught OptionException=" + e.toString();
-            LOG.error(error);
+            LOG.error( error );
             printUsage();
             //System.exit(2);
         }
-        if (commands != null && commands.size() > 0)
+        if ( commands != null && commands.size() > 0 )
         {
-            processCommand(commands, options);
+            processCommand( commands, options );
         }
     }
+
 
     /**
      * @param otherArgs
      */
-    private Set<String> loadCommandSet(String[] otherArgs)
+    private Set<String> loadCommandSet( String[] otherArgs )
     {
         Set<String> commands = null;
-        if (VUtil.isNotNullOrEmpty(otherArgs))
+        if ( VUtil.isNotNullOrEmpty( otherArgs ) )
         {
             commands = new HashSet<>();
-            Collections.addAll(commands, otherArgs);
+            Collections.addAll( commands, otherArgs );
         }
         return commands;
     }
 
+
     /**
      * @param role
      */
-    private void printRole(Role role)
+    private void printRole( Role role )
     {
         String type = "R";
-        if (role != null)
+        if ( role != null )
         {
-            printRow(type, "NAME", role.getName());
-            printRow(type, "IID ", role.getId());
-            if (VUtil.isNotNullOrEmpty(role.getParents()))
+            printRow( type, "NAME", role.getName() );
+            printRow( type, "IID ", role.getId() );
+            if ( VUtil.isNotNullOrEmpty( role.getParents() ) )
             {
-                for (String parentRole : role.getParents())
+                for ( String parentRole : role.getParents() )
                 {
-                    printRow(type, "PRLE", parentRole);
+                    printRow( type, "PRLE", parentRole );
                 }
             }
-            if (VUtil.isNotNullOrEmpty(role.getChildren()))
+            if ( VUtil.isNotNullOrEmpty( role.getChildren() ) )
             {
-                for (String childRole : role.getChildren())
+                for ( String childRole : role.getChildren() )
                 {
-                    printRow(type, "CRLE", childRole);
+                    printRow( type, "CRLE", childRole );
                 }
             }
-            printTemporal(type, role, "ROLE");
+            printTemporal( type, role, "ROLE" );
         }
     }
 
-    private void printPermission(Permission perm)
+
+    private void printPermission( Permission perm )
     {
         String type = "P";
-        if (perm != null)
+        if ( perm != null )
         {
-            printRow(type, "POBJ", perm.getObjName());
-            printRow(type, "OPER", perm.getOpName());
-            printRow(type, "IID", perm.getInternalId());
-            printRow(type, "TYPE", perm.getType());
+            printRow( type, "POBJ", perm.getObjName() );
+            printRow( type, "OPER", perm.getOpName() );
+            printRow( type, "IID", perm.getInternalId() );
+            printRow( type, "TYPE", perm.getType() );
         }
-        if (VUtil.isNotNullOrEmpty(perm != null ? perm.getRoles() : null))
+        if ( VUtil.isNotNullOrEmpty( perm != null ? perm.getRoles() : null ) )
         {
-            for (String roleName : perm.getRoles())
+            for ( String roleName : perm.getRoles() )
             {
-                printRow("R", "ROLE", roleName);
+                printRow( "R", "ROLE", roleName );
             }
         }
-        if (VUtil.isNotNullOrEmpty(perm.getUsers()))
+        if ( VUtil.isNotNullOrEmpty( perm.getUsers() ) )
         {
-            for (String userId : perm.getUsers())
+            for ( String userId : perm.getUsers() )
             {
-                printRow("U", "USER", userId);
+                printRow( "U", "USER", userId );
             }
         }
-        if (VUtil.isNotNullOrEmpty(perm.getProperties()))
+        if ( VUtil.isNotNullOrEmpty( perm.getProperties() ) )
         {
             printSeparator();
             int ctr = 0;
-            for (Enumeration e = perm.getProperties().propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = perm.getProperties().propertyNames(); e.hasMoreElements(); )
             {
-                String key = (String) e.nextElement();
-                String val = perm.getProperty(key);
+                String key = ( String ) e.nextElement();
+                String val = perm.getProperty( key );
                 ++ctr;
                 LOG.info( "{}   KEY{} [{}]", type, ctr, key );
                 LOG.info( "{}   VAL{} [{}]", type, ctr, val );
@@ -1170,24 +1194,25 @@ public class CommandLineInterpreter
         }
     }
 
-    private void printPermObj(PermObj permObj)
+
+    private void printPermObj( PermObj permObj )
     {
         String type = "O";
-        if (permObj != null)
+        if ( permObj != null )
         {
-            printRow(type, "NAME", permObj.getObjName());
-            printRow(type, "IID ", permObj.getInternalId());
-            printRow(type, "TYPE", permObj.getType());
-            printRow(type, "OU  ", permObj.getOu());
+            printRow( type, "NAME", permObj.getObjName() );
+            printRow( type, "IID ", permObj.getInternalId() );
+            printRow( type, "TYPE", permObj.getType() );
+            printRow( type, "OU  ", permObj.getOu() );
         }
-        if (VUtil.isNotNullOrEmpty(permObj != null ? permObj.getProperties() : null))
+        if ( VUtil.isNotNullOrEmpty( permObj != null ? permObj.getProperties() : null ) )
         {
             printSeparator();
             int ctr = 0;
-            for (Enumeration e = permObj.getProperties().propertyNames(); e.hasMoreElements(); )
+            for ( Enumeration<?> e = permObj.getProperties().propertyNames(); e.hasMoreElements(); )
             {
-                String key = (String) e.nextElement();
-                String val = permObj.getProperty(key);
+                String key = ( String ) e.nextElement();
+                String val = permObj.getProperty( key );
                 ++ctr;
                 LOG.info( "{}   KEY{} [{}]", type, ctr, key );
                 LOG.info( "{}   VAL{} [{}]", type, ctr, val );
@@ -1195,85 +1220,87 @@ public class CommandLineInterpreter
         }
     }
 
-    private void printSession(Session session)
+
+    private void printSession( Session session )
     {
         String type = "S";
-        printRow(type, "UID ", session.getUserId());
-        printRow(type, "IID ", session.getInternalUserId());
-        printRow(type, "ERR ", "" + session.getErrorId());
-        printRow(type, "WARN", "" + session.getWarnings());
-        printRow(type, "MSG ", session.getMsg());
-        printRow(type, "EXP ", "" + session.getExpirationSeconds());
-        printRow(type, "GRAC", "" + session.getGraceLogins());
-        printRow(type, "AUTH", "" + session.isAuthenticated());
-        printRow(type, "LAST", "" + session.getLastAccess());
-        printRow(type, "SID ", session.getSessionId());
+        printRow( type, "UID ", session.getUserId() );
+        printRow( type, "IID ", session.getInternalUserId() );
+        printRow( type, "ERR ", "" + session.getErrorId() );
+        printRow( type, "WARN", "" + session.getWarnings() );
+        printRow( type, "MSG ", session.getMsg() );
+        printRow( type, "EXP ", "" + session.getExpirationSeconds() );
+        printRow( type, "GRAC", "" + session.getGraceLogins() );
+        printRow( type, "AUTH", "" + session.isAuthenticated() );
+        printRow( type, "LAST", "" + session.getLastAccess() );
+        printRow( type, "SID ", session.getSessionId() );
         printSeparator();
         User user = session.getUser();
-        if (user != null)
+        if ( user != null )
         {
-            printUser(user);
+            printUser( user );
         }
     }
+
 
     /**
      * @param user
      */
-    private void printUser(User user)
+    private void printUser( User user )
     {
         String type = "U";
-        if (user != null)
+        if ( user != null )
         {
-            printRow(type, "UID ", user.getUserId());
-            printRow(type, "IID ", user.getInternalId());
-            printRow(type, "CN  ", user.getCn());
-            printRow(type, "DESC", user.getDescription());
-            printRow(type, "OU  ", user.getOu());
-            printRow(type, "SN  ", user.getSn());
-            printRow(type, "BDTE", user.getBeginDate());
-            printRow(type, "EDTE", user.getEndDate());
-            printRow(type, "BLDT", user.getBeginLockDate());
-            printRow(type, "ELDT", user.getEndLockDate());
-            printRow(type, "DMSK", user.getDayMask());
-            printRow(type, "TO  ", "" + user.getTimeout());
-            printRow(type, "REST", "" + user.isReset());
-            printTemporal(type, user, "USER");
-            printAddress(type, user.getAddress(), "ADDR");
-            printPhone(type, user.getPhones(), "PHNE");
-            printPhone(type, user.getPhones(), "MOBL");
+            printRow( type, "UID ", user.getUserId() );
+            printRow( type, "IID ", user.getInternalId() );
+            printRow( type, "CN  ", user.getCn() );
+            printRow( type, "DESC", user.getDescription() );
+            printRow( type, "OU  ", user.getOu() );
+            printRow( type, "SN  ", user.getSn() );
+            printRow( type, "BDTE", user.getBeginDate() );
+            printRow( type, "EDTE", user.getEndDate() );
+            printRow( type, "BLDT", user.getBeginLockDate() );
+            printRow( type, "ELDT", user.getEndLockDate() );
+            printRow( type, "DMSK", user.getDayMask() );
+            printRow( type, "TO  ", "" + user.getTimeout() );
+            printRow( type, "REST", "" + user.isReset() );
+            printTemporal( type, user, "USER" );
+            printAddress( type, user.getAddress(), "ADDR" );
+            printPhone( type, user.getPhones(), "PHNE" );
+            printPhone( type, user.getPhones(), "MOBL" );
 
-            if (VUtil.isNotNullOrEmpty(user.getRoles()))
+            if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
             {
-                for (UserRole ur : user.getRoles())
+                for ( UserRole ur : user.getRoles() )
                 {
                     printSeparator();
-                    printTemporal("R", ur, "RBACROLE");
-                    if (VUtil.isNotNullOrEmpty(ur.getParents()))
+                    printTemporal( "R", ur, "RBACROLE" );
+                    if ( VUtil.isNotNullOrEmpty( ur.getParents() ) )
                     {
-                        for (String parentRole : ur.getParents())
+                        for ( String parentRole : ur.getParents() )
                         {
-                            printRow("R", "PRLE", parentRole);
+                            printRow( "R", "PRLE", parentRole );
                         }
                     }
                 }
             }
-            if (VUtil.isNotNullOrEmpty(user.getAdminRoles()))
+            if ( VUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
             {
-                for (UserAdminRole ur : user.getAdminRoles())
+                for ( UserAdminRole ur : user.getAdminRoles() )
                 {
                     printSeparator();
-                    printTemporal("A", ur, "ADMINROLE");
-                    printAdminRole("A", ur);
+                    printTemporal( "A", ur, "ADMINROLE" );
+                    printAdminRole( "A", ur );
                 }
             }
-            if (VUtil.isNotNullOrEmpty(user.getProperties()))
+            if ( VUtil.isNotNullOrEmpty( user.getProperties() ) )
             {
                 printSeparator();
                 int ctr = 0;
-                for (Enumeration e = user.getProperties().propertyNames(); e.hasMoreElements(); )
+                for ( Enumeration<?> e = user.getProperties().propertyNames(); e.hasMoreElements(); )
                 {
-                    String key = (String) e.nextElement();
-                    String val = user.getProperty(key);
+                    String key = ( String ) e.nextElement();
+                    String val = user.getProperty( key );
                     ++ctr;
                     LOG.info( "{}   KEY{} [{}]", type, ctr, key );
                     LOG.info( "{}   VAL{} [{}]", type, ctr, val );
@@ -1282,127 +1309,135 @@ public class CommandLineInterpreter
         }
     }
 
-    private void printGroup(Group group)
+
+    private void printGroup( Group group )
     {
         String type = "G";
-        if (group != null)
+        if ( group != null )
         {
             printSeparator();
-            printRow(type, "GROUP DATA" , group.getName());
-            printRow(type, "NAME ", group.getName());
-            printRow(type, "DESC", group.getDescription());
-            printRow(type, "PROT", group.getProtocol());
-            if (VUtil.isNotNullOrEmpty(group.getMembers()))
+            printRow( type, "GROUP DATA", group.getName() );
+            printRow( type, "NAME ", group.getName() );
+            printRow( type, "DESC", group.getDescription() );
+            printRow( type, "PROT", group.getProtocol() );
+            if ( VUtil.isNotNullOrEmpty( group.getMembers() ) )
             {
                 int memctr = 0;
-                for (String member : group.getMembers())
+                for ( String member : group.getMembers() )
                 {
-                    printRow(type, "MEMBER[" + ++memctr + "]", member);
+                    printRow( type, "MEMBER[" + ++memctr + "]", member );
                 }
             }
-            if (VUtil.isNotNullOrEmpty(group.getProperties()))
+            if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
             {
                 int propctr = 0;
-                for (Enumeration e = group.getProperties().propertyNames(); e.hasMoreElements(); )
+                for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                 {
-                    String key = (String) e.nextElement();
-                    String val = group.getProperty(key);
-                    printRow(type, "PROP[" + ++ propctr + "]", key + "=" + val);
+                    String key = ( String ) e.nextElement();
+                    String val = group.getProperty( key );
+                    printRow( type, "PROP[" + ++propctr + "]", key + "=" + val );
                 }
             }
         }
     }
+
 
     /**
      * @param constraint
      * @param label
      */
-    private void printTemporal(String type, Constraint constraint, String label)
+    private void printTemporal( String type, Constraint constraint, String label )
     {
-        if (constraint != null)
+        if ( constraint != null )
         {
-            printRow(type, "TYPE", label);
-            printRow(type, "NAME", constraint.getName());
-            printRow(type, "BTME", constraint.getBeginTime());
-            printRow(type, "ETME", constraint.getEndTime());
-            printRow(type, "BDTE", constraint.getBeginDate());
-            printRow(type, "EDTE", constraint.getEndDate());
-            printRow(type, "BLDT", constraint.getBeginLockDate());
-            printRow(type, "ELDT", constraint.getEndLockDate());
-            printRow(type, "DMSK", constraint.getDayMask());
-            printRow(type, "TO  ", "" + constraint.getTimeout());
+            printRow( type, "TYPE", label );
+            printRow( type, "NAME", constraint.getName() );
+            printRow( type, "BTME", constraint.getBeginTime() );
+            printRow( type, "ETME", constraint.getEndTime() );
+            printRow( type, "BDTE", constraint.getBeginDate() );
+            printRow( type, "EDTE", constraint.getEndDate() );
+            printRow( type, "BLDT", constraint.getBeginLockDate() );
+            printRow( type, "ELDT", constraint.getEndLockDate() );
+            printRow( type, "DMSK", constraint.getDayMask() );
+            printRow( type, "TO  ", "" + constraint.getTimeout() );
         }
     }
 
-    private void printAddress(String type, Address address, String label)
+
+    private void printAddress( String type, Address address, String label )
     {
-        if (address != null)
+        if ( address != null )
         {
-            printRow(type, "TYPE", label);
-            System.out.println(label);
-            if (VUtil.isNotNullOrEmpty(address.getAddresses()))
+            printRow( type, "TYPE", label );
+            System.out.println( label );
+            if ( VUtil.isNotNullOrEmpty( address.getAddresses() ) )
             {
-                for (String addr : address.getAddresses())
+                for ( String addr : address.getAddresses() )
                 {
-                    printRow(type, "LINE", addr);
+                    printRow( type, "LINE", addr );
                 }
             }
-            printRow(type, "CITY", address.getCity());
-            printRow(type, "PROV", address.getState());
-            printRow(type, "ZIPC", address.getPostalCode());
-            printRow(type, "PBOX", address.getPostOfficeBox());
+            printRow( type, "CITY", address.getCity() );
+            printRow( type, "PROV", address.getState() );
+            printRow( type, "ZIPC", address.getPostalCode() );
+            printRow( type, "PBOX", address.getPostOfficeBox() );
         }
     }
 
-    private void printPhone(String type, List<String> phones, String label)
+
+    private void printPhone( String type, List<String> phones, String label )
     {
-        if (phones != null)
+        if ( phones != null )
         {
-            printRow(type, "TYPE", label);
-            for (String phone : phones)
+            printRow( type, "TYPE", label );
+            for ( String phone : phones )
             {
-                printRow(type, "TELE", phone);
+                printRow( type, "TELE", phone );
             }
         }
     }
+
 
     /**
      * @param ur
      */
-    private void printAdminRole(String type, UserAdminRole ur)
+    private void printAdminRole( String type, UserAdminRole ur )
     {
-        if (ur != null)
+        if ( ur != null )
         {
-            printRow(type, "BEGR", ur.getBeginRange());
-            printRow(type, "ENDR", ur.getEndRange());
-            if (VUtil.isNotNullOrEmpty(ur.getOsP()))
+            printRow( type, "BEGR", ur.getBeginRange() );
+            printRow( type, "ENDR", ur.getEndRange() );
+            if ( VUtil.isNotNullOrEmpty( ur.getOsP() ) )
             {
-                printRow(type, "POUS", "" + ur.getOsP());
+                printRow( type, "POUS", "" + ur.getOsP() );
             }
-            if (VUtil.isNotNullOrEmpty(ur.getOsU()))
+            if ( VUtil.isNotNullOrEmpty( ur.getOsU() ) )
             {
-                printRow(type, "UOUS", "" + ur.getOsU());
+                printRow( type, "UOUS", "" + ur.getOsU() );
             }
         }
     }
+
 
     /**
      * @param type
      * @param name
      * @param value
      */
-    private void printRow(String type, String name, String value)
+    private void printRow( String type, String name, String value )
     {
-        LOG.info( "{}   {} [{}]", type, name, value);
+        LOG.info( "{}   {} [{}]", type, name, value );
     }
+
 
     /**
      *
      */
     private void printSeparator()
     {
-        LOG.info("------------------------------------------");
+        LOG.info( "------------------------------------------" );
     }
+
 
     /**
      */
@@ -1411,27 +1446,27 @@ public class CommandLineInterpreter
         String contextId = GlobalIds.HOME;
         boolean success = false;
         // This property can be overriden with system property:
-        String tenant = System.getProperty(GlobalIds.TENANT);
-        if(VUtil.isNotNullOrEmpty(tenant) && !tenant.equals("${tenant}"))
+        String tenant = System.getProperty( GlobalIds.TENANT );
+        if ( VUtil.isNotNullOrEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
         {
             contextId = tenant;
         }
         try
         {
-            adminMgr = AdminMgrFactory.createInstance(contextId);
-            reviewMgr = ReviewMgrFactory.createInstance(contextId);
-            accessMgr = AccessMgrFactory.createInstance(contextId);
-            accessMgr = AccessMgrFactory.createInstance(contextId);
+            adminMgr = AdminMgrFactory.createInstance( contextId );
+            reviewMgr = ReviewMgrFactory.createInstance( contextId );
+            accessMgr = AccessMgrFactory.createInstance( contextId );
+            accessMgr = AccessMgrFactory.createInstance( contextId );
             groupMgr = GroupMgrFactory.createInstance( contextId );
             //delReviewMgr = DelReviewMgrFactory.createInstance(contextId);
             //delAccessMgr = DelAccessMgrFactory.createInstance(contextId);
             //pwPolicyMgr = PwPolicyMgrFactory.createInstance(contextId);
             success = true;
         }
-        catch ( SecurityException se)
+        catch ( SecurityException se )
         {
             String error = "constructManagers caught SecurityException=" + se;
-            LOG.error(error);
+            LOG.error( error );
         }
         return success;
     }

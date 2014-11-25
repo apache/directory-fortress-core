@@ -19,6 +19,8 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+import java.io.Serializable;
+
 
 /**
  * Entity is used by custom Apache Ant task for special handling of collections.  This is necessary because the
@@ -26,10 +28,14 @@ package org.apache.directory.fortress.core.rbac;
  *
  * @author Shawn McKinney
  */
-public class OrgUnitAnt extends OrgUnit
-    implements java.io.Serializable
+public class OrgUnitAnt extends OrgUnit implements Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     private String typeName;
+
+
     /**
      * Return the type of OU in string format.
      *
@@ -40,22 +46,22 @@ public class OrgUnitAnt extends OrgUnit
         return typeName;
     }
 
+
     /**
      * Method accepts a String variable that maps to its parent's set type.
      *
      * @param typeName String value represents perm or user ou data sets.
      */
-    public void setTypeName(String typeName)
+    public void setTypeName( String typeName )
     {
         this.typeName = typeName;
-        if (typeName != null && typeName.equalsIgnoreCase("PERM"))
+        if ( typeName != null && typeName.equalsIgnoreCase( "PERM" ) )
         {
-            setType(OrgUnit.Type.PERM);
+            setType( OrgUnit.Type.PERM );
         }
         else
         {
-            setType(OrgUnit.Type.USER);
+            setType( OrgUnit.Type.USER );
         }
     }
 }
-

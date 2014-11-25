@@ -53,7 +53,6 @@ public final class PermP
     /**
      * Description of the Field
      */
-    private static final String CLS_NM = PermP.class.getName();
     private static final PermDAO pDao = new PermDAO();
     private final OrgUnitP orgUnitP = new OrgUnitP();
 
@@ -244,7 +243,7 @@ public final class PermP
      */
     final List<Permission> search( Session session ) throws SecurityException
     {
-        return search(session, false);
+        return search( session, false );
     }
 
 
@@ -256,10 +255,10 @@ public final class PermP
      * @return List<Permission> containing permissions (op, obj) active for user's session.
      * @throws org.apache.directory.fortress.core.SecurityException is thrown if runtime error occurs with system.
      */
-    final List<Permission> search(Session session, boolean isAdmin)
+    final List<Permission> search( Session session, boolean isAdmin )
         throws SecurityException
     {
-        return pDao.findPermissions(session, isAdmin);
+        return pDao.findPermissions( session, isAdmin );
     }
 
 
@@ -575,24 +574,24 @@ public final class PermP
         if ( VUtil.isNotNullOrEmpty( pOp.getRoles() ) )
         {
             Set<String> roles = pOp.getRoles();
-            if(pOp.isAdmin())
+            if ( pOp.isAdmin() )
             {
                 AdminRoleP arp = new AdminRoleP();
-                for (String roleNm : roles)
+                for ( String roleNm : roles )
                 {
-                    AdminRole adminRole = new AdminRole(roleNm);
-                    adminRole.setContextId(pOp.getContextId());
-                    arp.read(adminRole);
+                    AdminRole adminRole = new AdminRole( roleNm );
+                    adminRole.setContextId( pOp.getContextId() );
+                    arp.read( adminRole );
                 }
             }
             else
             {
                 RoleP rp = new RoleP();
-                for (String roleNm : roles)
+                for ( String roleNm : roles )
                 {
-                    Role role = new Role(roleNm);
-                    role.setContextId(pOp.getContextId());
-                    rp.read(role);
+                    Role role = new Role( roleNm );
+                    role.setContextId( pOp.getContextId() );
+                    rp.read( role );
                 }
             }
         }

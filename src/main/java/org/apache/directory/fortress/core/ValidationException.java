@@ -20,8 +20,6 @@
 package org.apache.directory.fortress.core;
 
 
-import java.lang.*;
-
 /**
  * This exception extends {@link SecurityException} and is thrown when Fortress cannot validate entity.
  * See the {@link GlobalErrIds} javadoc for list of error ids.
@@ -30,15 +28,18 @@ import java.lang.*;
  */
 public class ValidationException extends SecurityException
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
+
     /**
      * Create an exception with an error code that maps to {@link GlobalErrIds} and message text.
      *
      * @param  errorId see {@link GlobalErrIds} for list of valid error codes that can be set.  Valid values between 0 & 100_000.
      * @param msg contains textual information including method of origin and description of the root cause.
      */
-    public ValidationException(int errorId, String msg)
+    public ValidationException( int errorId, String msg )
     {
-        super(errorId, msg);
+        super( errorId, msg );
     }
 }
-

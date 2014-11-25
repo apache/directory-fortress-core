@@ -24,6 +24,7 @@ import org.apache.directory.fortress.core.rbac.Permission;
 
 import java.util.StringTokenizer;
 
+
 /**
  * Entity is used by custom Apache Ant task for special handling of collections.  This is necessary because the
  * Ant parser cannot deal with complex data attribute types.  The class extends a base entity.
@@ -32,7 +33,10 @@ import java.util.StringTokenizer;
  */
 public class PermAnt extends Permission
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private String antRoles;
+
 
     /**
      * Return the roles as a String.
@@ -44,25 +48,25 @@ public class PermAnt extends Permission
         return antRoles;
     }
 
+
     /**
      * Accept a comma delimited String containing a list of Roles to be granted to a permission.  This function
      * will parse the String and call the setter on its parent.
      *
      * @param antRoles contains a comma delimited set of role names.
      */
-    public void setAntRoles(String antRoles)
+    public void setAntRoles( String antRoles )
     {
         this.antRoles = antRoles;
         // allow the setter to process comma delimited strings:
-        StringTokenizer tkn = new StringTokenizer(antRoles, ",");
-        if (tkn.countTokens() > 0)
+        StringTokenizer tkn = new StringTokenizer( antRoles, "," );
+        if ( tkn.countTokens() > 0 )
         {
-            while (tkn.hasMoreTokens())
+            while ( tkn.hasMoreTokens() )
             {
                 String rTkn = tkn.nextToken();
-                setRole(rTkn);
+                setRole( rTkn );
             }
         }
     }
 }
-
