@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -42,6 +43,8 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapNoPermissionException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
+import org.apache.directory.api.ldap.model.message.BindResponse;
+import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
@@ -136,29 +139,16 @@ final class UserDAO extends ApacheDsDataProvider
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static PwPolicyControl pwControlx;
 
-    /**
-     * Initialize the OpenLDAP Pw Policy validator.
-     */
-    //todo: fix me, removed with unbound:
-/*
-    static
-    {
-        if ( GlobalIds.IS_OPENLDAP )
-        {
-            pwControl = new OLPWControlImpl();
-        }
-    }
-*/
-
     /*
       *  *************************************************************************
-      *  **  OpenAccessMgr USERS STATICS
+      *  **  Fortress USER STATICS
       *  ************************************************************************
       */
     private static final String USERS_AUX_OBJECT_CLASS_NAME = "ftUserAttrs";
     private static final String ORGANIZATIONAL_PERSON_OBJECT_CLASS_NAME = "organizationalPerson";
     private static final String USER_OBJECT_CLASS = "user.objectclass";
     private static final String USERS_EXTENSIBLE_OBJECT = "extensibleObject";
+    //private static final String POSIX_ACCOUNT_OBJECT_CLASS_NAME = "posixAccount";
 
     // The Fortress User entity attributes are stored within standard LDAP object classes along with custom auxiliary object classes:
     private static final String USER_OBJ_CLASS[] =
@@ -168,7 +158,8 @@ final class UserDAO extends ApacheDsDataProvider
             USERS_AUX_OBJECT_CLASS_NAME,
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME,
-            USERS_EXTENSIBLE_OBJECT
+            USERS_EXTENSIBLE_OBJECT,
+//            POSIX_ACCOUNT_OBJECT_CLASS_NAME
     };
 
     private static final String objectClassImpl = Config.getProperty( USER_OBJECT_CLASS );
@@ -244,6 +235,13 @@ final class UserDAO extends ApacheDsDataProvider
     private static final String TITLE = "title";
     private static final String EMPLOYEE_TYPE = "employeeType";
 
+    // RFC2307bis:
+    private static final String UID_NUMBER = "uidNumber";
+    private static final String GID_NUMBER = "gidNumber";
+    private static final String HOME_DIRECTORY = "homeDirectory";
+    private static final String LOGIN_SHELL = "loginShell";
+    private static final String GECOS = "gecos";
+
     private static final String OPENLDAP_POLICY_SUBENTRY = "pwdPolicySubentry";
     private static final String OPENLDAP_PW_RESET = "pwdReset";
     private static final String OPENLDAP_PW_LOCKED_TIME = "pwdAccountLockedTime";
@@ -306,7 +304,16 @@ final class UserDAO extends ApacheDsDataProvider
             EMPLOYEE_TYPE,
             TITLE,
             SYSTEM_USER,
-            JPEGPHOTO
+            JPEGPHOTO,
+
+/*
+            TODO: add for RFC2307Bis
+            UID_NUMBER,
+            GID_NUMBER,
+            HOME_DIRECTORY,
+            LOGIN_SHELL,
+            GECOS
+*/
     };
 
     private static final String[] ROLE_ATR =
@@ -374,6 +381,34 @@ final class UserDAO extends ApacheDsDataProvider
             {
                 myEntry.add( EMPLOYEE_TYPE, entity.getEmployeeType() );
             }
+
+/*
+            TODO: add RFC2307BIS
+            if ( VUtil.isNotNullOrEmpty( entity.getUidNumber() ) )
+            {
+                myEntry.add( UID_NUMBER, entity.getUidNumber() );
+            }
+
+            if ( VUtil.isNotNullOrEmpty( entity.getGidNumber() ) )
+            {
+                myEntry.add( GID_NUMBER, entity.getGidNumber() );
+            }
+
+            if ( VUtil.isNotNullOrEmpty( entity.getHomeDirectory() ) )
+            {
+                myEntry.add( HOME_DIRECTORY, entity.getHomeDirectory() );
+            }
+
+            if ( VUtil.isNotNullOrEmpty( entity.getLoginShell() ) )
+            {
+                myEntry.add( LOGIN_SHELL, entity.getLoginShell() );
+            }
+
+            if ( VUtil.isNotNullOrEmpty( entity.getGecos() ) )
+            {
+                myEntry.add( GECOS, entity.getGecos() );
+            }
+*/
 
             // These are multi-valued attributes, use the util function to load.
             // These items are optional.  The utility function will return quietly if item list is empty:
@@ -876,37 +911,40 @@ final class UserDAO extends ApacheDsDataProvider
         Session session = null;
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
-
         try
         {
             session = new ObjectFactory().createSession();
+            session.setAuthenticated( false );
             session.setUserId( user.getUserId() );
             ld = getUserConnection();
-            boolean result = bind( ld, userDn, user.getPassword() );
-
-            if ( result )
+            BindResponse bindResponse =  bind( ld, userDn, user.getPassword() );
+            if(bindResponse.getLdapResult().getResultCode() != ResultCodeEnum.SUCCESS)
             {
-                // check openldap password policies here
-                checkPwPolicies( ld, session );
-
+                String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "]";
+                session.setMsg( info );
+                session.setErrorId( GlobalErrIds.USER_PW_INVLD );
+            }
+            PasswordPolicy respCtrl = getPwdRespCtrl( bindResponse );
+            if ( respCtrl != null )
+            {
+                // check IETF password policies here
+                checkPwPolicies( session, respCtrl );
                 if ( session.getErrorId() == 0 )
                 {
                     session.setAuthenticated( true );
                 }
             }
+            else
+            {
+                session.setAuthenticated( true );
+            }
         }
         catch ( LdapAuthenticationException e )
         {
-            // Check controls to see if password is locked, expired or out of grace:
-            checkPwPolicies( ld, session );
-            // if check pw control did not find problem the user entered invalid pw:
-            if ( session.getErrorId() == 0 )
-            {
-                String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "]";
-                session.setMsg( info );
-                session.setErrorId( GlobalErrIds.USER_PW_INVLD );
-                session.setAuthenticated( false );
-            }
+            String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "]";
+            session.setMsg( info );
+            session.setErrorId( GlobalErrIds.USER_PW_INVLD );
+            session.setAuthenticated( false );
         }
         catch ( LdapException e )
         {
@@ -920,6 +958,111 @@ final class UserDAO extends ApacheDsDataProvider
         }
 
         return session;
+    }
+
+
+    private void checkPwPolicies( PwMessage pwMsg, PasswordPolicy respCtrl )
+    {
+        int rc = 0;
+        boolean result = false;
+        String msgHdr = "checkPwPolicies for userId [" +  pwMsg.getUserId() + "] ";
+        if ( respCtrl != null )
+        {
+            // LDAP has notified of password violation:
+            if ( respCtrl.hasResponse() )
+            {
+                String errMsg = null;
+                if( respCtrl.getResponse() != null )
+                {
+                    if ( respCtrl.getResponse().getTimeBeforeExpiration() > 0 )
+                    {
+                        pwMsg.setExpirationSeconds( respCtrl.getResponse().getTimeBeforeExpiration() );
+                        pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.PASSWORD_EXPIRATION_WARNING, "PASSWORD WILL EXPIRE", Warning.Type.PASSWORD ) );
+                    }
+                    if ( respCtrl.getResponse().getGraceAuthNRemaining() > 0 )
+                    {
+                        pwMsg.setGraceLogins( respCtrl.getResponse().getGraceAuthNRemaining() );
+                        pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.PASSWORD_GRACE_WARNING, "PASSWORD IN GRACE", Warning.Type.PASSWORD ) );
+                    }
+
+                    if ( respCtrl.getResponse().getPasswordPolicyError() != null )
+                    {
+
+                        switch ( respCtrl.getResponse().getPasswordPolicyError() )
+                        {
+
+                            case CHANGE_AFTER_RESET:
+                                // Don't throw exception if authenticating in J2EE Realm - The Web application must give user a chance to modify their password.
+                                if ( !GlobalIds.IS_REALM )
+                                {
+                                    errMsg = msgHdr + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID";
+                                    rc = GlobalErrIds.USER_PW_RESET;
+                                }
+                                else
+                                {
+                                    errMsg = msgHdr + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID BUT ALLOWING TO CONTINUE DUE TO REALM";
+                                    result = true;
+                                    pwMsg.setWarning( new ObjectFactory().createWarning( GlobalErrIds.USER_PW_RESET, errMsg, Warning.Type.PASSWORD ) );
+                                }
+                                break;
+
+                            case ACCOUNT_LOCKED:
+                                errMsg = msgHdr + "ACCOUNT HAS BEEN LOCKED";
+                                rc = GlobalErrIds.USER_PW_LOCKED;
+                                break;
+
+                            case PASSWORD_EXPIRED:
+                                errMsg = msgHdr + "PASSWORD HAS EXPIRED";
+                                rc = GlobalErrIds.USER_PW_EXPIRED;
+                                break;
+
+                            case PASSWORD_MOD_NOT_ALLOWED:
+                                errMsg = msgHdr + "PASSWORD MOD NOT ALLOWED";
+                                rc = GlobalErrIds.USER_PW_MOD_NOT_ALLOWED;
+                                break;
+
+                            case MUST_SUPPLY_OLD_PASSWORD:
+                                errMsg = msgHdr + "MUST SUPPLY OLD PASSWORD";
+                                rc = GlobalErrIds.USER_PW_MUST_SUPPLY_OLD;
+                                break;
+
+                            case INSUFFICIENT_PASSWORD_QUALITY:
+                                errMsg = msgHdr + "PASSWORD QUALITY VIOLATION";
+                                rc = GlobalErrIds.USER_PW_NSF_QUALITY;
+                                break;
+
+                            case PASSWORD_TOO_SHORT:
+                                errMsg = msgHdr + "PASSWORD TOO SHORT";
+                                rc = GlobalErrIds.USER_PW_TOO_SHORT;
+                                break;
+
+                            case PASSWORD_TOO_YOUNG:
+                                errMsg = msgHdr + "PASSWORD TOO YOUNG";
+                                rc = GlobalErrIds.USER_PW_TOO_YOUNG;
+                                break;
+
+                            case PASSWORD_IN_HISTORY:
+                                errMsg = msgHdr + "PASSWORD IN HISTORY VIOLATION";
+                                rc = GlobalErrIds.USER_PW_IN_HISTORY;
+                                break;
+
+                            default:
+                                errMsg = msgHdr + "PASSWORD CHECK FAILED";
+                                rc = GlobalErrIds.USER_PW_CHK_FAILED;
+                                break;
+                        }
+
+                    }
+                }
+                if(rc != 0)
+                {
+                    pwMsg.setMsg( errMsg );
+                    pwMsg.setErrorId( rc );
+                    pwMsg.setAuthenticated( result );
+                    LOG.debug( errMsg );
+                }
+            }
+        }
     }
 
 
@@ -1650,9 +1793,8 @@ final class UserDAO extends ApacheDsDataProvider
         {
             List<Modification> mods = new ArrayList<Modification>();
             String szUserRole = uRole.getRawData();
-            mods.add( new DefaultModification(
-                ModificationOperation.ADD_ATTRIBUTE,
-                GlobalIds.USER_ADMINROLE_DATA, szUserRole ) );
+            mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, GlobalIds.USER_ADMINROLE_DATA,
+                szUserRole ) );
 
             mods.add( new DefaultModification(
                 ModificationOperation.ADD_ATTRIBUTE,
@@ -1822,6 +1964,15 @@ final class UserDAO extends ApacheDsDataProvider
             entity.setSystem( Boolean.valueOf( szBoolean ) );
         }
 
+/*
+        TODO: Add for RFC2307BIS
+        entity.setUidNumber( getAttribute( entry, UID_NUMBER ) );
+        entity.setGidNumber( getAttribute( entry, GID_NUMBER ) );
+        entity.setHomeDirectory( getAttribute( entry, HOME_DIRECTORY ) );
+        entity.setLoginShell( getAttribute( entry, LOGIN_SHELL ) );
+        entity.setGecos( getAttribute( entry, GECOS ) );
+*/
+
         entity.addProperties( AttrHelper.getProperties( getAttributes( entry, GlobalIds.PROPS ) ) );
 
         if ( GlobalIds.IS_OPENLDAP )
@@ -1884,123 +2035,6 @@ final class UserDAO extends ApacheDsDataProvider
         }
 
         return roles;
-    }
-
-
-    /**
-     * @param ld
-     * @param pwMsg
-     */
-    private void checkPwPolicies( LdapConnection ld, PwMessage pwMsg )
-    {
-        int rc = 0;
-        boolean success = false;
-        String msgHdr = "checkPwPolicies for userId [" + pwMsg.getUserId() + "] ";
-
-        if ( ld != null )
-        {
-            if ( !GlobalIds.IS_OPENLDAP )
-            {
-                String msg = msgHdr + "OPENLDAP PW POLICY NOT ENABLED";
-                pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.NOT_OLPW_POLICY_ENABLED, msg, Warning.Type.PASSWORD ) );
-                pwMsg.setErrorId( GlobalPwMsgIds.GOOD );
-                LOG.debug( msg );
-                return;
-            }
-            // todo: fixme, removed with unbound:
-/*
-            else if ( pwControl != null )
-            {
-                // ------------> pwControl.checkPasswordPolicy( ld, success, pwMsg );
-            }
-*/
-
-            // OpenLDAP has notified of password violation:
-            if ( pwMsg.getErrorId() > 0 )
-            {
-                String errMsg;
-
-                switch ( pwMsg.getErrorId() )
-                {
-
-                    case GlobalPwMsgIds.CHANGE_AFTER_RESET:
-                        // Don't throw exception if authenticating in J2EE Realm - The Web application must give user a chance to modify their password.
-                        if ( !GlobalIds.IS_REALM )
-                        {
-                            errMsg = msgHdr + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID";
-                            rc = GlobalErrIds.USER_PW_RESET;
-                        }
-                        else
-                        {
-                            errMsg = msgHdr
-                                + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID BUT ALLOWING TO CONTINUE DUE TO REALM";
-                            success = true;
-                            pwMsg.setWarning( new ObjectFactory().createWarning( GlobalErrIds.USER_PW_RESET, errMsg, Warning.Type.PASSWORD ) );
-                        }
-
-                        break;
-
-                    case GlobalPwMsgIds.ACCOUNT_LOCKED:
-                        errMsg = msgHdr + "ACCOUNT HAS BEEN LOCKED";
-                        rc = GlobalErrIds.USER_PW_LOCKED;
-                        break;
-
-                    case GlobalPwMsgIds.PASSWORD_HAS_EXPIRED:
-                        errMsg = msgHdr + "PASSWORD HAS EXPIRED";
-                        rc = GlobalErrIds.USER_PW_EXPIRED;
-                        break;
-
-                    case GlobalPwMsgIds.NO_MODIFICATIONS:
-                        errMsg = msgHdr + "PASSWORD MOD NOT ALLOWED";
-                        rc = GlobalErrIds.USER_PW_MOD_NOT_ALLOWED;
-                        break;
-
-                    case GlobalPwMsgIds.MUST_SUPPLY_OLD:
-                        errMsg = msgHdr + "MUST SUPPLY OLD PASSWORD";
-                        rc = GlobalErrIds.USER_PW_MUST_SUPPLY_OLD;
-                        break;
-
-                    case GlobalPwMsgIds.INSUFFICIENT_QUALITY:
-                        errMsg = msgHdr + "PASSWORD QUALITY VIOLATION";
-                        rc = GlobalErrIds.USER_PW_NSF_QUALITY;
-                        break;
-
-                    case GlobalPwMsgIds.PASSWORD_TOO_SHORT:
-                        errMsg = msgHdr + "PASSWORD TOO SHORT";
-                        rc = GlobalErrIds.USER_PW_TOO_SHORT;
-                        break;
-
-                    case GlobalPwMsgIds.PASSWORD_TOO_YOUNG:
-                        errMsg = msgHdr + "PASSWORD TOO YOUNG";
-                        rc = GlobalErrIds.USER_PW_TOO_YOUNG;
-                        break;
-
-                    case GlobalPwMsgIds.HISTORY_VIOLATION:
-                        errMsg = msgHdr + "PASSWORD IN HISTORY VIOLATION";
-                        rc = GlobalErrIds.USER_PW_IN_HISTORY;
-                        break;
-
-                    default:
-                        errMsg = msgHdr + "PASSWORD CHECK FAILED";
-                        rc = GlobalErrIds.USER_PW_CHK_FAILED;
-                        break;
-                }
-
-                pwMsg.setMsg( errMsg );
-                pwMsg.setErrorId( rc );
-                pwMsg.setAuthenticated( success );
-                LOG.debug( errMsg );
-            }
-            else
-            {
-                // Checked out good:
-                String msg = msgHdr + "PASSWORD CHECK SUCCESS";
-                pwMsg.setMsg( msg );
-                pwMsg.setErrorId( 0 );
-                pwMsg.setAuthenticated( true );
-                LOG.debug( msg );
-            }
-        }
     }
 
 
@@ -2137,6 +2171,7 @@ final class UserDAO extends ApacheDsDataProvider
      *
      * @param address  contains User address {@link Address} targeted for adding to ldap.
      * @param entry collection of ldap attributes containing RBAC role assignments in raw ldap format.
+     * @throws org.apache.directory.api.ldap.model.exception.LdapException
      */
     private void loadAddress( Address address, Entry entry ) throws LdapException
     {
@@ -2266,7 +2301,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param entry     contains ldap entry to retrieve admin roles from.
      * @return entity of type {@link Address}.
      * @throws LdapInvalidAttributeValueException 
-     * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
+     * @throws org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException in the event of ldap client error.
      */
     private Address unloadAddress( Entry entry ) throws LdapInvalidAttributeValueException
     {
@@ -2303,7 +2338,6 @@ final class UserDAO extends ApacheDsDataProvider
      * @param userId attribute maps to {@link UserAdminRole#userId}.
      * @param contextId
      * @return List of type {@link UserAdminRole} containing admin roles assigned to a particular user.
-     * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
      */
     private List<UserAdminRole> unloadUserAdminRoles( Entry entry, String userId, String contextId )
     {
@@ -2349,7 +2383,6 @@ final class UserDAO extends ApacheDsDataProvider
     * @param userId attribute maps to {@link UserRole#userId}.
     * @param contextId
     * @return List of type {@link UserRole} containing RBAC roles assigned to a particular user.
-    * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
     */
     private List<UserRole> unloadUserRoles( Entry entry, String userId, String contextId )
     {

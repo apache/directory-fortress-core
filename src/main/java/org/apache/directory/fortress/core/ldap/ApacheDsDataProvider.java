@@ -31,6 +31,9 @@ import java.util.TreeSet;
 
 import org.apache.commons.pool.PoolableObjectFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
+import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
+import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyImpl;
+import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyDecorator;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -49,9 +52,14 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.exception.LdapOperationErrorException;
 import org.apache.directory.api.ldap.model.exception.LdapReferralException;
+import org.apache.directory.api.ldap.model.message.BindRequest;
+import org.apache.directory.api.ldap.model.message.BindRequestImpl;
+import org.apache.directory.api.ldap.model.message.BindResponse;
 import org.apache.directory.api.ldap.model.message.CompareRequest;
 import org.apache.directory.api.ldap.model.message.CompareRequestImpl;
 import org.apache.directory.api.ldap.model.message.CompareResponse;
+import org.apache.directory.api.ldap.model.message.Control;
+import org.apache.directory.api.ldap.model.message.Response;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchRequest;
 import org.apache.directory.api.ldap.model.message.SearchRequestImpl;
@@ -142,6 +150,8 @@ public abstract class ApacheDsDataProvider
      * The User connection pool
      */
     private static LdapConnectionPool userPool;
+
+    private static final PasswordPolicy PP_REQ_CTRL = new PasswordPolicyImpl();
 
     static
     {
@@ -446,8 +456,7 @@ public abstract class ApacheDsDataProvider
     protected void modify( LdapConnection connection, String dn, List<Modification> mods ) throws LdapException
     {
         counters.incrementMod();
-        connection.modify( dn, mods.toArray( new Modification[]
-            {} ) );
+        connection.modify( dn, mods.toArray( new Modification[]{} ) );
     }
 
 
@@ -1068,7 +1077,7 @@ public abstract class ApacheDsDataProvider
      * Convert constraint from raw ldap format to application entity.
      *
      * @param le         ldap entry containing constraint.
-     * @param ftDateTime reference to {@link org.apache.directory.fortress.util.time.Constraint} containing formatted data.
+     * @param ftDateTime reference to {@link org.apache.directory.fortress.core.util.time.Constraint} containing formatted data.
      * @throws LdapInvalidAttributeValueException
      *
      * @throws LdapException in the event of ldap client error.
@@ -1095,8 +1104,7 @@ public abstract class ApacheDsDataProvider
     {
         if ( list != null && list.size() > 0 )
         {
-            entry.add( attrName, list.toArray( new String[]
-                {} ) );
+            entry.add( attrName, list.toArray( new String[]{} ) );
         }
     }
 
@@ -1375,22 +1383,41 @@ public abstract class ApacheDsDataProvider
 
 
     /**
+     * Get Password Policy Response Control from LDAP client.
+     *
+     * @param resp contains reference to LDAP pw policy response.
+     * @return PasswordPolicy response control.
+     */
+    protected PasswordPolicy getPwdRespCtrl( Response resp )
+    {
+        Control control = resp.getControls().get( PP_REQ_CTRL.getOid() );
+        if ( control == null )
+        {
+            return null;
+        }
+
+        return ( ( PasswordPolicyDecorator ) control ).getDecorated();
+    }
+
+    /**
      * Calls the PoolMgr to perform an LDAP bind for a user/password combination.  This function is valid
-     * if and only if the user entity is a member of the USERS data set.  The LDAP directory
-     * will return the OpenLDAP PW Policy control.
+     * if and only if the user entity is a member of the USERS data set.
      *
      * @param connection connection to ldap server.
-     * @param userDn     contains the LDAP dn to the user entry.
+     * @param szUserDn   contains the LDAP dn to the user entry in String format.
      * @param password   contains the password in clear text.
-     * @return boolean value - true if bind successful, false otherwise.
+     * @return bindResponse contains the result of the operation.
      * @throws LdapException in the event of LDAP error.
      */
-    protected boolean bind( LdapConnection connection, String userDn, char[] password ) throws LdapException
+    protected BindResponse bind( LdapConnection connection, String szUserDn, char[] password ) throws LdapException
     {
         counters.incrementBind();
-
-        connection.bind( userDn, new String( password ) );
-        return true;
+        Dn userDn = new Dn( szUserDn );
+        BindRequest bindReq = new BindRequestImpl();
+        bindReq.setDn( new Dn( szUserDn ) );
+        bindReq.setCredentials( new String ( password ) );
+        bindReq.addControl( PP_REQ_CTRL );
+        return connection.bind( bindReq );
     }
 
 
