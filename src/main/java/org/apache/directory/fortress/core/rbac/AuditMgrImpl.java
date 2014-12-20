@@ -78,10 +78,6 @@ public class AuditMgrImpl extends Manageable implements AuditMgr
     private static final String CLS_NM = AuditMgrImpl.class.getName();
     private static final AuditP auditP = new AuditP();
 
-    // package private constructor ensures outside classes cannot use:
-    AuditMgrImpl()
-    {}
-
     /**
      * This method returns a list of authorization events for a particular user {@link org.apache.directory.fortress.core.rbac.UserAudit#userId}
      * and given timestamp field {@link org.apache.directory.fortress.core.rbac.UserAudit#beginDate}.<BR>

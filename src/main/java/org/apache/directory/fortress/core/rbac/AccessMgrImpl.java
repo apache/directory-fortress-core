@@ -74,13 +74,6 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
     private static final UserP userP = new UserP();
     private static final PermP permP = new PermP();
 
-
-    // package private constructor ensures outside classes cannot use:
-    protected AccessMgrImpl()
-    {
-    }
-
-
     /**
      * Perform user authentication only.  It does not activate RBAC roles in session but will evaluate
      * password policies.

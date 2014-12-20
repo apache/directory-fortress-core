@@ -63,19 +63,24 @@ public class PwPolicyMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        PwPolicyMgr policyMgr;
+
         if (!VUtil.isNotNullOrEmpty(policyClassName))
         {
             if(GlobalIds.IS_REST)
             {
-                policyClassName = PwPolicyMgrRestImpl.class.getName();
+                policyMgr = new PwPolicyMgrRestImpl();
             }
             else
             {
-                policyClassName = PwPolicyMgrImpl.class.getName();
+                policyMgr = new PwPolicyMgrImpl();
             }
         }
+        else
+        {
+            policyMgr = (PwPolicyMgr) ClassUtil.createInstance(policyClassName);
+        }
 
-        PwPolicyMgr policyMgr = (PwPolicyMgr) ClassUtil.createInstance(policyClassName);
         policyMgr.setContextId(contextId);
         return policyMgr;
     }

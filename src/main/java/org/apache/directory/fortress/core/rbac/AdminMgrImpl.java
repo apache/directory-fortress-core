@@ -84,12 +84,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 
-    // package private constructor ensures outside classes cannot use:
-    AdminMgrImpl()
-    {
-    }
-
-
     /**
      * This command creates a new RBAC user. The command is valid only if the new user is
      * not already a member of the USERS data set. The USER data set is updated. The new user

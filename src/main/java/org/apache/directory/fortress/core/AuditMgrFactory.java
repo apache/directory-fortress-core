@@ -63,19 +63,24 @@ public class AuditMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        AuditMgr auditMgr;
+
         if (!VUtil.isNotNullOrEmpty(auditClassName))
         {
             if(GlobalIds.IS_REST)
             {
-                auditClassName = AuditMgrRestImpl.class.getName();
+                auditMgr = new AuditMgrRestImpl();
             }
             else
             {
-                auditClassName = AuditMgrImpl.class.getName();
+                auditMgr = new AuditMgrImpl();
             }
         }
+        else
+        {
+            auditMgr = (AuditMgr) ClassUtil.createInstance(auditClassName);
+        }
 
-        AuditMgr auditMgr = (AuditMgr) ClassUtil.createInstance(auditClassName);
         auditMgr.setContextId(contextId);
         return auditMgr;
     }

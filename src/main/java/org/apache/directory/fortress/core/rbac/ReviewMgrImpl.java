@@ -72,10 +72,6 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
     private static final PermP permP = new PermP();
     private static final SdP ssdP = new SdP();
 
-    // package private constructor ensures outside classes cannot use:
-    ReviewMgrImpl()
-    {}
-
     /**
      * This method returns a matching permission entity to caller.
      * <h4>required parameters</h4>

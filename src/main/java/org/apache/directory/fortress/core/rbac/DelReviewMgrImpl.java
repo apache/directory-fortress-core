@@ -50,10 +50,6 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
     private static final OrgUnitP ouP = new OrgUnitP();
     private static final AdminRoleP admRP = new AdminRoleP();
 
-    // package private constructor ensures outside classes cannot use:
-    DelReviewMgrImpl()
-    {}
-
     /**
      * Method reads Admin Role entity from the admin role container in directory.
      * <h4>required parameters</h4>

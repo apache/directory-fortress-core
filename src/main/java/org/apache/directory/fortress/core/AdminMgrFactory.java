@@ -65,19 +65,24 @@ public class AdminMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        AdminMgr adminMgr;
+
         if (!VUtil.isNotNullOrEmpty(adminClassName))
         {
             if(GlobalIds.IS_REST)
             {
-                adminClassName = AdminMgrRestImpl.class.getName();
+                adminMgr = new AdminMgrRestImpl();
             }
             else
             {
-                adminClassName = AdminMgrImpl.class.getName();
+                adminMgr = new AdminMgrImpl();
             }
         }
+        else
+        {
+            adminMgr = (AdminMgr) ClassUtil.createInstance(adminClassName);
+        }
 
-        AdminMgr adminMgr = (AdminMgr) ClassUtil.createInstance(adminClassName);
         adminMgr.setContextId(contextId);
         return adminMgr;
     }

@@ -59,10 +59,6 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     private static final PermP permP = new PermP();
     private static final String SUPER_ADMIN = Config.getProperty("superadmin.role", "fortress-core-super-admin");
 
-    // package private constructor ensures outside classes cannot use:
-    /* No qualifier */ DelAccessMgrImpl()
-    {}
-
     /**
      * This function will determine if the user contains an AdminRole that is authorized assignment control over
      * User-Role Assignment (URA).  This adheres to the ARBAC02 functional specification for can-assign URA.

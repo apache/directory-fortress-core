@@ -64,19 +64,24 @@ public class DelAccessMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        DelAccessMgr accessMgr;
+
         if (!VUtil.isNotNullOrEmpty(accessClassName))
         {
             if(GlobalIds.IS_REST)
             {
-                accessClassName = DelAccessMgrRestImpl.class.getName();
+                accessMgr = new DelAccessMgrRestImpl();
             }
             else
             {
-                accessClassName = DelAccessMgrImpl.class.getName();
+                accessMgr = new DelAccessMgrImpl();
             }
         }
+        else
+        {
+            accessMgr = (DelAccessMgr) ClassUtil.createInstance(accessClassName);
+        }
 
-        DelAccessMgr accessMgr = (DelAccessMgr) ClassUtil.createInstance(accessClassName);
         accessMgr.setContextId(contextId);
         return accessMgr;
     }

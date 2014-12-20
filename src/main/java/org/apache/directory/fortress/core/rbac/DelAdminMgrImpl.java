@@ -56,10 +56,6 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
     private static final PermP permP = new PermP();
     private static final UserP userP = new UserP();
 
-    // package private constructor ensures outside classes cannot use:
-    DelAdminMgrImpl()
-    {}
-
     /**
      * This command creates a new admin role. The command is valid if and only if the new admin role is not
      * already a member of the ADMIN ROLES data set. The ADMIN ROLES data set is updated.

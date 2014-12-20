@@ -61,10 +61,6 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
     private static final PolicyP policyP = new PolicyP();
     private static final UserP userP = new UserP();
 
-    // package private constructor ensures outside classes cannot use:
-    PwPolicyMgrImpl()
-    {}
-
     /**
      * This method will add a new policy entry to the POLICIES data set.  This command is valid
      * if and only if the policy entry is not already present in the POLICIES data set.

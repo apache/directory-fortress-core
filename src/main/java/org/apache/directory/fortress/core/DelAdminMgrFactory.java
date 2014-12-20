@@ -65,20 +65,24 @@ public class DelAdminMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull( contextId, GlobalErrIds.CONTEXT_NULL, CREATE_INSTANCE_METHOD );
-        
+        DelAdminMgr delAdminMgr;
+
         if ( Strings.isEmpty( dAdminClassName ) )
         {
             if ( GlobalIds.IS_REST )
             {
-                dAdminClassName = DelAdminMgrRestImpl.class.getName();
+                delAdminMgr = new DelAdminMgrRestImpl();
             }
             else
             {
-                dAdminClassName = DelAdminMgrImpl.class.getName();
+                delAdminMgr = new DelAdminMgrImpl();
             }
         }
+        else
+        {
+            delAdminMgr = (DelAdminMgr) ClassUtil.createInstance( dAdminClassName );
+        }
 
-        DelAdminMgr delAdminMgr = (DelAdminMgr) ClassUtil.createInstance( dAdminClassName );
         delAdminMgr.setContextId(contextId);
         
         return delAdminMgr;

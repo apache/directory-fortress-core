@@ -62,19 +62,24 @@ public class AccessMgrFactory
     public static AccessMgr createInstance( String contextId) throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+
+        AccessMgr accessMgr;
         if (!VUtil.isNotNullOrEmpty(accessClassName))
         {
             if(GlobalIds.IS_REST)
             {
-                accessClassName = AccessMgrRestImpl.class.getName();
+                accessMgr = new AccessMgrRestImpl();
             }
             else
             {
-                accessClassName = AccessMgrImpl.class.getName();
+                accessMgr = new AccessMgrImpl();
             }
         }
+        else
+        {
+            accessMgr = (AccessMgr) ClassUtil.createInstance(accessClassName);
+        }
 
-        AccessMgr accessMgr = (AccessMgr) ClassUtil.createInstance(accessClassName);
         accessMgr.setContextId(contextId);
         return accessMgr;
     }

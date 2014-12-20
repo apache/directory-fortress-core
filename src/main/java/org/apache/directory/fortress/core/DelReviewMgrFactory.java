@@ -63,19 +63,24 @@ public class DelReviewMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        DelReviewMgr delReviewMgr;
+
         if (!VUtil.isNotNullOrEmpty(dReviewClassName))
         {
             if(GlobalIds.IS_REST)
             {
-                dReviewClassName = DelReviewMgrRestImpl.class.getName();
+                delReviewMgr = new DelReviewMgrRestImpl();
             }
             else
             {
-                dReviewClassName = DelReviewMgrImpl.class.getName();
+                delReviewMgr = new DelReviewMgrImpl();
             }
         }
+        else
+        {
+            delReviewMgr = (DelReviewMgr) ClassUtil.createInstance(dReviewClassName);
+        }
 
-        DelReviewMgr delReviewMgr = (DelReviewMgr) ClassUtil.createInstance(dReviewClassName);
         delReviewMgr.setContextId(contextId);
         return delReviewMgr;
     }

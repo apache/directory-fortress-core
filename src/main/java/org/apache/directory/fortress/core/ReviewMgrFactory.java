@@ -63,19 +63,24 @@ public class ReviewMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        ReviewMgr reviewMgr;
+
         if (!VUtil.isNotNullOrEmpty(reviewClassName))
         {
             if(GlobalIds.IS_REST)
             {
-                reviewClassName = ReviewMgrRestImpl.class.getName();
+                reviewMgr = new ReviewMgrRestImpl();
             }
             else
             {
-                reviewClassName = ReviewMgrImpl.class.getName();
+                reviewMgr = new ReviewMgrImpl();
             }
         }
+        else
+        {
+            reviewMgr = ( ReviewMgr ) ClassUtil.createInstance(reviewClassName);
+        }
 
-        ReviewMgr reviewMgr = ( ReviewMgr ) ClassUtil.createInstance(reviewClassName);
         reviewMgr.setContextId(contextId);
         return reviewMgr;
     }

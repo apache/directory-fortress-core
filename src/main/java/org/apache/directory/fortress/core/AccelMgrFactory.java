@@ -62,12 +62,16 @@ public class AccelMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        AccelMgr accelMgr;
         if (!VUtil.isNotNullOrEmpty(accelClassName))
         {
-                accelClassName = AccelMgrImpl.class.getName();
+            accelMgr = new AccelMgrImpl();
+        }
+        else
+        {
+            accelMgr = (AccelMgr) ClassUtil.createInstance(accelClassName);
         }
 
-        AccelMgr accelMgr = (AccelMgr) ClassUtil.createInstance(accelClassName);
         accelMgr.setContextId(contextId);
         return accelMgr;
     }
