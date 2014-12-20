@@ -320,7 +320,7 @@ final class AuditDAO extends ApacheDsDataProvider
 
             if ( audit.isFailedOnly() )
             {
-                filter += "(!(" + REQRESULT + "=" + 6 + "))";
+                filter += "(" + REQRESULT + "=" + GlobalIds.AUTHZ_COMPARE_FAILURE_FLAG + ")";
             }
 
             if ( audit.getBeginDate() != null )
@@ -409,7 +409,7 @@ final class AuditDAO extends ApacheDsDataProvider
                 // TODO: fix this so filter by only the Fortress AuthZ entries and not the others:
                 if ( audit.isFailedOnly() )
                 {
-                    filter += "(!(" + REQRESULT + "=" + 6 + "))";
+                    filter += "(" + REQRESULT + "=" + GlobalIds.AUTHZ_COMPARE_FAILURE_FLAG + ")";
                 }
             }
 

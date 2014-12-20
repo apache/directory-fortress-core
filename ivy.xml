@@ -48,7 +48,7 @@
         <dependency org="org.slf4j" name="slf4j-api" rev="1.7.5" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.5" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.7.5" conf="default->master"/>
-        <dependency org="org.apache.directory.api" name="api-all" rev="1.0.0-M25" conf="default->master"/>
+<!--        <dependency org="org.apache.directory.api" name="api-all" rev="1.0.0-M25" conf="default->master"/>-->
         <dependency org="org.apache.directory.server" name="apacheds-all" rev="2.0.0-M18" conf="default->master"/>
         <dependency org="net.sf.opencsv" name="opencsv" rev="2.3" conf="default->master" />
         <dependency org="org.apache.jmeter" name="ApacheJMeter_core" rev="2.11" conf="default->master" />

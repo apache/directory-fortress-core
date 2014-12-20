@@ -64,6 +64,9 @@ import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchRequest;
 import org.apache.directory.api.ldap.model.message.SearchRequestImpl;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthz;
+import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthzImpl;
+
 import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.ldap.client.api.DefaultPoolableLdapConnectionFactory;
 import org.apache.directory.ldap.client.api.LdapConnection;
@@ -82,6 +85,8 @@ import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.naming.ldap.ExtendedResponse;
 
 
 /**
@@ -152,6 +157,7 @@ public abstract class ApacheDsDataProvider
     private static LdapConnectionPool userPool;
 
     private static final PasswordPolicy PP_REQ_CTRL = new PasswordPolicyImpl();
+
 
     static
     {
@@ -909,6 +915,10 @@ public abstract class ApacheDsDataProvider
      * This method uses the compare ldap func to assert audit record into the directory server's configured audit
      * logger.
      *
+     * This is for one reason - to force the ldap server to maintain an audit trail on checkAccess api.
+     *
+     * Use proxy authz control (RFC4370) to assert the caller's id onto the record.
+     *
      * @param connection is LdapConnection object used for all communication with host.
      * @param dn         contains address of distinguished name to begin ldap search
      * @param userDn     dn for user node
@@ -927,8 +937,11 @@ public abstract class ApacheDsDataProvider
         compareRequest.setAttributeId( attribute.getId() );
         compareRequest.setAssertionValue( attribute.getString() );
 
+        // Assert the end user's dn onto the reqest using proxy authZ control so openldap can log who the user was (for authZ audit trail)
+        ProxiedAuthz proxiedAuthzControl = new ProxiedAuthzImpl();
+        proxiedAuthzControl.setAuthzId( "dn: " + userDn );
+        compareRequest.addControl( proxiedAuthzControl );
         CompareResponse response = connection.compare( compareRequest );
-
         return response.getLdapResult().getResultCode() == ResultCodeEnum.SUCCESS;
     }
 

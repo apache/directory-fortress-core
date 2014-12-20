@@ -163,6 +163,7 @@ class ReviewMgrConsole
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 System.out.println("    pwpolicy    [" + ue.getPwPolicy() + "]");
                 printTemporal(ue, "USER");
+                printPosixAccount(ue, "POSIX" );
                 printAddress(ue.getAddress(), "ADDRESS");
                 printPhone(ue.getPhones(), "PHONES");
                 printPhone(ue.getMobiles(), "MOBILES");
@@ -223,6 +224,7 @@ class ReviewMgrConsole
                 System.out.println("    pwpolicy    [" + ue.getPwPolicy() + "]");
                 System.out.println("    seqId       [" + ue.getSequenceId() + "]");
                 printTemporal(ue, "USER");
+                printPosixAccount(ue, "POSIX" );
                 printAddress(ue.getAddress(), "ADDRESS");
                 printPhone(ue.getPhones(), "PHONES");
                 printPhone(ue.getMobiles(), "MOBILES");
@@ -289,6 +291,7 @@ class ReviewMgrConsole
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 System.out.println("    pwpolicy    [" + ue.getPwPolicy() + "]");
                 printTemporal(ue, "USER");
+                printPosixAccount(ue, "POSIX" );
                 printAddress(ue.getAddress(), "ADDRESS");
                 printPhone(ue.getPhones(), "PHONES");
                 printPhone(ue.getMobiles(), "MOBILES");
@@ -452,6 +455,19 @@ class ReviewMgrConsole
         }
     }
 
+    static void printPosixAccount(User user, String label)
+    {
+        if (user != null)
+        {
+            System.out.println("    " + label + ":");
+            System.out.println("        uid number  [" + user.getUidNumber() + "]");
+            System.out.println("        gid number  [" + user.getGidNumber() + "]");
+            System.out.println("        home dir    [" + user.getHomeDirectory() + "]");
+            System.out.println("        login shell [" + user.getLoginShell() + "]");
+            System.out.println("        gecos       [" + user.getGecos() + "]");
+        }
+    }
+
     private static void printAddress(Address address, String label)
     {
         if (address != null)
@@ -519,6 +535,7 @@ class ReviewMgrConsole
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 System.out.println("    pwpolicy    [" + ue.getPwPolicy() + "]");
+                printPosixAccount(ue, "POSIX" );
                 printTemporal(ue, "USER");
                 if (ue.getRoles() != null)
                 {
@@ -921,6 +938,7 @@ class ReviewMgrConsole
                 System.out.println("    surname     [" + ue.getSn() + "]");
                 System.out.println("    orgUnitId   [" + ue.getOu() + "]");
                 printTemporal(ue, "USER");
+                printPosixAccount(ue, "POSIX" );
                 System.out.println();
             }
             System.out.println("ENTER to continue");

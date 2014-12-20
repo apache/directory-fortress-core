@@ -302,6 +302,21 @@ class AdminMgrConsole
     }
 
 
+    private void enterPosixAccount(User user)
+    {
+        System.out.println("Enter UID_NUMBER:");
+        user.setUidNumber(ReaderUtil.readLn());
+        System.out.println("Enter GID_NUMBER:");
+        user.setGidNumber(ReaderUtil.readLn());
+        System.out.println("Enter HOME_DIRECTORY:");
+        user.setHomeDirectory(ReaderUtil.readLn());
+        System.out.println("Enter LOGIN_SHELL:");
+        user.setLoginShell(ReaderUtil.readLn());
+        System.out.println("Enter GECOS:");
+        user.setGecos(ReaderUtil.readLn());
+    }
+
+
     /**
      * Adds a feature to the User attribute of the AdminMgrConsole object
      */
@@ -332,6 +347,13 @@ class AdminMgrConsole
             if (choice != null && choice.equalsIgnoreCase("Y"))
             {
                 enterTemporal(ue);
+            }
+
+            System.out.println("Do you want to set posix account attributes on User - Y or N");
+            choice = ReaderUtil.readLn();
+            if (choice != null && choice.equalsIgnoreCase("Y"))
+            {
+                enterPosixAccount( ue );
             }
 
             System.out.println("Enter Role name (or NULL to skip):");
@@ -404,6 +426,11 @@ class AdminMgrConsole
         catch (SecurityException e)
         {
             LOG.error("addUser caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        catch(Exception e)
+        {
+            LOG.error( "addUser caught Exception=" + e );
+            e.printStackTrace();
         }
         ReaderUtil.readChar();
     }

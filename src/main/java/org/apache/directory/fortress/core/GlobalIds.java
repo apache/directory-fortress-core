@@ -272,6 +272,12 @@ public class GlobalIds
       *  **  OpenAccessMgr AUDIT
       *  ************************************************************************
       */
+
+    public final static int AUTHZ_COMPARE_FAILURE_FLAG = 5;
+    /**
+     * This string will be appended to the operation name to force failure on compare.
+     */
+    public final static String FAILED_AUTHZ_INDICATOR = "%failed%";
     /**
      * This object class contains Fortress audit contextual information.
      */
@@ -383,6 +389,11 @@ public class GlobalIds
     public final static String POBJ_NAME = "ftObjNm";
 
     /**
+     * Attribute name for storing Fortress permission object id.
+     */
+    public static final String POBJ_ID = "ftObjId";
+
+    /**
      * Attribute name for storing parent node names for hierarchical processing.
      */
     public final static String PARENT_NODES = "ftParents";
@@ -473,7 +484,8 @@ public class GlobalIds
         .getProperty( LDAP_FILTER_SIZE_PROP ) != null );
     public static final String APACHE_LDAP_API = "apache";
     public static final String AUTH_Z_FAILED = "authzfailed";
-    public static final String AUTH_Z_FAILED_VALUE = "ftOpNm=" + AUTH_Z_FAILED;
+    public static final String POP_NAME = "ftOpNm";
+    public static final String AUTH_Z_FAILED_VALUE = POP_NAME + "=" + AUTH_Z_FAILED;
 
     /**
      * maximum number of entries allowed for ldap filter replacements.
@@ -539,5 +551,4 @@ public class GlobalIds
      */
     public static final String ALL = "all";
     public static final String NULL = "null";
-    public static final String POP_NAME = "ftOpNm";
 }

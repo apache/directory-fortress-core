@@ -19,6 +19,9 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
+import org.apache.directory.api.ldap.model.name.Dn;
+import org.apache.directory.api.ldap.model.name.Rdn;
 import org.apache.directory.fortress.core.rbac.Bind;
 import org.apache.directory.fortress.core.rbac.AuthZ;
 import org.apache.directory.fortress.core.rbac.Mod;
@@ -33,6 +36,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 class AuditMgrConsole
 {
@@ -448,18 +452,25 @@ class AuditMgrConsole
                 }
 
                 System.out.println("    userId          " + AttrHelper.getAuthZId(authZ.getReqAuthzID()));
-                Permission pOp = AttrHelper.getAuthZPerm(authZ);
-                System.out.println("    Resource Name   " + pOp.getObjName());
-                System.out.println("    Operation       " + pOp.getOpName());
-                // TODO: fix the NPE that happens here:
-                //System.out.println("    Success?        " + authZ.getReqEntries().equals("1"));
-                int rCtr = 0;
-                if (pOp.getRoles() != null)
+                try
                 {
-                    for (String role : pOp.getRoles())
+                    Permission pOp = AttrHelper.getAuthZPerm(authZ);
+                    System.out.println("    Resource Name   " + pOp.getObjName());
+                    System.out.println("    Operation       " + pOp.getOpName());
+                    int rCtr = 0;
+                    if (pOp != null && pOp.getRoles() != null)
                     {
-                        System.out.println("    Role[" + rCtr++ + "]         " + role);
+                        // TODO: fix the NPE that happens here:
+                        System.out.println("    Success?        " + authZ.getReqEntries().equals(GlobalIds.AUTHZ_COMPARE_FAILURE_FLAG));
+                        for (String role : pOp.getRoles())
+                        {
+                            System.out.println("    Role[" + rCtr++ + "]         " + role);
+                        }
                     }
+                }
+                catch(LdapInvalidDnException e)
+                {
+                    System.out.println("LdapInvalidDnException=" + e);
                 }
                 //System.out.println("    reqStart        [" + authZ.getReqStart() + "]");
                 //System.out.println("    reqEnd          [" + authZ.getReqEnd() + "]");
@@ -843,4 +854,96 @@ class AuditMgrConsole
         ReaderUtil.readChar();
     }
 
+
+    /**
+     * Parse slapd access raw data to pull the permission name out.
+     *
+     * @param authZ raw data contained in Fortress audit entity.
+     * @return Permission contains {@link org.apache.directory.fortress.core.rbac.Permission#objName} and {@link org.apache.directory.fortress.core.rbac.Permission#opName}
+     */
+    private Permission getAuthZPerm2(AuthZ authZ)
+    {
+        int indx = 0;
+        //final int objectClass = 1;
+        final int oPNm = 2;
+        final int oBjNm = 3;
+        final int user = 4;
+        final int roles = 6;
+
+        // reqFilter
+        // <(&(objectClass=ftOperation)
+        // (ftOpNm=top1_10)(ftObjNm=tob2_4)
+        // (|(ftUsers=fttu3user4)
+        // (ftRoles=ftt3role1)
+        // (ftRoles=ftt3role2)
+        // (ftRoles=ftt3role3)
+        // (ftRoles=ftt3role4)
+        // (ftRoles=ftt3role5)
+        // (ftRoles=ftt3role6)
+        // (ftRoles=ftt3role7)
+        // (ftRoles=ftt3role8)
+        // (ftRoles=ftt3role9)
+        // (ftRoles=ftt3role10)))>
+
+        Permission pOp = new Permission();
+        if (authZ.getReqFilter() != null && authZ.getReqFilter().length() > 0)
+        {
+            StringTokenizer maxTkn = new StringTokenizer(authZ.getReqFilter(), "=");
+            //System.out.println("maxTken size=" + maxTkn.countTokens());
+            int numTokens = maxTkn.countTokens();
+            for (int i = 0; i < numTokens; i++)
+            {
+                String val = maxTkn.nextToken();
+                //System.out.println("token[" + i + "]=" + val);
+                switch (i)
+                {
+                    //case objectClass:
+                    //    indx = val.indexOf('=');
+                    //    if (indx >= 1)
+                    //    {
+                    //        String value = val.substring(indx + 1, val.length() - 1);
+                    //    }
+                    //    break;
+
+                    case oPNm:
+                        indx = val.indexOf('=');
+                        if (indx >= 1)
+                        {
+                            pOp.setOpName(val.substring(indx + 1, val.length() - 1));
+                        }
+                        break;
+
+                    case oBjNm:
+                        indx = val.indexOf('=');
+                        if (indx >= 1)
+                        {
+                            pOp.setObjName( val.substring( indx + 1, val.length() - 1 ) );
+                        }
+                        break;
+
+                    case user:
+                        indx = val.indexOf('=');
+                        if (indx >= 1)
+                        {
+                            pOp.setUser(val.substring(indx + 1, val.length() - 1));
+                        }
+                        break;
+
+                    default:
+                        int indx2 = 0;
+                        if (i >= roles)
+                        {
+                            indx = val.indexOf('=');
+                            indx2 = val.indexOf(')');
+                        }
+                        if (indx >= 1)
+                        {
+                            pOp.setRole(val.substring(indx + 1, indx2));
+                        }
+                        break;
+                }
+            }
+        }
+        return pOp;
+    }
 }

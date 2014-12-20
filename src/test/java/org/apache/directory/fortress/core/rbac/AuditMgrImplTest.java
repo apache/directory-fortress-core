@@ -239,16 +239,14 @@ public class AuditMgrImplTest extends TestCase
 
     public void testSearchAuthZs()
     {
-        searchAuthZs( "GET-AUTHZ TU1_UPD", UserTestData.USERS_TU1_UPD, PermTestData.OBJS_TOB1, PermTestData.OPS_TOP1,
-            false );
+        searchAuthZs( "GET-AUTHZ TU1_UPD", UserTestData.USERS_TU1_UPD, PermTestData.OBJS_TOB1, PermTestData.OPS_TOP1, false );
         searchAuthZs( "GET-AUTHZ TU3", UserTestData.USERS_TU3, PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3, false );
         searchAuthZs( "GET-AUTHZ TU4", UserTestData.USERS_TU4, PermTestData.OBJS_TOB2, PermTestData.OPS_TOP2, false );
 
         // search for failed only:
-        searchAuthZs( "GET-AUTHZ TU1_UPD", UserTestData.USERS_TU1_UPD, PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3,
-            true );
-        searchAuthZs( "GET-AUTHZ TU3", UserTestData.USERS_TU3, PermTestData.OBJS_TOB2, PermTestData.OPS_TOP1, true );
-        searchAuthZs( "GET-AUTHZ TU4", UserTestData.USERS_TU4, PermTestData.OBJS_TOB2, PermTestData.OPS_TOP1, true );
+        searchAuthZs( "GET-AUTHZ TU1_UPD", UserTestData.USERS_TU1_UPD, PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3, true );
+        searchAuthZs( "GET-AUTHZ TU3", UserTestData.USERS_TU3, PermTestData.OBJS_TOB2, PermTestData.OPS_TOP2, true );
+        searchAuthZs( "GET-AUTHZ TU4", UserTestData.USERS_TU4, PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3, true );
     }
 
 
@@ -282,8 +280,8 @@ public class AuditMgrImplTest extends TestCase
                         List<AuthZ> authZs = auditMgr.searchAuthZs( uAudit );
                         assertNotNull( authZs );
                         assertTrue(
-                            CLS_NM + "searchAuthZs failed search for successful authorization user ["
-                                + user.getUserId() + "]", authZs.size() > 0 );
+                            CLS_NM + "searchAuthZs failedOnly=" + failedOnly + ", search authorizations user ["
+                                + user.getUserId() + "], objName [" + uAudit.getObjName() + "], opName [" + uAudit.getOpName() + "], objId [" + uAudit.getObjId() + "]", authZs.size() > 0 );
                     }
                 }
             }

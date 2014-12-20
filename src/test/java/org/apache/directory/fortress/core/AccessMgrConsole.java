@@ -276,12 +276,21 @@ class AccessMgrConsole
         {
             VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, "AccessMgrConsole.checkAccess");
             ReaderUtil.clearScreen();
+            Permission perm = new Permission();
             System.out.println("Enter object name:");
-            String objName = ReaderUtil.readLn();
+            perm.setObjName( ReaderUtil.readLn() );
             System.out.println("Enter operation name:");
-            String opName = ReaderUtil.readLn();
-            boolean result = am.checkAccess(session, new Permission(objName, opName));
-            System.out.println("CheckAccess return [" + result + "] for user [" + session.getUserId() + "] objName [" + objName + "] operationName [" + opName + "]");
+            perm.setOpName( ReaderUtil.readLn() );
+            System.out.println("Enter object id (or NULL to skip):");
+            String val = ReaderUtil.readLn();
+            if ( val != null && val.length() > 0 )
+            {
+                perm.setObjId( val );
+            }
+
+            boolean result = am.checkAccess( session, perm );
+            System.out.println("CheckAccess return [" + result + "] for user [" + session.getUserId() + "], objName [" + perm.getObjName() + "], operationName [" + perm.getOpName() + "]" +
+                ", objId [" + perm.getObjId() + "]");
             System.out.println("ENTER to continue");
         }
         catch (SecurityException e)

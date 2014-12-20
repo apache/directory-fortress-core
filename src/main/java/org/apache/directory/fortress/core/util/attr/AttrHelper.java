@@ -19,6 +19,9 @@
  */
 package org.apache.directory.fortress.core.util.attr;
 
+import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
+import org.apache.directory.api.ldap.model.name.Dn;
+import org.apache.directory.api.ldap.model.name.Rdn;
 import org.apache.directory.api.util.DateUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.rbac.Administrator;
@@ -185,6 +188,44 @@ public class AttrHelper
 
 
     /**
+     * Break the authZ eqDn attribute into 1. permission object name, 2. op name and 3. object id (optional).
+     *
+     * @param authZ contains the raw dn format from openldap slapo access log data
+     * @return Permisison containing objName, opName and optionally the objId populated from the raw data.
+     */
+    public static Permission getAuthZPerm(AuthZ authZ) throws LdapInvalidDnException
+    {
+        // This will be returned to the caller:
+        Permission pOp = new Permission();
+        // Break dn into rdns for leaf and parent.  Use the 'type' field in rdn.
+        // The objId value is optional.  If present it will be part of the parent's relative distinguished name..
+        // Here the sample reqDN=ftOpNm=TOP2_2+ftObjId=002,ftObjNm=TOB2_1,ou=Permissions,ou=RBAC,dc=example,dc=com
+        // Will be mapped to objName=TOB2_1, opName=TOP2_2, objId=002, in the returned permission object.
+        Dn dn = new Dn( authZ.getReqDN() );
+        if(dn != null && dn.getRdns() != null && VUtil.isNotNullOrEmpty( dn.getRdns() ) )
+        {
+            for( Rdn rdn : dn.getRdns() )
+            {
+                // The rdn type attribute will be mapped to objName, opName and objId fields.
+                switch ( rdn.getType() )
+                {
+                    case GlobalIds.POP_NAME:
+                        pOp.setOpName( rdn.getType() );
+                        break;
+                    case GlobalIds.POBJ_NAME:
+                        pOp.setObjName( rdn.getType() );
+                        break;
+                    case GlobalIds.POBJ_ID:
+                        pOp.setObjId( rdn.getType() );
+                        break;
+                }
+            }
+        }
+        return pOp;
+    }
+
+
+    /**
      * Convert from raw ldap generalized time format to {@link java.util.Date}.
      * to decode the string.
      *
@@ -211,97 +252,5 @@ public class AttrHelper
         String szTime = null;
         szTime = DateUtils.getGeneralizedTime( date );
         return szTime;
-    }
-
-    /**
-     * Parse slapd access raw data to pull the permission name out.
-     *
-     * @param authZ raw data contained in Fortress audit entity.
-     * @return Permission contains {@link org.apache.directory.fortress.core.rbac.Permission#objName} and {@link org.apache.directory.fortress.core.rbac.Permission#opName}
-     */
-    public static Permission getAuthZPerm(AuthZ authZ)
-    {
-        int indx = 0;
-        //final int objectClass = 1;
-        final int oPNm = 2;
-        final int oBjNm = 3;
-        final int user = 4;
-        final int roles = 6;
-
-        // reqFilter
-        // <(&(objectClass=ftOperation)
-        // (ftOpNm=top1_10)(ftObjNm=tob2_4)
-        // (|(ftUsers=fttu3user4)
-        // (ftRoles=ftt3role1)
-        // (ftRoles=ftt3role2)
-        // (ftRoles=ftt3role3)
-        // (ftRoles=ftt3role4)
-        // (ftRoles=ftt3role5)
-        // (ftRoles=ftt3role6)
-        // (ftRoles=ftt3role7)
-        // (ftRoles=ftt3role8)
-        // (ftRoles=ftt3role9)
-        // (ftRoles=ftt3role10)))>
-
-        Permission pOp = new Permission();
-        if (authZ.getReqFilter() != null && authZ.getReqFilter().length() > 0)
-        {
-            StringTokenizer maxTkn = new StringTokenizer(authZ.getReqFilter(), "(");
-            //System.out.println("maxTken size=" + maxTkn.countTokens());
-            int numTokens = maxTkn.countTokens();
-            for (int i = 0; i < numTokens; i++)
-            {
-                String val = maxTkn.nextToken();
-                //System.out.println("token[" + i + "]=" + val);
-                switch (i)
-                {
-                    //case objectClass:
-                    //    indx = val.indexOf('=');
-                    //    if (indx >= 1)
-                    //    {
-                    //        String value = val.substring(indx + 1, val.length() - 1);
-                    //    }
-                    //    break;
-
-                    case oPNm:
-                        indx = val.indexOf('=');
-                        if (indx >= 1)
-                        {
-                            pOp.setOpName(val.substring(indx + 1, val.length() - 1));
-                        }
-                        break;
-
-                    case oBjNm:
-                        indx = val.indexOf('=');
-                        if (indx >= 1)
-                        {
-                            pOp.setObjName( val.substring( indx + 1, val.length() - 1 ) );
-                        }
-                        break;
-
-                    case user:
-                        indx = val.indexOf('=');
-                        if (indx >= 1)
-                        {
-                            pOp.setUser(val.substring(indx + 1, val.length() - 1));
-                        }
-                        break;
-
-                    default:
-                        int indx2 = 0;
-                        if (i >= roles)
-                        {
-                            indx = val.indexOf('=');
-                            indx2 = val.indexOf(')');
-                        }
-                        if (indx >= 1)
-                        {
-                            pOp.setRole(val.substring(indx + 1, indx2));
-                        }
-                        break;
-                }
-            }
-        }
-        return pOp;
     }
 }

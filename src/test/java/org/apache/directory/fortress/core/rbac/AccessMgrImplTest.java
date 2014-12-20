@@ -29,6 +29,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +56,16 @@ public class AccessMgrImplTest extends TestCase
     {
         TestSuite suite = new TestSuite();
         //suite.addTest(new AccessMgrImplTest("testDropActiveRole"));
-        suite.addTest( new AccessMgrImplTest( "testCreateSessionWithRolesTrusted" ) );
+/*
+        suite.addTest( new AdminMgrImplTest( "testResetPassword" ) );
+        suite.addTest( new AccessMgrImplTest( "testAuthenticateReset" ) );
+        suite.addTest( new AdminMgrImplTest( "testChangePassword" ) );
+        suite.addTest( new AccessMgrImplTest( "testAuthenticate" ) );
+        suite.addTest( new AdminMgrImplTest( "testLockUserAccount" ) );
+        suite.addTest( new AccessMgrImplTest( "testAuthenticateLocked" ) );
+        suite.addTest( new AdminMgrImplTest( "testUnlockUserAccount" ) );
+*/
+        suite.addTest( new AccessMgrImplTest( "testCheckAccess" ) );
         return suite;
     }
 
@@ -300,7 +310,7 @@ public class AccessMgrImplTest extends TestCase
                 try
                 {
                     accessMgr.authenticate( user.getUserId(), user.getPassword() );
-                    accessMgr.authenticate( user.getUserId(), user.getPassword() );
+                    //accessMgr.authenticate( user.getUserId(), user.getPassword() );
                     fail( CLS_NM + ".authenticateResetUsers failed test" );
                 }
                 catch ( SecurityException se )
@@ -709,20 +719,12 @@ public class AccessMgrImplTest extends TestCase
         checkAccess( "CHCK-ACS TU1_UPD TO1 TOP1 ", UserTestData.USERS_TU1_UPD, PermTestData.OBJS_TOB1,
             PermTestData.OPS_TOP1, PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3 );
         checkAccess( "CHCK-ACS TU3 TO3 TOP1 ", UserTestData.USERS_TU3, PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3,
-            PermTestData.OBJS_TOB2, PermTestData.OPS_TOP1 );
+            PermTestData.OBJS_TOB2, PermTestData.OPS_TOP2 );
         checkAccess( "CHCK-ACS TU4 TO4 TOP1 ", UserTestData.USERS_TU4, PermTestData.OBJS_TOB2, PermTestData.OPS_TOP2,
-            PermTestData.OBJS_TOB2, PermTestData.OPS_TOP1 );
+            PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3 );
     }
 
 
-    /**
-     * @param msg
-     * @param uArray
-     * @param oArray
-     * @param opArray
-     * @param oArrayBad
-     * @param opArrayBad
-     */
     public static void checkAccess( String msg, String[][] uArray, String[][] oArray, String[][] opArray,
         String[][] oArrayBad, String[][] opArrayBad )
     {
@@ -741,32 +743,48 @@ public class AccessMgrImplTest extends TestCase
                     int j = 0;
                     for ( String[] op : opArray )
                     {
-                        // Call checkAccess method
-                        assertTrue( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
-                            + PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op ) + "]",
-                            accessMgr.checkAccess(
-                                session,
-                                new Permission( PermTestData.getName( obj ), PermTestData.getName( op ), PermTestData
-                                    .getObjId( opArray[j] ) ) ) );
+                        Permission goodPerm;
+                        if( VUtil.isNotNullOrEmpty( PermTestData.getObjId( opArray[j] ) ) )
+                        {
+                            // with an objectId:
+                            goodPerm = new Permission(
+                                PermTestData.getName( obj ),
+                                PermTestData.getName( op ),
+                                PermTestData.getObjId( opArray[j] ) );
+                        }
+                        else
+                        {
+                            // without an objectId:
+                            goodPerm = new Permission(
+                                PermTestData.getName( obj ),
+                                PermTestData.getName( op ) );
+                        }
 
-                        // Call checkAccess method (this should fail):
-                        try
+                        // Positive test case, call checkAccess method, should return 'true':
+                        assertTrue( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName [" +
+                                PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op ) + "]",
+                            accessMgr.checkAccess( session, goodPerm ) );
+                        Permission badPerm;
+                        if( VUtil.isNotNullOrEmpty( PermTestData.getObjId( opArrayBad[j] ) ) )
                         {
-                            boolean result = accessMgr.checkAccess( session, new Permission( PermTestData.getName( oArrayBad[i] ),
-                                PermTestData.getName( opArrayBad[j] ), PermTestData.getObjId( opArrayBad[j] ) ) );
-                            assertTrue(
-                                CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
-                                    + PermTestData.getName( oArrayBad[i] ) + "] operationName ["
-                                    + PermTestData.getName( opArrayBad[j] ) + "]",
-                                !result );
+                            // with an objectId:
+                            badPerm = new Permission(
+                                PermTestData.getName( oArrayBad[i] ),
+                                PermTestData.getName( opArrayBad[j] ),
+                                PermTestData.getObjId( opArrayBad[j] ) );
                         }
-                        catch (SecurityException se)
+                        else
                         {
-                            // The expected condition is security exception perm not exist:
-                            assertTrue( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName ["
-                                + PermTestData.getName( oArrayBad[i] ) + "] operationName ["
-                                + PermTestData.getName( opArrayBad[j] ) + "], negative use case, incorrect exception id=" + se.getErrorId(), se.getErrorId() == GlobalErrIds.PERM_NOT_EXIST );
+                            // without an objectId:
+                            badPerm = new Permission(
+                                PermTestData.getName( oArrayBad[i] ),
+                                PermTestData.getName( opArrayBad[j] ) );
                         }
+                        //LOG.warn("Assert False userId [" + user.getUserId() + "], perm: " + badPerm);
+                        // Negative test case, call checkAccess method again, should return 'false':
+                        assertFalse( CLS_NM + ".checkAccess failed userId [" + user.getUserId() + "] Perm objName [" +
+                            PermTestData.getName( oArrayBad[i] ) + "] operationName [" + PermTestData.getName(
+                            opArrayBad[j] ) + "]", accessMgr.checkAccess( session, badPerm ) );
                         j++;
                     }
                     i++;
@@ -776,9 +794,8 @@ public class AccessMgrImplTest extends TestCase
         }
         catch ( SecurityException ex )
         {
-            LOG.error(
-                "checkAccess: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
-                    + ex.getMessage(), ex );
+            LOG.error( "checkAccess: failed with SecurityException rc=" + ex.getErrorId() + ", " +
+                "msg=" + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
     }

@@ -173,13 +173,12 @@ final class PermDAO extends ApacheDsDataProvider
     };
 
     private static final String PERM_NAME = "ftPermName";
-    private static final String POBJ_ID = "ftObjId";
     private static final String ROLES = "ftRoles";
     private static final String USERS = "ftUsers";
     private static final String[] PERMISSION_OP_ATRS =
         {
             GlobalIds.FT_IID, PERM_NAME, GlobalIds.POBJ_NAME, GlobalIds.POP_NAME, GlobalIds.DESC, SchemaConstants.OU_AT,
-            POBJ_ID, TYPE, ROLES, USERS, GlobalIds.PROPS
+            GlobalIds.POBJ_ID, TYPE, ROLES, USERS, GlobalIds.PROPS
     };
 
     private static final String[] PERMISION_OBJ_ATRS =
@@ -390,7 +389,7 @@ final class PermDAO extends ApacheDsDataProvider
             // objectid is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getObjId() ) )
             {
-                entry.add( POBJ_ID, entity.getObjId() );
+                entry.add( GlobalIds.POBJ_ID, entity.getObjId() );
             }
 
             // type is optional:
@@ -854,6 +853,7 @@ final class PermDAO extends ApacheDsDataProvider
             isAuthZd = isAuthorized( session, outPerm );
 
             // This is done to leave an audit trail in ldap server log:
+            attributeValue = outPerm.getOpName();
             if ( isAuthZd )
             {
                 // Yes, set the operation name onto this attribute for storage into audit trail:
@@ -861,8 +861,8 @@ final class PermDAO extends ApacheDsDataProvider
             }
             else
             {
-                // No, set a simple error message onto this attribute for storage into audit trail:
-                attributeValue = "AuthZ Failed";
+                // Changing this attribute value forces the compare to fail.  This facilitates tracking of authorization failures events in the slapd access log (by searching for compare failures).
+                attributeValue = outPerm.getOpName() + GlobalIds.FAILED_AUTHZ_INDICATOR;
             }
 
             // There is a switch in fortress config to disable audit ops like this one.
@@ -1002,7 +1002,7 @@ final class PermDAO extends ApacheDsDataProvider
         entity.setSequenceId( sequence );
         entity.setAbstractName( getAttribute( le, PERM_NAME ) );
         entity.setObjName( getAttribute( le, GlobalIds.POBJ_NAME ) );
-        entity.setObjId( getAttribute( le, POBJ_ID ) );
+        entity.setObjId( getAttribute( le, GlobalIds.POBJ_ID ) );
         entity.setOpName( getAttribute( le, GlobalIds.POP_NAME ) );
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setRoles( getAttributeSet( le, ROLES ) );
@@ -1460,7 +1460,7 @@ final class PermDAO extends ApacheDsDataProvider
 
         if ( objId != null && objId.length() > 0 )
         {
-            rDn = GlobalIds.POP_NAME + "=" + opName + "+" + POBJ_ID + "=" + objId;
+            rDn = GlobalIds.POP_NAME + "=" + opName + "+" + GlobalIds.POBJ_ID + "=" + objId;
         }
         else
         {

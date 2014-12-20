@@ -47,7 +47,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * <ol>
  * <li>Manager layer:  {@link AdminMgrImpl}, {@link AccessMgrImpl}, {@link ReviewMgrImpl},...</li>
  * <li>Process layer:  {@link UserP}, {@link RoleP}, {@link PermP},...</li>
- * <li>DAO layer: {@link UserDAO}, {@link org.apache.directory.fortress.core.rbac.dao.RoleDAO}, {@link org.apache.directory.fortress.core.rbac.dao.PermDAO},...</li>
+ * <li>DAO layer: {@link UserDAO}, {@link org.apache.directory.fortress.core.rbac.RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
  * </ol>
  * Fortress clients must first instantiate the data entity before invoking one of the Manager APIs.  The caller must first
  * provide enough information to uniquely identity target record for the particular ldap operation performed.<br />
@@ -279,6 +279,67 @@ public class User extends FortEntity implements Constraint, Serializable
     private List<String> emails;
     @XmlTransient
     private byte[] jpegPhoto;
+
+    // RFC2307bis:
+    /*
+    MUST ( cn $ uid $ uidNumber $ gidNumber $ homeDirectory )
+    MAY ( userPassword $ loginShell $ gecos $ description ) )
+     */
+    private String uidNumber;
+    private String gidNumber;
+    private String homeDirectory;
+    private String loginShell;
+    private String gecos;
+
+    public String getUidNumber()
+    {
+        return uidNumber;
+    }
+
+    public void setUidNumber( String uidNumber )
+    {
+        this.uidNumber = uidNumber;
+    }
+
+    public String getGidNumber()
+    {
+        return gidNumber;
+    }
+
+    public void setGidNumber( String gidNumber )
+    {
+        this.gidNumber = gidNumber;
+    }
+
+    public String getHomeDirectory()
+    {
+        return homeDirectory;
+    }
+
+    public void setHomeDirectory( String homeDirectory )
+    {
+        this.homeDirectory = homeDirectory;
+    }
+
+    public String getLoginShell()
+    {
+        return loginShell;
+    }
+
+    public void setLoginShell( String loginShell )
+    {
+        this.loginShell = loginShell;
+    }
+
+    public String getGecos()
+    {
+        return gecos;
+    }
+
+    public void setGecos( String gecos )
+    {
+        this.gecos = gecos;
+    }
 
 
     /**

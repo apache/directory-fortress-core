@@ -751,6 +751,7 @@ public class Permission extends FortEntity implements Serializable
         return "Permission{" +
             "objName='" + objName + '\'' +
             ", opName='" + opName + '\'' +
+            ", objId='" + objId + '\'' +
             '}';
     }
 }
