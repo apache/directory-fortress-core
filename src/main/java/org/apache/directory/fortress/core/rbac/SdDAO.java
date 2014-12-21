@@ -135,7 +135,7 @@ final class SdDAO extends ApacheDsDataProvider
 
     private static final String[] SD_SET_ATRS =
         {
-            GlobalIds.FT_IID, SD_SET_NM, GlobalIds.DESC, ROLES, SD_SET_CARDINALITY
+            GlobalIds.FT_IID, SD_SET_NM, SchemaConstants.DESCRIPTION_AT, ROLES, SD_SET_CARDINALITY
     };
 
 
@@ -166,7 +166,7 @@ final class SdDAO extends ApacheDsDataProvider
             // description field is optional on this object class:
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                entry.add( GlobalIds.DESC, entity.getDescription() );
+                entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
 
             // CN attribute is required for this object class:
@@ -218,7 +218,7 @@ final class SdDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
             if ( entity.getCardinality() != null )
@@ -611,7 +611,7 @@ final class SdDAO extends ApacheDsDataProvider
         entity.setSequenceId( sequence );
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName( getAttribute( le, SD_SET_NM ) );
-        entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
+        entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.setMembers( getAttributeSet( le, ROLES ) );
         String szCard = getAttribute( le, SD_SET_CARDINALITY );
         entity.setCardinality( new Integer( szCard ) );

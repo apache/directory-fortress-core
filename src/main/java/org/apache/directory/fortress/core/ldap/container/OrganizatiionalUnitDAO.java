@@ -113,7 +113,7 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
             Entry myEntry = new DefaultEntry( nodeDn,
                 SchemaConstants.OBJECT_CLASS, ORGUNIT_CLASS,
                 SchemaConstants.OU_AT, oe.getName(),
-                GlobalIds.DESC, oe.getDescription() );
+                SchemaConstants.DESCRIPTION_AT, oe.getDescription() );
 
             ld = getAdminConnection();
             add( ld, myEntry );

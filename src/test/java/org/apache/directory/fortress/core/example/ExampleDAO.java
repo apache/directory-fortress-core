@@ -53,7 +53,7 @@ public class ExampleDAO extends ApacheDsDataProvider
     private static final String CLS_NM = ExampleDAO.class.getName();
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( CLS_NM );
     protected final static String[] EXAMPLE_ATRS = {
-        GlobalIds.FT_IID, EIds.EXAMPLE_NM, GlobalIds.DESC, GlobalIds.CONSTRAINT
+        GlobalIds.FT_IID, EIds.EXAMPLE_NM, SchemaConstants.DESCRIPTION_AT, GlobalIds.CONSTRAINT
     };
 
     /**
@@ -103,7 +103,7 @@ public class ExampleDAO extends ApacheDsDataProvider
             entry.add( EIds.EXAMPLE_NM, entity.getName() );
 
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
-                entry.add( GlobalIds.DESC, entity.getDescription() );
+                entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
 
             // organizational name requires CN attribute:
             entry.add( SchemaConstants.CN_AT, entity.getName() );
@@ -148,7 +148,7 @@ public class ExampleDAO extends ApacheDsDataProvider
             List<Modification> mods = new ArrayList<Modification>();
             if (entity.getDescription() != null && entity.getDescription().length() > 0)
             {
-                mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
+                mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
 
             }
 
@@ -314,7 +314,7 @@ public class ExampleDAO extends ApacheDsDataProvider
         Example entity = new Example();
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName(getAttribute(le, EIds.EXAMPLE_NM));
-        entity.setDescription(getAttribute(le, GlobalIds.DESC));
+        entity.setDescription(getAttribute(le, SchemaConstants.DESCRIPTION_AT));
         unloadTemporal(le, entity);
         return entity;
     }

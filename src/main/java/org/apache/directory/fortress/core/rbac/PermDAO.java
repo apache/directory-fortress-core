@@ -177,13 +177,13 @@ final class PermDAO extends ApacheDsDataProvider
     private static final String USERS = "ftUsers";
     private static final String[] PERMISSION_OP_ATRS =
         {
-            GlobalIds.FT_IID, PERM_NAME, GlobalIds.POBJ_NAME, GlobalIds.POP_NAME, GlobalIds.DESC, SchemaConstants.OU_AT,
+            GlobalIds.FT_IID, PERM_NAME, GlobalIds.POBJ_NAME, GlobalIds.POP_NAME, SchemaConstants.DESCRIPTION_AT, SchemaConstants.OU_AT,
             GlobalIds.POBJ_ID, TYPE, ROLES, USERS, GlobalIds.PROPS
     };
 
     private static final String[] PERMISION_OBJ_ATRS =
         {
-            GlobalIds.FT_IID, GlobalIds.POBJ_NAME, GlobalIds.DESC, SchemaConstants.OU_AT, TYPE,
+            GlobalIds.FT_IID, GlobalIds.POBJ_NAME, SchemaConstants.DESCRIPTION_AT, SchemaConstants.OU_AT, TYPE,
             GlobalIds.PROPS
     };
 
@@ -217,7 +217,7 @@ final class PermDAO extends ApacheDsDataProvider
             // description is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                entry.add( GlobalIds.DESC, entity.getDescription() );
+                entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
 
             // type is optional:
@@ -278,7 +278,7 @@ final class PermDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
@@ -377,7 +377,7 @@ final class PermDAO extends ApacheDsDataProvider
             // description is optional:
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                entry.add( GlobalIds.DESC, entity.getDescription() );
+                entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
 
             // the abstract name is the human readable identifier:
@@ -456,7 +456,7 @@ final class PermDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
@@ -1008,7 +1008,7 @@ final class PermDAO extends ApacheDsDataProvider
         entity.setRoles( getAttributeSet( le, ROLES ) );
         entity.setUsers( getAttributeSet( le, USERS ) );
         entity.setType( getAttribute( le, TYPE ) );
-        entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
+        entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
         entity.setAdmin( isAdmin );
 
@@ -1037,7 +1037,7 @@ final class PermDAO extends ApacheDsDataProvider
         entity.setDn( le.getDn().getName() );
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setType( getAttribute( le, TYPE ) );
-        entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
+        entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
         entity.setAdmin( isAdmin );
         return entity;

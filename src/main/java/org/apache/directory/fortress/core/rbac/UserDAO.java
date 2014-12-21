@@ -137,7 +137,6 @@ final class UserDAO extends ApacheDsDataProvider
 {
     private static final String CLS_NM = UserDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static PwPolicyControl pwControlx;
 
     /*
       *  *************************************************************************
@@ -145,7 +144,6 @@ final class UserDAO extends ApacheDsDataProvider
       *  ************************************************************************
       */
     private static final String USERS_AUX_OBJECT_CLASS_NAME = "ftUserAttrs";
-    private static final String ORGANIZATIONAL_PERSON_OBJECT_CLASS_NAME = "organizationalPerson";
     private static final String USER_OBJECT_CLASS = "user.objectclass";
     private static final String USERS_EXTENSIBLE_OBJECT = "extensibleObject";
     //private static final String POSIX_ACCOUNT_OBJECT_CLASS_NAME = "posixAccount";
@@ -163,44 +161,7 @@ final class UserDAO extends ApacheDsDataProvider
     };
 
     private static final String objectClassImpl = Config.getProperty( USER_OBJECT_CLASS );
-    private static final String SN = "sn";
-    private static final String PW = "userpassword";
     private static final String SYSTEM_USER = "ftSystem";
-
-    /**
-     * Constant contains the locale attribute name used within organizationalPerson ldap object classes.
-     */
-    private static final String L = "l";
-
-    /**
-     * Constant contains the postal address attribute name used within organizationalPerson ldap object classes.
-     */
-    private static final String POSTAL_ADDRESS = "postalAddress";
-
-    /**
-     * Constant contains the state attribute name used within organizationalPerson ldap object classes.
-     */
-    private static final String STATE = "st";
-
-    /**
-     * Constant contains the postal code attribute name used within organizationalPerson ldap object classes.
-     */
-    private static final String POSTAL_CODE = "postalCode";
-
-    /**
-     * Constant contains the post office box attribute name used within organizationalPerson ldap object classes.
-     */
-    private static final String POST_OFFICE_BOX = "postOfficeBox";
-
-    /**
-     * Constant contains the country attribute name used within organizationalPerson ldap object classes.
-     */
-    private static final String COUNTRY = "c";
-
-    /**
-     * Constant contains the  attribute name used within inetorgperson ldap object classes.
-     */
-    private static final String PHYSICAL_DELIVERY_OFFICE_NAME = "physicalDeliveryOfficeName";
 
     /**
      * Constant contains the  attribute name used within inetorgperson ldap object classes.
@@ -218,21 +179,13 @@ final class UserDAO extends ApacheDsDataProvider
     private static final String MOBILE = "mobile";
 
     /**
-     * Constant contains the telephone attribute values used within organizationalPerson ldap object classes.
-     */
-    private static final String TELEPHONE_NUMBER = "telephoneNumber";
-
-    /**
      * Constant contains the  attribute name for jpeg images to be stored within inetorgperson ldap object classes.
      */
     private static final String JPEGPHOTO = "jpegPhoto";
 
     /**
-     * Constant contains the email attribute values used within iNetOrgPerson ldap object classes.
+     * Constant contains the employeeType attribute within iNetOrgPerson ldap object classes.
      */
-    private static final String MAIL = "mail";
-    private static final String DISPLAY_NAME = "displayName";
-    private static final String TITLE = "title";
     private static final String EMPLOYEE_TYPE = "employeeType";
 
     // RFC2307bis:
@@ -261,11 +214,11 @@ final class UserDAO extends ApacheDsDataProvider
     private static final String[] AUTHN_ATRS =
         {
             GlobalIds.FT_IID,
-            SchemaConstants.UID_AT, PW,
-            GlobalIds.DESC,
+            SchemaConstants.UID_AT, SchemaConstants.USER_PASSWORD_AT,
+            SchemaConstants.DESCRIPTION_AT,
             SchemaConstants.OU_AT, 
             SchemaConstants.CN_AT,
-            SN,
+            SchemaConstants.SN_AT,
             GlobalIds.CONSTRAINT,
             GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : null,
             GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_LOCKED_TIME : null,
@@ -276,11 +229,11 @@ final class UserDAO extends ApacheDsDataProvider
     private static final String[] DEFAULT_ATRS =
         {
             GlobalIds.FT_IID,
-            SchemaConstants.UID_AT, PW,
-            GlobalIds.DESC,
+            SchemaConstants.UID_AT, SchemaConstants.USER_PASSWORD_AT,
+            SchemaConstants.DESCRIPTION_AT,
             SchemaConstants.OU_AT,
             SchemaConstants.CN_AT,
-            SN,
+            SchemaConstants.SN_AT,
             GlobalIds.USER_ROLE_DATA,
             GlobalIds.CONSTRAINT,
             GlobalIds.USER_ROLE_ASSIGN,
@@ -290,19 +243,19 @@ final class UserDAO extends ApacheDsDataProvider
             GlobalIds.PROPS,
             GlobalIds.USER_ADMINROLE_ASSIGN,
             GlobalIds.USER_ADMINROLE_DATA,
-            POSTAL_ADDRESS,
-            L,
-            POSTAL_CODE,
-            POST_OFFICE_BOX,
-            STATE,
-            PHYSICAL_DELIVERY_OFFICE_NAME,
+            SchemaConstants.POSTAL_ADDRESS_AT,
+            SchemaConstants.L_AT,
+            SchemaConstants.POSTALCODE_AT,
+            SchemaConstants.POSTOFFICEBOX_AT,
+            SchemaConstants.ST_AT,
+            SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT,
             DEPARTMENT_NUMBER,
             ROOM_NUMBER,
-            TELEPHONE_NUMBER,
+            SchemaConstants.TELEPHONE_NUMBER_AT,
             MOBILE,
-            MAIL,
+            SchemaConstants.MAIL_AT,
             EMPLOYEE_TYPE,
-            TITLE,
+            SchemaConstants.TITLE_AT,
             SYSTEM_USER,
             JPEGPHOTO,
 
@@ -363,18 +316,18 @@ final class UserDAO extends ApacheDsDataProvider
                 entity.setSn( entity.getUserId() );
             }
 
-            myEntry.add( SN, entity.getSn() );
+            myEntry.add( SchemaConstants.SN_AT, entity.getSn() );
 
             // guard against npe
-            myEntry.add( PW,
+            myEntry.add( SchemaConstants.USER_PASSWORD_AT,
                 VUtil.isNotNullOrEmpty( entity.getPassword() ) ? new String( entity.getPassword() ) : new String(
                     new char[]
                         {} ) );
-            myEntry.add( DISPLAY_NAME, entity.getCn() );
+            myEntry.add( SchemaConstants.DISPLAY_NAME_AT, entity.getCn() );
 
             if ( VUtil.isNotNullOrEmpty( entity.getTitle() ) )
             {
-                myEntry.add( TITLE, entity.getTitle() );
+                myEntry.add( SchemaConstants.TITLE_AT, entity.getTitle() );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getEmployeeType() ) )
@@ -412,9 +365,9 @@ final class UserDAO extends ApacheDsDataProvider
 
             // These are multi-valued attributes, use the util function to load.
             // These items are optional.  The utility function will return quietly if item list is empty:
-            loadAttrs( entity.getPhones(), myEntry, TELEPHONE_NUMBER );
+            loadAttrs( entity.getPhones(), myEntry, SchemaConstants.TELEPHONE_NUMBER_AT );
             loadAttrs( entity.getMobiles(), myEntry, MOBILE );
-            loadAttrs( entity.getEmails(), myEntry, MAIL );
+            loadAttrs( entity.getEmails(), myEntry, SchemaConstants.MAIL_AT );
 
             // The following attributes are optional:
             if ( VUtil.isNotNullOrEmpty( entity.isSystem() ) )
@@ -436,7 +389,7 @@ final class UserDAO extends ApacheDsDataProvider
 
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                myEntry.add( GlobalIds.DESC, entity.getDescription() );
+                myEntry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
 
             // props are optional as well:
@@ -496,7 +449,7 @@ final class UserDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( entity.getSn() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, SN, entity.getSn() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.SN_AT, entity.getSn() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
@@ -508,13 +461,13 @@ final class UserDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( entity.getPassword() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, PW, new String( entity.getPassword() ) ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.USER_PASSWORD_AT, new String( entity.getPassword() ) ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getEmployeeType() ) )
@@ -526,7 +479,7 @@ final class UserDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( entity.getTitle() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, TITLE, entity.getTitle() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.TITLE_AT, entity.getTitle() ) );
             }
 
             if ( GlobalIds.IS_OPENLDAP && VUtil.isNotNullOrEmpty( entity.getPwPolicy() ) )
@@ -564,9 +517,9 @@ final class UserDAO extends ApacheDsDataProvider
             loadAddress( entity.getAddress(), mods );
 
             // These are multi-valued attributes, use the util function to load:
-            loadAttrs( entity.getPhones(), mods, TELEPHONE_NUMBER );
+            loadAttrs( entity.getPhones(), mods, SchemaConstants.TELEPHONE_NUMBER_AT );
             loadAttrs( entity.getMobiles(), mods, MOBILE );
-            loadAttrs( entity.getEmails(), mods, MAIL );
+            loadAttrs( entity.getEmails(), mods, SchemaConstants.MAIL_AT );
 
             if ( VUtil.isNotNullOrEmpty( entity.getJpegPhoto() ) )
             {
@@ -1577,7 +1530,7 @@ final class UserDAO extends ApacheDsDataProvider
             mods = new ArrayList<Modification>();
 
             mods.add( new DefaultModification(
-                ModificationOperation.REPLACE_ATTRIBUTE, PW, new String( newPassword ) ) );
+                ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.USER_PASSWORD_AT, new String( newPassword ) ) );
 
             modify( ld, userDn, mods );
 
@@ -1636,7 +1589,7 @@ final class UserDAO extends ApacheDsDataProvider
             List<Modification> mods = new ArrayList<Modification>();
 
             mods.add( new DefaultModification(
-                ModificationOperation.REPLACE_ATTRIBUTE, PW, new String( user.getPassword() ) ) );
+                ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.USER_PASSWORD_AT, new String( user.getPassword() ) ) );
 
             mods.add( new DefaultModification(
                 ModificationOperation.REPLACE_ATTRIBUTE, OPENLDAP_PW_RESET, "TRUE" ) );
@@ -1942,22 +1895,22 @@ final class UserDAO extends ApacheDsDataProvider
         User entity = new ObjectFactory().createUser();
         entity.setSequenceId( sequence );
         entity.setInternalId( getAttribute( entry, GlobalIds.FT_IID ) );
-        entity.setDescription( getAttribute( entry, GlobalIds.DESC ) );
+        entity.setDescription( getAttribute( entry, SchemaConstants.DESCRIPTION_AT ) );
         entity.setUserId( getAttribute( entry, SchemaConstants.UID_AT ) );
         entity.setCn( getAttribute( entry, SchemaConstants.CN_AT ) );
         entity.setName( entity.getCn() );
-        entity.setSn( getAttribute( entry, SN ) );
+        entity.setSn( getAttribute( entry, SchemaConstants.SN_AT ) );
         entity.setOu( getAttribute( entry, SchemaConstants.OU_AT ) );
         entity.setDn( entry.getDn().getName() );
-        entity.setTitle( getAttribute( entry, TITLE ) );
+        entity.setTitle( getAttribute( entry, SchemaConstants.TITLE_AT ) );
         entity.setEmployeeType( getAttribute( entry, EMPLOYEE_TYPE ) );
         unloadTemporal( entry, entity );
         entity.setRoles( unloadUserRoles( entry, entity.getUserId(), contextId ) );
         entity.setAdminRoles( unloadUserAdminRoles( entry, entity.getUserId(), contextId ) );
         entity.setAddress( unloadAddress( entry ) );
-        entity.setPhones( getAttributes( entry, TELEPHONE_NUMBER ) );
+        entity.setPhones( getAttributes( entry, SchemaConstants.TELEPHONE_NUMBER_AT ) );
         entity.setMobiles( getAttributes( entry, MOBILE ) );
-        entity.setEmails( getAttributes( entry, MAIL ) );
+        entity.setEmails( getAttributes( entry, SchemaConstants.MAIL_AT ) );
         String szBoolean = getAttribute( entry, SYSTEM_USER );
         if ( szBoolean != null )
         {
@@ -2181,13 +2134,13 @@ final class UserDAO extends ApacheDsDataProvider
             {
                 for ( String val : address.getAddresses() )
                 {
-                    entry.add( POSTAL_ADDRESS, val );
+                    entry.add( SchemaConstants.POSTAL_ADDRESS_AT, val );
                 }
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getCity() ) )
             {
-                entry.add( L, address.getCity() );
+                entry.add( SchemaConstants.L_AT, address.getCity() );
             }
 
             //if(VUtil.isNotNullOrEmpty(address.getCountry()))
@@ -2197,22 +2150,22 @@ final class UserDAO extends ApacheDsDataProvider
 
             if ( VUtil.isNotNullOrEmpty( address.getPostalCode() ) )
             {
-                entry.add( POSTAL_CODE, address.getPostalCode() );
+                entry.add( SchemaConstants.POSTALCODE_AT, address.getPostalCode() );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getPostOfficeBox() ) )
             {
-                entry.add( POST_OFFICE_BOX, address.getPostOfficeBox() );
+                entry.add( SchemaConstants.POSTOFFICEBOX_AT, address.getPostOfficeBox() );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getState() ) )
             {
-                entry.add( STATE, address.getState() );
+                entry.add( SchemaConstants.ST_AT, address.getState() );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getBuilding() ) )
             {
-                entry.add( PHYSICAL_DELIVERY_OFFICE_NAME, address.getBuilding() );
+                entry.add( SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT, address.getBuilding() );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getDepartmentNumber() ) )
@@ -2241,43 +2194,43 @@ final class UserDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( address.getAddresses() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, POSTAL_ADDRESS ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.POSTAL_ADDRESS_AT ) );
 
                 for ( String val : address.getAddresses() )
                 {
                     mods.add( new DefaultModification(
-                        ModificationOperation.ADD_ATTRIBUTE, POSTAL_ADDRESS, val ) );
+                        ModificationOperation.ADD_ATTRIBUTE, SchemaConstants.POSTAL_ADDRESS_AT, val ) );
                 }
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getCity() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, L, address.getCity() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.L_AT, address.getCity() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getPostalCode() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, POSTAL_CODE, address.getPostalCode() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.POSTALCODE_AT, address.getPostalCode() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getPostOfficeBox() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, POST_OFFICE_BOX, address.getPostOfficeBox() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.POSTOFFICEBOX_AT, address.getPostOfficeBox() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getState() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, STATE, address.getState() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.ST_AT, address.getState() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getBuilding() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, PHYSICAL_DELIVERY_OFFICE_NAME, address.getBuilding() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT, address.getBuilding() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( address.getDepartmentNumber() ) )
@@ -2306,7 +2259,7 @@ final class UserDAO extends ApacheDsDataProvider
     private Address unloadAddress( Entry entry ) throws LdapInvalidAttributeValueException
     {
         Address addr = new ObjectFactory().createAddress();
-        List<String> pAddrs = getAttributes( entry, POSTAL_ADDRESS );
+        List<String> pAddrs = getAttributes( entry, SchemaConstants.POSTAL_ADDRESS_AT );
 
         if ( pAddrs != null )
         {
@@ -2316,11 +2269,11 @@ final class UserDAO extends ApacheDsDataProvider
             }
         }
 
-        addr.setCity( getAttribute( entry, L ) );
-        addr.setState( getAttribute( entry, STATE ) );
-        addr.setPostalCode( getAttribute( entry, POSTAL_CODE ) );
-        addr.setPostOfficeBox( getAttribute( entry, POST_OFFICE_BOX ) );
-        addr.setBuilding( getAttribute( entry, PHYSICAL_DELIVERY_OFFICE_NAME ) );
+        addr.setCity( getAttribute( entry, SchemaConstants.L_AT ) );
+        addr.setState( getAttribute( entry, SchemaConstants.ST_AT ) );
+        addr.setPostalCode( getAttribute( entry, SchemaConstants.POSTALCODE_AT ) );
+        addr.setPostOfficeBox( getAttribute( entry, SchemaConstants.POSTOFFICEBOX_AT ) );
+        addr.setBuilding( getAttribute( entry, SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT ) );
         addr.setDepartmentNumber( getAttribute( entry, DEPARTMENT_NUMBER ) );
         addr.setRoomNumber( getAttribute( entry, ROOM_NUMBER ) );
         // todo: add support for country attribute

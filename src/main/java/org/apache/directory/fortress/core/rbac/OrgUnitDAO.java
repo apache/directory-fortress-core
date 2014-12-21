@@ -113,7 +113,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
     };
     private static final String[] ORGUNIT_ATRS =
         {
-            GlobalIds.FT_IID, SchemaConstants.OU_AT, GlobalIds.DESC, GlobalIds.PARENT_NODES
+            GlobalIds.FT_IID, SchemaConstants.OU_AT, SchemaConstants.DESCRIPTION_AT, GlobalIds.PARENT_NODES
     };
 
     private static final String[] ORGUNIT_ATR =
@@ -144,7 +144,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
 
             if ( !Strings.isEmpty( description ) )
             {
-                entry.add( GlobalIds.DESC, description );
+                entry.add( SchemaConstants.DESCRIPTION_AT, description );
             }
 
             // organizational name requires OU attribute:
@@ -201,7 +201,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
             if ( entity.getDescription() != null && entity.getDescription().length() > 0 )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, entity.getDescription() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
             loadAttrs( entity.getParents(), mods, GlobalIds.PARENT_NODES );
@@ -695,7 +695,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
         entity.setSequenceId( sequence );
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName( getAttribute( le, SchemaConstants.OU_AT ) );
-        entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
+        entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         String dn = le.getDn().getName();
 
         if ( dn.contains( getRootDn( contextId, GlobalIds.PSU_ROOT ) ) )

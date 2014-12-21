@@ -133,7 +133,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         {
             GlobalIds.FT_IID,
             ROLE_NM,
-            GlobalIds.DESC,
+            SchemaConstants.DESCRIPTION_AT,
             GlobalIds.CONSTRAINT,
             ROLE_OCCUPANT,
             ROLE_OSP,
@@ -168,7 +168,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
             // description field is optional on this object class:
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                entry.add( GlobalIds.DESC, entity.getDescription() );
+                entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
 
             // CN attribute is required for this object class:
@@ -224,7 +224,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE,
-                    GlobalIds.DESC, entity.getDescription() ) );
+                    SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getOccupants() ) )
@@ -675,7 +675,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         entity.setSequenceId( sequence );
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName( getAttribute( le, ROLE_NM ) );
-        entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
+        entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.setOccupants( getAttributes( le, ROLE_OCCUPANT ) );
         entity.setOsP( getAttributeSet( le, ROLE_OSP ) );
         entity.setOsU( getAttributeSet( le, ROLE_OSU ) );

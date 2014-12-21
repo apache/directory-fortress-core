@@ -69,7 +69,7 @@ final class GroupDAO extends ApacheDsDataProvider
     private static final String GROUP_PROPERTY_ATTR = "group.properties";
     private static final String GROUP_PROPERTY_ATTR_IMPL = Config.getProperty( GROUP_PROPERTY_ATTR );
     private static final String GROUP_OBJ_CLASS[] = {SchemaConstants.TOP_OC, GROUP_OBJECT_CLASS_IMPL};
-    private static final String[] GROUP_ATRS = {SchemaConstants.CN_AT, GlobalIds.DESC, GROUP_PROTOCOL_ATTR_IMPL, GROUP_PROPERTY_ATTR_IMPL, SchemaConstants.MEMBER_AT};
+    private static final String[] GROUP_ATRS = {SchemaConstants.CN_AT, SchemaConstants.DESCRIPTION_AT, GROUP_PROTOCOL_ATTR_IMPL, GROUP_PROPERTY_ATTR_IMPL, SchemaConstants.MEMBER_AT};
 
     /**
      * Package private default constructor.
@@ -100,7 +100,7 @@ final class GroupDAO extends ApacheDsDataProvider
             
             if ( VUtil.isNotNullOrEmpty( group.getDescription() ) )
             {
-                myEntry.add( GlobalIds.DESC, group.getDescription() );
+                myEntry.add( SchemaConstants.DESCRIPTION_AT, group.getDescription() );
             }
             
             ld = getAdminConnection();
@@ -139,7 +139,7 @@ final class GroupDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( group.getDescription() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.DESC, group.getDescription() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, group.getDescription() ) );
             }
             
             if ( VUtil.isNotNullOrEmpty( group.getProtocol() ) )
@@ -471,7 +471,7 @@ final class GroupDAO extends ApacheDsDataProvider
     {
         Group entity = new ObjectFactory().createGroup();
         entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
-        entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
+        entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.setProtocol( getAttribute( le, GROUP_PROTOCOL_ATTR_IMPL ) );
         entity.setMembers( getAttributes( le, SchemaConstants.MEMBER_AT ) );
         entity.setMemberDn( true );

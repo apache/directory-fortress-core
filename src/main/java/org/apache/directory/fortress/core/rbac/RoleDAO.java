@@ -113,7 +113,7 @@ final class RoleDAO extends ApacheDsDataProvider
 
     private static final String[] ROLE_ATRS =
         {
-            GlobalIds.FT_IID, ROLE_NM, GlobalIds.DESC, GlobalIds.CONSTRAINT, ROLE_OCCUPANT, GlobalIds.PARENT_NODES
+            GlobalIds.FT_IID, ROLE_NM, SchemaConstants.DESCRIPTION_AT, GlobalIds.CONSTRAINT, ROLE_OCCUPANT, GlobalIds.PARENT_NODES
     };
 
 
@@ -138,7 +138,7 @@ final class RoleDAO extends ApacheDsDataProvider
             // description field is optional on this object class:
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
-                entry.add( GlobalIds.DESC, entity.getDescription() );
+                entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
 
             // CN attribute is required for this object class:
@@ -183,7 +183,7 @@ final class RoleDAO extends ApacheDsDataProvider
             if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
-                    GlobalIds.DESC, entity.getDescription() ) );
+                    SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
             if ( VUtil.isNotNullOrEmpty( entity.getOccupants() ) )
@@ -639,7 +639,7 @@ final class RoleDAO extends ApacheDsDataProvider
         entity.setSequenceId( sequence );
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName( getAttribute( le, ROLE_NM ) );
-        entity.setDescription( getAttribute( le, GlobalIds.DESC ) );
+        entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.setOccupants( getAttributes( le, ROLE_OCCUPANT ) );
         //entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setChildren( RoleUtil.getChildren( entity.getName().toUpperCase(), contextId ) );

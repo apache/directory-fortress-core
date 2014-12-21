@@ -213,59 +213,19 @@ public class GlobalIds
       */
 
     /**
-     * Constant contains the organization object class name.
-     */
-    public final static String ORGANIZATION_CLASS = "organization";
-
-    /**
-     * Constant contains the ldap distinguished name attribute.
-     */
-    public final static String DN = "dn";
-
-    /**
-     * Used within search operation using the OpenLDAP proxy control.
-     */
-    public final static String UTF8 = "UTF-8";
-
-    /**
-     * Constant contains the description attribute name used within inetOrgPerson and other ldap object classes.
-     */
-    public final static String DESC = "description";
-
-    /**
      * Password policy object class structure uses cn attribute name.
      */
     public final static String POLICY_NODE_TYPE = SchemaConstants.CN_AT;
 
     /*
     *  *************************************************************************
-    *  **  OPENLDAP PW POLICY ATTRIBUTES AND CONSTANTS
+    *  **  OPENLDAP ATTRIBUTES AND CONSTANTS
     *  ************************************************************************
     */
 
     public static final String SERVER_TYPE = "ldap.server.type";
     public static final boolean IS_OPENLDAP = ( ( Config.getProperty( SERVER_TYPE ) != null ) && ( Config
         .getProperty( SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
-
-    /**
-     * OpenLDAP uses this object class to store policy definitions that are processed by the pw policy overlay.
-     */
-    //private final static String OPENLDAP_PW_POLICY_IMPL = "password.policy";
-
-    /**
-     * When openldap password policy is in effect the openldap pw policy response control is interrogated subsequent to bind operations.
-     */
-    //private final static String OPENLDAP_SERVER = "openldap";
-
-    /**
-     * When set to true the pw policy control is interrogated.
-     */
-    //public final static boolean OPENLDAP_IS_PW_POLICY_ENABLED = (org.apache.directory.fortress.cfg.Config.getProperty(GlobalIds.OPENLDAP_PW_POLICY_IMPL) != null && (Config.getProperty(GlobalIds.OPENLDAP_PW_POLICY_IMPL)).equalsIgnoreCase(GlobalIds.OPENLDAP_SERVER));
-
-    /**
-     * This is control id openldap uses to communicate password messages to the ldap client subsequent to bind operations:
-     */
-    public final static String OPENLDAP_PW_RESPONSE_CONTROL = "1.3.6.1.4.1.42.2.27.8.5.1";
 
     /*
       *  *************************************************************************
@@ -306,7 +266,7 @@ public class GlobalIds
     /**
      * This string literal contains a common start for most ldap search filters that fortress uses.
      */
-    public final static String FILTER_PREFIX = "(&(objectclass=";
+    public final static String FILTER_PREFIX = "(&(" + SchemaConstants.OBJECT_CLASS_AT + "=";
 
     /*
       *  *************************************************************************
