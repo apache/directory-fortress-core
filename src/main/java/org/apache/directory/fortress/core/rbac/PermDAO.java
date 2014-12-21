@@ -157,7 +157,7 @@ final class PermDAO extends ApacheDsDataProvider
     private static final String PERM_OBJ_OBJ_CLASS[] =
         {
             SchemaConstants.TOP_OC,
-            "organizationalunit",
+            SchemaConstants.ORGANIZATIONAL_UNIT_OC,
             PERM_OBJ_OBJECT_CLASS_NAME,
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
@@ -166,7 +166,7 @@ final class PermDAO extends ApacheDsDataProvider
     private static final String PERM_OP_OBJ_CLASS[] =
         {
             SchemaConstants.TOP_OC,
-            "organizationalrole",
+            SchemaConstants.ORGANIZATIONAL_ROLE_OC,
             PERM_OP_OBJECT_CLASS_NAME,
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME

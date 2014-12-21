@@ -103,7 +103,6 @@ final class RoleDAO extends ApacheDsDataProvider
       *  **  OpenAccessMgr ROLE STATICS
       *  ************************************************************************
       */
-    private static final String ROLE_OCCUPANT = "roleOccupant";
     private static final String ROLE_NM = "ftRoleName";
 
     private static final String[] ROLE_NM_ATR =
@@ -113,7 +112,7 @@ final class RoleDAO extends ApacheDsDataProvider
 
     private static final String[] ROLE_ATRS =
         {
-            GlobalIds.FT_IID, ROLE_NM, SchemaConstants.DESCRIPTION_AT, GlobalIds.CONSTRAINT, ROLE_OCCUPANT, GlobalIds.PARENT_NODES
+            GlobalIds.FT_IID, ROLE_NM, SchemaConstants.DESCRIPTION_AT, GlobalIds.CONSTRAINT, SchemaConstants.ROLE_OCCUPANT_AT, GlobalIds.PARENT_NODES
     };
 
 
@@ -191,7 +190,7 @@ final class RoleDAO extends ApacheDsDataProvider
                 for ( String name : entity.getOccupants() )
                 {
                     mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
-                        ROLE_OCCUPANT, entity.getOccupants().toArray( new String[]
+                        SchemaConstants.ROLE_OCCUPANT_AT, entity.getOccupants().toArray( new String[]
                             {} ) ) );
                 }
             }
@@ -287,7 +286,7 @@ final class RoleDAO extends ApacheDsDataProvider
         {
             //ld = getAdminConnection();
             List<Modification> mods = new ArrayList<Modification>();
-            mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, ROLE_OCCUPANT, userDn ) );
+            mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, SchemaConstants.ROLE_OCCUPANT_AT, userDn ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
@@ -320,7 +319,7 @@ final class RoleDAO extends ApacheDsDataProvider
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, ROLE_OCCUPANT, userDn ) );
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, SchemaConstants.ROLE_OCCUPANT_AT, userDn ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
@@ -526,7 +525,7 @@ final class RoleDAO extends ApacheDsDataProvider
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")";
-            filter += "(" + ROLE_OCCUPANT + "=" + userDn + "))";
+            filter += "(" + SchemaConstants.ROLE_OCCUPANT_AT + "=" + userDn + "))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, roleRoot,
                 SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE );
@@ -640,7 +639,7 @@ final class RoleDAO extends ApacheDsDataProvider
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName( getAttribute( le, ROLE_NM ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
-        entity.setOccupants( getAttributes( le, ROLE_OCCUPANT ) );
+        entity.setOccupants( getAttributes( le, SchemaConstants.ROLE_OCCUPANT_AT ) );
         //entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setChildren( RoleUtil.getChildren( entity.getName().toUpperCase(), contextId ) );
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );

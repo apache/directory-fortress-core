@@ -68,11 +68,13 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
 {
     private static final String CLS_NM = OrganizationalUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final String ORGUNIT_CLASS = "organizationalunit";
+    //private static final String ORGUNIT_CLASS = "organizationalunit";
+/*
     private static final String[] ORGUNIT_OBJ_CLASS =
         {
             ORGUNIT_CLASS
         };
+*/
 
 
     /**
@@ -111,7 +113,7 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
             LOG.info( "create container dn [{}]",  nodeDn );
 
             Entry myEntry = new DefaultEntry( nodeDn,
-                SchemaConstants.OBJECT_CLASS, ORGUNIT_CLASS,
+                SchemaConstants.OBJECT_CLASS, SchemaConstants.ORGANIZATIONAL_UNIT_OC,
                 SchemaConstants.OU_AT, oe.getName(),
                 SchemaConstants.DESCRIPTION_AT, oe.getDescription() );
 
