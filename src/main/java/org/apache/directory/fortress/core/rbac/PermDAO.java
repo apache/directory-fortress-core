@@ -141,7 +141,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * This class is thread safe.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 final class PermDAO extends ApacheDsDataProvider
 {

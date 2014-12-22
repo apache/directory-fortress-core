@@ -68,7 +68,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * This class is NOT thread safe as it contains instance variables.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public final class AdminMgrRestImpl extends Manageable implements AdminMgr
 {

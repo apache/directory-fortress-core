@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.*;
  * </p>
  * This class is not thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "FortRequest")
 @XmlAccessorType(XmlAccessType.FIELD)

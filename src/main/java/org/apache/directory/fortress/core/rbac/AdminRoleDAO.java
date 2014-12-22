@@ -106,7 +106,7 @@ import org.apache.directory.fortress.core.util.time.CUtil;
  * <p/>
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 final class AdminRoleDAO extends ApacheDsDataProvider
 {

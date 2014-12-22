@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  * <p/>
  * Note: This class allows self-signed certificates to pass the validation checks.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public final class LdapClientTrustStoreManager implements X509TrustManager, Serializable
 {

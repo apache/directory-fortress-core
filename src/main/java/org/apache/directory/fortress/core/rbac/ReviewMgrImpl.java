@@ -62,7 +62,7 @@ import java.util.Set;
  * <p/>
  * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class ReviewMgrImpl extends Manageable implements ReviewMgr
 {

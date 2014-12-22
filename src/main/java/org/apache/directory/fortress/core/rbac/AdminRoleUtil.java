@@ -55,7 +55,7 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  * This class contains singleton that can be updated but is thread safe.
  * <p/>
 
- *  @author Shawn McKinney
+ *  @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public final class AdminRoleUtil
 {

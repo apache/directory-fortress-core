@@ -64,7 +64,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class AccelMgrImpl extends Manageable implements AccelMgr
 {

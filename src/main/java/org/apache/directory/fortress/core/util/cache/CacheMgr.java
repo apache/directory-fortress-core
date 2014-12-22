@@ -34,7 +34,7 @@ import org.apache.directory.fortress.core.rbac.ClassUtil;
  * This class is a facade and shields internal Fortress objects from specifics of the actual
  * cache implementation that is in use.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class CacheMgr
 {

@@ -31,7 +31,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 /**
  * This class provides cache functionality from <a href="http://ehcache.org//">Ehcache</a> provider.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class EhCacheImpl implements Cache
 {

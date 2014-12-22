@@ -60,7 +60,7 @@ import org.apache.directory.fortress.core.rbac.UserRole;
  * <hr>
  * <p/>
  * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(org.apache.directory.fortress.core.rbac.Session)}) are set.
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface AccessMgr extends Manageable
 {

@@ -43,7 +43,7 @@ import java.util.List;
  * </font>
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class Delsuffix
 {

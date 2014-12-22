@@ -23,7 +23,7 @@ package org.apache.directory.fortress.core.ant;
 /**
  * This entity contains the list of name/value pairs targeted for updating on server.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class ConfigAnt
 {

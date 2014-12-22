@@ -25,7 +25,7 @@ import org.apache.directory.fortress.core.rbac.SDSet;
  * Value object wraps {@link SDSet} for caching purposes.  This class also provides attributes that are used for
  * searching the DSD cache.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class DsdCacheEntry
 {

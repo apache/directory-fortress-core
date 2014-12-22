@@ -72,7 +72,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * </pre>
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement( name = "fortUserRole" )
 @XmlAccessorType( XmlAccessType.FIELD )

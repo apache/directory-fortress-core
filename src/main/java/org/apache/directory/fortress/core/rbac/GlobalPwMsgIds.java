@@ -26,7 +26,7 @@ import java.io.Serializable;
 /**
  * This class contains constants that contain status for Fortress password policy checking.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class GlobalPwMsgIds implements Serializable
 {

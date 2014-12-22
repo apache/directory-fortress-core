@@ -25,7 +25,7 @@ package org.apache.directory.fortress.core;
  * This is critical runtime exception and means system is inoperable due to a cfg error.
  * See the {@link GlobalErrIds} javadoc for list of error ids.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class CfgRuntimeException extends BaseRuntimeException
 {

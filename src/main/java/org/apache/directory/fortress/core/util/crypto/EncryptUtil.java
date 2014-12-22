@@ -25,7 +25,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
 /**
  * Contains a simple wrapper for Jasypt open source encryption APIs, see <a href="http://www.jasypt.org/">Jasypt</a>.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class EncryptUtil
 {

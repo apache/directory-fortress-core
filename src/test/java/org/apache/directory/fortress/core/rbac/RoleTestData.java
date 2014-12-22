@@ -40,7 +40,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
 /**
  * Description of the Class
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class RoleTestData extends TestCase
 {

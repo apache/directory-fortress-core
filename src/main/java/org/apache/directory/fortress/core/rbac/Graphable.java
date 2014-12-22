@@ -43,7 +43,7 @@ import java.util.Set;
  * SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface Graphable
 {

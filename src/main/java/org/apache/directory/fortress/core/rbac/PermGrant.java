@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  * This entity is used for Ant and En Masse processing only.
  * <p/>
 
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortGrant")
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -49,7 +49,7 @@ import java.io.Serializable;
  * Note this class used descriptions pulled from man pages on slapd access log.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortBind")
 @XmlAccessorType(XmlAccessType.FIELD)

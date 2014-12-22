@@ -31,7 +31,7 @@ import java.util.Set;
  * </p>
  * This class is not thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "FortResponse")
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 /**
  * * Test class for driving Fortress RBAC runtime policy APIs within a console.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 class ConfigMgrConsole
 {

@@ -71,7 +71,7 @@ import java.util.TreeSet;
  * <p/>
  *
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class AccessMgrRestImpl extends Manageable implements AccessMgr
 {

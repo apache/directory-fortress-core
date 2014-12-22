@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 /**
  * This Junit test class calls all of the Samples.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class AllSamplesJUnitTest extends TestCase
 {

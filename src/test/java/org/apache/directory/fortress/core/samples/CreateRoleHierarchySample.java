@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * Roles constrained by Date and Time can be overridden when the Role is assigned to a User, see {@link CreateUserRoleSample}.
  * Temporal constraints checks will be performed when the Role is activated, see {@link CreateSessionSample}.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class CreateRoleHierarchySample extends TestCase
 {

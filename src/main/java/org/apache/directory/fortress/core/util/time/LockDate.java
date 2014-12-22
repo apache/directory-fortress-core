@@ -38,7 +38,7 @@ import org.apache.directory.fortress.core.rbac.Session;
  * </ol>
  * </p>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class LockDate
     implements Validator

@@ -56,7 +56,7 @@ import java.util.List;
  * Contains the Group node for LDAP Directory Information Tree.
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 final class GroupDAO extends ApacheDsDataProvider
 {

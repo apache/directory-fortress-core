@@ -36,7 +36,7 @@ package org.apache.directory.fortress.core;
  * All Fortress public Manager Impl APIs will throw exception derived from {@link SecurityException} and containing
  * an id that maps to one of these error codes.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class GlobalErrIds
 {

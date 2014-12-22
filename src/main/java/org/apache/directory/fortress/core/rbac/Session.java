@@ -145,7 +145,7 @@ import java.util.UUID;
  * Adm  day mask        [23456]<br />
  * Adm  time out        [30]<br />
  * <p/>
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortSession")
 @XmlAccessorType(XmlAccessType.FIELD)

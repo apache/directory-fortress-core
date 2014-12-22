@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  * extra steps demonstrated in this test class, i.e. reading User after adding, that are for instructional purposes and not required
  * for real world applications.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class CreateUserSample extends TestCase
 {

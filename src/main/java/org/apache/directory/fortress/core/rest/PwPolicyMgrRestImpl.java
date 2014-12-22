@@ -57,7 +57,7 @@ import java.util.List;
  * This class is NOT thread safe.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
 {

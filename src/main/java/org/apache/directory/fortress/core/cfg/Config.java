@@ -46,7 +46,7 @@ import org.apache.directory.fortress.core.SecurityException;
  * This object is thread safe but stores a static reference to Apache Commons Configuration {@link #config} object.
  * </p>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class Config
 {

@@ -162,7 +162,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * <p/>
 
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortAdminRole")
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -47,7 +47,7 @@ import java.util.Set;
  * <p/>
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @created September 3, 2010
  */
 final class SDUtil

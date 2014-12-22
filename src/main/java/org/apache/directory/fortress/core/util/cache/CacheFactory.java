@@ -26,7 +26,7 @@ import net.sf.ehcache.constructs.blocking.BlockingCache;
 /**
  * Creates an instance of the {@link EhCacheImpl} object with a {@link Cache} facade.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 class CacheFactory
 {

@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * This entity is used by en masse to communicate {@link org.apache.directory.fortress.core.rbac.Role}, {@link Permission} and {@link org.apache.directory.fortress.core.rbac.Session} information to the server for access control decisions.
  * <p/>
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortRolePerm")
 @XmlAccessorType(XmlAccessType.FIELD)

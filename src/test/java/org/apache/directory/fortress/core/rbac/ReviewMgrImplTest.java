@@ -42,7 +42,7 @@ import org.apache.directory.fortress.core.util.LogUtil;
 /**
  * ReviewMgrImpl Tester.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version 1.0
  */
 public class ReviewMgrImplTest extends TestCase

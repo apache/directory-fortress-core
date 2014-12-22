@@ -24,7 +24,7 @@ package org.apache.directory.fortress.core.rbac;
 /**
  * Interface is used to allow pluggable password policy interrogation.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface PwPolicyControl
 {

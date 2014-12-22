@@ -54,7 +54,7 @@ import java.util.TreeSet;
  * <p/>
  * This class is thread safe.
  * <p/>
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccessMgr
 {

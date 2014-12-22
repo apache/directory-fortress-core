@@ -40,7 +40,7 @@ import org.apache.directory.fortress.core.ldap.suffix.Suffix;
  * }
  * </pre>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class Addsuffix
 

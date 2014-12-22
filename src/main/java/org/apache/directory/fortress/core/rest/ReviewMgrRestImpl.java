@@ -71,7 +71,7 @@ import java.util.TreeSet;
  * This class is thread safe.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
 {

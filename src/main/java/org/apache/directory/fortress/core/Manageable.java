@@ -30,7 +30,7 @@ import org.apache.directory.fortress.core.rbac.Session;
  * This interface also allows Fortress clients to operate in a multi-tenant fashion using {@link #setContextId(String)}.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface Manageable
 {

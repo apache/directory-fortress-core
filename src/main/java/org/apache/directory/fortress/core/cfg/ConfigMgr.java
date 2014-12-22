@@ -35,7 +35,7 @@ import java.util.Properties;
  * <p/>
 
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface ConfigMgr
 {

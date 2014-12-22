@@ -188,7 +188,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * ------------------------------------------
  * </pre>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 
 @XmlRootElement(name = "fortUser")

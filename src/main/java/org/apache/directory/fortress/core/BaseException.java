@@ -26,7 +26,7 @@ package org.apache.directory.fortress.core;
  * The BaseException class has been extended by {@link SecurityException} which is then declared thrown on most Fortress public APIs.
  * See the {@link GlobalErrIds} javadoc for list of error ids that will be set.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public abstract class BaseException extends Exception implements StandardException
 {

@@ -25,7 +25,7 @@ import java.util.GregorianCalendar;
  * Utility class to convert current time/date into internal format, {@link Time}, used for {@link Constraint} checks {@link CUtil#validateConstraints(org.apache.directory.fortress.core.rbac.Session, CUtil.ConstraintType, boolean)}.
  * This utility processes custom date formats and should not be used by external programs.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class TUtil
 {

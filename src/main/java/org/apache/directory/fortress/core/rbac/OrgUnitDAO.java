@@ -98,7 +98,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <p/>
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @created September 18, 2010
  */
 final class OrgUnitDAO extends ApacheDsDataProvider

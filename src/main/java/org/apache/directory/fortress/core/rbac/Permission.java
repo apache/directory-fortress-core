@@ -202,7 +202,7 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortPermission")
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -47,7 +47,7 @@ import java.io.Serializable;
  * Note this class uses descriptions pulled from man pages on slapo-accesslog.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortAuthZ")
 @XmlAccessorType(XmlAccessType.FIELD)

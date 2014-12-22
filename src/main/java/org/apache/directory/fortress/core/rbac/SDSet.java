@@ -123,7 +123,7 @@ import java.util.UUID;
  * </pre>
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortSet")
 @XmlAccessorType(XmlAccessType.FIELD)

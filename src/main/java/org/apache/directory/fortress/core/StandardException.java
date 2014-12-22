@@ -23,7 +23,7 @@ package org.apache.directory.fortress.core;
  *  Interface that is implemented by exception base class {@link StandardException} used to associate a Fortress error code to the exception instance.
  * See the {@link GlobalErrIds} javadoc for list of error ids used by Fortress.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface StandardException
 {

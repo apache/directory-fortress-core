@@ -38,7 +38,7 @@ import java.util.Enumeration;
 /**
  * Test class for driving Fortress RBAC review API within a console.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 class ReviewMgrConsole
 {

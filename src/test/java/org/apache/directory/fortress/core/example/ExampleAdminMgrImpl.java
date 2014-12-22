@@ -25,7 +25,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 /**
  * Object provides example of Fortress API.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @created December 26, 2010
  */
 public class ExampleAdminMgrImpl implements ExampleAdminMgr

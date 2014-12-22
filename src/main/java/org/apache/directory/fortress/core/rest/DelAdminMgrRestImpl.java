@@ -49,7 +49,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
 {

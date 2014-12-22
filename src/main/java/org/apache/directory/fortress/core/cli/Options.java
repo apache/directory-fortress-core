@@ -38,7 +38,7 @@ import java.util.Vector;
 /**
  * This converts between Fortress entities and the JArg Options.  It contains attributes passed from JArgs command interpreter.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class Options implements java.io.Serializable
 {

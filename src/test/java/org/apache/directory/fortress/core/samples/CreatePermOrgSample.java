@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  * one must be created before any Permissions can be added to the directory.  Each OrgUnit may be related to one or more parent
  * OrgUnits although that functionality is not demonstrated here.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class CreatePermOrgSample extends TestCase
 {

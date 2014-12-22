@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * This entity is used by en masse to communicate parent and child {@link org.apache.directory.fortress.core.rbac.AdminRole} information to the server.
  * <p/>
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortAdminRoleRelationship")
 @XmlAccessorType(XmlAccessType.FIELD)

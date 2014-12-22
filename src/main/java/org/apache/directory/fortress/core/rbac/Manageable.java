@@ -32,7 +32,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * <p/>
  * Implementers of this abstract class will NOT be thread safe because of instance variables that may be set.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public abstract class Manageable implements org.apache.directory.fortress.core.Manageable
 {

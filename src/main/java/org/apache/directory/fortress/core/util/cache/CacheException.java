@@ -28,7 +28,7 @@ import org.apache.directory.fortress.core.BaseRuntimeException;
  * This is critical runtime exception and means system is inoperable due to a caching error.
  * See the {@link org.apache.directory.fortress.core.GlobalErrIds} javadoc for list of error ids.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 class CacheException extends BaseRuntimeException
 {

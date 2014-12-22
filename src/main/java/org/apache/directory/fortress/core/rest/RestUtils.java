@@ -57,7 +57,7 @@ import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
 /**
  * This utility class provides methods that wrap Apache's HTTP Client APIs.  This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class RestUtils
 {

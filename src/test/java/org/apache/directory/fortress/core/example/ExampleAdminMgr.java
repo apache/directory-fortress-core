@@ -24,7 +24,7 @@ import org.apache.directory.fortress.core.SecurityException;
 /**
  * Interface class for ExampleAdminMgrImpl.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @created December 26, 2010
  */
 public interface ExampleAdminMgr

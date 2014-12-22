@@ -59,7 +59,7 @@ import java.util.List;
  *
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 final class AcceleratorDAO extends ApacheDsDataProvider
 {

@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Description of the Class
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class PermTestData extends TestCase
 {

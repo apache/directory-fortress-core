@@ -46,7 +46,7 @@ import static org.junit.Assert.*;
  * FortressAntTask} after it completes
  * its data load.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version 1.0
  */
 public class GroupAntTest implements Testable

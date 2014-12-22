@@ -43,7 +43,7 @@ import java.util.Date;
  * <p/>
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortUserAudit")
 @XmlAccessorType(XmlAccessType.FIELD)

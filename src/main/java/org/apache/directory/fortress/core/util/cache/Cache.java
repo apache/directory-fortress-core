@@ -25,7 +25,7 @@ import net.sf.ehcache.search.Query;
 /**
  * This Interface is implemented by cacheable Fortress objects and is used to wrap the caching implementation to provide isolation.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface Cache
 {

@@ -75,7 +75,7 @@ import java.util.List;
  * </ul>
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class AuditMgrRestImpl extends Manageable implements AuditMgr
 {

@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlType;
  * <li>  ------------------------------------------
  * </ul>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortAddress")
 @XmlAccessorType(XmlAccessType.FIELD)

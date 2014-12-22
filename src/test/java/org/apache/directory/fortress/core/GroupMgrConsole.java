@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 /**
  * * Test class for driving LDAP group APIs within a console.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 class GroupMgrConsole
 {

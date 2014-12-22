@@ -39,7 +39,7 @@ import java.util.List;
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * <p/>
  * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  */

@@ -37,7 +37,7 @@ import java.util.List;
  * Process module for the group node of Fortress directory structure.
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 final class GroupP
 {

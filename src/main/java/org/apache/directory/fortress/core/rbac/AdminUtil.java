@@ -31,7 +31,7 @@ import org.apache.directory.fortress.core.DelAccessMgrFactory;
  * </p>
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 final class AdminUtil
 {

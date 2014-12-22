@@ -32,7 +32,7 @@ import java.io.Serializable;
  * This class contains messages that map to warning that occur during role activation and password policy validation.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 /**
  * This entity is stored on {@link org.apache.directory.fortress.core.rbac.Session} and is used to pass warnings 
@@ -49,7 +49,7 @@ import java.io.Serializable;
  * <li>  ------------------------------------------
  * </ul>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortWarning")
 @XmlAccessorType( XmlAccessType.FIELD)

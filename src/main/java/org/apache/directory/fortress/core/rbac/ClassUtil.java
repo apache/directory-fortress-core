@@ -42,7 +42,7 @@ import java.io.InputStream;
  * <li>{@link org.apache.directory.fortress.core.cfg.ConfigMgrFactory}</li>
  * </ol>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class ClassUtil
 {

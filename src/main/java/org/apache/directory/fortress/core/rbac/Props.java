@@ -34,7 +34,7 @@ import java.util.List;
  * </p>
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  *         <p/>
  *         <p>The following schema fragment specifies the expected content contained within this class.
  *         <p/>

@@ -41,7 +41,7 @@ import org.apache.directory.fortress.core.util.LogUtil;
  * AccelMgrImpl Tester.  This module executes RBAC accelerator client side extended operations.
  * It requires the OpenLDAP RBAC Accelerator Overlay to be configured on the server-side.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class AccelMgrImplTest extends TestCase
 {

@@ -24,7 +24,7 @@ import org.apache.tools.ant.Task;
 /**
  * Interface is extended by custom Ant tasks that require JUnit validation.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface Testable
 {

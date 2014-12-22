@@ -24,7 +24,7 @@ package org.apache.directory.fortress.core;
  *  Base runtime exception class for Fortress runtime exceptions.
  * See the {@link GlobalErrIds} javadoc for list of error ids.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public abstract class BaseRuntimeException extends RuntimeException
 {

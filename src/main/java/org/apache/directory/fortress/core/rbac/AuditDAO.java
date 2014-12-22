@@ -114,7 +114,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * <p/>
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 final class AuditDAO extends ApacheDsDataProvider
 {

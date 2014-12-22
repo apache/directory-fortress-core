@@ -42,7 +42,7 @@ import javax.xml.namespace.QName;
  * type definitions, element declarations and model
  * groups.  Factory methods for each of these are
  * provided in this class.
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  *
  */
 @XmlRegistry

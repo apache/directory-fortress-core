@@ -61,7 +61,7 @@ package org.apache.directory.fortress.core.util.time;
  * </ul>
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface Constraint
 {

@@ -33,7 +33,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * adding the {@link GlobalIds#AUDIT_IMPLEMENTATION} config property.
  * <p/>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class AuditMgrFactory
 {

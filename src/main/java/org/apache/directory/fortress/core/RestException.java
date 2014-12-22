@@ -24,7 +24,7 @@ package org.apache.directory.fortress.core;
  * This exception extends {@link SecurityException} and is thrown when Fortress cannot call En Masse to perform a particular operation via RESTful interface.
  * See the {@link GlobalErrIds} javadoc for list of error ids.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class RestException extends SecurityException
 {

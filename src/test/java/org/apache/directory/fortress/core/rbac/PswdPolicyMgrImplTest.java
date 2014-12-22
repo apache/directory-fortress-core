@@ -44,7 +44,7 @@ import org.apache.directory.fortress.core.util.LogUtil;
 /**
  * PwPolicyMgrImpl Tester.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version 1.0
  */
 public class PswdPolicyMgrImplTest extends TestCase

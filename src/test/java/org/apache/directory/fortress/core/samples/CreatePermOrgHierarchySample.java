@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  * inheritance between OrgUnits and there are no limits on how deep a hierarchy can be.  The OrgUnits require name and type.  Optionally can
  * include a description.  The Permission OrgUnit must be associated with PermObj and are used to provide Administratrive RBAC control
  * over who may perform Permission grants and revocations in directory.
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class CreatePermOrgHierarchySample extends TestCase
 {

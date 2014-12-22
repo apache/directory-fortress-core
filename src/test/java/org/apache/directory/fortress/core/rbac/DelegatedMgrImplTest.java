@@ -51,7 +51,7 @@ import org.apache.directory.fortress.core.util.LogUtil;
 /**
  * DelegatedMgrImpl Tester.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
   */
 public class DelegatedMgrImplTest extends TestCase
 {

@@ -54,7 +54,7 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  * This class uses synchronized data sets ({@link #ouCache} but is thread safe.
  * <p/>
 
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public final class OrgUnitP
 {

@@ -45,7 +45,7 @@ import org.apache.directory.fortress.core.GlobalIds;
  * during repeat of buildup phase,
  * delete the old test data manually in directory before trying again.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class FortressJUnitTest extends TestCase
 {

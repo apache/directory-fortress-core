@@ -41,7 +41,7 @@ import java.util.List;
  * CreatePermSample JUnit Test demonstrates creation of Fortress permissions.  It also shows how
  * permissions may be granted to Roles and Users.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class CreatePermSample extends TestCase
 {

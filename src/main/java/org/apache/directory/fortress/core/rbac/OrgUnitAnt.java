@@ -26,7 +26,7 @@ import java.io.Serializable;
  * Entity is used by custom Apache Ant task for special handling of collections.  This is necessary because the
  * Ant parser cannot deal with complex data attribute types.  The class extends a base entity.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class OrgUnitAnt extends OrgUnit implements Serializable
 {

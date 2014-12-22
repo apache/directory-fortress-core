@@ -33,7 +33,7 @@ import javax.xml.bind.Unmarshaller;
  * <p/>
  * This class is thread safe.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @SuppressWarnings( "rawtypes" )
 public class CachedJaxbContext

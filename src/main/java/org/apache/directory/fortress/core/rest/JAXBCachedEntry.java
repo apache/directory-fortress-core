@@ -26,7 +26,7 @@ import javax.xml.bind.JAXBException;
  * This class wraps JAXBContext and is used for simple caching mechanism during Fortress XML processing.
  * The intent is to leave future extension point in case schema validation is needed which prevents handling in cache itself.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @SuppressWarnings( "rawtypes" )
 public class JAXBCachedEntry

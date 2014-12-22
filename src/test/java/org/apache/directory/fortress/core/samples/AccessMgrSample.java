@@ -49,7 +49,7 @@ import org.apache.directory.fortress.core.rbac.UserRole;
  * thick client applications (i.e. Applets) unless the thick client is running on a machine that is "behind the firewall" (or on VPN) that
  * are common to enterprise data center runtime environments.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class AccessMgrSample extends TestCase
 {

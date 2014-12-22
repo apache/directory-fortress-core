@@ -42,7 +42,7 @@ import org.apache.directory.fortress.core.util.time.CUtil;
 /**
  * AdminMgrImpl Tester.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class AdminMgrImplTest extends TestCase
 {

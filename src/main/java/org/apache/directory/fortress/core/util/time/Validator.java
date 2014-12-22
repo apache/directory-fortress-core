@@ -53,7 +53,7 @@ import org.apache.directory.fortress.core.rbac.Session;
  * <li>{@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_DSD}</li>
  * </ol>
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface Validator
 {

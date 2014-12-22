@@ -42,7 +42,7 @@ import java.util.List;
  * and error status flags that were set during User's previous CreateSession invocation.
  *
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class CreateSessionSample extends TestCase
 {
