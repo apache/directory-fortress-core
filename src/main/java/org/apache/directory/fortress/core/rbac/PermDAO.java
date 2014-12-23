@@ -883,7 +883,7 @@ final class PermDAO extends ApacheDsDataProvider
         }
         finally
         {
-            closeUserConnection( ld );
+            closeAdminConnection( ld );
         }
 
         return isAuthZd;

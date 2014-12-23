@@ -894,7 +894,7 @@ final class UserDAO extends ApacheDsDataProvider
         }
         catch ( LdapAuthenticationException e )
         {
-            String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "]";
+            String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "] exception";
             session.setMsg( info );
             session.setErrorId( GlobalErrIds.USER_PW_INVLD );
             session.setAuthenticated( false );
