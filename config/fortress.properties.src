@@ -43,16 +43,16 @@ admin.pw=@CFG_ROOT_PW@
 min.admin.conn=@ADM_MIN_CONN@
 max.admin.conn=@ADM_MAX_CONN@
 
-# This is min/max settings for LDAP administrator pool connections that have read/write access to all nodes under suffix:
-min.admin.conn=@ADM_MIN_CONN@
-max.admin.conn=@ADM_MAX_CONN@
+# This is min/max connection pool settings for LDAP User authentication connection pool:
+min.user.conn=@USR_MIN_CONN@
+max.user.conn=@USR_MAX_CONN@
 
 # These credentials are used for read/write access to all nodes under slapd access log suffix:
 log.admin.user=@LOG_ROOT_DN@
 # For corresponding log user:
 log.admin.pw=@CFG_LOG_ROOT_PW@
 
-# This is min/max settings for LDAP administrator pool connections that have read/write access to all nodes under suffix:
+# This is min/max settings for LDAP connections to read slapo access log:
 min.log.conn=@LOG_MIN_CONN@
 max.log.conn=@LOG_MAX_CONN@
 
