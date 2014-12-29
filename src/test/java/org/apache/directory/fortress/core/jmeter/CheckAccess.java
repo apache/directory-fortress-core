@@ -97,7 +97,7 @@ public class CheckAccess extends AbstractJavaSamplerClient
             }
 
 
-            message += "CheckAccess userId: " + userId + ", objName:" + objName + ", opName: " + opName;
+            message += "CheckAccess isFortress: " + isFortress + ", userId: " + userId + ", objName:" + objName + ", opName: " + opName;
 /*
             LOG.info( message );
             System.out.println( message );
@@ -179,6 +179,36 @@ public class CheckAccess extends AbstractJavaSamplerClient
                 user.setPassword( "secret".toCharArray() );
                 if( VUtil.isNotNullOrEmpty( val ) && val.equals( "1" ))
                 {
+                    message = "AC SETUP CreateSession, User: " + user.getUserId() + ", key: " + key + ", TID: " + getThreadId();
+                    isFortress = false;
+
+                    LOG.info( message );
+                    System.out.println( message );
+
+                    message = "ThreadId:" + getThreadId() + ", createSession user: " + user.getUserId();
+                    LOG.info( message );
+                    System.out.println( message );
+
+                    accelMgr = AccelMgrFactory.createInstance( TestUtils.getContext() );
+                    session = accelMgr.createSession( user, false );
+                }
+                else
+                {
+                    message = "FT SETUP CreateSession, User: " + user.getUserId() + ", key: " + key + ", TID: " + getThreadId();
+                    isFortress = true;
+
+                    LOG.info( message );
+                    System.out.println( message );
+                    message = "ThreadId:" + getThreadId() + ", createSession user: " + user.getUserId();
+                    LOG.info( message );
+                    System.out.println( message );
+
+                    accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+                    session = accessMgr.createSession( user, false );
+                }
+/*
+                if( VUtil.isNotNullOrEmpty( val ) && val.equals( "1" ))
+                {
                     message = "FT SETUP CreateSession, User: " + user.getUserId() + ", key: " + key + ", TID: " + getThreadId();
                     isFortress = true;
                     accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
@@ -191,8 +221,11 @@ public class CheckAccess extends AbstractJavaSamplerClient
                     accelMgr = AccelMgrFactory.createInstance( TestUtils.getContext() );
                     session = accelMgr.createSession( user, false );
                 }
+*/
+/*
                 LOG.info( message );
                 System.out.println( message );
+*/
             }
 
             assertNotNull( session );
@@ -200,8 +233,9 @@ public class CheckAccess extends AbstractJavaSamplerClient
         }
         catch ( SecurityException se )
         {
-            String error = "setupTest ThreadId:" + getThreadId() + " Error starting test: " + se;
-            LOG.error( "ThreadId:" + getThreadId() + "Error running test: " + se );
+            String error = "ThreadId:" + getThreadId() + " Error starting test: " + se;
+            System.out.println( error );
+            LOG.error( error );
             se.printStackTrace();
             fail(error);
         }

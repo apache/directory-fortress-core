@@ -167,6 +167,7 @@ public abstract class ApacheDsDataProvider
         int max = Config.getInt( LDAP_ADMIN_POOL_MAX, 10 );
         int logmin = Config.getInt( LDAP_LOG_POOL_MIN, 1 );
         int logmax = Config.getInt( LDAP_LOG_POOL_MAX, 10 );
+        LOG.info( "LDAP POOL:  host=[{}], port=[{}], min=[{}], max=[{}]", host, port, min, max);
 
         if ( IS_SET_TRUST_STORE_PROP )
         {
@@ -236,6 +237,8 @@ public abstract class ApacheDsDataProvider
         adminPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
         adminPool.setMaxActive( max );
         adminPool.setMinIdle( min );
+        adminPool.setMaxIdle( -1 );
+        //adminPool.setMaxWait( 0 );
 
         // Create the User pool
         userPool = new LdapConnectionPool( poolFactory );
@@ -243,6 +246,7 @@ public abstract class ApacheDsDataProvider
         userPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
         userPool.setMaxActive( max );
         userPool.setMinIdle( min );
+        userPool.setMaxIdle( -1 );
 
         // This pool of access log connections is used by {@link org.apache.directory.fortress.AuditMgr}.
         // To enable, set {@code log.admin.user} && {@code log.admin.pw} inside fortress.properties file:
