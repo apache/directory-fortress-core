@@ -143,6 +143,7 @@ ppolicy_hash_cleartext
 @IS_RBAC_ACCELERATOR@suffix     "@SESSIONS_DN@"
 @IS_RBAC_ACCELERATOR@rootdn	    "cn=manager,@SESSIONS_DN@"
 @IS_RBAC_ACCELERATOR@rootpw	    @LOG_ROOT_PW@
+@IS_RBAC_ACCELERATOR@index  rbacSessid  eq
 @IS_RBAC_ACCELERATOR@directory  "@RBACSESS_DB_PATH@"
 @IS_RBAC_ACCELERATOR@overlay     dds
 @IS_RBAC_ACCELERATOR@dds-default-ttl 3600
