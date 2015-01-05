@@ -36,6 +36,7 @@ class ProcessMenuCommand
     final private AdminMgrConsole adminConsole = new AdminMgrConsole();
     final private ReviewMgrConsole reviewConsole = new ReviewMgrConsole();
     final private AccessMgrConsole accessConsole = new AccessMgrConsole();
+    final private AccelMgrConsole accelConsole = new AccelMgrConsole();
     final private PolicyMgrConsole policyConsole = new PolicyMgrConsole();
     final private AuditMgrConsole auditConsole = new AuditMgrConsole();
     final private DelegatedAdminMgrConsole delAdminConsole = new DelegatedAdminMgrConsole();
@@ -63,6 +64,7 @@ class ProcessMenuCommand
         System.out.println( "9. CONFIG MANAGER FUNCTIONS" );
         System.out.println( "A. ENCRYPTION MANAGER FUNCTIONS" );
         System.out.println( "B. GROUP MANAGER FUNCTIONS" );
+        System.out.println( "C. ACCEL MANAGER FUNCTIONS" );
         System.out.println( "Enter q or Q to quit" );
     }
 
@@ -117,6 +119,10 @@ class ProcessMenuCommand
                     case 'b':
                     case 'B':
                         processGroupManagerFunction();
+                        break;
+                    case 'c':
+                    case 'C':
+                        processAccelFunction();
                         break;
                     case 'q':
                     case 'Q':
@@ -745,6 +751,75 @@ class ProcessMenuCommand
         catch ( Exception e )
         {
             LOG.error( "Exception caught in processAccessFunction = " + e );
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     *
+     */
+    private void showAccelFunctionMenu()
+    {
+        ReaderUtil.clearScreen();
+        System.out.println( "CHOOSE ACCEL MANAGER FUNCTION" );
+        System.out.println( "1. Create Session" );
+        System.out.println( "2. Check Access - RBAC" );
+        System.out.println( "3. Session Roles" );
+        System.out.println( "4. Add Active Role to Session" );
+        System.out.println( "5. Drop Active Role from Session" );
+        System.out.println( "6. Delete Session" );
+        System.out.println( "Enter q or Q to return to previous menu" );
+    }
+
+
+    /**
+     *
+     */
+    void processAccelFunction()
+    {
+        BufferedReader br = new BufferedReader( new InputStreamReader( System.in ) );
+        boolean done = false;
+        int input;
+
+        try
+        {
+            while ( !done )
+            {
+                showAccelFunctionMenu();
+                input = br.read();
+                switch ( input )
+                {
+                    case '1':
+                        accelConsole.createSession();
+                        break;
+                    case '2':
+                        accelConsole.checkAccess();
+                        break;
+                    case '3':
+                        accelConsole.sessionRoles();
+                        break;
+                    case '4':
+                        accelConsole.addActiveRole();
+                        break;
+                    case '5':
+                        accelConsole.dropActiveRole();
+                        break;
+                    case '6':
+                        accelConsole.deleteSession();
+                        break;
+                    case 'q':
+                    case 'Q':
+                        done = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        catch ( Exception e )
+        {
+            LOG.error( "Exception caught in processAccelFunction = " + e );
             e.printStackTrace();
         }
     }
