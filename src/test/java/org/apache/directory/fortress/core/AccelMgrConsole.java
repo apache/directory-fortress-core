@@ -159,9 +159,12 @@ class AccelMgrConsole
         {
             VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, "AccelMgrConsole.addActiveRole");
             ReaderUtil.clearScreen();
+            System.out.println("Enter userId");
+            String userId = ReaderUtil.readLn();
+            ReaderUtil.clearScreen();
             System.out.println("Enter role name");
             String role = ReaderUtil.readLn();
-            am.addActiveRole(session, new UserRole(role));
+            am.addActiveRole(session, new UserRole(userId, role));
             System.out.println("addActiveRole successful");
             System.out.println("ENTER to continue");
         }
@@ -178,9 +181,12 @@ class AccelMgrConsole
         {
             VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, "AccelMgrConsole.dropActiveRole");
             ReaderUtil.clearScreen();
+            System.out.println("Enter userId");
+            String userId = ReaderUtil.readLn();
+            ReaderUtil.clearScreen();
             System.out.println("Enter role name");
             String role = ReaderUtil.readLn();
-            am.dropActiveRole( session, new UserRole( role ) );
+            am.dropActiveRole( session, new UserRole( userId, role ) );
             System.out.println("dropActiveRole successful");
             System.out.println("ENTER to continue");
         }
