@@ -96,13 +96,11 @@ public class CheckAccess extends AbstractJavaSamplerClient
                 message = "AC ";
             }
 
-
             message += "CheckAccess isFortress: " + isFortress + ", userId: " + userId + ", objName:" + objName + ", opName: " + opName;
 /*
             LOG.info( message );
             System.out.println( message );
 */
-
             assertNotNull( session );
             assertTrue( session.isAuthenticated() );
             Permission perm = new Permission();
@@ -130,7 +128,8 @@ public class CheckAccess extends AbstractJavaSamplerClient
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
             String error = "ThreadId:" + getThreadId() + "Error running test: " + se;
-            LOG.error( "ThreadId:" + getThreadId() + "Error running test: " + se );
+            LOG.error( error );
+            System.out.println( error );
             se.printStackTrace();
             fail( error );
             sampleResult.setSuccessful( false );
@@ -164,8 +163,11 @@ public class CheckAccess extends AbstractJavaSamplerClient
         ctr = 0;
         if(!VUtil.isNotNullOrEmpty( userId ))
         {
+            // Load userids are format:  loadtestuserN - where N is a number between 0 and 99.
+            // i.e. loadtestuser0,  loadtestuser1,  ... loadtestuser99
+            // N is threadid mod 100.
             key = getKey();
-            userId = "loadtestuser" + key;
+            userId = "loadtestuser" + key % 100;
         }
         try
         {
