@@ -30,15 +30,7 @@
           <stringProp name="LoopController.loops">50000</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">25</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
-
-          <!--stringProp name="LoopController.loops">50000</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">20</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">5</stringProp-->
-
-        <!--longProp name="ThreadGroup.start_time">1397479644000</longProp>
-        <longProp name="ThreadGroup.end_time">1397479644000</longProp-->
+        <stringProp name="ThreadGroup.ramp_time">25</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
