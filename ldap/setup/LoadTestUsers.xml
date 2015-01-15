@@ -540,6 +540,7 @@
             </addpermgrant>
 
             <deluser>
+                <user userId="loadtestuser0"/>
                 <user userId="loadtestuser1"/>
                 <user userId="loadtestuser2"/>
                 <user userId="loadtestuser3"/>
@@ -639,10 +640,10 @@
                 <user userId="loadtestuser97"/>
                 <user userId="loadtestuser98"/>
                 <user userId="loadtestuser99"/>
-                <user userId="loadtestuser100"/>
             </deluser>
 
             <adduser>
+                <user userId="loadtestuser0" password="secret" description="Load Test User" ou="loadtestu" cn="User Test1" sn="Test1"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" />
                 <user userId="loadtestuser1" password="secret" description="Load Test User" ou="loadtestu" cn="User Test1" sn="Test1"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" />
                 <user userId="loadtestuser2" password="secret" description="Load Test User" ou="loadtestu" cn="User Test2" sn="Test2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" />
                 <user userId="loadtestuser3" password="secret" description="Load Test User" ou="loadtestu" cn="User Test3" sn="Test3"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" />
@@ -742,10 +743,20 @@
                 <user userId="loadtestuser97" password="secret" description="Load Test User" ou="loadtestu" cn="User Test97" sn="Test97"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" />
                 <user userId="loadtestuser98" password="secret" description="Load Test User" ou="loadtestu" cn="User Test98" sn="Test98"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" />
                 <user userId="loadtestuser99" password="secret" description="Load Test User" ou="loadtestu" cn="User Test99" sn="Test99"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" />
-                <user userId="loadtestuser100" password="secret" description="Load Test User" ou="loadtestu" cn="User Test100" sn="Test100"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" />
             </adduser>
 
             <deluserrole>
+                <userrole userId="loadtestuser0" name="loadtestrole1"/>
+                <userrole userId="loadtestuser0" name="loadtestrole2"/>
+                <userrole userId="loadtestuser0" name="loadtestrole3"/>
+                <userrole userId="loadtestuser0" name="loadtestrole4"/>
+                <userrole userId="loadtestuser0" name="loadtestrole5"/>
+                <userrole userId="loadtestuser0" name="loadtestrole6"/>
+                <userrole userId="loadtestuser0" name="loadtestrole7"/>
+                <userrole userId="loadtestuser0" name="loadtestrole8"/>
+                <userrole userId="loadtestuser0" name="loadtestrole9"/>
+                <userrole userId="loadtestuser0" name="loadtestrole10"/>
+
                 <userrole userId="loadtestuser1" name="loadtestrole1"/>
                 <userrole userId="loadtestuser1" name="loadtestrole2"/>
                 <userrole userId="loadtestuser1" name="loadtestrole3"/>
@@ -1834,20 +1845,20 @@
                 <userrole userId="loadtestuser99" name="loadtestrole8"/>
                 <userrole userId="loadtestuser99" name="loadtestrole9"/>
                 <userrole userId="loadtestuser99" name="loadtestrole10"/>
-
-                <userrole userId="loadtestuser100" name="loadtestrole1"/>
-                <userrole userId="loadtestuser100" name="loadtestrole2"/>
-                <userrole userId="loadtestuser100" name="loadtestrole3"/>
-                <userrole userId="loadtestuser100" name="loadtestrole4"/>
-                <userrole userId="loadtestuser100" name="loadtestrole5"/>
-                <userrole userId="loadtestuser100" name="loadtestrole6"/>
-                <userrole userId="loadtestuser100" name="loadtestrole7"/>
-                <userrole userId="loadtestuser100" name="loadtestrole8"/>
-                <userrole userId="loadtestuser100" name="loadtestrole9"/>
-                <userrole userId="loadtestuser100" name="loadtestrole10"/>
             </deluserrole>
 
             <adduserrole>
+                <userrole userId="loadtestuser0" name="loadtestrole1"/>
+                <userrole userId="loadtestuser0" name="loadtestrole2"/>
+                <userrole userId="loadtestuser0" name="loadtestrole3"/>
+                <userrole userId="loadtestuser0" name="loadtestrole4"/>
+                <userrole userId="loadtestuser0" name="loadtestrole5"/>
+                <userrole userId="loadtestuser0" name="loadtestrole6"/>
+                <userrole userId="loadtestuser0" name="loadtestrole7"/>
+                <userrole userId="loadtestuser0" name="loadtestrole8"/>
+                <userrole userId="loadtestuser0" name="loadtestrole9"/>
+                <userrole userId="loadtestuser0" name="loadtestrole10"/>
+
                 <userrole userId="loadtestuser1" name="loadtestrole1"/>
                 <userrole userId="loadtestuser1" name="loadtestrole2"/>
                 <userrole userId="loadtestuser1" name="loadtestrole3"/>
@@ -2936,17 +2947,6 @@
                 <userrole userId="loadtestuser99" name="loadtestrole8"/>
                 <userrole userId="loadtestuser99" name="loadtestrole9"/>
                 <userrole userId="loadtestuser99" name="loadtestrole10"/>
-
-                <userrole userId="loadtestuser100" name="loadtestrole1"/>
-                <userrole userId="loadtestuser100" name="loadtestrole2"/>
-                <userrole userId="loadtestuser100" name="loadtestrole3"/>
-                <userrole userId="loadtestuser100" name="loadtestrole4"/>
-                <userrole userId="loadtestuser100" name="loadtestrole5"/>
-                <userrole userId="loadtestuser100" name="loadtestrole6"/>
-                <userrole userId="loadtestuser100" name="loadtestrole7"/>
-                <userrole userId="loadtestuser100" name="loadtestrole8"/>
-                <userrole userId="loadtestuser100" name="loadtestrole9"/>
-                <userrole userId="loadtestuser100" name="loadtestrole10"/>
             </adduserrole>
 
         </FortressAdmin>
