@@ -719,6 +719,11 @@
         <move todir="${db.bak.audit.dir}/${TODAY}" failonerror="false">
             <fileset dir="${db.audit.dir}"/>
         </move>
+        <echo message="###############  Backup old RBAC ACCEL OVERLAY LMDB session folder  ###############"/>
+        <move todir="${db.bak.sess.dir}/${TODAY}" failonerror="false">
+            <fileset dir="${db.sess.dir}"/>
+        </move>
+
         <echo message="###############  Create RBAC ACCEL OVERLAY session folder  ###############"/>
         <mkdir dir="${db.sess.dir}"/>
         <echo message="###############  Create RBAC ACCEL OVERLAY audit folder  ###############"/>
