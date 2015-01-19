@@ -751,6 +751,46 @@
             </build>
         </profile>
 
+        <!--
+        To execute: ./m.sh -Ploadtest-acca jmeter:jmeter
+        -->
+        <profile>
+            <id>loadtest-acca</id>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>com.lazerycode.jmeter</groupId>
+                        <artifactId>jmeter-maven-plugin</artifactId>
+                        <version>1.10.0</version>
+                        <configuration>
+                            <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+                            <suppressJMeterOutput>false</suppressJMeterOutput>
+                            <testFilesIncluded>
+                                <jMeterTestFile>acCreateSession.jmx</jMeterTestFile>
+                            </testFilesIncluded>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>jmeter-tests</id>
+                                <goals>
+                                    <goal>jmeter</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>log4j</groupId>
+                                <artifactId>log4j</artifactId>
+                                <version>${version.log4j}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>apache-release</id>
             <build>

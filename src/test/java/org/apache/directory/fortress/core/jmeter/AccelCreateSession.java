@@ -62,8 +62,8 @@ public class AccelCreateSession extends AbstractJavaSamplerClient
             String fiKey = getKey( Thread.currentThread().getId() );
             assertNotNull( accelMgr );
             String message = "AC CreateSession TID: " + getThreadId() + " #:" + ctr++;
-            LOG.info( message );
-            System.out.println( message );
+            LOG.debug( message );
+            //System.out.println( message );
             Session session;
             User user = new User();
             // positive test case:
