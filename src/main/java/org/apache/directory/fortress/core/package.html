@@ -27,14 +27,14 @@
          are organized into categories or 'Managers'.  Each manager controls a specific area of functionality.
       <h3>Managers</h3>
           <ol>
-          <li>{@link org.apache.directory.fortress.AccessMgr} is used for RBAC runtime security checking</li>
-          <li>{@link org.apache.directory.fortress.AdminMgr} is for RBAC provisioning</li>
-          <li>{@link org.apache.directory.fortress.AuditMgr} is for interrogating OpenLDAP audit and historical logs</li>
-          <li>{@link org.apache.directory.fortress.DelAccessMgr} is used for ARBAC runtime security checking</li>
-          <li>{@link org.apache.directory.fortress.DelAdminMgr} is for ARBAC provisioning</li>
-          <li>{@link org.apache.directory.fortress.DelReviewMgr} is used to interrogate ARBAC policy</li>
-          <li>{@link org.apache.directory.fortress.PwPolicyMgr} is for performing OpenLDAP pwpolicy provisioning and interrogation</li>
-          <li>{@link org.apache.directory.fortress.ReviewMgr} is used to interrogate RBAC policy</li>
+          <li>{@link org.apache.directory.fortress.core.AccessMgr} is used for RBAC runtime security checking</li>
+          <li>{@link org.apache.directory.fortress.core.AdminMgr} is for RBAC provisioning</li>
+          <li>{@link org.apache.directory.fortress.core.AuditMgr} is for interrogating OpenLDAP audit and historical logs</li>
+          <li>{@link org.apache.directory.fortress.core.DelAccessMgr} is used for ARBAC runtime security checking</li>
+          <li>{@link org.apache.directory.fortress.core.DelAdminMgr} is for ARBAC provisioning</li>
+          <li>{@link org.apache.directory.fortress.core.DelReviewMgr} is used to interrogate ARBAC policy</li>
+          <li>{@link org.apache.directory.fortress.core.PwPolicyMgr} is for performing OpenLDAP pwpolicy provisioning and interrogation</li>
+          <li>{@link org.apache.directory.fortress.core.ReviewMgr} is used to interrogate RBAC policy</li>
           </ol>
       </p>
       <p>
@@ -135,12 +135,12 @@
       The following APIs generate events subsequently stored in this access log:
       </h4>
       <ul>
-      <li> {@link org.apache.directory.fortress.AccessMgr}
-      <li> {@link org.apache.directory.fortress.AdminMgr}
-      <li> {@link org.apache.directory.fortress.AdminMgr}
-      <li> {@link org.apache.directory.fortress.DelAdminMgr}
-      <li> {@link org.apache.directory.fortress.cfg.ConfigMgr}
-      <li> {@link org.apache.directory.fortress.PwPolicyMgr}
+      <li> {@link org.apache.directory.fortress.core.AccessMgr}
+      <li> {@link org.apache.directory.fortress.core.AdminMgr}
+      <li> {@link org.apache.directory.fortress.core.AdminMgr}
+      <li> {@link org.apache.directory.fortress.core.DelAdminMgr}
+      <li> {@link org.apache.directory.fortress.core.cfg.ConfigMgr}
+      <li> {@link org.apache.directory.fortress.core.PwPolicyMgr}
       </ul>
       </p>
    </body>
