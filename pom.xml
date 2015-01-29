@@ -115,6 +115,7 @@
         <version.maven.source.plugin>2.2.1</version.maven.source.plugin>
         <version.maven.shade.plugin>2.3</version.maven.shade.plugin>
         <version.maven.surefire.plugin>2.17</version.maven.surefire.plugin>
+        <javadoc.version>2.9.1</javadoc.version>
 
         <!-- Jars -->
         <version.accelerator.api>1.0-RC40</version.accelerator.api>
@@ -596,6 +597,23 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javadoc.version}</version>
+                <configuration>
+                    <stylesheet>java</stylesheet>
+                    <bottom>"&lt;small&gt;Copyright &amp;copy; 2003-2015, The Apache Software Foundation. All Rights Reserved. Generated ${maven.build.timestamp}&lt;/small&gt;"</bottom>
+                    <overview>src/main/java/org/apache/directory/fortress/core/overview.html</overview>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <includes></includes>
+                    <version>true</version>
+                    <author>true</author>
+                    <doctitle>Apache Fortress Identity and Access Management ${version}</doctitle>
+                    <windowtitle>Apache Fortress Identity and Access Management ${version}</windowtitle>
+                </configuration>
             </plugin>
 
             <plugin>
