@@ -1,0 +1,182 @@
+<!--
+ *   Licensed to the Apache Software Foundation (ASF) under one
+ *   or more contributor license agreements.  See the NOTICE file
+ *   distributed with this work for additional information
+ *   regarding copyright ownership.  The ASF licenses this file
+ *   to you under the Apache License, Version 2.0 (the
+ *   "License"); you may not use this file except in compliance
+ *   with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing,
+ *   software distributed under the License is distributed on an
+ *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *   KIND, either express or implied.  See the License for the
+ *   specific language governing permissions and limitations
+ *   under the License.
+ *
+-->
+<html>
+   <head>
+       <title>Apache Fortress Quickstart</title>
+       <hr>
+       <fieldset>
+           <legend><b>Navigation Links</b></legend>
+           <ul>
+               <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
+               <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
+               <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
+               <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
+               <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
+               <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
+           </ul>
+           <li><a href="./apache-fortress-quickstart.html">Apache Fortress Quickstart</a></li>
+       </fieldset>
+       <hr>
+   </head>
+   <body>
+      <h3>Build Apache Fortress Web</h3>
+
+      <h4>This section describes how to install and use the Fortress Web Application for RBAC Administration </h4>
+
+      <ol>
+
+          <li>
+              Clone the Apache Fortress Web Git repo:
+            <pre>
+                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-web.git
+                </p>
+            </pre>
+
+          </li>
+
+          <li>
+            Set JAVA_HOME:
+            <pre>
+                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# export JAVA_HOME=/opt/jdk1.7.0_10/
+                </p>
+            </pre>
+
+          </li>
+
+          <li>
+              Change directory:
+            <pre>
+                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# cd directory-fortress-commander/
+                </p>
+            </pre>
+          </li>
+
+          <li>
+              Set M2_HOME:
+            <pre>
+                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# export M2_HOME=/usr/local/maven-version
+                </p>
+            </pre>
+          </li>
+
+          <br>
+
+          <li>
+              Copy the fortress.properties, created on step <a href="./apache-fortress-core.html">Build Apache Fortress Core</a>, to this package's resource folder.
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# cp [directory-fortress-core]/config/fortress.properties [directory-fortress-web]/src/main/resources
+                    </p>
+                </pre>
+              Where [directory-fortress-core] is base folder of the fortress core source package and [directory-fortress-web] is the current package's home folder.
+          </li>
+
+          <br>
+
+          <li>
+              To deploy fortress web, run this command:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# $M2_HOME/bin/mvn tomcat:deploy
+                    </p>
+                </pre>
+          </li>
+
+          <li>
+              To redeploy:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# $M2_HOME/bin/mvn tomcat:redeploy
+                    </p>
+                </pre>
+          </li>
+
+          <li>
+              Connect to web app:
+              <br><br>
+              <ol type="a">
+                  <li>
+                      non-SSL -
+                      local: <a href="http://localhost:8080/fortress-web">http://localhost:8080/fortress-web</a>,
+                      remote: <a href="http://fortressdemo2.com:8080/fortress-web">http://fortressdemo2.com:8080/fortress-web</a>
+                      <br>
+                  </li>
+                  <br>
+                  <li>
+                      SSL -
+                      local: <a href="https://localhost:8443/fortress-web">https://localhost:8443/fortress-web</a>,
+                      remote: <a href="https://fortressdemo2.com:8443/fortress-web">https://fortressdemo2.com:8443/fortress-web</a>
+                  </li>
+                  <br>
+                  Accept the self-signed certificate when the warning dialog appears.
+              </ol>
+
+          </li>
+
+          <br>
+
+          <li>
+              Try the various user accounts:
+              <br><br>
+              <ol type="a">
+                  <li>
+                      <b>userId</b>: <i>test</i>, <b>password</b>: <i>test</i>
+                  </li>
+                  <br>
+                  <li>
+                      <b>userId</b>: <i>test1</i>, <b>password</b>: <i>test</i>
+                  </li>
+                  <br>
+                  <li>
+                      <b>userId</b>: <i>test2</i>, <b>password</b>: <i>test</i>
+                  </li>
+                  <br>
+                  <li>
+                      <b>userId</b>: <i>test3</i>, <b>password</b>: <i>test</i>
+                  </li>
+              </ol>
+          </li>
+          <br>
+          <li>
+              View the audit trail.  The <i>test</i> user has access to view the following audit trail reports:
+              <ul>
+                  <br>
+                  <li>
+                      <b>BINDS</b> shows authentication events
+                  </li>
+                  <br>
+                  <li>
+                      <b>AUTHZ</b> shows authorization events
+                  </li>
+                  <br>
+                  <li>
+                      <b>MODS</b> shows historical changes to the data elements.
+                  </li>
+              </ul>
+          </li>
+      </ol>
+
+   </body>
+   <p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights Reserved.</p>
+</html>

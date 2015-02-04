@@ -1,0 +1,98 @@
+<!--
+ *   Licensed to the Apache Software Foundation (ASF) under one
+ *   or more contributor license agreements.  See the NOTICE file
+ *   distributed with this work for additional information
+ *   regarding copyright ownership.  The ASF licenses this file
+ *   to you under the Apache License, Version 2.0 (the
+ *   "License"); you may not use this file except in compliance
+ *   with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing,
+ *   software distributed under the License is distributed on an
+ *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *   KIND, either express or implied.  See the License for the
+ *   specific language governing permissions and limitations
+ *   under the License.
+ *
+-->
+<html>
+<head>
+    <title>Apache Fortress Quickstart</title>
+    <hr>
+    <fieldset>
+        <legend><b>Navigation Links</b></legend>
+        <ul>
+            <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
+            <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
+            <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
+            <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
+            <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
+            <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
+        </ul>
+        <li><a href="./apache-fortress-quickstart.html">Apache Fortress Quickstart</a></li>
+    </fieldset>
+    <hr>
+</head>
+<body>
+<h3>Build Apache Fortress Realm</h3>
+
+<h4>This section describes how to install The Fortress Realm Java EE Policy Enforcement Component </h4>
+
+<ol>
+
+    <li>
+        Clone the Apache Fortress Realm Git repo:
+            <pre>
+                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-realm.git
+                </p>
+            </pre>
+
+    </li>
+
+    <li>
+        Set JAVA_HOME:
+            <pre>
+                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# export JAVA_HOME=/opt/jdk1.7.0_10/
+                </p>
+            </pre>
+    </li>
+
+    <li>
+        Change directory:
+            <pre>
+                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# cd directory-fortress-realm/
+                </p>
+            </pre>
+    </li>
+
+    <li>
+        Set M2_HOME:
+            <pre>
+                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# export M2_HOME=/usr/local/maven-version
+                </p>
+            </pre>
+    </li>
+
+    <br>
+
+    <li>
+        Build fortress realm with maven and install to local repo.  The fortress rest [<a href="apache-fortress-rest.html">Build Apache Fortress Rest</a>]
+        and fortress web [<a href="apache-fortress-web.html">Build Apache Fortress Web</a>]
+        are both dependent on the fortress realm.
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# $M2_HOME/bin/mvn clean install
+                    </p>
+                </pre>
+    </li>
+</ol>
+
+</body>
+<p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights Reserved.</p>
+</html>

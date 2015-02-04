@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ *   Licensed to the Apache Software Foundation (ASF) under one
+ *   or more contributor license agreements.  See the NOTICE file
+ *   distributed with this work for additional information
+ *   regarding copyright ownership.  The ASF licenses this file
+ *   to you under the Apache License, Version 2.0 (the
+ *   "License"); you may not use this file except in compliance
+ *   with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing,
+ *   software distributed under the License is distributed on an
+ *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *   KIND, either express or implied.  See the License for the
+ *   specific language governing permissions and limitations
+ *   under the License.
+ *
+-->
+<HTML>
+<HEAD>
+    <title>Apache Fortress Quickstart</title>
+</HEAD>
+<BODY>
+<p>
+    <h3>Overview</h3>
+    The documents linked by this guide provides a how-to guide for installing Apache Fortress software.
+    <br><br>
+<hr>
+<h4>Quickstart Guides</h4>
+The following topics are covered:
+<ol type="I">
+    <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
+    <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
+    <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
+    <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
+    <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
+    <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
+</ol>
+</p>
+<hr>
+<h4>Prerequisites</h4>
+<ol type="1">
+    <li>Java 7 (or greater) SDK</li>
+    <li><a href="http://ant.apache.org/">Apache Ant 1.8 (or greater)</a></li>
+    <li><a href="http://maven.apache.org/">Apache Maven 3</a></li>
+    <li><a href="https://www.mozilla.org/en-GB/firefox/new/">Firefox Web Browser</a></li>
+</ol>
+<hr>
+<h4>Getting Started - Generating the tutorial's how-to guide</h4>
+This tutorial uses javadoc that is contained within the apache-fortress-core source archive.  To generate, follow these instructions:
+<ol type="1">
+    <li>Download the <a href="https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git">apache-fortress-core source bundle</a>  from Apache Git repo.</li>
+    <li>Extract bundle</li>
+    <li>Set JAVA_HOME</li>
+    <li>Set M2_HOME</li>
+    <li>Run this command from the root package:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+$ $M2_HOME/bin/mvn javadoc:javadoc
+                    </p>
+                </pre>
+    </li>
+    <li>Open the help document: /*package home*/target/site/apidocs/org/apache/directory/fortress/core/doc-files/apache-fortress-quickstart.html</li>
+    <li>Complete the desired sections under <b>Quickstart Guides</b> section</li>
+</ol>
+<hr>
+<h4>Infrastructure Installed</h4>
+<ol type="1">
+    <li><a href="http://directory.apache.org/apacheds/">Apache Directory Server</a></li>
+    <li><a href="http://directory.apache.org/studio/">Apache Directory Studio</a></li>
+    <li><a href="http://directory.apache.org/fortress/">Apache Fortress</a></li>
+    <li><a href="http://tomcat.apache.org/">Apache Tomcat Servlet Container</a></li>
+</ol>
+</p>
+<hr>
+If you find security flaws, or have questions about Apache Fortress, submit to <a href="http://mail-archives.apache.org/mod_mbox/directory-fortress/">Apache Fortress Discussion list</a>.
+</BODY>
+<p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights Reserved.</p>
+</HTML>
