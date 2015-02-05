@@ -18,177 +18,186 @@
  *
 -->
 <html>
-   <head>
-       <title>Apache Fortress Quickstart</title>
-       <hr>
-       <fieldset>
-           <legend><b>Navigation Links</b></legend>
-           <ul>
-               <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
-               <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
-               <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
-               <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
-               <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
-               <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
-           </ul>
-           <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
-       </fieldset>
-       <hr>
-   </head>
-   <body>
-      <p>
-      <h3>Build Apache Fortress Core</h3>
-      <img src="fortress100.gif">
-      <br><br>This section provides instructions to install Fortress and run the junit tests.
-      <h4>Steps to build the Fortress Core</h4>
-      <ol>
-          <li>
-              Clone the <a href="https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git">Directory Fortress Core Git repo</a>:
+<head>
+    <title>Apache Fortress Ten Minute Guide</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<hr>
+<fieldset>
+    <legend><b>Navigation Links</b></legend>
+    <ul>
+        <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
+        <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
+        <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
+        <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
+        <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
+        <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
+    </ul>
+    <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
+</fieldset>
+<hr>
+<p>
+
+<h3>Build Apache Fortress Core</h3>
+<img src="fortress100.gif">
+<br><br>This section provides instructions to install Fortress and run the junit tests.
+<h4>Steps to build the Fortress Core</h4>
+<ol>
+    <li>
+        Clone the <a href="https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git">Directory Fortress
+        Core Git repo</a>:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+                    # git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
                 </p>
             </pre>
 
-          </li>
+    </li>
 
-          <li>
-              Set JAVA_HOME:
+    <li>
+        Set JAVA_HOME:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export JAVA_HOME=/opt/jdk1.7.0_10/
+                    # export JAVA_HOME=/opt/jdk1.7.0_10/
                 </p>
             </pre>
 
-          </li>
+    </li>
 
-          <li>
-              Change directory:
+    <li>
+        Change directory:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cd directory-fortress-core/
+                    # cd directory-fortress-core/
                 </p>
             </pre>
-          </li>
+    </li>
 
-          <li>
-              Set M2_HOME:
+    <li>
+        Set M2_HOME:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export M2_HOME=/usr/local/maven-version
+                    # export M2_HOME=/usr/local/maven-version
                 </p>
             </pre>
-          </li>
+    </li>
 
-          <li>
-              Edit the build.properties in root folder of package.
-              These parameters are bound for files like <b>config/fortress.properties</b> and <b>ldap/setup/refreshLDAPData.xml</b> and used on subsequent steps.
-              <br>
-              Change the settings to:
+    <li>
+        Edit the build.properties in root folder of package.
+        These parameters are bound for files like <b>config/fortress.properties</b> and <b>ldap/setup/refreshLDAPData.xml</b>
+        and used on subsequent steps.
+        <br>
+        Change the settings to:
 
               <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# This points fortress to LDAP host.
-ldap.host=localhost
-ldap.port=10389
-ldap.server.type=apacheds
+                    # This points fortress to LDAP host.
+                    ldap.host=localhost
+                    ldap.port=10389
+                    ldap.server.type=apacheds
                 </p>
               </pre>
 
-          </li>
+    </li>
 
-          <li>
-              Build fortress core with maven and install to local repo.  The fortress realm [<a href="apache-fortress-realm.html">Install Apache Fortress Realm</a>]
-              is dependent on fortress core.
+    <li>
+        Build fortress core with maven and install to local repo. The fortress realm [<a
+            href="apache-fortress-realm.html">Install Apache Fortress Realm</a>]
+        is dependent on fortress core.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn clean install -DskipTests=true
+                        # $M2_HOME/bin/mvn clean install -DskipTests=true
                     </p>
                 </pre>
-          </li>
+    </li>
 
-          <li>
-              Verify the following files were created by build as they are required later:
+    <li>
+        Verify the following files were created by build as they are required later:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# ls -l config/fortress.properties
-# ls -l ldap/setup/refreshLDAPData.xml
+                        # ls -l config/fortress.properties
+                        # ls -l ldap/setup/refreshLDAPData.xml
                     </p>
                 </pre>
-          </li>
+    </li>
 
-          <li>
-              Load the fortress schema contained in <b>ldap/schema/apacheds-fortress.ldif</b> to ApacheDS instance using Apache Directory Studio.
+    <li>
+        Load the fortress schema contained in <b>ldap/schema/apacheds-fortress.ldif</b> to ApacheDS instance using
+        Apache Directory Studio.
 
-              <br><br>
+        <br><br>
 
-              <ol type="A">
-                  <li>
-                      In Apache Directory Studio LDAP Browser perspective, select Root DSE, right-click, and choose Import->LDIF Import
-                  </li>
-                  <br><img src="./schema-import-screenshot1.png" /><br><br>
+        <ol type="A">
+            <li>
+                In Apache Directory Studio LDAP Browser perspective, select Root DSE, right-click, and choose
+                Import->LDIF Import
+            </li>
+            <br><img src="./schema-import-screenshot1.png"/><br><br>
 
-                  <br>
+            <br>
 
-                  <li>
-                      Next a dialog box will appear where you can enter the fully qualified file name of the fortress schema.
-                  </li>
-                  <br><img src="./schema-import-screenshot2.png" /><br><br>
+            <li>
+                Next a dialog box will appear where you can enter the fully qualified file name of the fortress schema.
+            </li>
+            <br><img src="./schema-import-screenshot2.png"/><br><br>
 
-                  <br>
+            <br>
 
-                  <li>
-                      The schema file is located under the fortress core base package/ldap/schema/apacheds-fortress.ldif
-                  </li>
-                  <br><img src="./schema-import-screenshot3.png" /><br><br>
+            <li>
+                The schema file is located under the fortress core base package/ldap/schema/apacheds-fortress.ldif
+            </li>
+            <br><img src="./schema-import-screenshot3.png"/><br><br>
 
-                  <br>
+            <br>
 
-                  <li>
-                      Verify success by viewing the cn=fortress schema node.
-                  </li>
-                  <br><img src="./schema-import-screenshot4.png" /><br><br>
+            <li>
+                Verify success by viewing the cn=fortress schema node.
+            </li>
+            <br><img src="./schema-import-screenshot4.png"/><br><br>
 
-              </ol>
+        </ol>
 
-          </li>
+    </li>
 
-          <br>
+    <br>
 
-          <li>
-             Setup partition in ApacheDS server matching ldap server params in <b>config/fortress.properties</b> file.
-          </li>
+    <li>
+        Setup partition in ApacheDS server matching ldap server params in <b>config/fortress.properties</b> file.
+    </li>
 
-          <br>
+    <br>
 
-          <li>
-              Build the fortress LDAP DIT and create the configuration node:
+    <li>
+        Build the fortress LDAP DIT and create the configuration node:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -DskipTests=true
+                        # $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -DskipTests=true
                     </p>
                 </pre>
-          </li>
+    </li>
 
-          <li>
-              Load the fortress ARBAC policies:
+    <li>
+        Load the fortress ARBAC policies:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml -DskipTests=true
+                        # $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
+                        -DskipTests=true
                     </p>
                 </pre>
-          </li>
+    </li>
 
-          <li>
-              Run the Fortress Core Regression Tess:
+    <li>
+        Run the Fortress Core Regression Tess:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn -Dtest=FortressJUnitTest test
+                        # $M2_HOME/bin/mvn -Dtest=FortressJUnitTest test
                     </p>
                 </pre>
-              Tests should run with no errors.
-          </li>
-      </ol>
-   </body>
-   <p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights Reserved.</p>
+        Tests should run with no errors.
+    </li>
+</ol>
+</body>
+<p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights
+    Reserved.</p>
 </html>

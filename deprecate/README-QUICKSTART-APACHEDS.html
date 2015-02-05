@@ -1,0 +1,468 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<body>
+<img src="../images/fortresscommunitylogov3.jpg"/>
+<hr>
+<p>
+    <font color="red">NOTICE: This document has been deprecated. It is here for historical purposes. Eventually the
+        contents will be moved to a new location.</font>
+<hr>
+</p>
+<p>
+    These instructions are intended for new users who want to quickly learn how to install and test JoshuaTree Fortress
+    and ApacheDS IAM software using QUICKSTART package:
+    http://iamfortress.org/download
+    <br><br>Follow the steps and
+<ul>
+    <li>ApacheDS will be installed, configured, loaded, and ready to use by <em>Section IV</em>.</li>
+    <li>EnMasse Policy Server demo starts in <em>Section IX</em></li>
+    <li>Commander Web Admin demo starts in <em>Section X</em></li>
+</ul>
+</p>
+<hr>
+<h2>System Prerequisites</h2>
+
+<p>
+<ul>
+    <li>Internet access to retrieve binary dependencies from online Maven repo.</li>
+    <li>Java SDK Version 7 or beyond installed to target environment</li>
+    <li>Redhat or Ubuntu server machine (for window environments use <em>README-QUICKSTART-WINDOWS.html</em>)</li>
+    <li>1GB RAM</li>
+    <li>20GB HD</li>
+    <li>ApacheDS Pre-installed</li>
+</ul>
+</p>
+
+<b>NOTE:</b> The Fortress build.xml may run without connection to Internet iff:
+<ul>
+    <li>The binary dependencies have previously been downloaded to FORTRESS_HOME/lib folder</li>
+    <li>Local mode has been enabled on target machine. Local mode can be enabled by adding this property to
+        build.properties: local.mode=true
+    </li>
+</ul>
+<hr>
+<h2>Guidelines and Tips for first-time users</h2>
+<ul>
+    <li>In the document that follows, when you read <em>[version]</em> or <em>[platform]</em> substitute with current
+        package info. For example - if the downloaded package version is 1.0.0 and platform is 'Debian Silver i386', the
+        instructions show fortressBuilder-<em>[platform]</em>-<em>[version]</em>.jar your file name would be
+        fortressBuilder-Debian-Silver-i386-1.0.0.zip
+    </li>
+    <br>
+    <li>Is your target machine windows? Go to <em>README-QUICKSTART-WINDOWS</em></li>
+    <br>
+    <li>The source code for this project is located in <em>FORTRESS_HOME/src</em> folder.</li>
+</ul>
+
+<ol type="I">
+    <hr>
+    <li>
+        <h3>Instructions to extract and configure Fortress Builder Package to Target System</h3>
+        <ol type="A">
+            <li>Copy fortressBuilder-[platform]-[version].zip to hard drive on target server env.</li>
+            <br>
+            <li>Extract the zip. The location for archive can vary according to requirements. The location of package
+                will be referred to as <em>FORTRESS_HOME</em> later on.
+            </li>
+            <br>
+            <li>Enable permission for the binaries to execute. From FORTRESS_HOME root folder, enter the following
+                command from a system prompt:
+        <pre><p style="font-family:monospace;color:blue;font-size:14px;">chmod a+x -Rf *
+        </p></pre>
+                <img src="../images/Screenshot1-chmod.png"/>
+            </li>
+
+            <li>Edit file named 'build.properties' and insert LDAP configuration parameters:
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">
+                    ldap.server.type=apacheds
+
+                    # These parameters point fortress to LDAP host:
+                    ldap.host=localhost
+                    ldap.port=10389
+
+                    # These are used to construct suffix for DIT, i.e. dc=example,dc=com.
+                    suffix.name=example
+                    suffix.dc=com
+
+                    # These are the connection parameters used for LDAP service account:
+                    root.dn=uid=admin,ou=system
+
+                    # Used to load OpenLDAP admin root password in slapd.conf and was encrypted using 'slappasswd'
+                    command:
+                    # This ApacheDS admin root password's value is 'secret', is bound for fortress.properties and was
+                    encrypted using 'encrypt' target in build.xml:
+                    cfg.root.pw=W7T0G9hylKZQ4K+DF8gfgA==
+
+                    # If encryption of LDAP &/or HTTP service account passwords (e.g. cfg.root.pw, cfg.log.root.pw and
+                    http.pw params) is required, this field must be set.
+                    # If encryption of service accounts not needed, leave this value blank, and set the password values
+                    for cfg.root.pw, cfg.log.root.pw and http.pw to be their clear text value.
+                    # Use any arbitrary value here but must be same as key used to encrypt.
+                    crypto.prop=abcd12345
+
+                </p></pre>
+            </li>
+
+        </ol>
+    </li>
+    </li>
+    <hr>
+    <li>
+        <h3>Instructions to run the Fortress Ant Build</h3>
+        <ol type="A">
+            <li>
+                From FORTRESS_HOME root folder, edit the b.sh script to point to java home:
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">export JAVA_HOME=/opt/jdk1.7.0_10
+            </p></pre>
+            </li>
+            <img src="../images/Screenshot3-edit-javahome.png"/><br><br>
+            <li>
+                Run the distribution target:
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh dist
+            </p></pre>
+                <img src="../images/Screenshot4-ant-dist.png"/><br>
+                <br>Note: The b.sh batch file referred to here uses Ant package that is local to Fortress quickstart
+                package.
+            </li>
+            <br>
+            <li>
+                Verify it ran correctly according to Ant:
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">BUILD SUCCESSFUL
+            </p></pre>
+                <img src="../images/Screenshot4-ant-success-dist.png"/><br><br>
+            </li>
+        </ol>
+        You may now view the project binaries and documentation located under FORTRESS_HOME/dist.
+        <br><br><img src="../images/Screenshot5-dist-listing.png"/><br><br>
+    </li>
+    <hr>
+    <li>
+        <h3>Instructions to configure ApacheDS and load with seed data</h3>
+        <strong><p style="color:blue;font-size:14px;">Important: This target reloads the ApacheDS configuration and
+            data.
+        </p>
+
+        </strong>
+        <ol type="A">
+            <br>
+            <li>
+                Import Fortress ApacheDS schema into ApacheDS server using preferred ldif import tool. Fortress ApacheDS
+                schema located here: FORTRESS_HOME/ldap/schema/apacheds-fortress.ldif
+
+                <br><br>Screenshot of Apache Directory Studio import of Fortress schema file into ApacheDS:
+            </li>
+            <img src="../images/Screenshot-Studio-Schema-Import.png"/><br><br>
+
+            <li>
+                The fortress 'init-apacheds' uses LDAPv3 to perform initial operations.
+                <br>edit build.properties, ensure the following line has been commented out:
+                <br><br><img src="../images/Screenshot43-edit-disable-rest.png"/><br><br>
+                Note: The default for this setting is 'false' or disabled.<br><br>
+            </li>
+
+            <li>
+                From FORTRESS_HOME root folder, enter the following command from a system prompt:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh init-apacheds
+</p></pre>
+            </li>
+            <li>
+                Verify it ran correctly according to Ant.
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">BUILD SUCCESSFUL
+</p></pre>
+                <img src="../images/Screenshot7-init-slapd-success.png"/><br><br>
+            <li>
+                After above step completes, Symas ApacheDS will be installed, configured and loaded with fortress
+                bootstrap config. This
+                step also runs provisioning scripts which may be tailored according to requirements. Check out the xml
+                load scripts
+                in FORTRESS_HOME/ldap/setup folder.
+                <br><br>
+            </li>
+
+            <li>
+                Point your preferred LDAP browser, ours is <a href="http://directory.apache.org/studio/">Apache
+                Directory Studio</a>, to the installed directory.
+
+                The configuration parameters you'll need to browse can be found in the generated 'slapd.conf' file.
+                <br><br>
+                To view data stored in default database:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">suffix "dc=example,dc=com"
+    rootdn "uid=admin,ou=system"
+    rootpw "secret"</p></pre>
+                The root pw will be encrypted before stored in slapd.conf
+
+                <br><br><img src="../images/Screenshot8-ldap-browser.png"/><br><br>
+
+            </li>
+        </ol>
+    </li>
+    <hr>
+    <li>
+        <h3>Instructions to regression test Fortress and ApacheDS on target machine (optional)</h3>
+        <ol type="A">
+            <li>From FORTRESS_HOME root folder, enter the following command from a system prompt:
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh test-full
+                </p></pre>
+            </li>
+            <img src="../images/Screenshot10-ant-test-init.png"/><br><br>
+            Note: The Fortress regression tests will run for around 3 minutes.<br><br>
+            <li>Verify these tests ran with no ERRORS.
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">BUILD SUCCESSFUL
+                </p></pre>
+            </li>
+            <img src="../images/Screenshot11-ant-test-success.png"/><br><br>
+            <li>
+                To re-run these tests:
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh test-full
+            </p></pre>
+            </li>
+        </ol>
+        Note 1: WARNING messages in test output are good as these are negative tests in action:
+        <br><img src="../images/Screenshot12-junit-warn.png"/>
+        <br><br>Note 2: If you made it this far without junit or ant ERRORS, the Fortress and ApacheDS IAM system are
+        certified to run on your machine.
+        <br><br>Note 3: These tests load tens of thousands of records into your newly installed directory.
+        The 'init-apacheds' and 'test-full' targets may be re-run as often as necessary. After regressions testing has
+        completed, you may run the 'init-apacheds' target to remove all test data from the directory.
+    </li>
+    <hr>
+    <li>
+        <h3>Instructions to run the Fortress Command Line Interpreter (CLI) utility (optional)</h3>
+        This command line tool provides an interactive session with the user based on a simple command line
+        syntax.<br><br>
+        <ol type="A">
+            <li>
+                To start the CLI, enter:<pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh cli
+            </p></pre>
+                <img src="../images/Screenshot13-ant-cli.png"/><br><br>
+                Which will bring up the command interpreter:
+                <br><img src="../images/Screenshot14-cli.png"/><br><br>
+            </li>
+            <li>
+                enter the command:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">review fuser -u demo
+</p></pre>
+                <img src="../images/Screenshot15-cli-review.png"/><br><br>
+
+                This example will return all users with userId that begins with 'demo':<br><br>
+                <img src="../images/Screenshot16-cli-fuser.png"/><br><br>
+            </li>
+            <li>
+                To learn more about the CLI and what it can do, follow instructions in the command line interpreter
+                reference
+                manual in the javadoc located here:
+                <br><br>
+                <a href="./dist/docs/api/org/openldap/fortress/cli/package-summary.html">Command Line Interpreter</a>
+                <br><br>
+                Note: if javadocs are not found, go to Section VII
+            </li>
+        </ol>
+    </li>
+    <hr>
+    <li>
+        <h3>Instructions to run Fortress Console (optional)</h3>
+        For tasks like one-time setup of new users, password resets, searches
+        the Fortress Console application can be used.<br><br>
+        <ol type="A">
+            <li>
+                From FORTRESS_HOME root folder, enter the following command
+                from a system prompt:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh console
+</p></pre>
+                <img src="../images/Screenshot17-ant-console.png"/><br><br>
+            </li>
+
+            <li>
+                Console Screenshots...
+                <ol type="1">
+                    <br>
+                    <li>
+                        Main Menu:
+                        <br><img src="../images/Screenshot18-console-main.png"/><br>
+                    </li>
+                    <br>
+                    <li>
+                        Enter choice and follow the screen prompts to edit RBAC data:
+                        <br><img src="../images/Screenshot19-console-admin.png"/><br>
+                    </li>
+                    <br>
+
+                    <li>
+                        Enter choice and follow the screen prompts to search RBAC data:
+                        <br><img src="../images/Screenshot20-console-review.png"/><br>
+                    </li>
+                    <br>
+                    <li>
+                        Enter choice and follow the screen prompts to test RBAC policies:
+                        <br><img src="../images/Screenshot21-console-access.png"/><br>
+                    </li>
+                    <br>
+                    <li>
+                        Enter choice and follow the screen prompts to setup ARBAC delegated policies:
+                        <br><img src="../images/Screenshot22-console-deladmin.png"/><br>
+                    </li>
+                    <br>
+                    <li>
+                        Enter choice and follow the screen prompts to search through the AUDIT log:
+                        <br><img src="../images/Screenshot23-console-audit.png"/>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <hr>
+    <li>
+        <h3>Instructions to generate and view Javadoc (optional)</h3>
+        <ol type="A">
+            <li>
+                Run the javadoc target:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">/b.sh javadoc
+</p></pre>
+                <img src="../images/Screenshot24-ant-javadoc.png"/><br><br>
+            </li>
+            <li>Navigate to where docs are genned:</li>
+            <br>
+            <img src="../images/Screenshot25-javadoc-listing.png"/><br><br>
+            <li>Open 'index.html' using your preferred HTML Browser:</li>
+            <img src="../images/Screenshot26-javadoc.png"/><br><br>
+
+            <li>The javadoc provides coverage of the Fortress APIs and also provides explanations on how RBAC, ARBAC, PW
+                Policies and Audit work.
+            </li>
+            <br> <a href=""></a>
+            <li>
+                Good places to start learning about Fortress:
+                <ul><br>
+                    <li><a href="./dist/docs/api/org/openldap/fortress/package-summary.html">Fortress Manager
+                        Summary</a></li>
+                    <li><a href="./dist/docs/api/org/openldap/fortress/rbac/package-summary.html">RBAC Summary</a></li>
+                    <li><a href="./dist/docs/api/org/openldap/fortress/AuditMgr.html">Audit Manager</a></li>
+                    <li><a href="./dist/docs/api/org/openldap/fortress/cli/package-summary.html">Command Line
+                        Interpreter</a></li>
+                    <li><a href="./dist/docs/api/org/openldap/fortress/ant/FortressAntTask.html">FortressAntTask</a>
+                    </li>
+                </ul>
+            </li>
+        </ol>
+        <hr>
+    <li>
+        <h3>Instructions to install EnMasse Policy Server Demo (optional)</h3>
+        <ol type="A">
+            <li>
+                Run the install-enmasse-demo target:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">/b.sh install-enmasse-demo
+</p></pre>
+
+            </li>
+            <li>
+                Verify it ran correctly according to Ant.
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">BUILD SUCCESSFUL
+</p></pre>
+                <img src="../images/Screenshot42-install-enmasse-demo-success.png"/><br><br>
+            <li>
+                After above step completes, Fortress EnMasse will be installed
+                <br><br>
+            </li>
+        </ol>
+        <hr>
+    <li>
+        <h3>Instructions to regression test EnMasse Policy server on target machine (optional)</h3>
+        <ol type="A">
+
+            <li>Edit file named 'build.properties' and enable REST protocol here:
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">enable.mgr.impl.rest=true
+                </p></pre>
+                Accept the defaults for other HTTP parameters in build.properties:
+       <pre><p style="font-family:monospace;color:blue;font-size:14px;">http.user=demouser4
+           http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
+           http.host=localhost
+           http.port=8080
+       </p></pre>
+            </li>
+            Should look like the following:
+            <br><br><img src="../images/Screenshot41-enmasse-http-settings.png"/><br><br>
+
+            <li>Save and exit the text file editor
+            </li>
+            <br>
+
+            <li>From FORTRESS_HOME root folder, enter the following command from a system prompt:
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh test-full
+                </p></pre>
+            </li>
+            <img src="../images/Screenshot10-ant-test-init.png"/><br><br>
+            Note: The EnMasse regression tests will run for around 20 minutes.<br><br>
+            <li>Verify these tests ran with no ERRORS.
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">BUILD SUCCESSFUL
+                </p></pre>
+            </li>
+            <img src="../images/Screenshot43-ant-enmasse-test-success.png"/><br><br>
+            <li>
+                This regression test may be rerun as often as necessary:
+                <br><pre><p style="font-family:monospace;color:blue;font-size:14px;">./b.sh test-full
+            </p></pre>
+            </li>
+            Note 1: WARNING messages in test output are good as these are negative tests in action:
+            <br><img src="../images/Screenshot12-junit-warn.png"/>
+            <br><br>Note 2: If you made it this far without junit or ant ERRORS, EnMasse is installed and certified to
+            run on your machine.
+            <br><br>Note 3: These tests load tens of thousands of records into your directory.
+            The 'test-full' target may be re-run as often as necessary. After regressions testing have completed, you
+            may run the 'init-apacheds' target to remove all test data from the directory.
+    </li>
+    </li>
+</ol>
+<hr>
+<li>
+    <h3>Instructions to install Commander Web UI Demo (optional)</h3>
+    Run the install-commander-demo target:
+<pre><p style="font-family:monospace;color:blue;font-size:14px;">/b.sh install-commander-demo
+</p></pre>
+
+</li>
+<li>
+    <h3>More Utilities</h3>
+    Other execution targets:
+    <ol type="A">
+        <br>
+        <li>
+            'test-samples' - contains examples of how the Fortress API's work
+            check out the following javadoc for more info on the samples package:
+            <a href="./dist/docs/samples/index.html">Samples Javadoc</a>
+        </li>
+        <br>
+        <li>
+            'admin' - provides an XML-centric way to provision RBAC data policies and user accounts.
+            check out the following javadoc for more info on this utility:
+            <a href="./dist/docs/api/org/openldap/fortress/ant/FortressAntTask.html">Fortress Ant admin script utility
+                document</a>
+        </li>
+        <br>
+        <li>'encrypt' - interface to jacypt encryption utility</li>
+        <br>
+        <li>display all ant targets available:
+            <br><img src="../images/Screenshot27-ant-p.png"/><br><br>
+        </li>
+    </ol>
+</li>
+</ol>
+</ol>
+<hr>
+<p style="font: monospace; color: black; font-size: 6pt">Copyright (c) 2003-2015, The Apache Software Foundation. All Rights Reserved.</p>
+</body>

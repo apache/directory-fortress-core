@@ -18,9 +18,9 @@
 #
 ___________________________________________________________________________________
 ###################################################################################
-# README for Fortress Identity and Access Management SDK
-# Version 1.0-RC38
-# last updated: July 19, 2014
+# README for Fortress Core Identity and Access Management SDK
+# Version 1.0-RC40
+# last updated: February 5, 2015
 ###################################################################################
 # Table of Contents
 ###################################################################################
@@ -28,9 +28,9 @@ ________________________________________________________________________________
 # Tips for first-time users of Fortress
 # SECTION 0.  Prerequisites for Fortress SDK installation and usage
 # SECTION 1.  Options for installing OpenLDAP to target server environment
-# SECTION 2.  Instructions for Fortress Quickstart builder installation of OpenLDAP
-# SECTION 3.  Instructions to pull Fortress source code from OpenLDAP GIT
-# SECTION 4.  Instructions to build software distribution packages using 'dist' target.
+# SECTION 2.  Instructions to pull Fortress Core source code from Apache GIT
+# SECTION 3.  Instructions to build software distribution packages using maven 'install'.
+# SECTION 4.  Instructions to build software distribution packages using ant 'dist' target.
 # SECTION 5.  Instructions to configure SDK for target system using build.properties file.
 # SECTION 6.  Instructions for pre-existing or native OpenLDAP installation using 'load-slapd' target.
 # SECTION 7.  Instructions for Symas installation of OpenLDAP - using 'init-slapd' target
@@ -48,46 +48,44 @@ ________________________________________________________________________________
 ###################################################################################
 This document contains instructions to download, compile, load and test Fortress SDK with LDAP system.
 If you don't already have an LDAP server installed, options follow in subsequent sections.
-
-APIs within this software package adhere to the following security standards:
-   1 - IETF Password Policy Draft
-   2 - An Effective Role Administration Model Using Organization Structure
-     - a.k.a. Administrative Role-Based Access Control (ARBAC02)
-     - OH/SANDHU/ZHANG
-   3 - ANSI INCITS 359 Role-Based Access Control (RBAC)
-
-The combination of 1 2 & 3 above will be designated as 'A/P/R/BAC' in document as follows.
 ___________________________________________________________________________________
 ###################################################################################
-#  Tips for first-time users of Fortress
+#  Tips for users of Fortress
 ###################################################################################
-
- - Follow the instructions in SECTION 2 (INSTALL Option 1).
 
  - Definitions: When you read:
    + FORTRESS_HOME, refer to the package root of the openldap-fortress-core project download.
    + OPENLDAP_HOME, refer to the root of OpenLDAP binary installation folder, e.g. /opt/etc/openldap
    + ANT_HOME, refer to the package root of the target machine's ant distribution package.
+   + M2_HOME, refer to the package root of the target machine's maven distribution package.
 
- - This software package uses an Apache Ant script (FORTRESS_HOME/build.xml) to compile, install, and configure Fortress into an LDAP server using
-    operational steps called 'targets'.
+ - New users check out the 10 minute guide inside javadoc.  Follow the instructions in Section 1, 2 and 3 in the README,
+   open the javadoc location:
+   file:///FORTRESS_HOME/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
 
- - The targets may be used to manage A/P/R/BAC policy data contained within an existing LDAP server.
+ - Fortress Core package operations originally were designed to work using Ant.  Today, these same operations are being moved into
+   the maven pom.xml.  Both still work, but ant is being phased out.
+
+ - This software packages preferred means to build and install uses Apache Maven script (FORTRESS_HOME/pom.xml) to compile, install, test.
+
+ - This software package still requires Apache Ant script (FORTRESS_HOME/build.xml) for many utility functions listed in this README - i.e. Sections 6, 7, 9 - 12.
+
+ - The targets may be used to the fortress security policy data contained within an existing LDAP server.
 
  - This document describes the most important targets to start using fortress.  For a complete list, enter (from FORTRESS_HOME):
    $ANT_HOME/bin/ant -p
 
- - Or view the ant script itself (FORTRESS_HOME/build.xml).
+ - Or view the maven script (FORTRESS_HOME/pom.xml) and ant script (FORTRESS_HOME/build.xml).
 
  - Questions pertaining to usage of this software may be submitted to:
-    http://www.openldap.org/lists/mm/listinfo/openldap-fortress
+    http://mail-archives.apache.org/mod_mbox/directory-fortress/
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 0.  Prerequisites for Fortress SDK installation and usage
 ###################################################################################
-1. Internet access to retrieve source code from OpenLDAP GIT and binary dependencies from online Maven repo.
-Fortress installation procedures use Apache Ant & Ivy.  Ivy pulls external dependencies from Maven repositories over the Internet.
-These ant targets need external access to the Internet to pull down dependencies but may run without IFF:
+1. Internet access to retrieve source code from Apache Directory GIT and binary dependencies from online Maven repo.
+Fortress installation procedures use Maven and Apache Ant.
+The ant targets need external access to the Internet to pull down dependencies but may run without IFF:
 a. The necessary binary jars are already present and loaded into FORTRESS_HOME/lib folder.  For list of dependency jars check out the ivy.xml file.
 b. Local mode has been enabled in target runtime env.  This can be done by adding the following to build.properties file:
 
@@ -104,7 +102,8 @@ More prereqs:
 Prereq notes:
 
  - Fortress is LDAPv3 compliant and works with any directory server.
- - Tested with ApacheDS: FORTRESS_HOME/README-QUICKSTART-APACHEDS.html.
+ - Tested with ApacheDS: FORTRESS_HOME/deprecate/README-QUICKSTART-APACHEDS.html.
+ - Tested with OpenLDAP: FORTRESS_HOME/deprecate/README-QUICKSTART.html.
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 1.  Options for installing OpenLDAP to target server environment
@@ -113,58 +112,72 @@ ________________________________________________________________________________
 This document includes three options for use of Fortress and LDAP server:
 
 -------------------------------------------------------------------------------
-- INSTALL OPTION 1 - Fortress QUICKSTART installation packages (that include Symas OpenLDAP server) - recommended for first-time users
+- INSTALL OPTION 1 - Fortress 10 Minute Guide - recommended for first-time users
 -------------------------------------------------------------------------------
 - Required Sections to follow:
-    2, 8
+    2, 3
 
 -------------------------------------------------------------------------------
 - INSTALL OPTION 2 - TARGET operating system's OpenLDAP server
 -------------------------------------------------------------------------------
 - Required Sections to follow:
-    3, 4, 5, 6, 8
+    2, 4, 5, 6, 8
 
 -------------------------------------------------------------------------------
 - INSTALL OPTION 3 - SYMAS Gold and Silver installation packages for OpenLDAP server
 -------------------------------------------------------------------------------
 - Required Sections to follow:
-    3, 4, 5, 7, 8
+    2, 4, 5, 7, 8
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 2. Instructions for Fortress Quickstart builder installation of OpenLDAP
+# SECTION 2. Instructions to pull Fortress source code from Apache GIT
 ###################################################################################
-
-a. Go to http://iamfortress.org/download
-
-b. Pull down the Fortress Builder package to match target platform.
-
-c. Follow the steps I, II & III contained within README-QUICKSTART.html, or README-QUICKSTART-WINDOWS.html documents.
-___________________________________________________________________________________
-###################################################################################
-# SECTION 3. Instructions to pull Fortress source code from OpenLDAP GIT
-###################################################################################
-
-# If Fortress User
-
-RELEASES from Maven website:
-http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.openldap%22
 
 SNAPSHOTs from OpenLDAP's GIT Software Repo:
-http://www.openldap.org/devel/gitweb.cgi?p=openldap-fortress-core.git;a=summary
+https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git
 
-Non-committers (read-only):
->git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+Clone the Apache Fortress Core Git Repo::
+# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
 
-# If Fortress Developer and have access to GIT repo:
-
-Committers: Open a terminal session within preferred folder name/location and enter the following command:
->git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
-
-Pulls source code from GIT and loads into the current directory, hereafter called 'FORTRESS_HOME'.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 4. Instructions to build software distribution packages using 'dist' target.
+# SECTION 3. Instructions to build software distribution packages using maven 'install'.
 ###################################################################################
+
+NOTE: The Fortress pom.xml may run without connection to Internet iff:
+- The binary dependencies are already present in local maven repo.
+
+a. set JAVA_HOME per target machine
+
+for example:
+# export JAVA_HOME=/opt/jdk1.7.0_10
+
+b. set M2_HOME per target machine:
+
+for example:
+# export M2_HOME=/usr/share/maven
+
+c. from the FORTRESS_HOME root folder, enter the following command:
+
+# $M2_HOME/bin/mvn install -DskipTests
+
+d. from the FORTRESS_HOME root folder, enter the following command:
+
+# $M2_HOME/bin/mvn javadoc:javadoc
+
+install notes:
+
+- Fortress source modules will be compiled along with production of java archive (jar)
+  files, javadoc and test distributions.
+
+- Project artifacts are loaded into $FORTRESS_HOME/target location.
+___________________________________________________________________________________
+###################################################################################
+# SECTION 4. Instructions to build software distribution packages using ant 'dist' target.
+###################################################################################
+
+NOTE: The ant targets still work but are being phased out.  They are still needed for running
+many of the utilities.
 
 NOTE: The Fortress build.xml may run without connection to Internet iff:
 - The binary dependencies are already present in $FORTRESS_HOME/lib folder
@@ -174,16 +187,16 @@ local.mode=true
 a. set JAVA_HOME per target machine
 
 for example:
->export JAVA_HOME=/opt/jdk1.7.0_10
+# export JAVA_HOME=/opt/jdk1.7.0_10
 
 b. set ANT_HOME per target machine:
 
 for example:
->export ANT_HOME=/home/user/apache-ant-1.8.2
+# export ANT_HOME=/home/user/apache-ant-1.8.2
 
 c. from the FORTRESS_HOME root folder, enter the following command:
 
->$ANT_HOME/bin/ant dist
+# $ANT_HOME/bin/ant dist
 
 dist notes:
 
@@ -291,10 +304,9 @@ a. Install OpenLDAP using preferred method.
 
         + etc.
 
-
 b. Copy fortress schema to openldap schema folder:
 
->cp FORTRESS_HOME/ldap/schema/fortress.schema OPENLDAP_HOME/etc/openldap/schema
+# cp FORTRESS_HOME/ldap/schema/fortress.schema OPENLDAP_HOME/etc/openldap/schema
 
 
 c. Enable Fortress schema in slapd.conf:
@@ -410,7 +422,7 @@ l. Create the Fortress DIT:
 
 from the FORTRESS_HOME root folder, enter the following:
 
->$ANT_HOME/bin/ant load-slapd
+# $ANT_HOME/bin/ant load-slapd
 
 m. Skip to SECTION 8 to regression test Fortress and OpenLDAP
 
@@ -464,15 +476,14 @@ slapd.uninstall=rpm -e symas-openldap-gold
 
 e. Run the install target:
 
-
 From $FORTRESS_HOME root folder, enter the following command from a system prompt:
 
 if Debian sudo:
->sudo $ANT_HOME/bin/ant init-slapd
+# sudo $ANT_HOME/bin/ant init-slapd
 
 if not sudo you must run as user that has priv to modify folders in /var and /opt folders:
->su
->$ANT_HOME/bin/ant init-slapd
+# su
+# $ANT_HOME/bin/ant init-slapd
 
 init-slapd notes:
 
@@ -481,22 +492,22 @@ init-slapd notes:
   - Seeds LDAP data by calling 'load-slapd' target as described in section above.
 _______________________________________________________________________________
 ###############################################################################
-# SECTION 8. Instructions to integration test using 'test-full' target
+# SECTION 8. Instructions to integration test using 'FortressJUnitTest' target
 ########################################s#######################################
 
 a. from FORTRESS_HOME enter the following command:
 
->$ANT_HOME/bin/ant test-full
+# $M2_HOME/bin/mvn -Dtest=FortressJUnitTest test
 
-test-full Notes:
+FortressJUnitTest Notes:
 
-  - If tests complete without Junit or ant ERRORS, current Fortress is certified to run on target ldap server.
+  - If tests complete without Junit ERRORS, current Fortress is certified to run on target ldap server.
 
   - Tests load thousands of records into target ldap server.
 
   - The 2nd and subsequent time tests runs, teardown of data from prior run occurs.
 
-  - Should be run at least twice to verify Fortress A/P/R/BAC teardown API success.
+  - Should be run at least twice to verify Fortress Core teardown API success.
 
   - After this target runs, the organizationalUnit structure must remain in target LDAP DIT.
   - The test data may be cleared.
@@ -511,7 +522,7 @@ ________________________________________________________________________________
 
 a. from FORTRESS_HOME enter the following command:
 
->$ANT_HOME/bin/ant cli
+# $ANT_HOME/bin/ant cli
 
 b. follow instructions in the command line interpreter reference manual contained within the javadoc:
 
@@ -523,7 +534,7 @@ ________________________________________________________________________________
 
 a. from FORTRESS_HOME enter the following command:
 
->$ANT_HOME/bin/ant test-samples
+# $ANT_HOME/bin/ant test-samples
 
 c. view and change the samples here:
 
@@ -531,7 +542,7 @@ $FORTRESS_HOME/src/test/com/jts/fortress/samples
 
 d. compile and re-run samples to test your changes using:
 
->$ANT_HOME/bin/ant test-samples
+# $ANT_HOME/bin/ant test-samples
 
 e. view the samples java doc here:
 
@@ -559,7 +570,7 @@ ________________________________________________________________________________
 
 a. from FORTRESS_HOME enter the following command:
 
->$ANT_HOME/bin/ant console
+# $ANT_HOME/bin/ant console
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 12. Instructions to encrypt LDAP passwords used in config files.
@@ -570,7 +581,7 @@ use the 'encrypt' ant target.
 
 a. From FORTRESS_HOME root folder, enter the following command from a system prompt:
 
->$ANT_HOME/bin/ant encrypt -Dparam1=secret
+# $ANT_HOME/bin/ant encrypt -Dparam1=secret
 encrypt:
      [echo] Encrypt a value
      [java] Encrypted value=wApnJUnuYZRBTF1zQNxX/Q==
@@ -594,36 +605,10 @@ e.g. myLoadFile.xml
 
 b. From FORTRESS_HOME folder, enter the following command from a system prompt:
 
->$ANT_HOME/bin/ant admin -Dparam1=/ldap/setup/myLoadFile.xml
+# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/myLoadFile.xml -DskipTests=true
 
 admin notes:
 
   - Calls ant target to execute FortressAntTask class (described in FORTRESS_HOME/dist/docs/api/org/openldap/fortress/ant/FortressAntTask.html).
   - Drives Fortress A/P/R/BAC APIs using supplied text files containing data in xml format.
   - Used to automatically load common data into target ldap machines.
-___________________________________________________________________________________
-###################################################################################
-# SECTION 14. Instructions to enable Apache Ivy dependency management
-###################################################################################
-
-Note:  This is included for informational purposes in case it fails to automatically run during Section #3.
-
-- Apache Ivy is used to retrieve the Java libraries that openldap-fortress-core depends on.
-
-a. from FORTRESS_HOME enter the following command:
-
->export JAVA_HOME=/path to the root folder of your java SDK
->export ANT_HOME=/path to the root folder of your Apache Ant installation
->$ANT_HOME/bin/ant -buildfile getIvy.xml
-
-- After the above commands are run (also assuming network is good), Apache Ivy library
- will downloaded into ANT_HOME/lib folder.  Ivy is needed to build Fortress.
-___________________________________________________________________________________
-###################################################################################
-# SECTION 15. Troubleshooting
-###################################################################################
-
-- common problems related to environment variables not being properly set per SECTION 3.
-- can't pull down binary dependencies per SECTION 0.
-- consult the openldap-fortress mailing list:
-    http://www.openldap.org/lists/mm/listinfo/openldap-fortress
