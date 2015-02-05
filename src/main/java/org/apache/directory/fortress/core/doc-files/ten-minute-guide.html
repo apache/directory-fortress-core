@@ -20,18 +20,18 @@
 -->
 <HTML>
 <HEAD>
-    <title>Apache Fortress Quickstart</title>
+    <title>Apache Fortress Ten Minute Guide</title>
 </HEAD>
 <BODY>
 <p>
     <h3>Overview</h3>
-    The documents linked by this guide provides a how-to guide for installing Apache Fortress software.
+    The documents linked by this guide provides a how-to guide for downloading, building and installing Apache Fortress software from source in about ten minutes.
     <br><br>
 <hr>
-<h4>Quickstart Guides</h4>
-The following topics are covered:
-<ol type="I">
-    <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
+<h4>Steps</h4>
+The following steps are covered by this tutorial and must be completed in order.  Except for the rest and web components which are optional.
+<ol type="1">
+    <li><a href="./apache-directory.html">Setup Apache Directory Server and Studio</a></li>
     <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
     <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
     <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
@@ -41,29 +41,52 @@ The following topics are covered:
 </p>
 <hr>
 <h4>Prerequisites</h4>
+These items are required and must be installed to target machine before any of these tutorial steps.  Instructions cover Debian and Fedora system syntax.
+Fortress is Java, runs on various platforms, but the others are not be covered here.
 <ol type="1">
     <li>Java 7 (or greater) SDK</li>
-    <li><a href="http://ant.apache.org/">Apache Ant 1.8 (or greater)</a></li>
+    <li><a href="http://git-scm.com/download/linux">Git Download for Linux and Unix</a></li>
     <li><a href="http://maven.apache.org/">Apache Maven 3</a></li>
     <li><a href="https://www.mozilla.org/en-GB/firefox/new/">Firefox Web Browser</a></li>
 </ol>
 <hr>
 <h4>Getting Started - Generating the tutorial's how-to guide</h4>
-This tutorial uses javadoc that is contained within the apache-fortress-core source archive.  To generate, follow these instructions:
+This tutorial is contained within the javadoc of directory-fortress-core source archive.  To generate, follow these instructions:
 <ol type="1">
-    <li>Download the <a href="https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git">apache-fortress-core source bundle</a>  from Apache Git repo.</li>
-    <li>Extract bundle</li>
-    <li>Set JAVA_HOME</li>
-    <li>Set M2_HOME</li>
-    <li>Run this command from the root package:
+
+    <li>Obtain the source by cloning the <a href="https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git">Directory Fortress Core Git repo</a>:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-$ $M2_HOME/bin/mvn javadoc:javadoc
+# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
                     </p>
                 </pre>
     </li>
-    <li>Open the help document: /*package home*/target/site/apidocs/org/apache/directory/fortress/core/doc-files/apache-fortress-quickstart.html</li>
-    <li>Complete the desired sections under <b>Quickstart Guides</b> section</li>
+
+    <li>Change to the [directory-fortress-core] folder
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# cd directory-fortress-core/
+                    </p>
+                </pre>
+        Where [directory-fortress-core] is base folder of the fortress core source package.
+    </li>
+    <br>
+    <li>Set JAVA_HOME</li>
+    <br>
+    <li>Set M2_HOME</li>
+    <br>
+    <li>Build the javadoc which contains the tutorial:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# $M2_HOME/bin/mvn javadoc:javadoc
+                    </p>
+                </pre>
+    </li>
+    <li>Open the help document: [directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
+        <br><br>Where [directory-fortress-core] is base folder of the fortress core source package.
+    </li>
+    <br>
+    <li>Complete the desired sections</li>
 </ol>
 <hr>
 <h4>Infrastructure Installed</h4>
