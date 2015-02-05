@@ -25,8 +25,8 @@ ________________________________________________________________________________
 # Table of Contents
 ###################################################################################
 # Document Overview
-# Tips for first-time users of Fortress
-# SECTION 0.  Prerequisites for Fortress SDK installation and usage
+# Tips for users of Fortress
+# SECTION 0.  Prerequisites for Fortress Core SDK installation and usage
 # SECTION 1.  Options for installing OpenLDAP to target server environment
 # SECTION 2.  Instructions to pull Fortress Core source code from Apache GIT
 # SECTION 3.  Instructions to build software distribution packages using maven 'install'.
@@ -34,14 +34,13 @@ ________________________________________________________________________________
 # SECTION 5.  Instructions to configure SDK for target system using build.properties file.
 # SECTION 6.  Instructions for pre-existing or native OpenLDAP installation using 'load-slapd' target.
 # SECTION 7.  Instructions for Symas installation of OpenLDAP - using 'init-slapd' target
-# SECTION 8.  Instructions to integration test using 'test-full' target
+# SECTION 8.  Instructions to integration test using 'FortressJUnitTest' maven target
 # SECTION 9.  Instructions to run the command line interpreter (CLI) utility using 'cli' target
 # SECTION 10. Instructions to use Fortress A/P/R/BAC APIs with 'test-samples' target
 # SECTION 11. Instructions to run the command console using 'console' target
 # SECTION 12. Instructions to encrypt LDAP passwords used in config files.
-# SECTION 13. Instructions to load data into the default database using 'admin' target.
-# SECTION 14. Instructions to enable Apache Ivy dependency management
-# SECTION 15. Troubleshooting
+# SECTION 13. Instructions to load policy data using maven install -Dload.file target.
+# SECTION 14. Instructions to load test fortress using maven loadtest profile and jmeter.
 ___________________________________________________________________________________
 ###################################################################################
 # Document Overview
@@ -50,7 +49,7 @@ This document contains instructions to download, compile, load and test Fortress
 If you don't already have an LDAP server installed, options follow in subsequent sections.
 ___________________________________________________________________________________
 ###################################################################################
-#  Tips for users of Fortress
+#  Tips for users of Fortress Core
 ###################################################################################
 
  - Definitions: When you read:
@@ -59,16 +58,14 @@ ________________________________________________________________________________
    + ANT_HOME, refer to the package root of the target machine's ant distribution package.
    + M2_HOME, refer to the package root of the target machine's maven distribution package.
 
- - New users check out the 10 minute guide inside javadoc.  Follow the instructions in Section 1, 2 and 3 in the README,
-   open the javadoc location:
-   file:///FORTRESS_HOME/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
+ - New users check out the 10 minute guide, instructions inside README-TEN-MINUTE-GUIDE.txt
 
  - Fortress Core package operations originally were designed to work using Ant.  Today, these same operations are being moved into
    the maven pom.xml.  Both still work, but ant is being phased out.
 
- - This software packages preferred means to build and install uses Apache Maven script (FORTRESS_HOME/pom.xml) to compile, install, test.
+ - This software packages preferred means to build and install uses Apache Maven (script FORTRESS_HOME/pom.xml) - Sections 3,8,13
 
- - This software package still requires Apache Ant script (FORTRESS_HOME/build.xml) for many utility functions listed in this README - i.e. Sections 6, 7, 9 - 12.
+ - This software package still uses Apache Ant (script FORTRESS_HOME/build.xml) for many utility functions listed in this README - Sections 6,7,9-12.
 
  - The targets may be used to the fortress security policy data contained within an existing LDAP server.
 
@@ -81,7 +78,7 @@ ________________________________________________________________________________
     http://mail-archives.apache.org/mod_mbox/directory-fortress/
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 0.  Prerequisites for Fortress SDK installation and usage
+# SECTION 0.  Prerequisites for Fortress Core SDK installation and usage
 ###################################################################################
 1. Internet access to retrieve source code from Apache Directory GIT and binary dependencies from online Maven repo.
 Fortress installation procedures use Maven and Apache Ant.
@@ -114,8 +111,7 @@ This document includes three options for use of Fortress and LDAP server:
 -------------------------------------------------------------------------------
 - INSTALL OPTION 1 - Fortress 10 Minute Guide - recommended for first-time users
 -------------------------------------------------------------------------------
-- Required Sections to follow:
-    2, 3
+- Covered by README-TEN-MINUTE-GUIDE.txt
 
 -------------------------------------------------------------------------------
 - INSTALL OPTION 2 - TARGET operating system's OpenLDAP server
@@ -492,7 +488,7 @@ init-slapd notes:
   - Seeds LDAP data by calling 'load-slapd' target as described in section above.
 _______________________________________________________________________________
 ###############################################################################
-# SECTION 8. Instructions to integration test using 'FortressJUnitTest' target
+# SECTION 8. Instructions to integration test using 'FortressJUnitTest' maven target
 ########################################s#######################################
 
 a. from FORTRESS_HOME enter the following command:
@@ -594,10 +590,10 @@ b. Copy the hashed value and paste it into the corresponding build.properties se
 cfg.log.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 13. Instructions to load data into the default database using 'admin' target.
+# SECTION 13. Instructions to load policy data using maven install -Dload.file target.
 ###################################################################################
 
-If you need to load data into the default database you can use the 'admin' ant target.
+If you need to load policy data into the default database you can use maven target.
 
 a. Create a load file using examples from FORTRESS_HOME/ldap/setup folder.
 
@@ -612,3 +608,25 @@ admin notes:
   - Calls ant target to execute FortressAntTask class (described in FORTRESS_HOME/dist/docs/api/org/openldap/fortress/ant/FortressAntTask.html).
   - Drives Fortress A/P/R/BAC APIs using supplied text files containing data in xml format.
   - Used to automatically load common data into target ldap machines.
+___________________________________________________________________________________
+###################################################################################
+# SECTION 14. Instructions to load test fortress using maven loadtest profile and jmeter.
+###################################################################################
+
+To load test fortress createSession or checkAccess performance using jmeter:
+
+a. Update .jmx located under FORTRESS_HOME/src/test/jmeter folder.
+
+e.g. ftCheckAccess.jmx
+
+b. Load the security policy and users required by the jmeter test routines:
+
+# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/LoadTestUsers.xml -DskipTests=true
+
+c. From FORTRESS_HOME folder, enter the following command from a system prompt:
+
+# $M2_HOME/bin/mvn -Ploadtest-ftca jmeter:jmeter
+
+Note: the above maps to ftCheckAccess.jmx
+Note: jmx files with prefex 'ac' call fortress accelerator functions (which requires special setup NOT covered by this document)
+      jmx files with prefix 'ft' are for fortress functions (which are covered by this document).
