@@ -80,7 +80,7 @@ ________________________________________________________________________________
 ###################################################################################
 # SECTION 0.  Prerequisites for Fortress Core SDK installation and usage
 ###################################################################################
-1. Internet access to retrieve source code from Apache Directory GIT and binary dependencies from online Maven repo.
+1. Internet access to retrieve source code from Apache Fortress Core GIT and binary dependencies from online Maven repo.
 Fortress installation procedures use Maven and Apache Ant.
 The ant targets need external access to the Internet to pull down dependencies but may run without IFF:
 a. The necessary binary jars are already present and loaded into FORTRESS_HOME/lib folder.  For list of dependency jars check out the ivy.xml file.
@@ -92,7 +92,7 @@ More prereqs:
 
 2. Java SDK Version 7 or beyond installed to target environment
 
-3. Apache Ant 1.8 or beyond installed to target environment
+3. Apache Maven 3 installed to target environment
 
 4. LDAP server installed.  (options follow in section 1).
 

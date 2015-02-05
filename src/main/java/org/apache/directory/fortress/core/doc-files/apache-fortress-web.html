@@ -78,12 +78,10 @@
               Set M2_HOME:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export M2_HOME=/usr/local/maven-version
+# export M2_HOME=/usr/share/maven-version
                 </p>
             </pre>
           </li>
-
-          <br>
 
           <li>
               Copy the fortress.properties, created on step <a href="./apache-fortress-core.html">Build Apache Fortress Core</a>, to this package's resource folder.
@@ -96,6 +94,15 @@
           </li>
 
           <br>
+
+          <li>
+              Load the fortress web test policies:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# $M2_HOME/bin/mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml -DskipTests=true
+                    </p>
+                </pre>
+          </li>
 
           <li>
               To deploy fortress web, run this command:
@@ -140,7 +147,7 @@
           <br>
 
           <li>
-              Try the various user accounts:
+              Try the various user accounts, notice how each has different policies:
               <br><br>
               <ol type="a">
                   <li>
@@ -159,24 +166,6 @@
                       <b>userId</b>: <i>test3</i>, <b>password</b>: <i>test</i>
                   </li>
               </ol>
-          </li>
-          <br>
-          <li>
-              View the audit trail.  The <i>test</i> user has access to view the following audit trail reports:
-              <ul>
-                  <br>
-                  <li>
-                      <b>BINDS</b> shows authentication events
-                  </li>
-                  <br>
-                  <li>
-                      <b>AUTHZ</b> shows authorization events
-                  </li>
-                  <br>
-                  <li>
-                      <b>MODS</b> shows historical changes to the data elements.
-                  </li>
-              </ul>
           </li>
       </ol>
 

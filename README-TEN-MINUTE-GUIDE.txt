@@ -34,7 +34,6 @@ _____________________________________________________________________________
 # Instructions for downloading app and generating the install doc:
 #############################################################################
 1. Clone the directory-fortress-core from apache git repo:
-
 # git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
 
 2. Change directory to package home:

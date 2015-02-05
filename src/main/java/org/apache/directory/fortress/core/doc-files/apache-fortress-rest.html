@@ -78,7 +78,7 @@
               Set M2_HOME:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export M2_HOME=/usr/local/maven-version
+# export M2_HOME=/usr/share/maven-version
                 </p>
             </pre>
           </li>
@@ -106,6 +106,15 @@
           </li>
 
           <br>
+
+          <li>
+              Load the fortress rest test policies:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# $M2_HOME/bin/mvn install -Dload.file=./src/main/resources/FortressRestServerRoles.xml -DskipTests=true
+                    </p>
+                </pre>
+          </li>
 
           <li>
               To deploy fortress rest, run this command:
