@@ -18,133 +18,140 @@
  *
 -->
 <html>
-   <head>
-       <title>Apache Fortress Ten Minute Guide</title>
-       <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
-   </head>
-   <body>
-   <hr>
-   <fieldset>
-       <legend><b>Navigation Links</b></legend>
-       <ul>
-           <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
-           <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
-           <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
-           <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
-           <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
-           <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
-       </ul>
-       <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
-   </fieldset>
-   <hr>
-   <p>
+<head>
+    <title>Apache Fortress Ten Minute Guide</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<hr>
+<fieldset>
+    <legend><b>Navigation Links</b></legend>
+    <ul>
+        <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
+        <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
+        <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
+        <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
+        <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
+        <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
+    </ul>
+    <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
+</fieldset>
+<hr>
+<p>
 
-   <h3>Build Apache Fortress Rest</h3>
+<h3>Build Apache Fortress Rest</h3>
 
-      <h4>This section describes how to install and use the Fortress Rest Application.  It provides a RESTful wrapper around the Fortress Core apis.</h4>
+<h4>This section describes how to install and use the Fortress Rest Application. It provides a RESTful wrapper around
+    the Fortress Core apis.</h4>
 
-      <ol>
+<ol>
 
-          <li>
-              Clone the <a href="https://git-wip-us.apache.org/repos/asf?p=directory-fortress-enmasse.git">Apache Fortress Rest Git repo</a>:
+    <li>
+        Clone the <a href="https://git-wip-us.apache.org/repos/asf?p=directory-fortress-enmasse.git">Apache Fortress
+        Rest Git repo</a>:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-rest.git
+                    # git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-rest.git
                 </p>
             </pre>
 
-          </li>
+    </li>
 
-          <li>
-            Set JAVA_HOME:
+    <li>
+        Set JAVA_HOME:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export JAVA_HOME=/opt/jdk1.7.0_10/
+                    # export JAVA_HOME=/opt/jdk1.7.0_10/
                 </p>
             </pre>
 
-          </li>
+    </li>
 
-          <li>
-              Change directory:
+    <li>
+        Change directory:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cd directory-fortress-enmasse/
+                    # cd directory-fortress-enmasse/
                 </p>
             </pre>
-          </li>
+    </li>
 
-          <li>
-              Set M2_HOME:
+    <li>
+        Set M2_HOME:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export M2_HOME=/usr/share/maven-version
+                    # export M2_HOME=/usr/share/maven-version
                 </p>
             </pre>
-          </li>
+    </li>
 
-          <li>
-              Generate the javadoc
+    <li>
+        Generate the javadoc
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn javadoc:javadoc
+                        # $M2_HOME/bin/mvn javadoc:javadoc
                     </p>
                 </pre>
-              The javadoc will be located under target/site/apidocs.
-          </li>
+        The javadoc will be located under target/site/apidocs.
+    </li>
 
-          <br>
+    <br>
 
-          <li>
-              Copy the fortress.properties, created on step <a href="./apache-fortress-core.html">Build Apache Fortress Core</a>, to this package's resource folder.
+    <li>
+        Copy the fortress.properties, created on step <a href="./apache-fortress-core.html">Build Apache Fortress
+        Core</a>, to this package's resource folder.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cp [directory-fortress-core]/config/fortress.properties [directory-fortress-enmasse]/src/main/resources
+                        # cp [directory-fortress-core]/config/fortress.properties
+                        [directory-fortress-enmasse]/src/main/resources
                     </p>
                 </pre>
-              Where [directory-fortress-core] is base folder of the fortress core source package and [directory-fortress-enmasse] is the current package's home folder.
-          </li>
+        Where [directory-fortress-core] is base folder of the fortress core source package and
+        [directory-fortress-enmasse] is the current package's home folder.
+    </li>
 
-          <br>
+    <br>
 
-          <li>
-              Load the fortress rest test policies:
+    <li>
+        Load the fortress rest test policies:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn install -Dload.file=./src/main/resources/FortressRestServerRoles.xml -DskipTests=true
+                        # $M2_HOME/bin/mvn install -Dload.file=./src/main/resources/FortressRestServerRoles.xml
+                        -DskipTests=true
                     </p>
                 </pre>
-          </li>
+    </li>
 
-          <li>
-              To deploy fortress rest, run this command:
+    <li>
+        To deploy fortress rest, run this command:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn tomcat:deploy
+                        # $M2_HOME/bin/mvn tomcat:deploy
                     </p>
                 </pre>
-          </li>
+    </li>
 
-          <li>
-              To redeploy:
+    <li>
+        To redeploy:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn tomcat:redeploy
+                        # $M2_HOME/bin/mvn tomcat:redeploy
                     </p>
                 </pre>
-          </li>
+    </li>
 
-          <li>
-              Run the tests:
+    <li>
+        Run the tests:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn test
+                        # $M2_HOME/bin/mvn test
                     </p>
                 </pre>
-          </li>
+    </li>
 
-      </ol>
+</ol>
 
-   </body>
-   <p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights Reserved.</p>
+</body>
+<p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights
+    Reserved.</p>
 </html>

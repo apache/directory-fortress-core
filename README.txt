@@ -25,7 +25,7 @@ ________________________________________________________________________________
 # Table of Contents
 ###################################################################################
 # Document Overview
-# Tips for users of Fortress
+# Tips for users of Fortress Core
 # SECTION 0.  Prerequisites for Fortress Core SDK installation and usage
 # SECTION 1.  Options for installing OpenLDAP to target server environment
 # SECTION 2.  Instructions to pull Fortress Core source code from Apache GIT
@@ -36,11 +36,12 @@ ________________________________________________________________________________
 # SECTION 7.  Instructions for Symas installation of OpenLDAP - using 'init-slapd' target
 # SECTION 8.  Instructions to integration test using 'FortressJUnitTest' maven target
 # SECTION 9.  Instructions to run the command line interpreter (CLI) utility using 'cli' target
-# SECTION 10. Instructions to use Fortress A/P/R/BAC APIs with 'test-samples' target
-# SECTION 11. Instructions to run the command console using 'console' target
-# SECTION 12. Instructions to encrypt LDAP passwords used in config files.
-# SECTION 13. Instructions to load policy data using maven install -Dload.file target.
-# SECTION 14. Instructions to load test fortress using maven loadtest profile and jmeter.
+# SECTION 10. Instructions to load policy data using maven fortress-load.
+# SECTION 11. Instructions to build and test the fortress samples with 'test-samples' target
+# SECTION 12. Instructions to run the command console using 'console' target
+# SECTION 13. Instructions to performance test fortress core using maven loadtest profile and jmeter.
+# SECTION 14. Instructions to encrypt LDAP passwords used in config files.
+
 ___________________________________________________________________________________
 ###################################################################################
 # Document Overview
@@ -525,7 +526,26 @@ b. follow instructions in the command line interpreter reference manual containe
 $FORTRESS_HOME/dist/docs/api/com/jts/fortress/cli/package-summary.html
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 10. Instructions to use Fortress A/P/R/BAC APIs with 'test-samples' target
+# SECTION 10. Instructions to load policy data using maven fortress-load.
+###################################################################################
+
+Loads policy data into ldap.
+
+a. Create a load file using examples from FORTRESS_HOME/ldap/setup folder.
+
+e.g. myLoadFile.xml
+
+b. From FORTRESS_HOME folder, enter the following command:
+
+# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/myLoadFile.xml -DskipTests=true
+
+Notes:
+  - This maven target executes FortressAntTask class (as described in FORTRESS_HOME/dist/docs/api/org/openldap/fortress/ant/FortressAntTask.html).
+  - Drives Fortress policy apis using a simple xml format.
+  - Use to automate user and rbac policy data loads.
+___________________________________________________________________________________
+###################################################################################
+# SECTION 11. Instructions to build and test the fortress samples with 'test-samples' target
 ###################################################################################
 
 a. from FORTRESS_HOME enter the following command:
@@ -561,7 +581,7 @@ Testing Notes:
   - The 2nd and subsequent times 'test-samples' runs, it will tear down the data loaded during the prior run.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 11. Instructions to run the command console using 'console' target
+# SECTION 12. Instructions to run the command console using 'console' target
 ###################################################################################
 
 a. from FORTRESS_HOME enter the following command:
@@ -569,7 +589,31 @@ a. from FORTRESS_HOME enter the following command:
 # $ANT_HOME/bin/ant console
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 12. Instructions to encrypt LDAP passwords used in config files.
+# SECTION 13. Instructions to performance test fortress core using maven loadtest profile and jmeter.
+###################################################################################
+
+To load test fortress createSession or checkAccess performance using jmeter:
+
+a. Update .jmx located under FORTRESS_HOME/src/test/jmeter folder.
+
+e.g. ftCheckAccess.jmx
+
+b. Load the security policy and users required by the jmeter test routines:
+
+# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/LoadTestUsers.xml -DskipTests=true
+
+c. From FORTRESS_HOME folder, enter the following command from a system prompt:
+
+# $M2_HOME/bin/mvn -Ploadtest-ftca jmeter:jmeter
+
+Notes:
+    - the above maps to ftCheckAccess.jmx
+    - jmx files with prefex 'ac' call fortress accelerator functions (which requires special setup NOT covered by this document)
+    - jmx files with prefix 'ft' are for fortress functions (which are covered by this document)
+
+___________________________________________________________________________________
+###################################################################################
+# SECTION 14. Instructions to encrypt LDAP passwords used in config files.
 ###################################################################################
 
 If you need the passwords for LDAP service accounts to be encrypted before loading into Fortress properties files you can
@@ -588,45 +632,3 @@ b. Copy the hashed value and paste it into the corresponding build.properties se
 
 # This OpenLDAP admin root pass is bound for fortress.properties and was hashed using 'encrypt' target in build.xml:
 cfg.log.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
-___________________________________________________________________________________
-###################################################################################
-# SECTION 13. Instructions to load policy data using maven install -Dload.file target.
-###################################################################################
-
-If you need to load policy data into the default database you can use maven target.
-
-a. Create a load file using examples from FORTRESS_HOME/ldap/setup folder.
-
-e.g. myLoadFile.xml
-
-b. From FORTRESS_HOME folder, enter the following command from a system prompt:
-
-# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/myLoadFile.xml -DskipTests=true
-
-admin notes:
-
-  - Calls ant target to execute FortressAntTask class (described in FORTRESS_HOME/dist/docs/api/org/openldap/fortress/ant/FortressAntTask.html).
-  - Drives Fortress A/P/R/BAC APIs using supplied text files containing data in xml format.
-  - Used to automatically load common data into target ldap machines.
-___________________________________________________________________________________
-###################################################################################
-# SECTION 14. Instructions to load test fortress using maven loadtest profile and jmeter.
-###################################################################################
-
-To load test fortress createSession or checkAccess performance using jmeter:
-
-a. Update .jmx located under FORTRESS_HOME/src/test/jmeter folder.
-
-e.g. ftCheckAccess.jmx
-
-b. Load the security policy and users required by the jmeter test routines:
-
-# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/LoadTestUsers.xml -DskipTests=true
-
-c. From FORTRESS_HOME folder, enter the following command from a system prompt:
-
-# $M2_HOME/bin/mvn -Ploadtest-ftca jmeter:jmeter
-
-Note: the above maps to ftCheckAccess.jmx
-Note: jmx files with prefex 'ac' call fortress accelerator functions (which requires special setup NOT covered by this document)
-      jmx files with prefix 'ft' are for fortress functions (which are covered by this document).

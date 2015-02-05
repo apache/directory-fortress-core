@@ -18,193 +18,201 @@
  *
 -->
 <html>
-   <head>
-       <title>Apache Fortress Ten Minute Guide</title>
-       <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
-   </head>
-   <body>
-   <hr>
-   <fieldset>
-       <legend><b>Navigation Links</b></legend>
-       <ul>
-           <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
-           <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
-           <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
-           <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
-           <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
-           <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
-       </ul>
-       <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
-   </fieldset>
-   <hr>
-   <p>
+<head>
+    <title>Apache Fortress Ten Minute Guide</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<hr>
+<fieldset>
+    <legend><b>Navigation Links</b></legend>
+    <ul>
+        <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
+        <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
+        <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
+        <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
+        <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
+        <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
+    </ul>
+    <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
+</fieldset>
+<hr>
+<p>
 
-   <h3>Setup Apache Tomcat Web Server</h3>
-   <img src="tomcat.png">
-   <br><br>
-   This document contains instructions to install Tomcat 7 to common Linux distros.  Any Tomcat (version 7 and beyond) instance
-   may be used but server commands and file locations must be translated to match target environment.
-   <hr>
-   <h4>This section describes how to install Apache Tomcat to Debian and Redhat distros and enable HTTPS communication</h4>
-   <ol>
-       <li>
-           If Tomcat is already installed skip this step.
-           <br><br>
-           For Debian from system command prompt:
+<h3>Setup Apache Tomcat Web Server</h3>
+<img src="tomcat.png">
+<br><br>
+This document contains instructions to install Tomcat 7 to common Linux distros. Any Tomcat (version 7 and beyond)
+instance
+may be used but server commands and file locations must be translated to match target environment.
+<hr>
+<h4>This section describes how to install Apache Tomcat to Debian and Redhat distros and enable HTTPS communication</h4>
+<ol>
+    <li>
+        If Tomcat is already installed skip this step.
+        <br><br>
+        For Debian from system command prompt:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# sudo apt-get install tomcat7 tomcat7-admin tomcat7-docs
+                # sudo apt-get install tomcat7 tomcat7-admin tomcat7-docs
             </p>
         </pre>
-           For Redhat (as root):
+        For Redhat (as root):
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mkdir tmp
-# cd tmp
-# wget http://www.us.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz
-# tar xzf apache-tomcat-7.0.55.tar.gz
-# mv apache-tomcat-7.0.55 /usr/share/tomcat7
-# cd /usr/share/tomcat7
-# ./bin/startup.sh
+                # mkdir tmp
+                # cd tmp
+                # wget http://www.us.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz
+                # tar xzf apache-tomcat-7.0.55.tar.gz
+                # mv apache-tomcat-7.0.55 /usr/share/tomcat7
+                # cd /usr/share/tomcat7
+                # ./bin/startup.sh
             </p>
         </pre>
 
-       </li>
+    </li>
 
-       <li>
-           Verify process is running:
+    <li>
+        Verify process is running:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# ps -ef | grep tomcat
+                # ps -ef | grep tomcat
             </p>
         </pre>
-       </li>
+    </li>
 
-       <li>
-        Place the fortress-realm proxy jar from <a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a> into Tomcat server's /lib folder.  The proxy
-           jar name is fortress-realm-proxy-[version].jar and located here: directory-fortress-realm/proxy/target
+    <li>
+        Place the fortress-realm proxy jar from <a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a>
+        into Tomcat server's /lib folder. The proxy
+        jar name is fortress-realm-proxy-[version].jar and located here: directory-fortress-realm/proxy/target
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cp fortress-realm-proxy-[VERSION]-proxy.jar /usr/share/tomcat7/lib
+              # cp fortress-realm-proxy-[VERSION]-proxy.jar /usr/share/tomcat7/lib
           </p>
         </pre>
-           Where [VERSION] matches the value in this packages pom.xml file.  At the time of this writing the current version was 1.0-RC40.
-       </li>
+        Where [VERSION] matches the value in this packages pom.xml file. At the time of this writing the current version
+        was 1.0-RC40.
+    </li>
 
-       <br>
+    <br>
 
-       <li>
+    <li>
         Edit tomcat-users.xml:
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# vi /usr/share/tomcat7/conf/tomcat-users.xml
+              # vi /usr/share/tomcat7/conf/tomcat-users.xml
           </p>
         </pre>
-       </li>
+    </li>
 
-       <li>
-        Add privilege for <b>tcmanager</b> user to connect with Tomcat Manager.  This account can access GUI and deploy via maven.
+    <li>
+        Add privilege for <b>tcmanager</b> user to connect with Tomcat Manager. This account can access GUI and deploy
+        via maven.
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-&lt;role rolename="manager-script"/&gt;
-&lt;role rolename="manager-gui"/&gt;
-&lt;user username="tcmanager" password="m@nager123" roles="manager-script,manager-gui"/&gt;
+                &lt;role rolename="manager-script"/&gt;
+                &lt;role rolename="manager-gui"/&gt;
+                &lt;user username="tcmanager" password="m@nager123" roles="manager-script,manager-gui"/&gt;
             </p>
         </pre>
-           Using the config file realm to store credentials for an important application like the Tomcat Manager is a security <b>antipattern</b>.  For production, a realm like
-           fortress realm should used globally by Tomcat.
-       </li>
+        Using the config file realm to store credentials for an important application like the Tomcat Manager is a
+        security <b>antipattern</b>. For production, a realm like
+        fortress realm should used globally by Tomcat.
+    </li>
 
-       <br>
+    <br>
 
-       <li>
-           Save and exit.
-       </li>
+    <li>
+        Save and exit.
+    </li>
 
-       <br>
+    <br>
 
-       <li>
-           Enable Tomcat SSL
-           <ol type="a">
-               <br>
-               <li>
-                   Copy keystore created during <a href="II-keys.html">Section II - Managing PKI Keys</a> to <b>/usr/local/tomcat/conf</b> folder.
+    <li>
+        Enable Tomcat SSL
+        <ol type="a">
+            <br>
+            <li>
+                Copy keystore created during <a href="II-keys.html">Section II - Managing PKI Keys</a> to <b>/usr/local/tomcat/conf</b>
+                folder.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# sudo cp src/test/resources/certs/mykeystore /usr/share/tomcat7/conf
+                        # sudo cp src/test/resources/certs/mykeystore /usr/share/tomcat7/conf
                     </p>
                 </pre>
-               </li>
+            </li>
 
-               <li>
-                   Edit <b>/usr/share/tomcat7/conf/server.xml</b> file:
+            <li>
+                Edit <b>/usr/share/tomcat7/conf/server.xml</b> file:
                     <pre>
                       <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# vi /usr/share/tomcat7/conf/server.xml
+                          # vi /usr/share/tomcat7/conf/server.xml
                       </p>
                     </pre>
-               </li>
-               <li>
-                   Add the following to <b>server.xml</b>:
+            </li>
+            <li>
+                Add the following to <b>server.xml</b>:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-&lt;!-- Define a SSL Coyote HTTP/1.1 Connector on port 8443 --&gt;
-&lt;Connector
-        port="8443" maxThreads="200"
-        scheme="https" secure="true" SSLEnabled="true"
-        keystoreFile="conf/mykeystore" keystorePass="changeit"
-        clientAuth="false" sslProtocol="TLS"/&gt;
+                        &lt;!-- Define a SSL Coyote HTTP/1.1 Connector on port 8443 --&gt;
+                        &lt;Connector
+                        port="8443" maxThreads="200"
+                        scheme="https" secure="true" SSLEnabled="true"
+                        keystoreFile="conf/mykeystore" keystorePass="changeit"
+                        clientAuth="false" sslProtocol="TLS"/&gt;
                     </p>
         </pre>
-               </li>
+            </li>
 
-               <li>
-                   Save and exit the file.
-               </li>
+            <li>
+                Save and exit the file.
+            </li>
 
-               <br>
+            <br>
 
-               <li>
-                   Restart Tomcat (Debian):
+            <li>
+                Restart Tomcat (Debian):
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-sudo /etc/init.d/tomcat7 restart
+                        sudo /etc/init.d/tomcat7 restart
                     </p>
                 </pre>
 
-                   Redhat users:
+                Redhat users:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# ./bin/shutdown.sh
-# ./bin/startup.sh
+                        # ./bin/shutdown.sh
+                        # ./bin/startup.sh
                     </p>
                 </pre>
 
-               </li>
-           </ol>
-       </li>
-       <li>
-           Verify setup by signing onto the Tomcat Manager app with credentials <b>userId</b>: <i>tcmanager</i>, <b>password</b>: <i>m@nager123</i>
-           <br><br>
-           <ol type="a">
-               <li>
-                   non-SSL -
-                   local: <a href="http://localhost:8080/manager">http://localhost:8080/manager</a>,
-                   remote: <a href="http://fortressdemo2.com:8080/manager">http://fortressdemo2.com:8080/manager</a>
-                   <br>
-               </li>
-               <br>
-               <li>
-                   SSL -
-                   local: <a href="https://localhost:8443/manager">https://localhost:8443/manager</a>,
-                   remote: <a href="https://fortressdemo2.com:8443/manager">https://fortressdemo2.com:8443/manager</a>
-               </li>
-           </ol>
-           <br>
-           Accept the self-signed certificate when the warning dialog appears.
-       </li>
+            </li>
+        </ol>
+    </li>
+    <li>
+        Verify setup by signing onto the Tomcat Manager app with credentials <b>userId</b>: <i>tcmanager</i>, <b>password</b>:
+        <i>m@nager123</i>
+        <br><br>
+        <ol type="a">
+            <li>
+                non-SSL -
+                local: <a href="http://localhost:8080/manager">http://localhost:8080/manager</a>,
+                remote: <a href="http://fortressdemo2.com:8080/manager">http://fortressdemo2.com:8080/manager</a>
+                <br>
+            </li>
+            <br>
+            <li>
+                SSL -
+                local: <a href="https://localhost:8443/manager">https://localhost:8443/manager</a>,
+                remote: <a href="https://fortressdemo2.com:8443/manager">https://fortressdemo2.com:8443/manager</a>
+            </li>
+        </ol>
+        <br>
+        Accept the self-signed certificate when the warning dialog appears.
+    </li>
 
-   </ol>
-   </body>
-   <p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights Reserved.</p>
+</ol>
+</body>
+<p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights
+    Reserved.</p>
 </html>
