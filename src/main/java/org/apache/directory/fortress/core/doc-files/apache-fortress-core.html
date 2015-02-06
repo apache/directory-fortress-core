@@ -27,7 +27,8 @@
 <fieldset>
     <legend><b>Navigation Links</b></legend>
     <ul>
-        <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
+        <li><a href="./apache-directory-server.html">Setup Apache Directory Server</a></li>
+        <li><a href="./apache-directory-studio.html">Setup Apache Directory Studio</a></li>
         <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
         <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
         <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
@@ -49,7 +50,7 @@
         Core Git repo</a>:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                    # git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
                 </p>
             </pre>
 
@@ -59,7 +60,7 @@
         Set JAVA_HOME:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                    # export JAVA_HOME=/opt/jdk1.7.0_10/
+# export JAVA_HOME=/opt/jdk1.7.0_10/
                 </p>
             </pre>
 
@@ -69,7 +70,7 @@
         Change directory:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                    # cd directory-fortress-core/
+# cd directory-fortress-core/
                 </p>
             </pre>
     </li>
@@ -78,7 +79,7 @@
         Set M2_HOME:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                    # export M2_HOME=/usr/local/maven-version
+# export M2_HOME=/usr/local/maven-version
                 </p>
             </pre>
     </li>
@@ -92,10 +93,10 @@
 
               <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                    # This points fortress to LDAP host.
-                    ldap.host=localhost
-                    ldap.port=10389
-                    ldap.server.type=apacheds
+# This points fortress to LDAP host.
+ldap.host=localhost
+ldap.port=10389
+ldap.server.type=apacheds
                 </p>
               </pre>
 
@@ -107,7 +108,7 @@
         is dependent on fortress core.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                        # $M2_HOME/bin/mvn clean install -DskipTests=true
+# $M2_HOME/bin/mvn clean install -DskipTests
                     </p>
                 </pre>
     </li>
@@ -116,8 +117,8 @@
         Verify the following files were created by build as they are required later:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                        # ls -l config/fortress.properties
-                        # ls -l ldap/setup/refreshLDAPData.xml
+# ls -l config/fortress.properties
+# ls -l ldap/setup/refreshLDAPData.xml
                     </p>
                 </pre>
     </li>
@@ -172,7 +173,7 @@
         Build the fortress LDAP DIT and create the configuration node:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                        # $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -DskipTests=true
+# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -DskipTests
                     </p>
                 </pre>
     </li>
@@ -181,8 +182,7 @@
         Load the fortress ARBAC policies:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                        # $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
-                        -DskipTests=true
+# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml -DskipTests
                     </p>
                 </pre>
     </li>
@@ -191,7 +191,7 @@
         Run the Fortress Core Regression Tess:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                        # $M2_HOME/bin/mvn -Dtest=FortressJUnitTest test
+# $M2_HOME/bin/mvn -Dtest=FortressJUnitTest test
                     </p>
                 </pre>
         Tests should run with no errors.

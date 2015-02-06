@@ -27,7 +27,8 @@
    <fieldset>
        <legend><b>Navigation Links</b></legend>
        <ul>
-           <li><a href="./apache-directory.html">Setup Apache Directory Server</a></li>
+           <li><a href="./apache-directory-server.html">Setup Apache Directory Server</a></li>
+           <li><a href="./apache-directory-studio.html">Setup Apache Directory Studio</a></li>
            <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
            <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
            <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
@@ -49,7 +50,7 @@
               Clone the <a href="https://git-wip-us.apache.org/repos/asf?p=directory-fortress-commander.git">Apache Fortress Web Git repo</a>:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-web.git
+# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
                 </p>
             </pre>
 
@@ -96,16 +97,6 @@
           <br>
 
           <li>
-              Load the fortress web test policies:
-                <pre>
-                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-                        # $M2_HOME/bin/mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml
-                        -DskipTests=true
-                    </p>
-                </pre>
-          </li>
-
-          <li>
               To deploy fortress web, run this command:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
@@ -126,23 +117,7 @@
           <li>
               Connect to web app:
               <br><br>
-              <ol type="a">
-                  <li>
-                      non-SSL -
-                      local: <a href="http://localhost:8080/fortress-web">http://localhost:8080/fortress-web</a>,
-                      remote: <a href="http://fortressdemo2.com:8080/fortress-web">http://fortressdemo2.com:8080/fortress-web</a>
-                      <br>
-                  </li>
-                  <br>
-                  <li>
-                      SSL -
-                      local: <a href="https://localhost:8443/fortress-web">https://localhost:8443/fortress-web</a>,
-                      remote: <a href="https://fortressdemo2.com:8443/fortress-web">https://fortressdemo2.com:8443/fortress-web</a>
-                  </li>
-                  <br>
-                  Accept the self-signed certificate when the warning dialog appears.
-              </ol>
-
+              <a href="http://localhost:8080/fortress-web">http://localhost:8080/fortress-web</a>,
           </li>
 
           <br>
@@ -168,6 +143,17 @@
                   </li>
               </ol>
           </li>
+
+          <li>
+              Run the Selenium Web driver integration tests:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# $M2_HOME/bin/mvn verify -DskipTests=false
+                    </p>
+                </pre>
+          </li>
+
+
       </ol>
 
    </body>

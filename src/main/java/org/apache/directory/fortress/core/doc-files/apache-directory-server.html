@@ -1,0 +1,136 @@
+<!--
+ *   Licensed to the Apache Software Foundation (ASF) under one
+ *   or more contributor license agreements.  See the NOTICE file
+ *   distributed with this work for additional information
+ *   regarding copyright ownership.  The ASF licenses this file
+ *   to you under the Apache License, Version 2.0 (the
+ *   "License"); you may not use this file except in compliance
+ *   with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing,
+ *   software distributed under the License is distributed on an
+ *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *   KIND, either express or implied.  See the License for the
+ *   specific language governing permissions and limitations
+ *   under the License.
+ *
+-->
+<html>
+<head>
+    <title>Apache Fortress Ten Minute Guide</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<hr>
+<fieldset>
+    <legend><b>Navigation Links</b></legend>
+    <ul>
+        <li><a href="./apache-directory-server.html">Setup Apache Directory Server</a></li>
+        <li><a href="./apache-directory-studio.html">Setup Apache Directory Studio</a></li>
+        <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
+        <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
+        <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
+        <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
+        <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
+    </ul>
+    <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
+</fieldset>
+<hr>
+<p>
+
+<h3>Setup Apache Directory Server</h3>
+<img src="apacheds-logo.jpeg">
+<br><br>
+This section provides instructions to install the Apache Directory Server which is needed by Fortress.
+<h4>Steps to install</h4>
+<ol>
+
+    <li>
+        Download and install Apache Directory Server
+        <br><br>
+        For 32-bit (as root):
+        <pre>
+            <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# mkdir tmp
+# cd tmp
+# wget http://mirror.nexcess.net/apache//directory/apacheds/dist/2.0.0-M19/apacheds-2.0.0-M19-32bit.bin
+# chmod a+x *.bin
+# ./apacheds-2.0.0-M19-32bit.bin
+            </p>
+        </pre>
+        For 64-bit (as root):
+        <pre>
+            <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# mkdir tmp
+# cd tmp
+# wget http://mirror.nexcess.net/apache//directory/apacheds/dist/2.0.0-M19/apacheds-2.0.0-M19-64bit.bin
+# chmod a+x *.bin
+# ./apacheds-2.0.0-M19-64bit.bin
+            </p>
+        </pre>
+    </li>
+
+    <li>
+        If you have trouble pulling you can get binaries here: <a href="http://directory.apache.org/apacheds/downloads.html">Apache Directory Downloads Page</a>.
+    </li>
+
+    <br>
+
+    <li>
+        Edit ApacheDS conf file
+        <pre>
+            <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# sudo /opt/apacheds-2.0.0-M19/conf/wrapper.conf
+            </p>
+        </pre>
+    </li>
+
+    <li>
+        Add location of java:
+        <pre>
+            <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+wrapper.java.command=/path/java/bin/java
+            </p>
+        </pre>
+        Where 'path' equals fully qualified location of target machine's java.
+    </li>
+
+    <br>
+
+    <li>
+        Save and exit.
+    </li>
+
+    <br>
+
+    <li>
+        After installation start the directory server process.
+
+        From system command prompt (as root):
+        <pre>
+            <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# /etc/init.d/apacheds-2.0.0-M19-default start
+            </p>
+        </pre>
+    </li>
+
+    <li>
+        Check the status of server process.
+
+        From system command prompt (as root):
+        <pre>
+            <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+# /etc/init.d/apacheds-2.0.0-M19-default status
+ApacheDS - default is running (70041).
+            </p>
+        </pre>
+    </li>
+
+    <br>
+</ol>
+</body>
+<p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights
+    Reserved.</p>
+</html>
