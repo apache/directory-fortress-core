@@ -43,10 +43,9 @@
 <h3>Setup Apache Tomcat Web Server</h3>
 <img src="tomcat.png">
 <br><br>
-This document contains instructions to install Tomcat 7. Any Tomcat (version 7 and beyond) instance
-may be used but server commands and file locations must be translated to match target environment.
+This document contains instructions to install Tomcat 7 and configure for use with Fortress Realm.
 <hr>
-<h4>This section describes how to install Apache Tomcat to Debian and Fedora distros</h4>
+<h4>This section covers installation to Debian and Fedora distros</h4>
 <ol>
     <li>
         If Tomcat is already installed skip this step.
@@ -122,8 +121,7 @@ may be used but server commands and file locations must be translated to match t
             </p>
         </pre>
         Using the config file realm to store credentials for an important application like the Tomcat Manager is a
-        security <b>antipattern</b>. For production, a realm like
-        fortress realm should used globally by Tomcat.
+        security <b>antipattern</b>. In production, the fortress realm should be used globally by Tomcat.
     </li>
 
     <br>
@@ -163,6 +161,8 @@ may be used but server commands and file locations must be translated to match t
 Ensure there are no errors within Tomcat's log.  One common problem:
         UnsupportedClassVersionError.  This is a sure sign that your Tomcat is running under the wrong version of java.  Remember Java 7 or greater is required to run this tutorial.
     </li>
+
+    <br>
 
     <li>
         Verify setup by signing onto the Tomcat Manager app with credentials <b>userId</b>: <i>tcmanager</i>, <b>password</b>:
