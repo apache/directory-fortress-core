@@ -226,7 +226,12 @@ import org.apache.directory.fortress.core.util.time.Constraint;
         "roles",
         "adminRoles",
         "password",
-        "newPassword"
+        "newPassword",
+        "uidNumber",
+        "gidNumber",
+        "homeDirectory",
+        "loginShell",
+        "gecos"
 /*        "jpegPhoto"*/
 })
 public class User extends FortEntity implements Constraint, Serializable
