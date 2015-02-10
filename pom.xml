@@ -494,6 +494,9 @@
                     <version>${version.maven.surefire.plugin}</version>
                     <configuration>
                         <argLine>-Xmx1024m</argLine>
+                        <systemPropertyVariables>
+                            <version>${project.version}</version>
+                        </systemPropertyVariables>
                     </configuration>
                 </plugin>
 
