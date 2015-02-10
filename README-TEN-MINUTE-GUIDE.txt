@@ -20,19 +20,28 @@ ________________________________________________________________________________
 ###################################################################################
 # README for Fortress Ten Minute Guide
 # Version 1.0-RC40
-# last updated: February 5, 2015
+# last updated: February 10, 2015
 ###################################################################################
-_____________________________________________________________________________
-#############################################################################
-# Prerequisites:
-#############################################################################
-1. Linux machine (tested on Ubuntu 12.04 & Centos 6.3)
-2. Internet access to retrieve dependencies from online Maven repo.
-3. Java SDK Version 7 (or greater), Apache Maven 3, and Git installed to target machine.
-4. All other packages will be covered inside the tutorial.
+___________________________________________________________________________________
+###################################################################################
+# SECTION 0.  Prerequisites for Fortress Ten Minute Guide
+###################################################################################
+1. Linux machine (tested on Ubuntu 12.04, 14.04 & Centos 6.3)
+
+2. Internet access to retrieve source code from Apache Fortress GIT repos and binary dependencies from online Maven repo.
+
+3. Git installed to target machine.
+
+4. Java SDK Version 7 or beyond installed to target machine.
+
+5. Apache Maven 3 installed to target machine.
+
+All other packages will be covered inside the tutorial.
+
 #############################################################################
 # Instructions for downloading app and generating the install doc:
 #############################################################################
+
 1. Clone the directory-fortress-core from apache git repo:
 # git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
 

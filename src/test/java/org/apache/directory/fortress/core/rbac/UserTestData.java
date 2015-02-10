@@ -6189,7 +6189,7 @@ public class UserTestData extends TestCase
                 "0", /* TIMEOUT_COL */
                 "", /* ASSGND_ROLES_COL */
                 "", /* AUTHZ_ROLES_COL */
-                "Maumelle,AR,72113,9 Vantage Point,2 floor,MBR", /* ADDRESS_COL */
+                "Lawrence,KS,66045,Strong Hall,Computer Science,222",/* ADDRESS_COL */
                 "888-888-8888,777-777-7777",/* PHONES_COL */
                 "555-555-5555,444-444-4444",/* MOBILES_COL */
                 "Tester", /* TITLE_COL */

@@ -46,8 +46,9 @@ ________________________________________________________________________________
 ###################################################################################
 # Document Overview
 ###################################################################################
-This document contains instructions to download, compile, load and test Fortress SDK with LDAP system.
+This document contains instructions to download, compile, load and test Fortress Core SDK with LDAP system.
 If you don't already have an LDAP server installed, options follow in subsequent sections.
+
 ___________________________________________________________________________________
 ###################################################################################
 #  Tips for users of Fortress Core
@@ -77,31 +78,29 @@ ________________________________________________________________________________
 
  - Questions pertaining to usage of this software may be submitted to:
     http://mail-archives.apache.org/mod_mbox/directory-fortress/
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 0.  Prerequisites for Fortress Core SDK installation and usage
 ###################################################################################
-1. Internet access to retrieve source code from Apache Fortress Core GIT and binary dependencies from online Maven repo.
+a. Internet access to retrieve source code from Apache Fortress Core GIT and binary dependencies from online Maven repo.
 Fortress installation procedures use Maven and Apache Ant.
 The ant targets need external access to the Internet to pull down dependencies but may run without IFF:
-a. The necessary binary jars are already present and loaded into FORTRESS_HOME/lib folder.  For list of dependency jars check out the ivy.xml file.
-b. Local mode has been enabled in target runtime env.  This can be done by adding the following to build.properties file:
+    - The necessary binary jars are already present and loaded into FORTRESS_HOME/lib folder.  For list of dependency jars check out the ivy.xml file.
+    - Local mode has been enabled in target runtime env.  This can be done by adding the following to build.properties file:
+        local.mode=true
 
-local.mode=true
+b. Java SDK Version 7 or beyond installed to target machine
 
-More prereqs:
+c. Apache Maven 3 installed to target machine.
 
-2. Java SDK Version 7 or beyond installed to target environment
+d. LDAP server installed.  (options follow in section 1).
 
-3. Apache Maven 3 installed to target environment
-
-4. LDAP server installed.  (options follow in section 1).
-
-Prereq notes:
-
+Notes:
  - Fortress is LDAPv3 compliant and works with any directory server.
  - Tested with ApacheDS: FORTRESS_HOME/deprecate/README-QUICKSTART-APACHEDS.html.
  - Tested with OpenLDAP: FORTRESS_HOME/deprecate/README-QUICKSTART.html.
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 1.  Options for installing OpenLDAP to target server environment
@@ -125,6 +124,7 @@ This document includes three options for use of Fortress and LDAP server:
 -------------------------------------------------------------------------------
 - Required Sections to follow:
     2, 4, 5, 7, 8
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 2. Instructions to pull Fortress source code from Apache GIT
@@ -168,6 +168,7 @@ install notes:
   files, javadoc and test distributions.
 
 - Project artifacts are loaded into $FORTRESS_HOME/target location.
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 4. Instructions to build software distribution packages using ant 'dist' target.
@@ -207,6 +208,7 @@ dist notes:
   files, javadoc and sample distributions.
 
 - Project artifacts are loaded into $FORTRESS_HOME/dist location.
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 5. Instructions to configure SDK for target system using build.properties file.
@@ -286,6 +288,7 @@ user.min.conn=1
 
 # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of user's.
 user.max.conn=10
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 6. Instructions for pre-existing or native OpenLDAP installation using 'load-slapd' target.
@@ -487,6 +490,7 @@ init-slapd notes:
   - Refreshes database contents by moving default and history database folders to location ${db.root}/backup.
     - per your db.root setting in build.properties file.
   - Seeds LDAP data by calling 'load-slapd' target as described in section above.
+
 _______________________________________________________________________________
 ###############################################################################
 # SECTION 8. Instructions to integration test using 'FortressJUnitTest' maven target
@@ -512,6 +516,7 @@ FortressJUnitTest Notes:
         - If you followed steps from SECTION 6 (existing OpenLDAP server), do NOT run the 'init-slapd' target.
 
   - WARNING log messages are good as these are negative tests in action:
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 9. Instructions to run the command line interpreter (CLI) utility using 'cli' target
@@ -524,6 +529,7 @@ a. from FORTRESS_HOME enter the following command:
 b. follow instructions in the command line interpreter reference manual contained within the javadoc:
 
 $FORTRESS_HOME/dist/docs/api/com/jts/fortress/cli/package-summary.html
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 10. Instructions to load policy data using maven fortress-load.
@@ -543,6 +549,7 @@ Notes:
   - This maven target executes FortressAntTask class (as described in FORTRESS_HOME/dist/docs/api/org/openldap/fortress/ant/FortressAntTask.html).
   - Drives Fortress policy apis using a simple xml format.
   - Use to automate user and rbac policy data loads.
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 11. Instructions to build and test the fortress samples with 'test-samples' target
@@ -579,6 +586,7 @@ Testing Notes:
   - The 'test-samples' target may be run as many times as necessary and should be run at least twice to test the teardown A/P/R/BAC APIs.
 
   - The 2nd and subsequent times 'test-samples' runs, it will tear down the data loaded during the prior run.
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 12. Instructions to run the command console using 'console' target
@@ -587,6 +595,7 @@ ________________________________________________________________________________
 a. from FORTRESS_HOME enter the following command:
 
 # $ANT_HOME/bin/ant console
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 13. Instructions to performance test fortress core using maven loadtest profile and jmeter.
