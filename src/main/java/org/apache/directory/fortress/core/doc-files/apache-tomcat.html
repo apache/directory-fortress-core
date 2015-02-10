@@ -61,10 +61,10 @@ This document contains instructions to install Tomcat 7 and configure for use wi
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 # mkdir tmp
 # cd tmp
-# wget http://www.us.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz
-# tar xzf apache-tomcat-7.0.55.tar.gz
-# mv apache-tomcat-7.0.55 /usr/share/tomcat7
-# cd /usr/share/tomcat7
+# wget http://apache.claz.org/tomcat/tomcat-7/v7.0.59/bin/apache-tomcat-7.0.59.tar.gz
+# tar xzf apache-tomcat-7.0.59.tar.gz
+# mv apache-tomcat-7.0.59 /usr/local/tomcat7
+# cd /usr/local/tomcat7
 # ./bin/startup.sh
             </p>
         </pre>
@@ -86,11 +86,11 @@ This document contains instructions to install Tomcat 7 and configure for use wi
         jar name is fortress-realm-proxy-[version].jar and located here: directory-fortress-realm/proxy/target
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cp fortress-realm-proxy-[VERSION]-proxy.jar /usr/share/tomcat7/lib
+# cp [directory-fortress-realm]/proxy/target/fortress-realm-proxy-[VERSION]-proxy.jar /usr/local/tomcat7/lib
           </p>
         </pre>
-        Where [VERSION] matches the value in this packages pom.xml file. At the time of this writing the current version
-        was 1.0-RC40.
+        Where [directory-fortress-realm] is location of Fortress Realm source package and
+        [VERSION] matches [directory-fortress-realm] package pom.xml file. At the time of this writing the current version was 1.0-RC40.
     </li>
 
     <br>
@@ -99,7 +99,7 @@ This document contains instructions to install Tomcat 7 and configure for use wi
         Edit tomcat-users.xml:
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# vi /usr/share/tomcat7/conf/tomcat-users.xml
+# vi /usr/local/tomcat7/conf/tomcat-users.xml
           </p>
         </pre>
         Note: Depending on how and where you installed Tomcat, the tomcat-users.xml could be different locations.  To find out where:
