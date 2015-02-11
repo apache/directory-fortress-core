@@ -29,6 +29,8 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -223,10 +225,16 @@ class DelegatedAccessMgrConsole
             VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, "DelegatedAccessMgrConsole.sessionPermissions");
             ReaderUtil.clearScreen();
             List<Permission> list = dAmgr.sessionPermissions(session);
-
-            //List list = rm.findPermissions(pe);
             if (list != null)
             {
+                Collections.sort(list, new Comparator<Permission>()
+                {
+                    @Override
+                    public int compare(Permission p1, Permission p2)
+                    {
+                        return p1.getAbstractName().compareTo( p2.getAbstractName() );
+                    }
+                });
                 int i = 0;
                 for (Permission pe : list)
                 {

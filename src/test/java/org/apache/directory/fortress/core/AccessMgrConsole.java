@@ -26,6 +26,8 @@ import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.rbac.UserRole;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -74,6 +76,14 @@ class AccessMgrConsole
             //List list = rm.findPermissions(pe);
             if (list != null)
             {
+                Collections.sort( list, new Comparator<Permission>()
+                {
+                    @Override
+                    public int compare(Permission p1, Permission p2)
+                    {
+                        return p1.getAbstractName().compareTo( p2.getAbstractName() );
+                    }
+                } );
                 int i = 0;
                 for (Permission pe : list)
                 {
