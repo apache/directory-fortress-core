@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.rbac;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
@@ -674,12 +675,12 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         AdminRole entity = new ObjectFactory().createAdminRole();
         entity.setSequenceId( sequence );
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
-        entity.setName( getAttribute( le, ROLE_NM ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.setOccupants( getAttributes( le, ROLE_OCCUPANT ) );
         entity.setOsP( getAttributeSet( le, ROLE_OSP ) );
         entity.setOsU( getAttributeSet( le, ROLE_OSU ) );
         unloadTemporal( le, entity );
+        entity.setName( getAttribute( le, ROLE_NM ) );
         entity.setRoleRangeRaw( getAttribute( le, ROLE_RANGE ) );
         //entity.setParents(AdminRoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
