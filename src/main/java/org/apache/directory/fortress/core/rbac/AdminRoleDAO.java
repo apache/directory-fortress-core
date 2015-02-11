@@ -684,7 +684,11 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         entity.setRoleRangeRaw( getAttribute( le, ROLE_RANGE ) );
         //entity.setParents(AdminRoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
-        entity.setChildren( AdminRoleUtil.getChildren( entity.getName().toUpperCase(), contextId ) );
+        Set<String> children = AdminRoleUtil.getChildren( entity.getName().toUpperCase(), contextId );
+        if(VUtil.isNotNullOrEmpty( children ))
+        {
+            entity.setChildren( children );
+        }
         return entity;
     }
 
