@@ -1145,6 +1145,7 @@ class ProcessMenuCommand
         System.out.println( "5. Can Deassign" );
         System.out.println( "6. Can Grant" );
         System.out.println( "7. Can Revoke" );
+        System.out.println( "8. Session Permissions" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
 
@@ -1186,6 +1187,9 @@ class ProcessMenuCommand
                         break;
                     case '7':
                         delAccessConsole.canRevoke();
+                        break;
+                    case '8':
+                        delAccessConsole.sessionPermissions();
                         break;
                     case 'q':
                     case 'Q':

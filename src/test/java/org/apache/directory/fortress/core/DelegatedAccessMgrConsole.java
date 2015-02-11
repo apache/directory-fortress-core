@@ -29,6 +29,9 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Enumeration;
+import java.util.List;
+
 
 /**
  *  This class is used to test drive the Fortress Delegated Access Control APIs.
@@ -213,4 +216,63 @@ class DelegatedAccessMgrConsole
         ReaderUtil.readChar();
     }
 
+    void sessionPermissions()
+    {
+        try
+        {
+            VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, "DelegatedAccessMgrConsole.sessionPermissions");
+            ReaderUtil.clearScreen();
+            List<Permission> list = dAmgr.sessionPermissions(session);
+
+            //List list = rm.findPermissions(pe);
+            if (list != null)
+            {
+                int i = 0;
+                for (Permission pe : list)
+                {
+                    //pe = (Permission) list.get(i);
+                    System.out.println("**perm:" + (i++) + "***");
+                    System.out.println("object name [" + pe.getObjName() + "]");
+                    System.out.println("object id [" + pe.getObjId() + "]");
+                    System.out.println("operation name [" + pe.getOpName() + "]");
+                    System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
+                    System.out.println("internalId [" + pe.getInternalId() + "]");
+                    if (pe.getUsers() != null && pe.getUsers().size() > 0)
+                    {
+                        int ctr = 0;
+                        for (String user : pe.getUsers())
+                        {
+                            System.out.println("user[" + ctr++ + "]=" + user);
+                        }
+                    }
+                    if (pe.getRoles() != null && pe.getRoles().size() > 0)
+                    {
+                        int ctr = 0;
+                        for (String role : pe.getRoles())
+                        {
+                            System.out.println("name[" + ctr++ + "]=" + role);
+                        }
+                    }
+                    if (pe.getProperties() != null && pe.getProperties().size() > 0)
+                    {
+                        int ctr = 0;
+                        for (Enumeration e = pe.getProperties().propertyNames(); e.hasMoreElements();)
+                        {
+                            String key = (String) e.nextElement();
+                            String val = pe.getProperty(key);
+                            System.out.println("prop key[" + ctr + "]=" + key);
+                            System.out.println("prop value[" + ctr++ + "]=" + val);
+                        }
+                    }
+                    System.out.println("**");
+                }
+            }
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            LOG.error("sessionPermissions caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
 }
