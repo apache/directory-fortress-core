@@ -859,7 +859,7 @@ final class UserDAO extends ApacheDsDataProvider
      *
      * @throws org.apache.directory.fortress.core.SecurityException
      */
-    final Session checkPassword( User user ) throws FinderException
+    final Session checkPassword( User user ) throws FinderException, PasswordException
     {
         Session session = null;
         LdapConnection ld = null;
@@ -873,9 +873,10 @@ final class UserDAO extends ApacheDsDataProvider
             BindResponse bindResponse =  bind( ld, userDn, user.getPassword() );
             if(bindResponse.getLdapResult().getResultCode() != ResultCodeEnum.SUCCESS)
             {
-                String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "]";
+                String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "], resultCode [" + bindResponse.getLdapResult().getResultCode() + "]";
                 session.setMsg( info );
                 session.setErrorId( GlobalErrIds.USER_PW_INVLD );
+                throw new PasswordException( GlobalErrIds.USER_PW_INVLD, info );
             }
             PasswordPolicy respCtrl = getPwdRespCtrl( bindResponse );
             if ( respCtrl != null )
