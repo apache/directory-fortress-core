@@ -427,8 +427,10 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, ROLE_ATRS );
-            entity = unloadLdapEntry( findEntry, 0, adminRole.getContextId() );
-
+            if(findEntry != null)
+            {
+                entity = unloadLdapEntry( findEntry, 0, adminRole.getContextId() );
+            }
             if ( entity == null )
             {
                 String warning = "getRole name [" + adminRole.getName() + "] no entry found dn [" + dn + "]";
@@ -680,7 +682,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         entity.setOsP( getAttributeSet( le, ROLE_OSP ) );
         entity.setOsU( getAttributeSet( le, ROLE_OSU ) );
         unloadTemporal( le, entity );
-        entity.setName( getAttribute( le, ROLE_NM ) );
+        entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
         entity.setRoleRangeRaw( getAttribute( le, ROLE_RANGE ) );
         //entity.setParents(AdminRoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
