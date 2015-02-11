@@ -855,7 +855,7 @@ final class UserDAO extends ApacheDsDataProvider
     /**
      * @param user
      * @return
-     * @throws org.apache.directory.fortress.core.FinderException
+     * @throws org.apache.directory.fortress.core.FinderException, org.apache.directory.fortress.core.PasswordException
      *
      * @throws org.apache.directory.fortress.core.SecurityException
      */
