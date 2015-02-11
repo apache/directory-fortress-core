@@ -874,8 +874,6 @@ final class UserDAO extends ApacheDsDataProvider
             if(bindResponse.getLdapResult().getResultCode() != ResultCodeEnum.SUCCESS)
             {
                 String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "], resultCode [" + bindResponse.getLdapResult().getResultCode() + "]";
-                session.setMsg( info );
-                session.setErrorId( GlobalErrIds.USER_PW_INVLD );
                 throw new PasswordException( GlobalErrIds.USER_PW_INVLD, info );
             }
             PasswordPolicy respCtrl = getPwdRespCtrl( bindResponse );
@@ -895,10 +893,8 @@ final class UserDAO extends ApacheDsDataProvider
         }
         catch ( LdapAuthenticationException e )
         {
-            String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "] exception";
-            session.setMsg( info );
-            session.setErrorId( GlobalErrIds.USER_PW_INVLD );
-            session.setAuthenticated( false );
+            String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "] exception [" + e + "]";
+            throw new PasswordException( GlobalErrIds.USER_PW_INVLD, info);
         }
         catch ( LdapException e )
         {
