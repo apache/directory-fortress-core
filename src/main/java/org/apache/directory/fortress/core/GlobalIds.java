@@ -498,7 +498,7 @@ public class GlobalIds
     /**
      * Maximum number of records for ldap client to wait on while processing results sets from ldap server.
      */
-    public static final int BATCH_SIZE = 100;
+    public static final int BATCH_SIZE = 1000;
 
     /**
      * Attribute is used in Fortress time/date constraints as default which will always pass.  i.e. values stored as beginDate=none or beginTime=none will turn the date and time constraints off
