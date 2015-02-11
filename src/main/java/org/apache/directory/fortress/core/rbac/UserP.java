@@ -625,10 +625,10 @@ public final class UserP
      */
     final String assign( UserRole uRole ) throws SecurityException
     {
+        validate( uRole );
         // "assign" custom Fortress role data, i.e. temporal constraints, onto the user node:
         return uDao.assign( uRole );
     }
-
 
     /**
      * This command deletes the assignment of the User from the Role entities. The command is
@@ -646,6 +646,7 @@ public final class UserP
      */
     final String deassign( UserRole uRole ) throws SecurityException
     {
+        validate( uRole );
         // "deassign" custom Fortress role data from the user's node:
         return uDao.deassign( uRole );
     }
@@ -677,6 +678,7 @@ public final class UserP
      */
     final String assign( UserAdminRole uRole ) throws SecurityException
     {
+        validate( uRole );
         // Assign custom Fortress role data, i.e. temporal constraints, onto the user node:
         return uDao.assign( uRole );
     }
@@ -696,8 +698,28 @@ public final class UserP
      */
     final String deassign( UserAdminRole uRole ) throws SecurityException
     {
+        validate( uRole );
         // Deassign custom Fortress role data from the user's node:
         return uDao.deassign( uRole );
+    }
+
+
+    /**
+     * Ensure that the passed in variable has the correct fields set.
+     *
+     * @param uRole - name and userId must be checked.
+     * @throws ValidationException - if either are null or empty.
+     */
+    private void validate( UserRole uRole ) throws ValidationException
+    {
+        if(!VUtil.isNotNullOrEmpty( uRole.getUserId() ) )
+        {
+            throw new ValidationException( GlobalErrIds.USER_ID_NULL, CLS_NM + ".validate userId is NULL" );
+        }
+        if(!VUtil.isNotNullOrEmpty( uRole.getName() ) )
+        {
+            throw new ValidationException( GlobalErrIds.ROLE_NM_NULL, CLS_NM + ".validate name is NULL" );
+        }
     }
 
 

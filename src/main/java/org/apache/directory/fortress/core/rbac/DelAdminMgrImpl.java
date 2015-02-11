@@ -260,6 +260,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
     {
         String methodName = "assignUser";
         assertContext(CLS_NM, methodName, uAdminRole, GlobalErrIds.ARLE_NULL);
+
         setEntitySession(CLS_NM, methodName, uAdminRole);
 
         AdminRole adminRole = new AdminRole(uAdminRole.getName());
