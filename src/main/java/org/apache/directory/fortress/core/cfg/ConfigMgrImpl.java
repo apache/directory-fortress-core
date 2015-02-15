@@ -34,7 +34,6 @@ import java.util.Properties;
  * <p/>
  * This class is thread safe.
  * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -63,7 +62,7 @@ public class ConfigMgrImpl implements ConfigMgr
      * a {@link org.apache.directory.fortress.core.SecurityException} with error {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      *
      * @param name    attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @param inProps contains {@link Properties} with list of name/value pairs to add or udpate from existing config node.
+     * @param inProps contains {@link Properties} with list of name/value pairs to add or update from existing config node.
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
@@ -74,12 +73,8 @@ public class ConfigMgrImpl implements ConfigMgr
     }
 
     /**
-     * Completely removes named cfg node from the directory.
-     * <p/>
-     * <font size="3" color="red">This method is destructive and will remove the cfg node completely from directory.<BR>
-     * Care should be taken during execution to ensure target name is correct and permanent removal of all parameters located
-     * there is intended.  There is no 'undo' for this operation.
-     * </font>
+     * Removes named cfg node from the directory.  The name is required.  If node does not exist,
+     * a {@link org.apache.directory.fortress.core.SecurityException} with error {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      *
      * @param name is required and maps to 'cn' attribute on 'device' object class of node targeted for operation.
      * @throws org.apache.directory.fortress.core.SecurityException in the event of system error.
