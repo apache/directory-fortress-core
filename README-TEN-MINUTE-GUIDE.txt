@@ -26,7 +26,7 @@ ________________________________________________________________________________
 ###################################################################################
 # SECTION 0.  Prerequisites for Fortress Ten Minute Guide
 ###################################################################################
-1. Linux machine (tested on Ubuntu 12.04, 14.04 & Centos 6.3)
+1. Linux machine (tested on Ubuntu 12.04, 14.04 & Centos 6.3, 7)
 
 2. Internet access to retrieve source code from Apache Fortress GIT repos and binary dependencies from online Maven repo.
 
@@ -60,7 +60,7 @@ All other packages will be covered inside the tutorial.
 5. Create the Fortress Core javadoc:
 # $M2_HOME/bin/mvn javadoc:javadoc
 
-6. Point your web browser to the following location:s
+6. Point your web browser to the following location:
    file:///[package home]/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
 
    (where [package_home] is location of directory-fortress-core base package)
