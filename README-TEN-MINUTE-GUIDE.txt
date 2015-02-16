@@ -48,21 +48,24 @@ All other packages will be covered inside the tutorial.
 2. Change directory to package home:
 # cd directory-fortress-core/
 
-3. Set JAVA_HOME
-# export JAVA_HOME=...
+3. Set JAVA_HOME & M2_HOME
 
-4. Set Maven Home:
-# export M2_HOME=...
-
-5. Build the Fortress Core source:
-# $M2_HOME/bin/mvn clean install -DskipTests
+4. Build the Fortress Core source:
+# mvn clean install -DskipTests
 
 5. Create the Fortress Core javadoc:
-# $M2_HOME/bin/mvn javadoc:javadoc
+# mvn javadoc:javadoc
 
 6. Point your web browser to the following location:
    file:///[package home]/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
 
    (where [package_home] is location of directory-fortress-core base package)
 
-7. Follow the steps under 'Navigation Links'
+7. Follow the steps under 'Navigation Links':
+  a. Setup Apache Directory Server
+  b. Setup Apache Directory Studio
+  c. Build Apache Fortress Core
+  d. Build Apache Fortress Realm
+  e. Setup Apache Tomcat Web Server
+  f. Build Apache Fortress Rest
+  g. Build Apache Fortress Web
