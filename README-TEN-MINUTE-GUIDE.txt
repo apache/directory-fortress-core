@@ -67,5 +67,5 @@ All other packages will be covered inside the tutorial.
   c. Build Apache Fortress Core
   d. Build Apache Fortress Realm
   e. Setup Apache Tomcat Web Server
-  f. Build Apache Fortress Rest
-  g. Build Apache Fortress Web
+  f. Build Apache Fortress Web
+  g. Build Apache Fortress Rest

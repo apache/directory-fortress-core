@@ -64,15 +64,17 @@
         </dependency>
 
         <!-- Fortress core source is NOT dependent on Sentry, EnMasse or Commander artifacts rather they're required for its QUICKSTART demo apps: -->
-        <dependency org="org.openldap" name="sentry" rev="1.0-RC39"  conf="default->master">
-            <artifact name="sentry" e:classifier="dist" type="jar"/>
-        </dependency>
-        <dependency org="org.openldap" name="enmasse" rev="1.0-RC39"  conf="default->master">
-            <artifact name="enmasse" type="jar"/>
-        </dependency>
-        <dependency org="org.openldap" name="commander" rev="1.0-RC39"  conf="default->master">
-            <artifact name="commander" type="jar"/>
-        </dependency>
+        <!--
+                <dependency org="org.openldap" name="sentry" rev="1.0-RC39"  conf="default->master">
+                    <artifact name="sentry" e:classifier="dist" type="jar"/>
+                </dependency>
+                <dependency org="org.openldap" name="enmasse" rev="1.0-RC39"  conf="default->master">
+                    <artifact name="enmasse" type="jar"/>
+                </dependency>
+                <dependency org="org.openldap" name="commander" rev="1.0-RC39"  conf="default->master">
+                    <artifact name="commander" type="jar"/>
+                </dependency>
+        -->
 
     </dependencies>
 </ivy-module>
