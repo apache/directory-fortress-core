@@ -56,30 +56,15 @@
 
           </li>
 
-          <li>
-            Set JAVA_HOME:
-            <pre>
-                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export JAVA_HOME=/opt/jdk1.7.0_10/
-                </p>
-            </pre>
+          <li>Set java and maven home env variables.</li>
 
-          </li>
+          <br>
 
           <li>
               Change directory:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 # cd directory-fortress-commander/
-                </p>
-            </pre>
-          </li>
-
-          <li>
-              Set M2_HOME:
-            <pre>
-                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export M2_HOME=/usr/share/maven-version
                 </p>
             </pre>
           </li>
@@ -100,7 +85,7 @@
               To deploy fortress web, run this command:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn tomcat:deploy
+# mvn tomcat:deploy
                     </p>
                 </pre>
           </li>
@@ -109,7 +94,7 @@
               To redeploy:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn tomcat:redeploy
+# mvn tomcat:redeploy
                     </p>
                 </pre>
           </li>
@@ -144,11 +129,13 @@
               </ol>
           </li>
 
+          <br>
+
           <li>
               Run the Selenium Web driver integration tests:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn verify -DskipTests=false -Dnoload
+# mvn verify -DskipTests=false -Dnoload
                     </p>
                 </pre>
           </li>

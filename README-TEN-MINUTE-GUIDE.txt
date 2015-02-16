@@ -20,7 +20,7 @@ ________________________________________________________________________________
 ###################################################################################
 # README for Fortress Ten Minute Guide
 # Version 1.0-RC40
-# last updated: February 10, 2015
+# last updated: February 15, 2015
 ###################################################################################
 ___________________________________________________________________________________
 ###################################################################################
@@ -32,7 +32,7 @@ ________________________________________________________________________________
 
 3. Git installed to target machine.
 
-4. Java SDK Version 7 or beyond installed to target machine.
+4. Java SDK Version 7 (or beyond) sdk installed to target machine.
 
 5. Apache Maven 3 installed to target machine.
 
@@ -48,7 +48,7 @@ All other packages will be covered inside the tutorial.
 2. Change directory to package home:
 # cd directory-fortress-core/
 
-3. Set JAVA_HOME & M2_HOME
+3. Set java and maven home env variables.
 
 4. Build the Fortress Core source:
 # mvn clean install -DskipTests
@@ -57,9 +57,9 @@ All other packages will be covered inside the tutorial.
 # mvn javadoc:javadoc
 
 6. Point your web browser to the following location:
-   file:///[package home]/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
+   file:///[directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
 
-   (where [package_home] is location of directory-fortress-core base package)
+   (where [directory-fortress-core] is location of current source package)
 
 7. Follow the steps under 'Navigation Links':
   a. Setup Apache Directory Server

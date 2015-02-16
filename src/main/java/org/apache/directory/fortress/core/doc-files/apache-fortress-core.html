@@ -56,30 +56,15 @@
 
     </li>
 
-    <li>
-        Set JAVA_HOME:
-            <pre>
-                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export JAVA_HOME=/opt/jdk1.7.0_10/
-                </p>
-            </pre>
+    <li>Set java and maven home env variables.</li>
 
-    </li>
+    <br>
 
     <li>
         Change directory:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 # cd directory-fortress-core/
-                </p>
-            </pre>
-    </li>
-
-    <li>
-        Set M2_HOME:
-            <pre>
-                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export M2_HOME=/usr/local/maven-version
                 </p>
             </pre>
     </li>
@@ -108,7 +93,7 @@ ldap.server.type=apacheds
         is dependent on fortress core.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn clean install -DskipTests
+# mvn clean install -DskipTests
                     </p>
                 </pre>
     </li>
@@ -173,7 +158,7 @@ ldap.server.type=apacheds
         Build the fortress LDAP DIT and create the configuration node:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -DskipTests
+# mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -DskipTests
                     </p>
                 </pre>
     </li>
@@ -182,7 +167,7 @@ ldap.server.type=apacheds
         Load the fortress ARBAC policies:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml -DskipTests
+# mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml -DskipTests
                     </p>
                 </pre>
     </li>
@@ -191,7 +176,7 @@ ldap.server.type=apacheds
         Run the Fortress Core Regression Tess:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn -Dtest=FortressJUnitTest test
+# mvn -Dtest=FortressJUnitTest test
                     </p>
                 </pre>
         Tests should run with no errors.

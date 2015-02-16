@@ -58,15 +58,9 @@
 
     </li>
 
-    <li>
-        Set JAVA_HOME:
-            <pre>
-                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export JAVA_HOME=/opt/jdk1.7.0_10/
-                </p>
-            </pre>
+    <li>Set java and maven home env variables.</li>
 
-    </li>
+    <br>
 
     <li>
         Change directory:
@@ -78,19 +72,10 @@
     </li>
 
     <li>
-        Set M2_HOME:
-            <pre>
-                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export M2_HOME=/usr/share/maven-version
-                </p>
-            </pre>
-    </li>
-
-    <li>
         Generate the javadoc
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn javadoc:javadoc
+# mvn javadoc:javadoc
                     </p>
                 </pre>
         The javadoc will be located under target/site/apidocs.
@@ -116,7 +101,7 @@
         To deploy fortress rest, run this command:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn tomcat:deploy
+# mvn tomcat:deploy
                     </p>
                 </pre>
     </li>
@@ -125,7 +110,7 @@
         To redeploy:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn tomcat:redeploy
+# mvn tomcat:redeploy
                     </p>
                 </pre>
     </li>
@@ -134,7 +119,7 @@
         Run the tests:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn verify -Dnoload
+# mvn verify -Dnoload
                     </p>
                 </pre>
     </li>

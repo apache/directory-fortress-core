@@ -57,14 +57,9 @@
 
     </li>
 
-    <li>
-        Set JAVA_HOME:
-            <pre>
-                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export JAVA_HOME=/opt/jdk1.7.0_10/
-                </p>
-            </pre>
-    </li>
+    <li>Set java and maven home env variables.</li>
+
+    <br>
 
     <li>
         Change directory:
@@ -76,24 +71,13 @@
     </li>
 
     <li>
-        Set M2_HOME:
-            <pre>
-                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# export M2_HOME=/usr/local/maven-version
-                </p>
-            </pre>
-    </li>
-
-    <br>
-
-    <li>
         Build fortress realm with maven and install to local repo. The fortress rest [<a
             href="apache-fortress-rest.html">Build Apache Fortress Rest</a>]
         and fortress web [<a href="apache-fortress-web.html">Build Apache Fortress Web</a>]
         are both dependent on the fortress realm.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# $M2_HOME/bin/mvn clean install
+# mvn clean install
                     </p>
                 </pre>
     </li>
