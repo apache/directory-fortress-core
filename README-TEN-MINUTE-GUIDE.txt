@@ -42,10 +42,13 @@ All other packages will be covered inside the tutorial.
 # Instructions for downloading app and generating the install doc:
 #############################################################################
 
-1. Clone the directory-fortress-core from apache git repo:
+1. Clone the directory-fortress repos from apache git:
 # git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-realm.git
+# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
 
-2. Change directory to package home:
+2. Change directory to fortress core package home:
 # cd directory-fortress-core/
 
 3. Set java and maven home env variables.
