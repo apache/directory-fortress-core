@@ -2,6 +2,7 @@ target
 .project
 .classpath
 .settings
+build..properties
 eclipse-classes
 *.log
 *.iml

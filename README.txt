@@ -145,23 +145,15 @@ ________________________________________________________________________________
 NOTE: The Fortress pom.xml may run without connection to Internet iff:
 - The binary dependencies are already present in local maven repo.
 
-a. set JAVA_HOME per target machine
+a. set java and maven home on machine
 
-for example:
-# export JAVA_HOME=/opt/jdk1.7.0_10
+b. from the FORTRESS_HOME root folder, enter the following command:
 
-b. set M2_HOME per target machine:
-
-for example:
-# export M2_HOME=/usr/share/maven
-
-c. from the FORTRESS_HOME root folder, enter the following command:
-
-# $M2_HOME/bin/mvn install -DskipTests
+# mvn install -DskipTests
 
 d. from the FORTRESS_HOME root folder, enter the following command:
 
-# $M2_HOME/bin/mvn javadoc:javadoc
+# mvn javadoc:javadoc
 
 install notes:
 
@@ -183,17 +175,9 @@ NOTE: The Fortress build.xml may run without connection to Internet iff:
 - Local mode has been enabled on target machine.  Local mode can be enabled by adding this property to build.properties:
 local.mode=true
 
-a. set JAVA_HOME per target machine
+a. set java home on target machine
 
-for example:
-# export JAVA_HOME=/opt/jdk1.7.0_10
-
-b. set ANT_HOME per target machine:
-
-for example:
-# export ANT_HOME=/home/user/apache-ant-1.8.2
-
-c. from the FORTRESS_HOME root folder, enter the following command:
+b. from the FORTRESS_HOME root folder, enter the following command:
 
 # $ANT_HOME/bin/ant dist
 
@@ -217,24 +201,25 @@ ________________________________________________________________________________
 
 - This must be done when OpenLDAP is not installed with the Fortress QUICKSTART package.
 
-- The 'init-config' ant target on this project will substitute parameters found in 'build.properties' into their proper location.
+- The 'init-config' ant target and install maven target will substitute parameters found in 'build.properties' into their proper location.
 
 - For newcomers just trying to learn the ropes the defaults usually work.
 
 - unless you know what you are doing, never change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
 
-a. Edit the $FORTRESS_HOME/build.properties file.
+a. Copy $FORTRESS_HOME/build.properties.example to build.properties
 
-b. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running the build.xml script from same platform as your
+b. Edit the $FORTRESS_HOME/build.properties file.
+
+c. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running the build.xml script from same platform as your
 are running OpenLDAP, localhost will do:
 host=localhost
 port=389
 
-c. Set the suffix name and domain component.  For example suffix.name=example + suffix.dc=com will = 'dc=example,dc=com'.
+d. Set the suffix name and domain component.  For example suffix.name=example + suffix.dc=com will = 'dc=example,dc=com'.
 suffix.name=example
 suffix.dc=com
-
-d. Set the administrative LDAP connection pool parameters:
+e. Set the administrative LDAP connection pool parameters:
 
 # Set the encryption key value used as key for encryption/decryption commands for fortress-core ldap service account passwords.
 crypto.prop=abcd12345
@@ -250,7 +235,7 @@ root.dn=cn=Manager,${suffix}
 # This password is for above admin dn, will be stored in OpenLDAP 'slapd.conf'.  It may be hashed using OpenLDAP 'slappasswd' command before placing here:
 root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 
-# This is password is for same user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section 12):
+# This is password is for same user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section 14):
 cfg.root.pw=W7T0G9hylKZQ4K+DF8gfgA==
 
 # These properties specify the min/max settings for connection pool containing read/write connections to LDAP DIT:
@@ -259,7 +244,19 @@ admin.min.conn=1
 # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of user's.
 admin.max.conn=10
 
-e. Set the audit connection pool parameters:
+g. Set user authentication connection pool parameters:
+user.min.conn=1
+
+# You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of user's.
+user.max.conn=10
+
+h. Audit settings (openldap only):
+------------------------------------------------------------------
+
+# For all non-openldap deployments, disable Fortress audit:
+log.ops=###AuditDisabled
+
+# Set the audit connection pool parameters:
 
 # This value contains dn of user that has read/write access to OpenLDAP slapd access log entries:
 log.root.dn=cn=Manager,${log.suffix}
@@ -267,7 +264,7 @@ log.root.dn=cn=Manager,${log.suffix}
 # This password is for above log user dn, will be stored in OpenLDAP 'slapd.conf'.  It may be hashed using OpenLDAP 'slappasswd' command before placing here:
 log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 
-# This password is for same log user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section 12):
+# This password is for same log user but will be stored as property in fortress.properties file.  It may be encrypted using Fortress' 'encrypt' ant target (see section 14):
 cfg.log.root.pw=W7T0G9hylKZQ4K+DF8gfgA==
 
 log.min.conn=1
@@ -275,21 +272,11 @@ log.min.conn=1
 # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of user's.
 log.max.conn=3
 
-f. Set more audit logger parameters:
+# Set more audit logger parameters (openldap only):
 log.suffix=cn=log
 
 # To enable slapd persistence on the following OpenLDAP operations:
 log.ops=logops search bind writes
-
-# Or, to disable Fortress audit altogether, use this:
-#log.ops=###AuditDisabled
-
-g. Set user authentication connection pool parameters:
-user.min.conn=1
-
-# You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of user's.
-user.max.conn=10
-
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 6. Instructions for pre-existing or native OpenLDAP installation using 'load-slapd' target.
