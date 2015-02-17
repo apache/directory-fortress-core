@@ -53,7 +53,7 @@
               Clone the <a href="https://git-wip-us.apache.org/repos/asf?p=directory-fortress-commander.git">Apache Fortress Web Git repo</a>:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
                 </p>
             </pre>
 
@@ -67,7 +67,7 @@
               Change directory:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cd directory-fortress-commander/
+cd directory-fortress-commander/
                 </p>
             </pre>
           </li>
@@ -76,7 +76,7 @@
               Copy the fortress.properties, created on step <a href="./apache-fortress-core.html">Build Apache Fortress Core</a>, to this package's resource folder.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cp [directory-fortress-core]/config/fortress.properties [directory-fortress-commander]/src/main/resources
+cp [directory-fortress-core]/config/fortress.properties [directory-fortress-commander]/src/main/resources
                     </p>
                 </pre>
               Where [directory-fortress-core] is base folder of the fortress core source package and [directory-fortress-commander] is the current package's home folder.
@@ -88,7 +88,7 @@
               To deploy fortress web, run this command:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mvn tomcat:deploy
+mvn tomcat:deploy
                     </p>
                 </pre>
           </li>
@@ -97,7 +97,7 @@
               To redeploy:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mvn tomcat:redeploy
+mvn tomcat:redeploy
                     </p>
                 </pre>
           </li>
@@ -138,7 +138,7 @@
               Run the Selenium Web driver integration tests:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mvn verify -DskipTests=false -Dnoload
+mvn verify -DskipTests=false -Dnoload
                     </p>
                 </pre>
           </li>

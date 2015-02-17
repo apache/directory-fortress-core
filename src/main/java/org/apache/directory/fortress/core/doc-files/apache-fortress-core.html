@@ -50,7 +50,7 @@
         Core Git repo</a>:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
                 </p>
             </pre>
 
@@ -64,7 +64,7 @@
         Change directory:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cd directory-fortress-core/
+cd directory-fortress-core/
                 </p>
             </pre>
     </li>
@@ -102,7 +102,7 @@ ldap.server.type=apacheds
         is dependent on fortress core.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mvn clean install -DskipTests
+mvn clean install -DskipTests
                     </p>
                 </pre>
     </li>
@@ -111,8 +111,8 @@ ldap.server.type=apacheds
         Verify the following files were created by build as they are required later:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# ls -l config/fortress.properties
-# ls -l ldap/setup/refreshLDAPData.xml
+ls -l config/fortress.properties
+ls -l ldap/setup/refreshLDAPData.xml
                     </p>
                 </pre>
     </li>
@@ -164,19 +164,12 @@ ldap.server.type=apacheds
     <br>
 
     <li>
-        Build the fortress LDAP DIT and create the configuration node:
+        Build the fortress LDAP DIT, create its config node and load the A/RBAC policies:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -DskipTests
-                    </p>
-                </pre>
-    </li>
+mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -DskipTests
+mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml -DskipTests
 
-    <li>
-        Load the fortress ARBAC policies:
-                <pre>
-                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml -DskipTests
                     </p>
                 </pre>
     </li>

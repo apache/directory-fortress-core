@@ -45,27 +45,21 @@
 <br><br>
 This document contains instructions to install Tomcat 7 and configure for use with Fortress Realm.
 <hr>
-<h4>This section covers installation to Debian and Fedora distros</h4>
+<h4>This section covers installation to Linux distros</h4>
 <ol>
     <li>
         If Tomcat is already installed skip this step.
         <br><br>
-        Debian:
+        As root, issue the following commands:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# sudo apt-get install tomcat7 tomcat7-admin tomcat7-docs
-            </p>
-        </pre>
-        Fedora (as root):
-        <pre>
-            <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mkdir tmp
-# cd tmp
-# wget http://apache.claz.org/tomcat/tomcat-7/v7.0.59/bin/apache-tomcat-7.0.59.tar.gz
-# tar xzf apache-tomcat-7.0.59.tar.gz
-# mv apache-tomcat-7.0.59 /usr/local/tomcat7
-# cd /usr/local/tomcat7
-# ./bin/startup.sh
+mkdir tmp
+cd tmp
+wget http://apache.claz.org/tomcat/tomcat-7/v7.0.59/bin/apache-tomcat-7.0.59.tar.gz
+tar xzf apache-tomcat-7.0.59.tar.gz
+mv apache-tomcat-7.0.59 /usr/local/tomcat7
+cd /usr/local/tomcat7
+/usr/local/tomcat7/bin/startup.sh
             </p>
         </pre>
 
@@ -75,7 +69,7 @@ This document contains instructions to install Tomcat 7 and configure for use wi
         Verify process is running:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# ps -ef | grep tomcat
+ps -ef | grep tomcat
             </p>
         </pre>
     </li>
@@ -86,7 +80,7 @@ This document contains instructions to install Tomcat 7 and configure for use wi
         jar name is fortress-realm-proxy-[version].jar and located here: directory-fortress-realm/proxy/target
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cp [directory-fortress-realm]/proxy/target/fortress-realm-proxy-[VERSION]-proxy.jar /usr/local/tomcat7/lib
+cp [directory-fortress-realm]/proxy/target/fortress-realm-proxy-[VERSION]-proxy.jar /usr/local/tomcat7/lib
           </p>
         </pre>
         Where [directory-fortress-realm] is location of Fortress Realm source package and
@@ -99,13 +93,7 @@ This document contains instructions to install Tomcat 7 and configure for use wi
         Edit tomcat-users.xml:
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# vi /usr/local/tomcat7/conf/tomcat-users.xml
-          </p>
-        </pre>
-        Note: Depending on how and where you installed Tomcat, the tomcat-users.xml could be different locations.  To find out where:
-        <pre>
-          <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# sudo find / -name tomcat-users.xml
+vi /usr/local/tomcat7/conf/tomcat-users.xml
           </p>
         </pre>
     </li>
@@ -133,18 +121,11 @@ This document contains instructions to install Tomcat 7 and configure for use wi
     <br>
 
     <li>
-        Restart Tomcat on Debian:
+        Restart Tomcat:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# sudo /etc/init.d/tomcat7 restart
-            </p>
-        </pre>
-
-        Restart Tomcat on Fedora:
-        <pre>
-            <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# ./bin/shutdown.sh
-# ./bin/startup.sh
+/usr/local/tomcat/bin/shutdown.sh
+/usr/local/tomcat/bin/startup.sh
             </p>
         </pre>
 
@@ -154,11 +135,11 @@ This document contains instructions to install Tomcat 7 and configure for use wi
         Verify clean logs after startup:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# tail -f -n10000 /var/lib/tomcat7/logs/catalina.out
+tail -f -n10000 /usr/local/tomcat/logs/catalina.out
             </p>
         </pre>
 
-Ensure there are no errors within Tomcat's log.  One common problem:
+        Ensure there are no errors within Tomcat's log.  One common problem:
         UnsupportedClassVersionError.  This is a sure sign that your Tomcat is running under the wrong version of java.  Remember Java 7 or greater is required to run this tutorial.
     </li>
 

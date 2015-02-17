@@ -53,21 +53,21 @@ This section provides instructions to install the Apache Directory Server which 
         For 32-bit (as root):
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mkdir tmp
-# cd tmp
-# wget http://mirror.nexcess.net/apache//directory/apacheds/dist/2.0.0-M19/apacheds-2.0.0-M19-32bit.bin
-# chmod a+x *.bin
-# ./apacheds-2.0.0-M19-32bit.bin
+mkdir tmpds
+cd tmpds
+wget http://mirror.nexcess.net/apache//directory/apacheds/dist/2.0.0-M19/apacheds-2.0.0-M19-32bit.bin
+chmod a+x *.bin
+./apacheds-2.0.0-M19-32bit.bin
             </p>
         </pre>
         For 64-bit (as root):
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mkdir tmp
-# cd tmp
-# wget http://mirror.nexcess.net/apache//directory/apacheds/dist/2.0.0-M19/apacheds-2.0.0-M19-64bit.bin
-# chmod a+x *.bin
-# ./apacheds-2.0.0-M19-64bit.bin
+mkdir tmpds
+cd tmpds
+wget http://mirror.nexcess.net/apache//directory/apacheds/dist/2.0.0-M19/apacheds-2.0.0-M19-64bit.bin
+chmod a+x *.bin
+./apacheds-2.0.0-M19-64bit.bin
             </p>
         </pre>
         Unless you know what you're doing, accept the defaults.
@@ -85,7 +85,7 @@ This section provides instructions to install the Apache Directory Server which 
         Edit ApacheDS conf file
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# sudo vi /opt/apacheds-2.0.0-M19/conf/wrapper.conf
+sudo vi /opt/apacheds-2.0.0-M19/conf/wrapper.conf
             </p>
         </pre>
     </li>
@@ -114,7 +114,7 @@ wrapper.java.command=/path/java/bin/java
         From system command prompt (as root):
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# /etc/init.d/apacheds-2.0.0-M19-default start
+/etc/init.d/apacheds-2.0.0-M19-default start
             </p>
         </pre>
     </li>
@@ -125,7 +125,7 @@ wrapper.java.command=/path/java/bin/java
         From system command prompt (as root):
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# /etc/init.d/apacheds-2.0.0-M19-default status
+/etc/init.d/apacheds-2.0.0-M19-default status
 ApacheDS - default is running (70041).
             </p>
         </pre>
