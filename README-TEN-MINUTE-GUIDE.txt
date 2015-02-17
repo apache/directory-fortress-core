@@ -53,18 +53,16 @@ cd directory-fortress-core/
 
 3. Set java and maven home env variables.
 
-4. Build the Fortress Core source:
+4. Build the Fortress Core source and javadoc:
 mvn clean install -DskipTests
-
-5. Create the Fortress Core javadoc:
 mvn javadoc:javadoc
 
-6. Point your web browser to the following location:
+5. Point your web browser to the following location:
    file:///[directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
 
    (where [directory-fortress-core] is location of current source package)
 
-7. Follow the steps under 'Navigation Links':
+6. Follow the steps under 'Navigation Links':
   a. Setup Apache Directory Server
   b. Setup Apache Directory Studio
   c. Build Apache Fortress Core
