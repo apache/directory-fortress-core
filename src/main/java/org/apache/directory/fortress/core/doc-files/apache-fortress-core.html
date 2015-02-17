@@ -45,17 +45,6 @@
 <br><br>This section provides instructions to install Fortress and run the junit tests.
 <h4>Steps to build the Fortress Core</h4>
 <ol>
-    <li>
-        Clone the <a href="https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git">Directory Fortress
-        Core Git repo</a>:
-            <pre>
-                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
-                </p>
-            </pre>
-
-    </li>
-
     <li>Set java and maven home env variables.</li>
 
     <br>
@@ -80,8 +69,7 @@ cp build.properties.example build.properties
 
     <li>
         Edit the build.properties in root folder of package.
-        These parameters are bound for files like <b>config/fortress.properties</b> and <b>ldap/setup/refreshLDAPData.xml</b>
-        and used on subsequent steps.
+        These parameters will be used to generate config artifacts: <b>config/fortress.properties</b> and <b>ldap/setup/refreshLDAPData.xml</b>, needed later on.
         <br>
         Change the settings to:
 
@@ -97,18 +85,16 @@ ldap.server.type=apacheds
     </li>
 
     <li>
-        Build fortress core with maven and install to local repo. The fortress realm [<a
-            href="apache-fortress-realm.html">Install Apache Fortress Realm</a>]
-        is dependent on fortress core.
+        Build fortress core.  This step will generate config artifacts using settings from build.properties.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-mvn clean install -DskipTests
+mvn install -DskipTests
                     </p>
                 </pre>
     </li>
 
     <li>
-        Verify the following files were created by build as they are required later:
+        Verify the following config artifacts were created by build as they are required later:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 ls -l config/fortress.properties
