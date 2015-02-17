@@ -58,7 +58,6 @@ cd tmp
 wget http://apache.claz.org/tomcat/tomcat-7/v7.0.59/bin/apache-tomcat-7.0.59.tar.gz
 tar xzf apache-tomcat-7.0.59.tar.gz
 mv apache-tomcat-7.0.59 /usr/local/tomcat7
-cd /usr/local/tomcat7
 /usr/local/tomcat7/bin/startup.sh
             </p>
         </pre>
@@ -124,8 +123,8 @@ vi /usr/local/tomcat7/conf/tomcat-users.xml
         Restart Tomcat:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-/usr/local/tomcat/bin/shutdown.sh
-/usr/local/tomcat/bin/startup.sh
+/usr/local/tomcat7/bin/shutdown.sh
+/usr/local/tomcat7/bin/startup.sh
             </p>
         </pre>
 
@@ -135,7 +134,7 @@ vi /usr/local/tomcat7/conf/tomcat-users.xml
         Verify clean logs after startup:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-tail -f -n10000 /usr/local/tomcat/logs/catalina.out
+tail -f -n10000 /usr/local/tomcat7/logs/catalina.out
             </p>
         </pre>
 
