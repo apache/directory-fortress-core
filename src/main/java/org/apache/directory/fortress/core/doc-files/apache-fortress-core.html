@@ -128,28 +128,28 @@ ls -l ldap/setup/refreshLDAPData.xml
                 In Apache Directory Studio LDAP Browser perspective, select Root DSE, right-click, and choose
                 Import->LDIF Import
             </li>
-            <br><img src="./schema-import-screenshot1.png"/><br><br>
+            <br><img src="./schema-import-screenshot1.png" height="50%" width="50%"/><br><br>
 
             <br>
 
             <li>
                 Next a dialog box will appear where you can enter the fully qualified file name of the fortress schema.
             </li>
-            <br><img src="./schema-import-screenshot2.png"/><br><br>
+            <br><img src="./schema-import-screenshot2.png" height="50%" width="50%"/><br><br>
 
             <br>
 
             <li>
                 The schema file is located under the fortress core base package/ldap/schema/apacheds-fortress.ldif
             </li>
-            <br><img src="./schema-import-screenshot3.png"/><br><br>
+            <br><img src="./schema-import-screenshot3.png" height="50%" width="50%"/><br><br>
 
             <br>
 
             <li>
                 Verify success by viewing the cn=fortress schema node.
             </li>
-            <br><img src="./schema-import-screenshot4.png"/><br><br>
+            <br><img src="./schema-import-screenshot4.png" height="50%" width="50%"/><br><br>
 
         </ol>
 
@@ -178,7 +178,7 @@ mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml -DskipTests
         Run the Fortress Core Regression Tess:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mvn -Dtest=FortressJUnitTest test
+mvn -Dtest=FortressJUnitTest test
                     </p>
                 </pre>
         Tests should run with no errors.

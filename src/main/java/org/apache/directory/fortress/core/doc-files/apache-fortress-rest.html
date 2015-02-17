@@ -52,7 +52,7 @@
         Rest Git repo</a>:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
+git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
                 </p>
             </pre>
 
@@ -66,7 +66,7 @@
         Change directory:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cd directory-fortress-enmasse/
+cd directory-fortress-enmasse/
                 </p>
             </pre>
     </li>
@@ -78,7 +78,7 @@
         Core</a>, to this package's resource folder.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# cp [directory-fortress-core]/config/fortress.properties [directory-fortress-enmasse]/src/main/resources
+cp [directory-fortress-core]/config/fortress.properties [directory-fortress-enmasse]/src/main/resources
                     </p>
                 </pre>
         Where [directory-fortress-core] is base folder of the fortress core source package and
@@ -91,7 +91,7 @@
         To deploy fortress rest, run this command:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mvn tomcat:deploy
+mvn tomcat:deploy
                     </p>
                 </pre>
     </li>
@@ -100,7 +100,7 @@
         To redeploy:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mvn tomcat:redeploy
+mvn tomcat:redeploy
                     </p>
                 </pre>
     </li>
@@ -109,7 +109,7 @@
         Run the tests:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-# mvn verify -Dnoload
+mvn verify -Dnoload
                     </p>
                 </pre>
         Checkout the README.txt in [directory-fortress-enmasse] package for other ways to test fortress-rest component.
