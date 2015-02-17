@@ -22,6 +22,10 @@ ________________________________________________________________________________
 # Version 1.0-RC40
 # last updated: February 15, 2015
 ###################################################################################
+The documents linked by this guide provide the instructions to download, build
+and install Apache Fortress software from source.  It takes about ten minutes
+after completing the steps on this page.
+
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 0.  Prerequisites for Fortress Ten Minute Guide
