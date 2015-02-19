@@ -615,8 +615,8 @@
                     <includes></includes>
                     <version>true</version>
                     <author>true</author>
-                    <doctitle>Apache Fortress Identity and Access Management ${version}</doctitle>
-                    <windowtitle>Apache Fortress Identity and Access Management ${version}</windowtitle>
+                    <doctitle>Fortress Identity and Access Management Javadoc ${version}</doctitle>
+                    <windowtitle>Apache Fortress Identity and Access Management Javadoc ${version}</windowtitle>
                 </configuration>
             </plugin>
 
