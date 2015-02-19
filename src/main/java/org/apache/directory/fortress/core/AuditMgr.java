@@ -52,7 +52,7 @@ import java.util.List;
  * <li> {@link AdminMgr}
  * <li> {@link AdminMgr}
  * <li> {@link DelAdminMgr}
- * <li> {@link org.apache.directory.fortress.cfg.ConfigMgr}
+ * <li> {@link org.apache.directory.fortress.core.cfg.ConfigMgr}
  * <li> {@link PwPolicyMgr}
  * </ul>
  * <h4>

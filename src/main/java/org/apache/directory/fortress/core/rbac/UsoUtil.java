@@ -209,7 +209,7 @@ public final class UsoUtil
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return handle to simple digraph containing user ou hierarchies.
      */
     private static SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
     {
@@ -242,7 +242,7 @@ public final class UsoUtil
 
     /**
      *
-     * @return
+     * @return handle to simple digraph containing user ou hierarchies.
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {

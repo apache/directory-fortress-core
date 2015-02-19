@@ -145,7 +145,7 @@ public class AuthZ extends FortEntity implements Serializable
     /**
      * Return the user dn containing the identity of log user who added the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.ldap.PoolMgr#LDAP_LOG_POOL_UID} contains the audit log system user id.
+     * The config property name {@link org.apache.directory.fortress.core.ldap.ApacheDsDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @return value that maps to 'creatorsName' attribute on 'auditSearch' object class.
      */
@@ -158,7 +158,7 @@ public class AuthZ extends FortEntity implements Serializable
     /**
      * Set the user dn containing the identity of log user who added the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.ldap.PoolMgr#LDAP_LOG_POOL_UID} contains the audit log system user id.
+     * The config property name {@link org.apache.directory.fortress.core.ldap.ApacheDsDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @param creatorsName maps to 'creatorsName' attribute on 'auditSearch' object class.
      */
@@ -259,7 +259,7 @@ public class AuthZ extends FortEntity implements Serializable
     /**
      * Return the user dn containing the identity of log user who last modified the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.ldap.PoolMgr#LDAP_LOG_POOL_UID} contains the audit log system user id.
+     * The config property name {@link org.apache.directory.fortress.core.ldap.ApacheDsDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @return value that maps to 'modifiersName' attribute on 'auditSearch' object class.
      */
@@ -272,7 +272,7 @@ public class AuthZ extends FortEntity implements Serializable
     /**
      * Set the user dn containing the identity of log user who modified the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.ldap.PoolMgr#LDAP_LOG_POOL_UID} contains the audit log system user id.
+     * The config property name {@link org.apache.directory.fortress.core.ldap.ApacheDsDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @param modifiersName maps to 'modifiersName' attribute on 'auditSearch' object class.
      */

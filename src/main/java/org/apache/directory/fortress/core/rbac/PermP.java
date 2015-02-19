@@ -34,7 +34,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * Process module for the Permission entity.  This class performs data validations and error mapping.  It is typically called
  * by internal Fortress manager classes ({@link AdminMgrImpl}, {@link AccessMgrImpl},
  * {@link ReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
- * {@link PermObj} or {@link Permission}, validate its contents and forward on to it's corresponding DAO class {@link org.apache.directory.fortress.core.rbac.dao.PermDAO}.
+ * {@link PermObj} or {@link Permission}, validate its contents and forward on to it's corresponding DAO class {@link org.apache.directory.fortress.core.rbac.PermDAO}.
  * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link org.apache.directory.fortress.core.FinderException},

@@ -247,7 +247,7 @@ public class Address implements Serializable
     /**
      * Accept a String that contains a value {@code building} bound for {@code organizationalPerson} object class.
      *
-     * @param postOfficeBox associated with the user.
+     * @param building associated with the user.
      */
     public void setBuilding( String building )
     {

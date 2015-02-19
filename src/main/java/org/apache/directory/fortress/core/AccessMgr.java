@@ -88,7 +88,7 @@ public interface AccessMgr extends Manageable
      * <h4> This API will...</h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
-     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link org.apache.directory.fortress.core.ldap.openldap.OLPWControlImpl}.
+     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
      *
      * <li> fail for any user who is locked by OpenLDAP's policies {@link org.apache.directory.fortress.core.rbac.User#isLocked()}, regardless of trusted flag being set as parm on API.
      * <li> evaluate temporal {@link org.apache.directory.fortress.core.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link org.apache.directory.fortress.core.rbac.UserAdminRole} entities.
@@ -131,7 +131,7 @@ public interface AccessMgr extends Manageable
      *
      * @param user      Contains {@link User#userId}, {@link org.apache.directory.fortress.core.rbac.User#password} (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional {@link org.apache.directory.fortress.core.rbac.User#adminRoles}
      * @param isTrusted if true password is not required.
-     * @return Session object will contain authentication result code {@link org.apache.directory.fortress.core.rbac.Session#errorId}, RBAC role activations {@link org.apache.directory.fortress.core.rbac.Session#getRoles()}, Admin Role activations {@link org.apache.directory.fortress.core.rbac.Session#getAdminRoles()},OpenLDAP pw policy codes {@link org.apache.directory.fortress.core.rbac.Session#warningId}, {@link org.apache.directory.fortress.core.rbac.Session#expirationSeconds}, {@link org.apache.directory.fortress.core.rbac.Session#graceLogins} and more.
+     * @return Session object will contain authentication result code {@link org.apache.directory.fortress.core.rbac.Session#errorId}, RBAC role activations {@link org.apache.directory.fortress.core.rbac.Session#getRoles()}, Admin Role activations {@link org.apache.directory.fortress.core.rbac.Session#getAdminRoles()},OpenLDAP pw policy codes {@link org.apache.directory.fortress.core.rbac.Session#warnings}, {@link org.apache.directory.fortress.core.rbac.Session#expirationSeconds}, {@link org.apache.directory.fortress.core.rbac.Session#graceLogins} and more.
      * @throws SecurityException
      *          in the event of data validation failure, security policy violation or DAO error.
      */

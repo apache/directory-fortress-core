@@ -478,8 +478,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * into user's RBAC session</li>
      * </ul>
      *
-     * @param role must contains {@link Role#name} and may contain new description or {@link org.apache.directory.fortress.util
-     * .time.Constraint}
+     * @param role must contains {@link Role#name} and may contain new description or
+     * {@link org.apache.directory.fortress.core.util.time.Constraint}
      * @return Role contains reference to entity operated on.
      * @throws org.apache.directory.fortress.core.SecurityException
      *          in the event of validation or system error.

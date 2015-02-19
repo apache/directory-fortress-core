@@ -91,7 +91,7 @@ public final class OrgUnitP
     /**
      * This function uses a case insensitive search.
      * @param entity
-     * @return
+     * @return true if valid, false otherwise.
      */
     /* No Qualifier */final boolean isValid( OrgUnit entity )
     {
@@ -451,7 +451,7 @@ public final class OrgUnitP
      *
      * @param type either {@link #USER_OUS} or {@link #PERM_OUS}.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return key mapping to this tenant's cache entry.
      */
     private static String getKey( String type, String contextId )
     {

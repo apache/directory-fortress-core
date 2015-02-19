@@ -112,7 +112,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
      * <h4> This API will...</h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
-     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link org.apache.directory.fortress.core.ldap.openldap.OLPWControlImpl}.
+     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link User#isLocked()}, regardless of trusted flag being set as parm on API.
      * <li> evaluate temporal {@link org.apache.directory.fortress.core.util.time.Constraint}(s) on {@link User}, {@link org.apache.directory.fortress.core.rbac.UserRole} and {@link UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.
@@ -154,7 +154,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
      *
      * @param user Contains {@link User#userId}, {@link User#password} (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional {@link User#adminRoles}
      * @param isTrusted if true password is not required.
-     * @return Session object will contain authentication result code {@link Session#errorId}, RBAC role activations {@link Session#getRoles()}, Admin Role activations {@link Session#getAdminRoles()},OpenLDAP pw policy codes {@link Session#warningId}, {@link Session#expirationSeconds}, {@link Session#graceLogins} and more.
+     * @return Session object will contain authentication result code {@link Session#errorId}, RBAC role activations {@link Session#getRoles()}, Admin Role activations {@link Session#getAdminRoles()},OpenLDAP pw policy codes {@link Session#warnings}, {@link Session#expirationSeconds}, {@link Session#graceLogins} and more.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
     @Override

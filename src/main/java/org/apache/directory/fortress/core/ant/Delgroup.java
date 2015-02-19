@@ -26,7 +26,8 @@ import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link GroupAnt}s used to drive {@link org.apache.directory.fortress.core.ldap.group.GroupMgr#add(org.apache.directory.fortress.core.ldap.group.Group)} .
+ * The class is used by {@link FortressAntTask} to load {@link Group}s used to drive
+ * {@link org.apache.directory.fortress.core.ldap.group.GroupMgr#add(org.apache.directory.fortress.core.ldap.group.Group)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Delgroup', is used for the xml tag in the load script.</p>
  * <pre>
@@ -74,7 +75,7 @@ public class Delgroup
     /**
      * Used by {@link FortressAntTask#deleteGroups()} to retrieve list of Groups as defined in input xml file.
      *
-     * @return collection containing {@link GroupAnt}s targeted for removal.
+     * @return collection containing {@link Group}s targeted for removal.
      */
     public List<Group> getGroups()
     {

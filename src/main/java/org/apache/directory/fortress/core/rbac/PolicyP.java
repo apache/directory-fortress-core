@@ -95,7 +95,7 @@ public final class PolicyP
      * This function uses a case insensitive search.
      *
      * @param policy
-     * @return
+     * @return true if valid, false otherwise.
      */
     final boolean isValid( PwPolicy policy )
     {
@@ -395,7 +395,7 @@ public final class PolicyP
     /**
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return set containing list of policy names active.
      */
     private static Set<String> getPolicySet( String contextId )
     {
@@ -422,7 +422,7 @@ public final class PolicyP
     /**
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return key for tenant's cache entry.
      */
     private static String getKey( String contextId )
     {

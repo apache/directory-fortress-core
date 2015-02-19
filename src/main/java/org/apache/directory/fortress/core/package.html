@@ -41,7 +41,7 @@
          The <b>org.apache.directory.fortress</b> package provides managers, factories and exception classes that can be thrown when
           fortress needs to report an error status code back to caller.  The fortress manager APIs are based on standards like <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a>,
           <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> and <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policy for LDAP Directories</a>.
-          A {@link org.apache.directory.fortress.util.time.Constraint} mechanism is used by fortress to control the {@link org.apache.directory.fortress.util.time.Time}, {@link org.apache.directory.fortress.util.time.Date} and {@link org.apache.directory.fortress.util.time.Day} of week for when a
+          A {@link org.apache.directory.fortress.core.util.time.Constraint} mechanism is used by fortress to control the {@link org.apache.directory.fortress.core.util.time.Time}, {@link org.apache.directory.fortress.core.util.time.Date} and {@link org.apache.directory.fortress.core.util.time.Day} of week for when a
           {@link org.apache.directory.fortress.core.rbac.User} or {@link org.apache.directory.fortress.core.rbac.UserRole} entity can be activated within a {@link org.apache.directory.fortress.core.rbac.Session}.
           There is also a lockout mechanism to temporarily bar entities from activating.  AuditMgr may be used to interrogate OpenLDAP audit and historical information.
       </p>

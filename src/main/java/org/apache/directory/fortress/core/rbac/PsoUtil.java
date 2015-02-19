@@ -211,7 +211,7 @@ public final class PsoUtil
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return handle to simple digraph containing perm ou hierarchies.
      */
     private static SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
     {
@@ -244,7 +244,7 @@ public final class PsoUtil
 
     /**
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return handle to simple digraph containing perm ou hierarchies.
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {
@@ -292,7 +292,7 @@ public final class PsoUtil
     /**
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return key to this tenant's cache entry.
      */
     private static String getKey( String contextId )
     {

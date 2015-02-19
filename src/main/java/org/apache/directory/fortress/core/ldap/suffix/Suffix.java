@@ -143,7 +143,6 @@ public class Suffix
     /**
      * Get top level domain component specifier, i.e. dc=com for three part dc structure.  This attribute is optional.
      *
-     * @return dc maps to 'dc' in 'dcObject' object class.
      */
     public void setDc2( String dc2 )
     {

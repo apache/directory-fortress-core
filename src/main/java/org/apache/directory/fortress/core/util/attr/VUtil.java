@@ -126,37 +126,31 @@ public class VUtil
 
     /**
      * Simple length check and safe text validation on description field that uses {@link org.apache.directory.fortress.core.GlobalIds#DESC_LEN}.
-     * @param description contains the User's password.
-     * @throws ValidationException in the event of failure, {@link org.apache.directory.fortress.core.GlobalErrIds#CONST_DESC_LEN_INVLD}.
      *
-     * @param description contains the User's password.
+     * @param value contains the entity description.
      * @throws org.apache.directory.fortress.core.ValidationException
      *          in the event of failure, {@link org.apache.directory.fortress.core.GlobalErrIds#CONST_DESC_LEN_INVLD}.
      */
-    public static void description( String description ) throws ValidationException
+    public static void description( String value ) throws ValidationException
     {
-        int length = description.length();
+        int length = value.length();
 
         if ( length > GlobalIds.DESC_LEN )
         {
-            String error = "description value [" + description + "] invalid length [" + length + "]";
+            String error = "description value [" + value + "] invalid length [" + length + "]";
             throw new ValidationException( GlobalErrIds.CONST_DESC_LEN_INVLD, error );
         }
 
-        RegExUtil.safeText( description );
+        RegExUtil.safeText( value );
     }
 
 
     /**
      * Perform a simple length and safe text validation.
+     *
      * @param value contains the attribute to check.
      * @param validLen contains the length to use.
      * @throws ValidationException in the event of length {@link org.apache.directory.fortress.core.GlobalErrIds#CONST_INVLD_FIELD_LEN} or regex failure.
-     *
-     * @param value    contains the attribute to check.
-     * @param validLen contains the length to use.
-     * @throws org.apache.directory.fortress.core.ValidationException
-     *          in the event of length {@link org.apache.directory.fortress.core.GlobalErrIds#CONST_INVLD_FIELD_LEN} or regex failure.
      */
     public static void safeText( String value, int validLen ) throws ValidationException
     {
@@ -180,12 +174,9 @@ public class VUtil
 
     /**
      * Simple null, {@link org.apache.directory.fortress.core.GlobalErrIds#USER_ID_NULL}, and length checks, {@link org.apache.directory.fortress.core.GlobalErrIds#CONST_INVLD_FIELD_LEN}, on userId.
-     * @param userId contains the userId, maps to {@link org.apache.directory.fortress.core.rbac.User#userId}.
-     * @throws ValidationException in the event of failure, {@link GlobalErrIds#CONST_INVLD_FIELD_LEN}.
      *
      * @param userId contains the userId, maps to {@link org.apache.directory.fortress.core.rbac.User#userId}.
-     * @throws org.apache.directory.fortress.core.ValidationException
-     *          in the event of failure, {@link GlobalErrIds#CONST_INVLD_FIELD_LEN}.
+     * @throws ValidationException in the event of failure, {@link GlobalErrIds#CONST_INVLD_FIELD_LEN}.
      */
     public static void userId( String userId ) throws ValidationException
     {
@@ -228,8 +219,6 @@ public class VUtil
 
     /**
      * Perform simple reasonability check on contraint timeout value.
-     * @param timeout must be greater than 0 and less than max value for {@link Integer#MAX_VALUE}
-     * @throws ValidationException in the event value falls out of range.
      *
      * @param timeout must be greater than 0 and less than max value for {@link Integer#MAX_VALUE}
      * @throws org.apache.directory.fortress.core.ValidationException
@@ -247,8 +236,6 @@ public class VUtil
 
     /**
      * Perform simple reasonability check on contraint beginTime value.
-     * @param beginTime if set, must be equal to {@link #TIME_LEN}.
-     * @throws ValidationException in the event value falls out of range.
      *
      * @param beginTime if set, must be equal to {@link #TIME_LEN}.
      * @throws org.apache.directory.fortress.core.ValidationException

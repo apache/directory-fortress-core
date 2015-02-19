@@ -1152,8 +1152,8 @@ public abstract class ApacheDsDataProvider
      * @param list     contains List of type {@link org.apache.directory.fortress.core.rbac.Relationship} targeted for updating in ldap.
      * @param mods     ldap modification set containing parent-child relationships in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be updated.
-     * @param op       specifies type of mod: {@link Hier.Op#ADD}, {@link org.apache.directory.fortress.core.rbac.Hier.Op#MOD},
-     * {@link Hier.Op#REM}
+     * @param op       specifies type of mod: {@link org.apache.directory.fortress.core.rbac.Hier.Op#ADD},
+     * {@link org.apache.directory.fortress.core.rbac.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.rbac.Hier.Op#REM}.
      */
     protected void loadRelationshipAttrs( List<Relationship> list, List<Modification> mods, String attrName,
         Hier.Op op )

@@ -158,7 +158,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * org.apache.directory.fortress.core.rbac.OrgUnit)} USER and PERM</li>
  * <li>Delete User and Perm OUs {@link org.apache.directory.fortress.core.DelAdminMgr#delete(org.apache.directory.fortress.core.rbac.OrgUnit)} USER and
  * PERM</li>
- * <li>Delete Configuration Entries {@link org.apache.directory.fortress.cfg.ConfigMgr#delete(String, java.util.Properties)}</li>
+ * <li>Delete Configuration Entries {@link org.apache.directory.fortress.core.cfg.ConfigMgr#delete(String, java.util.Properties)}</li>
  * <li>Delete Containers {@link OrganizationalUnitP#delete(OrganizationalUnit)}</li>
  * <li>Delete Suffix {@link org.apache.directory.fortress.core.ldap.suffix.SuffixP#delete(org.apache.directory.fortress.core.ldap.suffix.Suffix)}}</li>
  * <li>Add Suffix {@link SuffixP#add(Suffix)}}</li>

@@ -89,7 +89,7 @@ public class AccelMgrImpl extends Manageable implements AccelMgr
      * <h4> This API will...</h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
-     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>, see {@link org.apache.directory.fortress.core.ldap.openldap.OLPWControlImpl}.
+     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link org.apache.directory.fortress.core.rbac.User#isLocked()}, regardless of trusted flag being set as parm on API.
      * <li> evaluate temporal {@link org.apache.directory.fortress.core.util.time.Constraint}(s) on {@link org.apache.directory.fortress.core.rbac.User}, {@link org.apache.directory.fortress.core.rbac.UserRole} and {@link UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link org.apache.directory.fortress.core.rbac.User#roles}.

@@ -3466,7 +3466,7 @@ public class RoleTestData extends TestCase
     public static Map<String, String> getMembers(String[] rle)
     {
         Map<String, String> mems = new HashMap<>();
-        if(org.apache.directory.fortress.util.attr.VUtil.isNotNullOrEmpty(rle[MEMBERS]))
+        if(org.apache.directory.fortress.core.util.attr.VUtil.isNotNullOrEmpty(rle[MEMBERS]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[MEMBERS], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)

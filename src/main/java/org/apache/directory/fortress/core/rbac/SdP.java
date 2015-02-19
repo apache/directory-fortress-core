@@ -48,10 +48,8 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * <p>
  * This class is thread safe.
  * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
- * @created September 11, 2010
  */
 public final class SdP
 {

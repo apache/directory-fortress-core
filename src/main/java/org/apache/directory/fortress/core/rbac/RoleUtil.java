@@ -49,7 +49,7 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  * </ol>
  * After update is performed to ldap, the singleton is refreshed with latest info.
  * <p/>
- * Static methods on this class are intended for use by other Fortress classes, i.e. {@link org.apache.directory.fortress.core.rbac.dao.UserDAO} and {@link org.apache.directory.fortress.core.rbac.dao.PermDAO}
+ * Static methods on this class are intended for use by other Fortress classes, i.e. {@link org.apache.directory.fortress.core.rbac.UserDAO} and {@link org.apache.directory.fortress.core.rbac.PermDAO}
  * and cannot be directly invoked by outside programs.
  * <p/>
  * This class contains singleton that can be updated but is thread safe.
@@ -163,7 +163,7 @@ public final class RoleUtil
 
 
     /**
-     * Return Set of RBAC {@link org.apache.directory.fortress.core.rbac.Role#name}s ascendants.  Used by {@link org.apache.directory.fortress.core.rbac.dao.PermDAO#checkPermission}
+     * Return Set of RBAC {@link org.apache.directory.fortress.core.rbac.Role#name}s ascendants.  Used by {@link org.apache.directory.fortress.core.rbac.PermDAO#checkPermission}
      * for computing authorized {@link UserRole#name}s.
      *
      * @param uRoles contains list of Roles activated within a {@link org.apache.directory.fortress.core.rbac.User}'s {@link org.apache.directory.fortress.core.rbac.Session}.
@@ -193,7 +193,7 @@ public final class RoleUtil
      *
      * @param roles
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return set of ascendant roles associated with this entry.
      */
     static Set<String> getAscendantRoles( List<String> roles, String contextId )
     {
@@ -217,7 +217,7 @@ public final class RoleUtil
      *
      * @param roles
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return set of descendant roles associated with this entry.
      */
     static Set<String> getDescendantRoles( Set<String> roles, String contextId )
     {
@@ -297,7 +297,7 @@ public final class RoleUtil
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return handle to simple digraph containing role hierarchies.
      */
     private static SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
     {
@@ -328,7 +328,7 @@ public final class RoleUtil
     /**
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return key to this tenant's cache entry.
      */
     private static String getKey( String contextId )
     {
@@ -346,7 +346,7 @@ public final class RoleUtil
     /**
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return handle to simple digraph containing role hierarchies.
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {

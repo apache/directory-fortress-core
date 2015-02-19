@@ -49,7 +49,7 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  * </ol>
  * After update is performed to ldap, the singleton is refreshed with latest info.
  * <p/>
- * Static methods on this class are intended for use by other Fortress classes, i.e. {@link DelAdminMgrImpl} and {@link org.apache.directory.fortress.core.rbac.dao.PermDAO}
+ * Static methods on this class are intended for use by other Fortress classes, i.e. {@link DelAdminMgrImpl} and {@link org.apache.directory.fortress.core.rbac.PermDAO}
  * and cannot be directly invoked by outside programs.
  * <p/>
  * This class contains singleton that can be updated but is thread safe.
@@ -158,7 +158,7 @@ public final class AdminRoleUtil
 
 
     /**
-     * Return Set of {@link org.apache.directory.fortress.core.rbac.AdminRole#name}s ascendants.  Used by {@link org.apache.directory.fortress.core.rbac.dao.PermDAO#checkPermission}
+     * Return Set of {@link org.apache.directory.fortress.core.rbac.AdminRole#name}s ascendants.  Used by {@link org.apache.directory.fortress.core.rbac.PermDAO#checkPermission}
      * for computing authorized {@link UserAdminRole#name}s.
      * @param uRoles contains list of adminRoles activated within a {@link org.apache.directory.fortress.core.rbac.User}'s {@link org.apache.directory.fortress.core.rbac.Session}.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
@@ -227,7 +227,7 @@ public final class AdminRoleUtil
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return handle to simple digraph containing adminRole hierarchies.
      */
     private static SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
     {
@@ -260,7 +260,7 @@ public final class AdminRoleUtil
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return handle to simple digraph containing adminRole hierarchies.
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {
@@ -308,7 +308,7 @@ public final class AdminRoleUtil
     /**
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return
+     * @return containing key to cache entry for this tenant.
      */
     private static String getKey( String contextId )
     {
