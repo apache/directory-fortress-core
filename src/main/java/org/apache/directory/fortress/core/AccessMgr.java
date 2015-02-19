@@ -66,8 +66,7 @@ public interface AccessMgr extends Manageable
 {
 
     /**
-     * Perform user authentication only.  It does not activate RBAC roles in session but will evaluate
-     * password policies.
+     * Perform user authentication only.  It does not activate RBAC roles in session but will evaluate password policies.
      *
      * @param userId   Contains the userid of the user signing on.
      * @param password Contains the user's password.

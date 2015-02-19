@@ -65,12 +65,17 @@ public interface AccelMgr extends Manageable
 {
 
     /**
-     * Perform user authentication {@link User#password} and role activations.<br />
+     * Perform user authentication {@link User#password} and role activations.
+     * <br>
      * This method must be called once per user prior to calling other methods within this class.
-     * The successful result is {@link org.apache.directory.fortress.core.rbac.Session} that contains target user's RBAC {@link User#roles} and Admin role {@link User#adminRoles}.<br />
-     * In addition to checking user password validity it will apply configured password policy checks {@link org.apache.directory.fortress.core.rbac.User#pwPolicy}..<br />
+     * The successful result is {@link org.apache.directory.fortress.core.rbac.Session} that contains target user's RBAC {@link User#roles} and Admin role {@link User#adminRoles}.
+     * <br>
+     * In addition to checking user password validity it will apply configured password policy checks {@link org.apache.directory.fortress.core.rbac.User#pwPolicy}.
+     * <br>
      * Method may also store parms passed in for audit trail {@link org.apache.directory.fortress.core.rbac.FortEntity}.
-     * <h4> This API will...</h4>
+     * <h4>
+     * This API will...
+     * </h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
      * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
@@ -112,7 +117,7 @@ public interface AccelMgr extends Manageable
      * <li> roles that violate Dynamic Separation of Duty Relationships will not be activated into session.
      * <li> role activations will proceed in same order as supplied to User entity setter, see {@link User#setRole(String)}.
      * </ul>
-     * </p>
+     * <p>
      *
      * @param user      Contains {@link User#userId}, {@link org.apache.directory.fortress.core.rbac.User#password} (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional {@link org.apache.directory.fortress.core.rbac.User#adminRoles}
      * @param isTrusted if true password is not required.
@@ -139,7 +144,7 @@ public interface AccelMgr extends Manageable
      * and only if the session is a valid Fortress session.
      *
      * @param session object contains the user's returned RBAC session from the createSession method.
-     * @return List<UserRole> containing all roles active in user's session.  This will NOT contain inherited roles.
+     * @return list containing all roles active in user's session.  This will NOT contain inherited roles.
      * @throws SecurityException is thrown if session invalid or system. error.
      */
     public List<UserRole> sessionRoles(Session session)

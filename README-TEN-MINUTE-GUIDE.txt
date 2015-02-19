@@ -36,7 +36,7 @@ ________________________________________________________________________________
 
 3. Git installed to target machine.
 
-4. Java SDK Version 7 sdk installed to target machine.
+4. Java SDK Version 7 (or beyond) sdk installed to target machine.
 
 5. Apache Maven 3 installed to target machine.
 
