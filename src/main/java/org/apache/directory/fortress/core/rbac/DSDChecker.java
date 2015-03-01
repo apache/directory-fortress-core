@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.directory.fortress.core.*;
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -129,20 +130,21 @@ public class DSDChecker
                                     matchCount++;
                                     if ( matchCount >= dsd.getCardinality() )
                                     {
-                                        // remove the assigned role from session (not the authorized role):
-                                        activatedRoles.remove();
                                         String warning = "validate userId [" + session.getUserId()
                                             + "] assignedRole [" + activatedRole.getName() + "] parentRole ["
                                             + parentRole + "] validates DSD Set Name:" + dsd.getName()
                                             + " Cardinality:" + dsd.getCardinality();
-                                        LOG.warn( warning );
                                         rc = GlobalErrIds.ACTV_FAILED_DSD;
+
+                                        // remove the assigned role from session (not the authorized role):
+                                        activatedRoles.remove();
+
                                         session.setWarning( new ObjectFactory().createWarning( rc, warning,
                                             Warning.Type.ROLE, activatedRole.getName() ) );
+                                        LOG.warn( warning );
+                                        // Breaking out of the loop because assigned role has been removed from session.
+                                        break;
                                     }
-                                    // Breaking out of the loop here means the DSD algorithm will only match one
-                                    // role per parent.
-                                    break;
                                 }
                             }
                         }
