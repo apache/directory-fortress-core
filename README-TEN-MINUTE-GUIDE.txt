@@ -61,6 +61,16 @@ cd directory-fortress-core/
 mvn clean install -DskipTests
 mvn javadoc:javadoc
 
+javadoc note: if using java 8, add this param to the pom.xml:
+<plugin>
+    ...
+    <artifactId>maven-javadoc-plugin</artifactId>
+    <configuration>
+        <additionalparam>-Xdoclint:none</additionalparam>
+        ...
+    </configuration>
+</plugin>
+
 5. Point your web browser to the following location:
    file:///[directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
 

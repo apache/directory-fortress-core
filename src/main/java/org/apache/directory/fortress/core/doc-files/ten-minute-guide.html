@@ -98,6 +98,19 @@ mvn clean install -DskipTests
 mvn javadoc:javadoc
                     </p>
                 </pre>
+        note: if using java 8, add this param to the pom.xml:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+plugin
+...
+artifactId maven-javadoc-plugin /artifactId
+configuration
+&lt;additionalparam&gt;-Xdoclint:none&lt;additionalparam/&gt;
+...
+configuration
+plugin
+                    </p>
+                </pre>
     </li>
 
     <li>Point your web browser to the javadoc:

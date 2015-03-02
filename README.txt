@@ -151,16 +151,26 @@ b. from the FORTRESS_HOME root folder, enter the following command:
 
 # mvn install -DskipTests
 
-d. from the FORTRESS_HOME root folder, enter the following command:
-
-# mvn javadoc:javadoc
-
 install notes:
 
 - Fortress source modules will be compiled along with production of java archive (jar)
   files, javadoc and test distributions.
 
 - Project artifacts are loaded into $FORTRESS_HOME/target location.
+
+d. from the FORTRESS_HOME root folder, enter the following command:
+
+# mvn javadoc:javadoc
+
+javadoc note: if using java 8, add this param to the pom.xml:
+<plugin>
+    ...
+    <artifactId>maven-javadoc-plugin</artifactId>
+    <configuration>
+        <additionalparam>-Xdoclint:none</additionalparam>
+        ...
+    </configuration>
+</plugin>
 
 ___________________________________________________________________________________
 ###################################################################################
