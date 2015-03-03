@@ -115,6 +115,18 @@ mvn javadoc:javadoc
                 </pre>
         Point your web browser to the following location:
         file:///[directory-fortress-enmasse]/target/site/apidocs.
+        <br><br>
+        javadoc note: If using JDK 8, you must turn off doclint to get past errors.  Add the following to project's pom:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+&lt;plugin&gt;
+    &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+        &lt;additionalparam&gt;-Xdoclint:none&lt;/additionalparam&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+                    </p>
+                </pre>
     </li>
 
 </ol>
