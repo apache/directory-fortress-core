@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<project basedir="." default="all" name="Fortress Sample Data">
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin">
+        <classpath path="${java.class.path}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+
+            <adduser>
+                <user userId="johndoe" password="password" description="User has both Buyer and Seller Roles Assigned" cn="Jon Doe" sn="Doe" ou="u1" />
+                <user userId="ssmith" password="password" description="User has Buyer Role Assigned" cn="Steve Smith" sn="Smith" ou="u1" />
+                <user userId="rtaylor" password="password" description="User has Seller Role Assigned" cn="Ricky Taylor" sn="Taylor" ou="u1" />
+            </adduser>
+
+            <adduserrole>
+                <userrole userId="johndoe" name="Buyers"/>
+                <userrole userId="johndoe" name="Sellers"/>
+                <userrole userId="ssmith" name="Buyers"/>
+                <userrole userId="rtaylor" name="Sellers"/>
+            </adduserrole>
+
+            <addrole>
+                <role name="Users" description="Basic rights for all Buyers and Sellers"/>
+                <role name="Buyers" description="May bid on and purchase products"/>
+                <role name="Sellers" description="May start auctions and ship items"/>
+            </addrole>
+
+            <addroleinheritance>
+                <relationship child="Buyers" parent="Users"/>
+                <relationship child="Sellers" parent="Users"/>
+            </addroleinheritance>
+
+            <addsdset>
+                <sdset name="BuySel" setmembers="Buyers,Sellers" cardinality="2" setType="DYNAMIC" description="User can only be activate one role of this set"/>
+            </addsdset>
+
+            <addpermobj>
+                <permobj objName="Item" description="This product is available for purchase" ou="p1" />
+                <permobj objName="Auction" description="Controls a particular online auction" ou="p1" />
+                <permobj objName="Account" description="Each user must have one of these" ou="p1" />
+            </addpermobj>
+
+            <addpermop>
+                <permop objName="Item" opName="bid" description="Bid on a given product"/>
+                <permop objName="Item" opName="buy" description="Purchase a given product"/>
+                <permop objName="Item" opName="ship" description="Place a product up for sale"/>
+                <permop objName="Item" opName="search" description="Search through item list"/>
+                <permop objName="Auction" opName="create" description="May start a new auction"/>
+                <permop objName="Account" opName="create" description="Ability to add a new account"/>
+            </addpermop>
+
+            <addpermgrant>
+                <permgrant objName="Item" opName="bid" roleNm="Buyers"/>
+                <permgrant objName="Item" opName="buy" roleNm="Buyers"/>
+                <permgrant objName="Item" opName="ship" roleNm="Sellers"/>
+                <permgrant objName="Auction" opName="create" roleNm="Sellers"/>
+                <permgrant objName="Item" opName="search" roleNm="Users"/>
+                <permgrant objName="Account" opName="create" roleNm="Users"/>
+            </addpermgrant>
+
+            <addorgunit>
+                <orgunit name="u1" typeName="USER" description="Test User Org for Rbac Role Engineering Sample"/>
+                <orgunit name="p1" typeName="PERM" description="Test Perm Org for Rbac Role Engineering Sample"/>
+            </addorgunit>
+
+        </FortressAdmin>
+    </target>
+</project>

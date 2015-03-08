@@ -97,6 +97,11 @@ public class VUtil
      */
     public static void orgUnit( String orgUnitId ) throws ValidationException
     {
+        if(!isNotNullOrEmpty( orgUnitId ))
+        {
+            String error = "orgUnit is null";
+            throw new ValidationException( GlobalErrIds.ORG_NULL, error );
+        }
         int length = orgUnitId.length();
 
         if ( length > maxFieldLength )

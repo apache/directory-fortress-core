@@ -404,7 +404,7 @@ final class SdDAO extends ApacheDsDataProvider
         catch ( CursorException e )
         {
             String error = "search sdset name [" + sdset.getName() + "] type [" + sdset.getType()
-                + "] caught LdapException=" + e.getMessage();
+                + "] caught CursorException=" + e.getMessage();
             int errCode;
 
             if ( sdset.getType() == SDSet.SDType.DYNAMIC )
