@@ -102,7 +102,8 @@ vi /usr/local/tomcat7/conf/tomcat-users.xml
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 &lt;role rolename="manager-script"/&gt;
 &lt;role rolename="manager-gui"/&gt;
-&lt;user username="tcmanager" password="m@nager123" roles="manager-script,manager-gui"/&gt;
+&lt;user username="tcmanager" password="m@nager123" roles="manager-script"/&gt;
+&lt;user username="tcmanagergui" password="m@nager123" roles="manager-gui"/&gt;
             </p>
         </pre>
         Using the config file realm to store credentials for an important application like the Tomcat Manager is a
@@ -143,7 +144,7 @@ tail -f -n10000 /usr/local/tomcat7/logs/catalina.out
     <br>
 
     <li>
-        Verify setup by signing onto the Tomcat Manager app with credentials <b>userId</b>: <i>tcmanager</i>, <b>password</b>:
+        Verify setup by signing onto the Tomcat Manager app with credentials <b>userId</b>: <i>tcmanagergui</i>, <b>password</b>:
         <i>m@nager123</i>
         <br><br>
                 <a href="http://localhost:8080/manager">http://localhost:8080/manager</a>

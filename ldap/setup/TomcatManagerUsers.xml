@@ -26,12 +26,13 @@
         <FortressAdmin>
 
             <adduser>
-                <user userId="tcmanager" password="m@nager123" system="true" description="Tomcat Manager User" ou="demousrs1" cn="tcmanager" sn="manager"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" />
+                <user userId="tcmanager" password="m@nager123" system="true" description="Service account for maven deployment scripts" ou="tc1" />
+                <user userId="tcmanagergui" password="m@nager123" system="true" description="Tomcat Manager User" ou="tc1" />
             </adduser>
 
             <adduserrole>
-                <userrole userId="tcmanager" name="manager-gui"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
-                <userrole userId="tcmanager" name="manager-script"  beginTime="0000" endTime="0000" beginDate="" endDate="" beginLockDate="" endLockDate="" dayMask="" timeout="0"/>
+                <userrole userId="tcmanagergui" name="manager-gui" />
+                <userrole userId="tcmanager" name="manager-script" />
             </adduserrole>
 
             <addrole>
@@ -41,7 +42,7 @@
 
             <!-- Begin ARBAC Delegated Admin Data: -->
             <addorgunit>
-                <orgunit name="demousrs1" typeName="USER" description="Test User Org 1 for User on Tomcat Calendar App"/>
+                <orgunit name="tc1" typeName="USER" description="TC Test User Org"/>
             </addorgunit>
 
          </FortressAdmin>
