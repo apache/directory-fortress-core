@@ -29,6 +29,25 @@
                 <suffix name="@SUFFIX_NAME@" dc="@SUFFIX_DC@"  dc2="@SUFFIX_DC2@" description="Apache Fortress DIT Suffix"/>
             </addsuffix>
 
+            <delcontainer>
+                <container name="Client123" description="Client 123 test context"/>
+                <container name="Client456" description="Client 456 test context"/>
+                <container name="Client789" description="Client 789 test context"/>
+                <container name="Config" description="Fortress Configuration Realms"/>
+                <container name="People" description="Fortress People"/>
+                <container name="Policies" description="Fortress Policies"/>
+                <container name="Groups" description="LDAP Groups"/>
+                <container name="RBAC" description="Fortress RBAC Policies"/>
+                <container name="Roles" parent="RBAC" description="Fortress Roles"/>
+                <container name="Permissions" parent="RBAC" description="Fortress Permissions"/>
+                <container name="Constraints" parent="RBAC" description="Fortress Separation of Duty Constraints"/>
+                <container name="ARBAC" description="Fortress Administrative RBAC Policies"/>
+                <container name="OS-U" parent="ARBAC" description="Fortress User Organizational Units"/>
+                <container name="OS-P" parent="ARBAC" description="Fortress Perm Organizational Units"/>
+                <container name="AdminRoles" parent="ARBAC" description="Fortress AdminRoles"/>
+                <container name="AdminPerms" parent="ARBAC" description="Fortress Admin Permissions"/>
+            </delcontainer>
+
             <addcontainer>
                 <container name="Client123" description="Client 123 test context"/>
                 <container name="Client456" description="Client 456 test context"/>

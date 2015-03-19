@@ -868,7 +868,6 @@ final class UserDAO extends ApacheDsDataProvider
      * @param user
      * @return
      * @throws org.apache.directory.fortress.core.FinderException,  org.apache.directory.fortress.core.PasswordException
-     * @throws org.apache.directory.fortress.core.SecurityException
      */
     final Session checkPassword(User user) throws FinderException, PasswordException
     {
@@ -882,25 +881,28 @@ final class UserDAO extends ApacheDsDataProvider
             session.setUserId( user.getUserId() );
             ld = getUserConnection();
             BindResponse bindResponse = bind( ld, userDn, user.getPassword() );
+            String info = null;
             if ( bindResponse.getLdapResult().getResultCode() != ResultCodeEnum.SUCCESS )
             {
-                String info = "checkPassword INVALID PASSWORD for userId [" + user.getUserId() + "], resultCode [" +
+                info = "PASSWORD INVALID for userId [" + user.getUserId() + "], resultCode [" +
                     bindResponse.getLdapResult().getResultCode() + "]";
-                throw new PasswordException( GlobalErrIds.USER_PW_INVLD, info );
+                session.setMsg( info );
+                session.setErrorId( GlobalErrIds.USER_PW_INVLD );
             }
             PasswordPolicy respCtrl = getPwdRespCtrl( bindResponse );
             if ( respCtrl != null )
             {
                 // check IETF password policies here
                 checkPwPolicies( session, respCtrl );
-                if ( session.getErrorId() == 0 )
-                {
-                    session.setAuthenticated( true );
-                }
+            }
+            if ( session.getErrorId() == 0 )
+            {
+                session.setAuthenticated( true );
             }
             else
             {
-                session.setAuthenticated( true );
+                // pw invalid or pw policy violation:
+                throw new PasswordException( session.getErrorId(), session.getMsg() );
             }
         }
         catch ( LdapAuthenticationException e )
