@@ -78,7 +78,6 @@ public class FortressCreateSession extends AbstractJavaSamplerClient
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
-            se.printStackTrace();
             System.out.println( "ThreadId:" + getThreadId() + "Error running test: " + se );
             se.printStackTrace();
             sampleResult.setSuccessful( false );
@@ -119,7 +118,6 @@ public class FortressCreateSession extends AbstractJavaSamplerClient
         }
         catch ( SecurityException se )
         {
-            se.printStackTrace();
             System.out.println( "ThreadId:" + getThreadId() + "FT SETUP Error: " + se );
             se.printStackTrace();
         }
