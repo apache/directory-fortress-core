@@ -451,6 +451,16 @@
             <systemPropertyVariables>
               <version>${project.version}</version>
             </systemPropertyVariables>
+            <testFailureIgnore>true</testFailureIgnore>
+            <excludes>
+              <exclude>${exclude.tests}</exclude>
+            </excludes>
+            <includes>
+              <include>${include.tests}</include>
+            </includes>
+            <groups>${testcase.groups}</groups>
+            <forkMode>never</forkMode>
+            <runOrder>random</runOrder>
           </configuration>
         </plugin>
 
@@ -761,6 +771,23 @@
       </build>
     </profile>
 
+    <profile>
+      <id>stable-tests</id>
+      <properties>
+        <exclude.tests>**/accelerator/**/*.java</exclude.tests>
+        <include.tests>**/rbac/**/*.java</include.tests>
+        <testcase.groups>org.apache.directory.fortress.core.DefaultTestCase</testcase.groups>
+      </properties>
+    </profile>
+    <profile>
+      <id>unstable-tests</id>
+      <properties>
+        <exclude.tests>**/accelerator/**/*.java</exclude.tests>
+        <include.tests>**/rbac/**/*.java</include.tests>
+        <testcase.groups>org.apache.directory.fortress.core.DefaultTestCase</testcase.groups>
+      </properties>
+    </profile>
+    
     <profile>
       <id>apache-release</id>
       <build>
