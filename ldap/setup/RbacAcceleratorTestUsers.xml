@@ -107,6 +107,11 @@
                 <permgrant objName="/rbac/cal2.jsp" opName="6pm" roleNm="rbacrole1"/>
             </addpermgrant>
 
+            <addorgunit>
+                <orgunit name="demousrs1" typeName="USER" description="Test User Org for Rbac Accelerator Sample"/>
+                <orgunit name="demoapps1" typeName="PERM" description="Test Perm Org for Rbac Accelerator Sample"/>
+            </addorgunit>
+
          </FortressAdmin>
     </target>
 </project>

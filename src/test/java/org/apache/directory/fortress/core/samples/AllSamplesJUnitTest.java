@@ -22,12 +22,15 @@ package org.apache.directory.fortress.core.samples;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;
+import org.junit.Ignore;
+import org.junit.experimental.categories.Category;
 
 /**
  * This Junit test class calls all of the Samples.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
+@Category(org.apache.directory.fortress.core.DefaultTestCase.class)
 public class AllSamplesJUnitTest extends TestCase
 {
     private static boolean isFirstRun = getFirstRun();

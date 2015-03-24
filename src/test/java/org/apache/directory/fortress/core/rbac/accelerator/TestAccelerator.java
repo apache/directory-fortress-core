@@ -23,7 +23,9 @@ import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.AccelMgr;
@@ -35,6 +37,7 @@ import org.apache.directory.fortress.core.rbac.UserRole;
 
 import static org.junit.Assert.*;
 
+@Category(org.apache.directory.fortress.core.DefaultTestCase.class)
 public class TestAccelerator
 {
     private static final Logger LOG = LoggerFactory.getLogger( TestAccelerator.class );

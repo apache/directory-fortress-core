@@ -29,7 +29,9 @@ import org.apache.directory.server.core.integ.AbstractLdapTestUnit;
 import org.apache.directory.server.core.integ.FrameworkRunner;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +57,7 @@ import org.apache.directory.fortress.core.rbac.UserTestData;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
 
 
+@Category(org.apache.directory.fortress.core.DefaultTestCase.class)
 @RunWith(FrameworkRunner.class)
 @CreateDS(name = "classDS", partitions =
     { @CreatePartition(name = "example", suffix = "dc=example,dc=com") })

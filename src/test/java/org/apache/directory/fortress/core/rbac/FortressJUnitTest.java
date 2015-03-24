@@ -23,6 +23,8 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;
 import org.apache.directory.fortress.core.GlobalIds;
+import org.junit.Ignore;
+import org.junit.experimental.categories.Category;
 
 /**
  * This JUnit test class drives all of the Fortress Administration APIs contained within {@link AdminMgrImplTest},
@@ -47,6 +49,8 @@ import org.apache.directory.fortress.core.GlobalIds;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
+//@Ignore
+
 public class FortressJUnitTest extends TestCase
 {
     private static boolean adminEnabled;
@@ -84,6 +88,7 @@ public class FortressJUnitTest extends TestCase
     /**
      * @return
      */
+    @Category(org.apache.directory.fortress.core.DefaultTestCase.class)
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
