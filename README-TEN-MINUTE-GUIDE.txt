@@ -58,7 +58,7 @@ cd directory-fortress-core/
 3. Set java and maven home env variables.
 
 4. Build the Fortress Core source and javadoc:
-mvn clean install -DskipTests
+mvn clean install
 mvn javadoc:javadoc
 
 javadoc note: if using java 8, add this param to the pom.xml:

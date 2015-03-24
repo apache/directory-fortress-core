@@ -89,7 +89,7 @@ ldap.server.type=apacheds
         Build fortress core.  This step will generate config artifacts using settings from build.properties.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-mvn install -DskipTests
+mvn install
                     </p>
                 </pre>
     </li>
@@ -154,8 +154,8 @@ ls -l ldap/setup/refreshLDAPData.xml
         Build the fortress LDAP DIT, create its config node and load the A/RBAC policies:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -DskipTests
-mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml -DskipTests
+mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
+mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
                     </p>
                 </pre>
     </li>

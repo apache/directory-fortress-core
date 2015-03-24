@@ -149,7 +149,7 @@ a. set java and maven home on machine
 
 b. from the FORTRESS_HOME root folder, enter the following command:
 
-# mvn install -DskipTests
+# mvn install
 
 install notes:
 
@@ -541,7 +541,7 @@ e.g. myLoadFile.xml
 
 b. From FORTRESS_HOME folder, enter the following command:
 
-# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/myLoadFile.xml -DskipTests=true
+# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/myLoadFile.xml
 
 Notes:
   - This maven target executes FortressAntTask class (as described in FORTRESS_HOME/dist/docs/api/org/openldap/fortress/ant/FortressAntTask.html).
@@ -607,7 +607,7 @@ e.g. ftCheckAccess.jmx
 
 b. Load the security policy and users required by the jmeter test routines:
 
-# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/LoadTestUsers.xml -DskipTests=true
+# $M2_HOME/bin/mvn install -Dload.file=./ldap/setup/LoadTestUsers.xml
 
 c. From FORTRESS_HOME folder, enter the following command from a system prompt:
 

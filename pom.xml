@@ -787,7 +787,7 @@
         <testcase.groups>org.apache.directory.fortress.core.DefaultTestCase</testcase.groups>
       </properties>
     </profile>
-    
+
     <profile>
       <id>apache-release</id>
       <build>
