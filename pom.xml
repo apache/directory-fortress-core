@@ -77,36 +77,6 @@
   <!-- The used properties for this project          -->
   <!-- ====================================================== -->
   <properties>
-    <!-- Maven Plugins -->
-    <version.maven.apache.rat.plugin>0.11</version.maven.apache.rat.plugin>
-    <version.maven.api.plugin>3.2.3</version.maven.api.plugin>
-    <version.maven.build.helper.plugin>1.9</version.maven.build.helper.plugin>
-    <version.maven.bundle.plugin>2.5.0</version.maven.bundle.plugin>
-    <version.maven.changes.plugin>2.10</version.maven.changes.plugin>
-    <version.maven.checkstyle.plugin>2.12.1</version.maven.checkstyle.plugin>
-    <version.maven.clirr.plugin>2.6.1</version.maven.clirr.plugin>
-    <version.maven.cobertura.plugin>2.6</version.maven.cobertura.plugin>
-    <version.maven.dashboard.plugin>1.0.0-beta-1</version.maven.dashboard.plugin>
-    <version.maven.dependency.plugin>2.8</version.maven.dependency.plugin>
-    <version.maven.docck.plugin>1.0</version.maven.docck.plugin>
-    <version.maven.eclipse.plugin>2.9</version.maven.eclipse.plugin>
-    <version.maven.enforcer.plugin>1.3.1</version.maven.enforcer.plugin>
-    <version.maven.findbugs.plugin>2.5.4</version.maven.findbugs.plugin>
-    <version.maven.gpg.plugin>1.5</version.maven.gpg.plugin>
-    <version.maven.jar.plugin>2.5</version.maven.jar.plugin>
-    <version.maven.javancss.plugin>2.0</version.maven.javancss.plugin>
-    <version.maven.jdepend.plugin>2.0</version.maven.jdepend.plugin>
-    <version.maven.jxr.plugin>2.4</version.maven.jxr.plugin>
-    <version.maven.model.plugin>3.2.3</version.maven.model.plugin>
-    <version.maven.plexus.utils>3.0.18</version.maven.plexus.utils>
-    <version.maven.plugin.plugin>3.3</version.maven.plugin.plugin>
-    <version.maven.pmd.plugin>3.1</version.maven.pmd.plugin>
-    <version.maven.project.plugin>3.0-alpha-2</version.maven.project.plugin>
-    <version.maven.project.info.report.plugin>2.7</version.maven.project.info.report.plugin>
-    <version.maven.remote.resources.plugin>1.5</version.maven.remote.resources.plugin>
-    <version.maven.scm.plugin>1.9</version.maven.scm.plugin>
-    <version.maven.shade.plugin>2.3</version.maven.shade.plugin>
-
     <!-- Jars -->
     <version.accelerator.api>1.0-RC40</version.accelerator.api>
     <version.accelerator.impl>1.0-RC40</version.accelerator.impl>
@@ -480,7 +450,6 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>${version.maven.jar.plugin}</version>
         </plugin>
 
         <plugin>
@@ -522,7 +491,6 @@
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
-          <version>${version.maven.apache.rat.plugin}</version>
           <configuration>
             <excludeSubProjects>false</excludeSubProjects>
             <excludes>
@@ -827,7 +795,6 @@
           <plugin>
             <groupId>org.apache.rat</groupId>
             <artifactId>apache-rat-plugin</artifactId>
-            <version>${version.maven.apache.rat.plugin}</version>
             <executions>
               <execution>
                 <phase>verify</phase>
