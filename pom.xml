@@ -1,851 +1,844 @@
 <!--
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership. The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License. You may obtain a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied. See the License for the
+ specific language governing permissions and limitations
+ under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.apache.directory</groupId>
-    <artifactId>fortress-core</artifactId>
-    <packaging>jar</packaging>
-    <name>Apache Fortress Core</name>
-    <version>1.0-RC40-SNAPSHOT</version>
-    <inceptionYear>2007</inceptionYear>
-    <description>Apache Fortress is a standards-based Identity and Access Management SDK that implements ANSI RBAC
-        INCITS 359.
-    </description>
-    <url>http://directory.apache.org/fortress/</url>
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.directory.project</groupId>
+    <artifactId>project</artifactId>
+    <version>34</version>
+    <relativePath />
+  </parent>
 
-    <prerequisites>
-        <maven>3.0.3</maven>
-    </prerequisites>
+  <groupId>org.apache.directory</groupId>
+  <artifactId>fortress-core</artifactId>
+  <packaging>jar</packaging>
+  <name>Apache Fortress Core</name>
+  <version>1.0-RC40-SNAPSHOT</version>
+  <inceptionYear>2007</inceptionYear>
+  <description>
+    Apache Fortress is a standards-based Identity and Access Management SDK that implements ANSI RBAC INCITS 359.
+  </description>
+  <url>http://directory.apache.org/fortress/</url>
 
-    <licenses>
-        <license>
-            <name>Apache License 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-        </license>
-    </licenses>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
 
-    <scm>
-        <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git</connection>
-        <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
-        </developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+  <scm>
+    <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git</connection>
+    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+    </developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
-    <issueManagement>
-        <system>jira</system>
-        <url>https://issues.apache.org/jira/browse/DIRFORTRESS</url>
-    </issueManagement>
+  <issueManagement>
+    <system>jira</system>
+    <url>https://issues.apache.org/jira/browse/DIRFORTRESS</url>
+  </issueManagement>
 
-    <!-- ====================================================== -->
-    <!-- The list of current developpers                        -->
-    <!-- ====================================================== -->
-    <developers>
-        <developer>
-            <id>smckinney</id>
-            <name>Shawn McKinney</name>
-            <email>smckinney@apache.org</email>
-        </developer>
+  <!-- ====================================================== -->
+  <!-- The list of current developpers            -->
+  <!-- ====================================================== -->
+  <developers>
+    <developer>
+      <id>smckinney</id>
+      <name>Shawn McKinney</name>
+      <email>smckinney@apache.org</email>
+    </developer>
 
-        <developer>
-            <id>elecharny</id>
-            <name>Emmanuel Lecharny</name>
-            <email>elecharny@apache.org</email>
-        </developer>
-    </developers>
+    <developer>
+      <id>elecharny</id>
+      <name>Emmanuel Lecharny</name>
+      <email>elecharny@apache.org</email>
+    </developer>
+  </developers>
 
-    <!-- ====================================================== -->
-    <!-- The used properties for this project                   -->
-    <!-- ====================================================== -->
-    <properties>
-        <!-- Maven Plugins -->
-        <version.maven.antrun.plugin>1.7</version.maven.antrun.plugin>
-        <version.maven.apache.rat.plugin>0.11</version.maven.apache.rat.plugin>
-        <version.maven.api.plugin>3.2.3</version.maven.api.plugin>
-        <version.maven.assembly.plugin>2.4</version.maven.assembly.plugin>
-        <version.maven.build.helper.plugin>1.9</version.maven.build.helper.plugin>
-        <version.maven.bundle.plugin>2.5.0</version.maven.bundle.plugin>
-        <version.maven.changes.plugin>2.10</version.maven.changes.plugin>
-        <version.maven.checkstyle.plugin>2.12.1</version.maven.checkstyle.plugin>
-        <version.maven.clean.plugin>2.5</version.maven.clean.plugin>
-        <version.maven.clirr.plugin>2.6.1</version.maven.clirr.plugin>
-        <version.maven.cobertura.plugin>2.6</version.maven.cobertura.plugin>
-        <version.maven.compiler.plugin>3.1</version.maven.compiler.plugin>
-        <version.maven.dashboard.plugin>1.0.0-beta-1</version.maven.dashboard.plugin>
-        <version.maven.dependency.plugin>2.8</version.maven.dependency.plugin>
-        <version.maven.deploy.plugin>2.8.1</version.maven.deploy.plugin>
-        <version.maven.docck.plugin>1.0</version.maven.docck.plugin>
-        <version.maven.eclipse.plugin>2.9</version.maven.eclipse.plugin>
-        <version.maven.enforcer.plugin>1.3.1</version.maven.enforcer.plugin>
-        <version.maven.findbugs.plugin>2.5.4</version.maven.findbugs.plugin>
-        <version.maven.gpg.plugin>1.5</version.maven.gpg.plugin>
-        <version.maven.install.plugin>2.5.1</version.maven.install.plugin>
-        <version.maven.jar.plugin>2.5</version.maven.jar.plugin>
-        <version.maven.javancss.plugin>2.0</version.maven.javancss.plugin>
-        <version.maven.javadoc.plugin>2.9.1</version.maven.javadoc.plugin>
-        <version.maven.jdepend.plugin>2.0</version.maven.jdepend.plugin>
-        <version.maven.jxr.plugin>2.4</version.maven.jxr.plugin>
-        <version.maven.model.plugin>3.2.3</version.maven.model.plugin>
-        <version.maven.plexus.utils>3.0.18</version.maven.plexus.utils>
-        <version.maven.plugin.plugin>3.3</version.maven.plugin.plugin>
-        <version.maven.pmd.plugin>3.1</version.maven.pmd.plugin>
-        <version.maven.project.plugin>3.0-alpha-2</version.maven.project.plugin>
-        <version.maven.project.info.report.plugin>2.7</version.maven.project.info.report.plugin>
-        <version.maven.release.plugin>2.5</version.maven.release.plugin>
-        <version.maven.remote.resources.plugin>1.5</version.maven.remote.resources.plugin>
-        <version.maven.resources.plugin>2.6</version.maven.resources.plugin>
-        <version.maven.scm.plugin>1.9</version.maven.scm.plugin>
-        <version.maven.site.plugin>3.3</version.maven.site.plugin>
-        <version.maven.source.plugin>2.2.1</version.maven.source.plugin>
-        <version.maven.shade.plugin>2.3</version.maven.shade.plugin>
-        <version.maven.surefire.plugin>2.17</version.maven.surefire.plugin>
-        <javadoc.version>2.9.1</javadoc.version>
+  <!-- ====================================================== -->
+  <!-- The used properties for this project          -->
+  <!-- ====================================================== -->
+  <properties>
+    <!-- Maven Plugins -->
+    <version.maven.apache.rat.plugin>0.11</version.maven.apache.rat.plugin>
+    <version.maven.api.plugin>3.2.3</version.maven.api.plugin>
+    <version.maven.build.helper.plugin>1.9</version.maven.build.helper.plugin>
+    <version.maven.bundle.plugin>2.5.0</version.maven.bundle.plugin>
+    <version.maven.changes.plugin>2.10</version.maven.changes.plugin>
+    <version.maven.checkstyle.plugin>2.12.1</version.maven.checkstyle.plugin>
+    <version.maven.clirr.plugin>2.6.1</version.maven.clirr.plugin>
+    <version.maven.cobertura.plugin>2.6</version.maven.cobertura.plugin>
+    <version.maven.dashboard.plugin>1.0.0-beta-1</version.maven.dashboard.plugin>
+    <version.maven.dependency.plugin>2.8</version.maven.dependency.plugin>
+    <version.maven.docck.plugin>1.0</version.maven.docck.plugin>
+    <version.maven.eclipse.plugin>2.9</version.maven.eclipse.plugin>
+    <version.maven.enforcer.plugin>1.3.1</version.maven.enforcer.plugin>
+    <version.maven.findbugs.plugin>2.5.4</version.maven.findbugs.plugin>
+    <version.maven.gpg.plugin>1.5</version.maven.gpg.plugin>
+    <version.maven.jar.plugin>2.5</version.maven.jar.plugin>
+    <version.maven.javancss.plugin>2.0</version.maven.javancss.plugin>
+    <version.maven.jdepend.plugin>2.0</version.maven.jdepend.plugin>
+    <version.maven.jxr.plugin>2.4</version.maven.jxr.plugin>
+    <version.maven.model.plugin>3.2.3</version.maven.model.plugin>
+    <version.maven.plexus.utils>3.0.18</version.maven.plexus.utils>
+    <version.maven.plugin.plugin>3.3</version.maven.plugin.plugin>
+    <version.maven.pmd.plugin>3.1</version.maven.pmd.plugin>
+    <version.maven.project.plugin>3.0-alpha-2</version.maven.project.plugin>
+    <version.maven.project.info.report.plugin>2.7</version.maven.project.info.report.plugin>
+    <version.maven.remote.resources.plugin>1.5</version.maven.remote.resources.plugin>
+    <version.maven.scm.plugin>1.9</version.maven.scm.plugin>
+    <version.maven.shade.plugin>2.3</version.maven.shade.plugin>
 
-        <!-- Jars -->
-        <version.accelerator.api>1.0-RC40</version.accelerator.api>
-        <version.accelerator.impl>1.0-RC40</version.accelerator.impl>
-        <version.ant>1.9.4</version.ant>
-        <version.ant.launcher>1.9.1</version.ant.launcher>
-        <version.antlr>2.7.7</version.antlr>
-        <version.apacheds>2.0.0-M18</version.apacheds>
-        <version.api.all>1.0.0-M28</version.api.all>
-        <version.commons.beanutils>1.7.0</version.commons.beanutils>
-        <version.commons.beanutils-core>1.8.0</version.commons.beanutils-core>
-        <version.commons.codec>1.2</version.commons.codec>
-        <version.commons.collections>3.2.1</version.commons.collections>
-        <version.commons.configuration>1.10</version.commons.configuration>
-        <version.commons.digester>1.8</version.commons.digester>
-        <version.commons.httpclient>3.1</version.commons.httpclient>
-        <version.commons.io>2.4</version.commons.io>
-        <version.commons.lang>2.6</version.commons.lang>
-        <version.commons.logging>1.1.1</version.commons.logging>
-        <version.commons.pool>1.6</version.commons.pool>
-        <version.cxf.common.utilities>2.5.11</version.cxf.common.utilities>
-        <version.dom4j>1.6.1</version.dom4j>
-        <version.ehcache.core>2.6.9</version.ehcache.core>
-        <version.hamcrest.core>1.3</version.hamcrest.core>
-        <version.jasypt>1.9.2</version.jasypt>
-        <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
-        <version.jgrapht.jdk5>0.7.3</version.jgrapht.jdk5>
-        <version.jmeter.core>2.11</version.jmeter.core>
-        <version.jmeter.java>2.11</version.jmeter.java>
-        <version.jsr311.api>1.1-ea</version.jsr311.api>
-        <version.junit>4.11</version.junit>
-        <version.log4j>1.2.17</version.log4j>
-        <version.mina.core>2.0.8</version.mina.core>
-        <version.slf4j.api>1.7.7</version.slf4j.api>
-        <version.slf4j.log4j12>1.7.7</version.slf4j.log4j12>
-        <version.stax2.api>3.1.1</version.stax2.api>
-        <version.opencsv>2.3</version.opencsv>
-        <version.woodstox.core.asl>4.2.0</version.woodstox.core.asl>
-        <version.xmlschema.core>2.0.3</version.xmlschema.core>
-        <version.xpp3>1.1.4c</version.xpp3>
-        <version.xml.apis>1.0b2</version.xml.apis>
+    <!-- Jars -->
+    <version.accelerator.api>1.0-RC40</version.accelerator.api>
+    <version.accelerator.impl>1.0-RC40</version.accelerator.impl>
+    <version.ant>1.9.4</version.ant>
+    <version.ant.launcher>1.9.1</version.ant.launcher>
+    <version.antlr>2.7.7</version.antlr>
+    <version.apacheds>2.0.0-M19</version.apacheds>
+    <version.api.all>1.0.0-M28</version.api.all>
+    <version.commons.beanutils>1.7.0</version.commons.beanutils>
+    <version.commons.beanutils-core>1.8.0</version.commons.beanutils-core>
+    <version.commons.codec>1.2</version.commons.codec>
+    <version.commons.collections>3.2.1</version.commons.collections>
+    <version.commons.configuration>1.10</version.commons.configuration>
+    <version.commons.digester>1.8</version.commons.digester>
+    <version.commons.httpclient>3.1</version.commons.httpclient>
+    <version.commons.io>2.4</version.commons.io>
+    <version.commons.lang>2.6</version.commons.lang>
+    <version.commons.logging>1.1.1</version.commons.logging>
+    <version.commons.math3>3.4.1</version.commons.math3>
+    <version.commons.pool>1.6</version.commons.pool>
+    <version.commons.pool2>2.3</version.commons.pool2>
+    <version.cxf.common.utilities>2.5.11</version.cxf.common.utilities>
+    <version.dom4j>1.6.1</version.dom4j>
+    <version.ehcache.core>2.6.10</version.ehcache.core>
+    <version.hamcrest.core>1.3</version.hamcrest.core>
+    <version.jasypt>1.9.2</version.jasypt>
+    <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
+    <version.jgrapht.jdk5>0.7.3</version.jgrapht.jdk5>
+    <version.jmeter.core>2.11</version.jmeter.core>
+    <version.jmeter.java>2.11</version.jmeter.java>
+    <version.jsr311.api>1.1-ea</version.jsr311.api>
+    <version.junit>4.12</version.junit>
+    <version.log4j>1.2.17</version.log4j>
+    <version.mina.core>2.0.8</version.mina.core>
+    <version.slf4j.api>1.7.10</version.slf4j.api>
+    <version.slf4j.log4j12>1.7.10</version.slf4j.log4j12>
+    <version.stax2.api>3.1.1</version.stax2.api>
+    <version.opencsv>2.3</version.opencsv>
+    <version.woodstox.core.asl>4.2.0</version.woodstox.core.asl>
+    <version.xmlschema.core>2.0.3</version.xmlschema.core>
+    <version.xpp3>1.1.4c</version.xpp3>
+    <version.xml.apis>1.0b2</version.xml.apis>
 
-        <!-- =====================================================  -->
-        <!-- This is a hack to allow someone to release             -->
-        <!-- without having to run the tests. In order to           -->
-        <!-- do so, just tpe :                                      -->
-        <!-- mvn release:prepare                                    -->
-        <!--      -Drelease.arguments="-DskipTests -Prelease"       -->
-        <!-- =====================================================  -->
-        <release.arguments></release.arguments>
-    </properties>
+    <!-- ===================================================== -->
+    <!-- This is a hack to allow someone to release       -->
+    <!-- without having to run the tests. In order to      -->
+    <!-- do so, just tpe :                   -->
+    <!-- mvn release:prepare                  -->
+    <!--   -Drelease.arguments="-DskipTests -Prelease"    -->
+    <!-- ===================================================== -->
+    <release.arguments></release.arguments>
+  </properties>
 
-    <!-- ====================================================== -->
-    <!-- The dependencies for all the projects                  -->
-    <!-- ====================================================== -->
-    <dependencyManagement>
-        <dependencies>
-            <!--  To be defined later -->
-        </dependencies>
-    </dependencyManagement>
+  <!-- ====================================================== -->
+  <!-- The dependencies for all the projects         -->
+  <!-- ====================================================== -->
 
-    <!-- ====================================================== -->
-    <!-- The dependencies                                       -->
-    <!-- ====================================================== -->
-    <dependencies>
-        <dependency>
-            <groupId>org.openldap</groupId>
-            <artifactId>accelerator-api</artifactId>
-            <version>${version.accelerator.api}</version>
-        </dependency>
+  <!-- ====================================================== -->
+  <!-- The dependencies                    -->
+  <!-- ====================================================== -->
+  <dependencies>
+    <dependency>
+      <groupId>org.openldap</groupId>
+      <artifactId>accelerator-api</artifactId>
+      <version>${version.accelerator.api}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.openldap</groupId>
-            <artifactId>accelerator-impl</artifactId>
-            <version>${version.accelerator.impl}</version>
-        </dependency>
+    <dependency>
+      <groupId>org.openldap</groupId>
+      <artifactId>accelerator-impl</artifactId>
+      <version>${version.accelerator.impl}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${version.commons.lang}</version>
-        </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>${version.commons.lang}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>${version.commons.configuration}</version>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+      <version>${version.commons.math3}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${version.commons.io}</version>
-        </dependency>
+    <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>${version.commons.configuration}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
-            <version>${version.commons.httpclient}</version>
-        </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${version.commons.io}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache-core</artifactId>
-            <version>${version.ehcache.core}</version>
-        </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>${version.commons.httpclient}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>commons-pool</groupId>
-            <artifactId>commons-pool</artifactId>
-            <version>${version.commons.pool}</version>
-        </dependency>
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache-core</artifactId>
+      <version>${version.ehcache.core}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-common-utilities</artifactId>
-            <version>${version.cxf.common.utilities}</version>
-        </dependency>
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <version>${version.commons.pool}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.api</groupId>
-            <artifactId>api-all</artifactId>
-            <version>${version.api.all}</version>
-            <type>jar</type>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-pool2</artifactId>
+      <version>${version.commons.pool2}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
-            <version>${version.ant}</version>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-common-utilities</artifactId>
+      <version>${version.cxf.common.utilities}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.jasypt</groupId>
-            <artifactId>jasypt</artifactId>
-            <version>${version.jasypt}</version>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.api</groupId>
+      <artifactId>api-all</artifactId>
+      <version>${version.api.all}</version>
+      <type>jar</type>
+    </dependency>
 
-        <dependency>
-            <groupId>org.jgrapht</groupId>
-            <artifactId>jgrapht-jdk1.5</artifactId>
-            <version>${version.jgrapht.jdk5}</version>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>${version.ant}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${version.slf4j.api}</version>
-        </dependency>
+    <dependency>
+      <groupId>org.jasypt</groupId>
+      <artifactId>jasypt</artifactId>
+      <version>${version.jasypt}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-core</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.jgrapht</groupId>
+      <artifactId>jgrapht-jdk1.5</artifactId>
+      <version>${version.jgrapht.jdk5}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-core-annotations</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${version.slf4j.api}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-core-api</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-core</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-core-avl</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-core-annotations</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-core-constants</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-core-api</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-core-jndi</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-core-avl</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-interceptor-kerberos</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-core-constants</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.jdbm</groupId>
-            <artifactId>apacheds-jdbm1</artifactId>
-            <version>${version.apache.jdbm1}</version>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-core-jndi</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-jdbm-partition</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-interceptor-kerberos</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-kerberos-codec</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.jdbm</groupId>
+      <artifactId>apacheds-jdbm1</artifactId>
+      <version>${version.apache.jdbm1}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-ldif-partition</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-jdbm-partition</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-protocol-dhcp</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-kerberos-codec</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-protocol-dns</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-ldif-partition</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-protocol-kerberos</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-protocol-dhcp</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-protocol-ldap</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-protocol-dns</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-protocol-ntp</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-protocol-kerberos</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-protocol-shared</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-protocol-ldap</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-server-annotations</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-protocol-ntp</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-server-config</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-protocol-shared</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-server-jndi</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-server-annotations</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-test-framework</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-server-config</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-xdbm-partition</artifactId>
-            <version>${version.apacheds}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-server-jndi</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>jsr311-api</artifactId>
-            <version>${version.jsr311.api}</version>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-test-framework</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.jmeter</groupId>
-            <artifactId>ApacheJMeter_core</artifactId>
-            <version>${version.jmeter.core}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-xdbm-partition</artifactId>
+      <version>${version.apacheds}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.jmeter</groupId>
-            <artifactId>ApacheJMeter_java</artifactId>
-            <version>${version.jmeter.java}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>jsr311-api</artifactId>
+      <version>${version.jsr311.api}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.jmeter</groupId>
+      <artifactId>ApacheJMeter_core</artifactId>
+      <version>${version.jmeter.core}</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>net.sf.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>${version.opencsv}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>org.apache.jmeter</groupId>
+      <artifactId>ApacheJMeter_java</artifactId>
+      <version>${version.jmeter.java}</version>
+      <scope>test</scope>
+    </dependency>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>${version.maven.clean.plugin}</version>
-                </plugin>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${version.junit}</version>
+      <scope>test</scope>
+    </dependency>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${version.maven.deploy.plugin}</version>
-                    <inherited>true</inherited>
-                </plugin>
+    <dependency>
+      <groupId>net.sf.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>${version.opencsv}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>${version.maven.install.plugin}</version>
-                </plugin>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>${version.maven.jar.plugin}</version>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>${version.maven.site.plugin}</version>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <inherited>true</inherited>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${version.maven.surefire.plugin}</version>
-                    <configuration>
-                        <argLine>-Xmx1024m</argLine>
-                        <systemPropertyVariables>
-                            <version>${project.version}</version>
-                        </systemPropertyVariables>
-                    </configuration>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>${version.maven.release.plugin}</version>
-                    <configuration>
-                        <arguments>${release.arguments}</arguments>
-                        <tagNameFormat>@{project.version}</tagNameFormat>
-                    </configuration>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${version.maven.jar.plugin}</version>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${version.maven.compiler.plugin}</version>
-                    <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
-                        <optimize>true</optimize>
-                        <encoding>ISO-8859-1</encoding>
-                    </configuration>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.rat</groupId>
-                    <artifactId>apache-rat-plugin</artifactId>
-                    <version>${version.maven.apache.rat.plugin}</version>
-                    <configuration>
-                        <excludeSubProjects>false</excludeSubProjects>
-                        <excludes>
-                            <!-- MAVEN_DEFAULT_EXCLUDES -->
-                            <exclude>**/target/**/*</exclude>
-                            <exclude>**/cobertura.ser</exclude>
-                            <!-- ECLIPSE_DEFAULT_EXCLUDES -->
-                            <exclude>**/.classpath</exclude>
-                            <exclude>**/.project</exclude>
-                            <exclude>**/.settings/**/*</exclude>
-                            <!-- IDEA_DEFAULT_EXCLUDES -->
-                            <exclude>**/*.iml</exclude>
-                            <exclude>**/*.ipr</exclude>
-                            <exclude>**/*.iws</exclude>
-                            <!-- MANIFEST_MF_EXCLUDES -->
-                            <exclude>**/MANIFEST.MF</exclude>
-                            <!-- GIT_EXCLUDES -->
-                            <exclude>**/.git/**/*</exclude>
-                            <!-- CERT_EXCLUDES -->
-                            <exclude>**/*.pem</exclude>
-                            <!-- EXTERNAL_CODE_EXCLUDES -->
-                            <exclude>**/CmdLineParser.java</exclude>
-                            <!-- LICENSE_EXCLUDES -->
-                            <exclude>**/lib/LICENSE*</exclude>
-                        </excludes>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <argLine>-Xmx1024m</argLine>
+            <systemPropertyVariables>
+              <version>${project.version}</version>
+            </systemPropertyVariables>
+          </configuration>
+        </plugin>
 
-        <resources>
-            <resource>
-                <directory>config</directory>
-            </resource>
-        </resources>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <configuration>
+            <arguments>${release.arguments}</arguments>
+            <tagNameFormat>@{project.version}</tagNameFormat>
+          </configuration>
+        </plugin>
 
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>1.7</source>
+            <target>1.7</target>
+            <optimize>true</optimize>
+            <encoding>ISO-8859-1</encoding>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <version>${version.maven.apache.rat.plugin}</version>
+          <configuration>
+            <excludeSubProjects>false</excludeSubProjects>
+            <excludes>
+              <!-- MAVEN_DEFAULT_EXCLUDES -->
+              <exclude>**/target/**/*</exclude>
+              <exclude>**/cobertura.ser</exclude>
+              <!-- ECLIPSE_DEFAULT_EXCLUDES -->
+              <exclude>**/.classpath</exclude>
+              <exclude>**/.project</exclude>
+              <exclude>**/.settings/**/*</exclude>
+              <!-- IDEA_DEFAULT_EXCLUDES -->
+              <exclude>**/*.iml</exclude>
+              <exclude>**/*.ipr</exclude>
+              <exclude>**/*.iws</exclude>
+              <!-- MANIFEST_MF_EXCLUDES -->
+              <exclude>**/MANIFEST.MF</exclude>
+              <!-- GIT_EXCLUDES -->
+              <exclude>**/.git/**/*</exclude>
+              <!-- CERT_EXCLUDES -->
+              <exclude>**/*.pem</exclude>
+              <!-- EXTERNAL_CODE_EXCLUDES -->
+              <exclude>**/CmdLineParser.java</exclude>
+              <!-- LICENSE_EXCLUDES -->
+              <exclude>**/lib/LICENSE*</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <resources>
+      <resource>
+        <directory>config</directory>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <!-- here the phase you need -->
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/config</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>config</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <!--<additionalparam>-Xdoclint:none</additionalparam>-->
+          <stylesheet>java</stylesheet>
+          <bottom>&lt;small&gt;Copyright &amp;copy; 2003-2015, The Apache Software Foundation. All Rights Reserved. Generated ${maven.build.timestamp}&lt;/small&gt;</bottom>
+          <overview>src/main/java/org/apache/directory/fortress/core/overview.html</overview>
+          <docfilessubdirs>true</docfilessubdirs>
+          <includes></includes>
+          <version>true</version>
+          <author>true</author>
+          <doctitle>Fortress Identity and Access Management Javadoc ${version}</doctitle>
+          <windowtitle>Apache Fortress Identity and Access Management Javadoc ${version}</windowtitle>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>initialize-fortress-config</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <ant antfile="${basedir}/build.xml"
+                   target="init-fortress-config"/>
+              </tasks>
+            </configuration>
+          </execution>
+
+          <execution>
+            <phase>test</phase>
+            <configuration>
+              <target name="fortress-load"
+                  if="load.file"
+                  description="Loads fortress policy into ldap">
+                <echo message="############### Run Fortress Ant script to load policy ###############"/>
+                <java
+                    classname="org.apache.tools.ant.launch.Launcher"
+                    fork="true"
+                    failonerror="true"
+                    dir="${basedir}"
+                    timeout="4000000"
+                    taskname="startAnt">
+                  <classpath>
+                    <pathelement location="./config/bootstrap"/>
+                    <pathelement location="./target/classes/"/>
+                    <pathelement location="${org.apache.ant:ant-launcher:jar}"/>
+                    <pathelement location="${org.apache.ant:ant:jar}"/>
+                    <pathelement location="${org.openldap:accelerator-api:jar}"/>
+                    <pathelement location="${org.openldap:accelerator-impl:jar}"/>
+                    <pathelement location="${log4j:log4j:jar}"/>
+                    <pathelement location="${org.apache.directory.api:api-all:jar}"/>
+                    <pathelement location="${org.apache.mina:mina-core:jar}"/>
+                    <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}"/>
+                    <pathelement location="${org.jasypt:jasypt:jar}"/>
+                    <pathelement location="${commons-configuration:commons-configuration:jar}"/>
+                    <pathelement location="${commons-lang:commons-lang:jar}"/>
+                    <pathelement location="${commons-collections:commons-collections:jar}"/>
+                    <pathelement location="${commons-logging:commons-logging:jar}"/>
+                    <pathelement location="${commons-io:commons-io:jar}"/>
+                    <pathelement location="${commons-pool:commons-pool:jar}"/>
+                    <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
+                    <pathelement location="${org.slf4j:slf4j-api:jar}"/>
+                    <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>
+                    <pathelement location="${antlr:antlr:jar}"/>
+                  </classpath>
+                  <sysproperty key="version" value="${project.version}"/>
+                  <sysproperty key="tenant" value="HOME"/>
+                  <arg value="-buildfile"/>
+                  <arg file="./${load.file}"/>
+                </java>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+
+    <testResources>
+      <testResource>
+        <directory>${project.basedir}/config</directory>
+      </testResource>
+    </testResources>
+  </build>
+
+  <profiles>
+
+    <!--
+    To execute: ./m.sh -Ploadtest-accel jmeter:jmeter
+    -->
+    <profile>
+      <id>loadtest-accel</id>
+      <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${version.maven.source.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${version.maven.resources.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/config</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>config</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${javadoc.version}</version>
-                <configuration>
-                    <!--<additionalparam>-Xdoclint:none</additionalparam>-->
-                    <stylesheet>java</stylesheet>
-                    <bottom>&lt;small&gt;Copyright &amp;copy; 2003-2015, The Apache Software Foundation. All Rights Reserved. Generated ${maven.build.timestamp}&lt;/small&gt;</bottom>
-                    <overview>src/main/java/org/apache/directory/fortress/core/overview.html</overview>
-                    <docfilessubdirs>true</docfilessubdirs>
-                    <includes></includes>
-                    <version>true</version>
-                    <author>true</author>
-                    <doctitle>Fortress Identity and Access Management Javadoc ${version}</doctitle>
-                    <windowtitle>Apache Fortress Identity and Access Management Javadoc ${version}</windowtitle>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>${version.maven.antrun.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>initialize-fortress-config</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <ant antfile="${basedir}/build.xml"
-                                     target="init-fortress-config"/>
-                            </tasks>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <phase>test</phase>
-                        <configuration>
-                            <target name="fortress-load"
-                                    if="load.file"
-                                    description="Loads fortress policy into ldap">
-                                <echo message="###############  Run Fortress Ant script to load policy  ###############"/>
-                                <java
-                                        classname="org.apache.tools.ant.launch.Launcher"
-                                        fork="true"
-                                        failonerror="true"
-                                        dir="${basedir}"
-                                        timeout="4000000"
-                                        taskname="startAnt">
-                                    <classpath>
-                                        <pathelement location="./config/bootstrap"/>
-                                        <pathelement location="./target/classes/"/>
-                                        <pathelement location="${org.apache.ant:ant-launcher:jar}"/>
-                                        <pathelement location="${org.apache.ant:ant:jar}"/>
-                                        <pathelement location="${org.openldap:accelerator-api:jar}"/>
-                                        <pathelement location="${org.openldap:accelerator-impl:jar}"/>
-                                        <pathelement location="${log4j:log4j:jar}"/>
-                                        <pathelement location="${org.apache.directory.api:api-all:jar}"/>
-                                        <pathelement location="${org.apache.mina:mina-core:jar}"/>
-                                        <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}"/>
-                                        <pathelement location="${org.jasypt:jasypt:jar}"/>
-                                        <pathelement location="${commons-configuration:commons-configuration:jar}"/>
-                                        <pathelement location="${commons-lang:commons-lang:jar}"/>
-                                        <pathelement location="${commons-collections:commons-collections:jar}"/>
-                                        <pathelement location="${commons-logging:commons-logging:jar}"/>
-                                        <pathelement location="${commons-io:commons-io:jar}"/>
-                                        <pathelement location="${commons-pool:commons-pool:jar}"/>
-                                        <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
-                                        <pathelement location="${org.slf4j:slf4j-api:jar}"/>
-                                        <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>
-                                        <pathelement location="${antlr:antlr:jar}"/>
-                                    </classpath>
-                                    <sysproperty key="version" value="${project.version}"/>
-                                    <sysproperty key="tenant" value="HOME"/>
-                                    <arg value="-buildfile"/>
-                                    <arg file="./${load.file}"/>
-                                </java>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+          <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>1.10.1</version>
+            <configuration>
+              <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+              <suppressJMeterOutput>false</suppressJMeterOutput>
+              <testFilesIncluded>
+                <jMeterTestFile>acCheckAccess.jmx</jMeterTestFile>
+              </testFilesIncluded>
+            </configuration>
+            <executions>
+              <execution>
+                <id>jmeter-tests</id>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
 
         </plugins>
+      </build>
+    </profile>
 
-        <testResources>
-            <testResource>
-                <directory>${project.basedir}/config</directory>
-            </testResource>
-        </testResources>
-    </build>
+    <!--
+    To execute: ./m.sh -Ploadtest-fortress jmeter:jmeter
+    -->
+    <profile>
+      <id>loadtest-fortress</id>
+      <build>
+        <plugins>
 
-    <profiles>
+          <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>1.10.0</version>
+            <configuration>
+              <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+              <suppressJMeterOutput>false</suppressJMeterOutput>
+              <testFilesIncluded>
+                <jMeterTestFile>ftCheckAccess.jmx</jMeterTestFile>
+              </testFilesIncluded>
+            </configuration>
+            <executions>
+              <execution>
+                <id>jmeter-tests</id>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
 
-        <!--
-        To execute: ./m.sh -Ploadtest-accel jmeter:jmeter
-        -->
-        <profile>
-            <id>loadtest-accel</id>
-            <build>
-                <plugins>
+        </plugins>
+      </build>
+    </profile>
 
-                    <plugin>
-                        <groupId>com.lazerycode.jmeter</groupId>
-                        <artifactId>jmeter-maven-plugin</artifactId>
-                        <version>1.10.0</version>
-                        <configuration>
-                            <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
-                            <suppressJMeterOutput>false</suppressJMeterOutput>
-                            <testFilesIncluded>
-                                <jMeterTestFile>acCheckAccess.jmx</jMeterTestFile>
-                            </testFilesIncluded>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>jmeter-tests</id>
-                                <goals>
-                                    <goal>jmeter</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+    <!--
+    To execute: ./m.sh -Ploadtest-acca jmeter:jmeter
+    -->
+    <profile>
+      <id>loadtest-acca</id>
+      <build>
+        <plugins>
 
-                </plugins>
-            </build>
-        </profile>
+          <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>1.10.0</version>
+            <configuration>
+              <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+              <suppressJMeterOutput>false</suppressJMeterOutput>
+              <testFilesIncluded>
+                <jMeterTestFile>acCreateSession.jmx</jMeterTestFile>
+              </testFilesIncluded>
+            </configuration>
+            <executions>
+              <execution>
+                <id>jmeter-tests</id>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
 
-        <!--
-        To execute: ./m.sh -Ploadtest-fortress jmeter:jmeter
-        -->
-        <profile>
-            <id>loadtest-fortress</id>
-            <build>
-                <plugins>
+        </plugins>
+      </build>
+    </profile>
 
-                    <plugin>
-                        <groupId>com.lazerycode.jmeter</groupId>
-                        <artifactId>jmeter-maven-plugin</artifactId>
-                        <version>1.10.0</version>
-                        <configuration>
-                            <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
-                            <suppressJMeterOutput>false</suppressJMeterOutput>
-                            <testFilesIncluded>
-                                <jMeterTestFile>ftCheckAccess.jmx</jMeterTestFile>
-                            </testFilesIncluded>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>jmeter-tests</id>
-                                <goals>
-                                    <goal>jmeter</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>log4j</groupId>
-                                <artifactId>log4j</artifactId>
-                                <version>${version.log4j}</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
+    <profile>
+      <id>apache-release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>source-release-assembly</id>
+                <configuration>
+                  <!-- we have a dedicated distribution module -->
+                  <skipAssembly>true</skipAssembly>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
 
-                </plugins>
-            </build>
-        </profile>
-
-        <!--
-        To execute: ./m.sh -Ploadtest-acca jmeter:jmeter
-        -->
-        <profile>
-            <id>loadtest-acca</id>
-            <build>
-                <plugins>
-
-                    <plugin>
-                        <groupId>com.lazerycode.jmeter</groupId>
-                        <artifactId>jmeter-maven-plugin</artifactId>
-                        <version>1.10.0</version>
-                        <configuration>
-                            <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
-                            <suppressJMeterOutput>false</suppressJMeterOutput>
-                            <testFilesIncluded>
-                                <jMeterTestFile>acCreateSession.jmx</jMeterTestFile>
-                            </testFilesIncluded>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>jmeter-tests</id>
-                                <goals>
-                                    <goal>jmeter</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>log4j</groupId>
-                                <artifactId>log4j</artifactId>
-                                <version>${version.log4j}</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>apache-release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>${version.maven.assembly.plugin}</version>
-                        <executions>
-                            <execution>
-                                <id>source-release-assembly</id>
-                                <configuration>
-                                    <!-- we have a dedicated distribution module -->
-                                    <skipAssembly>true</skipAssembly>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.apache.rat</groupId>
-                        <artifactId>apache-rat-plugin</artifactId>
-                        <version>${version.maven.apache.rat.plugin}</version>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+          <plugin>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
+            <version>${version.maven.apache.rat.plugin}</version>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
