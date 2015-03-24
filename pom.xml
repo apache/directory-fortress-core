@@ -774,17 +774,13 @@
     <profile>
       <id>stable-tests</id>
       <properties>
-        <exclude.tests>**/accelerator/**/*.java</exclude.tests>
-        <include.tests>**/rbac/**/*.java</include.tests>
         <testcase.groups>org.apache.directory.fortress.core.DefaultTestCase</testcase.groups>
       </properties>
     </profile>
     <profile>
       <id>unstable-tests</id>
       <properties>
-        <exclude.tests>**/accelerator/**/*.java</exclude.tests>
-        <include.tests>**/rbac/**/*.java</include.tests>
-        <testcase.groups>org.apache.directory.fortress.core.DefaultTestCase</testcase.groups>
+        <testcase.groups>org.apache.directory.fortress.core.UnstableTestCase</testcase.groups>
       </properties>
     </profile>
 
