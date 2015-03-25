@@ -53,18 +53,18 @@ class ProcessMenuCommand
     {
         ReaderUtil.clearScreen();
         System.out.println( "CHOOSE FUNCTION:" );
-        System.out.println( "1. ADMIN MANAGER" );
-        System.out.println( "2. REVIEW MANAGER" );
-        System.out.println( "3. ACCESS MANAGER" );
-        System.out.println( "4. DELEGATED ADMIN MANAGER" );
-        System.out.println( "5. DELEGATED REVIEW MANAGER" );
-        System.out.println( "6. DELEGATED ACCESS MANAGER" );
+        System.out.println( "1. RBAC ADMIN MANAGER" );
+        System.out.println( "2. RBAC REVIEW MANAGER" );
+        System.out.println( "3. RBAC ACCESS MANAGER" );
+        System.out.println( "4. ARBAC ADMIN MANAGER" );
+        System.out.println( "5. ARBAC REVIEW MANAGER" );
+        System.out.println( "6. ARBAC ACCESS MANAGER" );
         System.out.println( "7. PASSWORD POLICY MANAGER" );
         System.out.println( "8. AUDIT MANAGER" );
         System.out.println( "9. CONFIG MANAGER" );
         System.out.println( "A. ENCRYPTION MANAGER" );
         System.out.println( "B. GROUP MANAGER" );
-        System.out.println( "C. ACCEL MANAGER" );
+        System.out.println( "C. RBAC ACCELERATOR MANAGER" );
         System.out.println( "Enter q or Q to quit" );
     }
 

@@ -170,6 +170,8 @@ mvn -Dtest=FortressJUnitTest test
         Tests should run with no errors.
     </li>
 
+    <br>
+
     <li>
         Run the Fortress Command Line Interface:
                 <pre>
@@ -177,13 +179,13 @@ mvn -Dtest=FortressJUnitTest test
 mvn -Pcli test
                     </p>
                 </pre>
-For instructions on how to use CLI, point your browser here:
+        This program provides a command line interface for driving the fortress APIs.  It is useful for ad-hoc and automated updates to the data.  It's instruction manual can be found inside fortress javadoc, point your browser here:
         <br>file:///[directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/cli/package-summary.html.
         <br><br>Where [directory-fortress-core] is base folder of the fortress core source package.
     </li>
 
     <br>
-    
+
     <li>
         Run the Fortress Console:
                 <pre>
@@ -191,6 +193,31 @@ For instructions on how to use CLI, point your browser here:
 mvn -Pconsole test
                     </p>
                 </pre>
+        This program provides an interfactive console for driving the fortress functions.  It is useful for testing and ad-hoc updates to the data.
+        <br><br>
+        <ol type="a">
+            <li>Start at the Main Menu:
+                <br><img src="./screenshot-fortress-console-main.png" height="50%" width="40%"/>
+                <br>Enter option to perform a particular manager function.
+            </li>
+            <br>
+            <li>Option '1' for RBAC Admin Manager Functions:
+                <br><img src="./screenshot-fortress-console-rbac-admin.png" height="50%" width="25%"/>
+                <br>Add, Update and Delete RBAC entities.
+            </li>
+            <br>
+            <li>Option '2' for RBAC Review Manager Functions:
+                <br><img src="./screenshot-fortress-console-rbac-review.png" height="50%" width="35%"/>
+                <br>Read and Search RBAC entities.
+            </li>
+            <br>
+            <li>Option '3' for RBAC Access Manager Functions:
+                <br><img src="./screenshot-fortress-console-rbac-access.png" height="50%" width="35%"/>
+                <br>Test RBAC runtime functions like createSession and checkAccess.
+            </li>
+            <br>
+            <li>etc</li>
+        </ol>
     </li>
 
 </ol>
