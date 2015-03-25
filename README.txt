@@ -66,16 +66,11 @@ ________________________________________________________________________________
  - Fortress Core package operations originally were designed to work using Ant.  Today, these same operations are being moved into
    the maven pom.xml.  Both still work, but ant is being phased out.
 
- - This software packages preferred means to build and install uses Apache Maven (script FORTRESS_HOME/pom.xml) - Sections 3,8,13
+ - This software packages preferred means to build and install uses Apache Maven (script FORTRESS_HOME/pom.xml)
 
- - This software package still uses Apache Ant (script FORTRESS_HOME/build.xml) for many utility functions listed in this README - Sections 6,7,9-12.
+ - This software package still uses Apache Ant (script FORTRESS_HOME/build.xml) for some functions, i.e. slapd configuration, listed in Sections 4,6,7.
 
  - The targets may be used to the fortress security policy data contained within an existing LDAP server.
-
- - This document describes the most important targets to start using fortress.  For a complete list, enter (from FORTRESS_HOME):
-   $ANT_HOME/bin/ant -p
-
- - Or view the maven script (FORTRESS_HOME/pom.xml) and ant script (FORTRESS_HOME/build.xml).
 
  - Questions pertaining to usage of this software may be submitted to:
     http://mail-archives.apache.org/mod_mbox/directory-fortress/
@@ -522,11 +517,13 @@ ________________________________________________________________________________
 
 a. from FORTRESS_HOME enter the following command:
 
-# $ANT_HOME/bin/ant cli
+# $M2_HOME/bin/mvn -Pcli test
 
 b. follow instructions in the command line interpreter reference manual contained within the javadoc:
 
-$FORTRESS_HOME/dist/docs/api/com/jts/fortress/cli/package-summary.html
+   file:///[directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/cli/package-summary.html
+
+   (where [directory-fortress-core] is location of current source package)
 
 ___________________________________________________________________________________
 ###################################################################################
@@ -555,21 +552,21 @@ ________________________________________________________________________________
 
 a. from FORTRESS_HOME enter the following command:
 
-# $ANT_HOME/bin/ant test-samples
+# $M2_HOME/bin/mvn -Dtest=AllSamplesJUnitTest test
 
-c. view and change the samples here:
+b. view and change the samples here:
 
 $FORTRESS_HOME/src/test/com/jts/fortress/samples
 
-d. compile and re-run samples to test your changes using:
+c. compile and re-run samples to test your changes using:
 
-# $ANT_HOME/bin/ant test-samples
+# $M2_HOME/bin/mvn -Dtest=AllSamplesJUnitTest test
 
-e. view the samples java doc here:
+d. view the samples java doc here:
 
 $FORTRESS_HOME/dist/docs/samples/index.html
 
-f. view the fortress-core SDK java doc here:
+e. view the fortress-core SDK java doc here:
 
 $FORTRESS_HOME/dist/docs/api/index.html
 
@@ -581,9 +578,9 @@ Testing Notes:
 
   - These tests will load some records into the target ldap server.
 
-  - The 'test-samples' target may be run as many times as necessary and should be run at least twice to test the teardown A/P/R/BAC APIs.
+  - The target may be run as many times as necessary and should be run at least twice to test the teardown A/P/R/BAC APIs.
 
-  - The 2nd and subsequent times 'test-samples' runs, it will tear down the data loaded during the prior run.
+  - The 2nd and subsequent times runs, it will tear down the data loaded during the prior run.
 
 ___________________________________________________________________________________
 ###################################################################################
@@ -592,7 +589,7 @@ ________________________________________________________________________________
 
 a. from FORTRESS_HOME enter the following command:
 
-# $ANT_HOME/bin/ant console
+# $M2_HOME/bin/mvn -Pconsole test
 
 ___________________________________________________________________________________
 ###################################################################################
