@@ -49,8 +49,7 @@ import org.junit.experimental.categories.Category;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-//@Ignore
-
+@Category(org.apache.directory.fortress.core.DefaultTestCase.class)
 public class FortressJUnitTest extends TestCase
 {
     private static boolean adminEnabled;

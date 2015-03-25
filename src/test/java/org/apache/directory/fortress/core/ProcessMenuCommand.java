@@ -52,19 +52,19 @@ class ProcessMenuCommand
     private void showMainMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE FUNCTION" );
-        System.out.println( "1. ADMIN MANAGER FUNCTIONS" );
-        System.out.println( "2. REVIEW MANAGER FUNCTIONS" );
-        System.out.println( "3. ACCESS MANAGER FUNCTIONS" );
-        System.out.println( "4. DELEGATED ADMIN MANAGER FUNCTIONS" );
-        System.out.println( "5. DELEGATED REVIEW MANAGER FUNCTIONS" );
-        System.out.println( "6. DELEGATED ACCESS MANAGER FUNCTIONS" );
-        System.out.println( "7. PASSWORD POLICY MANAGER FUNCTIONS" );
-        System.out.println( "8. AUDIT MANAGER FUNCTIONS" );
-        System.out.println( "9. CONFIG MANAGER FUNCTIONS" );
-        System.out.println( "A. ENCRYPTION MANAGER FUNCTIONS" );
-        System.out.println( "B. GROUP MANAGER FUNCTIONS" );
-        System.out.println( "C. ACCEL MANAGER FUNCTIONS" );
+        System.out.println( "CHOOSE FUNCTION:" );
+        System.out.println( "1. ADMIN MANAGER" );
+        System.out.println( "2. REVIEW MANAGER" );
+        System.out.println( "3. ACCESS MANAGER" );
+        System.out.println( "4. DELEGATED ADMIN MANAGER" );
+        System.out.println( "5. DELEGATED REVIEW MANAGER" );
+        System.out.println( "6. DELEGATED ACCESS MANAGER" );
+        System.out.println( "7. PASSWORD POLICY MANAGER" );
+        System.out.println( "8. AUDIT MANAGER" );
+        System.out.println( "9. CONFIG MANAGER" );
+        System.out.println( "A. ENCRYPTION MANAGER" );
+        System.out.println( "B. GROUP MANAGER" );
+        System.out.println( "C. ACCEL MANAGER" );
         System.out.println( "Enter q or Q to quit" );
     }
 
@@ -197,7 +197,7 @@ class ProcessMenuCommand
     private void showGroupFunctionMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE GROUP MANAGER FUNCTION" );
+        System.out.println( "CHOOSE GROUP MANAGER FUNCTION:" );
         System.out.println( "1.  Add new group" );
         System.out.println( "2.  Update existing group" );
         System.out.println( "3.  Delete group" );
@@ -248,7 +248,7 @@ class ProcessMenuCommand
     private void showEncryptFunctionMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE ENCRYPTION MANAGER FUNCTION" );
+        System.out.println( "CHOOSE ENCRYPTION MANAGER FUNCTION:" );
         System.out.println( "1.  Encrypt text value" );
         System.out.println( "2.  Decrypt text value" );
         System.out.println( "Enter q or Q to return to previous menu" );
@@ -301,7 +301,7 @@ class ProcessMenuCommand
     private void showConfigFunctionMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE CONFIG MANAGER FUNCTION" );
+        System.out.println( "CHOOSE CONFIG MANAGER FUNCTION:" );
         System.out.println( "1.  Add Config Param" );
         System.out.println( "2.  Update Config Param" );
         System.out.println( "3.  Read Config Params" );
@@ -371,7 +371,7 @@ class ProcessMenuCommand
     private void showAuditFunctionMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE AUDIT MANAGER FUNCTION" );
+        System.out.println( "CHOOSE AUDIT MANAGER FUNCTION:" );
         System.out.println( "1.  Find Audit Binds Raw Data" );
         System.out.println( "2.  Get Audit AuthN Formatted Data" );
         System.out.println( "3.  Find Audit AuthZs" );
@@ -389,7 +389,7 @@ class ProcessMenuCommand
     private void showAdminCommandMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE ADMIN MANAGER FUNCTION" );
+        System.out.println( "CHOOSE ADMIN MANAGER FUNCTION:" );
         System.out.println( "1.  Add User" );
         System.out.println( "2.  Update User" );
         System.out.println( "3.  Delete User" );
@@ -567,7 +567,7 @@ class ProcessMenuCommand
     private void showReviewFunctionMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE REVIEW MANAGER FUNCTION" );
+        System.out.println( "CHOOSE REVIEW MANAGER FUNCTION:" );
         System.out.println( "0. Search Users" );
         System.out.println( "1. Search Users by OU" );
         System.out.println( "2. Get User by IID" );
@@ -666,7 +666,7 @@ class ProcessMenuCommand
     private void showAccessFunctionMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE ACCESS MANAGER FUNCTION" );
+        System.out.println( "CHOOSE ACCESS MANAGER FUNCTION:" );
         System.out.println( "1. Authenticate" );
         System.out.println( "2. Create Session" );
         System.out.println( "3. Create Session Trusted" );
@@ -762,7 +762,7 @@ class ProcessMenuCommand
     private void showAccelFunctionMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE ACCEL MANAGER FUNCTION" );
+        System.out.println( "CHOOSE ACCEL MANAGER FUNCTION:" );
         System.out.println( "1. Create Session" );
         System.out.println( "2. Check Access - RBAC" );
         System.out.println( "3. Session Roles" );
@@ -914,7 +914,7 @@ class ProcessMenuCommand
     private void showPasswordPolicyFunctionMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE PASSWORD POLICY FUNCTION" );
+        System.out.println( "CHOOSE PASSWORD POLICY FUNCTION:" );
         System.out.println( "1. Create Password Policy" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
@@ -923,7 +923,7 @@ class ProcessMenuCommand
     private void showDelegatedAdminCommandMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE DELEGATED ADMIN MANAGER FUNCTION" );
+        System.out.println( "CHOOSE DELEGATED ADMIN MANAGER FUNCTION:" );
         System.out.println( "1.  Add ORG USO" );
         System.out.println( "2.  Add ORG PSO" );
         System.out.println( "3.  Update ORG USO" );
@@ -1077,7 +1077,7 @@ class ProcessMenuCommand
     private void showDelegatedReviewFunctionMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE DELEGATED REVIEW MANAGER FUNCTION" );
+        System.out.println( "CHOOSE DELEGATED REVIEW MANAGER FUNCTION:" );
         System.out.println( "1. Read Role" );
         System.out.println( "2. Search Roles" );
         System.out.println( "3. Assigned Roles" );
@@ -1137,7 +1137,7 @@ class ProcessMenuCommand
     private void showDelegatedAccessFunctionMenu()
     {
         ReaderUtil.clearScreen();
-        System.out.println( "CHOOSE ACCESS MANAGER FUNCTION" );
+        System.out.println( "CHOOSE ACCESS MANAGER FUNCTION:" );
         System.out.println( "1. Create Session" );
         System.out.println( "2. Create Session Trusted" );
         System.out.println( "3. Check Access" );
