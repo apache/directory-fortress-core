@@ -32,9 +32,9 @@
 folder of Fortress SDK package.
 <ol>
     <li>Open shell prompt within FORTRESS_HOME folder and enter the following</li>
-    <li>export JAVA_HOME=/path to the root folder of your java SDK, version 1.6 and beyond required</li>
-    <li>export ANT_HOME=/path to the root folder of your Apache Ant installation, version 1.8 and beyond required</li>
-    <li>$ANT_HOME/bin/ant cli</li>
+    <li>export JAVA_HOME=/path to the root folder of your java SDK, version 7 and beyond required</li>
+    <li>export M2_HOME=/path to the root folder of your Apache Maven installation, version 3 and beyond required</li>
+    <li>$M2_HOME/bin/mvn -Pcli test</li>
     <li>This will fire Fortress ant target which then starts the CLI. The CLI syntax will be described in detail
         below.
     </li>
@@ -70,11 +70,6 @@ Currently the following groups of functions are supported:
 </ul>
 <h2>Sample run to add new User to LDAP</h2>
    <pre>      
-iamuser@joshuatreesoftware:~/home/iamuser/openldap-fortress-core$ export JAVA_HOME=/opt/jdk1.6.0_27/
-iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core$ export ANT_HOME=/home/iamuser/apache-ant-1.8.2/
-iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core$ $ANT_HOME/bin/ant cli
-iamuser@joshuatreesoftware:~/home/iamuser/fortressDev/openldap-fortress-core/build.xml
-...
 [echo] Run the Fortress Command Line Interpreter
 [java] 2011-12-03 21:10:02,431 (INFO ) CLI Options include admin, review, system, dadmin
 [java] 2011-12-03 21:10:02,431 (INFO ) Enter one from above or 'q' to quit
