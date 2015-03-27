@@ -511,6 +511,8 @@
               <exclude>**/CmdLineParser.java</exclude>
               <!-- LICENSE_EXCLUDES -->
               <exclude>**/lib/LICENSE*</exclude>
+              <!-- Exclude logs -->
+              <exclude>**/.log/**</exclude>
             </excludes>
           </configuration>
         </plugin>
