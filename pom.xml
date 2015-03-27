@@ -16,8 +16,7 @@
  specific language governing permissions and limitations
  under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.directory.project</groupId>
@@ -30,7 +29,7 @@
   <artifactId>fortress-core</artifactId>
   <packaging>jar</packaging>
   <name>Apache Fortress Core</name>
-  <version>1.0-RC40-SNAPSHOT</version>
+  <version>1.0-RC40</version>
   <inceptionYear>2007</inceptionYear>
   <description>
     Apache Fortress is a standards-based Identity and Access Management SDK that implements ANSI RBAC INCITS 359.
@@ -48,7 +47,7 @@
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
     </developerConnection>
-    <tag>HEAD</tag>
+    <tag>1.0-RC40</tag>
   </scm>
 
   <issueManagement>
@@ -125,7 +124,7 @@
     <!-- mvn release:prepare                  -->
     <!--   -Drelease.arguments="-DskipTests -Prelease"    -->
     <!-- ===================================================== -->
-    <release.arguments></release.arguments>
+    <release.arguments />
   </properties>
 
   <!-- ====================================================== -->
@@ -573,7 +572,7 @@
           <bottom>&lt;small&gt;Copyright &amp;copy; 2003-2015, The Apache Software Foundation. All Rights Reserved. Generated ${maven.build.timestamp}&lt;/small&gt;</bottom>
           <overview>src/main/java/org/apache/directory/fortress/core/overview.html</overview>
           <docfilessubdirs>true</docfilessubdirs>
-          <includes></includes>
+          <includes />
           <version>true</version>
           <author>true</author>
           <doctitle>Fortress Identity and Access Management Javadoc ${project.version}</doctitle>
@@ -592,8 +591,7 @@
             </goals>
             <configuration>
               <tasks>
-                <ant antfile="${basedir}/build.xml"
-                   target="init-fortress-config"/>
+                <ant antfile="${basedir}/build.xml" target="init-fortress-config" />
               </tasks>
             </configuration>
           </execution>
@@ -601,44 +599,36 @@
           <execution>
             <phase>test</phase>
             <configuration>
-              <target name="fortress-load"
-                  if="load.file"
-                  description="Loads fortress policy into ldap">
-                <echo message="############### Run Fortress Ant script to load policy ###############"/>
-                <java
-                    classname="org.apache.tools.ant.launch.Launcher"
-                    fork="true"
-                    failonerror="true"
-                    dir="${basedir}"
-                    timeout="4000000"
-                    taskname="startAnt">
+              <target name="fortress-load" if="load.file" description="Loads fortress policy into ldap">
+                <echo message="############### Run Fortress Ant script to load policy ###############" />
+                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                   <classpath>
-                    <pathelement location="./config/bootstrap"/>
-                    <pathelement location="./target/classes/"/>
-                    <pathelement location="${org.apache.ant:ant-launcher:jar}"/>
-                    <pathelement location="${org.apache.ant:ant:jar}"/>
-                    <pathelement location="${org.openldap:accelerator-api:jar}"/>
-                    <pathelement location="${org.openldap:accelerator-impl:jar}"/>
-                    <pathelement location="${log4j:log4j:jar}"/>
-                    <pathelement location="${org.apache.directory.api:api-all:jar}"/>
-                    <pathelement location="${org.apache.mina:mina-core:jar}"/>
-                    <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}"/>
-                    <pathelement location="${org.jasypt:jasypt:jar}"/>
-                    <pathelement location="${commons-configuration:commons-configuration:jar}"/>
-                    <pathelement location="${commons-lang:commons-lang:jar}"/>
-                    <pathelement location="${commons-collections:commons-collections:jar}"/>
-                    <pathelement location="${commons-logging:commons-logging:jar}"/>
-                    <pathelement location="${commons-io:commons-io:jar}"/>
-                    <pathelement location="${commons-pool:commons-pool:jar}"/>
-                    <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
-                    <pathelement location="${org.slf4j:slf4j-api:jar}"/>
-                    <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>
-                    <pathelement location="${antlr:antlr:jar}"/>
+                    <pathelement location="./config/bootstrap" />
+                    <pathelement location="./target/classes/" />
+                    <pathelement location="${org.apache.ant:ant-launcher:jar}" />
+                    <pathelement location="${org.apache.ant:ant:jar}" />
+                    <pathelement location="${org.openldap:accelerator-api:jar}" />
+                    <pathelement location="${org.openldap:accelerator-impl:jar}" />
+                    <pathelement location="${log4j:log4j:jar}" />
+                    <pathelement location="${org.apache.directory.api:api-all:jar}" />
+                    <pathelement location="${org.apache.mina:mina-core:jar}" />
+                    <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}" />
+                    <pathelement location="${org.jasypt:jasypt:jar}" />
+                    <pathelement location="${commons-configuration:commons-configuration:jar}" />
+                    <pathelement location="${commons-lang:commons-lang:jar}" />
+                    <pathelement location="${commons-collections:commons-collections:jar}" />
+                    <pathelement location="${commons-logging:commons-logging:jar}" />
+                    <pathelement location="${commons-io:commons-io:jar}" />
+                    <pathelement location="${commons-pool:commons-pool:jar}" />
+                    <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
+                    <pathelement location="${org.slf4j:slf4j-api:jar}" />
+                    <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
+                    <pathelement location="${antlr:antlr:jar}" />
                   </classpath>
-                  <sysproperty key="version" value="${project.version}"/>
-                  <sysproperty key="tenant" value="HOME"/>
-                  <arg value="-buildfile"/>
-                  <arg file="./${load.file}"/>
+                  <sysproperty key="version" value="${project.version}" />
+                  <sysproperty key="tenant" value="HOME" />
+                  <arg value="-buildfile" />
+                  <arg file="./${load.file}" />
                 </java>
               </target>
             </configuration>
@@ -671,44 +661,36 @@
               <execution>
                 <phase>test</phase>
                 <configuration>
-                  <target name="fortress-console"
-                          if="true"
-                          description="Run the Fortress Console">
-                    <echo message="############### Run Fortress Console ###############"/>
-                    <java
-                            classname="org.apache.directory.fortress.core.FortressConsole"
-                            fork="false"
-                            failonerror="true"
-                            dir="${basedir}"
-                            timeout="4000000"
-                            taskname="startAnt">
+                  <target name="fortress-console" if="true" description="Run the Fortress Console">
+                    <echo message="############### Run Fortress Console ###############" />
+                    <java classname="org.apache.directory.fortress.core.FortressConsole" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                       <classpath>
-                        <pathelement location="./config/bootstrap"/>
-                        <pathelement location="./target/classes/"/>
-                        <pathelement location="./target/test-classes/"/>
-                        <pathelement location="${org.apache.ant:ant-launcher:jar}"/>
-                        <pathelement location="${org.apache.ant:ant:jar}"/>
-                        <pathelement location="${org.openldap:accelerator-api:jar}"/>
-                        <pathelement location="${org.openldap:accelerator-impl:jar}"/>
-                        <pathelement location="${log4j:log4j:jar}"/>
-                        <pathelement location="${org.apache.directory.api:api-all:jar}"/>
-                        <pathelement location="${org.apache.mina:mina-core:jar}"/>
-                        <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}"/>
-                        <pathelement location="${org.jasypt:jasypt:jar}"/>
-                        <pathelement location="${commons-configuration:commons-configuration:jar}"/>
-                        <pathelement location="${commons-lang:commons-lang:jar}"/>
-                        <pathelement location="${commons-collections:commons-collections:jar}"/>
-                        <pathelement location="${commons-logging:commons-logging:jar}"/>
-                        <pathelement location="${commons-io:commons-io:jar}"/>
-                        <pathelement location="${commons-pool:commons-pool:jar}"/>
-                        <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
-                        <pathelement location="${org.slf4j:slf4j-api:jar}"/>
-                        <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>
-                        <pathelement location="${antlr:antlr:jar}"/>
-                        <pathelement location="${junit:junit:jar}"/>
+                        <pathelement location="./config/bootstrap" />
+                        <pathelement location="./target/classes/" />
+                        <pathelement location="./target/test-classes/" />
+                        <pathelement location="${org.apache.ant:ant-launcher:jar}" />
+                        <pathelement location="${org.apache.ant:ant:jar}" />
+                        <pathelement location="${org.openldap:accelerator-api:jar}" />
+                        <pathelement location="${org.openldap:accelerator-impl:jar}" />
+                        <pathelement location="${log4j:log4j:jar}" />
+                        <pathelement location="${org.apache.directory.api:api-all:jar}" />
+                        <pathelement location="${org.apache.mina:mina-core:jar}" />
+                        <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}" />
+                        <pathelement location="${org.jasypt:jasypt:jar}" />
+                        <pathelement location="${commons-configuration:commons-configuration:jar}" />
+                        <pathelement location="${commons-lang:commons-lang:jar}" />
+                        <pathelement location="${commons-collections:commons-collections:jar}" />
+                        <pathelement location="${commons-logging:commons-logging:jar}" />
+                        <pathelement location="${commons-io:commons-io:jar}" />
+                        <pathelement location="${commons-pool:commons-pool:jar}" />
+                        <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
+                        <pathelement location="${org.slf4j:slf4j-api:jar}" />
+                        <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
+                        <pathelement location="${antlr:antlr:jar}" />
+                        <pathelement location="${junit:junit:jar}" />
                       </classpath>
-                      <sysproperty key="version" value="${project.version}"/>
-                      <sysproperty key="tenant" value="HOME"/>
+                      <sysproperty key="version" value="${project.version}" />
+                      <sysproperty key="tenant" value="HOME" />
                     </java>
                   </target>
                 </configuration>
@@ -734,44 +716,36 @@
               <execution>
                 <phase>test</phase>
                 <configuration>
-                  <target name="fortress-cli"
-                          if="true"
-                          description="Run the Fortress Command Line Interface">
-                    <echo message="############### Run Fortress Command Line Interface ###############"/>
-                    <java
-                            classname="org.apache.directory.fortress.core.cli.CommandLineInterpreter"
-                            fork="false"
-                            failonerror="true"
-                            dir="${basedir}"
-                            timeout="4000000"
-                            taskname="startAnt">
+                  <target name="fortress-cli" if="true" description="Run the Fortress Command Line Interface">
+                    <echo message="############### Run Fortress Command Line Interface ###############" />
+                    <java classname="org.apache.directory.fortress.core.cli.CommandLineInterpreter" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                       <classpath>
-                        <pathelement location="./config/bootstrap"/>
-                        <pathelement location="./target/classes/"/>
-                        <pathelement location="./target/test-classes/"/>
-                        <pathelement location="${org.apache.ant:ant-launcher:jar}"/>
-                        <pathelement location="${org.apache.ant:ant:jar}"/>
-                        <pathelement location="${org.openldap:accelerator-api:jar}"/>
-                        <pathelement location="${org.openldap:accelerator-impl:jar}"/>
-                        <pathelement location="${log4j:log4j:jar}"/>
-                        <pathelement location="${org.apache.directory.api:api-all:jar}"/>
-                        <pathelement location="${org.apache.mina:mina-core:jar}"/>
-                        <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}"/>
-                        <pathelement location="${org.jasypt:jasypt:jar}"/>
-                        <pathelement location="${commons-configuration:commons-configuration:jar}"/>
-                        <pathelement location="${commons-lang:commons-lang:jar}"/>
-                        <pathelement location="${commons-collections:commons-collections:jar}"/>
-                        <pathelement location="${commons-logging:commons-logging:jar}"/>
-                        <pathelement location="${commons-io:commons-io:jar}"/>
-                        <pathelement location="${commons-pool:commons-pool:jar}"/>
-                        <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
-                        <pathelement location="${org.slf4j:slf4j-api:jar}"/>
-                        <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>
-                        <pathelement location="${antlr:antlr:jar}"/>
-                        <pathelement location="${junit:junit:jar}"/>
+                        <pathelement location="./config/bootstrap" />
+                        <pathelement location="./target/classes/" />
+                        <pathelement location="./target/test-classes/" />
+                        <pathelement location="${org.apache.ant:ant-launcher:jar}" />
+                        <pathelement location="${org.apache.ant:ant:jar}" />
+                        <pathelement location="${org.openldap:accelerator-api:jar}" />
+                        <pathelement location="${org.openldap:accelerator-impl:jar}" />
+                        <pathelement location="${log4j:log4j:jar}" />
+                        <pathelement location="${org.apache.directory.api:api-all:jar}" />
+                        <pathelement location="${org.apache.mina:mina-core:jar}" />
+                        <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}" />
+                        <pathelement location="${org.jasypt:jasypt:jar}" />
+                        <pathelement location="${commons-configuration:commons-configuration:jar}" />
+                        <pathelement location="${commons-lang:commons-lang:jar}" />
+                        <pathelement location="${commons-collections:commons-collections:jar}" />
+                        <pathelement location="${commons-logging:commons-logging:jar}" />
+                        <pathelement location="${commons-io:commons-io:jar}" />
+                        <pathelement location="${commons-pool:commons-pool:jar}" />
+                        <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
+                        <pathelement location="${org.slf4j:slf4j-api:jar}" />
+                        <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
+                        <pathelement location="${antlr:antlr:jar}" />
+                        <pathelement location="${junit:junit:jar}" />
                       </classpath>
-                      <sysproperty key="version" value="${project.version}"/>
-                      <sysproperty key="tenant" value="HOME"/>
+                      <sysproperty key="version" value="${project.version}" />
+                      <sysproperty key="tenant" value="HOME" />
                     </java>
                   </target>
                 </configuration>
