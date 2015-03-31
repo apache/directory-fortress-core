@@ -442,6 +442,7 @@
           <artifactId>maven-site-plugin</artifactId>
         </plugin>
 
+        <!-- Fires on 'mvn -Dtest=ClassName' where ClassName is junit test class name -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -870,6 +871,7 @@
       </build>
     </profile>
 
+<!--
     <profile>
       <id>stable-tests</id>
       <properties>
@@ -882,6 +884,7 @@
         <testcase.groups>org.apache.directory.fortress.core.UnstableTestCase</testcase.groups>
       </properties>
     </profile>
+-->
 
     <profile>
       <id>apache-release</id>
