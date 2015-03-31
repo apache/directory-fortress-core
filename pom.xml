@@ -603,7 +603,7 @@
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                   <classpath>
-                    <pathelement location="./config/bootstrap" />
+                    <pathelement location="./config" />
                     <pathelement location="./target/classes/" />
                     <pathelement location="${org.apache.ant:ant-launcher:jar}" />
                     <pathelement location="${org.apache.ant:ant:jar}" />
@@ -665,7 +665,7 @@
                     <echo message="############### Run Fortress Console ###############" />
                     <java classname="org.apache.directory.fortress.core.FortressConsole" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                       <classpath>
-                        <pathelement location="./config/bootstrap" />
+                        <pathelement location="./config" />
                         <pathelement location="./target/classes/" />
                         <pathelement location="./target/test-classes/" />
                         <pathelement location="${org.apache.ant:ant-launcher:jar}" />
@@ -720,7 +720,7 @@
                     <echo message="############### Run Fortress Command Line Interface ###############" />
                     <java classname="org.apache.directory.fortress.core.cli.CommandLineInterpreter" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                       <classpath>
-                        <pathelement location="./config/bootstrap" />
+                        <pathelement location="./config" />
                         <pathelement location="./target/classes/" />
                         <pathelement location="./target/test-classes/" />
                         <pathelement location="${org.apache.ant:ant-launcher:jar}" />
