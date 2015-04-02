@@ -449,6 +449,7 @@
           <artifactId>maven-site-plugin</artifactId>
         </plugin>
 
+        <!-- Fires on 'mvn -Dtest=ClassName' where ClassName is junit test class name -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -517,6 +518,7 @@
               <exclude>**/CmdLineParser.java</exclude>
               <!-- LICENSE_EXCLUDES -->
               <exclude>**/lib/LICENSE*</exclude>
+              <exclude>**/LICENSE.cmdLineParser.txt</exclude>
               <!-- Exclude logs -->
               <exclude>**/.log/**</exclude>
             </excludes>
@@ -610,7 +612,7 @@
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                   <classpath>
-                    <pathelement location="./config/bootstrap" />
+                    <pathelement location="./config" />
                     <pathelement location="./target/classes/" />
                     <pathelement location="${org.apache.ant:ant-launcher:jar}" />
                     <pathelement location="${org.apache.ant:ant:jar}" />
@@ -715,7 +717,7 @@
                     <echo message="############### Run Fortress Console ###############" />
                     <java classname="org.apache.directory.fortress.core.FortressConsole" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                       <classpath>
-                        <pathelement location="./config/bootstrap" />
+                        <pathelement location="./config" />
                         <pathelement location="./target/classes/" />
                         <pathelement location="./target/test-classes/" />
                         <pathelement location="${org.apache.ant:ant-launcher:jar}" />
@@ -770,7 +772,7 @@
                     <echo message="############### Run Fortress Command Line Interface ###############" />
                     <java classname="org.apache.directory.fortress.core.cli.CommandLineInterpreter" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                       <classpath>
-                        <pathelement location="./config/bootstrap" />
+                        <pathelement location="./config" />
                         <pathelement location="./target/classes/" />
                         <pathelement location="./target/test-classes/" />
                         <pathelement location="${org.apache.ant:ant-launcher:jar}" />
@@ -920,18 +922,5 @@
       </build>
     </profile>
 
-    <profile>
-      <id>stable-tests</id>
-      <properties>
-        <testcase.groups>org.apache.directory.fortress.core.DefaultTestCase</testcase.groups>
-      </properties>
-    </profile>
-
-    <profile>
-      <id>unstable-tests</id>
-      <properties>
-        <testcase.groups>org.apache.directory.fortress.core.UnstableTestCase</testcase.groups>
-      </properties>
-    </profile>
   </profiles>
 </project>
