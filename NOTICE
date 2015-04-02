@@ -28,3 +28,4 @@ This product includes software developed by:
 4. The Java Community Process (http://www.jcp.org/)
 5. SLF4J (http://www.slf4j.org/)
 6. Terracotta (http://www.terracotta.org/TPL)
+7. Some code by Steve Purcell, Vidar Holen, Michal Ceresna, Ewan Mellor and penSec.IT UG (see LICENSE.cmlLineParser.txt)

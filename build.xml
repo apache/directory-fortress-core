@@ -327,7 +327,7 @@
        <mkdir dir="${dist.dir}"/>
        <jar jarfile="${dist.jar}">
           <fileset dir="${build.classes.dir}"/>
-          <metainf dir="${basedir}" includes="LICENSE.txt,NOTICE.txt"/>
+          <metainf dir="${basedir}" includes="LICENSE,NOTICE"/>
           <manifest>
              <attribute name="Created-By" value="${vendor} - ${project.name} dev team"/>
              <attribute name="Implementation-Vendor" value="${vendor}"/>
@@ -354,7 +354,7 @@
         <mkdir dir="${dist.dir}"/>
         <jar jarfile="${dist.test.jar}">
            <fileset dir="${build.test-classes.dir}"/>
-           <metainf dir="${basedir}" includes="LICENSE.txt,NOTICE.txt"/>
+           <metainf dir="${basedir}" includes="LICENSE,NOTICE"/>
            <manifest>
               <attribute name="Created-By" value="${vendor} - ${project.name} dev team"/>
               <attribute name="Implementation-Vendor" value="${vendor}"/>
@@ -427,8 +427,10 @@
            target: build
           ================================= -->
     <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples" description="--> create the core Fortress library">
-       <copy todir="${dist.dir}" file="${basedir}/LICENSE.txt"/>
-       <copy todir="${dist.dir}" file="${basedir}/NOTICE.txt"/>
+       <copy todir="${dist.dir}" file="${basedir}/LICENSE"/>
+       <copy todir="${dist.dir}" file="${basedir}/LICENSE.cmdLineParser.txt"/>
+       <copy todir="${dist.dir}" file="${basedir}/LICENSE.slf4j.txt"/>
+       <copy todir="${dist.dir}" file="${basedir}/NOTICE"/>
     </target>
 
      <!-- =================================
@@ -440,7 +442,9 @@
 
            <zipfileset dir='${dist.dir}' prefix='META-INF'>
                <include name="LICENSE"/>
-               <include name="NOTICE.txt"/>
+               <include name="LICENSE.cmdLineParser.txt"/>
+               <include name="LICENSE.slf4j.txt"/>
+               <include name="NOTICE"/>
            </zipfileset>
         </zip>
 
@@ -449,21 +453,25 @@
 
           <zipfileset dir='${dist.dir}' prefix='META-INF'>
               <include name="LICENSE"/>
-              <include name="NOTICE.txt"/>
+               <include name="LICENSE.cmdLineParser.txt"/>
+               <include name="LICENSE.slf4j.txt"/>
+              <include name="NOTICE"/>
           </zipfileset>
         </zip>
 
         <zip destfile="${javadoc.dist.zip}" basedir="${javadoc.dir}">
             <zipfileset dir='${dist.dir}' prefix='META-INF'>
                 <include name="LICENSE"/>
-                <include name="NOTICE.txt"/>
+               <include name="LICENSE.cmdLineParser.txt"/>
+               <include name="LICENSE.slf4j.txt"/>
+                <include name="NOTICE"/>
             </zipfileset>
         </zip>
 
         <zip destfile="${samples.dist.zip}" basedir="${src.test.dir}" includes="**/samples/*.java,build.xml">
             <zipfileset dir='${dist.dir}' prefix='META-INF'>
                 <include name="LICENSE"/>
-                <include name="NOTICE.txt"/>
+                <include name="NOTICE"/>
             </zipfileset>
             <zipfileset dir='${javadoc.samples.dir}'/>
         </zip>
@@ -1341,8 +1349,8 @@
                 <include name="*.sh"/>
                 <include name="*.bat"/>
                 <include name="*.html"/>
-                <include name="LICENSE"/>
-                <include name="NOTICE.txt"/>
+                <include name="LICENSE*"/>
+                <include name="NOTICE"/>
                 <exclude name="*.log"/>
                 <exclude name="*.out"/>
                 <exclude name="*.err"/>

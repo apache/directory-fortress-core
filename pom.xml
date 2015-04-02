@@ -18,6 +18,13 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <!--parent>
+    <groupId>org.apache.directory.fortress</groupId>
+    <artifactId>fortress-parent</artifactId>
+    <version>1.0-RC40-SNAPSHOT</version>
+  </parent-->
+
   <parent>
     <groupId>org.apache.directory.project</groupId>
     <artifactId>project</artifactId>
@@ -25,7 +32,7 @@
     <relativePath />
   </parent>
 
-  <groupId>org.apache.directory</groupId>
+  <!--groupId>org.apache.directory.fortress</groupId-->
   <artifactId>fortress-core</artifactId>
   <packaging>jar</packaging>
   <name>Apache Fortress Core</name>
@@ -648,6 +655,49 @@
   </build>
 
   <profiles>
+    <!-- Build the packages : mvn -Papache-release -->
+    <profile>
+      <id>apache-release</id>
+
+      <build>
+        <finalName>fortress-core-${project.version}</finalName>
+
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/bin.xml</descriptor>
+                <descriptor>src/main/assembly/src.xml</descriptor>
+              </descriptors>
+              <tarLongFileMode>gnu</tarLongFileMode>
+            </configuration>
+
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
 
     <!-- To execute: mvn -Pconsole test -->
     <profile>
@@ -876,44 +926,12 @@
         <testcase.groups>org.apache.directory.fortress.core.DefaultTestCase</testcase.groups>
       </properties>
     </profile>
+
     <profile>
       <id>unstable-tests</id>
       <properties>
         <testcase.groups>org.apache.directory.fortress.core.UnstableTestCase</testcase.groups>
       </properties>
-    </profile>
-
-    <profile>
-      <id>apache-release</id>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>source-release-assembly</id>
-                <configuration>
-                  <!-- we have a dedicated distribution module -->
-                  <skipAssembly>true</skipAssembly>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.rat</groupId>
-            <artifactId>apache-rat-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>verify</phase>
-                <goals>
-                  <goal>check</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
   </profiles>
 </project>
