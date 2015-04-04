@@ -595,7 +595,7 @@
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                   <classpath>
-                    <pathelement location="./config" />
+                    <pathelement location="./config/bootstrap/" />
                     <pathelement location="./target/classes/" />
                     <pathelement location="${org.apache.ant:ant-launcher:jar}" />
                     <pathelement location="${org.apache.ant:ant:jar}" />
