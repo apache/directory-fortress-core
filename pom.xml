@@ -475,6 +475,19 @@
         </plugin>
 
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.6</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>test-jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
           <configuration>
@@ -776,8 +789,25 @@
                 </goals>
               </execution>
             </executions>
+            <dependencies>
+              <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+              </dependency>
+            </dependencies>
           </plugin>
-
         </plugins>
       </build>
     </profile>
@@ -814,6 +844,17 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
               </dependency>
             </dependencies>
           </plugin>
@@ -854,6 +895,17 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
               </dependency>
             </dependencies>
           </plugin>
