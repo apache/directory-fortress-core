@@ -83,7 +83,7 @@
     <version.ant.launcher>1.9.1</version.ant.launcher>
     <version.antlr>2.7.7</version.antlr>
     <version.apacheds>2.0.0-M19</version.apacheds>
-    <version.api.all>1.0.0-M28</version.api.all>
+    <version.api.all>1.0.0-M29</version.api.all>
     <version.commons.beanutils>1.7.0</version.commons.beanutils>
     <version.commons.beanutils-core>1.8.0</version.commons.beanutils-core>
     <version.commons.codec>1.2</version.commons.codec>
@@ -101,7 +101,7 @@
     <version.hamcrest.core>1.3</version.hamcrest.core>
     <version.jasypt>1.9.2</version.jasypt>
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
-    <version.jgrapht.jdk5>0.7.3</version.jgrapht.jdk5>
+    <version.jgrapht-core>0.9.1</version.jgrapht-core>
     <version.jmeter.core>2.11</version.jmeter.core>
     <version.jmeter.java>2.11</version.jmeter.java>
     <version.jsr311.api>1.1-ea</version.jsr311.api>
@@ -210,8 +210,8 @@
 
     <dependency>
       <groupId>org.jgrapht</groupId>
-      <artifactId>jgrapht-jdk1.5</artifactId>
-      <version>${version.jgrapht.jdk5}</version>
+      <artifactId>jgrapht-core</artifactId>
+      <version>${version.jgrapht-core}</version>
     </dependency>
 
     <dependency>
