@@ -618,7 +618,7 @@
                     <pathelement location="${log4j:log4j:jar}" />
                     <pathelement location="${org.apache.directory.api:api-all:jar}" />
                     <pathelement location="${org.apache.mina:mina-core:jar}" />
-                    <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}" />
+                    <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
                     <pathelement location="${org.jasypt:jasypt:jar}" />
                     <pathelement location="${commons-configuration:commons-configuration:jar}" />
                     <pathelement location="${commons-lang:commons-lang:jar}" />
@@ -680,7 +680,7 @@
                         <pathelement location="${log4j:log4j:jar}" />
                         <pathelement location="${org.apache.directory.api:api-all:jar}" />
                         <pathelement location="${org.apache.mina:mina-core:jar}" />
-                        <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}" />
+                        <pathelement location="${org.jgrapht:jgrapht-jgrapht-core:jar}" />
                         <pathelement location="${org.jasypt:jasypt:jar}" />
                         <pathelement location="${commons-configuration:commons-configuration:jar}" />
                         <pathelement location="${commons-lang:commons-lang:jar}" />
@@ -735,7 +735,7 @@
                         <pathelement location="${log4j:log4j:jar}" />
                         <pathelement location="${org.apache.directory.api:api-all:jar}" />
                         <pathelement location="${org.apache.mina:mina-core:jar}" />
-                        <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}" />
+                        <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
                         <pathelement location="${org.jasypt:jasypt:jar}" />
                         <pathelement location="${commons-configuration:commons-configuration:jar}" />
                         <pathelement location="${commons-lang:commons-lang:jar}" />
