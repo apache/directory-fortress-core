@@ -26,6 +26,7 @@
     <relativePath />
   </parent>
 
+  <groupId>org.apache.directory.fortress</groupId>
   <artifactId>fortress-core</artifactId>
   <packaging>jar</packaging>
   <name>Apache Fortress Core</name>
