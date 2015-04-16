@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements. See the NOTICE file
@@ -677,7 +678,7 @@
                         <pathelement location="${log4j:log4j:jar}" />
                         <pathelement location="${org.apache.directory.api:api-all:jar}" />
                         <pathelement location="${org.apache.mina:mina-core:jar}" />
-                        <pathelement location="${org.jgrapht:jgrapht-jgrapht-core:jar}" />
+                        <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
                         <pathelement location="${org.jasypt:jasypt:jar}" />
                         <pathelement location="${commons-configuration:commons-configuration:jar}" />
                         <pathelement location="${commons-lang:commons-lang:jar}" />
