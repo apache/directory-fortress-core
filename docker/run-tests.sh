@@ -19,7 +19,7 @@
 #
 
 # startup docker container
-CONTAINER_ID=$(docker run -d -P apache-directory/openldap-for-fortress-tests)
+CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
 CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
 echo $CONTAINER_PORT
 

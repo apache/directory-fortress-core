@@ -30,12 +30,12 @@ A docker image with preconfigured OpenLDAP to be used for running Apache Fortres
 
 Download Fortress Quickstart from https://symas.com/downloads/ (fortressBuilder-Debian-Silver-x86-64-1.0-RC39.zip).
 
-    docker build -t apache-directory/openldap-for-fortress-tests .
+    docker build -t apachedirectory/openldap-for-apache-fortress-tests .
 
 
 ## Run container
 
-    CONTAINER_ID=$(docker run -d -P apache-directory/openldap-for-fortress-tests)
+    CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
     CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
     echo $CONTAINER_PORT
 
