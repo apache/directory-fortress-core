@@ -479,6 +479,7 @@
           <configuration>
             <excludes>
               <exclude>**/bootstrap</exclude>
+              <exclude>**/config</exclude>
               <exclude>**/*.xml</exclude>
               <exclude>**/*.properties</exclude>
               <exclude>**/*.txt</exclude>
