@@ -40,6 +40,16 @@ Download Fortress Quickstart from https://symas.com/downloads/ (fortressBuilder-
     echo $CONTAINER_PORT
 
 
+## Go into the container
+
+    docker exec -it $CONTAINER_ID bash
+
+
+# Restart container
+
+    docker restart CONTAINER_ID
+
+
 ## Stop and delete container
 
     docker stop $CONTAINER_ID
