@@ -118,6 +118,8 @@
     <version.xmlschema.core>2.0.3</version.xmlschema.core>
     <version.xpp3>1.1.4c</version.xpp3>
     <version.xml.apis>1.0b2</version.xml.apis>
+    <version.jaxb>2.2.4-1</version.jaxb>
+    <version.commons.codec>1.2</version.commons.codec>
 
     <!-- ===================================================== -->
     <!-- This is a hack to allow someone to release       -->
@@ -408,6 +410,21 @@
       <version>${version.opencsv}</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>${version.jaxb}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${version.commons.codec}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -638,6 +655,11 @@
                     <pathelement location="${org.slf4j:slf4j-api:jar}" />
                     <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
                     <pathelement location="${antlr:antlr:jar}" />
+                    <pathelement location="${org.apache.cxf:cxf-common-utilities:jar}" />
+                    <pathelement location="${javax.ws.rs:jsr311-api:jar}" />
+                    <pathelement location="${commons-httpclient:commons-httpclient:jar}" />
+                    <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
+                    <pathelement location="${commons-codec:commons-codec:jar}" />
                   </classpath>
                   <sysproperty key="version" value="${project.version}" />
                   <sysproperty key="tenant" value="HOME" />
@@ -701,6 +723,11 @@
                         <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
                         <pathelement location="${antlr:antlr:jar}" />
                         <pathelement location="${junit:junit:jar}" />
+                        <pathelement location="${org.apache.cxf:cxf-common-utilities:jar}" />
+                        <pathelement location="${javax.ws.rs:jsr311-api:jar}" />
+                        <pathelement location="${commons-httpclient:commons-httpclient:jar}" />
+                        <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
+                        <pathelement location="${commons-codec:commons-codec:jar}" />
                       </classpath>
                       <sysproperty key="version" value="${project.version}" />
                       <sysproperty key="tenant" value="HOME" />
@@ -756,6 +783,11 @@
                         <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
                         <pathelement location="${antlr:antlr:jar}" />
                         <pathelement location="${junit:junit:jar}" />
+                        <pathelement location="${org.apache.cxf:cxf-common-utilities:jar}" />
+                        <pathelement location="${javax.ws.rs:jsr311-api:jar}" />
+                        <pathelement location="${commons-httpclient:commons-httpclient:jar}" />
+                        <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
+                        <pathelement location="${commons-codec:commons-codec:jar}" />
                       </classpath>
                       <sysproperty key="version" value="${project.version}" />
                       <sysproperty key="tenant" value="HOME" />
