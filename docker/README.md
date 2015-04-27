@@ -32,6 +32,10 @@ Download Fortress Quickstart from https://symas.com/downloads/ (fortressBuilder-
 
     docker build -t apachedirectory/openldap-for-apache-fortress-tests .
 
+Or just to be sure don't use cached layers:
+
+    docker build --no-cache=true -t apachedirectory/openldap-for-apache-fortress-tests .
+
 
 ## Run container
 
@@ -45,7 +49,7 @@ Download Fortress Quickstart from https://symas.com/downloads/ (fortressBuilder-
     docker exec -it $CONTAINER_ID bash
 
 
-# Restart container
+## Restart container
 
     docker restart CONTAINER_ID
 
