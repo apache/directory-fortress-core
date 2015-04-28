@@ -497,7 +497,7 @@ final class SdDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "search role [" + role.getName() + "] type [" + type + "] caught LdapException="
+            String error = "search role [" + role.getName() + "] type [" + type + "] caught CursorException="
                 + e.getMessage();
             int errCode;
 
@@ -577,7 +577,7 @@ final class SdDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "search type [" + sdSet.getType() + "] caught LdapException=" + e.getMessage();
+            String error = "search type [" + sdSet.getType() + "] caught CursorException=" + e.getMessage();
             int errCode;
 
             if ( sdSet.getType() == SDSet.SDType.DYNAMIC )

@@ -617,7 +617,7 @@ final class PolicyDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findPolicy name [" + searchVal + "] caught LdapException=" + e.getMessage();
+            String error = "findPolicy name [" + searchVal + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
         }
         finally

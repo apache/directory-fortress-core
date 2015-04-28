@@ -1082,7 +1082,7 @@ final class PermDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findPermissions caught LdapException=" + e.getMessage();
+            String error = "findPermissions caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
         }
         finally
@@ -1128,7 +1128,7 @@ final class PermDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findPermissions caught LdapException=" + e.getMessage();
+            String error = "findPermissions caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
         }
         finally
@@ -1184,7 +1184,7 @@ final class PermDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findPermissions caught LdapException=" + e.getMessage();
+            String error = "findPermissions caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
         }
         finally
@@ -1268,7 +1268,7 @@ final class PermDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findPermissions caught LdapException=" + e.getMessage();
+            String error = "findPermissions caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_ROLE_SEARCH_FAILED, error, e );
         }
         finally
@@ -1325,7 +1325,7 @@ final class PermDAO extends ApacheDsDataProvider
         catch ( CursorException e )
         {
             String error = "findPermissions user [" + user.getUserId()
-                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
+                + "] caught CursorException in PermDAO.findPermissions=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_USER_SEARCH_FAILED, error, e );
         }
         finally
@@ -1372,7 +1372,7 @@ final class PermDAO extends ApacheDsDataProvider
         catch ( CursorException e )
         {
             String error = "findUserPermissions user [" + user.getUserId()
-                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
+                + "] caught CursorException in PermDAO.findPermissions=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_USER_SEARCH_FAILED, error, e );
         }
         finally
@@ -1437,7 +1437,7 @@ final class PermDAO extends ApacheDsDataProvider
         catch ( CursorException e )
         {
             String error = "findPermissions user [" + session.getUserId()
-                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
+                + "] caught CursorException in PermDAO.findPermissions=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PERM_SESS_SEARCH_FAILED, error, e );
         }
         finally

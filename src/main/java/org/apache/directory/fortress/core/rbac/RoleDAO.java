@@ -447,7 +447,7 @@ final class RoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
+            String error = "findRoles filter [" + filter + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally
@@ -496,7 +496,7 @@ final class RoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
+            String error = "findRoles filter [" + filter + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally
@@ -542,7 +542,7 @@ final class RoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getMessage();
+            String error = "findAssignedRoles userDn [" + userDn + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_OCCUPANT_SEARCH_FAILED, error, e );
         }
         finally
@@ -591,7 +591,7 @@ final class RoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getMessage();
+            String error = "getAllDescendants filter [" + filter + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally

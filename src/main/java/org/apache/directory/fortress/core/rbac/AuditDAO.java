@@ -285,7 +285,7 @@ final class AuditDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "LdapException in AuditDAO.searchAuthZs id=" + e.getMessage();
+            String error = "CursorException in AuditDAO.searchAuthZs id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_AUTHN_INVALID_FAILED, error, e );
         }
         finally
@@ -349,7 +349,7 @@ final class AuditDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "LdapException in AuditDAO.searchAuthZs id=" + e.getMessage();
+            String error = "CursorException in AuditDAO.searchAuthZs id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e );
         }
         finally
@@ -439,7 +439,7 @@ final class AuditDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "LdapException in AuditDAO.getAllAuthZs id=" + e.getMessage();
+            String error = "CursorException in AuditDAO.getAllAuthZs id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e );
         }
         finally
@@ -522,7 +522,7 @@ final class AuditDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "LdapException in AuditDAO.searchBinds id=" + e.getMessage();
+            String error = "CursorException in AuditDAO.searchBinds id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_BIND_SEARCH_FAILED, error, e );
         }
         finally
@@ -578,7 +578,7 @@ final class AuditDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "searchUserMods caught LdapException id=" + e.getMessage();
+            String error = "searchUserMods caught CursorException id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_MOD_SEARCH_FAILED, error, e );
         }
         finally
@@ -668,7 +668,7 @@ final class AuditDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "searchAdminMods caught LdapException id=" + e.getMessage();
+            String error = "searchAdminMods caught CursorException id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_MOD_ADMIN_SEARCH_FAILED, error, e );
         }
         finally
