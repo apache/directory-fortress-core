@@ -86,8 +86,6 @@ import org.apache.directory.fortress.core.util.time.Constraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.naming.ldap.ExtendedResponse;
-
 
 /**
  * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
@@ -108,12 +106,6 @@ public abstract class ApacheDsDataProvider
 
     private static final int MAX_DEPTH = 100;
     private static final LdapCounters counters = new LdapCounters();
-    private static final String LDAP_HOST = "host";
-    private static final String LDAP_PORT = "port";
-    private static final String LDAP_ADMIN_POOL_MIN = "min.admin.conn";
-    private static final String LDAP_ADMIN_POOL_MAX = "max.admin.conn";
-    private static final String LDAP_ADMIN_POOL_UID = "admin.user";
-    private static final String LDAP_ADMIN_POOL_PW = "admin.pw";
 
     // Used for slapd access log {@link org.apache.directory.fortress.core.rbacAuditDAO}
     private static final String LDAP_LOG_POOL_UID = "log.admin.user";
@@ -121,25 +113,19 @@ public abstract class ApacheDsDataProvider
     private static final String LDAP_LOG_POOL_MIN = "min.log.conn";
     private static final String LDAP_LOG_POOL_MAX = "max.log.conn";
 
-    // Used for TLS/SSL client-side configs:
-    private static final String ENABLE_LDAP_SSL = "enable.ldap.ssl";
-    private static final String ENABLE_LDAP_SSL_DEBUG = "enable.ldap.ssl.debug";
-    private static final String TRUST_STORE = Config.getProperty( "trust.store" );
-    private static final String TRUST_STORE_PW = Config.getProperty( "trust.store.password" );
     private static final boolean IS_SSL = (
-        Config.getProperty( ENABLE_LDAP_SSL ) != null &&
-            Config.getProperty( ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
-            TRUST_STORE != null &&
-        TRUST_STORE_PW != null );
+        Config.getProperty( GlobalIds.ENABLE_LDAP_SSL ) != null &&
+            Config.getProperty( GlobalIds.ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
+            GlobalIds.TRUST_STORE != null &&
+        GlobalIds.TRUST_STORE_PW != null );
 
-    private static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
     private static final boolean IS_SET_TRUST_STORE_PROP = (
         IS_SSL &&
-            Config.getProperty( SET_TRUST_STORE_PROP ) != null &&
-        Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ) );
+            Config.getProperty( GlobalIds.SET_TRUST_STORE_PROP ) != null &&
+        Config.getProperty( GlobalIds.SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ) );
 
-    private static final boolean IS_SSL_DEBUG = ( ( Config.getProperty( ENABLE_LDAP_SSL_DEBUG ) != null ) && ( Config
-        .getProperty( ENABLE_LDAP_SSL_DEBUG ).equalsIgnoreCase( "true" ) ) );
+    private static final boolean IS_SSL_DEBUG = ( ( Config.getProperty( GlobalIds.ENABLE_LDAP_SSL_DEBUG ) != null ) && ( Config
+        .getProperty( GlobalIds.ENABLE_LDAP_SSL_DEBUG ).equalsIgnoreCase( "true" ) ) );
 
     /**
      * The Admin connection pool
@@ -161,10 +147,10 @@ public abstract class ApacheDsDataProvider
 
     static
     {
-        String host = Config.getProperty( LDAP_HOST, "localhost" );
-        int port = Config.getInt( LDAP_PORT, 10389 );
-        int min = Config.getInt( LDAP_ADMIN_POOL_MIN, 1 );
-        int max = Config.getInt( LDAP_ADMIN_POOL_MAX, 10 );
+        String host = Config.getProperty( GlobalIds.LDAP_HOST, "localhost" );
+        int port = Config.getInt( GlobalIds.LDAP_PORT, 10389 );
+        int min = Config.getInt( GlobalIds.LDAP_ADMIN_POOL_MIN, 1 );
+        int max = Config.getInt( GlobalIds.LDAP_ADMIN_POOL_MAX, 10 );
         int logmin = Config.getInt( LDAP_LOG_POOL_MIN, 1 );
         int logmax = Config.getInt( LDAP_LOG_POOL_MAX, 10 );
         LOG.info( "LDAP POOL:  host=[{}], port=[{}], min=[{}], max=[{}]", host, port, min, max);
@@ -172,36 +158,36 @@ public abstract class ApacheDsDataProvider
         if ( IS_SET_TRUST_STORE_PROP )
         {
             LOG.info( "Set JSSE truststore properties in Apache LDAP client:" );
-            LOG.info( "javax.net.ssl.trustStore: {}", TRUST_STORE );
+            LOG.info( "javax.net.ssl.trustStore: {}", GlobalIds.TRUST_STORE );
             LOG.info( "javax.net.debug: {}" + IS_SSL_DEBUG );
-            System.setProperty( "javax.net.ssl.trustStore", TRUST_STORE );
-            System.setProperty( "javax.net.ssl.trustStorePassword", TRUST_STORE_PW );
+            System.setProperty( "javax.net.ssl.trustStore", GlobalIds.TRUST_STORE );
+            System.setProperty( "javax.net.ssl.trustStorePassword", GlobalIds.TRUST_STORE_PW );
             System.setProperty( "javax.net.debug", new Boolean( IS_SSL_DEBUG ).toString() );
         }
 
         LdapConnectionConfig config = new LdapConnectionConfig();
         config.setLdapHost( host );
         config.setLdapPort( port );
-        config.setName( Config.getProperty( LDAP_ADMIN_POOL_UID, "" ) );
+        config.setName( Config.getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
 
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
-        if ( IS_SSL && VUtil.isNotNullOrEmpty( TRUST_STORE ) && VUtil.isNotNullOrEmpty( TRUST_STORE_PW ) )
+        if ( IS_SSL && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE ) && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE_PW ) )
         {
             // validate certificates but allow self-signed certs if within this truststore:
-            config.setTrustManagers( new LdapClientTrustStoreManager( TRUST_STORE, TRUST_STORE_PW.toCharArray(), null,
+            config.setTrustManagers( new LdapClientTrustStoreManager( GlobalIds.TRUST_STORE, GlobalIds.TRUST_STORE_PW.toCharArray(), null,
                 true ) );
         }
 
         String adminPw;
         if ( EncryptUtil.isEnabled() )
         {
-            adminPw = EncryptUtil.decrypt( Config.getProperty( LDAP_ADMIN_POOL_PW ) );
+            adminPw = EncryptUtil.decrypt( Config.getProperty( GlobalIds.LDAP_ADMIN_POOL_PW ) );
         }
         else
         {
-            adminPw = Config.getProperty( LDAP_ADMIN_POOL_PW );
+            adminPw = Config.getProperty( GlobalIds.LDAP_ADMIN_POOL_PW );
         }
 
         config.setCredentials( adminPw );
@@ -257,14 +243,14 @@ public abstract class ApacheDsDataProvider
             LdapConnectionConfig logConfig = new LdapConnectionConfig();
             logConfig.setLdapHost( host );
             logConfig.setLdapPort( port );
-            logConfig.setName( Config.getProperty( LDAP_ADMIN_POOL_UID, "" ) );
+            logConfig.setName( Config.getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
 
             logConfig.setUseSsl( IS_SSL );
 
-            if ( IS_SSL && VUtil.isNotNullOrEmpty( TRUST_STORE ) && VUtil.isNotNullOrEmpty( TRUST_STORE_PW ) )
+            if ( IS_SSL && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE ) && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE_PW ) )
             {
                 // validate certificates but allow self-signed certs if within this truststore:
-                logConfig.setTrustManagers( new LdapClientTrustStoreManager( TRUST_STORE, TRUST_STORE_PW.toCharArray(),
+                logConfig.setTrustManagers( new LdapClientTrustStoreManager( GlobalIds.TRUST_STORE, GlobalIds.TRUST_STORE_PW.toCharArray(),
                     null, true ) );
             }
 

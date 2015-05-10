@@ -25,6 +25,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +34,6 @@ import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
-
 
 /**
  * This class wraps <a href="http://commons.apache.org/cfg/">Apache Commons Config</a> utility and is used by internal components to retrieve name-value
@@ -52,8 +52,20 @@ public class Config
 {
     final private static String propFile = "fortress.properties";
     final private static String userPropFile = "fortress.user.properties";
-    private static final PropertiesConfiguration config;
-    private static final String CLS_NM = Config.class.getName();
+    final private static String EXT_LDAP_HOST = "fortress.host";
+    final private static String EXT_LDAP_PORT = "fortress.port";
+    final private static String EXT_LDAP_ADMIN_POOL_UID = "fortress.admin.user";
+    final private static String EXT_LDAP_ADMIN_POOL_PW = "fortress.admin.pw";
+    final private static String EXT_LDAP_ADMIN_POOL_MIN = "fortress.min.admin.conn";
+    final private static String EXT_LDAP_ADMIN_POOL_MAX = "fortress.max.admin.conn";
+    final private static String EXT_ENABLE_LDAP_SSL = "fortress.enable.ldap.ssl";
+    final private static String EXT_ENABLE_LDAP_SSL_DEBUG = "fortress.enable.ldap.ssl.debug";
+    final private static String EXT_TRUST_STORE = "fortress.trust.store";
+    final private static String EXT_TRUST_STORE_PW = "fortress.trust.store.password";
+    final private static String EXT_SET_TRUST_STORE_PROP = "fortress.trust.store.set.prop";
+    final private static String EXT_CONFIG_REALM = "fortress.config.realm";
+    final private static PropertiesConfiguration config;
+    final private static String CLS_NM = Config.class.getName();
     final private static Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     static
@@ -85,6 +97,10 @@ public class Config
                 config.load( fUserUrl );
             }
 
+            // Check to see if any of the ldap connection parameters have been overridden:
+            getExternalConfig();
+
+            // Retrieve parameters from the config node stored in target LDAP DIT:
             String realmName = config.getString( GlobalIds.CONFIG_REALM );
             if ( realmName != null && realmName.length() > 0 )
             {
@@ -119,38 +135,6 @@ public class Config
             LOG.error( error );
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, se );
         }
-    }
-
-
-    /**
-     * Fetch the remote cfg params from ldap with given name.
-     *
-     * @param realmName required attribute contains the name of config node name on ldap.
-     * @return {@link Properties} containing collection of name/value pairs found in directory.
-     * @throws org.apache.directory.fortress.core.SecurityException
-     *          in the event of system or validation error.
-     */
-    private static Properties getRemoteConfig( String realmName ) throws SecurityException
-    {
-        Properties props = null;
-        try
-        {
-            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
-            props = cfgMgr.read( realmName );
-        }
-        catch ( CfgException ce )
-        {
-            if ( ce.getErrorId() == GlobalErrIds.FT_CONFIG_NOT_FOUND )
-            {
-                String warning = "getRemoteConfig could not find cfg entry";
-                LOG.warn( warning );
-            }
-            else
-            {
-                throw ce;
-            }
-        }
-        return props;
     }
 
 
@@ -339,5 +323,148 @@ public class Config
             LOG.warn( warn );
         }
         return value;
+    }
+
+
+    /**
+     * Set the property String value to the apache commons config.
+     *
+     * @param name         contains the name of the property.
+     * @param value        contains the String value of the property.
+     */
+    public static void setProperty( String name, String value )
+    {
+        if ( config != null )
+        {
+            config.setProperty( name, value );
+        }
+        else
+        {
+            String warn = "setProperty invalid config, can't set prop name [" + name + "], value [" + value + "]";
+            LOG.warn( warn );
+        }
+    }
+
+
+    /**
+     * Fetch the remote cfg params from ldap with given name.
+     *
+     * @param realmName required attribute contains the name of config node name on ldap.
+     * @return {@link Properties} containing collection of name/value pairs found in directory.
+     * @throws org.apache.directory.fortress.core.SecurityException
+     *          in the event of system or validation error.
+     */
+    private static Properties getRemoteConfig( String realmName ) throws SecurityException
+    {
+        Properties props = null;
+        try
+        {
+            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
+            props = cfgMgr.read( realmName );
+        }
+        catch ( CfgException ce )
+        {
+            if ( ce.getErrorId() == GlobalErrIds.FT_CONFIG_NOT_FOUND )
+            {
+                String warning = "getRemoteConfig could not find cfg entry";
+                LOG.warn( warning );
+            }
+            else
+            {
+                throw ce;
+            }
+        }
+        return props;
+    }
+
+
+    /**
+     * This method is called during configuration initialization.  It determines if
+     * the ldap connection coordinates have been overridden as system properties.
+     */
+    private static void getExternalConfig()
+    {
+        // Check to see if the ldap host has been overriden by a system property:
+        String szValue = System.getProperty( EXT_LDAP_HOST );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.LDAP_HOST, szValue );
+        }
+        // Check to see if the ldap port has been overriden by a system property:
+        szValue = System.getProperty( EXT_LDAP_PORT );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.LDAP_PORT, szValue );
+        }
+
+        // Check to see if the admin pool uid has been overriden by a system property:
+        szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_UID );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.LDAP_ADMIN_POOL_UID, szValue );
+        }
+
+        // Check to see if the admin pool pw has been overriden by a system property:
+        szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_PW );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.LDAP_ADMIN_POOL_PW, szValue );
+        }
+
+        // Check to see if the admin pool min connections has been overriden by a system property:
+        szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_MIN );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MIN, szValue );
+        }
+
+        // Check to see if the admin pool max connections has been overriden by a system property:
+        szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_MAX );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MAX, new Integer( szValue ) );
+        }
+
+        // Check to see if ssl enabled parameter has been overriden by a system property:
+        szValue = System.getProperty( EXT_ENABLE_LDAP_SSL );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.ENABLE_LDAP_SSL, szValue );
+        }
+
+        // Check to see if the ssl debug enabled parameter has been overriden by a system property:
+        szValue = System.getProperty( EXT_ENABLE_LDAP_SSL_DEBUG );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.ENABLE_LDAP_SSL_DEBUG, szValue );
+        }
+
+        // Check to see if the trust store location has been overriden by a system property:
+        szValue = System.getProperty( EXT_TRUST_STORE );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.TRUST_STORE, szValue );
+        }
+
+        // Check to see if the trust store password has been overriden by a system property:
+        szValue = System.getProperty( EXT_TRUST_STORE_PW );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.TRUST_STORE_PW, szValue );
+        }
+
+        // Check to see if the trust store set parameter has been overriden by a system property:
+        szValue = System.getProperty( EXT_SET_TRUST_STORE_PROP );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.SET_TRUST_STORE_PROP, szValue );
+        }
+
+        // Check to see if the config realm name has been overriden by a system property:
+        szValue = System.getProperty( EXT_CONFIG_REALM );
+        if( VUtil.isNotNullOrEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.CONFIG_REALM, szValue );
+        }
     }
 }

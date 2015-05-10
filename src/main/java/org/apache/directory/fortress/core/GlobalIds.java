@@ -448,6 +448,24 @@ public class GlobalIds
     public static final String AUTH_Z_FAILED_VALUE = POP_NAME + "=" + AUTH_Z_FAILED;
 
     /**
+     * Used for ldap connection pool of admin users.
+     */
+    public static final String LDAP_ADMIN_POOL_MIN = "min.admin.conn";
+    public static final String LDAP_ADMIN_POOL_MAX = "max.admin.conn";
+    public static final String LDAP_ADMIN_POOL_UID = "admin.user";
+    public static final String LDAP_ADMIN_POOL_PW = "admin.pw";
+
+    // Used for TLS/SSL client-side configs:
+    public static final String ENABLE_LDAP_SSL = "enable.ldap.ssl";
+    public static final String ENABLE_LDAP_SSL_DEBUG = "enable.ldap.ssl.debug";
+    public static final String TRUST_STORE = Config.getProperty( "trust.store" );
+    public static final String TRUST_STORE_PW = Config.getProperty( "trust.store.password" );
+    public static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
+    public static final String LDAP_HOST = "host";
+    public static final String LDAP_PORT = "port";
+
+
+    /**
      * maximum number of entries allowed for ldap filter replacements.
      */
     private static int ldapFilterSize = 25;
