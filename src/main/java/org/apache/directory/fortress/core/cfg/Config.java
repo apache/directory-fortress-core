@@ -64,7 +64,7 @@ public class Config
     final private static String EXT_TRUST_STORE_PW = "fortress.trust.store.password";
     final private static String EXT_SET_TRUST_STORE_PROP = "fortress.trust.store.set.prop";
     final private static String EXT_CONFIG_REALM = "fortress.config.realm";
-    final private static String EXT_SERVER_TYPE = "ldap.server.type";
+    final private static String EXT_SERVER_TYPE = "fortress.ldap.server.type";
     final private static PropertiesConfiguration config;
     final private static String CLS_NM = Config.class.getName();
     final private static Logger LOG = LoggerFactory.getLogger( CLS_NM );
