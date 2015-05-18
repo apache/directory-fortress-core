@@ -733,13 +733,12 @@ final class PermDAO extends ApacheDsDataProvider
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, PERMISSION_OP_ATRS );
-            entity = unloadPopLdapEntry( findEntry, 0, permission.isAdmin() );
-
-            if ( entity == null )
+            if ( findEntry == null )
             {
                 String warning = "getPerm no entry found dn [" + dn + "]";
                 throw new FinderException( GlobalErrIds.PERM_OP_NOT_FOUND, warning );
             }
+            entity = unloadPopLdapEntry( findEntry, 0, permission.isAdmin() );
         }
         catch ( LdapNoSuchObjectException e )
         {
@@ -777,13 +776,12 @@ final class PermDAO extends ApacheDsDataProvider
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, PERMISION_OBJ_ATRS );
-            entity = unloadPobjLdapEntry( findEntry, 0,permObj.isAdmin() );
-
-            if ( entity == null )
+            if ( findEntry == null )
             {
                 String warning = "getPerm Obj no entry found dn [" + dn + "]";
                 throw new FinderException( GlobalErrIds.PERM_OBJ_NOT_FOUND, warning );
             }
+            entity = unloadPobjLdapEntry( findEntry, 0,permObj.isAdmin() );
         }
         catch ( LdapNoSuchObjectException e )
         {
@@ -1222,7 +1220,10 @@ final class PermDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
-            String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
+            filterbuf.append( ")(" );
             Set<String> roles;
 
             if ( role.getClass().equals( AdminRole.class ) )
@@ -1236,24 +1237,33 @@ final class PermDAO extends ApacheDsDataProvider
 
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
-                filter += "|(" + ROLES + "=" + roleVal + ")";
-
+                filterbuf.append( "|(" );
+                filterbuf.append( ROLES );
+                filterbuf.append( "=" );
+                filterbuf.append( roleVal );
+                filterbuf.append( ")" );
                 for ( String uRole : roles )
                 {
-                    filter += "(" + ROLES + "=" + uRole + ")";
+                    filterbuf.append( "(" );
+                    filterbuf.append( ROLES );
+                    filterbuf.append( "=" );
+                    filterbuf.append( uRole );
+                    filterbuf.append( ")" );
                 }
-
-                filter += ")";
+                filterbuf.append( ")" );
             }
             else
             {
-                filter += ROLES + "=" + roleVal + ")";
+                filterbuf.append( ROLES );
+                filterbuf.append( "=" );
+                filterbuf.append( roleVal );
+                filterbuf.append( ")" );
             }
 
-            filter += ")";
+            filterbuf.append( ")" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1294,21 +1304,32 @@ final class PermDAO extends ApacheDsDataProvider
 
         try
         {
-            String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
+            filterbuf.append( ")(|" );
             Set<String> roles = RoleUtil.getInheritedRoles( user.getRoles(), user.getContextId() );
 
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
                 for ( String uRole : roles )
                 {
-                    filter += "(" + ROLES + "=" + uRole + ")";
+                    filterbuf.append( "(" );
+                    filterbuf.append( ROLES );
+                    filterbuf.append( "=" );
+                    filterbuf.append( uRole );
+                    filterbuf.append( ")" );
                 }
             }
 
-            filter += "(" + USERS + "=" + user.getUserId() + ")))";
+            filterbuf.append( "(" );
+            filterbuf.append( USERS );
+            filterbuf.append( "=" );
+            filterbuf.append( user.getUserId() );
+            filterbuf.append( ")))" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1351,11 +1372,17 @@ final class PermDAO extends ApacheDsDataProvider
 
         try
         {
-            String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")";
-            filter += "(" + USERS + "=" + user.getUserId() + "))";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
+            filterbuf.append( "){" );
+            filterbuf.append( USERS );
+            filterbuf.append( "=" );
+            filterbuf.append( user.getUserId() );
+            filterbuf.append(  "))" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
             while ( searchResults.next() )
