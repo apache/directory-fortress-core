@@ -53,7 +53,7 @@ public class CmdLineParser
     /**
      * Base class for exceptions that may be thrown when options are parsed
      */
-    public static abstract class OptionException extends Exception
+    public abstract static class OptionException extends Exception
     {
         /** Default serialVersionUID */
         private static final long serialVersionUID = 1L;
@@ -297,7 +297,7 @@ public class CmdLineParser
             {
                 try
                 {
-                    return new Integer( arg );
+                    return Integer.valueOf( arg );
                 }
                 catch ( NumberFormatException e )
                 {
@@ -325,7 +325,7 @@ public class CmdLineParser
             {
                 try
                 {
-                    return new Long( arg );
+                    return Long.valueOf( arg );
                 }
                 catch ( NumberFormatException e )
                 {

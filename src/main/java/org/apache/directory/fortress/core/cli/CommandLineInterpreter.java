@@ -237,14 +237,17 @@ public class CommandLineInterpreter
         {
             processGroupCommand( commands, options );
         }
+        /*
+        TODO: add these for delegated admin and review support:
         else if ( commands.contains( DELEGATED_REVIEW ) )
         {
-            //processDelegatedReviewCommand(commands, options);
+            processDelegatedReviewCommand(commands, options);
         }
         else if ( commands.contains( DELEGATED_SYSTEM ) )
         {
-            //processDelegatedSystemCommand(commands, options);
+            processDelegatedSystemCommand(commands, options);
         }
+        */
         else
         {
             LOG.warn( "unknown admin operation detected" );
