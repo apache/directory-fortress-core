@@ -659,13 +659,6 @@ public abstract class ApacheDsDataProvider
                 deleteRecursive( theDN, connection, recursiveCount );
                 recursiveCount--;
             }
-            catch ( LdapReferralException lre )
-            {
-                // cannot continue;
-                String error = "." + method + " dn [" + dn + "] caught LDAPReferralException=" + lre.getMessage() +
-                    "=" + lre.getReferralInfo();
-                throw lre;
-            }
             catch ( LdapException le )
             {
                 // cannot continue;
@@ -1417,7 +1410,7 @@ public abstract class ApacheDsDataProvider
         counters.incrementBind();
         Dn userDn = new Dn( szUserDn );
         BindRequest bindReq = new BindRequestImpl();
-        bindReq.setDn( new Dn( szUserDn ) );
+        bindReq.setDn( userDn );
         bindReq.setCredentials( new String ( password ) );
         bindReq.addControl( PP_REQ_CTRL );
         return connection.bind( bindReq );
