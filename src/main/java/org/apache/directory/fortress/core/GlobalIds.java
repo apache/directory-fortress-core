@@ -295,17 +295,6 @@ public class GlobalIds
      */
     public static final String ROLE_OBJECT_CLASS_NM = "ftRls";
 
-    /**
-     * Defines the object class structure used within Fortress Role processing.
-     */
-    public static final String ROLE_OBJ_CLASS[] =
-        {
-            SchemaConstants.TOP_OC,
-            ROLE_OBJECT_CLASS_NM,
-            GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
-            GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
-    };
-
     /*
       *  *************************************************************************
       *  **  OpenAccessMgr CONSTRAINTS are used by USER, ROLE, ADMINROLE DAO'S.
