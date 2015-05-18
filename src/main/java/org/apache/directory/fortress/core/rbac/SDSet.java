@@ -401,7 +401,7 @@ public class SDSet extends FortEntity implements Serializable, Comparable<SDSet>
         {
             return false;
         }
-        if ( !( thatObj instanceof Role ) )
+        if ( ( thatObj instanceof Role ) )
         {
             return false;
         }
