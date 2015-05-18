@@ -376,7 +376,7 @@ public class User extends FortEntity implements Constraint, Serializable
     public User( String userId, char[] password )
     {
         this.userId = userId;
-        this.password = password;
+        this.password = password.clone();
     }
 
 
@@ -390,7 +390,7 @@ public class User extends FortEntity implements Constraint, Serializable
     public User( String userId, char[] password, String roleName )
     {
         this.userId = userId;
-        this.password = password;
+        this.password = password.clone();
         setRole( new UserRole( roleName ) );
     }
 
@@ -405,7 +405,7 @@ public class User extends FortEntity implements Constraint, Serializable
     public User( String userId, char[] password, String[] roleNames )
     {
         this.userId = userId;
-        this.password = password;
+        this.password = password.clone();
 
         if ( roleNames != null )
         {
@@ -428,7 +428,7 @@ public class User extends FortEntity implements Constraint, Serializable
     public User( String userId, char[] password, String roleName, String ou )
     {
         this.userId = userId;
-        this.password = password;
+        this.password = password.clone();
         setRole( new UserRole( roleName ) );
         this.ou = ou;
     }
@@ -1562,7 +1562,7 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public void setJpegPhoto( byte[] jpegPhoto )
     {
-        this.jpegPhoto = jpegPhoto;
+        this.jpegPhoto = jpegPhoto.clone();
     }
 
 
