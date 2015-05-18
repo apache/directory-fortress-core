@@ -744,6 +744,23 @@ public class Permission extends FortEntity implements Serializable
             .getOpName().equalsIgnoreCase( this.getOpName() ) ) );
     }
 
+    @Override
+    public int hashCode()
+    {
+        int result = ( admin ? 1 : 0 );
+        result = 31 * result + ( internalId != null ? internalId.hashCode() : 0 );
+        result = 31 * result + ( opName != null ? opName.hashCode() : 0 );
+        result = 31 * result + ( objName != null ? objName.hashCode() : 0 );
+        result = 31 * result + ( objId != null ? objId.hashCode() : 0 );
+        result = 31 * result + ( abstractName != null ? abstractName.hashCode() : 0 );
+        result = 31 * result + ( type != null ? type.hashCode() : 0 );
+        result = 31 * result + ( dn != null ? dn.hashCode() : 0 );
+        result = 31 * result + ( description != null ? description.hashCode() : 0 );
+        result = 31 * result + ( props != null ? props.hashCode() : 0 );
+        result = 31 * result + ( roles != null ? roles.hashCode() : 0 );
+        result = 31 * result + ( users != null ? users.hashCode() : 0 );
+        return result;
+    }
 
     @Override
     public String toString()

@@ -612,4 +612,17 @@ public class UserAdminRole extends UserRole implements Administrator
         return ( ( thatRole.getName().equalsIgnoreCase( this.getName() ) ) && ( thatRole.getUserId()
             .equalsIgnoreCase( this.getUserId() ) ) );
     }
+
+    @Override
+    public int hashCode()
+    {
+        int result = osPs != null ? osPs.hashCode() : 0;
+        result = 31 * result + ( osUs != null ? osUs.hashCode() : 0 );
+        result = 31 * result + ( beginRange != null ? beginRange.hashCode() : 0 );
+        result = 31 * result + ( endRange != null ? endRange.hashCode() : 0 );
+        result = 31 * result + ( beginInclusive ? 1 : 0 );
+        result = 31 * result + ( endInclusive ? 1 : 0 );
+        result = 31 * result + ( parents != null ? parents.hashCode() : 0 );
+        return result;
+    }
 }

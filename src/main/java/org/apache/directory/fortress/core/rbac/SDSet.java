@@ -413,6 +413,17 @@ public class SDSet extends FortEntity implements Serializable, Comparable<SDSet>
         return thatSet.getName().equalsIgnoreCase( this.getName() );
     }
 
+    @Override
+    public int hashCode()
+    {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + ( name != null ? name.hashCode() : 0 );
+        result = 31 * result + ( description != null ? description.hashCode() : 0 );
+        result = 31 * result + ( cardinality != null ? cardinality.hashCode() : 0 );
+        result = 31 * result + ( members != null ? members.hashCode() : 0 );
+        result = 31 * result + ( type != null ? type.hashCode() : 0 );
+        return result;
+    }
 
     @Override
     public String toString()

@@ -828,6 +828,27 @@ public class PwPolicy extends FortEntity implements Serializable
         return thatPolicy.getName().equalsIgnoreCase( this.getName() );
     }
 
+    @Override
+    public int hashCode()
+    {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + ( attribute != null ? attribute.hashCode() : 0 );
+        result = 31 * result + ( minAge != null ? minAge.hashCode() : 0 );
+        result = 31 * result + ( maxAge != null ? maxAge.hashCode() : 0 );
+        result = 31 * result + ( inHistory != null ? inHistory.hashCode() : 0 );
+        result = 31 * result + ( checkQuality != null ? checkQuality.hashCode() : 0 );
+        result = 31 * result + ( minLength != null ? minLength.hashCode() : 0 );
+        result = 31 * result + ( expireWarning != null ? expireWarning.hashCode() : 0 );
+        result = 31 * result + ( graceLoginLimit != null ? graceLoginLimit.hashCode() : 0 );
+        result = 31 * result + ( lockout != null ? lockout.hashCode() : 0 );
+        result = 31 * result + ( lockoutDuration != null ? lockoutDuration.hashCode() : 0 );
+        result = 31 * result + ( maxFailure != null ? maxFailure.hashCode() : 0 );
+        result = 31 * result + ( failureCountInterval != null ? failureCountInterval.hashCode() : 0 );
+        result = 31 * result + ( mustChange != null ? mustChange.hashCode() : 0 );
+        result = 31 * result + ( allowUserChange != null ? allowUserChange.hashCode() : 0 );
+        result = 31 * result + ( safeModify != null ? safeModify.hashCode() : 0 );
+        return result;
+    }
 
     /**
      * @see Object#toString()
