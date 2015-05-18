@@ -467,7 +467,7 @@ public class Config
             LOG.info( "getExternalConfig override name [{}]", GlobalIds.TRUST_STORE_PW );
         }
 
-        // Check to see if the trust store set parameter has been overriden by a system property:
+        // Check to see if the trust store set parameter has been overridden by a system property:
         szValue = System.getProperty( EXT_SET_TRUST_STORE_PROP );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
