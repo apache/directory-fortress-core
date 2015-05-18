@@ -44,7 +44,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
 public class UserTestData extends TestCase
 {
 
-    public final static String[][] USERS_TU0 =
+    public static final String[][] USERS_TU0 =
         {
             {
                 "jtsTestAdminUser", /* USERID_COL */
@@ -79,7 +79,7 @@ public class UserTestData extends TestCase
     /**
      * Test Case TU1:
      */
-    public final static String[][] USERS_TU1 =
+    public static final String[][] USERS_TU1 =
         {
             {
                 "jtsUser1", /* USERID_COL */
@@ -366,7 +366,7 @@ public class UserTestData extends TestCase
     /**
      * Test Case TU1 updated:
      */
-    public final static String[][] USERS_TU1_UPD =
+    public static final String[][] USERS_TU1_UPD =
         {
             {
                 "jtsUser1", /* USERID_COL */
@@ -613,7 +613,7 @@ public class UserTestData extends TestCase
     /**
      * Test Case TU2:
      */
-    public final static String[][] USERS_TU2 =
+    public static final String[][] USERS_TU2 =
         {
             {
                 "jtsTU2User1", /* USERID_COL */
@@ -900,7 +900,7 @@ public class UserTestData extends TestCase
     /**
      * Test Case TU2:
      */
-    public final static String[][] USERS_TU2_RST =
+    public static final String[][] USERS_TU2_RST =
         {
             {
                 "jtsTU2User1", /* USERID_COL */
@@ -1184,7 +1184,7 @@ public class UserTestData extends TestCase
 },
     };
 
-    public final static String[][] USERS_TU2_CHG =
+    public static final String[][] USERS_TU2_CHG =
         {
             {
                 "jtsTU2User1", /* USERID_COL */
@@ -1429,7 +1429,7 @@ public class UserTestData extends TestCase
     };
 
     // Test Case TU3:
-    public final static String[][] USERS_TU3 =
+    public static final String[][] USERS_TU3 =
         {
             {
                 "jtsTU3User1", /* USERID_COL */
@@ -1714,7 +1714,7 @@ public class UserTestData extends TestCase
     };
 
     // Test Case TU4:
-    public final static String[][] USERS_TU4 =
+    public static final String[][] USERS_TU4 =
         {
             {
                 "jtsTU4User1", /* USERID_COL */
@@ -3452,7 +3452,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU8:
     @MyAnnotation(name = "USERS_TU8_SSD", value = "USR TU8_SSD")
-    public final static String[][] USERS_TU8_SSD =
+    public static final String[][] USERS_TU8_SSD =
         {
             {
                 "jtsTU8User1", /* USERID_COL */
@@ -3570,7 +3570,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU8:
     @MyAnnotation(name = "USERS_TU9_SSD_HIER", value = "USR TU9_SSD_HIER")
-    public final static String[][] USERS_TU9_SSD_HIER =
+    public static final String[][] USERS_TU9_SSD_HIER =
         {
             {
                 "jtsTU9User1", /* USERID_COL */
@@ -3660,7 +3660,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU10:
     @MyAnnotation(name = "USERS_TU10_SSD_HIER", value = "USR TU10_SSD_HIER")
-    public final static String[][] USERS_TU10_SSD_HIER =
+    public static final String[][] USERS_TU10_SSD_HIER =
         {
             {
                 "jtsTU10User1", /* USERID_COL */
@@ -3750,7 +3750,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU11:
     @MyAnnotation(name = "USERS_TU11_SSD_HIER", value = "USR TU11_SSD_HIER")
-    public final static String[][] USERS_TU11_SSD_HIER =
+    public static final String[][] USERS_TU11_SSD_HIER =
         {
             {
                 "jtsTU11User1", /* USERID_COL */
@@ -3840,7 +3840,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU12:
     @MyAnnotation(name = "USERS_TU12_DSD", value = "USR TU12_DSD")
-    public final static String[][] USERS_TU12_DSD =
+    public static final String[][] USERS_TU12_DSD =
         {
             {
                 "jtsTU12User1", /* USERID_COL */
@@ -3958,7 +3958,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU13:
     @MyAnnotation(name = "USERS_TU13_DSD_HIER", value = "USR TU13_DSD_HIER")
-    public final static String[][] USERS_TU13_DSD_HIER =
+    public static final String[][] USERS_TU13_DSD_HIER =
         {
             {
                 "jtsTU13User1", /* USERID_COL */
@@ -4048,7 +4048,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU14:
     @MyAnnotation(name = "USERS_TU14_DSD_HIER", value = "USR TU14_DSD_HIER")
-    public final static String[][] USERS_TU14_DSD_HIER =
+    public static final String[][] USERS_TU14_DSD_HIER =
         {
             {
                 "jtsTU14User1", /* USERID_COL */
@@ -4137,7 +4137,7 @@ public class UserTestData extends TestCase
     };
     // Test Case TU15:
     @MyAnnotation(name = "USERS_TU15_DSD_HIER", value = "USR TU15_DSD_HIER")
-    public final static String[][] USERS_TU15_DSD_HIER =
+    public static final String[][] USERS_TU15_DSD_HIER =
         {
             {
                 "jtsTU15User1", /* USERID_COL */
@@ -4227,7 +4227,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU16:
     @MyAnnotation(name = "USERS_TU16_ARBAC", value = "USR TU16_ARBAC")
-    public final static String[][] USERS_TU16_ARBAC =
+    public static final String[][] USERS_TU16_ARBAC =
         {
             {
                 "jtsTU16User1", /* USERID_COL */
@@ -4513,7 +4513,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU16B:
     @MyAnnotation(name = "USERS_TU16B_ARBAC", value = "USR TU16B_ARBAC")
-    public final static String[][] USERS_TU16B_ARBAC =
+    public static final String[][] USERS_TU16B_ARBAC =
         {
             {
                 "jtsTU16BUser1", /* USERID_COL */
@@ -4799,7 +4799,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU17A:
     @MyAnnotation(name = "USERS_TU17A_ARBAC", value = "USR TU17A_ARBAC")
-    public final static String[][] USERS_TU17A_ARBAC =
+    public static final String[][] USERS_TU17A_ARBAC =
         {
             {
                 "jtsTU17AUser1", /* USERID_COL */
@@ -4945,7 +4945,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU17U:
     @MyAnnotation(name = "USERS_TU17U_ARBAC", value = "USR TU17U_ARBAC")
-    public final static String[][] USERS_TU17U_ARBAC =
+    public static final String[][] USERS_TU17U_ARBAC =
         {
             {
                 "jtsTU17UUser1", /* USERID_COL */
@@ -5091,7 +5091,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU18U:
     @MyAnnotation(name = "USERS_TU18U_TR6_DESC", value = "USR TU18U TR6 DESC")
-    public final static String[][] USERS_TU18U_TR6_DESC =
+    public static final String[][] USERS_TU18U_TR6_DESC =
         {
             {
                 "jtsTU18User1", /* USERID_COL */
@@ -5517,7 +5517,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU18U:
     @MyAnnotation(name = "USERS_TU19U_TR7_ASC", value = "USR TU19U TR7 ASC")
-    public final static String[][] USERS_TU19U_TR7_ASC =
+    public static final String[][] USERS_TU19U_TR7_ASC =
         {
             {
                 "jtsTU19User1", /* USERID_COL */
@@ -5943,7 +5943,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU20U:
     @MyAnnotation(name = "USERS_TU20U_TR5B", value = "USR TU20U TR5B HIER")
-    public final static String[][] USERS_TU20U_TR5B =
+    public static final String[][] USERS_TU20U_TR5B =
         {
             {
                 "jtsTU20User1", /* USERID_COL */
@@ -6229,7 +6229,7 @@ public class UserTestData extends TestCase
 
     // Test Case TU12:
     @MyAnnotation(name = "USERS_TU21_DSD_BRUNO", value = "USR TU21_DSD_BRUNO")
-    public final static String[][] USERS_TU21_DSD_BRUNO =
+    public static final String[][] USERS_TU21_DSD_BRUNO =
         {
             {
                 "jtsTU21User1", /* USERID_COL */

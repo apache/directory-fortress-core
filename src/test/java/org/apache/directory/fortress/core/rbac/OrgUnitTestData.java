@@ -43,7 +43,7 @@ public class OrgUnitTestData extends TestCase
     private static final String CLS_NM = OrgUnitTestData.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-    public final static String[][] ORGS_USR_DEV0 =
+    public static final String[][] ORGS_USR_DEV0 =
         {
             {
                 "DEV0", /* NAME_COL */
@@ -55,7 +55,7 @@ public class OrgUnitTestData extends TestCase
         },
     };
 
-    public final static String[][] ORGS_PRM_APP0 =
+    public static final String[][] ORGS_PRM_APP0 =
         {
             {
                 "APP0", /* NAME_COL */
@@ -67,7 +67,7 @@ public class OrgUnitTestData extends TestCase
         },
     };
 
-    public final static String[][] ORGS_DEV1 =
+    public static final String[][] ORGS_DEV1 =
         {
             {
                 "DEV1", /* NAME_COL */
@@ -151,7 +151,7 @@ public class OrgUnitTestData extends TestCase
 }
     };
 
-    public final static String[][] ORGS_APP1 =
+    public static final String[][] ORGS_APP1 =
         {
             {
                 "APP1", /* NAME_COL */
@@ -235,7 +235,7 @@ public class OrgUnitTestData extends TestCase
 }
     };
 
-    public final static String[][] ORGS_TO1 =
+    public static final String[][] ORGS_TO1 =
         {
             {
                 "oamT1UOrg1", /* NAME_COL */
@@ -319,7 +319,7 @@ public class OrgUnitTestData extends TestCase
 }
     };
 
-    public final static String[][] ORGS_USR_TO2 =
+    public static final String[][] ORGS_USR_TO2 =
         {
             {
                 "oamT2UOrg1", /* NAME_COL */
@@ -403,7 +403,7 @@ public class OrgUnitTestData extends TestCase
 }
     };
 
-    public final static String[][] ORGS_PRM_TO3 =
+    public static final String[][] ORGS_PRM_TO3 =
         {
             {
                 "oamT3POrg1", /* NAME_COL */
@@ -487,7 +487,7 @@ public class OrgUnitTestData extends TestCase
 }
     };
 
-    public final static String[][] ORGS_PRM_TO4 =
+    public static final String[][] ORGS_PRM_TO4 =
         {
             {
                 "oamT4POrg1", /* NAME_COL */
@@ -571,7 +571,7 @@ public class OrgUnitTestData extends TestCase
 }
     };
 
-    public final static String[][] ORGS_USR_TO5 =
+    public static final String[][] ORGS_USR_TO5 =
         {
             {
                 "T5UOrg1", /* NAME_COL */
@@ -615,7 +615,7 @@ public class OrgUnitTestData extends TestCase
 },
     };
 
-    public final static String[][] ORGS_PRM_TO5 =
+    public static final String[][] ORGS_PRM_TO5 =
         {
             {
                 "T5POrg1", /* NAME_COL */
@@ -659,7 +659,7 @@ public class OrgUnitTestData extends TestCase
 },
     };
 
-    public final static String[][] ORGS_USR_TO6_DSC =
+    public static final String[][] ORGS_USR_TO6_DSC =
         {
             {
                 "T6UOrg1", /* NAME_COL */
@@ -687,7 +687,7 @@ public class OrgUnitTestData extends TestCase
 }
     };
 
-    public final static String[][] ORGS_PRM_TO6_DSC =
+    public static final String[][] ORGS_PRM_TO6_DSC =
         {
             {
                 "T6POrg1", /* NAME_COL */
@@ -715,7 +715,7 @@ public class OrgUnitTestData extends TestCase
 }
     };
 
-    public final static String[][] ORGS_USR_TO7_ASC =
+    public static final String[][] ORGS_USR_TO7_ASC =
         {
             {
                 "T7UOrg1", /* NAME_COL */
@@ -743,7 +743,7 @@ public class OrgUnitTestData extends TestCase
 }
     };
 
-    public final static String[][] ORGS_PRM_TO7_ASC =
+    public static final String[][] ORGS_PRM_TO7_ASC =
         {
             {
                 "T7POrg1", /* NAME_COL */

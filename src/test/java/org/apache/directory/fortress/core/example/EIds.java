@@ -25,18 +25,18 @@ import org.apache.directory.fortress.core.GlobalIds;
 
 public class EIds
 {
-    public final static String EXAMPLE_ADMIN_IMPLEMENTATION = "exampleAdminImplementation";
-    public final static String EXAMPLE_ADMIN_DEFAULT_CLASS = "ExampleAdminMgrImpl";
+    public static final String EXAMPLE_ADMIN_IMPLEMENTATION = "exampleAdminImplementation";
+    public static final String EXAMPLE_ADMIN_DEFAULT_CLASS = "ExampleAdminMgrImpl";
 
     // place any global variables related to example entity here
-    public final static String EXAMPLE_ROOT = "example.root";
+    public static final String EXAMPLE_ROOT = "example.root";
 
-    public final static int EXAMPLE_LEN = 40;
+    public static final int EXAMPLE_LEN = 40;
 
-    public final static String EXAMPLE_NM = "oamExampleName";
-    public final static String EXAMPLE_OBJECT_CLASS_NM = "oamExamples";
+    public static final String EXAMPLE_NM = "oamExampleName";
+    public static final String EXAMPLE_OBJECT_CLASS_NM = "oamExamples";
 
-    public final static String EXAMPLE_OBJ_CLASS[] = {
+    public static final String EXAMPLE_OBJ_CLASS[] = {
             SchemaConstants.TOP_OC, EXAMPLE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
 //            GlobalIds.TOP, EXAMPLE_OBJECT_CLASS_NM, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.TEMPORAL_AUX_OBJECT_CLASS_NAME
     };
