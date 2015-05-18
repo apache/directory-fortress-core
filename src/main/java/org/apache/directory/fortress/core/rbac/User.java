@@ -1562,7 +1562,8 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public void setJpegPhoto( byte[] jpegPhoto )
     {
-        this.jpegPhoto = jpegPhoto.clone();
+        if( jpegPhoto != null )
+            this.jpegPhoto = jpegPhoto.clone();
     }
 
 
