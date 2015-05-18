@@ -1375,7 +1375,7 @@ final class PermDAO extends ApacheDsDataProvider
             StringBuffer filterbuf = new StringBuffer();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
-            filterbuf.append( "){" );
+            filterbuf.append( ")(" );
             filterbuf.append( USERS );
             filterbuf.append( "=" );
             filterbuf.append( user.getUserId() );
