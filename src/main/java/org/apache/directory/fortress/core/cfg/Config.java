@@ -50,24 +50,24 @@ import org.apache.directory.fortress.core.SecurityException;
  */
 public class Config
 {
-    final private static String propFile = "fortress.properties";
-    final private static String userPropFile = "fortress.user.properties";
-    final private static String EXT_LDAP_HOST = "fortress.host";
-    final private static String EXT_LDAP_PORT = "fortress.port";
-    final private static String EXT_LDAP_ADMIN_POOL_UID = "fortress.admin.user";
-    final private static String EXT_LDAP_ADMIN_POOL_PW = "fortress.admin.pw";
-    final private static String EXT_LDAP_ADMIN_POOL_MIN = "fortress.min.admin.conn";
-    final private static String EXT_LDAP_ADMIN_POOL_MAX = "fortress.max.admin.conn";
-    final private static String EXT_ENABLE_LDAP_SSL = "fortress.enable.ldap.ssl";
-    final private static String EXT_ENABLE_LDAP_SSL_DEBUG = "fortress.enable.ldap.ssl.debug";
-    final private static String EXT_TRUST_STORE = "fortress.trust.store";
-    final private static String EXT_TRUST_STORE_PW = "fortress.trust.store.password";
-    final private static String EXT_SET_TRUST_STORE_PROP = "fortress.trust.store.set.prop";
-    final private static String EXT_CONFIG_REALM = "fortress.config.realm";
-    final private static String EXT_SERVER_TYPE = "fortress.ldap.server.type";
-    final private static PropertiesConfiguration config;
-    final private static String CLS_NM = Config.class.getName();
-    final private static Logger LOG = LoggerFactory.getLogger( CLS_NM );
+    private static final String propFile = "fortress.properties";
+    private static final String userPropFile = "fortress.user.properties";
+    private static final String EXT_LDAP_HOST = "fortress.host";
+    private static final String EXT_LDAP_PORT = "fortress.port";
+    private static final String EXT_LDAP_ADMIN_POOL_UID = "fortress.admin.user";
+    private static final String EXT_LDAP_ADMIN_POOL_PW = "fortress.admin.pw";
+    private static final String EXT_LDAP_ADMIN_POOL_MIN = "fortress.min.admin.conn";
+    private static final String EXT_LDAP_ADMIN_POOL_MAX = "fortress.max.admin.conn";
+    private static final String EXT_ENABLE_LDAP_SSL = "fortress.enable.ldap.ssl";
+    private static final String EXT_ENABLE_LDAP_SSL_DEBUG = "fortress.enable.ldap.ssl.debug";
+    private static final String EXT_TRUST_STORE = "fortress.trust.store";
+    private static final String EXT_TRUST_STORE_PW = "fortress.trust.store.password";
+    private static final String EXT_SET_TRUST_STORE_PROP = "fortress.trust.store.set.prop";
+    private static final String EXT_CONFIG_REALM = "fortress.config.realm";
+    private static final String EXT_SERVER_TYPE = "fortress.ldap.server.type";
+    private static final PropertiesConfiguration config;
+    private static final String CLS_NM = Config.class.getName();
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     static
     {
@@ -430,7 +430,7 @@ public class Config
         szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_MAX );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
-            config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MAX, new Integer( szValue ) );
+            config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MAX, Integer.valueOf( szValue ) );
             LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.LDAP_ADMIN_POOL_MAX, szValue );
         }
 
