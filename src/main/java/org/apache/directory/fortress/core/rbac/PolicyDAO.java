@@ -483,49 +483,49 @@ final class PolicyDAO extends ApacheDsDataProvider
 
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
-            entity.setMinAge( new Integer( val ) );
+            entity.setMinAge( Integer.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_MAX_AGE );
 
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
-            entity.setMaxAge( new Long( val ) );
+            entity.setMaxAge( Long.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_IN_HISTORY );
 
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
-            entity.setInHistory( new Short( val ) );
+            entity.setInHistory( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_CHECK_QUALITY );
 
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
-            entity.setCheckQuality( new Short( val ) );
+            entity.setCheckQuality( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_MIN_LENGTH );
 
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
-            entity.setMinLength( new Short( val ) );
+            entity.setMinLength( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_EXPIRE_WARNING );
 
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
-            entity.setExpireWarning( new Long( val ) );
+            entity.setExpireWarning( Long.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_GRACE_LOGIN_LIMIT );
 
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
-            entity.setGraceLoginLimit( new Short( val ) );
+            entity.setGraceLoginLimit( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_LOCKOUT );
@@ -539,21 +539,21 @@ final class PolicyDAO extends ApacheDsDataProvider
 
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
-            entity.setLockoutDuration( new Integer( val ) );
+            entity.setLockoutDuration( Integer.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_MAX_FAILURE );
 
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
-            entity.setMaxFailure( new Short( val ) );
+            entity.setMaxFailure( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_FAILURE_COUNT_INTERVAL );
 
         if ( VUtil.isNotNullOrEmpty( val ) )
         {
-            entity.setFailureCountInterval( new Short( val ) );
+            entity.setFailureCountInterval( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_MUST_CHANGE );
