@@ -314,13 +314,12 @@ final class SdDAO extends ApacheDsDataProvider
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, SD_SET_ATRS );
-            entity = unloadLdapEntry( findEntry, 0 );
-
-            if ( entity == null )
+            if ( findEntry == null )
             {
                 String warning = "getSD no entry found dn [" + dn + "]";
                 throw new FinderException( GlobalErrIds.SSD_NOT_FOUND, warning );
             }
+            entity = unloadLdapEntry( findEntry, 0 );
         }
         catch ( LdapNoSuchObjectException e )
         {
@@ -437,42 +436,55 @@ final class SdDAO extends ApacheDsDataProvider
         LdapConnection ld = null;
         String ssdRoot = getSdRoot( role.getContextId() );
         String objectClass = SSD_OBJECT_CLASS_NM;
-
         if ( type == SDSet.SDType.DYNAMIC )
         {
             objectClass = DSD_OBJECT_CLASS_NM;
         }
-
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
-            //String filter = GlobalIds.FILTER_PREFIX + SSD_OBJECT_CLASS_NM + ")(" + ROLES + "=" + roleVal + "))";
-            String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( objectClass );
+            filterbuf.append( ")(" );
+
             // Include any parents target role may have:
             Set<String> roles = RoleUtil.getAscendants( role.getName(), role.getContextId() );
 
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
-                filter += "|(" + ROLES + "=" + roleVal + ")";
+                filterbuf.append( "|(" );
+                filterbuf.append( ROLES );
+                filterbuf.append( "=" );
+                filterbuf.append( roleVal );
+                filterbuf.append( ")" );
 
                 for ( String uRole : roles )
                 {
-                    filter += "(" + ROLES + "=" + uRole + ")";
+                    filterbuf.append( "(" );
+                    filterbuf.append( ROLES );
+                    filterbuf.append( "=" );
+                    filterbuf.append( uRole );
+                    filterbuf.append( ")" );
                 }
-                filter += ")";
+                filterbuf.append( ")" );
+
             }
             else
             {
-                filter += ROLES + "=" + roleVal + ")";
+                filterbuf.append( ROLES );
+                filterbuf.append( "=" );
+                filterbuf.append( roleVal );
+                filterbuf.append( ")" );
+
             }
 
-            filter += ")";
+            filterbuf.append( ")" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, ssdRoot,
-                SearchScope.SUBTREE, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), SD_SET_ATRS, false, GlobalIds.BATCH_SIZE );
 
             long sequence = 0;
-
             while ( searchResults.next() )
             {
                 sdList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
@@ -543,15 +555,23 @@ final class SdDAO extends ApacheDsDataProvider
         {
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
-                String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(|";
+                StringBuffer filterbuf = new StringBuffer();
+                filterbuf.append( GlobalIds.FILTER_PREFIX );
+                filterbuf.append( objectClass );
+                filterbuf.append( ")(|" );
+
                 for ( String rle : roles )
                 {
-                    filter += "(" + ROLES + "=" + rle + ")";
+                    filterbuf.append( "(" );
+                    filterbuf.append( ROLES );
+                    filterbuf.append( "=" );
+                    filterbuf.append( rle );
+                    filterbuf.append( ")" );
                 }
-                filter += "))";
+                filterbuf.append( "))" );
                 ld = getAdminConnection();
                 SearchCursor searchResults = search( ld, ssdRoot,
-                    SearchScope.SUBTREE, filter, SD_SET_ATRS, false, GlobalIds.BATCH_SIZE );
+                    SearchScope.SUBTREE, filterbuf.toString(), SD_SET_ATRS, false, GlobalIds.BATCH_SIZE );
                 long sequence = 0;
 
                 while ( searchResults.next() )
