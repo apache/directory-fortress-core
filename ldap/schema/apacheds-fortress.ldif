@@ -382,6 +382,30 @@ m-substr: caseIgnoreSubstringsMatch
 m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
 m-length: 0
 
+dn: m-oid=1.3.6.1.4.1.1.38088.1.29, ou=attributetypes, cn=fortress, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.3.6.1.4.1.1.38088.1.29
+m-name: configProtocol
+m-description: LDAP Group protocol attribute
+m-equality: caseIgnoreMatch
+m-substr: caseIgnoreSubstringsMatch
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.29
+m-length: 0
+
+dn: m-oid=1.3.6.1.4.1.1.38088.1.30, ou=attributetypes, cn=fortress, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.3.6.1.4.1.1.38088.1.30
+m-name: configParameter
+m-description: LDAP Group config properties
+m-equality: caseIgnoreMatch
+m-substr: caseIgnoreSubstringsMatch
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
+m-length: 0
+
 dn: ou=comparators, cn=fortress, ou=schema
 objectclass: organizationalUnit
 objectclass: top
@@ -567,6 +591,18 @@ m-typeObjectClass: AUXILIARY
 m-may: ftModifier
 m-may: ftModCode
 m-may: ftModId
+
+dn: m-oid=1.3.6.1.4.1.38088.2.8, ou=objectclasses, cn=fortress, ou=schema
+objectclass: metaObjectClass
+objectclass: metaTop
+objectclass: top
+m-oid: 1.3.6.1.4.1.38088.2.8
+m-name: configGroup
+m-description: LDAP Configuration Group
+m-supObjectClass: groupOfNames
+m-must: configProtocol
+m-may: configParameter
+
 
 dn: ou=syntaxCheckers, cn=fortress, ou=schema
 objectclass: organizationalUnit
