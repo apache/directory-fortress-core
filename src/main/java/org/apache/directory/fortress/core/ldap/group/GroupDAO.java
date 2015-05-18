@@ -343,13 +343,12 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, GROUP_ATRS );
-            entity = unloadLdapEntry( findEntry, 0 );
-            
-            if ( entity == null )
+            if ( findEntry == null )
             {
-                String warning = "read no entry found dn [" + dn + "]";
+                String warning = "No Group entry found dn [" + dn + "]";
                 throw new FinderException( GlobalErrIds.GROUP_NOT_FOUND, warning );
             }
+            entity = unloadLdapEntry( findEntry, 0 );
         }
         catch ( LdapNoSuchObjectException e )
         {
