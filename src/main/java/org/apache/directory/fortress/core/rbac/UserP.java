@@ -373,12 +373,7 @@ public final class UserP
         Session session;
         session = uDao.checkPassword( user );
 
-        if ( session == null )
-        { // This should not happen, ever:
-            String error = "UserP.authenticate failed - null session detected for userId [" + user.getUserId() + "]";
-            throw new SecurityException( GlobalErrIds.USER_SESS_CREATE_FAILED, error );
-        }
-        else if ( !session.isAuthenticated() )
+        if ( !session.isAuthenticated() )
         {
             String info = "UserP.authenticate failed  for userId [" + user.getUserId() + "] reason code ["
                 + session.getErrorId() + "] msg [" + session.getMsg() + "]";
@@ -630,6 +625,7 @@ public final class UserP
         return uDao.assign( uRole );
     }
 
+
     /**
      * This command deletes the assignment of the User from the Role entities. The command is
      * valid if and only if the user is a member of the USERS data set, the role is a member of
@@ -712,11 +708,11 @@ public final class UserP
      */
     private void validate( UserRole uRole ) throws ValidationException
     {
-        if(!VUtil.isNotNullOrEmpty( uRole.getUserId() ) )
+        if ( !VUtil.isNotNullOrEmpty( uRole.getUserId() ) )
         {
             throw new ValidationException( GlobalErrIds.USER_ID_NULL, CLS_NM + ".validate userId is NULL" );
         }
-        if(!VUtil.isNotNullOrEmpty( uRole.getName() ) )
+        if ( !VUtil.isNotNullOrEmpty( uRole.getName() ) )
         {
             throw new ValidationException( GlobalErrIds.ROLE_NM_NULL, CLS_NM + ".validate name is NULL" );
         }

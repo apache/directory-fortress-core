@@ -1437,9 +1437,12 @@ final class PermDAO extends ApacheDsDataProvider
 
         try
         {
-            String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
-            filter += "(" + USERS + "=" + session.getUserId() + ")";
+            StringBuilder filter = new StringBuilder();
+
+            filter.append( GlobalIds.FILTER_PREFIX ).append( PERM_OP_OBJECT_CLASS_NAME ).append( ")(|" );
+            filter.append( "(" ).append( USERS ).append( "=" ).append( session.getUserId() ).append( ")" );
             Set<String> roles;
+
             if ( isAdmin )
             {
                 roles = AdminRoleUtil.getInheritedRoles( session.getAdminRoles(), session.getContextId() );
@@ -1452,14 +1455,14 @@ final class PermDAO extends ApacheDsDataProvider
             {
                 for ( String uRole : roles )
                 {
-                    filter += "(" + ROLES + "=" + uRole + ")";
+                    filter.append( "(" ).append( ROLES ).append( "=" ).append( uRole ).append( ")" );
                 }
             }
 
-            filter += "))";
+            filter.append( "))" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filter, PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filter.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
             while ( searchResults.next() )

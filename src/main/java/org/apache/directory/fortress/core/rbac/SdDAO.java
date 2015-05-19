@@ -634,7 +634,7 @@ final class SdDAO extends ApacheDsDataProvider
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.setMembers( getAttributeSet( le, ROLES ) );
         String szCard = getAttribute( le, SD_SET_CARDINALITY );
-        entity.setCardinality( new Integer( szCard ) );
+        entity.setCardinality( Integer.valueOf( szCard ) );
 
         return entity;
     }

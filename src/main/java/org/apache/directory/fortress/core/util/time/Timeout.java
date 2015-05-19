@@ -19,8 +19,10 @@
  */
 package org.apache.directory.fortress.core.util.time;
 
+
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.rbac.Session;
+
 
 /**
  * This class performs timeout validation for {@link Constraint}.  This validator will ensure the elapsed time an entity is active is less than {@link Constraint#getTimeout()} and {@link Constraint#getEndTime()}
@@ -37,8 +39,7 @@ import org.apache.directory.fortress.core.rbac.Session;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class Timeout
-    implements Validator
+public class Timeout implements Validator
 {
     /**
      * This method is called during entity activation, {@link CUtil#validateConstraints} and ensures the elapsed time a particular entity has been activated does not exceed specified.
@@ -49,25 +50,27 @@ public class Timeout
      * @param time       contains the current timestamp.
      * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_TIMEOUT} if failed.
      */
-    public int validate(Session session, Constraint constraint, Time time)
+    public int validate( Session session, Constraint constraint, Time time )
     {
         int rc = GlobalErrIds.ACTV_FAILED_TIMEOUT;
         long timeLimit;
         long lastTime = session.getLastAccess();
-        if (lastTime == 0)
+
+        if ( lastTime == 0 )
         {
             rc = 0;
         }
         else
         {
             long elapsedTime = System.currentTimeMillis() - lastTime;
-            timeLimit = constraint.getTimeout() * 60000;
-            if (elapsedTime < timeLimit || constraint.getTimeout() == 0)
+            timeLimit = constraint.getTimeout() * 60000L;
+
+            if ( ( elapsedTime < timeLimit ) || ( constraint.getTimeout() == 0 ) )
             {
                 rc = 0;
             }
         }
+
         return rc;
     }
 }
-

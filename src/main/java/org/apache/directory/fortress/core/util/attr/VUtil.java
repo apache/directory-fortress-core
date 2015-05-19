@@ -51,7 +51,7 @@ public class VUtil
         {
             if ( lengthProp != null )
             {
-                Integer len = new Integer( lengthProp );
+                Integer len = Integer.valueOf( lengthProp );
                 maximumFieldLen = len;
             }
         }
@@ -97,7 +97,7 @@ public class VUtil
      */
     public static void orgUnit( String orgUnitId ) throws ValidationException
     {
-        if(!isNotNullOrEmpty( orgUnitId ))
+        if ( !isNotNullOrEmpty( orgUnitId ) )
         {
             String error = "orgUnit is null";
             throw new ValidationException( GlobalErrIds.ORG_NULL, error );

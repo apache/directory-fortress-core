@@ -1161,6 +1161,7 @@ public class CommandLineInterpreter
     private void printPermission( Permission perm )
     {
         String type = "P";
+
         if ( perm != null )
         {
             printRow( type, "POBJ", perm.getObjName() );
@@ -1168,6 +1169,7 @@ public class CommandLineInterpreter
             printRow( type, "IID", perm.getInternalId() );
             printRow( type, "TYPE", perm.getType() );
         }
+
         if ( VUtil.isNotNullOrEmpty( perm != null ? perm.getRoles() : null ) )
         {
             for ( String roleName : perm.getRoles() )
@@ -1175,24 +1177,30 @@ public class CommandLineInterpreter
                 printRow( "R", "ROLE", roleName );
             }
         }
-        if ( VUtil.isNotNullOrEmpty( perm.getUsers() ) )
+
+        if ( perm != null )
         {
-            for ( String userId : perm.getUsers() )
+            if ( VUtil.isNotNullOrEmpty( perm.getUsers() ) )
             {
-                printRow( "U", "USER", userId );
+                for ( String userId : perm.getUsers() )
+                {
+                    printRow( "U", "USER", userId );
+                }
             }
-        }
-        if ( VUtil.isNotNullOrEmpty( perm.getProperties() ) )
-        {
-            printSeparator();
-            int ctr = 0;
-            for ( Enumeration<?> e = perm.getProperties().propertyNames(); e.hasMoreElements(); )
+
+            if ( VUtil.isNotNullOrEmpty( perm.getProperties() ) )
             {
-                String key = ( String ) e.nextElement();
-                String val = perm.getProperty( key );
-                ++ctr;
-                LOG.info( "{}   KEY{} [{}]", type, ctr, key );
-                LOG.info( "{}   VAL{} [{}]", type, ctr, val );
+                printSeparator();
+                int ctr = 0;
+
+                for ( Enumeration<?> e = perm.getProperties().propertyNames(); e.hasMoreElements(); )
+                {
+                    String key = ( String ) e.nextElement();
+                    String val = perm.getProperty( key );
+                    ++ctr;
+                    LOG.info( "{}   KEY{} [{}]", type, ctr, key );
+                    LOG.info( "{}   VAL{} [{}]", type, ctr, val );
+                }
             }
         }
     }
