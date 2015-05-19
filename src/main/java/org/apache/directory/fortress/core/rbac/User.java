@@ -232,7 +232,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
         "homeDirectory",
         "loginShell",
         "gecos"
-/*        "jpegPhoto"*/
+    /*        "jpegPhoto"*/
 })
 public class User extends FortEntity implements Constraint, Serializable
 {
@@ -296,50 +296,60 @@ public class User extends FortEntity implements Constraint, Serializable
     private String loginShell;
     private String gecos;
 
+
     public String getUidNumber()
     {
         return uidNumber;
     }
+
 
     public void setUidNumber( String uidNumber )
     {
         this.uidNumber = uidNumber;
     }
 
+
     public String getGidNumber()
     {
         return gidNumber;
     }
+
 
     public void setGidNumber( String gidNumber )
     {
         this.gidNumber = gidNumber;
     }
 
+
     public String getHomeDirectory()
     {
         return homeDirectory;
     }
+
 
     public void setHomeDirectory( String homeDirectory )
     {
         this.homeDirectory = homeDirectory;
     }
 
+
     public String getLoginShell()
     {
         return loginShell;
     }
+
 
     public void setLoginShell( String loginShell )
     {
         this.loginShell = loginShell;
     }
 
+
     public String getGecos()
     {
         return gecos;
     }
+
 
     public void setGecos( String gecos )
     {
@@ -376,7 +386,7 @@ public class User extends FortEntity implements Constraint, Serializable
     public User( String userId, char[] password )
     {
         this.userId = userId;
-        if( password != null )
+        if ( password != null )
             this.password = password.clone();
     }
 
@@ -391,7 +401,7 @@ public class User extends FortEntity implements Constraint, Serializable
     public User( String userId, char[] password, String roleName )
     {
         this.userId = userId;
-        if( password != null )
+        if ( password != null )
             this.password = password.clone();
         setRole( new UserRole( roleName ) );
     }
@@ -407,7 +417,7 @@ public class User extends FortEntity implements Constraint, Serializable
     public User( String userId, char[] password, String[] roleNames )
     {
         this.userId = userId;
-        if( password != null )
+        if ( password != null )
             this.password = password.clone();
 
         if ( roleNames != null )
@@ -431,11 +441,12 @@ public class User extends FortEntity implements Constraint, Serializable
     public User( String userId, char[] password, String roleName, String ou )
     {
         this.userId = userId;
-        if( password != null )
+        if ( password != null )
             this.password = password.clone();
         setRole( new UserRole( roleName ) );
         this.ou = ou;
     }
+
 
     /**
      * Used to retrieve User's valid userId attribute.  The Fortress userId maps to 'uid' for InetOrgPerson object class.
@@ -477,6 +488,7 @@ public class User extends FortEntity implements Constraint, Serializable
             ", emails=" + emails +
             '}';
     }
+
 
     /**
      * Required by Constraint Interface but not needed for user entity. Not intended for external use.
@@ -821,7 +833,17 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public char[] getPassword()
     {
-        return password;
+        if ( password != null )
+        {
+            char[] copy = new char[password.length];
+            System.arraycopy( password, 0, copy, 0, password.length );
+
+            return copy;
+        }
+        else
+        {
+            return null;
+        }
     }
 
 
@@ -834,19 +856,47 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public void setPassword( char[] password )
     {
-        this.password = password;
+        if ( password != null )
+        {
+            // Copy the password
+            this.password = new char[password.length];
+            System.arraycopy( password, 0, this.password, 0, password.length );
+        }
+        else
+        {
+            this.password = null;
+        }
     }
 
 
     public char[] getNewPassword()
     {
-        return newPassword;
+        if ( newPassword != null )
+        {
+            char[] copy = new char[newPassword.length];
+            System.arraycopy( newPassword, 0, copy, 0, newPassword.length );
+
+            return copy;
+        }
+        else
+        {
+            return null;
+        }
     }
 
 
     public void setNewPassword( char[] newPassword )
     {
-        this.newPassword = newPassword;
+        if ( newPassword != null )
+        {
+            // Copy the newPassword
+            this.newPassword = new char[newPassword.length];
+            System.arraycopy( newPassword, 0, this.newPassword, 0, newPassword.length );
+        }
+        else
+        {
+            this.newPassword = null;
+        }
     }
 
 
@@ -956,6 +1006,7 @@ public class User extends FortEntity implements Constraint, Serializable
         return displayName;
     }
 
+
     /**
      * Optional attribute maps to 'displayName' attribute on inetOrgPerson object class.
      *
@@ -965,6 +1016,7 @@ public class User extends FortEntity implements Constraint, Serializable
     {
         this.displayName = displayName;
     }
+
 
     /**
      * temporal boolean flag is used by internal Fortress components.
@@ -1566,7 +1618,7 @@ public class User extends FortEntity implements Constraint, Serializable
      */
     public void setJpegPhoto( byte[] jpegPhoto )
     {
-        if( jpegPhoto != null )
+        if ( jpegPhoto != null )
             this.jpegPhoto = jpegPhoto.clone();
     }
 

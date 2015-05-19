@@ -19,9 +19,11 @@
  */
 package org.apache.directory.fortress.core.util.time;
 
+
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.rbac.Session;
+
 
 /**
  * This class performs time validation for {@link Constraint}.  This validator will ensure the current time falls between {@link Constraint#getBeginTime()} and {@link Constraint#getEndTime()}
@@ -52,10 +54,12 @@ public class ClockTime
      * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_TIME} if failed.
      */
     @Override
-    public int validate(Session session, Constraint constraint, Time time)
+    public int validate( Session session, Constraint constraint, Time time )
     {
         int rc = GlobalErrIds.ACTV_FAILED_TIME;
-        if (constraint.getBeginTime() == null || constraint.getBeginTime().compareToIgnoreCase(GlobalIds.NONE) == 0)
+
+        if ( ( constraint.getBeginTime() == null )
+            || ( constraint.getBeginTime().compareToIgnoreCase( GlobalIds.NONE ) == 0 ) )
         {
             rc = 0;
         }
@@ -63,19 +67,21 @@ public class ClockTime
         {
             Integer beginTime = Integer.valueOf( constraint.getBeginTime() );
             Integer endTime = Integer.valueOf( constraint.getEndTime() );
-            if (beginTime == 0 && endTime == 0)
+
+            if ( ( beginTime == 0 ) && ( endTime == 0 ) )
             {
                 rc = 0;
             }
             else
             {
-                if (beginTime.compareTo(time.currentTime) <= 0
-                    && endTime.compareTo(time.currentTime) >= 0)
+                if ( beginTime.compareTo( time.currentTime ) <= 0
+                    && endTime.compareTo( time.currentTime ) >= 0 )
                 {
                     rc = 0;
                 }
             }
         }
+
         return rc;
     }
 }

@@ -151,9 +151,10 @@ final class UserDAO extends ApacheDsDataProvider
 
     // The Fortress User entity attributes are stored within standard LDAP object classes along with custom auxiliary
     // object classes:
-    private static final String USER_OBJ_CLASS[] = {SchemaConstants.TOP_OC, Config.getProperty( USER_OBJECT_CLASS ),
-        USERS_AUX_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds
-        .FT_MODIFIER_AUX_OBJECT_CLASS_NAME, USERS_EXTENSIBLE_OBJECT,
+    private static final String USER_OBJ_CLASS[] =
+        { SchemaConstants.TOP_OC, Config.getProperty( USER_OBJECT_CLASS ),
+            USERS_AUX_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds
+            .FT_MODIFIER_AUX_OBJECT_CLASS_NAME, USERS_EXTENSIBLE_OBJECT,
         //            POSIX_ACCOUNT_OBJECT_CLASS_NAME
     };
 
@@ -197,10 +198,13 @@ final class UserDAO extends ApacheDsDataProvider
     private static final String OPENLDAP_PW_LOCKED_TIME = "pwdAccountLockedTime";
     private static final String OPENLDAP_ACCOUNT_LOCKED_TIME = "pwdAccountLockedTime";
     private static final String LOCK_VALUE = "000001010000Z";
-    private static final String[] USERID = {SchemaConstants.UID_AT};
-    private static final String[] ROLES = {GlobalIds.USER_ROLE_ASSIGN};
+    private static final String[] USERID =
+        { SchemaConstants.UID_AT };
+    private static final String[] ROLES =
+        { GlobalIds.USER_ROLE_ASSIGN };
 
-    private static final String[] USERID_ATRS = {SchemaConstants.UID_AT};
+    private static final String[] USERID_ATRS =
+        { SchemaConstants.UID_AT };
 
     // These will be loaded in static initializer that follows:
     private static String[] AUTHN_ATRS = null;
@@ -216,101 +220,167 @@ final class UserDAO extends ApacheDsDataProvider
         if ( GlobalIds.IS_OPENLDAP )
         {
             // This default set of attributes contains all and is used for search operations.
-            DEFAULT_ATRS = new String[]{GlobalIds.FT_IID, SchemaConstants.UID_AT, SchemaConstants.USER_PASSWORD_AT,
-                SchemaConstants.DESCRIPTION_AT, SchemaConstants.OU_AT, SchemaConstants.CN_AT, SchemaConstants.SN_AT,
-                GlobalIds.USER_ROLE_DATA, GlobalIds.CONSTRAINT, GlobalIds.USER_ROLE_ASSIGN, OPENLDAP_PW_RESET,
-                OPENLDAP_PW_LOCKED_TIME, OPENLDAP_POLICY_SUBENTRY, GlobalIds.PROPS, GlobalIds.USER_ADMINROLE_ASSIGN,
-                GlobalIds.USER_ADMINROLE_DATA, SchemaConstants.POSTAL_ADDRESS_AT, SchemaConstants.L_AT,
-                SchemaConstants.POSTALCODE_AT, SchemaConstants.POSTOFFICEBOX_AT, SchemaConstants.ST_AT,
-                SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT, DEPARTMENT_NUMBER, ROOM_NUMBER, SchemaConstants
-                .TELEPHONE_NUMBER_AT, MOBILE, SchemaConstants.MAIL_AT, EMPLOYEE_TYPE, SchemaConstants.TITLE_AT,
-                SYSTEM_USER, JPEGPHOTO,
-/*
-            TODO: add for RFC2307Bis
-            UID_NUMBER,
-            GID_NUMBER,
-            HOME_DIRECTORY,
-            LOGIN_SHELL,
-            GECOS
-*/};
+            DEFAULT_ATRS = new String[]
+                {
+                    GlobalIds.FT_IID,
+                    SchemaConstants.UID_AT,
+                    SchemaConstants.USER_PASSWORD_AT,
+                    SchemaConstants.DESCRIPTION_AT,
+                    SchemaConstants.OU_AT,
+                    SchemaConstants.CN_AT,
+                    SchemaConstants.SN_AT,
+                    GlobalIds.USER_ROLE_DATA,
+                    GlobalIds.CONSTRAINT,
+                    GlobalIds.USER_ROLE_ASSIGN,
+                    OPENLDAP_PW_RESET,
+                    OPENLDAP_PW_LOCKED_TIME,
+                    OPENLDAP_POLICY_SUBENTRY,
+                    GlobalIds.PROPS,
+                    GlobalIds.USER_ADMINROLE_ASSIGN,
+                    GlobalIds.USER_ADMINROLE_DATA,
+                    SchemaConstants.POSTAL_ADDRESS_AT,
+                    SchemaConstants.L_AT,
+                    SchemaConstants.POSTALCODE_AT,
+                    SchemaConstants.POSTOFFICEBOX_AT,
+                    SchemaConstants.ST_AT,
+                    SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT,
+                    DEPARTMENT_NUMBER,
+                    ROOM_NUMBER,
+                    SchemaConstants
+                    .TELEPHONE_NUMBER_AT,
+                    MOBILE,
+                    SchemaConstants.MAIL_AT,
+                    EMPLOYEE_TYPE,
+                    SchemaConstants.TITLE_AT,
+                    SYSTEM_USER,
+                    JPEGPHOTO,
+                /*
+                            TODO: add for RFC2307Bis
+                            UID_NUMBER,
+                            GID_NUMBER,
+                            HOME_DIRECTORY,
+                            LOGIN_SHELL,
+                            GECOS
+                */};
 
             // This smaller result set of attributes are needed for user validation and authentication operations.
-            AUTHN_ATRS = new String[]{GlobalIds.FT_IID, SchemaConstants.UID_AT, SchemaConstants.USER_PASSWORD_AT,
-                SchemaConstants.DESCRIPTION_AT, SchemaConstants.OU_AT, SchemaConstants.CN_AT, SchemaConstants.SN_AT,
-                GlobalIds.CONSTRAINT, OPENLDAP_PW_RESET, OPENLDAP_PW_LOCKED_TIME, GlobalIds.PROPS};
+            AUTHN_ATRS = new String[]
+                {
+                    GlobalIds.FT_IID,
+                    SchemaConstants.UID_AT,
+                    SchemaConstants.USER_PASSWORD_AT,
+                    SchemaConstants.DESCRIPTION_AT,
+                    SchemaConstants.OU_AT,
+                    SchemaConstants.CN_AT,
+                    SchemaConstants.SN_AT,
+                    GlobalIds.CONSTRAINT,
+                    OPENLDAP_PW_RESET,
+                    OPENLDAP_PW_LOCKED_TIME,
+                    GlobalIds.PROPS };
         }
 
         else
         {
-            DEFAULT_ATRS = new String[]{GlobalIds.FT_IID, SchemaConstants.UID_AT, SchemaConstants.USER_PASSWORD_AT,
-                SchemaConstants.DESCRIPTION_AT, SchemaConstants.OU_AT, SchemaConstants.CN_AT, SchemaConstants.SN_AT,
-                GlobalIds.USER_ROLE_DATA, GlobalIds.CONSTRAINT, GlobalIds.USER_ROLE_ASSIGN, GlobalIds.PROPS,
-                GlobalIds.USER_ADMINROLE_ASSIGN, GlobalIds.USER_ADMINROLE_DATA, SchemaConstants.POSTAL_ADDRESS_AT,
-                SchemaConstants.L_AT, SchemaConstants.POSTALCODE_AT, SchemaConstants.POSTOFFICEBOX_AT,
-                SchemaConstants.ST_AT, SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT, DEPARTMENT_NUMBER,
-                ROOM_NUMBER, SchemaConstants.TELEPHONE_NUMBER_AT, MOBILE, SchemaConstants.MAIL_AT, EMPLOYEE_TYPE,
-                SchemaConstants.TITLE_AT, SYSTEM_USER, JPEGPHOTO,};
+            DEFAULT_ATRS = new String[]
+                {
+                    GlobalIds.FT_IID,
+                    SchemaConstants.UID_AT,
+                    SchemaConstants.USER_PASSWORD_AT,
+                    SchemaConstants.DESCRIPTION_AT,
+                    SchemaConstants.OU_AT,
+                    SchemaConstants.CN_AT,
+                    SchemaConstants.SN_AT,
+                    GlobalIds.USER_ROLE_DATA,
+                    GlobalIds.CONSTRAINT,
+                    GlobalIds.USER_ROLE_ASSIGN,
+                    GlobalIds.PROPS,
+                    GlobalIds.USER_ADMINROLE_ASSIGN,
+                    GlobalIds.USER_ADMINROLE_DATA,
+                    SchemaConstants.POSTAL_ADDRESS_AT,
+                    SchemaConstants.L_AT,
+                    SchemaConstants.POSTALCODE_AT,
+                    SchemaConstants.POSTOFFICEBOX_AT,
+                    SchemaConstants.ST_AT,
+                    SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT,
+                    DEPARTMENT_NUMBER,
+                    ROOM_NUMBER,
+                    SchemaConstants.TELEPHONE_NUMBER_AT,
+                    MOBILE,
+                    SchemaConstants.MAIL_AT,
+                    EMPLOYEE_TYPE,
+                    SchemaConstants.TITLE_AT,
+                    SYSTEM_USER,
+                    JPEGPHOTO, };
 
             // This smaller result set of attributes are needed for user validation and authentication operations.
-            AUTHN_ATRS = new String[]{GlobalIds.FT_IID, SchemaConstants.UID_AT, SchemaConstants.USER_PASSWORD_AT,
-                SchemaConstants.DESCRIPTION_AT, SchemaConstants.OU_AT, SchemaConstants.CN_AT, SchemaConstants.SN_AT,
-                GlobalIds.CONSTRAINT, GlobalIds.PROPS};
+            AUTHN_ATRS = new String[]
+                {
+                    GlobalIds.FT_IID,
+                    SchemaConstants.UID_AT,
+                    SchemaConstants.USER_PASSWORD_AT,
+                    SchemaConstants.DESCRIPTION_AT,
+                    SchemaConstants.OU_AT,
+                    SchemaConstants.CN_AT,
+                    SchemaConstants.SN_AT,
+                    GlobalIds.CONSTRAINT,
+                    GlobalIds.PROPS };
         }
-
 
     }
 
     // This default set of attributes contains all and is used for search operations.
-/*
-    private static final String[] DEFAULT_ATRS =
-        {
-            GlobalIds.FT_IID,
-            SchemaConstants.UID_AT, SchemaConstants.USER_PASSWORD_AT,
-            SchemaConstants.DESCRIPTION_AT,
-            SchemaConstants.OU_AT,
-            SchemaConstants.CN_AT,
-            SchemaConstants.SN_AT,
-            GlobalIds.USER_ROLE_DATA,
-            GlobalIds.CONSTRAINT,
-            GlobalIds.USER_ROLE_ASSIGN,
-            GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : "",
-            GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_LOCKED_TIME : "",
-            GlobalIds.IS_OPENLDAP ? OPENLDAP_POLICY_SUBENTRY : "",
-            GlobalIds.PROPS,
-            GlobalIds.USER_ADMINROLE_ASSIGN,
-            GlobalIds.USER_ADMINROLE_DATA,
-            SchemaConstants.POSTAL_ADDRESS_AT,
-            SchemaConstants.L_AT,
-            SchemaConstants.POSTALCODE_AT,
-            SchemaConstants.POSTOFFICEBOX_AT,
-            SchemaConstants.ST_AT,
-            SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT,
-            DEPARTMENT_NUMBER,
-            ROOM_NUMBER,
-            SchemaConstants.TELEPHONE_NUMBER_AT,
-            MOBILE,
-            SchemaConstants.MAIL_AT,
-            EMPLOYEE_TYPE,
-            SchemaConstants.TITLE_AT,
-            SYSTEM_USER,
-            JPEGPHOTO,
+    /*
+        private static final String[] DEFAULT_ATRS =
+            {
+                GlobalIds.FT_IID,
+                SchemaConstants.UID_AT, SchemaConstants.USER_PASSWORD_AT,
+                SchemaConstants.DESCRIPTION_AT,
+                SchemaConstants.OU_AT,
+                SchemaConstants.CN_AT,
+                SchemaConstants.SN_AT,
+                GlobalIds.USER_ROLE_DATA,
+                GlobalIds.CONSTRAINT,
+                GlobalIds.USER_ROLE_ASSIGN,
+                GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : "",
+                GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_LOCKED_TIME : "",
+                GlobalIds.IS_OPENLDAP ? OPENLDAP_POLICY_SUBENTRY : "",
+                GlobalIds.PROPS,
+                GlobalIds.USER_ADMINROLE_ASSIGN,
+                GlobalIds.USER_ADMINROLE_DATA,
+                SchemaConstants.POSTAL_ADDRESS_AT,
+                SchemaConstants.L_AT,
+                SchemaConstants.POSTALCODE_AT,
+                SchemaConstants.POSTOFFICEBOX_AT,
+                SchemaConstants.ST_AT,
+                SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT,
+                DEPARTMENT_NUMBER,
+                ROOM_NUMBER,
+                SchemaConstants.TELEPHONE_NUMBER_AT,
+                MOBILE,
+                SchemaConstants.MAIL_AT,
+                EMPLOYEE_TYPE,
+                SchemaConstants.TITLE_AT,
+                SYSTEM_USER,
+                JPEGPHOTO,
 
-*/
-/*
-            TODO: add for RFC2307Bis
-            UID_NUMBER,
-            GID_NUMBER,
-            HOME_DIRECTORY,
-            LOGIN_SHELL,
-            GECOS
-*//*
+    */
+    /*
+                TODO: add for RFC2307Bis
+                UID_NUMBER,
+                GID_NUMBER,
+                HOME_DIRECTORY,
+                LOGIN_SHELL,
+                GECOS
+    *//*
 
-    };
-*/
+        };
+      */
 
-    private static final String[] ROLE_ATR = {GlobalIds.USER_ROLE_DATA};
+    private static final String[] ROLE_ATR =
+        { GlobalIds.USER_ROLE_DATA };
 
-    private static final String[] AROLE_ATR = {GlobalIds.USER_ADMINROLE_DATA};
+    private static final String[] AROLE_ATR =
+        { GlobalIds.USER_ADMINROLE_DATA };
 
 
     /**
@@ -318,7 +388,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws CreateException
      */
-    final User create(User entity) throws CreateException
+    final User create( User entity ) throws CreateException
     {
         LdapConnection ld = null;
 
@@ -352,7 +422,8 @@ final class UserDAO extends ApacheDsDataProvider
 
             // guard against npe
             myEntry.add( SchemaConstants.USER_PASSWORD_AT, VUtil.isNotNullOrEmpty( entity.getPassword() ) ? new
-                String( entity.getPassword() ) : new String( new char[]{} ) );
+                String( entity.getPassword() ) : new String( new char[]
+                    {} ) );
             myEntry.add( SchemaConstants.DISPLAY_NAME_AT, entity.getCn() );
 
             if ( VUtil.isNotNullOrEmpty( entity.getTitle() ) )
@@ -365,33 +436,33 @@ final class UserDAO extends ApacheDsDataProvider
                 myEntry.add( EMPLOYEE_TYPE, entity.getEmployeeType() );
             }
 
-/*
-            TODO: add RFC2307BIS
-            if ( VUtil.isNotNullOrEmpty( entity.getUidNumber() ) )
-            {
-                myEntry.add( UID_NUMBER, entity.getUidNumber() );
-            }
+            /*
+                        TODO: add RFC2307BIS
+                        if ( VUtil.isNotNullOrEmpty( entity.getUidNumber() ) )
+                        {
+                            myEntry.add( UID_NUMBER, entity.getUidNumber() );
+                        }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getGidNumber() ) )
-            {
-                myEntry.add( GID_NUMBER, entity.getGidNumber() );
-            }
+                        if ( VUtil.isNotNullOrEmpty( entity.getGidNumber() ) )
+                        {
+                            myEntry.add( GID_NUMBER, entity.getGidNumber() );
+                        }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getHomeDirectory() ) )
-            {
-                myEntry.add( HOME_DIRECTORY, entity.getHomeDirectory() );
-            }
+                        if ( VUtil.isNotNullOrEmpty( entity.getHomeDirectory() ) )
+                        {
+                            myEntry.add( HOME_DIRECTORY, entity.getHomeDirectory() );
+                        }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getLoginShell() ) )
-            {
-                myEntry.add( LOGIN_SHELL, entity.getLoginShell() );
-            }
+                        if ( VUtil.isNotNullOrEmpty( entity.getLoginShell() ) )
+                        {
+                            myEntry.add( LOGIN_SHELL, entity.getLoginShell() );
+                        }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getGecos() ) )
-            {
-                myEntry.add( GECOS, entity.getGecos() );
-            }
-*/
+                        if ( VUtil.isNotNullOrEmpty( entity.getGecos() ) )
+                        {
+                            myEntry.add( GECOS, entity.getGecos() );
+                        }
+            */
 
             // These are multi-valued attributes, use the util function to load.
             // These items are optional.  The utility function will return quietly if item list is empty:
@@ -459,7 +530,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws UpdateException
      */
-    final User update(User entity) throws UpdateException
+    final User update( User entity ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
@@ -584,7 +655,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws UpdateException
      */
-    final User updateProps(User entity, boolean replace) throws UpdateException
+    final User updateProps( User entity, boolean replace ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
@@ -626,7 +697,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param user
      * @throws RemoveException
      */
-    final String remove(User user) throws RemoveException
+    final String remove( User user ) throws RemoveException
     {
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
@@ -654,7 +725,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param user
      * @throws org.apache.directory.fortress.core.UpdateException
      */
-    final void lock(User user) throws UpdateException
+    final void lock( User user ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
@@ -683,7 +754,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param user
      * @throws UpdateException
      */
-    final void unlock(User user) throws UpdateException
+    final void unlock( User user ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
@@ -718,7 +789,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    final User getUser(User user, boolean isRoles) throws FinderException
+    final User getUser( User user, boolean isRoles ) throws FinderException
     {
         User entity = null;
         LdapConnection ld = null;
@@ -789,7 +860,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    final List<UserAdminRole> getUserAdminRoles(User user) throws FinderException
+    final List<UserAdminRole> getUserAdminRoles( User user ) throws FinderException
     {
         List<UserAdminRole> roles = null;
         LdapConnection ld = null;
@@ -825,7 +896,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    final List<String> getRoles(User user) throws FinderException
+    final List<String> getRoles( User user ) throws FinderException
     {
         List<String> roles = null;
         LdapConnection ld = null;
@@ -869,11 +940,12 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException,  org.apache.directory.fortress.core.PasswordException
      */
-    final Session checkPassword(User user) throws FinderException, PasswordException
+    final Session checkPassword( User user ) throws FinderException, PasswordException
     {
         Session session = null;
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
+
         try
         {
             session = new ObjectFactory().createSession();
@@ -882,6 +954,7 @@ final class UserDAO extends ApacheDsDataProvider
             ld = getUserConnection();
             BindResponse bindResponse = bind( ld, userDn, user.getPassword() );
             String info = null;
+
             if ( bindResponse.getLdapResult().getResultCode() != ResultCodeEnum.SUCCESS )
             {
                 info = "PASSWORD INVALID for userId [" + user.getUserId() + "], resultCode [" +
@@ -889,12 +962,15 @@ final class UserDAO extends ApacheDsDataProvider
                 session.setMsg( info );
                 session.setErrorId( GlobalErrIds.USER_PW_INVLD );
             }
+
             PasswordPolicy respCtrl = getPwdRespCtrl( bindResponse );
+
             if ( respCtrl != null )
             {
                 // check IETF password policies here
                 checkPwPolicies( session, respCtrl );
             }
+
             if ( session.getErrorId() == 0 )
             {
                 session.setAuthenticated( true );
@@ -924,7 +1000,7 @@ final class UserDAO extends ApacheDsDataProvider
     }
 
 
-    private void checkPwPolicies(PwMessage pwMsg, PasswordPolicy respCtrl)
+    private void checkPwPolicies( PwMessage pwMsg, PasswordPolicy respCtrl )
     {
         int rc = 0;
         boolean result = false;
@@ -1039,7 +1115,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> findUsers(User user) throws FinderException
+    final List<User> findUsers( User user ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1117,7 +1193,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<String> findUsers(User user, int limit) throws FinderException
+    final List<String> findUsers( User user, int limit ) throws FinderException
     {
         List<String> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1169,7 +1245,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> getAuthorizedUsers(Role role) throws FinderException
+    final List<User> getAuthorizedUsers( Role role ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1178,7 +1254,7 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
@@ -1249,7 +1325,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> getAssignedUsers(Role role) throws FinderException
+    final List<User> getAssignedUsers( Role role ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1258,7 +1334,7 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
@@ -1303,7 +1379,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final Set<String> getAssignedUsers(Set<String> roles, String contextId) throws FinderException
+    final Set<String> getAssignedUsers( Set<String> roles, String contextId ) throws FinderException
     {
         Set<String> userSet = new HashSet<>();
         LdapConnection ld = null;
@@ -1367,7 +1443,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> getAssignedUsers(AdminRole role) throws FinderException
+    final List<User> getAssignedUsers( AdminRole role ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1422,7 +1498,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<String> getAuthorizedUsers(Role role, int limit) throws FinderException
+    final List<String> getAuthorizedUsers( Role role, int limit ) throws FinderException
     {
         List<String> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1476,7 +1552,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<String> findUsersList(String searchVal, String contextId) throws FinderException
+    final List<String> findUsersList( String searchVal, String contextId ) throws FinderException
     {
         List<String> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1528,7 +1604,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> findUsers(OrgUnit ou, boolean limitSize) throws FinderException
+    final List<User> findUsers( OrgUnit ou, boolean limitSize ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1593,7 +1669,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws SecurityException
      * @throws PasswordException
      */
-    final boolean changePassword(User entity, char[] newPassword) throws SecurityException
+    final boolean changePassword( User entity, char[] newPassword ) throws SecurityException
     {
         boolean rc = true;
         LdapConnection ld = null;
@@ -1655,7 +1731,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param user
      * @throws UpdateException
      */
-    final void resetUserPassword(User user) throws UpdateException
+    final void resetUserPassword( User user ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
@@ -1691,7 +1767,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    final String assign(UserRole uRole) throws UpdateException, FinderException
+    final String assign( UserRole uRole ) throws UpdateException, FinderException
     {
         LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
@@ -1739,7 +1815,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    final String deassign(UserRole uRole) throws UpdateException, FinderException
+    final String deassign( UserRole uRole ) throws UpdateException, FinderException
     {
         LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
@@ -1804,7 +1880,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    final String assign(UserAdminRole uRole) throws UpdateException, FinderException
+    final String assign( UserAdminRole uRole ) throws UpdateException, FinderException
     {
         LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
@@ -1849,7 +1925,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    final String deassign(UserAdminRole uRole) throws UpdateException, FinderException
+    final String deassign( UserAdminRole uRole ) throws UpdateException, FinderException
     {
         LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
@@ -1918,7 +1994,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws UpdateException
      * @throws Exception
      */
-    final String deletePwPolicy(User user) throws UpdateException
+    final String deletePwPolicy( User user ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
@@ -1951,7 +2027,8 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws LdapInvalidAttributeValueException
      */
-    private User unloadLdapEntry(Entry entry, long sequence, String contextId) throws LdapInvalidAttributeValueException
+    private User unloadLdapEntry( Entry entry, long sequence, String contextId )
+        throws LdapInvalidAttributeValueException
     {
         User entity = new ObjectFactory().createUser();
         entity.setSequenceId( sequence );
@@ -1978,14 +2055,14 @@ final class UserDAO extends ApacheDsDataProvider
             entity.setSystem( Boolean.valueOf( szBoolean ) );
         }
 
-/*
-        TODO: Add for RFC2307BIS
-        entity.setUidNumber( getAttribute( entry, UID_NUMBER ) );
-        entity.setGidNumber( getAttribute( entry, GID_NUMBER ) );
-        entity.setHomeDirectory( getAttribute( entry, HOME_DIRECTORY ) );
-        entity.setLoginShell( getAttribute( entry, LOGIN_SHELL ) );
-        entity.setGecos( getAttribute( entry, GECOS ) );
-*/
+        /*
+                TODO: Add for RFC2307BIS
+                entity.setUidNumber( getAttribute( entry, UID_NUMBER ) );
+                entity.setGidNumber( getAttribute( entry, GID_NUMBER ) );
+                entity.setHomeDirectory( getAttribute( entry, HOME_DIRECTORY ) );
+                entity.setLoginShell( getAttribute( entry, LOGIN_SHELL ) );
+                entity.setGecos( getAttribute( entry, GECOS ) );
+        */
 
         entity.addProperties( AttrHelper.getProperties( getAttributes( entry, GlobalIds.PROPS ) ) );
 
@@ -2021,7 +2098,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    private List<UserRole> getUserRoles(String userId, String contextId) throws FinderException
+    private List<UserRole> getUserRoles( String userId, String contextId ) throws FinderException
     {
         List<UserRole> roles = null;
         LdapConnection ld = null;
@@ -2059,7 +2136,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param entry collection of ldap attributes containing ARBAC role assignments in raw ldap format.
      * @throws LdapException
      */
-    private void loadUserAdminRoles(List<UserAdminRole> list, Entry entry) throws LdapException
+    private void loadUserAdminRoles( List<UserAdminRole> list, Entry entry ) throws LdapException
     {
         if ( list != null )
         {
@@ -2089,7 +2166,8 @@ final class UserDAO extends ApacheDsDataProvider
      * @param mods contains ldap modification set containing RBAC role assignments in raw ldap format to be updated.
      * @throws LdapInvalidAttributeValueException
      */
-    private void loadUserRoles(List<UserRole> list, List<Modification> mods) throws LdapInvalidAttributeValueException
+    private void loadUserRoles( List<UserRole> list, List<Modification> mods )
+        throws LdapInvalidAttributeValueException
     {
         Attribute userRoleData = new DefaultAttribute( GlobalIds.USER_ROLE_DATA );
         Attribute userRoleAssign = new DefaultAttribute( GlobalIds.USER_ROLE_ASSIGN );
@@ -2119,7 +2197,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param mods contains ldap modification set containing ARBAC role assignments in raw ldap format to be updated.
      * @throws LdapInvalidAttributeValueException
      */
-    private void loadUserAdminRoles(List<UserAdminRole> list, List<Modification> mods) throws
+    private void loadUserAdminRoles( List<UserAdminRole> list, List<Modification> mods ) throws
         LdapInvalidAttributeValueException
     {
         Attribute userAdminRoleData = new DefaultAttribute( GlobalIds.USER_ADMINROLE_DATA );
@@ -2157,7 +2235,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param entry ldap entry containing attributes mapping to RBAC role assignments in raw ldap format.
      * @throws LdapException
      */
-    private void loadUserRoles(List<UserRole> list, Entry entry) throws LdapException
+    private void loadUserRoles( List<UserRole> list, Entry entry ) throws LdapException
     {
         if ( list != null )
         {
@@ -2185,7 +2263,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param entry   collection of ldap attributes containing RBAC role assignments in raw ldap format.
      * @throws org.apache.directory.api.ldap.model.exception.LdapException
      */
-    private void loadAddress(Address address, Entry entry) throws LdapException
+    private void loadAddress( Address address, Entry entry ) throws LdapException
     {
         if ( address != null )
         {
@@ -2246,7 +2324,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param address contains entity of type {@link Address} targeted for updating into ldap.
      * @param mods    contains ldap modification set contains attributes to be updated in ldap.
      */
-    private void loadAddress(Address address, List<Modification> mods)
+    private void loadAddress( Address address, List<Modification> mods )
     {
         if ( address != null )
         {
@@ -2316,7 +2394,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException in the event of ldap
      * client error.
      */
-    private Address unloadAddress(Entry entry) throws LdapInvalidAttributeValueException
+    private Address unloadAddress( Entry entry ) throws LdapInvalidAttributeValueException
     {
         Address addr = new ObjectFactory().createAddress();
         List<String> pAddrs = getAttributes( entry, SchemaConstants.POSTAL_ADDRESS_AT );
@@ -2353,7 +2431,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param contextId
      * @return List of type {@link UserAdminRole} containing admin roles assigned to a particular user.
      */
-    private List<UserAdminRole> unloadUserAdminRoles(Entry entry, String userId, String contextId)
+    private List<UserAdminRole> unloadUserAdminRoles( Entry entry, String userId, String contextId )
     {
         List<UserAdminRole> uRoles = null;
         List<String> roles = getAttributes( entry, GlobalIds.USER_ADMINROLE_DATA );
@@ -2382,7 +2460,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param contextId
      * @return
      */
-    private String getDn(String userId, String contextId)
+    private String getDn( String userId, String contextId )
     {
         return SchemaConstants.UID_AT + "=" + userId + "," + getRootDn( contextId, GlobalIds.USER_ROOT );
     }
@@ -2398,7 +2476,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param contextId
      * @return List of type {@link UserRole} containing RBAC roles assigned to a particular user.
      */
-    private List<UserRole> unloadUserRoles(Entry entry, String userId, String contextId)
+    private List<UserRole> unloadUserRoles( Entry entry, String userId, String contextId )
     {
         List<UserRole> uRoles = null;
         List<String> roles = getAttributes( entry, GlobalIds.USER_ROLE_DATA );
