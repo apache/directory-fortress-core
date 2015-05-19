@@ -91,7 +91,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * <pre>
  * ------------------------------------------
  * Fortress Roles Structural Object Class
- * objectclass	( 1.3.6.1.4.1.38088.2.1
+ * objectclass    ( 1.3.6.1.4.1.38088.2.1
  *  NAME 'ftRls'
  *  DESC 'Fortress Role Structural Object Class'
  *  SUP organizationalrole
@@ -480,26 +480,27 @@ public class AdminRole extends Role implements Administrator
         {
             return true;
         }
-        
+
         if ( this.getName() == null )
         {
             return false;
         }
-        
+
         if ( !( thatObj instanceof AdminRole ) )
         {
             return false;
         }
-        
+
         Role thatRole = ( Role ) thatObj;
-        
+
         if ( thatRole.getName() == null )
         {
             return false;
         }
-        
+
         return thatRole.getName().equalsIgnoreCase( this.getName() );
     }
+
 
     @Override
     public int hashCode()
@@ -513,6 +514,7 @@ public class AdminRole extends Role implements Administrator
         return result;
     }
 
+
     /**
      * @see Object#toString()
      */
@@ -523,7 +525,7 @@ public class AdminRole extends Role implements Administrator
         sb.append( "AdminRole object: \n" );
 
         sb.append( super.toString( "    " ) ).append( '\n' );
-        
+
         if ( beginRange != null )
         {
             sb.append( "    beginRange :" ).append( beginRange ).append( '\n' );

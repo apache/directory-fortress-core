@@ -655,7 +655,7 @@
      <target name="init-openldap-config" depends="init" description="--> map env params from build.properties to scripts and config files">
          <echo message="###############  Modify slapd configuration per user settings  ###############"/>
          <delete file="${target.slapd.conf}" failonerror="false"/>
-	     <copy file="${source.slapd.conf}" tofile="${target.slapd.conf}"/>
+       <copy file="${source.slapd.conf}" tofile="${target.slapd.conf}"/>
          <replace file="${target.slapd.conf}" token="@SCHEMA_PATH@" value="${slapd.schema.dir}"/>
          <replace file="${target.slapd.conf}" token="@SUFFIX@" value="${suffix}"/>
          <replace file="${target.slapd.conf}" token="@PID_PATH@" value="${pid.dir}"/>
@@ -805,12 +805,12 @@
          ================================= -->
      <target name="init-fortress-config-remote" depends="init" description="--> uses external build.properties to create local script and config files.."  if="builder.home">
          <echo message="###############  Import fortress configuration from Builder directory  ###############"/>
-	     <copy file="${builder.bootstrap.conf}" tofile="${dst.bootstrap.conf}"/>
-	     <copy file="${builder.remote.conf}" tofile="${dst.remote.conf}"/>
-	     <copy file="${builder.load.bootstrap.script}" tofile="${dst.load.bootstrap.script}"/>
+       <copy file="${builder.bootstrap.conf}" tofile="${dst.bootstrap.conf}"/>
+       <copy file="${builder.remote.conf}" tofile="${dst.remote.conf}"/>
+       <copy file="${builder.load.bootstrap.script}" tofile="${dst.load.bootstrap.script}"/>
          <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
          <delete file="${bootstrap.ehcache.conf}"/>
-	     <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>
+       <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>
          <echo message="Target init-fortress-config-remote complete."/>
      </target>
 
@@ -822,7 +822,7 @@
          <delete file="${dst.bootstrap.conf}"/>
          <delete file="${dst.remote.conf}"/>
 
-	     <copy file="${src.bootstrap.conf}" tofile="${dst.bootstrap.conf}"/>
+       <copy file="${src.bootstrap.conf}" tofile="${dst.bootstrap.conf}"/>
          <replace file="${dst.bootstrap.conf}" token="@SUFFIX@" value="${suffix}"/>
          <replace file="${dst.bootstrap.conf}" token="@LDAP_HOST@" value="${ldap.host}"/>
          <replace file="${dst.bootstrap.conf}" token="@LDAP_PORT@" value="${ldap.port}"/>
@@ -859,7 +859,7 @@
          <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE_PW@" value="${trust.store.password}"/>
          <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE_SET_PROPW@" value="${trust.store.set.prop}"/>
 
-	     <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
+       <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
          <replace file="${dst.remote.conf}" token="@SUFFIX@" value="${suffix}"/>
          <replace file="${dst.remote.conf}" token="@LDAP_HOST@" value="${ldap.host}"/>
          <replace file="${dst.remote.conf}" token="@LDAP_PORT@" value="${ldap.port}"/>
@@ -892,7 +892,7 @@
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
          <delete file="${dst.load.bootstrap.script}"/>
-	     <copy file="${src.load.bootstrap.script}" tofile="${dst.load.bootstrap.script}"/>
+       <copy file="${src.load.bootstrap.script}" tofile="${dst.load.bootstrap.script}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_NAME@" value="${suffix.name}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC@" value="${suffix.dc}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC2@" value="${suffix.dc2}"/>
@@ -915,7 +915,7 @@
          <replace file="${dst.load.bootstrap.script}" token="@GROUP_PROPERTIES@" value="${group.properties}"/>
          <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
          <delete file="${bootstrap.ehcache.conf}"/>
-	     <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>
+       <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>
 
          <echo message="Target init-fortress-config-local complete."/>
      </target>
@@ -1015,7 +1015,7 @@
         <copy todir="${slapd.dir}" file="${target.slapd.conf}"/>
         <copy todir="${slapd.dir}" file="${target.symas.conf}"/>
 
-        <antcall target="copy-access-libs"></antcall>		
+        <antcall target="copy-access-libs"></antcall>    
         <antcall target="init-slapd-win-script"></antcall>
         <antcall target="start-slapd"></antcall>
         <antcall target="load-slapd"></antcall>
@@ -1043,11 +1043,11 @@
          ================================= -->
     <target name="copy-access-libs" depends="init" >
         <echo message="###############  Copy access log libs ${openldap.install.artifact.dir} to openldap lib folder ${slapd.module.dir}"/>
-		<copy todir="${slapd.module.dir}" failonerror="false">
-			<fileset dir="${openldap.install.artifact.dir}">
-				<include name="**/accesslog*"/>
-			</fileset>
-		</copy>
+    <copy todir="${slapd.module.dir}" failonerror="false">
+      <fileset dir="${openldap.install.artifact.dir}">
+        <include name="**/accesslog*"/>
+      </fileset>
+    </copy>
     </target>
 
     <!-- =================================
@@ -1214,7 +1214,7 @@
     <target name="slapd.dir.check">
         <condition property="slapd.dir.exists">
             <available file="${slapd.exe.location}" type="dir"/>
-		</condition>
+    </condition>
      </target>
 
     <!-- =================================
@@ -1234,7 +1234,7 @@
             <arg value="/${fortress.home.drive}"/>
             <arg value="${stop.slapd.script-win}"/>
         </exec>
-	  </target>
+    </target>
 
     <!-- =================================
           target: bdb-delete - Use Caution as it removes the file volume containing the BerkeleyDB User data!
@@ -1536,7 +1536,7 @@
          ================================= -->
     <target name="enmasse-maven-install" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-        	<arg value="install"/>
+          <arg value="install"/>
         </artifact:mvn>
     </target>
 
@@ -1545,7 +1545,7 @@
          ================================= -->
     <target name="enmasse-maven-deploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-        	<arg value="tomcat:deploy"/>
+          <arg value="tomcat:deploy"/>
             <arg value="-DfailIfNoTests=false" />
         </artifact:mvn>
     </target>
@@ -1555,7 +1555,7 @@
          ================================= -->
     <target name="enmasse-maven-redeploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-        	<arg value="tomcat:redeploy"/>
+          <arg value="tomcat:redeploy"/>
             <arg value="-DfailIfNoTests=false" />
         </artifact:mvn>
     </target>
@@ -1565,7 +1565,7 @@
          ================================= -->
     <target name="enmasse-maven-test" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-        	<arg value="test"/>
+          <arg value="test"/>
         </artifact:mvn>
     </target>
 
@@ -1597,7 +1597,7 @@
          ================================= -->
     <target name="commander-maven-install" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-        	<arg value="install"/>
+          <arg value="install"/>
         </artifact:mvn>
     </target>
 
@@ -1606,7 +1606,7 @@
          ================================= -->
     <target name="commander-maven-deploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-        	<arg value="tomcat:deploy"/>
+          <arg value="tomcat:deploy"/>
         </artifact:mvn>
     </target>
 
@@ -1615,7 +1615,7 @@
          ================================= -->
     <target name="commander-maven-redeploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-        	<arg value="tomcat:redeploy"/>
+          <arg value="tomcat:redeploy"/>
         </artifact:mvn>
     </target>
 
@@ -1624,7 +1624,7 @@
          ================================= -->
     <target name="commander-maven-load" depends="init" description="--> load Commander test policy into LDAP">
         <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-        	<arg value="test"/>
+          <arg value="test"/>
         </artifact:mvn>
     </target>
 
@@ -1634,8 +1634,8 @@
     <target name="commander-maven-test" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
         <replace file="${commander.dir}/src/test/java/org/openldap/commander/integration/CommanderSeleniumITCase.java" token="http://192.168.1.101:8080" value="http://${http.host}:${http.port}"/>
         <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-        	<arg value="verify"/>
-    		<arg value="-DskipTests=false"/>
+          <arg value="verify"/>
+        <arg value="-DskipTests=false"/>
         </artifact:mvn>
     </target>
 
@@ -1643,10 +1643,10 @@
           target: download-ivy - pulls down ivy.jar from maven 2 website
          ================================= -->
     <target name="download-ivy" depends="init"  description="--> pull the ivy jar dependency" unless="local.mode">
-		<!-- download from web site so that it can be used even without any special installation -->
-		<echo message="downloading ivy to Ant home: ${ant.home}"/>
-    	<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
-    		 dest="${ant.home}/lib" usetimestamp="true"/>
+    <!-- download from web site so that it can be used even without any special installation -->
+    <echo message="downloading ivy to Ant home: ${ant.home}"/>
+      <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+         dest="${ant.home}/lib" usetimestamp="true"/>
     </target>
 
     <!-- =================================
@@ -1659,8 +1659,8 @@
     <!-- =================================
           target: clean-cache
          ================================= -->
-	<target name="clean-cache" description="--> clean the ivy cache">
-		<ivy:cleancache />
+  <target name="clean-cache" description="--> clean the ivy cache">
+    <ivy:cleancache />
     </target>
 
     <!-- =================================
@@ -1679,38 +1679,38 @@
     <!-- =================================
           Update project version (both build.xml and pom.xml) from SNAPSHOT to RELEASE
          ================================= -->
-	<target name="stage" depends="dist" description="--> deploy release version to Maven staging repository">
-		<!-- sign and deploy the main artifact -->
-		<artifact:mvn>
-			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
-			<arg value="-Durl=${maven-staging-repository-url}" />
-			<arg value="-DrepositoryId=${maven-staging-repository-id}" />
-			<arg value="-DpomFile=pom.xml" />
-			<arg value="-Dfile=${maven-jar}" />
+  <target name="stage" depends="dist" description="--> deploy release version to Maven staging repository">
+    <!-- sign and deploy the main artifact -->
+    <artifact:mvn>
+      <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+      <arg value="-Durl=${maven-staging-repository-url}" />
+      <arg value="-DrepositoryId=${maven-staging-repository-id}" />
+      <arg value="-DpomFile=pom.xml" />
+      <arg value="-Dfile=${maven-jar}" />
             <arg value="-Pgpg" />
-		</artifact:mvn>
+    </artifact:mvn>
 
-		<!-- sign and deploy the sources artifact -->
-		<artifact:mvn>
-			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
-			<arg value="-Durl=${maven-staging-repository-url}" />
-			<arg value="-DrepositoryId=${maven-staging-repository-id}" />
-			<arg value="-DpomFile=pom.xml" />
-			<arg value="-Dfile=${maven-sources-jar}" />
-			<arg value="-Dclassifier=sources" />
+    <!-- sign and deploy the sources artifact -->
+    <artifact:mvn>
+      <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+      <arg value="-Durl=${maven-staging-repository-url}" />
+      <arg value="-DrepositoryId=${maven-staging-repository-id}" />
+      <arg value="-DpomFile=pom.xml" />
+      <arg value="-Dfile=${maven-sources-jar}" />
+      <arg value="-Dclassifier=sources" />
             <arg value="-Pgpg" />
-		</artifact:mvn>
+    </artifact:mvn>
 
-		<!-- sign and deploy the javadoc artifact -->
-		<artifact:mvn>
-			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
-			<arg value="-Durl=${maven-staging-repository-url}" />
-			<arg value="-DrepositoryId=${maven-staging-repository-id}" />
-			<arg value="-DpomFile=pom.xml" />
-			<arg value="-Dfile=${maven-javadoc-jar}" />
-			<arg value="-Dclassifier=javadoc" />
+    <!-- sign and deploy the javadoc artifact -->
+    <artifact:mvn>
+      <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+      <arg value="-Durl=${maven-staging-repository-url}" />
+      <arg value="-DrepositoryId=${maven-staging-repository-id}" />
+      <arg value="-DpomFile=pom.xml" />
+      <arg value="-Dfile=${maven-javadoc-jar}" />
+      <arg value="-Dclassifier=javadoc" />
             <arg value="-Pgpg" />
-		</artifact:mvn>
-	</target>
+    </artifact:mvn>
+  </target>
 
 </project>

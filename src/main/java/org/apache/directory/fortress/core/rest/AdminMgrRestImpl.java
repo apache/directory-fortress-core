@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.rest;
 
+
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -74,6 +75,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
 {
     private static final String CLS_NM = AdminMgrRestImpl.class.getName();
 
+
     /**
      * This command creates a new RBAC user. The command is valid only if the new user is
      * not already a member of the USERS data set. The USER data set is updated. The new user
@@ -115,31 +117,32 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          Thrown in the event of data validation or system error.
      */
     @Override
-    public User addUser(User user)
+    public User addUser( User user )
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".addUser");
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".addUser" );
         User retUser;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(user);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( user );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_ADD);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.USER_ADD );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retUser = (User) response.getEntity();
+            retUser = ( User ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retUser;
     }
+
 
     /**
      * This command disables an existing user in the RBAC database. The command is valid
@@ -160,25 +163,26 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          Thrown in the event of data validation or system error.
      */
     @Override
-    public void disableUser(User user)
+    public void disableUser( User user )
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".disableUser");
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".disableUser" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(user);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( user );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_DISABLE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.USER_DISABLE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command deletes an existing user from the RBAC database. The command is valid
@@ -195,25 +199,26 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
-    public void deleteUser(User user)
+    public void deleteUser( User user )
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".deleteUser");
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".deleteUser" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(user);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( user );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_DELETE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.USER_DELETE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This method performs an update on User entity in directory.  Prior to making this call the entity must exist in
@@ -252,31 +257,32 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     @Override
-    public User updateUser(User user)
+    public User updateUser( User user )
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".updateUser");
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".updateUser" );
         User retUser;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(user);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( user );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_UPDATE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.USER_UPDATE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retUser = (User) response.getEntity();
+            retUser = ( User ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retUser;
     }
+
 
     /**
      * Method will change user's password.  This method will evaluate user's password policies.
@@ -294,27 +300,28 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          Will be thrown in the event of password policy violation or system error.
      */
     @Override
-    public void changePassword(User user, char[] newPassword)
+    public void changePassword( User user, char[] newPassword )
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".changePassword");
-        VUtil.assertNotNullOrEmpty(newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".changePassword");
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".changePassword" );
+        VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".changePassword" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        user.setNewPassword(newPassword);
-        request.setEntity(user);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        user.setNewPassword( newPassword );
+        request.setEntity( user );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_CHGPW);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.USER_CHGPW );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * Method will lock user's password which will prevent the user from authenticating with directory.
@@ -328,25 +335,26 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
     @Override
-    public void lockUserAccount(User user)
+    public void lockUserAccount( User user )
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".lockUserAccount");
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".lockUserAccount" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(user);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( user );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_LOCK);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.USER_LOCK );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * Method will unlock user's password which will enable user to authenticate with directory.
@@ -360,25 +368,26 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
     @Override
-    public void unlockUserAccount(User user)
+    public void unlockUserAccount( User user )
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".unlockUserAccount");
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".unlockUserAccount" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(user);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( user );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_UNLOCK);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.USER_UNLOCK );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * Method will reset user's password which will require user to change password before successful authentication with directory.
@@ -394,27 +403,28 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
     @Override
-    public void resetPassword(User user, char[] newPassword)
+    public void resetPassword( User user, char[] newPassword )
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".resetPassword");
-        VUtil.assertNotNullOrEmpty(newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".resetPassword");
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".resetPassword" );
+        VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".resetPassword" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        user.setNewPassword(newPassword);
-        request.setEntity(user);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        user.setNewPassword( newPassword );
+        request.setEntity( user );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_RESET);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.USER_RESET );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * Method will delete user's password policy designation.
@@ -428,10 +438,10 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException will be thrown in the event of password policy violation or system error.
      */
     @Override
-    public void deletePasswordPolicy(User user)
+    public void deletePasswordPolicy( User user )
         throws SecurityException
     {
-		throw new java.lang.UnsupportedOperationException();
+        throw new java.lang.UnsupportedOperationException();
 
     }
 
@@ -461,31 +471,32 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
-    public Role addRole(Role role)
+    public Role addRole( Role role )
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addRole");
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addRole" );
         Role retRole;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(role);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( role );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_ADD);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_ADD );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retRole = (Role) response.getEntity();
+            retRole = ( Role ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retRole;
     }
+
 
     /**
      * This command deletes an existing role from the RBAC database. The command is valid
@@ -502,25 +513,26 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          Thrown in the event of data validation or system error.
      */
     @Override
-    public void deleteRole(Role role)
+    public void deleteRole( Role role )
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteRole");
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteRole" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(role);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( role );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_DELETE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_DELETE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * Method will update a Role entity in the directory.  The role must exist prior to this call.
@@ -546,31 +558,32 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          in the event of validation or system error.
      */
     @Override
-    public Role updateRole(Role role)
+    public Role updateRole( Role role )
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".updateRole");
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".updateRole" );
         Role retRole;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(role);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( role );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_UPDATE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_UPDATE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retRole = (Role) response.getEntity();
+            retRole = ( Role ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retRole;
     }
+
 
     /**
      * This command assigns a user to a role.
@@ -622,25 +635,26 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          in the event of validation or system error.
      */
     @Override
-    public void assignUser(UserRole uRole)
+    public void assignUser( UserRole uRole )
         throws SecurityException
     {
-        VUtil.assertNotNull(uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".assignUser");
+        VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".assignUser" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(uRole);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( uRole );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_ASGN);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_ASGN );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command deletes the assignment of the User from the Role entities. The command is
@@ -661,25 +675,26 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
     @Override
-    public void deassignUser(UserRole uRole)
+    public void deassignUser( UserRole uRole )
         throws SecurityException
     {
-        VUtil.assertNotNull(uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".deassignUser");
+        VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".deassignUser" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(uRole);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( uRole );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_DEASGN);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_DEASGN );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This method will add permission operation to an existing permission object which resides under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
@@ -703,31 +718,32 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     @Override
-    public Permission addPermission(Permission perm)
+    public Permission addPermission( Permission perm )
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".addPermission");
+        VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".addPermission" );
         Permission retPerm;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(perm);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( perm );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_ADD);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.PERM_ADD );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retPerm = (Permission) response.getEntity();
+            retPerm = ( Permission ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retPerm;
     }
+
 
     /**
      * This method will update permission operation pre-existing in target directory under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
@@ -752,31 +768,32 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          - thrown in the event of perm object data or system error.
      */
     @Override
-    public Permission updatePermission(Permission perm)
+    public Permission updatePermission( Permission perm )
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".updatePermission");
+        VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".updatePermission" );
         Permission retPerm;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(perm);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( perm );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_UPDATE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.PERM_UPDATE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retPerm = (Permission) response.getEntity();
+            retPerm = ( Permission ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retPerm;
     }
+
 
     /**
      * This method will remove permission operation entity from permission object. A Fortress permission is (object->operation).
@@ -792,25 +809,26 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          - thrown in the event of perm object data or system error.
      */
     @Override
-    public void deletePermission(Permission perm)
+    public void deletePermission( Permission perm )
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".deletePermission");
+        VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".deletePermission" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(perm);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( perm );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_DELETE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.PERM_DELETE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This method will add permission object to perms container in directory. The perm object must not exist before making this call.
@@ -832,31 +850,32 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     @Override
-    public PermObj addPermObj(PermObj pObj)
+    public PermObj addPermObj( PermObj pObj )
         throws SecurityException
     {
-        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".addPermObj");
+        VUtil.assertNotNull( pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".addPermObj" );
         PermObj retObj;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(pObj);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( pObj );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.OBJ_ADD);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.OBJ_ADD );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retObj = (PermObj) response.getEntity();
+            retObj = ( PermObj ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retObj;
     }
+
 
     /**
      * This method will update permission object in perms container in directory.  The perm object must exist before making this call.
@@ -879,31 +898,32 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          - thrown in the event of perm object data or system error.
      */
     @Override
-    public PermObj updatePermObj(PermObj pObj)
+    public PermObj updatePermObj( PermObj pObj )
         throws SecurityException
     {
-        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".updatePermObj");
+        VUtil.assertNotNull( pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".updatePermObj" );
         PermObj retObj;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(pObj);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( pObj );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.OBJ_UPDATE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.OBJ_UPDATE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retObj = (PermObj) response.getEntity();
+            retObj = ( PermObj ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retObj;
     }
+
 
     /**
      * This method will remove permission object to perms container in directory.  This method will also remove
@@ -917,25 +937,26 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     @Override
-    public void deletePermObj(PermObj pObj)
+    public void deletePermObj( PermObj pObj )
         throws SecurityException
     {
-        VUtil.assertNotNull(pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".deletePermObj");
+        VUtil.assertNotNull( pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".deletePermObj" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(pObj);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( pObj );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.OBJ_DELETE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.OBJ_DELETE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command grants a role the permission to perform an operation on an object to a role.
@@ -956,32 +977,33 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          Thrown in the event of data validation or system error.
      */
     @Override
-    public void grantPermission(Permission perm, Role role)
+    public void grantPermission( Permission perm, Role role )
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".grantPermission");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".grantPermission");
+        VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".grantPermission" );
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".grantPermission" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
+        request.setContextId( this.contextId );
         PermGrant permGrant = new PermGrant();
-        permGrant.setAdmin(perm.isAdmin());
-        permGrant.setObjName(perm.getObjName());
-        permGrant.setObjId(perm.getObjId());
-        permGrant.setOpName(perm.getOpName());
-        permGrant.setRoleNm(role.getName());
-        request.setEntity(permGrant);
-        if (this.adminSess != null)
+        permGrant.setAdmin( perm.isAdmin() );
+        permGrant.setObjName( perm.getObjName() );
+        permGrant.setObjId( perm.getObjId() );
+        permGrant.setOpName( perm.getOpName() );
+        permGrant.setRoleNm( role.getName() );
+        request.setEntity( permGrant );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_GRANT);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_GRANT );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command revokes the permission to perform an operation on an object from the set
@@ -1001,32 +1023,33 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
-    public void revokePermission(Permission perm, Role role)
+    public void revokePermission( Permission perm, Role role )
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".revokePermission");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".revokePermission");
+        VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".revokePermission" );
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".revokePermission" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
+        request.setContextId( this.contextId );
         PermGrant permGrant = new PermGrant();
-        permGrant.setAdmin(perm.isAdmin());
-        permGrant.setObjName(perm.getObjName());
-        permGrant.setObjId(perm.getObjId());
-        permGrant.setOpName(perm.getOpName());
-        permGrant.setRoleNm(role.getName());
-        request.setEntity(permGrant);
-        if (this.adminSess != null)
+        permGrant.setAdmin( perm.isAdmin() );
+        permGrant.setObjName( perm.getObjName() );
+        permGrant.setObjId( perm.getObjId() );
+        permGrant.setOpName( perm.getOpName() );
+        permGrant.setRoleNm( role.getName() );
+        request.setEntity( permGrant );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_REVOKE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_REVOKE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command grants a user the permission to perform an operation on an object to a role.
@@ -1047,32 +1070,33 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          Thrown in the event of data validation or system error.
      */
     @Override
-    public void grantPermission(Permission perm, User user)
+    public void grantPermission( Permission perm, User user )
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".grantPermissionUser");
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".grantPermissionUser");
+        VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".grantPermissionUser" );
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".grantPermissionUser" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
+        request.setContextId( this.contextId );
         PermGrant permGrant = new PermGrant();
-        permGrant.setAdmin(perm.isAdmin());
-        permGrant.setObjName(perm.getObjName());
-        permGrant.setObjId(perm.getObjId());
-        permGrant.setOpName(perm.getOpName());
-        permGrant.setUserId(user.getUserId());
-        request.setEntity(permGrant);
-        if (this.adminSess != null)
+        permGrant.setAdmin( perm.isAdmin() );
+        permGrant.setObjName( perm.getObjName() );
+        permGrant.setObjId( perm.getObjId() );
+        permGrant.setOpName( perm.getOpName() );
+        permGrant.setUserId( user.getUserId() );
+        request.setEntity( permGrant );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_GRANT);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.USER_GRANT );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command revokes the permission to perform an operation on an object from the set
@@ -1092,32 +1116,33 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
-    public void revokePermission(Permission perm, User user)
+    public void revokePermission( Permission perm, User user )
         throws SecurityException
     {
-        VUtil.assertNotNull(perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".revokePermission");
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".revokePermission");
+        VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".revokePermission" );
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".revokePermission" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
+        request.setContextId( this.contextId );
         PermGrant permGrant = new PermGrant();
-        permGrant.setAdmin(perm.isAdmin());
-        permGrant.setObjName(perm.getObjName());
-        permGrant.setObjId(perm.getObjId());
-        permGrant.setOpName(perm.getOpName());
-        permGrant.setUserId(user.getUserId());
-        request.setEntity(permGrant);
-        if (this.adminSess != null)
+        permGrant.setAdmin( perm.isAdmin() );
+        permGrant.setObjName( perm.getObjName() );
+        permGrant.setObjId( perm.getObjId() );
+        permGrant.setOpName( perm.getOpName() );
+        permGrant.setUserId( user.getUserId() );
+        request.setEntity( permGrant );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_REVOKE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.USER_REVOKE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
@@ -1148,29 +1173,30 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     @Override
-    public void addDescendant(Role parentRole, Role childRole)
+    public void addDescendant( Role parentRole, Role childRole )
         throws SecurityException
     {
-        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addDescendant");
-        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addDescendant");
+        VUtil.assertNotNull( parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addDescendant" );
+        VUtil.assertNotNull( childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addDescendant" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
+        request.setContextId( this.contextId );
         RoleRelationship relationship = new RoleRelationship();
-        relationship.setParent(parentRole);
-        relationship.setChild(childRole);
-        request.setEntity(relationship);
-        if (this.adminSess != null)
+        relationship.setParent( parentRole );
+        relationship.setChild( childRole );
+        request.setEntity( relationship );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_DESC);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_DESC );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
@@ -1201,29 +1227,30 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     @Override
-    public void addAscendant(Role childRole, Role parentRole)
+    public void addAscendant( Role childRole, Role parentRole )
         throws SecurityException
     {
-        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addAscendant");
-        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addAscendant");
+        VUtil.assertNotNull( parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addAscendant" );
+        VUtil.assertNotNull( childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addAscendant" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
+        request.setContextId( this.contextId );
         RoleRelationship relationship = new RoleRelationship();
-        relationship.setParent(parentRole);
-        relationship.setChild(childRole);
-        request.setEntity(relationship);
-        if (this.adminSess != null)
+        relationship.setParent( parentRole );
+        relationship.setChild( childRole );
+        request.setEntity( relationship );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_ASC);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_ASC );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
@@ -1242,29 +1269,30 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          thrown in the event of data validation or system error.
      */
     @Override
-    public void addInheritance(Role parentRole, Role childRole)
+    public void addInheritance( Role parentRole, Role childRole )
         throws SecurityException
     {
-        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addInheritance");
-        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addInheritance");
+        VUtil.assertNotNull( parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addInheritance" );
+        VUtil.assertNotNull( childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addInheritance" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
+        request.setContextId( this.contextId );
         RoleRelationship relationship = new RoleRelationship();
-        relationship.setParent(parentRole);
-        relationship.setChild(childRole);
-        request.setEntity(relationship);
-        if (this.adminSess != null)
+        relationship.setParent( parentRole );
+        relationship.setChild( childRole );
+        request.setEntity( relationship );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_ADDINHERIT);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_ADDINHERIT );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command deletes an existing immediate inheritance relationship parentRole <<-- childRole. The command is
@@ -1282,29 +1310,30 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     @Override
-    public void deleteInheritance(Role parentRole, Role childRole)
+    public void deleteInheritance( Role parentRole, Role childRole )
         throws SecurityException
     {
-        VUtil.assertNotNull(parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".deleteInheritance");
-        VUtil.assertNotNull(childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".deleteInheritance");
+        VUtil.assertNotNull( parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".deleteInheritance" );
+        VUtil.assertNotNull( childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".deleteInheritance" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
+        request.setContextId( this.contextId );
         RoleRelationship relationship = new RoleRelationship();
-        relationship.setParent(parentRole);
-        relationship.setChild(childRole);
-        request.setEntity(relationship);
-        if (this.adminSess != null)
+        relationship.setParent( parentRole );
+        relationship.setChild( childRole );
+        request.setEntity( relationship );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_DELINHERIT);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.ROLE_DELINHERIT );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
+
 
     /**
      * This command creates a named SSD set of roles and sets the cardinality n of its subsets
@@ -1330,31 +1359,32 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          in the event of data validation or system error.
      */
     @Override
-    public SDSet createSsdSet(SDSet ssdSet)
+    public SDSet createSsdSet( SDSet ssdSet )
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".createSsdSet");
+        VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".createSsdSet" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(ssdSet);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( ssdSet );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_ADD);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.SSD_ADD );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
+
 
     /**
      * This command updates existing SSD set of roles and sets the cardinality n of its subsets
@@ -1382,32 +1412,31 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @return reference to SSDSet object targeted for update.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet updateSsdSet(SDSet ssdSet)
+    public SDSet updateSsdSet( SDSet ssdSet )
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".updateSsdSet");
+        VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".updateSsdSet" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(ssdSet);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( ssdSet );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_UPDATE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.SSD_UPDATE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
-
 
 
     /**
@@ -1428,33 +1457,34 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet addSsdRoleMember(SDSet ssdSet, Role role)
+    public SDSet addSsdRoleMember( SDSet ssdSet, Role role )
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".addSsdRoleMember");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addSsdRoleMember");
+        VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".addSsdRoleMember" );
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addSsdRoleMember" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(ssdSet);
-        request.setValue(role.getName());
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( ssdSet );
+        request.setValue( role.getName() );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_ADD_MEMBER);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.SSD_ADD_MEMBER );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
+
 
     /**
      * This command removes a role from a named SSD set of roles. The cardinality associated with the role set remains unchanged.
@@ -1475,33 +1505,34 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet deleteSsdRoleMember(SDSet ssdSet, Role role)
+    public SDSet deleteSsdRoleMember( SDSet ssdSet, Role role )
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteSsdRoleMember");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteSsdRoleMember");
+        VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteSsdRoleMember" );
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteSsdRoleMember" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(ssdSet);
-        request.setValue(role.getName());
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( ssdSet );
+        request.setValue( role.getName() );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_DEL_MEMBER);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.SSD_DEL_MEMBER );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
+
 
     /**
      * This command deletes a SSD role set completely. The command is valid if and only if the SSD role set exists.
@@ -1515,31 +1546,32 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet deleteSsdSet(SDSet ssdSet)
+    public SDSet deleteSsdSet( SDSet ssdSet )
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteSsdSet");
+        VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteSsdSet" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(ssdSet);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( ssdSet );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_DELETE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.SSD_DELETE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
+
 
     /**
      * This command sets the cardinality associated with a given SSD role set. The command is valid if and only if:
@@ -1558,32 +1590,33 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet setSsdSetCardinality(SDSet ssdSet, int cardinality)
+    public SDSet setSsdSetCardinality( SDSet ssdSet, int cardinality )
         throws SecurityException
     {
-        VUtil.assertNotNull(ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".setSsdSetCardinality");
+        VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".setSsdSetCardinality" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        ssdSet.setCardinality(cardinality);
-        request.setEntity(ssdSet);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        ssdSet.setCardinality( cardinality );
+        request.setEntity( ssdSet );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_CARD_UPDATE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.SSD_CARD_UPDATE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
+
 
     /**
      * This command creates a named DSD set of roles and sets an associated cardinality n.
@@ -1609,28 +1642,28 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet createDsdSet(SDSet dsdSet)
+    public SDSet createDsdSet( SDSet dsdSet )
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".createDsdSet");
+        VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".createDsdSet" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(dsdSet);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( dsdSet );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_ADD);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.DSD_ADD );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
@@ -1662,28 +1695,28 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @return reference to DSDSet object targeted for update.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet updateDsdSet(SDSet dsdSet)
+    public SDSet updateDsdSet( SDSet dsdSet )
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".updateDsdSet");
+        VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".updateDsdSet" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(dsdSet);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( dsdSet );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_UPDATE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.DSD_UPDATE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
@@ -1708,30 +1741,30 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          in the event of data validation or system error.
      */
     @Override
-    public SDSet addDsdRoleMember(SDSet dsdSet, Role role)
+    public SDSet addDsdRoleMember( SDSet dsdSet, Role role )
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".addDsdRoleMember");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addDsdRoleMember");
+        VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".addDsdRoleMember" );
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addDsdRoleMember" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(dsdSet);
-        request.setValue(role.getName());
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( dsdSet );
+        request.setValue( role.getName() );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_ADD_MEMBER);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.DSD_ADD_MEMBER );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
@@ -1756,30 +1789,30 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * @throws SecurityException in the event of data validation or system error.
      */
     @Override
-    public SDSet deleteDsdRoleMember(SDSet dsdSet, Role role)
+    public SDSet deleteDsdRoleMember( SDSet dsdSet, Role role )
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteDsdRoleMember");
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteSsdRoleMember");
+        VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteDsdRoleMember" );
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteSsdRoleMember" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(dsdSet);
-        request.setValue(role.getName());
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( dsdSet );
+        request.setValue( role.getName() );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_DEL_MEMBER);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.DSD_DEL_MEMBER );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
@@ -1798,28 +1831,28 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          in the event of data validation or system error.
      */
     @Override
-    public SDSet deleteDsdSet(SDSet dsdSet)
+    public SDSet deleteDsdSet( SDSet dsdSet )
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteDsdSet");
+        VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteDsdSet" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(dsdSet);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( dsdSet );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_DELETE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.DSD_DELETE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }
@@ -1843,29 +1876,29 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      *          in the event of data validation or system error.
      */
     @Override
-    public SDSet setDsdSetCardinality(SDSet dsdSet, int cardinality)
+    public SDSet setDsdSetCardinality( SDSet dsdSet, int cardinality )
         throws SecurityException
     {
-        VUtil.assertNotNull(dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".setSsdSetCardinality");
+        VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".setSsdSetCardinality" );
         SDSet retSet;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        dsdSet.setCardinality(cardinality);
-        request.setEntity(dsdSet);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        dsdSet.setCardinality( cardinality );
+        request.setEntity( dsdSet );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_CARD_UPDATE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.DSD_CARD_UPDATE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retSet = (SDSet) response.getEntity();
+            retSet = ( SDSet ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSet;
     }

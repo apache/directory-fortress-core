@@ -111,7 +111,7 @@ public class GlobalIds
      */
     public static final String GROUP_IMPLEMENTATION = "groupmgr.implementation";
 
-    //	AUTHENTICATION_TYPE
+    // AUTHENTICATION_TYPE
     /**
      * This property is used to specify if authentication is being performed within a security realm.
      */
@@ -452,7 +452,6 @@ public class GlobalIds
     public static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
     public static final String LDAP_HOST = "host";
     public static final String LDAP_PORT = "port";
-
 
     /**
      * maximum number of entries allowed for ldap filter replacements.

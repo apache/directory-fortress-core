@@ -63,7 +63,7 @@ import java.util.UUID;
  * <pre>
  * ------------------------------------------
  * Fortress Dynamic Separation of Duties Structural Object Class
- *  objectclass	( 1.3.6.1.4.1.38088.2.5
+ *  objectclass    ( 1.3.6.1.4.1.38088.2.5
  *  NAME 'ftDSDSet'
  *  DESC 'Fortress Role Dynamic Separation of Duty Set Structural Object Class'
  *  SUP organizationalrole
@@ -87,7 +87,7 @@ import java.util.UUID;
  * <pre>
  * ------------------------------------------
  * Fortress Static Separation of Duties Structural Object Class
- *  objectclass	( 1.3.6.1.4.1.38088.2.4
+ *  objectclass    ( 1.3.6.1.4.1.38088.2.4
  *  NAME 'ftSSDSet'
  *  DESC 'Fortress Role Static Separation of Duty Set Structural Object Class'
  *  SUP organizationalrole
@@ -413,6 +413,7 @@ public class SDSet extends FortEntity implements Serializable, Comparable<SDSet>
         return thatSet.getName().equalsIgnoreCase( this.getName() );
     }
 
+
     @Override
     public int hashCode()
     {
@@ -424,6 +425,7 @@ public class SDSet extends FortEntity implements Serializable, Comparable<SDSet>
         result = 31 * result + ( type != null ? type.hashCode() : 0 );
         return result;
     }
+
 
     @Override
     public String toString()

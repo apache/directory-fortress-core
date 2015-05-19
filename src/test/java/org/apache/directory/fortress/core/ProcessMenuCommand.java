@@ -19,11 +19,13 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
 
 /**
  * Description of the Class
@@ -46,6 +48,7 @@ class ProcessMenuCommand
     final private GroupMgrConsole groupConsole = new GroupMgrConsole();
     final private EncryptMgrConsole encryptConsole = new EncryptMgrConsole();
 
+
     /**
      *
      */
@@ -67,6 +70,7 @@ class ProcessMenuCommand
         System.out.println( "C. RBAC ACCELERATOR MANAGER" );
         System.out.println( "Enter q or Q to quit" );
     }
+
 
     /**
      *
@@ -139,6 +143,7 @@ class ProcessMenuCommand
         }
     }
 
+
     void processGroupManagerFunction()
     {
         BufferedReader br = new BufferedReader( new InputStreamReader( System.in ) );
@@ -194,6 +199,7 @@ class ProcessMenuCommand
         }
     }
 
+
     private void showGroupFunctionMenu()
     {
         ReaderUtil.clearScreen();
@@ -209,6 +215,7 @@ class ProcessMenuCommand
         System.out.println( "9.  Search for groups" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
+
 
     void processEncryptManagerFunction()
     {
@@ -245,6 +252,7 @@ class ProcessMenuCommand
         }
     }
 
+
     private void showEncryptFunctionMenu()
     {
         ReaderUtil.clearScreen();
@@ -253,6 +261,7 @@ class ProcessMenuCommand
         System.out.println( "2.  Decrypt text value" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
+
 
     void processConfigManagerFunction()
     {
@@ -295,6 +304,7 @@ class ProcessMenuCommand
         }
     }
 
+
     /**
      *
      */
@@ -308,6 +318,7 @@ class ProcessMenuCommand
         System.out.println( "4.  Delete Config Params" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
+
 
     /**
      *
@@ -365,6 +376,7 @@ class ProcessMenuCommand
         }
     }
 
+
     /**
      *
      */
@@ -382,6 +394,7 @@ class ProcessMenuCommand
         System.out.println( "8.  Show AuthN Invalids" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
+
 
     /**
      *
@@ -469,7 +482,7 @@ class ProcessMenuCommand
                         break;
                     //case '5':
                     //adminConsole.updatePermObj();
-                    //	break;
+                    //    break;
                     case '0':
                         adminConsole.deletePermission();
                         break;
@@ -1206,5 +1219,3 @@ class ProcessMenuCommand
         }
     }
 }
-
-

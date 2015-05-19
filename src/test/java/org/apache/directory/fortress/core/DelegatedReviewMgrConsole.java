@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.apache.directory.fortress.core.rbac.AdminRole;
 import org.apache.directory.fortress.core.rbac.TestUtils;
 import org.apache.directory.fortress.core.rbac.UserAdminRole;
@@ -28,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+
 
 /**
  * Description of the Class
@@ -39,6 +41,8 @@ class DelegatedReviewMgrConsole
     private DelReviewMgr rm;
     private static final String CLS_NM = DelegatedReviewMgrConsole.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
+
+
     /**
      * Constructor for the ReviewMgrConsole object
      */
@@ -48,11 +52,12 @@ class DelegatedReviewMgrConsole
         {
             rm = DelReviewMgrFactory.createInstance( TestUtils.getContext() );
         }
-        catch ( org.apache.directory.fortress.core.SecurityException e)
+        catch ( org.apache.directory.fortress.core.SecurityException e )
         {
-            LOG.error(" constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
     }
+
 
     /**
      *
@@ -62,29 +67,29 @@ class DelegatedReviewMgrConsole
         ReaderUtil.clearScreen();
         try
         {
-            System.out.println("Enter AdminRole name to read:");
+            System.out.println( "Enter AdminRole name to read:" );
             AdminRole role = new AdminRole();
-            role.setName(ReaderUtil.readLn());
-            AdminRole re = rm.readRole(role);
-            if (re != null)
+            role.setName( ReaderUtil.readLn() );
+            AdminRole re = rm.readRole( role );
+            if ( re != null )
             {
-                System.out.println("ADMIN ROLE OBJECT:");
-                System.out.println("    name      [" + re.getName() + "]");
-                System.out.println("    internalId  [" + re.getId() + "]");
-                System.out.println("    description [" + re.getDescription() + "]");
-                System.out.println("    osU [" + re.getOsU() + "]");
-                System.out.println("    osP [" + re.getOsP() + "]");
-                ReviewMgrConsole.printTemporal(re, "ADMINROLE");
+                System.out.println( "ADMIN ROLE OBJECT:" );
+                System.out.println( "    name      [" + re.getName() + "]" );
+                System.out.println( "    internalId  [" + re.getId() + "]" );
+                System.out.println( "    description [" + re.getDescription() + "]" );
+                System.out.println( "    osU [" + re.getOsU() + "]" );
+                System.out.println( "    osP [" + re.getOsP() + "]" );
+                ReviewMgrConsole.printTemporal( re, "ADMINROLE" );
             }
             else
             {
-                System.out.println("	name [" + role.getName() + "] was not found");
+                System.out.println( "    name [" + role.getName() + "] was not found" );
             }
-            System.out.println("ENTER to continue");
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("readRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "readRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }
@@ -95,32 +100,32 @@ class DelegatedReviewMgrConsole
         ReaderUtil.clearScreen();
         try
         {
-            System.out.println("Enter value to search AdminRoles with:");
+            System.out.println( "Enter value to search AdminRoles with:" );
             String val = ReaderUtil.readLn();
-            List<AdminRole> list = rm.findRoles(val);
-            if (list != null && list.size() > 0)
+            List<AdminRole> list = rm.findRoles( val );
+            if ( list != null && list.size() > 0 )
             {
-                for (int i = 0; i < list.size(); i++)
+                for ( int i = 0; i < list.size(); i++ )
                 {
-                    AdminRole re = list.get(i);
-                    System.out.println("ADMIN ROLE OBJECT [" + i + "]:");
-                    System.out.println("    name      [" + re.getName() + "]");
-                    System.out.println("    internalId  [" + re.getId() + "]");
-                    System.out.println("    description [" + re.getDescription() + "]");
-                    System.out.println("    osU [" + re.getOsU() + "]");
-                    System.out.println("    osP [" + re.getOsP() + "]");
-                    ReviewMgrConsole.printTemporal(re, "ADMINROLE");
+                    AdminRole re = list.get( i );
+                    System.out.println( "ADMIN ROLE OBJECT [" + i + "]:" );
+                    System.out.println( "    name      [" + re.getName() + "]" );
+                    System.out.println( "    internalId  [" + re.getId() + "]" );
+                    System.out.println( "    description [" + re.getDescription() + "]" );
+                    System.out.println( "    osU [" + re.getOsU() + "]" );
+                    System.out.println( "    osP [" + re.getOsP() + "]" );
+                    ReviewMgrConsole.printTemporal( re, "ADMINROLE" );
                 }
             }
             else
             {
-                System.out.println("name [" + val + "] was not found");
+                System.out.println( "name [" + val + "] was not found" );
             }
-            System.out.println("ENTER to continue");
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("findRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "findRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }
@@ -133,30 +138,31 @@ class DelegatedReviewMgrConsole
     {
         try
         {
-            System.out.println("Enter admin role name:");
+            System.out.println( "Enter admin role name:" );
             String name = ReaderUtil.readLn();
-            List<User> list = rm.assignedUsers(new AdminRole(name));
+            List<User> list = rm.assignedUsers( new AdminRole( name ) );
             int i = 0;
-            for (User ue : list)
+            for ( User ue : list )
             {
-                System.out.println("USER[" + ++i + "]");
-                System.out.println("    userId      [" + ue.getUserId() + "]");
-                System.out.println("    internalId  [" + ue.getInternalId() + "]");
-                System.out.println("    description [" + ue.getDescription() + "]");
-                System.out.println("    common name [" + ue.getCn() + "]");
-                System.out.println("    surname     [" + ue.getSn() + "]");
-                System.out.println("    orgUnitId   [" + ue.getOu() + "]");
-                ReviewMgrConsole.printTemporal(ue, "USER");
+                System.out.println( "USER[" + ++i + "]" );
+                System.out.println( "    userId      [" + ue.getUserId() + "]" );
+                System.out.println( "    internalId  [" + ue.getInternalId() + "]" );
+                System.out.println( "    description [" + ue.getDescription() + "]" );
+                System.out.println( "    common name [" + ue.getCn() + "]" );
+                System.out.println( "    surname     [" + ue.getSn() + "]" );
+                System.out.println( "    orgUnitId   [" + ue.getOu() + "]" );
+                ReviewMgrConsole.printTemporal( ue, "USER" );
                 System.out.println();
             }
-            System.out.println("ENTER to continue");
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("assignedUsers caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "assignedUsers caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }
+
 
     /**
      *
@@ -168,24 +174,24 @@ class DelegatedReviewMgrConsole
         ReaderUtil.clearScreen();
         try
         {
-            System.out.println("Enter UserId to read admin roles:");
+            System.out.println( "Enter UserId to read admin roles:" );
             userId = ReaderUtil.readLn();
             User user = new User();
-            user.setUserId(userId);
-            List<UserAdminRole> roles = rm.assignedRoles(user);
-            for(UserAdminRole re : roles)
+            user.setUserId( userId );
+            List<UserAdminRole> roles = rm.assignedRoles( user );
+            for ( UserAdminRole re : roles )
             {
-                System.out.println("USER OBJECT:");
-                System.out.println("    admin role  [" + re.getName() + "]");
-                System.out.println("    OsU         [" + re.getOsU() + "]");
-                System.out.println("    OsP         [" + re.getOsP() + "]");
-                ReviewMgrConsole.printTemporal(re, "ADMINROLE");
+                System.out.println( "USER OBJECT:" );
+                System.out.println( "    admin role  [" + re.getName() + "]" );
+                System.out.println( "    OsU         [" + re.getOsU() + "]" );
+                System.out.println( "    OsP         [" + re.getOsP() + "]" );
+                ReviewMgrConsole.printTemporal( re, "ADMINROLE" );
             }
-            System.out.println("ENTER to continue");
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("assignedRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "assignedRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }

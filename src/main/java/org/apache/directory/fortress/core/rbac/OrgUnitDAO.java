@@ -75,7 +75,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <h4>2. ftOrgUnit Structural objectclass is used to store the OrgUnit internal id</h4>
  * <ul>                                                              org.apache.directory.fortress.arbac.
  * <li>  ------------------------------------------
- * <li> <code> objectclass	( 1.3.6.1.4.1.38088.2.6</code>
+ * <li> <code> objectclass    ( 1.3.6.1.4.1.38088.2.6</code>
  * <li> <code>NAME 'ftOrgUnit'</code>
  * <li> <code>DESC 'Fortress OrgUnit Class'</code>
  * <li> <code>SUP organizationalunit</code>
@@ -139,7 +139,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
             entry.add( SchemaConstants.OBJECT_CLASS_AT, ORGUNIT_OBJ_CLASS );
             entity.setId();
             entry.add( GlobalIds.FT_IID, entity.getId() );
-            
+
             String description = entity.getDescription();
 
             if ( !Strings.isEmpty( description ) )
@@ -494,7 +494,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
             {
                 ouSet.add( getAttribute( searchResults.getEntry(), SchemaConstants.OU_AT ) );
             }
-            
+
             searchResults.close();
         }
         catch ( LdapException e )
@@ -600,19 +600,21 @@ final class OrgUnitDAO extends ApacheDsDataProvider
     private Dn getDn( OrgUnit orgUnit )
     {
         Dn dn = null;
-        
+
         try
         {
             switch ( orgUnit.type )
             {
                 case USER:
-                    dn = new Dn( SchemaConstants.OU_AT + "=" + orgUnit.getName(), getRootDn( orgUnit.getContextId(), GlobalIds.OSU_ROOT ) );
+                    dn = new Dn( SchemaConstants.OU_AT + "=" + orgUnit.getName(), getRootDn( orgUnit.getContextId(),
+                        GlobalIds.OSU_ROOT ) );
                     break;
-    
+
                 case PERM:
-                    dn = new Dn( SchemaConstants.OU_AT + "=" + orgUnit.getName(), getRootDn( orgUnit.getContextId(), GlobalIds.PSU_ROOT ) );
+                    dn = new Dn( SchemaConstants.OU_AT + "=" + orgUnit.getName(), getRootDn( orgUnit.getContextId(),
+                        GlobalIds.PSU_ROOT ) );
                     break;
-    
+
                 default:
                     String warning = "getDn invalid type";
                     LOG.warn( warning );

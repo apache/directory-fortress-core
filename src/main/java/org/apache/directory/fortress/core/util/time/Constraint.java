@@ -38,7 +38,7 @@ package org.apache.directory.fortress.core.util.time;
  * 1. ftRls Structural objectclass is used to store the Role information like name and temporal constraint attributes.
  * <ul>
  * <li>  ------------------------------------------
- * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.1</code>
+ * <li> <code>objectclass    ( 1.3.6.1.4.1.38088.2.1</code>
  * <li> <code>NAME 'ftRls'</code>
  * <li> <code>DESC 'Fortress Role Object Class'</code>
  * <li> <code>SUP organizationalrole</code>

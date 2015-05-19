@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.api.util.Strings;
@@ -53,38 +54,39 @@ public class ClassUtil
      * @throws org.apache.directory.fortress.core.CfgException in the event of failure to instantiate.
      *
      */
-    public static Object createInstance(String className) throws CfgException
+    public static Object createInstance( String className ) throws CfgException
     {
         Object target;
-        
+
         try
         {
             if ( Strings.isEmpty( className ) )
             {
                 String error = "createInstance() null or empty classname";
-                throw new CfgException(GlobalErrIds.FT_MGR_CLASS_NAME_NULL, error);
+                throw new CfgException( GlobalErrIds.FT_MGR_CLASS_NAME_NULL, error );
             }
-            
+
             target = Class.forName( className ).newInstance();
         }
         catch ( ClassNotFoundException e )
         {
-            String error = "createInstance() className [" + className + "] caught java.lang.ClassNotFoundException=" + e;
-            throw new CfgException(GlobalErrIds.FT_MGR_CLASS_NOT_FOUND, error, e);
+            String error = "createInstance() className [" + className + "] caught java.lang.ClassNotFoundException="
+                + e;
+            throw new CfgException( GlobalErrIds.FT_MGR_CLASS_NOT_FOUND, error, e );
         }
         catch ( InstantiationException e )
         {
             String error = "createInstance()  [" + className + "] caught java.lang.InstantiationException=" + e;
-            throw new CfgException(GlobalErrIds.FT_MGR_INST_EXCEPTION, error, e);
+            throw new CfgException( GlobalErrIds.FT_MGR_INST_EXCEPTION, error, e );
         }
         catch ( IllegalAccessException e )
         {
             String error = "createInstance()  [" + className + "] caught java.lang.IllegalAccessException=" + e;
-            throw new CfgException(GlobalErrIds.FT_MGR_ILLEGAL_ACCESS, error, e);
+            throw new CfgException( GlobalErrIds.FT_MGR_ILLEGAL_ACCESS, error, e );
         }
-        
+
         return target;
-	}
+    }
 
 
     /**
@@ -96,12 +98,12 @@ public class ClassUtil
     public static InputStream resourceAsStream( String name ) throws CfgException
     {
         InputStream is = ClassUtil.class.getClassLoader().getResourceAsStream( name );
-        
+
         if ( is == null )
         {
-            throw new CfgException(GlobalErrIds.FT_RESOURCE_NOT_FOUND, name);
+            throw new CfgException( GlobalErrIds.FT_RESOURCE_NOT_FOUND, name );
         }
-        
+
         return is;
     }
 }

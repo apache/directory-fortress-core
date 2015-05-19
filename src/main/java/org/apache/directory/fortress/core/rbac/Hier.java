@@ -19,11 +19,13 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.directory.api.util.Strings;
+
 
 /**
  * All entities (User, Role, Permission, Policy, SDSet, etc...) are used to carry data between Fortress's
@@ -59,7 +61,7 @@ import org.apache.directory.api.util.Strings;
  * <pre>
  * ------------------------------------------
  * Fortress Hierarchies Structural Object Class
- * objectclass	( 1.3.6.1.4.1.38088.2.7
+ * objectclass    ( 1.3.6.1.4.1.38088.2.7
  * NAME 'ftHier'
  * DESC 'Fortress Hierarchy Structural Object Class'
  * SUP organizationalrole
@@ -96,15 +98,16 @@ import org.apache.directory.api.util.Strings;
 public class Hier extends FortEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    
+
     /** The operation */
     public Op op;
-    
+
     /** The hierarchy type - ROLE, AROLE, USER, PERM */
     public Type type;
-    
+
     /** the list of relationships that are set in collection on this entity */
     private List<Relationship> relationships;
+
 
     /**
      * default constructor is used by internal components.
@@ -112,7 +115,7 @@ public class Hier extends FortEntity implements Serializable
     public Hier()
     {
     }
-    
+
 
     /**
      * construct hierarchy given a list of parent-child relationships.
@@ -123,7 +126,7 @@ public class Hier extends FortEntity implements Serializable
     {
         this.relationships = relationships;
     }
-    
+
 
     /**
      * Construct entity given a hierarchy type - ROLE, AROLE, USER, PERM.
@@ -134,7 +137,7 @@ public class Hier extends FortEntity implements Serializable
     {
         this.type = type;
     }
-    
+
 
     /**
      * Construct entity given a parent, child and a hierarchy type.
@@ -148,7 +151,7 @@ public class Hier extends FortEntity implements Serializable
         this.type = type;
         setRelationship( child, parent );
     }
-    
+
 
     /**
      * Construct entity given a parent and child.
@@ -160,7 +163,6 @@ public class Hier extends FortEntity implements Serializable
     {
         setRelationship( child, parent );
     }
-    
 
     /**
      * Operation type specifies if Add, Update or Deletion of relationship is being targeted.
@@ -182,7 +184,7 @@ public class Hier extends FortEntity implements Serializable
          */
         REM
     }
-    
+
 
     /**
      * Return the operation to execute on behalf of this entity.
@@ -193,18 +195,17 @@ public class Hier extends FortEntity implements Serializable
     {
         return op;
     }
-    
+
 
     /**
      * The the operation for which this entity is bound for.  Add, Update or Delete.
      *
      * @param op type contains 'ADD', 'MOD', or 'REM'.
      */
-    public void setOp(Op op)
+    public void setOp( Op op )
     {
         this.op = op;
     }
-    
 
     /**
      * Enumeration is used to specify which hierarchy node this entity is bound to.  RBAC Role, Admin Roles, User OU or Perm OU.
@@ -231,7 +232,7 @@ public class Hier extends FortEntity implements Serializable
          */
         PERM
     }
-    
+
 
     /**
      * Return required the type of node this entity is bound to.
@@ -242,7 +243,7 @@ public class Hier extends FortEntity implements Serializable
     {
         return type;
     }
-    
+
 
     /**
      * Set the required type which determines which directory node this entity is bound to.
@@ -265,7 +266,7 @@ public class Hier extends FortEntity implements Serializable
     public boolean isRelationship( String role, String parent )
     {
         boolean result = false;
-        
+
         if ( relationships != null )
         {
             result = relationships.contains(
@@ -274,7 +275,7 @@ public class Hier extends FortEntity implements Serializable
 
         return result;
     }
-    
+
 
     /**
      * Set the child and parent into the collection of valid relationships stored in this entity.
@@ -284,16 +285,16 @@ public class Hier extends FortEntity implements Serializable
      */
     public void setRelationship( String role, String parent )
     {
-        if (relationships == null)
+        if ( relationships == null )
         {
             relationships = new ArrayList<Relationship>();
         }
 
         relationships.add(
-            new Relationship( Strings.toUpperCase( role ), Strings.toUpperCase(parent ) ) );
+            new Relationship( Strings.toUpperCase( role ), Strings.toUpperCase( parent ) ) );
     }
 
-    
+
     /**
      * Set the relationship object into the collection of valid relationships stored in this entity.
      *
@@ -301,14 +302,14 @@ public class Hier extends FortEntity implements Serializable
      */
     public void setRelationship( Relationship rel )
     {
-        if (relationships == null)
+        if ( relationships == null )
         {
             relationships = new ArrayList<Relationship>();
         }
 
         relationships.add( rel );
     }
-    
+
 
     /**
      * Remove the specified relationship from the collection of valid relationships stored in this entity.
@@ -318,13 +319,13 @@ public class Hier extends FortEntity implements Serializable
      */
     public void removeRelationship( String role, String parent )
     {
-        if (relationships != null)
+        if ( relationships != null )
         {
             relationships.remove(
                 new Relationship( Strings.toUpperCase( role ), Strings.toUpperCase( parent ) ) );
         }
     }
-    
+
 
     /**
      * Return the list of relationships that are set in collection on this entity.
@@ -335,7 +336,7 @@ public class Hier extends FortEntity implements Serializable
     {
         return relationships;
     }
-    
+
 
     /**
      * Set the list of relationships that are set in collection on this entity.

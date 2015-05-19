@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.ant;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +44,15 @@ import java.util.List;
  */
 public class Deladminrole
 {
-	final private List<AdminRoleAnt> roles = new ArrayList<>();
+    final private List<AdminRoleAnt> roles = new ArrayList<>();
+
 
     /**
      * All Ant data entities must have a default constructor.
      */
-	public Deladminrole() { }
+    public Deladminrole()
+    {
+    }
 
 
     /**
@@ -63,18 +67,18 @@ public class Deladminrole
      *
      * @param role contains extension of {@link org.apache.directory.fortress.core.rbac.AdminRole}.
      */
-	public void addRole(AdminRoleAnt role)
-	{
-		this.roles.add(role);
-	}
+    public void addRole( AdminRoleAnt role )
+    {
+        this.roles.add( role );
+    }
+
 
     /**
      * Used by {@link FortressAntTask#deleteAdminRoles()} to retrieve list of AdminRoles as defined in input xml file.
      * @return collection containing {@link AdminRoleAnt}s targeted for removal.
      */
-	public List<AdminRoleAnt> getRoles()
-	{
-		return this.roles;
-	}
+    public List<AdminRoleAnt> getRoles()
+    {
+        return this.roles;
+    }
 }
-

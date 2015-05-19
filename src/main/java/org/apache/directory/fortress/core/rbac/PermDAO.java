@@ -61,7 +61,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * <h4>PermObj Base - ftObject STRUCTURAL Object Class is used to store object name, id and type variables on target entity.</h4>
  * <ul>
  * <li>  ------------------------------------------
- * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.2</code>
+ * <li> <code>objectclass    ( 1.3.6.1.4.1.38088.2.2</code>
  * <li> <code>NAME 'ftObject'</code>
  * <li> <code>DESC 'Fortress Permission Object Class'</code>
  * <li> <code>SUP organizationalunit</code>                                              GlobalIds
@@ -103,7 +103,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * using either 'checkAccess' or 'sessionPermissions APIs both methods that reside in the 'AccessMgrImpl' class.
  * <ul>
  * <li>  ------------------------------------------
- * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.3</code>
+ * <li> <code>objectclass    ( 1.3.6.1.4.1.38088.2.3</code>
  * <li> <code>NAME 'ftOperation'</code>
  * <li> <code>DESC 'Fortress Permission Operation Object Class'</code>
  * <li> <code>SUP organizationalrole</code>
@@ -177,8 +177,17 @@ final class PermDAO extends ApacheDsDataProvider
     private static final String USERS = "ftUsers";
     private static final String[] PERMISSION_OP_ATRS =
         {
-            GlobalIds.FT_IID, PERM_NAME, GlobalIds.POBJ_NAME, GlobalIds.POP_NAME, SchemaConstants.DESCRIPTION_AT, SchemaConstants.OU_AT,
-            GlobalIds.POBJ_ID, TYPE, ROLES, USERS, GlobalIds.PROPS
+            GlobalIds.FT_IID,
+            PERM_NAME,
+            GlobalIds.POBJ_NAME,
+            GlobalIds.POP_NAME,
+            SchemaConstants.DESCRIPTION_AT,
+            SchemaConstants.OU_AT,
+            GlobalIds.POBJ_ID,
+            TYPE,
+            ROLES,
+            USERS,
+            GlobalIds.PROPS
     };
 
     private static final String[] PERMISION_OBJ_ATRS =
@@ -781,7 +790,7 @@ final class PermDAO extends ApacheDsDataProvider
                 String warning = "getPerm Obj no entry found dn [" + dn + "]";
                 throw new FinderException( GlobalErrIds.PERM_OBJ_NOT_FOUND, warning );
             }
-            entity = unloadPobjLdapEntry( findEntry, 0,permObj.isAdmin() );
+            entity = unloadPobjLdapEntry( findEntry, 0, permObj.isAdmin() );
         }
         catch ( LdapNoSuchObjectException e )
         {
@@ -826,10 +835,11 @@ final class PermDAO extends ApacheDsDataProvider
 
             // LDAP Operation #1: Read the targeted permission from ldap server
             Entry entry = read( ld, dn, PERMISSION_OP_ATRS );
-            if(entry == null)
+            if ( entry == null )
             {
                 // if permission not found, cannot continue.
-                String error = "checkPermission DOES NOT EXIST : obj name [" + inPerm.getObjName() + "], obj id [" + inPerm.getObjId() + "], op name [" + inPerm.getOpName() + "], idAdmin [" + inPerm.isAdmin() + "]";
+                String error = "checkPermission DOES NOT EXIST : obj name [" + inPerm.getObjName() + "], obj id ["
+                    + inPerm.getObjId() + "], op name [" + inPerm.getOpName() + "], idAdmin [" + inPerm.isAdmin() + "]";
                 throw new FinderException( GlobalErrIds.PERM_NOT_EXIST, error );
             }
 
@@ -994,7 +1004,8 @@ final class PermDAO extends ApacheDsDataProvider
      * @throws LdapInvalidAttributeValueException 
      * @throws LdapException
      */
-    private Permission unloadPopLdapEntry( Entry le, long sequence, boolean isAdmin ) throws LdapInvalidAttributeValueException
+    private Permission unloadPopLdapEntry( Entry le, long sequence, boolean isAdmin )
+        throws LdapInvalidAttributeValueException
     {
         Permission entity = new ObjectFactory().createPermission();
         entity.setSequenceId( sequence );
@@ -1011,7 +1022,7 @@ final class PermDAO extends ApacheDsDataProvider
         entity.setAdmin( isAdmin );
 
         // TODO: find out the correct way to do this:
-        if(le != null)
+        if ( le != null )
         {
             entity.setDn( le.getDn().getNormName() );
         }
@@ -1026,7 +1037,8 @@ final class PermDAO extends ApacheDsDataProvider
      * @throws LdapInvalidAttributeValueException 
      * @throws LdapException
      */
-    private PermObj unloadPobjLdapEntry( Entry le, long sequence, boolean isAdmin ) throws LdapInvalidAttributeValueException
+    private PermObj unloadPobjLdapEntry( Entry le, long sequence, boolean isAdmin )
+        throws LdapInvalidAttributeValueException
     {
         PermObj entity = new ObjectFactory().createPermObj();
         entity.setSequenceId( sequence );
@@ -1334,7 +1346,7 @@ final class PermDAO extends ApacheDsDataProvider
 
             while ( searchResults.next() )
             {
-                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++,false ) );
+                permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++, false ) );
             }
         }
         catch ( LdapException e )
@@ -1379,7 +1391,7 @@ final class PermDAO extends ApacheDsDataProvider
             filterbuf.append( USERS );
             filterbuf.append( "=" );
             filterbuf.append( user.getUserId() );
-            filterbuf.append(  "))" );
+            filterbuf.append( "))" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
                 SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
@@ -1428,7 +1440,7 @@ final class PermDAO extends ApacheDsDataProvider
             String filter = GlobalIds.FILTER_PREFIX + PERM_OP_OBJECT_CLASS_NAME + ")(|";
             filter += "(" + USERS + "=" + session.getUserId() + ")";
             Set<String> roles;
-            if(isAdmin)
+            if ( isAdmin )
             {
                 roles = AdminRoleUtil.getInheritedRoles( session.getAdminRoles(), session.getContextId() );
             }

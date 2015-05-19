@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
  * All entities ({@link org.apache.directory.fortress.core.rbac.User}, {@link org.apache.directory.fortress.core.rbac.Role}, {@link Permission},
  * {@link PwPolicy} {@link org.apache.directory.fortress.core.rbac.SDSet} etc...) are used to carry data between three Fortress
@@ -74,7 +75,7 @@ import javax.xml.bind.annotation.XmlType;
  * 1. ftObject STRUCTURAL Object Class is used to store object name, id and type variables on target entity.
  * <pre>
  * Fortress Permission Structural Object Class
- * objectclass	( 1.3.6.1.4.1.38088.2.2
+ * objectclass    ( 1.3.6.1.4.1.38088.2.2
  *  NAME 'ftObject'
  *  DESC 'Fortress Permission Object Class'
  *  SUP organizationalunit
@@ -139,7 +140,7 @@ import javax.xml.bind.annotation.XmlType;
 public class PermObj extends FortEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    
+
     private boolean admin;
     private String internalId;
     private String objName;
@@ -536,6 +537,7 @@ public class PermObj extends FortEntity implements Serializable
         return result;
     }
 
+
     /**
      * Matches the objName from two PermObj entities.
      *
@@ -556,6 +558,7 @@ public class PermObj extends FortEntity implements Serializable
             return false;
         return thatPermObj.getObjName().equalsIgnoreCase( this.getObjName() );
     }
+
 
     @Override
     public String toString()

@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+
 /**
  *  Description of the Class
  *
@@ -27,15 +28,14 @@ package org.apache.directory.fortress.core;
 public class FortressConsole
 {
 
-	/**
-	 * put your documentation comment here
-	 *
-	 * @param  args
-	 */
-	public static void main(String[] args)
-	{
-		ProcessMenuCommand rc = new ProcessMenuCommand();
-		rc.processRbacControl();
-	}
+    /**
+     * put your documentation comment here
+     *
+     * @param  args
+     */
+    public static void main( String[] args )
+    {
+        ProcessMenuCommand rc = new ProcessMenuCommand();
+        rc.processRbacControl();
+    }
 }
-

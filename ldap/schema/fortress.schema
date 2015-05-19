@@ -35,360 +35,360 @@
 # A1: Permission Name, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.1
     NAME 'ftPermName'
-	DESC 'Fortress Permission Name'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Permission Name'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A2: Permission Operation Name, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.2
     NAME 'ftOpNm'
-	DESC 'Fortress Permission Operation Name'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Permission Operation Name'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A3: Permission Object Name, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.3
     NAME 'ftObjNm'
-	DESC 'Fortress Permission Object Name'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Permission Object Name'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A4: Permission Object ID, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.4
     NAME 'ftObjId'
-	DESC 'Fortress Permission Object ID'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Permission Object ID'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A5: Role Name, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.5
     NAME 'ftRoleName'
-	DESC 'Fortress Role Name'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Role Name'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A6: TimeOut, type INTEGER, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.6
     NAME 'ftTimeOut'
-	DESC 'Fortress TimeOut'
-	EQUALITY integerMatch
-	ORDERING integerOrderingMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
+    DESC 'Fortress TimeOut'
+    EQUALITY integerMatch
+    ORDERING integerOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
 
 # A7: Group Names, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.7
     NAME 'ftGroups'
-	DESC 'Fortress Group Names'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress Group Names'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A8: Role Names, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.8
     NAME 'ftRoles'
-	DESC 'Fortress Role Names'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress Role Names'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A9: User IDs, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.9
     NAME 'ftUsers'
-	DESC 'Fortress User IDs'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress User IDs'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A10: Properties, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.10
     NAME 'ftProps'
-	DESC 'Fortress Properties'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress Properties'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A11: Type Name, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.11
     NAME 'ftType'
-	DESC 'Fortress Type Name'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Type Name'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A12: Unique ID, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.12
     NAME 'ftId'
-	DESC 'Fortress Entity Unique ID'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Entity Unique ID'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A13: User Temporal Constraint, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.13
     NAME 'ftCstr'
-	DESC 'Fortress User Temporal Constraint'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress User Temporal Constraint'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A14: User Role Assignments, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.14
     NAME 'ftRA'
-	DESC 'Fortress User Role Assignments'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress User Role Assignments'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A15: User Role Constraints, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.15
     NAME 'ftRC'
-	DESC 'Fortress User Role Constraints'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress User Role Constraints'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A16: Separation of Duties Set Name, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.16
     NAME 'ftSetName'
-	DESC 'Fortress Separation of Duties Set Name'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Separation of Duties Set Name'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A17: Separation of Duties Set Cardinality, type INTEGER, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.17
     NAME 'ftSetCardinality'
-	DESC 'Fortress Separation of Duties Set Cardinality'
-	EQUALITY integerMatch
-	ORDERING integerOrderingMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
+    DESC 'Fortress Separation of Duties Set Cardinality'
+    EQUALITY integerMatch
+    ORDERING integerOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
 
 # A18: Child to Parent Relationships, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.18
     NAME 'ftRels'
-	DESC 'Fortress Child to Parent Relationships'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress Child to Parent Relationships'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A19: User Organizational Unit Pool, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.19
     NAME 'ftOSU'
-	DESC 'Fortress User Organizational Unit Pool'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress User Organizational Unit Pool'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A20: Permission Organizational Unit Pool, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.20
     NAME 'ftOSP'
-	DESC 'Fortress Permission Organizational Unit Pool'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress Permission Organizational Unit Pool'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A21: Admin Role Constraints, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.21
     NAME 'ftARC'
-	DESC 'Fortress Admin Role Constraints'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress Admin Role Constraints'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A22: Admin Role Assignments, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.22
     NAME 'ftARA'
-	DESC 'Fortress Admin Role Assignments'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress Admin Role Assignments'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A23: Role Hierarchy Range, type STRING
 attributetype ( 1.3.6.1.4.1.1.38088.1.23
     NAME 'ftRange'
-	DESC 'Fortress Role Hierarchy Range'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Role Hierarchy Range'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A24: Audit Modifier Internal UserID, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.24
     NAME 'ftModifier'
-	DESC 'Fortress Audit Modifier Internal UserID'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Audit Modifier Internal UserID'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A25: Audit Modifier Operation Code, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.25
     NAME 'ftModCode'
-	DESC 'Fortress Audit Modifier Operation Code'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Audit Modifier Operation Code'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A26: Audit Modifier Unique ID, type STRING, SINGLE VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.26
     NAME 'ftModId'
-	DESC 'Fortress Audit Modifier Unique ID'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+    DESC 'Fortress Audit Modifier Unique ID'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
 
 # A27: System User Flag, type BOOLEAN
 attributetype ( 1.3.6.1.4.1.1.38088.1.27
     NAME 'ftSystem'
-	DESC 'Fortress System User'
-	EQUALITY booleanMatch
+    DESC 'Fortress System User'
+    EQUALITY booleanMatch
     SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE )
 
 # A28: Parent Nodes, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.28
     NAME 'ftParents'
-	DESC 'Fortress Parent Nodes'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'Fortress Parent Nodes'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A29: Protocol, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.29
     NAME 'configProtocol'
-	DESC 'LDAP Group protocol attribute'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'LDAP Group protocol attribute'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A30: Config params, type STRING, MULTI VALUE
 attributetype ( 1.3.6.1.4.1.1.38088.1.30
     NAME 'configParameter'
-	DESC 'LDAP Group config properties'
-	EQUALITY caseIgnoreMatch
-	SUBSTR caseIgnoreSubstringsMatch
-	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    DESC 'LDAP Group config properties'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 ######################################################################
 ## 2. OpenLDAP Fortress Structural object class definitions
 ######################################################################
 
 ## OC1: Fortress Roles Structural Object Class
-objectclass	( 1.3.6.1.4.1.38088.2.1
+objectclass    ( 1.3.6.1.4.1.38088.2.1
     NAME 'ftRls'
-	DESC 'Fortress Role Structural Object Class'
+    DESC 'Fortress Role Structural Object Class'
     SUP organizationalrole
     STRUCTURAL
-	MUST (
-		ftId $
-		ftRoleName
-		)
+    MUST (
+        ftId $
+        ftRoleName
+        )
     MAY (
-		description $
+        description $
         ftCstr $
         ftParents
-		)
-	)
+        )
+    )
 
 ## OC2: Fortress Permission Structural Object Class
-objectclass	( 1.3.6.1.4.1.38088.2.2
+objectclass    ( 1.3.6.1.4.1.38088.2.2
     NAME 'ftObject'
-	DESC 'Fortress Permission Object Class'
+    DESC 'Fortress Permission Object Class'
     SUP organizationalunit
     STRUCTURAL
-	MUST (
-		ftId $
-		ftObjNm
-		)
+    MUST (
+        ftId $
+        ftObjNm
+        )
     MAY (
-		ftType
-		)
-	)
+        ftType
+        )
+    )
 
 ## OC3: Fortress Operation Structural Object Class
-objectclass	( 1.3.6.1.4.1.38088.2.3
+objectclass    ( 1.3.6.1.4.1.38088.2.3
     NAME 'ftOperation'
-	DESC 'Fortress Permission Operation Structural Object Class'
+    DESC 'Fortress Permission Operation Structural Object Class'
     SUP organizationalrole
     STRUCTURAL
-	MUST (
-		ftId $
-		ftPermName $
-		ftObjNm $
-		ftOpNm
-		)
+    MUST (
+        ftId $
+        ftPermName $
+        ftObjNm $
+        ftOpNm
+        )
     MAY (
         ftObjId $
-		ftRoles $
-		ftUsers $
-		ftType
-		)
-	)
+        ftRoles $
+        ftUsers $
+        ftType
+        )
+    )
 
 ## OC4: Fortress Static Separation of Duties Structural Object Class
-objectclass	( 1.3.6.1.4.1.38088.2.4
+objectclass    ( 1.3.6.1.4.1.38088.2.4
     NAME 'ftSSDSet'
-	DESC 'Fortress Role Static Separation of Duty Set Structural Object Class'
+    DESC 'Fortress Role Static Separation of Duty Set Structural Object Class'
     SUP organizationalrole
     STRUCTURAL
-	MUST (
-		ftId $
-		ftSetName $
-		ftSetCardinality
-		)
+    MUST (
+        ftId $
+        ftSetName $
+        ftSetCardinality
+        )
     MAY (
-		ftRoles $
-		description
-		)
-	)
+        ftRoles $
+        description
+        )
+    )
 
 ## OC5: Fortress Dynamic Separation of Duties Structural Object Class
-objectclass	( 1.3.6.1.4.1.38088.2.5
+objectclass    ( 1.3.6.1.4.1.38088.2.5
     NAME 'ftDSDSet'
-	DESC 'Fortress Role Dynamic Separation of Duty Set Structural Object Class'
+    DESC 'Fortress Role Dynamic Separation of Duty Set Structural Object Class'
     SUP organizationalrole
     STRUCTURAL
-	MUST (
-		ftId $
-		ftSetName $
-		ftSetCardinality
-		)
+    MUST (
+        ftId $
+        ftSetName $
+        ftSetCardinality
+        )
     MAY (
-		ftRoles $
-		description
-		)
-	)
+        ftRoles $
+        description
+        )
+    )
 
 ## OC6: Fortress Organizational Structural Object Class
-objectclass	( 1.3.6.1.4.1.38088.2.6
+objectclass    ( 1.3.6.1.4.1.38088.2.6
     NAME 'ftOrgUnit'
-	DESC 'Fortress OrgUnit Structural Object Class'
+    DESC 'Fortress OrgUnit Structural Object Class'
     SUP organizationalunit
     STRUCTURAL
-	MUST (
-	    ftId
-	    )
+    MUST (
+        ftId
+        )
     MAY (
         ftParents
-		)
-	)
+        )
+    )
 
 ## OC7: Fortress Hierarchies Structural Object Class
-objectclass	( 1.3.6.1.4.1.38088.2.7
+objectclass    ( 1.3.6.1.4.1.38088.2.7
     NAME 'ftHier'
-	DESC 'Fortress Hierarchy Structural Object Class'
+    DESC 'Fortress Hierarchy Structural Object Class'
     SUP organizationalrole
     STRUCTURAL
-	MUST (
-		cn
-		)
+    MUST (
+        cn
+        )
     MAY (
-		ftRels $
-		description
-		)
-	)
+        ftRels $
+        description
+        )
+    )
 
 ## OC8: LDAP Configuration Group Structural Object Class
 objectClass ( 1.3.6.1.4.1.38088.2.8
@@ -405,52 +405,52 @@ objectClass ( 1.3.6.1.4.1.38088.2.8
 
 ## AC1: Fortress User Attributes Auxiliary Object Class
 objectclass ( 1.3.6.1.4.1.38088.3.1
-	NAME 'ftUserAttrs'
-	DESC 'Fortress User Attribute AUX Object Class'
-	AUXILIARY
-	MUST (
-		ftId
-		)
-	MAY (
-  		ftRC $
-		ftRA $
-  		ftARC $
-		ftARA $
-		ftCstr $
+    NAME 'ftUserAttrs'
+    DESC 'Fortress User Attribute AUX Object Class'
+    AUXILIARY
+    MUST (
+        ftId
+        )
+    MAY (
+        ftRC $
+        ftRA $
+        ftARC $
+        ftARA $
+        ftCstr $
         ftSystem
-		)
-	)
+        )
+    )
 
 ## AC2: Fortress Properties Auxiliary Object Class
 objectclass ( 1.3.6.1.4.1.38088.3.2
-	NAME 'ftProperties'
-	DESC 'Fortress Properties AUX Object Class'
-	AUXILIARY
-	MAY (
-		ftProps
-		)
-	)
+    NAME 'ftProperties'
+    DESC 'Fortress Properties AUX Object Class'
+    AUXILIARY
+    MAY (
+        ftProps
+        )
+    )
 
 ## AC3: Fortress Organizational Pools Auxiliary Object Class
 objectclass ( 1.3.6.1.4.1.38088.3.3
-	NAME 'ftPools'
-	DESC 'Fortress Pools AUX Object Class'
-	AUXILIARY
-	MAY (
-		ftOSU  $
-		ftOSP  $
-		ftRange
-		)
-	)
+    NAME 'ftPools'
+    DESC 'Fortress Pools AUX Object Class'
+    AUXILIARY
+    MAY (
+        ftOSU  $
+        ftOSP  $
+        ftRange
+        )
+    )
 
 ## AC4: Fortress Audit Modification Auxiliary Object Class
 objectclass ( 1.3.6.1.4.1.38088.3.4
-	NAME 'ftMods'
-	DESC 'Fortress Modifiers AUX Object Class'
-	AUXILIARY
-	MAY (
-		ftModifier $
-		ftModCode $
-		ftModId
-		)
-	)
+    NAME 'ftMods'
+    DESC 'Fortress Modifiers AUX Object Class'
+    AUXILIARY
+    MAY (
+        ftModifier $
+        ftModCode $
+        ftModId
+        )
+   )

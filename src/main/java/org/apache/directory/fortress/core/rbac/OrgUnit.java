@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
  * All entities ({@link AdminRole}, {@link OrgUnit},
  * {@link org.apache.directory.fortress.core.rbac.SDSet} etc...) are used to carry data between three Fortress
@@ -116,7 +117,7 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * ------------------------------------------
  * Fortress Organizational Structural Object Class
- * objectclass	( 1.3.6.1.4.1.38088.2.6
+ * objectclass    ( 1.3.6.1.4.1.38088.2.6
  *  NAME 'ftOrgUnit'
  *  DESC 'Fortress OrgUnit Structural Object Class'
  *  SUP organizationalunit
@@ -171,20 +172,20 @@ public class OrgUnit extends FortEntity implements Graphable, Serializable
      * {@code ou=OS-U}, or Permission, {@code ou=OS-P}, tree in ldap.
      */
     public Type type;
-    
+
     /** The name required attribute of the OrgUnit object */
     private String name;
-    
+
     /** the internal id that is associated with OrgUnit */
     private String id;
-    
+
     /** The description that is associated with OrgUnit */
     private String description;
-    
+
     /** The names of orgUnits that are parents (direct ascendants) of this orgUnit */
     @XmlElement(nillable = true)
     private Set<String> parents;
-    
+
     /** The set of child orgUnit names (direct descendants) of this orgUnit */
     @XmlElement(nillable = true)
     private Set<String> children;
@@ -371,7 +372,7 @@ public class OrgUnit extends FortEntity implements Graphable, Serializable
         {
             this.parents = new HashSet<>();
         }
-        
+
         this.parents.add( parent );
     }
 
@@ -419,26 +420,27 @@ public class OrgUnit extends FortEntity implements Graphable, Serializable
         {
             return true;
         }
-        
+
         if ( this.getName() == null )
         {
             return false;
         }
-        
+
         if ( !( thatObj instanceof OrgUnit ) )
         {
             return false;
         }
-        
+
         OrgUnit thatOrg = ( OrgUnit ) thatObj;
-        
+
         if ( thatOrg.getName() == null )
         {
             return false;
         }
-        
+
         return thatOrg.getName().equalsIgnoreCase( this.getName() );
     }
+
 
     @Override
     public int hashCode()
@@ -451,6 +453,7 @@ public class OrgUnit extends FortEntity implements Graphable, Serializable
         result = 31 * result + ( children != null ? children.hashCode() : 0 );
         return result;
     }
+
 
     /**
      * @see Object#toString()

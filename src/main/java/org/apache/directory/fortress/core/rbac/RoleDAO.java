@@ -58,7 +58,7 @@ import org.apache.directory.fortress.core.util.time.CUtil;
  * <h4>1. ftRls Structural objectclass is used to store the Role information like name and temporal constraint attributes</h4>
  * <ul>
  * <li>  ------------------------------------------
- * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.1</code>
+ * <li> <code>objectclass    ( 1.3.6.1.4.1.38088.2.1</code>
  * <li> <code>NAME 'ftRls'</code>
  * <li> <code>DESC 'Fortress Role Object Class'</code>
  * <li> <code>SUP organizationalrole</code>
@@ -112,7 +112,12 @@ final class RoleDAO extends ApacheDsDataProvider
 
     private static final String[] ROLE_ATRS =
         {
-            GlobalIds.FT_IID, ROLE_NM, SchemaConstants.DESCRIPTION_AT, GlobalIds.CONSTRAINT, SchemaConstants.ROLE_OCCUPANT_AT, GlobalIds.PARENT_NODES
+            GlobalIds.FT_IID,
+            ROLE_NM,
+            SchemaConstants.DESCRIPTION_AT,
+            GlobalIds.CONSTRAINT,
+            SchemaConstants.ROLE_OCCUPANT_AT,
+            GlobalIds.PARENT_NODES
     };
 
     /**
@@ -124,7 +129,8 @@ final class RoleDAO extends ApacheDsDataProvider
             GlobalIds.ROLE_OBJECT_CLASS_NM,
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
-        };
+    };
+
 
     /**
      * @param entity
@@ -296,7 +302,8 @@ final class RoleDAO extends ApacheDsDataProvider
         {
             //ld = getAdminConnection();
             List<Modification> mods = new ArrayList<Modification>();
-            mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, SchemaConstants.ROLE_OCCUPANT_AT, userDn ) );
+            mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, SchemaConstants.ROLE_OCCUPANT_AT,
+                userDn ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
@@ -329,7 +336,8 @@ final class RoleDAO extends ApacheDsDataProvider
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, SchemaConstants.ROLE_OCCUPANT_AT, userDn ) );
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE,
+                SchemaConstants.ROLE_OCCUPANT_AT, userDn ) );
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
@@ -392,7 +400,7 @@ final class RoleDAO extends ApacheDsDataProvider
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, ROLE_ATRS );
-            if(findEntry != null)
+            if ( findEntry != null )
             {
                 entity = unloadLdapEntry( findEntry, 0, role.getContextId() );
             }

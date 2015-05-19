@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /*
 ## OC2: Fortress Permission Structural Object Class
-    objectclass	( 1.3.6.1.4.1.38088.2.2
+    objectclass    ( 1.3.6.1.4.1.38088.2.2
     NAME 'ftObject'
     DESC 'Fortress Permission Object Class'
     SUP organizationalunit
@@ -149,7 +149,7 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * ------------------------------------------
  * Fortress Operation Structural Object Class
- * objectclass	( 1.3.6.1.4.1.38088.2.3
+ * objectclass    ( 1.3.6.1.4.1.38088.2.3
  *  NAME 'ftOperation'
  *  DESC 'Fortress Permission Operation Structural Object Class'
  *  SUP organizationalrole
@@ -744,6 +744,7 @@ public class Permission extends FortEntity implements Serializable
             .getOpName().equalsIgnoreCase( this.getOpName() ) ) );
     }
 
+
     @Override
     public int hashCode()
     {
@@ -761,6 +762,7 @@ public class Permission extends FortEntity implements Serializable
         result = 31 * result + ( users != null ? users.hashCode() : 0 );
         return result;
     }
+
 
     @Override
     public String toString()

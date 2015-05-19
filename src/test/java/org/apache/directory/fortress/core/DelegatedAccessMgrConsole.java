@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.apache.directory.fortress.core.rbac.Permission;
 import org.apache.directory.fortress.core.rbac.Role;
 import org.apache.directory.fortress.core.rbac.TestUtils;
@@ -42,25 +43,27 @@ import java.util.List;
  */
 class DelegatedAccessMgrConsole
 {
-	private DelAccessMgr dAmgr = null;
+    private DelAccessMgr dAmgr = null;
     private Session session = null;
     private static final String CLS_NM = DelegatedAccessMgrConsole.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-	/**
-	 * put your documentation comment here
-	 */
-	public DelegatedAccessMgrConsole()
-	{
-		try
-		{
-			dAmgr = DelAccessMgrFactory.createInstance(TestUtils.getContext());
-		}
-		catch ( org.apache.directory.fortress.core.SecurityException e)
-		{
-            LOG.error(" constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
-		}
-	}
+
+    /**
+     * put your documentation comment here
+     */
+    public DelegatedAccessMgrConsole()
+    {
+        try
+        {
+            dAmgr = DelAccessMgrFactory.createInstance( TestUtils.getContext() );
+        }
+        catch ( org.apache.directory.fortress.core.SecurityException e )
+        {
+            LOG.error( " constructor caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
+        }
+    }
+
 
     /**
      *
@@ -70,17 +73,18 @@ class DelegatedAccessMgrConsole
         try
         {
             ReaderUtil.clearScreen();
-            System.out.println("Enter userId:");
-            User user = new User(ReaderUtil.readLn());
-            System.out.println("Enter role name:");
-            Role role = new Role(ReaderUtil.readLn());
-            boolean result = dAmgr.canAssign(session, user, role);
-            System.out.println("Can Assign User [" + user.getUserId() + "] Role [" + role.getName() + "] return [" + result + "]");
-            System.out.println("ENTER to continue");
+            System.out.println( "Enter userId:" );
+            User user = new User( ReaderUtil.readLn() );
+            System.out.println( "Enter role name:" );
+            Role role = new Role( ReaderUtil.readLn() );
+            boolean result = dAmgr.canAssign( session, user, role );
+            System.out.println( "Can Assign User [" + user.getUserId() + "] Role [" + role.getName() + "] return ["
+                + result + "]" );
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("canAssign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "canAssign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }
@@ -91,17 +95,18 @@ class DelegatedAccessMgrConsole
         try
         {
             ReaderUtil.clearScreen();
-            System.out.println("Enter userId:");
-            User user = new User(ReaderUtil.readLn());
-            System.out.println("Enter role name:");
-            Role role = new Role(ReaderUtil.readLn());
-            boolean result = dAmgr.canDeassign(session, user, role);
-            System.out.println("Can Deassign User [" + user.getUserId() + "] Role [" + role.getName() + "] return [" + result + "]");
-            System.out.println("ENTER to continue");
+            System.out.println( "Enter userId:" );
+            User user = new User( ReaderUtil.readLn() );
+            System.out.println( "Enter role name:" );
+            Role role = new Role( ReaderUtil.readLn() );
+            boolean result = dAmgr.canDeassign( session, user, role );
+            System.out.println( "Can Deassign User [" + user.getUserId() + "] Role [" + role.getName() + "] return ["
+                + result + "]" );
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("canDeassign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "canDeassign caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }
@@ -112,17 +117,18 @@ class DelegatedAccessMgrConsole
         try
         {
             ReaderUtil.clearScreen();
-            System.out.println("Enter role name:");
-            Role role = new Role(ReaderUtil.readLn());
-            System.out.println("Enter perm object name:");
+            System.out.println( "Enter role name:" );
+            Role role = new Role( ReaderUtil.readLn() );
+            System.out.println( "Enter perm object name:" );
             String objName = ReaderUtil.readLn();
-            boolean result = dAmgr.canGrant(session, role, new Permission(objName));
-            System.out.println("Can Assign Role [" + role.getName() + "] Object name [" + objName + "] return [" + result + "]");
-            System.out.println("ENTER to continue");
+            boolean result = dAmgr.canGrant( session, role, new Permission( objName ) );
+            System.out.println( "Can Assign Role [" + role.getName() + "] Object name [" + objName + "] return ["
+                + result + "]" );
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("canGrant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "canGrant caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }
@@ -133,17 +139,18 @@ class DelegatedAccessMgrConsole
         try
         {
             ReaderUtil.clearScreen();
-            System.out.println("Enter role name:");
-            Role role = new Role(ReaderUtil.readLn());
-            System.out.println("Enter perm object name:");
+            System.out.println( "Enter role name:" );
+            Role role = new Role( ReaderUtil.readLn() );
+            System.out.println( "Enter perm object name:" );
             String objName = ReaderUtil.readLn();
-            boolean result = dAmgr.canRevoke(session, role, new Permission(objName));
-            System.out.println("Can Revoke Role [" + role.getName() + "] Object name [" + objName + "] return [" + result + "]");
-            System.out.println("ENTER to continue");
+            boolean result = dAmgr.canRevoke( session, role, new Permission( objName ) );
+            System.out.println( "Can Revoke Role [" + role.getName() + "] Object name [" + objName + "] return ["
+                + result + "]" );
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("canRevoke caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "canRevoke caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }
@@ -157,20 +164,20 @@ class DelegatedAccessMgrConsole
         try
         {
             ReaderUtil.clearScreen();
-            System.out.println("Enter userId:");
+            System.out.println( "Enter userId:" );
             String userId = ReaderUtil.readLn();
-            System.out.println("Enter password:");
+            System.out.println( "Enter password:" );
             String password = ReaderUtil.readLn();
             session = new Session();
             //((AccessMgr)dAmgr).createSession(session, userId, password);
-            ((AccessMgr)dAmgr).createSession(new User(userId, password.toCharArray()), false);
-            System.out.println("Session created successfully for userId [" + userId + "]");
-            System.out.println("session [" + session + "]");
-            System.out.println("ENTER to continue");
+            ( ( AccessMgr ) dAmgr ).createSession( new User( userId, password.toCharArray() ), false );
+            System.out.println( "Session created successfully for userId [" + userId + "]" );
+            System.out.println( "session [" + session + "]" );
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("createSession caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "createSession caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }
@@ -181,105 +188,108 @@ class DelegatedAccessMgrConsole
         try
         {
             ReaderUtil.clearScreen();
-            System.out.println("Enter userId:");
+            System.out.println( "Enter userId:" );
             String userId = ReaderUtil.readLn();
-            session = ((AccessMgr)dAmgr).createSession(new User(userId), true);
-            System.out.println("Trusted Session created successfully for userId [" + userId + "]");
-            System.out.println("session [" + session + "]");
-            System.out.println("ENTER to continue");
+            session = ( ( AccessMgr ) dAmgr ).createSession( new User( userId ), true );
+            System.out.println( "Trusted Session created successfully for userId [" + userId + "]" );
+            System.out.println( "session [" + session + "]" );
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error(
+                "createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }
-
 
 
     void checkAccess()
     {
         try
         {
-            VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, ".checkAccess");
+            VUtil.assertNotNull( session, GlobalErrIds.USER_SESS_NULL, ".checkAccess" );
             ReaderUtil.clearScreen();
-            System.out.println("Enter object name:");
+            System.out.println( "Enter object name:" );
             String objName = ReaderUtil.readLn();
-            System.out.println("Enter operation name:");
+            System.out.println( "Enter operation name:" );
             String opName = ReaderUtil.readLn();
-            boolean result = dAmgr.checkAccess(session, new Permission(objName, opName));
-            System.out.println("CheckAccess return [" + result + "] for user [" + session.getUserId() + "] objName [" + objName + "] operationName [" + opName + "]");
-            System.out.println("ENTER to continue");
+            boolean result = dAmgr.checkAccess( session, new Permission( objName, opName ) );
+            System.out.println( "CheckAccess return [" + result + "] for user [" + session.getUserId() + "] objName ["
+                + objName + "] operationName [" + opName + "]" );
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }
+
 
     void sessionPermissions()
     {
         try
         {
-            VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, "DelegatedAccessMgrConsole.sessionPermissions");
+            VUtil.assertNotNull( session, GlobalErrIds.USER_SESS_NULL, "DelegatedAccessMgrConsole.sessionPermissions" );
             ReaderUtil.clearScreen();
-            List<Permission> list = dAmgr.sessionPermissions(session);
-            if (list != null)
+            List<Permission> list = dAmgr.sessionPermissions( session );
+            if ( list != null )
             {
-                Collections.sort(list, new Comparator<Permission>()
+                Collections.sort( list, new Comparator<Permission>()
                 {
                     @Override
-                    public int compare(Permission p1, Permission p2)
+                    public int compare( Permission p1, Permission p2 )
                     {
                         return p1.getAbstractName().compareTo( p2.getAbstractName() );
                     }
-                });
+                } );
                 int i = 0;
-                for (Permission pe : list)
+                for ( Permission pe : list )
                 {
                     //pe = (Permission) list.get(i);
-                    System.out.println("**perm:" + (i++) + "***");
-                    System.out.println("object name [" + pe.getObjName() + "]");
-                    System.out.println("object id [" + pe.getObjId() + "]");
-                    System.out.println("operation name [" + pe.getOpName() + "]");
-                    System.out.println("abstract perm name [" + pe.getAbstractName() + "]");
-                    System.out.println("internalId [" + pe.getInternalId() + "]");
-                    if (pe.getUsers() != null && pe.getUsers().size() > 0)
+                    System.out.println( "**perm:" + ( i++ ) + "***" );
+                    System.out.println( "object name [" + pe.getObjName() + "]" );
+                    System.out.println( "object id [" + pe.getObjId() + "]" );
+                    System.out.println( "operation name [" + pe.getOpName() + "]" );
+                    System.out.println( "abstract perm name [" + pe.getAbstractName() + "]" );
+                    System.out.println( "internalId [" + pe.getInternalId() + "]" );
+                    if ( pe.getUsers() != null && pe.getUsers().size() > 0 )
                     {
                         int ctr = 0;
-                        for (String user : pe.getUsers())
+                        for ( String user : pe.getUsers() )
                         {
-                            System.out.println("user[" + ctr++ + "]=" + user);
+                            System.out.println( "user[" + ctr++ + "]=" + user );
                         }
                     }
-                    if (pe.getRoles() != null && pe.getRoles().size() > 0)
+                    if ( pe.getRoles() != null && pe.getRoles().size() > 0 )
                     {
                         int ctr = 0;
-                        for (String role : pe.getRoles())
+                        for ( String role : pe.getRoles() )
                         {
-                            System.out.println("name[" + ctr++ + "]=" + role);
+                            System.out.println( "name[" + ctr++ + "]=" + role );
                         }
                     }
-                    if (pe.getProperties() != null && pe.getProperties().size() > 0)
+                    if ( pe.getProperties() != null && pe.getProperties().size() > 0 )
                     {
                         int ctr = 0;
-                        for (Enumeration e = pe.getProperties().propertyNames(); e.hasMoreElements();)
+                        for ( Enumeration e = pe.getProperties().propertyNames(); e.hasMoreElements(); )
                         {
-                            String key = (String) e.nextElement();
-                            String val = pe.getProperty(key);
-                            System.out.println("prop key[" + ctr + "]=" + key);
-                            System.out.println("prop value[" + ctr++ + "]=" + val);
+                            String key = ( String ) e.nextElement();
+                            String val = pe.getProperty( key );
+                            System.out.println( "prop key[" + ctr + "]=" + key );
+                            System.out.println( "prop value[" + ctr++ + "]=" + val );
                         }
                     }
-                    System.out.println("**");
+                    System.out.println( "**" );
                 }
             }
-            System.out.println("ENTER to continue");
+            System.out.println( "ENTER to continue" );
         }
-        catch (SecurityException e)
+        catch ( SecurityException e )
         {
-            LOG.error("sessionPermissions caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+            LOG.error( "sessionPermissions caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(),
+                e );
         }
         ReaderUtil.readChar();
     }

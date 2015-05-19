@@ -74,7 +74,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * <h4>2. The RBAC Separation of Duties</h4>
  * <ul>
  * <li>  ---Static Separation of Duties Set-------
- * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.4</code>
+ * <li> <code>objectclass    ( 1.3.6.1.4.1.38088.2.4</code>
  * <li> <code>NAME 'ftSSDSet'</code>
  * <li> <code>DESC 'Fortress Role Static Separation of Duty Set Object Class'</code>
  * <li> <code>SUP organizationalrole</code>
@@ -88,7 +88,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * <h4>Dynamic Separation of Duties Set</h4>
  * <ul>
  * <li>
- * <li> <code>objectclass	( 1.3.6.1.4.1.38088.2.5</code>
+ * <li> <code>objectclass    ( 1.3.6.1.4.1.38088.2.5</code>
  * <li> <code>NAME 'ftDSDSet'</code>
  * <li> <code>DESC 'Fortress Role Dynamic Separation of Duty Set Object Class'</code>
  * <li> <code>SUP organizationalrole</code>
