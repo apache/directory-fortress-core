@@ -1071,7 +1071,7 @@ final class PermDAO extends ApacheDsDataProvider
         {
             String permObjVal = encodeSafeText( permission.getObjName(), GlobalIds.PERM_LEN );
             String permOpVal = encodeSafeText( permission.getOpName(), GlobalIds.PERM_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
@@ -1127,7 +1127,7 @@ final class PermDAO extends ApacheDsDataProvider
         try
         {
             String permObjVal = encodeSafeText( permObj.getObjName(), GlobalIds.PERM_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OBJ_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
@@ -1178,7 +1178,7 @@ final class PermDAO extends ApacheDsDataProvider
         try
         {
             String ouVal = encodeSafeText( ou.getName(), GlobalIds.OU_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OBJ_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
@@ -1252,7 +1252,7 @@ final class PermDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
@@ -1336,7 +1336,7 @@ final class PermDAO extends ApacheDsDataProvider
 
         try
         {
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
             filterbuf.append( ")(|" );
@@ -1404,7 +1404,7 @@ final class PermDAO extends ApacheDsDataProvider
 
         try
         {
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
@@ -1457,7 +1457,7 @@ final class PermDAO extends ApacheDsDataProvider
 
         try
         {
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
             filterbuf.append( ")(|" );

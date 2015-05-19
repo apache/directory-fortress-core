@@ -443,7 +443,7 @@ final class SdDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( objectClass );
             filterbuf.append( ")(" );
@@ -555,7 +555,7 @@ final class SdDAO extends ApacheDsDataProvider
         {
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
-                StringBuffer filterbuf = new StringBuffer();
+                StringBuilder filterbuf = new StringBuilder();
                 filterbuf.append( GlobalIds.FILTER_PREFIX );
                 filterbuf.append( objectClass );
                 filterbuf.append( ")(|" );
