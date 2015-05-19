@@ -19,12 +19,14 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.apache.directory.fortress.core.rbac.PermObj;
 import org.apache.directory.fortress.core.rbac.Permission;
 import org.apache.directory.fortress.core.rbac.Role;
 import org.apache.directory.fortress.core.rbac.SDSet;
 import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.rbac.UserRole;
+
 
 /**
  * This class performs administrative functions to provision Fortress RBAC entities into the LDAP directory.  These APIs
@@ -102,7 +104,7 @@ public interface AdminMgr extends Manageable
      * @return Returns entity containing user data that was added.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
-    public User addUser(User user)
+    User addUser( User user )
         throws SecurityException;
 
 
@@ -123,7 +125,7 @@ public interface AdminMgr extends Manageable
      * @param user Contains the {@link User#userId} of the User targeted for deletion.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
-    public void disableUser(User user)
+    void disableUser( User user )
         throws SecurityException;
 
 
@@ -141,7 +143,7 @@ public interface AdminMgr extends Manageable
      * @param user Contains the {@link User#userId} of the User targeted for deletion.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
-    public void deleteUser(User user)
+    void deleteUser( User user )
         throws SecurityException;
 
 
@@ -183,7 +185,7 @@ public interface AdminMgr extends Manageable
      * @return Updated user entity data.
      * @throws SecurityException thrown in the event of validation or system error.
      */
-    public User updateUser(User user)
+    User updateUser( User user )
         throws SecurityException;
 
 
@@ -200,7 +202,7 @@ public interface AdminMgr extends Manageable
      * @param newPassword contains new user password.
      * @throws SecurityException will be thrown in the event of password policy violation or system error.
      */
-    public void changePassword(User user, char[] newPassword)
+    void changePassword( User user, char[] newPassword )
         throws SecurityException;
 
 
@@ -215,7 +217,7 @@ public interface AdminMgr extends Manageable
      * @param user entity contains {@link User#userId} of User to be locked.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
-    public void lockUserAccount(User user)
+    void lockUserAccount( User user )
         throws SecurityException;
 
 
@@ -230,7 +232,7 @@ public interface AdminMgr extends Manageable
      * @param user entity contains {@link User#userId} of User to be unlocked.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
-    public void unlockUserAccount(User user)
+    void unlockUserAccount( User user )
         throws SecurityException;
 
 
@@ -247,7 +249,7 @@ public interface AdminMgr extends Manageable
      * @param user entity contains {@link User#userId} of User to be reset.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
-    public void resetPassword(User user, char[] newPassword)
+    void resetPassword( User user, char[] newPassword )
         throws SecurityException;
 
 
@@ -262,7 +264,7 @@ public interface AdminMgr extends Manageable
      * @param user  contains {@link User#userId}.
      * @throws SecurityException will be thrown in the event of password policy violation or system error.
      */
-    public void deletePasswordPolicy(User user)
+    void deletePasswordPolicy( User user )
         throws SecurityException;
 
 
@@ -289,7 +291,7 @@ public interface AdminMgr extends Manageable
      * @param role must contains {@link Role#name} (required) and optional {@link Role#description}.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
-    public Role addRole(Role role)
+    Role addRole( Role role )
         throws SecurityException;
 
 
@@ -304,7 +306,7 @@ public interface AdminMgr extends Manageable
      * @param role Must contain {@link Role#name} for Role to delete.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
-    public void deleteRole(Role role)
+    void deleteRole( Role role )
         throws SecurityException;
 
 
@@ -330,7 +332,7 @@ public interface AdminMgr extends Manageable
      * @return Role contains reference to entity operated on.
      * @throws SecurityException in the event of validation or system error.
      */
-    public Role updateRole(Role role)
+    Role updateRole( Role role )
         throws SecurityException;
 
 
@@ -382,7 +384,7 @@ public interface AdminMgr extends Manageable
      * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name} and optional {@code Constraints}.
      * @throws SecurityException in the event of validation or system error.
      */
-    public void assignUser(UserRole uRole)
+    void assignUser( UserRole uRole )
         throws SecurityException;
 
 
@@ -403,7 +405,7 @@ public interface AdminMgr extends Manageable
      * @param uRole must contain {@link org.apache.directory.fortress.core.rbac.UserRole#userId} and {@link UserRole#name}.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
-    public void deassignUser(UserRole uRole)
+    void deassignUser( UserRole uRole )
         throws SecurityException;
 
 
@@ -428,7 +430,7 @@ public interface AdminMgr extends Manageable
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
-    public Permission addPermission(Permission perm)
+    Permission addPermission( Permission perm )
         throws SecurityException;
 
 
@@ -454,7 +456,7 @@ public interface AdminMgr extends Manageable
      * @throws SecurityException
      *          - thrown in the event of perm object data or system error.
      */
-    public Permission updatePermission(Permission perm)
+    Permission updatePermission( Permission perm )
         throws SecurityException;
 
 
@@ -470,7 +472,7 @@ public interface AdminMgr extends Manageable
      * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that identifies target.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
-    public void deletePermission(Permission perm)
+    void deletePermission( Permission perm )
         throws SecurityException;
 
 
@@ -493,7 +495,7 @@ public interface AdminMgr extends Manageable
      * @return copy of PermObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
-    public PermObj addPermObj(PermObj pObj)
+    PermObj addPermObj( PermObj pObj )
         throws SecurityException;
 
 
@@ -517,7 +519,7 @@ public interface AdminMgr extends Manageable
      * @throws SecurityException
      *          - thrown in the event of perm object data or system error.
      */
-    public PermObj updatePermObj(PermObj pObj)
+    PermObj updatePermObj( PermObj pObj )
         throws SecurityException;
 
 
@@ -532,7 +534,7 @@ public interface AdminMgr extends Manageable
      * @param pObj must contain the {@link PermObj#objName} of object targeted for removal.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
-    public void deletePermObj(PermObj pObj)
+    void deletePermObj( PermObj pObj )
         throws SecurityException;
 
 
@@ -553,7 +555,7 @@ public interface AdminMgr extends Manageable
      * @param role must contains {@link Role#name}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
-    public void grantPermission(Permission perm, Role role)
+    void grantPermission( Permission perm, Role role )
         throws SecurityException;
 
 
@@ -574,7 +576,7 @@ public interface AdminMgr extends Manageable
      * @param role must contains {@link Role#name}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
-    public void revokePermission(Permission perm, Role role)
+    void revokePermission( Permission perm, Role role )
         throws SecurityException;
 
 
@@ -595,7 +597,7 @@ public interface AdminMgr extends Manageable
      * @param user must contain {@link User#userId} of target User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
-    public void grantPermission(Permission perm, User user)
+    void grantPermission( Permission perm, User user )
         throws SecurityException;
 
 
@@ -616,8 +618,9 @@ public interface AdminMgr extends Manageable
      * @param user must contain {@link User#userId} of target User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
-    public void revokePermission(Permission perm, User user)
+    void revokePermission( Permission perm, User user )
         throws SecurityException;
+
 
     /**
      * This command creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of
@@ -656,7 +659,7 @@ public interface AdminMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void addDescendant(Role parentRole, Role childRole)
+    void addDescendant( Role parentRole, Role childRole )
         throws SecurityException;
 
 
@@ -696,7 +699,7 @@ public interface AdminMgr extends Manageable
      * @param childRole  completion of op assigns new parent relationship with parentRole.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
-    public void addAscendant(Role childRole, Role parentRole)
+    void addAscendant( Role childRole, Role parentRole )
         throws SecurityException;
 
 
@@ -720,7 +723,7 @@ public interface AdminMgr extends Manageable
      * @param childRole  completion of op deassigns parent relationship with parentRole.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
-    public void addInheritance(Role parentRole, Role childRole)
+    void addInheritance( Role parentRole, Role childRole )
         throws SecurityException;
 
 
@@ -744,7 +747,7 @@ public interface AdminMgr extends Manageable
      * @param childRole  completion of op removes parent relationship with parentRole.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
-    public void deleteInheritance(Role parentRole, Role childRole)
+    void deleteInheritance( Role parentRole, Role childRole )
         throws SecurityException;
 
 
@@ -774,8 +777,9 @@ public interface AdminMgr extends Manageable
      * @return reference to newly created SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet createSsdSet(SDSet ssdSet)
+    SDSet createSsdSet( SDSet ssdSet )
         throws SecurityException;
+
 
     /**
      * This command updates existing SSD set of roles and sets the cardinality n of its subsets
@@ -803,8 +807,9 @@ public interface AdminMgr extends Manageable
      * @return reference to SSDSet object targeted for update.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet updateSsdSet(SDSet ssdSet)
+    SDSet updateSsdSet( SDSet ssdSet )
         throws SecurityException;
+
 
     /**
      * This command adds a role to a named SSD set of roles. The cardinality associated with the role set remains unchanged.
@@ -827,8 +832,9 @@ public interface AdminMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation or system error.
      */
-    public SDSet addSsdRoleMember(SDSet ssdSet, Role role)
+    SDSet addSsdRoleMember( SDSet ssdSet, Role role )
         throws SecurityException;
+
 
     /**
      * This command removes a role from a named SSD set of roles. The cardinality associated with the role set remains unchanged.
@@ -851,8 +857,9 @@ public interface AdminMgr extends Manageable
      * @return reference to updated SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet deleteSsdRoleMember(SDSet ssdSet, Role role)
+    SDSet deleteSsdRoleMember( SDSet ssdSet, Role role )
         throws SecurityException;
+
 
     /**
      * This command deletes a SSD role set completely. The command is valid if and only if the SSD role set exists.
@@ -865,8 +872,9 @@ public interface AdminMgr extends Manageable
      * @return reference to deleted SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet deleteSsdSet(SDSet ssdSet)
+    SDSet deleteSsdSet( SDSet ssdSet )
         throws SecurityException;
+
 
     /**
      * This command sets the cardinality associated with a given SSD role set.
@@ -889,7 +897,7 @@ public interface AdminMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation or system error.
      */
-    public SDSet setSsdSetCardinality(SDSet ssdSet, int cardinality)
+    SDSet setSsdSetCardinality( SDSet ssdSet, int cardinality )
         throws SecurityException;
 
 
@@ -920,8 +928,9 @@ public interface AdminMgr extends Manageable
      * @return reference to newly created SSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet createDsdSet(SDSet dsdSet)
+    SDSet createDsdSet( SDSet dsdSet )
         throws SecurityException;
+
 
     /**
      * This command updates existing DSD set of roles and sets the cardinality n of its subsets
@@ -949,8 +958,9 @@ public interface AdminMgr extends Manageable
      * @return reference to DSDSet object targeted for update.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet updateDsdSet(SDSet dsdSet)
+    SDSet updateDsdSet( SDSet dsdSet )
         throws SecurityException;
+
 
     /**
      * This command adds a role to a named DSD set of roles. The cardinality associated with
@@ -973,8 +983,9 @@ public interface AdminMgr extends Manageable
      * @return reference to updated DSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet addDsdRoleMember(SDSet dsdSet, Role role)
+    SDSet addDsdRoleMember( SDSet dsdSet, Role role )
         throws SecurityException;
+
 
     /**
      * This command removes a role from a named DSD set of roles. The cardinality associated
@@ -998,8 +1009,9 @@ public interface AdminMgr extends Manageable
      * @return reference to updated DSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet deleteDsdRoleMember(SDSet dsdSet, Role role)
+    SDSet deleteDsdRoleMember( SDSet dsdSet, Role role )
         throws SecurityException;
+
 
     /**
      * This command deletes a DSD role set completely. The command is valid if and only if the DSD role set exists.
@@ -1012,8 +1024,9 @@ public interface AdminMgr extends Manageable
      * @return reference to deleted DSDSet object.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public SDSet deleteDsdSet(SDSet dsdSet)
+    SDSet deleteDsdSet( SDSet dsdSet )
         throws SecurityException;
+
 
     /**
      * This command sets the cardinality associated with a given DSD role set.
@@ -1036,6 +1049,6 @@ public interface AdminMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation or system error.
      */
-    public SDSet setDsdSetCardinality(SDSet dsdSet, int cardinality)
+    SDSet setDsdSetCardinality( SDSet dsdSet, int cardinality )
         throws SecurityException;
 }

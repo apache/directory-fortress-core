@@ -19,9 +19,11 @@
  */
 package org.apache.directory.fortress.core.cfg;
 
+
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.Properties;
+
 
 /**
  * This interface prescribes CRUD methods used to manage properties stored within the ldap directory.
@@ -48,7 +50,8 @@ public interface ConfigMgr
      * @return {@link Properties} containing the collection of name/value pairs just added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry already present or other system error.
      */
-    public Properties add(String name, Properties inProps) throws SecurityException;
+    Properties add( String name, Properties inProps ) throws SecurityException;
+
 
     /**
      * Update existing cfg node with additional properties, or, replace existing properties.  The name is required.  If node does not exist,
@@ -59,7 +62,8 @@ public interface ConfigMgr
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
-    public Properties update(String name, Properties inProps) throws SecurityException;
+    Properties update( String name, Properties inProps ) throws SecurityException;
+
 
     /**
      * Completely removes named cfg node from the directory.  The name is required.  If node does not exist,
@@ -68,7 +72,8 @@ public interface ConfigMgr
      * @param name is required and maps to 'cn' attribute on 'device' object class of node targeted for operation.
      * @throws org.apache.directory.fortress.core.SecurityException in the event of system error.
      */
-    public void delete(String name) throws SecurityException;
+    void delete( String name ) throws SecurityException;
+
 
     /**
      * Delete properties from existing cfg node.  The name is required.  If node does not exist,
@@ -77,7 +82,8 @@ public interface ConfigMgr
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
-    public void delete(String name, Properties inProps) throws SecurityException;
+    void delete( String name, Properties inProps ) throws SecurityException;
+
 
     /**
      * Read an existing cfg node with given name and return to caller.  The name is required.  If node doesn't exist,
@@ -87,6 +93,5 @@ public interface ConfigMgr
      * @return {@link Properties} containing the collection of name/value pairs just added. Maps to 'ftProps' attribute in 'ftProperties' object class.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry doesn't exist or other system error.
      */
-    public Properties read(String name) throws SecurityException;
+    Properties read( String name ) throws SecurityException;
 }
-

@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.apache.directory.fortress.core.rbac.OrgUnit;
 import org.apache.directory.fortress.core.rbac.Permission;
 import org.apache.directory.fortress.core.rbac.PermObj;
@@ -29,6 +30,7 @@ import org.apache.directory.fortress.core.rbac.UserRole;
 
 import java.util.List;
 import java.util.Set;
+
 
 /**
  * This interface prescribes the administrative review functions on already provisioned Fortress RBAC entities
@@ -81,8 +83,9 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          if permission not found or system error occurs.
      */
-    public Permission readPermission(Permission permission)
+    Permission readPermission( Permission permission )
         throws SecurityException;
+
 
     /**
      * Method reads permission object from perm container in directory.
@@ -95,8 +98,9 @@ public interface ReviewMgr extends Manageable
      * @return PermObj loaded with perm object data.
      * @throws SecurityException is thrown if object not found or system error.
      */
-    public PermObj readPermObj(PermObj permObj)
+    PermObj readPermObj( PermObj permObj )
         throws SecurityException;
+
 
     /**
      * Method returns a list of type Permission that match the perm object search string.
@@ -112,7 +116,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of system error.
      */
-    public List<Permission> findPermissions(Permission permission)
+    List<Permission> findPermissions( Permission permission )
         throws SecurityException;
 
 
@@ -127,7 +131,7 @@ public interface ReviewMgr extends Manageable
      * @return List of type PermObj.  Fortress permissions are object->operation mappings.
      * @throws SecurityException thrown in the event of system error.
      */
-    public List<PermObj> findPermObjs(PermObj permObj)
+    List<PermObj> findPermObjs( PermObj permObj )
         throws SecurityException;
 
 
@@ -143,7 +147,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of system error.
      */
-    public List<PermObj> findPermObjs(OrgUnit ou)
+    List<PermObj> findPermObjs( OrgUnit ou )
         throws SecurityException;
 
 
@@ -159,7 +163,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          will be thrown if role not found or system error occurs.
      */
-    public Role readRole(Role role)
+    Role readRole( Role role )
         throws SecurityException;
 
 
@@ -170,7 +174,7 @@ public interface ReviewMgr extends Manageable
      * @return List of type Role containing role entities that match the search criteria.
      * @throws SecurityException in the event of system error.
      */
-    public List<Role> findRoles(String searchVal)
+    List<Role> findRoles( String searchVal )
         throws SecurityException;
 
 
@@ -185,7 +189,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of system error.
      */
-    public List<String> findRoles(String searchVal, int limit)
+    List<String> findRoles( String searchVal, int limit )
         throws SecurityException;
 
 
@@ -201,7 +205,7 @@ public interface ReviewMgr extends Manageable
      * @return entity containing matching user data.
      * @throws SecurityException if record not found or system error occurs.
      */
-    public User readUser(User user)
+    User readUser( User user )
         throws SecurityException;
 
 
@@ -216,7 +220,7 @@ public interface ReviewMgr extends Manageable
      * @return List of type User.
      * @throws SecurityException In the event of system error.
      */
-    public List<User> findUsers(User user)
+    List<User> findUsers( User user )
         throws SecurityException;
 
 
@@ -232,7 +236,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          In the event of system error.
      */
-    public List<User> findUsers(OrgUnit ou)
+    List<User> findUsers( OrgUnit ou )
         throws SecurityException;
 
 
@@ -250,7 +254,7 @@ public interface ReviewMgr extends Manageable
      * @return List of type String containing matching userIds.
      * @throws SecurityException in the event of system error.
      */
-    public List<String> findUsers(User user, int limit)
+    List<String> findUsers( User user, int limit )
         throws SecurityException;
 
 
@@ -271,7 +275,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation or system error.
      */
-    public List<String> assignedUsers(Role role, int limit)
+    List<String> assignedUsers( Role role, int limit )
         throws SecurityException;
 
 
@@ -288,8 +292,9 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          If user not found or system error occurs.
      */
-    public List<UserRole> assignedRoles(User user)
+    List<UserRole> assignedRoles( User user )
         throws SecurityException;
+
 
     /**
      * This method returns the data set of all users who are assigned the given role.  This searches the User data set for
@@ -304,7 +309,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          If system error occurs.
      */
-    public List<User> assignedUsers(Role role)
+    List<User> assignedUsers( Role role )
         throws SecurityException;
 
 
@@ -317,7 +322,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          If user not found or system error occurs.
      */
-    public List<String> assignedRoles(String userId)
+    List<String> assignedRoles( String userId )
         throws SecurityException;
 
 
@@ -334,7 +339,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          In the event the role is not present in directory or system error occurs.
      */
-    public List<User> authorizedUsers(Role role)
+    List<User> authorizedUsers( Role role )
         throws SecurityException;
 
 
@@ -350,7 +355,7 @@ public interface ReviewMgr extends Manageable
      * @return Set of type String containing the roles assigned and roles inherited.
      * @throws SecurityException If user not found or system error occurs.
      */
-    public Set<String> authorizedRoles(User user)
+    Set<String> authorizedRoles( User user )
         throws SecurityException;
 
 
@@ -368,7 +373,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          In the event system error occurs.
      */
-    public List<Permission> rolePermissions(Role role)
+    List<Permission> rolePermissions( Role role )
         throws SecurityException;
 
 
@@ -385,7 +390,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of validation or system error.
      */
-    public List<Permission> userPermissions(User user)
+    List<Permission> userPermissions( User user )
         throws SecurityException;
 
 
@@ -401,7 +406,7 @@ public interface ReviewMgr extends Manageable
      * @return List of type string containing the Role names that have the matching perm granted.
      * @throws SecurityException in the event permission not found or system error occurs.
      */
-    public List<String> permissionRoles(Permission perm)
+    List<String> permissionRoles( Permission perm )
         throws SecurityException;
 
 
@@ -418,7 +423,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of validation or system error.
      */
-    public Set<String> authorizedPermissionRoles(Permission perm)
+    Set<String> authorizedPermissionRoles( Permission perm )
         throws SecurityException;
 
 
@@ -435,7 +440,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of validation or system error.
      */
-    public List<String> permissionUsers(Permission perm)
+    List<String> permissionUsers( Permission perm )
         throws SecurityException;
 
 
@@ -452,7 +457,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of validation or system error.
      */
-    public Set<String> authorizedPermissionUsers(Permission perm)
+    Set<String> authorizedPermissionUsers( Permission perm )
         throws SecurityException;
 
 
@@ -469,8 +474,9 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of data or system error.
      */
-    public List<SDSet> ssdRoleSets(Role role)
+    List<SDSet> ssdRoleSets( Role role )
         throws SecurityException;
+
 
     /**
      * This function returns the SSD data set that matches a particular set name.
@@ -484,8 +490,9 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of data or system error.
      */
-    public SDSet ssdRoleSet(SDSet set)
+    SDSet ssdRoleSet( SDSet set )
         throws SecurityException;
+
 
     /**
      * This function returns the list of SSDs that match a given ssd name value.
@@ -498,8 +505,9 @@ public interface ReviewMgr extends Manageable
      * @return List containing all SSDSets that match a given SSDSet name.
      * @throws SecurityException in the event of data or system error.
      */
-    public List<SDSet> ssdSets(SDSet ssd)
+    List<SDSet> ssdSets( SDSet ssd )
         throws SecurityException;
+
 
     /**
      * This function returns the set of roles of a SSD role set. The function is valid if and only if the
@@ -513,8 +521,9 @@ public interface ReviewMgr extends Manageable
      * @return Set containing all Roles that are members of SSD data set.
      * @throws SecurityException in the event of data or system error.
      */
-    public Set<String> ssdRoleSetRoles(SDSet ssd)
+    Set<String> ssdRoleSetRoles( SDSet ssd )
         throws SecurityException;
+
 
     /**
      * This function returns the cardinality associated with a SSD role set. The function is valid if and only if the
@@ -528,7 +537,7 @@ public interface ReviewMgr extends Manageable
      * @return int value containing cardinality of SSD set.
      * @throws SecurityException in the event of data or system error.
      */
-    public int ssdRoleSetCardinality(SDSet ssd)
+    int ssdRoleSetCardinality( SDSet ssd )
         throws SecurityException;
 
 
@@ -545,8 +554,9 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of data or system error.
      */
-    public List<SDSet> dsdRoleSets(Role role)
+    List<SDSet> dsdRoleSets( Role role )
         throws SecurityException;
+
 
     /**
      * This function returns the DSD data set that matches a particular set name.
@@ -560,7 +570,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of data or system error.
      */
-    public SDSet dsdRoleSet(SDSet set)
+    SDSet dsdRoleSet( SDSet set )
         throws SecurityException;
 
 
@@ -575,8 +585,9 @@ public interface ReviewMgr extends Manageable
      * @return List containing all DSDSets that match a given DSDSet name.
      * @throws SecurityException in the event of data or system error.
      */
-    public List<SDSet> dsdSets(SDSet dsd)
+    List<SDSet> dsdSets( SDSet dsd )
         throws SecurityException;
+
 
     /**
      * This function returns the set of roles of a DSD role set. The function is valid if and only if the
@@ -591,8 +602,9 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of data or system error.
      */
-    public Set<String> dsdRoleSetRoles(SDSet dsd)
+    Set<String> dsdRoleSetRoles( SDSet dsd )
         throws SecurityException;
+
 
     /**
      * This function returns the cardinality associated with a DSD role set. The function is valid if and only if the
@@ -606,7 +618,6 @@ public interface ReviewMgr extends Manageable
      * @return int value containing cardinality of DSD set.
      * @throws SecurityException in the event of data or system error.
      */
-    public int dsdRoleSetCardinality(SDSet dsd)
+    int dsdRoleSetCardinality( SDSet dsd )
         throws SecurityException;
 }
-

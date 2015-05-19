@@ -70,7 +70,8 @@ public interface Constraint
      *
      * @return boolean indicating if temporal constraints are placed on user.
      */
-    public boolean isTemporalSet();
+    boolean isTemporalSet();
+
 
     /**
      * Set the integer timeout that contains max time (in seconds) that entity may remain inactive.
@@ -78,7 +79,8 @@ public interface Constraint
      *
      * @param timeout maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public void setTimeout(Integer timeout);
+    void setTimeout( Integer timeout );
+
 
     /**
      * Set the begin time of day entity is allowed to be activated in system.  The format is military time - HHMM, i.e. 0800 (8:00 am) or 1700 (5:00 p.m.).
@@ -86,7 +88,8 @@ public interface Constraint
      *
      * @param beginTime maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public void setBeginTime(String beginTime);
+    void setBeginTime( String beginTime );
+
 
     /**
      * Set the end time of day entity is allowed to be activated in system.  The format is military time - HHMM, i.e. 0000 (12:00 am) or 2359 (11:59 p.m.).
@@ -94,7 +97,8 @@ public interface Constraint
      *
      * @param endTime maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public void setEndTime(String endTime);
+    void setEndTime( String endTime );
+
 
     /**
      * Set the beginDate when entity is allowed to be activated in system.  The format is - YYYYMMDD, i.e. 20100101 (January 1, 2001).
@@ -102,7 +106,8 @@ public interface Constraint
      *
      * @param beginDate maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public void setBeginDate(String beginDate);
+    void setBeginDate( String beginDate );
+
 
     /**
      * Set the end date when entity is not allowed to be activated in system.  The format is - YYYYMMDD, i.e. 20100101 (January 1, 2010).
@@ -110,7 +115,8 @@ public interface Constraint
      *
      * @param endDate maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public void setEndDate(String endDate);
+    void setEndDate( String endDate );
+
 
     /**
      * Set the daymask that specifies what days of week entity is allowed to be activated in system.  The format is 1234567, i.e. 23456 (Monday, Tuesday, Wednesday, Thursday, Friday).
@@ -118,7 +124,8 @@ public interface Constraint
      *
      * @param dayMask maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public void setDayMask(String dayMask);
+    void setDayMask( String dayMask );
+
 
     /**
      * Set the begin lock date when entity is temporarily not allowed to be activated in system.  The format is - YYYYMMDD, 20100101 (January 1, 2010).
@@ -126,7 +133,8 @@ public interface Constraint
      *
      * @param beginLockDate maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public void setBeginLockDate(String beginLockDate);
+    void setBeginLockDate( String beginLockDate );
+
 
     /**
      * Set the end lock date when entity is allowed to be activated in system once again.  The format is - YYYYMMDD, i.e. 20100101 (January 1, 2010).
@@ -134,21 +142,24 @@ public interface Constraint
      *
      * @param endLockDate maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public void setEndLockDate(String endLockDate);
+    void setEndLockDate( String endLockDate );
+
 
     /**
      * This is used internally by Fortress for Constraint operations.  Values set here by external caller will be ignored.
      *
      * @param name contains attribute used internally for constraint checking.
      */
-    public void setName(String name);
+    void setName( String name );
+
 
     /**
      * Required on DAO classes convert from raw data to object format.  Not intended for external use.
      *
      * @return String that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public String getRawData();
+    String getRawData();
+
 
     /**
      * Return the integer timeout that contains total time (in seconds) that entity may remain inactive.
@@ -156,7 +167,8 @@ public interface Constraint
      *
      * @return int that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public Integer getTimeout();
+    Integer getTimeout();
+
 
     /**
      * Contains the begin time of day entity is allowed to be activated in system.  The format is military time - HHMM, i.e. 0800 (8:00 am) or 1700 (5:00 p.m.).
@@ -164,7 +176,8 @@ public interface Constraint
      *
      * @return String that maps to 'ftCstr', 'ftRC', 'ftARC' attributes in 'ftUserAttrs' object class and 'ftCstr' attribute in 'ftRls' object class.
      */
-    public String getBeginTime();
+    String getBeginTime();
+
 
     /**
      * Contains the end time of day entity is allowed to be activated in system.  The format is military time - HHMM, i.e. 0000 (12:00 am) or 2359 (11:59 p.m.).
@@ -172,7 +185,8 @@ public interface Constraint
      *
      * @return String that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public String getEndTime();
+    String getEndTime();
+
 
     /**
      * Contains the begin date when entity is allowed to be activated in system.  The format is - YYYYMMDD, i.e. 20100101 (January 1, 2010).
@@ -180,7 +194,8 @@ public interface Constraint
      *
      * @return String that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public String getBeginDate();
+    String getBeginDate();
+
 
     /**
      * Contains the end date when entity is allowed to be activated in system.  The format is - YYYYMMDD, i.e. 20101231 (December 31, 2011).
@@ -188,7 +203,8 @@ public interface Constraint
      *
      * @return String that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public String getEndDate();
+    String getEndDate();
+
 
     /**
      * Contains the begin lock date when entity is temporarily not allowed to activated in system.  The format is - YYYYMMDD, i.e. 20100101 (January 1, 2010).
@@ -196,7 +212,8 @@ public interface Constraint
      *
      * @return String that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public String getBeginLockDate();
+    String getBeginLockDate();
+
 
     /**
      * Contains the end lock date when entity is allowed to be activated in system once again.  The format is - YYYYMMDD, i.e. 20100101 (January 1, 2010).
@@ -204,7 +221,8 @@ public interface Constraint
      *
      * @return String that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public String getEndLockDate();
+    String getEndLockDate();
+
 
     /**
      * Get the daymask that indicates what days of week entity is allowed to be activated in system.  The format is 1234567, i.e. 23456 (Monday, Tuesday, Wednesday, Thursday, Friday).
@@ -212,12 +230,13 @@ public interface Constraint
      *
      * @return String that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public String getDayMask();
+    String getDayMask();
+
 
     /**
      * This is used internally by Fortress for Constraint operations.
      *
      * @return String that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
-    public String getName();
+    String getName();
 }

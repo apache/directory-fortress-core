@@ -19,12 +19,14 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.apache.directory.fortress.core.rbac.AdminRole;
 import org.apache.directory.fortress.core.rbac.OrgUnit;
 import org.apache.directory.fortress.core.rbac.UserAdminRole;
 import org.apache.directory.fortress.core.rbac.User;
 
 import java.util.List;
+
 
 /**
  * This class prescribes the ARBAC02 DelReviewMgr interface for performing policy interrogation of provisioned Fortress ARBAC entities
@@ -56,7 +58,7 @@ public interface DelReviewMgr extends Manageable
      * @throws SecurityException
      *          will be thrown if role not found or system error occurs.
      */
-    public AdminRole readRole(AdminRole role)
+    AdminRole readRole( AdminRole role )
         throws SecurityException;
 
 
@@ -72,7 +74,7 @@ public interface DelReviewMgr extends Manageable
      * @throws SecurityException
      *          in the event of system error.
      */
-    public List<AdminRole> findRoles(String searchVal)
+    List<AdminRole> findRoles( String searchVal )
         throws SecurityException;
 
 
@@ -89,8 +91,9 @@ public interface DelReviewMgr extends Manageable
      * @throws SecurityException
      *          If user not found or system error occurs.
      */
-    public List<UserAdminRole> assignedRoles(User user)
+    List<UserAdminRole> assignedRoles( User user )
         throws SecurityException;
+
 
     /**
      * This method returns the data set of all users who are assigned the given admin role.  This searches the User data set for
@@ -105,7 +108,7 @@ public interface DelReviewMgr extends Manageable
      * @throws SecurityException
      *          If system error occurs.
      */
-    public List<User> assignedUsers(AdminRole role)
+    List<User> assignedUsers( AdminRole role )
         throws SecurityException;
 
 
@@ -122,8 +125,9 @@ public interface DelReviewMgr extends Manageable
      * @return OrgUnit entity that corresponds with ou name and type.
      * @throws SecurityException in the event of data validation or system error.
      */
-    public OrgUnit read(OrgUnit entity)
+    OrgUnit read( OrgUnit entity )
         throws SecurityException;
+
 
     /**
      * Commands searches existing OrgUnit entities from OrgUnit dataset.  The OrgUnit can be either User or Perm and is
@@ -140,7 +144,6 @@ public interface DelReviewMgr extends Manageable
      * @throws SecurityException
      *
      */
-    public List<OrgUnit> search(OrgUnit.Type type, String searchVal)
+    List<OrgUnit> search( OrgUnit.Type type, String searchVal )
         throws SecurityException;
 }
-

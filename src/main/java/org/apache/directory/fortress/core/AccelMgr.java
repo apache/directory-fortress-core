@@ -19,12 +19,14 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import java.util.List;
 
 import org.apache.directory.fortress.core.rbac.Permission;
 import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.rbac.UserRole;
+
 
 /**
  * This object performs runtime access control operations on objects that are provisioned RBAC entities
@@ -125,7 +127,7 @@ public interface AccelMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation failure, security policy violation or DAO error.
      */
-    public Session createSession(User user, boolean isTrusted)
+    Session createSession( User user, boolean isTrusted )
         throws SecurityException;
 
 
@@ -136,8 +138,9 @@ public interface AccelMgr extends Manageable
      * @param session object contains the user's returned RBAC session from the createSession method.
      * @throws SecurityException is thrown if session invalid or system. error.
      */
-    public void deleteSession(Session session)
+    void deleteSession( Session session )
         throws SecurityException;
+
 
     /**
      * This function returns the active roles associated with a session. The function is valid if
@@ -147,7 +150,7 @@ public interface AccelMgr extends Manageable
      * @return list containing all roles active in user's session.  This will NOT contain inherited roles.
      * @throws SecurityException is thrown if session invalid or system. error.
      */
-    public List<UserRole> sessionRoles(Session session)
+    List<UserRole> sessionRoles( Session session )
         throws SecurityException;
 
 
@@ -166,7 +169,7 @@ public interface AccelMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation failure, security policy violation or DAO error.
      */
-    public boolean checkAccess(Session session, Permission perm)
+    boolean checkAccess( Session session, Permission perm )
         throws SecurityException;
 
 
@@ -178,7 +181,7 @@ public interface AccelMgr extends Manageable
      * @return List<Permission> containing permissions (op, obj) active for user's session.
      * @throws SecurityException is thrown if runtime error occurs with system.
      */
-    public List<Permission> sessionPermissions(Session session)
+    List<Permission> sessionPermissions( Session session )
         throws SecurityException;
 
 
@@ -200,7 +203,7 @@ public interface AccelMgr extends Manageable
      * @param role    object contains the role name, {@link UserRole#name}, to be activated into session.
      * @throws SecurityException is thrown if user is not allowed to activate or runtime error occurs with system.
      */
-    public void addActiveRole(Session session, UserRole role)
+    void addActiveRole( Session session, UserRole role )
         throws SecurityException;
 
 
@@ -214,7 +217,6 @@ public interface AccelMgr extends Manageable
      * @param role    object contains the role name, {@link org.apache.directory.fortress.core.rbac.UserRole#name}, to be deactivated.
      * @throws SecurityException is thrown if user is not allowed to deactivate or runtime error occurs with system.
      */
-    public void dropActiveRole(Session session, UserRole role)
+    void dropActiveRole( Session session, UserRole role )
         throws SecurityException;
 }
-

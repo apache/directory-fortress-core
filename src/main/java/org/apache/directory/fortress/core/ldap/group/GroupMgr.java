@@ -19,11 +19,13 @@
  */
 package org.apache.directory.fortress.core.ldap.group;
 
+
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.rbac.User;
 
 import java.util.List;
+
 
 /**
  * This interface prescribes CRUD methods used to manage groups stored within the ldap directory.
@@ -42,7 +44,8 @@ public interface GroupMgr extends Manageable
      * @return {@link Group} containing entity just added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
-    public Group add( Group group ) throws org.apache.directory.fortress.core.SecurityException;
+    Group add( Group group ) throws org.apache.directory.fortress.core.SecurityException;
+
 
     /**
      * Modify existing group node.  The name is required.  Does not update members or properties.
@@ -53,7 +56,8 @@ public interface GroupMgr extends Manageable
      * @return {@link Group} containing entity just modified.
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
-    public Group update( Group group ) throws SecurityException;
+    Group update( Group group ) throws SecurityException;
+
 
     /**
      * Delete existing group node.  The name is required.
@@ -62,7 +66,8 @@ public interface GroupMgr extends Manageable
      * @return {@link Group} containing entity just removed.
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
-    public Group delete( Group group ) throws SecurityException;
+    Group delete( Group group ) throws SecurityException;
+
 
     /**
      * Add a property to an existing group node. Must have a name and at least one member.
@@ -73,7 +78,8 @@ public interface GroupMgr extends Manageable
      * @return {@link Group} containing entity just modified.
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
-    public Group add( Group group, String key, String value ) throws SecurityException;
+    Group add( Group group, String key, String value ) throws SecurityException;
+
 
     /**
      * Delete existing group node.  The name is required.
@@ -84,7 +90,8 @@ public interface GroupMgr extends Manageable
      * @return {@link Group} containing entity just modified.
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
-    public Group delete( Group group, String key, String value ) throws SecurityException;
+    Group delete( Group group, String key, String value ) throws SecurityException;
+
 
     /**
      * Read an existing group node.  The name is required.
@@ -93,7 +100,8 @@ public interface GroupMgr extends Manageable
      * @return {@link Group} containing entity found.
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
-    public Group read( Group group ) throws SecurityException;
+    Group read( Group group ) throws SecurityException;
+
 
     /**
      * Search using a full or partial group node.  The name is required.
@@ -102,7 +110,8 @@ public interface GroupMgr extends Manageable
      * @return List of type {@link Group} containing entities found.
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
-    public List<Group> find( Group group ) throws SecurityException;
+    List<Group> find( Group group ) throws SecurityException;
+
 
     /**
      * Search for groups by userId.  Member (maps to userId) and is required.
@@ -111,7 +120,8 @@ public interface GroupMgr extends Manageable
      * @return {@link Group} containing entity just added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
-    public List<Group> find( User user ) throws SecurityException;
+    List<Group> find( User user ) throws SecurityException;
+
 
     /**
      * Assign a user to an existing group node.  The group name and member are required.
@@ -121,7 +131,8 @@ public interface GroupMgr extends Manageable
      * @return {@link Group} containing entity to assign.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry already present or other system error.
      */
-    public Group assign( Group group, String member ) throws SecurityException;
+    Group assign( Group group, String member ) throws SecurityException;
+
 
     /**
      * Deassign a member from an existing group node. The group name and member are required.
@@ -131,5 +142,5 @@ public interface GroupMgr extends Manageable
      * @return {@link Group} containing entity to deassign
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry already present or other system error.
      */
-    public Group deassign( Group group, String member ) throws SecurityException;
+    Group deassign( Group group, String member ) throws SecurityException;
 }

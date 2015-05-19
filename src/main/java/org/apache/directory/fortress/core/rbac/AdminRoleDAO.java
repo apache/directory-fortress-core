@@ -22,7 +22,6 @@ package org.apache.directory.fortress.core.rbac;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
@@ -46,7 +45,6 @@ import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.AdminRoleP;
 import org.apache.directory.fortress.core.rbac.AdminRoleUtil;
 import org.apache.directory.fortress.core.rbac.Graphable;
 import org.apache.directory.fortress.core.rbac.Role;
@@ -240,7 +238,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
             if ( entity.isTemporalSet() )
             {
                 String szRawData = CUtil.setConstraint( entity );
-                
+
                 if ( VUtil.isNotNullOrEmpty( szRawData ) )
                 {
                     mods.add( new DefaultModification(
@@ -358,7 +356,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
-        
+
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
@@ -427,7 +425,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, ROLE_ATRS );
-            if(findEntry != null)
+            if ( findEntry != null )
             {
                 entity = unloadLdapEntry( findEntry, 0, adminRole.getContextId() );
             }

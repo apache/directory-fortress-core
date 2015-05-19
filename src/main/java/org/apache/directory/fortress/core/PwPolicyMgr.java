@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.apache.directory.fortress.core.rbac.PwPolicy;
 
 import java.util.List;
@@ -140,7 +141,7 @@ public interface PwPolicyMgr extends Manageable
      * @param policy Object must contain {@link org.apache.directory.fortress.core.rbac.PwPolicy#name} and optionally other attributes.
      * @throws SecurityException In the event of data validation or system error.
      */
-    public void add(PwPolicy policy)
+    void add( PwPolicy policy )
         throws SecurityException;
 
 
@@ -229,7 +230,7 @@ public interface PwPolicyMgr extends Manageable
      * @param policy Object must contain {@link org.apache.directory.fortress.core.rbac.PwPolicy#name} and optionally all non-null attributes will be updated.  null attributes will be ignored.
      * @throws SecurityException In the event policy not found , data validation or system error.
      */
-    public void update(PwPolicy policy)
+    void update( PwPolicy policy )
         throws SecurityException;
 
 
@@ -245,7 +246,7 @@ public interface PwPolicyMgr extends Manageable
      * @param policy Object must contain {@link org.apache.directory.fortress.core.rbac.PwPolicy#name} of the policy entity to remove.
      * @throws SecurityException In the event policy entity not found or system error.
      */
-    public void delete(PwPolicy policy)
+    void delete( PwPolicy policy )
         throws SecurityException;
 
 
@@ -261,7 +262,7 @@ public interface PwPolicyMgr extends Manageable
      * @return PswdPolicy entity returns fully populated with attributes.
      * @throws SecurityException In the event policy entry not found, data validation or system error.
      */
-    public PwPolicy read(String name)
+    PwPolicy read( String name )
         throws SecurityException;
 
 
@@ -273,7 +274,7 @@ public interface PwPolicyMgr extends Manageable
      * @return List<PswdPolicy> contains all matching password policy entities. If no records found this will be empty.
      * @throws SecurityException In the event of data validation or system error.
      */
-    public List<PwPolicy> search(String searchVal)
+    List<PwPolicy> search( String searchVal )
         throws SecurityException;
 
 
@@ -286,7 +287,7 @@ public interface PwPolicyMgr extends Manageable
      * @param policyName String contains the {@link org.apache.directory.fortress.core.rbac.PwPolicy#name} of a pw policy entity contained within the PWPOLICIES data set.
      * @throws SecurityException thrown in the event either user or policy not valid or system error.
      */
-    public void updateUserPolicy(String userId, String policyName)
+    void updateUserPolicy( String userId, String policyName )
         throws SecurityException;
 
 
@@ -299,7 +300,6 @@ public interface PwPolicyMgr extends Manageable
      * @param userId Contains {@link org.apache.directory.fortress.core.rbac.User#userId} of a User entity in USERS data set.
      * @throws SecurityException Thrown in the event either user not valid or system error.
      */
-    public void deletePasswordPolicy(String userId)
+    void deletePasswordPolicy( String userId )
         throws SecurityException;
 }
-

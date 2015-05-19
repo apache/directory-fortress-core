@@ -19,8 +19,10 @@
  */
 package org.apache.directory.fortress.core.util.cache;
 
+
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
+
 
 /**
  * This Interface is implemented by cacheable Fortress objects and is used to wrap the caching implementation to provide isolation.
@@ -36,7 +38,8 @@ public interface Cache
      * @return entry stored in the cache.
      * @throws CacheException will wraps the implementation's exception.
      */
-    public Object get(Object key) throws CacheException;
+    Object get( Object key ) throws CacheException;
+
 
     /**
      * Add a new entry to the cache.
@@ -45,7 +48,8 @@ public interface Cache
      * @param value object that is stored.
      * @throws CacheException will wraps the implementation's exception.
      */
-    public void put(Object key, Object value) throws CacheException;
+    void put( Object key, Object value ) throws CacheException;
+
 
     /**
      * Clear a cache entry for a given name.
@@ -54,14 +58,16 @@ public interface Cache
      * @return boolean value will be false if entry not found and true if entry was found and removed.
      * @throws CacheException will wraps the implementation's exception.
      */
-    public boolean clear(Object key) throws CacheException;
+    boolean clear( Object key ) throws CacheException;
+
 
     /**
      * Remove all entries from the cache.
      *
      * @throws CacheException will wraps the implementation's exception.
      */
-    public void flush() throws CacheException;
+    void flush() throws CacheException;
+
 
     /**
      * Retrieve the Cache attribute
@@ -71,12 +77,13 @@ public interface Cache
      * @return the search attribute
      * @throws CacheException will wraps the implementation's exception.
      */
-    public <T> Attribute<T> getSearchAttribute(String attributeName) throws CacheException;
+    <T> Attribute<T> getSearchAttribute( String attributeName ) throws CacheException;
+
 
     /**
      * Create a search query for the cache.
      *
      * @return a new Query builder
      */
-    public Query createQuery();
+    Query createQuery();
 }

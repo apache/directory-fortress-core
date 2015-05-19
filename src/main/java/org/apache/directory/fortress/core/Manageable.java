@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.fortress.core.rbac.Session;
 
+
 /**
  * Interface allows outside clients to manage security and multi-tenant concerns within the Fortress runtime.
  * The {@link #setAdmin(org.apache.directory.fortress.core.rbac.Session)} method allows A/RBAC sessions to be loaded and allows authorization
@@ -41,7 +42,8 @@ public interface Manageable
      *
      * @param session contains a valid Fortress ARBAC Session object.
      */
-    public void setAdmin(Session session);
+    void setAdmin( Session session );
+
 
     /**
      * Use this method to set the tenant id onto function call into Fortress which allows segregation of data by customer.
@@ -50,5 +52,5 @@ public interface Manageable
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      */
-    public void setContextId(String contextId);
+    void setContextId( String contextId );
 }

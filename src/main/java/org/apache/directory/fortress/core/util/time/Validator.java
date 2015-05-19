@@ -19,7 +19,9 @@
  */
 package org.apache.directory.fortress.core.util.time;
 
+
 import org.apache.directory.fortress.core.rbac.Session;
+
 
 /**
  * Interface used by Fortress to provide pluggable validation routines for constraints.
@@ -76,6 +78,6 @@ public interface Validator
      * @return activation failure code.
      * @throws org.apache.directory.fortress.core.SecurityException in the event of validation fails or system exception.
      */
-    public int validate(Session session, Constraint constraint, Time time) throws org.apache.directory.fortress.core.SecurityException;
+    int validate( Session session, Constraint constraint, Time time )
+        throws org.apache.directory.fortress.core.SecurityException;
 }
-

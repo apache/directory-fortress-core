@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.rbac;
 
 import java.util.Set;
 
+
 /**
  * The Fortress Graphable interface prescribes attributes that are used to maintain implementor within a simple directed graph.
  * {@link org.apache.directory.fortress.core.rbac.Role}, {@link org.apache.directory.fortress.core.rbac.AdminRole}, {@link org.apache.directory.fortress.core.rbac.OrgUnit} entities.
@@ -52,39 +53,44 @@ public interface Graphable
      *
      * @return Set of parent role names assigned to this role.
      */
-    public Set<String> getParents();
+    Set<String> getParents();
+
 
     /**
      * Set the names of roles names that are parents (direct ascendants) of this role.
      *
      * @param parents contains the Set of parent role names assigned to this role.
      */
-    public void setParents(Set<String> parents);
+    void setParents( Set<String> parents );
+
 
     /**
      * Set the occupant attribute with the contents of the User dn.
      *
      * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
      */
-    public void setParent(String parent);
+    void setParent( String parent );
+
 
     /**
      * Set the occupant attribute with the contents of the User dn.
      *
      * @param parent maps to 'ftParents' attribute on 'ftRls' object class.
      */
-    public void delParent(String parent);
+    void delParent( String parent );
+
 
     /**
      * Get the name required attribute of the node.
      *
      * @return attribute maps to attribute  on 'organizationalUnit' object class.
      */
-    public String getName();
+    String getName();
+
 
     /**
      * Sets the required name attribute on the node.
      *
      */
-    public void setName(String name);
+    void setName( String name );
 }

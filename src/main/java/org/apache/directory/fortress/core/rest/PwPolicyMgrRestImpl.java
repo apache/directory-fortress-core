@@ -19,15 +19,16 @@
  */
 package org.apache.directory.fortress.core.rest;
 
+
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.rbac.Manageable;
 import org.apache.directory.fortress.core.rbac.PwPolicy;
 import org.apache.directory.fortress.core.util.attr.VUtil;
-import org.apache.directory.fortress.core.rbac.User;
 
 import java.util.List;
+
 
 /**
  * This class is used to perform administrative and review functions on the PWPOLICIES and USERS data sets using HTTP access to En Masse REST server.
@@ -62,6 +63,7 @@ import java.util.List;
 public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
 {
     private static final String CLS_NM = PwPolicyMgrRestImpl.class.getName();
+
 
     /**
      * This method will add a new policy entry to the POLICIES data set.  This command is valid
@@ -149,23 +151,23 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
      * @throws SecurityException In the event of data validation or system error.
      */
     @Override
-    public void add(PwPolicy policy)
+    public void add( PwPolicy policy )
         throws SecurityException
     {
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + ".add");
+        VUtil.assertNotNull( policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + ".add" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(policy);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( policy );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_ADD);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_ADD );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
 
@@ -256,23 +258,23 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
      * @throws SecurityException In the event policy not found , data validation or system error.
      */
     @Override
-    public void update(PwPolicy policy)
+    public void update( PwPolicy policy )
         throws SecurityException
     {
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + ".update");
+        VUtil.assertNotNull( policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + ".update" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(policy);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( policy );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_UPDATE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_UPDATE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
 
@@ -291,23 +293,23 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
      *          In the event policy entity not found or system error.
      */
     @Override
-    public void delete(PwPolicy policy)
+    public void delete( PwPolicy policy )
         throws SecurityException
     {
-        VUtil.assertNotNull(policy, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".delete");
+        VUtil.assertNotNull( policy, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".delete" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(policy);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( policy );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_DELETE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_DELETE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
 
@@ -324,28 +326,28 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
      * @throws SecurityException In the event policy entry not found, data validation or system error.
      */
     @Override
-    public PwPolicy read(String name)
+    public PwPolicy read( String name )
         throws SecurityException
     {
-        VUtil.assertNotNullOrEmpty(name, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".read");
+        VUtil.assertNotNullOrEmpty( name, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".read" );
         PwPolicy retPolicy;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(new PwPolicy(name));
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( new PwPolicy( name ) );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_READ);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_READ );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
-            retPolicy = (PwPolicy) response.getEntity();
+            retPolicy = ( PwPolicy ) response.getEntity();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retPolicy;
     }
@@ -360,28 +362,28 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
      * @throws SecurityException In the event of data validation or system error.
      */
     @Override
-    public List<PwPolicy> search(String searchVal)
+    public List<PwPolicy> search( String searchVal )
         throws SecurityException
     {
-        VUtil.assertNotNull(searchVal, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".search");
+        VUtil.assertNotNull( searchVal, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".search" );
         List<PwPolicy> retPolicies;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(new PwPolicy(searchVal));
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( new PwPolicy( searchVal ) );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_SEARCH);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_SEARCH );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
         {
             retPolicies = response.getEntities();
         }
         else
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retPolicies;
     }
@@ -397,26 +399,26 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
      * @throws SecurityException thrown in the event either user or policy not valid or system error.
      */
     @Override
-    public void updateUserPolicy(String userId, String name)
+    public void updateUserPolicy( String userId, String name )
         throws SecurityException
     {
         String methodName = "updateUserPolicy";
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
-        VUtil.assertNotNullOrEmpty(name, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty( userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName );
+        VUtil.assertNotNullOrEmpty( name, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + "." + methodName );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setEntity(new PwPolicy(name));
-        request.setValue(userId);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setEntity( new PwPolicy( name ) );
+        request.setValue( userId );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_USER_ADD);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_USER_ADD );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
 
@@ -431,23 +433,23 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
      * @throws SecurityException Thrown in the event either user not valid or system error.
      */
     @Override
-    public void deletePasswordPolicy(String userId)
+    public void deletePasswordPolicy( String userId )
         throws SecurityException
     {
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + ".deletePasswordPolicy");
+        VUtil.assertNotNullOrEmpty( userId, GlobalErrIds.USER_NULL, CLS_NM + ".deletePasswordPolicy" );
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
-        request.setValue(userId);
-        if (this.adminSess != null)
+        request.setContextId( this.contextId );
+        request.setValue( userId );
+        if ( this.adminSess != null )
         {
-            request.setSession(adminSess);
+            request.setSession( adminSess );
         }
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PSWD_USER_DELETE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() != 0)
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_USER_DELETE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
         {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
     }
 }

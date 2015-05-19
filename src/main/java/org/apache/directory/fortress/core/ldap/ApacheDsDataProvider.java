@@ -86,8 +86,6 @@ import org.apache.directory.fortress.core.util.time.Constraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.naming.ldap.ExtendedResponse;
-
 
 /**
  * Abstract class contains methods to perform low-level entity to ldap persistence.  These methods are called by the
@@ -158,7 +156,6 @@ public abstract class ApacheDsDataProvider
 
     private static final PasswordPolicy PP_REQ_CTRL = new PasswordPolicyImpl();
 
-
     static
     {
         String host = Config.getProperty( LDAP_HOST, "localhost" );
@@ -167,7 +164,7 @@ public abstract class ApacheDsDataProvider
         int max = Config.getInt( LDAP_ADMIN_POOL_MAX, 10 );
         int logmin = Config.getInt( LDAP_LOG_POOL_MIN, 1 );
         int logmax = Config.getInt( LDAP_LOG_POOL_MAX, 10 );
-        LOG.info( "LDAP POOL:  host=[{}], port=[{}], min=[{}], max=[{}]", host, port, min, max);
+        LOG.info( "LDAP POOL:  host=[{}], port=[{}], min=[{}], max=[{}]", host, port, min, max );
 
         if ( IS_SET_TRUST_STORE_PROP )
         {
@@ -466,7 +463,8 @@ public abstract class ApacheDsDataProvider
     protected void modify( LdapConnection connection, String dn, List<Modification> mods ) throws LdapException
     {
         counters.incrementMod();
-        connection.modify( dn, mods.toArray( new Modification[]{} ) );
+        connection.modify( dn, mods.toArray( new Modification[]
+            {} ) );
     }
 
 
@@ -1121,7 +1119,8 @@ public abstract class ApacheDsDataProvider
     {
         if ( list != null && list.size() > 0 )
         {
-            entry.add( attrName, list.toArray( new String[]{} ) );
+            entry.add( attrName, list.toArray( new String[]
+                {} ) );
         }
     }
 
@@ -1416,6 +1415,7 @@ public abstract class ApacheDsDataProvider
         return ( ( PasswordPolicyDecorator ) control ).getDecorated();
     }
 
+
     /**
      * Calls the PoolMgr to perform an LDAP bind for a user/password combination.  This function is valid
      * if and only if the user entity is a member of the USERS data set.
@@ -1432,7 +1432,7 @@ public abstract class ApacheDsDataProvider
         Dn userDn = new Dn( szUserDn );
         BindRequest bindReq = new BindRequestImpl();
         bindReq.setDn( new Dn( szUserDn ) );
-        bindReq.setCredentials( new String ( password ) );
+        bindReq.setCredentials( new String( password ) );
         bindReq.addControl( PP_REQ_CTRL );
         return connection.bind( bindReq );
     }

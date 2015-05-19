@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.apache.directory.fortress.core.rbac.UserAdminRole;
 import org.apache.directory.fortress.core.rbac.Permission;
 import org.apache.directory.fortress.core.rbac.Role;
@@ -58,8 +59,9 @@ public interface DelAccessMgr extends Manageable
      * @throws SecurityException
      *          In the event of data validation error (i.e. invalid userId or role name) or system error.
      */
-    public boolean canAssign(Session session, User user, Role role)
+    boolean canAssign( Session session, User user, Role role )
         throws SecurityException;
+
 
     /**
      * This function will determine if the user contains an AdminRole that is authorized revoke control over
@@ -71,8 +73,9 @@ public interface DelAccessMgr extends Manageable
      * @throws SecurityException
      *          In the event of data validation error (i.e. invalid userId or role name) or system error.
      */
-    public boolean canDeassign(Session session, User user, Role role)
+    boolean canDeassign( Session session, User user, Role role )
         throws SecurityException;
+
 
     /**
      * This function will determine if the user contains an AdminRole that is authorized assignment control over
@@ -84,8 +87,9 @@ public interface DelAccessMgr extends Manageable
      * @throws SecurityException
      *          In the event of data validation error (i.e. invalid perm or role name) or system error.
      */
-    public boolean canGrant(Session session, Role role, Permission perm)
+    boolean canGrant( Session session, Role role, Permission perm )
         throws SecurityException;
+
 
     /**
      * This function will determine if the user contains an AdminRole that is authorized revoke control over
@@ -96,8 +100,9 @@ public interface DelAccessMgr extends Manageable
      * @return boolean value true indicates access allowed.
      * @throws SecurityException In the event of data validation error (i.e. invalid perm or role name) or system error.
      */
-    public boolean canRevoke(Session session, Role role, Permission perm)
+    boolean canRevoke( Session session, Role role, Permission perm )
         throws SecurityException;
+
 
     /**
      * This function returns a Boolean value meaning whether the subject of a given session is
@@ -115,7 +120,7 @@ public interface DelAccessMgr extends Manageable
      * @throws SecurityException
      *          is thrown if runtime error occurs with system.
      */
-    public boolean checkAccess(Session session, Permission perm)
+    boolean checkAccess( Session session, Permission perm )
         throws SecurityException;
 
 
@@ -137,7 +142,7 @@ public interface DelAccessMgr extends Manageable
      * @throws SecurityException
      *          is thrown if user is not allowed to activate or runtime error occurs with system.
      */
-    public void addActiveRole(Session session, UserAdminRole role)
+    void addActiveRole( Session session, UserAdminRole role )
         throws SecurityException;
 
 
@@ -151,7 +156,7 @@ public interface DelAccessMgr extends Manageable
      * @param role    object contains the adminRole name to be deactivated.
      * @throws SecurityException is thrown if user is not allowed to deactivate or runtime error occurs with system.
      */
-    public void dropActiveRole(Session session, UserAdminRole role)
+    void dropActiveRole( Session session, UserAdminRole role )
         throws SecurityException;
 
 
@@ -164,7 +169,7 @@ public interface DelAccessMgr extends Manageable
      * @throws SecurityException
      *          is thrown if session invalid or system. error.
      */
-    public List<UserAdminRole> sessionAdminRoles(Session session)
+    List<UserAdminRole> sessionAdminRoles( Session session )
         throws SecurityException;
 
 
@@ -176,8 +181,9 @@ public interface DelAccessMgr extends Manageable
      * @return Set<String> containing all adminRoles authorized in user's session.  This will contain inherited roles.
      * @throws SecurityException is thrown if session invalid or system. error.
      */
-    public Set<String> authorizedAdminRoles(Session session)
+    Set<String> authorizedAdminRoles( Session session )
         throws SecurityException;
+
 
     /**
      * This function returns the ARBAC (administrative) permissions of the session, i.e., the permissions assigned
@@ -187,6 +193,6 @@ public interface DelAccessMgr extends Manageable
      * @return List<Permission> containing admin permissions (op, obj) active for user's session.
      * @throws SecurityException in the event runtime error occurs with system.
      */
-    public List<Permission> sessionPermissions(Session session)
+    List<Permission> sessionPermissions( Session session )
         throws SecurityException;
 }

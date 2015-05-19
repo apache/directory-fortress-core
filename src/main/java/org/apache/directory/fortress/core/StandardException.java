@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+
 /**
  *  Interface that is implemented by exception base class {@link StandardException} used to associate a Fortress error code to the exception instance.
  * See the {@link GlobalErrIds} javadoc for list of error ids used by Fortress.
@@ -32,6 +33,5 @@ public interface StandardException
      *
      * @return integer containing the source error code.  Valid values for Fortress error codes fall between 0 and 100_000.
      */
-	public int getErrorId();
+    int getErrorId();
 }
-

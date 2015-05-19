@@ -19,12 +19,14 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.apache.directory.fortress.core.rbac.AdminRole;
 import org.apache.directory.fortress.core.rbac.OrgUnit;
 import org.apache.directory.fortress.core.rbac.UserAdminRole;
 import org.apache.directory.fortress.core.rbac.PermObj;
 import org.apache.directory.fortress.core.rbac.Permission;
 import org.apache.directory.fortress.core.rbac.User;
+
 
 /**
  * This class prescribes the ARBAC02 DelAdminMgr interface for performing policy administration of Fortress ARBAC entities
@@ -77,7 +79,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public AdminRole addRole(AdminRole role)
+    AdminRole addRole( AdminRole role )
         throws SecurityException;
 
 
@@ -95,7 +97,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          Thrown in the event of data validation or system error.
      */
-    public void deleteRole(AdminRole role)
+    void deleteRole( AdminRole role )
         throws SecurityException;
 
 
@@ -129,7 +131,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          Thrown in the event of data validation or system error.
      */
-    public AdminRole updateRole(AdminRole role)
+    AdminRole updateRole( AdminRole role )
         throws SecurityException;
 
 
@@ -172,7 +174,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          in the event data error in user or role objects or system error.
      */
-    public void assignUser(UserAdminRole uAdminRole)
+    void assignUser( UserAdminRole uAdminRole )
         throws SecurityException;
 
 
@@ -192,8 +194,9 @@ public interface DelAdminMgr extends Manageable
      * @param uAdminRole entity contains {@link org.apache.directory.fortress.core.rbac.User#userId} and {@link org.apache.directory.fortress.core.rbac.AdminRole#name}.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
-    public void deassignUser(UserAdminRole uAdminRole)
+    void deassignUser( UserAdminRole uAdminRole )
         throws SecurityException;
+
 
     /**
      * Commands adds a new OrgUnit entity to OrgUnit dataset.  The OrgUnit can be either User or Perm and is
@@ -213,8 +216,9 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation or system error.
      */
-    public OrgUnit add(OrgUnit entity)
+    OrgUnit add( OrgUnit entity )
         throws SecurityException;
+
 
     /**
      * Commands updates existing OrgUnit entity to OrgUnit dataset.  The OrgUnit can be either User or Perm and is
@@ -234,8 +238,9 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation or system error.
      */
-    public OrgUnit update(OrgUnit entity)
+    OrgUnit update( OrgUnit entity )
         throws SecurityException;
+
 
     /**
      * Commands deletes existing OrgUnit entity to OrgUnit dataset.  The OrgUnit can be either User or Perm and is
@@ -251,7 +256,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation or system error.
      */
-    public OrgUnit delete(OrgUnit entity)
+    OrgUnit delete( OrgUnit entity )
         throws SecurityException;
 
 
@@ -286,7 +291,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void addDescendant(OrgUnit parent, OrgUnit child)
+    void addDescendant( OrgUnit parent, OrgUnit child )
         throws SecurityException;
 
 
@@ -321,7 +326,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void addAscendant(OrgUnit child, OrgUnit parent)
+    void addAscendant( OrgUnit child, OrgUnit parent )
         throws SecurityException;
 
 
@@ -346,7 +351,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void addInheritance(OrgUnit parent, OrgUnit child)
+    void addInheritance( OrgUnit parent, OrgUnit child )
         throws SecurityException;
 
 
@@ -372,7 +377,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void deleteInheritance(OrgUnit parent, OrgUnit child)
+    void deleteInheritance( OrgUnit parent, OrgUnit child )
         throws SecurityException;
 
 
@@ -406,8 +411,9 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void addDescendant(AdminRole parentRole, AdminRole childRole)
+    void addDescendant( AdminRole parentRole, AdminRole childRole )
         throws SecurityException;
+
 
     /**
      * This command creates a new role parentRole, and inserts it in the role hierarchy as an immediate ascendant of
@@ -437,8 +443,9 @@ public interface DelAdminMgr extends Manageable
      * @param childRole  completion of op assigns new parent relationship with parentRole.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
-    public void addAscendant(AdminRole childRole, AdminRole parentRole)
+    void addAscendant( AdminRole childRole, AdminRole parentRole )
         throws SecurityException;
+
 
     /**
      * This command establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
@@ -456,8 +463,9 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void addInheritance(AdminRole parentRole, AdminRole childRole)
+    void addInheritance( AdminRole parentRole, AdminRole childRole )
         throws SecurityException;
+
 
     /**
      * This command deletes an existing immediate inheritance relationship parentRole <<-- childRole. The command is
@@ -475,7 +483,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of data validation or system error.
      */
-    public void deleteInheritance(AdminRole parentRole, AdminRole childRole)
+    void deleteInheritance( AdminRole parentRole, AdminRole childRole )
         throws SecurityException;
 
 
@@ -500,7 +508,7 @@ public interface DelAdminMgr extends Manageable
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
-    public Permission addPermission(Permission perm)
+    Permission addPermission( Permission perm )
         throws SecurityException;
 
 
@@ -526,7 +534,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          - thrown in the event of perm object data or system error.
      */
-    public Permission updatePermission(Permission perm)
+    Permission updatePermission( Permission perm )
         throws SecurityException;
 
 
@@ -543,7 +551,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          - thrown in the event of perm object data or system error.
      */
-    public void deletePermission(Permission perm)
+    void deletePermission( Permission perm )
         throws SecurityException;
 
 
@@ -566,7 +574,7 @@ public interface DelAdminMgr extends Manageable
      * @return copy of PermObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
-    public PermObj addPermObj(PermObj pObj)
+    PermObj addPermObj( PermObj pObj )
         throws SecurityException;
 
 
@@ -590,7 +598,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          - thrown in the event of perm object data or system error.
      */
-    public PermObj updatePermObj(PermObj pObj)
+    PermObj updatePermObj( PermObj pObj )
         throws SecurityException;
 
 
@@ -605,7 +613,7 @@ public interface DelAdminMgr extends Manageable
      * @param pObj must contain the {@link org.apache.directory.fortress.core.rbac.PermObj#objName} of object targeted for removal.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
-    public void deletePermObj(PermObj pObj)
+    void deletePermObj( PermObj pObj )
         throws SecurityException;
 
 
@@ -627,7 +635,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          Thrown in the event of data validation or system error.
      */
-    public void grantPermission(Permission perm, AdminRole role)
+    void grantPermission( Permission perm, AdminRole role )
         throws SecurityException;
 
 
@@ -648,7 +656,7 @@ public interface DelAdminMgr extends Manageable
      * @param role must contains {@link org.apache.directory.fortress.core.rbac.AdminRole#name}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
-    public void revokePermission(Permission perm, AdminRole role)
+    void revokePermission( Permission perm, AdminRole role )
         throws SecurityException;
 
 
@@ -670,7 +678,7 @@ public interface DelAdminMgr extends Manageable
      * @throws SecurityException
      *          Thrown in the event of data validation or system error.
      */
-    public void grantPermission(Permission perm, User user)
+    void grantPermission( Permission perm, User user )
         throws SecurityException;
 
 
@@ -691,7 +699,7 @@ public interface DelAdminMgr extends Manageable
      * @param user must contain {@link org.apache.directory.fortress.core.rbac.User#userId} of target User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
-    public void revokePermission(Permission perm, User user)
+    void revokePermission( Permission perm, User user )
         throws SecurityException;
 
 }

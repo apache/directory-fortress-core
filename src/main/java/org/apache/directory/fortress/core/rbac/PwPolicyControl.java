@@ -20,7 +20,6 @@
 package org.apache.directory.fortress.core.rbac;
 
 
-
 /**
  * Interface is used to allow pluggable password policy interrogation.
  *
@@ -35,5 +34,5 @@ public interface PwPolicyControl
      * @param isAuthenticated set to 'true' if password checks pass.
      * @param pwMsg describes the outcome of the policy checks.
      */
-    public void checkPasswordPolicy( Object[] controls, boolean isAuthenticated, PwMessage pwMsg );
+    void checkPasswordPolicy( Object[] controls, boolean isAuthenticated, PwMessage pwMsg );
 }

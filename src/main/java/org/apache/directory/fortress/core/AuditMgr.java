@@ -19,12 +19,14 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.apache.directory.fortress.core.rbac.AuthZ;
 import org.apache.directory.fortress.core.rbac.Mod;
 import org.apache.directory.fortress.core.rbac.UserAudit;
 import org.apache.directory.fortress.core.rbac.Bind;
 
 import java.util.List;
+
 
 /**
  * This interface prescribes methods used to search <a href="http://www.openldap.org/">OpenLDAP</a>'s slapd access log.  The access log events are
@@ -88,8 +90,9 @@ public interface AuditMgr extends Manageable
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws SecurityException if a runtime system error occurs.
      */
-    public List<AuthZ> getUserAuthZs(UserAudit uAudit)
+    List<AuthZ> getUserAuthZs( UserAudit uAudit )
         throws SecurityException;
+
 
     /**
      * This method returns a list of authorization events for a particular user {@link org.apache.directory.fortress.core.rbac.UserAudit#userId},
@@ -111,8 +114,9 @@ public interface AuditMgr extends Manageable
      * @throws SecurityException
      *          if a runtime system error occurs.
      */
-    public List<AuthZ> searchAuthZs(UserAudit uAudit)
+    List<AuthZ> searchAuthZs( UserAudit uAudit )
         throws SecurityException;
+
 
     /**
      * This method returns a list of authentication audit events for a particular user {@link org.apache.directory.fortress.core.rbac.UserAudit#userId},
@@ -129,8 +133,9 @@ public interface AuditMgr extends Manageable
      * @throws SecurityException
      *          if a runtime system error occurs.
      */
-    public List<Bind> searchBinds(UserAudit uAudit)
+    List<Bind> searchBinds( UserAudit uAudit )
         throws SecurityException;
+
 
     /**
      * This method returns a list of sessions created for a given user {@link UserAudit#userId},
@@ -148,8 +153,9 @@ public interface AuditMgr extends Manageable
      * @return a List of objects of type Mod.  Each Mod object in list corresponds to one update or delete event on directory.
      * @throws SecurityException if a runtime system error occurs.
      */
-    public List<Mod> searchUserSessions(UserAudit uAudit)
+    List<Mod> searchUserSessions( UserAudit uAudit )
         throws SecurityException;
+
 
     /**
      * This method returns a list of admin operations events for a particular entity {@link org.apache.directory.fortress.core.rbac.UserAudit#dn},
@@ -171,8 +177,9 @@ public interface AuditMgr extends Manageable
      * @throws SecurityException
      *          if a runtime system error occurs.
      */
-    public List<Mod> searchAdminMods(UserAudit uAudit)
+    List<Mod> searchAdminMods( UserAudit uAudit )
         throws SecurityException;
+
 
     /**
      * This method returns a list of failed authentication attempts on behalf of an invalid identity {@link org.apache.directory.fortress.core.rbac.UserAudit#userId},
@@ -193,7 +200,7 @@ public interface AuditMgr extends Manageable
      * @throws SecurityException
      *          if a runtime system error occurs.
      */
-    public List<AuthZ> searchInvalidUsers(UserAudit uAudit)
+    List<AuthZ> searchInvalidUsers( UserAudit uAudit )
         throws SecurityException;
 
 }

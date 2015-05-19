@@ -31,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
@@ -72,7 +71,7 @@ final class SuffixDAO extends ApacheDsDataProvider
     private static final String[] SUFFIX_OBJ_CLASS =
         {
             SchemaConstants.DC_OBJECT_OC, SchemaConstants.ORGANIZATION_OC
-        };
+    };
 
 
     /**
@@ -168,7 +167,7 @@ final class SuffixDAO extends ApacheDsDataProvider
         String dn = SchemaConstants.DC_AT + "=" + se.getName() + "," + SchemaConstants.DC_AT + "=" + se.getDc();
 
         // only use this domain component variable if it has been set in the build.properties file:
-        if( VUtil.isNotNullOrEmpty( se.getDc2() ) && !se.getDc2().equals( "${suffix.dc2}" ))
+        if ( VUtil.isNotNullOrEmpty( se.getDc2() ) && !se.getDc2().equals( "${suffix.dc2}" ) )
         {
             dn += "," + SchemaConstants.DC_AT + "=" + se.getDc2();
         }
