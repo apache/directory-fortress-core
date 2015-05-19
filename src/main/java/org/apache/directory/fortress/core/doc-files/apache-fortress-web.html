@@ -77,6 +77,15 @@ cp [directory-fortress-core]/config/fortress.properties [directory-fortress-comm
           <br>
 
           <li>
+              To load policies for testing into ldap, run this command:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml
+                    </p>
+                </pre>
+          </li>
+
+          <li>
               To deploy fortress web, run this command:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
@@ -130,11 +139,10 @@ mvn tomcat:redeploy
               Run the Selenium Web driver integration tests:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-mvn verify -DskipTests=false -Dnoload
+mvn test -Dtest=FortressWebSeleniumITCase
                     </p>
                 </pre>
           </li>
-
 
       </ol>
 

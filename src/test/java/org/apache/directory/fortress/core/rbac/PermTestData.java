@@ -39,7 +39,7 @@ public class PermTestData extends TestCase
     /**
      * Test Case TOB1:
      */
-    public final static String[][] OBJS_TOB1 =
+    public static final String[][] OBJS_TOB1 =
         {
             {
                 "TOB1_1", /* NAME_COL */
@@ -78,7 +78,7 @@ public class PermTestData extends TestCase
     /**
      * Test Case TOB1:
      */
-    public final static String[][] OBJS_TOB2 =
+    public static final String[][] OBJS_TOB2 =
         {
             {
                 "TOB2_1", /* NAME_COL */
@@ -117,7 +117,7 @@ public class PermTestData extends TestCase
     /**
      * Test Case TOB1:
      */
-    public final static String[][] OBJS_TOB3 =
+    public static final String[][] OBJS_TOB3 =
         {
             {
                 "TOB3_1", /* NAME_COL */
@@ -156,7 +156,7 @@ public class PermTestData extends TestCase
     /**
      * Test Case TOB4:
      */
-    public final static String[][] OBJS_TOB4 =
+    public static final String[][] OBJS_TOB4 =
         {
             {
                 "TOB4_1", /* NAME_COL */
@@ -243,7 +243,7 @@ public class PermTestData extends TestCase
     /**
      * Test Case TOB4_UPD:
      */
-    public final static String[][] OBJS_TOB4_UPD =
+    public static final String[][] OBJS_TOB4_UPD =
         {
             {
                 "TOB4_1", /* NAME_COL */
@@ -327,7 +327,7 @@ public class PermTestData extends TestCase
 }
     };
 
-    public final static String[][] OBJS_TOB5 =
+    public static final String[][] OBJS_TOB5 =
         {
             {
                 "TOB5_1", /* NAME_COL */
@@ -371,7 +371,7 @@ public class PermTestData extends TestCase
 }
     };
 
-    public final static String[][] OBJS_TOB6 =
+    public static final String[][] OBJS_TOB6 =
         {
             {
                 "TOB6_1", /* NAME_COL */
@@ -386,7 +386,7 @@ public class PermTestData extends TestCase
     /**
      * Test Case TOP1:
      */
-    public final static String[][] OPS_TOP5 =
+    public static final String[][] OPS_TOP5 =
         {
             {
                 "TOP5_1", /* NAME_COL */
@@ -503,7 +503,7 @@ public class PermTestData extends TestCase
     /**
      * Test Case TOP1:
      */
-    public final static String[][] OPS_TOP1 =
+    public static final String[][] OPS_TOP1 =
         {
             {
                 "TOP1_1", /* NAME_COL */
@@ -620,7 +620,7 @@ public class PermTestData extends TestCase
     /**
      * Test Case TOP1:
      */
-    public final static String[][] OPS_TOP1_UPD =
+    public static final String[][] OPS_TOP1_UPD =
         {
             {
                 "TOP1_1", /* NAME_COL */
@@ -734,7 +734,7 @@ public class PermTestData extends TestCase
 }
     };
 
-    public final static String[][] OPS_TOP2 =
+    public static final String[][] OPS_TOP2 =
         {
             {
                 "TOP2_1", /* NAME_COL */
@@ -848,7 +848,7 @@ public class PermTestData extends TestCase
 }
     };
 
-    public final static String[][] OPS_TOP3 =
+    public static final String[][] OPS_TOP3 =
         {
             {
                 "TOP3_1", /* NAME_COL */
@@ -962,7 +962,7 @@ public class PermTestData extends TestCase
 }
     };
 
-    public final static String[][] OPS_TOP4 =
+    public static final String[][] OPS_TOP4 =
         {
             {
                 "TOP4_1", /* NAME_COL */
@@ -1076,7 +1076,7 @@ public class PermTestData extends TestCase
 }
     };
 
-    public final static String[][] ARBAC_OBJS_1 =
+    public static final String[][] ARBAC_OBJS_1 =
         {
             {
                 "DelAdminMgr",/* NAME_COL */
@@ -1091,7 +1091,7 @@ public class PermTestData extends TestCase
     /**
     * Test Case TOP1:
     */
-    public final static String[][] ARBAC_OPS_1 =
+    public static final String[][] ARBAC_OPS_1 =
         {
             {
                 "addRole", /* NAME_COL */
@@ -1348,7 +1348,7 @@ public class PermTestData extends TestCase
 }
     };
 
-    public final static String[][] ARBAC_OBJ2 =
+    public static final String[][] ARBAC_OBJ2 =
         {
             {
                 "AROBJ2_1", /* NAME_COL */
@@ -1392,7 +1392,7 @@ public class PermTestData extends TestCase
 },
     };
 
-    public final static String[][] ARBAC_OPS_2 =
+    public static final String[][] ARBAC_OPS_2 =
         {
             {
                 "AROP2_1", /* NAME_COL */
@@ -1506,7 +1506,7 @@ public class PermTestData extends TestCase
 }
     };
 
-    public final static String[][] PSWDMGR_OBJ =
+    public static final String[][] PSWDMGR_OBJ =
         {
             {
                 "org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl",
@@ -1521,7 +1521,7 @@ public class PermTestData extends TestCase
     /**
     * Test Case TOP1:
     */
-    public final static String[][] PSWDMGR_OPS =
+    public static final String[][] PSWDMGR_OPS =
         {
             {
                 "add", /* NAME_COL */
@@ -1591,7 +1591,7 @@ public class PermTestData extends TestCase
 }
     };
 
-    public final static String[][] ADMINMGR_OBJ =
+    public static final String[][] ADMINMGR_OBJ =
         {
             {
                 "org.apache.directory.fortress.core.rbac.AdminMgrImpl",
@@ -1606,7 +1606,7 @@ public class PermTestData extends TestCase
     /**
     * Test Case TOP1:
     */
-    public final static String[][] ADMINMGR_OPS =
+    public static final String[][] ADMINMGR_OPS =
         {
             {
                 "addUser", /* NAME_COL */
@@ -2040,7 +2040,7 @@ public class PermTestData extends TestCase
 
     };
 
-    public final static String[][] DELEGATEDMGR_OBJ =
+    public static final String[][] DELEGATEDMGR_OBJ =
         {
             {
                 "org.apache.directory.fortress.core.rbac.DelAdminMgrImpl",
@@ -2055,7 +2055,7 @@ public class PermTestData extends TestCase
     /**
     * Test Case TOP1:
     */
-    public final static String[][] DELEGATEDMGR_OPS =
+    public static final String[][] DELEGATEDMGR_OPS =
         {
             {
                 "addRole", /* NAME_COL */
@@ -2235,7 +2235,7 @@ public class PermTestData extends TestCase
 },
     };
 
-    public final static String[][] DELEGATEDREVIEWMGR_OBJ =
+    public static final String[][] DELEGATEDREVIEWMGR_OBJ =
         {
             {
                 "org.apache.directory.fortress.core.rbac.DelReviewMgrImpl",
@@ -2250,7 +2250,7 @@ public class PermTestData extends TestCase
     /**
     * Test Case TOP1:
     */
-    public final static String[][] DELEGATEDREVIEWMGR_OPS =
+    public static final String[][] DELEGATEDREVIEWMGR_OPS =
         {
             {
                 "readRole", /* NAME_COL */
@@ -2320,7 +2320,7 @@ public class PermTestData extends TestCase
 },
     };
 
-    public final static String[][] REVIEWMGR_OBJ =
+    public static final String[][] REVIEWMGR_OBJ =
         {
             {
                 "org.apache.directory.fortress.core.rbac.ReviewMgrImpl",
@@ -2335,7 +2335,7 @@ public class PermTestData extends TestCase
     /**
     * Test Case TOP1:
     */
-    public final static String[][] REVIEWMGR_OPS =
+    public static final String[][] REVIEWMGR_OPS =
         {
             {
                 "readPermission", /* NAME_COL */
@@ -2647,7 +2647,7 @@ public class PermTestData extends TestCase
 }
     };
 
-    public final static String[][] AUDITMGR_OBJ =
+    public static final String[][] AUDITMGR_OBJ =
         {
             {
                 "org.apache.directory.fortress.core.rbac.AuditMgrImpl",
@@ -2662,7 +2662,7 @@ public class PermTestData extends TestCase
     /**
      *
      */
-    public final static String[][] AUDITMGR_OPS =
+    public static final String[][] AUDITMGR_OPS =
         {
             {
                 "searchBinds", /* NAME_COL */

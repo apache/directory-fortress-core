@@ -1,0 +1,15 @@
+Apache Directory Fortress Identity Access Management SDK
+Copyright [2015] The Apache Software Foundation
+
+This product includes software developed by:
+
+1. The Apache Software Foundation (http://www.apache.org/)
+2. JUnit.org (http://www.junit.org/) under an Eclipse Public License 1.0
+3. The Java Community Process (http://www.jcp.org/)
+4. 'QOS.ch' (http://www.qos.ch) SLF4J (http://www.slf4j.org/) under a MIT License  (http://www.opensource.org/licenses/mit-license.php) (see LICENSE)
+5. 'Terracotta, Inc.' ehCache Core (http://www.terracotta.org/TPL) under an Apache 2.0 License
+6. JGraphT under a Eclipse Public License 1.0 License (see LICENSE)
+7. Some code by Steve Purcell, Vidar Holen, Michal Ceresna, Ewan Mellor and penSec.IT UG (see LICENSE)
+8. Stax2 API (http://woodstox.codehaus.org/StAX2) under The BSD License  (http://www.opensource.org/licenses/bsd-license.php)
+9. 'Sun Microsystems, Inc' (http://www.sun.com/) under the CDDL License  (http://www.opensource.org/licenses/cddl1.php)
+10. 'The JASYPT team' (http://www.jasypt.org) under an Apache 2.0 License

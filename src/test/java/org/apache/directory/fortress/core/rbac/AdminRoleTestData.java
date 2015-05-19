@@ -43,7 +43,7 @@ public class AdminRoleTestData extends TestCase
     private static final String CLS_NM = AdminRoleTestData.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-    public final static String[][] AROLES_SUPER =
+    public static final String[][] AROLES_SUPER =
         {
             {
                 "fortress-core-super-admin", /* NAME_COL */
@@ -70,7 +70,7 @@ public class AdminRoleTestData extends TestCase
     /**
       * Test Case TR1:
      */
-    public final static String[][] AROLES_TR1 =
+    public static final String[][] AROLES_TR1 =
         {
             {
                 "oamAdmin1", /* NAME_COL */
@@ -284,7 +284,7 @@ public class AdminRoleTestData extends TestCase
 },
     };
 
-    public final static String[][] AROLES_TR2 =
+    public static final String[][] AROLES_TR2 =
         {
             {
                 "oamT2UAdmin1", /* NAME_COL */
@@ -393,7 +393,7 @@ public class AdminRoleTestData extends TestCase
 }
     };
 
-    public final static String[][] AROLES_TR3 =
+    public static final String[][] AROLES_TR3 =
         {
             {
                 "T3AdmRle1", /* NAME_COL */
@@ -460,7 +460,7 @@ public class AdminRoleTestData extends TestCase
 }
     };
 
-    public final static String[][] AROLES_TR3_UPD =
+    public static final String[][] AROLES_TR3_UPD =
         {
             {
                 "T3AdmRle1", /* NAME_COL */
@@ -527,7 +527,7 @@ public class AdminRoleTestData extends TestCase
 }
     };
 
-    public final static String[][] AROLES_TR4_ASC =
+    public static final String[][] AROLES_TR4_ASC =
         {
             {
                 "T4AdmRle1", /* NAME_COL */
@@ -594,7 +594,7 @@ public class AdminRoleTestData extends TestCase
 },
     };
 
-    public final static String[][] AROLES_TR5_DSC =
+    public static final String[][] AROLES_TR5_DSC =
         {
             {
                 "T5AdmRle1", /* NAME_COL */
@@ -661,7 +661,7 @@ public class AdminRoleTestData extends TestCase
 },
     };
 
-    public final static String[][] AROLES_TR6_HIER =
+    public static final String[][] AROLES_TR6_HIER =
         {
             {
                 "T6AdmRle1", /* NAME_COL */

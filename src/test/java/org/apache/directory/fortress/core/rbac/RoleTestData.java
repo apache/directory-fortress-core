@@ -49,7 +49,7 @@ public class RoleTestData extends TestCase
     /**
       * Test Case TR1:
      */
-    public final static String[][] ROLES_TR1 =
+    public static final String[][] ROLES_TR1 =
         {
             {
                 "oamROLE1", /* NAME_COL */
@@ -176,7 +176,7 @@ public class RoleTestData extends TestCase
     /**
       * Test Case TR2: 
      */
-    public final static String[][] ROLES_TR2 =
+    public static final String[][] ROLES_TR2 =
         {
             {
                 "oamT2ROLE1", /* NAME_COL */
@@ -300,7 +300,7 @@ public class RoleTestData extends TestCase
 },
     };
 
-    public final static String[][] ROLES_TR3 =
+    public static final String[][] ROLES_TR3 =
         {
             {
                 "oamT3ROLE1", /* NAME_COL */
@@ -424,7 +424,7 @@ public class RoleTestData extends TestCase
 },
     };
 
-    public final static String[][] ROLES_TR4 =
+    public static final String[][] ROLES_TR4 =
         {
             {
                 "oamT4ROLE1", /* NAME_COL */
@@ -548,7 +548,7 @@ public class RoleTestData extends TestCase
 },
     };
 
-    public final static String[][] ROLES_TR4_UPD =
+    public static final String[][] ROLES_TR4_UPD =
         {
             {
                 "oamT4ROLE1", /* NAME_COL */
@@ -672,7 +672,7 @@ public class RoleTestData extends TestCase
 },
     };
 
-    public final static String[][] ROLES_TR5_HIER =
+    public static final String[][] ROLES_TR5_HIER =
         {
             {
                 "oamT5ROLE1", /* NAME_COL */
@@ -807,7 +807,7 @@ public class RoleTestData extends TestCase
 },
     };
 
-    public final static String[][] ROLES_TR5B =
+    public static final String[][] ROLES_TR5B =
         {
             {
                 "oamT5BROLE1", /* NAME_COL */
@@ -942,7 +942,7 @@ public class RoleTestData extends TestCase
 },
     };
 
-    public final static String[][] ROLES_TR6_DESC =
+    public static final String[][] ROLES_TR6_DESC =
         {
             {
                 "oamT6A1", /* NAME_COL */
@@ -1078,7 +1078,7 @@ public class RoleTestData extends TestCase
         TR6_AUTHORIZED_USERS.put( "oamT6D8C4B2A1", "jtsTU18User15" );
     }
 
-    public final static String[][] ROLES_TR7_ASC =
+    public static final String[][] ROLES_TR7_ASC =
         {
             {
                 "oamT7D1C1B1A1", /* NAME_COL */
@@ -1321,7 +1321,7 @@ public class RoleTestData extends TestCase
         TR6_AUTHORIZED_USERS.put( "oamT7D8C4B2A1", "jtsTU19User15" );
     }
 
-    public final static String[][] ROLES_TR8_SSD =
+    public static final String[][] ROLES_TR8_SSD =
         {
             {
                 "oamSSDR1", /* NAME_COL */
@@ -1565,7 +1565,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR9_SSD =
+    public static final String[][] ROLES_TR9_SSD =
         {
             {
                 "oamT9SSDR1", /* NAME_COL */
@@ -1689,7 +1689,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR10_SSD =
+    public static final String[][] ROLES_TR10_SSD =
         {
             {
                 "oamT10SSDR1", /* NAME_COL */
@@ -1813,7 +1813,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR11_DESC_SSD =
+    public static final String[][] ROLES_TR11_DESC_SSD =
         {
             {
                 "oamT11SSD1", /* NAME_COL */
@@ -1877,7 +1877,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR12_DESC_SSD =
+    public static final String[][] ROLES_TR12_DESC_SSD =
         {
             {
                 "oamT12SSD1", /* NAME_COL */
@@ -1941,7 +1941,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR13_DESC_SSD =
+    public static final String[][] ROLES_TR13_DESC_SSD =
         {
             {
                 "oamT13SSD1", /* NAME_COL */
@@ -2005,7 +2005,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR8_DSD =
+    public static final String[][] ROLES_TR8_DSD =
         {
             {
                 "oamDSDR1", /* NAME_COL */
@@ -2249,7 +2249,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR9_DSD =
+    public static final String[][] ROLES_TR9_DSD =
         {
             {
                 "oamT9DSDR1", /* NAME_COL */
@@ -2373,7 +2373,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR10_DSD =
+    public static final String[][] ROLES_TR10_DSD =
         {
             {
                 "oamT10DSDR1", /* NAME_COL */
@@ -2497,7 +2497,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR11_DESC_DSD =
+    public static final String[][] ROLES_TR11_DESC_DSD =
         {
             {
                 "oamT11DSD1", /* NAME_COL */
@@ -2561,7 +2561,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR12_DESC_DSD =
+    public static final String[][] ROLES_TR12_DESC_DSD =
         {
             {
                 "oamT12DSD1", /* NAME_COL */
@@ -2625,7 +2625,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR13_DESC_DSD =
+    public static final String[][] ROLES_TR13_DESC_DSD =
         {
             {
                 "oamT13DSD1", /* NAME_COL */
@@ -2689,7 +2689,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR14_ARBAC =
+    public static final String[][] ROLES_TR14_ARBAC =
         {
             {
                 "oamT14ROLE1", /* NAME_COL */
@@ -2824,7 +2824,7 @@ public class RoleTestData extends TestCase
 },
     };
 
-    public final static String[][] ROLES_TR15_ARBAC =
+    public static final String[][] ROLES_TR15_ARBAC =
         {
             {
                 "T15ROLE1", /* NAME_COL */
@@ -2906,7 +2906,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR16_SD =
+    public static final String[][] ROLES_TR16_SD =
         {
             {
                 "oamT16SDR1", /* NAME_COL */
@@ -3030,7 +3030,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] ROLES_TR17_DSD_BRUNO =
+    public static final String[][] ROLES_TR17_DSD_BRUNO =
         {
             {
                 "oamT17DSD1", /* NAME_COL */
@@ -3497,7 +3497,7 @@ public class RoleTestData extends TestCase
         return ssd;
     }
 
-    public final static String[][] SSD_T1 =
+    public static final String[][] SSD_T1 =
         {
             {
                 "oamSsdTest1", /* NAME_COL */
@@ -3525,7 +3525,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] SSD_T2 =
+    public static final String[][] SSD_T2 =
         {
             {
                 "oamT2SsdTest", /* NAME_COL */
@@ -3535,7 +3535,7 @@ public class RoleTestData extends TestCase
         }
     };
 
-    public final static String[][] SSD_T3 =
+    public static final String[][] SSD_T3 =
         {
             {
                 "oamT3SsdTest", /* NAME_COL */
@@ -3545,7 +3545,7 @@ public class RoleTestData extends TestCase
         }
     };
 
-    public final static String[][] SSD_T4 =
+    public static final String[][] SSD_T4 =
         {
             {
                 "oamT4Ssd1", /* NAME_COL */
@@ -3555,7 +3555,7 @@ public class RoleTestData extends TestCase
         }
     };
 
-    public final static String[][] SSD_T4_B =
+    public static final String[][] SSD_T4_B =
         {
             {
                 "oamT4Ssd1", /* NAME_COL */
@@ -3577,7 +3577,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] SSD_T5 =
+    public static final String[][] SSD_T5 =
         {
             {
                 "oamT5Ssd1", /* NAME_COL */
@@ -3587,7 +3587,7 @@ public class RoleTestData extends TestCase
         }
     };
 
-    public final static String[][] SSD_T5_B =
+    public static final String[][] SSD_T5_B =
         {
             {
                 "oamT5Ssd1", /* NAME_COL */
@@ -3609,7 +3609,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] SSD_T6 =
+    public static final String[][] SSD_T6 =
         {
             {
                 "oamT6Ssd1", /* NAME_COL */
@@ -3619,7 +3619,7 @@ public class RoleTestData extends TestCase
         }
     };
 
-    public final static String[][] SSD_T6_B =
+    public static final String[][] SSD_T6_B =
         {
             {
                 "oamT6Ssd1", /* NAME_COL */
@@ -3642,7 +3642,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] SSD_T7 =
+    public static final String[][] SSD_T7 =
         {
             {
                 "oamT7Ssd1", /* NAME_COL */
@@ -3676,7 +3676,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] DSD_T1 =
+    public static final String[][] DSD_T1 =
         {
             {
                 "oamDsdTest1", /* NAME_COL */
@@ -3704,7 +3704,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] DSD_T2 =
+    public static final String[][] DSD_T2 =
         {
             {
                 "oamT2DsdTest", /* NAME_COL */
@@ -3714,7 +3714,7 @@ public class RoleTestData extends TestCase
         }
     };
 
-    public final static String[][] DSD_T3 =
+    public static final String[][] DSD_T3 =
         {
             {
                 "oamT3DsdTest", /* NAME_COL */
@@ -3724,7 +3724,7 @@ public class RoleTestData extends TestCase
         }
     };
 
-    public final static String[][] DSD_T4 =
+    public static final String[][] DSD_T4 =
         {
             {
                 "oamT4Dsd1", /* NAME_COL */
@@ -3734,7 +3734,7 @@ public class RoleTestData extends TestCase
         }
     };
 
-    public final static String[][] DSD_T4_B =
+    public static final String[][] DSD_T4_B =
         {
             {
                 "oamT4Dsd1", /* NAME_COL */
@@ -3756,7 +3756,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] DSD_T5 =
+    public static final String[][] DSD_T5 =
         {
             {
                 "oamT5Dsd1", /* NAME_COL */
@@ -3766,7 +3766,7 @@ public class RoleTestData extends TestCase
         }
     };
 
-    public final static String[][] DSD_T5_B =
+    public static final String[][] DSD_T5_B =
         {
             {
                 "oamT5Dsd1", /* NAME_COL */
@@ -3788,7 +3788,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] DSD_T6 =
+    public static final String[][] DSD_T6 =
         {
             {
                 "oamT6Dsd1", /* NAME_COL */
@@ -3798,7 +3798,7 @@ public class RoleTestData extends TestCase
         }
     };
 
-    public final static String[][] DSD_T6_B =
+    public static final String[][] DSD_T6_B =
         {
             {
                 "oamT6Dsd1", /* NAME_COL */
@@ -3820,7 +3820,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] DSD_T6_C =
+    public static final String[][] DSD_T6_C =
         {
             {
                 "oamT6Dsd1", /* NAME_COL */
@@ -3842,7 +3842,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] DSD_T6_D =
+    public static final String[][] DSD_T6_D =
         {
             {
                 "oamT6Dsd1", /* NAME_COL */
@@ -3864,7 +3864,7 @@ public class RoleTestData extends TestCase
             }
         };
 
-    public final static String[][] DSD_T7 =
+    public static final String[][] DSD_T7 =
         {
             {
                 "oamT7Dsd1", /* NAME_COL */
@@ -3898,7 +3898,7 @@ public class RoleTestData extends TestCase
 }
     };
 
-    public final static String[][] DSD_T8_BRUNO =
+    public static final String[][] DSD_T8_BRUNO =
         {
             {
                 "oamT8Dsd1", /* NAME_COL */

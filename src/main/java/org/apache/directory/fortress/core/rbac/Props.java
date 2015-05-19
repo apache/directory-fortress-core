@@ -210,5 +210,13 @@ public class Props extends FortEntity implements Serializable
             }
             return false;
         }
+
+        @Override
+        public int hashCode()
+        {
+            int result = key != null ? key.hashCode() : 0;
+            result = 31 * result + ( value != null ? value.hashCode() : 0 );
+            return result;
+        }
     }
 }

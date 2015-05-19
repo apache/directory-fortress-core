@@ -154,7 +154,7 @@ public class Options implements java.io.Serializable
         updateRoleAssigns(sdSet);
         try
         {
-            Integer cardinality = new Integer(getCardinality());
+            Integer cardinality = Integer.valueOf( getCardinality() );
             sdSet.setCardinality(cardinality);
         }
         catch (NumberFormatException ne)
@@ -287,7 +287,7 @@ public class Options implements java.io.Serializable
         constraint.setName(getName());
         try
         {
-            Integer to = new Integer(getTimeout());
+            Integer to = Integer.valueOf( getTimeout() );
             constraint.setTimeout(to);
         }
         catch (NumberFormatException ne)

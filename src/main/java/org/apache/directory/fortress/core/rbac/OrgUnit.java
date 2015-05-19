@@ -440,6 +440,17 @@ public class OrgUnit extends FortEntity implements Graphable, Serializable
         return thatOrg.getName().equalsIgnoreCase( this.getName() );
     }
 
+    @Override
+    public int hashCode()
+    {
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + ( name != null ? name.hashCode() : 0 );
+        result = 31 * result + ( id != null ? id.hashCode() : 0 );
+        result = 31 * result + ( description != null ? description.hashCode() : 0 );
+        result = 31 * result + ( parents != null ? parents.hashCode() : 0 );
+        result = 31 * result + ( children != null ? children.hashCode() : 0 );
+        return result;
+    }
 
     /**
      * @see Object#toString()

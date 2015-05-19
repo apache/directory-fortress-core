@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements. See the NOTICE file
@@ -18,6 +19,7 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.apache.directory.project</groupId>
     <artifactId>project</artifactId>
@@ -25,11 +27,11 @@
     <relativePath />
   </parent>
 
-  <groupId>org.apache.directory</groupId>
+  <groupId>org.apache.directory.fortress</groupId>
   <artifactId>fortress-core</artifactId>
   <packaging>jar</packaging>
   <name>Apache Fortress Core</name>
-  <version>1.0-RC40-SNAPSHOT</version>
+  <version>1.0-RC41-SNAPSHOT</version>
   <inceptionYear>2007</inceptionYear>
   <description>
     Apache Fortress is a standards-based Identity and Access Management SDK that implements ANSI RBAC INCITS 359.
@@ -83,7 +85,7 @@
     <version.ant.launcher>1.9.1</version.ant.launcher>
     <version.antlr>2.7.7</version.antlr>
     <version.apacheds>2.0.0-M19</version.apacheds>
-    <version.api.all>1.0.0-M28</version.api.all>
+    <version.api.all>1.0.0-M30</version.api.all>
     <version.commons.beanutils>1.7.0</version.commons.beanutils>
     <version.commons.beanutils-core>1.8.0</version.commons.beanutils-core>
     <version.commons.codec>1.2</version.commons.codec>
@@ -101,21 +103,23 @@
     <version.hamcrest.core>1.3</version.hamcrest.core>
     <version.jasypt>1.9.2</version.jasypt>
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
-    <version.jgrapht.jdk5>0.7.3</version.jgrapht.jdk5>
+    <version.jgrapht-core>0.9.1</version.jgrapht-core>
     <version.jmeter.core>2.11</version.jmeter.core>
     <version.jmeter.java>2.11</version.jmeter.java>
     <version.jsr311.api>1.1-ea</version.jsr311.api>
     <version.junit>4.12</version.junit>
     <version.log4j>1.2.17</version.log4j>
     <version.mina.core>2.0.8</version.mina.core>
-    <version.slf4j.api>1.7.10</version.slf4j.api>
-    <version.slf4j.log4j12>1.7.10</version.slf4j.log4j12>
+    <version.slf4j.api>1.7.12</version.slf4j.api>
+    <version.slf4j.log4j12>1.7.12</version.slf4j.log4j12>
     <version.stax2.api>3.1.1</version.stax2.api>
     <version.opencsv>2.3</version.opencsv>
     <version.woodstox.core.asl>4.2.0</version.woodstox.core.asl>
     <version.xmlschema.core>2.0.3</version.xmlschema.core>
     <version.xpp3>1.1.4c</version.xpp3>
     <version.xml.apis>1.0b2</version.xml.apis>
+    <version.jaxb>2.2.4-1</version.jaxb>
+    <version.commons.codec>1.2</version.commons.codec>
 
     <!-- ===================================================== -->
     <!-- This is a hack to allow someone to release       -->
@@ -210,8 +214,8 @@
 
     <dependency>
       <groupId>org.jgrapht</groupId>
-      <artifactId>jgrapht-jdk1.5</artifactId>
-      <version>${version.jgrapht.jdk5}</version>
+      <artifactId>jgrapht-core</artifactId>
+      <version>${version.jgrapht-core}</version>
     </dependency>
 
     <dependency>
@@ -406,6 +410,21 @@
       <version>${version.opencsv}</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>${version.jaxb}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${version.commons.codec}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -434,14 +453,11 @@
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
         </plugin>
 
+        
+        <!-- Fires on 'mvn -Dtest=ClassName' where ClassName is junit test class name -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -450,7 +466,6 @@
             <systemPropertyVariables>
               <version>${project.version}</version>
             </systemPropertyVariables>
-<!--            <testFailureIgnore>true</testFailureIgnore>-->
             <excludes>
               <exclude>${exclude.tests}</exclude>
             </excludes>
@@ -465,15 +480,6 @@
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-release-plugin</artifactId>
-          <configuration>
-            <arguments>${release.arguments}</arguments>
-            <tagNameFormat>@{project.version}</tagNameFormat>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <source>1.7</source>
@@ -481,6 +487,29 @@
             <optimize>true</optimize>
             <encoding>ISO-8859-1</encoding>
           </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.6</version>
+          <configuration>
+            <excludes>
+              <exclude>**/bootstrap</exclude>
+              <exclude>**/config</exclude>
+              <exclude>**/*.xml</exclude>
+              <exclude>**/*.properties</exclude>
+              <exclude>**/*.txt</exclude>
+              <exclude>**/*.src</exclude>
+            </excludes>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>test-jar</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
 
         <plugin>
@@ -510,6 +539,7 @@
               <exclude>**/CmdLineParser.java</exclude>
               <!-- LICENSE_EXCLUDES -->
               <exclude>**/lib/LICENSE*</exclude>
+              <exclude>**/LICENSE.cmdLineParser.txt</exclude>
               <!-- Exclude logs -->
               <exclude>**/.log/**</exclude>
             </excludes>
@@ -603,7 +633,8 @@
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                   <classpath>
-                    <pathelement location="./config/bootstrap" />
+                    <!-- use config/bootstrap folder for config because the config ldap node isn't (might not be) inserted: -->
+                    <pathelement location="./config/bootstrap/" />
                     <pathelement location="./target/classes/" />
                     <pathelement location="${org.apache.ant:ant-launcher:jar}" />
                     <pathelement location="${org.apache.ant:ant:jar}" />
@@ -612,7 +643,7 @@
                     <pathelement location="${log4j:log4j:jar}" />
                     <pathelement location="${org.apache.directory.api:api-all:jar}" />
                     <pathelement location="${org.apache.mina:mina-core:jar}" />
-                    <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}" />
+                    <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
                     <pathelement location="${org.jasypt:jasypt:jar}" />
                     <pathelement location="${commons-configuration:commons-configuration:jar}" />
                     <pathelement location="${commons-lang:commons-lang:jar}" />
@@ -624,6 +655,11 @@
                     <pathelement location="${org.slf4j:slf4j-api:jar}" />
                     <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
                     <pathelement location="${antlr:antlr:jar}" />
+                    <pathelement location="${org.apache.cxf:cxf-common-utilities:jar}" />
+                    <pathelement location="${javax.ws.rs:jsr311-api:jar}" />
+                    <pathelement location="${commons-httpclient:commons-httpclient:jar}" />
+                    <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
+                    <pathelement location="${commons-codec:commons-codec:jar}" />
                   </classpath>
                   <sysproperty key="version" value="${project.version}" />
                   <sysproperty key="tenant" value="HOME" />
@@ -648,7 +684,6 @@
   </build>
 
   <profiles>
-
     <!-- To execute: mvn -Pconsole test -->
     <profile>
       <id>console</id>
@@ -665,7 +700,7 @@
                     <echo message="############### Run Fortress Console ###############" />
                     <java classname="org.apache.directory.fortress.core.FortressConsole" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                       <classpath>
-                        <pathelement location="./config/bootstrap" />
+                        <pathelement location="./config" />
                         <pathelement location="./target/classes/" />
                         <pathelement location="./target/test-classes/" />
                         <pathelement location="${org.apache.ant:ant-launcher:jar}" />
@@ -675,7 +710,7 @@
                         <pathelement location="${log4j:log4j:jar}" />
                         <pathelement location="${org.apache.directory.api:api-all:jar}" />
                         <pathelement location="${org.apache.mina:mina-core:jar}" />
-                        <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}" />
+                        <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
                         <pathelement location="${org.jasypt:jasypt:jar}" />
                         <pathelement location="${commons-configuration:commons-configuration:jar}" />
                         <pathelement location="${commons-lang:commons-lang:jar}" />
@@ -688,6 +723,11 @@
                         <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
                         <pathelement location="${antlr:antlr:jar}" />
                         <pathelement location="${junit:junit:jar}" />
+                        <pathelement location="${org.apache.cxf:cxf-common-utilities:jar}" />
+                        <pathelement location="${javax.ws.rs:jsr311-api:jar}" />
+                        <pathelement location="${commons-httpclient:commons-httpclient:jar}" />
+                        <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
+                        <pathelement location="${commons-codec:commons-codec:jar}" />
                       </classpath>
                       <sysproperty key="version" value="${project.version}" />
                       <sysproperty key="tenant" value="HOME" />
@@ -720,7 +760,7 @@
                     <echo message="############### Run Fortress Command Line Interface ###############" />
                     <java classname="org.apache.directory.fortress.core.cli.CommandLineInterpreter" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                       <classpath>
-                        <pathelement location="./config/bootstrap" />
+                        <pathelement location="./config" />
                         <pathelement location="./target/classes/" />
                         <pathelement location="./target/test-classes/" />
                         <pathelement location="${org.apache.ant:ant-launcher:jar}" />
@@ -730,7 +770,7 @@
                         <pathelement location="${log4j:log4j:jar}" />
                         <pathelement location="${org.apache.directory.api:api-all:jar}" />
                         <pathelement location="${org.apache.mina:mina-core:jar}" />
-                        <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}" />
+                        <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
                         <pathelement location="${org.jasypt:jasypt:jar}" />
                         <pathelement location="${commons-configuration:commons-configuration:jar}" />
                         <pathelement location="${commons-lang:commons-lang:jar}" />
@@ -743,6 +783,11 @@
                         <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
                         <pathelement location="${antlr:antlr:jar}" />
                         <pathelement location="${junit:junit:jar}" />
+                        <pathelement location="${org.apache.cxf:cxf-common-utilities:jar}" />
+                        <pathelement location="${javax.ws.rs:jsr311-api:jar}" />
+                        <pathelement location="${commons-httpclient:commons-httpclient:jar}" />
+                        <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
+                        <pathelement location="${commons-codec:commons-codec:jar}" />
                       </classpath>
                       <sysproperty key="version" value="${project.version}" />
                       <sysproperty key="tenant" value="HOME" />
@@ -784,8 +829,25 @@
                 </goals>
               </execution>
             </executions>
+            <dependencies>
+              <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+              </dependency>
+            </dependencies>
           </plugin>
-
         </plugins>
       </build>
     </profile>
@@ -822,6 +884,17 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
               </dependency>
             </dependencies>
           </plugin>
@@ -863,6 +936,17 @@
                 <artifactId>log4j</artifactId>
                 <version>${version.log4j}</version>
               </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.project</groupId>
+                <artifactId>fortress-core</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+              </dependency>
             </dependencies>
           </plugin>
 
@@ -870,50 +954,5 @@
       </build>
     </profile>
 
-    <profile>
-      <id>stable-tests</id>
-      <properties>
-        <testcase.groups>org.apache.directory.fortress.core.DefaultTestCase</testcase.groups>
-      </properties>
-    </profile>
-    <profile>
-      <id>unstable-tests</id>
-      <properties>
-        <testcase.groups>org.apache.directory.fortress.core.UnstableTestCase</testcase.groups>
-      </properties>
-    </profile>
-
-    <profile>
-      <id>apache-release</id>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>source-release-assembly</id>
-                <configuration>
-                  <!-- we have a dedicated distribution module -->
-                  <skipAssembly>true</skipAssembly>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.rat</groupId>
-            <artifactId>apache-rat-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>verify</phase>
-                <goals>
-                  <goal>check</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
 </project>

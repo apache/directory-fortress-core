@@ -522,6 +522,20 @@ public class PermObj extends FortEntity implements Serializable
     }
 
 
+    @Override
+    public int hashCode()
+    {
+        int result = ( admin ? 1 : 0 );
+        result = 31 * result + ( internalId != null ? internalId.hashCode() : 0 );
+        result = 31 * result + ( objName != null ? objName.hashCode() : 0 );
+        result = 31 * result + ( description != null ? description.hashCode() : 0 );
+        result = 31 * result + ( props != null ? props.hashCode() : 0 );
+        result = 31 * result + ( ou != null ? ou.hashCode() : 0 );
+        result = 31 * result + ( type != null ? type.hashCode() : 0 );
+        result = 31 * result + ( dn != null ? dn.hashCode() : 0 );
+        return result;
+    }
+
     /**
      * Matches the objName from two PermObj entities.
      *
@@ -529,6 +543,7 @@ public class PermObj extends FortEntity implements Serializable
      * @return boolean indicating both objects contain matching objNames.
      */
     public boolean equals( Object thatObj )
+
     {
         if ( this == thatObj )
             return true;

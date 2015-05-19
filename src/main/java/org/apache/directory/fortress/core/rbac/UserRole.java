@@ -608,6 +608,22 @@ public class UserRole extends FortEntity implements Serializable, Constraint
         return ( thatRole.getName().equalsIgnoreCase( name ) );
     }
 
+    @Override
+    public int hashCode()
+    {
+        int result = userId != null ? userId.hashCode() : 0;
+        result = 31 * result + ( name != null ? name.hashCode() : 0 );
+        result = 31 * result + ( timeout != null ? timeout.hashCode() : 0 );
+        result = 31 * result + ( beginTime != null ? beginTime.hashCode() : 0 );
+        result = 31 * result + ( endTime != null ? endTime.hashCode() : 0 );
+        result = 31 * result + ( beginDate != null ? beginDate.hashCode() : 0 );
+        result = 31 * result + ( endDate != null ? endDate.hashCode() : 0 );
+        result = 31 * result + ( beginLockDate != null ? beginLockDate.hashCode() : 0 );
+        result = 31 * result + ( endLockDate != null ? endLockDate.hashCode() : 0 );
+        result = 31 * result + ( dayMask != null ? dayMask.hashCode() : 0 );
+        result = 31 * result + ( parents != null ? parents.hashCode() : 0 );
+        return result;
+    }
 
     /**
      * Used to retrieve UserRole Role name attribute.  The Fortress UserRole name maps to 'ftRA' attribute on

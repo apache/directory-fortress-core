@@ -448,7 +448,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
         catch ( CursorException e )
         {
             String error = "findOrgs search val [" + orgUnit.getName() + "] type [" + orgUnit.getType()
-                + "] root [" + orgUnitRoot + "] caught LdapException=" + e;
+                + "] root [" + orgUnitRoot + "] caught CursorException=" + e;
             int errCode;
 
             if ( orgUnit.getType() == OrgUnit.Type.PERM )
@@ -517,7 +517,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
         catch ( CursorException e )
         {
             String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
-                + "] caught LdapException=" + e;
+                + "] caught CursorException=" + e;
             int errCode;
 
             if ( orgUnit.getType() == OrgUnit.Type.PERM )
@@ -577,7 +577,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "getAllDescendants filter [" + filter + "] caught LdapException="
+            String error = "getAllDescendants filter [" + filter + "] caught CursorException="
                 + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }

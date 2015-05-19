@@ -77,6 +77,15 @@ cp [directory-fortress-core]/config/fortress.properties [directory-fortress-enma
     <br>
 
     <li>
+        To load policies for testing into ldap, run this command:
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+mvn install -Dload.file=./src/main/resources/FortressRestServerRoles.xml
+                    </p>
+                </pre>
+    </li>
+
+    <li>
         To deploy fortress rest, run this command:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
@@ -98,7 +107,7 @@ mvn tomcat:redeploy
         Run the tests:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-mvn verify -Dnoload
+mvn test -Dtest=EmTest
                     </p>
                 </pre>
         Checkout the README.txt in [directory-fortress-enmasse] package for other ways to test fortress-rest component.

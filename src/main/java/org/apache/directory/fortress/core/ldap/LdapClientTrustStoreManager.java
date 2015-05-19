@@ -84,7 +84,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         // contains the fully-qualified file name of a valid JSSE TrustStore on local file system:
         this.trustStoreFile = trustStoreFile;
         // the password to the JSSE TrustStore:
-        this.trustStorePw = trustStorePw;
+        this.trustStorePw = trustStorePw.clone();
         // If true, verify the current date is within the validity period for every certificate in the TrustStore:
         this.isExamineValidityDates = isExamineValidity;
         if ( trustStoreFormat == null )

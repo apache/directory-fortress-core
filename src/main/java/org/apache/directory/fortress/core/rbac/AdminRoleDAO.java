@@ -490,7 +490,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findRoles name [" + adminRole.getName() + "] caught LdapException=" + e.getMessage();
+            String error = "findRoles name [" + adminRole.getName() + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         finally
@@ -539,7 +539,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findRoles name [" + searchVal + "] caught LdapException=" + e.getMessage();
+            String error = "findRoles name [" + searchVal + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         finally
@@ -582,7 +582,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getMessage();
+            String error = "findAssignedRoles userDn [" + userDn + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e );
         }
         finally
@@ -631,7 +631,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getMessage();
+            String error = "getAllDescendants filter [" + filter + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         finally

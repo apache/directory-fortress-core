@@ -707,8 +707,29 @@ public class Role extends FortEntity implements Constraint, Graphable, java.io.S
     
         return thatRole.getName().equalsIgnoreCase( name );
     }
-    
-    
+
+    @Override
+    public int hashCode()
+    {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + ( name != null ? name.hashCode() : 0 );
+        result = 31 * result + ( description != null ? description.hashCode() : 0 );
+        result = 31 * result + ( dn != null ? dn.hashCode() : 0 );
+        result = 31 * result + ( occupants != null ? occupants.hashCode() : 0 );
+        result = 31 * result + ( parents != null ? parents.hashCode() : 0 );
+        result = 31 * result + ( children != null ? children.hashCode() : 0 );
+        result = 31 * result + ( beginTime != null ? beginTime.hashCode() : 0 );
+        result = 31 * result + ( endTime != null ? endTime.hashCode() : 0 );
+        result = 31 * result + ( beginDate != null ? beginDate.hashCode() : 0 );
+        result = 31 * result + ( endDate != null ? endDate.hashCode() : 0 );
+        result = 31 * result + ( beginLockDate != null ? beginLockDate.hashCode() : 0 );
+        result = 31 * result + ( endLockDate != null ? endLockDate.hashCode() : 0 );
+        result = 31 * result + ( dayMask != null ? dayMask.hashCode() : 0 );
+        result = 31 * result + timeout;
+        result = 31 * result + ( rawData != null ? rawData.hashCode() : 0 );
+        return result;
+    }
+
     /**
      * @see Object#toString()
      */

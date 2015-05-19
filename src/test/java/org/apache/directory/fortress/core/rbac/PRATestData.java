@@ -41,7 +41,7 @@ public class PRATestData extends TestCase
     private static final String CLS_NM = PRATestData.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-    public final static String[][] PRA_T1 =
+    public static final String[][] PRA_T1 =
         {
             {
                 "oamT2UAdmin1", /* AROLE COL */

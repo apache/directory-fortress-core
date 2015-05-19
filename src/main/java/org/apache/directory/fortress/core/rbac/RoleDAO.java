@@ -115,6 +115,16 @@ final class RoleDAO extends ApacheDsDataProvider
             GlobalIds.FT_IID, ROLE_NM, SchemaConstants.DESCRIPTION_AT, GlobalIds.CONSTRAINT, SchemaConstants.ROLE_OCCUPANT_AT, GlobalIds.PARENT_NODES
     };
 
+    /**
+     * Defines the object class structure used within Fortress Role processing.
+     */
+    private static final String ROLE_OBJ_CLASS[] =
+        {
+            SchemaConstants.TOP_OC,
+            GlobalIds.ROLE_OBJECT_CLASS_NM,
+            GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
+            GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+        };
 
     /**
      * @param entity
@@ -129,7 +139,7 @@ final class RoleDAO extends ApacheDsDataProvider
         try
         {
             Entry entry = new DefaultEntry( dn );
-            entry.add( SchemaConstants.OBJECT_CLASS_AT, GlobalIds.ROLE_OBJ_CLASS );
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, ROLE_OBJ_CLASS );
             entity.setId();
             entry.add( GlobalIds.FT_IID, entity.getId() );
             entry.add( ROLE_NM, entity.getName() );
@@ -447,7 +457,7 @@ final class RoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
+            String error = "findRoles filter [" + filter + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally
@@ -496,7 +506,7 @@ final class RoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findRoles filter [" + filter + "] caught LdapException=" + e.getMessage();
+            String error = "findRoles filter [" + filter + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally
@@ -542,7 +552,7 @@ final class RoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getMessage();
+            String error = "findAssignedRoles userDn [" + userDn + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_OCCUPANT_SEARCH_FAILED, error, e );
         }
         finally
@@ -591,7 +601,7 @@ final class RoleDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getMessage();
+            String error = "getAllDescendants filter [" + filter + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally

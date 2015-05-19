@@ -164,7 +164,7 @@ mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
         Run the Fortress Core Regression Tess:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-mvn -Dtest=FortressJUnitTest test
+mvn test -Dtest=FortressJUnitTest
                     </p>
                 </pre>
         Tests should run with no errors.
@@ -176,7 +176,7 @@ mvn -Dtest=FortressJUnitTest test
         Run the Fortress Command Line Interface:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-mvn -Pcli test
+mvn test -Pcli
                     </p>
                 </pre>
         This program provides a command line interface for driving the fortress APIs.  It is useful for ad-hoc and automated updates to the data.  It's instruction manual is here:
@@ -189,7 +189,7 @@ mvn -Pcli test
         Run the Fortress Console:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-mvn -Pconsole test
+mvn test -Pconsole
                     </p>
                 </pre>
         This program provides an interfactive console for driving the fortress functions.  It is useful for testing and ad-hoc updates to the data.

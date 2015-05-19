@@ -1441,7 +1441,7 @@ final class UserDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String warning = "findUsersList caught LDAPException=" + e.getMessage();
+            String warning = "findUsersList caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
@@ -1497,7 +1497,7 @@ final class UserDAO extends ApacheDsDataProvider
         }
         catch ( CursorException e )
         {
-            String warning = "findUsers caught LDAPException=" + e.getMessage();
+            String warning = "findUsers caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally

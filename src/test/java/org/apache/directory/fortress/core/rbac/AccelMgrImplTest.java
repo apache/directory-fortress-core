@@ -27,8 +27,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.apache.directory.fortress.core.util.attr.VUtil;
-import org.junit.Ignore;
-import org.junit.experimental.categories.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +43,6 @@ import org.apache.directory.fortress.core.util.LogUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-@Category(org.apache.directory.fortress.core.DefaultTestCase.class)
 public class AccelMgrImplTest extends TestCase
 {
     private static final String CLS_NM = AccelMgrImplTest.class.getName();
