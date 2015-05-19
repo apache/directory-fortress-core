@@ -373,12 +373,7 @@ public final class UserP
         Session session;
         session = uDao.checkPassword( user );
 
-        if ( session == null )
-        { // This should not happen, ever:
-            String error = "UserP.authenticate failed - null session detected for userId [" + user.getUserId() + "]";
-            throw new SecurityException( GlobalErrIds.USER_SESS_CREATE_FAILED, error );
-        }
-        else if ( !session.isAuthenticated() )
+        if ( !session.isAuthenticated() )
         {
             String info = "UserP.authenticate failed  for userId [" + user.getUserId() + "] reason code ["
                 + session.getErrorId() + "] msg [" + session.getMsg() + "]";

@@ -1047,30 +1047,43 @@ final class UserDAO extends ApacheDsDataProvider
 
         try
         {
-            String filter;
-
+            //String filter;
+            StringBuffer filterbuf = new StringBuffer();
             if ( VUtil.isNotNullOrEmpty( user.getUserId() ) )
             {
                 // place a wild card after the input userId:
                 String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
-                filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")(" + SchemaConstants.UID_AT + "=" + searchVal
-                    + "*))";
+                filterbuf.append( GlobalIds.FILTER_PREFIX );
+                filterbuf.append( objectClassImpl );
+                filterbuf.append( ")(" );
+                filterbuf.append( SchemaConstants.UID_AT );
+                filterbuf.append( "=" );
+                filterbuf.append( searchVal );
+                filterbuf.append( "*))" );
             }
             else if ( VUtil.isNotNullOrEmpty( user.getInternalId() ) )
             {
                 // internalUserId search
                 String searchVal = encodeSafeText( user.getInternalId(), GlobalIds.USERID_LEN );
                 // this is not a wildcard search. Must be exact match.
-                filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")(" + GlobalIds.FT_IID + "=" + searchVal + "))";
+                filterbuf.append( GlobalIds.FILTER_PREFIX );
+                filterbuf.append( objectClassImpl );
+                filterbuf.append( ")(" );
+                filterbuf.append( GlobalIds.FT_IID );
+                filterbuf.append( "=" );
+                filterbuf.append( searchVal );
+                filterbuf.append( "))" );
             }
             else
             {
                 // Beware - returns ALL users!!:"
-                filter = "(objectclass=" + objectClassImpl + ")";
+                filterbuf.append( "(objectclass=" );
+                filterbuf.append( objectClassImpl );
+                filterbuf.append( ")" );
             }
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1113,10 +1126,17 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
-            String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")(" + SchemaConstants.UID_AT + "=" +
-                searchVal + "*))";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( objectClassImpl );
+            filterbuf.append( ")(" );
+            filterbuf.append( SchemaConstants.UID_AT );
+            filterbuf.append( "=" );
+            filterbuf.append( searchVal );
+            filterbuf.append( "*))" );
+
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filter, USERID, false, GlobalIds
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID, false, GlobalIds
                 .BATCH_SIZE, limit );
 
             while ( searchResults.next() )
@@ -1158,28 +1178,43 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")(";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
+            filterbuf.append( ")(" );
+
             Set<String> roles = RoleUtil.getDescendants( role.getName(), role.getContextId() );
 
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
-                filter += "|(" + GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + ")";
+                filterbuf.append( "|(" );
+                filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+                filterbuf.append( "=" );
+                filterbuf.append( roleVal );
+                filterbuf.append( ")" );
 
                 for ( String uRole : roles )
                 {
-                    filter += "(" + GlobalIds.USER_ROLE_ASSIGN + "=" + uRole + ")";
+                    filterbuf.append( "(" );
+                    filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+                    filterbuf.append( "=" );
+                    filterbuf.append( uRole );
+                    filterbuf.append( ")" );
                 }
 
-                filter += ")";
+                filterbuf.append( ")" );
             }
             else
             {
-                filter += GlobalIds.USER_ROLE_ASSIGN + "=" + roleVal + ")";
+                filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+                filterbuf.append( "=" );
+                filterbuf.append( roleVal );
+                filterbuf.append( ")" );
             }
 
-            filter += ")";
+            filterbuf.append( ")" );
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1223,10 +1258,17 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")(" + GlobalIds.USER_ROLE_ASSIGN
-                + "=" + roleVal + "))";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
+            filterbuf.append( ")(" );
+            filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+            filterbuf.append( "=" );
+            filterbuf.append( roleVal );
+            filterbuf.append( "))" );
+
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1269,14 +1311,21 @@ final class UserDAO extends ApacheDsDataProvider
 
         try
         {
-            String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")(|";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
+            filterbuf.append( ")(|" );
 
             if ( VUtil.isNotNullOrEmpty( roles ) )
             {
                 for ( String roleVal : roles )
                 {
                     String filteredVal = encodeSafeText( roleVal, GlobalIds.USERID_LEN );
-                    filter += "(" + GlobalIds.USER_ROLE_ASSIGN + "=" + filteredVal + ")";
+                    filterbuf.append( "(" );
+                    filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+                    filterbuf.append( "=" );
+                    filterbuf.append( filteredVal );
+                    filterbuf.append( ")" );
                 }
             }
             else
@@ -1284,9 +1333,9 @@ final class UserDAO extends ApacheDsDataProvider
                 return null;
             }
 
-            filter += "))";
+            filterbuf.append( "))" );
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filter, USERID_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATRS, false,
                 GlobalIds.BATCH_SIZE );
 
             while ( searchResults.next() )
@@ -1327,10 +1376,17 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")(" + GlobalIds
-                .USER_ADMINROLE_ASSIGN + "=" + roleVal + "))";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
+            filterbuf.append( ")(" );
+            filterbuf.append( GlobalIds.USER_ADMINROLE_ASSIGN );
+            filterbuf.append( "=" );
+            filterbuf.append( roleVal );
+            filterbuf.append( "))" );
+
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1375,10 +1431,17 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            String filter = GlobalIds.FILTER_PREFIX + USERS_AUX_OBJECT_CLASS_NAME + ")(" + GlobalIds.USER_ROLE_ASSIGN
-                + "=" + roleVal + "))";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
+            filterbuf.append( ")(" );
+            filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+            filterbuf.append( "=" );
+            filterbuf.append( roleVal );
+            filterbuf.append( "))" );
+
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filter, USERID, false, GlobalIds
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID, false, GlobalIds
                 .BATCH_SIZE, limit );
 
             while ( searchResults.next() )
@@ -1422,10 +1485,17 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             searchVal = encodeSafeText( searchVal, GlobalIds.USERID_LEN );
-            String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")(" + SchemaConstants.UID_AT + "=" +
-                searchVal + "*))";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( objectClassImpl );
+            filterbuf.append( ")(" );
+            filterbuf.append( SchemaConstants.UID_AT );
+            filterbuf.append( "=" );
+            filterbuf.append( searchVal );
+            filterbuf.append( "*))" );
+
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1467,8 +1537,14 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String szOu = encodeSafeText( ou.getName(), GlobalIds.OU_LEN );
-            String filter = GlobalIds.FILTER_PREFIX + objectClassImpl + ")(" + SchemaConstants.OU_AT + "=" + szOu +
-                "))";
+            StringBuffer filterbuf = new StringBuffer();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( objectClassImpl );
+            filterbuf.append( ")(" );
+            filterbuf.append( SchemaConstants.OU_AT );
+            filterbuf.append( "=" );
+            filterbuf.append( szOu );
+            filterbuf.append( "))" );
             int maxLimit;
 
             if ( limitSize )
@@ -1481,7 +1557,7 @@ final class UserDAO extends ApacheDsDataProvider
             }
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filter, DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE, maxLimit );
             long sequence = 0;
 

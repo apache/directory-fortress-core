@@ -61,7 +61,7 @@ public class Timeout
         else
         {
             long elapsedTime = System.currentTimeMillis() - lastTime;
-            timeLimit = constraint.getTimeout() * 60000;
+            timeLimit = constraint.getTimeout() * 60000L;
             if (elapsedTime < timeLimit || constraint.getTimeout() == 0)
             {
                 rc = 0;

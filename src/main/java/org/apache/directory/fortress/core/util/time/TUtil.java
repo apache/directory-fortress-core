@@ -66,7 +66,7 @@ public class TUtil
         }
         String szCurrentTime = szHour + szMinute;
 
-        time.currentTime = new Integer(szCurrentTime);
+        time.currentTime = Integer.valueOf( szCurrentTime );
         time.date = szYear + szMonth + szDay;
         return time;
     }

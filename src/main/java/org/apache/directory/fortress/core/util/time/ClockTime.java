@@ -61,8 +61,8 @@ public class ClockTime
         }
         else
         {
-            Integer beginTime = new Integer(constraint.getBeginTime());
-            Integer endTime = new Integer(constraint.getEndTime());
+            Integer beginTime = Integer.valueOf( constraint.getBeginTime() );
+            Integer endTime = Integer.valueOf( constraint.getEndTime() );
             if (beginTime == 0 && endTime == 0)
             {
                 rc = 0;

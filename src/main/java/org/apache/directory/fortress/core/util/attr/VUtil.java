@@ -51,7 +51,7 @@ public class VUtil
         {
             if ( lengthProp != null )
             {
-                Integer len = new Integer( lengthProp );
+                Integer len = Integer.valueOf( lengthProp );
                 maximumFieldLen = len;
             }
         }
