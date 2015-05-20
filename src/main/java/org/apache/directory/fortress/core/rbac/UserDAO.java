@@ -1124,7 +1124,7 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             //String filter;
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             if ( VUtil.isNotNullOrEmpty( user.getUserId() ) )
             {
                 // place a wild card after the input userId:
@@ -1203,7 +1203,7 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( objectClassImpl );
             filterbuf.append( ")(" );
@@ -1391,7 +1391,7 @@ final class UserDAO extends ApacheDsDataProvider
 
         try
         {
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(|" );
@@ -1457,7 +1457,7 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
@@ -1513,7 +1513,7 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
@@ -1568,7 +1568,7 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             searchVal = encodeSafeText( searchVal, GlobalIds.USERID_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( objectClassImpl );
             filterbuf.append( ")(" );
@@ -1621,7 +1621,7 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             String szOu = encodeSafeText( ou.getName(), GlobalIds.OU_LEN );
-            StringBuffer filterbuf = new StringBuffer();
+            StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( objectClassImpl );
             filterbuf.append( ")(" );
