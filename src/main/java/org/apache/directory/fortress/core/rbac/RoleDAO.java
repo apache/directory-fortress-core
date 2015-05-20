@@ -201,16 +201,6 @@ final class RoleDAO extends ApacheDsDataProvider
                     SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getOccupants() ) )
-            {
-                for ( String name : entity.getOccupants() )
-                {
-                    mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
-                        SchemaConstants.ROLE_OCCUPANT_AT, entity.getOccupants().toArray( new String[]
-                            {} ) ) );
-                }
-            }
-
             if ( entity.isTemporalSet() )
             {
                 String szRawData = CUtil.setConstraint( entity );
