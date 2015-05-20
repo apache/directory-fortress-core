@@ -836,12 +836,12 @@
                 <version>${version.log4j}</version>
               </dependency>
               <dependency>
-                <groupId>org.apache.directory.project</groupId>
+                <groupId>org.apache.directory.fortress</groupId>
                 <artifactId>fortress-core</artifactId>
                 <version>${project.version}</version>
               </dependency>
               <dependency>
-                <groupId>org.apache.directory.project</groupId>
+                <groupId>org.apache.directory.fortress</groupId>
                 <artifactId>fortress-core</artifactId>
                 <type>test-jar</type>
                 <version>${project.version}</version>
@@ -886,12 +886,12 @@
                 <version>${version.log4j}</version>
               </dependency>
               <dependency>
-                <groupId>org.apache.directory.project</groupId>
+                <groupId>org.apache.directory.fortress</groupId>
                 <artifactId>fortress-core</artifactId>
                 <version>${project.version}</version>
               </dependency>
               <dependency>
-                <groupId>org.apache.directory.project</groupId>
+                <groupId>org.apache.directory.fortress</groupId>
                 <artifactId>fortress-core</artifactId>
                 <type>test-jar</type>
                 <version>${project.version}</version>
@@ -937,12 +937,12 @@
                 <version>${version.log4j}</version>
               </dependency>
               <dependency>
-                <groupId>org.apache.directory.project</groupId>
+                <groupId>org.apache.directory.fortress</groupId>
                 <artifactId>fortress-core</artifactId>
                 <version>${project.version}</version>
               </dependency>
               <dependency>
-                <groupId>org.apache.directory.project</groupId>
+                <groupId>org.apache.directory.fortress</groupId>
                 <artifactId>fortress-core</artifactId>
                 <type>test-jar</type>
                 <version>${project.version}</version>
