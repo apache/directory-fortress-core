@@ -52,6 +52,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Contains the Group node for LDAP Directory Information Tree.
  * This class is thread safe.
@@ -68,8 +69,16 @@ final class GroupDAO extends ApacheDsDataProvider
     private static final String GROUP_PROTOCOL_ATTR_IMPL = Config.getProperty( GROUP_PROTOCOL_ATTR );
     private static final String GROUP_PROPERTY_ATTR = "group.properties";
     private static final String GROUP_PROPERTY_ATTR_IMPL = Config.getProperty( GROUP_PROPERTY_ATTR );
-    private static final String GROUP_OBJ_CLASS[] = {SchemaConstants.TOP_OC, GROUP_OBJECT_CLASS_IMPL};
-    private static final String[] GROUP_ATRS = {SchemaConstants.CN_AT, SchemaConstants.DESCRIPTION_AT, GROUP_PROTOCOL_ATTR_IMPL, GROUP_PROPERTY_ATTR_IMPL, SchemaConstants.MEMBER_AT};
+    private static final String GROUP_OBJ_CLASS[] =
+        { SchemaConstants.TOP_OC, GROUP_OBJECT_CLASS_IMPL };
+    private static final String[] GROUP_ATRS =
+        {
+            SchemaConstants.CN_AT,
+            SchemaConstants.DESCRIPTION_AT,
+            GROUP_PROTOCOL_ATTR_IMPL,
+            GROUP_PROPERTY_ATTR_IMPL,
+            SchemaConstants.MEMBER_AT };
+
 
     /**
      * Package private default constructor.
@@ -78,31 +87,32 @@ final class GroupDAO extends ApacheDsDataProvider
     {
     }
 
+
     /**
      * @param group
      * @throws org.apache.directory.fortress.core.CreateException
      *
      */
-    final Group create( Group group ) throws CreateException
+    Group create( Group group ) throws CreateException
     {
         LdapConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
-        
+
         try
         {
             LOG.debug( "create group dn [{}]", nodeDn );
             Entry myEntry = new DefaultEntry( nodeDn );
             myEntry.add( SchemaConstants.OBJECT_CLASS_AT, GROUP_OBJ_CLASS );
-            myEntry.add( SchemaConstants.CN_AT , group.getName() );
+            myEntry.add( SchemaConstants.CN_AT, group.getName() );
             myEntry.add( GROUP_PROTOCOL_ATTR_IMPL, group.getProtocol() );
             loadAttrs( group.getMembers(), myEntry, SchemaConstants.MEMBER_AT );
             loadProperties( group.getProperties(), myEntry, GROUP_PROPERTY_ATTR_IMPL, '=' );
-            
+
             if ( VUtil.isNotNullOrEmpty( group.getDescription() ) )
             {
                 myEntry.add( SchemaConstants.DESCRIPTION_AT, group.getDescription() );
             }
-            
+
             ld = getAdminConnection();
             add( ld, myEntry );
         }
@@ -115,7 +125,7 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
-        
+
         return group;
     }
 
@@ -126,31 +136,31 @@ final class GroupDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.CreateException
      *
      */
-    final Group update( Group group ) throws FinderException, UpdateException
+    Group update( Group group ) throws FinderException, UpdateException
     {
         LdapConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
-        
+
         try
         {
             LOG.debug( "update group dn [{}]", nodeDn );
             List<Modification> mods = new ArrayList<Modification>();
-            
+
             if ( VUtil.isNotNullOrEmpty( group.getDescription() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, group.getDescription() ) );
             }
-            
+
             if ( VUtil.isNotNullOrEmpty( group.getProtocol() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, GROUP_PROTOCOL_ATTR_IMPL, group.getProtocol() ) );
             }
-            
+
             loadAttrs( group.getMembers(), mods, SchemaConstants.MEMBER_AT );
             loadProperties( group.getProperties(), mods, GROUP_PROPERTY_ATTR_IMPL, true, '=' );
-            
+
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
@@ -169,11 +179,12 @@ final class GroupDAO extends ApacheDsDataProvider
         return get( group );
     }
 
-    final Group add( Group group, String key, String value ) throws FinderException, CreateException
+
+    Group add( Group group, String key, String value ) throws FinderException, CreateException
     {
         LdapConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
-        
+
         try
         {
             LOG.debug( "add group property dn [{}], key [{}], value [{}]", nodeDn, key, value );
@@ -192,16 +203,16 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
-        
+
         return get( group );
     }
 
 
-    final Group delete( Group group, String key, String value ) throws FinderException, RemoveException
+    Group delete( Group group, String key, String value ) throws FinderException, RemoveException
     {
         LdapConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
-        
+
         try
         {
             LOG.debug( "delete group property dn [{}], key [{}], value [{}]", nodeDn, key, value );
@@ -223,6 +234,7 @@ final class GroupDAO extends ApacheDsDataProvider
         return get( group );
     }
 
+
     /**
      * This method will remove group node from diretory.
      *
@@ -230,7 +242,7 @@ final class GroupDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.RemoveException
      *
      */
-    final Group remove( Group group ) throws RemoveException
+    Group remove( Group group ) throws RemoveException
     {
         LdapConnection ld = null;
         String nodeDn = getDn( group.getName(), group.getContextId() );
@@ -258,6 +270,7 @@ final class GroupDAO extends ApacheDsDataProvider
         return group;
     }
 
+
     /**
      * @param entity
      * @param userDn
@@ -265,7 +278,7 @@ final class GroupDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    final Group assign( Group entity, String userDn ) throws FinderException, UpdateException
+    Group assign( Group entity, String userDn ) throws FinderException, UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -291,6 +304,7 @@ final class GroupDAO extends ApacheDsDataProvider
         return get( entity );
     }
 
+
     /**
      * @param entity
      * @param userDn
@@ -298,12 +312,12 @@ final class GroupDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    final Group deassign( Group entity, String userDn ) throws FinderException, UpdateException
+    Group deassign( Group entity, String userDn ) throws FinderException, UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
         LOG.debug( "deassign group property dn [{}], member dn [{}]", dn, userDn );
-        
+
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
@@ -323,9 +337,10 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
-        
+
         return get( entity );
     }
+
 
     /**
      * @param group
@@ -333,12 +348,12 @@ final class GroupDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final Group get( Group group ) throws FinderException
+    Group get( Group group ) throws FinderException
     {
         Group entity = null;
         LdapConnection ld = null;
         String dn = getDn( group.getName(), group.getContextId() );
-        
+
         try
         {
             ld = getAdminConnection();
@@ -367,24 +382,26 @@ final class GroupDAO extends ApacheDsDataProvider
         return entity;
     }
 
+
     /**
      * @param group
      * @return
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final List<Group> find( Group group ) throws FinderException
+    List<Group> find( Group group ) throws FinderException
     {
         List<Group> groupList = new ArrayList<>();
         LdapConnection ld = null;
         SearchCursor searchResults;
         String groupRoot = getRootDn( group.getContextId(), GlobalIds.GROUP_ROOT );
         String filter = null;
-        
+
         try
         {
             String searchVal = encodeSafeText( group.getName(), GlobalIds.ROLE_LEN );
-            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + SchemaConstants.CN_AT + "=" + searchVal + "*))";
+            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + SchemaConstants.CN_AT + "=" + searchVal
+                + "*))";
             ld = getAdminConnection();
             searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
                 GlobalIds.BATCH_SIZE );
@@ -408,9 +425,10 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
-        
+
         return groupList;
     }
+
 
     /**
      * @param user
@@ -418,23 +436,24 @@ final class GroupDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final List<Group> find( User user ) throws FinderException
+    List<Group> find( User user ) throws FinderException
     {
         List<Group> groupList = new ArrayList<>();
         LdapConnection ld = null;
         SearchCursor searchResults;
         String groupRoot = getRootDn( user.getContextId(), GlobalIds.GROUP_ROOT );
         String filter = null;
-        
+
         try
         {
             encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
-            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + SchemaConstants.MEMBER_AT + "=" + user.getDn() + "))";
+            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + SchemaConstants.MEMBER_AT + "="
+                + user.getDn() + "))";
             ld = getAdminConnection();
             searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
-            
+
             while ( searchResults.next() )
             {
                 groupList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
@@ -454,10 +473,10 @@ final class GroupDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
-        
+
         return groupList;
     }
-    
+
 
     /**
      * @param le
@@ -476,10 +495,10 @@ final class GroupDAO extends ApacheDsDataProvider
         entity.setMemberDn( true );
         entity.setProperties( AttrHelper.getProperties( getAttributes( le, GROUP_PROPERTY_ATTR_IMPL ), '=' ) );
         entity.setSequenceId( sequence );
-        
+
         return entity;
     }
-    
+
 
     private String getDn( String name, String contextId )
     {

@@ -44,6 +44,7 @@ import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
+
 /**
  * This class provides data access for the standard ldap object device that has been extended to support name/value pairs.
  * Fortress uses this data structure to store its remote cfg parameters.
@@ -89,13 +90,14 @@ final class ConfigDAO extends ApacheDsDataProvider
 
     private static final String CONFIG_OBJ_CLASS[] =
         {
-        SchemaConstants.DEVICE_OC, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
+            SchemaConstants.DEVICE_OC, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
     };
 
     private static final String[] CONFIG_ATRS =
         {
             SchemaConstants.CN_AT, GlobalIds.PROPS
     };
+
 
     /**
      * Package private default constructor.
@@ -104,13 +106,14 @@ final class ConfigDAO extends ApacheDsDataProvider
     {
     }
 
+
     /**
      * @param name
      * @param props
      * @return
      * @throws org.apache.directory.fortress.core.CreateException
      */
-    final Properties create( String name, Properties props )
+    Properties create( String name, Properties props )
         throws CreateException
     {
         LdapConnection ld = null;
@@ -152,7 +155,7 @@ final class ConfigDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.UpdateException
      */
-    final Properties update( String name, Properties props )
+    Properties update( String name, Properties props )
         throws UpdateException
     {
         LdapConnection ld = null;
@@ -189,7 +192,7 @@ final class ConfigDAO extends ApacheDsDataProvider
      * @param name
      * @throws org.apache.directory.fortress.core.RemoveException
      */
-    final void remove( String name )
+    void remove( String name )
         throws RemoveException
     {
         LdapConnection ld = null;
@@ -218,7 +221,7 @@ final class ConfigDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.UpdateException
      */
-    final Properties remove( String name, Properties props )
+    Properties remove( String name, Properties props )
         throws UpdateException
     {
         LdapConnection ld = null;
@@ -255,7 +258,7 @@ final class ConfigDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    final Properties getConfig( String name )
+    Properties getConfig( String name )
         throws FinderException
     {
         Properties props = null;

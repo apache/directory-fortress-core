@@ -388,7 +388,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws CreateException
      */
-    final User create( User entity ) throws CreateException
+    User create( User entity ) throws CreateException
     {
         LdapConnection ld = null;
 
@@ -530,7 +530,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws UpdateException
      */
-    final User update( User entity ) throws UpdateException
+    User update( User entity ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
@@ -655,7 +655,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws UpdateException
      */
-    final User updateProps( User entity, boolean replace ) throws UpdateException
+    User updateProps( User entity, boolean replace ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
@@ -697,7 +697,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param user
      * @throws RemoveException
      */
-    final String remove( User user ) throws RemoveException
+    String remove( User user ) throws RemoveException
     {
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
@@ -725,7 +725,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param user
      * @throws org.apache.directory.fortress.core.UpdateException
      */
-    final void lock( User user ) throws UpdateException
+    void lock( User user ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
@@ -754,7 +754,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param user
      * @throws UpdateException
      */
-    final void unlock( User user ) throws UpdateException
+    void unlock( User user ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
@@ -789,7 +789,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    final User getUser( User user, boolean isRoles ) throws FinderException
+    User getUser( User user, boolean isRoles ) throws FinderException
     {
         User entity = null;
         LdapConnection ld = null;
@@ -860,7 +860,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    final List<UserAdminRole> getUserAdminRoles( User user ) throws FinderException
+    List<UserAdminRole> getUserAdminRoles( User user ) throws FinderException
     {
         List<UserAdminRole> roles = null;
         LdapConnection ld = null;
@@ -896,7 +896,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    final List<String> getRoles( User user ) throws FinderException
+    List<String> getRoles( User user ) throws FinderException
     {
         List<String> roles = null;
         LdapConnection ld = null;
@@ -940,7 +940,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException,  org.apache.directory.fortress.core.PasswordException
      */
-    final Session checkPassword( User user ) throws FinderException, PasswordException
+    Session checkPassword( User user ) throws FinderException, PasswordException
     {
         Session session = null;
         LdapConnection ld = null;
@@ -1115,7 +1115,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> findUsers( User user ) throws FinderException
+    List<User> findUsers( User user ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1159,7 +1159,8 @@ final class UserDAO extends ApacheDsDataProvider
             }
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
+                DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1193,7 +1194,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<String> findUsers( User user, int limit ) throws FinderException
+    List<String> findUsers( User user, int limit ) throws FinderException
     {
         List<String> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1212,7 +1213,8 @@ final class UserDAO extends ApacheDsDataProvider
             filterbuf.append( "*))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID, false, GlobalIds
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID,
+                false, GlobalIds
                 .BATCH_SIZE, limit );
 
             while ( searchResults.next() )
@@ -1245,7 +1247,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> getAuthorizedUsers( Role role ) throws FinderException
+    List<User> getAuthorizedUsers( Role role ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1290,7 +1292,8 @@ final class UserDAO extends ApacheDsDataProvider
 
             filterbuf.append( ")" );
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
+                DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1325,7 +1328,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> getAssignedUsers( Role role ) throws FinderException
+    List<User> getAssignedUsers( Role role ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1344,7 +1347,8 @@ final class UserDAO extends ApacheDsDataProvider
             filterbuf.append( "))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
+                DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1379,7 +1383,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final Set<String> getAssignedUsers( Set<String> roles, String contextId ) throws FinderException
+    Set<String> getAssignedUsers( Set<String> roles, String contextId ) throws FinderException
     {
         Set<String> userSet = new HashSet<>();
         LdapConnection ld = null;
@@ -1411,7 +1415,8 @@ final class UserDAO extends ApacheDsDataProvider
 
             filterbuf.append( "))" );
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATRS,
+                false,
                 GlobalIds.BATCH_SIZE );
 
             while ( searchResults.next() )
@@ -1443,7 +1448,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> getAssignedUsers( AdminRole role ) throws FinderException
+    List<User> getAssignedUsers( AdminRole role ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1462,7 +1467,8 @@ final class UserDAO extends ApacheDsDataProvider
             filterbuf.append( "))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
+                DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1498,7 +1504,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<String> getAuthorizedUsers( Role role, int limit ) throws FinderException
+    List<String> getAuthorizedUsers( Role role, int limit ) throws FinderException
     {
         List<String> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1517,7 +1523,8 @@ final class UserDAO extends ApacheDsDataProvider
             filterbuf.append( "))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID, false, GlobalIds
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID,
+                false, GlobalIds
                 .BATCH_SIZE, limit );
 
             while ( searchResults.next() )
@@ -1552,7 +1559,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<String> findUsersList( String searchVal, String contextId ) throws FinderException
+    List<String> findUsersList( String searchVal, String contextId ) throws FinderException
     {
         List<String> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1571,7 +1578,8 @@ final class UserDAO extends ApacheDsDataProvider
             filterbuf.append( "*))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
+                DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1604,7 +1612,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<User> findUsers( OrgUnit ou, boolean limitSize ) throws FinderException
+    List<User> findUsers( OrgUnit ou, boolean limitSize ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1633,7 +1641,8 @@ final class UserDAO extends ApacheDsDataProvider
             }
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
+                DEFAULT_ATRS, false,
                 GlobalIds.BATCH_SIZE, maxLimit );
             long sequence = 0;
 
@@ -1669,7 +1678,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws SecurityException
      * @throws PasswordException
      */
-    final boolean changePassword( User entity, char[] newPassword ) throws SecurityException
+    boolean changePassword( User entity, char[] newPassword ) throws SecurityException
     {
         boolean rc = true;
         LdapConnection ld = null;
@@ -1731,7 +1740,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @param user
      * @throws UpdateException
      */
-    final void resetUserPassword( User user ) throws UpdateException
+    void resetUserPassword( User user ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );
@@ -1767,7 +1776,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    final String assign( UserRole uRole ) throws UpdateException, FinderException
+    String assign( UserRole uRole ) throws UpdateException, FinderException
     {
         LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
@@ -1815,7 +1824,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    final String deassign( UserRole uRole ) throws UpdateException, FinderException
+    String deassign( UserRole uRole ) throws UpdateException, FinderException
     {
         LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
@@ -1880,7 +1889,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    final String assign( UserAdminRole uRole ) throws UpdateException, FinderException
+    String assign( UserAdminRole uRole ) throws UpdateException, FinderException
     {
         LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
@@ -1925,7 +1934,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    final String deassign( UserAdminRole uRole ) throws UpdateException, FinderException
+    String deassign( UserAdminRole uRole ) throws UpdateException, FinderException
     {
         LdapConnection ld = null;
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
@@ -1994,7 +2003,7 @@ final class UserDAO extends ApacheDsDataProvider
      * @throws UpdateException
      * @throws Exception
      */
-    final String deletePwPolicy( User user ) throws UpdateException
+    String deletePwPolicy( User user ) throws UpdateException
     {
         LdapConnection ld = null;
         String userDn = getDn( user.getUserId(), user.getContextId() );

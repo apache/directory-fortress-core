@@ -72,8 +72,12 @@ public abstract class BaseRuntimeException extends RuntimeException
     public String getMsg()
     {
         String msg = null;
+
         if ( this.msgParams != null )
+        {
             msg = this.msgParams[0];
+        }
+
         return msg;
     }
 

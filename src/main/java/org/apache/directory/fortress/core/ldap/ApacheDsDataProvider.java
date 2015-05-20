@@ -51,7 +51,6 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.exception.LdapOperationErrorException;
-import org.apache.directory.api.ldap.model.exception.LdapReferralException;
 import org.apache.directory.api.ldap.model.message.BindRequest;
 import org.apache.directory.api.ldap.model.message.BindRequestImpl;
 import org.apache.directory.api.ldap.model.message.BindResponse;
@@ -105,7 +104,7 @@ public abstract class ApacheDsDataProvider
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     private static final int MAX_DEPTH = 100;
-    private static final LdapCounters counters = new LdapCounters();
+    private static final LdapCounters COUNTERS = new LdapCounters();
 
     // Used for slapd access log {@link org.apache.directory.fortress.core.rbacAuditDAO}
     private static final String LDAP_LOG_POOL_UID = "log.admin.user";
@@ -172,10 +171,12 @@ public abstract class ApacheDsDataProvider
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
-        if ( IS_SSL && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE ) && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE_PW ) )
+        if ( IS_SSL && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE )
+            && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE_PW ) )
         {
             // validate certificates but allow self-signed certs if within this truststore:
-            config.setTrustManagers( new LdapClientTrustStoreManager( GlobalIds.TRUST_STORE, GlobalIds.TRUST_STORE_PW.toCharArray(), null,
+            config.setTrustManagers( new LdapClientTrustStoreManager( GlobalIds.TRUST_STORE, GlobalIds.TRUST_STORE_PW
+                .toCharArray(), null,
                 true ) );
         }
 
@@ -246,10 +247,12 @@ public abstract class ApacheDsDataProvider
 
             logConfig.setUseSsl( IS_SSL );
 
-            if ( IS_SSL && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE ) && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE_PW ) )
+            if ( IS_SSL && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE )
+                && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE_PW ) )
             {
                 // validate certificates but allow self-signed certs if within this truststore:
-                logConfig.setTrustManagers( new LdapClientTrustStoreManager( GlobalIds.TRUST_STORE, GlobalIds.TRUST_STORE_PW.toCharArray(),
+                logConfig.setTrustManagers( new LdapClientTrustStoreManager( GlobalIds.TRUST_STORE,
+                    GlobalIds.TRUST_STORE_PW.toCharArray(),
                     null, true ) );
             }
 
@@ -348,7 +351,7 @@ public abstract class ApacheDsDataProvider
      */
     protected Entry read( LdapConnection connection, String dn, String[] attrs ) throws LdapException
     {
-        counters.incrementRead();
+        COUNTERS.incrementRead();
 
         return connection.lookup( dn, attrs );
     }
@@ -365,7 +368,7 @@ public abstract class ApacheDsDataProvider
      */
     protected Entry read( LdapConnection connection, Dn dn, String[] attrs ) throws LdapException
     {
-        counters.incrementRead();
+        COUNTERS.incrementRead();
 
         return connection.lookup( dn, attrs );
     }
@@ -386,7 +389,7 @@ public abstract class ApacheDsDataProvider
      */
     protected Entry read( LdapConnection connection, String dn, String[] attrs, String userDn ) throws LdapException
     {
-        counters.incrementRead();
+        COUNTERS.incrementRead();
 
         return connection.lookup( dn, attrs );
     }
@@ -401,7 +404,7 @@ public abstract class ApacheDsDataProvider
      */
     protected void add( LdapConnection connection, Entry entry ) throws LdapException
     {
-        counters.incrementAdd();
+        COUNTERS.incrementAdd();
         connection.add( entry );
     }
 
@@ -416,7 +419,7 @@ public abstract class ApacheDsDataProvider
      */
     protected void add( LdapConnection connection, Entry entry, FortEntity entity ) throws LdapException
     {
-        counters.incrementAdd();
+        COUNTERS.incrementAdd();
 
         if ( GlobalIds.IS_AUDIT && ( entity != null ) && ( entity.getAdminSession() != null ) )
         {
@@ -450,7 +453,7 @@ public abstract class ApacheDsDataProvider
      */
     protected void modify( LdapConnection connection, String dn, List<Modification> mods ) throws LdapException
     {
-        counters.incrementMod();
+        COUNTERS.incrementMod();
         connection.modify( dn, mods.toArray( new Modification[]
             {} ) );
     }
@@ -466,7 +469,7 @@ public abstract class ApacheDsDataProvider
      */
     protected void modify( LdapConnection connection, Dn dn, List<Modification> mods ) throws LdapException
     {
-        counters.incrementMod();
+        COUNTERS.incrementMod();
         connection.modify( dn, mods.toArray( new Modification[]
             {} ) );
     }
@@ -484,7 +487,7 @@ public abstract class ApacheDsDataProvider
     protected void modify( LdapConnection connection, String dn, List<Modification> mods,
         FortEntity entity ) throws LdapException
     {
-        counters.incrementMod();
+        COUNTERS.incrementMod();
         audit( mods, entity );
         connection.modify( dn, mods.toArray( new Modification[]
             {} ) );
@@ -503,7 +506,7 @@ public abstract class ApacheDsDataProvider
     protected void modify( LdapConnection connection, Dn dn, List<Modification> mods,
         FortEntity entity ) throws LdapException
     {
-        counters.incrementMod();
+        COUNTERS.incrementMod();
         audit( mods, entity );
         connection.modify( dn, mods.toArray( new Modification[]
             {} ) );
@@ -519,7 +522,7 @@ public abstract class ApacheDsDataProvider
      */
     protected void delete( LdapConnection connection, String dn ) throws LdapException
     {
-        counters.incrementDelete();
+        COUNTERS.incrementDelete();
         connection.delete( dn );
     }
 
@@ -536,7 +539,7 @@ public abstract class ApacheDsDataProvider
      */
     protected void delete( LdapConnection connection, String dn, FortEntity entity ) throws LdapException
     {
-        counters.incrementDelete();
+        COUNTERS.incrementDelete();
         List<Modification> mods = new ArrayList<Modification>();
         audit( mods, entity );
 
@@ -561,7 +564,7 @@ public abstract class ApacheDsDataProvider
      */
     protected void delete( LdapConnection connection, Dn dn, FortEntity entity ) throws LdapException
     {
-        counters.incrementDelete();
+        COUNTERS.incrementDelete();
         List<Modification> mods = new ArrayList<Modification>();
         audit( mods, entity );
 
@@ -668,7 +671,7 @@ public abstract class ApacheDsDataProvider
         }
 
         // delete the node:
-        counters.incrementDelete();
+        COUNTERS.incrementDelete();
         delete( connection, dn );
     }
 
@@ -724,7 +727,7 @@ public abstract class ApacheDsDataProvider
     protected SearchCursor search( LdapConnection connection, String baseDn, SearchScope scope, String filter,
         String[] attrs, boolean attrsOnly ) throws LdapException
     {
-        counters.incrementSearch();
+        COUNTERS.incrementSearch();
 
         SearchRequest searchRequest = new SearchRequestImpl();
         searchRequest.setBase( new Dn( baseDn ) );
@@ -756,7 +759,7 @@ public abstract class ApacheDsDataProvider
     protected SearchCursor search( LdapConnection connection, String baseDn, SearchScope scope, String filter,
         String[] attrs, boolean attrsOnly, int batchSize ) throws LdapException
     {
-        counters.incrementSearch();
+        COUNTERS.incrementSearch();
 
         SearchRequest searchRequest = new SearchRequestImpl();
 
@@ -792,7 +795,7 @@ public abstract class ApacheDsDataProvider
     protected SearchCursor search( LdapConnection connection, String baseDn, SearchScope scope, String filter,
         String[] attrs, boolean attrsOnly, int batchSize, int maxEntries ) throws LdapException
     {
-        counters.incrementSearch();
+        COUNTERS.incrementSearch();
 
         SearchRequest searchRequest = new SearchRequestImpl();
 
@@ -870,7 +873,7 @@ public abstract class ApacheDsDataProvider
     protected Entry searchNode( LdapConnection connection, String baseDn, SearchScope scope, String filter,
         String[] attrs, boolean attrsOnly, String userDn ) throws LdapException, CursorException, IOException
     {
-        counters.incrementSearch();
+        COUNTERS.incrementSearch();
 
         SearchRequest searchRequest = new SearchRequestImpl();
 
@@ -913,7 +916,7 @@ public abstract class ApacheDsDataProvider
     protected boolean compareNode( LdapConnection connection, String dn, String userDn,
         Attribute attribute ) throws LdapException, UnsupportedEncodingException
     {
-        counters.incrementCompare();
+        COUNTERS.incrementCompare();
 
         CompareRequest compareRequest = new CompareRequestImpl();
         compareRequest.setName( new Dn( dn ) );
@@ -1409,11 +1412,11 @@ public abstract class ApacheDsDataProvider
      */
     protected BindResponse bind( LdapConnection connection, String szUserDn, char[] password ) throws LdapException
     {
-        counters.incrementBind();
+        COUNTERS.incrementBind();
         Dn userDn = new Dn( szUserDn );
         BindRequest bindReq = new BindRequestImpl();
         bindReq.setDn( userDn );
-        bindReq.setCredentials( new String ( password ) );
+        bindReq.setCredentials( new String( password ) );
         bindReq.addControl( PP_REQ_CTRL );
         return connection.bind( bindReq );
     }
@@ -1540,6 +1543,6 @@ public abstract class ApacheDsDataProvider
      */
     public static LdapCounters getLdapCounters()
     {
-        return counters;
+        return COUNTERS;
     }
 }

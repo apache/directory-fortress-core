@@ -20,7 +20,7 @@
 <html>
 <head>
     <title>Apache Fortress Ten Minute Guide</title>
-    <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+    <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style"/>
 </head>
 <body>
 <hr>
@@ -41,7 +41,7 @@
 <p>
 
 <h3>Build Apache Fortress Rest</h3>
-<img src="screenshot-fortress-rest-javadoc.png" height="40%" width="40%">
+<img src="screenshot-fortress-rest-javadoc.png" height="40%" width="40%"/>
 <h4>This section describes how to install and use the Fortress Rest Application. It provides a RESTful wrapper around
     the Fortress Core apis.</h4>
 
@@ -49,7 +49,7 @@
 
     <li>Set java and maven home env variables.</li>
 
-    <br>
+    <br/>
 
     <li>
         Change directory:
@@ -60,7 +60,7 @@ cd directory-fortress-enmasse/
             </pre>
     </li>
 
-    <br>
+    <br/>
 
     <li>
         Copy the fortress.properties, created on step <a href="./apache-fortress-core.html">Build Apache Fortress
@@ -74,7 +74,7 @@ cp [directory-fortress-core]/config/fortress.properties [directory-fortress-enma
         [directory-fortress-enmasse] is the current package's home folder.
     </li>
 
-    <br>
+    <br/>
 
     <li>
         To load policies for testing into ldap, run this command:
@@ -113,7 +113,7 @@ mvn test -Dtest=EmTest
         Checkout the README.txt in [directory-fortress-enmasse] package for other ways to test fortress-rest component.
     </li>
 
-    <br>
+    <br/>
 
     <li>
         Generate the javadoc
@@ -124,7 +124,7 @@ mvn javadoc:javadoc
                 </pre>
         Point your web browser to the following location:
         file:///[directory-fortress-enmasse]/target/site/apidocs.
-        <br><br>
+        <br/><br/>
         javadoc note: If using JDK 8, you must turn off doclint to get past errors.  Add the following to project's pom:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">

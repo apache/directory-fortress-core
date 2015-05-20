@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+
 import org.apache.directory.fortress.core.ldap.group.Group;
 import org.apache.directory.fortress.core.rbac.*;
 import org.apache.directory.fortress.core.rest.FortRequest;
@@ -48,241 +49,268 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory
 {
-    private final static QName _FortUser_QNAME = new QName("", "fortUser");
-    private final static QName _FortSession_QNAME = new QName("", "fortSession");
-    private final static QName _FortRole_QNAME = new QName("", "fortRole");
-    private final static QName _FortGrant_QNAME = new QName("", "fortGrant");
-    private final static QName _FortOrgUnit_QNAME = new QName("", "fortOrgUnit");
-    private final static QName _FortEntity_QNAME = new QName("", "fortEntity");
-    private final static QName _FortAdminRole_QNAME = new QName("", "fortAdminRole");
-    private final static QName _FortUserRole_QNAME = new QName("", "fortUserRole");
-    private final static QName _FortObject_QNAME = new QName("", "fortObject");
-    private final static QName _FortPermission_QNAME = new QName("", "fortPermission");
-    private final static QName _FortRoleRelationship_QNAME = new QName("", "fortRoleRelationship");
-    private final static QName _FortSet_QNAME = new QName("", "fortSet");
-    private final static QName _FortPolicy_QNAME = new QName("", "fortPolicy");
-    private final static QName _FortUserAdminRole_QNAME = new QName("", "fortUserAdminRole");
-    private final static QName _FortAdminRoleRelationship_QNAME = new QName("", "fortAdminRoleRelationship");
-    private final static QName _FortOrgUnitRelationship_QNAME = new QName("", "fortOrgUnitRelationship");
-    private final static QName _FortBind_QNAME = new QName("", "fortBind");
-    private final static QName _FortUserAudit_QNAME = new QName("", "fortUserAudit");
-    private final static QName _FortAuthZ_QNAME = new QName("", "fortAuthZ");
-    private final static QName _FortMod_QNAME = new QName("", "fortMod");
-    private final static QName _FortRolePerm_QNAME = new QName("", "fortRolePerm");
-    private final static QName _FortResponse_QNAME = new QName("", "fortResponse");
-    private final static QName FortRequest_QNAME = new QName("", "fortRequest");
-    private final static QName FortAddress_QNAME = new QName("", "fortAddress");
-    private final static QName _FortProps_QNAME = new QName("", "fortProps");
-    private final static QName _FortWarning_QNAME = new QName("", "fortWarning");
-    private final static QName _FortGroup_QNAME = new QName("", "fortGroup");
+    private static final QName FORTUSER_QNAME = new QName( "", "fortUser" );
+    private static final QName FORTSESSION_QNAME = new QName( "", "fortSession" );
+    private static final QName FORTROLE_QNAME = new QName( "", "fortRole" );
+    private static final QName FORTGRANT_QNAME = new QName( "", "fortGrant" );
+    private static final QName FORTORGUNIT_QNAME = new QName( "", "fortOrgUnit" );
+    private static final QName FORTENTITY_QNAME = new QName( "", "fortEntity" );
+    private static final QName FORTADMINROLE_QNAME = new QName( "", "fortAdminRole" );
+    private static final QName FORTUSERROLE_QNAME = new QName( "", "fortUserRole" );
+    private static final QName FORTOBJECT_QNAME = new QName( "", "fortObject" );
+    private static final QName FORTPERMISSION_QNAME = new QName( "", "fortPermission" );
+    private static final QName FORTROLERELATIONSHIP_QNAME = new QName( "", "fortRoleRelationship" );
+    private static final QName FORTSET_QNAME = new QName( "", "fortSet" );
+    private static final QName FORTPOLICY_QNAME = new QName( "", "fortPolicy" );
+    private static final QName FORTUSERADMINROLE_QNAME = new QName( "", "fortUserAdminRole" );
+    private static final QName FORTADMINROLERELATIONSHIP_QNAME = new QName( "", "fortAdminRoleRelationship" );
+    private static final QName FORTORGUNITRELATIONSHIP_QNAME = new QName( "", "fortOrgUnitRelationship" );
+    private static final QName FORTBIND_QNAME = new QName( "", "fortBind" );
+    private static final QName FORTUSERAUDIT_QNAME = new QName( "", "fortUserAudit" );
+    private static final QName FORTAUTHZ_QNAME = new QName( "", "fortAuthZ" );
+    private static final QName FORTMOD_QNAME = new QName( "", "fortMod" );
+    private static final QName FORTROLEPERM_QNAME = new QName( "", "fortRolePerm" );
+    private static final QName FORTRESPONSE_QNAME = new QName( "", "fortResponse" );
+    private static final QName FORTREQUEST_QNAME = new QName( "", "fortRequest" );
+    private static final QName FORTADDRESS_QNAME = new QName( "", "fortAddress" );
+    private static final QName FORTPROPS_QNAME = new QName( "", "fortProps" );
+    private static final QName FORTWARNING_QNAME = new QName( "", "fortWarning" );
+    private static final QName FORTGROUP_QNAME = new QName( "", "fortGroup" );
 
 
     @XmlElementDecl(namespace = "", name = "fortEntity")
-    public JAXBElement<FortEntity> createFortEntity(FortEntity value)
+    public JAXBElement<FortEntity> createFortEntity( FortEntity value )
     {
-        return new JAXBElement<>(_FortEntity_QNAME, FortEntity.class, null, value);
+        return new JAXBElement<>( FORTENTITY_QNAME, FortEntity.class, null, value );
     }
+
 
     @XmlElementDecl(namespace = "", name = "fortResponse")
-    public JAXBElement<FortResponse> createFortResponse(FortResponse value)
+    public JAXBElement<FortResponse> createFortResponse( FortResponse value )
     {
-        return new JAXBElement<>(_FortResponse_QNAME, FortResponse.class, null, value);
+        return new JAXBElement<>( FORTRESPONSE_QNAME, FortResponse.class, null, value );
     }
 
+
     @XmlElementDecl(namespace = "", name = "fortRequest")
-    public JAXBElement<FortRequest> createFortRequest(FortRequest value)
+    public JAXBElement<FortRequest> createFortRequest( FortRequest value )
     {
-        return new JAXBElement<>(FortRequest_QNAME, FortRequest.class, null, value);
+        return new JAXBElement<>( FORTREQUEST_QNAME, FortRequest.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.SDSet }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortSet")
-    public JAXBElement<SDSet> createFortSet(SDSet value)
+    public JAXBElement<SDSet> createFortSet( SDSet value )
     {
-        return new JAXBElement<>(_FortSet_QNAME, SDSet.class, null, value);
+        return new JAXBElement<>( FORTSET_QNAME, SDSet.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.PwPolicy }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortPolicy")
-    public JAXBElement<PwPolicy> createFortPolicy(PwPolicy value)
+    public JAXBElement<PwPolicy> createFortPolicy( PwPolicy value )
     {
-        return new JAXBElement<>(_FortPolicy_QNAME, PwPolicy.class, null, value);
+        return new JAXBElement<>( FORTPOLICY_QNAME, PwPolicy.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Session }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortSession")
-    public JAXBElement<Session> createFortSession(Session value)
+    public JAXBElement<Session> createFortSession( Session value )
     {
-        return new JAXBElement<>(_FortSession_QNAME, Session.class, null, value);
+        return new JAXBElement<>( FORTSESSION_QNAME, Session.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.User }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortUser")
-    public JAXBElement<User> createFortUser(User value)
+    public JAXBElement<User> createFortUser( User value )
     {
-        return new JAXBElement<>(_FortUser_QNAME, User.class, null, value);
+        return new JAXBElement<>( FORTUSER_QNAME, User.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.UserRole }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortUserRole")
-    public JAXBElement<UserRole> createFortUserRole(UserRole value)
+    public JAXBElement<UserRole> createFortUserRole( UserRole value )
     {
-        return new JAXBElement<>(_FortUserRole_QNAME, UserRole.class, null, value);
+        return new JAXBElement<>( FORTUSERROLE_QNAME, UserRole.class, null, value );
     }
 
+
     @XmlElementDecl(namespace = "", name = "fortOrgUnit")
-    public JAXBElement<OrgUnit> createFortOrgUnit(OrgUnit value)
+    public JAXBElement<OrgUnit> createFortOrgUnit( OrgUnit value )
     {
-        return new JAXBElement<>(_FortOrgUnit_QNAME, OrgUnit.class, null, value);
+        return new JAXBElement<>( FORTORGUNIT_QNAME, OrgUnit.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Role }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortRole")
-    public JAXBElement<Role> createFortRole(Role value)
+    public JAXBElement<Role> createFortRole( Role value )
     {
-        return new JAXBElement<>(_FortRole_QNAME, Role.class, null, value);
+        return new JAXBElement<>( FORTROLE_QNAME, Role.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Role }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortGrant")
-    public JAXBElement<PermGrant> createFortGrant(PermGrant value)
+    public JAXBElement<PermGrant> createFortGrant( PermGrant value )
     {
-        return new JAXBElement<>(_FortGrant_QNAME, PermGrant.class, null, value);
+        return new JAXBElement<>( FORTGRANT_QNAME, PermGrant.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.OrgUnitRelationship}{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortAdminRoleRelationship")
-    public JAXBElement<AdminRoleRelationship> createFortAdminRoleRelationship(AdminRoleRelationship value)
+    public JAXBElement<AdminRoleRelationship> createFortAdminRoleRelationship( AdminRoleRelationship value )
     {
-        return new JAXBElement<>(_FortAdminRoleRelationship_QNAME, AdminRoleRelationship.class, null, value);
+        return new JAXBElement<>( FORTADMINROLERELATIONSHIP_QNAME, AdminRoleRelationship.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.OrgUnitRelationship}{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortOrgUnitRelationship")
-    public JAXBElement<OrgUnitRelationship> createFortOrgUnitRelationship(OrgUnitRelationship value)
+    public JAXBElement<OrgUnitRelationship> createFortOrgUnitRelationship( OrgUnitRelationship value )
     {
-        return new JAXBElement<>(_FortOrgUnitRelationship_QNAME, OrgUnitRelationship.class, null, value);
+        return new JAXBElement<>( FORTORGUNITRELATIONSHIP_QNAME, OrgUnitRelationship.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.RoleRelationship}{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortRoleRelationship")
-    public JAXBElement<RoleRelationship> createFortRoleRelationship(RoleRelationship value)
+    public JAXBElement<RoleRelationship> createFortRoleRelationship( RoleRelationship value )
     {
-        return new JAXBElement<>(_FortRoleRelationship_QNAME, RoleRelationship.class, null, value);
+        return new JAXBElement<>( FORTROLERELATIONSHIP_QNAME, RoleRelationship.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Role }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortAdminRole")
-    public JAXBElement<AdminRole> createFortAdminRole(AdminRole value)
+    public JAXBElement<AdminRole> createFortAdminRole( AdminRole value )
     {
-        return new JAXBElement<>(_FortAdminRole_QNAME, AdminRole.class, null, value);
+        return new JAXBElement<>( FORTADMINROLE_QNAME, AdminRole.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.UserAdminRole }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortUserAdminRole")
-    public JAXBElement<UserAdminRole> createFortUserRole(UserAdminRole value)
+    public JAXBElement<UserAdminRole> createFortUserRole( UserAdminRole value )
     {
-        return new JAXBElement<>(_FortUserAdminRole_QNAME, UserAdminRole.class, null, value);
+        return new JAXBElement<>( FORTUSERADMINROLE_QNAME, UserAdminRole.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.PermObj }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortObject")
-    public JAXBElement<PermObj> createFortObject(PermObj value)
+    public JAXBElement<PermObj> createFortObject( PermObj value )
     {
-        return new JAXBElement<>(_FortObject_QNAME, PermObj.class, null, value);
+        return new JAXBElement<>( FORTOBJECT_QNAME, PermObj.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Permission }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortPermission")
-    public JAXBElement<Permission> createFortPermission(Permission value)
+    public JAXBElement<Permission> createFortPermission( Permission value )
     {
-        return new JAXBElement<>(_FortPermission_QNAME, Permission.class, null, value);
+        return new JAXBElement<>( FORTPERMISSION_QNAME, Permission.class, null, value );
     }
+
 
     @XmlElementDecl(namespace = "", name = "fortBind")
-    public JAXBElement<Bind> createFortEntity(Bind value)
+    public JAXBElement<Bind> createFortEntity( Bind value )
     {
-        return new JAXBElement<>(_FortBind_QNAME, Bind.class, null, value);
+        return new JAXBElement<>( FORTBIND_QNAME, Bind.class, null, value );
     }
+
 
     @XmlElementDecl(namespace = "", name = "fortUserAudit")
-    public JAXBElement<UserAudit> createFortUserAudit(UserAudit value)
+    public JAXBElement<UserAudit> createFortUserAudit( UserAudit value )
     {
-        return new JAXBElement<>(_FortUserAudit_QNAME, UserAudit.class, null, value);
+        return new JAXBElement<>( FORTUSERAUDIT_QNAME, UserAudit.class, null, value );
     }
+
 
     @XmlElementDecl(namespace = "", name = "fortAuthZ")
-    public JAXBElement<AuthZ> createFortAuthZ(AuthZ value)
+    public JAXBElement<AuthZ> createFortAuthZ( AuthZ value )
     {
-        return new JAXBElement<>(_FortAuthZ_QNAME, AuthZ.class, null, value);
+        return new JAXBElement<>( FORTAUTHZ_QNAME, AuthZ.class, null, value );
     }
+
 
     @XmlElementDecl(namespace = "", name = "fortMod")
-    public JAXBElement<Mod> createFortMod(Mod value)
+    public JAXBElement<Mod> createFortMod( Mod value )
     {
-        return new JAXBElement<>(_FortMod_QNAME, Mod.class, null, value);
+        return new JAXBElement<>( FORTMOD_QNAME, Mod.class, null, value );
     }
+
 
     @XmlElementDecl(namespace = "", name = "fortRolePerm")
-    public JAXBElement<RolePerm> createFortRolePerm(RolePerm value)
+    public JAXBElement<RolePerm> createFortRolePerm( RolePerm value )
     {
-        return new JAXBElement<>(_FortRolePerm_QNAME, RolePerm.class, null, value);
+        return new JAXBElement<>( FORTROLEPERM_QNAME, RolePerm.class, null, value );
     }
+
 
     @XmlElementDecl(namespace = "", name = "fortAddress")
-    public JAXBElement<Address> createFortAddress(Address value)
+    public JAXBElement<Address> createFortAddress( Address value )
     {
-        return new JAXBElement<>(FortAddress_QNAME, Address.class, null, value);
+        return new JAXBElement<>( FORTADDRESS_QNAME, Address.class, null, value );
     }
+
 
     @XmlElementDecl(namespace = "", name = "fortProps")
-    public JAXBElement<Props> createFortProps(Props value)
+    public JAXBElement<Props> createFortProps( Props value )
     {
-        return new JAXBElement<>(_FortProps_QNAME, Props.class, null, value);
+        return new JAXBElement<>( FORTPROPS_QNAME, Props.class, null, value );
     }
 
+
     @XmlElementDecl(namespace = "", name = "fortWarning")
-    public JAXBElement<Warning> createFortWarning(Warning value)
+    public JAXBElement<Warning> createFortWarning( Warning value )
     {
-        return new JAXBElement<Warning>(_FortWarning_QNAME, Warning.class, null, value);
+        return new JAXBElement<Warning>( FORTWARNING_QNAME, Warning.class, null, value );
     }
+
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.ldap.group.Group }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortGroup")
-    public JAXBElement<Group> createFortGroup(Group value)
+    public JAXBElement<Group> createFortGroup( Group value )
     {
-        return new JAXBElement<>(_FortGroup_QNAME, Group.class, null, value);
+        return new JAXBElement<>( FORTGROUP_QNAME, Group.class, null, value );
     }
+
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.apache.directory.fortress.model2
@@ -290,6 +318,7 @@ public class ObjectFactory
     public ObjectFactory()
     {
     }
+
 
     /**
      * Create an instance of {@link User }
@@ -299,6 +328,7 @@ public class ObjectFactory
         return new User();
     }
 
+
     /**
      * Create an instance of {@link org.apache.directory.fortress.core.rbac.PwPolicy }
      */
@@ -306,6 +336,7 @@ public class ObjectFactory
     {
         return new PwPolicy();
     }
+
 
     /**
      * Create an instance of {@link Session }
@@ -315,6 +346,7 @@ public class ObjectFactory
         return new Session();
     }
 
+
     /**
      * Create an instance of {@link SDSet }
      */
@@ -322,6 +354,7 @@ public class ObjectFactory
     {
         return new SDSet();
     }
+
 
     /**
      * Create an instance of {@link Role }
@@ -331,6 +364,7 @@ public class ObjectFactory
         return new Role();
     }
 
+
     /**
      * Create an instance of {@link Group }
      */
@@ -338,6 +372,7 @@ public class ObjectFactory
     {
         return new Group();
     }
+
 
     /**
      * Create an instance of {@link PermGrant }
@@ -347,6 +382,7 @@ public class ObjectFactory
         return new PermGrant();
     }
 
+
     /**
      * Create an instance of {@link RoleRelationship }
      */
@@ -354,6 +390,7 @@ public class ObjectFactory
     {
         return new RoleRelationship();
     }
+
 
     /**
      * Create an instance of {@link AdminRoleRelationship }
@@ -363,6 +400,7 @@ public class ObjectFactory
         return new AdminRoleRelationship();
     }
 
+
     /**
      * Create an instance of {@link OrgUnitRelationship }
      */
@@ -370,6 +408,7 @@ public class ObjectFactory
     {
         return new OrgUnitRelationship();
     }
+
 
     /**
      * Create an instance of {@link PermObj }
@@ -379,6 +418,7 @@ public class ObjectFactory
         return new PermObj();
     }
 
+
     /**
      * Create an instance of {@link Permission }
      */
@@ -386,6 +426,7 @@ public class ObjectFactory
     {
         return new Permission();
     }
+
 
     /**
      * Create an instance of {@link Role }
@@ -395,6 +436,7 @@ public class ObjectFactory
         return new AdminRole();
     }
 
+
     /**
      * Create an instance of {@link UserRole }
      */
@@ -402,6 +444,7 @@ public class ObjectFactory
     {
         return new UserRole();
     }
+
 
     /**
      * Create an instance of {@link OrgUnit }
@@ -411,6 +454,7 @@ public class ObjectFactory
         return new OrgUnit();
     }
 
+
     /**
      * Create an instance of {@link UserAdminRole }
      */
@@ -419,58 +463,69 @@ public class ObjectFactory
         return new UserAdminRole();
     }
 
+
     public UserAudit createUserAudit()
     {
         return new UserAudit();
     }
+
 
     public Bind createBind()
     {
         return new Bind();
     }
 
+
     public AuthZ createAuthZ()
     {
         return new AuthZ();
     }
+
 
     public Mod createMod()
     {
         return new Mod();
     }
 
+
     public RolePerm createRolePerm()
     {
         return new RolePerm();
     }
+
 
     public FortResponse createFortResponse()
     {
         return new FortResponse();
     }
 
+
     public FortRequest createFortRequest()
     {
         return new FortRequest();
     }
+
 
     public Address createAddress()
     {
         return new Address();
     }
 
+
     public Props createProps()
     {
         return new Props();
     }
 
-    public Warning createWarning(int id, String msg, Warning.Type type)
+
+    public Warning createWarning( int id, String msg, Warning.Type type )
     {
-        return new Warning(id, msg, type);
+        return new Warning( id, msg, type );
     }
 
-    public Warning createWarning(int id, String msg, Warning.Type type, String name)
+
+    public Warning createWarning( int id, String msg, Warning.Type type, String name )
     {
-        return new Warning(id, msg, type, name);
+        return new Warning( id, msg, type, name );
     }
 }

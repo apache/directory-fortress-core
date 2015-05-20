@@ -78,7 +78,7 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs just added.
      * @throws SecurityException in the event entry already present or other system error.
      */
-    final Properties add( String name, Properties inProps )
+    Properties add( String name, Properties inProps )
         throws SecurityException
     {
         validate( name, inProps );
@@ -96,7 +96,7 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
-    final Properties update( String name, Properties inProps )
+    Properties update( String name, Properties inProps )
         throws SecurityException
     {
         validate( name, inProps );
@@ -120,7 +120,7 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws SecurityException in the event entry not present or other system error.
      */
-    final void delete( String name )
+    void delete( String name )
         throws SecurityException
     {
         if ( !VUtil.isNotNullOrEmpty( name ) )
@@ -158,7 +158,7 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs just added. Maps to 'ftProps' attribute in 'ftProperties' object class.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry doesn't exist or other system error.
      */
-    final Properties read( String name )
+    Properties read( String name )
         throws SecurityException
     {
         Properties outProps;

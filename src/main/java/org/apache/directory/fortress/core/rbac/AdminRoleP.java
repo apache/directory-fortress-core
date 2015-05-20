@@ -75,7 +75,7 @@ public final class AdminRoleP
      * @return AdminRole entity containing all attributes associated with Administrative Role in directory.
      * @throws SecurityException in the event AdminRole not found or DAO search error.
      */
-    final AdminRole read( AdminRole adminRole ) throws SecurityException
+    AdminRole read( AdminRole adminRole ) throws SecurityException
     {
         return rDao.getRole( adminRole );
     }
@@ -88,7 +88,7 @@ public final class AdminRoleP
      * @return List of type Role containing fully populated matching Admin Role entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<AdminRole> search( AdminRole adminRole )
+    List<AdminRole> search( AdminRole adminRole )
         throws SecurityException
     {
         return rDao.findRoles( adminRole );
@@ -103,7 +103,7 @@ public final class AdminRoleP
      * @return List of type String containing Admin Role name of all matching User entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<String> search( AdminRole adminRole, int limit )
+    List<String> search( AdminRole adminRole, int limit )
         throws SecurityException
     {
         return rDao.findRoles( adminRole, limit );
@@ -117,7 +117,7 @@ public final class AdminRoleP
      * @return List of type AdminRole containing {@link AdminRole#name} and {@link AdminRole#parents} populated.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<Graphable> getAllDescendants( String contextId )
+    List<Graphable> getAllDescendants( String contextId )
         throws SecurityException
     {
         return rDao.getAllDescendants( contextId );
@@ -132,7 +132,7 @@ public final class AdminRoleP
      * @return AdminRole entity copy of input + additional attributes (internalId) that were added by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final AdminRole add( AdminRole entity )
+    AdminRole add( AdminRole entity )
         throws SecurityException
     {
         validate( entity );
@@ -148,7 +148,7 @@ public final class AdminRoleP
      * @return AdminRole entity contains fully populated updated entity.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final AdminRole update( AdminRole entity ) throws SecurityException
+    AdminRole update( AdminRole entity ) throws SecurityException
     {
         validate( entity );
         entity = rDao.update( entity );
@@ -163,7 +163,7 @@ public final class AdminRoleP
      * @param entity Admin Role entity contains data targeted for updating.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final void deleteParent( AdminRole entity ) throws SecurityException
+    void deleteParent( AdminRole entity ) throws SecurityException
     {
         validate( entity );
         rDao.deleteParent( entity );
@@ -195,7 +195,7 @@ public final class AdminRoleP
      * @return AdminRole contains copy of input entity and additional data processed by request.
      * @throws SecurityException in the event data error in user or role objects or system error.
      */
-    final AdminRole assign( AdminRole entity, String userDn ) throws SecurityException
+    AdminRole assign( AdminRole entity, String userDn ) throws SecurityException
     {
         return rDao.assign( entity, userDn );
     }
@@ -233,7 +233,7 @@ public final class AdminRoleP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws SecurityException in the event of DAO search error.
      */
-    final void removeOccupant( String userDn, String contextId )
+    void removeOccupant( String userDn, String contextId )
         throws SecurityException
     {
         List<String> list;
@@ -266,7 +266,7 @@ public final class AdminRoleP
      * @return AdminRole contains copy of input entity and additional data processed by request.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
-    final AdminRole deassign( AdminRole entity, String userDn ) throws SecurityException
+    AdminRole deassign( AdminRole entity, String userDn ) throws SecurityException
     {
         return rDao.deassign( entity, userDn );
     }
@@ -279,7 +279,7 @@ public final class AdminRoleP
      * @param entity Contains the name of the Admin Role targeted for deletion.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final void delete( AdminRole entity ) throws SecurityException
+    void delete( AdminRole entity ) throws SecurityException
     {
         try
         {
@@ -306,12 +306,12 @@ public final class AdminRoleP
         throws SecurityException
     {
         VUtil.safeText( entity.getName(), GlobalIds.ROLE_LEN );
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getBeginRange() ) && VUtil.isNotNullOrEmpty( entity.getEndRange() ) )
         {
             VUtil.safeText( entity.getBeginRange(), GlobalIds.ROLE_LEN );
             VUtil.safeText( entity.getEndRange(), GlobalIds.ROLE_LEN );
-            
+
             if ( entity.getBeginRange().equalsIgnoreCase( entity.getEndRange() )
                 && ( !entity.isBeginInclusive() || !entity.isEndInclusive() ) )
             {
@@ -343,52 +343,52 @@ public final class AdminRoleP
             LOG.warn( error );
             throw new SecurityException( GlobalErrIds.ARLE_END_RANGE_NULL, error );
         }
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }
-        
+
         if ( entity.getTimeout() >= 0 )
         {
             VUtil.timeout( entity.getTimeout() );
         }
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getBeginTime() ) )
         {
             VUtil.beginTime( entity.getBeginTime() );
         }
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getEndTime() ) )
         {
             VUtil.endTime( entity.getEndTime() );
         }
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getBeginDate() ) )
         {
             VUtil.beginDate( entity.getBeginDate() );
         }
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getEndDate() ) )
         {
             VUtil.endDate( entity.getEndDate() );
         }
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getDayMask() ) )
         {
             VUtil.dayMask( entity.getDayMask() );
         }
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getBeginLockDate() ) )
         {
             VUtil.beginDate( entity.getBeginDate() );
         }
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getEndLockDate() ) )
         {
             VUtil.endDate( entity.getEndLockDate() );
         }
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getOsU() ) )
         {
             for ( String ou : entity.getOsU() )
@@ -399,7 +399,7 @@ public final class AdminRoleP
                 op.read( inOe );
             }
         }
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getOsP() ) )
         {
             for ( String ou : entity.getOsP() )

@@ -316,7 +316,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      * @return input record back to client.
      * @throws UpdateException in the event LDAP errors occur.
      */
-    final AdminRole assign( AdminRole entity, String userDn ) throws UpdateException
+    AdminRole assign( AdminRole entity, String userDn ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
@@ -352,7 +352,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      * @return input record back to client.
      * @throws UpdateException in the event LDAP errors occur.
      */
-    final AdminRole deassign( AdminRole entity, String userDn ) throws UpdateException
+    AdminRole deassign( AdminRole entity, String userDn ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
@@ -386,7 +386,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      * @param role record contains {@link AdminRole#name}.
      * @throws RemoveException in the event LDAP errors occur.
      */
-    final void remove( AdminRole role ) throws RemoveException
+    void remove( AdminRole role ) throws RemoveException
     {
         LdapConnection ld = null;
         String dn = getDn( role );
@@ -415,7 +415,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      * @return AdminRole back to client.
      * @throws FinderException in the event LDAP errors occur.
      */
-    final AdminRole getRole( AdminRole adminRole ) throws FinderException
+    AdminRole getRole( AdminRole adminRole ) throws FinderException
     {
         AdminRole entity = null;
         LdapConnection ld = null;
@@ -461,7 +461,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      * @throws FinderException
      *
      */
-    final List<AdminRole> findRoles( AdminRole adminRole ) throws FinderException
+    List<AdminRole> findRoles( AdminRole adminRole ) throws FinderException
     {
         List<AdminRole> roleList = new ArrayList<AdminRole>();
         LdapConnection ld = null;
@@ -509,7 +509,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      * @throws FinderException
      *
      */
-    final List<String> findRoles( AdminRole adminRole, int limit ) throws FinderException
+    List<String> findRoles( AdminRole adminRole, int limit ) throws FinderException
     {
         List<String> roleList = new ArrayList<String>();
         LdapConnection ld = null;
@@ -556,7 +556,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<String> findAssignedRoles( String userDn, String contextId ) throws FinderException
+    List<String> findAssignedRoles( String userDn, String contextId ) throws FinderException
     {
         List<String> roleNameList = new ArrayList<>();
         LdapConnection ld = null;
@@ -600,7 +600,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
       * @return
       * @throws FinderException
       */
-    final List<Graphable> getAllDescendants( String contextId )
+    List<Graphable> getAllDescendants( String contextId )
         throws FinderException
     {
         String[] DESC_ATRS =

@@ -45,6 +45,7 @@ final class GroupP
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static GroupDAO gDao = new GroupDAO();
 
+
     /**
      * Add a group node to the Directory Information Tree (DIT).
      *
@@ -52,12 +53,13 @@ final class GroupP
      * @throws org.apache.directory.fortress.core.SecurityException
      *          in event of validation or system error.
      */
-    final Group add( Group group ) throws SecurityException
+    Group add( Group group ) throws SecurityException
     {
         validate( group );
-        
+
         return gDao.create( group );
     }
+
 
     /**
      * Modify a group node within the Directory Information Tree (DIT).
@@ -66,12 +68,13 @@ final class GroupP
      * @throws org.apache.directory.fortress.core.SecurityException
      *          in event of validation or system error.
      */
-    final Group update( Group group ) throws SecurityException
+    Group update( Group group ) throws SecurityException
     {
         validate( group );
-        
+
         return gDao.update( group );
     }
+
 
     /**
      * Remove the group node.
@@ -79,10 +82,11 @@ final class GroupP
      * @param group contains the group entity for target node.
      * @throws SecurityException in event of validation or system error.
      */
-    final Group delete( Group group ) throws SecurityException
+    Group delete( Group group ) throws SecurityException
     {
         return gDao.remove( group );
     }
+
 
     /**
      * Add a new property to an existing Group
@@ -94,10 +98,11 @@ final class GroupP
      * @throws org.apache.directory.fortress.core.SecurityException
      *
      */
-    final Group add( Group group, String key, String value ) throws SecurityException
+    Group add( Group group, String key, String value ) throws SecurityException
     {
         return gDao.add( group, key, value );
     }
+
 
     /**
      * Remove an existing property value from an existing Group
@@ -109,10 +114,11 @@ final class GroupP
      * @throws org.apache.directory.fortress.core.SecurityException
      *
      */
-    final Group delete( Group group, String key, String value ) throws SecurityException
+    Group delete( Group group, String key, String value ) throws SecurityException
     {
         return gDao.delete( group, key, value );
     }
+
 
     /**
      * Method will add the "member" attribute on LDAP entry which represents a Group assignment.
@@ -122,10 +128,11 @@ final class GroupP
      * @return Group containing copy of input data.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final Group assign( Group entity, String userDn ) throws SecurityException
+    Group assign( Group entity, String userDn ) throws SecurityException
     {
         return gDao.assign( entity, userDn );
     }
+
 
     /**
      * Method will remove the "member" attribute on LDAP entry which represents a Group assignment.
@@ -135,10 +142,11 @@ final class GroupP
      * @return Role containing copy of input data.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final Group deassign( Group entity, String userDn ) throws SecurityException
+    Group deassign( Group entity, String userDn ) throws SecurityException
     {
         return gDao.deassign( entity, userDn );
     }
+
 
     /**
      * Return a fully populated Group entity for a given name.  If matching record not found a
@@ -148,10 +156,11 @@ final class GroupP
      * @return Group entity containing all attributes associated.
      * @throws SecurityException in the event not found or DAO search error.
      */
-    final Group read( Group group ) throws SecurityException
+    Group read( Group group ) throws SecurityException
     {
         return gDao.get( group );
     }
+
 
     /**
      * Takes a search string that contains full or partial Group name in directory.
@@ -160,10 +169,11 @@ final class GroupP
      * @return List of type Group containing fully populated matching entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<Group> search( Group group ) throws SecurityException
+    List<Group> search( Group group ) throws SecurityException
     {
         return gDao.find( group );
     }
+
 
     /**
      * Takes a search string that contains full or partial Group name in directory.
@@ -172,10 +182,11 @@ final class GroupP
      * @return List of type Group containing fully populated matching entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<Group> search( User user ) throws SecurityException
+    List<Group> search( User user ) throws SecurityException
     {
         return gDao.find( user );
     }
+
 
     /**
      * Method will perform simple validations to ensure the integrity of the {@link Group} entity targeted for insertion
@@ -193,7 +204,7 @@ final class GroupP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.GROUP_NAME_NULL, error );
         }
-        
+
         if ( entity.getName().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
@@ -201,7 +212,7 @@ final class GroupP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.GROUP_NAME_INVLD, error );
         }
-        
+
         if ( entity.getProtocol().length() > GlobalIds.OU_LEN )
         {
             String error = "validate protocol [" + entity.getProtocol() + "] invalid length [" + entity.getProtocol()
@@ -209,7 +220,7 @@ final class GroupP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.GROUP_PROTOCOL_INVLD, error );
         }
-        
+
         if ( !Strings.isEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );

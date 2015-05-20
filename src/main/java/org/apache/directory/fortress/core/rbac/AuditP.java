@@ -66,7 +66,7 @@ public final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws SecurityException if a runtime system error occurs.
      */
-    final List<AuthZ> getAuthZs( UserAudit uAudit ) throws SecurityException
+    List<AuthZ> getAuthZs( UserAudit uAudit ) throws SecurityException
     {
         return aDao.getAllAuthZs( uAudit );
     }
@@ -81,7 +81,7 @@ public final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws SecurityException if a runtime system error occurs.
      */
-    final List<AuthZ> searchAuthZs( UserAudit uAudit ) throws SecurityException
+    List<AuthZ> searchAuthZs( UserAudit uAudit ) throws SecurityException
     {
         return aDao.searchAuthZs( uAudit );
     }
@@ -95,7 +95,7 @@ public final class AuditP
      * @return a List of objects of type Bind.  Each Bind object contains one bind event.
      * @throws SecurityException if a runtime system error occurs.
      */
-    final List<Bind> searchBinds( UserAudit uAudit ) throws SecurityException
+    List<Bind> searchBinds( UserAudit uAudit ) throws SecurityException
     {
         return aDao.searchBinds( uAudit );
     }
@@ -109,7 +109,7 @@ public final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws SecurityException if a runtime system error occurs.
      */
-    final List<Mod> searchUserMods( UserAudit uAudit ) throws SecurityException
+    List<Mod> searchUserMods( UserAudit uAudit ) throws SecurityException
     {
         return aDao.searchUserMods( uAudit );
     }
@@ -124,7 +124,7 @@ public final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.
      * @throws SecurityException if a runtime system error occurs.
      */
-    final List<Mod> searchAdminMods( UserAudit uAudit ) throws SecurityException
+    List<Mod> searchAdminMods( UserAudit uAudit ) throws SecurityException
     {
         return aDao.searchAdminMods( uAudit );
     }
@@ -142,7 +142,7 @@ public final class AuditP
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one failed authentication event.
      * @throws SecurityException if a runtime system error occurs.
      */
-    final List<AuthZ> searchInvalidAuthNs( UserAudit uAudit ) throws SecurityException
+    List<AuthZ> searchInvalidAuthNs( UserAudit uAudit ) throws SecurityException
     {
         return aDao.searchInvalidAuthNs( uAudit );
     }

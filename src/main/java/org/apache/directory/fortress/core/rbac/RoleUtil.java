@@ -182,7 +182,9 @@ public final class RoleUtil
                 iRoles.add( rleName );
                 Set<String> parents = HierUtil.getAscendants( rleName, getGraph( contextId ) );
                 if ( VUtil.isNotNullOrEmpty( parents ) )
+                {
                     iRoles.addAll( parents );
+                }
             }
         }
         return iRoles;
@@ -206,7 +208,9 @@ public final class RoleUtil
                 iRoles.add( role );
                 Set<String> parents = HierUtil.getAscendants( role, getGraph( contextId ) );
                 if ( VUtil.isNotNullOrEmpty( parents ) )
+                {
                     iRoles.addAll( parents );
+                }
             }
         }
         return iRoles;
@@ -230,7 +234,9 @@ public final class RoleUtil
                 iRoles.add( role );
                 Set<String> children = HierUtil.getDescendants( role, getGraph( contextId ) );
                 if ( VUtil.isNotNullOrEmpty( children ) )
+                {
                     iRoles.addAll( children );
+                }
             }
         }
         return iRoles;
@@ -305,7 +311,7 @@ public final class RoleUtil
         inHier.setContextId( contextId );
         LOG.info( "loadGraph initializing ROLE context [{}]", inHier.getContextId() );
         List<Graphable> descendants = null;
-        
+
         try
         {
             descendants = roleP.getAllDescendants( inHier.getContextId() );
@@ -314,13 +320,13 @@ public final class RoleUtil
         {
             LOG.info( "loadGraph caught SecurityException={}", se );
         }
-        
+
         Hier hier = HierUtil.loadHier( contextId, descendants );
         SimpleDirectedGraph<String, Relationship> graph;
-        
+
         graph = HierUtil.buildGraph( hier );
         roleCache.put( getKey( contextId ), graph );
-        
+
         return graph;
     }
 
@@ -333,12 +339,12 @@ public final class RoleUtil
     private static String getKey( String contextId )
     {
         String key = HierUtil.Type.ROLE.toString();
-        
+
         if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )
         {
             key += ":" + contextId;
         }
-        
+
         return key;
     }
 
@@ -351,14 +357,14 @@ public final class RoleUtil
     private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {
         ReadWriteLock hierLock = HierUtil.getLock( contextId, HierUtil.Type.ROLE );
-        String key = getKey( contextId ) ;
-        
+        String key = getKey( contextId );
+
         try
         {
             hierLock.readLock().lock();
             SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache
                 .get( key );
-            
+
             if ( graph == null )
             {
                 try
@@ -371,9 +377,9 @@ public final class RoleUtil
 
                     //if ( graph == null )
                     //{
-                        graph = loadGraph( contextId );
+                    graph = loadGraph( contextId );
                     //}
-                    
+
                     hierLock.readLock().lock();
                 }
                 finally
@@ -381,7 +387,7 @@ public final class RoleUtil
                     hierLock.writeLock().unlock();
                 }
             }
-            
+
             return graph;
         }
         finally

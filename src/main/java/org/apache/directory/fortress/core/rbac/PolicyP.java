@@ -97,7 +97,7 @@ public final class PolicyP
      * @param policy
      * @return true if valid, false otherwise.
      */
-    final boolean isValid( PwPolicy policy )
+    boolean isValid( PwPolicy policy )
     {
         boolean result = false;
 
@@ -129,7 +129,7 @@ public final class PolicyP
      * @return PswdPolicy entity returns fully populated with attributes.
      * @throws SecurityException In the event policy entry not found, data validation or system error.
      */
-    final PwPolicy read( PwPolicy policy ) throws SecurityException
+    PwPolicy read( PwPolicy policy ) throws SecurityException
     {
         // Call the finder method for the primary key.
         return olDao.getPolicy( policy );
@@ -143,7 +143,7 @@ public final class PolicyP
      * @param policy Object contains the password policy attributes.
      * @throws SecurityException In the event of data validation or system error.
      */
-    final void add( PwPolicy policy ) throws SecurityException
+    void add( PwPolicy policy ) throws SecurityException
     {
         validate( policy );
         olDao.create( policy );
@@ -174,7 +174,7 @@ public final class PolicyP
      *               be updated.  null attributes will be ignored.
      * @throws SecurityException In the event policy not found , data validation or system error.
      */
-    final void update( PwPolicy policy ) throws SecurityException
+    void update( PwPolicy policy ) throws SecurityException
     {
         validate( policy );
         olDao.update( policy );
@@ -189,7 +189,7 @@ public final class PolicyP
      * @param policy Object must contain the name of the policy entity.
      * @throws SecurityException In the event policy entity not found or system error.
      */
-    final void delete( PwPolicy policy ) throws SecurityException
+    void delete( PwPolicy policy ) throws SecurityException
     {
         olDao.remove( policy );
 
@@ -219,7 +219,7 @@ public final class PolicyP
      * @return List<PswdPolicy> contains all matching password policy entities. If no records found this will be empty.
      * @throws SecurityException In the event of data validation or system error.
      */
-    final List<PwPolicy> search( PwPolicy policy ) throws SecurityException
+    List<PwPolicy> search( PwPolicy policy ) throws SecurityException
     {
         return olDao.findPolicy( policy );
     }

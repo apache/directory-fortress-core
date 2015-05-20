@@ -63,13 +63,13 @@ public class RestUtils
 {
     private static final String CLS_NM = RestUtils.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private final static String HTTP_UID = Config.getProperty( "http.user" );
-    private final static String HTTP_PW_PARAM = "http.pw";
-    private final static String HTTP_PW = ( ( EncryptUtil.isEnabled() ) ? EncryptUtil.decrypt( Config
+    private static final String HTTP_UID = Config.getProperty( "http.user" );
+    private static final String HTTP_PW_PARAM = "http.pw";
+    private static final String HTTP_PW = ( ( EncryptUtil.isEnabled() ) ? EncryptUtil.decrypt( Config
         .getProperty( HTTP_PW_PARAM ) ) : Config.getProperty( HTTP_PW_PARAM ) );
-    private final static String HTTP_HOST = Config.getProperty( "http.host" );
-    private final static String HTTP_PORT = Config.getProperty( "http.port" );
-    private final static String HTTP_PROTOCOL = Config.getProperty( "http.protocol", "http" );
+    private static final String HTTP_HOST = Config.getProperty( "http.host" );
+    private static final String HTTP_PORT = Config.getProperty( "http.port" );
+    private static final String HTTP_PROTOCOL = Config.getProperty( "http.protocol", "http" );
     private static final String VERSION = System.getProperty( "version" );
     private static final String SERVICE = "fortress-rest-" + VERSION;
     // TODO: add SSL capability here:
@@ -88,21 +88,19 @@ public class RestUtils
     private static final String TRUST_STORE_PW = Config.getProperty( "trust.store.password" );
     private static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
     private static final boolean IS_SET_TRUST_STORE_PROP = (
-            Config.getProperty( SET_TRUST_STORE_PROP ) != null   &&
-            Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ));
+        Config.getProperty( SET_TRUST_STORE_PROP ) != null &&
+        Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ) );
 
     static
     {
-        if(IS_SET_TRUST_STORE_PROP)
+        if ( IS_SET_TRUST_STORE_PROP )
         {
-            LOG.info( "Set JSSE truststore properties:");
+            LOG.info( "Set JSSE truststore properties:" );
             LOG.info( "javax.net.ssl.trustStore: {}", TRUST_STORE );
             System.setProperty( "javax.net.ssl.trustStore", TRUST_STORE );
             System.setProperty( "javax.net.ssl.trustStorePassword", TRUST_STORE_PW );
         }
     }
-
-
 
 
     /**

@@ -76,7 +76,7 @@ public final class SdP
      * @return SDSet entity copy of input + additional attributes (internalId) that were added by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final SDSet add( SDSet entity ) throws SecurityException
+    SDSet add( SDSet entity ) throws SecurityException
     {
         validate( entity );
         return sdDao.create( entity );
@@ -93,7 +93,7 @@ public final class SdP
      * @return SDSet entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final SDSet update( SDSet entity ) throws SecurityException
+    SDSet update( SDSet entity ) throws SecurityException
     {
         validate( entity );
         return sdDao.update( entity );
@@ -109,7 +109,7 @@ public final class SdP
      * @return SDSet is a copy of entity.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final SDSet delete( SDSet entity ) throws SecurityException
+    SDSet delete( SDSet entity ) throws SecurityException
     {
         return sdDao.remove( entity );
     }
@@ -123,7 +123,7 @@ public final class SdP
      * @return SDSet entity containing all attributes associated with ou in directory.
      * @throws SecurityException in the event SDSet not found or DAO search error.
      */
-    final SDSet read( SDSet entity ) throws SecurityException
+    SDSet read( SDSet entity ) throws SecurityException
     {
         SDSet sde;
         // The assumption is this method is called from ReviewMgr.ssdRoleSetRoles or ReviewMgr.dsdRoleSetRoles.
@@ -144,7 +144,7 @@ public final class SdP
      * @return List of SDSet entities found.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<SDSet> search( SDSet sdSet ) throws SecurityException
+    List<SDSet> search( SDSet sdSet ) throws SecurityException
     {
         return sdDao.search( sdSet );
     }
@@ -159,7 +159,7 @@ public final class SdP
      * @return List of SDSet entities found.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<SDSet> search( Role role, SDSet.SDType type ) throws SecurityException
+    List<SDSet> search( Role role, SDSet.SDType type ) throws SecurityException
     {
         return sdDao.search( role, type );
     }
@@ -174,7 +174,7 @@ public final class SdP
      * @return List of SDSet entities found.
      * @throws SecurityException in the event of DAO search error.
      */
-    final Set<SDSet> search( Set<String> rls, SDSet sdSet ) throws SecurityException
+    Set<SDSet> search( Set<String> rls, SDSet sdSet ) throws SecurityException
     {
         return sdDao.search( rls, sdSet );
     }

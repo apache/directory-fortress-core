@@ -216,7 +216,7 @@ final class AuditDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final List<AuthZ> searchInvalidAuthNs( UserAudit audit ) throws FinderException
+    List<AuthZ> searchInvalidAuthNs( UserAudit audit ) throws FinderException
     {
         List<AuthZ> auditList = new ArrayList<>();
         LdapConnection ld = null;
@@ -275,7 +275,9 @@ final class AuditDAO extends ApacheDsDataProvider
                 // todo: fix this workaround. This search will return failed role assign searches as well.  
                 // Work around is to remove the ou=People failed searches from user failed searches on authN.
                 if ( !AttrHelper.getAuthZId( authZ.getReqDN() ).equalsIgnoreCase( "People" ) )
+                {
                     auditList.add( authZ );
+                }
             }
         }
         catch ( LdapException e )
@@ -303,7 +305,7 @@ final class AuditDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final List<AuthZ> searchAuthZs( UserAudit audit ) throws FinderException
+    List<AuthZ> searchAuthZs( UserAudit audit ) throws FinderException
     {
         List<AuthZ> auditList = new ArrayList<>();
         LdapConnection ld = null;
@@ -316,7 +318,8 @@ final class AuditDAO extends ApacheDsDataProvider
             String reqDn = PermDAO.getOpRdn( audit.getOpName(), audit.getObjId() ) + "," + GlobalIds.POBJ_NAME + "="
                 + audit.getObjName() + "," + permRoot;
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(" + REQDN + "=" +
-                reqDn + ")(" + REQUAUTHZID + "=" + SchemaConstants.UID_AT + "=" + audit.getUserId() + "," + userRoot + ")";
+                reqDn + ")(" + REQUAUTHZID + "=" + SchemaConstants.UID_AT + "=" + audit.getUserId() + "," + userRoot
+                + ")";
 
             if ( audit.isFailedOnly() )
             {
@@ -384,7 +387,7 @@ final class AuditDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final List<AuthZ> getAllAuthZs( UserAudit audit ) throws FinderException
+    List<AuthZ> getAllAuthZs( UserAudit audit ) throws FinderException
     {
         List<AuthZ> auditList = new ArrayList<>();
         LdapConnection ld = null;
@@ -457,7 +460,7 @@ final class AuditDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final List<Bind> searchBinds( UserAudit audit ) throws FinderException
+    List<Bind> searchBinds( UserAudit audit ) throws FinderException
     {
         List<Bind> auditList = new ArrayList<>();
         LdapConnection ld = null;
@@ -540,7 +543,7 @@ final class AuditDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final List<Mod> searchUserMods( UserAudit audit ) throws FinderException
+    List<Mod> searchUserMods( UserAudit audit ) throws FinderException
     {
         List<Mod> modList = new ArrayList<>();
         LdapConnection ld = null;
@@ -595,7 +598,7 @@ final class AuditDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<Mod> searchAdminMods( UserAudit audit ) throws FinderException
+    List<Mod> searchAdminMods( UserAudit audit ) throws FinderException
     {
         List<Mod> modList = new ArrayList<>();
         LdapConnection ld = null;

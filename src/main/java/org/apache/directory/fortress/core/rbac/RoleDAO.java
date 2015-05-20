@@ -137,7 +137,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @return
      * @throws CreateException
      */
-    final Role create( Role entity ) throws CreateException
+    Role create( Role entity ) throws CreateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -186,7 +186,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    final Role update( Role entity ) throws UpdateException
+    Role update( Role entity ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -262,7 +262,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @param entity
      * @throws UpdateException
      */
-    final void deleteParent( Role entity ) throws UpdateException
+    void deleteParent( Role entity ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -293,7 +293,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    final Role assign( Role entity, String userDn ) throws UpdateException
+    Role assign( Role entity, String userDn ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -329,7 +329,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    final Role deassign( Role entity, String userDn ) throws UpdateException
+    Role deassign( Role entity, String userDn ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -360,7 +360,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @param role
      * @throws RemoveException
      */
-    final void remove( Role role )
+    void remove( Role role )
         throws RemoveException
     {
         LdapConnection ld = null;
@@ -389,7 +389,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final Role getRole( Role role )
+    Role getRole( Role role )
         throws FinderException
     {
         Role entity = null;
@@ -435,7 +435,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final List<Role> findRoles( Role role )
+    List<Role> findRoles( Role role )
         throws FinderException
     {
         List<Role> roleList = new ArrayList<>();
@@ -484,7 +484,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final List<String> findRoles( Role role, int limit )
+    List<String> findRoles( Role role, int limit )
         throws FinderException
     {
         List<String> roleList = new ArrayList<>();
@@ -533,7 +533,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<String> findAssignedRoles( String userDn, String contextId )
+    List<String> findAssignedRoles( String userDn, String contextId )
         throws FinderException
     {
         List<String> roleNameList = new ArrayList<>();
@@ -578,7 +578,7 @@ final class RoleDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final List<Graphable> getAllDescendants( String contextId )
+    List<Graphable> getAllDescendants( String contextId )
         throws FinderException
     {
         String[] DESC_ATRS =

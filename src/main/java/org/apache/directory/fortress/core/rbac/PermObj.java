@@ -548,14 +548,27 @@ public class PermObj extends FortEntity implements Serializable
 
     {
         if ( this == thatObj )
+        {
             return true;
+        }
+
         if ( this.getObjName() == null )
+        {
             return false;
+        }
+
         if ( !( thatObj instanceof PermObj ) )
+        {
             return false;
+        }
+
         PermObj thatPermObj = ( PermObj ) thatObj;
+
         if ( thatPermObj.getObjName() == null )
+        {
             return false;
+        }
+
         return thatPermObj.getObjName().equalsIgnoreCase( this.getObjName() );
     }
 

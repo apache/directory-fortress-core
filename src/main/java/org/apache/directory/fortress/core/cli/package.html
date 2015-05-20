@@ -18,80 +18,83 @@
  *
 -->
 <html>
-<head>
+  <head>
     <title>Fortress Command Line Interpreter Reference Manual</title>
-</head>
-<body>
-<p>
-    <A HREF="package-summary.html">Click here</A> for Reference Manual which shows how the Command Line Interpreter
-    drives the Fortress APIs from a command prompt.
-</p>
+  </head>
+  <body>
+    <p>
+      <A HREF="package-summary.html">Click here</A> 
+      for Reference Manual which shows how the Command Line Interpreter
+      drives the Fortress APIs from a command prompt.
+    </p>
 
-<h2>Instructions to start and use the Fortress CLI program</h2>
-<br>Note: Information to set up environment of Fortress runtime, check out file named <b>README.txt</b> found in root
-folder of Fortress SDK package.
-<ol>
-    <li>Open shell prompt within FORTRESS_HOME folder and enter the following</li>
-    <li>export JAVA_HOME=/path to the root folder of your java SDK, version 7 and beyond required</li>
-    <li>export M2_HOME=/path to the root folder of your Apache Maven installation, version 3 and beyond required</li>
-    <li>$M2_HOME/bin/mvn -Pcli test</li>
-    <li>This will fire Fortress ant target which then starts the CLI. The CLI syntax will be described in detail
-        below.
-    </li>
-</ol>
-<h2>Command Line Interpreter Reference Manual</h2>
-Once started, the Fortress CLI runs in interactive mode which means it runs continously waiting for user to enter a
-valid commands or terminate. Every CLI command is structured in the following format:<br>
+    <h2>Instructions to start and use the Fortress CLI program</h2>
+    <br/>Note: Information to set up environment of Fortress runtime, check out file named <b>README.txt</b> 
+        found in root folder of Fortress SDK package.
+    <ol>
+      <li>Open shell prompt within FORTRESS_HOME folder and enter the following</li>
+      <li>export JAVA_HOME=/path to the root folder of your java SDK, version 7 and beyond required</li>
+      <li>export M2_HOME=/path to the root folder of your Apache Maven installation, version 3 and beyond required</li>
+      <li>$M2_HOME/bin/mvn -Pcli test</li>
+      <li>This will fire Fortress ant target which then starts the CLI. The CLI syntax will be described in detail
+        below.</li>
+    </ol>
 
-<p>
-    <b>group function options</b><br><br>
+    <h2>Command Line Interpreter Reference Manual</h2>
+    Once started, the Fortress CLI runs in interactive mode which means it runs continuously waiting for user to enter 
+    a valid commands or terminate. Every CLI command is structured in the following format:<br/>
+
+    <p><b>group function options</b><br/><br/>
+    
     For example:
-<pre>admin auser -u hounddog42 -p myNewP@$$w0rd -o development</pre>
-In this example the group is 'admin', the function is 'auser' or add user, and the options are -u for userid, -p for
-password and -o that points to a valid USERS OrgUnit node.
-Despite being called an 'option', so named parameters may or may not be required for a given function. Option names are
-always preceded by a dash ('-') when entered. Option values
-must be enclosed within single quotes '' or double quotes "" iff value contains multiple Strings separated by
-whitespace. For example the user description value can be entered like
-this: -d "This description contains more than one word" or this: -d 'This description also contains more than one word'.
-<br>
-<br>Below is reference manual for Fortress' CLI commands
-</p>
+    <pre>admin auser -u hounddog42 -p myNewP@$$w0rd -o development</pre>
+    In this example the group is 'admin', the function is 'auser' or add user, and the options are -u for userid, 
+    -p for password and -o that points to a valid USERS OrgUnit node.
+    Despite being called an 'option', so named parameters may or may not be required for a given function. Option 
+    names are always preceded by a dash ('-') when entered. Option values must be enclosed within single quotes '' 
+    or double quotes "" if value contains multiple Strings separated by whitespace. For example the user description 
+    value can be entered like this: -d "This description contains more than one word" or this: -d 'This description 
+    also contains more than one word'.
+    <br/>
+    <br/>Below is reference manual for Fortress' CLI commands
+    </p>
 
-<h2>Groups</h2>
+    <h2>Groups</h2>
+    
+    Currently the following groups of functions are supported:
+    <ul>
+      <li>admin - used to setup RBAC policies</li>
+      <li>review - used to interrogate RBAC policies</li>
+      <li>system - used to test RBAC policies</li>
+      <li>dadmin - used to setup ARBAC (administrative role based access control) policies</li>
+      <li>group - used to setup LDAP Group policies</li>
+    </ul>
 
-Currently the following groups of functions are supported:
-<ul>
-    <li>admin - used to setup RBAC policies</li>
-    <li>review - used to interrogate RBAC policies</li>
-    <li>system - used to test RBAC policies</li>
-    <li>dadmin - used to setup ARBAC (administrative role based access control) policies</li>
-    <li>group - used to setup LDAP Group policies</li>
-</ul>
-<h2>Sample run to add new User to LDAP</h2>
-   <pre>      
-[echo] Run the Fortress Command Line Interpreter
-[java] 2011-12-03 21:10:02,431 (INFO ) CLI Options include admin, review, system, dadmin
-[java] 2011-12-03 21:10:02,431 (INFO ) Enter one from above or 'q' to quit
-<b>admin auser -u hounddog42 -p myNewP@$$w0rd -o development</b>
-     [java] 2011-12-03 21:41:37,614 (INFO ) arg:admin
-     [java] 2011-12-03 21:41:37,614 (INFO ) arg:auser
-     [java] 2011-12-03 21:41:37,615 (INFO ) arg:-u
-     [java] 2011-12-03 21:41:37,615 (INFO ) arg:hounddog42
-     [java] 2011-12-03 21:41:37,615 (INFO ) arg:-p
-     [java] 2011-12-03 21:41:37,616 (INFO ) arg:-o
-     [java] 2011-12-03 21:41:37,616 (INFO ) arg:development
-     [java] 2011-12-03 21:41:37,617 (INFO ) auser
-     [java] 2011-12-03 21:41:37,750 (INFO ) command:auser was successful
-     [java] 2011-12-03 21:41:37,750 (INFO ) CLI Options include admin, review, system, dadmin
-     [java] 2011-12-03 21:41:37,751 (INFO ) Enter one from above or 'q' to quit
-   </pre>
+    <h2>Sample run to add new User to LDAP</h2>
+    <pre>
+        [echo] Run the Fortress Command Line Interpreter
+        [java] 2011-12-03 21:10:02,431 (INFO ) CLI Options include admin, review, system, dadmin
+        [java] 2011-12-03 21:10:02,431 (INFO ) Enter one from above or 'q' to quit
+        <b>admin auser -u hounddog42 -p myNewP@$$w0rd -o development</b>
+             [java] 2011-12-03 21:41:37,614 (INFO ) arg:admin
+             [java] 2011-12-03 21:41:37,614 (INFO ) arg:auser
+             [java] 2011-12-03 21:41:37,615 (INFO ) arg:-u
+             [java] 2011-12-03 21:41:37,615 (INFO ) arg:hounddog42
+             [java] 2011-12-03 21:41:37,615 (INFO ) arg:-p
+             [java] 2011-12-03 21:41:37,616 (INFO ) arg:-o
+             [java] 2011-12-03 21:41:37,616 (INFO ) arg:development
+             [java] 2011-12-03 21:41:37,617 (INFO ) auser
+             [java] 2011-12-03 21:41:37,750 (INFO ) command:auser was successful
+             [java] 2011-12-03 21:41:37,750 (INFO ) CLI Options include admin, review, system, dadmin
+             [java] 2011-12-03 21:41:37,751 (INFO ) Enter one from above or 'q' to quit
+     </pre>
+    
+    <p>
+        This remainder of document is a command reference document to show how the Fortress CLI works.
+    <ol type="I">
+    <li>
 
-<p>
-    This remainder of document is a command reference document to show how the Fortress CLI works.
-<ol type="I">
-<li>
-<h2>Adminstrative Commands</h2>
+<h2>Administrative Commands</h2>
 This section contains a guide for the <b>functions</b> and <b>options</b> that fall in the <b>admin</b> group.
 <ol type="A">
 <li>
@@ -155,7 +158,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         </li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>uuser : function to update an existing user in LDAP</h3>
@@ -214,7 +217,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         </li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>duser : function to delete a user from LDAP</h3>
@@ -236,7 +239,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin duser -u testuser1</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>change : function to change a user's password</h3>
@@ -256,7 +259,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin change -u testuser1 -p mypasword123 -V mynewpassword456</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>reset : function to perform an administrative reset on user password</h3>
@@ -276,7 +279,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin reset -u testuser1 -V temp777</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>lock : LOCK_USER_ACCOUNT</h3>
@@ -293,7 +296,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin lock -u testuser1</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>unlock : UNLOCK_USER_ACCOUNT</h3>
@@ -311,7 +314,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin unlock -u testuser1</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>arole : Add a new Role</h3>
@@ -345,7 +348,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin arole -n trole2 -d roledescription -b 0900 -e 1800 -B 20120101 -E 20990101 -m 1234567</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>urole : Update an existing Role</h3>
@@ -377,7 +380,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin urole -n trole2 -b 0800 -B 20111231 -m 23456</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>drole : Delete a Role</h3>
@@ -397,7 +400,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin drole -n trole1</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>asgnrole : Assign a Role to a User</h3>
@@ -456,7 +459,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin asgnrole -u testuser2 -n trole2 -b 1200 -e 2359 -B 20120101 -E 20120131 -m 1234567</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>dsgnrole : Deassign a Role from a User</h3>
@@ -467,7 +470,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         the ROLES data set, and the user is assigned to the role.
         Any sessions that currently have this role activated will not be effected.
     </p>
-    <br>Successful completion includes:
+    <br/>Successful completion includes:
     <ul>
         <li>User entity in USER data set has role assignment removed.</li>
         <li>Role entity in ROLE data set has userId removed as role occupant.</li>
@@ -483,7 +486,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin dsgnrole -u testuser2 -n trole2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>arel : ADD_ROLE_INHERITANCE</h3>
@@ -511,7 +514,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin arel -A trole1 -D trole2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>drel : DELETE_ROLE_INHERITANCE</h3>
@@ -536,7 +539,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin drel -A trole1 -D trole2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>asset : CREATE_SSD_SET</h3>
@@ -572,7 +575,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin asset -n mytestssd -r trole1 -r trole3 -r trole5 -r trole6 -c 3 -d only2of4canAssign</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>dsset : DELETE_SSD_SET</h3>
@@ -590,7 +593,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin dsset -n mytestssd</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>adset : CREATE_DSD_SET</h3>
@@ -627,7 +630,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
     <li>admin adset -n mytestdsd -r trole1 -r trole3 -r trole5 -r trole6 -c 2 -d only1of4canActivate</li>
     <li>admin adset -n mytestdsd -r trole1 -r trole3 -r trole5 -r trole6 -c 3 -d only2of4canActivate</li>
 </ul>
-</li><br>
+</li><br/>
 
 <li>
     <h3>ddset : DELETE_DSD_SET</h3>
@@ -645,7 +648,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin ddset -n mytestdsd</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>aobj : ADD_POBJ</h3>
@@ -675,7 +678,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin aobj -n myobject2 -o app1 -d TestObject -t anything -v key1:val1 -v key2:val2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>uobj : UPDATE_POBJ</h3>
@@ -705,7 +708,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin uobj -n myobject2 -o app1 -d ChangeDescription</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>dobj : DELETE_POBJ</h3>
@@ -724,7 +727,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin dobj -n mytestobject -o app1</li>
     </ul>
 </li>
-<br>
+<br/>
 <li>
     <h3>aperm : ADD_PERM</h3>
 
@@ -756,7 +759,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin aperm -n myobject2 -O myoperation2 -r trole1 -r trole5</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>uperm : UPDATE_PERM</h3>
@@ -786,7 +789,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin uperm -n myobject2 -O myoperation2 -r trole6 -D ReplaceExistingGrantsWithThisRole</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>dperm : DELETE_PERM</h3>
@@ -807,7 +810,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin dperm -n mytestobject -O myoperation -d CreateNewPermission</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>grant : GRANT</h3>
@@ -830,7 +833,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin grant -n mytestobject -O myoperation -R trole1</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>revoke : REVOKE </h3>
@@ -854,7 +857,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>admin revoke -n mytestobject -O myoperation -R trole1</li>
     </ul>
 </li>
-<br>
+<br/>
 
 </ol>
 </li>
@@ -913,7 +916,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         </li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>urole : Update an existing ADMIN_Role</h3>
@@ -960,7 +963,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin urole -n arole2 -x role4 -w role1 -y true -z false</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>drole : Delete an ADMIN_Role</h3>
@@ -980,7 +983,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin drole -n arole1</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>asgnrole : Assign an ADMIN_Role to a User</h3>
@@ -1029,7 +1032,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin asgnrole -u testuser2 -n arole2 -b 1200 -e 2359 -B 20120101 -E 20120131 -m 1234567</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>dsgnrole : Deassign a ADMIN_Role from a User</h3>
@@ -1054,7 +1057,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin dsgnrole -u testuser2 -n arole1</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>arel : ADD_ADMIN_ROLE_INHERITANCE</h3>
@@ -1080,7 +1083,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin arel -A arole1 -D arole2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>drel : DELETE_ADMIN_ROLE_INHERITANCE</h3>
@@ -1107,7 +1110,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin drel -A arole1 -D arole2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>auou : ADD_USERORG</h3>
@@ -1127,7 +1130,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin auou -n UserOrg2 -d description-contains-any-safe-text</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>uuou : UPDATE_USERORG</h3>
@@ -1149,7 +1152,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin uuou -n UserOrg2 -d updated-description-contains-any-safe-text</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>duou : DELETE_USERORG</h3>
@@ -1167,7 +1170,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin duou -n UserOrg1</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>aurel : ADD_USERORG_INHERITANCE</h3>
@@ -1194,7 +1197,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin aurel -A UserOrg1 -D UserOrg2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>durel : DELETE_USERORG_INHERITANCE</h3>
@@ -1220,7 +1223,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin durel -A UserOrg1 -D UserOrg2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>apou : ADD_PERMORG</h3>
@@ -1240,7 +1243,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin apou -n PermOrg2 -d description-contains-any-safe-text</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>upou : UPDATE_PERMORG</h3>
@@ -1262,7 +1265,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin upou -n PermOrg1 -d description-contains-any-safe-text</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>dpou : DELETE_PERMORG</h3>
@@ -1280,7 +1283,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin dpou -n PermOrg2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>aprel : ADD_PERMORG_INHERITANCE</h3>
@@ -1306,7 +1309,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin aprel -A PermOrg1 -D PermOrg2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>dprel : DELETE_PERMORG_INHERITANCE</h3>
@@ -1332,7 +1335,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin dprel -A PermOrg1 -D PermOrg2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>aobj : ADD_ADMIN_POBJ</h3>
@@ -1363,7 +1366,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin aobj -n myobject2 -o app1 -d TestObject -t anything -v key1:val1 -v key2:val2</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>uobj : UPDATE_ADMIN_POBJ</h3>
@@ -1393,7 +1396,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin uobj -n myobject2 -o app1 -d ChangeDescription</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>dobj : DELETE_POBJ</h3>
@@ -1413,7 +1416,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin dobj -n mytestobject -o app1</li>
     </ul>
 </li>
-<br>
+<br/>
 <li>
     <h3>aperm : ADD_ADMIN_PERM</h3>
 
@@ -1442,7 +1445,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin aperm -n mytestobject -O myoperation -d CreateNewAdminPermission</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>uperm : UPDATE_ADMIN_PERM</h3>
@@ -1470,7 +1473,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin uperm -n mytestobject -O myoperation -d new-description</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>dperm : DELETE_ADMIN_PERM</h3>
@@ -1491,7 +1494,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin dperm -n mytestobject -O myoperation -d CreateNewAdminPermission</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>grant : GRANT ADMIN</h3>
@@ -1514,7 +1517,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin grant -n mytestobject -O myoperation -R arole1</li>
     </ul>
 </li>
-<br>
+<br/>
 
 <li>
     <h3>revoke : REVOKE ADMIN</h3>
@@ -1538,7 +1541,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <li>dadmin revoke -n mytestobject -O myoperation -R arole1</li>
     </ul>
 </li>
-<br>
+<br/>
 </ol>
 
 </li>
@@ -1563,7 +1566,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li>review ruser -u testuser1</li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>fuser : FIND_USERS</h3>
@@ -1585,7 +1588,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li>review fuser -u test</li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>asgnuser : ASSIGNED_USERS</h3>
@@ -1604,7 +1607,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li>review asgnuser -n -role1</li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>rrole : READ_ROLE</h3>
@@ -1622,7 +1625,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li>review rrole -n role1</li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>frole : FIND_ROLES</h3>
@@ -1645,7 +1648,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li>review frole -n role</li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>robj : READ_POBJ</h3>
@@ -1663,7 +1666,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li>review robj -n mytestobject</li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>fobj : FIND_POBJS</h3>
@@ -1686,7 +1689,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li>review robj -n my</li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>rperm : READ_PERM</h3>
@@ -1706,7 +1709,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li>review rperm -n mytestobject -O myoperation</li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>fperm : FIND_PERMS</h3>
@@ -1734,7 +1737,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li>review fperm -n mytest -O my</li>
             </ul>
         </li>
-        <br>
+        <br/>
 
     </ol>
 </li>
@@ -1919,7 +1922,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
             </ul>
         </li>
 
-        <br>
+        <br/>
     </ol>
     <!-- end group -->
 </li>
@@ -1953,7 +1956,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li></li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>authenticate : AUTHENTICATE</h3>
@@ -1978,7 +1981,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li></li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>assignedroles : ASSIGNED_ROLES</h3>
@@ -2003,7 +2006,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li></li>
             </ul>
         </li>
-        <br>
+        <br/>
 
         <li>
             <h3>checkaccess : CHECK_ACCESS</h3>
@@ -2028,7 +2031,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
                 <li></li>
             </ul>
         </li>
-        <br>
+        <br/>
     </ol>
 </li>
 <p>

@@ -68,14 +68,15 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
 {
     private static final String CLS_NM = OrganizationalUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    //private static final String ORGUNIT_CLASS = "organizationalunit";
-/*
-    private static final String[] ORGUNIT_OBJ_CLASS =
-        {
-            ORGUNIT_CLASS
-        };
-*/
 
+
+    //private static final String ORGUNIT_CLASS = "organizationalunit";
+    /*
+        private static final String[] ORGUNIT_OBJ_CLASS =
+            {
+                ORGUNIT_CLASS
+            };
+    */
 
     /**
      * Package private default constructor.
@@ -95,7 +96,7 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
      * @param oe
      * @throws org.apache.directory.fortress.core.CreateException
      */
-    final void create( OrganizationalUnit oe )
+    void create( OrganizationalUnit oe )
         throws CreateException
     {
         LdapConnection ld = null;
@@ -110,7 +111,7 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
 
         try
         {
-            LOG.info( "create container dn [{}]",  nodeDn );
+            LOG.info( "create container dn [{}]", nodeDn );
 
             Entry myEntry = new DefaultEntry( nodeDn,
                 SchemaConstants.OBJECT_CLASS, SchemaConstants.ORGANIZATIONAL_UNIT_OC,
@@ -137,7 +138,7 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
      * @param oe
      * @throws org.apache.directory.fortress.core.RemoveException
      */
-    final void remove( OrganizationalUnit oe )
+    void remove( OrganizationalUnit oe )
         throws RemoveException
     {
         LdapConnection ld = null;

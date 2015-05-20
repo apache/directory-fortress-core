@@ -20,7 +20,7 @@
 <html>
 <head>
     <title>Apache Fortress Ten Minute Guide</title>
-    <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+    <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style"/>
 </head>
 <body>
 <hr>
@@ -42,14 +42,14 @@
 
 <h3>Setup Apache Tomcat Web Server</h3>
 <img src="tomcat.png">
-<br><br>
+<br/><br/>
 This document contains instructions to install Tomcat 7 and configure for use with Fortress Realm.
 <hr>
 <h4>This section covers installation to Linux distros</h4>
 <ol>
     <li>
         If Tomcat is already installed skip this step.
-        <br><br>
+        <br/><br/>
         As root, issue the following commands:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
@@ -84,7 +84,7 @@ cp [directory-fortress-realm]/proxy/target/fortress-realm-proxy-[VERSION]-proxy.
         [VERSION] matches [directory-fortress-realm] package pom.xml file. At the time of this writing the current version was 1.0-RC40.
     </li>
 
-    <br>
+    <br/>
 
     <li>
         Edit tomcat-users.xml:
@@ -110,13 +110,13 @@ vi /usr/local/tomcat7/conf/tomcat-users.xml
         security <b>antipattern</b>. In production, the fortress realm should be used globally by Tomcat.
     </li>
 
-    <br>
+    <br/>
 
     <li>
         Save and exit.
     </li>
 
-    <br>
+    <br/>
 
     <li>
         Restart Tomcat:
@@ -141,14 +141,14 @@ tail -f -n10000 /usr/local/tomcat7/logs/catalina.out
         UnsupportedClassVersionError.  This is a sure sign that your Tomcat is running under the wrong version of java.  Remember Java 7 or greater is required to run this tutorial.
     </li>
 
-    <br>
+    <br/>
 
     <li>
         Verify setup by signing onto the Tomcat Manager app with credentials <b>userId</b>: <i>tcmanagergui</i>, <b>password</b>:
         <i>m@nager123</i>
-        <br><br>
+        <br/><br/>
                 <a href="http://localhost:8080/manager">http://localhost:8080/manager</a>
-        <br>
+        <br/>
     </li>
 
 </ol>

@@ -93,10 +93,10 @@ public final class OrgUnitP
      * @param entity
      * @return true if valid, false otherwise.
      */
-    /* No Qualifier */final boolean isValid( OrgUnit entity )
+    /* No Qualifier */boolean isValid( OrgUnit entity )
     {
         boolean result = false;
-        
+
         if ( entity.type == OrgUnit.Type.USER )
         {
             try
@@ -131,7 +131,7 @@ public final class OrgUnitP
                 permPoolLock.readLock().unlock();
             }
         }
-        
+
         return result;
     }
 
@@ -144,7 +144,7 @@ public final class OrgUnitP
     private static Set<String> loadUserSet( OrgUnit orgUnit )
     {
         Set<String> ouUserSet = null;
-        
+
         try
         {
             ouUserSet = oDao.getOrgs( orgUnit );
@@ -154,7 +154,7 @@ public final class OrgUnitP
             String warning = "loadOrgSet static initializer caught SecurityException=" + se;
             LOG.info( warning, se );
         }
-        
+
         ouCache.put( getKey( USER_OUS, orgUnit.getContextId() ), ouUserSet );
 
         return ouUserSet;
@@ -169,7 +169,7 @@ public final class OrgUnitP
     private static Set<String> loadPermSet( OrgUnit orgUnit )
     {
         Set<String> ouPermSet = null;
-        
+
         try
         {
             ouPermSet = oDao.getOrgs( orgUnit );
@@ -179,7 +179,7 @@ public final class OrgUnitP
             String warning = "loadOrgSet static initializer caught SecurityException=" + se;
             LOG.info( warning, se );
         }
-        
+
         ouCache.put( getKey( PERM_OUS, orgUnit.getContextId() ), ouPermSet );
 
         return ouPermSet;
@@ -200,7 +200,7 @@ public final class OrgUnitP
         {
             permSet = loadPermSet( orgUnit );
         }
-        
+
         return permSet;
     }
 
@@ -219,7 +219,7 @@ public final class OrgUnitP
         {
             userSet = loadUserSet( orgUnit );
         }
-        
+
         return userSet;
     }
 
@@ -232,10 +232,10 @@ public final class OrgUnitP
      * @return OrgUnit entity containing all attributes associated with ou in directory.
      * @throws SecurityException in the event OrgUnit not found or DAO search error.
      */
-    final OrgUnit read( OrgUnit entity ) throws SecurityException
+    OrgUnit read( OrgUnit entity ) throws SecurityException
     {
         validate( entity, false );
-        
+
         return oDao.findByKey( entity );
     }
 
@@ -248,7 +248,7 @@ public final class OrgUnitP
      * @return List of type OrgUnit containing fully populated matching OU entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<OrgUnit> search( OrgUnit orgUnit ) throws SecurityException
+    List<OrgUnit> search( OrgUnit orgUnit ) throws SecurityException
     {
         // Call the finder.
         return oDao.findOrgs( orgUnit );
@@ -264,11 +264,11 @@ public final class OrgUnitP
      * @return OrgUnit entity copy of input + additional attributes (internalId) that were added by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final OrgUnit add( OrgUnit entity ) throws SecurityException
+    OrgUnit add( OrgUnit entity ) throws SecurityException
     {
         validate( entity, false );
         OrgUnit oe = oDao.create( entity );
-        
+
         if ( entity.getType() == OrgUnit.Type.USER )
         {
             try
@@ -276,7 +276,7 @@ public final class OrgUnitP
                 userPoolLock.writeLock().lock();
 
                 Set<String> userPool = getUserSet( entity );
-                
+
                 if ( userPool != null )
                 {
                     userPool.add( entity.getName() );
@@ -294,7 +294,7 @@ public final class OrgUnitP
                 permPoolLock.writeLock().lock();
 
                 Set<String> permPool = getPermSet( entity );
-                
+
                 if ( permPool != null )
                 {
                     permPool.add( entity.getName() );
@@ -305,7 +305,7 @@ public final class OrgUnitP
                 permPoolLock.writeLock().unlock();
             }
         }
-        
+
         return oe;
     }
 
@@ -320,10 +320,10 @@ public final class OrgUnitP
      * @return OrgUnit entity copy of input + additional attributes (internalId) that were updated by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final OrgUnit update( OrgUnit entity ) throws SecurityException
+    OrgUnit update( OrgUnit entity ) throws SecurityException
     {
         validate( entity, false );
-        
+
         return oDao.update( entity );
     }
 
@@ -336,7 +336,7 @@ public final class OrgUnitP
      * @param entity OrgUnit contains data targeted for updating.  Null attributes ignored.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final void deleteParent( OrgUnit entity ) throws SecurityException
+    void deleteParent( OrgUnit entity ) throws SecurityException
     {
         validate( entity, false );
         oDao.deleteParent( entity );
@@ -352,10 +352,10 @@ public final class OrgUnitP
      * @return OrgUnit entity copy of input.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final OrgUnit delete( OrgUnit entity ) throws SecurityException
+    OrgUnit delete( OrgUnit entity ) throws SecurityException
     {
         oDao.remove( entity );
-        
+
         if ( entity.getType() == OrgUnit.Type.USER )
         {
             try
@@ -390,7 +390,7 @@ public final class OrgUnitP
                 permPoolLock.writeLock().unlock();
             }
         }
-        
+
         return entity;
     }
 
@@ -402,7 +402,7 @@ public final class OrgUnitP
      * @return List of type OrgUnit containing {@link OrgUnit#name} and {@link OrgUnit#parents} populated.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<Graphable> getAllDescendants( OrgUnit orgUnit ) throws SecurityException
+    List<Graphable> getAllDescendants( OrgUnit orgUnit ) throws SecurityException
     {
         return oDao.getAllDescendants( orgUnit );
     }
@@ -421,17 +421,17 @@ public final class OrgUnitP
         throws SecurityException
     {
         VUtil.safeText( entity.getName(), GlobalIds.OU_LEN );
-        
+
         if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }
-        
+
         if ( entity.getType() == null )
         {
             String error = "validate null or empty org unit type";
             int errCode;
-            
+
             if ( entity.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_TYPE_NULL_PERM;
@@ -440,7 +440,7 @@ public final class OrgUnitP
             {
                 errCode = GlobalErrIds.ORG_TYPE_NULL_USER;
             }
-            
+
             throw new SecurityException( errCode, error );
         }
     }
@@ -456,12 +456,12 @@ public final class OrgUnitP
     private static String getKey( String type, String contextId )
     {
         String key = type;
-        
+
         if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )
         {
             key += ":" + contextId;
         }
-        
+
         return key;
     }
 }

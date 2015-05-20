@@ -144,7 +144,7 @@ final class SdDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.CreateException
      */
-    final SDSet create( SDSet entity ) throws CreateException
+    SDSet create( SDSet entity ) throws CreateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -206,7 +206,7 @@ final class SdDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.UpdateException
      */
-    final SDSet update( SDSet entity ) throws UpdateException
+    SDSet update( SDSet entity ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -264,7 +264,7 @@ final class SdDAO extends ApacheDsDataProvider
      * @param entity
      * @throws org.apache.directory.fortress.core.RemoveException
      */
-    final SDSet remove( SDSet entity ) throws RemoveException
+    SDSet remove( SDSet entity ) throws RemoveException
     {
         LdapConnection ld = null;
         String dn = getDn( entity.getName(), entity.getContextId() );
@@ -304,7 +304,7 @@ final class SdDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final SDSet getSD( SDSet sdSet ) throws FinderException
+    SDSet getSD( SDSet sdSet ) throws FinderException
     {
         SDSet entity = null;
         LdapConnection ld = null;
@@ -357,7 +357,7 @@ final class SdDAO extends ApacheDsDataProvider
      * @return List of matching SDSets.
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    final List<SDSet> search( SDSet sdset ) throws FinderException
+    List<SDSet> search( SDSet sdset ) throws FinderException
     {
         List<SDSet> sdList = new ArrayList<>();
         LdapConnection ld = null;
@@ -430,7 +430,7 @@ final class SdDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    final List<SDSet> search( Role role, SDSet.SDType type ) throws FinderException
+    List<SDSet> search( Role role, SDSet.SDType type ) throws FinderException
     {
         List<SDSet> sdList = new ArrayList<>();
         LdapConnection ld = null;
@@ -539,7 +539,7 @@ final class SdDAO extends ApacheDsDataProvider
      * @return
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    final Set<SDSet> search( Set<String> roles, SDSet sdSet ) throws FinderException
+    Set<SDSet> search( Set<String> roles, SDSet sdSet ) throws FinderException
     {
         Set<SDSet> sdList = new HashSet<>();
         LdapConnection ld = null;

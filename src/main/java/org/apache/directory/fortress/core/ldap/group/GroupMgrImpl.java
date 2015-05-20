@@ -44,7 +44,7 @@ import java.util.List;
 public class GroupMgrImpl extends Manageable implements GroupMgr
 {
     private static final String CLS_NM = GroupMgrImpl.class.getName();
-    private static final GroupP groupP = new GroupP();
+    private static final GroupP GROUP_P = new GroupP();
 
     /**
      * Create a new group node.  Must have a name and at least one member.
@@ -65,7 +65,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
             loadUserDns( group );
         }
 
-        return groupP.add( group );
+        return GROUP_P.add( group );
     }
 
     /**
@@ -84,7 +84,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return groupP.update( group );
+        return GROUP_P.update( group );
     }
 
     /**
@@ -101,7 +101,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return groupP.delete( group );
+        return GROUP_P.delete( group );
     }
 
     /**
@@ -119,7 +119,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return groupP.add( group, key, value );
+        return GROUP_P.add( group, key, value );
     }
 
     /**
@@ -137,7 +137,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return groupP.delete( group, key, value );
+        return GROUP_P.delete( group, key, value );
     }
 
     /**
@@ -154,7 +154,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return groupP.read( group );
+        return GROUP_P.read( group );
     }
 
     /**
@@ -171,7 +171,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return groupP.search( group );
+        return GROUP_P.search( group );
     }
 
     /**
@@ -188,7 +188,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         checkAccess(CLS_NM, methodName);
         loadUserDn( user );
         
-        return groupP.search( user );
+        return GROUP_P.search( user );
     }
 
     /**
@@ -208,7 +208,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
         User user = reviewMgr.readUser( new User( member ) );
         
-        return groupP.assign( group, user.getDn() );
+        return GROUP_P.assign( group, user.getDn() );
     }
 
     /**
@@ -228,7 +228,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
         ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
         User user = reviewMgr.readUser( new User( member ) );
         
-        return groupP.deassign( group, user.getDn() );
+        return GROUP_P.deassign( group, user.getDn() );
     }
 
     private void loadUserDns( Group group ) throws SecurityException

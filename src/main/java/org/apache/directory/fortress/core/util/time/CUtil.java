@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.util.time;
 
+
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ObjectFactory;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.StringTokenizer;
+
 
 /**
  * This class contains utilities for temporal constraint processing that are used by Fortress internal.  All of the methods are static and the class
@@ -61,7 +63,8 @@ public class CUtil
     private static final String CLS_NM = CUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static List<Validator> validators;
-    private static final String DSDVALIDATOR = Config.getProperty(GlobalIds.DSD_VALIDATOR_PROP);
+    private static final String DSDVALIDATOR = Config.getProperty( GlobalIds.DSD_VALIDATOR_PROP );
+
 
     /**
      * Used by DAO utilities to convert from a string with comma delimited values to fortress internal format {@link Constraint}.
@@ -69,24 +72,24 @@ public class CUtil
      * @param inputString contains raw data format which is comma delimited containing temporal data.
      * @param constraint  used by internal processing to perform validations.
      */
-    public static void setConstraint(String inputString, Constraint constraint)
+    public static void setConstraint( String inputString, Constraint constraint )
     {
-        if(VUtil.isNotNullOrEmpty(inputString))
+        if ( VUtil.isNotNullOrEmpty( inputString ) )
         {
-            StringTokenizer tkn = new StringTokenizer(inputString, GlobalIds.DELIMITER, true);
-            if (tkn.countTokens() > 0)
+            StringTokenizer tkn = new StringTokenizer( inputString, GlobalIds.DELIMITER, true );
+            if ( tkn.countTokens() > 0 )
             {
                 int count = tkn.countTokens();
                 int index = 0;
                 boolean previousTokenWasDelimiter = false;
-                for (int i = 0; i < count; i++)
+                for ( int i = 0; i < count; i++ )
                 {
                     String szValue = tkn.nextToken();
-                    if(szValue.equals(GlobalIds.DELIMITER) && !previousTokenWasDelimiter)
+                    if ( szValue.equals( GlobalIds.DELIMITER ) && !previousTokenWasDelimiter )
                     {
                         previousTokenWasDelimiter = true;
                     }
-                    else if(szValue.equals(GlobalIds.DELIMITER))
+                    else if ( szValue.equals( GlobalIds.DELIMITER ) )
                     {
                         previousTokenWasDelimiter = true;
                         index++;
@@ -94,36 +97,39 @@ public class CUtil
                     else
                     {
                         previousTokenWasDelimiter = false;
-                        switch (index++)
+                        switch ( index++ )
                         {
                             case 0:
                                 // only set the name attr if it isn't already set:
-                                if (constraint.getName() == null || constraint.getName().length() == 0)
-                                    constraint.setName(szValue);
+                                if ( ( constraint.getName() == null ) || ( constraint.getName().length() == 0 ) )
+                                {
+                                    constraint.setName( szValue );
+                                }
+
                                 break;
                             case 1:
-                                constraint.setTimeout(Integer.parseInt(szValue));
+                                constraint.setTimeout( Integer.parseInt( szValue ) );
                                 break;
                             case 2:
-                                constraint.setBeginTime(szValue);
+                                constraint.setBeginTime( szValue );
                                 break;
                             case 3:
-                                constraint.setEndTime(szValue);
+                                constraint.setEndTime( szValue );
                                 break;
                             case 4:
-                                constraint.setBeginDate(szValue);
+                                constraint.setBeginDate( szValue );
                                 break;
                             case 5:
-                                constraint.setEndDate(szValue);
+                                constraint.setEndDate( szValue );
                                 break;
                             case 6:
-                                constraint.setBeginLockDate(szValue);
+                                constraint.setBeginLockDate( szValue );
                                 break;
                             case 7:
-                                constraint.setEndLockDate(szValue);
+                                constraint.setEndLockDate( szValue );
                                 break;
                             case 8:
-                                constraint.setDayMask(szValue);
+                                constraint.setDayMask( szValue );
                                 break;
                         }
                     }
@@ -132,47 +138,81 @@ public class CUtil
         }
     }
 
+
     /**
      * Convert from fortress {@link Constraint} to comma delimited ldap format.
      *
      * @param constraint contains the temporal data.
      * @return string containing raw data bound for ldap.
      */
-    public static String setConstraint(Constraint constraint)
+    public static String setConstraint( Constraint constraint )
     {
         String szConstraint = null;
-        if (constraint != null)
+        if ( constraint != null )
         {
             StringBuilder sb = new StringBuilder();
-            sb.append(constraint.getName());
-            sb.append(GlobalIds.DELIMITER);
-            if(constraint.getTimeout() != null)
-                sb.append(constraint.getTimeout());
-            sb.append(GlobalIds.DELIMITER);
-            if (constraint.getBeginTime() != null)
-                sb.append(constraint.getBeginTime());
-            sb.append(GlobalIds.DELIMITER);
-            if (constraint.getEndTime() != null)
-                sb.append(constraint.getEndTime());
-            sb.append(GlobalIds.DELIMITER);
-            if (constraint.getBeginDate() != null)
-                sb.append(constraint.getBeginDate());
-            sb.append(GlobalIds.DELIMITER);
-            if (constraint.getEndDate() != null)
-                sb.append(constraint.getEndDate());
-            sb.append(GlobalIds.DELIMITER);
-            if (constraint.getBeginLockDate() != null)
-                sb.append(constraint.getBeginLockDate());
-            sb.append(GlobalIds.DELIMITER);
-            if (constraint.getEndLockDate() != null)
-                sb.append(constraint.getEndLockDate());
-            sb.append(GlobalIds.DELIMITER);
-            if (constraint.getDayMask() != null)
-                sb.append(constraint.getDayMask());
+            sb.append( constraint.getName() );
+            sb.append( GlobalIds.DELIMITER );
+
+            if ( constraint.getTimeout() != null )
+            {
+                sb.append( constraint.getTimeout() );
+            }
+
+            sb.append( GlobalIds.DELIMITER );
+
+            if ( constraint.getBeginTime() != null )
+            {
+                sb.append( constraint.getBeginTime() );
+            }
+
+            sb.append( GlobalIds.DELIMITER );
+
+            if ( constraint.getEndTime() != null )
+            {
+                sb.append( constraint.getEndTime() );
+            }
+
+            sb.append( GlobalIds.DELIMITER );
+
+            if ( constraint.getBeginDate() != null )
+            {
+                sb.append( constraint.getBeginDate() );
+            }
+
+            sb.append( GlobalIds.DELIMITER );
+
+            if ( constraint.getEndDate() != null )
+            {
+                sb.append( constraint.getEndDate() );
+            }
+
+            sb.append( GlobalIds.DELIMITER );
+
+            if ( constraint.getBeginLockDate() != null )
+            {
+                sb.append( constraint.getBeginLockDate() );
+            }
+
+            sb.append( GlobalIds.DELIMITER );
+
+            if ( constraint.getEndLockDate() != null )
+            {
+                sb.append( constraint.getEndLockDate() );
+            }
+
+            sb.append( GlobalIds.DELIMITER );
+
+            if ( constraint.getDayMask() != null )
+            {
+                sb.append( constraint.getDayMask() );
+            }
+
             szConstraint = sb.toString();
         }
         return szConstraint;
     }
+
 
     /**
      * Validate the non-null attributes on the constraint.
@@ -180,42 +220,43 @@ public class CUtil
      * @param c1 contains the temporal values associated with an entity.
      * @throws org.apache.directory.fortress.core.ValidationException on first invalid attribute found.
      */
-    public static void validate(Constraint c1)
+    public static void validate( Constraint c1 )
         throws ValidationException
     {
-        if (VUtil.isNotNullOrEmpty(c1.getTimeout()))
+        if ( VUtil.isNotNullOrEmpty( c1.getTimeout() ) )
         {
-            VUtil.timeout(c1.getTimeout());
+            VUtil.timeout( c1.getTimeout() );
         }
-        if (VUtil.isNotNullOrEmpty(c1.getBeginTime()))
+        if ( VUtil.isNotNullOrEmpty( c1.getBeginTime() ) )
         {
-            VUtil.beginTime(c1.getBeginTime());
+            VUtil.beginTime( c1.getBeginTime() );
         }
-        if (VUtil.isNotNullOrEmpty(c1.getEndTime()))
+        if ( VUtil.isNotNullOrEmpty( c1.getEndTime() ) )
         {
-            VUtil.endTime(c1.getEndTime());
+            VUtil.endTime( c1.getEndTime() );
         }
-        if (VUtil.isNotNullOrEmpty(c1.getBeginDate()))
+        if ( VUtil.isNotNullOrEmpty( c1.getBeginDate() ) )
         {
-            VUtil.beginDate(c1.getBeginDate());
+            VUtil.beginDate( c1.getBeginDate() );
         }
-        if (VUtil.isNotNullOrEmpty(c1.getEndDate()))
+        if ( VUtil.isNotNullOrEmpty( c1.getEndDate() ) )
         {
-            VUtil.endDate(c1.getEndDate());
+            VUtil.endDate( c1.getEndDate() );
         }
-        if (VUtil.isNotNullOrEmpty(c1.getDayMask()))
+        if ( VUtil.isNotNullOrEmpty( c1.getDayMask() ) )
         {
-            VUtil.dayMask(c1.getDayMask());
+            VUtil.dayMask( c1.getDayMask() );
         }
-        if (VUtil.isNotNullOrEmpty(c1.getBeginLockDate()))
+        if ( VUtil.isNotNullOrEmpty( c1.getBeginLockDate() ) )
         {
-            VUtil.beginDate(c1.getBeginLockDate());
+            VUtil.beginDate( c1.getBeginLockDate() );
         }
-        if (VUtil.isNotNullOrEmpty(c1.getEndLockDate()))
+        if ( VUtil.isNotNullOrEmpty( c1.getEndLockDate() ) )
         {
-            VUtil.endDate(c1.getEndLockDate());
+            VUtil.endDate( c1.getEndLockDate() );
         }
     }
+
 
     /**
      * Utility is used during processing of constraint values.  The rule used here is if the target constraint will
@@ -226,73 +267,73 @@ public class CUtil
      * @param trgC instantiated object may contain zero or more attributes set.  Copy will not be performed on set attrs.
      * @throws org.apache.directory.fortress.core.ValidationException on first invalid attribute found.
      */
-    public static void validateOrCopy(Constraint srcC, Constraint trgC)
+    public static void validateOrCopy( Constraint srcC, Constraint trgC )
         throws ValidationException
     {
         //VUtil.timeout(trgC.getTimeout());
-        if (VUtil.isNotNullOrEmpty(trgC.getTimeout()))
+        if ( VUtil.isNotNullOrEmpty( trgC.getTimeout() ) )
         {
-            srcC.setTimeout(trgC.getTimeout());
+            srcC.setTimeout( trgC.getTimeout() );
         }
-        else if (VUtil.isNotNullOrEmpty(srcC.getTimeout()))
+        else if ( VUtil.isNotNullOrEmpty( srcC.getTimeout() ) )
         {
-            trgC.setTimeout(srcC.getTimeout());
+            trgC.setTimeout( srcC.getTimeout() );
         }
-        if (VUtil.isNotNullOrEmpty(trgC.getBeginTime()))
+        if ( VUtil.isNotNullOrEmpty( trgC.getBeginTime() ) )
         {
-            VUtil.beginTime(trgC.getBeginTime());
+            VUtil.beginTime( trgC.getBeginTime() );
         }
-        else if (VUtil.isNotNullOrEmpty(srcC.getBeginTime()))
+        else if ( VUtil.isNotNullOrEmpty( srcC.getBeginTime() ) )
         {
-            trgC.setBeginTime(srcC.getBeginTime());
+            trgC.setBeginTime( srcC.getBeginTime() );
         }
-        if (VUtil.isNotNullOrEmpty(trgC.getEndTime()))
+        if ( VUtil.isNotNullOrEmpty( trgC.getEndTime() ) )
         {
-            VUtil.endTime(trgC.getEndTime());
+            VUtil.endTime( trgC.getEndTime() );
         }
-        else if (VUtil.isNotNullOrEmpty(srcC.getEndTime()))
+        else if ( VUtil.isNotNullOrEmpty( srcC.getEndTime() ) )
         {
-            trgC.setEndTime(srcC.getEndTime());
+            trgC.setEndTime( srcC.getEndTime() );
         }
-        if (VUtil.isNotNullOrEmpty(trgC.getBeginDate()))
+        if ( VUtil.isNotNullOrEmpty( trgC.getBeginDate() ) )
         {
-            VUtil.beginDate(trgC.getBeginDate());
+            VUtil.beginDate( trgC.getBeginDate() );
         }
-        else if (VUtil.isNotNullOrEmpty(srcC.getBeginDate()))
+        else if ( VUtil.isNotNullOrEmpty( srcC.getBeginDate() ) )
         {
-            trgC.setBeginDate(srcC.getBeginDate());
+            trgC.setBeginDate( srcC.getBeginDate() );
         }
-        if (VUtil.isNotNullOrEmpty(trgC.getEndDate()))
+        if ( VUtil.isNotNullOrEmpty( trgC.getEndDate() ) )
         {
-            VUtil.endDate(trgC.getEndDate());
+            VUtil.endDate( trgC.getEndDate() );
         }
-        else if (VUtil.isNotNullOrEmpty(srcC.getEndDate()))
+        else if ( VUtil.isNotNullOrEmpty( srcC.getEndDate() ) )
         {
-            trgC.setEndDate(srcC.getEndDate());
+            trgC.setEndDate( srcC.getEndDate() );
         }
-        if (VUtil.isNotNullOrEmpty(trgC.getDayMask()))
+        if ( VUtil.isNotNullOrEmpty( trgC.getDayMask() ) )
         {
-            VUtil.dayMask(trgC.getDayMask());
+            VUtil.dayMask( trgC.getDayMask() );
         }
-        else if (VUtil.isNotNullOrEmpty(srcC.getDayMask()))
+        else if ( VUtil.isNotNullOrEmpty( srcC.getDayMask() ) )
         {
-            trgC.setDayMask(srcC.getDayMask());
+            trgC.setDayMask( srcC.getDayMask() );
         }
-        if (VUtil.isNotNullOrEmpty(trgC.getBeginLockDate()))
+        if ( VUtil.isNotNullOrEmpty( trgC.getBeginLockDate() ) )
         {
-            VUtil.beginDate(trgC.getBeginLockDate());
+            VUtil.beginDate( trgC.getBeginLockDate() );
         }
-        else if (VUtil.isNotNullOrEmpty(srcC.getBeginLockDate()))
+        else if ( VUtil.isNotNullOrEmpty( srcC.getBeginLockDate() ) )
         {
-            trgC.setBeginLockDate(srcC.getBeginLockDate());
+            trgC.setBeginLockDate( srcC.getBeginLockDate() );
         }
-        if (VUtil.isNotNullOrEmpty(trgC.getEndLockDate()))
+        if ( VUtil.isNotNullOrEmpty( trgC.getEndLockDate() ) )
         {
-            VUtil.endDate(trgC.getEndLockDate());
+            VUtil.endDate( trgC.getEndLockDate() );
         }
-        else if (VUtil.isNotNullOrEmpty(srcC.getEndLockDate()))
+        else if ( VUtil.isNotNullOrEmpty( srcC.getEndLockDate() ) )
         {
-            trgC.setEndLockDate(srcC.getEndLockDate());
+            trgC.setEndLockDate( srcC.getEndLockDate() );
         }
     }
 
@@ -320,11 +361,12 @@ public class CUtil
         {
             validators = getValidators();
         }
-        catch ( SecurityException ex)
+        catch ( SecurityException ex )
         {
-            LOG.error("static initialzier caught SecurityException=" + ex.getMessage(), ex);
+            LOG.error( "static initialzier caught SecurityException=" + ex.getMessage(), ex );
         }
     }
+
 
     /**
      * Copy source constraint to target. Both must be created before calling this utility.
@@ -332,42 +374,42 @@ public class CUtil
      * @param srcC contains constraint source.
      * @param trgC contains target constraint.
      */
-    public static void copy(Constraint srcC, Constraint trgC)
+    public static void copy( Constraint srcC, Constraint trgC )
     {
         // Both variables must be instantiated before being passed in to this method.
-        trgC.setTimeout(srcC.getTimeout());
+        trgC.setTimeout( srcC.getTimeout() );
 
-        if (VUtil.isNotNullOrEmpty(srcC.getName()))
+        if ( VUtil.isNotNullOrEmpty( srcC.getName() ) )
         {
-            trgC.setName(srcC.getName());
+            trgC.setName( srcC.getName() );
         }
-        if (VUtil.isNotNullOrEmpty(srcC.getBeginTime()))
+        if ( VUtil.isNotNullOrEmpty( srcC.getBeginTime() ) )
         {
-            trgC.setBeginTime(srcC.getBeginTime());
+            trgC.setBeginTime( srcC.getBeginTime() );
         }
-        if (VUtil.isNotNullOrEmpty(srcC.getEndTime()))
+        if ( VUtil.isNotNullOrEmpty( srcC.getEndTime() ) )
         {
-            trgC.setEndTime(srcC.getEndTime());
+            trgC.setEndTime( srcC.getEndTime() );
         }
-        if (VUtil.isNotNullOrEmpty(srcC.getDayMask()))
+        if ( VUtil.isNotNullOrEmpty( srcC.getDayMask() ) )
         {
-            trgC.setDayMask(srcC.getDayMask());
+            trgC.setDayMask( srcC.getDayMask() );
         }
-        if (VUtil.isNotNullOrEmpty(srcC.getBeginDate()))
+        if ( VUtil.isNotNullOrEmpty( srcC.getBeginDate() ) )
         {
-            trgC.setBeginDate(srcC.getBeginDate());
+            trgC.setBeginDate( srcC.getBeginDate() );
         }
-        if (VUtil.isNotNullOrEmpty(srcC.getEndDate()))
+        if ( VUtil.isNotNullOrEmpty( srcC.getEndDate() ) )
         {
-            trgC.setEndDate(srcC.getEndDate());
+            trgC.setEndDate( srcC.getEndDate() );
         }
-        if (VUtil.isNotNullOrEmpty(srcC.getBeginLockDate()))
+        if ( VUtil.isNotNullOrEmpty( srcC.getBeginLockDate() ) )
         {
-            trgC.setBeginLockDate(srcC.getBeginLockDate());
+            trgC.setBeginLockDate( srcC.getBeginLockDate() );
         }
-        if (VUtil.isNotNullOrEmpty(srcC.getEndLockDate()))
+        if ( VUtil.isNotNullOrEmpty( srcC.getEndLockDate() ) )
         {
-            trgC.setEndLockDate(srcC.getEndLockDate());
+            trgC.setEndLockDate( srcC.getEndLockDate() );
         }
     }
 
@@ -381,79 +423,83 @@ public class CUtil
      * @param checkDsd will check DSD constraints if true
      * @throws org.apache.directory.fortress.core.SecurityException in the event validation fails for User or system error occurs.
      */
-    public static void validateConstraints(Session session, ConstraintType type, boolean checkDsd)
+    public static void validateConstraints( Session session, ConstraintType type, boolean checkDsd )
         throws SecurityException
     {
         String location = "validateConstraints";
         int rc;
-        if (validators == null)
+        if ( validators == null )
         {
-            if(LOG.isDebugEnabled())
+            if ( LOG.isDebugEnabled() )
             {
                 LOG.debug( "{} userId [{}]  no constraints enabled", location, session.getUserId() );
             }
             return;
         }
         // no need to continue if the role list is empty and we're trying to check role constraints:
-        else if (type == ConstraintType.ROLE && !VUtil.isNotNullOrEmpty(session.getRoles()) && !VUtil.isNotNullOrEmpty(session.getAdminRoles()))
+        else if ( type == ConstraintType.ROLE && !VUtil.isNotNullOrEmpty( session.getRoles() )
+            && !VUtil.isNotNullOrEmpty( session.getAdminRoles() ) )
         {
-            if(LOG.isDebugEnabled())
+            if ( LOG.isDebugEnabled() )
             {
                 LOG.debug( "{} userId [{}]  has no roles assigned", location, session.getUserId() );
             }
             return;
         }
-        for (Validator val : validators)
+        for ( Validator val : validators )
         {
             Time currTime = TUtil.getCurrentTime();
             // first check the constraint on the user:
-            if (type == ConstraintType.USER)
+            if ( type == ConstraintType.USER )
             {
-                rc = val.validate(session, session.getUser(), currTime);
-                if (rc > 0)
+                rc = val.validate( session, session.getUser(), currTime );
+                if ( rc > 0 )
                 {
-                    String info = location + " user [" + session.getUserId() + "] was deactivated reason code [" + rc + "]";
-                    throw new ValidationException(rc, info);
+                    String info = location + " user [" + session.getUserId() + "] was deactivated reason code [" + rc
+                        + "]";
+                    throw new ValidationException( rc, info );
                 }
             }
             // Check the constraints for each role assignment:
             else
             {
-                if (VUtil.isNotNullOrEmpty(session.getRoles()))
+                if ( VUtil.isNotNullOrEmpty( session.getRoles() ) )
                 {
                     // now check the constraint on every rbac role activation candidate contained within session object:
                     ListIterator<UserRole> roleItems = session.getRoles().listIterator();
-                    
-                    while (roleItems.hasNext())
+
+                    while ( roleItems.hasNext() )
                     {
-                        Constraint constraint = (Constraint) roleItems.next();
-                        rc = val.validate(session, constraint, currTime);
-                        
-                        if (rc > 0)
+                        Constraint constraint = ( Constraint ) roleItems.next();
+                        rc = val.validate( session, constraint, currTime );
+
+                        if ( rc > 0 )
                         {
                             String msg = location + " role [" + constraint.getName() + "] for user ["
                                 + session.getUserId() + "] was deactivated reason code [" + rc + "]";
-                            LOG.info(msg);
+                            LOG.info( msg );
                             roleItems.remove();
-                            session.setWarning( new ObjectFactory().createWarning( rc, msg, Warning.Type.ROLE, constraint.getName() ) );
+                            session.setWarning( new ObjectFactory().createWarning( rc, msg, Warning.Type.ROLE,
+                                constraint.getName() ) );
                         }
                     }
                 }
-                if (VUtil.isNotNullOrEmpty(session.getAdminRoles()))
+                if ( VUtil.isNotNullOrEmpty( session.getAdminRoles() ) )
                 {
                     // now check the constraint on every arbac role activation candidate contained within session object:
                     ListIterator roleItems = session.getAdminRoles().listIterator();
-                    while (roleItems.hasNext())
+                    while ( roleItems.hasNext() )
                     {
-                        Constraint constraint = (Constraint) roleItems.next();
-                        rc = val.validate(session, constraint, currTime);
-                        if (rc > 0)
+                        Constraint constraint = ( Constraint ) roleItems.next();
+                        rc = val.validate( session, constraint, currTime );
+                        if ( rc > 0 )
                         {
                             String msg = location + " admin role [" + constraint.getName() + "] for user ["
                                 + session.getUserId() + "] was deactivated reason code [" + rc + "]";
-                            LOG.info(msg);
+                            LOG.info( msg );
                             roleItems.remove();
-                            session.setWarning( new ObjectFactory().createWarning( rc, msg, Warning.Type.ROLE, constraint.getName() ) );
+                            session.setWarning( new ObjectFactory().createWarning( rc, msg, Warning.Type.ROLE,
+                                constraint.getName() ) );
                         }
                     }
                 }
@@ -461,14 +507,16 @@ public class CUtil
         }
 
         // now perform DSD validation on session's rbac roles:
-        if (checkDsd && DSDVALIDATOR != null && DSDVALIDATOR.length() > 0 && type == ConstraintType.ROLE && VUtil.isNotNullOrEmpty( session.getRoles() ))
+        if ( checkDsd && DSDVALIDATOR != null && DSDVALIDATOR.length() > 0 && type == ConstraintType.ROLE
+            && VUtil.isNotNullOrEmpty( session.getRoles() ) )
         {
-            Validator dsdVal = (Validator) ClassUtil.createInstance(DSDVALIDATOR);
-            dsdVal.validate(session, session.getUser(), null);
+            Validator dsdVal = ( Validator ) ClassUtil.createInstance( DSDVALIDATOR );
+            dsdVal.validate( session, session.getUser(), null );
         }
         // reset the user's last access timestamp:
         session.setLastAccess();
     }
+
 
     /**
      * Utility is used internally by this class to retrieve a list of all Validator class names, instantiate and return.
@@ -480,16 +528,16 @@ public class CUtil
         throws CfgException
     {
         List<Validator> validators = new ArrayList<>();
-        for (int i = 0; ; i++)
+        for ( int i = 0;; i++ )
         {
             String prop = GlobalIds.VALIDATOR_PROPS + i;
-            String className = Config.getProperty(prop);
-            if (className == null)
+            String className = Config.getProperty( prop );
+            if ( className == null )
             {
                 break;
             }
 
-            validators.add((Validator) ClassUtil.createInstance(className));
+            validators.add( ( Validator ) ClassUtil.createInstance( className ) );
         }
         return validators;
     }

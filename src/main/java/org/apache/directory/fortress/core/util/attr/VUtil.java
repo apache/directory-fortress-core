@@ -42,7 +42,7 @@ public class VUtil
     private static final String CLS_NM = VUtil.class.getName();
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static int maximumFieldLen = 130;
-    private final static String VALIDATE_LENGTH = "field.length";
+    private static final String VALIDATE_LENGTH = "field.length";
 
     static
     {
@@ -61,10 +61,10 @@ public class VUtil
         }
     }
 
-    private final static int MAXIMUM_FIELD_LEN = maximumFieldLen;
-    private final static int maxFieldLength = MAXIMUM_FIELD_LEN;
-    private final static char[] LDAP_META_CHARS = loadLdapEscapeChars();
-    private final static String[] LDAP_REPL_VALS = loadValidLdapVals();
+    private static final int MAXIMUM_FIELD_LEN = maximumFieldLen;
+    private static final int maxFieldLength = MAXIMUM_FIELD_LEN;
+    private static final char[] LDAP_META_CHARS = loadLdapEscapeChars();
+    private static final String[] LDAP_REPL_VALS = loadValidLdapVals();
     private static final int TIME_LEN = 4;
     private static final int DATE_LEN = 8;
     private static final int DAYMASK_LEN = 7;

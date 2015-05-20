@@ -159,8 +159,11 @@ public final class PsoUtil
                 String name = ou.getName();
                 iOUs.add( name );
                 Set<String> parents = HierUtil.getAscendants( name, getGraph( contextId ) );
+
                 if ( VUtil.isNotNullOrEmpty( parents ) )
+                {
                     iOUs.addAll( parents );
+                }
             }
         }
         return iOUs;

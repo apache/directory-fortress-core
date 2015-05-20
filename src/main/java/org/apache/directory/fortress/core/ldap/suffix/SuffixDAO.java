@@ -86,7 +86,7 @@ final class SuffixDAO extends ApacheDsDataProvider
      * @param se
      * @throws org.apache.directory.fortress.core.CreateException
      */
-    final void create( Suffix se )
+    void create( Suffix se )
         throws CreateException
     {
         LdapConnection ld = null;
@@ -127,7 +127,7 @@ final class SuffixDAO extends ApacheDsDataProvider
      * @param se
      * @throws org.apache.directory.fortress.core.RemoveException
      */
-    final void remove( Suffix se )
+    void remove( Suffix se )
         throws RemoveException
     {
         LdapConnection ld = null;

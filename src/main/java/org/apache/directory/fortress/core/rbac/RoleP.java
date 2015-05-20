@@ -52,6 +52,7 @@ public final class RoleP
 {
     private static RoleDAO rDao = new RoleDAO();
 
+
     /**
      * Package private
      */
@@ -68,7 +69,7 @@ public final class RoleP
      * @return Role entity containing all attributes associated with Role in directory.
      * @throws SecurityException in the event Role not found or DAO search error.
      */
-    final Role read( Role role ) throws SecurityException
+    Role read( Role role ) throws SecurityException
     {
         return rDao.getRole( role );
     }
@@ -81,7 +82,7 @@ public final class RoleP
      * @return List of type Role containing fully populated matching RBAC Role entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<Role> search( Role role ) throws SecurityException
+    List<Role> search( Role role ) throws SecurityException
     {
         return rDao.findRoles( role );
     }
@@ -96,7 +97,7 @@ public final class RoleP
      * @return List of type String containing RBAC Role name of all matching User entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<String> search( Role role, int limit ) throws SecurityException
+    List<String> search( Role role, int limit ) throws SecurityException
     {
         return rDao.findRoles( role, limit );
     }
@@ -109,7 +110,7 @@ public final class RoleP
      * @return List of type Role containing {@link Role#name} and {@link Role#parents} populated.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<Graphable> getAllDescendants( String contextId ) throws SecurityException
+    List<Graphable> getAllDescendants( String contextId ) throws SecurityException
     {
         return rDao.getAllDescendants( contextId );
     }
@@ -123,7 +124,7 @@ public final class RoleP
      * @return Role entity copy of input + additional attributes (internalId) that were added by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final Role add( Role entity ) throws SecurityException
+    Role add( Role entity ) throws SecurityException
     {
         validate( entity );
         return rDao.create( entity );
@@ -138,7 +139,7 @@ public final class RoleP
      * @return Role entity contains fully populated updated entity.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final Role update( Role entity ) throws SecurityException
+    Role update( Role entity ) throws SecurityException
     {
         validate( entity );
         return rDao.update( entity );
@@ -152,7 +153,7 @@ public final class RoleP
      * @param entity Role entity contains data targeted for updating.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final void deleteParent( Role entity ) throws SecurityException
+    void deleteParent( Role entity ) throws SecurityException
     {
         validate( entity );
         rDao.deleteParent( entity );
@@ -167,7 +168,7 @@ public final class RoleP
      * @return Role containing copy of input data.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final Role assign( Role entity, String userDn ) throws SecurityException
+    Role assign( Role entity, String userDn ) throws SecurityException
     {
         return rDao.assign( entity, userDn );
     }
@@ -181,7 +182,7 @@ public final class RoleP
      * @return Role containing copy of input data.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final Role deassign( Role entity, String userDn ) throws SecurityException
+    Role deassign( Role entity, String userDn ) throws SecurityException
     {
         entity = rDao.deassign( entity, userDn );
         return entity;
@@ -197,7 +198,7 @@ public final class RoleP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws SecurityException in the event of DAO search error.
      */
-    final void addOccupant( List<UserRole> uRoles, String userDn, String contextId ) throws SecurityException
+    void addOccupant( List<UserRole> uRoles, String userDn, String contextId ) throws SecurityException
     {
         if ( VUtil.isNotNullOrEmpty( uRoles ) )
         {
@@ -219,7 +220,7 @@ public final class RoleP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws SecurityException in the event of DAO search error.
      */
-    final void removeOccupant( String userDn, String contextId ) throws SecurityException
+    void removeOccupant( String userDn, String contextId ) throws SecurityException
     {
         List<String> list;
         try

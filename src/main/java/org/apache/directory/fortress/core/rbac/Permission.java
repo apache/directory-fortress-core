@@ -732,14 +732,27 @@ public class Permission extends FortEntity implements Serializable
     public boolean equals( Object thatOp )
     {
         if ( this == thatOp )
+        {
             return true;
+        }
+
         if ( this.getObjName() == null )
+        {
             return false;
+        }
+
         if ( !( thatOp instanceof Permission ) )
+        {
             return false;
+        }
+
         Permission thatPermission = ( Permission ) thatOp;
+
         if ( thatPermission.getObjName() == null )
+        {
             return false;
+        }
+
         return ( ( thatPermission.getObjName().equalsIgnoreCase( this.getObjName() ) ) && ( thatPermission
             .getOpName().equalsIgnoreCase( this.getOpName() ) ) );
     }

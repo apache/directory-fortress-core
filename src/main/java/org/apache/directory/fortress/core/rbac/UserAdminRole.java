@@ -253,26 +253,55 @@ public class UserAdminRole extends UserRole implements Administrator
         sb.append( GlobalIds.DELIMITER );
         sb.append( this.getTimeout() );
         sb.append( GlobalIds.DELIMITER );
+
         if ( this.getBeginTime() != null )
+        {
             sb.append( this.getBeginTime() );
+        }
+
         sb.append( GlobalIds.DELIMITER );
+
         if ( this.getEndTime() != null )
+        {
             sb.append( this.getEndTime() );
+        }
+
         sb.append( GlobalIds.DELIMITER );
+
         if ( this.getBeginDate() != null )
+        {
             sb.append( this.getBeginDate() );
+        }
+
         sb.append( GlobalIds.DELIMITER );
+
         if ( this.getEndDate() != null )
+        {
             sb.append( this.getEndDate() );
+        }
+
         sb.append( GlobalIds.DELIMITER );
+
         if ( this.getBeginLockDate() != null )
+        {
             sb.append( this.getBeginLockDate() );
+
+        }
+
         sb.append( GlobalIds.DELIMITER );
+
         if ( this.getEndLockDate() != null )
+        {
             sb.append( this.getEndLockDate() );
+        }
+
         sb.append( GlobalIds.DELIMITER );
+
         if ( this.getDayMask() != null )
+        {
             sb.append( this.getDayMask() );
+        }
+
         if ( this.getOsU() != null )
         {
             for ( String org : this.getOsU() )
@@ -283,6 +312,7 @@ public class UserAdminRole extends UserRole implements Administrator
                 sb.append( org );
             }
         }
+
         if ( this.getOsP() != null )
         {
             for ( String org : this.getOsP() )
@@ -612,6 +642,7 @@ public class UserAdminRole extends UserRole implements Administrator
         return ( ( thatRole.getName().equalsIgnoreCase( this.getName() ) ) && ( thatRole.getUserId()
             .equalsIgnoreCase( this.getUserId() ) ) );
     }
+
 
     @Override
     public int hashCode()

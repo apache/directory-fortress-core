@@ -168,6 +168,7 @@ public final class AdminRoleUtil
     {
         // create Set with case insensitive comparator:
         Set<String> iRoles = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
+
         if ( VUtil.isNotNullOrEmpty( uRoles ) )
         {
             for ( UserAdminRole uRole : uRoles )
@@ -175,8 +176,11 @@ public final class AdminRoleUtil
                 String rleName = uRole.getName();
                 iRoles.add( rleName );
                 Set<String> parents = HierUtil.getAscendants( rleName, getGraph( contextId ) );
+
                 if ( VUtil.isNotNullOrEmpty( parents ) )
+                {
                     iRoles.addAll( parents );
+                }
             }
         }
         return iRoles;
@@ -235,7 +239,7 @@ public final class AdminRoleUtil
         inHier.setContextId( contextId );
         LOG.info( "loadGraph initializing ADMIN ROLE context [{}]", inHier.getContextId() );
         List<Graphable> descendants = null;
-        
+
         try
         {
             descendants = adminRoleP.getAllDescendants( inHier.getContextId() );
@@ -244,13 +248,13 @@ public final class AdminRoleUtil
         {
             LOG.info( "loadGraph caught SecurityException={}", se );
         }
-        
+
         Hier hier = HierUtil.loadHier( contextId, descendants );
         SimpleDirectedGraph<String, Relationship> graph;
 
         graph = HierUtil.buildGraph( hier );
         adminRoleCache.put( getKey( contextId ), graph );
-        
+
         return graph;
     }
 
@@ -266,13 +270,13 @@ public final class AdminRoleUtil
     {
         ReadWriteLock hierLock = HierUtil.getLock( contextId, HierUtil.Type.ARLE );
         String key = getKey( contextId );
-        
+
         try
         {
             hierLock.readLock().lock();
             SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) adminRoleCache
                 .get( key );
-            
+
             if ( graph == null )
             {
                 try
@@ -285,7 +289,7 @@ public final class AdminRoleUtil
 
                     //if ( graph == null )
                     //{
-                        graph = loadGraph( contextId );
+                    graph = loadGraph( contextId );
                     //}
 
                     hierLock.readLock().lock();
@@ -295,7 +299,7 @@ public final class AdminRoleUtil
                     hierLock.writeLock().unlock();
                 }
             }
-            
+
             return graph;
         }
         finally

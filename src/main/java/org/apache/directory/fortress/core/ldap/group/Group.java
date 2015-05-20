@@ -35,8 +35,9 @@ import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
+
 @XmlRootElement(name = "fortGroup")
-@XmlAccessorType( XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "group", propOrder =
     {
         "name",
@@ -44,7 +45,7 @@ import java.util.StringTokenizer;
         "protocol",
         "members",
         "props",
-    })
+})
 public class Group extends FortEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -55,12 +56,14 @@ public class Group extends FortEntity implements Serializable
     private Props props = new Props();
     boolean memberDn;
 
+
     /**
      * Default constructor used by {@link org.apache.directory.fortress.core.ant.FortressAntTask}
      */
     public Group()
     {
     }
+
 
     /**
      * Generate instance of group to be loaded as ldap object.
@@ -71,6 +74,7 @@ public class Group extends FortEntity implements Serializable
     {
         this.name = name;
     }
+
 
     /**
      * Generate instance of group to be loaded as ldap object.
@@ -84,6 +88,7 @@ public class Group extends FortEntity implements Serializable
         this.description = description;
     }
 
+
     /**
      * Get the second level qualifier on the domain component.  This attribute is required.
      *
@@ -94,15 +99,17 @@ public class Group extends FortEntity implements Serializable
         return name;
     }
 
+
     /**
      * Set the second level qualifier on the domain component.  This attribute is required.
      *
      * @param name maps to 'dcObject' object class.
      */
-    public void setName(String name)
+    public void setName( String name )
     {
         this.name = name;
     }
+
 
     /**
      * Get the description for the domain component.  This value is not required or constrained
@@ -115,16 +122,18 @@ public class Group extends FortEntity implements Serializable
         return description;
     }
 
+
     /**
      * Set the description for the domain component.  This value is not required or constrained
      * but is validated on reasonability.
      *
      * @param description maps to 'o' attribute on 'dcObject'.
      */
-    public void setDescription(String description)
+    public void setDescription( String description )
     {
         this.description = description;
     }
+
 
     /**
      * Get protocol qualifier for this entity.
@@ -136,6 +145,7 @@ public class Group extends FortEntity implements Serializable
         return protocol;
     }
 
+
     /**
      * Set the protocol qualifier for this entity.
      *
@@ -145,6 +155,7 @@ public class Group extends FortEntity implements Serializable
     {
         this.protocol = protocol;
     }
+
 
     /**
      * Add a single userId as member of this entity.
@@ -160,6 +171,7 @@ public class Group extends FortEntity implements Serializable
         members.add( userId );
     }
 
+
     /**
      * Return the members
      *
@@ -170,6 +182,7 @@ public class Group extends FortEntity implements Serializable
         return members;
     }
 
+
     /**
      * Set a member on this entity using a comma delimited String.
      *
@@ -177,12 +190,12 @@ public class Group extends FortEntity implements Serializable
      */
     public void setMembers( String members )
     {
-        if (members != null)
+        if ( members != null )
         {
-            StringTokenizer tkn = new StringTokenizer(members, ",");
-            if (tkn.countTokens() > 0)
+            StringTokenizer tkn = new StringTokenizer( members, "," );
+            if ( tkn.countTokens() > 0 )
             {
-                while (tkn.hasMoreTokens())
+                while ( tkn.hasMoreTokens() )
                 {
                     String member = tkn.nextToken();
                     setMember( member );
@@ -190,6 +203,7 @@ public class Group extends FortEntity implements Serializable
             }
         }
     }
+
 
     /**
      * Set members onto this entity using a List of userIds.
@@ -200,6 +214,7 @@ public class Group extends FortEntity implements Serializable
     {
         this.members = members;
     }
+
 
     /**
      * Add name/value pair to list of properties associated with PermObj.  These values are not constrained by Fortress.
@@ -215,6 +230,7 @@ public class Group extends FortEntity implements Serializable
         entry.setValue( value );
         this.props.getEntry().add( entry );
     }
+
 
     /**
      * Get a name/value pair attribute from list of properties associated with PermObj.  These values are not constrained by Fortress.
@@ -240,6 +256,7 @@ public class Group extends FortEntity implements Serializable
         return value;
     }
 
+
     /**
      * Replace teh collection of name/value pairs to attributes associated with Group entity.  These values are not constrained by Fortress.
      * Properties are optional.
@@ -252,7 +269,7 @@ public class Group extends FortEntity implements Serializable
         {
             // reset the existing properties stored in this entity.
             props = new Props();
-            
+
             for ( Enumeration<?> e = properties.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
@@ -262,6 +279,7 @@ public class Group extends FortEntity implements Serializable
             }
         }
     }
+
 
     /**
      * Add new collection of name=value pairs to attributes associated with Group.  These values are not constrained by Fortress.
@@ -273,6 +291,7 @@ public class Group extends FortEntity implements Serializable
     {
         setProperties( AttrHelper.getProperties( properties, '=', "," ) );
     }
+
 
     /**
      * Return the collection of name/value pairs to attributes associated with PermObj.  These values are not constrained by Fortress.
@@ -298,13 +317,14 @@ public class Group extends FortEntity implements Serializable
         return properties;
     }
 
+
     public List<String> getPropList()
     {
         List<Props.Entry> props = this.props.getEntry();
         List<String> propList = null;
         if ( props.size() > 0 )
         {
-            propList = new ArrayList<>(  );
+            propList = new ArrayList<>();
             for ( Props.Entry entry : props )
             {
                 String key = entry.getKey();
@@ -316,6 +336,7 @@ public class Group extends FortEntity implements Serializable
         return propList;
     }
 
+
     /**
      * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
      *
@@ -326,6 +347,7 @@ public class Group extends FortEntity implements Serializable
     {
         return props;
     }
+
 
     /**
      * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
@@ -340,6 +362,7 @@ public class Group extends FortEntity implements Serializable
         this.props = props;
     }
 
+
     /**
      * Set if userDn's are loaded in dn format.
      *
@@ -350,6 +373,7 @@ public class Group extends FortEntity implements Serializable
         return memberDn;
     }
 
+
     /**
      * Set to 'true' if members are in dn format.
      *
@@ -359,6 +383,7 @@ public class Group extends FortEntity implements Serializable
     {
         this.memberDn = memberDn;
     }
+
 
     @Override
     public boolean equals( Object o )
@@ -374,32 +399,35 @@ public class Group extends FortEntity implements Serializable
 
         Group group = ( Group ) o;
 
-/*
-        if ( description != null ? !description.equals( group.description ) : group.description != null )
+        /*
+                if ( description != null ? !description.equals( group.description ) : group.description != null )
+                {
+                    return false;
+                }
+                if ( members != null ? !members.equals( group.members ) : group.members != null )
+                {
+                    return false;
+                }
+        */
+        if ( name == null )
         {
             return false;
         }
-        if ( members != null ? !members.equals( group.members ) : group.members != null )
-        {
-            return false;
-        }
-*/
-        if(name == null)
-            return false;
 
         if ( !name.equals( group.name ) )
         {
             return false;
         }
-/*
-        if ( protocol != null ? !protocol.equals( group.protocol ) : group.protocol != null )
-        {
-            return false;
-        }
-*/
+        /*
+                if ( protocol != null ? !protocol.equals( group.protocol ) : group.protocol != null )
+                {
+                    return false;
+                }
+        */
 
         return true;
     }
+
 
     @Override
     public int hashCode()
@@ -411,6 +439,7 @@ public class Group extends FortEntity implements Serializable
         result = 31 * result + ( props != null ? props.hashCode() : 0 );
         return result;
     }
+
 
     @Override
     public String toString()

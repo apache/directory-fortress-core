@@ -128,7 +128,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.CreateException
      *
      */
-    final OrgUnit create( OrgUnit entity ) throws CreateException
+    OrgUnit create( OrgUnit entity ) throws CreateException
     {
         LdapConnection ld = null;
         Dn dn = getDn( entity );
@@ -189,7 +189,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    final OrgUnit update( OrgUnit entity ) throws UpdateException
+    OrgUnit update( OrgUnit entity ) throws UpdateException
     {
         LdapConnection ld = null;
         Dn dn = getDn( entity );
@@ -243,7 +243,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.UpdateException
      *
      */
-    final void deleteParent( OrgUnit entity ) throws UpdateException
+    void deleteParent( OrgUnit entity ) throws UpdateException
     {
         LdapConnection ld = null;
         Dn dn = getDn( entity );
@@ -285,7 +285,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.RemoveException
      *
      */
-    final OrgUnit remove( OrgUnit entity ) throws RemoveException
+    OrgUnit remove( OrgUnit entity ) throws RemoveException
     {
         LdapConnection ld = null;
         Dn dn = getDn( entity );
@@ -327,7 +327,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
      * @throws FinderException
      *
      */
-    final OrgUnit findByKey( OrgUnit entity ) throws FinderException
+    OrgUnit findByKey( OrgUnit entity ) throws FinderException
     {
         OrgUnit oe = null;
         LdapConnection ld = null;
@@ -406,7 +406,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
      * @throws org.apache.directory.fortress.core.FinderException
      *
      */
-    final List<OrgUnit> findOrgs( OrgUnit orgUnit ) throws FinderException
+    List<OrgUnit> findOrgs( OrgUnit orgUnit ) throws FinderException
     {
         List<OrgUnit> orgUnitList = new ArrayList<>();
         LdapConnection ld = null;
@@ -477,7 +477,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
      * @return
      * @throws FinderException
      */
-    final Set<String> getOrgs( OrgUnit orgUnit ) throws FinderException
+    Set<String> getOrgs( OrgUnit orgUnit ) throws FinderException
     {
         Set<String> ouSet = new TreeSet<String>( String.CASE_INSENSITIVE_ORDER );
         LdapConnection ld = null;
@@ -546,7 +546,7 @@ final class OrgUnitDAO extends ApacheDsDataProvider
       * @return
       * @throws FinderException
       */
-    final List<Graphable> getAllDescendants( OrgUnit orgUnit ) throws FinderException
+    List<Graphable> getAllDescendants( OrgUnit orgUnit ) throws FinderException
     {
         String orgUnitRoot = getOrgRoot( orgUnit );
         String[] DESC_ATRS =

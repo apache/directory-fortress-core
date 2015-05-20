@@ -81,13 +81,13 @@ public final class UserP
      * @return List of type User containing fully populated matching User entities.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<User> search( User user ) throws SecurityException
+    List<User> search( User user ) throws SecurityException
     {
         return uDao.findUsers( user );
     }
 
 
-    final List<User> search( OrgUnit ou, boolean limitSize ) throws SecurityException
+    List<User> search( OrgUnit ou, boolean limitSize ) throws SecurityException
     {
         return uDao.findUsers( ou, limitSize );
     }
@@ -102,7 +102,7 @@ public final class UserP
      * @return List of type String containing userId of all matching User entities. If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<String> search( User user, int limit ) throws SecurityException
+    List<String> search( User user, int limit ) throws SecurityException
     {
         return uDao.findUsers( user, limit );
     }
@@ -115,7 +115,7 @@ public final class UserP
      * @return List of type User containing fully populated matching User entities. If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<User> getAuthorizedUsers( Role role ) throws SecurityException
+    List<User> getAuthorizedUsers( Role role ) throws SecurityException
     {
         return uDao.getAuthorizedUsers( role );
     }
@@ -129,7 +129,7 @@ public final class UserP
      * @return Set of type String containing the userId's for matching User entities. If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final Set<String> getAssignedUsers( Set<String> roles, String contextId ) throws SecurityException
+    Set<String> getAssignedUsers( Set<String> roles, String contextId ) throws SecurityException
     {
         return uDao.getAssignedUsers( roles, contextId );
     }
@@ -145,7 +145,7 @@ public final class UserP
      * @return list of type String of userIds. If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<String> getAuthorizedUsers( Role role, int limit ) throws SecurityException
+    List<String> getAuthorizedUsers( Role role, int limit ) throws SecurityException
     {
         return uDao.getAuthorizedUsers( role, limit );
     }
@@ -159,7 +159,7 @@ public final class UserP
      * @return List of fully populated User entities matching target search. If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<User> getAssignedUsers( Role role ) throws SecurityException
+    List<User> getAssignedUsers( Role role ) throws SecurityException
     {
         return uDao.getAssignedUsers( role );
     }
@@ -173,7 +173,7 @@ public final class UserP
      * @return List of fully populated User entities matching target search.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<User> getAssignedUsers( AdminRole role ) throws SecurityException
+    List<User> getAssignedUsers( AdminRole role ) throws SecurityException
     {
         return uDao.getAssignedUsers( role );
     }
@@ -186,7 +186,7 @@ public final class UserP
      * @return List of type String containing RBAC role names.  If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */
-    final List<String> getAssignedRoles( User user ) throws SecurityException
+    List<String> getAssignedRoles( User user ) throws SecurityException
     {
         return uDao.getRoles( user );
     }
@@ -201,7 +201,7 @@ public final class UserP
      * @return User entity containing all attributes associated with User in directory.
      * @throws SecurityException in the event of User not found or DAO search error.
      */
-    final User read( User user, boolean isRoles ) throws SecurityException
+    User read( User user, boolean isRoles ) throws SecurityException
     {
         return uDao.getUser( user, isRoles );
     }
@@ -216,7 +216,7 @@ public final class UserP
      * @return User entity copy of input + additional attributes (internalId) that were added by op.
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final User add( User entity ) throws SecurityException
+    User add( User entity ) throws SecurityException
     {
         return add( entity, true );
     }
@@ -232,7 +232,7 @@ public final class UserP
      * @return User entity copy of input + additional attributes (internalId)
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final User add( User entity, boolean validate ) throws SecurityException
+    User add( User entity, boolean validate ) throws SecurityException
     {
         if ( validate )
         {
@@ -257,7 +257,7 @@ public final class UserP
      * @return User entity copy of input
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final User update( User entity ) throws SecurityException
+    User update( User entity ) throws SecurityException
     {
         return update( entity, true );
     }
@@ -287,7 +287,7 @@ public final class UserP
      * @return User entity copy of input
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final User update( User entity, boolean validate ) throws SecurityException
+    User update( User entity, boolean validate ) throws SecurityException
     {
         if ( validate )
         {
@@ -307,7 +307,7 @@ public final class UserP
      * @return String contains user DN
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final String softDelete( User user ) throws SecurityException
+    String softDelete( User user ) throws SecurityException
     {
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
         // Is there a match between this userId and a Fortress system user?
@@ -332,7 +332,7 @@ public final class UserP
      * @return String contains user DN
      * @throws SecurityException in the event of data validation or DAO system error.
      */
-    final String delete( User user ) throws SecurityException
+    String delete( User user ) throws SecurityException
     {
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
         // Is there a match between this userId and a Fortress system user?
@@ -354,7 +354,7 @@ public final class UserP
      * @param user contains the userId for target user.
      * @throws SecurityException in the event of DAO error.
      */
-    final void deletePwPolicy( User user ) throws SecurityException
+    void deletePwPolicy( User user ) throws SecurityException
     {
         uDao.deletePwPolicy( user );
     }
@@ -368,7 +368,7 @@ public final class UserP
      * @return Session object will be returned if authentication successful.  This will not contain user's roles.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    final Session authenticate( User user ) throws SecurityException
+    Session authenticate( User user ) throws SecurityException
     {
         Session session;
         session = uDao.checkPassword( user );
@@ -435,7 +435,7 @@ public final class UserP
      * @return Session object will contain authentication result code, RBAC and Admin role activations, OpenLDAP pw policy output and more.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
-    final Session createSession( User user, boolean trusted ) throws SecurityException
+    Session createSession( User user, boolean trusted ) throws SecurityException
     {
         Session session;
         if ( trusted )
@@ -535,7 +535,7 @@ public final class UserP
      * @param user Contains userId that represents rDn of node in ldap directory.
      * @throws SecurityException in the event of DAO error.
      */
-    final void lock( User user ) throws SecurityException
+    void lock( User user ) throws SecurityException
     {
         uDao.lock( user );
     }
@@ -547,7 +547,7 @@ public final class UserP
      * @param user Contains userId that represents rDn of node in ldap directory.
      * @throws SecurityException in the event of DAO  error.
      */
-    final void unlock( User user ) throws SecurityException
+    void unlock( User user ) throws SecurityException
     {
         uDao.unlock( user );
     }
@@ -560,7 +560,7 @@ public final class UserP
      * @param newPassword contains the new password which must pass the password policy constraints.
      * @throws SecurityException in the event of data validation failure, password policy violation or DAO error.
      */
-    final void changePassword( User entity, char[] newPassword ) throws SecurityException
+    void changePassword( User entity, char[] newPassword ) throws SecurityException
     {
         String userId = entity.getUserId();
         boolean result = uDao.changePassword( entity, newPassword );
@@ -578,7 +578,7 @@ public final class UserP
      * @param user contains the userId and the new password.
      * @throws SecurityException in the event of DAO error.
      */
-    final void resetPassword( User user ) throws SecurityException
+    void resetPassword( User user ) throws SecurityException
     {
         uDao.resetUserPassword( user );
     }
@@ -618,7 +618,7 @@ public final class UserP
      * @return String containing the user's DN.  This value is used to update the "roleOccupant" attribute on associated role entity.
      * @throws SecurityException in the event data error in user or role objects or system error.
      */
-    final String assign( UserRole uRole ) throws SecurityException
+    String assign( UserRole uRole ) throws SecurityException
     {
         validate( uRole );
         // "assign" custom Fortress role data, i.e. temporal constraints, onto the user node:
@@ -640,7 +640,7 @@ public final class UserP
      * @return String containing the user's DN.  This value is used to remove the "roleOccupant" attribute on associated RBAC Role entity.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
-    final String deassign( UserRole uRole ) throws SecurityException
+    String deassign( UserRole uRole ) throws SecurityException
     {
         validate( uRole );
         // "deassign" custom Fortress role data from the user's node:
@@ -672,7 +672,7 @@ public final class UserP
      * @return String containing the user's DN.  This value is used to update the "roleOccupant" attribute on associated Admin Role entity.
      * @throws SecurityException in the event data error in user or role objects or system error.
      */
-    final String assign( UserAdminRole uRole ) throws SecurityException
+    String assign( UserAdminRole uRole ) throws SecurityException
     {
         validate( uRole );
         // Assign custom Fortress role data, i.e. temporal constraints, onto the user node:
@@ -692,7 +692,7 @@ public final class UserP
      * @return String containing the user's DN.  This value is used to remove the "roleOccupant" attribute on associated Admin Role entity.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
-    final String deassign( UserAdminRole uRole ) throws SecurityException
+    String deassign( UserAdminRole uRole ) throws SecurityException
     {
         validate( uRole );
         // Deassign custom Fortress role data from the user's node:
