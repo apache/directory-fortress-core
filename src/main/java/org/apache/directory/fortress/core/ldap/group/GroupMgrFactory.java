@@ -45,6 +45,13 @@ public class GroupMgrFactory
     private static final String CREATE_INSTANCE_METHOD = CLS_NM + ".createInstance";
 
     /**
+     * Prevent instantiation.
+     */
+    private GroupMgrFactory()
+    {
+    }
+
+    /**
      * Create and return a reference to {@link GroupMgr} object using HOME context.
      *
      * @return instance of {@link org.apache.directory.fortress.core.AdminMgr}.
