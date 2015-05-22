@@ -59,7 +59,6 @@ public final class AdminRoleP
     private static final AdminRoleDAO rDao = new AdminRoleDAO();
     private static final OrgUnitP op = new OrgUnitP();
 
-
     /**
      * Package private constructor.
      */
@@ -390,12 +389,12 @@ public final class AdminRoleP
 
         if ( VUtil.isNotNullOrEmpty( entity.getOsU() ) )
         {
-            validateOrgs( entity.getOsU(), entity.getContextId() );
+            validateOrgs( entity.getOsU(), OrgUnit.Type.USER, entity.getContextId() );
         }
 
         if ( VUtil.isNotNullOrEmpty( entity.getOsP() ) )
         {
-            validateOrgs( entity.getOsP(), entity.getContextId() );
+            validateOrgs( entity.getOsP(), OrgUnit.Type.PERM, entity.getContextId() );
         }
     }
 
@@ -406,12 +405,12 @@ public final class AdminRoleP
      * @param contextId
      * @throws SecurityException
      */
-    private void validateOrgs( Set<String> orgs, String contextId ) throws SecurityException
+    private void validateOrgs( Set<String> orgs, OrgUnit.Type type, String contextId ) throws SecurityException
     {
         for ( String ou : orgs )
         {
             OrgUnit inOe = new OrgUnit( ou );
-            inOe.setType( OrgUnit.Type.USER );
+            inOe.setType( type );
             inOe.setContextId( contextId );
             op.read( inOe );
         }
