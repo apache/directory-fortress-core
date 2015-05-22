@@ -229,27 +229,27 @@ public class AdminRole extends Role implements Administrator
     {
         if ( VUtil.isNotNullOrEmpty( szRaw ) )
         {
-            int bindx = szRaw.indexOf( "(" );
+            int bindx = szRaw.indexOf( '(' );
             if ( bindx > -1 )
             {
                 this.setBeginInclusive( false );
             }
             else
             {
-                bindx = szRaw.indexOf( "[" );
+                bindx = szRaw.indexOf( '[' );
                 this.setBeginInclusive( true );
             }
-            int eindx = szRaw.indexOf( ")" );
+            int eindx = szRaw.indexOf( ')' );
             if ( eindx > -1 )
             {
                 this.setEndInclusive( false );
             }
             else
             {
-                eindx = szRaw.indexOf( "]" );
+                eindx = szRaw.indexOf( ']' );
                 this.setEndInclusive( true );
             }
-            int cindx = szRaw.indexOf( ":" );
+            int cindx = szRaw.indexOf( ':' );
             if ( cindx > -1 )
             {
                 String szBeginRange = szRaw.substring( bindx + 1, cindx );
@@ -275,16 +275,25 @@ public class AdminRole extends Role implements Administrator
         if ( this.beginRange != null )
         {
             if ( this.isBeginInclusive() )
+            {
                 szRaw += "[";
+            }
             else
+            {
                 szRaw += "(";
+            }
             szRaw += this.getBeginRange();
             szRaw += ":";
             szRaw += this.getEndRange();
             if ( this.isEndInclusive() )
+            {
                 szRaw += "]";
+            }
             else
+            {
                 szRaw += ")";
+            }
+
         }
         return szRaw;
     }
