@@ -28,13 +28,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class LdapCounters
 {
-    AtomicInteger readCtr = new AtomicInteger( 0 );
-    AtomicInteger searchCtr = new AtomicInteger( 0 );
-    AtomicInteger compareCtr = new AtomicInteger( 0 );
-    AtomicInteger addCtr = new AtomicInteger( 0 );
-    AtomicInteger modCtr = new AtomicInteger( 0 );
-    AtomicInteger deleteCtr = new AtomicInteger( 0 );
-    AtomicInteger bindCtr = new AtomicInteger( 0 );
+    private AtomicInteger readCtr = new AtomicInteger( 0 );
+    private AtomicInteger searchCtr = new AtomicInteger( 0 );
+    private AtomicInteger compareCtr = new AtomicInteger( 0 );
+    private AtomicInteger addCtr = new AtomicInteger( 0 );
+    private AtomicInteger modCtr = new AtomicInteger( 0 );
+    private AtomicInteger deleteCtr = new AtomicInteger( 0 );
+    private AtomicInteger bindCtr = new AtomicInteger( 0 );
 
 
     public void incrementSearch()
