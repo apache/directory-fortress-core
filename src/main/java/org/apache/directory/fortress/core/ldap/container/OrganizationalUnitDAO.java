@@ -69,28 +69,12 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
     private static final String CLS_NM = OrganizationalUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-
-    //private static final String ORGUNIT_CLASS = "organizationalunit";
-    /*
-        private static final String[] ORGUNIT_OBJ_CLASS =
-            {
-                ORGUNIT_CLASS
-            };
-    */
-
     /**
      * Package private default constructor.
      */
     OrganizationalUnitDAO()
     {
     }
-
-
-    private String getSdRoot( String contextId )
-    {
-        return getRootDn( contextId, GlobalIds.SUFFIX );
-    }
-
 
     /**
      * @param oe
