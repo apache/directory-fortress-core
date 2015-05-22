@@ -385,19 +385,20 @@ public class Config
      */
     private static void getExternalConfig()
     {
+        String PREFIX = "getExternalConfig override name [{}] value [{}]";
         // Check to see if the ldap host has been overriden by a system property:
         String szValue = System.getProperty( EXT_LDAP_HOST );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_HOST, szValue );
-            LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.LDAP_HOST, szValue );
+            LOG.info( PREFIX, GlobalIds.LDAP_HOST, szValue );
         }
         // Check to see if the ldap port has been overriden by a system property:
         szValue = System.getProperty( EXT_LDAP_PORT );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_PORT, szValue );
-            LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.LDAP_PORT, szValue );
+            LOG.info( PREFIX, GlobalIds.LDAP_PORT, szValue );
         }
 
         // Check to see if the admin pool uid has been overriden by a system property:
@@ -423,7 +424,7 @@ public class Config
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MIN, szValue );
-            LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.LDAP_ADMIN_POOL_MIN, szValue );
+            LOG.info( PREFIX, GlobalIds.LDAP_ADMIN_POOL_MIN, szValue );
         }
 
         // Check to see if the admin pool max connections has been overriden by a system property:
@@ -431,7 +432,7 @@ public class Config
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MAX, Integer.valueOf( szValue ) );
-            LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.LDAP_ADMIN_POOL_MAX, szValue );
+            LOG.info( PREFIX, GlobalIds.LDAP_ADMIN_POOL_MAX, szValue );
         }
 
         // Check to see if ssl enabled parameter has been overriden by a system property:
@@ -439,7 +440,7 @@ public class Config
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.ENABLE_LDAP_SSL, szValue );
-            LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.ENABLE_LDAP_SSL, szValue );
+            LOG.info( PREFIX, GlobalIds.ENABLE_LDAP_SSL, szValue );
         }
 
         // Check to see if the ssl debug enabled parameter has been overriden by a system property:
@@ -447,7 +448,7 @@ public class Config
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.ENABLE_LDAP_SSL_DEBUG, szValue );
-            LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.ENABLE_LDAP_SSL_DEBUG, szValue );
+            LOG.info( PREFIX, GlobalIds.ENABLE_LDAP_SSL_DEBUG, szValue );
         }
 
         // Check to see if the trust store location has been overriden by a system property:
@@ -455,7 +456,7 @@ public class Config
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.TRUST_STORE, szValue );
-            LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.TRUST_STORE, szValue );
+            LOG.info( PREFIX, GlobalIds.TRUST_STORE, szValue );
         }
 
         // Check to see if the trust store password has been overriden by a system property:
@@ -472,7 +473,7 @@ public class Config
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.SET_TRUST_STORE_PROP, szValue );
-            LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.SET_TRUST_STORE_PROP, szValue );
+            LOG.info( PREFIX, GlobalIds.SET_TRUST_STORE_PROP, szValue );
         }
 
         // Check to see if the config realm name has been overriden by a system property:
@@ -480,7 +481,7 @@ public class Config
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.CONFIG_REALM, szValue );
-            LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.CONFIG_REALM, szValue );
+            LOG.info( PREFIX, GlobalIds.CONFIG_REALM, szValue );
         }
 
         // Check to see if the ldap server type has been overriden by a system property:
@@ -488,7 +489,7 @@ public class Config
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.SERVER_TYPE, szValue );
-            LOG.info( "getExternalConfig override name [{}] value [{}]", GlobalIds.SERVER_TYPE, szValue );
+            LOG.info( PREFIX, GlobalIds.SERVER_TYPE, szValue );
         }
     }
 }
