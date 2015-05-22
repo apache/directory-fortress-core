@@ -54,7 +54,7 @@ public class Group extends FortEntity implements Serializable
     private String protocol;
     private List<String> members;
     private Props props = new Props();
-    boolean memberDn;
+    private boolean memberDn;
 
 
     /**
@@ -306,7 +306,6 @@ public class Group extends FortEntity implements Serializable
         if ( props.size() > 0 )
         {
             properties = new Properties();
-            //int size = props.size();
             for ( Props.Entry entry : props )
             {
                 String key = entry.getKey();
@@ -399,16 +398,6 @@ public class Group extends FortEntity implements Serializable
 
         Group group = ( Group ) o;
 
-        /*
-                if ( description != null ? !description.equals( group.description ) : group.description != null )
-                {
-                    return false;
-                }
-                if ( members != null ? !members.equals( group.members ) : group.members != null )
-                {
-                    return false;
-                }
-        */
         if ( name == null )
         {
             return false;
@@ -418,13 +407,6 @@ public class Group extends FortEntity implements Serializable
         {
             return false;
         }
-        /*
-                if ( protocol != null ? !protocol.equals( group.protocol ) : group.protocol != null )
-                {
-                    return false;
-                }
-        */
-
         return true;
     }
 
