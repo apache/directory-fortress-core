@@ -216,9 +216,7 @@ public abstract class ApacheDsDataProvider
             throw new CfgRuntimeException( GlobalErrIds.FT_APACHE_LDAP_POOL_INIT_FAILED, error, ex );
         }
 
-        //PoolableObjectFactory<LdapConnection> poolFactory = new DefaultPoolableLdapConnectionFactory( config );
         PoolableObjectFactory<LdapConnection> poolFactory = new ValidatingPoolableLdapConnectionFactory( config );
-
 
         // Create the Admin pool
         adminPool = new LdapConnectionPool( poolFactory );
@@ -270,7 +268,6 @@ public abstract class ApacheDsDataProvider
                 logPw = Config.getProperty( LDAP_LOG_POOL_PW );
             }
             logConfig.setCredentials( logPw );
-            //poolFactory = new DefaultPoolableLdapConnectionFactory( logConfig );
             poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );
             logPool = new LdapConnectionPool( poolFactory );
             logPool.setTestOnBorrow( true );
@@ -1440,7 +1437,7 @@ public abstract class ApacheDsDataProvider
         }
         catch ( Exception e )
         {
-            throw new RuntimeException( e.getMessage() );
+            throw new RuntimeException( e.getMessage(), e );
         }
     }
 
@@ -1459,7 +1456,7 @@ public abstract class ApacheDsDataProvider
         }
         catch ( Exception e )
         {
-            throw new RuntimeException( e.getMessage() );
+            throw new RuntimeException( e.getMessage(), e );
         }
     }
 
@@ -1478,7 +1475,7 @@ public abstract class ApacheDsDataProvider
         }
         catch ( Exception e )
         {
-            throw new RuntimeException( e.getMessage() );
+            throw new RuntimeException( e.getMessage(), e );
         }
     }
 
@@ -1497,7 +1494,7 @@ public abstract class ApacheDsDataProvider
         }
         catch ( Exception e )
         {
-            throw new LdapException( e.getMessage() );
+            throw new LdapException( e.getMessage(), e );
         }
     }
 
@@ -1516,7 +1513,7 @@ public abstract class ApacheDsDataProvider
         }
         catch ( Exception e )
         {
-            throw new LdapException( e.getMessage() );
+            throw new LdapException( e.getMessage(), e );
         }
     }
 
@@ -1535,7 +1532,7 @@ public abstract class ApacheDsDataProvider
         }
         catch ( Exception e )
         {
-            throw new LdapException( e.getMessage() );
+            throw new LdapException( e.getMessage(), e );
         }
     }
 

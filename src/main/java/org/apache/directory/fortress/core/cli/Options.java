@@ -90,7 +90,7 @@ public class Options implements java.io.Serializable
     private final CmdLineParser.Option postalOfficeBox;
     private final CmdLineParser.Option protocol;
     private final CmdLineParser.Option member;
-    
+
     /**
      * @param parser
      */
