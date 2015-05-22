@@ -1230,22 +1230,6 @@ public class FortressAntTask extends Task implements InputHandler
             for ( UserRole userRole : userroles )
             {
                 LOG.info( "addUserRoles userid={} role name={}", userRole.getUserId(), userRole.getName() );
-
-                /*
-                System.out.println("userrole data:");
-                System.out.println("    userId:" + userRole.getUserId());
-                System.out.println("    name:" + userRole.getName());
-                System.out.println("    bdate:" + userRole.getBeginDate());
-                System.out.println("    edate:" + userRole.getEndDate());
-                System.out.println("    blckdate:" + userRole.getBeginLockDate());
-                System.out.println("    elckdate:" + userRole.getEndLockDate());
-                System.out.println("    btime:" + userRole.getBeginTime());
-                System.out.println("    etime:" + userRole.getEndTime());
-                System.out.println("    day:" + userRole.getDayMask());
-                System.out.println("    raw:" + ((UserRole)userRole).getRawData());
-                System.out.println("    to:" + userRole.getTimeout());
-                */
-
                 try
                 {
                     //Role role = new Role(userRole);
