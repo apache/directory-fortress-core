@@ -230,21 +230,21 @@ public class FortressAntTask extends Task implements InputHandler
     private final List<Deladminroleinheritance> deladminroleinheritances = new ArrayList<>();
     private final List<Deluseradminrole> deluseradminroles = new ArrayList<>();
     private final List<Addcontext> addcontexts = new ArrayList<>();
-    protected final List<Addgroup> addgroups = new ArrayList<>();
-    protected final List<Delgroup> delgroups = new ArrayList<>();
-    protected final List<Addgroupmember> addgroupmembers = new ArrayList<>();
-    protected final List<Delgroupmember> delgroupmembers = new ArrayList<>();
-    protected final List<Addgroupproperty> addgroupproperties = new ArrayList<>();
-    protected final List<Delgroupproperty> delgroupproperties = new ArrayList<>();
+    private final List<Addgroup> addgroups = new ArrayList<>();
+    private final List<Delgroup> delgroups = new ArrayList<>();
+    private final List<Addgroupmember> addgroupmembers = new ArrayList<>();
+    private final List<Delgroupmember> delgroupmembers = new ArrayList<>();
+    private final List<Addgroupproperty> addgroupproperties = new ArrayList<>();
+    private final List<Delgroupproperty> delgroupproperties = new ArrayList<>();
 
-    protected ConfigMgr cfgMgr = null;
-    protected AdminMgr adminMgr = null;
-    protected DelAdminMgr dAdminMgr = null;
-    protected PwPolicyMgr policyMgr = null;
-    protected GroupMgr groupMgr = null;
+    private ConfigMgr cfgMgr = null;
+    private AdminMgr adminMgr = null;
+    private DelAdminMgr dAdminMgr = null;
+    private PwPolicyMgr policyMgr = null;
+    private GroupMgr groupMgr = null;
     private static final String CLS_NM = FortressAntTask.class.getName();
     protected static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    protected Context context;
+    private Context context;
 
 
     /**

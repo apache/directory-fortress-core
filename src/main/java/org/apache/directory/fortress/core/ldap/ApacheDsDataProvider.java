@@ -82,6 +82,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
+import org.apache.directory.ldap.client.api.ValidatingPoolableLdapConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -215,7 +216,9 @@ public abstract class ApacheDsDataProvider
             throw new CfgRuntimeException( GlobalErrIds.FT_APACHE_LDAP_POOL_INIT_FAILED, error, ex );
         }
 
-        PoolableObjectFactory<LdapConnection> poolFactory = new DefaultPoolableLdapConnectionFactory( config );
+        //PoolableObjectFactory<LdapConnection> poolFactory = new DefaultPoolableLdapConnectionFactory( config );
+        PoolableObjectFactory<LdapConnection> poolFactory = new ValidatingPoolableLdapConnectionFactory( config );
+
 
         // Create the Admin pool
         adminPool = new LdapConnectionPool( poolFactory );
@@ -267,7 +270,8 @@ public abstract class ApacheDsDataProvider
                 logPw = Config.getProperty( LDAP_LOG_POOL_PW );
             }
             logConfig.setCredentials( logPw );
-            poolFactory = new DefaultPoolableLdapConnectionFactory( logConfig );
+            //poolFactory = new DefaultPoolableLdapConnectionFactory( logConfig );
+            poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );
             logPool = new LdapConnectionPool( poolFactory );
             logPool.setTestOnBorrow( true );
             logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
