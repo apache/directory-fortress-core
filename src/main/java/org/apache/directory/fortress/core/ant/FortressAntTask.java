@@ -787,221 +787,63 @@ public class FortressAntTask extends Task implements InputHandler
     public void execute() throws BuildException
     {
         LOG.info( "FORTRESS ANT TASK NAME : {}", getTaskName() );
+
         if ( isListNotNull( addcontexts ) )
         {
             setContext( addcontexts.get( 0 ).getContexts().get( 0 ) );
         }
 
-        if ( isListNotNull( deluserroles ) )
-        {
-            delUserRoles();
-        }
+        delUserRoles();
+        delUserAdminRoles();
+        deletePermGrants();
+        deleteGroupProperties();
+        deleteGroupMembers();
+        deleteGroups();
+        deleteUsers();
+        deletePolicies();
+        deletePermOps();
+        deletePermObjs();
+        deleteSdsets();
+        deleteRoleInheritances();
+        deleteRoles();
+        deleteAdminRoleInheritances();
+        deleteAdminRoles();
+        deleteUserOrgunitInheritances();
+        deletePermOrgunitInheritances();
+        delOrgunits();
+        deleteConfig();
+        deleteContainers();
+        deleteSuffixes();
+        addSuffixes();
+        addContainers();
+        addConfig();
+        addOrgunits();
+        addUserOrgunitInheritances();
+        addPermOrgunitInheritances();
+        addAdminRoles();
+        addAdminRoleInheritances();
+        addRoles();
+        addRoleInheritances();
+        addSdsets();
+        addPermObjs();
+        addPermOps();
+        addPolicies();
+        addUsers();
+        addGroups();
+        addGroupMembers();
+        addGroupProperties();
+        addPermGrants();
+        addUserAdminRoles();
+        addUserRoles();
 
-        if ( isListNotNull( deluseradminroles ) )
-        {
-            delUserAdminRoles();
-        }
+        testResults();
+    }
 
-        if ( isListNotNull( delpermGrants ) )
-        {
-            deletePermGrants();
-        }
-
-        if ( isListNotNull( delgroupproperties ) )
-        {
-            deleteGroupProperties();
-        }
-
-        if ( isListNotNull( delgroupmembers ) )
-        {
-            deleteGroupMembers();
-        }
-
-        if ( isListNotNull( delgroups ) )
-        {
-            deleteGroups();
-        }
-
-        if ( isListNotNull( delusers ) )
-        {
-            deleteUsers();
-        }
-
-        if ( isListNotNull( delpolicies ) )
-        {
-            deletePolicies();
-        }
-
-        if ( isListNotNull( delpermOps ) )
-        {
-            deletePermOps();
-        }
-
-        if ( isListNotNull( delpermObjs ) )
-        {
-            deletePermObjs();
-        }
-
-        if ( isListNotNull( delsdsets ) )
-        {
-            deleteSdsets();
-        }
-
-        if ( isListNotNull( delroleinheritances ) )
-        {
-            deleteRoleInheritances();
-        }
-
-        if ( isListNotNull( delroles ) )
-        {
-            deleteRoles();
-        }
-
-        if ( isListNotNull( deladminroleinheritances ) )
-        {
-            deleteAdminRoleInheritances();
-        }
-
-        if ( isListNotNull( deladminroles ) )
-        {
-            deleteAdminRoles();
-        }
-
-        if ( isListNotNull( deluserorgunitinheritances ) )
-        {
-            deleteUserOrgunitInheritances();
-        }
-
-        if ( isListNotNull( delpermorgunitinheritances ) )
-        {
-            deletePermOrgunitInheritances();
-        }
-
-        if ( isListNotNull( delorgunits ) )
-        {
-            delOrgunits();
-        }
-
-        if ( isListNotNull( delconfig ) )
-        {
-            deleteConfig();
-        }
-
-        if ( isListNotNull( delcontainers ) )
-        {
-            deleteContainers();
-        }
-
-        if ( isListNotNull( delsuffixes ) )
-        {
-            deleteSuffixes();
-        }
-
-        if ( isListNotNull( addsuffixes ) )
-        {
-            addSuffixes();
-        }
-
-        if ( isListNotNull( addcontainers ) )
-        {
-            addContainers();
-        }
-
-        if ( isListNotNull( addconfig ) )
-        {
-            addConfig();
-        }
-
-        if ( isListNotNull( addorgunits ) )
-        {
-            addOrgunits();
-        }
-
-        if ( isListNotNull( adduserorgunitinheritances ) )
-        {
-            addUserOrgunitInheritances();
-        }
-
-        if ( isListNotNull( addpermorgunitinheritances ) )
-        {
-            addPermOrgunitInheritances();
-        }
-
-        if ( isListNotNull( addadminroles ) )
-        {
-            addAdminRoles();
-        }
-
-        if ( isListNotNull( addadminroleinheritances ) )
-        {
-            addAdminRoleInheritances();
-        }
-
-        if ( isListNotNull( addroles ) )
-        {
-            addRoles();
-        }
-
-        if ( isListNotNull( addroleinheritances ) )
-        {
-            addRoleInheritances();
-        }
-
-        if ( isListNotNull( addsdsets ) )
-        {
-            addSdsets();
-        }
-
-        if ( isListNotNull( addpermObjs ) )
-        {
-            addPermObjs();
-        }
-
-        if ( isListNotNull( addpermOps ) )
-        {
-            addPermOps();
-        }
-
-        if ( isListNotNull( addpolicies ) )
-        {
-            addPolicies();
-        }
-
-        if ( isListNotNull( addusers ) )
-        {
-            addUsers();
-        }
-
-        if ( isListNotNull( addgroups ) )
-        {
-            addGroups();
-        }
-
-        if ( isListNotNull( addgroupmembers ) )
-        {
-            addGroupMembers();
-        }
-
-        if ( isListNotNull( addgroupproperties ) )
-        {
-            addGroupProperties();
-        }
-
-        if ( isListNotNull( addpermGrants ) )
-        {
-            addPermGrants();
-        }
-
-        if ( isListNotNull( adduseradminroles ) )
-        {
-            addUserAdminRoles();
-        }
-
-        if ( isListNotNull( adduserroles ) )
-        {
-            addUserRoles();
-        }
-
+    /**
+     *
+     */
+    private void testResults()
+    {
         // Test the results?
         if ( DEBUG )
         {
@@ -1026,12 +868,16 @@ public class FortressAntTask extends Task implements InputHandler
         }
     }
 
-
     /**
      * @throws BuildException
      */
     private void addUsers() throws BuildException
     {
+        if( addusers == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Adduser adduser : addusers )
         {
@@ -1103,6 +949,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteUsers() throws BuildException
     {
+        if( delusers == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Deluser deluser : delusers )
         {
@@ -1128,6 +979,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addGroups() throws BuildException
     {
+        if( addgroups == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addgroup addgroup : addgroups )
         {
@@ -1154,6 +1010,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteGroups() throws BuildException
     {
+        if( delgroups == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delgroup delgroup : delgroups )
         {
@@ -1179,6 +1040,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addGroupMembers() throws BuildException
     {
+        if( addgroupmembers == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addgroupmember addgroupmember : addgroupmembers )
         {
@@ -1217,6 +1083,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteGroupMembers() throws BuildException
     {
+        if( delgroupmembers == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delgroupmember delgroupmember : delgroupmembers )
         {
@@ -1253,6 +1124,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addGroupProperties() throws BuildException
     {
+        if( addgroupproperties == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addgroupproperty addgroupproperty : addgroupproperties )
         {
@@ -1291,6 +1167,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteGroupProperties() throws BuildException
     {
+        if( delgroupproperties == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delgroupproperty delgroupproperty : delgroupproperties )
         {
@@ -1330,6 +1211,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addUserRoles() throws BuildException
     {
+        if( adduserroles == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Adduserrole adduserrole : adduserroles )
         {
@@ -1374,6 +1260,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void delUserRoles() throws BuildException
     {
+        if( deluserroles == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Deluserrole deluserrole : deluserroles )
         {
@@ -1401,6 +1292,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addRoles() throws BuildException
     {
+        if( addroles == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addrole addrole : addroles )
         {
@@ -1426,6 +1322,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteRoles() throws BuildException
     {
+        if( delroles == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delrole delrole : delroles )
         {
@@ -1451,6 +1352,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addRoleInheritances() throws BuildException
     {
+        if( addroleinheritances == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addroleinheritance addroleinheritance : addroleinheritances )
         {
@@ -1478,6 +1384,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteRoleInheritances() throws BuildException
     {
+        if( delroleinheritances == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delroleinheritance delroleinheritance : delroleinheritances )
         {
@@ -1506,6 +1417,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addSdsets() throws BuildException
     {
+        if( addsdsets == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addsdset addsdset : addsdsets )
         {
@@ -1538,6 +1454,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteSdsets() throws BuildException
     {
+        if( delsdsets == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delsdset delsdset : delsdsets )
         {
@@ -1571,6 +1492,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addPermObjs() throws BuildException
     {
+        if( addpermObjs == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( AddpermObj addpermObj : addpermObjs )
         {
@@ -1615,6 +1541,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deletePermObjs() throws BuildException
     {
+        if( delpermObjs == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( DelpermObj delpermObj : delpermObjs )
         {
@@ -1641,6 +1572,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addPermOps() throws BuildException
     {
+        if( addpermOps == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( AddpermOp addpermOp : addpermOps )
         {
@@ -1684,6 +1620,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deletePermOps() throws BuildException
     {
+        if( delpermOps == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( DelpermOp delpermOp : delpermOps )
         {
@@ -1710,6 +1651,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addPermGrants() throws BuildException
     {
+        if( addpermGrants == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( AddpermGrant addpermGrant : addpermGrants )
         {
@@ -1755,6 +1701,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deletePermGrants() throws BuildException
     {
+        if( delpermGrants == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( DelpermGrant delpermGrant : delpermGrants )
         {
@@ -1800,6 +1751,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addPolicies() throws BuildException
     {
+        if( addpolicies == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addpwpolicy addpwpolicy : addpolicies )
         {
@@ -1825,6 +1781,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deletePolicies() throws BuildException
     {
+        if( delpolicies == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delpwpolicy delpwpolicy : delpolicies )
         {
@@ -1850,6 +1811,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addContainers() throws BuildException
     {
+        if( addcontainers == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addcontainer addcontainer : addcontainers )
         {
@@ -1883,6 +1849,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteContainers() throws BuildException
     {
+        if( delcontainers == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delcontainer delcontainer : delcontainers )
         {
@@ -1909,6 +1880,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addSuffixes() throws BuildException
     {
+        if( addsuffixes == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addsuffix addsuffix : addsuffixes )
         {
@@ -1936,6 +1912,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteSuffixes() throws BuildException
     {
+        if( delsuffixes == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delsuffix delsuffix : delsuffixes )
         {
@@ -1962,6 +1943,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addOrgunits() throws BuildException
     {
+        if( addorgunits == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addorgunit addorgunit : addorgunits )
         {
@@ -1988,6 +1974,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void delOrgunits() throws BuildException
     {
+        if( delorgunits == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delorgunit delorgunit : delorgunits )
         {
@@ -2013,6 +2004,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addUserOrgunitInheritances() throws BuildException
     {
+        if( adduserorgunitinheritances == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Adduserorgunitinheritance adduserorgunitinheritance : adduserorgunitinheritances )
         {
@@ -2041,6 +2037,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteUserOrgunitInheritances() throws BuildException
     {
+        if( deluserorgunitinheritances == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Deluserorgunitinheritance deluserorgunitinheritance : deluserorgunitinheritances )
         {
@@ -2069,6 +2070,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addPermOrgunitInheritances() throws BuildException
     {
+        if( addpermorgunitinheritances == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addpermorgunitinheritance addpermorgunitinheritance : addpermorgunitinheritances )
         {
@@ -2097,6 +2103,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deletePermOrgunitInheritances() throws BuildException
     {
+        if( delpermorgunitinheritances == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Delpermorgunitinheritance delpermorgunitinheritance : delpermorgunitinheritances )
         {
@@ -2125,6 +2136,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addAdminRoles() throws BuildException
     {
+        if( addadminroles == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addadminrole addrole : addadminroles )
         {
@@ -2150,6 +2166,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteAdminRoles() throws BuildException
     {
+        if( deladminroles == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Deladminrole delrole : deladminroles )
         {
@@ -2175,6 +2196,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addAdminRoleInheritances() throws BuildException
     {
+        if( addadminroleinheritances == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Addadminroleinheritance addadminroleinheritance : addadminroleinheritances )
         {
@@ -2203,6 +2229,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteAdminRoleInheritances() throws BuildException
     {
+        if( deladminroleinheritances == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Deladminroleinheritance deladminroleinheritance : deladminroleinheritances )
         {
@@ -2231,6 +2262,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addUserAdminRoles() throws BuildException
     {
+        if( adduseradminroles == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Adduseradminrole adduserrole : adduseradminroles )
         {
@@ -2258,6 +2294,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void delUserAdminRoles() throws BuildException
     {
+        if( deluseradminroles == null )
+        {
+            return;
+        }
+
         // Loop through the entityclass elements
         for ( Deluseradminrole deluserrole : deluseradminroles )
         {
@@ -2284,6 +2325,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addConfig() throws BuildException
     {
+        if( addconfig == null )
+        {
+            return;
+        }
+
         Properties props = new Properties();
         String configNodeName = "";
         // Loop through the entityclass elements
@@ -2337,6 +2383,11 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void deleteConfig() throws BuildException
     {
+        if( delconfig == null )
+        {
+            return;
+        }
+
         Properties props = new Properties();
         String configNodeName = "";
         // Loop through the entityclass elements
