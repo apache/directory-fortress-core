@@ -439,7 +439,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         {
             String warning = "getRole name [" + adminRole.getName() + "] Obj COULD NOT FIND ENTRY for dn [" + dn
                 + "]";
-            throw new FinderException( GlobalErrIds.ARLE_NOT_FOUND, warning );
+            throw new FinderException( GlobalErrIds.ARLE_NOT_FOUND, warning, e );
         }
         catch ( LdapException e )
         {
@@ -621,7 +621,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
 
             while ( searchResults.next() )
             {
-                descendants.add( unloadDescendants( searchResults.getEntry(), sequence++, contextId ) );
+                descendants.add( unloadDescendants( searchResults.getEntry(), sequence++ ) );
             }
         }
         catch ( LdapException e )
@@ -647,12 +647,11 @@ final class AdminRoleDAO extends ApacheDsDataProvider
     *
     * @param le
     * @param sequence
-    * @param contextId
     * @return
      * @throws LdapInvalidAttributeValueException 
     * @throws LdapException
     */
-    private Graphable unloadDescendants( Entry le, long sequence, String contextId )
+    private Graphable unloadDescendants( Entry le, long sequence )
         throws LdapInvalidAttributeValueException
     {
         Role entity = new ObjectFactory().createRole();
@@ -682,7 +681,6 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
         unloadTemporal( le, entity );
         entity.setRoleRangeRaw( getAttribute( le, ROLE_RANGE ) );
-        //entity.setParents(AdminRoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
         entity.setChildren( AdminRoleUtil.getChildren( entity.getName().toUpperCase(), contextId ) );
         return entity;
