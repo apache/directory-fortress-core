@@ -21,6 +21,7 @@ package org.apache.directory.fortress.core.rbac;
 
 
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -151,8 +152,8 @@ public final class AdminRoleP
     AdminRole update( AdminRole entity ) throws SecurityException
     {
         validate( entity );
-        entity = rDao.update( entity );
-        return read( entity );
+        AdminRole updateEntity = rDao.update( entity );
+        return read( updateEntity );
     }
 
 
@@ -292,8 +293,7 @@ public final class AdminRoleP
             throw new SecurityException( GlobalErrIds.ARLE_DELETE_FAILED, error, re );
         }
     }
-
-
+    
     /**
      * Method will perform simple validations to ensure the integrity of the Admin Role entity targeted for insertion
      * or updating in directory.  For example the Admin Role temporal constraints will be validated.  Data reasonability
@@ -323,7 +323,6 @@ public final class AdminRoleP
             }
             else if ( !RoleUtil.isParent( entity.getBeginRange(), entity.getEndRange(), entity.getContextId() )
                 && !entity.getBeginRange().equalsIgnoreCase( entity.getEndRange() ) )
-            //public static boolean isParent(String child, String parent)
             {
                 String error = "validate invalid range detected for role name [" + entity.getName()
                     + "] begin range [" + entity.getBeginRange() + "] end range [" + entity.getEndRange() + "]";
@@ -391,24 +390,30 @@ public final class AdminRoleP
 
         if ( VUtil.isNotNullOrEmpty( entity.getOsU() ) )
         {
-            for ( String ou : entity.getOsU() )
-            {
-                OrgUnit inOe = new OrgUnit( ou );
-                inOe.setType( OrgUnit.Type.USER );
-                inOe.setContextId( entity.getContextId() );
-                op.read( inOe );
-            }
+            validateOrgs( entity.getOsU(), entity.getContextId() );
         }
 
         if ( VUtil.isNotNullOrEmpty( entity.getOsP() ) )
         {
-            for ( String ou : entity.getOsP() )
-            {
-                OrgUnit inOe = new OrgUnit( ou );
-                inOe.setType( OrgUnit.Type.PERM );
-                inOe.setContextId( entity.getContextId() );
-                op.read( inOe );
-            }
+            validateOrgs( entity.getOsP(), entity.getContextId() );
+        }
+    }
+
+    /**
+     * Called by validate()
+     *
+     * @param orgs
+     * @param contextId
+     * @throws SecurityException
+     */
+    private void validateOrgs( Set<String> orgs, String contextId ) throws SecurityException
+    {
+        for ( String ou : orgs )
+        {
+            OrgUnit inOe = new OrgUnit( ou );
+            inOe.setType( OrgUnit.Type.USER );
+            inOe.setContextId( contextId );
+            op.read( inOe );
         }
     }
 }
