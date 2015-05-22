@@ -73,6 +73,7 @@ public class OrganizationalUnitP
     public final void add( OrganizationalUnit orgUnit )
         throws SecurityException
     {
+        validate( orgUnit );
         OrganizationalUnitDAO oDao = new OrganizationalUnitDAO();
         oDao.create( orgUnit );
     }
@@ -126,7 +127,7 @@ public class OrganizationalUnitP
             throw new ValidationException( GlobalErrIds.CNTR_NAME_NULL, error );
         }
         
-        if ( entity.getParent().length() > GlobalIds.OU_LEN )
+        if ( entity.getParent() != null && entity.getParent().length() > GlobalIds.OU_LEN )
         {
             String name = entity.getName();
             String error = "validate parent [" + name + "] invalid length [" + entity.getName().length()
@@ -134,15 +135,6 @@ public class OrganizationalUnitP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.CNTR_PARENT_INVLD, error );
         }
-        
-        if ( !VUtil.isNotNullOrEmpty( entity.getParent() ) )
-        {
-            String error = "validate parent validation failed, null or empty value";
-            LOG.warn( error );
-            throw new ValidationException( GlobalErrIds.CNTR_PARENT_NULL, error );
-        }
-        
-        VUtil.safeText( entity.getDescription(), GlobalIds.DESC_LEN );
         
         if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
         {
