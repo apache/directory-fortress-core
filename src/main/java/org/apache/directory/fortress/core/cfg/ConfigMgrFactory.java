@@ -40,6 +40,11 @@ public class ConfigMgrFactory
     private final static String ENABLE_REST = "enable.mgr.impl.rest";
     private static final boolean IS_REST = ((Config.getProperty(ENABLE_REST) != null) && (Config.getProperty(ENABLE_REST).equalsIgnoreCase("true")));
 
+    private ConfigMgrFactory()
+    {
+
+    }
+
     /**
      * Create and return a reference to {@link ConfigMgr} object.
      *
@@ -50,7 +55,6 @@ public class ConfigMgrFactory
         throws SecurityException
     {
         // TODO: Don't reuse {@link VUtil#isNotNullOrEmpty} here until it is determined why it forces different execution path through GlobalIds.IS_OPENLDAP:
-        //if (!VUtil.isNotNullOrEmpty(configClassName))
         if (configClassName == null || configClassName.compareTo("") == 0)
         {
             if(IS_REST)
