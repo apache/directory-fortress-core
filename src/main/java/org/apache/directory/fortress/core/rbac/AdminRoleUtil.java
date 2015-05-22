@@ -74,6 +74,13 @@ public final class AdminRoleUtil
         adminRoleCache = cacheMgr.getCache( "fortress.admin.roles" );
     }
 
+    /**
+     * Private constructor
+     *
+     */
+    private AdminRoleUtil()
+    {
+    }
 
     /**
      * Used to determine if one {@link org.apache.directory.fortress.core.rbac.AdminRole} is the parent of another.  This method

@@ -138,6 +138,13 @@ public class Config
         }
     }
 
+    /**
+     * Private constructor
+     *
+     */
+    private Config()
+    {
+    }
 
     /**
      * Gets the prop attribute as String value from the apache commons cfg component.

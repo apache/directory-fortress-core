@@ -38,6 +38,14 @@ final class AdminUtil
     private static final String CLS_NM = AdminUtil.class.getName();
 
     /**
+     * Private constructor
+     *
+     */
+    private AdminUtil()
+    {
+    }
+
+    /**
      * Wrapper function to call {@link DelAccessMgrImpl#canAssign(org.apache.directory.fortress.core.rbac.Session, org.apache.directory.fortress.core.rbac.User, org.apache.directory.fortress.core.rbac.Role)}.
      * This will determine if the user contains an AdminRole that is authorized assignment control over User-Role Assignment (URA).  This adheres to the ARBAC02 functional specification for can-assign URA.
      *

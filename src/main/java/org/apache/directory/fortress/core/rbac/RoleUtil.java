@@ -74,6 +74,13 @@ public final class RoleUtil
         roleCache = cacheMgr.getCache( "fortress.roles" );
     }
 
+    /**
+     * Private constructor
+     *
+     */
+    private void RoleUtil()
+    {
+    }
 
     /**
      * Used to determine if one {@link org.apache.directory.fortress.core.rbac.Role} is the parent of another.  This method

@@ -74,6 +74,13 @@ public final class UsoUtil
         usoCache = cacheMgr.getCache( "fortress.uso" );
     }
 
+    /**
+     * Private constructor
+     *
+     */
+    private UsoUtil()
+    {
+    }
 
     /**
      * Recursively traverse the {@link org.apache.directory.fortress.core.rbac.OrgUnit} graph and return all of the descendants of a given parent {@link org.apache.directory.fortress.core.rbac.OrgUnit#name}.

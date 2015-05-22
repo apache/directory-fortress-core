@@ -65,6 +65,13 @@ public class CUtil
     private static List<Validator> validators;
     private static final String DSDVALIDATOR = Config.getProperty( GlobalIds.DSD_VALIDATOR_PROP );
 
+    /**
+     * Private constructor
+     *
+     */
+    private CUtil()
+    {
+    }
 
     /**
      * Used by DAO utilities to convert from a string with comma delimited values to fortress internal format {@link Constraint}.

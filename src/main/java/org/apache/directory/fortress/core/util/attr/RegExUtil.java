@@ -53,6 +53,13 @@ class RegExUtil
         }
     }
 
+    /**
+     * Private constructor
+     *
+     */
+    private RegExUtil()
+    {
+    }
 
     /**
      *  Perform safe text validation on character string.

@@ -90,6 +90,14 @@ final class HierUtil
 
 
     /**
+     * Private constructor
+     *
+     */
+    private HierUtil()
+    {
+    }
+
+    /**
      *
      * @param contextId
      * @param type

@@ -48,6 +48,14 @@ import java.io.InputStream;
 public class ClassUtil
 {
     /**
+     * Private constructor
+     *
+     */
+    private ClassUtil()
+    {
+    }
+
+    /**
      * Given a valid class name call the default constructor through reflexion and return the reference to the caller.
      * @param className contains fully qualified java class name to be instantiated.  Must have a public default constructor to be successful.
      * @return reference to instantiated ManagerImpl object.

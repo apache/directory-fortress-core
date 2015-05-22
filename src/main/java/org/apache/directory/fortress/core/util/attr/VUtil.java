@@ -88,6 +88,13 @@ public class VUtil
         DATE_FORMATER.setLenient( false );
     }
 
+    /**
+     * Private constructor
+     *
+     */
+    private VUtil()
+    {
+    }
 
     /**
      * Simple length check on orgunit that uses {@link org.apache.directory.fortress.core.GlobalIds#OU_LEN}.

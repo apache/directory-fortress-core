@@ -33,6 +33,13 @@ public class LogUtil
 {
     private static final Logger LOG = LoggerFactory.getLogger( LogUtil.class.getName() );
 
+    /**
+     * Private constructor
+     *
+     */
+    private LogUtil()
+    {
+    }
 
     /**
      * Write a message out to the appropriate log level.

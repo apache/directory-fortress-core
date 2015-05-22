@@ -47,6 +47,13 @@ import java.util.Properties;
 public class AttrHelper
 {
 
+    /**
+     * Private constructor
+     *
+     */
+    private AttrHelper()
+    {
+    }
 
     /**
      * Perform copy on ARBAC attributes.  This is used during assignment of {@link org.apache.directory.fortress.core.rbac.AdminRole} to {@link org.apache.directory.fortress.core.rbac.User}.

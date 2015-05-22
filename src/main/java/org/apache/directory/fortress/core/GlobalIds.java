@@ -38,6 +38,14 @@ import org.apache.directory.fortress.core.cfg.Config;
  */
 public class GlobalIds
 {
+    /**
+     * Private constructor
+     *
+     */
+    private GlobalIds()
+    {
+    }
+
     public static final String HOME = "HOME";
     public static final String TENANT = "tenant";
     private static final String ENABLE_AUDIT = "enable.audit";

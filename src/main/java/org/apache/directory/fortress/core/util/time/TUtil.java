@@ -31,6 +31,13 @@ import java.util.GregorianCalendar;
  */
 public class TUtil
 {
+    /**
+     * Private constructor
+     *
+     */
+    private TUtil()
+    {
+    }
 
     /**
      * Get the curent timestamp from Java and convert to {@link Time} format.

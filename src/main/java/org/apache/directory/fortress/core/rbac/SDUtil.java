@@ -73,6 +73,14 @@ final class SDUtil
     }
 
     /**
+     * Private constructor
+     *
+     */
+    private SDUtil()
+    {
+    }
+
+    /**
      * This method is called by AdminMgr.assignUser and is used to validate Static Separation of Duty
      * constraints when assigning a role to user.
      *

@@ -38,6 +38,14 @@ public class EncryptUtil
     }
 
     /**
+     * Private constructor
+     *
+     */
+    private EncryptUtil()
+    {
+    }
+
+    /**
      * This wraps {@link #encrypt(String)} method.  Will return an encrypted value to standard out using System.out.println().
      * It can be used for ad-hoc encryption of vars {@code fortress.properties} bound.
      * @param args contains a single String to {@link #encrypt(String)}.
