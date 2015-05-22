@@ -882,58 +882,13 @@ public class FortressAntTask extends Task implements InputHandler
         for ( Adduser adduser : addusers )
         {
             List<UserAnt> users = adduser.getUsers();
-
             for ( UserAnt user : users )
             {
                 LOG.info( "addUsers userid={} description={} orgUnit={}",
                     user.getUserId(), user.getDescription(), user.getOu() );
                 try
                 {
-                    try
-                    {
-                        adminMgr.addUser( user );
-                        if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
-                        {
-                            for ( UserRole uRole : user.getRoles() )
-                            {
-                                adminMgr.assignUser( uRole );
-                            }
-                        }
-                        if ( VUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
-                        {
-                            for ( UserAdminRole uAdminRoleRole : user.getAdminRoles() )
-                            {
-                                dAdminMgr.assignUser( uAdminRoleRole );
-                            }
-                        }
-                    }
-                    catch ( SecurityException se )
-                    {
-                        // If User entity already there then call the udpate method.
-                        if ( se.getErrorId() == GlobalErrIds.USER_ID_DUPLICATE )
-                        {
-                            adminMgr.updateUser( user );
-                            if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
-                            {
-                                for ( UserRole uRole : user.getRoles() )
-                                {
-                                    adminMgr.assignUser( uRole );
-                                }
-                            }
-                            if ( VUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
-                            {
-                                for ( UserAdminRole uAdminRoleRole : user.getAdminRoles() )
-                                {
-                                    dAdminMgr.assignUser( uAdminRoleRole );
-                                }
-                            }
-                            LOG.info( "addUsers - Update entity - userId={}", user.getUserId() );
-                        }
-                        else
-                        {
-                            throw se;
-                        }
-                    }
+                    addUser( user );
                 }
                 catch ( SecurityException se )
                 {
@@ -943,6 +898,58 @@ public class FortressAntTask extends Task implements InputHandler
         }
     }
 
+    /**
+     * Utility method called by addUsers()
+     *
+     * @param user
+     * @throws SecurityException
+     */
+    private void addUser(User user) throws SecurityException
+    {
+        try
+        {
+            adminMgr.addUser( user );
+            assignUser( user );
+        }
+        catch ( SecurityException se )
+        {
+            // If User entity already there then call the udpate method.
+            if ( se.getErrorId() == GlobalErrIds.USER_ID_DUPLICATE )
+            {
+                adminMgr.updateUser( user );
+                assignUser( user );
+                LOG.info( "addUsers - Update entity - userId={}", user.getUserId() );
+            }
+            else
+            {
+                throw se;
+            }
+        }
+    }
+
+    /**
+     * Utility method to assign roles to user.
+     *
+     * @param user
+     * @throws SecurityException
+     */
+    private void assignUser( User user ) throws SecurityException
+    {
+        if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
+        {
+            for ( UserRole uRole : user.getRoles() )
+            {
+                adminMgr.assignUser( uRole );
+            }
+        }
+        if ( VUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
+        {
+            for ( UserAdminRole uAdminRoleRole : user.getAdminRoles() )
+            {
+                dAdminMgr.assignUser( uAdminRoleRole );
+            }
+        }
+    }
 
     /**
      * @throws BuildException
