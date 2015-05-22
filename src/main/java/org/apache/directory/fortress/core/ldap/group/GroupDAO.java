@@ -368,7 +368,7 @@ final class GroupDAO extends ApacheDsDataProvider
         catch ( LdapNoSuchObjectException e )
         {
             String warning = "read Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
-            throw new FinderException( GlobalErrIds.GROUP_NOT_FOUND, warning );
+            throw new FinderException( GlobalErrIds.GROUP_NOT_FOUND, warning, e );
         }
         catch ( LdapException e )
         {
