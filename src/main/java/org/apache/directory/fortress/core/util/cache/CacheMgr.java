@@ -53,7 +53,7 @@ public class CacheMgr
     private CacheMgr( CacheManager cacheMangerImpl )
     {
         m_ehCacheImpl = cacheMangerImpl;
-        this.m_ftCacheImpl = this;
+        m_ftCacheImpl = this;
     }
 
 
