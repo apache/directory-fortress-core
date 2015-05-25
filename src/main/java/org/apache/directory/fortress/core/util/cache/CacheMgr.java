@@ -19,15 +19,14 @@
  */
 package org.apache.directory.fortress.core.util.cache;
 
-
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import net.sf.ehcache.CacheManager;
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.cfg.Config;
 import org.apache.directory.fortress.core.rbac.ClassUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -38,12 +37,30 @@ import org.apache.directory.fortress.core.rbac.ClassUtil;
  */
 public class CacheMgr
 {
+    private static final Logger LOG = LoggerFactory.getLogger( CacheMgr.class.getName() );
     private static final String EHCACHE_CONFIG_FILE = "ehcache.config.file";
     private final CacheManager m_ehCacheImpl;
     private static CacheMgr m_ftCacheImpl;
-    private static final AtomicBoolean isCacheInitialized = new AtomicBoolean( false );
-    private static final Object m_lock = new Object();
 
+    static
+    {
+        String cacheConfig = Config.getProperty( EHCACHE_CONFIG_FILE );
+        try
+        {
+            // This static block performs the following:
+            // 1. Construct an instance of Ehcache's CacheManager object.
+            // 2. Requires location of ehcache's config file as parameter.
+            // 3. The CacheManager reference then gets passed to constructor of self.
+            // 4. Store the reference of self as a static member variable of this class.
+            m_ftCacheImpl = new CacheMgr( new CacheManager( ClassUtil.resourceAsStream( cacheConfig ) ) );
+        }
+        catch(CfgException ce)
+        {
+            // The ehcache file cannot be located on this program's classpath.  Ehcache is required, throw runtime exception.
+            LOG.error( "CfgException caught in static initializer=" + ce.getMessage());
+            throw new CfgRuntimeException( GlobalErrIds.FT_CACHE_NOT_CONFIGURED, cacheConfig, ce );
+        }
+    }
 
     /**
      * Private constructor.
@@ -53,9 +70,7 @@ public class CacheMgr
     private CacheMgr( CacheManager cacheMangerImpl )
     {
         m_ehCacheImpl = cacheMangerImpl;
-        m_ftCacheImpl = this;
     }
-
 
     /**
      * Create or return the fortress cache manager reference.
@@ -63,30 +78,8 @@ public class CacheMgr
      */
     public static CacheMgr getInstance()
     {
-        // only drop into this block of the cache object hasn't previously been set on this classloader:
-        if ( !isCacheInitialized.get() )
-        {
-            // ensure only one thread can enter this block
-            synchronized ( m_lock )
-            {
-                String cacheConfig = null;
-                try
-                {
-                    // this property contains the cache file name.
-                    cacheConfig = Config.getProperty( EHCACHE_CONFIG_FILE );
-                    // This call will create a new CacheManager, or throw exception if the it already exists, or if the configuration file is not found on classloader.
-                    m_ftCacheImpl = new CacheMgr( new CacheManager( ClassUtil.resourceAsStream( cacheConfig ) ) );
-                    isCacheInitialized.set( true );
-                }
-                catch ( CfgException ce )
-                {
-                    throw new CfgRuntimeException( GlobalErrIds.FT_CACHE_NOT_CONFIGURED, cacheConfig );
-                }
-            }
-        }
         return m_ftCacheImpl;
     }
-
 
     /**
      * Create a new reference to the ehcache cache implementation.
