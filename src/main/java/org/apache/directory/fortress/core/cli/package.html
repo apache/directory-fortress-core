@@ -57,7 +57,7 @@
     also contains more than one word'.
     <br/>
     <br/>Below is reference manual for Fortress' CLI commands
-    </p>
+    <br/>
 
     <h2>Groups</h2>
     
@@ -97,7 +97,7 @@
 <h2>Administrative Commands</h2>
 This section contains a guide for the <b>functions</b> and <b>options</b> that fall in the <b>admin</b> group.
 <ol type="A">
-<li>
+  <li>
     <h3>auser : function to add a new User</h3>
 
     <p>
@@ -1573,7 +1573,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
 
                 This function searches for matching users on the userId field. It uses a search filter of:
 <pre>
- String filter = "(&(objectclass=" + objectClassImpl + ")(" + GlobalIds.UID + "=" + searchVal + "*))";
+ String filter = "(&amp;(objectclass=" + objectClassImpl + ")(" + GlobalIds.UID + "=" + searchVal + "*))";
 </pre>
             which will return all Users that match the leading characters of the search field which is case insensitive.
             This logs the results using log4j to allow output to be logged to console or file.
@@ -2034,6 +2034,7 @@ This section contains a guide for the <b>functions</b> and <b>options</b> that f
         <br/>
     </ol>
 </li>
+</ol>
 <p>
     The <b>org.apache.directory.fortress.cli.CommandLineInterpreter</b> drives the Fortress APIs. For more info on how the Fortress
     APIs work, check out Fortress SDK Javadoc.
