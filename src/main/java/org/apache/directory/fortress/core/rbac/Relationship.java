@@ -20,7 +20,6 @@
 package org.apache.directory.fortress.core.rbac;
 
 import java.io.Serializable;
-import java.lang.String;
 
 /**
  * Contains a parent child data entity that is used for hierarchical processing.  This entity is used to construct edges in graphs.
