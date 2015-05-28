@@ -22,14 +22,13 @@ package org.apache.directory.fortress.core.cfg;
 
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -141,7 +140,7 @@ final class ConfigP
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
-    final void delete( String name, Properties inProps )
+    void delete( String name, Properties inProps )
         throws SecurityException
     {
         validate( name, inProps );

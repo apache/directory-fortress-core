@@ -35,7 +35,6 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
-import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -44,12 +43,9 @@ import org.apache.directory.fortress.core.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.AdminRoleUtil;
-import org.apache.directory.fortress.core.rbac.Graphable;
-import org.apache.directory.fortress.core.rbac.Role;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
+import org.apache.directory.ldap.client.api.LdapConnection;
 
 
 /**
@@ -150,7 +146,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      * @return input record back to client.
      * @throws org.apache.directory.fortress.core.CreateException in the event LDAP errors occur.
      */
-    final AdminRole create( AdminRole entity ) throws CreateException
+    AdminRole create( AdminRole entity ) throws CreateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
@@ -210,7 +206,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      * @return input record back to client.
      * @throws UpdateException in the event LDAP errors occur.
      */
-    final AdminRole update( AdminRole entity ) throws UpdateException
+    AdminRole update( AdminRole entity ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
@@ -283,7 +279,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
      * @param entity
      * @throws UpdateException
      */
-    final void deleteParent( AdminRole entity ) throws UpdateException
+    void deleteParent( AdminRole entity ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( entity );
