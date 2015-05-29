@@ -207,8 +207,8 @@ final class UserDAO extends ApacheDsDataProvider
         { SchemaConstants.UID_AT };
 
     // These will be loaded in static initializer that follows:
-    private static String[] AUTHN_ATRS = null;
-    private static String[] DEFAULT_ATRS = null;
+    private static String[] authnAtrs = null;
+    private static String[] defaultAtrs = null;
 
     static
     {
@@ -220,7 +220,7 @@ final class UserDAO extends ApacheDsDataProvider
         if ( GlobalIds.IS_OPENLDAP )
         {
             // This default set of attributes contains all and is used for search operations.
-            DEFAULT_ATRS = new String[]
+            defaultAtrs = new String[]
                 {
                     GlobalIds.FT_IID,
                     SchemaConstants.UID_AT,
@@ -264,7 +264,7 @@ final class UserDAO extends ApacheDsDataProvider
                 */};
 
             // This smaller result set of attributes are needed for user validation and authentication operations.
-            AUTHN_ATRS = new String[]
+            authnAtrs = new String[]
                 {
                     GlobalIds.FT_IID,
                     SchemaConstants.UID_AT,
@@ -281,7 +281,7 @@ final class UserDAO extends ApacheDsDataProvider
 
         else
         {
-            DEFAULT_ATRS = new String[]
+            defaultAtrs = new String[]
                 {
                     GlobalIds.FT_IID,
                     SchemaConstants.UID_AT,
@@ -313,7 +313,7 @@ final class UserDAO extends ApacheDsDataProvider
                     JPEGPHOTO, };
 
             // This smaller result set of attributes are needed for user validation and authentication operations.
-            AUTHN_ATRS = new String[]
+            authnAtrs = new String[]
                 {
                     GlobalIds.FT_IID,
                     SchemaConstants.UID_AT,
@@ -330,7 +330,7 @@ final class UserDAO extends ApacheDsDataProvider
 
     // This default set of attributes contains all and is used for search operations.
     /*
-        private static final String[] DEFAULT_ATRS =
+        private static final String[] defaultAtrs =
             {
                 GlobalIds.FT_IID,
                 SchemaConstants.UID_AT, SchemaConstants.USER_PASSWORD_AT,
@@ -801,13 +801,13 @@ final class UserDAO extends ApacheDsDataProvider
         if ( isRoles )
         {
             // Retrieve the User's assigned RBAC and Admin Role attributes from directory.
-            uATTRS = DEFAULT_ATRS;
+            uATTRS = defaultAtrs;
 
         }
         else
         {
             // Do not retrieve the User's assigned RBAC and Admin Role attributes from directory.
-            uATTRS = AUTHN_ATRS;
+            uATTRS = authnAtrs;
         }
 
         Entry findEntry = null;
@@ -1159,8 +1159,7 @@ final class UserDAO extends ApacheDsDataProvider
             }
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
-                DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1292,8 +1291,7 @@ final class UserDAO extends ApacheDsDataProvider
 
             filterbuf.append( ")" );
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
-                DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1347,8 +1345,7 @@ final class UserDAO extends ApacheDsDataProvider
             filterbuf.append( "))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
-                DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1467,8 +1464,7 @@ final class UserDAO extends ApacheDsDataProvider
             filterbuf.append( "))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
-                DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1578,8 +1574,7 @@ final class UserDAO extends ApacheDsDataProvider
             filterbuf.append( "*))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
-                DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
                 GlobalIds.BATCH_SIZE );
             long sequence = 0;
 
@@ -1641,8 +1636,7 @@ final class UserDAO extends ApacheDsDataProvider
             }
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(),
-                DEFAULT_ATRS, false,
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
                 GlobalIds.BATCH_SIZE, maxLimit );
             long sequence = 0;
 

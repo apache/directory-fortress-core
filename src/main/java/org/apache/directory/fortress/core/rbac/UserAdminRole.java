@@ -110,13 +110,13 @@ public class UserAdminRole extends UserRole implements Administrator
     private Set<String> parents;
 
     // Used for formatting raw data:
-    private static String P = "P";
-    private static String U = "U";
-    private static String R = "R";
-    private static String LEFT_PAREN = "(";
-    private static String RIGHT_PAREN = ")";
-    private static String LEFT_BRACKET = "[";
-    private static String RIGHT_BRACKET = "]";
+    private static final String P = "P";
+    private static final String U = "U";
+    private static final String R = "R";
+    private static final String LEFT_PAREN = "(";
+    private static final String RIGHT_PAREN = ")";
+    private static final String LEFT_BRACKET = "[";
+    private static final String RIGHT_BRACKET = "]";
 
 
     /**

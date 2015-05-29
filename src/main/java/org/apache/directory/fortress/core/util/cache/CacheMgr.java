@@ -35,12 +35,12 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class CacheMgr
+public final class CacheMgr
 {
     private static final Logger LOG = LoggerFactory.getLogger( CacheMgr.class.getName() );
     private static final String EHCACHE_CONFIG_FILE = "ehcache.config.file";
-    private final CacheManager m_ehCacheImpl;
-    private static CacheMgr m_ftCacheImpl;
+    private final CacheManager mEhCacheImpl;
+    private static CacheMgr mFtCacheImpl;
 
     static
     {
@@ -52,7 +52,7 @@ public class CacheMgr
             // 2. Requires location of ehcache's config file as parameter.
             // 3. The CacheManager reference then gets passed to constructor of self.
             // 4. Store the reference of self as a static member variable of this class.
-            m_ftCacheImpl = new CacheMgr( new CacheManager( ClassUtil.resourceAsStream( cacheConfig ) ) );
+            mFtCacheImpl = new CacheMgr( new CacheManager( ClassUtil.resourceAsStream( cacheConfig ) ) );
         }
         catch(CfgException ce)
         {
@@ -69,7 +69,7 @@ public class CacheMgr
      */
     private CacheMgr( CacheManager cacheMangerImpl )
     {
-        m_ehCacheImpl = cacheMangerImpl;
+        mEhCacheImpl = cacheMangerImpl;
     }
 
     /**
@@ -78,7 +78,7 @@ public class CacheMgr
      */
     public static CacheMgr getInstance()
     {
-        return m_ftCacheImpl;
+        return mFtCacheImpl;
     }
 
     /**
@@ -89,7 +89,7 @@ public class CacheMgr
      */
     public Cache getCache( String cacheName )
     {
-        return CacheFactory.createInstance( cacheName, m_ehCacheImpl );
+        return CacheFactory.createInstance( cacheName, mEhCacheImpl );
     }
 
     /**
@@ -98,6 +98,6 @@ public class CacheMgr
      */
     public void clearAll()
     {
-        m_ehCacheImpl.clearAll();
+        mEhCacheImpl.clearAll();
     }
 }

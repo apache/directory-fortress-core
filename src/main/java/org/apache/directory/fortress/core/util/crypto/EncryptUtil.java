@@ -30,7 +30,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
 public final class EncryptUtil
 {
     private static final BasicTextEncryptor textEncryptor;
-    private static String CRYPTO_PROP = "crypto.prop";
+    private static final String CRYPTO_PROP = "crypto.prop";
     static
     {
         textEncryptor = new BasicTextEncryptor();
