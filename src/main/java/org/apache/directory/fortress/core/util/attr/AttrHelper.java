@@ -44,7 +44,7 @@ import java.util.Properties;
 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AttrHelper
+public final class AttrHelper
 {
 
     /**

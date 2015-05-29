@@ -29,7 +29,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class LogUtil
+public final class LogUtil
 {
     private static final Logger LOG = LoggerFactory.getLogger( LogUtil.class.getName() );
 

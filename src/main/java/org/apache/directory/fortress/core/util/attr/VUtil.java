@@ -37,7 +37,7 @@ import org.apache.directory.fortress.core.cfg.Config;
  * This class contains simple data validation utilities.  The data validations include null, length
  * and simple reasonability checking.  All utilities will throw {@link ValidationException} for failures.
  */
-public class VUtil
+public final class VUtil
 {
     private static final String CLS_NM = VUtil.class.getName();
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( CLS_NM );

@@ -29,7 +29,7 @@ import java.util.GregorianCalendar;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class TUtil
+public final class TUtil
 {
     /**
      * Private constructor

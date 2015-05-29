@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
  *
  * @author     Shawn McKinney
  */
-class RegExUtil
+final class RegExUtil
 {
     private static final String CLS_NM = RegExUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
