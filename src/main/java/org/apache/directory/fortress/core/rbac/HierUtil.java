@@ -256,7 +256,6 @@ final class HierUtil
                 }
                 catch (java.lang.IllegalArgumentException e)
                 {
-                    // TODO: determine if this needs to throw exception here:
                     String error = "toGraph child: " + child + " parent: " + parent + " caught IllegalArgumentException=" + e;
                     LOG.error( error );
                 }
@@ -497,12 +496,12 @@ final class HierUtil
         String v = vertex.get( VERTEX );
         if ( v == null )
         {
-            //log.debug("getDescendants vertex is null");
+            // vertex is null
             return null;
         }
         else if ( graph == null )
         {
-            //log.debug("getDescendants graph is null");
+            // graph is null
             return null;
         }
         LOG.debug( "getDescendants [{}]", v);
@@ -538,12 +537,11 @@ final class HierUtil
         Set<String> descendants = new HashSet<>();
         if ( graph == null )
         {
-            //log.debug("getChildren graph is null");
+            // graph is null
             return null;
         }
 
         LOG.debug( "getChildren [{}]", vertex );
-
         Set<Relationship> edges;
         try
         {
@@ -601,12 +599,12 @@ final class HierUtil
         String v = vertex.get( VERTEX );
         if ( v == null )
         {
-            //log.debug("getAscendants vertex is null");
+            // vertex is null
             return null;
         }
         else if ( graph == null )
         {
-            //log.debug("getAscendants graph is null");
+            // graph is null
             return null;
         }
         LOG.debug( "getAscendants [{}]", v);
@@ -653,7 +651,7 @@ final class HierUtil
         Set<String> parents = new HashSet<>();
         if ( graph == null )
         {
-            //log.debug("getParents graph is null");
+            // graph is null
             return null;
         }
         LOG.debug( "getParents [{}]", vertex);

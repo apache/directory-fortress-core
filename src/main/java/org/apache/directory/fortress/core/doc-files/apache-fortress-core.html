@@ -35,13 +35,13 @@
         <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
         <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
     </ul>
-    <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
+    <a href="./ten-minute-guide.html">Ten Minute Guide</a>
 </fieldset>
 <hr>
 <p>
 
 <h3>Build Apache Fortress Core</h3>
-<img src="fortress100.gif">
+<img src="fortress100.gif" alt="Fortress Core">
 <br/><br/>
 <h4>This section provides instructions to install Fortress Core, setup usage with ApacheDS, and run the junit tests</h4>
 Steps to complete:
@@ -115,28 +115,28 @@ ls -l ldap/setup/refreshLDAPData.xml
                 In Apache Directory Studio LDAP Browser perspective, select Root DSE, right-click, and choose
                 Import->LDIF Import
             </li>
-            <br/><img src="./schema-import-screenshot1.png" height="50%" width="50%"/><br/><br/>
+            <br/><img src="./schema-import-screenshot1.png" height="50%" width="50%" alt="Schema Import"/><br/><br/>
 
             <br/>
 
             <li>
                 Next a dialog box will appear where you can enter the fully qualified file name of the fortress schema.
             </li>
-            <br/><img src="./schema-import-screenshot2.png" height="50%" width="50%"/><br/><br/>
+            <br/><img src="./schema-import-screenshot2.png" height="50%" width="50%" alt="Schema Import 2"/><br/><br/>
 
             <br/>
 
             <li>
                 The schema file is located under the fortress core base package/ldap/schema/apacheds-fortress.ldif
             </li>
-            <br/><img src="./schema-import-screenshot3.png" height="50%" width="50%"/><br/><br/>
+            <br/><img src="./schema-import-screenshot3.png" height="50%" width="50%" alt="Schema Import 3"/><br/><br/>
 
             <br/>
 
             <li>
                 Verify success by viewing the cn=fortress schema node.
             </li>
-            <br/><img src="./schema-import-screenshot4.png" height="50%" width="50%"/><br/><br/>
+            <br/><img src="./schema-import-screenshot4.png" height="50%" width="50%" alt="Schema Import 4"/><br/><br/>
 
         </ol>
 
@@ -196,22 +196,22 @@ mvn test -Pconsole
         <br/><br/>
         <ol type="a">
             <li>Start at the Main Menu:
-                <br/><img src="./screenshot-fortress-console-main.png" height="50%" width="40%"/>
+                <br/><img src="./screenshot-fortress-console-main.png" height="50%" width="40%" alt="Fortress Console Main"/>
                 <br/>Enter option to perform a particular manager function.
             </li>
             <br/>
             <li>Option '1' for RBAC Admin Manager Functions:
-                <br/><img src="./screenshot-fortress-console-rbac-admin.png" height="50%" width="25%"/>
+                <br/><img src="./screenshot-fortress-console-rbac-admin.png" height="50%" width="25%" alt="Fortress Console Admin"/>
                 <br/>Add, Update and Delete RBAC entities.
             </li>
             <br/>
             <li>Option '2' for RBAC Review Manager Functions:
-                <br/><img src="./screenshot-fortress-console-rbac-review.png" height="50%" width="35%"/>
+                <br/><img src="./screenshot-fortress-console-rbac-review.png" height="50%" width="35%" alt="Fortress Console Review"/>
                 <br/>Read and Search RBAC entities.
             </li>
             <br/>
             <li>Option '3' for RBAC Access Manager Functions:
-                <br/><img src="./screenshot-fortress-console-rbac-access.png" height="50%" width="35%"/>
+                <br/><img src="./screenshot-fortress-console-rbac-access.png" height="50%" width="35%" alt="Fortress Console Access Mgr Tests"/>
                 <br/>Test RBAC runtime functions like createSession and checkAccess.
             </li>
             <br/>
