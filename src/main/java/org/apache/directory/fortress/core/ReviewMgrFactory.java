@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class ReviewMgrFactory
+public final class ReviewMgrFactory
 {
     private static String reviewClassName = Config.getProperty(GlobalIds.REVIEW_IMPLEMENTATION);
     private static final String CLS_NM = ReviewMgrFactory.class.getName();

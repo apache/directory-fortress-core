@@ -34,7 +34,7 @@ import org.apache.directory.fortress.core.rest.ConfigMgrRestImpl;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class ConfigMgrFactory
+public final class ConfigMgrFactory
 {
     private static String configClassName = Config.getProperty(GlobalIds.CONFIG_IMPLEMENTATION);
     private final static String ENABLE_REST = "enable.mgr.impl.rest";

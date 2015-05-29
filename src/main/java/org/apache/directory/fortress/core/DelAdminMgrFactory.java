@@ -36,7 +36,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class DelAdminMgrFactory
+public final class DelAdminMgrFactory
 {
     private static String dAdminClassName = Config.getProperty(GlobalIds.DELEGATED_ADMIN_IMPLEMENTATION);
     private static final String CLS_NM = DelAdminMgrFactory.class.getName();

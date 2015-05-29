@@ -45,7 +45,7 @@ import java.io.InputStream;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class ClassUtil
+public final class ClassUtil
 {
     /**
      * Private constructor

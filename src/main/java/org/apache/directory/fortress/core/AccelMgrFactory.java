@@ -34,7 +34,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AccelMgrFactory
+public final class AccelMgrFactory
 {
     private static String accelClassName = Config.getProperty(GlobalIds.ACCEL_IMPLEMENTATION);
     private static final String CLS_NM = AccelMgrFactory.class.getName();

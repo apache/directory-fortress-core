@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class DelReviewMgrFactory
+public final class DelReviewMgrFactory
 {
     private static String dReviewClassName = Config.getProperty(GlobalIds.DELEGATED_REVIEW_IMPLEMENTATION);
     private static final String CLS_NM = DelReviewMgrFactory.class.getName();

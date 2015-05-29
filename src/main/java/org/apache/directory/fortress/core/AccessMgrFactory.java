@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AccessMgrFactory
+public final class AccessMgrFactory
 {
     private static String accessClassName = Config.getProperty(GlobalIds.ACCESS_IMPLEMENTATION);
     private static final String CLS_NM = AccessMgrFactory.class.getName();

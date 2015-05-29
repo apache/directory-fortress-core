@@ -37,7 +37,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AdminMgrFactory
+public final class AdminMgrFactory
 {
     private static String adminClassName = Config.getProperty(GlobalIds.ADMIN_IMPLEMENTATION);
     private static final String CLS_NM = AdminMgrFactory.class.getName();

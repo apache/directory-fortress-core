@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AuditMgrFactory
+public final class AuditMgrFactory
 {
     private static String auditClassName = Config.getProperty(GlobalIds.AUDIT_IMPLEMENTATION);
     private static final String CLS_NM = AuditMgrFactory.class.getName();

@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class PwPolicyMgrFactory
+public final class PwPolicyMgrFactory
 {
     private static String policyClassName = Config.getProperty(GlobalIds.PSWD_POLICY_IMPLEMENTATION);
     private static final String CLS_NM = PwPolicyMgrFactory.class.getName();
