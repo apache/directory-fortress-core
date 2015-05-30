@@ -24,6 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
+ * This class handles simple counters that correspond to ldap operations.
  *
  */
 public class LdapCounters
@@ -37,41 +38,62 @@ public class LdapCounters
     private AtomicInteger bindCtr = new AtomicInteger( 0 );
 
 
+    /**
+     * Increment the search counter.
+     */
     public void incrementSearch()
     {
         searchCtr.incrementAndGet();
     }
 
 
+    /**
+     * Increment the read counter.
+     */
     public void incrementRead()
     {
         readCtr.incrementAndGet();
     }
 
 
+    /**
+     * Increment the compare counter.
+     */
     public void incrementCompare()
     {
         compareCtr.incrementAndGet();
     }
 
 
+    /**
+     *  Increment the add counter.
+     */
     public void incrementAdd()
     {
         addCtr.incrementAndGet();
     }
 
 
+    /**
+     *  Increment the mod counter.
+     */
     public void incrementMod()
     {
         modCtr.incrementAndGet();
     }
 
 
+    /**
+     *  Increment the delete counter.
+     */
     public void incrementDelete()
     {
         deleteCtr.incrementAndGet();
     }
 
+    /**
+     *  Increment the bind counter.
+     */
 
     public void incrementBind()
     {
@@ -79,42 +101,70 @@ public class LdapCounters
     }
 
 
+    /**
+     * Return the search counter.
+     * @return long containing search.
+     */
     public long getSearch()
     {
         return searchCtr.intValue();
     }
 
 
+    /**
+     * Return the read counter.
+     * @return long containing read.
+     */
     public long getRead()
     {
         return readCtr.intValue();
     }
 
 
+    /**
+     * Return the compare counter.
+     * @return long containing compare.
+     */
     public long getCompare()
     {
         return compareCtr.intValue();
     }
 
 
+    /**
+     * Return the add counter.
+     * @return long containing add.
+     */
     public long getAdd()
     {
         return addCtr.intValue();
     }
 
 
+    /**
+     * Return the blank counter.
+     * @return long containing blank.
+     */
     public long getMod()
     {
         return modCtr.intValue();
     }
 
 
+    /**
+     * Return the delete counter.
+     * @return long containing delete.
+     */
     public long getDelete()
     {
         return deleteCtr.intValue();
     }
 
 
+    /**
+     * Return the bind counter.
+     * @return long containing bind.
+     */
     public long getBind()
     {
         return bindCtr.intValue();

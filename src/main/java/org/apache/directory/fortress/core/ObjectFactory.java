@@ -78,6 +78,9 @@ public class ObjectFactory
     private static final QName FORTGROUP_QNAME = new QName( "", "fortGroup" );
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.FortEntity }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortEntity")
     public JAXBElement<FortEntity> createFortEntity( FortEntity value )
     {
@@ -85,6 +88,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rest.FortResponse }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortResponse")
     public JAXBElement<FortResponse> createFortResponse( FortResponse value )
     {
@@ -92,6 +98,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rest.FortRequest }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortRequest")
     public JAXBElement<FortRequest> createFortRequest( FortRequest value )
     {
@@ -149,6 +158,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.OrgUnit }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortOrgUnit")
     public JAXBElement<OrgUnit> createFortOrgUnit( OrgUnit value )
     {
@@ -167,7 +179,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Role }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.PermGrant }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortGrant")
     public JAXBElement<PermGrant> createFortGrant( PermGrant value )
@@ -177,7 +189,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.OrgUnitRelationship}{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.AdminRoleRelationship}{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortAdminRoleRelationship")
     public JAXBElement<AdminRoleRelationship> createFortAdminRoleRelationship( AdminRoleRelationship value )
@@ -246,6 +258,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Bind }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortBind")
     public JAXBElement<Bind> createFortEntity( Bind value )
     {
@@ -253,6 +268,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.UserAudit }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortUserAudit")
     public JAXBElement<UserAudit> createFortUserAudit( UserAudit value )
     {
@@ -260,6 +278,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.AuthZ }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortAuthZ")
     public JAXBElement<AuthZ> createFortAuthZ( AuthZ value )
     {
@@ -267,6 +288,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Mod }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortMod")
     public JAXBElement<Mod> createFortMod( Mod value )
     {
@@ -274,6 +298,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.RolePerm }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortRolePerm")
     public JAXBElement<RolePerm> createFortRolePerm( RolePerm value )
     {
@@ -281,6 +308,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Address }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortAddress")
     public JAXBElement<Address> createFortAddress( Address value )
     {
@@ -288,6 +318,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Props }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortProps")
     public JAXBElement<Props> createFortProps( Props value )
     {
@@ -295,6 +328,9 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Warning }{@code >}}
+     */
     @XmlElementDecl(namespace = "", name = "fortWarning")
     public JAXBElement<Warning> createFortWarning( Warning value )
     {
@@ -311,7 +347,6 @@ public class ObjectFactory
         return new JAXBElement<>( FORTGROUP_QNAME, Group.class, null, value );
     }
 
-
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.apache.directory.fortress.model2
      */
@@ -319,9 +354,8 @@ public class ObjectFactory
     {
     }
 
-
     /**
-     * Create an instance of {@link User }
+     * Create an instance of {@link User}
      */
     public User createUser()
     {
@@ -339,7 +373,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link Session }
+     * Create an instance of {@link Session}
      */
     public Session createSession()
     {
@@ -348,7 +382,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link SDSet }
+     * Create an instance of {@link SDSet}
      */
     public SDSet createSDset()
     {
@@ -357,7 +391,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link Role }
+     * Create an instance of {@link Role}
      */
     public Role createRole()
     {
@@ -366,7 +400,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link Group }
+     * Create an instance of {@link Group}
      */
     public Group createGroup()
     {
@@ -375,7 +409,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link PermGrant }
+     * Create an instance of {@link PermGrant}
      */
     public PermGrant createPermGrant()
     {
@@ -384,7 +418,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link RoleRelationship }
+     * Create an instance of {@link RoleRelationship}
      */
     public RoleRelationship createRoleRelationship()
     {
@@ -393,7 +427,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link AdminRoleRelationship }
+     * Create an instance of {@link AdminRoleRelationship}
      */
     public AdminRoleRelationship createAdminRoleRelationship()
     {
@@ -402,7 +436,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link OrgUnitRelationship }
+     * Create an instance of {@link OrgUnitRelationship}
      */
     public OrgUnitRelationship createOrgUnitRelationship()
     {
@@ -411,7 +445,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link PermObj }
+     * Create an instance of {@link PermObj}
      */
     public PermObj createPermObj()
     {
@@ -420,7 +454,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link Permission }
+     * Create an instance of {@link Permission}
      */
     public Permission createPermission()
     {
@@ -429,7 +463,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link Role }
+     * Create an instance of {@link Role}
      */
     public AdminRole createAdminRole()
     {
@@ -438,7 +472,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link UserRole }
+     * Create an instance of {@link UserRole}
      */
     public UserRole createUserRole()
     {
@@ -447,7 +481,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link OrgUnit }
+     * Create an instance of {@link OrgUnit}
      */
     public OrgUnit createOrgUnit()
     {
@@ -456,7 +490,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link UserAdminRole }
+     * Create an instance of {@link UserAdminRole}
      */
     public UserAdminRole createUserAdminRole()
     {
@@ -464,66 +498,99 @@ public class ObjectFactory
     }
 
 
+    /**
+     * Create an instance of {@link UserAudit}
+     */
     public UserAudit createUserAudit()
     {
         return new UserAudit();
     }
 
 
+    /**
+     * Create an instance of {@link Bind}
+     */
     public Bind createBind()
     {
         return new Bind();
     }
 
 
+    /**
+     * Create an instance of {@link AuthZ}
+     */
     public AuthZ createAuthZ()
     {
         return new AuthZ();
     }
 
 
+    /**
+     * Create an instance of {@link Mod}
+     */
     public Mod createMod()
     {
         return new Mod();
     }
 
 
+    /**
+     * Create an instance of {@link RolePerm}
+     */
     public RolePerm createRolePerm()
     {
         return new RolePerm();
     }
 
 
+    /**
+     * Create an instance of {@link FortResponse}
+     */
     public FortResponse createFortResponse()
     {
         return new FortResponse();
     }
 
 
+    /**
+     * Create an instance of {@link FortRequest}
+     */
     public FortRequest createFortRequest()
     {
         return new FortRequest();
     }
 
 
+    /**
+     * Create an instance of {@link Address}
+     */
     public Address createAddress()
     {
         return new Address();
     }
 
 
+    /**
+     * Create an instance of {@link Props}
+     */
     public Props createProps()
     {
         return new Props();
     }
 
 
+    /**
+     * Create an instance of {@link Warning}
+     */
     public Warning createWarning( int id, String msg, Warning.Type type )
     {
         return new Warning( id, msg, type );
     }
 
 
+    /**
+     * Create an instance of {@link Warning}
+     */
     public Warning createWarning( int id, String msg, Warning.Type type, String name )
     {
         return new Warning( id, msg, type, name );

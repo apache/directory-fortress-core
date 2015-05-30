@@ -61,12 +61,22 @@ public class UserAnt extends User
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 
+    /**
+     * Return addresses
+     *
+     * @return String containing addresses
+     */
     public String getAddresses()
     {
         return addresses;
     }
 
 
+    /**
+     * Set addresses
+     *
+     * @param addresses String containing comma separated address names
+     */
     public void setAddresses( String addresses )
     {
         this.addresses = addresses;
@@ -83,12 +93,22 @@ public class UserAnt extends User
     }
 
 
+    /**
+     * Return user properties
+     *
+     * @return String containing user properties
+     */
     public String getUserProps()
     {
         return userProps;
     }
 
 
+    /**
+     * Set user properties.
+     *
+     * @param userProps string containing user properties.
+     */
     public void setUserProps( String userProps )
     {
         this.userProps = userProps;
@@ -96,103 +116,182 @@ public class UserAnt extends User
     }
 
 
+    /**
+     * Return postal code.
+     *
+     * @return String containing postal code.
+     */
     public String getPostalCode()
     {
         return postalCode;
     }
 
 
+    /**
+     * Set a postal code on address.
+     *
+     * @param postalCode String containing postal code.
+     */
     public void setPostalCode( String postalCode )
     {
         getAddress().setPostalCode( postalCode );
     }
 
 
+    /**
+     * Return post ofice box associated with a user.
+     *
+     * @return String containing postal code.
+     */
     public String getPostOfficeBox()
     {
         return postOfficeBox;
     }
 
 
+    /**
+     * Set a post office box
+     *
+     * @param postOfficeBox Sting containing post office box.
+     */
     public void setPostOfficeBox( String postOfficeBox )
     {
         getAddress().setPostOfficeBox( postOfficeBox );
     }
 
 
+    /**
+     * Return the building designator.
+     *
+     * @return String containing building designator.
+     */
     public String getBuilding()
     {
         return building;
     }
 
 
+    /**
+     * Set building designator.
+     *
+     * @param building Accept String containing building designator.
+     */
     public void setBuilding( String building )
     {
         getAddress().setBuilding( building );
     }
 
 
+    /**
+     * Return department number.
+     *
+     * @return String containing department number.
+     */
     public String getDepartmentNumber()
     {
         return departmentNumber;
     }
 
 
+    /**
+     * Set department number.
+     *
+     * @param departmentNumber Accept String containing department number.
+     */
     public void setDepartmentNumber( String departmentNumber )
     {
         getAddress().setDepartmentNumber( departmentNumber );
     }
 
 
+    /**
+     * Return room number.
+     *
+     * @return String containing room number.
+     */
     public String getRoomNumber()
     {
         return roomNumber;
     }
 
 
+    /**
+     * Set the room number.
+     *
+     * @param roomNumber Accept a String containing the room number.
+     */
     public void setRoomNumber( String roomNumber )
     {
         getAddress().setRoomNumber( roomNumber );
     }
 
 
+    /**
+     * Return the city name.
+     *
+     * @return String containing the city name.
+     */
     public String getCity()
     {
         return city;
     }
 
 
+    /**
+     * Set the city name.
+     *
+     * @param city Accept a String containing the city name for the user.
+     */
     public void setCity( String city )
     {
         getAddress().setCity( city );
     }
 
 
+    /**
+     * Return the state name.
+     *
+     * @return String containing the name of the State.
+     */
     public String getState()
     {
         return state;
     }
 
 
+    /**
+     * Set the state name of the user.
+     *
+     * @param state Accept a String containing the state name.
+     */
     public void setState( String state )
     {
         getAddress().setState( state );
     }
 
 
+    /**
+     * Return the country name.
+     *
+     * @return String with country name.
+     */
     public String getCountry()
     {
         return country;
     }
 
 
+    /**
+     * Set the country name
+     *
+     * @param country String containing user's country.
+     */
     public void setCountry( String country )
     {
         getAddress().setCountry( country );
     }
 
     private String country;
-
 
     /**
      * Generally not good practice to handle passwords as Strings in Java but this method allows Ant's digester to consume field in String format from the xml input file.
@@ -206,12 +305,23 @@ public class UserAnt extends User
     }
 
 
+    /**
+     * Return phone for a user.
+     *
+     * @return String containing phone number.
+     */
     public String getPhone()
     {
         return phone;
     }
 
 
+    /**
+     * Set a phone on the user.  The user object can store many phone number.
+     *
+     * @param phone contains String bound to {@code telephoneNumber} attribute on {@code organizationalPerson} object
+     *              class.
+     */
     public void setPhone( String phone )
     {
         this.phone = phone;
@@ -228,12 +338,22 @@ public class UserAnt extends User
     }
 
 
+    /**
+     * Return email for user.
+     *
+     * @return String containing email.
+     */
     public String getEmail()
     {
         return email;
     }
 
 
+    /**
+     * A User may have many phones set on their record.
+     *
+     * @param email contains a String to be stored as email address on user.
+     */
     public void setEmail( String email )
     {
         this.email = email;
@@ -250,12 +370,22 @@ public class UserAnt extends User
     }
 
 
+    /**
+     * Return a mobile number for the user.
+     *
+     * @return String containing mobile number.
+     */
     public String getMobile()
     {
         return mobile;
     }
 
 
+    /**
+     * Set a mobile number on the user.  The user may have many mobiles.
+     *
+     * @param mobile contains a String containing mobile phone numbers associated with the user.
+     */
     public void setMobile( String mobile )
     {
         this.mobile = mobile;
@@ -272,12 +402,22 @@ public class UserAnt extends User
     }
 
 
+    /**
+     * Return the user's jpg photo
+     *
+     * @return String
+     */
     public String getPhoto()
     {
         return photo;
     }
 
 
+    /**
+     * Set a photo on user's record
+     *
+     * @param photo
+     */
     public void setPhoto( String photo )
     {
         this.photo = photo;
@@ -308,6 +448,12 @@ public class UserAnt extends User
     }
 
 
+    /**
+     * Read the image from specified file location and return as a byte array.
+     *
+     * @param fileName fully qualified file name
+     * @return byte array containing image
+     */
     public static byte[] readJpegFile( String fileName )
     {
         URL fUrl = UserAnt.class.getClassLoader().getResource( fileName );
