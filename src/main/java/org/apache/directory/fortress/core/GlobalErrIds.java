@@ -38,7 +38,7 @@ package org.apache.directory.fortress.core;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class GlobalErrIds
+public final class GlobalErrIds
 {
     /**
      * Private constructor

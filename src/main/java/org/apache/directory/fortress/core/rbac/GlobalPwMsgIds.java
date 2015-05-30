@@ -28,7 +28,7 @@ import java.io.Serializable;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class GlobalPwMsgIds implements Serializable
+public final class GlobalPwMsgIds implements Serializable
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;

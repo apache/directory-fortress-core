@@ -203,7 +203,7 @@ public class Props extends FortEntity implements Serializable
          */
         public boolean equals( Object obj )
         {
-            if ( obj != null && obj instanceof Props.Entry )
+            if ( obj instanceof Props.Entry )
             {
                 Props.Entry inObj = ( Props.Entry ) obj;
                 return key.equals( inObj.getKey() );

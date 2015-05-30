@@ -381,7 +381,7 @@ public class Options implements java.io.Serializable
             for (Object raw : fractionValues)
             {
                 String szRaw = (String) raw;
-                int indx = szRaw.indexOf("=");
+                int indx = szRaw.indexOf('=');
                 if (indx >= 1)
                 {
                     group.addProperty(szRaw.substring(0, indx), szRaw.substring(indx + 1));

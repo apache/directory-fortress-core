@@ -43,13 +43,13 @@ final class RegExUtil
     private static final String CLS_NM = RegExUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String SAFE_TEXT_PATTERN_STRING = Config.getProperty( GlobalIds.REG_EX_SAFE_TEXT );
-    private static Pattern SAFE_TEXT_PATTERN;
+    private static Pattern safeTextPattern;
     
     static 
     {
         if ( ( SAFE_TEXT_PATTERN_STRING != null ) && ( SAFE_TEXT_PATTERN_STRING.length() != 0 ) )
         {
-            SAFE_TEXT_PATTERN = Pattern.compile( SAFE_TEXT_PATTERN_STRING );
+            safeTextPattern = Pattern.compile( SAFE_TEXT_PATTERN_STRING );
         }
     }
 
@@ -75,7 +75,7 @@ final class RegExUtil
         }
         else
         {
-            Matcher safeTextMatcher = SAFE_TEXT_PATTERN.matcher( value );
+            Matcher safeTextMatcher = safeTextPattern.matcher( value );
             
             if ( !safeTextMatcher.find() )
             {

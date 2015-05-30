@@ -48,7 +48,7 @@ import org.apache.directory.fortress.core.SecurityException;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class Config
+public final class Config
 {
     private static final String propFile = "fortress.properties";
     private static final String userPropFile = "fortress.user.properties";
@@ -393,14 +393,14 @@ public class Config
     private static void getExternalConfig()
     {
         String PREFIX = "getExternalConfig override name [{}] value [{}]";
-        // Check to see if the ldap host has been overriden by a system property:
+        // Check to see if the ldap host has been overridden by a system property:
         String szValue = System.getProperty( EXT_LDAP_HOST );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_HOST, szValue );
             LOG.info( PREFIX, GlobalIds.LDAP_HOST, szValue );
         }
-        // Check to see if the ldap port has been overriden by a system property:
+        // Check to see if the ldap port has been overridden by a system property:
         szValue = System.getProperty( EXT_LDAP_PORT );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
@@ -408,7 +408,7 @@ public class Config
             LOG.info( PREFIX, GlobalIds.LDAP_PORT, szValue );
         }
 
-        // Check to see if the admin pool uid has been overriden by a system property:
+        // Check to see if the admin pool uid has been overridden by a system property:
         szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_UID );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
@@ -417,7 +417,7 @@ public class Config
             LOG.info( "getExternalConfig override name [{}]", GlobalIds.LDAP_ADMIN_POOL_UID );
         }
 
-        // Check to see if the admin pool pw has been overriden by a system property:
+        // Check to see if the admin pool pw has been overridden by a system property:
         szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_PW );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
@@ -426,7 +426,7 @@ public class Config
             LOG.info( "getExternalConfig override name [{}]", GlobalIds.LDAP_ADMIN_POOL_PW );
         }
 
-        // Check to see if the admin pool min connections has been overriden by a system property:
+        // Check to see if the admin pool min connections has been overridden by a system property:
         szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_MIN );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
@@ -434,7 +434,7 @@ public class Config
             LOG.info( PREFIX, GlobalIds.LDAP_ADMIN_POOL_MIN, szValue );
         }
 
-        // Check to see if the admin pool max connections has been overriden by a system property:
+        // Check to see if the admin pool max connections has been overridden by a system property:
         szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_MAX );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
@@ -442,7 +442,7 @@ public class Config
             LOG.info( PREFIX, GlobalIds.LDAP_ADMIN_POOL_MAX, szValue );
         }
 
-        // Check to see if ssl enabled parameter has been overriden by a system property:
+        // Check to see if ssl enabled parameter has been overridden by a system property:
         szValue = System.getProperty( EXT_ENABLE_LDAP_SSL );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
@@ -450,7 +450,7 @@ public class Config
             LOG.info( PREFIX, GlobalIds.ENABLE_LDAP_SSL, szValue );
         }
 
-        // Check to see if the ssl debug enabled parameter has been overriden by a system property:
+        // Check to see if the ssl debug enabled parameter has been overridden by a system property:
         szValue = System.getProperty( EXT_ENABLE_LDAP_SSL_DEBUG );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
@@ -458,7 +458,7 @@ public class Config
             LOG.info( PREFIX, GlobalIds.ENABLE_LDAP_SSL_DEBUG, szValue );
         }
 
-        // Check to see if the trust store location has been overriden by a system property:
+        // Check to see if the trust store location has been overridden by a system property:
         szValue = System.getProperty( EXT_TRUST_STORE );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
@@ -466,7 +466,7 @@ public class Config
             LOG.info( PREFIX, GlobalIds.TRUST_STORE, szValue );
         }
 
-        // Check to see if the trust store password has been overriden by a system property:
+        // Check to see if the trust store password has been overridden by a system property:
         szValue = System.getProperty( EXT_TRUST_STORE_PW );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
@@ -483,7 +483,7 @@ public class Config
             LOG.info( PREFIX, GlobalIds.SET_TRUST_STORE_PROP, szValue );
         }
 
-        // Check to see if the config realm name has been overriden by a system property:
+        // Check to see if the config realm name has been overridden by a system property:
         szValue = System.getProperty( EXT_CONFIG_REALM );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {
@@ -491,7 +491,7 @@ public class Config
             LOG.info( PREFIX, GlobalIds.CONFIG_REALM, szValue );
         }
 
-        // Check to see if the ldap server type has been overriden by a system property:
+        // Check to see if the ldap server type has been overridden by a system property:
         szValue = System.getProperty( EXT_SERVER_TYPE  );
         if( VUtil.isNotNullOrEmpty( szValue ))
         {

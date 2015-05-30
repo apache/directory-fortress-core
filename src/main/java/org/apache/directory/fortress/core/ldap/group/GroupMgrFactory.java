@@ -38,7 +38,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class GroupMgrFactory
+public final class GroupMgrFactory
 {
     private static String groupClassName = Config.getProperty( GlobalIds.GROUP_IMPLEMENTATION );
     private static final String CLS_NM = GroupMgrFactory.class.getName();

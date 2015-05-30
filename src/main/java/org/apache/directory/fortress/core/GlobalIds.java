@@ -36,7 +36,7 @@ import org.apache.directory.fortress.core.cfg.Config;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class GlobalIds
+public final class GlobalIds
 {
     /**
      * Private constructor
