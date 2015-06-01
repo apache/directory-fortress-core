@@ -38,6 +38,13 @@
         </layout>
     </appender>
 
+<!--
+    <category name="org.apache.directory.api" class="org.apache.log4j.Logger" additivity="false">
+        <priority value="DEBUG" class="org.apache.log4j.Level"/>
+        <appender-ref ref="file"/>
+    </category>
+-->
+
     <root>
         <priority value="INFO" class="org.apache.log4j.Level"/>
         <appender-ref ref="console"/>
